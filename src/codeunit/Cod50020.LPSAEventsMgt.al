@@ -1,6 +1,7 @@
 codeunit 50020 "PWD LPSA Events Mgt."
 {
     SingleInstance = true;
+    //---TAB27---
     [EventSubscriber(ObjectType::table, database::Item, 'OnAfterDeleteRelatedData', '', false, false)]
     local procedure TAB27_OnAfterDeleteRelatedData_Item(Item: Record Item)
     var
