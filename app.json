@@ -1,0 +1,34 @@
+{
+  "id": "a4453272-2299-4a4d-afa5-38c0b114909a",
+  "name": "LPSA",
+  "publisher": "PRODWARE",
+  "version": "19.0.0.0",
+  "brief": "",
+  "description": "LPSA Extension",
+  "privacyStatement": "",
+  "EULA": "",
+  "help": "",
+  "url": "",
+  "logo": "",
+  "dependencies": [],
+  "screenshots": [],
+  "platform": "1.0.0.0",
+  "application": "19.0.0.0",
+  "idRanges": [
+    {
+      "from": 50000,
+      "to": 99999
+    },
+    {
+      "from": 8073280,
+      "to": 8073330
+    }
+  ],
+  "resourceExposurePolicy": {
+    "allowDebugging": true,
+    "allowDownloadingSource": false,
+    "includeSourceInSymbolFile": false
+  },
+  "runtime": "8.0",
+  "target": "OnPrem"
+}

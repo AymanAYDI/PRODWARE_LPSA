@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:oasis:names:tc:xliff:document:1.2 xliff-core-1.2-transitional.xsd">
+  <file datatype="xml" source-language="en-US" target-language="de-DE" original="Please update this value">
+    <body>
+      <group id="body">
+        <trans-unit id="Table 4028312437 - Method 498816274 - NamedType 3114637384" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Alternate resource %1 %2 was replaced by resource %3 %4.</source>
+          <target>Die alternative Ressource %1 %2 wurde durch die Ressource %3 %4 ersetzt.</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table Routing Line BKP - Method CheckAlternate - NamedType Text001</note>
+        </trans-unit>
+        <trans-unit id="Table 2358516238 - Field 3962013094 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Planning Group</source>
+          <target>Planungsgruppe</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table Routing Header BKP - Field PlanningGroup - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 2906130722 - Field 1994964448 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Kunde</source>
+          <target>Kunde</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table Prod. Order Line BKP - Field Customer - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 2138548038 - Field 495228559 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Planned Ress. Type</source>
+          <target>Geplanter Ress.-typ</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table Prod. Order Routing Line BKP - Field Planned Ress. Type - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 2138548038 - Field 495228559 - Property 62802879" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Work Center,Machine Center</source>
+          <target>Arbeitsplatzgruppe,Arbeitsplatz</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table Prod. Order Routing Line BKP - Field Planned Ress. Type - Property OptionCaption</note>
+        </trans-unit>
+        <trans-unit id="Table 2138548038 - Field 2107823126 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Planned Ress. No.</source>
+          <target>Geplante Ress.-Nr.</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table Prod. Order Routing Line BKP - Field Planned Ress. No. - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 2138548038 - Field 709161299 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Markers</source>
+          <target>Markierungen</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table Prod. Order Routing Line BKP - Field Markers - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 2138548038 - Field 3616063734 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Next Operation Link Type</source>
+          <target>Nächster Arbeitsgangverknüpfungstyp</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table Prod. Order Routing Line BKP - Field Next Operation Link Type - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 2138548038 - Field 1517275350 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Fixed Date</source>
+          <target>Festgelegtes Datum</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table Prod. Order Routing Line BKP - Field Fixed Date - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 2138548038 - Field 1641844977 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Fixed Date Activated</source>
+          <target>Festgelegtes Datum aktiviert</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table Prod. Order Routing Line BKP - Field Fixed Date Activated - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 2138548038 - Field 543416172 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Forced Placement</source>
+          <target>Erzwungene Zuordnung</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table Prod. Order Routing Line BKP - Field Forced Placement - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 2138548038 - Field 3703772566 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Markers BLOB</source>
+          <target>Markierungen BLOB</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table Prod. Order Routing Line BKP - Field MarkersBlob - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 2138548038 - Field 3386368115 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Material Fixed Date</source>
+          <target>Materialverfügbarkeit Datum</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table Prod. Order Routing Line BKP - Field Material Fixed Date - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 2138548038 - Field 1392810416 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Material Fixed Date Activated</source>
+          <target>Materialverfügbarkeit Datum aktiviert</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table Prod. Order Routing Line BKP - Field Material Fixed Date Activated - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 2138548038 - Field 3757853077 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Resource Sequence Order</source>
+          <target>Position in der Ressourcenreihenfolge</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table Prod. Order Routing Line BKP - Field ResourceSequenceOrder - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 2138548038 - Field 571088495 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>PlannerOne Custom Field</source>
+          <target>PlannerOne Benutzerdefiniertes Feld </target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table Prod. Order Routing Line BKP - Field PlannerOneCustom - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 2138548038 - Field 3507870993 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>PlannerOne Custom Field(2)</source>
+          <target>PlannerOne Benutzerdefiniertes Feld(2)</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table Prod. Order Routing Line BKP - Field PlannerOneCustom2 - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 2138548038 - Method 498816274 - NamedType 4034540392" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Alternate resource %1 %2 was replaced by resource %3 %4.</source>
+          <target>Die alternative Ressource %1 %2 wurde von der Ressource %3 %4 ersetzt.</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table Prod. Order Routing Line BKP - Method CheckAlternate - NamedType TEXT001</note>
+        </trans-unit>
+      </group>
+    </body>
+  </file>
+</xliff>

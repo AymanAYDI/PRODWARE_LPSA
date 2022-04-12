@@ -1,0 +1,24 @@
+{
+    "name": "PRODWARE",
+    "description": "PRODWARE",
+    "rules": [
+        {
+            "id": "AA0215",
+            "action": "None",
+            "justification": "The file xxx.al has an incorrect name. The valid name is yyy.al."
+        },
+        {
+            "id":"AA0214",
+            "action": "None"
+        },
+        {
+            "id":"AA0139",
+            "action": "None"
+        },
+        {
+            "id":"AA0072",
+            "action": "None"
+        }
+    ]
+}
+

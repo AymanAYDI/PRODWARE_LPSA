@@ -1,0 +1,1974 @@
+codeunit 8073290 "PWD Connector Peb Parse Data"
+{
+    // +----------------------------------------------------------------------------------------------------------------+
+    // | ProdWare - Pôle Expertise Edition                                                                              |
+    // | www.prodware.fr                                                                                                |
+    // +----------------------------------------------------------------------------------------------------------------+
+    // 
+    // //>>ProdConnect.1.00
+    // FE_ProdConnect.001:GR 22/03/2011  Connector integration
+    //                                   - Create Object
+    // 
+    // 
+    // //>>ProdConnect1.5
+    // WMS-FEMOT.001:GR 29/06/2011  Connector management
+    //                              - Add Buffer management
+    //                              - C\AL in : FctGetItemXml
+    // 
+    // WMS-FE007_15.001:GR 05/07/2011 Receipt
+    //                              - Add function FctUpdateReceiptLine
+    // 
+    // WMS-FE008_15.001:GR 19/07/2011 Shipment
+    //                              - Add function FctUpdateShipmentLine
+    // 
+    // FE_ProdConnect.002:GR 14/09/2011  Connector integration
+    //                                   - Add new functions :
+    //                                     FctGetHeaderArchiveXml
+    //                                     FctGetLineArchiveXml
+    //                                   - C\AL in : FctGetOrderXml
+    //                                               FctGetCustOrdersXml
+    // +----------------------------------------------------------------------------------------------------------------+
+
+    TableNo = "PWD Connector Values";
+
+    trigger OnRun()
+    begin
+        //**********************************************************************************************************//
+        //                                  Get Requested DATA                                                      //
+        //**********************************************************************************************************//
+
+        CASE "Function" OF
+            //>>WMS-FEMOT.001
+            'ADDORDER':
+                BEGIN
+                    //FctAddOrderXml(Rec);
+                    FctAddOrder(Rec);
+                END;
+
+            'CREATECUSTOMER':
+                BEGIN
+                    FctCreateCustomer(Rec);
+                END;
+            //>>WMS-FEMOT.001
+
+            'GETITEMPRICE':
+                CASE "File format" OF
+                    "File format"::Xml:
+                        FctGetItemXml(Rec);
+                    "File format"::"with separator":
+                        FctGetItemWithSep(Rec);
+                    "File format"::"File Position":
+                        FctGetItemFilePos(Rec);
+                END;
+            'GETITEMSTOCK':
+                CASE "File format" OF
+                    "File format"::Xml:
+                        FctGetItemStockXml(Rec);
+                    "File format"::"with separator":
+                        FctGetItemStockWithSep(Rec);
+                    "File format"::"File Position":
+                        FctGetItemStockFilePos(Rec);
+                END;
+            'GETITEMPRICEBYPACKING':
+                CASE "File format" OF
+                    "File format"::Xml:
+                        FctGetItemPByPackingXml(Rec);
+                    "File format"::"with separator":
+                        FctGetItemPByPackingWithSep(Rec);
+                    "File format"::"File Position":
+                        FctGetItemPByPackingFilePos(Rec);
+                END;
+            'GETORDER':
+                CASE "File format" OF
+                    "File format"::Xml:
+                        FctGetOrderXml(Rec);
+                    "File format"::"with separator":
+                        FctGetOrderWithSep(Rec);
+                    "File format"::"File Position":
+                        FctGetOrderFilePos(Rec);
+                END;
+            'GETSHIPMENTSTATUS':
+                CASE "File format" OF
+                    "File format"::Xml:
+                        FctGetShipmentStatusXml(Rec);
+                    "File format"::"with separator":
+                        FctGetShipmentStatusWithSep(Rec);
+                    "File format"::"File Position":
+                        FctGetShipmentStatusFilePos(Rec);
+                END;
+            'GETSHIPMENTCOST':
+                CASE "File format" OF
+                    "File format"::Xml:
+                        FctGetShipmentCostXml(Rec);
+                    "File format"::"with separator":
+                        FctGetShipmentCostWithSep(Rec);
+                    "File format"::"File Position":
+                        FctGetShipmentCostFilePos(Rec);
+                END;
+
+            //>>WMS-FEMOT.001
+            /*
+            'CREATECUSTOMER':
+              CASE "File format" OF
+                "File format"::Xml                   :
+                  FctCreateCustomerXml(Rec);
+                "File format"::"with separator"      :
+                  FctCreateCustomerWithSep(Rec);
+                "File format"::"File Position"       :
+                  FctCreateCustomerFilePos(Rec);
+              END;
+
+            'ADDORDER'      :
+              CASE "File format" OF
+                "File format"::Xml                   :
+                  FctAddOrderXml(Rec);
+                "File format"::"with separator"      :
+                  FctAddOrderWithSep(Rec);
+                "File format"::"File Position"       :
+                  FctAddOrderFilePos(Rec);
+              END;
+              */
+            //<<WMS-FEMOT.001
+
+            'GETCUSTOMERORDERS':
+                CASE "File format" OF
+                    "File format"::Xml:
+                        FctGetCustOrdersXml(Rec);
+                    "File format"::"with separator":
+                        FctGetCustOrdersWithSep(Rec);
+                    "File format"::"File Position":
+                        FctGetCustOrdersFilePos(Rec);
+                END;
+        END;
+
+    end;
+
+    var
+        TxtGFunctionName: Text[100];
+        TxtGFields: array[100] of Text[50];
+        TxtGFilters: array[100] of Text[1024];
+        TxtGData: array[100] of Text[250];
+        AutGXMLDom: Automation;
+        BigTGTempBlob: BigText;
+        OusGStream: OutStream;
+        CduGConnectBufMgtExport: Codeunit "Connector Buffer Mgt Export";
+        CduGBufferManagement: Codeunit "Buffer Management";
+        TxtGError: Label 'Data not available';
+        CduGFileManagement: Codeunit "File Management";
+        CstGDecValue: Label 'La valeur décimal %1 n''est pas correcte';
+
+
+    procedure FctParseData()
+    var
+        AutLXMLNodeData: Automation;
+        AutLXMLNodeDataList: Automation;
+        IntLIndex: Integer;
+    begin
+        //**********************************************************************************************************//
+        //                                  Parse Request Data                                                      //
+        //**********************************************************************************************************//
+
+        IntLIndex := 1;
+        CLEAR(TxtGData);
+        AutLXMLNodeData := AutGXMLDom.selectSingleNode('/IDXMLSerial/Data');
+        IF NOT ISCLEAR(AutLXMLNodeData) THEN BEGIN
+            AutLXMLNodeDataList := AutLXMLNodeData.selectNodes('/IDXMLSerial/Data');
+            AutLXMLNodeData := AutLXMLNodeDataList.nextNode();
+        END;
+        WHILE NOT ISCLEAR(AutLXMLNodeData) DO BEGIN
+            TxtGData[IntLIndex] := COPYSTR(AutLXMLNodeData.text, 1, 250);
+            AutLXMLNodeData := AutLXMLNodeDataList.nextNode();
+            IntLIndex += 1;
+        END;
+    end;
+
+
+    procedure FctParseFilters()
+    var
+        AutLXMLNodeFilters: Automation;
+        AutLXMLNodeFileds: Automation;
+        AutLXMLNodeFiltersList: Automation;
+        AutLXMLNodeFiledsList: Automation;
+        IntLIndex: Integer;
+    begin
+        //**********************************************************************************************************//
+        //                                 Parse Request filters                                                    //
+        //**********************************************************************************************************//
+
+        IntLIndex := 1;
+        AutLXMLNodeFilters := AutGXMLDom.selectSingleNode('/IDXMLSerial/Filters');
+        AutLXMLNodeFileds := AutGXMLDom.selectSingleNode('/IDXMLSerial/Fields');
+        IF NOT ISCLEAR(AutLXMLNodeFilters) THEN BEGIN
+            AutLXMLNodeFiltersList := AutLXMLNodeFilters.selectNodes('/IDXMLSerial/Filters');
+            AutLXMLNodeFilters := AutLXMLNodeFiltersList.nextNode();
+        END;
+        IF NOT ISCLEAR(AutLXMLNodeFileds) THEN BEGIN
+            AutLXMLNodeFiledsList := AutLXMLNodeFileds.selectNodes('/IDXMLSerial/Fields');
+            AutLXMLNodeFileds := AutLXMLNodeFiledsList.nextNode();
+        END;
+
+        WHILE NOT ISCLEAR(AutLXMLNodeFileds) DO BEGIN
+            TxtGFilters[IntLIndex] := COPYSTR(AutLXMLNodeFilters.text, 1, 1024);
+            TxtGFields[IntLIndex] := COPYSTR(AutLXMLNodeFileds.text, 1, 50);
+            AutLXMLNodeFilters := AutLXMLNodeFiltersList.nextNode();
+            AutLXMLNodeFileds := AutLXMLNodeFiledsList.nextNode();
+            IntLIndex += 1;
+        END;
+    end;
+
+
+    procedure FctGetView(IntPTableID: Integer): Text[1000]
+    var
+        RecRefLTableToFilter: RecordRef;
+        FieldRefLFieldToFilter: FieldRef;
+        IntLIndex: Integer;
+        IntLFieldNo: Integer;
+        BooLFindFilter: Boolean;
+    begin
+        //**********************************************************************************************************//
+        //                                  Get filters                                                             //
+        //**********************************************************************************************************//
+
+        CLEAR(BooLFindFilter);
+        FctParseFilters();
+        RecRefLTableToFilter.OPEN(IntPTableID);
+        FOR IntLIndex := 1 TO ARRAYLEN(TxtGFields) DO
+            IF EVALUATE(IntLFieldNo, TxtGFields[IntLIndex]) AND (IntLFieldNo <> 0) THEN BEGIN
+                FieldRefLFieldToFilter := RecRefLTableToFilter.FIELD(IntLFieldNo);
+                IF TxtGFilters[IntLIndex] <> '' THEN BEGIN
+                    FieldRefLFieldToFilter.SETFILTER(TxtGFilters[IntLIndex]);
+                    BooLFindFilter := TRUE;
+                END;
+            END;
+
+        IF BooLFindFilter THEN
+            EXIT(RecRefLTableToFilter.GETVIEW)
+        ELSE
+            EXIT('');
+    end;
+
+
+    procedure FctGetItemXml(RecPConnectorVal: Record "PWD Connector Values")
+    var
+        RecLSalesPrice: Record "Sales Price";
+        RecLSalesPrice2: Record "Sales Price";
+        RecLSendingMessage: Record "PWD Connector Messages";
+        RecLItem: Record Item;
+        RecLCustomer: Record Customer;
+        RecLGeneralLedgerSetup: Record "General Ledger Setup";
+        DecLQty: Decimal;
+        BigTLToReturn: BigText;
+        TxtLQtyWithoutSpace: Text[250];
+        OusLStream: OutStream;
+        InsLStream: InStream;
+        RecLTempBlob: Record TempBlob temporary;
+        BooLTreatmentOK: Boolean;
+        RecLRef: RecordRef;
+    begin
+        //**********************************************************************************************************//
+        //                             Return Unit Price for an Item, by using Xml Management.                      //
+        //                                                                                                          //
+        // Parameters:                                                                                              //
+        // TxtGData[1]: Customer No.                                                                                //
+        // TxtGData[2]: Item No.                                                                                    //
+        // TxtGData[3]: Quantity                                                                                    //
+        // TxtGData[4]: Currency Code                                                                               //
+        //**********************************************************************************************************//
+
+        RecPConnectorVal.CALCFIELDS(Blob);
+        RecPConnectorVal.Blob.CREATEOUTSTREAM(OusLStream);
+        CREATE(AutGXMLDom);
+        AutGXMLDom.load(OusLStream);
+
+        FctParseData();
+
+        RecLItem.GET(TxtGData[2]);
+        RecLSalesPrice.RESET;
+        RecLSalesPrice.SETRANGE("Item No.", TxtGData[2]);
+        IF TxtGData[1] <> '' THEN BEGIN
+            RecLSalesPrice.SETRANGE("Sales Type", RecLSalesPrice."Sales Type"::Customer);
+            RecLSalesPrice.SETRANGE("Sales Code", TxtGData[1]);
+            IF RecLSalesPrice.ISEMPTY THEN BEGIN
+                RecLSalesPrice.RESET;
+                RecLSalesPrice.SETRANGE("Item No.", TxtGData[2]);
+                RecLSalesPrice.SETRANGE("Sales Type", RecLSalesPrice."Sales Type"::"All Customers");
+            END;
+        END
+        ELSE
+            RecLSalesPrice.SETRANGE("Sales Type", RecLSalesPrice."Sales Type"::"All Customers");
+
+
+        TxtLQtyWithoutSpace := DELCHR(TxtGData[3], '=', ' ');
+        IF NOT CduGFileManagement.FctEvaluateDecimal(TxtLQtyWithoutSpace, DecLQty) THEN
+            ERROR(STRSUBSTNO(CstGDecValue, TxtLQtyWithoutSpace));
+
+        RecLSalesPrice.SETFILTER("Minimum Quantity", '<=%1', DecLQty);
+
+        IF RecLGeneralLedgerSetup.GET() THEN
+            IF RecLGeneralLedgerSetup."LCY Code" = TxtGData[4] THEN
+                RecLSalesPrice.SETRANGE("Currency Code", '')
+            ELSE
+                RecLSalesPrice.SETRANGE("Currency Code", TxtGData[4]);
+
+        BooLTreatmentOK := FALSE;
+
+        IF RecLSalesPrice.FINDLAST THEN BEGIN
+            RecLSalesPrice2.RESET;
+            RecLSalesPrice2.COPYFILTERS(RecLSalesPrice);
+            RecLSalesPrice2.SETRANGE("Minimum Quantity", RecLSalesPrice."Minimum Quantity");
+            IF RecLSalesPrice2.FINDLAST THEN BEGIN
+                RecLSendingMessage.RESET;
+                RecLSendingMessage.SETRANGE("Partner Code", RecPConnectorVal."Partner Code");
+                RecLSendingMessage.SETRANGE("Function", RecPConnectorVal."Function");
+                RecLSendingMessage.FINDFIRST;
+
+                //>>WMS-FEMOT.001
+                IF RecLSendingMessage."Export Option" = RecLSendingMessage."Export Option"::Partial THEN BEGIN
+                    CLEAR(RecLRef);
+                    RecLRef.GETTABLE(RecLSalesPrice2);
+                    CduGConnectBufMgtExport.FctSetExportDateFilter(RecLSendingMessage, RecLRef);
+                END;
+                //<<WMS-FEMOT.001
+
+                CduGConnectBufMgtExport.FctCreateXml(RecLSalesPrice2.GETVIEW, RecLSendingMessage, RecLTempBlob, TRUE);
+                RecLTempBlob.CALCFIELDS(Blob);
+                IF RecLTempBlob.Blob.HASVALUE THEN BEGIN
+                    RecLTempBlob.Blob.CREATEINSTREAM(InsLStream);
+                    CduGBufferManagement.FctCreateBufferValues(InsLStream, RecPConnectorVal."Partner Code", RecPConnectorVal."File Name",
+                                                               RecPConnectorVal."Function", RecPConnectorVal."File format",
+                                                               RecPConnectorVal.Separator,
+                                                               RecPConnectorVal.Direction::Export, RecPConnectorVal."Entry No.",
+                                                               RecPConnectorVal."Message Code");
+                    BooLTreatmentOK := TRUE;
+                END;
+            END;
+        END;
+        IF NOT BooLTreatmentOK THEN
+            ERROR(TxtGError);
+    end;
+
+
+    procedure FctGetItemXml_File(RecPConnectorVal: Record "PWD Connector Values")
+    var
+        AutLXMLDom: Automation;
+        AutLXMLNodeTable: Automation;
+        AutLXMLNodeTableList: Automation;
+        AutLXMLNodeTable2: Automation;
+        AutLXMLNodeTableField: Automation;
+        AutLXMLNodeTableList2: Automation;
+        AutLXMLNodeTableFieldList: Automation;
+        AutLXMLNodeID: Automation;
+        AutLXMLNodeKey: Automation;
+        AutLXMLNodeNameField: Automation;
+        AutLXMLNodeNameFieldList: Automation;
+        StrLStreamIn: InStream;
+    begin
+        //**********************************************************************************************************//
+        //                            Return Unit Price for an Item, by using File Management.                      //
+        //                                                                                                          //
+        // Parameters:                                                                                              //
+        // TxtGData[1]: Customer No.                                                                                //
+        // TxtGData[2]: Item No.                                                                                    //
+        // TxtGData[3]: Quantity                                                                                    //
+        // TxtGData[4]: Currency Code                                                                               //
+        //**********************************************************************************************************//
+
+
+        //*******************************************
+        //Code not used actually, written for example
+        //*******************************************
+
+
+        /*
+        //Récupération de la ligne d'info.
+        RecPConnectorVal.Blob.CREATEINSTREAM(StrLStreamIn);
+        
+        CREATE(AutLXMLDom);
+        AutLXMLDom.load(StrLStreamIn);
+        AutLXMLNodeTable := AutLXMLDom.selectSingleNode('/' + RecPConnectorVal."Partner Code");
+          AutLXMLNodeTableList :=  AutLXMLNodeTable.childNodes;
+          AutLXMLNodeTable := AutLXMLNodeTableList.nextNode();
+        
+        WHILE NOT ISCLEAR(AutLXMLNodeTable ) DO
+        BEGIN
+          //******************************************  Debut Import  *************************************************
+          AutLXMLNodeTableList2 := AutLXMLNodeTable.childNodes;
+          AutLXMLNodeTable2 := AutLXMLNodeTableList2.nextNode();
+          WHILE NOT ISCLEAR(AutLXMLNodeTable2 ) DO
+          BEGIN
+          //******************************************  Function  ***************************************************
+            AutLXMLNodeTable2 := AutLXMLNodeTableList2.nextNode();
+            AutLXMLNodeTableFieldList := AutLXMLNodeTable2.childNodes();
+            AutLXMLNodeTableField := AutLXMLNodeTableFieldList.nextNode();
+            WHILE NOT ISCLEAR(AutLXMLNodeTableField ) DO
+            BEGIN
+            //******************************************  Table Field   ********************************************
+              {
+              //Traitement des champs
+              IF STRLEN(AutLXMLNodeTableField.text) > 0 THEN
+                TxtLaInserer := COPYSTR(AutLXMLNodeTableField.text,1,250);
+              EVALUATE(RecIDG,TxtLaInserer);
+              COMMIT;
+              }
+              AutLXMLNodeTableField := AutLXMLNodeTableFieldList.nextNode();
+            END;
+            //tableField
+            AutLXMLNodeTable2 := AutLXMLNodeTableList2.nextNode();
+          END;
+          //function
+          AutLXMLNodeTable := AutLXMLNodeTableList.nextNode();
+        END;
+        //Import
+        */
+
+    end;
+
+
+    procedure FctGetItemWithSep(RecPConnectorVal: Record "PWD Connector Values")
+    var
+        StrLStreamIn: InStream;
+        TxtLReadBlob: Text[250];
+        TxtLTextLine: Text[250];
+        IntLMeter: Integer;
+        IntLPositions: array[2] of Integer;
+    begin
+        //**********************************************************************************************************//
+        //                       Return Unit Price for an Item, by using Separator File Management.                 //
+        //                                                                                                          //
+        // Parameters:                                                                                              //
+        // TxtGData[1]: Customer No.                                                                                //
+        // TxtGData[2]: Item No.                                                                                    //
+        // TxtGData[3]: Quantity                                                                                    //
+        // TxtGData[4]: Currency Code                                                                               //
+        //**********************************************************************************************************//
+
+
+        //*******************************************
+        //Code not used actually, written for example
+        //*******************************************
+
+        /*
+        //Récupération de la ligne d'info.
+        RecPConnectorVal.Blob.CREATEINSTREAM(StrLStreamIn);
+        
+        WHILE NOT (StrLStreamIn.EOS()) DO
+        BEGIN
+          StrLStreamIn.READTEXT(TxtLReadBlob);
+          TxtLTextLine := TxtLReadBlob;
+        
+          //Précision des positions du séparateur
+          FOR IntLMeter := 1 TO 2 DO
+          BEGIN
+            IntLPositions[IntLMeter] := STRPOS(TxtLTextLine,RecPConnectorVal.Separator);
+            TxtLTextLine := COPYSTR(TxtLTextLine,STRPOS(TxtLTextLine,RecPConnectorVal.Separator) + 1,STRLEN(TxtLTextLine));
+          END;
+        
+          {
+          //Récupération des info. (dispatchés)
+          TxtGPostingDate := COPYSTR(TxtLReadBlob,1,IntLPositions[1] - 1);
+          EVALUATE(DatLPostingDate,TxtGPostingDate);
+          TxtLReadBlob := COPYSTR(TxtLReadBlob,STRPOS(TxtLReadBlob,';') + 1,STRLEN(TxtLReadBlob));
+          TxtGExternalDoc := COPYSTR(TxtLReadBlob,1,IntLPositions[2] - 1);
+          TxtGItemNo := COPYSTR(TxtLReadBlob,1,IntLPositions[3] - 1);
+          }
+        END;
+        */
+
+    end;
+
+
+    procedure FctGetItemFilePos(RecPConnectorVal: Record "PWD Connector Values")
+    var
+        StrLStreamIn: InStream;
+        TxtLReadBlob: Text[250];
+        IntLLengthOfLine: Integer;
+    begin
+        //**********************************************************************************************************//
+        //                       Return Unit Price for an Item, by using File Position Management.                  //
+        //                                                                                                          //
+        // Parameters:                                                                                              //
+        // TxtGData[1]: Customer No.                                                                                //
+        // TxtGData[2]: Item No.                                                                                    //
+        // TxtGData[3]: Quantity                                                                                    //
+        // TxtGData[4]: Currency Code                                                                               //
+        //**********************************************************************************************************//
+
+
+        //*******************************************
+        //Code not used actually, written for example
+        //*******************************************
+
+        /*
+        //Longueur de la ligne d'infos.
+        IntLLengthOfLine:= 10;
+        
+        //Récupération de la ligne d'info.
+        RecPConnectorVal.Blob.CREATEINSTREAM(StrLStreamIn);
+        
+        WHILE NOT (StrLStreamIn.EOS()) DO
+        BEGIN
+          StrLStreamIn.READTEXT(TxtLReadBlob,IntLLengthOfLine);
+        
+          {
+          //Récupération des info. (dispatchés)
+          TxtGPostingDate := COPYSTR(TxtGReadFile,1,10);
+          EVALUATE(DatLPostingDate,TxtGPostingDate);
+          TxtGExternalDoc := COPYSTR(TxtGReadFile,11,20);
+          EVALUATE(CdeLExternalDoc,TxtGExternalDoc);
+          }
+        
+        END;
+        */
+
+    end;
+
+
+    procedure FctGetItemStockXml(RecPConnectorVal: Record "PWD Connector Values")
+    var
+        RecLSendingMessage: Record "PWD Connector Messages";
+        RecLItem: Record Item;
+        RecLGeneralLedgerSetup: Record "General Ledger Setup";
+        BigTLToReturn: BigText;
+        TxtLQtyWithoutSpace: Text[250];
+        OusLStream: OutStream;
+        InsLStream: InStream;
+        RecLTempBlob: Record TempBlob temporary;
+    begin
+        //**********************************************************************************************************//
+        //                             Return Inventory for an Item, by using Xml Management.                      //
+        //                                                                                                          //
+        // Parameters:                                                                                              //
+        // TxtGData[1]: Item No.                                                                                    //
+        //**********************************************************************************************************//
+
+        RecPConnectorVal.CALCFIELDS(Blob);
+        RecPConnectorVal.Blob.CREATEOUTSTREAM(OusLStream);
+        CLEAR(AutGXMLDom);
+        CREATE(AutGXMLDom);
+        AutGXMLDom.load(OusLStream);
+
+        FctParseData();
+
+        RecLItem.GET(TxtGData[1]);
+
+        RecLItem.SETRANGE("No.", TxtGData[1]);
+        IF RecLItem.FINDFIRST THEN BEGIN
+            RecLSendingMessage.RESET;
+            RecLSendingMessage.SETRANGE("Partner Code", RecPConnectorVal."Partner Code");
+            RecLSendingMessage.SETRANGE("Function", RecPConnectorVal."Function");
+            RecLSendingMessage.FINDFIRST;
+            CduGConnectBufMgtExport.FctCreateXml(RecLItem.GETVIEW, RecLSendingMessage, RecLTempBlob, TRUE);
+            RecLTempBlob.CALCFIELDS(Blob);
+            IF RecLTempBlob.Blob.HASVALUE THEN BEGIN
+                RecLTempBlob.Blob.CREATEINSTREAM(InsLStream);
+                CduGBufferManagement.FctCreateBufferValues(InsLStream, RecPConnectorVal."Partner Code", RecPConnectorVal."File Name",
+                                                          RecPConnectorVal."Function", RecPConnectorVal."File format",
+                                                          RecPConnectorVal.Separator,
+                                                          RecPConnectorVal.Direction::Export, RecPConnectorVal."Entry No.",
+                                                          RecPConnectorVal."Message Code");
+            END
+            ELSE
+                ERROR(TxtGError);
+        END
+        ELSE
+            ERROR(TxtGError);
+    end;
+
+
+    procedure FctGetItemStockWithSep(RecPConnectorVal: Record "PWD Connector Values")
+    var
+        StrLStreamIn: InStream;
+        TxtLReadBlob: Text[250];
+        TxtLTextLine: Text[250];
+        IntLMeter: Integer;
+        IntLPositions: array[2] of Integer;
+    begin
+    end;
+
+
+    procedure FctGetItemStockFilePos(RecPConnectorVal: Record "PWD Connector Values")
+    var
+        StrLStreamIn: InStream;
+        TxtLReadBlob: Text[250];
+        IntLLengthOfLine: Integer;
+    begin
+    end;
+
+
+    procedure FctGetItemPByPackingXml(RecPConnectorVal: Record "PWD Connector Values")
+    var
+        RecLSendingMessage: Record "PWD Connector Messages";
+        RecLItem: Record Item;
+        RecLGeneralLedgerSetup: Record "General Ledger Setup";
+        BigTLToReturn: BigText;
+        TxtLQtyWithoutSpace: Text[250];
+        StrLStreamOut: OutStream;
+    begin
+    end;
+
+
+    procedure FctGetItemPByPackingWithSep(RecPConnectorVal: Record "PWD Connector Values")
+    var
+        StrLStreamIn: InStream;
+        TxtLReadBlob: Text[250];
+        TxtLTextLine: Text[250];
+        IntLMeter: Integer;
+        IntLPositions: array[2] of Integer;
+    begin
+    end;
+
+
+    procedure FctGetItemPByPackingFilePos(RecPConnectorVal: Record "PWD Connector Values")
+    var
+        StrLStreamIn: InStream;
+        TxtLReadBlob: Text[250];
+        IntLLengthOfLine: Integer;
+    begin
+    end;
+
+
+    procedure FctAddOrderXml(RecPConnectorVal: Record "PWD Connector Values")
+    var
+        AutLXMLNode: Automation;
+        AutLXMLNodeList: Automation;
+        AutLXMLNodeList1: Automation;
+        AutLXMLNodeList2: Automation;
+        AutLXMLNodeList3: Automation;
+        RecLTempBlob: Record TempBlob;
+        RecLSendingMessage: Record "PWD Connector Messages";
+        RecLSalesHeader: Record "Sales Header";
+        RecLSalesLine: Record "Sales Line";
+        RecLSalesCommentLine: Record "Sales Comment Line";
+        RecLSalesHeader2: Record "Sales Header";
+        RecLSalesSetup: Record "Sales & Receivables Setup";
+        RecLTempVATAmountLine0: Record "VAT Amount Line" temporary;
+        RecLTempVATAmountLine1: Record "VAT Amount Line" temporary;
+        CodLOrderNo: Code[20];
+        CodLCustomer: Code[20];
+        CodLExternalDocNo: Code[20];
+        CodLItemNo: Code[20];
+        CodLCountryReg: Code[10];
+        CodLPostCode: Code[20];
+        DatLStartingDate: Date;
+        TxtLCommentHeader: Text[1024];
+        TxtLCommentHeaderPartial: Text[80];
+        TxtLCommentline: Text[1024];
+        TxtLCommentlinePartial: Text[80];
+        TxtLName: Text[50];
+        TxtLName2: Text[50];
+        TxtLAddress: Text[50];
+        TxtLAddress2: Text[50];
+        TxtLCity: Text[30];
+        TxtLCounty: Text[30];
+        IntLYear: Integer;
+        IntLDay: Integer;
+        IntLMonth: Integer;
+        IntLQtty: Integer;
+        i: Integer;
+        DecLItemPrice: Decimal;
+        DecLQuantity: Decimal;
+        DecLLineAmount: Decimal;
+        BigTLToReturn: BigText;
+        InsLStream: InStream;
+        BooLOrderInserted: Boolean;
+        OusLStream: OutStream;
+        CstLOrderExist: Label 'Cette commande existe déjà';
+    begin
+        //**********************************************************************************************************//
+        //                             Add order, by using Xml Management.                                          //
+        //**********************************************************************************************************//
+
+        RecPConnectorVal.CALCFIELDS(Blob);
+        RecPConnectorVal.Blob.CREATEOUTSTREAM(OusLStream);
+        CLEAR(AutGXMLDom);
+        CREATE(AutGXMLDom);
+        AutGXMLDom.load(OusLStream);
+        CLEAR(BooLOrderInserted);
+        CLEAR(DatLStartingDate);
+        CLEAR(CodLOrderNo);
+        CLEAR(CodLCustomer);
+        CLEAR(CodLExternalDocNo);
+        AutLXMLNodeList := AutGXMLDom.selectNodes('/IDXMLSerial/Orders');
+        AutLXMLNode := AutLXMLNodeList.nextNode();
+        WHILE NOT ISCLEAR(AutLXMLNode) DO   // Orders Loop
+        BEGIN
+            AutLXMLNodeList1 := AutLXMLNode.childNodes();
+            AutLXMLNode := AutLXMLNodeList1.nextNode();
+            WHILE NOT ISCLEAR(AutLXMLNode) DO   // Orders Detail Loop
+            BEGIN
+                CASE AutLXMLNode.nodeName OF
+                    'OrderNo':
+                        BEGIN
+                            IF AutLXMLNode.text <> '' THEN
+                                CodLOrderNo := COPYSTR(AutLXMLNode.text, 1, 20);
+                            RecLSalesHeader2.RESET;
+                            RecLSalesHeader2.SETRANGE("Order No. From Partner", CodLOrderNo);
+                            IF RecLSalesHeader2.FINDFIRST THEN
+                                ERROR(CstLOrderExist);
+                        END;
+                    'CustomerNo':
+                        IF AutLXMLNode.text <> '' THEN
+                            CodLCustomer := COPYSTR(AutLXMLNode.text, 1, 20);
+                    'Reference':
+                        IF AutLXMLNode.text <> '' THEN
+                            CodLExternalDocNo := COPYSTR(AutLXMLNode.text, 1, 20);
+                    'Comment':
+                        IF AutLXMLNode.text <> '' THEN
+                            TxtLCommentHeader := COPYSTR(AutLXMLNode.text, 1, 1024); // A mettre ds les commentaires de la comman
+                    'Date':
+                        BEGIN
+                            CLEAR(IntLYear);
+                            CLEAR(IntLDay);
+                            CLEAR(IntLMonth);
+                            AutLXMLNodeList3 := AutLXMLNode.childNodes();
+                            AutLXMLNode := AutLXMLNodeList3.nextNode();
+                            WHILE NOT ISCLEAR(AutLXMLNode) DO BEGIN
+                                CASE AutLXMLNode.nodeName OF
+                                    'Day':
+                                        EVALUATE(IntLDay, AutLXMLNode.text);
+                                    'Month':
+                                        EVALUATE(IntLMonth, AutLXMLNode.text);
+                                    'Year':
+                                        EVALUATE(IntLYear, AutLXMLNode.text);
+                                END;
+                                AutLXMLNode := AutLXMLNodeList3.nextNode();
+                            END;
+                        END;
+
+                    'OrderLines':
+                        BEGIN
+                            IF NOT BooLOrderInserted THEN BEGIN
+                                BooLOrderInserted := TRUE;
+                                RecLSalesHeader.INIT;
+                                RecLSalesHeader."Document Type" := RecLSalesHeader."Document Type"::Order;
+                                RecLSalesHeader."No." := '';
+                                RecLSalesHeader.INSERT(TRUE);
+                                RecLSalesHeader.VALIDATE("Sell-to Customer No.", CodLCustomer);
+                                RecLSalesHeader.VALIDATE("Posting Date", DMY2DATE(IntLDay, IntLMonth, IntLYear));
+                                RecLSalesHeader."External Document No." := CodLExternalDocNo;
+                                RecLSalesHeader."Order No. From Partner" := CodLOrderNo;
+                                RecLSalesHeader.MODIFY;
+                                i := 1;
+                                TxtLCommentHeaderPartial := TxtLCommentHeader;
+                                TxtLCommentHeaderPartial := COPYSTR(TxtLCommentHeader, 1, 80);
+                                IF TxtLCommentHeaderPartial <> '' THEN
+                                    REPEAT
+                                        RecLSalesCommentLine.INIT;
+                                        RecLSalesCommentLine."Document Type" := RecLSalesCommentLine."Document Type"::Order;
+                                        RecLSalesCommentLine."No." := RecLSalesHeader."No.";
+                                        RecLSalesCommentLine."Line No." := i * 10000;
+                                        RecLSalesCommentLine."Document Line No." := 0;
+                                        RecLSalesCommentLine.Date := DatLStartingDate;
+                                        RecLSalesCommentLine.Comment := TxtLCommentHeaderPartial;
+                                        RecLSalesCommentLine.INSERT;
+                                        TxtLCommentHeaderPartial := COPYSTR(TxtLCommentHeader, (1 + i * 80), 80);
+                                        i += 1;
+                                    UNTIL TxtLCommentHeaderPartial = '';
+                            END;
+                            AutLXMLNodeList3 := AutLXMLNode.childNodes();
+                            AutLXMLNode := AutLXMLNodeList3.nextNode();
+                            WHILE NOT ISCLEAR(AutLXMLNode) DO BEGIN
+                                CASE AutLXMLNode.nodeName OF
+                                    'ItemNo':
+                                        EVALUATE(CodLItemNo, AutLXMLNode.text);
+                                    'ItemPrice':
+                                        IF NOT CduGFileManagement.FctEvaluateDecimal(AutLXMLNode.text, DecLItemPrice) THEN
+                                            ERROR(STRSUBSTNO(CstGDecValue, AutLXMLNode.text));
+                                    //EVALUATE(DecLItemPrice, AutLXMLNode.text);
+                                    'Comment':
+                                        IF AutLXMLNode.text <> '' THEN
+                                            TxtLCommentline := COPYSTR(AutLXMLNode.text, 1, 1024);
+                                    'Quatity':
+                                        EVALUATE(IntLQtty, AutLXMLNode.text);
+                                    'LineAmount':
+                                        IF NOT CduGFileManagement.FctEvaluateDecimal(AutLXMLNode.text, DecLLineAmount) THEN
+                                            ERROR(STRSUBSTNO(CstGDecValue, AutLXMLNode.text));
+                                //EVALUATE(DecLLineAmount, AutLXMLNode.text);
+                                END;
+                                AutLXMLNode := AutLXMLNodeList3.nextNode();
+                            END;
+                            IF RecLSalesHeader."No." <> '' THEN BEGIN
+                                RecLSalesLine.INIT;
+                                RecLSalesLine.VALIDATE("Document Type", RecLSalesLine."Document Type"::Order);
+                                RecLSalesLine.VALIDATE("Document No.", RecLSalesHeader."No.");
+                                RecLSalesLine."Line No." := FctNextLineNo(RecLSalesHeader."No.");
+                                RecLSalesLine.INSERT(TRUE);
+                                RecLSalesLine.Type := RecLSalesLine.Type::Item;
+                                RecLSalesLine.VALIDATE("No.", CodLItemNo);
+                                RecLSalesLine.VALIDATE("Unit Price", DecLItemPrice);
+                                RecLSalesLine.VALIDATE(Quantity, IntLQtty);
+                                IF DecLItemPrice <> 0 THEN
+                                    RecLSalesLine.VALIDATE("Line Amount", DecLLineAmount);
+                                RecLSalesLine.MODIFY;
+                            END;
+                            i := 1;
+                            TxtLCommentlinePartial := COPYSTR(TxtLCommentline, 1, 80);
+                            IF TxtLCommentlinePartial <> '' THEN
+                                REPEAT
+                                    RecLSalesCommentLine.INIT;
+                                    RecLSalesCommentLine."Document Type" := RecLSalesCommentLine."Document Type"::Order;
+                                    RecLSalesCommentLine."No." := RecLSalesHeader."No.";
+                                    RecLSalesCommentLine."Line No." := i * 10000;
+                                    RecLSalesCommentLine."Document Line No." := RecLSalesLine."Line No.";
+                                    RecLSalesCommentLine.Date := DatLStartingDate;
+                                    RecLSalesCommentLine.Comment := TxtLCommentlinePartial;
+                                    RecLSalesCommentLine.INSERT;
+                                    TxtLCommentlinePartial := COPYSTR(TxtLCommentline, (1 + i * 80), 80);
+                                    i += 1;
+                                UNTIL TxtLCommentlinePartial = '';
+                        END;
+                END;
+                AutLXMLNode := AutLXMLNodeList1.nextNode();
+            END;  //End Detail Loop
+            AutLXMLNode := AutLXMLNodeList.nextNode();
+        END;  //End Orders Loop
+
+
+
+        //Calc SalesHeaderAmount
+        RecLSalesHeader.GET(RecLSalesHeader."Document Type", RecLSalesHeader."No.");
+        RecLSalesLine.RESET;
+        RecLSalesSetup.GET;
+        IF RecLSalesSetup."Calc. Inv. Discount" THEN BEGIN
+            CODEUNIT.RUN(CODEUNIT::"Sales-Calc. Discount", RecLSalesLine);
+            RecLSalesHeader.GET(RecLSalesHeader."Document Type", RecLSalesHeader."No.");
+        END;
+        RecLSalesLine.SetSalesHeader(RecLSalesHeader);
+        RecLSalesLine.CalcVATAmountLines(0, RecLSalesHeader, RecLSalesLine, RecLTempVATAmountLine0);
+        RecLSalesLine.CalcVATAmountLines(1, RecLSalesHeader, RecLSalesLine, RecLTempVATAmountLine1);
+        RecLSalesLine.UpdateVATOnLines(0, RecLSalesHeader, RecLSalesLine, RecLTempVATAmountLine0);
+        RecLSalesLine.UpdateVATOnLines(1, RecLSalesHeader, RecLSalesLine, RecLTempVATAmountLine1);
+        RecLSalesHeader.MODIFY(TRUE);
+
+        CLEAR(OusLStream);
+        RecLSalesHeader.SETRANGE("Document Type", RecLSalesHeader."Document Type");
+        RecLSalesHeader.SETRANGE("No.", RecLSalesHeader."No.");
+        RecLSendingMessage.RESET;
+        RecLSendingMessage.SETRANGE("Partner Code", RecPConnectorVal."Partner Code");
+        RecLSendingMessage.SETRANGE("Function", RecPConnectorVal."Function");
+        RecLSendingMessage.FINDFIRST;
+        CduGConnectBufMgtExport.FctCreateXml(RecLSalesHeader.GETVIEW, RecLSendingMessage, RecLTempBlob, TRUE);
+        RecLTempBlob.CALCFIELDS(Blob);
+        IF RecLTempBlob.Blob.HASVALUE THEN BEGIN
+            RecLTempBlob.Blob.CREATEINSTREAM(InsLStream);
+            CduGBufferManagement.FctCreateBufferValues(InsLStream, RecPConnectorVal."Partner Code", RecPConnectorVal."File Name",
+                                                       RecPConnectorVal."Function", RecPConnectorVal."File format",
+                                                       RecPConnectorVal.Separator,
+                                                       RecPConnectorVal.Direction::Export, RecPConnectorVal."Entry No.",
+                                                       RecPConnectorVal."Message Code")
+        END
+        ELSE
+            ERROR(TxtGError);
+    end;
+
+
+    procedure FctAddOrderFilePos(RecPConnectorVal: Record "PWD Connector Values")
+    var
+        StrLStreamIn: InStream;
+        TxtLReadBlob: Text[250];
+        IntLLengthOfLine: Integer;
+    begin
+    end;
+
+
+    procedure FctAddOrderWithSep(RecPConnectorVal: Record "PWD Connector Values")
+    var
+        RecLSendingMessage: Record "PWD Connector Messages";
+        RecLItem: Record Item;
+        RecLGeneralLedgerSetup: Record "General Ledger Setup";
+        BigTLToReturn: BigText;
+        TxtLQtyWithoutSpace: Text[250];
+        StrLStreamOut: OutStream;
+    begin
+    end;
+
+
+    procedure FctNextLineNo(CodPDocNo: Code[20]): Integer
+    var
+        RecLSalesLine: Record "Sales Line";
+    begin
+        //**********************************************************************************************************//
+        //                                    Find the next line No. for an order                                   //
+        //**********************************************************************************************************//
+
+        RecLSalesLine.RESET;
+        RecLSalesLine.SETRANGE("Document Type", RecLSalesLine."Document Type"::Order);
+        RecLSalesLine.SETRANGE("Document No.", CodPDocNo);
+        IF RecLSalesLine.FINDLAST THEN
+            EXIT(RecLSalesLine."Line No." + 10000)
+        ELSE
+            EXIT(10000);
+    end;
+
+
+    procedure FctGetOrderXml(RecPConnectorVal: Record "PWD Connector Values")
+    var
+        RecLSendingMessage: Record "PWD Connector Messages";
+        RecLSalesHeader: Record "Sales Header";
+        BigTLHeaderInfo: BigText;
+        BigTLToReturn: BigText;
+        BigTLLineInfo: BigText;
+        BigTLLineInfoTemp: BigText;
+        TxtLQtyWithoutSpace: Text[250];
+        OusLStream: OutStream;
+        InsLStream: InStream;
+        InsLStream1: InStream;
+        InsLStream2: InStream;
+        RecLTempBlob: Record TempBlob temporary;
+        IntLPosition: Integer;
+        CduLStreamMgt: Codeunit "File Management";
+        RecLTempBlob1: Record TempBlob temporary;
+        RecLTempBlob2: Record TempBlob temporary;
+    begin
+        //**********************************************************************************************************//
+        //                             Return Order information, by using Xml Management.                           //
+        //                                                                                                          //
+        // Parameters:                                                                                              //
+        // TxtGData[1]: Order No.                                                                                   //
+        //**********************************************************************************************************//
+
+        RecPConnectorVal.CALCFIELDS(Blob);
+        RecPConnectorVal.Blob.CREATEOUTSTREAM(OusLStream);
+        CLEAR(AutGXMLDom);
+        CREATE(AutGXMLDom);
+        AutGXMLDom.load(OusLStream);
+
+        FctParseData();
+
+        //>>FE_ProdConnect.002
+        IF NOT RecLSalesHeader.GET(RecLSalesHeader."Document Type"::Order, TxtGData[1]) THEN BEGIN
+            FctGetHeaderArchiveXml(RecPConnectorVal, TxtGData[1], RecLTempBlob1);
+            RecLTempBlob1.CALCFIELDS(Blob);
+            RecLTempBlob1.Blob.CREATEINSTREAM(InsLStream1);
+
+            FctGetLineArchiveXml(RecPConnectorVal, TxtGData[1], RecLTempBlob2);
+            RecLTempBlob2.CALCFIELDS(Blob);
+            RecLTempBlob2.Blob.CREATEINSTREAM(InsLStream2);
+        END
+        ELSE BEGIN
+            //<<FE_ProdConnect.002
+
+            FctGetHeaderOrderXml(RecPConnectorVal, TxtGData[1], RecLTempBlob1);
+            RecLTempBlob1.CALCFIELDS(Blob);
+            RecLTempBlob1.Blob.CREATEINSTREAM(InsLStream1);
+
+            FctGetLineOrderXml(RecPConnectorVal, TxtGData[1], RecLTempBlob2);
+            RecLTempBlob2.CALCFIELDS(Blob);
+            RecLTempBlob2.Blob.CREATEINSTREAM(InsLStream2);
+
+            //>>FE_ProdConnect.002
+        END;
+        //<<FE_ProdConnect.002
+
+        CduLStreamMgt.FctMergeStream(InsLStream1, InsLStream2, RecLTempBlob, RecPConnectorVal."Partner Code");
+        RecLTempBlob.CALCFIELDS(Blob);
+        IF RecLTempBlob.Blob.HASVALUE THEN BEGIN
+            RecLTempBlob.Blob.CREATEINSTREAM(InsLStream);
+            CduGBufferManagement.FctCreateBufferValues(InsLStream, RecPConnectorVal."Partner Code", RecPConnectorVal."File Name",
+                                                      RecPConnectorVal."Function", RecPConnectorVal."File format",
+                                                      RecPConnectorVal.Separator,
+                                                      RecPConnectorVal.Direction::Export, RecPConnectorVal."Entry No.",
+                                                      RecPConnectorVal."Message Code")
+        END
+        ELSE
+            ERROR(TxtGError);
+    end;
+
+
+    procedure FctGetHeaderOrderXml(RecPConnectorVal: Record "PWD Connector Values"; TxtPValue: Text[250]; var RecLTempBlob: Record TempBlob)
+    var
+        RecLSendingMessage: Record "PWD Connector Messages";
+        RecLSalesHeader: Record "Sales Header";
+        BigTLToReturn: BigText;
+        TxtLQtyWithoutSpace: Text[250];
+        StrLStreamOut: OutStream;
+    begin
+        //**********************************************************************************************************//
+        //                                           Return Order Header                                            //
+        //                                                                                                          //
+        // Parameters:                                                                                              //
+        // RecPconnectorValue: buffer Table                                                                         //
+        // TxtPValue: Order No.                                                                                     //
+        // RecLTempBlob: Blob used temporary                                                                        //
+        //**********************************************************************************************************//
+
+        RecLSalesHeader.GET(RecLSalesHeader."Document Type"::Order, TxtPValue);
+        RecLSalesHeader.SETRANGE("Document Type", RecLSalesHeader."Document Type"::Order);
+        RecLSalesHeader.SETRANGE("No.", TxtPValue);
+        IF RecLSalesHeader.FINDFIRST THEN BEGIN
+            RecLSendingMessage.RESET;
+            RecLSendingMessage.SETRANGE("Partner Code", RecPConnectorVal."Partner Code");
+            RecLSendingMessage.SETRANGE("Function", RecPConnectorVal."Function");
+            RecLSendingMessage.SETRANGE("Table ID", DATABASE::"Sales Header");
+            RecLSendingMessage.FINDFIRST;
+            CduGConnectBufMgtExport.FctCreateXml(RecLSalesHeader.GETVIEW, RecLSendingMessage, RecLTempBlob, TRUE);
+        END
+        ELSE
+            ERROR(TxtGError);
+    end;
+
+
+    procedure FctGetLineOrderXml(RecPConnectorVal: Record "PWD Connector Values"; TxtPValue: Text[250]; var RecLTempBlob: Record TempBlob)
+    var
+        RecLSendingMessage: Record "PWD Connector Messages";
+        RecLSalesLine: Record "Sales Line";
+        BigTLToReturn: BigText;
+        TxtLQtyWithoutSpace: Text[250];
+        StrLStreamOut: OutStream;
+    begin
+        //**********************************************************************************************************//
+        //                                           Return Order Header                                            //
+        //                                                                                                          //
+        // Parameters:                                                                                              //
+        // RecPconnectorValue: buffer Table                                                                         //
+        // TxtPValue: Order No.                                                                                     //
+        // RecLTempBlob: Blob used temporary                                                                        //
+        //**********************************************************************************************************//
+
+        RecLSalesLine.SETRANGE("Document Type", RecLSalesLine."Document Type"::Order);
+        RecLSalesLine.SETRANGE("Document No.", TxtPValue);
+        IF RecLSalesLine.FINDFIRST THEN BEGIN
+            RecLSendingMessage.RESET;
+            RecLSendingMessage.SETRANGE("Partner Code", RecPConnectorVal."Partner Code");
+            RecLSendingMessage.SETRANGE("Function", RecPConnectorVal."Function");
+            RecLSendingMessage.SETRANGE("Table ID", DATABASE::"Sales Line");
+            RecLSendingMessage.FINDFIRST;
+            CduGConnectBufMgtExport.FctCreateXml(RecLSalesLine.GETVIEW, RecLSendingMessage, RecLTempBlob, FALSE);
+        END;
+        //>>FE_ProdConnect.002
+        //ELSE
+        //  ERROR(TxtGError);
+        //<<FE_ProdConnect.002
+    end;
+
+
+    procedure FctGetOrderWithSep(RecPConnectorVal: Record "PWD Connector Values")
+    var
+        StrLStreamIn: InStream;
+        TxtLReadBlob: Text[250];
+        TxtLTextLine: Text[250];
+        IntLMeter: Integer;
+        IntLPositions: array[2] of Integer;
+    begin
+    end;
+
+
+    procedure FctGetOrderFilePos(RecPConnectorVal: Record "PWD Connector Values")
+    var
+        StrLStreamIn: InStream;
+        TxtLReadBlob: Text[250];
+        IntLLengthOfLine: Integer;
+    begin
+    end;
+
+
+    procedure FctGetOrdersWithSep(RecPConnectorVal: Record "PWD Connector Values")
+    var
+        StrLStreamIn: InStream;
+        TxtLReadBlob: Text[250];
+        TxtLTextLine: Text[250];
+        IntLMeter: Integer;
+        IntLPositions: array[2] of Integer;
+    begin
+    end;
+
+
+    procedure FctGetOrdersFilePos(RecPConnectorVal: Record "PWD Connector Values")
+    var
+        StrLStreamIn: InStream;
+        TxtLReadBlob: Text[250];
+        IntLLengthOfLine: Integer;
+    begin
+    end;
+
+
+    procedure FctGetShipmentStatusXml(RecPConnectorVal: Record "PWD Connector Values")
+    var
+        RecLSendingMessage: Record "PWD Connector Messages";
+        RecLSalesShipmentHeader: Record "Sales Shipment Header";
+        BigTLToReturn: BigText;
+        TxtLQtyWithoutSpace: Text[250];
+        StrLStreamOut: OutStream;
+        OusLStream: OutStream;
+        InsLStream: InStream;
+        RecLTempBlob: Record TempBlob temporary;
+    begin
+        //**********************************************************************************************************//
+        //                         Return Sales Shipment information, by using Xml management.                      //
+        //                                                                                                          //
+        // Parameters:                                                                                              //
+        // TxtGData[1]: Order No.                                                                                   //
+        //**********************************************************************************************************//
+
+        RecPConnectorVal.CALCFIELDS(Blob);
+        RecPConnectorVal.Blob.CREATEOUTSTREAM(StrLStreamOut);
+        CLEAR(AutGXMLDom);
+        CREATE(AutGXMLDom);
+        AutGXMLDom.load(StrLStreamOut);
+
+        FctParseData();
+
+        RecLSalesShipmentHeader.SETRANGE("Order No.", TxtGData[1]);
+        IF RecLSalesShipmentHeader.FINDFIRST THEN BEGIN
+            RecLSendingMessage.RESET;
+            RecLSendingMessage.SETRANGE("Partner Code", RecPConnectorVal."Partner Code");
+            RecLSendingMessage.SETRANGE("Function", RecPConnectorVal."Function");
+            RecLSendingMessage.FINDFIRST;
+            CduGConnectBufMgtExport.FctCreateXml(RecLSalesShipmentHeader.GETVIEW, RecLSendingMessage, RecLTempBlob, TRUE);
+            RecLTempBlob.CALCFIELDS(Blob);
+            IF RecLTempBlob.Blob.HASVALUE THEN BEGIN
+                RecLTempBlob.Blob.CREATEINSTREAM(InsLStream);
+                CduGBufferManagement.FctCreateBufferValues(InsLStream, RecPConnectorVal."Partner Code", RecPConnectorVal."File Name",
+                                                          RecPConnectorVal."Function", RecPConnectorVal."File format",
+                                                          RecPConnectorVal.Separator,
+                                                          RecPConnectorVal.Direction::Export, RecPConnectorVal."Entry No.",
+                                                          RecPConnectorVal."Message Code");
+            END
+            ELSE
+                ERROR(TxtGError);
+        END
+        ELSE
+            ERROR(TxtGError);
+    end;
+
+
+    procedure FctGetShipmentStatusWithSep(RecPConnectorVal: Record "PWD Connector Values")
+    var
+        StrLStreamIn: InStream;
+        TxtLReadBlob: Text[250];
+        TxtLTextLine: Text[250];
+        IntLMeter: Integer;
+        IntLPositions: array[2] of Integer;
+    begin
+    end;
+
+
+    procedure FctGetShipmentStatusFilePos(RecPConnectorVal: Record "PWD Connector Values")
+    var
+        StrLStreamIn: InStream;
+        TxtLReadBlob: Text[250];
+        IntLLengthOfLine: Integer;
+    begin
+    end;
+
+
+    procedure FctCreateCustomerXml(RecPConnectorVal: Record "PWD Connector Values")
+    var
+        RecLSendingMessage: Record "PWD Connector Messages";
+        RecLCustomer: Record Customer;
+        RecLCustomer2: Record Customer;
+        BigTLToReturn: BigText;
+        TxtLQtyWithoutSpace: Text[250];
+        StrLStreamOut: OutStream;
+        OusLStream: OutStream;
+        InsLStream: InStream;
+        RecLTempBlob: Record TempBlob temporary;
+    begin
+        //**********************************************************************************************************//
+        //                             Create a customer, by using Xml Management.                                  //
+        //                                                                                                          //
+        // Parameters:                                                                                              //
+        // TxtGData[1]: Name                                                                                        //
+        // TxtGData[2]: Search Name                                                                                 //
+        // TxtGData[3]: Address                                                                                     //
+        // TxtGData[4]: City                                                                                        //
+        // TxtGData[5]: E-mail                                                                                      //
+        // TxtGData[6]: Phone No.                                                                                   //
+        // TxtGData[7]: Address 2                                                                                   //
+        // TxtGData[8]: Post Code                                                                                   //
+        // TxtGData[9]: Country/Region Code                                                                         //
+        //**********************************************************************************************************//
+
+        RecPConnectorVal.CALCFIELDS(Blob);
+        RecPConnectorVal.Blob.CREATEOUTSTREAM(StrLStreamOut);
+        CLEAR(AutGXMLDom);
+        CREATE(AutGXMLDom);
+        AutGXMLDom.load(StrLStreamOut);
+
+        FctParseData();
+
+        RecLSendingMessage.RESET;
+        RecLSendingMessage.SETRANGE("Partner Code", RecPConnectorVal."Partner Code");
+        RecLSendingMessage.SETRANGE("Function", RecPConnectorVal."Function");
+        RecLSendingMessage.FINDFIRST;
+
+        RecLCustomer.INIT;
+        RecLCustomer.VALIDATE(Name, TxtGData[1]);
+        RecLCustomer.INSERT(TRUE);
+        RecLCustomer.VALIDATE("Search Name", TxtGData[2]);
+        RecLCustomer.VALIDATE(Address, TxtGData[3]);
+        RecLCustomer.VALIDATE("Address 2", TxtGData[7]);
+        RecLCustomer."Post Code" := TxtGData[8];
+        RecLCustomer.VALIDATE(City, TxtGData[4]);
+        RecLCustomer.VALIDATE(RecLCustomer."Country/Region Code", TxtGData[9]);
+        RecLCustomer.VALIDATE("E-Mail", TxtGData[5]);
+        RecLCustomer.VALIDATE("Phone No.", TxtGData[6]);
+        RecLCustomer.MODIFY(TRUE);
+        RecLCustomer2.GET(RecLCustomer."No.");
+        RecLCustomer2.RESET;
+        RecLCustomer2.SETRANGE("No.", RecLCustomer."No.");
+        IF RecLCustomer2.FINDFIRST THEN BEGIN
+            CduGConnectBufMgtExport.FctCreateXml(RecLCustomer2.GETVIEW, RecLSendingMessage, RecLTempBlob, TRUE);
+            RecLTempBlob.CALCFIELDS(Blob);
+            IF RecLTempBlob.Blob.HASVALUE THEN BEGIN
+                RecLTempBlob.Blob.CREATEINSTREAM(InsLStream);
+                CduGBufferManagement.FctCreateBufferValues(InsLStream, RecPConnectorVal."Partner Code", RecPConnectorVal."File Name",
+                                                          RecPConnectorVal."Function", RecPConnectorVal."File format",
+                                                          RecPConnectorVal.Separator,
+                                                          RecPConnectorVal.Direction::Export, RecPConnectorVal."Entry No.",
+                                                          RecPConnectorVal."Message Code");
+            END
+            ELSE
+                ERROR(TxtGError);
+        END
+        ELSE
+            ERROR(TxtGError);
+    end;
+
+
+    procedure FctCreateCustomerWithSep(RecPConnectorVal: Record "PWD Connector Values")
+    var
+        StrLStreamIn: InStream;
+        TxtLReadBlob: Text[250];
+        TxtLTextLine: Text[250];
+        IntLMeter: Integer;
+        IntLPositions: array[2] of Integer;
+    begin
+    end;
+
+
+    procedure FctCreateCustomerFilePos(RecPConnectorVal: Record "PWD Connector Values")
+    var
+        StrLStreamIn: InStream;
+        TxtLReadBlob: Text[250];
+        IntLLengthOfLine: Integer;
+    begin
+    end;
+
+
+    procedure FctGetShipmentCostXml(RecPConnectorVal: Record "PWD Connector Values")
+    var
+        RecLSendingMessage: Record "PWD Connector Messages";
+        RecLSalesShipmentHeader: Record "Sales Shipment Header";
+        BigTLToReturn: BigText;
+        TxtLQtyWithoutSpace: Text[250];
+        StrLStreamOut: OutStream;
+    begin
+    end;
+
+
+    procedure FctGetShipmentCostWithSep(RecPConnectorVal: Record "PWD Connector Values")
+    var
+        StrLStreamIn: InStream;
+        TxtLReadBlob: Text[250];
+        TxtLTextLine: Text[250];
+        IntLMeter: Integer;
+        IntLPositions: array[2] of Integer;
+    begin
+    end;
+
+
+    procedure FctGetShipmentCostFilePos(RecPConnectorVal: Record "PWD Connector Values")
+    var
+        StrLStreamIn: InStream;
+        TxtLReadBlob: Text[250];
+        IntLLengthOfLine: Integer;
+    begin
+    end;
+
+
+    procedure FctGetCustOrdersXml(RecPConnectorVal: Record "PWD Connector Values")
+    var
+        RecLTempBlob: Record TempBlob;
+        RecLSendingMessage: Record "PWD Connector Messages";
+        RecLSalesHeader: Record "Sales Header";
+        OusLStream: OutStream;
+        InsLStream: InStream;
+        IntLDay1: Integer;
+        IntLDay2: Integer;
+        IntLMonth1: Integer;
+        IntLMonth2: Integer;
+        IntLYear1: Integer;
+        IntLYear2: Integer;
+        DatLDate1: Date;
+        DatLDate2: Date;
+        "-FE_ProdConnect.002-": Integer;
+        RecLSalesHeaderArchive: Record "Sales Header Archive";
+        InsLStream1: InStream;
+        InsLStream2: InStream;
+        RecLTempBlob1: Record TempBlob;
+        RecLTempBlob2: Record TempBlob;
+        CduLStreamMgt: Codeunit "File Management";
+    begin
+        //**********************************************************************************************************//
+        //                             Return Sales Order, by using Xml Management.                                 //
+        //                                                                                                          //
+        // Parameters:                                                                                              //
+        // TxtGData[1]: Sell-to Customer No.                                                                        //
+        // TxtGData[2]: Day1                                                                                        //
+        // TxtGData[3]: Month1                                                                                      //
+        // TxtGData[4]: year1                                                                                       //
+        // TxtGData[5]: Day2                                                                                        //
+        // TxtGData[6]: Month2                                                                                      //
+        // TxtGData[7]: Year2                                                                                       //
+        //**********************************************************************************************************//
+
+        RecPConnectorVal.CALCFIELDS(Blob);
+        RecPConnectorVal.Blob.CREATEOUTSTREAM(OusLStream);
+        CLEAR(AutGXMLDom);
+        CREATE(AutGXMLDom);
+        AutGXMLDom.load(OusLStream);
+
+        FctParseData();
+
+        RecLSalesHeader.RESET;
+        RecLSalesHeader.SETRANGE("Document Type", RecLSalesHeader."Document Type"::Order);
+        RecLSalesHeader.SETRANGE("Sell-to Customer No.", TxtGData[1]);
+
+        IF TxtGData[2] <> '' THEN
+            EVALUATE(IntLDay1, TxtGData[2]);
+        IF TxtGData[3] <> '' THEN
+            EVALUATE(IntLMonth1, TxtGData[3]);
+        IF TxtGData[4] <> '' THEN
+            EVALUATE(IntLYear1, TxtGData[4]);
+        IF TxtGData[5] <> '' THEN
+            EVALUATE(IntLDay2, TxtGData[5]);
+        IF TxtGData[6] <> '' THEN
+            EVALUATE(IntLMonth2, TxtGData[6]);
+        IF TxtGData[7] <> '' THEN
+            EVALUATE(IntLYear2, TxtGData[7]);
+
+        IF (IntLDay1 <> 0) AND (IntLMonth1 <> 0) AND (IntLYear1 <> 0) THEN
+            DatLDate1 := DMY2DATE(IntLDay1, IntLMonth1, IntLYear1);
+        IF (IntLDay2 <> 0) AND (IntLMonth2 <> 0) AND (IntLYear2 <> 0) THEN
+            DatLDate2 := DMY2DATE(IntLDay2, IntLMonth2, IntLYear2);
+        IF (DatLDate1 <> 0D) AND (DatLDate2 <> 0D) THEN
+            RecLSalesHeader.SETRANGE("Order Date", DatLDate1, DatLDate2);
+
+        //>>FE_ProdConnect.002
+        /*OLD :
+            IF RecLSalesHeader.FINDFIRST THEN
+            BEGIN
+              RecLSendingMessage.RESET;
+              RecLSendingMessage.SETRANGE("Partner Code",RecPConnectorVal."Partner Code");
+              RecLSendingMessage.SETRANGE("Function",RecPConnectorVal."Function");
+              RecLSendingMessage.FINDFIRST;
+              CduGConnectBufMgtExport.FctCreateXml(RecLSalesHeader.GETVIEW,RecLSendingMessage,RecLTempBlob,TRUE);
+              RecLTempBlob.CALCFIELDS(Blob);
+              IF RecLTempBlob.Blob.HASVALUE THEN
+              BEGIN
+                RecLTempBlob.Blob.CREATEINSTREAM(InsLStream);
+                CduGBufferManagement.FctCreateBufferValues(InsLStream,RecPConnectorVal."Partner Code",RecPConnectorVal."File Name",
+                                                          RecPConnectorVal."Function",RecPConnectorVal."File format",
+                                                          RecPConnectorVal.Separator,
+                                                          RecPConnectorVal.Direction::Export,RecPConnectorVal."Entry No.",
+                                                          RecPConnectorVal."Message Code");
+              END
+              ELSE
+                ERROR(TxtGError);
+            END
+            ELSE
+              ERROR(TxtGError);
+        */
+
+        RecLSalesHeaderArchive.RESET;
+        RecLSalesHeaderArchive.SETRANGE("Document Type", RecLSalesHeaderArchive."Document Type"::Order);
+        RecLSalesHeaderArchive.SETRANGE("Sell-to Customer No.", TxtGData[1]);
+        IF (DatLDate1 <> 0D) AND (DatLDate2 <> 0D) THEN
+            RecLSalesHeaderArchive.SETRANGE("Order Date", DatLDate1, DatLDate2);
+
+        IF NOT RecLSalesHeader.ISEMPTY THEN BEGIN
+            RecLSendingMessage.RESET;
+            RecLSendingMessage.SETRANGE("Partner Code", RecPConnectorVal."Partner Code");
+            RecLSendingMessage.SETRANGE("Function", RecPConnectorVal."Function");
+            RecLSendingMessage.SETRANGE("Table ID", DATABASE::"Sales Header");
+            RecLSendingMessage.FINDFIRST;
+            CduGConnectBufMgtExport.FctCreateXml(RecLSalesHeader.GETVIEW, RecLSendingMessage, RecLTempBlob1, TRUE);
+            RecLTempBlob1.CALCFIELDS(Blob);
+            RecLTempBlob1.Blob.CREATEINSTREAM(InsLStream1);
+        END;
+
+        IF NOT RecLSalesHeaderArchive.ISEMPTY THEN BEGIN
+            RecLSendingMessage.RESET;
+            RecLSendingMessage.SETRANGE("Partner Code", RecPConnectorVal."Partner Code");
+            RecLSendingMessage.SETRANGE("Function", RecPConnectorVal."Function");
+            RecLSendingMessage.SETRANGE("Table ID", DATABASE::"Sales Header Archive");
+            RecLSendingMessage.FINDFIRST;
+            CduGConnectBufMgtExport.FctCreateXml(RecLSalesHeaderArchive.GETVIEW, RecLSendingMessage, RecLTempBlob2, FALSE);
+            RecLTempBlob2.CALCFIELDS(Blob);
+            RecLTempBlob2.Blob.CREATEINSTREAM(InsLStream2);
+        END;
+
+
+        IF (NOT RecLTempBlob1.Blob.HASVALUE) AND (NOT RecLTempBlob2.Blob.HASVALUE) THEN
+            ERROR(TxtGError);
+
+        IF (RecLTempBlob1.Blob.HASVALUE) AND (RecLTempBlob2.Blob.HASVALUE) THEN BEGIN
+            CduLStreamMgt.FctMergeStream(InsLStream1, InsLStream2, RecLTempBlob, RecPConnectorVal."Partner Code");
+            RecLTempBlob.CALCFIELDS(Blob);
+            RecLTempBlob.Blob.CREATEINSTREAM(InsLStream);
+            CduGBufferManagement.FctCreateBufferValues(InsLStream, RecPConnectorVal."Partner Code", RecPConnectorVal."File Name",
+                                                       RecPConnectorVal."Function", RecPConnectorVal."File format",
+                                                       RecPConnectorVal.Separator,
+                                                       RecPConnectorVal.Direction::Export, RecPConnectorVal."Entry No.",
+                                                       RecPConnectorVal."Message Code");
+        END
+        ELSE BEGIN
+            IF (RecLTempBlob1.Blob.HASVALUE) THEN
+                CduGBufferManagement.FctCreateBufferValues(InsLStream1, RecPConnectorVal."Partner Code", RecPConnectorVal."File Name",
+                                                           RecPConnectorVal."Function", RecPConnectorVal."File format",
+                                                           RecPConnectorVal.Separator,
+                                                           RecPConnectorVal.Direction::Export, RecPConnectorVal."Entry No.",
+                                                           RecPConnectorVal."Message Code")
+            ELSE
+                CduGBufferManagement.FctCreateBufferValues(InsLStream2, RecPConnectorVal."Partner Code", RecPConnectorVal."File Name",
+                                                           RecPConnectorVal."Function", RecPConnectorVal."File format",
+                                                           RecPConnectorVal.Separator,
+                                                           RecPConnectorVal.Direction::Export, RecPConnectorVal."Entry No.",
+                                                           RecPConnectorVal."Message Code");
+        END;
+        //<<FE_ProdConnect.002
+
+    end;
+
+
+    procedure FctGetCustOrdersWithSep(RecPConnectorVal: Record "PWD Connector Values")
+    var
+        StrLStreamIn: InStream;
+        TxtLReadBlob: Text[250];
+        TxtLTextLine: Text[250];
+        IntLMeter: Integer;
+        IntLPositions: array[2] of Integer;
+    begin
+    end;
+
+
+    procedure FctGetCustOrdersFilePos(RecPConnectorVal: Record "PWD Connector Values")
+    var
+        StrLStreamIn: InStream;
+        TxtLReadBlob: Text[250];
+        IntLLengthOfLine: Integer;
+    begin
+    end;
+
+
+    procedure "---WMS-FEMOT.001--"()
+    begin
+    end;
+
+
+    procedure FctAddOrder(var RecPConnectorVal: Record "PWD Connector Values")
+    var
+        AutLXMLNode: Automation;
+        AutLXMLNodeList: Automation;
+        AutLXMLNodeList1: Automation;
+        AutLXMLNodeList2: Automation;
+        AutLXMLNodeList3: Automation;
+        RecLTempBlob: Record TempBlob;
+        RecLSendingMessage: Record "PWD Connector Messages";
+        CodLOrderNo: Code[20];
+        CodLCustomer: Code[20];
+        CodLExternalDocNo: Code[20];
+        TxtLItemNo: Text[30];
+        CodLCountryReg: Code[10];
+        CodLPostCode: Code[20];
+        DatLStartingDate: Date;
+        TxtLCommentHeader: Text[1024];
+        TxtLCommentHeaderPartial: Text[80];
+        TxtLCommentline: Text[1024];
+        TxtLCommentlinePartial: Text[80];
+        TxtLName: Text[50];
+        TxtLName2: Text[50];
+        TxtLAddress: Text[50];
+        TxtLAddress2: Text[50];
+        TxtLCity: Text[30];
+        TxtLCounty: Text[30];
+        IntLDay: Integer;
+        IntLMonth: Integer;
+        IntLYear: Integer;
+        TxtLQtty: Text[15];
+        i: Integer;
+        TxtLItemPrice: Text[15];
+        TxtLQuantity: Text[15];
+        TxtLLineAmount: Text[15];
+        BigTLToReturn: BigText;
+        InsLStream: InStream;
+        BooLOrderInserted: Boolean;
+        OusLStream: OutStream;
+        CstLOrderExist: Label 'Cette commande existe déjà';
+        RecLSalesHeaderBuffer: Record "Sales Header Buffer";
+        RecLSalesLineBuffer: Record "Sales Line Buffer";
+        RecLSalesCommentLineBuffer: Record "Sales Comment Line Buffer";
+        RecLSalesHeader: Record "Sales Header";
+        RecordRef: RecordRef;
+        RecLPEBSalesHeaderBuffer: Record "PEB Sales Header Buffer";
+        RecLPEBSalesLineBuffer: Record "PEB Sales Line Buffer";
+        RecLPEBSalesCommentLineBuffer: Record "PEB Sales Comment Line Buffer";
+    begin
+        //>>WMS-FEMOT.001
+
+        //**********************************************************************************************************//
+        //                             Add order, by using Xml Management.                                          //
+        //**********************************************************************************************************//
+        RecPConnectorVal.CALCFIELDS(Blob);
+        RecPConnectorVal.Blob.CREATEOUTSTREAM(OusLStream);
+        CLEAR(AutGXMLDom);
+        CREATE(AutGXMLDom);
+        AutGXMLDom.load(OusLStream);
+        CLEAR(BooLOrderInserted);
+        CLEAR(DatLStartingDate);
+        CLEAR(CodLOrderNo);
+        CLEAR(CodLCustomer);
+        CLEAR(CodLExternalDocNo);
+        AutLXMLNodeList := AutGXMLDom.selectNodes('/IDXMLSerial/Orders');
+        AutLXMLNode := AutLXMLNodeList.nextNode();
+        WHILE NOT ISCLEAR(AutLXMLNode) DO   // Orders Loop
+        BEGIN
+            AutLXMLNodeList1 := AutLXMLNode.childNodes();
+            AutLXMLNode := AutLXMLNodeList1.nextNode();
+            WHILE NOT ISCLEAR(AutLXMLNode) DO   // Orders Detail Loop
+            BEGIN
+                CASE AutLXMLNode.nodeName OF
+                    'OrderNo':
+                        BEGIN
+                            IF AutLXMLNode.text <> '' THEN
+                                CodLOrderNo := COPYSTR(AutLXMLNode.text, 1, 20);
+                            RecLSalesHeaderBuffer.RESET;
+                            RecLSalesHeaderBuffer.SETCURRENTKEY("Document Type", "Document No.");
+                            RecLSalesHeaderBuffer.SETRANGE("Document Type", RecLSalesHeaderBuffer."Document Type"::Order);
+                            RecLSalesHeaderBuffer.SETRANGE("Document No.", CodLOrderNo);
+                            IF RecLSalesHeaderBuffer.FINDFIRST THEN
+                                ERROR(CstLOrderExist);
+                        END;
+                    'CustomerNo':
+                        IF AutLXMLNode.text <> '' THEN
+                            CodLCustomer := COPYSTR(AutLXMLNode.text, 1, 20);
+                    'Reference':
+                        IF AutLXMLNode.text <> '' THEN
+                            CodLExternalDocNo := COPYSTR(AutLXMLNode.text, 1, 20);
+                    'Comment':
+                        IF AutLXMLNode.text <> '' THEN
+                            TxtLCommentHeader := COPYSTR(AutLXMLNode.text, 1, 750); // A mettre ds les commentaires de la comman
+                    'Date':
+                        BEGIN
+                            CLEAR(IntLYear);
+                            CLEAR(IntLDay);
+                            CLEAR(IntLMonth);
+                            AutLXMLNodeList3 := AutLXMLNode.childNodes();
+                            AutLXMLNode := AutLXMLNodeList3.nextNode();
+                            WHILE NOT ISCLEAR(AutLXMLNode) DO BEGIN
+                                CASE AutLXMLNode.nodeName OF
+                                    'Day':
+                                        EVALUATE(IntLDay, AutLXMLNode.text);
+                                    'Month':
+                                        EVALUATE(IntLMonth, AutLXMLNode.text);
+                                    'Year':
+                                        EVALUATE(IntLYear, AutLXMLNode.text);
+                                END;
+                                AutLXMLNode := AutLXMLNodeList3.nextNode();
+                            END;
+                        END;
+
+                    'OrderLines':
+                        BEGIN
+                            IF NOT BooLOrderInserted THEN BEGIN
+                                BooLOrderInserted := TRUE;
+                                RecLSalesHeaderBuffer.GET(
+                                               CduGBufferManagement.FctNewBufferLine(DATABASE::"Sales Header Buffer", RecPConnectorVal, 1));
+                                RecLSalesHeaderBuffer."Document Type" := RecLSalesHeaderBuffer."Document Type"::Order;
+                                RecLSalesHeaderBuffer."Document No." := CodLOrderNo;
+                                RecLSalesHeaderBuffer."Sell-to Customer No." := CodLCustomer;
+                                RecLSalesHeaderBuffer."Posting Date" := FORMAT(DMY2DATE(IntLDay, IntLMonth, IntLYear));
+                                RecLSalesHeaderBuffer."External Document No." := CodLExternalDocNo;
+                                RecLSalesHeaderBuffer.MODIFY;
+
+                                CLEAR(RecordRef);
+                                RecordRef.GETTABLE(RecLSalesHeaderBuffer);
+                                RecLPEBSalesHeaderBuffer.GET(CduGBufferManagement.FctDuplicateBuffer(
+                                                       DATABASE::"PEB Sales Header Buffer", RecordRef));
+                                //Placer les champs spécifiques PEB
+                                RecLPEBSalesHeaderBuffer.MODIFY;
+
+                                i := 1;
+                                TxtLCommentHeaderPartial := COPYSTR(TxtLCommentHeader, 1, 80);
+                                IF TxtLCommentHeaderPartial <> '' THEN BEGIN
+                                    REPEAT
+                                        RecLSalesCommentLineBuffer.GET(
+                                                  CduGBufferManagement.FctNewBufferLine(DATABASE::"Sales Comment Line Buffer",
+                                                                          RecPConnectorVal, 1));
+                                        RecLSalesCommentLineBuffer."Document Type" := RecLSalesHeaderBuffer."Document Type";
+                                        RecLSalesCommentLineBuffer."Document No." := RecLSalesHeaderBuffer."Document No.";
+                                        RecLSalesCommentLineBuffer."Document Line No." := 0;
+                                        RecLSalesCommentLineBuffer.Date := FORMAT(DMY2DATE(IntLDay, IntLMonth, IntLYear));
+                                        RecLSalesCommentLineBuffer.Comment := TxtLCommentHeaderPartial;
+                                        RecLSalesCommentLineBuffer.MODIFY;
+
+                                        CLEAR(RecordRef);
+                                        RecordRef.GETTABLE(RecLSalesCommentLineBuffer);
+                                        RecLPEBSalesCommentLineBuffer.GET(CduGBufferManagement.FctDuplicateBuffer(
+                                                               DATABASE::"PEB Sales Comment Line Buffer", RecordRef));
+                                        //Placer les champs spécifiques PEB
+                                        RecLPEBSalesCommentLineBuffer.MODIFY;
+
+                                        TxtLCommentHeaderPartial := COPYSTR(TxtLCommentHeader, (1 + i * 80), 80);
+                                        i += 1;
+                                    UNTIL TxtLCommentHeaderPartial = '';
+                                END;
+                            END;
+                            AutLXMLNodeList3 := AutLXMLNode.childNodes();
+                            AutLXMLNode := AutLXMLNodeList3.nextNode();
+                            WHILE NOT ISCLEAR(AutLXMLNode) DO BEGIN
+                                CASE AutLXMLNode.nodeName OF
+                                    'ItemNo':
+                                        TxtLItemNo := AutLXMLNode.text;
+                                    'ItemPrice':
+                                        TxtLItemPrice := AutLXMLNode.text;
+                                    'Comment':
+                                        IF AutLXMLNode.text <> '' THEN
+                                            TxtLCommentline := COPYSTR(AutLXMLNode.text, 1, 750);
+                                    'Quatity':
+                                        TxtLQtty := AutLXMLNode.text;
+                                    'LineAmount':
+                                        TxtLLineAmount := AutLXMLNode.text;
+                                END;
+                                AutLXMLNode := AutLXMLNodeList3.nextNode();
+                            END;
+
+                            RecLSalesLineBuffer.GET(
+                                    CduGBufferManagement.FctNewBufferLine(DATABASE::"Sales Line Buffer", RecPConnectorVal
+                                                                                         , 1));
+                            RecLSalesLineBuffer."Document Type" := RecLSalesLineBuffer."Document Type"::Order;
+                            RecLSalesLineBuffer."Document No." := RecLSalesHeaderBuffer."Document No.";
+                            RecLSalesLineBuffer.Type := RecLSalesLineBuffer.Type::Item;
+                            RecLSalesLineBuffer."No." := TxtLItemNo;
+                            RecLSalesLineBuffer."Unit Price" := TxtLItemPrice;
+                            RecLSalesLineBuffer.Quantity := TxtLQtty;
+                            IF TxtLLineAmount <> '0.0000' THEN
+                                RecLSalesLineBuffer."Line Amount" := TxtLLineAmount;
+                            RecLSalesLineBuffer.MODIFY;
+
+                            CLEAR(RecordRef);
+                            RecordRef.GETTABLE(RecLSalesLineBuffer);
+                            RecLPEBSalesLineBuffer.GET(CduGBufferManagement.FctDuplicateBuffer(
+                                                   DATABASE::"PEB Sales Line Buffer", RecordRef));
+                            //Placer les champs spécifiques PEB
+                            RecLPEBSalesLineBuffer.MODIFY;
+
+                            i := 1;
+                            TxtLCommentlinePartial := COPYSTR(TxtLCommentline, 1, 80);
+                            IF TxtLCommentlinePartial <> '' THEN BEGIN
+                                REPEAT
+                                    RecLSalesCommentLineBuffer.GET(
+                                            CduGBufferManagement.FctNewBufferLine(DATABASE::"Sales Comment Line Buffer", RecPConnectorVal
+                                                                                   , 1));
+                                    RecLSalesCommentLineBuffer."Document Type" := RecLSalesLineBuffer."Document Type";
+                                    RecLSalesCommentLineBuffer."Document No." := RecLSalesLineBuffer."Document No.";
+                                    RecLSalesCommentLineBuffer."Document Line No." := RecLSalesLineBuffer."Entry No.";
+                                    RecLSalesCommentLineBuffer.Date := FORMAT(DMY2DATE(IntLDay, IntLMonth, IntLYear));
+                                    RecLSalesCommentLineBuffer.Comment := TxtLCommentlinePartial;
+                                    RecLSalesCommentLineBuffer.MODIFY;
+
+                                    CLEAR(RecordRef);
+                                    RecordRef.GETTABLE(RecLSalesCommentLineBuffer);
+                                    RecLPEBSalesCommentLineBuffer.GET(CduGBufferManagement.FctDuplicateBuffer(
+                                                           DATABASE::"PEB Sales Comment Line Buffer", RecordRef));
+                                    //Placer les champs spécifiques PEB
+                                    RecLPEBSalesCommentLineBuffer.MODIFY;
+
+                                    TxtLCommentlinePartial := COPYSTR(TxtLCommentline, (1 + i * 80), 80);
+                                    i += 1;
+                                UNTIL TxtLCommentlinePartial = '';
+                            END;
+                        END;
+                END;
+                AutLXMLNode := AutLXMLNodeList1.nextNode();
+            END;  //End Detail Loop
+            AutLXMLNode := AutLXMLNodeList.nextNode();
+        END;  //End Orders Loop
+
+        IF RecLSalesHeaderBuffer."Entry No." <> 0 THEN BEGIN
+
+            CduGBufferManagement.FctCreateSalesOrder(RecLSalesHeaderBuffer);
+
+            CLEAR(RecordRef);
+            RecordRef.OPEN(DATABASE::"Sales Header", FALSE, COMPANYNAME);
+            RecordRef.GET(RecLSalesHeaderBuffer."RecordID Created");
+            RecordRef.SETTABLE(RecLSalesHeader);
+            RecLSalesHeader.SETRECFILTER;
+
+            CLEAR(OusLStream);
+            RecLSendingMessage.RESET;
+            RecLSendingMessage.SETRANGE("Partner Code", RecPConnectorVal."Partner Code");
+            RecLSendingMessage.SETRANGE("Function", RecPConnectorVal."Function");
+            RecLSendingMessage.FINDFIRST;
+            CduGConnectBufMgtExport.FctCreateXml(RecLSalesHeader.GETVIEW, RecLSendingMessage, RecLTempBlob, TRUE);
+            RecLTempBlob.CALCFIELDS(Blob);
+            IF RecLTempBlob.Blob.HASVALUE THEN BEGIN
+                RecLTempBlob.Blob.CREATEINSTREAM(InsLStream);
+                CduGBufferManagement.FctCreateBufferValues(InsLStream, RecPConnectorVal."Partner Code", RecPConnectorVal."File Name",
+                                                           RecPConnectorVal."Function", RecPConnectorVal."File format",
+                                                           RecPConnectorVal.Separator,
+                                                           RecPConnectorVal.Direction::Export, RecPConnectorVal."Entry No.",
+                                                           RecPConnectorVal."Message Code")
+            END
+            ELSE
+                ERROR(TxtGError);
+        END;
+        //<<WMS-FEMOT.001
+    end;
+
+
+    procedure FctUpdateSalesHeader(var RecPSalesHeader: Record "Sales Header"; var IntPEntryBufferNo: Integer)
+    var
+        RecLPEBSalesHeaderBuffer: Record "PEB Sales Header Buffer";
+    begin
+        //>>WMS-FEMOT.001
+        IF RecLPEBSalesHeaderBuffer.GET(IntPEntryBufferNo) THEN BEGIN
+            //Placer les champs spécifiques PEB
+
+        END;
+        //<<WMS-FEMOT.001
+    end;
+
+
+    procedure FctUpdateSalesLine(var RecPSalesLine: Record "Sales Line"; var IntPEntryBufferNo: Integer)
+    var
+        RecLPEBSalesLineBuffer: Record "PEB Sales Line Buffer";
+    begin
+        //>>WMS-FEMOT.001
+        IF RecLPEBSalesLineBuffer.GET(IntPEntryBufferNo) THEN BEGIN
+            //Placer les champs spécifiques PEB
+
+        END;
+        //<<WMS-FEMOT.001
+    end;
+
+
+    procedure FctUpdateSalesCommentLine(var RecPSalesCommentLine: Record "Sales Comment Line"; var IntPEntryBufferNo: Integer)
+    var
+        RecLPEBSalesCommentLineBuffer: Record "PEB Sales Comment Line Buffer";
+    begin
+        //>>WMS-FEMOT.001
+        IF RecLPEBSalesCommentLineBuffer.GET(IntPEntryBufferNo) THEN BEGIN
+            //Placer les champs spécifiques PEB
+
+        END;
+        //<<WMS-FEMOT.001
+    end;
+
+
+    procedure FctCreateCustomer(var RecPConnectorVal: Record "PWD Connector Values")
+    var
+        RecLSendingMessage: Record "PWD Connector Messages";
+        RecLCustomerBuffer: Record "Customer Buffer";
+        RecLCustomer: Record Customer;
+        BigTLToReturn: BigText;
+        TxtLQtyWithoutSpace: Text[250];
+        StrLStreamOut: OutStream;
+        OusLStream: OutStream;
+        InsLStream: InStream;
+        RecLTempBlob: Record TempBlob temporary;
+        RecordRef: RecordRef;
+        RecLPEBCustomerBuffer: Record "PEB Customer Buffer";
+    begin
+        //>>WMS-FEMOT.001
+        //**********************************************************************************************************//
+        //                             Create a customer, by using Xml Management.                                  //
+        //                                                                                                          //
+        // Parameters:                                                                                              //
+        // TxtGData[1]: Name                                                                                        //
+        // TxtGData[2]: Name 2                                                                                      //
+        // TxtGData[3]: Address                                                                                     //
+        // TxtGData[4]: City                                                                                        //
+        // TxtGData[5]: E-mail                                                                                      //
+        // TxtGData[6]: Phone No.                                                                                   //
+        // TxtGData[7]: Address 2                                                                                   //
+        // TxtGData[8]: Post Code                                                                                   //
+        // TxtGData[9]: Country/Region Code                                                                         //
+        //**********************************************************************************************************//
+
+        RecPConnectorVal.CALCFIELDS(Blob);
+        RecPConnectorVal.Blob.CREATEOUTSTREAM(StrLStreamOut);
+        CLEAR(AutGXMLDom);
+        CREATE(AutGXMLDom);
+        AutGXMLDom.load(StrLStreamOut);
+
+        FctParseData();
+
+        RecLSendingMessage.RESET;
+        RecLSendingMessage.SETRANGE("Partner Code", RecPConnectorVal."Partner Code");
+        RecLSendingMessage.SETRANGE("Function", RecPConnectorVal."Function");
+        RecLSendingMessage.FINDFIRST;
+
+        RecLCustomerBuffer.GET(
+                       CduGBufferManagement.FctNewBufferLine(DATABASE::"Customer Buffer", RecPConnectorVal, 1));
+        RecLCustomerBuffer.Name := TxtGData[1];
+        RecLCustomerBuffer."Name 2" := TxtGData[2];
+        RecLCustomerBuffer.Address := TxtGData[3];
+        RecLCustomerBuffer."Address 2" := TxtGData[7];
+        RecLCustomerBuffer."Post Code" := TxtGData[8];
+        RecLCustomerBuffer.City := TxtGData[4];
+        RecLCustomerBuffer."Country/Region Code" := TxtGData[9];
+        RecLCustomerBuffer."E-Mail" := TxtGData[5];
+        RecLCustomerBuffer."Phone No." := TxtGData[6];
+        RecLCustomerBuffer.MODIFY;
+
+        CLEAR(RecordRef);
+        RecordRef.GETTABLE(RecLCustomerBuffer);
+        RecLPEBCustomerBuffer.GET(CduGBufferManagement.FctDuplicateBuffer(DATABASE::"PEB Customer Buffer", RecordRef));
+        //Placer les champs spécifiques PEB
+        RecLPEBCustomerBuffer.MODIFY;
+
+        IF RecLCustomerBuffer."Entry No." <> 0 THEN BEGIN
+            CduGBufferManagement.FctCreateCustomer(RecLCustomerBuffer);
+
+            CLEAR(RecordRef);
+            RecordRef.OPEN(DATABASE::Customer, FALSE, COMPANYNAME);
+            RecordRef.GET(RecLCustomerBuffer."RecordID Created");
+            RecordRef.SETTABLE(RecLCustomer);
+            RecLCustomer.SETRECFILTER;
+
+            IF RecLCustomer.FINDFIRST THEN BEGIN
+                CduGConnectBufMgtExport.FctCreateXml(RecLCustomer.GETVIEW, RecLSendingMessage, RecLTempBlob, TRUE);
+                RecLTempBlob.CALCFIELDS(Blob);
+                IF RecLTempBlob.Blob.HASVALUE THEN BEGIN
+                    RecLTempBlob.Blob.CREATEINSTREAM(InsLStream);
+                    CduGBufferManagement.FctCreateBufferValues(InsLStream, RecPConnectorVal."Partner Code", RecPConnectorVal."File Name",
+                                                              RecPConnectorVal."Function", RecPConnectorVal."File format",
+                                                              RecPConnectorVal.Separator,
+                                                              RecPConnectorVal.Direction::Export, RecPConnectorVal."Entry No.",
+                                                              RecPConnectorVal."Message Code");
+                END
+                ELSE
+                    ERROR(TxtGError);
+            END
+            ELSE
+                ERROR(TxtGError);
+        END;
+        //<<WMS-FEMOT.001
+    end;
+
+
+    procedure FctUpdateCustomer(var RecPCustomer: Record Customer; var IntPEntryBufferNo: Integer)
+    var
+        RecLPEBCustomerBuffer: Record "PEB Customer Buffer";
+    begin
+        //>>WMS-FEMOT.001
+        IF RecLPEBCustomerBuffer.GET(IntPEntryBufferNo) THEN BEGIN
+            //Placer les champs spécifiques PEB
+
+        END;
+        //<<WMS-FEMOT.001
+    end;
+
+
+    procedure FctUpdateReceiptLine(var RecPPurchaseLine: Record "Purchase Line"; var IntPEntryBufferNo: Integer)
+    var
+        RecLPEBReceiptLineBuffer: Record "PEB Receipt Line Buffer";
+    begin
+        //>>WMS-FE007_15.001
+        IF RecLPEBReceiptLineBuffer.GET(IntPEntryBufferNo) THEN BEGIN
+            //Placer les champs spécifiques PEB
+
+        END;
+        //<<WMS-FE007_15.001
+    end;
+
+
+    procedure FctUpdateShipmentLine(var RecPSalesLine: Record "Sales Line"; var IntPEntryBufferNo: Integer)
+    var
+        RecLPEBSalesLineBuffer: Record "PEB Sales Line Buffer";
+    begin
+        //>>WMS-FE008_15.001
+        IF RecLPEBSalesLineBuffer.GET(IntPEntryBufferNo) THEN BEGIN
+            //Placer les champs spécifiques PEB
+
+        END;
+        //<<WMS-FE008_15.001
+    end;
+
+
+    procedure "---FE_ProdConnect.002---"()
+    begin
+    end;
+
+
+    procedure FctGetHeaderArchiveXml(RecPConnectorVal: Record "PWD Connector Values"; TxtPValue: Text[250]; var RecLTempBlob: Record TempBlob)
+    var
+        RecLSendingMessage: Record "PWD Connector Messages";
+        RecLSalesHeaderArchive: Record "Sales Header Archive";
+        BigTLToReturn: BigText;
+        TxtLQtyWithoutSpace: Text[250];
+        StrLStreamOut: OutStream;
+    begin
+        //**********************************************************************************************************//
+        //                                           Return Invoice Header                                          //
+        //                                                                                                          //
+        // Parameters:                                                                                              //
+        // RecPconnectorValue: buffer Table                                                                         //
+        // TxtPValue: Order No.                                                                                     //
+        // RecLTempBlob: Blob used temporary                                                                        //
+        //**********************************************************************************************************//
+
+        //>>FE_ProdConnect.002
+        RecLSalesHeaderArchive.SETCURRENTKEY("Document Type", "No.", "Doc. No. Occurrence", "Version No.");
+        RecLSalesHeaderArchive.SETRANGE("Document Type", RecLSalesHeaderArchive."Document Type"::Order);
+        RecLSalesHeaderArchive.SETRANGE("No.", TxtPValue);
+        IF NOT RecLSalesHeaderArchive.ISEMPTY THEN BEGIN
+            RecLSalesHeaderArchive.FINDLAST;
+            RecLSalesHeaderArchive.SETRANGE("Doc. No. Occurrence", RecLSalesHeaderArchive."Doc. No. Occurrence");
+            RecLSalesHeaderArchive.SETRANGE("Version No.", RecLSalesHeaderArchive."Version No.");
+            RecLSendingMessage.RESET;
+            RecLSendingMessage.SETRANGE("Partner Code", RecPConnectorVal."Partner Code");
+            RecLSendingMessage.SETRANGE("Function", RecPConnectorVal."Function");
+            RecLSendingMessage.SETRANGE("Table ID", DATABASE::"Sales Header Archive");
+            RecLSendingMessage.FINDFIRST;
+            CduGConnectBufMgtExport.FctCreateXml(RecLSalesHeaderArchive.GETVIEW, RecLSendingMessage, RecLTempBlob, TRUE);
+        END
+        ELSE
+            ERROR(TxtGError);
+        //<<FE_ProdConnect.002
+    end;
+
+
+    procedure FctGetLineArchiveXml(RecPConnectorVal: Record "PWD Connector Values"; TxtPValue: Text[250]; var RecLTempBlob: Record TempBlob)
+    var
+        RecLSendingMessage: Record "PWD Connector Messages";
+        RecLSalesLineArchive: Record "Sales Line Archive";
+        RecLSalesHeaderArchive: Record "Sales Header Archive";
+        BigTLToReturn: BigText;
+        TxtLQtyWithoutSpace: Text[250];
+        StrLStreamOut: OutStream;
+    begin
+        //**********************************************************************************************************//
+        //                                           Return Invoice Lines                                           //
+        //                                                                                                          //
+        // Parameters:                                                                                              //
+        // RecPconnectorValue: buffer Table                                                                         //
+        // TxtPValue: Order No.                                                                                     //
+        // RecLTempBlob: Blob used temporary                                                                        //
+        //**********************************************************************************************************//
+
+        //>>FE_ProdConnect.002
+        RecLSalesHeaderArchive.SETCURRENTKEY("Document Type", "No.", "Doc. No. Occurrence", "Version No.");
+        RecLSalesHeaderArchive.SETRANGE("Document Type", RecLSalesHeaderArchive."Document Type"::Order);
+        RecLSalesHeaderArchive.SETRANGE("No.", TxtPValue);
+        IF NOT RecLSalesHeaderArchive.ISEMPTY THEN BEGIN
+            RecLSalesHeaderArchive.FINDLAST;
+            RecLSalesLineArchive.SETRANGE("Document Type", RecLSalesLineArchive."Document Type"::Order);
+            RecLSalesLineArchive.SETRANGE("Document No.", RecLSalesHeaderArchive."No.");
+            RecLSalesLineArchive.SETRANGE("Doc. No. Occurrence", RecLSalesHeaderArchive."Doc. No. Occurrence");
+            RecLSalesLineArchive.SETRANGE("Version No.", RecLSalesHeaderArchive."Version No.");
+            IF NOT RecLSalesLineArchive.ISEMPTY THEN BEGIN
+                RecLSendingMessage.RESET;
+                RecLSendingMessage.SETRANGE("Partner Code", RecPConnectorVal."Partner Code");
+                RecLSendingMessage.SETRANGE("Function", RecPConnectorVal."Function");
+                RecLSendingMessage.SETRANGE("Table ID", DATABASE::"Sales Line Archive");
+                RecLSendingMessage.FINDFIRST;
+                CduGConnectBufMgtExport.FctCreateXml(RecLSalesLineArchive.GETVIEW, RecLSendingMessage, RecLTempBlob, FALSE);
+            END;
+        END;
+        //<<FE_ProdConnect.002
+    end;
+}
+
