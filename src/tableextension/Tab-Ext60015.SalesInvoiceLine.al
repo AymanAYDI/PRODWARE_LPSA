@@ -1,5 +1,6 @@
 tableextension 60015 "PWD SalesInvoiceLine" extends "Sales Invoice Line"
 {
+    DrillDownPageId = "Posted Sales Invoice Lines";
     // +----------------------------------------------------------------------------------------------------------------+
     // | ProdWare - Pôle Expertise Edition                                                                              |
     // | www.prodware.fr                                                                                                |
@@ -73,6 +74,13 @@ tableextension 60015 "PWD SalesInvoiceLine" extends "Sales Invoice Line"
             Description = 'ProdConnect1.5';
             Editable = false;
             FieldClass = FlowField;
+        }
+    }
+    keys
+    {
+        key(Key50000; Type, "No.")
+        {
+            SumIndexFields = "Quantity (Base)";
         }
     }
 }

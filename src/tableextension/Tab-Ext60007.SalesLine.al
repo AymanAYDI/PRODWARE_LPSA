@@ -122,12 +122,10 @@ tableextension 60007 "PWD SalesLine" extends "Sales Line"
             Editable = false;
             FieldClass = FlowField;
         }
-        field(8073282; "PWD WMS_Status"; Option)
+        field(8073282; "PWD WMS_Status"; Enum "PWD Status")
         {
             Caption = 'WMS_Status';
             Description = 'ProdConnect1.5';
-            OptionCaption = ' ,Send,Shipped';
-            OptionMembers = " ",Send,Received;
         }
         field(8073283; "PWD WMS_Status_Header"; Enum "Sales Document Status")
         {
@@ -174,5 +172,31 @@ tableextension 60007 "PWD SalesLine" extends "Sales Line"
         //     SumIndexFields = "Outstanding Qty. (Base)";
         // }
     }
+    procedure FctDefaultQuantityIfWMS();
+    var
+        RecLLocation: Record Location;
+    begin
+        if RecLLocation.GET("Location Code") AND RecLLocation."PWD WMS_Location" then begin
+            if ("Document Type" = "Document Type"::Order) OR ("Document Type" = "Document Type"::Quote) then begin
+                "Qty. to Ship" := 0;
+                "Qty. to Ship (Base)" := 0;
+                "Qty. to Invoice" := 0;
+                "Qty. to Invoice (Base)" := 0;
+            end;
+            if "Document Type" = "Document Type"::"Return Order" then begin
+                "Return Qty. to Receive" := 0;
+                "Return Qty. to Receive (Base)" := 0;
+                "Qty. to Invoice" := 0;
+                "Qty. to Invoice (Base)" := 0;
+            end;
+        end;
+    end;
+
+    procedure FctFromImport(BooPFromImport: Boolean)
+    var
+        BooGFromImport: Boolean;
+    begin
+        BooGFromImport := BooPFromImport;
+    end;
 }
 

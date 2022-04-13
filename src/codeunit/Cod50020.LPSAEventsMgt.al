@@ -131,4 +131,70 @@ codeunit 50020 "PWD LPSA Events Mgt."
         Rec."Planned Delivery Date" := Rec."Shipment Date";
         Rec."Planned Shipment Date" := Rec."Shipment Date";
     end;
+
+    [EventSubscriber(ObjectType::table, database::"Sales Line", 'OnAfterValidateEvent', 'Description', false, false)]
+    local procedure TAB37_OnAfterValidateEvent_SalesLine_Description(var Rec: Record "Sales Line"; var xRec: Record "Sales Line"; CurrFieldNo: Integer)
+    begin
+        IF Rec."PWD LPSA Description 1" = '' THEN
+            Rec."PWD LPSA Description 1" := Rec.Description;
+    end;
+
+    [EventSubscriber(ObjectType::table, database::"Sales Line", 'OnAfterValidateEvent', 'Description 2', false, false)]
+    local procedure TAB37_OnAfterValidateEvent_SalesLine_Description2(var Rec: Record "Sales Line"; var xRec: Record "Sales Line"; CurrFieldNo: Integer)
+    begin
+        IF Rec."PWD LPSA Description 2" = '' THEN
+            Rec."PWD LPSA Description 2" := Rec."Description 2";
+    end;
+
+    [EventSubscriber(ObjectType::table, database::"Sales Line", 'OnAfterValidateEvent', 'Promised Delivery Date', false, false)]
+    local procedure TAB37_OnAfterValidateEvent_SalesLine_PromisedDeliveryDate(var Rec: Record "Sales Line"; var xRec: Record "Sales Line"; CurrFieldNo: Integer)
+    begin
+        IF Rec."Promised Delivery Date" = 0D THEN
+            Rec.VALIDATE(Rec."Requested Delivery Date");
+    end;
+
+    [EventSubscriber(ObjectType::table, database::"Sales Line", 'OnAfterValidateEvent', 'Planned Delivery Date', false, false)]
+    local procedure TAB37_OnAfterValidateEvent_SalesLine_PlannedDeliveryDate(var Rec: Record "Sales Line"; var xRec: Record "Sales Line"; CurrFieldNo: Integer)
+    begin
+        Rec."Shipment Date" := Rec."Planned Delivery Date";
+        Rec."Planned Shipment Date" := Rec."Planned Delivery Date";
+    end;
+
+    [EventSubscriber(ObjectType::table, database::"Sales Line", 'OnBeforeUpdateDates', '', false, false)]
+    local procedure TAB37_OnBeforeUpdateDates_SalesLine(var SalesLine: Record "Sales Line"; var IsHandled: Boolean)
+    var
+        PlannedShipmentDateCalculated: Boolean;
+        PlannedDeliveryDateCalculated: Boolean;
+    begin
+        // IsHandled := true;
+        // if CurrFieldNo = 0 then begin
+        //     PlannedShipmentDateCalculated := false;
+        //     PlannedDeliveryDateCalculated := false;
+        // end;
+    end;
+
+    [EventSubscriber(ObjectType::table, database::"Sales Line", 'OnAfterSetDefaultQuantity', '', false, false)]
+    local procedure TAB37_OnAfterSetDefaultQuantity_SalesLine(var SalesLine: Record "Sales Line"; var xSalesLine: Record "Sales Line")
+    begin
+        SalesLine.FctDefaultQuantityIfWMS();
+    end;
+    //---Tab83---
+    [EventSubscriber(ObjectType::table, database::"Item Journal Line", 'OnValidateItemNoOnBeforeSetDescription', '', false, false)]
+    local procedure TAB83_OnValidateItemNoOnBeforeSetDescription_ItemJournalLine(var ItemJournalLine: Record "Item Journal Line"; Item: Record Item)
+    begin
+        Item.TESTFIELD("PWD Phantom Item", FALSE);
+    end;
+
+    [EventSubscriber(ObjectType::table, database::"Item Journal Line", 'OnAfterCopyFromWorkCenter', '', false, false)]
+    local procedure TAB83_OnAfterCopyFromWorkCenter_ItemJournalLine(var ItemJournalLine: Record "Item Journal Line"; WorkCenter: Record "Work Center")
+    var
+        ManufSetup: Record "Manufacturing Setup";
+    //RecLProdOrderLine: Record "Prod. Order Line";
+    begin
+        ManufSetup.GET;
+        IF ItemJournalLine."Work Center No." = ManufSetup."Mach. center - Inventory input" THEN
+            ItemJournalLine.VALIDATE("Location Code", ManufSetup."Non conformity Prod. Location")
+        ELSE
+            ItemJournalLine.VALIDATE("Location Code", ItemJournalLine.FctGetProdOrderLine(ItemJournalLine."Order No.", ItemJournalLine."Order Line No."));
+    end;
 }
