@@ -1,5 +1,7 @@
 tableextension 60033 "PWD SalesLineArchive" extends "Sales Line Archive"
 {
+    LookupPageId = "PWD Archive Sales Lines";
+    DrillDownPageId = "PWD Archive Sales Lines";
     // +----------------------------------------------------------------------------------------------------------------+
     // | ProdWare - Pôle Expertise Edition                                                                              |
     // | www.prodware.fr                                                                                                |
@@ -63,6 +65,12 @@ tableextension 60033 "PWD SalesLineArchive" extends "Sales Line Archive"
             Editable = false;
             FieldClass = FlowField;
         }
+    }
+    keys
+    {
+        key(Key50000; "Document Type", Type, "No.") { SumIndexFields = Quantity, "Quantity Invoiced"; }
+        key(Key50001; "Document Type", "No.", Type, "Location Code") { SumIndexFields = "Quantity Invoiced"; }
+        key(Key50002; "Document Type", "Location Code", "No.", Type, "Shipment Date") { SumIndexFields = "Quantity Invoiced"; }
     }
 }
 

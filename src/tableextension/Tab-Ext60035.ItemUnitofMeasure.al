@@ -13,11 +13,9 @@ tableextension 60035 "PWD ItemUnitofMeasure" extends "Item Unit of Measure"
     // +----------------------------------------------------------------------------------------------------------------+
     fields
     {
-        field(8073282; "PWD WMS_Type"; Option)
+        field(8073282; "PWD WMS_Type"; Enum "PWD Type")
         {
             Caption = 'WMS_Type';
-            OptionCaption = ' ,UVC,Cardboard,Layer,Pallet';
-            OptionMembers = ,UVC,Carton,Couche,Palette;
         }
         field(8073283; "PWD WMS_Stackable"; Boolean)
         {

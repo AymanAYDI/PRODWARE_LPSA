@@ -1,5 +1,6 @@
 tableextension 60007 "PWD SalesLine" extends "Sales Line"
 {
+    //TODO: 1- Suppression des instructions standard dans la table Sales Line, 2- modification dans la procedure UpdateUnitPrice, 3- modification dans la procedure CheckItemAvailable
     // +----------------------------------------------------------------------------------------------------------------+
     // | ProdWare                                                                                                       |
     // | www.prodware.fr                                                                                                |
@@ -163,7 +164,7 @@ tableextension 60007 "PWD SalesLine" extends "Sales Line"
         key(Key50000; "Shipment Date")
         {
         }
-        //TODO
+        //TODO: clé contient champ standard
         // key(Key50001; "Document Type", "Sell-to Customer No.", "PWD Cust Promised Delivery Date")
         // {
         // }

@@ -1,5 +1,7 @@
 tableextension 60023 "PWD RequisitionLine" extends "Requisition Line"
 {
+    //TODO: 1- ajout d'un champ PlanningGroup qui a un tablerelation avec la table PlannerOnePlanningGroup,
+    // 2- a verifier : modify la propriété InitValue a false pour le champ "Planning Flexibility"
     // +----------------------------------------------------------------------------------------------------------------+
     // | ProdWare                                                                                                       |
     // | www.prodware.fr                                                                                                |
@@ -53,6 +55,16 @@ tableextension 60023 "PWD RequisitionLine" extends "Requisition Line"
             FieldClass = FlowField;
             MinValue = 0;
         }
+    }
+    keys
+    {
+        key(Key50000; "Worksheet Template Name", "Journal Batch Name", Type, "Due Date", "No.")
+        {
+        }
+        key(Key50001; "Worksheet Template Name", "Journal Batch Name", "Starting Date", "No.", "Location Code")
+        {
+        }
+
     }
 }
 

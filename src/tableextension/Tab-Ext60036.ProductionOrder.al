@@ -1,5 +1,9 @@
 tableextension 60036 "PWD ProductionOrder" extends "Production Order"
 {
+    //TODO: 1- suppression une instruction standard dans le champ Description, 
+    //TODO: 2- les modifications dans Onvalidate de champ "Due Date"
+    //TODO: 3: la modification dans la procedure DeleteRelations (utilise la table PlannerOneProdOrderLink et le codeunit 1)
+    //TODO: 4: la modification dans la procedure DeleteFnshdProdOrderRelations(utilise la table PlannerOneProdOrderLink et le codeunit 1)
     // +----------------------------------------------------------------------------------------------------------------+
     // | ProdWare                                                                                                       |
     // | www.prodware.fr                                                                                                |
@@ -65,20 +69,22 @@ tableextension 60036 "PWD ProductionOrder" extends "Production Order"
         field(50003; "PWD Selection"; Boolean)
         {
         }
-        //TODO        // field(50004; "PWD Prod. Starting Date-Time"; DateTime)
-        // {
-        //     CalcFormula = Min("Prod. Order Line"."PWD Prod. Starting Date-Time" WHERE(Status = FIELD(Status), "Prod. Order No." = FIELD("No.")));
-        //     Caption = 'Prod. Starting Date-Time';
-        //     Description = 'Starting Date-Time of the first operation as planned in PlannerOne.';
-        //     FieldClass = FlowField;
-        // }
-        // field(50005; "PWD Prod. Ending Date-Time"; DateTime)
-        // {
-        //     CalcFormula = Max("Prod. Order Line"."PWD Prod. Ending Date-Time" WHERE(Status = FIELD(Status), "Prod. Order No." = FIELD("No.")));
-        //     Caption = 'Prod. Ending Date-Time';
-        //     Description = 'Ending Date-Time of the last operation as planned in PlannerOne.';
-        //     FieldClass = FlowField;
-        // }
+        field(50004; "PWD Prod. Starting Date-Time"; DateTime)
+        {
+            //TODO le table extension de "Prod. Order Line" n'existe pas      
+            //CalcFormula = Min("Prod. Order Line"."PWD Prod. Starting Date-Time" WHERE(Status = FIELD(Status), "Prod. Order No." = FIELD("No.")));
+            Caption = 'Prod. Starting Date-Time';
+            Description = 'Starting Date-Time of the first operation as planned in PlannerOne.';
+            FieldClass = FlowField;
+        }
+        field(50005; "PWD Prod. Ending Date-Time"; DateTime)
+        {
+            //TODO le table extension de "Prod. Order Line" n'existe pas      
+            //CalcFormula = Max("Prod. Order Line"."PWD Prod. Ending Date-Time" WHERE(Status = FIELD(Status), "Prod. Order No." = FIELD("No.")));
+            Caption = 'Prod. Ending Date-Time';
+            Description = 'Ending Date-Time of the last operation as planned in PlannerOne.';
+            FieldClass = FlowField;
+        }
         field(50006; "PWD Indicator"; BLOB)
         {
             Caption = 'Component availability';
@@ -126,6 +132,101 @@ tableextension 60036 "PWD ProductionOrder" extends "Production Order"
             OptionCaption = ' ,DJEVA,RSA,MIXTE';
             OptionMembers = " ",DJEVA,RSA,MIXTE;
         }
+        field(8076509; "PWD End Date Objective"; DateTime)
+        {
+            Caption = 'Target End Date';
+            trigger OnValidate()
+            begin
+                IF "PWD End Date Objective" = 0DT THEN BEGIN
+                    //TODO: "Ending Date", "Ending Time" are marked for removal
+                    //"PWD End Date Objective" := CREATEDATETIME("Ending Date", "Ending Time");
+                END;
+            end;
+        }
     }
-}
+    keys
+    {
+        key(Key50000; "Due Date", "Source No.") { }
+        key(Key50001; "PWD Component No.") { }
+        //TODO: "Starting Date" is marked for removal
+        //key(Key50002; "Starting Date") { }
+    }
+    procedure ResendProdOrdertoQuartis()
+    var
+        ProdOrderLine: Record "Prod. Order Line";
+    begin
+        if (Status = Status::Released) then begin
+            ProdOrderLine.SETRANGE(Status, Status);
+            ProdOrderLine.SETRANGE("Prod. Order No.", "No.");
+            if ProdOrderLine.FINDFIRST then
+                REPEAT
+                    ProdOrderLine.ResendProdOrdertoQuartis;
+                UNTIL ProdOrderLine.NEXT = 0;
+        end;
+    end;
 
+    PROCEDURE CheckComponentAvailabilty() IsNotAvailable: Boolean;
+    VAR
+        BooLIsNotAvailable: Boolean;
+        ProdOrderLine: Record "Prod. Order Line";
+    BEGIN
+        BooLIsNotAvailable := FALSE;
+        ProdOrderLine.RESET;
+        ProdOrderLine.SETRANGE(Status, Status);
+        ProdOrderLine.SETRANGE("Prod. Order No.", "No.");
+        IF ProdOrderLine.FINDFIRST THEN
+            REPEAT
+                BooLIsNotAvailable := ProdOrderLine.CheckComponentAvailabilty;
+            UNTIL (BooLIsNotAvailable) OR (ProdOrderLine.NEXT = 0);
+        EXIT(BooLIsNotAvailable);
+    END;
+
+    PROCEDURE ComponentInv() Qty: Decimal;
+    VAR
+        RecLProdOrderComponent: Record 5407;
+        RecLItem: Record 27;
+        DecLInv: Decimal;
+    BEGIN
+        DecLInv := 0;
+        RecLProdOrderComponent.RESET;
+        RecLProdOrderComponent.SETRANGE(Status, Status);
+        RecLProdOrderComponent.SETRANGE("Prod. Order No.", "No.");
+        IF RecLProdOrderComponent.FINDFIRST THEN
+            REPEAT
+                RecLItem.GET(RecLProdOrderComponent."Item No.");
+                RecLItem.SETFILTER("Location Filter", '=%1', RecLProdOrderComponent."Location Code");
+                RecLItem.CALCFIELDS(Inventory);
+                DecLInv += RecLItem.Inventory;
+            UNTIL RecLProdOrderComponent.NEXT = 0;
+        EXIT(DecLInv);
+    END;
+
+    PROCEDURE FctPrintPDF();
+    VAR
+        //TODO: Automation
+        // WshShell: Automation "{F935DC20-1CF0-11D0-ADB9-00C04FD58A0B} 1.0:{72C24DD5-D70A-438B-8A42-98424B88AFB8}:'Windows Script Host Object Model'.WshShell";
+        ManufacturingSetup: Record "Manufacturing Setup";
+        RecordLink: Record "Record Link";
+        RecordIDLink: RecordID;
+    BEGIN
+        IF "Source Type" = "Source Type"::Item THEN BEGIN
+            ManufacturingSetup.GET;
+            //TODO: "PDF Exe Path" champ spécifique dans la table "Manufacturing Setup"
+            //ManufacturingSetup.TESTFIELD("PDF Exe Path");
+            EVALUATE(RecordIDLink, 'Item: ' + "Source No.");
+            RecordLink.RESET;
+            RecordLink.SETRANGE("Record ID", RecordIDLink);
+            RecordLink.SETRANGE(Type, RecordLink.Type::Link);
+            RecordLink.SETFILTER(Description, "Source No." + '*');
+            //TODO
+            //CREATE(WshShell, FALSE, TRUE);
+            // IF RecordLink.FINDFIRST THEN
+            //     REPEAT
+            //         // On vérifie que le fichier est bien un PDF
+            //         IF UPPERCASE(COPYSTR(RecordLink.Description, STRLEN(RecordLink.Description) - 3, 4)) = '.PDF' THEN
+            //             WshShell.Run('"' + ManufacturingSetup."PDF Exe Path" + '" /t "' + RecordLink.URL1 + '"');
+            //     //MEssage('"%1" /t "%2"',RecLManufacturingSetup."PDF Exe Path",RecLRecordLink.URL1);
+            //     UNTIL RecordLink.NEXT = 0;
+        END;
+    END;
+}
