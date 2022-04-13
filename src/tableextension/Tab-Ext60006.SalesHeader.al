@@ -92,5 +92,16 @@ tableextension 60006 "PWD SalesHeader" extends "Sales Header"
             OptionMembers = " ",Send,Received;
         }
     }
+    PROCEDURE FctIsImport(BooPDontExecuteIfImport: Boolean);
+    var
+        DontExecuteIfImport: Boolean;
+    BEGIN
+        //>>WMS-FE05.001
+        DontExecuteIfImport := BooPDontExecuteIfImport;
+        //<<WMS-FE05.001
+    END;
+
+
+
 }
 
