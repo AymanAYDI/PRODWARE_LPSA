@@ -55,12 +55,15 @@ tableextension 60005 "PWD ItemLedgerEntry" extends "Item Ledger Entry"
     }
     keys
     {
-
-        key(Key50000; "Item No.", "Prod. Order No.", "Entry Type")
+        key(Key50000; Open, "Item Tracking", "Item No.", "Variant Code", "Lot No.", "Serial No.")
+        {
+            SumIndexFields = "Remaining Quantity";
+        }
+        key(Key50001; "Item No.", "Prod. Order No.", "Entry Type")
         {
             SumIndexFields = Quantity;
         }
-        key(Key50001; "Item No.", "Posting Date", "Entry Type", "Variant Code", "Drop Shipment", "Location Code")
+        key(Key50002; "Item No.", "Posting Date", "Entry Type", "Variant Code", "Drop Shipment", "Location Code")
         {
         }
     }
