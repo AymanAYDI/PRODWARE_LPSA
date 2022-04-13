@@ -131,5 +131,37 @@ tableextension 60009 "PWD PurchaseLine" extends "Purchase Line"
             Editable = false;
         }
     }
+
+
+    PROCEDURE FctFromImport(BooPFromImport: Boolean);
+    var
+        BooGFromImport: Boolean;
+    BEGIN
+        //>>WMS-FE05.001
+        BooGFromImport := BooPFromImport;
+        //<<WMS-FE05.001
+    END;
+
+    PROCEDURE FctDefaultQuantityIfWMS();
+    VAR
+        RecLLocation: Record 14;
+    BEGIN
+        //>>WMS-FE05.001
+        IF RecLLocation.GET("Location Code") AND RecLLocation."PWD WMS_Location" THEN BEGIN
+            IF ("Document Type" = "Document Type"::Order) OR ("Document Type" = "Document Type"::Quote) THEN BEGIN
+                "Qty. to Receive" := 0;
+                "Qty. to Receive (Base)" := 0;
+                "Qty. to Invoice" := 0;
+                "Qty. to Invoice (Base)" := 0;
+            END;
+            IF "Document Type" = "Document Type"::"Return Order" THEN BEGIN
+                "Return Qty. to Ship" := 0;
+                "Return Qty. to Ship (Base)" := 0;
+                "Qty. to Invoice" := 0;
+                "Qty. to Invoice (Base)" := 0;
+            END;
+        END;
+        //<<WMS-FE05.001
+    END;
 }
 
