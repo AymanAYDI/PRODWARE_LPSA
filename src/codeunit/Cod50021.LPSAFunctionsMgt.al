@@ -23,7 +23,6 @@ codeunit 50021 "PWD LPSA Functions Mgt."
         RecLComment: Record 97;
         PageLCommentSheet: Page 124;
     begin
-
         //>>TDL.LPSA.20.04.15
         RecLComment.RESET;
         RecLComment.SETRANGE("Table Name", RecLComment."Table Name"::Customer);
@@ -33,8 +32,6 @@ codeunit 50021 "PWD LPSA Functions Mgt."
             PageLCommentSheet.SETTABLEVIEW(RecLComment);
             PageLCommentSheet.RUNMODAL;
         END;
-
         //<<TDL.LPSA.20.04.15
-
     end;
 }
