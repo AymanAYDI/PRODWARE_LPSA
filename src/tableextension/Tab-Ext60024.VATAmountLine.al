@@ -11,6 +11,9 @@ tableextension 60024 "PWD VATAmountLine" extends "VAT Amount Line"
     // 
     // ------------------------------------------------------------------------------------------------------------------
     procedure VATAmountText2(): Text[50]
+
+    var
+        CstG001: Label '%1% VAT for %2';
     begin
         //>>FED-LAPIERRETTE-VTE-02-Documents Vente-V5
         if Find('-') then
@@ -20,7 +23,6 @@ tableextension 60024 "PWD VATAmountLine" extends "VAT Amount Line"
         //<<FED-LAPIERRETTE-VTE-02-Documents Vente-V5
     end;
 
-    var
-        CstG001: Label '%1% VAT for %2';
+
 }
 

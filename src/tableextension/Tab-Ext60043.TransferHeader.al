@@ -42,7 +42,7 @@ tableextension 60043 "PWD TransferHeader" extends "Transfer Header"
                     Error(CstG001);
 
 
-                if "Sales Order No." = '' then
+                if "PWD Sales Order No." = '' then
                     "FillTransfer-to info Location"
                 else
                     "FillTransfer-to info with cmd";
@@ -50,7 +50,7 @@ tableextension 60043 "PWD TransferHeader" extends "Transfer Header"
         }
     }
 
-    procedure "FillTransfer-to info with cmd"()
+    procedure "FillTransfer-to info with cmd"()  //TODO: Lappel de la fonction n'est pas possible, il y'a pas un evenement liée
     var
         RecLSalesHeader: Record "Sales Header";
     begin
@@ -67,10 +67,12 @@ tableextension 60043 "PWD TransferHeader" extends "Transfer Header"
         end;
     end;
 
-    procedure "FillTransfer-to info Location"()
+    procedure "FillTransfer-to info Location"()  //TODO: Lappel de la fonction n'est pas possible, il y'a pas un evenement liée
     var
         Location: Record Location;
         Confirmed: Boolean;
+        TransferRoute: Record "Transfer Route";
+        TransLine: Record "Transfer Line";
     begin
 
         if Location.Get("Transfer-to Code") then begin
