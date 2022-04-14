@@ -358,6 +358,7 @@ codeunit 50020 "PWD LPSA Events Mgt."
         IF ItemJournalLine."Work Center No." = ManufSetup."Mach. center - Inventory input" THEN
             ItemJournalLine.VALIDATE("Location Code", ManufSetup."Non conformity Prod. Location")
         ELSE
+            //TODO: A vérifier le champ "Prod. Order No." devient "Order No." et le champ"Prod. Order Line No." devient " Order Line No."
             ItemJournalLine.VALIDATE("Location Code", ItemJournalLine.FctGetProdOrderLine(ItemJournalLine."Order No.", ItemJournalLine."Order Line No."));
     end;
     //---TAB111---
@@ -389,10 +390,6 @@ codeunit 50020 "PWD LPSA Events Mgt."
     // PlannerOneSetup: Record 8076502; //TODO: La table 8076502 n'existe pas 
     // Text001: Label 'The time base unit for PlannerOne cannot be deleted.';
     begin
-        if not RunTrigger then
-            exit;
-        if Rec.IsTemporary then
-            exit;
         // // PLAW12.0 Prevent deletion of Time Base Unit
         // // PLAW12.2 Check LICENSE
         // IF ApplicationManagement.CheckPlannerOneLicence THEN
@@ -400,6 +397,45 @@ codeunit 50020 "PWD LPSA Events Mgt."
         //         ERROR(Text001);
         // // PLAW12.0 End
     end;
+
+
+    //---TAB121---
+    [EventSubscriber(ObjectType::table, database::"Purch. Rcpt. Line", 'OnBeforeInsertInvLineFromRcptLineBeforeInsertTextLine', '', false, false)]
+    local procedure TAB121_OnBeforeInsertInvLineFromRcptLineBeforeInsertTextLine_PurchRcptLine(var PurchRcptLine: Record "Purch. Rcpt. Line"; var PurchLine: Record "Purchase Line"; var NextLineNo: Integer; var Handled: Boolean)
+    var
+        Text000: Label 'Receipt No. %1:';
+    begin
+        PurchLine."PWD LPSA Description 1" := STRSUBSTNO(Text000, PurchRcptLine."Document No.");
+    end;
+
+    [EventSubscriber(ObjectType::table, database::"Purch. Rcpt. Line", 'OnBeforeInsertInvLineFromRcptLine', '', false, false)]
+    local procedure TAB121_OnBeforeInsertInvLineFromRcptLine_PurchRcptLine(var PurchRcptLine: Record "Purch. Rcpt. Line"; var PurchLine: Record "Purchase Line"; PurchOrderLine: Record "Purchase Line"; var IsHandled: Boolean)
+    begin
+        PurchLine."PWD LPSA Description 1" := PurchRcptLine."PWD LPSA Description 1";
+        PurchLine."PWD LPSA Description 2" := PurchRcptLine."PWD LPSA Description 2";
+    end;
+    //---TAB246---
+    [EventSubscriber(ObjectType::table, database::"Requisition Line", 'OnAfterValidateEvent', 'Routing No.', false, false)]
+    local procedure TAB246_OnAfterValidateEvent_RequisitionLine_RoutingNo(var Rec: Record "Requisition Line"; var xRec: Record "Requisition Line"; CurrFieldNo: Integer)
+    var
+        RoutingHeader: Record "Routing Header";
+    begin
+        //TODO: champ PlanningGroup n'existe pas car a un table relation avec la table PlannerOnePlanningGroup
+        //Rec.PlanningGroup := RoutingHeader.PlanningGroup;
+    end;
+    //---TAB5404---
+    [EventSubscriber(ObjectType::Table, Database::"Item Unit of Measure", 'OnAfterModifyEvent', '', false, false)]
+    local procedure TAB5404_OnAfterModifyEvent_ItemUnitofMeasure(var Rec: Record "Item Unit of Measure"; var xRec: Record "Item Unit of Measure"; RunTrigger: Boolean)
+    var
+        OSYSSetup: Record "PWD OSYS Setup";
+    begin
+        if not RunTrigger then
+            exit;
+        if Rec.IsTemporary then
+            exit;
+        OSYSSetup.FctUnitOfMeasureModify(xRec, Rec);
+    end;
+
     //---TAB205---
     [EventSubscriber(ObjectType::table, database::"Resource Unit of Measure", 'OnBeforeDeleteEvent', '', false, false)]
     local procedure TAB205_OnBeforeDeleteEvent_ResourceUnitOfMeasure(var Rec: Record "Resource Unit of Measure"; RunTrigger: Boolean)
@@ -531,9 +567,63 @@ codeunit 50020 "PWD LPSA Events Mgt."
             Rec."Description 2" := Rec."PWD LPSA Description 2";
         //<<FE_LAPIERRETTE_ART02.001
     end;
+    //---TAB5405---
+    [EventSubscriber(ObjectType::Table, Database::"Production Order", 'OnBeforeAssignItemNo', '', false, false)]
+    local procedure TAB5405_OnBeforeAssignItemNo_ProductionOrder(var ProdOrder: Record "Production Order"; xProdOrder: Record "Production Order"; var Item: Record Item; CallingFieldNo: Integer)
+    begin
+        ProdOrder."Search Description" := Item."Search Description";
+    end;
+    //TODO: utilise la table PlannerOneSetup et le codeunit 1
+    [EventSubscriber(ObjectType::table, database::"Production Order", 'OnbeforeValidateEvent', 'Due Date', false, false)]
+    local procedure TAB5405_OnbeforeValidateEvent_ProductionOrder_DueDate(var Rec: Record "Production Order"; var xRec: Record Item; CurrFieldNo: Integer)
+    var
+    // PlannerOneSetup: Record PlannerOneSetup;
+    // PlannerOneUtil: Codeunit 8076503;
+    // ApplicationManagement: Codeunit 1;
+    // loggedUser: Code[250];
+    begin
+        // IF ApplicationManagement.CheckPlannerOneLicence THEN
+        //     IF PlannerOneSetup.FINDFIRST() THEN BEGIN
+        //         loggedUser := USERID; // UPPERCASE
+        //         IF loggedUser = PlannerOneSetup.PlannerOneTechUser THEN BEGIN
+        //             // Update "Due Date" from Production Order Line
+        //             IF PlannerOneUtil.OverwriteProdOrderLineDates(Rec.Status) THEN BEGIN
+        //                 ProdOrderLine.SETCURRENTKEY(Rec.Status, "Prod. Order No.", "Planning Level Code");
+        //                 ProdOrderLine.ASCENDING(TRUE);
+        //                 ProdOrderLine.SETRANGE(Rec.Status, Rec.Status);
+        //                 ProdOrderLine.SETRANGE("Prod. Order No.", Rec."No.");
+        //                 ProdOrderLine.SETFILTER("Item No.", '<>%1', '');
+        //                 IF ProdOrderLine.FINDFIRST() THEN
+        //                     Rec."Due Date" := ProdOrderLine."Due Date";
+        //                 Rec.AdjustStartEndingDate;
+        //             END;
+        //             EXIT;
+        //         END;
+        //     END;
+    end;
 
+    [EventSubscriber(ObjectType::Table, Database::"Production Order", 'OnAfterInitRecord', '', false, false)]
+    local procedure TAB5405_OnAfterInitRecord_ProductionOrder(var ProductionOrder: Record "Production Order")
+    begin
+        ProductionOrder.VALIDATE("PWD End Date Objective", 0DT);
+    end;
+
+    [EventSubscriber(ObjectType::Table, Database::"Production Order", 'OnAfterUpdateDateTime', '', false, false)]
+    local procedure TAB5405_OnAfterUpdateDateTime_ProductionOrder(var ProductionOrder: Record "Production Order"; var xProductionOrder: Record "Production Order"; CallingFieldNo: Integer)
+    begin
+        ProductionOrder.VALIDATE("PWD End Date Objective");
+    end;
+
+    [EventSubscriber(ObjectType::Table, Database::"Production Order", 'OnUpdateEndingDateOnBeforeCalcProdOrderRecalculate', '', false, false)]
+    local procedure TAB5405_OnUpdateEndingDateOnBeforeCalcProdOrderRecalculate_ProductionOrder(var ProdOrderLine: Record "Prod. Order Line")
+    begin
+        //TODO: "End Date Objective", "Earliest Start Date": les deux champs n'existe pas
+        // ProdOrderLine.VALIDATE("End Date Objective", 0DT);
+        // ProdOrderLine.VALIDATE("Earliest Start Date", 0D);
+    end;
 
     var
         DontExecuteIfImport: Boolean;
         BooGFromImport: Boolean;
+
 }

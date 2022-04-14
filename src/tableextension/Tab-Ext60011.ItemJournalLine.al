@@ -1,5 +1,6 @@
 tableextension 60011 "PWD ItemJournalLine" extends "Item Journal Line"
 {
+    //TODO: modification dans procedure OpenItemTrackingLines à faire
     // +----------------------------------------------------------------------------------------------------------------------------------+
     // | ProdWare                                                                                                                         |
     // | www.prodware.fr                                                                                                                  |
@@ -45,44 +46,6 @@ tableextension 60011 "PWD ItemJournalLine" extends "Item Journal Line"
             Caption = 'Conform quality control';
             Description = 'LAP1.00';
             InitValue = true;
-
-            trigger OnValidate()
-            var
-                RecLProdOrderLine: Record "Prod. Order Line";
-                RecLManufSetup: Record "Manufacturing Setup";
-                RecLProductionOrder: Record "Production Order";
-            begin
-                //>>FE_LAPIERRETTE_PRO12.001
-                /*
-                //>>FE_LAPIERRETTE_PROD03.002
-                //>>FE_LAPIERRETTE_PROD03.001
-                TESTFIELD("Entry Type","Entry Type"::Output);
-                IF "Conform quality control" THEN
-                BEGIN
-                  IF RecLProductionOrder.GET(RecLProductionOrder.Status::Released,"Prod. Order No.") THEN
-                  BEGIN
-                    IF RecLProdOrderLine.GET(RecLProdOrderLine.Status::Released,
-                    "Prod. Order No.","Prod. Order Line No.") THEN
-                    BEGIN
-                
-                      RecLProdOrderLine.VALIDATE("Location Code",RecLProductionOrder."Location Code");
-                      RecLProdOrderLine.MODIFY(TRUE);
-                      "Location Code" := RecLProductionOrder."Location Code";
-                      //<<FE_LAPIERRETTE_PRO12.001
-                    END;
-                  END;
-                END
-                ELSE
-                BEGIN
-                  IF NOT(BooGFromOsys) THEN
-                    "Location Code" := FctGetLocationCode("Prod. Order No.","Prod. Order Line No.","Conform quality control");
-                END;
-                //<<FE_LAPIERRETTE_PROD03.001
-                //<<FE_LAPIERRETTE_PROD03.002
-                */
-                //>>FE_LAPIERRETTE_PRO12.001
-
-            end;
         }
         field(50100; "PWD LPSA description 1"; Text[120])
         {

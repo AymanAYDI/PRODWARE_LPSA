@@ -1,5 +1,8 @@
 tableextension 60034 "PWD PurchaseLineArchive" extends "Purchase Line Archive"
 {
+    LookupPageId = "Purchase Order Archive Lines";
+    DrillDownPageId = "Purchase Order Archive Lines";
+
     // +----------------------------------------------------------------------------------------------------------------+
     // | ProdWare - Pôle Expertise Edition                                                                              |
     // | www.prodware.fr                                                                                                |
@@ -36,6 +39,10 @@ tableextension 60034 "PWD PurchaseLineArchive" extends "Purchase Line Archive"
             OptionCaption = ' ,Send,Received';
             OptionMembers = " ",Send,Received;
         }
+    }
+    keys
+    {
+        key(Key50000; "Document Type", Type, "No.") { SumIndexFields = Quantity, "Quantity Invoiced"; }
     }
 }
 

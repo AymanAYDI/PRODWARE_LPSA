@@ -43,12 +43,10 @@ tableextension 60032 "PWD SalesHeaderArchive" extends "Sales Header Archive"
         {
             Caption = 'Order No. From Partner';
         }
-        field(8073283; "PWD WMS_Status"; Option)
+        field(8073283; "PWD WMS_Status"; Enum "PWD Status")
         {
             Caption = 'WMS_Status';
             Description = 'ProdConnect1.5';
-            OptionCaption = ' ,Send,Shipped';
-            OptionMembers = " ",Send,Received;
         }
     }
 }
