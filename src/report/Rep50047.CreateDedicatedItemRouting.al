@@ -100,11 +100,13 @@ report 50047 "Create Dedicated Item Routing"
                     Caption = 'Generic routing';
                     ShowCaption = false;
                     TableRelation = "Routing Header";
+                    ApplicationArea = All;
                 }
                 field(CodGPrefixe; CodGPrefixe)
                 {
                     Caption = 'Prefixe';
                     ShowCaption = false;
+                    ApplicationArea = All;
 
                     trigger OnValidate()
                     begin

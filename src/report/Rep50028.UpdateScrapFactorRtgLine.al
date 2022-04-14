@@ -17,7 +17,7 @@ report 50028 "Update Scrap Factor Rtg Line"
     {
         dataitem(ItemMem; Item)
         {
-            DataItemTableView = SORTING ("No.") WHERE ("Location Code" = FILTER ('PIE'));
+            DataItemTableView = SORTING("No.") WHERE("Location Code" = FILTER('PIE'));
 
             trigger OnAfterGetRecord()
             var
@@ -155,11 +155,11 @@ report 50028 "Update Scrap Factor Rtg Line"
         }
         dataitem(RL_Reference; "Routing Line")
         {
-            DataItemTableView = SORTING (Type, "No.");
+            DataItemTableView = SORTING(Type, "No.");
             dataitem(RL_Others; "Routing Line")
             {
-                DataItemLink = Type = FIELD (Type), "No." = FIELD ("No.");
-                DataItemTableView = SORTING (Type, "No.") WHERE ("Version Code" = FILTER (''));
+                DataItemLink = Type = FIELD(Type), "No." = FIELD("No.");
+                DataItemTableView = SORTING(Type, "No.") WHERE("Version Code" = FILTER(''));
 
                 trigger OnAfterGetRecord()
                 var
@@ -225,8 +225,8 @@ report 50028 "Update Scrap Factor Rtg Line"
             }
             dataitem(RL_OthersVersion; "Routing Line")
             {
-                DataItemLink = Type = FIELD (Type), "No." = FIELD ("No.");
-                DataItemTableView = SORTING (Type, "No.") WHERE ("Version Code" = FILTER (<> ''));
+                DataItemLink = Type = FIELD(Type), "No." = FIELD("No.");
+                DataItemTableView = SORTING(Type, "No.") WHERE("Version Code" = FILTER(<> ''));
 
                 trigger OnAfterGetRecord()
                 var
@@ -314,7 +314,7 @@ report 50028 "Update Scrap Factor Rtg Line"
         }
         dataitem(ItemMAJ; Item)
         {
-            DataItemTableView = SORTING ("No.") WHERE ("Location Code" = FILTER ('PIE'));
+            DataItemTableView = SORTING("No.") WHERE("Location Code" = FILTER('PIE'));
 
             trigger OnAfterGetRecord()
             var
@@ -409,6 +409,7 @@ report 50028 "Update Scrap Factor Rtg Line"
                         Caption = 'Reference Routing No.';
                         ShowCaption = false;
                         TableRelation = "Routing Header"."No.";
+                        ApplicationArea = All;
 
                         trigger OnValidate()
                         var
@@ -426,6 +427,7 @@ report 50028 "Update Scrap Factor Rtg Line"
                         Caption = 'Operation No.';
                         OptionCaption = 'Operations No.';
                         ShowCaption = false;
+                        ApplicationArea = All;
 
                         trigger OnLookup(var Text: Text): Boolean
                         var
@@ -454,6 +456,7 @@ report 50028 "Update Scrap Factor Rtg Line"
                         field(OptGStep; OptGStep)
                         {
                             Caption = 'Etape';
+                            ApplicationArea = All;
                         }
                     }
                 }

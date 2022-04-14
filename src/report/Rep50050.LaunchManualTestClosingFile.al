@@ -15,7 +15,7 @@ report 50050 "Launch Manual TestClosing File"
     {
         dataitem("Integer"; "Integer")
         {
-            DataItemTableView = SORTING (Number) WHERE (Number = CONST (1));
+            DataItemTableView = SORTING(Number) WHERE(Number = CONST(1));
             MaxIteration = 1;
 
             trigger OnAfterGetRecord()
@@ -54,24 +54,29 @@ report 50050 "Launch Manual TestClosing File"
                     {
                         Caption = 'Item Export';
                         ShowCaption = false;
+                        ApplicationArea = All;
                     }
                     field(BooGInventory; BooGInventory)
                     {
                         Caption = 'Inventory Export';
                         ShowCaption = false;
+                        ApplicationArea = All;
                     }
                     field(BooGProdOrder; BooGProdOrder)
                     {
                         Caption = 'Export En-cours';
+                        ApplicationArea = All;
                     }
                     field(BooGFinishedPO; BooGFinishedPO)
                     {
                         Caption = 'Finished PO Export (month)';
                         ShowCaption = false;
+                        ApplicationArea = All;
                     }
                     field(DatGReferenceDate; DatGReferenceDate)
                     {
                         Caption = 'Date pivot';
+                        ApplicationArea = All;
                     }
                 }
             }

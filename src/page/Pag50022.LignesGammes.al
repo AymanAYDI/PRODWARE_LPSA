@@ -10,53 +10,69 @@ page 50022 "PWD Lignes Gammes"
         {
             repeater(Group)
             {
-                field("Routing No."; "Routing No.")
+                field("Routing No."; Rec."Routing No.")
                 {
+                    ApplicationArea = All;
                 }
-                field("Operation No."; "Operation No.")
+                field("Operation No."; Rec."Operation No.")
                 {
+                    ApplicationArea = All;
                 }
-                field("Next Operation No."; "Next Operation No.")
+                field("Next Operation No."; Rec."Next Operation No.")
                 {
+                    ApplicationArea = All;
                 }
-                field("Previous Operation No."; "Previous Operation No.")
+                field("Previous Operation No."; Rec."Previous Operation No.")
                 {
+                    ApplicationArea = All;
                 }
                 field(Type; Type)
                 {
+                    ApplicationArea = All;
                 }
-                field("No."; "No.")
+                field("No."; Rec."No.")
                 {
+                    ApplicationArea = All;
                 }
-                field("Work Center No."; "Work Center No.")
+                field("Work Center No."; Rec."Work Center No.")
                 {
+                    ApplicationArea = All;
                 }
                 field(Description; Description)
                 {
+                    ApplicationArea = All;
                 }
-                field("Setup Time"; "Setup Time")
+                field("Setup Time"; Rec."Setup Time")
                 {
+                    ApplicationArea = All;
                 }
-                field("Run Time"; "Run Time")
+                field("Run Time"; Rec."Run Time")
                 {
+                    ApplicationArea = All;
                 }
-                field("Wait Time"; "Wait Time")
+                field("Wait Time"; Rec."Wait Time")
                 {
+                    ApplicationArea = All;
                 }
-                field("Move Time"; "Move Time")
+                field("Move Time"; Rec."Move Time")
                 {
+                    ApplicationArea = All;
                 }
-                field("Lot Size"; "Lot Size")
+                field("Lot Size"; Rec."Lot Size")
                 {
+                    ApplicationArea = All;
                 }
-                field("Routing Link Code"; "Routing Link Code")
+                field("Routing Link Code"; Rec."Routing Link Code")
                 {
+                    ApplicationArea = All;
                 }
-                field("Unit Cost per"; "Unit Cost per")
+                field("Unit Cost per"; Rec."Unit Cost per")
                 {
+                    ApplicationArea = All;
                 }
-                field("Scrap Factor %"; "Scrap Factor %")
+                field("Scrap Factor %"; Rec."Scrap Factor %")
                 {
+                    ApplicationArea = All;
                 }
             }
         }

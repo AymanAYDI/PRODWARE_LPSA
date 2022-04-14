@@ -25,30 +25,39 @@ page 8073288 "PWD Connector Values Archive"
                 ShowCaption = false;
                 field("Entry No."; "Entry No.")
                 {
+                    ApplicationArea = All;
                 }
                 field("Partner Code"; "Partner Code")
                 {
+                    ApplicationArea = All;
                 }
                 field("Communication Mode"; "Communication Mode")
                 {
+                    ApplicationArea = All;
                 }
                 field("File Name"; "File Name")
                 {
+                    ApplicationArea = All;
                 }
                 field("Message Code"; "Message Code")
                 {
+                    ApplicationArea = All;
                 }
                 field(Function; "Function")
                 {
+                    ApplicationArea = All;
                 }
                 field(Succes; Succes)
                 {
+                    ApplicationArea = All;
                 }
                 field(Direction; Direction)
                 {
+                    ApplicationArea = All;
                 }
                 field("File format"; "File format")
                 {
+                    ApplicationArea = All;
                 }
             }
         }
@@ -57,10 +66,12 @@ page 8073288 "PWD Connector Values Archive"
             systempart(Control1100294001; Links)
             {
                 Visible = false;
+                ApplicationArea = All;
             }
             systempart(Control1100294000; Notes)
             {
                 Visible = false;
+                ApplicationArea = All;
             }
         }
     }
@@ -76,6 +87,7 @@ page 8073288 "PWD Connector Values Archive"
                 Promoted = true;
                 PromotedCategory = Process;
                 PromotedIsBig = true;
+                ApplicationArea = All;
 
                 trigger OnAction()
                 var

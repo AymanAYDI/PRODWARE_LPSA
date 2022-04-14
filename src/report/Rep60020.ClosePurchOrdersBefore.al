@@ -7,7 +7,7 @@ report 60020 "Close Purch. Orders Before..."
     {
         dataitem("Purchase Header"; "Purchase Header")
         {
-            DataItemTableView = SORTING ("Document Type", "No.") WHERE ("Document Type" = CONST (Order));
+            DataItemTableView = SORTING("Document Type", "No.") WHERE("Document Type" = CONST(Order));
             RequestFilterFields = "No.", "Buy-from Vendor No.", "Pay-to Vendor No.";
             RequestFilterHeading = 'Purchase Order';
 
@@ -84,6 +84,7 @@ report 60020 "Close Purch. Orders Before..."
                     field(DateGDateFilter; DateGDateFilter)
                     {
                         Caption = 'Commandes avant le';
+                        ApplicationArea = All;
                     }
                 }
             }

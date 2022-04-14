@@ -3,7 +3,7 @@ page 50016 "PWD Prod. Order Component List"
     Editable = false;
     PageType = List;
     SourceTable = "Prod. Order Component";
-    SourceTableView = SORTING (Status, Prod. Order No., Prod. Order Line No., Line No.) WHERE (Status = FILTER (Firm Planned|Released));
+    SourceTableView = SORTING(Status, "Prod. Order No.", "Prod. Order Line No.", "Line No.") WHERE(Status = FILTER("Firm Planned" | Released));
 
     layout
     {
@@ -14,26 +14,33 @@ page 50016 "PWD Prod. Order Component List"
                 field("RecGProdOrderLine.""Item No."""; RecGProdOrderLine."Item No.")
                 {
                     Caption = 'Item No.';
+                    ApplicationArea = All;
                 }
                 field("RecGProdOrderLine.Quantity"; RecGProdOrderLine.Quantity)
                 {
                     Caption = 'Quantité à produire';
+                    ApplicationArea = All;
                 }
-                field("Prod. Order No."; "Prod. Order No.")
+                field("Prod. Order No."; Rec."Prod. Order No.")
                 {
+                    ApplicationArea = All;
                 }
                 field(Status; Status)
                 {
+                    ApplicationArea = All;
                 }
-                field("Item No."; "Item No.")
+                field("Item No."; Rec."Item No.")
                 {
                     Caption = 'Component No.';
+                    ApplicationArea = All;
                 }
-                field("Expected Quantity"; "Expected Quantity")
+                field("Expected Quantity"; Rec."Expected Quantity")
                 {
+                    ApplicationArea = All;
                 }
-                field("Remaining Quantity"; "Remaining Quantity")
+                field("Remaining Quantity"; Rec."Remaining Quantity")
                 {
+                    ApplicationArea = All;
                 }
             }
         }
@@ -45,7 +52,7 @@ page 50016 "PWD Prod. Order Component List"
 
     trigger OnAfterGetRecord()
     begin
-        IF NOT RecGProdOrderLine.GET(Status, "Prod. Order No.", "Prod. Order Line No.") THEN
+        IF NOT RecGProdOrderLine.GET(Rec.Status, Rec."Prod. Order No.", Rec."Prod. Order Line No.") THEN
             RecGProdOrderLine.INIT;
     end;
 

@@ -28,30 +28,39 @@ page 8073289 "PWD Receiving Message List"
                 ShowCaption = false;
                 field("Code"; Code)
                 {
+                    ApplicationArea = All;
                 }
                 field(Function; "Function")
                 {
+                    ApplicationArea = All;
                 }
                 field(Description; Description)
                 {
+                    ApplicationArea = All;
                 }
                 field(Path; Path)
                 {
+                    ApplicationArea = All;
                 }
                 field("Archive Path"; "Archive Path")
                 {
+                    ApplicationArea = All;
                 }
                 field("Auto-Post Document"; "Auto-Post Document")
                 {
+                    ApplicationArea = All;
                 }
                 field("Archive Message"; "Archive Message")
                 {
+                    ApplicationArea = All;
                 }
                 field(Blocked; Blocked)
                 {
+                    ApplicationArea = All;
                 }
                 field(Control1100267000; "Auto-Post Document")
                 {
+                    ApplicationArea = All;
                 }
             }
         }
@@ -60,10 +69,12 @@ page 8073289 "PWD Receiving Message List"
             systempart(Control1100294006; Links)
             {
                 Visible = false;
+                ApplicationArea = All;
             }
             systempart(Control1100294004; Notes)
             {
                 Visible = false;
+                ApplicationArea = All;
             }
         }
     }
@@ -83,7 +94,8 @@ page 8073289 "PWD Receiving Message List"
                     PromotedCategory = Process;
                     PromotedIsBig = true;
                     RunObject = Page "PWD Fields Export Setup";
-                    RunPageLink = Partner Code=FIELD(Partner Code),Message Code=FIELD(Code),Table ID=FIELD(Table ID),Direction=FIELD(Direction);
+                    RunPageLink = Partner Code=                    ApplicationArea = All;
+FIELD(Partner Code),Message Code=FIELD(Code),Table ID=FIELD(Table ID),Direction=FIELD(Direction);
                     ShortCutKey = 'Shift+Ctrl+F';
                 }
             }

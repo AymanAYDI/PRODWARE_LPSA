@@ -717,10 +717,12 @@ report 50006 "PWD Proforma invoice"
                     field(NoOfCopies; NoOfCopies)
                     {
                         Caption = 'No. of Copies';
+                        ApplicationArea = All;
                     }
                     field("Envoyer par email"; BooGEnvoiMail)
                     {
                         Caption = 'Send by email';
+                        ApplicationArea = All;
                     }
                 }
             }

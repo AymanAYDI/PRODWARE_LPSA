@@ -21,146 +21,175 @@ page 50008 "PWD Item Config. Setup List"
         {
             repeater(Group)
             {
-                field("Option Piece Type"; "Option Piece Type")
+                field("Option Piece Type"; Rec."Option Piece Type")
                 {
                     Editable = false;
                     Visible = false;
+                    ApplicationArea = All;
                 }
-                field("Code"; Code)
+                field("Code"; Rec.Code)
                 {
+                    ApplicationArea = All;
                 }
-                field(Description; Description)
+                field(Description; Rec.Description)
                 {
+                    ApplicationArea = All;
                 }
-                field(Hole; Hole)
-                {
-                    Editable = StoneEditable;
-                    Visible = StoneEditable;
-                }
-                field("Ext. Hole"; "Ext. Hole")
+                field(Hole; Rec.Hole)
                 {
                     Editable = StoneEditable;
                     Visible = StoneEditable;
+                    ApplicationArea = All;
                 }
-                field(Thickness; Thickness)
+                field("Ext. Hole"; Rec."Ext. Hole")
                 {
                     Editable = StoneEditable;
                     Visible = StoneEditable;
+                    ApplicationArea = All;
                 }
-                field("Recess Diam."; "Recess Diam.")
+                field(Thickness; Rec.Thickness)
                 {
                     Editable = StoneEditable;
                     Visible = StoneEditable;
+                    ApplicationArea = All;
                 }
-                field("Hole Lg."; "Hole Lg.")
+                field("Recess Diam."; Rec."Recess Diam.")
                 {
                     Editable = StoneEditable;
                     Visible = StoneEditable;
+                    ApplicationArea = All;
                 }
-                field("Height Band"; "Height Band")
+                field("Hole Lg."; Rec."Hole Lg.")
                 {
                     Editable = StoneEditable;
                     Visible = StoneEditable;
+                    ApplicationArea = All;
                 }
-                field("Height Cambered"; "Height Cambered")
+                field("Height Band"; Rec."Height Band")
                 {
                     Editable = StoneEditable;
                     Visible = StoneEditable;
+                    ApplicationArea = All;
                 }
-                field("Height Half Glazed"; "Height Half Glazed")
+                field("Height Cambered"; Rec."Height Cambered")
                 {
                     Editable = StoneEditable;
                     Visible = StoneEditable;
+                    ApplicationArea = All;
                 }
-                field(Piercing; Piercing)
+                field("Height Half Glazed"; Rec."Height Half Glazed")
+                {
+                    Editable = StoneEditable;
+                    Visible = StoneEditable;
+                    ApplicationArea = All;
+                }
+                field(Piercing; Rec.Piercing)
                 {
                     Editable = PreparageEditable;
                     Visible = PreparageEditable;
+                    ApplicationArea = All;
                 }
-                field(Note; Note)
+                field(Note; Rec.Note)
                 {
                     Editable = PreparageEditable;
                     Visible = PreparageEditable;
+                    ApplicationArea = All;
                 }
-                field(Diameter; Diameter)
+                field(Diameter; Rec.Diameter)
                 {
                     Editable = PreparageEditable;
                     Visible = PreparageEditable;
+                    ApplicationArea = All;
                 }
-                field(Thick; Thick)
+                field(Thick; Rec.Thick)
                 {
                     Editable = PreparageEditable;
                     Visible = PreparageEditable;
+                    ApplicationArea = All;
                 }
-                field(Width; Width)
+                field(Width; Rec.Width)
                 {
                     Editable = PreparageEditable;
                     Visible = PreparageEditable;
+                    ApplicationArea = All;
                 }
-                field(Height; Height)
+                field(Height; Rec.Height)
                 {
                     Editable = PreparageEditable;
                     Visible = PreparageEditable;
+                    ApplicationArea = All;
                 }
-                field("Width / Depth"; "Width / Depth")
+                field("Width / Depth"; Rec."Width / Depth")
                 {
                     Editable = PreparageEditable;
                     Visible = PreparageEditable;
+                    ApplicationArea = All;
                 }
-                field(Angle; Angle)
+                field(Angle; Rec.Angle)
                 {
                     Editable = LiftedEditable;
                     Visible = LiftedEditable;
+                    ApplicationArea = All;
                 }
-                field("Height Tol"; "Height Tol")
+                field("Height Tol"; Rec."Height Tol")
                 {
                     Editable = LiftedEditable;
                     Visible = LiftedEditable;
+                    ApplicationArea = All;
                 }
-                field("Thick Tol"; "Thick Tol")
+                field("Thick Tol"; Rec."Thick Tol")
                 {
                     Editable = LiftedEditable;
                     Visible = LiftedEditable;
+                    ApplicationArea = All;
                 }
-                field("Lg Tol"; "Lg Tol")
+                field("Lg Tol"; Rec."Lg Tol")
                 {
                     Editable = LiftedEditable;
                     Visible = LiftedEditable;
+                    ApplicationArea = All;
                 }
-                field("Diameter Tol"; "Diameter Tol")
+                field("Diameter Tol"; Rec."Diameter Tol")
                 {
                     Editable = LiftedEditable;
                     Visible = LiftedEditable;
+                    ApplicationArea = All;
                 }
-                field("R / Arc"; "R / Arc")
+                field("R / Arc"; Rec."R / Arc")
                 {
                     Editable = LiftedEditable;
                     Visible = LiftedEditable;
+                    ApplicationArea = All;
                 }
-                field("R / Corde"; "R / Corde")
+                field("R / Corde"; Rec."R / Corde")
                 {
                     Editable = LiftedEditable;
                     Visible = LiftedEditable;
+                    ApplicationArea = All;
                 }
-                field("Hole Tol"; "Hole Tol")
+                field("Hole Tol"; Rec."Hole Tol")
                 {
                     Editable = SFEditable;
                     Visible = SFEditable;
+                    ApplicationArea = All;
                 }
-                field("Ext. Diam. Tol"; "Ext. Diam. Tol")
+                field("Ext. Diam. Tol"; Rec."Ext. Diam. Tol")
                 {
                     Editable = SFEditable;
                     Visible = SFEditable;
+                    ApplicationArea = All;
                 }
-                field(D; D)
+                field(D; Rec.D)
                 {
                     Editable = SFEditable;
                     Visible = SFEditable;
+                    ApplicationArea = All;
                 }
-                field(Ep; Ep)
+                field(Ep; Rec.Ep)
                 {
                     Editable = SFEditable;
                     Visible = SFEditable;
+                    ApplicationArea = All;
                 }
             }
         }

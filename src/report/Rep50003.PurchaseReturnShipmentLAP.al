@@ -614,21 +614,25 @@ report 50003 "Purchase - Return Shipment LAP"
                     {
                         Caption = 'No. of Copies';
                         ShowCaption = false;
+                        ApplicationArea = All;
                     }
                     field(ShowInternalInfo; ShowInternalInfo)
                     {
                         Caption = 'Show Internal Information';
                         ShowCaption = false;
+                        ApplicationArea = All;
                     }
                     field(ShowCorrectionLines; ShowCorrectionLines)
                     {
                         Caption = 'Show Correction Lines';
                         ShowCaption = false;
+                        ApplicationArea = All;
                     }
                     field(LogInteraction; LogInteraction)
                     {
                         Caption = 'Log Interaction';
                         Enabled = LogInteractionEnable;
+                        ApplicationArea = All;
                     }
                 }
             }

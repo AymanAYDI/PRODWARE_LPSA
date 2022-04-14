@@ -24,66 +24,87 @@ page 8073315 "PWD Customer Buffer"
                 ShowCaption = false;
                 field("Entry No."; "Entry No.")
                 {
+                    ApplicationArea = All;
                 }
                 field("Connector Values Entry No."; "Connector Values Entry No.")
                 {
+                    ApplicationArea = All;
                 }
                 field("Partner Code"; "Partner Code")
                 {
+                    ApplicationArea = All;
                 }
                 field("Message Code"; "Message Code")
                 {
+                    ApplicationArea = All;
                 }
                 field("Creation Date"; "Creation Date")
                 {
+                    ApplicationArea = All;
                 }
                 field(Status; Status)
                 {
+                    ApplicationArea = All;
                 }
                 field(Processed; Processed)
                 {
+                    ApplicationArea = All;
                 }
                 field("Processed Date"; "Processed Date")
                 {
+                    ApplicationArea = All;
                 }
                 field("Error Message"; "Error Message")
                 {
+                    ApplicationArea = All;
                 }
                 field("Action"; Action)
                 {
+                    ApplicationArea = All;
                 }
                 field("RecordID Created"; "RecordID Created")
                 {
+                    ApplicationArea = All;
                 }
                 field("No."; "No.")
                 {
+                    ApplicationArea = All;
                 }
                 field(Name; Name)
                 {
+                    ApplicationArea = All;
                 }
                 field("Name 2"; "Name 2")
                 {
+                    ApplicationArea = All;
                 }
                 field(Address; Address)
                 {
+                    ApplicationArea = All;
                 }
                 field("Address 2"; "Address 2")
                 {
+                    ApplicationArea = All;
                 }
                 field("Post Code"; "Post Code")
                 {
+                    ApplicationArea = All;
                 }
                 field(City; City)
                 {
+                    ApplicationArea = All;
                 }
                 field("Country/Region Code"; "Country/Region Code")
                 {
+                    ApplicationArea = All;
                 }
                 field("E-Mail"; "E-Mail")
                 {
+                    ApplicationArea = All;
                 }
                 field("Phone No."; "Phone No.")
                 {
+                    ApplicationArea = All;
                 }
             }
         }
@@ -92,10 +113,12 @@ page 8073315 "PWD Customer Buffer"
             systempart(Control1100294006; Links)
             {
                 Visible = false;
+                ApplicationArea = All;
             }
             systempart(Control1100294002; Notes)
             {
                 Visible = false;
+                ApplicationArea = All;
             }
         }
     }
@@ -110,6 +133,7 @@ page 8073315 "PWD Customer Buffer"
                 action(Action1100294045)
                 {
                     Caption = 'Process action';
+                    ApplicationArea = All;
 
                     trigger OnAction()
                     var
@@ -121,6 +145,7 @@ page 8073315 "PWD Customer Buffer"
                 action(Action1100294052)
                 {
                     Caption = 'Process selected actions';
+                    ApplicationArea = All;
 
                     trigger OnAction()
                     begin
@@ -130,6 +155,7 @@ page 8073315 "PWD Customer Buffer"
                 action(Action1100294053)
                 {
                     Caption = 'Show Error Message';
+                    ApplicationArea = All;
 
                     trigger OnAction()
                     begin
@@ -142,6 +168,7 @@ page 8073315 "PWD Customer Buffer"
                 action(Action1100294050)
                 {
                     Caption = 'Purge selected';
+                    ApplicationArea = All;
 
                     trigger OnAction()
                     var
@@ -159,6 +186,7 @@ page 8073315 "PWD Customer Buffer"
                 {
                     Caption = 'Show Document';
                     Image = View;
+                    ApplicationArea = All;
 
                     trigger OnAction()
                     var

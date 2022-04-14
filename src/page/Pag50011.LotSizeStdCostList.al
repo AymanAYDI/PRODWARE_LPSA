@@ -13,7 +13,7 @@ page 50011 "PWD Lot Size Std. Cost List"
 
     Caption = 'Lot Size Std. Cost List';
     PageType = List;
-    SourceTable = "Lot Size Standard Cost";
+    SourceTable = "PWD Lot Size Standard Cost";
 
     layout
     {
@@ -21,17 +21,21 @@ page 50011 "PWD Lot Size Std. Cost List"
         {
             repeater(Group)
             {
-                field("Item No."; "Item No.")
+                field("Item No."; Rec."Item No.")
                 {
+                    ApplicationArea = All;
                 }
-                field("Item category code"; "Item category code")
+                field("Item category code"; Rec."Item category code")
                 {
+                    ApplicationArea = All;
                 }
-                field("Lot Size"; "Lot Size")
+                field("Lot Size"; Rec."Lot Size")
                 {
+                    ApplicationArea = All;
                 }
-                field("Standard Cost"; "Standard Cost")
+                field("Standard Cost"; Rec."Standard Cost")
                 {
+                    ApplicationArea = All;
                 }
             }
         }

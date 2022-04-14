@@ -13,7 +13,7 @@ page 50018 "PWD Item Configurator Details"
     Editable = false;
     PageType = List;
     SourceTable = "PWD Item Configurator";
-    SourceTableView = WHERE(Item Code=FILTER(<>''));
+    SourceTableView = WHERE("Item Code" = FILTER(<> ''));
 
     layout
     {
@@ -21,281 +21,373 @@ page 50018 "PWD Item Configurator Details"
         {
             repeater(Group)
             {
-                field("Item Code"; "Item Code")
+                field("Item Code"; Rec."Item Code")
                 {
+                    ApplicationArea = All;
                 }
-                field("Entry No."; "Entry No.")
+                field("Entry No."; Rec."Entry No.")
                 {
+                    ApplicationArea = All;
                 }
-                field("Family Code"; "Family Code")
+                field("Family Code"; Rec."Family Code")
                 {
+                    ApplicationArea = All;
                 }
-                field("Subfamily Code"; "Subfamily Code")
+                field("Subfamily Code"; Rec."Subfamily Code")
                 {
+                    ApplicationArea = All;
                 }
-                field("Product Type"; "Product Type")
+                field("Product Type"; Rec."Product Type")
                 {
+                    ApplicationArea = All;
                 }
-                field("Location Code"; "Location Code")
+                field("Location Code"; Rec."Location Code")
                 {
+                    ApplicationArea = All;
                 }
-                field("Item Category Code"; "Item Category Code")
+                field("Item Category Code"; Rec."Item Category Code")
                 {
+                    ApplicationArea = All;
                 }
-                field("Product Group Code"; "Product Group Code")
+                field("Product Group Code"; Rec."Product Group Code")
                 {
+                    ApplicationArea = All;
                 }
-                field("PWD LPSA Description 1"; "PWD LPSA Description 1")
+                field("PWD LPSA Description 1"; Rec."PWD LPSA Description 1")
                 {
+                    ApplicationArea = All;
                 }
-                field("PWD LPSA Description 2"; "PWD LPSA Description 2")
+                field("PWD LPSA Description 2"; Rec."PWD LPSA Description 2")
                 {
+                    ApplicationArea = All;
                 }
-                field("Search Description"; "Search Description")
+                field("Search Description"; Rec."Search Description")
                 {
+                    ApplicationArea = All;
                 }
-                field("Create From Item"; "Create From Item")
+                field("Create From Item"; Rec."Create From Item")
                 {
+                    ApplicationArea = All;
                 }
-                field("Piece Type Stone"; "Piece Type Stone")
+                field("Piece Type Stone"; Rec."Piece Type Stone")
                 {
+                    ApplicationArea = All;
                 }
-                field("Matter Stone"; "Matter Stone")
+                field("Matter Stone"; Rec."Matter Stone")
                 {
+                    ApplicationArea = All;
                 }
-                field(Number; Number)
+                field(Number; Rec.Number)
                 {
+                    ApplicationArea = All;
                 }
-                field(Orientation; Orientation)
+                field(Orientation; Rec.Orientation)
                 {
+                    ApplicationArea = All;
                 }
-                field(Hole; Hole)
+                field(Hole; Rec.Hole)
                 {
+                    ApplicationArea = All;
                 }
-                field("Hole Min."; "Hole Min.")
+                field("Hole Min."; Rec."Hole Min.")
                 {
+                    ApplicationArea = All;
                 }
-                field("Hole Max."; "Hole Max.")
+                field("Hole Max."; Rec."Hole Max.")
                 {
+                    ApplicationArea = All;
                 }
-                field("External Diameter"; "External Diameter")
+                field("External Diameter"; Rec."External Diameter")
                 {
+                    ApplicationArea = All;
                 }
-                field("External Diameter Min."; "External Diameter Min.")
+                field("External Diameter Min."; Rec."External Diameter Min.")
                 {
+                    ApplicationArea = All;
                 }
-                field("External Diameter Max."; "External Diameter Max.")
+                field("External Diameter Max."; Rec."External Diameter Max.")
                 {
+                    ApplicationArea = All;
                 }
-                field(Thickness; Thickness)
+                field(Thickness; Rec.Thickness)
                 {
+                    ApplicationArea = All;
                 }
-                field("Thickness Min."; "Thickness Min.")
+                field("Thickness Min."; Rec."Thickness Min.")
                 {
+                    ApplicationArea = All;
                 }
-                field("Thickness Max."; "Thickness Max.")
+                field("Thickness Max."; Rec."Thickness Max.")
                 {
+                    ApplicationArea = All;
                 }
-                field("Recess Diametre"; "Recess Diametre")
+                field("Recess Diametre"; Rec."Recess Diametre")
                 {
+                    ApplicationArea = All;
                 }
-                field("Recess Diametre Min."; "Recess Diametre Min.")
+                field("Recess Diametre Min."; Rec."Recess Diametre Min.")
                 {
+                    ApplicationArea = All;
                 }
-                field("Recess Diametre Max."; "Recess Diametre Max.")
+                field("Recess Diametre Max."; Rec."Recess Diametre Max.")
                 {
+                    ApplicationArea = All;
                 }
-                field("Hole Length"; "Hole Length")
+                field("Hole Length"; Rec."Hole Length")
                 {
+                    ApplicationArea = All;
                 }
-                field("Hole Length Min."; "Hole Length Min.")
+                field("Hole Length Min."; Rec."Hole Length Min.")
                 {
+                    ApplicationArea = All;
                 }
-                field("Hole Length Max."; "Hole Length Max.")
+                field("Hole Length Max."; Rec."Hole Length Max.")
                 {
+                    ApplicationArea = All;
                 }
-                field("Height Band"; "Height Band")
+                field("Height Band"; Rec."Height Band")
                 {
+                    ApplicationArea = All;
                 }
-                field("Height Band Min."; "Height Band Min.")
+                field("Height Band Min."; Rec."Height Band Min.")
                 {
+                    ApplicationArea = All;
                 }
-                field("Height Band Max."; "Height Band Max.")
+                field("Height Band Max."; Rec."Height Band Max.")
                 {
+                    ApplicationArea = All;
                 }
-                field("Height Cambered"; "Height Cambered")
+                field("Height Cambered"; Rec."Height Cambered")
                 {
+                    ApplicationArea = All;
                 }
-                field("Height Cambered Min."; "Height Cambered Min.")
+                field("Height Cambered Min."; Rec."Height Cambered Min.")
                 {
+                    ApplicationArea = All;
                 }
-                field("Height Cambered Max."; "Height Cambered Max.")
+                field("Height Cambered Max."; Rec."Height Cambered Max.")
                 {
+                    ApplicationArea = All;
                 }
-                field("Height Half Glazed"; "Height Half Glazed")
+                field("Height Half Glazed"; Rec."Height Half Glazed")
                 {
+                    ApplicationArea = All;
                 }
-                field("Height Half Glazed Min."; "Height Half Glazed Min.")
+                field("Height Half Glazed Min."; Rec."Height Half Glazed Min.")
                 {
+                    ApplicationArea = All;
                 }
-                field("Height Half Glazed Max."; "Height Half Glazed Max.")
+                field("Height Half Glazed Max."; Rec."Height Half Glazed Max.")
                 {
+                    ApplicationArea = All;
                 }
-                field("Piece Type Preparage"; "Piece Type Preparage")
+                field("Piece Type Preparage"; Rec."Piece Type Preparage")
                 {
+                    ApplicationArea = All;
                 }
-                field("Matter Preparage"; "Matter Preparage")
+                field("Matter Preparage"; Rec."Matter Preparage")
                 {
+                    ApplicationArea = All;
                 }
-                field(Control1100267145; Number)
+                field(Control1100267145; Rec.Number)
                 {
+                    ApplicationArea = All;
                 }
-                field(Control1100267144; Orientation)
+                field(Control1100267144; Rec.Orientation)
                 {
+                    ApplicationArea = All;
                 }
-                field("Piercing Min."; "Piercing Min.")
+                field("Piercing Min."; Rec."Piercing Min.")
                 {
+                    ApplicationArea = All;
                 }
-                field("Piercing Max."; "Piercing Max.")
+                field("Piercing Max."; Rec."Piercing Max.")
                 {
+                    ApplicationArea = All;
                 }
                 field(Note; Note)
                 {
+                    ApplicationArea = All;
                 }
-                field("Diameter Min."; "Diameter Min.")
+                field("Diameter Min."; Rec."Diameter Min.")
                 {
+                    ApplicationArea = All;
                 }
-                field("Diameter Max."; "Diameter Max.")
+                field("Diameter Max."; Rec."Diameter Max.")
                 {
+                    ApplicationArea = All;
                 }
-                field("Thick Min."; "Thick Min.")
+                field("Thick Min."; Rec."Thick Min.")
                 {
+                    ApplicationArea = All;
                 }
-                field("Thick Max."; "Thick Max.")
+                field("Thick Max."; Rec."Thick Max.")
                 {
+                    ApplicationArea = All;
                 }
-                field("Width Min."; "Width Min.")
+                field("Width Min."; Rec."Width Min.")
                 {
+                    ApplicationArea = All;
                 }
-                field("Width Max."; "Width Max.")
+                field("Width Max."; Rec."Width Max.")
                 {
+                    ApplicationArea = All;
                 }
-                field("Height Min."; "Height Min.")
+                field("Height Min."; Rec."Height Min.")
                 {
+                    ApplicationArea = All;
                 }
-                field("Height Max."; "Height Max.")
+                field("Height Max."; Rec."Height Max.")
                 {
+                    ApplicationArea = All;
                 }
-                field("Width / Depth Min."; "Width / Depth Min.")
+                field("Width / Depth Min."; Rec."Width / Depth Min.")
                 {
+                    ApplicationArea = All;
                 }
-                field("Width / Depth Max."; "Width / Depth Max.")
+                field("Width / Depth Max."; Rec."Width / Depth Max.")
                 {
+                    ApplicationArea = All;
                 }
-                field("Piece Type Lifted&Ellipses"; "Piece Type Lifted&Ellipses")
+                field("Piece Type Lifted&Ellipses"; Rec."Piece Type Lifted&Ellipses")
                 {
+                    ApplicationArea = All;
                 }
-                field("Matter Lifted&Ellipses"; "Matter Lifted&Ellipses")
+                field("Matter Lifted&Ellipses"; Rec."Matter Lifted&Ellipses")
                 {
+                    ApplicationArea = All;
                 }
-                field(Control1100267127; Number)
+                field(Control1100267127; Rec.Number)
                 {
+                    ApplicationArea = All;
                 }
-                field(Control1100267126; Orientation)
+                field(Control1100267126; Rec.Orientation)
                 {
+                    ApplicationArea = All;
                 }
-                field(Angle; Angle)
+                field(Angle; Rec.Angle)
                 {
+                    ApplicationArea = All;
                 }
-                field("Angle Min."; "Angle Min.")
+                field("Angle Min."; Rec."Angle Min.")
                 {
+                    ApplicationArea = All;
                 }
-                field("Angle Max."; "Angle Max.")
+                field("Angle Max."; Rec."Angle Max.")
                 {
+                    ApplicationArea = All;
                 }
-                field("Height Tol"; "Height Tol")
+                field("Height Tol"; Rec."Height Tol")
                 {
+                    ApplicationArea = All;
                 }
-                field("Height Min. Tol"; "Height Min. Tol")
+                field("Height Min. Tol"; Rec."Height Min. Tol")
                 {
+                    ApplicationArea = All;
                 }
-                field("Height Max. Tol"; "Height Max. Tol")
+                field("Height Max. Tol"; Rec."Height Max. Tol")
                 {
+                    ApplicationArea = All;
                 }
-                field("Thick Tol"; "Thick Tol")
+                field("Thick Tol"; Rec."Thick Tol")
                 {
+                    ApplicationArea = All;
                 }
-                field("Thick Min. Tol"; "Thick Min. Tol")
+                field("Thick Min. Tol"; Rec."Thick Min. Tol")
                 {
+                    ApplicationArea = All;
                 }
-                field("Thick Max. Tol"; "Thick Max. Tol")
+                field("Thick Max. Tol"; Rec."Thick Max. Tol")
                 {
+                    ApplicationArea = All;
                 }
-                field("Lg Tol"; "Lg Tol")
+                field("Lg Tol"; Rec."Lg Tol")
                 {
+                    ApplicationArea = All;
                 }
-                field("Lg Tol Min."; "Lg Tol Min.")
+                field("Lg Tol Min."; Rec."Lg Tol Min.")
                 {
+                    ApplicationArea = All;
                 }
-                field("Lg Tol Max."; "Lg Tol Max.")
+                field("Lg Tol Max."; Rec."Lg Tol Max.")
                 {
+                    ApplicationArea = All;
                 }
-                field("Diameter Tol"; "Diameter Tol")
+                field("Diameter Tol"; Rec."Diameter Tol")
                 {
+                    ApplicationArea = All;
                 }
-                field("Diameter Tol Min."; "Diameter Tol Min.")
+                field("Diameter Tol Min."; Rec."Diameter Tol Min.")
                 {
+                    ApplicationArea = All;
                 }
-                field("Diameter Tol Max."; "Diameter Tol Max.")
+                field("Diameter Tol Max."; Rec."Diameter Tol Max.")
                 {
+                    ApplicationArea = All;
                 }
-                field("R / Arc"; "R / Arc")
+                field("R / Arc"; Rec."R / Arc")
                 {
+                    ApplicationArea = All;
                 }
-                field("R / Corde"; "R / Corde")
+                field("R / Corde"; Rec."R / Corde")
                 {
+                    ApplicationArea = All;
                 }
-                field("Piece Type Semi-finished"; "Piece Type Semi-finished")
+                field("Piece Type Semi-finished"; Rec."Piece Type Semi-finished")
                 {
+                    ApplicationArea = All;
                 }
-                field("Matter Semi-finished"; "Matter Semi-finished")
+                field("Matter Semi-finished"; Rec."Matter Semi-finished")
                 {
+                    ApplicationArea = All;
                 }
-                field(Control1100267105; Number)
+                field(Control1100267105; Rec.Number)
                 {
+                    ApplicationArea = All;
                 }
-                field(Control1100267104; Orientation)
+                field(Control1100267104; Rec.Orientation)
                 {
+                    ApplicationArea = All;
                 }
-                field("Hole Tol"; "Hole Tol")
+                field("Hole Tol"; Rec."Hole Tol")
                 {
+                    ApplicationArea = All;
                 }
-                field("Hole Tol Min."; "Hole Tol Min.")
+                field("Hole Tol Min."; Rec."Hole Tol Min.")
                 {
+                    ApplicationArea = All;
                 }
-                field("Hole Tol Max."; "Hole Tol Max.")
+                field("Hole Tol Max."; Rec."Hole Tol Max.")
                 {
+                    ApplicationArea = All;
                 }
-                field("External Diameter Tol"; "External Diameter Tol")
+                field("External Diameter Tol"; Rec."External Diameter Tol")
                 {
+                    ApplicationArea = All;
                 }
-                field("External Diameter Tol Min."; "External Diameter Tol Min.")
+                field("External Diameter Tol Min."; Rec."External Diameter Tol Min.")
                 {
+                    ApplicationArea = All;
                 }
-                field("External Diameter Tol Max."; "External Diameter Tol Max.")
+                field("External Diameter Tol Max."; Rec."External Diameter Tol Max.")
                 {
+                    ApplicationArea = All;
                 }
-                field("D Min."; "D Min.")
+                field("D Min."; Rec."D Min.")
                 {
+                    ApplicationArea = All;
                 }
-                field("D Max."; "D Max.")
+                field("D Max."; Rec."D Max.")
                 {
+                    ApplicationArea = All;
                 }
-                field("Ep Min."; "Ep Min.")
+                field("Ep Min."; Rec."Ep Min.")
                 {
+                    ApplicationArea = All;
                 }
-                field("Ep Max."; "Ep Max.")
+                field("Ep Max."; Rec."Ep Max.")
                 {
+                    ApplicationArea = All;
                 }
             }
         }

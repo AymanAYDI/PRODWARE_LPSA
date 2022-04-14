@@ -13,7 +13,7 @@ tableextension 60035 "PWD ItemUnitofMeasure" extends "Item Unit of Measure"
     // +----------------------------------------------------------------------------------------------------------------+
     fields
     {
-        field(8073282; "PWD WMS_Type"; Enum "PWD Type")
+        field(8073282; "PWD WMS_Type"; Enum "PWD WMS_Type")
         {
             Caption = 'WMS_Type';
         }

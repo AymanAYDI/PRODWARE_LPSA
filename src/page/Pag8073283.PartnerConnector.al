@@ -31,12 +31,15 @@ page 8073283 "PWD Partner Connector"
                 Caption = 'Général';
                 field("Code"; Code)
                 {
+                    ApplicationArea = All;
                 }
                 field(Name; Name)
                 {
+                    ApplicationArea = All;
                 }
                 field("Communication Mode"; "Communication Mode")
                 {
+                    ApplicationArea = All;
 
                     trigger OnValidate()
                     begin
@@ -49,6 +52,7 @@ page 8073283 "PWD Partner Connector"
                 }
                 field("Data Format"; "Data Format")
                 {
+                    ApplicationArea = All;
 
                     trigger OnValidate()
                     begin
@@ -57,40 +61,50 @@ page 8073283 "PWD Partner Connector"
                 }
                 field(Blocked; Blocked)
                 {
+                    ApplicationArea = All;
                 }
                 field("Receive Queue"; "Receive Queue")
                 {
                     Visible = BooGReceiveQueueVisible;
+                    ApplicationArea = All;
                 }
                 field("Reply Queue"; "Reply Queue")
                 {
                     Visible = BooGReplyQueueVisible;
+                    ApplicationArea = All;
                 }
                 field("Object ID to Run"; "Object ID to Run")
                 {
                     Visible = BooGObjectIDRunVisible;
+                    ApplicationArea = All;
                 }
                 field("Object Name to Run"; "Object Name to Run")
                 {
                     Visible = BooGObjectIDRunVisible;
+                    ApplicationArea = All;
                 }
                 field("Functions CodeUnit ID"; "Functions CodeUnit ID")
                 {
                     Visible = BooGFunctionsCodeUnitIDVisible;
+                    ApplicationArea = All;
                 }
                 field("Functions CodeUnit Name"; "Functions CodeUnit Name")
                 {
                     Visible = BooGFunctionsCodeUnitIDVisible;
+                    ApplicationArea = All;
                 }
                 field("Default Value Bool Yes"; "Default Value Bool Yes")
                 {
+                    ApplicationArea = All;
                 }
                 field("Default Value Bool No"; "Default Value Bool No")
                 {
+                    ApplicationArea = All;
                 }
                 field(Separator; Separator)
                 {
                     Visible = BooGSeparatorVisible;
+                    ApplicationArea = All;
                 }
             }
         }
@@ -99,10 +113,12 @@ page 8073283 "PWD Partner Connector"
             systempart(Control1100294003; Links)
             {
                 Visible = false;
+                ApplicationArea = All;
             }
             systempart(Control1100294001; Notes)
             {
                 Visible = false;
+                ApplicationArea = All;
             }
         }
     }
@@ -119,7 +135,8 @@ page 8073283 "PWD Partner Connector"
                     Caption = 'Sending Message List';
                     Promoted = true;
                     RunObject = Page "Sending Message List";
-                    RunPageLink = Partner Code=FIELD(Code);
+                    RunPageLink = Partner Code=                    ApplicationArea = All;
+FIELD(Code);
                     ShortCutKey = 'Shift+Ctrl+M';
                 }
                 action(Action1100294012)

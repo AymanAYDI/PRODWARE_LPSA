@@ -371,6 +371,7 @@ report 50007 "PWD Production Balance"
                     Caption = 'Grouping';
                     OptionCaption = 'Production Order,Item,Order';
                     ShowCaption = false;
+                    ApplicationArea = All;
 
                     trigger OnValidate()
                     begin
@@ -387,6 +388,7 @@ report 50007 "PWD Production Balance"
                 {
                     Caption = 'Selection';
                     ShowCaption = false;
+                    ApplicationArea = All;
 
                     trigger OnLookup(var Text: Text): Boolean
                     begin
@@ -427,18 +429,21 @@ report 50007 "PWD Production Balance"
                     Editable = OptGStatusEditable;
                     OptionCaption = 'Released,Finished';
                     ShowCaption = false;
+                    ApplicationArea = All;
                 }
                 field(DatGBeginDate; DatGBeginDate)
                 {
                     Caption = 'Begin Date';
                     Editable = OptGDateEditable;
                     ShowCaption = false;
+                    ApplicationArea = All;
                 }
                 field(DatGEndDate; DatGEndDate)
                 {
                     Caption = 'End Date';
                     Editable = OptGDateEditable;
                     ShowCaption = false;
+                    ApplicationArea = All;
                 }
             }
         }

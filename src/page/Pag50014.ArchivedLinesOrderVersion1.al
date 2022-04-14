@@ -13,7 +13,7 @@ page 50014 "Archived Lines Order Version 1"
     Editable = false;
     PageType = List;
     SourceTable = "Sales Line Archive";
-    SourceTableView = SORTING(Document Type, Document No., Doc. No. Occurrence, Version No., Line No.) WHERE(Document Type=FILTER(Order),Version No.=FILTER(1));
+    SourceTableView = SORTING("Document Type", "Document No.", "Doc. No. Occurrence", "Version No.", "Line No.") WHERE("Document Type" = FILTER(Order), "Version No." = FILTER(1));
 
     layout
     {
@@ -21,107 +21,141 @@ page 50014 "Archived Lines Order Version 1"
         {
             repeater(Group)
             {
-                field("Document Type"; "Document Type")
+                field("Document Type"; Rec."Document Type")
                 {
+                    ApplicationArea = All;
                 }
-                field("Sell-to Customer No."; "Sell-to Customer No.")
+                field("Sell-to Customer No."; Rec."Sell-to Customer No.")
                 {
+                    ApplicationArea = All;
                 }
-                field("Document No."; "Document No.")
+                field("Document No."; Rec."Document No.")
                 {
+                    ApplicationArea = All;
                 }
-                field("Line No."; "Line No.")
+                field("Line No."; Rec."Line No.")
                 {
+                    ApplicationArea = All;
                 }
-                field(Type; Type)
+                field(Type; Rec.Type)
                 {
+                    ApplicationArea = All;
                 }
-                field("No."; "No.")
+                field("No."; Rec."No.")
                 {
+                    ApplicationArea = All;
                 }
-                field("Location Code"; "Location Code")
+                field("Location Code"; Rec."Location Code")
                 {
+                    ApplicationArea = All;
                 }
-                field("Posting Group"; "Posting Group")
+                field("Posting Group"; Rec."Posting Group")
                 {
+                    ApplicationArea = All;
                 }
-                field("Quantity Disc. Code"; "Quantity Disc. Code")
+                field("Quantity Disc. Code"; Rec."Quantity Disc. Code")
                 {
+                    ApplicationArea = All;
                 }
-                field("Shipment Date"; "Shipment Date")
+                field("Shipment Date"; Rec."Shipment Date")
                 {
+                    ApplicationArea = All;
                 }
-                field(Description; Description)
+                field(Description; Rec.Description)
                 {
+                    ApplicationArea = All;
                 }
-                field("Description 2"; "Description 2")
+                field("Description 2"; Rec."Description 2")
                 {
+                    ApplicationArea = All;
                 }
-                field("Unit of Measure"; "Unit of Measure")
+                field("Unit of Measure"; Rec."Unit of Measure")
                 {
+                    ApplicationArea = All;
                 }
-                field(Quantity; Quantity)
+                field(Quantity; Rec.Quantity)
                 {
+                    ApplicationArea = All;
                 }
-                field("Unit Price"; "Unit Price")
+                field("Unit Price"; Rec."Unit Price")
                 {
+                    ApplicationArea = All;
                 }
-                field("Unit Cost (LCY)";"Unit Cost (LCY)")
+                field("Unit Cost (LCY)"; Rec."Unit Cost (LCY)")
                 {
+                    ApplicationArea = All;
                 }
-                field("VAT %";"VAT %")
+                field("VAT %"; Rec."VAT %")
                 {
+                    ApplicationArea = All;
                 }
-                field("Quantity Disc. %";"Quantity Disc. %")
+                field("Quantity Disc. %"; Rec."Quantity Disc. %")
                 {
+                    ApplicationArea = All;
                 }
-                field("Line Discount %";"Line Discount %")
+                field("Line Discount %"; Rec."Line Discount %")
                 {
+                    ApplicationArea = All;
                 }
-                field("Line Discount Amount"; "Line Discount Amount")
+                field("Line Discount Amount"; Rec."Line Discount Amount")
                 {
+                    ApplicationArea = All;
                 }
-                field(Amount; Amount)
+                field(Amount; Rec.Amount)
                 {
+                    ApplicationArea = All;
                 }
-                field("Amount Including VAT"; "Amount Including VAT")
+                field("Amount Including VAT"; Rec."Amount Including VAT")
                 {
+                    ApplicationArea = All;
                 }
-                field("Allow Invoice Disc."; "Allow Invoice Disc.")
+                field("Allow Invoice Disc."; Rec."Allow Invoice Disc.")
                 {
+                    ApplicationArea = All;
                 }
-                field("Shortcut Dimension 1 Code"; "Shortcut Dimension 1 Code")
+                field("Shortcut Dimension 1 Code"; Rec."Shortcut Dimension 1 Code")
                 {
+                    ApplicationArea = All;
                 }
-                field("Shortcut Dimension 2 Code"; "Shortcut Dimension 2 Code")
+                field("Shortcut Dimension 2 Code"; Rec."Shortcut Dimension 2 Code")
                 {
+                    ApplicationArea = All;
                 }
-                field("Currency Code"; "Currency Code")
+                field("Currency Code"; Rec."Currency Code")
                 {
+                    ApplicationArea = All;
                 }
-                field("Line Amount"; "Line Amount")
+                field("Line Amount"; Rec."Line Amount")
                 {
+                    ApplicationArea = All;
                 }
-                field("Version No."; "Version No.")
+                field("Version No."; Rec."Version No.")
                 {
+                    ApplicationArea = All;
                 }
-                field("Requested Delivery Date"; "Requested Delivery Date")
+                field("Requested Delivery Date"; Rec."Requested Delivery Date")
                 {
+                    ApplicationArea = All;
                 }
-                field("Promised Delivery Date"; "Promised Delivery Date")
+                field("Promised Delivery Date"; Rec."Promised Delivery Date")
                 {
+                    ApplicationArea = All;
                 }
-                field("Planned Delivery Date"; "Planned Delivery Date")
+                field("Planned Delivery Date"; Rec."Planned Delivery Date")
                 {
+                    ApplicationArea = All;
                 }
-                field("Planned Shipment Date"; "Planned Shipment Date")
+                field("Planned Shipment Date"; Rec."Planned Shipment Date")
                 {
+                    ApplicationArea = All;
                 }
-                field("PWD LPSA Description 1"; "PWD LPSA Description 1")
+                field("PWD LPSA Description 1"; Rec."PWD LPSA Description 1")
                 {
+                    ApplicationArea = All;
                 }
-                field("PWD LPSA Description 2"; "PWD LPSA Description 2")
+                field("PWD LPSA Description 2"; Rec."PWD LPSA Description 2")
                 {
+                    ApplicationArea = All;
                 }
             }
         }

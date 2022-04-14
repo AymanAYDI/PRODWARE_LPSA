@@ -33,12 +33,15 @@ page 8073286 "PWD Partner Code List"
                 ShowCaption = false;
                 field("Code"; Code)
                 {
+                    ApplicationArea = All;
                 }
                 field(Name; Name)
                 {
+                    ApplicationArea = All;
                 }
                 field(Blocked; Blocked)
                 {
+                    ApplicationArea = All;
                 }
             }
         }
@@ -47,10 +50,12 @@ page 8073286 "PWD Partner Code List"
             systempart(Control1100294001; Links)
             {
                 Visible = false;
+                ApplicationArea = All;
             }
             systempart(Control1100294000; Notes)
             {
                 Visible = false;
+                ApplicationArea = All;
             }
         }
     }
@@ -64,6 +69,7 @@ page 8073286 "PWD Partner Code List"
                 Caption = 'fiche';
                 RunObject = Page "PWD Partner Connector";
                 RunPageLink = Code = FIELD(Code);
+                ApplicationArea = All;
             }
             group("<Action1100294014>")
             {
@@ -73,6 +79,7 @@ page 8073286 "PWD Partner Code List"
                     Caption = 'Import Export Connector SetUp';
                     Promoted = true;
                     PromotedIsBig = true;
+                    ApplicationArea = All;
 
                     trigger OnAction()
                     begin

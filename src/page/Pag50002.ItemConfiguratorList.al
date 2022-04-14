@@ -30,32 +30,41 @@ page 50002 "PWD Item Configurator List"
         {
             repeater(Group)
             {
-                field("Family Code"; "Family Code")
+                field("Family Code"; Rec."Family Code")
                 {
+                    ApplicationArea = All;
                 }
-                field("Subfamily Code"; "Subfamily Code")
+                field("Subfamily Code"; Rec."Subfamily Code")
                 {
+                    ApplicationArea = All;
                 }
-                field("Product Type"; "Product Type")
+                field("Product Type"; Rec."Product Type")
                 {
+                    ApplicationArea = All;
                 }
-                field("Item Code"; "Item Code")
+                field("Item Code"; Rec."Item Code")
                 {
+                    ApplicationArea = All;
                 }
-                field("PWD LPSA Description 1"; "PWD LPSA Description 1")
+                field("PWD LPSA Description 1"; Rec."PWD LPSA Description 1")
                 {
+                    ApplicationArea = All;
                 }
-                field("PWD LPSA Description 2"; "PWD LPSA Description 2")
+                field("PWD LPSA Description 2"; Rec."PWD LPSA Description 2")
                 {
+                    ApplicationArea = All;
                 }
-                field("PWD Quartis Description"; "PWD Quartis Description")
+                field("PWD Quartis Description"; Rec."PWD Quartis Description")
                 {
+                    ApplicationArea = All;
                 }
-                field("Quartis Desc TEST"; "Quartis Desc TEST")
+                field("Quartis Desc TEST"; Rec."Quartis Desc TEST")
                 {
+                    ApplicationArea = All;
                 }
-                field("Create From Item"; "Create From Item")
+                field("Create From Item"; Rec."Create From Item")
                 {
+                    ApplicationArea = All;
                 }
             }
         }
@@ -73,6 +82,7 @@ page 50002 "PWD Item Configurator List"
                     Caption = 'Copy from Item';
                     Promoted = true;
                     PromotedIsBig = true;
+                    ApplicationArea = All;
 
                     trigger OnAction()
                     var

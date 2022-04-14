@@ -26,27 +26,35 @@ page 8073287 "PWD Values form Connector"
                 ShowCaption = false;
                 field("Entry No."; "Entry No.")
                 {
+                    ApplicationArea = All;
                 }
                 field("Partner Code"; "Partner Code")
                 {
+                    ApplicationArea = All;
                 }
                 field("File Name"; "File Name")
                 {
+                    ApplicationArea = All;
                 }
                 field(Function; "Function")
                 {
+                    ApplicationArea = All;
                 }
                 field(Direction; Direction)
                 {
+                    ApplicationArea = All;
                 }
                 field("File format"; "File format")
                 {
+                    ApplicationArea = All;
                 }
                 field(Separator; Separator)
                 {
+                    ApplicationArea = All;
                 }
                 field("Blob"; Blob)
                 {
+                    ApplicationArea = All;
                 }
             }
         }
@@ -55,10 +63,12 @@ page 8073287 "PWD Values form Connector"
             systempart(Control1100294001; Links)
             {
                 Visible = false;
+                ApplicationArea = All;
             }
             systempart(Control1100294000; Notes)
             {
                 Visible = false;
+                ApplicationArea = All;
             }
         }
     }
@@ -74,6 +84,7 @@ page 8073287 "PWD Values form Connector"
                 Promoted = true;
                 PromotedCategory = Process;
                 PromotedIsBig = true;
+                ApplicationArea = All;
 
                 trigger OnAction()
                 var

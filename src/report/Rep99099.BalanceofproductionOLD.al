@@ -456,16 +456,19 @@ report 99099 "PWD Balance of production OLD"
                     field(GStartDate; GStartDate)
                     {
                         Caption = 'Date début';
+                        ApplicationArea = All;
                     }
                     field(GEndDate; GEndDate)
                     {
                         Caption = 'Date Fin';
+                        ApplicationArea = All;
                     }
                     field(GsalesNo; GsalesNo)
                     {
                         Caption = 'N° commande';
                         Lookup = true;
                         LookupPageID = "Sales List";
+                        ApplicationArea = All;
                     }
                 }
             }

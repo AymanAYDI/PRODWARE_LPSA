@@ -30,27 +30,35 @@ page 8073290 "PWD WMS Setup"
                 ShowCaption = false;
                 field(WMS; WMS)
                 {
+                    ApplicationArea = All;
                 }
                 field("Location Mandatory"; "Location Mandatory")
                 {
+                    ApplicationArea = All;
                 }
                 field("WMS Company Code"; "WMS Company Code")
                 {
+                    ApplicationArea = All;
                 }
                 field("WMS Delivery"; "WMS Delivery")
                 {
+                    ApplicationArea = All;
                 }
                 field("WMS Shipment"; "WMS Shipment")
                 {
+                    ApplicationArea = All;
                 }
                 field("Journal Template Name"; "Journal Template Name")
                 {
+                    ApplicationArea = All;
                 }
                 field("Journal Batch Name"; "Journal Batch Name")
                 {
+                    ApplicationArea = All;
                 }
                 field("Partner Code"; "Partner Code")
                 {
+                    ApplicationArea = All;
                 }
             }
         }
@@ -59,10 +67,12 @@ page 8073290 "PWD WMS Setup"
             systempart(Control1100294004; Links)
             {
                 Visible = false;
+                ApplicationArea = All;
             }
             systempart(Control1100294003; Notes)
             {
                 Visible = false;
+                ApplicationArea = All;
             }
         }
     }

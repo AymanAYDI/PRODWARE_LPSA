@@ -39,51 +39,65 @@ page 8073285 "PWD Fields Export Setup"
                 ShowCaption = false;
                 field("Field ID"; "Field ID")
                 {
+                    ApplicationArea = All;
                 }
                 field("Field Name"; "Field Name")
                 {
+                    ApplicationArea = All;
                 }
                 field(Type; Type)
                 {
                     Editable = false;
+                    ApplicationArea = All;
                 }
                 field("Field Type"; "Field Type")
                 {
+                    ApplicationArea = All;
                 }
                 field("Constant Value"; "Constant Value")
                 {
+                    ApplicationArea = All;
                 }
                 field("Xml Tag"; "Xml Tag")
                 {
                     Visible = BooGXmlTagVisible;
+                    ApplicationArea = All;
                 }
                 field("File Position"; "File Position")
                 {
                     Visible = BooGFilePositionVisible;
+                    ApplicationArea = All;
                 }
                 field("File Length"; "File Length")
                 {
                     Visible = BooGFileLengthVisible;
+                    ApplicationArea = All;
                 }
                 field(FormatStr; FormatStr)
                 {
+                    ApplicationArea = All;
                 }
                 field(Precision; Precision)
                 {
+                    ApplicationArea = All;
                 }
                 field("Rounding Direction"; "Rounding Direction")
                 {
+                    ApplicationArea = All;
                 }
                 field("Fill up"; "Fill up")
                 {
                     Visible = BooGFillupVisible;
+                    ApplicationArea = All;
                 }
                 field("Fill Character"; "Fill Character")
                 {
                     Visible = BooGFillCharacterVisible;
+                    ApplicationArea = All;
                 }
                 field("Fct For Replace"; "Fct For Replace")
                 {
+                    ApplicationArea = All;
                 }
             }
         }
@@ -92,10 +106,12 @@ page 8073285 "PWD Fields Export Setup"
             systempart(Control1100294002; Links)
             {
                 Visible = false;
+                ApplicationArea = All;
             }
             systempart(Control1100294001; Notes)
             {
                 Visible = false;
+                ApplicationArea = All;
             }
         }
     }
@@ -110,6 +126,7 @@ page 8073285 "PWD Fields Export Setup"
                 Image = Trace;
                 Promoted = true;
                 PromotedCategory = Process;
+                ApplicationArea = All;
 
                 trigger OnAction()
                 begin
@@ -122,6 +139,7 @@ page 8073285 "PWD Fields Export Setup"
                 Image = Trace;
                 Promoted = true;
                 PromotedCategory = Process;
+                ApplicationArea = All;
 
                 trigger OnAction()
                 begin

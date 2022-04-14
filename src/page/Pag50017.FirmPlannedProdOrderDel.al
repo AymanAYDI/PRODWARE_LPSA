@@ -14,7 +14,7 @@ page 50017 "Firm Planned Prod. Order Del."
     ModifyAllowed = false;
     PageType = List;
     SourceTable = "Production Order";
-    SourceTableView = WHERE (Status = CONST (Firm Planned));
+    SourceTableView = WHERE(Status = CONST("Firm Planned"));
 
     layout
     {
@@ -22,35 +22,45 @@ page 50017 "Firm Planned Prod. Order Del."
         {
             repeater(Group)
             {
-                field(Status; Status)
+                field(Status; Rec.Status)
                 {
+                    ApplicationArea = All;
                 }
-                field("No."; "No.")
+                field("No."; Rec."No.")
                 {
+                    ApplicationArea = All;
                 }
-                field(Description; Description)
+                field(Description; Rec.Description)
                 {
+                    ApplicationArea = All;
                 }
-                field("Search Description"; "Search Description")
+                field("Search Description"; Rec."Search Description")
                 {
+                    ApplicationArea = All;
                 }
-                field("Description 2"; "Description 2")
+                field("Description 2"; Rec."Description 2")
                 {
+                    ApplicationArea = All;
                 }
-                field("Source No."; "Source No.")
+                field("Source No."; Rec."Source No.")
                 {
+                    ApplicationArea = All;
                 }
-                field("Due Date"; "Due Date")
+                field("Due Date"; Rec."Due Date")
                 {
+                    ApplicationArea = All;
                 }
                 field(Quantity; Quantity)
                 {
+                    ApplicationArea = All;
                 }
-                field("Source Material Vendor"; "Source Material Vendor")
+                field("Source Material Vendor"; Rec."PWD Source Material Vendor")
                 {
+                    ApplicationArea = All;
                 }
-                field("Location Code"; "Location Code")
+                field("Location Code"; Rec."Location Code")
                 {
+                    ApplicationArea = All;
                 }
             }
         }

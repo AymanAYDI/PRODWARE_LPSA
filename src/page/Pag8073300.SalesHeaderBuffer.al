@@ -24,51 +24,67 @@ page 8073300 "PWD Sales Header Buffer"
                 ShowCaption = false;
                 field("Entry No."; "Entry No.")
                 {
+                    ApplicationArea = All;
                 }
                 field("Connector Values Entry No."; "Connector Values Entry No.")
                 {
+                    ApplicationArea = All;
                 }
                 field("Partner Code"; "Partner Code")
                 {
+                    ApplicationArea = All;
                 }
                 field("Message Code"; "Message Code")
                 {
+                    ApplicationArea = All;
                 }
                 field("Creation Date"; "Creation Date")
                 {
+                    ApplicationArea = All;
                 }
                 field(Status; Status)
                 {
+                    ApplicationArea = All;
                 }
                 field(Processed; Processed)
                 {
+                    ApplicationArea = All;
                 }
                 field("Processed Date"; "Processed Date")
                 {
+                    ApplicationArea = All;
                 }
                 field("Error Message"; "Error Message")
                 {
+                    ApplicationArea = All;
                 }
                 field("Action"; Action)
                 {
+                    ApplicationArea = All;
                 }
                 field("RecordID Created"; "RecordID Created")
                 {
+                    ApplicationArea = All;
                 }
                 field("Document Type"; "Document Type")
                 {
+                    ApplicationArea = All;
                 }
                 field("Document No."; "Document No.")
                 {
+                    ApplicationArea = All;
                 }
                 field("Sell-to Customer No."; "Sell-to Customer No.")
                 {
+                    ApplicationArea = All;
                 }
                 field("External Document No."; "External Document No.")
                 {
+                    ApplicationArea = All;
                 }
                 field("Posting Date"; "Posting Date")
                 {
+                    ApplicationArea = All;
                 }
             }
         }
@@ -77,10 +93,12 @@ page 8073300 "PWD Sales Header Buffer"
             systempart(Control1100294006; Links)
             {
                 Visible = false;
+                ApplicationArea = All;
             }
             systempart(Control1100294002; Notes)
             {
                 Visible = false;
+                ApplicationArea = All;
             }
         }
     }
@@ -95,6 +113,7 @@ page 8073300 "PWD Sales Header Buffer"
                 action(Action1100294036)
                 {
                     Caption = 'Process action';
+                    ApplicationArea = All;
 
                     trigger OnAction()
                     var
@@ -106,6 +125,7 @@ page 8073300 "PWD Sales Header Buffer"
                 action(Action1100294044)
                 {
                     Caption = 'Process selected actions';
+                    ApplicationArea = All;
 
                     trigger OnAction()
                     begin
@@ -115,6 +135,7 @@ page 8073300 "PWD Sales Header Buffer"
                 action(Action1100294045)
                 {
                     Caption = 'Show Error Message';
+                    ApplicationArea = All;
 
                     trigger OnAction()
                     begin
@@ -127,6 +148,7 @@ page 8073300 "PWD Sales Header Buffer"
                 action(Action1100294043)
                 {
                     Caption = 'Purge selected';
+                    ApplicationArea = All;
 
                     trigger OnAction()
                     var
@@ -144,6 +166,7 @@ page 8073300 "PWD Sales Header Buffer"
                 {
                     Caption = 'Show Document';
                     Image = View;
+                    ApplicationArea = All;
 
                     trigger OnAction()
                     var
@@ -156,7 +179,8 @@ page 8073300 "PWD Sales Header Buffer"
                 {
                     Caption = 'Show Sales Line Buffer';
                     RunObject = Page "Sales Line Buffer";
-                    RunPageLink = Document Type=FIELD(Document Type),Document No.=FIELD(Document No.);
+                    RunPageLink = Document Type=                    ApplicationArea = All;
+FIELD(Document Type),Document No.=FIELD(Document No.);
                     RunPageView = SORTING(Document Type,Document No.);
                 }
                 action(Action1100294039)

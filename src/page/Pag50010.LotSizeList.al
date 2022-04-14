@@ -13,7 +13,7 @@ page 50010 "PWD Lot Size List"
 
     Caption = 'Lot Size List';
     PageType = List;
-    SourceTable = "Lot Size";
+    SourceTable = "PWD Lot Size";
 
     layout
     {
@@ -21,17 +21,21 @@ page 50010 "PWD Lot Size List"
         {
             repeater(Group)
             {
-                field("Item Category Code"; "Item Category Code")
+                field("Item Category Code"; Rec."Item Category Code")
                 {
+                    ApplicationArea = All;
                 }
-                field("Lot Size"; "Lot Size")
+                field("Lot Size"; Rec."Lot Size")
                 {
+                    ApplicationArea = All;
                 }
-                field("Minimum Lot Qty."; "Minimum Lot Qty.")
+                field("Minimum Lot Qty."; Rec."Minimum Lot Qty.")
                 {
+                    ApplicationArea = All;
                 }
-                field("Maximum Lot Qty."; "Maximum Lot Qty.")
+                field("Maximum Lot Qty."; Rec."Maximum Lot Qty.")
                 {
+                    ApplicationArea = All;
                 }
             }
         }

@@ -22,12 +22,15 @@ page 50034 "PWD Tools Instructions List"
             {
                 field("No."; "No.")
                 {
+                    ApplicationArea = All;
                 }
                 field(Description; Description)
                 {
+                    ApplicationArea = All;
                 }
                 field(Criteria; Criteria)
                 {
+                    ApplicationArea = All;
                 }
             }
         }

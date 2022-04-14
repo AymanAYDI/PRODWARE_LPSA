@@ -414,6 +414,7 @@ report 99100 "PWD Shipment Advice bis"
                     field(NoOfCopies; NoOfCopies)
                     {
                         Caption = 'No. of Copies';
+                        ApplicationArea = All;
                     }
                 }
             }

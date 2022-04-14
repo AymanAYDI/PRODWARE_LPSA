@@ -21,139 +21,165 @@ page 50020 "PWD Routing Lines choice"
             repeater(Control1)
             {
                 ShowCaption = false;
-                field("Operation No."; "Operation No.")
+                field("Operation No."; Rec."Operation No.")
                 {
                     Style = StandardAccent;
                     StyleExpr = BooGStyle;
+                    ApplicationArea = All;
                 }
-                field("Previous Operation No."; "Previous Operation No.")
+                field("Previous Operation No."; Rec."Previous Operation No.")
                 {
                     Style = StandardAccent;
                     StyleExpr = BooGStyle;
                     Visible = false;
+                    ApplicationArea = All;
                 }
-                field("Next Operation No."; "Next Operation No.")
+                field("Next Operation No."; Rec."Next Operation No.")
                 {
                     Style = StandardAccent;
                     StyleExpr = BooGStyle;
                     Visible = false;
+                    ApplicationArea = All;
                 }
                 field(Type; Type)
                 {
                     Style = StandardAccent;
                     StyleExpr = BooGStyle;
+                    ApplicationArea = All;
                 }
-                field("No."; "No.")
+                field("No."; Rec."No.")
                 {
                     Style = StandardAccent;
                     StyleExpr = BooGStyle;
+                    ApplicationArea = All;
                 }
-                field("Standard Task Code"; "Standard Task Code")
-                {
-                    Style = StandardAccent;
-                    StyleExpr = BooGStyle;
-                    Visible = false;
-                }
-                field("Routing Link Code"; "Routing Link Code")
+                field("Standard Task Code"; Rec."Standard Task Code")
                 {
                     Style = StandardAccent;
                     StyleExpr = BooGStyle;
                     Visible = false;
+                    ApplicationArea = All;
+                }
+                field("Routing Link Code"; Rec."Routing Link Code")
+                {
+                    Style = StandardAccent;
+                    StyleExpr = BooGStyle;
+                    Visible = false;
+                    ApplicationArea = All;
                 }
                 field(Description; Description)
                 {
                     Style = StandardAccent;
                     StyleExpr = BooGStyle;
+                    ApplicationArea = All;
                 }
-                field("Setup Time"; "Setup Time")
+                field("Setup Time"; Rec."Setup Time")
                 {
                     Style = StandardAccent;
                     StyleExpr = BooGStyle;
+                    ApplicationArea = All;
                 }
-                field("Setup Time Unit of Meas. Code"; "Setup Time Unit of Meas. Code")
-                {
-                    Style = StandardAccent;
-                    StyleExpr = BooGStyle;
-                    Visible = false;
-                }
-                field("Run Time"; "Run Time")
-                {
-                    Style = StandardAccent;
-                    StyleExpr = BooGStyle;
-                }
-                field("Run Time Unit of Meas. Code"; "Run Time Unit of Meas. Code")
+                field("Setup Time Unit of Meas. Code"; Rec."Setup Time Unit of Meas. Code")
                 {
                     Style = StandardAccent;
                     StyleExpr = BooGStyle;
                     Visible = false;
+                    ApplicationArea = All;
                 }
-                field("Wait Time"; "Wait Time")
+                field("Run Time"; Rec."Run Time")
                 {
                     Style = StandardAccent;
                     StyleExpr = BooGStyle;
+                    ApplicationArea = All;
                 }
-                field("Wait Time Unit of Meas. Code"; "Wait Time Unit of Meas. Code")
-                {
-                    Style = StandardAccent;
-                    StyleExpr = BooGStyle;
-                    Visible = false;
-                }
-                field("Move Time"; "Move Time")
-                {
-                    Style = StandardAccent;
-                    StyleExpr = BooGStyle;
-                }
-                field("Move Time Unit of Meas. Code"; "Move Time Unit of Meas. Code")
+                field("Run Time Unit of Meas. Code"; Rec."Run Time Unit of Meas. Code")
                 {
                     Style = StandardAccent;
                     StyleExpr = BooGStyle;
                     Visible = false;
+                    ApplicationArea = All;
                 }
-                field("Fixed Scrap Quantity"; "Fixed Scrap Quantity")
+                field("Wait Time"; Rec."Wait Time")
                 {
                     Style = StandardAccent;
                     StyleExpr = BooGStyle;
+                    ApplicationArea = All;
                 }
-                field("Scrap Factor %"; "Scrap Factor %")
-                {
-                    Style = StandardAccent;
-                    StyleExpr = BooGStyle;
-                }
-                field("Minimum Process Time"; "Minimum Process Time")
+                field("Wait Time Unit of Meas. Code"; Rec."Wait Time Unit of Meas. Code")
                 {
                     Style = StandardAccent;
                     StyleExpr = BooGStyle;
                     Visible = false;
+                    ApplicationArea = All;
                 }
-                field("Maximum Process Time"; "Maximum Process Time")
+                field("Move Time"; Rec."Move Time")
+                {
+                    Style = StandardAccent;
+                    StyleExpr = BooGStyle;
+                    ApplicationArea = All;
+                }
+                field("Move Time Unit of Meas. Code"; Rec."Move Time Unit of Meas. Code")
                 {
                     Style = StandardAccent;
                     StyleExpr = BooGStyle;
                     Visible = false;
+                    ApplicationArea = All;
                 }
-                field("Concurrent Capacities"; "Concurrent Capacities")
+                field("Fixed Scrap Quantity"; Rec."Fixed Scrap Quantity")
                 {
                     Style = StandardAccent;
                     StyleExpr = BooGStyle;
+                    ApplicationArea = All;
                 }
-                field("Send-Ahead Quantity"; "Send-Ahead Quantity")
+                field("Scrap Factor %"; Rec."Scrap Factor %")
                 {
                     Style = StandardAccent;
                     StyleExpr = BooGStyle;
+                    ApplicationArea = All;
                 }
-                field("Unit Cost per"; "Unit Cost per")
+                field("Minimum Process Time"; Rec."Minimum Process Time")
                 {
                     Style = StandardAccent;
                     StyleExpr = BooGStyle;
+                    Visible = false;
+                    ApplicationArea = All;
                 }
-                field("Next Operation Link Type"; "Next Operation Link Type")
-                {
-                }
-                field("Fixed-step Prod. Rate time"; "Fixed-step Prod. Rate time")
+                field("Maximum Process Time"; Rec."Maximum Process Time")
                 {
                     Style = StandardAccent;
                     StyleExpr = BooGStyle;
+                    Visible = false;
+                    ApplicationArea = All;
                 }
+                field("Concurrent Capacities"; Rec."Concurrent Capacities")
+                {
+                    Style = StandardAccent;
+                    StyleExpr = BooGStyle;
+                    ApplicationArea = All;
+                }
+                field("Send-Ahead Quantity"; Rec."Send-Ahead Quantity")
+                {
+                    Style = StandardAccent;
+                    StyleExpr = BooGStyle;
+                    ApplicationArea = All;
+                }
+                field("Unit Cost per"; Rec."Unit Cost per")
+                {
+                    Style = StandardAccent;
+                    StyleExpr = BooGStyle;
+                    ApplicationArea = All;
+                }
+                //TODO: l'extension de la table "Routing Line" n'existe pas qui contient les 2 champs "Next Operation Link Type","Fixed-step Prod. Rate time"
+                // field("Next Operation Link Type"; Rec."Next Operation Link Type")
+                // {
+                //     ApplicationArea = All;
+                // }
+                // field("Fixed-step Prod. Rate time"; Rec."Fixed-step Prod. Rate time")
+                // {
+                //     Style = StandardAccent;
+                //     StyleExpr = BooGStyle;
+                //     ApplicationArea = All;
+                // }
             }
         }
     }
@@ -164,7 +190,7 @@ page 50020 "PWD Routing Lines choice"
 
     trigger OnAfterGetRecord()
     begin
-        BooGStyle := (Type = Type::"Machine Center");
+        BooGStyle := (Rec.Type = Rec.Type::"Machine Center");
     end;
 
     var

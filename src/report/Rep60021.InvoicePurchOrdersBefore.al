@@ -78,6 +78,7 @@ report 60021 "Invoice Purch. Orders Before.."
                     field(DateGDateFilter; DateGDateFilter)
                     {
                         Caption = 'Commandes avant le';
+                        ApplicationArea = All;
                     }
                 }
             }

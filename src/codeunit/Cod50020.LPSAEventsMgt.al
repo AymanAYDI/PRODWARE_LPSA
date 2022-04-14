@@ -573,57 +573,130 @@ codeunit 50020 "PWD LPSA Events Mgt."
     begin
         ProdOrder."Search Description" := Item."Search Description";
     end;
-    //TODO: utilise la table PlannerOneSetup et le codeunit 1
-    [EventSubscriber(ObjectType::table, database::"Production Order", 'OnbeforeValidateEvent', 'Due Date', false, false)]
-    local procedure TAB5405_OnbeforeValidateEvent_ProductionOrder_DueDate(var Rec: Record "Production Order"; var xRec: Record Item; CurrFieldNo: Integer)
+    //---TAB5406---
+    [EventSubscriber(ObjectType::Table, Database::"Prod. Order Line", 'OnAfterModifyEvent', '', false, false)]
+    local procedure TAB5406_OnAfterModifyEvent_ProdOrderLine(var Rec: Record "Prod. Order Line"; var xRec: Record "Prod. Order Line"; RunTrigger: Boolean)
+    begin
+        if not RunTrigger then
+            exit;
+        if Rec.IsTemporary then
+            exit;
+        IF Rec.Status = Rec.Status::Released THEN BEGIN
+            Rec.ResendProdOrdertoQuartis;
+            Rec.FctUpdateDelay;
+        END;
+        IF Rec.Status = Rec.Status::"Firm Planned" THEN BEGIN
+            Rec.FctUpdateDelay;
+        END;
+    end;
+
+    [EventSubscriber(ObjectType::table, database::"Prod. Order Line", 'OnBeforeDeleteEvent', '', false, false)]
+    local procedure TAB5406_OnBeforeDeleteEvent_ProdOrderLine(var Rec: Record "Prod. Order Line"; RunTrigger: Boolean)
     var
-    // PlannerOneSetup: Record PlannerOneSetup;
-    // PlannerOneUtil: Codeunit 8076503;
-    // ApplicationManagement: Codeunit 1;
-    // loggedUser: Code[250];
+        Text000: Label 'A %1 %2 cannot be inserted, modified, or deleted.';
+        Text99000000: Label 'You cannot delete %1 %2 because there is at least one %3 associated with it.', Comment = '%1 = Table Caption; %2 = Field Value; %3 = Table Caption';
+        ItemLedgEntry: Record "Item Ledger Entry";
+        CapLedgEntry: Record "Capacity Ledger Entry";
+        PurchLine: Record "Purchase Line";
+        CduFunctionsMgt: Codeunit "PWD LPSA Functions Mgt.";
     begin
-        // IF ApplicationManagement.CheckPlannerOneLicence THEN
-        //     IF PlannerOneSetup.FINDFIRST() THEN BEGIN
-        //         loggedUser := USERID; // UPPERCASE
-        //         IF loggedUser = PlannerOneSetup.PlannerOneTechUser THEN BEGIN
-        //             // Update "Due Date" from Production Order Line
-        //             IF PlannerOneUtil.OverwriteProdOrderLineDates(Rec.Status) THEN BEGIN
-        //                 ProdOrderLine.SETCURRENTKEY(Rec.Status, "Prod. Order No.", "Planning Level Code");
-        //                 ProdOrderLine.ASCENDING(TRUE);
-        //                 ProdOrderLine.SETRANGE(Rec.Status, Rec.Status);
-        //                 ProdOrderLine.SETRANGE("Prod. Order No.", Rec."No.");
-        //                 ProdOrderLine.SETFILTER("Item No.", '<>%1', '');
-        //                 IF ProdOrderLine.FINDFIRST() THEN
-        //                     Rec."Due Date" := ProdOrderLine."Due Date";
-        //                 Rec.AdjustStartEndingDate;
-        //             END;
-        //             EXIT;
-        //         END;
-        //     END;
+        //TODO: A vérifier j'ai réecrire le meme controle qui existe dans le standard car j'ai pas trouvé une event donc j'ai utilisé OnBeforeDeleteEvent et j'ai ajouté le controle
+        if not RunTrigger then
+            exit;
+        if Rec.IsTemporary then
+            exit;
+        if Rec.Status = Rec.Status::Finished then
+            Error(Text000, Rec.Status, Rec.TableCaption);
+
+        if Rec.Status = Rec.Status::Released then begin
+            ItemLedgEntry.SetRange("Order Type", ItemLedgEntry."Order Type"::Production);
+            ItemLedgEntry.SetRange("Order No.", Rec."Prod. Order No.");
+            ItemLedgEntry.SetRange("Order Line No.", Rec."Line No.");
+            if not ItemLedgEntry.IsEmpty() then
+                Error(
+                  Text99000000,
+                  Rec.TableCaption, Rec."Line No.", ItemLedgEntry.TableCaption);
+
+            if CduFunctionsMgt.CheckCapLedgEntry(Rec) then
+                Error(
+                  Text99000000,
+                  Rec.TableCaption, Rec."Line No.", CapLedgEntry.TableCaption);
+
+            if CduFunctionsMgt.CheckSubcontractPurchOrder(Rec) then
+                Error(
+                  Text99000000,
+                  Rec.TableCaption, Rec."Line No.", PurchLine.TableCaption);
+        end;
+        Rec.FctCreateDeleteProdOrderLine();
+    end;
+    //---TAB5407---
+    [EventSubscriber(ObjectType::Table, Database::"Prod. Order Component", 'OnAfterInsertEvent', '', false, false)]
+    local procedure TAB5407_OnAfterInsertEvent_ProdOrderComponent(var Rec: Record "Prod. Order Component"; RunTrigger: Boolean)
+    var
+        ProdOrder: Record "Production Order";
+        LotInheritanceMgt: Codeunit "PWD Lot Inheritance Mgt.PW";
+    begin
+        if not RunTrigger then
+            exit;
+        if Rec.IsTemporary then
+            exit;
+        LotInheritanceMgt.CheckPOCompOnInsert(Rec);
+        IF ProdOrder.GET(ProdOrder.Status, Rec."Prod. Order No.") THEN BEGIN
+            IF ProdOrder."PWD Component No." = '' THEN BEGIN
+                ProdOrder."PWD Component No." := Rec."Item No.";
+                ProdOrder.MODIFY;
+            END;
+        END;
     end;
 
-    [EventSubscriber(ObjectType::Table, Database::"Production Order", 'OnAfterInitRecord', '', false, false)]
-    local procedure TAB5405_OnAfterInitRecord_ProductionOrder(var ProductionOrder: Record "Production Order")
+    [EventSubscriber(ObjectType::Table, Database::"Prod. Order Component", 'OnValidateItemNoOnAfterUpdateUOMFromItem', '', false, false)]
+    local procedure TAB5407_OnValidateItemNoOnAfterUpdateUOMFromItem_ProdOrderComponent(var ProdOrderComponent: Record "Prod. Order Component"; xProdOrderComponent: Record "Prod. Order Component"; Item: Record Item)
     begin
-        ProductionOrder.VALIDATE("PWD End Date Objective", 0DT);
-    end;
+        ProdOrderComponent."PWD Lot Determining" := Item."PWD Lot Determining";
 
-    [EventSubscriber(ObjectType::Table, Database::"Production Order", 'OnAfterUpdateDateTime', '', false, false)]
-    local procedure TAB5405_OnAfterUpdateDateTime_ProductionOrder(var ProductionOrder: Record "Production Order"; var xProductionOrder: Record "Production Order"; CallingFieldNo: Integer)
-    begin
-        ProductionOrder.VALIDATE("PWD End Date Objective");
+        IF ProdOrderComponent.Status = ProdOrderComponent.Status::Released THEN
+            Item.TESTFIELD("PWD Phantom Item", FALSE);
     end;
-
-    [EventSubscriber(ObjectType::Table, Database::"Production Order", 'OnUpdateEndingDateOnBeforeCalcProdOrderRecalculate', '', false, false)]
-    local procedure TAB5405_OnUpdateEndingDateOnBeforeCalcProdOrderRecalculate_ProductionOrder(var ProdOrderLine: Record "Prod. Order Line")
+    //---TAB5409---
+    [EventSubscriber(ObjectType::Table, Database::"Prod. Order Routing Line", 'OnAfterModifyEvent', '', false, false)]
+    local procedure TAB5409_OnAfterModifyEvent_ProdOrderRoutingLine(var Rec: Record "Prod. Order Routing Line"; var xRec: Record "Prod. Order Routing Line"; RunTrigger: Boolean)
+    var
+        ProdOrderLine: Record "Prod. Order Line";
     begin
-        //TODO: "End Date Objective", "Earliest Start Date": les deux champs n'existe pas
-        // ProdOrderLine.VALIDATE("End Date Objective", 0DT);
-        // ProdOrderLine.VALIDATE("Earliest Start Date", 0D);
+        if not RunTrigger then
+            exit;
+        if Rec.IsTemporary then
+            exit;
+        //TODO: CheckAlternate utilise la table PlannerOneProdOrdRoutLineAlt et le codeunit 1
+        //Rec.CheckAlternate();
+        Rec.CalculateRoutingLine();
+        IF (Rec.Status = Rec.Status::Released) AND (ProdOrderLine.GET(Rec.Status, Rec."Prod. Order No.", Rec."Routing Reference No.")) THEN BEGIN
+            ProdOrderLine.ResendProdOrdertoQuartis;
+        END;
+    end;
+    //---TAB5411---
+    [EventSubscriber(ObjectType::table, database::"Prod. Order Routing Tool", 'OnAfterValidateEvent', 'No.', false, false)]
+    local procedure TAB5411_OnAfterValidateEvent_ProdOrderRoutingTool_No(var Rec: Record "Prod. Order Routing Tool"; var xRec: Record "Prod. Order Routing Tool"; CurrFieldNo: Integer)
+    var
+        ToolsInstructions: Record "PWD Tools Instructions";
+        Item: Record Item;
+    begin
+        CASE Rec."PWD Type" OF
+            Rec."PWD Type"::Method, Rec."PWD Type"::Quality, Rec."PWD Type"::Plan, Rec."PWD Type"::Zone, Rec."PWD Type"::"Targeted dimension":
+                BEGIN
+                    ToolsInstructions.GET(Rec."PWD Type", Rec."No.");
+                    Rec.Description := ToolsInstructions.Description;
+                    Rec."PWD Criteria" := ToolsInstructions.Criteria;
+                END;
+            Rec."PWD Type"::Item:
+                BEGIN
+                    Item.GET(Rec."No.");
+                    Rec.Description := COPYSTR(Item."PWD LPSA Description 1", 1, 50);
+                END;
+        END;
     end;
 
     var
         DontExecuteIfImport: Boolean;
         BooGFromImport: Boolean;
-
 }

@@ -659,15 +659,18 @@ report 50004 "PWD Purchase - Quote LAP"
                     {
                         Caption = 'No. of Copies';
                         ShowCaption = false;
+                        ApplicationArea = All;
                     }
                     field(ShowInternalInfo; ShowInternalInfo)
                     {
                         Caption = 'Show Internal Information';
                         ShowCaption = false;
+                        ApplicationArea = All;
                     }
                     field(ArchiveDocument; ArchiveDocument)
                     {
                         Caption = 'Archive Document';
+                        ApplicationArea = All;
 
                         trigger OnValidate()
                         begin
@@ -679,6 +682,7 @@ report 50004 "PWD Purchase - Quote LAP"
                     {
                         Caption = 'Log Interaction';
                         Enabled = LogInteractionEnable;
+                        ApplicationArea = All;
 
                         trigger OnValidate()
                         begin

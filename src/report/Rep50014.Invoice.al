@@ -697,10 +697,12 @@ report 50014 "PWD Invoice"
                     field(NoOfCopies; NoOfCopies)
                     {
                         Caption = 'No. of Copies';
+                        ApplicationArea = All;
                     }
                     field("Envoyer par email"; BooGEnvoiMail)
                     {
                         Caption = 'Send by email';
+                        ApplicationArea = All;
                     }
                 }
             }

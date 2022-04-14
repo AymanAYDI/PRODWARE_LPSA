@@ -12,7 +12,7 @@ page 50013 "PWD Phantom subs. Items List"
 
     Caption = 'Phantom substitution Items';
     PageType = List;
-    SourceTable = "Phantom substitution Items";
+    SourceTable = "PWD Phantom substitution Items";
 
     layout
     {
@@ -20,20 +20,25 @@ page 50013 "PWD Phantom subs. Items List"
         {
             repeater(Group)
             {
-                field("Item No."; "Item No.")
+                field("Item No."; Rec."Item No.")
                 {
+                    ApplicationArea = All;
                 }
-                field(Priority; Priority)
+                field(Priority; Rec.Priority)
                 {
+                    ApplicationArea = All;
                 }
-                field(Inventory; Inventory)
+                field(Inventory; Rec.Inventory)
                 {
+                    ApplicationArea = All;
                 }
-                field(Description; Description)
+                field(Description; Rec.Description)
                 {
+                    ApplicationArea = All;
                 }
-                field("Description 2"; "Description 2")
+                field("Description 2"; Rec."Description 2")
                 {
+                    ApplicationArea = All;
                 }
             }
         }

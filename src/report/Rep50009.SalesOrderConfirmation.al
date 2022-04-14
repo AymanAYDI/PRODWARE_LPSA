@@ -713,16 +713,19 @@ report 50009 "PWD Sales Order Confirmation"
                     {
                         Caption = 'No. of Copies';
                         ShowCaption = false;
+                        ApplicationArea = All;
                     }
                     field(ShowInternalInfo; ShowInternalInfo)
                     {
                         Caption = 'Show Internal Information';
                         ShowCaption = false;
+                        ApplicationArea = All;
                     }
                     field(ArchiveDocument; ArchiveDocument)
                     {
                         Caption = 'Archive Document';
                         Enabled = ArchiveDocumentEnable;
+                        ApplicationArea = All;
 
                         trigger OnValidate()
                         begin
@@ -734,6 +737,7 @@ report 50009 "PWD Sales Order Confirmation"
                     {
                         Caption = 'Log Interaction';
                         Enabled = LogInteractionEnable;
+                        ApplicationArea = All;
 
                         trigger OnValidate()
                         begin
@@ -744,6 +748,7 @@ report 50009 "PWD Sales Order Confirmation"
                     field("Envoyer par email"; BooGEnvoiMail)
                     {
                         Caption = 'Send by email';
+                        ApplicationArea = All;
                     }
                 }
             }

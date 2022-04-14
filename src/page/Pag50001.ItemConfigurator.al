@@ -37,430 +37,530 @@ page 50001 "PWD Item Configurator"
             {
                 Caption = 'General';
                 ShowCaption = false;
-                field("Family Code"; "Family Code")
+                field("Family Code"; Rec."Family Code")
                 {
                     Editable = FamilyEditable;
+                    ApplicationArea = All;
                 }
-                field("Subfamily Code"; "Subfamily Code")
+                field("Subfamily Code"; Rec."Subfamily Code")
                 {
                     Editable = SubFamilyEditable;
+                    ApplicationArea = All;
                 }
-                field("Item Template Code"; "Item Template Code")
+                field("Item Template Code"; Rec."Item Template Code")
                 {
                     Editable = TemplateEditable;
+                    ApplicationArea = All;
                 }
-                field("Dimension 1 Code"; "Dimension 1 Code")
+                field("Dimension 1 Code"; Rec."Dimension 1 Code")
                 {
+                    ApplicationArea = All;
                 }
-                field("Dimension 2 Code"; "Dimension 2 Code")
+                field("Dimension 2 Code"; Rec."Dimension 2 Code")
                 {
+                    ApplicationArea = All;
                 }
-                field("Dimension 3 Code"; "Dimension 3 Code")
+                field("Dimension 3 Code"; Rec."Dimension 3 Code")
                 {
+                    ApplicationArea = All;
                 }
-                field("Phantom Item"; "Phantom Item")
+                field("Phantom Item"; Rec."Phantom Item")
                 {
                     Editable = PhantomEditable;
+                    ApplicationArea = All;
                 }
-                field("Product Type"; "Product Type")
+                field("Product Type"; Rec."Product Type")
                 {
+                    ApplicationArea = All;
 
                     trigger OnValidate()
                     begin
                         FctEnableFields;
                     end;
                 }
-                field("Location Code"; "Location Code")
+                field("Location Code"; Rec."Location Code")
                 {
+                    ApplicationArea = All;
                 }
-                field("Bin Code"; "Bin Code")
+                field("Bin Code"; Rec."Bin Code")
                 {
+                    ApplicationArea = All;
                 }
-                field("Item Category Code"; "Item Category Code")
+                field("Item Category Code"; Rec."Item Category Code")
                 {
+                    ApplicationArea = All;
                 }
-                field("Product Group Code"; "Product Group Code")
+                field("Product Group Code"; Rec."Product Group Code")
                 {
+                    ApplicationArea = All;
                 }
-                field("Replenishment System"; "Replenishment System")
+                field("Replenishment System"; Rec."Replenishment System")
                 {
+                    ApplicationArea = All;
                 }
-                field("Costing Method"; "Costing Method")
+                field("Costing Method"; Rec."Costing Method")
                 {
+                    ApplicationArea = All;
                 }
             }
             group(Control1100294020)
             {
                 Caption = 'Description';
                 ShowCaption = false;
-                field("Item Code"; "Item Code")
+                field("Item Code"; Rec."Item Code")
                 {
+                    ApplicationArea = All;
                 }
-                field("PWD LPSA Description 1"; "PWD LPSA Description 1")
+                field("PWD LPSA Description 1"; Rec."PWD LPSA Description 1")
                 {
+                    ApplicationArea = All;
                 }
-                field("PWD LPSA Description 2"; "PWD LPSA Description 2")
+                field("PWD LPSA Description 2"; Rec."PWD LPSA Description 2")
                 {
+                    ApplicationArea = All;
                 }
-                field("PWD Quartis Description"; "PWD Quartis Description")
+                field("PWD Quartis Description"; Rec."PWD Quartis Description")
                 {
+                    ApplicationArea = All;
                 }
-                field("Quartis Desc TEST"; "Quartis Desc TEST")
+                field("Quartis Desc TEST"; Rec."Quartis Desc TEST")
                 {
+                    ApplicationArea = All;
                 }
-                field("Create From Item"; "Create From Item")
+                field("Create From Item"; Rec."Create From Item")
                 {
+                    ApplicationArea = All;
                 }
             }
             group(STONEGP)
             {
                 Caption = 'Stone';
                 Editable = StoneEnable;
-                field("Piece Type Stone"; "Piece Type Stone")
+                field("Piece Type Stone"; Rec."Piece Type Stone")
                 {
+                    ApplicationArea = All;
 
                     trigger OnValidate()
                     begin
                         FctEditableFieldsStone;
                     end;
                 }
-                field("Matter Stone"; "Matter Stone")
+                field("Matter Stone"; Rec."Matter Stone")
                 {
+                    ApplicationArea = All;
                 }
-                field(Number; Number)
+                field(Number; Rec.Number)
                 {
+                    ApplicationArea = All;
                 }
-                field(Orientation; Orientation)
+                field(Orientation; Rec.Orientation)
                 {
+                    ApplicationArea = All;
                 }
-                field(Hole; Hole)
+                field(Hole; Rec.Hole)
                 {
                     Editable = HoleEditable;
+                    ApplicationArea = All;
                 }
-                field("Hole Min."; "Hole Min.")
+                field("Hole Min."; Rec."Hole Min.")
                 {
                     Editable = HoleEditable;
+                    ApplicationArea = All;
                 }
-                field("Hole Max."; "Hole Max.")
+                field("Hole Max."; Rec."Hole Max.")
                 {
                     Editable = HoleEditable;
+                    ApplicationArea = All;
                 }
-                field("External Diameter"; "External Diameter")
+                field("External Diameter"; Rec."External Diameter")
                 {
                     Editable = ExtDiamEditable;
+                    ApplicationArea = All;
                 }
-                field("External Diameter Min."; "External Diameter Min.")
+                field("External Diameter Min."; Rec."External Diameter Min.")
                 {
                     Editable = ExtDiamEditable;
+                    ApplicationArea = All;
                 }
-                field("External Diameter Max."; "External Diameter Max.")
+                field("External Diameter Max."; Rec."External Diameter Max.")
                 {
                     Editable = ExtDiamEditable;
+                    ApplicationArea = All;
                 }
-                field(Thickness; Thickness)
+                field(Thickness; Rec.Thickness)
                 {
                     Editable = ThickEditable;
+                    ApplicationArea = All;
                 }
-                field("Thickness Min."; "Thickness Min.")
+                field("Thickness Min."; Rec."Thickness Min.")
                 {
                     Editable = ThickEditable;
+                    ApplicationArea = All;
                 }
-                field("Thickness Max."; "Thickness Max.")
+                field("Thickness Max."; Rec."Thickness Max.")
                 {
                     Editable = ThickEditable;
+                    ApplicationArea = All;
                 }
-                field("Recess Diametre"; "Recess Diametre")
+                field("Recess Diametre"; Rec."Recess Diametre")
                 {
                     Editable = RecDiamEditable;
+                    ApplicationArea = All;
                 }
-                field("Recess Diametre Min."; "Recess Diametre Min.")
+                field("Recess Diametre Min."; Rec."Recess Diametre Min.")
                 {
                     Editable = RecDiamEditable;
+                    ApplicationArea = All;
                 }
-                field("Recess Diametre Max."; "Recess Diametre Max.")
+                field("Recess Diametre Max."; Rec."Recess Diametre Max.")
                 {
                     Editable = RecDiamEditable;
+                    ApplicationArea = All;
                 }
-                field("Hole Length"; "Hole Length")
+                field("Hole Length"; Rec."Hole Length")
                 {
                     Editable = HoleLengthEditable;
+                    ApplicationArea = All;
                 }
-                field("Hole Length Min."; "Hole Length Min.")
+                field("Hole Length Min."; Rec."Hole Length Min.")
                 {
                     Editable = HoleLengthEditable;
+                    ApplicationArea = All;
                 }
-                field("Hole Length Max."; "Hole Length Max.")
+                field("Hole Length Max."; Rec."Hole Length Max.")
                 {
                     Editable = HoleLengthEditable;
+                    ApplicationArea = All;
                 }
-                field("Height Band"; "Height Band")
+                field("Height Band"; Rec."Height Band")
                 {
                     Editable = HeightBandEditable;
+                    ApplicationArea = All;
                 }
-                field("Height Band Min."; "Height Band Min.")
+                field("Height Band Min."; Rec."Height Band Min.")
                 {
                     Editable = HeightBandEditable;
+                    ApplicationArea = All;
                 }
-                field("Height Band Max."; "Height Band Max.")
+                field("Height Band Max."; Rec."Height Band Max.")
                 {
                     Editable = HeightBandEditable;
+                    ApplicationArea = All;
                 }
-                field("Height Cambered"; "Height Cambered")
+                field("Height Cambered"; Rec."Height Cambered")
                 {
                     Editable = HeightCamberedEditable;
+                    ApplicationArea = All;
                 }
-                field("Height Cambered Min."; "Height Cambered Min.")
+                field("Height Cambered Min."; Rec."Height Cambered Min.")
                 {
                     Editable = HeightCamberedEditable;
+                    ApplicationArea = All;
                 }
-                field("Height Cambered Max."; "Height Cambered Max.")
+                field("Height Cambered Max."; Rec."Height Cambered Max.")
                 {
                     Editable = HeightCamberedEditable;
+                    ApplicationArea = All;
                 }
-                field("Height Half Glazed"; "Height Half Glazed")
+                field("Height Half Glazed"; Rec."Height Half Glazed")
                 {
                     Editable = HHGlazedEditable;
+                    ApplicationArea = All;
                 }
-                field("Height Half Glazed Min."; "Height Half Glazed Min.")
+                field("Height Half Glazed Min."; Rec."Height Half Glazed Min.")
                 {
                     Editable = HHGlazedEditable;
+                    ApplicationArea = All;
                 }
-                field("Height Half Glazed Max."; "Height Half Glazed Max.")
+                field("Height Half Glazed Max."; Rec."Height Half Glazed Max.")
                 {
                     Editable = HHGlazedEditable;
+                    ApplicationArea = All;
                 }
             }
             group(PREPGP)
             {
                 Caption = 'Preparage';
                 Editable = PrepEnable;
-                field("Piece Type Preparage"; "Piece Type Preparage")
+                field("Piece Type Preparage"; Rec."Piece Type Preparage")
                 {
+                    ApplicationArea = All;
 
                     trigger OnValidate()
                     begin
                         FctEditableFieldsPreparage;
                     end;
                 }
-                field("Matter Preparage"; "Matter Preparage")
+                field("Matter Preparage"; Rec."Matter Preparage")
                 {
+                    ApplicationArea = All;
                 }
                 field(Control1100294067; Number)
                 {
+                    ApplicationArea = All;
                 }
                 field(Control1100294068; Orientation)
                 {
+                    ApplicationArea = All;
                 }
-                field("Piercing Min."; "Piercing Min.")
+                field("Piercing Min."; Rec."Piercing Min.")
                 {
                     Editable = PiercingEditable;
+                    ApplicationArea = All;
                 }
-                field("Piercing Max."; "Piercing Max.")
+                field("Piercing Max."; Rec."Piercing Max.")
                 {
                     Editable = PiercingEditable;
+                    ApplicationArea = All;
                 }
                 field(Note; Note)
                 {
                     Editable = NoteEditable;
+                    ApplicationArea = All;
                 }
-                field("Diameter Min."; "Diameter Min.")
+                field("Diameter Min."; Rec."Diameter Min.")
                 {
                     Editable = DiamEditable;
+                    ApplicationArea = All;
                 }
-                field("Diameter Max."; "Diameter Max.")
+                field("Diameter Max."; Rec."Diameter Max.")
                 {
                     Editable = DiamEditable;
+                    ApplicationArea = All;
                 }
-                field("Thick Min."; "Thick Min.")
+                field("Thick Min."; Rec."Thick Min.")
                 {
                     Editable = ThickPEditable;
+                    ApplicationArea = All;
                 }
-                field("Thick Max."; "Thick Max.")
+                field("Thick Max."; Rec."Thick Max.")
                 {
                     Editable = ThickPEditable;
+                    ApplicationArea = All;
                 }
-                field("Width Min."; "Width Min.")
+                field("Width Min."; Rec."Width Min.")
                 {
                     Editable = WidthEditable;
+                    ApplicationArea = All;
                 }
-                field("Width Max."; "Width Max.")
+                field("Width Max."; Rec."Width Max.")
                 {
                     Editable = WidthEditable;
+                    ApplicationArea = All;
                 }
-                field("Height Min."; "Height Min.")
+                field("Height Min."; Rec."Height Min.")
                 {
                     Editable = HeightEditable;
+                    ApplicationArea = All;
                 }
-                field("Height Max."; "Height Max.")
+                field("Height Max."; Rec."Height Max.")
                 {
                     Editable = HeightEditable;
+                    ApplicationArea = All;
                 }
-                field("Width / Depth Min."; "Width / Depth Min.")
+                field("Width / Depth Min."; Rec."Width / Depth Min.")
                 {
                     Editable = WidthDepthEditable;
+                    ApplicationArea = All;
                 }
-                field("Width / Depth Max."; "Width / Depth Max.")
+                field("Width / Depth Max."; Rec."Width / Depth Max.")
                 {
                     Editable = WidthDepthEditable;
+                    ApplicationArea = All;
                 }
             }
             group(LAEGP)
             {
                 Caption = 'Lifted and ellipses';
                 Editable = LiftedAndEllipsesEnable;
-                field("Piece Type Lifted&Ellipses"; "Piece Type Lifted&Ellipses")
+                field("Piece Type Lifted&Ellipses"; Rec."Piece Type Lifted&Ellipses")
                 {
+                    ApplicationArea = All;
 
                     trigger OnValidate()
                     begin
                         FctEditableFieldsLAndE;
                     end;
                 }
-                field("Matter Lifted&Ellipses"; "Matter Lifted&Ellipses")
+                field("Matter Lifted&Ellipses"; Rec."Matter Lifted&Ellipses")
                 {
+                    ApplicationArea = All;
                 }
-                field(Control1100294073; Number)
+                field(Control1100294073; Rec.Number)
                 {
+                    ApplicationArea = All;
                 }
-                field(Control1100294072; Orientation)
+                field(Control1100294072; Rec.Orientation)
                 {
+                    ApplicationArea = All;
                 }
                 field(Angle; Angle)
                 {
                     Editable = AngleEditable;
+                    ApplicationArea = All;
                 }
-                field("Angle Min."; "Angle Min.")
+                field("Angle Min."; Rec."Angle Min.")
                 {
                     Editable = AngleEditable;
+                    ApplicationArea = All;
                 }
-                field("Angle Max."; "Angle Max.")
+                field("Angle Max."; Rec."Angle Max.")
                 {
                     Editable = AngleEditable;
+                    ApplicationArea = All;
                 }
-                field("Height Tol"; "Height Tol")
+                field("Height Tol"; Rec."Height Tol")
                 {
                     Caption = 'Height';
                     Editable = HeightTolEditable;
+                    ApplicationArea = All;
                 }
-                field("Height Min. Tol"; "Height Min. Tol")
+                field("Height Min. Tol"; Rec."Height Min. Tol")
                 {
                     Caption = 'Height Min.';
                     Editable = HeightTolEditable;
+                    ApplicationArea = All;
                 }
-                field("Height Max. Tol"; "Height Max. Tol")
+                field("Height Max. Tol"; Rec."Height Max. Tol")
                 {
                     Caption = 'Height Min.';
                     Editable = HeightTolEditable;
+                    ApplicationArea = All;
                 }
-                field("Thick Tol"; "Thick Tol")
+                field("Thick Tol"; Rec."Thick Tol")
                 {
                     Caption = 'Thickness';
                     Editable = WidthTolEditable;
+                    ApplicationArea = All;
                 }
-                field("Thick Min. Tol"; "Thick Min. Tol")
+                field("Thick Min. Tol"; Rec."Thick Min. Tol")
                 {
                     Caption = 'Thickness Min.';
                     Editable = WidthTolEditable;
+                    ApplicationArea = All;
                 }
-                field("Thick Max. Tol"; "Thick Max. Tol")
+                field("Thick Max. Tol"; Rec."Thick Max. Tol")
                 {
                     Caption = 'Thickness Max.';
                     Editable = WidthTolEditable;
+                    ApplicationArea = All;
                 }
-                field("Lg Tol"; "Lg Tol")
+                field("Lg Tol"; Rec."Lg Tol")
                 {
                     Caption = 'Length';
                     Editable = LgTolEditable;
+                    ApplicationArea = All;
                 }
-                field("Lg Tol Min."; "Lg Tol Min.")
+                field("Lg Tol Min."; Rec."Lg Tol Min.")
                 {
                     Editable = LgTolEditable;
+                    ApplicationArea = All;
                 }
-                field("Lg Tol Max."; "Lg Tol Max.")
+                field("Lg Tol Max."; Rec."Lg Tol Max.")
                 {
                     Editable = LgTolEditable;
+                    ApplicationArea = All;
                 }
-                field("Diameter Tol"; "Diameter Tol")
+                field("Diameter Tol"; Rec."Diameter Tol")
                 {
                     Editable = DiamTolEditable;
+                    ApplicationArea = All;
                 }
-                field("Diameter Tol Min."; "Diameter Tol Min.")
+                field("Diameter Tol Min."; Rec."Diameter Tol Min.")
                 {
                     Editable = DiamTolEditable;
+                    ApplicationArea = All;
                 }
-                field("Diameter Tol Max."; "Diameter Tol Max.")
+                field("Diameter Tol Max."; Rec."Diameter Tol Max.")
                 {
                     Editable = DiamTolEditable;
+                    ApplicationArea = All;
                 }
-                field("R / Arc"; "R / Arc")
+                field("R / Arc"; Rec."R / Arc")
                 {
                     Editable = RArcEditable;
+                    ApplicationArea = All;
                 }
-                field("R / Corde"; "R / Corde")
+                field("R / Corde"; Rec."R / Corde")
                 {
                     Editable = RCordeEditable;
+                    ApplicationArea = All;
                 }
             }
             group(SFGP)
             {
                 Caption = 'Semi-finished';
                 Editable = SemiFinishedEnable;
-                field("Piece Type Semi-finished"; "Piece Type Semi-finished")
+                field("Piece Type Semi-finished"; Rec."Piece Type Semi-finished")
                 {
+                    ApplicationArea = All;
 
                     trigger OnValidate()
                     begin
                         FctEditableFieldsSF;
                     end;
                 }
-                field("Matter Semi-finished"; "Matter Semi-finished")
+                field("Matter Semi-finished"; Rec."Matter Semi-finished")
                 {
+                    ApplicationArea = All;
                 }
                 field(Control1100294105; Number)
                 {
+                    ApplicationArea = All;
                 }
                 field(Control1100294104; Orientation)
                 {
+                    ApplicationArea = All;
                 }
-                field("Hole Tol"; "Hole Tol")
+                field("Hole Tol"; Rec."Hole Tol")
                 {
                     Editable = TolHoleEditable;
+                    ApplicationArea = All;
                 }
-                field("Hole Tol Min."; "Hole Tol Min.")
+                field("Hole Tol Min."; Rec."Hole Tol Min.")
                 {
                     Editable = TolHoleEditable;
+                    ApplicationArea = All;
                 }
-                field("Hole Tol Max."; "Hole Tol Max.")
+                field("Hole Tol Max."; Rec."Hole Tol Max.")
                 {
                     Editable = TolHoleEditable;
+                    ApplicationArea = All;
                 }
-                field("External Diameter Tol"; "External Diameter Tol")
+                field("External Diameter Tol"; Rec."External Diameter Tol")
                 {
                     Editable = TolExtDiamEditable;
+                    ApplicationArea = All;
                 }
-                field("External Diameter Tol Min."; "External Diameter Tol Min.")
+                field("External Diameter Tol Min."; Rec."External Diameter Tol Min.")
                 {
                     Editable = TolExtDiamEditable;
+                    ApplicationArea = All;
                 }
-                field("External Diameter Tol Max."; "External Diameter Tol Max.")
+                field("External Diameter Tol Max."; Rec."External Diameter Tol Max.")
                 {
                     Editable = TolExtDiamEditable;
+                    ApplicationArea = All;
                 }
-                field("D Min."; "D Min.")
+                field("D Min."; Rec."D Min.")
                 {
                     Editable = DEditable;
+                    ApplicationArea = All;
                 }
-                field("D Max."; "D Max.")
+                field("D Max."; Rec."D Max.")
                 {
                     Editable = DEditable;
+                    ApplicationArea = All;
                 }
-                field("Ep Min."; "Ep Min.")
+                field("Ep Min."; Rec."Ep Min.")
                 {
                     Editable = EpEditable;
+                    ApplicationArea = All;
                 }
-                field("Ep Max."; "Ep Max.")
+                field("Ep Max."; Rec."Ep Max.")
                 {
                     Editable = EpEditable;
+                    ApplicationArea = All;
                 }
             }
         }
@@ -478,10 +578,11 @@ page 50001 "PWD Item Configurator"
                 Promoted = true;
                 PromotedCategory = Process;
                 PromotedIsBig = true;
+                ApplicationArea = All;
 
                 trigger OnAction()
                 var
-                    RecLDataTemplateHeader: Record "Data Template Header";
+                    RecLDataTemplateHeader: Record "Config. Template Header";
                     RecRef: RecordRef;
                     RecLDefaultDimension: Record "Default Dimension";
                     RecLGeneralLedgerSetup: Record "General Ledger Setup";
@@ -545,10 +646,10 @@ page 50001 "PWD Item Configurator"
 
                     //>>LAP2.12
                     RecLInventorySetup.GET;
-                    RecLInventorySetup.TESTFIELD("Product Group Code  Dimension");
+                    RecLInventorySetup.TESTFIELD("PWD Product Group Code Dim");
 
                     IF "Product Group Code" <> '' THEN BEGIN
-                        IF RecLDefaultDimension.GET(DATABASE::Item, "Item Code", RecLInventorySetup."Product Group Code  Dimension") THEN BEGIN
+                        IF RecLDefaultDimension.GET(DATABASE::Item, "Item Code", RecLInventorySetup."PWD Product Group Code Dim") THEN BEGIN
                             //>>TDL21072020.001
                             //RecLDefaultDimension."Dimension Value Code" := "Item Category Code"+'_'+"Product Group Code";
                             RecLDefaultDimension."Dimension Value Code" := "Product Group Code";
@@ -557,7 +658,7 @@ page 50001 "PWD Item Configurator"
                         END ELSE BEGIN
                             RecLDefaultDimension."Table ID" := DATABASE::Item;
                             RecLDefaultDimension."No." := "Item Code";
-                            RecLDefaultDimension."Dimension Code" := RecLInventorySetup."Product Group Code  Dimension";
+                            RecLDefaultDimension."Dimension Code" := RecLInventorySetup."PWD Product Group Code Dim";
                             //>>TDL21072020.001
                             //RecLDefaultDimension."Dimension Value Code" := "Item Category Code"+'_'+"Product Group Code";
                             RecLDefaultDimension."Dimension Value Code" := "Product Group Code";
@@ -568,11 +669,11 @@ page 50001 "PWD Item Configurator"
 
                     BooLCreateItemCrossRef := FALSE;
 
-                    RecLInventorySetup.TESTFIELD("Item Filter For Extern Ref");
-                    RecLInventorySetup.TESTFIELD("LPSA Customer No.");
+                    RecLInventorySetup.TESTFIELD("PWD Item Filter For Extern Ref");
+                    RecLInventorySetup.TESTFIELD("PWD LPSA Customer No.");
                     //RecLInventorySetup.TESTFIELD("STRATEGY Customer No.");
 
-                    CodLFilter := RecLInventorySetup."Item Filter For Extern Ref";
+                    CodLFilter := RecLInventorySetup."PWD Item Filter For Extern Ref";
                     IntLLoop := 0;
 
                     REPEAT
@@ -594,18 +695,18 @@ page 50001 "PWD Item Configurator"
                     UNTIL (IntLPipePosition = 0) OR (BooLCreateItemCrossRef) OR (IntLLoop > 200);
 
                     IF BooLCreateItemCrossRef THEN BEGIN
-                        IF RecLInventorySetup."STRATEGY Customer No." <> '' THEN BEGIN
+                        IF RecLInventorySetup."PWD STRATEGY Customer No." <> '' THEN BEGIN
                             IF NOT RecLItemCrossReference.GET(RecGItem."No.",
                                                               '',
                                                               RecGItem."Base Unit of Measure",
                                                               RecLItemCrossReference."Cross-Reference Type"::Customer,
-                                                              RecLInventorySetup."STRATEGY Customer No.",
+                                                              RecLInventorySetup."PWD STRATEGY Customer No.",
                                                               'NC') THEN BEGIN
                                 RecLItemCrossReference.INIT;
                                 RecLItemCrossReference.VALIDATE("Item No.", RecGItem."No.");
                                 RecLItemCrossReference.VALIDATE("Unit of Measure", RecGItem."Base Unit of Measure");
                                 RecLItemCrossReference.VALIDATE("Cross-Reference Type", RecLItemCrossReference."Cross-Reference Type"::Customer);
-                                RecLItemCrossReference.VALIDATE("Cross-Reference Type No.", RecLInventorySetup."STRATEGY Customer No.");
+                                RecLItemCrossReference.VALIDATE("Cross-Reference Type No.", RecLInventorySetup."PWD STRATEGY Customer No.");
                                 RecLItemCrossReference.VALIDATE("Cross-Reference No.", 'NC');
                                 RecLItemCrossReference.INSERT;
                             END;
@@ -614,13 +715,13 @@ page 50001 "PWD Item Configurator"
                                                           '',
                                                           RecGItem."Base Unit of Measure",
                                                           RecLItemCrossReference."Cross-Reference Type"::Customer,
-                                                          RecLInventorySetup."LPSA Customer No.",
+                                                          RecLInventorySetup."PWD LPSA Customer No.",
                                                           'NC') THEN BEGIN
                             RecLItemCrossReference.INIT;
                             RecLItemCrossReference.VALIDATE("Item No.", RecGItem."No.");
                             RecLItemCrossReference.VALIDATE("Unit of Measure", RecGItem."Base Unit of Measure");
                             RecLItemCrossReference.VALIDATE("Cross-Reference Type", RecLItemCrossReference."Cross-Reference Type"::Customer);
-                            RecLItemCrossReference.VALIDATE("Cross-Reference Type No.", RecLInventorySetup."LPSA Customer No.");
+                            RecLItemCrossReference.VALIDATE("Cross-Reference Type No.", RecLInventorySetup."PWD LPSA Customer No.");
                             RecLItemCrossReference.VALIDATE("Cross-Reference No.", 'NC');
                             RecLItemCrossReference.INSERT;
                         END;
@@ -650,6 +751,7 @@ page 50001 "PWD Item Configurator"
                 Caption = 'Configure';
                 Promoted = true;
                 PromotedCategory = Process;
+                ApplicationArea = All;
 
                 trigger OnAction()
                 begin
@@ -761,14 +863,14 @@ page 50001 "PWD Item Configurator"
         [InDataSet]
         EpEditable: Boolean;
         BooGNotEditable: Boolean;
-        RecGPieceType: Record "Piece Type";
+        RecGPieceType: Record "PWD Piece Type";
         RecGItem: Record Item;
-        RecGSubFamily: Record "SubFamily LPSA";
+        RecGSubFamily: Record "PWD SubFamily LPSA";
         RecGItemConfigurator: Record "PWD Item Configurator";
         CstGT001: Label 'Item %1 already exist.';
         PgeGItemCard: Page "Item Card";
         CdUGItemConfigurator: Codeunit "PWD Item Configurator";
-        CduGTemplateManagement: Codeunit "Template Management";
+        CduGTemplateManagement: Codeunit "Config. Template Management";
         RecGItem2: Record Item;
         CstGT002: Label 'Item %1 was created manually. Complete the item code to create a new item.';
         BooGNotEditable2: Boolean;

@@ -10,53 +10,69 @@ page 50024 "PWD Capacity ledger entry list"
         {
             repeater(Group)
             {
-                field("No."; "No.")
+                field("No."; Rec."No.")
                 {
+                    ApplicationArea = All;
                 }
-                field("Posting Date"; "Posting Date")
+                field("Posting Date"; Rec."Posting Date")
                 {
+                    ApplicationArea = All;
                 }
                 field(Type; Type)
                 {
+                    ApplicationArea = All;
                 }
-                field("Document No."; "Document No.")
+                field("Document No."; Rec."Document No.")
                 {
+                    ApplicationArea = All;
                 }
                 field(Description; Description)
                 {
+                    ApplicationArea = All;
                 }
-                field("Operation No."; "Operation No.")
+                field("Operation No."; Rec."Operation No.")
                 {
+                    ApplicationArea = All;
                 }
-                field("Work Center No."; "Work Center No.")
+                field("Work Center No."; Rec."Work Center No.")
                 {
+                    ApplicationArea = All;
                 }
                 field(Quantity; Quantity)
                 {
+                    ApplicationArea = All;
                 }
-                field("Setup Time"; "Setup Time")
+                field("Setup Time"; Rec."Setup Time")
                 {
+                    ApplicationArea = All;
                 }
-                field("Run Time"; "Run Time")
+                field("Run Time"; Rec."Run Time")
                 {
+                    ApplicationArea = All;
                 }
-                field("Invoiced Quantity"; "Invoiced Quantity")
+                field("Invoiced Quantity"; Rec."Invoiced Quantity")
                 {
+                    ApplicationArea = All;
                 }
-                field("Output Quantity"; "Output Quantity")
+                field("Output Quantity"; Rec."Output Quantity")
                 {
+                    ApplicationArea = All;
                 }
-                field("Prod. Order No."; "Prod. Order No.")
+                field("Prod. Order No."; Rec."Order No.")
                 {
+                    ApplicationArea = All;
                 }
-                field("Item No."; "Item No.")
+                field("Item No."; Rec."Item No.")
                 {
+                    ApplicationArea = All;
                 }
-                field("Direct Cost"; "Direct Cost")
+                field("Direct Cost"; Rec."Direct Cost")
                 {
+                    ApplicationArea = All;
                 }
-                field(Subcontracting; Subcontracting)
+                field(Subcontracting; Rec.Subcontracting)
                 {
+                    ApplicationArea = All;
                 }
             }
         }

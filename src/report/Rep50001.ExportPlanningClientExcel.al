@@ -175,6 +175,7 @@ report 50001 "Export Planning Client Excel"
                         Caption = 'Option';
                         OptionCaption = 'Create Workbook,Update Workbook';
                         ShowCaption = false;
+                        ApplicationArea = All;
 
                         trigger OnValidate()
                         begin
@@ -185,6 +186,7 @@ report 50001 "Export Planning Client Excel"
                     {
                         Caption = 'Workbook File Name';
                         Enabled = FileNameEnable;
+                        ApplicationArea = All;
 
                         trigger OnAssistEdit()
                         begin
@@ -202,6 +204,7 @@ report 50001 "Export Planning Client Excel"
                     {
                         Caption = 'Worksheet Name';
                         Enabled = SheetNameEnable;
+                        ApplicationArea = All;
 
                         trigger OnAssistEdit()
                         var

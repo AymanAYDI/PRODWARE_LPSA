@@ -26,30 +26,39 @@ page 8073282 "PWD Connector Error log"
             {
                 field("Entry No."; "Entry No.")
                 {
+                    ApplicationArea = All;
                 }
                 field("Date"; Date)
                 {
+                    ApplicationArea = All;
                 }
                 field(Hour; Hour)
                 {
+                    ApplicationArea = All;
                 }
                 field(ErrorType; ErrorType)
                 {
+                    ApplicationArea = All;
                 }
                 field("Connector Partner"; "Connector Partner")
                 {
+                    ApplicationArea = All;
                 }
                 field("Flow Type"; "Flow Type")
                 {
+                    ApplicationArea = All;
                 }
                 field("Buffer Message No."; "Buffer Message No.")
                 {
+                    ApplicationArea = All;
                 }
                 field("Message"; Message)
                 {
+                    ApplicationArea = All;
                 }
                 field("User ID"; "User ID")
                 {
+                    ApplicationArea = All;
                 }
             }
         }
@@ -58,10 +67,12 @@ page 8073282 "PWD Connector Error log"
             systempart(Control1100294010; Links)
             {
                 Visible = false;
+                ApplicationArea = All;
             }
             systempart(Control1100294009; Notes)
             {
                 Visible = false;
+                ApplicationArea = All;
             }
         }
     }

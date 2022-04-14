@@ -264,6 +264,7 @@ report 50010 "Real Std Comparison Routing"
                     field(DateFilter; DateFilter)
                     {
                         Caption = 'Filtre Date';
+                        ApplicationArea = All;
 
                         trigger OnValidate()
                         var

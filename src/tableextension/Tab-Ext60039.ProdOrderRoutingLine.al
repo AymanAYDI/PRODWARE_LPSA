@@ -4,7 +4,7 @@ tableextension 60039 "PWD ProdOrderRoutingLine" extends "Prod. Order Routing Lin
     // PLAW1-2.1   2013-06-25 PO-3699: calculate prod. order capacity needs (table 5410)
     // PLAW1-2.1.1 2013-07-05 PO-3699: refactor prod. order capacity needs calculation (table 5410)
     // PLAW1-4.0   2014-02-06 PO-3706: add SetupAggregationRule and ActualSetupTime
-    // PLAW1-4.0.6 2014-02-02 PO-4982: block dynamic tracking on Production order line
+    // PLAW1-4.0.6 2014-02-02 PO-4982: block dynamic tracking on Production order line 
     // PLAW1 -----------------------------------------------------------------------------
     // 
     // +----------------------------------------------------------------------------------------------------------------+
@@ -45,8 +45,16 @@ tableextension 60039 "PWD ProdOrderRoutingLine" extends "Prod. Order Routing Lin
             end;
         }
     }
+    keys
+    {
+        key(Key50000; Status, Type, "No.", "Starting Date") { SumIndexFields = "Expected Capacity Need"; }
+        key(Key50001; "Routing No.") { }
+
+    }
 
     procedure SetProdOrderLineDates()
+    var
+        ProdOrderLine: Record "Prod. Order Line";
     begin
         //PLAW11.0
         //PLAW12.0 : change to more reliable condition for first and last operation
@@ -64,14 +72,16 @@ tableextension 60039 "PWD ProdOrderRoutingLine" extends "Prod. Order Routing Lin
                     // PLAW12.0 : code moved in validate trigger
                     // Set Prod. Starting Date-Time
                     IF "Previous Operation No." = '' THEN
-                        ProdOrderLine.VALIDATE("Prod. Starting Date-Time", "Starting Date-Time");
+                        //TODO: Prod. Starting Date-Time n'existe pas dans la table "Prod. Order Line"
+                        //ProdOrderLine.VALIDATE("Prod. Starting Date-Time", "Starting Date-Time");
 
-                    // Set Prod. Ending Date-Time
-                    IF "Next Operation No." = '' THEN
-                        ProdOrderLine.VALIDATE("Prod. Ending Date-Time", "Ending Date-Time");
-                    //PLAW12.0 END
+                        // Set Prod. Ending Date-Time
+                        IF "Next Operation No." = '' THEN
+                            //TODO: Prod. Ending Date-Time n'existe pas dans la table "Prod. Order Line"
+                            //ProdOrderLine.VALIDATE("Prod. Ending Date-Time", "Ending Date-Time");
+                            //PLAW12.0 END
 
-                    ProdOrderLine.MODIFY(TRUE);
+                            ProdOrderLine.MODIFY(TRUE);
                 UNTIL ProdOrderLine.NEXT = 0;
         END;
         //PLAW11.0 END
@@ -115,9 +125,9 @@ tableextension 60039 "PWD ProdOrderRoutingLine" extends "Prod. Order Routing Lin
         ProdOrderComp.BlockDynamicTracking(TRUE);
         ProdOrderComp."Due Date" := "Starting Date";
         ProdOrderComp."Due Time" := "Starting Time";
-        IF FORMAT(ProdOrderComp."Production Lead Time") <> '' THEN BEGIN
+        IF FORMAT(ProdOrderComp."Lead-Time Offset") <> '' THEN BEGIN
             ProdOrderComp."Due Date" :=
-              ProdOrderComp."Due Date" - (CALCDATE(ProdOrderComp."Production Lead Time", WORKDATE) - WORKDATE);
+              ProdOrderComp."Due Date" - (CALCDATE(ProdOrderComp."Lead-Time Offset", WORKDATE) - WORKDATE);
             ProdOrderComp."Due Time" := 0T;
         END;
         ProdOrderComp.VALIDATE("Due Date");
@@ -126,38 +136,37 @@ tableextension 60039 "PWD ProdOrderRoutingLine" extends "Prod. Order Routing Lin
         //PLAW11.0 END
     end;
 
-    procedure CheckAlternate()
-    var
-        TEXT001: Label 'Alternate resource %1 %2 was replaced by resource %3 %4.';
-    begin
-        // PLAW1 2.1 END
-        // PLAW12.2 Check LICENSE
-        IF ApplicationManagement.CheckPlannerOneLicence THEN
-            IF ((Type <> xRec.Type) OR ("No." <> xRec."No."))
-              AND ProdOrderRtngLineAlt.GET(Status, "Prod. Order No.", "Routing Reference No.", "Routing No.", "Operation No.",
-                                       Type, "No.") THEN BEGIN
-                ProdOrderRtngLineAlt.RENAME(Status, "Prod. Order No.", "Routing Reference No.", "Routing No.", "Operation No.",
-                                        xRec.Type, xRec."No.");
-                ProdOrderRtngLineAlt.TRANSFERFIELDS(xRec);
-                ProdOrderRtngLineAlt.MODIFY;
-                MESSAGE(TEXT001, Type, "No.", xRec.Type, xRec."No.");
-            END;
-        // PLAW1 2.1 END
-    end;
+    //TODO: la table PlannerOneProdOrdRoutLineAlt et le codeunit 1 n'existe pas
+    // procedure CheckAlternate()
+    // var
+    //     TEXT001: Label 'Alternate resource %1 %2 was replaced by resource %3 %4.';
+    // ProdOrderRtngLineAlt: Record PlannerOneProdOrdRoutLineAlt;
+    //begin
+    // PLAW1 2.1 END
+    // PLAW12.2 Check LICENSE
+    // IF ApplicationManagement.CheckPlannerOneLicence THEN
+    //     IF ((Type <> xRec.Type) OR ("No." <> xRec."No."))
+    //       AND ProdOrderRtngLineAlt.GET(Status, "Prod. Order No.", "Routing Reference No.", "Routing No.", "Operation No.",
+    //                                Type, "No.") THEN BEGIN
+    //         ProdOrderRtngLineAlt.RENAME(Status, "Prod. Order No.", "Routing Reference No.", "Routing No.", "Operation No.",
+    //                                 xRec.Type, xRec."No.");
+    //         ProdOrderRtngLineAlt.TRANSFERFIELDS(xRec);
+    //         ProdOrderRtngLineAlt.MODIFY;
+    //         MESSAGE(TEXT001, Type, "No.", xRec.Type, xRec."No.");
+    //     END;
+    // PLAW1 2.1 END
+    //end;
 
     procedure CalculateRoutingLine()
     var
         CalcProdOrderRtngLine: Codeunit "Calculate Routing Line";
     begin
-        // PLAW1 2.1.1
         IF DateChangedByPlannerOne THEN BEGIN
             CalcProdOrderRtngLine.CalculateRoutingLineP1(Rec);
         END;
-        // PLAW1 2.1.1 END
     end;
 
     var
         DateChangedByPlannerOne: Boolean;
-        ApplicationManagement: Codeunit ApplicationManagement;
 }
 

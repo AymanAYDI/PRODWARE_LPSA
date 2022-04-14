@@ -311,6 +311,7 @@ report 50011 "PWD Soumission"
                     {
                         Caption = 'No. of Copies';
                         ShowCaption = false;
+                        ApplicationArea = All;
                     }
                 }
             }

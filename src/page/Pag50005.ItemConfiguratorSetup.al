@@ -22,33 +22,37 @@ page 50005 "PWD Item Configurator Setup"
             group(Stone)
             {
                 Caption = 'Stone';
-                part(Control1100294002; "PWD Item Configurator Setup List")
+                part(Control1; "PWD Item Config. Setup List")
                 {
                     SubPageView = SORTING("Option Piece Type", Code) WHERE("Option Piece Type" = CONST(Stone));
+                    ApplicationArea = All;
                 }
             }
             group(Preparage)
             {
                 Caption = 'Preparage';
-                part(Control1100294003; "PWD Item Configurator Setup List")
+                part(Control2; "PWD Item Config. Setup List")
                 {
                     SubPageView = SORTING("Option Piece Type", Code) WHERE("Option Piece Type" = CONST(Preparage));
+                    ApplicationArea = All;
                 }
             }
             group("Lifted & Eliipses")
             {
                 Caption = 'Lifted & Eliipses';
-                part(Control1100294004; "PWD Item Config. Setup List")
+                part(Control3; "PWD Item Config. Setup List")
                 {
-                    SubPageView = SORTING(Option Piece Type, Code) WHERE(Option Piece Type=CONST(Lifted and ellipses));
+                    SubPageView = SORTING("Option Piece Type", Code) WHERE("Option Piece Type" = CONST("Lifted and ellipses"));
+                    ApplicationArea = All;
                 }
             }
             group("Semi-finished")
             {
                 Caption = 'Semi-finished';
-                part(Control1100294005; "PWD Item Config. Setup List")
+                part(Control5; "PWD Item Config. Setup List")
                 {
-                    SubPageView = SORTING(Option Piece Type, Code) WHERE(Option Piece Type=CONST(Semi-finished));
+                    SubPageView = SORTING("Option Piece Type", Code) WHERE("Option Piece Type" = CONST("Semi-finished"));
+                    ApplicationArea = All;
                 }
             }
         }

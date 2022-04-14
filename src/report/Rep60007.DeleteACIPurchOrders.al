@@ -7,7 +7,7 @@ report 60007 "PWD Delete ACI Purch. Orders"
     {
         dataitem("Purchase Header"; "Purchase Header")
         {
-            DataItemTableView = SORTING ("Document Type", "No.") WHERE ("Document Type" = CONST (Order), "Location Code" = FILTER ('ACI'));
+            DataItemTableView = SORTING("Document Type", "No.") WHERE("Document Type" = CONST(Order), "Location Code" = FILTER('ACI'));
             RequestFilterFields = "No.", "Buy-from Vendor No.", "Pay-to Vendor No.";
             RequestFilterHeading = 'Purchase Order';
 
@@ -129,8 +129,8 @@ report 60007 "PWD Delete ACI Purch. Orders"
                                     if PurchLine.HasLinks then
                                         PurchLine.DeleteLinks;
                                     PurchLine.Delete;
-                                    //END ELSE
-                                    //  AllLinesDeleted := FALSE;
+                                //END ELSE
+                                //  AllLinesDeleted := FALSE;
                                 until PurchLine.Next = 0;
                             if AllLinesDeleted then begin
                                 PurchPost.DeleteHeader(
@@ -184,6 +184,7 @@ report 60007 "PWD Delete ACI Purch. Orders"
                     field(DateGDateFilter; DateGDateFilter)
                     {
                         Caption = 'Commandes avant le';
+                        ApplicationArea = All;
                     }
                 }
             }

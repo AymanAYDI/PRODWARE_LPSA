@@ -489,10 +489,12 @@ report 50032 "PWD Updt with New Dimension"
                     {
                         Caption = 'Axe';
                         TableRelation = Dimension;
+                        ApplicationArea = All;
                     }
                     field(DateFilter; DateFilter)
                     {
                         Caption = 'Date Filter';
+                        ApplicationArea = All;
 
                         trigger OnValidate()
                         var

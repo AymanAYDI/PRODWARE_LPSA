@@ -14,7 +14,7 @@ page 50023 "Purchase Order Archive Lines"
     LinksAllowed = false;
     PageType = List;
     SourceTable = "Purchase Line Archive";
-    SourceTableView = WHERE(Document Type=CONST(Order));
+    SourceTableView = WHERE("Document Type" = CONST(Order));
 
     layout
     {
@@ -25,188 +25,237 @@ page 50023 "Purchase Order Archive Lines"
                 ShowCaption = false;
                 field(Type; Type)
                 {
+                    ApplicationArea = All;
                 }
-                field("No."; "No.")
+                field("No."; Rec."No.")
                 {
+                    ApplicationArea = All;
                 }
-                field("Document No."; "Document No.")
+                field("Document No."; Rec."Document No.")
                 {
+                    ApplicationArea = All;
                 }
-                field("Cross-Reference No."; "Cross-Reference No.")
-                {
-                    Visible = false;
-                }
-                field("Variant Code"; "Variant Code")
-                {
-                    Visible = false;
-                }
-                field(Nonstock; Nonstock)
+                field("Cross-Reference No."; Rec."Cross-Reference No.")
                 {
                     Visible = false;
+                    ApplicationArea = All;
                 }
-                field("VAT Prod. Posting Group"; "VAT Prod. Posting Group")
+                field("Variant Code"; Rec."Variant Code")
                 {
                     Visible = false;
+                    ApplicationArea = All;
                 }
-                field(Description; Description)
-                {
-                }
-                field("PWD LPSA Description 1"; "PWD LPSA Description 1")
-                {
-                }
-                field("PWD LPSA Description 2"; "PWD LPSA Description 2")
-                {
-                }
-                field("Drop Shipment"; "Drop Shipment")
+                field(Nonstock; Rec.Nonstock)
                 {
                     Visible = false;
+                    ApplicationArea = All;
                 }
-                field("Return Reason Code"; "Return Reason Code")
+                field("VAT Prod. Posting Group"; Rec."VAT Prod. Posting Group")
                 {
                     Visible = false;
+                    ApplicationArea = All;
                 }
-                field("Location Code"; "Location Code")
+                field(Description; Rec.Description)
                 {
+                    ApplicationArea = All;
                 }
-                field(Quantity; Quantity)
+                field("PWD LPSA Description 1"; Rec."PWD LPSA Description 1")
+                {
+                    ApplicationArea = All;
+                }
+                field("PWD LPSA Description 2"; Rec."PWD LPSA Description 2")
+                {
+                    ApplicationArea = All;
+                }
+                field("Drop Shipment"; Rec."Drop Shipment")
+                {
+                    Visible = false;
+                    ApplicationArea = All;
+                }
+                field("Return Reason Code"; Rec."Return Reason Code")
+                {
+                    Visible = false;
+                    ApplicationArea = All;
+                }
+                field("Location Code"; Rec."Location Code")
+                {
+                    ApplicationArea = All;
+                }
+                field(Quantity; Rec.Quantity)
                 {
                     BlankZero = true;
+                    ApplicationArea = All;
                 }
-                field("Unit of Measure Code"; "Unit of Measure Code")
+                field("Unit of Measure Code"; Rec."Unit of Measure Code")
                 {
+                    ApplicationArea = All;
                 }
-                field("Unit of Measure"; "Unit of Measure")
+                field("Unit of Measure"; Rec."Unit of Measure")
                 {
                     Visible = false;
+                    ApplicationArea = All;
                 }
-                field("Direct Unit Cost"; "Direct Unit Cost")
+                field("Direct Unit Cost"; Rec."Direct Unit Cost")
                 {
                     BlankZero = true;
+                    ApplicationArea = All;
                 }
-                field("Indirect Cost %"; "Indirect Cost %")
+                field("Indirect Cost %"; Rec."Indirect Cost %")
                 {
                     Visible = false;
+                    ApplicationArea = All;
                 }
-                field("Unit Cost (LCY)"; "Unit Cost (LCY)")
+                field("Unit Cost (LCY)"; Rec."Unit Cost (LCY)")
                 {
                     Visible = false;
+                    ApplicationArea = All;
                 }
-                field("Unit Price (LCY)"; "Unit Price (LCY)")
+                field("Unit Price (LCY)"; Rec."Unit Price (LCY)")
                 {
                     Visible = false;
+                    ApplicationArea = All;
                 }
-                field("Line Amount"; "Line Amount")
+                field("Line Amount"; Rec."Line Amount")
                 {
                     BlankZero = true;
+                    ApplicationArea = All;
                 }
-                field("Line Discount %"; "Line Discount %")
+                field("Line Discount %"; Rec."Line Discount %")
                 {
                     BlankZero = true;
+                    ApplicationArea = All;
                 }
-                field("Line Discount Amount"; "Line Discount Amount")
+                field("Line Discount Amount"; Rec."Line Discount Amount")
                 {
                     Visible = false;
+                    ApplicationArea = All;
                 }
-                field("Allow Invoice Disc."; "Allow Invoice Disc.")
+                field("Allow Invoice Disc."; Rec."Allow Invoice Disc.")
                 {
                     Visible = false;
+                    ApplicationArea = All;
                 }
-                field("Inv. Discount Amount"; "Inv. Discount Amount")
+                field("Inv. Discount Amount"; Rec."Inv. Discount Amount")
                 {
                     Visible = false;
+                    ApplicationArea = All;
                 }
-                field("Qty. to Receive"; "Qty. to Receive")
+                field("Qty. to Receive"; Rec."Qty. to Receive")
                 {
                     BlankZero = true;
+                    ApplicationArea = All;
                 }
-                field("Quantity Received"; "Quantity Received")
+                field("Quantity Received"; Rec."Quantity Received")
                 {
                     BlankZero = true;
+                    ApplicationArea = All;
                 }
-                field("Qty. to Invoice"; "Qty. to Invoice")
+                field("Qty. to Invoice"; Rec."Qty. to Invoice")
                 {
                     BlankZero = true;
+                    ApplicationArea = All;
                 }
-                field("Quantity Invoiced"; "Quantity Invoiced")
+                field("Quantity Invoiced"; Rec."Quantity Invoiced")
                 {
                     BlankZero = true;
+                    ApplicationArea = All;
                 }
-                field("Allow Item Charge Assignment"; "Allow Item Charge Assignment")
+                field("Allow Item Charge Assignment"; Rec."Allow Item Charge Assignment")
                 {
                     Visible = false;
+                    ApplicationArea = All;
                 }
-                field("Requested Receipt Date"; "Requested Receipt Date")
+                field("Requested Receipt Date"; Rec."Requested Receipt Date")
                 {
                     Visible = false;
+                    ApplicationArea = All;
                 }
-                field("Promised Receipt Date"; "Promised Receipt Date")
+                field("Promised Receipt Date"; Rec."Promised Receipt Date")
                 {
                     Visible = false;
+                    ApplicationArea = All;
                 }
-                field("Planned Receipt Date"; "Planned Receipt Date")
+                field("Planned Receipt Date"; Rec."Planned Receipt Date")
                 {
+                    ApplicationArea = All;
                 }
-                field("Expected Receipt Date"; "Expected Receipt Date")
+                field("Expected Receipt Date"; Rec."Expected Receipt Date")
                 {
+                    ApplicationArea = All;
                 }
-                field("Order Date"; "Order Date")
+                field("Order Date"; Rec."Order Date")
                 {
+                    ApplicationArea = All;
                 }
-                field("Lead Time Calculation"; "Lead Time Calculation")
-                {
-                    Visible = false;
-                }
-                field("Job No."; "Job No.")
-                {
-                    Visible = false;
-                }
-                field("Planning Flexibility"; "Planning Flexibility")
+                field("Lead Time Calculation"; Rec."Lead Time Calculation")
                 {
                     Visible = false;
+                    ApplicationArea = All;
                 }
-                field("Prod. Order Line No."; "Prod. Order Line No.")
+                field("Job No."; Rec."Job No.")
                 {
                     Visible = false;
+                    ApplicationArea = All;
                 }
-                field("Prod. Order No."; "Prod. Order No.")
+                field("Planning Flexibility"; Rec."Planning Flexibility")
                 {
                     Visible = false;
+                    ApplicationArea = All;
                 }
-                field("Operation No."; "Operation No.")
+                field("Prod. Order Line No."; Rec."Prod. Order Line No.")
                 {
                     Visible = false;
+                    ApplicationArea = All;
                 }
-                field("Work Center No."; "Work Center No.")
+                field("Prod. Order No."; Rec."Prod. Order No.")
                 {
                     Visible = false;
+                    ApplicationArea = All;
                 }
-                field(Finished; Finished)
+                field("Operation No."; Rec."Operation No.")
                 {
                     Visible = false;
+                    ApplicationArea = All;
                 }
-                field("Inbound Whse. Handling Time"; "Inbound Whse. Handling Time")
+                field("Work Center No."; Rec."Work Center No.")
                 {
                     Visible = false;
+                    ApplicationArea = All;
                 }
-                field("Blanket Order No."; "Blanket Order No.")
+                field(Finished; Rec.Finished)
                 {
                     Visible = false;
+                    ApplicationArea = All;
                 }
-                field("Blanket Order Line No."; "Blanket Order Line No.")
+                field("Inbound Whse. Handling Time"; Rec."Inbound Whse. Handling Time")
                 {
                     Visible = false;
+                    ApplicationArea = All;
                 }
-                field("Appl.-to Item Entry"; "Appl.-to Item Entry")
+                field("Blanket Order No."; Rec."Blanket Order No.")
                 {
                     Visible = false;
+                    ApplicationArea = All;
                 }
-                field("Shortcut Dimension 1 Code"; "Shortcut Dimension 1 Code")
+                field("Blanket Order Line No."; Rec."Blanket Order Line No.")
                 {
                     Visible = false;
+                    ApplicationArea = All;
                 }
-                field("Shortcut Dimension 2 Code"; "Shortcut Dimension 2 Code")
+                field("Appl.-to Item Entry"; Rec."Appl.-to Item Entry")
                 {
                     Visible = false;
+                    ApplicationArea = All;
+                }
+                field("Shortcut Dimension 1 Code"; Rec."Shortcut Dimension 1 Code")
+                {
+                    Visible = false;
+                    ApplicationArea = All;
+                }
+                field("Shortcut Dimension 2 Code"; Rec."Shortcut Dimension 2 Code")
+                {
+                    Visible = false;
+                    ApplicationArea = All;
                 }
             }
         }
@@ -224,6 +273,7 @@ page 50023 "Purchase Order Archive Lines"
                     Caption = 'Dimensions';
                     Image = Dimensions;
                     ShortCutKey = 'Shift+Ctrl+D';
+                    ApplicationArea = All;
 
                     trigger OnAction()
                     begin
@@ -237,6 +287,7 @@ page 50023 "Purchase Order Archive Lines"
                 {
                     Caption = 'Co&mments';
                     Image = ViewComments;
+                    ApplicationArea = All;
 
                     trigger OnAction()
                     begin
@@ -249,6 +300,7 @@ page 50023 "Purchase Order Archive Lines"
                 action(Action1905483604)
                 {
                     Caption = 'Document &LineTracking';
+                    ApplicationArea = All;
 
                     trigger OnAction()
                     begin
@@ -290,12 +342,13 @@ page 50023 "Purchase Order Archive Lines"
 
 
     procedure ShowDocumentLineTracking()
+    var
+    //TODO: Page 'Document Lines Tracking' n'existe pas
+    //DocumentLineTracking: Page "Document Lines Tracking";
     begin
-        // dach0001.begin
-        CLEAR(DocumentLineTracking);
-        DocumentLineTracking.SetDoc(1, "Document No.", "Line No.", "Blanket Order No.", "Blanket Order Line No.", '', 0);
-        DocumentLineTracking.RUNMODAL;
-        // dach0001.end
+        // CLEAR(DocumentLineTracking);
+        // DocumentLineTracking.SetDoc(1, Rec."Document No.", Rec."Line No.", Rec."Blanket Order No.", Rec."Blanket Order Line No.", '', 0);
+        // DocumentLineTracking.RUNMODAL;
     end;
 }
 

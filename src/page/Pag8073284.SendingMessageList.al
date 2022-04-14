@@ -38,50 +38,64 @@ page 8073284 "PWD Sending Message List"
                 ShowCaption = false;
                 field("Code"; Code)
                 {
+                    ApplicationArea = All;
                 }
                 field("Table ID"; "Table ID")
                 {
+                    ApplicationArea = All;
                 }
                 field("Table Name"; "Table Name")
                 {
+                    ApplicationArea = All;
                 }
                 field("Xml Tag"; "Xml Tag")
                 {
                     Visible = BooGXmlTagVisible;
+                    ApplicationArea = All;
                 }
                 field(Function; "Function")
                 {
+                    ApplicationArea = All;
                 }
                 field(Description; Description)
                 {
+                    ApplicationArea = All;
                 }
                 field(Path; Path)
                 {
+                    ApplicationArea = All;
                 }
                 field("Fill Character"; "Fill Character")
                 {
                     Visible = BooGFillCharVisible;
+                    ApplicationArea = All;
                 }
                 field("Field ID"; "Field ID")
                 {
                     Visible = BooGVisible;
+                    ApplicationArea = All;
                 }
                 field("Field Name"; "Field Name")
                 {
                     Visible = BooGVisible;
+                    ApplicationArea = All;
                 }
                 field("Export Option"; "Export Option")
                 {
                     Visible = BooGVisible;
+                    ApplicationArea = All;
                 }
                 field("Master Table"; "Master Table")
                 {
+                    ApplicationArea = All;
                 }
                 field("Archive Message"; "Archive Message")
                 {
+                    ApplicationArea = All;
                 }
                 field(Blocked; Blocked)
                 {
+                    ApplicationArea = All;
                 }
             }
         }
@@ -90,10 +104,12 @@ page 8073284 "PWD Sending Message List"
             systempart(Control1100294006; Links)
             {
                 Visible = false;
+                ApplicationArea = All;
             }
             systempart(Control1100294004; Notes)
             {
                 Visible = false;
+                ApplicationArea = All;
             }
         }
     }
@@ -115,6 +131,7 @@ page 8073284 "PWD Sending Message List"
                     RunObject = Page "PWD Fields Export Setup";
                     RunPageLink = "Partner Code" = FIELD("Partner Code"), "Message Code" = FIELD(Code), "Table ID" = FIELD("Table ID"), Direction = FIELD(Direction);
                     ShortCutKey = 'Shift+Ctrl+F';
+                    ApplicationArea = All;
                 }
             }
         }

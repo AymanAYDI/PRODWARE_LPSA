@@ -532,6 +532,7 @@ report 50000 "Export Invoicing Data (Excel)"
                     {
                         Caption = 'Starting Date';
                         ShowCaption = false;
+                        ApplicationArea = All;
 
                         trigger OnValidate()
                         begin
@@ -545,6 +546,7 @@ report 50000 "Export Invoicing Data (Excel)"
                     {
                         Caption = 'EndingDate';
                         ShowCaption = false;
+                        ApplicationArea = All;
                     }
                     field(TxtGFilename; TxtGFilename)
                     {
@@ -552,6 +554,7 @@ report 50000 "Export Invoicing Data (Excel)"
                         OptionCaption = 'File Name';
                         ShowCaption = false;
                         Visible = false;
+                        ApplicationArea = All;
                     }
                 }
             }

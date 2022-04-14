@@ -21,15 +21,19 @@ page 50033 "PWD Tools Instructions Setup"
             {
                 field(Type; Type)
                 {
+                    ApplicationArea = All;
                 }
                 field("No."; "No.")
                 {
+                    ApplicationArea = All;
                 }
                 field(Description; Description)
                 {
+                    ApplicationArea = All;
                 }
                 field(Criteria; Criteria)
                 {
+                    ApplicationArea = All;
                 }
             }
         }

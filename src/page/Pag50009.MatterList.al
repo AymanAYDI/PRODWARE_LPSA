@@ -12,7 +12,7 @@ page 50009 "PWD Matter List"
     // ------------------------------------------------------------------------------------------------------------------
 
     PageType = List;
-    SourceTable = Matter;
+    SourceTable = "PWD Matter";
 
     layout
     {
@@ -22,9 +22,11 @@ page 50009 "PWD Matter List"
             {
                 field("Code"; Code)
                 {
+                    ApplicationArea = All;
                 }
                 field(Description; Description)
                 {
+                    ApplicationArea = All;
                 }
             }
         }

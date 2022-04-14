@@ -45,48 +45,63 @@ page 8073291 "PWD OSYS Setup"
                 Caption = 'General';
                 field(OSYS; OSYS)
                 {
+                    ApplicationArea = All;
                 }
                 field("Journal Templ Name Prod"; "Journal Templ Name Prod")
                 {
+                    ApplicationArea = All;
                 }
                 field("Journal Batch Name Prod"; "Journal Batch Name Prod")
                 {
+                    ApplicationArea = All;
                 }
                 field("Journal Templ Name Prod 1"; "Journal Templ Name Prod 1")
                 {
+                    ApplicationArea = All;
                 }
                 field("Journal Batch Name Prod 1"; "Journal Batch Name Prod 1")
                 {
+                    ApplicationArea = All;
                 }
                 field("Journal Templ Name Stock MVT"; "Journal Templ Name Stock MVT")
                 {
+                    ApplicationArea = All;
                 }
                 field("Journal Batch Name Stock MVT"; "Journal Batch Name Stock MVT")
                 {
+                    ApplicationArea = All;
                 }
                 field("Journal Templ Name Stock TRF"; "Journal Templ Name Stock TRF")
                 {
+                    ApplicationArea = All;
                 }
                 field("Journal Batch Name Stock TRF"; "Journal Batch Name Stock TRF")
                 {
+                    ApplicationArea = All;
                 }
                 field("Packaging Unit"; "Packaging Unit")
                 {
+                    ApplicationArea = All;
                 }
                 field("Pallet  Unit"; "Pallet  Unit")
                 {
+                    ApplicationArea = All;
                 }
                 field("Separator Character"; "Separator Character")
                 {
+                    ApplicationArea = All;
                 }
                 field("Partner Code"; "Partner Code")
                 {
+                    ApplicationArea = All;
                 }
                 field("Possible Items Message"; "Possible Items Message")
                 {
+                    ApplicationArea = All;
                 }
                 field(PlannerOne; PlannerOne)
                 {
+                    ApplicationArea = All;
                 }
             }
         }
@@ -95,10 +110,12 @@ page 8073291 "PWD OSYS Setup"
             systempart(Control1100294004; Links)
             {
                 Visible = false;
+                ApplicationArea = All;
             }
             systempart(Control1100294003; Notes)
             {
                 Visible = false;
+                ApplicationArea = All;
             }
         }
     }

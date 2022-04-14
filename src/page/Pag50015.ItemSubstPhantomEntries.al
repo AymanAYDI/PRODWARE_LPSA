@@ -14,7 +14,7 @@ page 50015 "Item Subst. Phantom Entries"
     DataCaptionFields = "Phantom Item No.";
     DelayedInsert = true;
     PageType = Worksheet;
-    SourceTable = "Phantom substitution Items";
+    SourceTable = "PWD Phantom substitution Items";
 
     layout
     {
@@ -25,56 +25,67 @@ page 50015 "Item Subst. Phantom Entries"
                 Caption = 'General';
                 Editable = false;
                 ShowCaption = false;
-                field("Phantom Item No."; "Phantom Item No.")
+                field("Phantom Item No."; Rec."Phantom Item No.")
                 {
+                    ApplicationArea = All;
                 }
-                field("Expected Quantity"; "Expected Quantity")
+                field("Expected Quantity"; Rec."Expected Quantity")
                 {
+                    ApplicationArea = All;
                 }
                 field(DecGQtyRequested; DecGQtyRequested)
                 {
                     Caption = 'Quantity Requested';
                     DecimalPlaces = 0 : 5;
+                    ApplicationArea = All;
                 }
                 field(DecGQtyRemaining; DecGQtyRemaining)
                 {
                     Caption = 'Remaining Quantity';
                     DecimalPlaces = 0 : 5;
+                    ApplicationArea = All;
                 }
             }
             repeater(Control1)
             {
                 ShowCaption = false;
-                field("Item No."; "Item No.")
+                field("Item No."; Rec."Item No.")
                 {
                     Editable = false;
+                    ApplicationArea = All;
                 }
-                field("Lot No."; "Lot No.")
+                field("Lot No."; Rec."Lot No.")
                 {
                     Editable = false;
+                    ApplicationArea = All;
                 }
-                field(Description; Description)
+                field(Description; Rec.Description)
                 {
                     Editable = false;
+                    ApplicationArea = All;
                 }
-                field(Priority; Priority)
+                field(Priority; Rec.Priority)
                 {
                     Editable = false;
+                    ApplicationArea = All;
                 }
-                field(Inventory; Inventory)
+                field(Inventory; Rec.Inventory)
                 {
                     Editable = false;
+                    ApplicationArea = All;
                 }
-                field("Total Available Quantity"; "Total Available Quantity")
+                field("Total Available Quantity"; Rec."Total Available Quantity")
                 {
+                    ApplicationArea = All;
                 }
-                field("Quantity Requested"; "Quantity Requested")
+                field("Quantity Requested"; Rec."Quantity Requested")
                 {
+                    ApplicationArea = All;
 
                     trigger OnValidate()
                     begin
-                        DecGQtyRequested := DecGQtyRequested - xRec."Quantity Requested" + "Quantity Requested";
-                        DecGQtyRemaining := "Expected Quantity" - DecGQtyRequested;
+                        DecGQtyRequested := DecGQtyRequested - xRec."Quantity Requested" + Rec."Quantity Requested";
+                        DecGQtyRemaining := Rec."Expected Quantity" - DecGQtyRequested;
                         CurrPage.UPDATE(TRUE);
                     end;
                 }
@@ -85,10 +96,12 @@ page 50015 "Item Subst. Phantom Entries"
             systempart(Control1900383207; Links)
             {
                 Visible = false;
+                ApplicationArea = All;
             }
             systempart(Control1905767507; Notes)
             {
                 Visible = false;
+                ApplicationArea = All;
             }
         }
     }
@@ -103,7 +116,7 @@ page 50015 "Item Subst. Phantom Entries"
     trigger OnOpenPage()
     begin
         DecGQtyRequested := 0;
-        DecGQtyRemaining := "Expected Quantity";
+        DecGQtyRemaining := Rec."Expected Quantity";
     end;
 
     var

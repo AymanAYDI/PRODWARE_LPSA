@@ -12,7 +12,7 @@ page 50025 "PWD Current Product Order List"
     Caption = 'Current Product Order List';
     Editable = false;
     PageType = List;
-    SourceTable = "Current Product Order";
+    SourceTable = "PWD Current Product Order";
     SourceTableTemporary = true;
 
     layout
@@ -21,26 +21,33 @@ page 50025 "PWD Current Product Order List"
         {
             repeater(Group)
             {
-                field("PO No."; "PO No.")
+                field("PO No."; Rec."PO No.")
                 {
+                    ApplicationArea = All;
                 }
-                field("Item No."; "Item No.")
+                field("Item No."; Rec."Item No.")
                 {
+                    ApplicationArea = All;
                 }
-                field("Description LPSA1"; "Description LPSA1")
+                field("Description LPSA1"; Rec."Description LPSA1")
                 {
+                    ApplicationArea = All;
                 }
-                field("Description LPSA2"; "Description LPSA2")
+                field("Description LPSA2"; Rec."Description LPSA2")
                 {
+                    ApplicationArea = All;
                 }
-                field("Last Ended Operation"; "Last Ended Operation")
+                field("Last Ended Operation"; Rec."Last Ended Operation")
                 {
+                    ApplicationArea = All;
                 }
-                field("Center Description"; "Center Description")
+                field("Center Description"; Rec."Center Description")
                 {
+                    ApplicationArea = All;
                 }
                 field(Quantity; Quantity)
                 {
+                    ApplicationArea = All;
                 }
             }
         }

@@ -8,7 +8,7 @@ report 50080 "PWD UPDATE NICOLAS"
     {
         dataitem("Prod. Order Routing Line"; "Prod. Order Routing Line")
         {
-            DataItemTableView = SORTING (Type, "No.", "Starting Date") WHERE (Status = FILTER (< Finished), "Routing Status" = FILTER (< Finished));
+            DataItemTableView = SORTING(Type, "No.", "Starting Date") WHERE(Status = FILTER(< Finished), "Routing Status" = FILTER(< Finished));
 
             trigger OnAfterGetRecord()
             var
@@ -68,6 +68,7 @@ report 50080 "PWD UPDATE NICOLAS"
                         Caption = 'Reference Routing No.';
                         ShowCaption = false;
                         TableRelation = "Routing Header"."No.";
+                        ApplicationArea = All;
 
                         trigger OnValidate()
                         var
@@ -85,6 +86,7 @@ report 50080 "PWD UPDATE NICOLAS"
                         Caption = 'Operation No.';
                         OptionCaption = 'Operations No.';
                         ShowCaption = false;
+                        ApplicationArea = All;
 
                         trigger OnLookup(var Text: Text): Boolean
                         var
@@ -111,6 +113,7 @@ report 50080 "PWD UPDATE NICOLAS"
                     {
                         Caption = 'Setup Time';
                         ShowCaption = false;
+                        ApplicationArea = All;
 
                         trigger OnValidate()
                         begin
@@ -122,11 +125,13 @@ report 50080 "PWD UPDATE NICOLAS"
                     {
                         Caption = 'Setup Time Unit of Meas. Code';
                         ShowCaption = false;
+                        ApplicationArea = All;
                     }
                     field("BooG_Run_Time"; BooG_Run_Time)
                     {
                         Caption = 'Run Time';
                         ShowCaption = false;
+                        ApplicationArea = All;
 
                         trigger OnValidate()
                         begin
@@ -138,11 +143,13 @@ report 50080 "PWD UPDATE NICOLAS"
                     {
                         Caption = 'Run Time Unit of Meas. Code';
                         ShowCaption = false;
+                        ApplicationArea = All;
                     }
                     field("BooG_Wait_Time"; BooG_Wait_Time)
                     {
                         Caption = 'Wait Time';
                         ShowCaption = false;
+                        ApplicationArea = All;
 
                         trigger OnValidate()
                         begin
@@ -154,11 +161,13 @@ report 50080 "PWD UPDATE NICOLAS"
                     {
                         Caption = 'Wait Time Unit of Meas. Code';
                         ShowCaption = false;
+                        ApplicationArea = All;
                     }
                     field("BooG_Move_Time"; BooG_Move_Time)
                     {
                         Caption = 'Move Time';
                         ShowCaption = false;
+                        ApplicationArea = All;
 
                         trigger OnValidate()
                         begin
@@ -170,26 +179,31 @@ report 50080 "PWD UPDATE NICOLAS"
                     {
                         Caption = 'Move Time Unit of Meas. Code';
                         ShowCaption = false;
+                        ApplicationArea = All;
                     }
                     field("BooG_Concurrent_Capacities"; BooG_Concurrent_Capacities)
                     {
                         Caption = 'Concurrent Capacities';
                         ShowCaption = false;
+                        ApplicationArea = All;
                     }
                     field("BooG_Scrap_Factor"; BooG_Scrap_Factor)
                     {
                         Caption = 'Scrap Factor %';
                         ShowCaption = false;
+                        ApplicationArea = All;
                     }
                     field("BooG_Update_Cost_FromWC"; BooG_Update_Cost_FromWC)
                     {
                         Caption = 'Update Unit Cost from Work Center';
                         ShowCaption = false;
+                        ApplicationArea = All;
                     }
                     field("BooG_Update_Cost_FromMC"; BooG_Update_Cost_FromMC)
                     {
                         Caption = 'Update Unit Cost from Machine Center';
                         ShowCaption = false;
+                        ApplicationArea = All;
                     }
                 }
             }

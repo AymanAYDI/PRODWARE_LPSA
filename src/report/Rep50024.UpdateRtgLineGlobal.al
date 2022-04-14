@@ -17,11 +17,11 @@ report 50024 "PWD Update Rtg Line Global"
     {
         dataitem(POL_Sauv; "Prod. Order Line")
         {
-            DataItemTableView = SORTING (Status, "Prod. Order No.", "Line No.") WHERE (Status = FILTER (Released), PlanningGroup = FILTER (<> 'ACIERS'));
+            DataItemTableView = SORTING(Status, "Prod. Order No.", "Line No.") WHERE(Status = FILTER(Released), PlanningGroup = FILTER(<> 'ACIERS'));
             dataitem(PORL_Termined; "Prod. Order Routing Line")
             {
-                DataItemLink = Status = FIELD (Status), "Prod. Order No." = FIELD ("Prod. Order No."), "Routing Reference No." = FIELD ("Routing Reference No."), "Routing No." = FIELD ("Routing No.");
-                DataItemTableView = SORTING (Status, "Prod. Order No.", "Routing Reference No.", "Routing No.", "Operation No.") WHERE (Type = FILTER ("Machine Center"), "No." = FILTER ('M00000'));
+                DataItemLink = Status = FIELD(Status), "Prod. Order No." = FIELD("Prod. Order No."), "Routing Reference No." = FIELD("Routing Reference No."), "Routing No." = FIELD("Routing No.");
+                DataItemTableView = SORTING(Status, "Prod. Order No.", "Routing Reference No.", "Routing No.", "Operation No.") WHERE(Type = FILTER("Machine Center"), "No." = FILTER('M00000'));
 
                 trigger OnAfterGetRecord()
                 begin
@@ -64,11 +64,11 @@ report 50024 "PWD Update Rtg Line Global"
         }
         dataitem(RL_Reference; "Routing Line")
         {
-            DataItemTableView = SORTING (Type, "No.");
+            DataItemTableView = SORTING(Type, "No.");
             dataitem(RL_Others; "Routing Line")
             {
-                DataItemLink = Type = FIELD (Type), "No." = FIELD ("No.");
-                DataItemTableView = SORTING (Type, "No.") WHERE ("Version Code" = FILTER (''));
+                DataItemLink = Type = FIELD(Type), "No." = FIELD("No.");
+                DataItemTableView = SORTING(Type, "No.") WHERE("Version Code" = FILTER(''));
 
                 trigger OnAfterGetRecord()
                 begin
@@ -131,8 +131,8 @@ report 50024 "PWD Update Rtg Line Global"
             }
             dataitem(RL_OthersVersion; "Routing Line")
             {
-                DataItemLink = Type = FIELD (Type), "No." = FIELD ("No.");
-                DataItemTableView = SORTING (Type, "No.") WHERE ("Version Code" = FILTER (<> ''));
+                DataItemLink = Type = FIELD(Type), "No." = FIELD("No.");
+                DataItemTableView = SORTING(Type, "No.") WHERE("Version Code" = FILTER(<> ''));
 
                 trigger OnAfterGetRecord()
                 begin
@@ -196,8 +196,8 @@ report 50024 "PWD Update Rtg Line Global"
             }
             dataitem("Prod. Order Routing Line"; "Prod. Order Routing Line")
             {
-                DataItemLink = Type = FIELD (Type), "No." = FIELD ("No.");
-                DataItemTableView = SORTING (Type, "No.", "Starting Date") WHERE (Status = FILTER (Released), "Routing Status" = FILTER (< Finished));
+                DataItemLink = Type = FIELD(Type), "No." = FIELD("No.");
+                DataItemTableView = SORTING(Type, "No.", "Starting Date") WHERE(Status = FILTER(Released), "Routing Status" = FILTER(< Finished));
 
                 trigger OnAfterGetRecord()
                 var
@@ -287,7 +287,7 @@ report 50024 "PWD Update Rtg Line Global"
         }
         dataitem(POL_rest; "Prod. Order Line")
         {
-            DataItemTableView = SORTING (Status, "Prod. Order No.", "Line No.") WHERE (Status = FILTER (Released), PlanningGroup = FILTER (<> 'ACIERS'), "To Be Updated" = FILTER (true));
+            DataItemTableView = SORTING(Status, "Prod. Order No.", "Line No.") WHERE(Status = FILTER(Released), PlanningGroup = FILTER(<> 'ACIERS'), "To Be Updated" = FILTER(true));
 
             trigger OnAfterGetRecord()
             var
@@ -358,6 +358,7 @@ report 50024 "PWD Update Rtg Line Global"
                         Caption = 'Reference Routing No.';
                         ShowCaption = false;
                         TableRelation = "Routing Header"."No.";
+                        ApplicationArea = All;
 
                         trigger OnValidate()
                         var
@@ -375,6 +376,7 @@ report 50024 "PWD Update Rtg Line Global"
                         Caption = 'Operation No.';
                         OptionCaption = 'Operations No.';
                         ShowCaption = false;
+                        ApplicationArea = All;
 
                         trigger OnLookup(var Text: Text): Boolean
                         var
@@ -401,31 +403,37 @@ report 50024 "PWD Update Rtg Line Global"
                     {
                         Caption = 'Setup Time';
                         ShowCaption = false;
+                        ApplicationArea = All;
                     }
                     field("BooG_Run_Time"; BooG_Run_Time)
                     {
                         Caption = 'Run Time';
                         ShowCaption = false;
+                        ApplicationArea = All;
                     }
                     field("BooG_Wait_Time"; BooG_Wait_Time)
                     {
                         Caption = 'Wait Time';
                         ShowCaption = false;
+                        ApplicationArea = All;
                     }
                     field("BooG_Move_Time"; BooG_Move_Time)
                     {
                         Caption = 'Move Time';
                         ShowCaption = false;
+                        ApplicationArea = All;
                     }
                     field("BooG_Update_Cost_FromWC"; BooG_Update_Cost_FromWC)
                     {
                         Caption = 'Update Unit Cost from Work Center';
                         ShowCaption = false;
+                        ApplicationArea = All;
                     }
                     field("BooG_Update_Cost_FromMC"; BooG_Update_Cost_FromMC)
                     {
                         Caption = 'Update Unit Cost from Machine Center';
                         ShowCaption = false;
+                        ApplicationArea = All;
                     }
                     group("Les OF sont filtrés par défaut avec Statut = Lancé et Groupe de planification <> ACIERS")
                     {
@@ -433,6 +441,7 @@ report 50024 "PWD Update Rtg Line Global"
                         field(OptGStep; OptGStep)
                         {
                             Caption = 'Etape';
+                            ApplicationArea = All;
                         }
                     }
                 }

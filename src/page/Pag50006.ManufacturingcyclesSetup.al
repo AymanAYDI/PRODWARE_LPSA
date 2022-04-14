@@ -12,7 +12,7 @@ page 50006 "PWD Manufacturing cycles Setup"
 
     Caption = 'Manufacturing cycles Setup';
     PageType = Card;
-    SourceTable = "Manufacturing cycles Setup";
+    SourceTable = "PWD Manufacturing cycles Setup";
 
     layout
     {
@@ -20,35 +20,45 @@ page 50006 "PWD Manufacturing cycles Setup"
         {
             group(General)
             {
-                field("No."; "No.")
+                field("No."; Rec."No.")
                 {
+                    ApplicationArea = All;
                 }
-                field("Item Code"; "Item Code")
+                field("Item Code"; Rec."Item Code")
                 {
+                    ApplicationArea = All;
                 }
-                field(Name; Name)
+                field(Name; Rec.Name)
                 {
+                    ApplicationArea = All;
                 }
-                field("Item Category Code"; "Item Category Code")
+                field("Item Category Code"; Rec."Item Category Code")
                 {
+                    ApplicationArea = All;
                 }
-                field("Setup Time"; "Setup Time")
+                field("Setup Time"; Rec."Setup Time")
                 {
+                    ApplicationArea = All;
                 }
-                field("Setup Time Unit of Meas. Code"; "Setup Time Unit of Meas. Code")
+                field("Setup Time Unit of Meas. Code"; Rec."Setup Time Unit of Meas. Code")
                 {
+                    ApplicationArea = All;
                 }
-                field("Run Time"; "Run Time")
+                field("Run Time"; Rec."Run Time")
                 {
+                    ApplicationArea = All;
                 }
-                field("Run Time Unit of Meas. Code"; "Run Time Unit of Meas. Code")
+                field("Run Time Unit of Meas. Code"; Rec."Run Time Unit of Meas. Code")
                 {
+                    ApplicationArea = All;
                 }
-                field("Maximun Quantity by cycle"; "Maximun Quantity by cycle")
+                field("Maximun Quantity by cycle"; Rec."Maximun Quantity by cycle")
                 {
+                    ApplicationArea = All;
                 }
-                field("Qty - Units of Measure"; "Qty - Units of Measure")
+                field("Qty - Units of Measure"; Rec."Qty - Units of Measure")
                 {
+                    ApplicationArea = All;
                 }
             }
         }

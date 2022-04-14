@@ -72,6 +72,7 @@ report 60003 "PWD Invoice ACI Purch. Orders"
                     field(DateGDateFilter; DateGDateFilter)
                     {
                         Caption = 'Commandes avant le';
+                        ApplicationArea = All;
                     }
                 }
             }

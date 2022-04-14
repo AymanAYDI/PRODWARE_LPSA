@@ -17,11 +17,11 @@ report 50026 "Update Rtg Line Global IRON"
     {
         dataitem(RL_Reference; "Routing Line")
         {
-            DataItemTableView = SORTING (Type, "No.");
+            DataItemTableView = SORTING(Type, "No.");
             dataitem(RL_Others; "Routing Line")
             {
-                DataItemLink = Type = FIELD (Type), "No." = FIELD ("No.");
-                DataItemTableView = SORTING (Type, "No.") WHERE ("Version Code" = FILTER (''));
+                DataItemLink = Type = FIELD(Type), "No." = FIELD("No.");
+                DataItemTableView = SORTING(Type, "No.") WHERE("Version Code" = FILTER(''));
 
                 trigger OnAfterGetRecord()
                 begin
@@ -80,8 +80,8 @@ report 50026 "Update Rtg Line Global IRON"
             }
             dataitem(RL_OthersVersion; "Routing Line")
             {
-                DataItemLink = Type = FIELD (Type), "No." = FIELD ("No.");
-                DataItemTableView = SORTING (Type, "No.") WHERE ("Version Code" = FILTER (<> ''));
+                DataItemLink = Type = FIELD(Type), "No." = FIELD("No.");
+                DataItemTableView = SORTING(Type, "No.") WHERE("Version Code" = FILTER(<> ''));
 
                 trigger OnAfterGetRecord()
                 begin
@@ -175,6 +175,7 @@ report 50026 "Update Rtg Line Global IRON"
                         Caption = 'Reference Routing No.';
                         ShowCaption = false;
                         TableRelation = "Routing Header"."No.";
+                        ApplicationArea = All;
 
                         trigger OnValidate()
                         var
@@ -192,6 +193,7 @@ report 50026 "Update Rtg Line Global IRON"
                         Caption = 'Operation No.';
                         OptionCaption = 'Operations No.';
                         ShowCaption = false;
+                        ApplicationArea = All;
 
                         trigger OnLookup(var Text: Text): Boolean
                         var
@@ -218,21 +220,25 @@ report 50026 "Update Rtg Line Global IRON"
                     {
                         Caption = 'Setup Time';
                         ShowCaption = false;
+                        ApplicationArea = All;
                     }
                     field("BooG_Run_Time"; BooG_Run_Time)
                     {
                         Caption = 'Run Time';
                         ShowCaption = false;
+                        ApplicationArea = All;
                     }
                     field("BooG_Wait_Time"; BooG_Wait_Time)
                     {
                         Caption = 'Wait Time';
                         ShowCaption = false;
+                        ApplicationArea = All;
                     }
                     field("BooG_Move_Time"; BooG_Move_Time)
                     {
                         Caption = 'Move Time';
                         ShowCaption = false;
+                        ApplicationArea = All;
                     }
                 }
             }

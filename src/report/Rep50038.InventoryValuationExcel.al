@@ -270,22 +270,26 @@ report 50038 "PWD Inventory Valuation Excel"
                     {
                         Caption = 'Starting Date';
                         ShowCaption = false;
+                        ApplicationArea = All;
                     }
                     field(EndDate; EndDate)
                     {
                         Caption = 'Ending Date';
                         ShowCaption = false;
+                        ApplicationArea = All;
                     }
                     field(ShowExpected; ShowExpected)
                     {
                         Caption = 'Include Expected Cost';
                         ShowCaption = false;
+                        ApplicationArea = All;
                     }
                     field(BooGExportExcel; BooGExportExcel)
                     {
                         Caption = 'Excel (CSV) Export';
                         Editable = false;
                         ShowCaption = false;
+                        ApplicationArea = All;
                     }
                 }
             }

@@ -17,14 +17,17 @@ report 50023 "PWD Consol Manual Test"
                 label(Control1100267000)
                 {
                     Caption = 'ATTENTION pour les tests manuels l''étape d''export doit être lancée impérativement en RTC et l''étape d''import doit être lancée impérativement en Classique';
+                    ApplicationArea = All;
                 }
                 label(Control1100267001)
                 {
                     ShowCaption = false;
+                    ApplicationArea = All;
                 }
                 field(OptGTreatment; OptGTreatment)
                 {
                     Caption = 'Traitement à lancer';
+                    ApplicationArea = All;
                 }
             }
         }

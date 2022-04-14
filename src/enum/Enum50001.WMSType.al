@@ -1,4 +1,4 @@
-enum 50001 "PWD Type"
+enum 50001 "PWD WMS_Type"
 {
     Extensible = true;
 

@@ -1,12 +1,9 @@
 tableextension 60036 "PWD ProductionOrder" extends "Production Order"
 {
     //TODO: 1- suppression une instruction standard dans le champ Description, 
-    //TODO: 2- les modifications dans Onvalidate de champ "Due Date"
-    //TODO: 3: la modification dans la procedure DeleteRelations (utilise la table PlannerOneProdOrderLink et le codeunit 1)
-    //TODO: 4: la modification dans la procedure DeleteFnshdProdOrderRelations(utilise la table PlannerOneProdOrderLink et le codeunit 1)
     // +----------------------------------------------------------------------------------------------------------------+
     // | ProdWare                                                                                                       |
-    // | www.prodware.fr                                                                                                |
+    // | www.prodware.fr                                                                                                 |
     // +----------------------------------------------------------------------------------------------------------------+
     // 
     // //>>LAP1.00
@@ -71,7 +68,7 @@ tableextension 60036 "PWD ProductionOrder" extends "Production Order"
         }
         field(50004; "PWD Prod. Starting Date-Time"; DateTime)
         {
-            //TODO le table extension de "Prod. Order Line" n'existe pas      
+            //TODO la table extension de "Prod. Order Line" n'existe pas      
             //CalcFormula = Min("Prod. Order Line"."PWD Prod. Starting Date-Time" WHERE(Status = FIELD(Status), "Prod. Order No." = FIELD("No.")));
             Caption = 'Prod. Starting Date-Time';
             Description = 'Starting Date-Time of the first operation as planned in PlannerOne.';
@@ -79,7 +76,7 @@ tableextension 60036 "PWD ProductionOrder" extends "Production Order"
         }
         field(50005; "PWD Prod. Ending Date-Time"; DateTime)
         {
-            //TODO le table extension de "Prod. Order Line" n'existe pas      
+            //TODO la table extension de "Prod. Order Line" n'existe pas      
             //CalcFormula = Max("Prod. Order Line"."PWD Prod. Ending Date-Time" WHERE(Status = FIELD(Status), "Prod. Order No." = FIELD("No.")));
             Caption = 'Prod. Ending Date-Time';
             Description = 'Ending Date-Time of the last operation as planned in PlannerOne.';
@@ -115,7 +112,7 @@ tableextension 60036 "PWD ProductionOrder" extends "Production Order"
         }
         field(50010; "PWD Consumption Date"; Date)
         {
-            CalcFormula = Min("Item Ledger Entry"."Posting Date" WHERE("Prod. Order No." = FIELD("No.")));
+            CalcFormula = Min("Item Ledger Entry"."Posting Date" WHERE("Order No." = FIELD("No.")));
             Caption = 'Consumption Date';
             Editable = false;
             FieldClass = FlowField;
@@ -131,17 +128,6 @@ tableextension 60036 "PWD ProductionOrder" extends "Production Order"
             Description = 'LAP2.12';
             OptionCaption = ' ,DJEVA,RSA,MIXTE';
             OptionMembers = " ",DJEVA,RSA,MIXTE;
-        }
-        field(8076509; "PWD End Date Objective"; DateTime)
-        {
-            Caption = 'Target End Date';
-            trigger OnValidate()
-            begin
-                IF "PWD End Date Objective" = 0DT THEN BEGIN
-                    //TODO: "Ending Date", "Ending Time" are marked for removal
-                    //"PWD End Date Objective" := CREATEDATETIME("Ending Date", "Ending Time");
-                END;
-            end;
         }
     }
     keys
@@ -160,6 +146,7 @@ tableextension 60036 "PWD ProductionOrder" extends "Production Order"
             ProdOrderLine.SETRANGE("Prod. Order No.", "No.");
             if ProdOrderLine.FINDFIRST then
                 REPEAT
+                    //TODO la table extension de "Prod. Order Line" n'existe pas      
                     ProdOrderLine.ResendProdOrdertoQuartis;
                 UNTIL ProdOrderLine.NEXT = 0;
         end;
@@ -176,6 +163,7 @@ tableextension 60036 "PWD ProductionOrder" extends "Production Order"
         ProdOrderLine.SETRANGE("Prod. Order No.", "No.");
         IF ProdOrderLine.FINDFIRST THEN
             REPEAT
+                //TODO la table extension de "Prod. Order Line" n'existe pas      
                 BooLIsNotAvailable := ProdOrderLine.CheckComponentAvailabilty;
             UNTIL (BooLIsNotAvailable) OR (ProdOrderLine.NEXT = 0);
         EXIT(BooLIsNotAvailable);
@@ -219,7 +207,7 @@ tableextension 60036 "PWD ProductionOrder" extends "Production Order"
             RecordLink.SETRANGE(Type, RecordLink.Type::Link);
             RecordLink.SETFILTER(Description, "Source No." + '*');
             //TODO
-            //CREATE(WshShell, FALSE, TRUE);
+            // CREATE(WshShell, FALSE, TRUE);
             // IF RecordLink.FINDFIRST THEN
             //     REPEAT
             //         // On vérifie que le fichier est bien un PDF

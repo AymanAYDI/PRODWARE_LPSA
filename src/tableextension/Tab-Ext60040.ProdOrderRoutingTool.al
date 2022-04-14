@@ -15,22 +15,35 @@ tableextension 60040 "PWD ProdOrderRoutingTool" extends "Prod. Order Routing Too
     //                   - Add Key Type,No.
     fields
     {
-        field(50000; "PWD Type"; Option)
+        field(50000; "PWD Type"; Enum "PWD Type")
         {
             Caption = 'Type';
             Description = 'LAP2.12';
-            OptionCaption = 'Method,Quality,Plan,Zone,Targeted dimension,Item';
-            OptionMembers = Method,Quality,Plan,Zone,"Targeted dimension",Item;
         }
         field(50001; "PWD Criteria"; Text[50])
         {
             Caption = 'Criteria';
             Description = 'LAP2.12';
         }
+        modify("No.")
+        {
+            TableRelation = IF ("PWD Type" = FILTER(Method)) "PWD Tools Instructions"."No." WHERE(Type = FILTER(Method))
+            ELSE
+            IF ("PWD Type" = FILTER(Quality)) "PWD Tools Instructions"."No." WHERE(Type = FILTER(Quality))
+            ELSE
+            IF ("PWD Type" = FILTER(Plan)) "PWD Tools Instructions"."No." WHERE(Type = FILTER(Plan))
+            ELSE
+            IF ("PWD Type" = FILTER(Zone)) "PWD Tools Instructions"."No." WHERE(Type = FILTER(Zone))
+            ELSE
+            IF ("PWD Type" = FILTER("Targeted dimension")) "PWD Tools Instructions"."No." WHERE(Type = FILTER("Targeted dimension"))
+            ELSE
+            IF ("PWD Type" = FILTER(Item)) Item."No.";
+        }
     }
     keys
     {
-        //TODO  // key(Key50000; "PWD Type", "No.")
+        // TODO   
+        // key(Key50000; "PWD Type", "No.")
         // {
         // }
     }
