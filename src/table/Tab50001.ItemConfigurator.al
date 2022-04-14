@@ -40,7 +40,7 @@ table 50001 "PWD Item Configurator"
         field(5; "Item Template Code"; Code[10])
         {
             Caption = 'Item Template Code';
-            TableRelation = "Data Template Header".Code WHERE(TableID = CONST(27));
+            TableRelation = "Config. Template Header".Code WHERE("Table ID" = CONST(27));
         }
         field(6; "Dimension 1 Code"; Code[20])
         {
@@ -110,7 +110,7 @@ table 50001 "PWD Item Configurator"
                 RecLItemCat: Record "Item Category";
             begin
                 if RecLItemCat.Get("Item Category Code") then begin
-                    case RecLItemCat."Def. Costing Method" of
+                    case RecLItemCat."Def. Costing Method" of    //TODO: Les champs Standard du table "Item Category" sont mofifiées
                         RecLItemCat."Def. Costing Method"::Standard:
                             Validate("Replenishment System", "Replenishment System"::"Prod. Order");
                         RecLItemCat."Def. Costing Method"::Average:

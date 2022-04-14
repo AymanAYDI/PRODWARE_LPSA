@@ -546,7 +546,7 @@ codeunit 50020 "PWD LPSA Events Mgt."
         //<<FE_LAPIERRETTE_ART02.001
     end;
 
-    [EventSubscriber(ObjectType::Table, Database::"Transfer Line", 'OnAfterValidateEvent', 'Description 2', false, false)]
+    [EventSubscriber(ObjectType::Table, Database::"Transfer Line", 'OnAfterValidateEvent', 'PWD LPSA Description 1', false, false)]
     local procedure TAB5741_OnAfterValidateEvent_TransferLine_LPSA_D1(var Rec: Record "Transfer Line"; var xRec: Record "Transfer Line"; CurrFieldNo: Integer)
     begin
         //>>FE_LAPIERRETTE_ART02.001
@@ -557,7 +557,7 @@ codeunit 50020 "PWD LPSA Events Mgt."
         //<<FE_LAPIERRETTE_ART02.001
     end;
 
-    [EventSubscriber(ObjectType::Table, Database::"Transfer Line", 'OnAfterValidateEvent', 'Description 2', false, false)]
+    [EventSubscriber(ObjectType::Table, Database::"Transfer Line", 'OnAfterValidateEvent', 'PWD LPSA Description 2', false, false)]
     local procedure TAB5741_OnAfterValidateEvent_TransferLine_LPSA_D2(var Rec: Record "Transfer Line"; var xRec: Record "Transfer Line"; CurrFieldNo: Integer)
     begin
         //>>FE_LAPIERRETTE_ART02.001
@@ -620,6 +620,99 @@ codeunit 50020 "PWD LPSA Events Mgt."
         //TODO: "End Date Objective", "Earliest Start Date": les deux champs n'existe pas
         // ProdOrderLine.VALIDATE("End Date Objective", 0DT);
         // ProdOrderLine.VALIDATE("Earliest Start Date", 0D);
+    end;
+    //---TAB6651---
+    [EventSubscriber(ObjectType::Table, Database::"Return Shipment Line", 'OnInsertInvLineFromRetShptLineOnBeforePurchLineInsert', '', false, false)]
+    local procedure TAB6651_OnInsertInvLineFromRetShptLineOnBeforePurchLineInsert_ReturnShipmentLine(var ReturnShipmentLine: Record "Return Shipment Line"; var PurchaseLine: Record "Purchase Line"; var NextLineNo: Integer; var IsHandled: Boolean)
+    var
+        Text000: Label 'ENU=Return Shipment No. %1:';
+    begin
+        //>>FE_LAPIERRETTE_ART02.001
+        PurchaseLine."PWD LPSA Description 1" := STRSUBSTNO(Text000, ReturnShipmentLine."Document No.");
+        //<<FE_LAPIERRETTE_ART02.001
+    end;
+
+    [EventSubscriber(ObjectType::Table, Database::"Return Shipment Line", 'OnInsertInvLineFromRetShptLineOnBeforeClearLineNumbers', '', false, false)]
+    local procedure TAB6651_OnInsertInvLineFromRetShptLineOnBeforeClearLineNumbers_ReturnShipmentLine(var ReturnShipmentLine: Record "Return Shipment Line"; var PurchLine: Record "Purchase Line"; var NextLineNo: Integer; var TempPurchLine: Record "Purchase Line" temporary)
+    begin
+        //>>FE_LAPIERRETTE_ART02.001
+        PurchLine."PWD LPSA Description 1" := ReturnShipmentLine."PWD LPSA Description 1";
+        PurchLine."PWD LPSA Description 2" := ReturnShipmentLine."PWD LPSA Description 2";
+        //<<FE_LAPIERRETTE_ART02.001
+    end;
+    //---TAB6661---
+    [EventSubscriber(ObjectType::Table, Database::"Return Receipt Line", 'OnBeforeInsertInvLineFromRetRcptLineBeforeInsertTextLine', '', false, false)]
+    local procedure TAB6661_OnBeforeInsertInvLineFromRetRcptLineBeforeInsertTextLine_ReturnReceiptLine(var ReturnReceiptLine: Record "Return Receipt Line"; var SalesLine: Record "Sales Line"; var NextLineNo: Integer; var IsHandled: Boolean)
+    var
+        Text000: Label 'ENU=Return Receipt No. %1:';
+    begin
+        //>>FE_LAPIERRETTE_ART02.001
+        SalesLine."PWD LPSA Description 1" := STRSUBSTNO(Text000, ReturnReceiptLine."Document No.");
+        //<<FE_LAPIERRETTE_ART02.001
+    end;
+
+    [EventSubscriber(ObjectType::Table, Database::"Return Receipt Line", 'OnBeforeInsertInvLineFromRetRcptLine', '', false, false)]
+    local procedure TAB6661_OnBeforeInsertInvLineFromRetRcptLine_ReturnReceiptLine(var SalesLine: Record "Sales Line"; SalesOrderLine: Record "Sales Line"; var ReturnReceiptLine: Record "Return Receipt Line"; var IsHandled: Boolean)
+    begin
+        //>>FE_LAPIERRETTE_ART02.001
+        SalesLine."PWD LPSA Description 1" := ReturnReceiptLine."PWD LPSA Description 1";
+        SalesLine."PWD LPSA Description 2" := ReturnReceiptLine."PWD LPSA Description 2";
+        //<<FE_LAPIERRETTE_ART02.001
+    end;
+    //---TAB7317--
+    [EventSubscriber(ObjectType::table, database::"Warehouse Receipt Line", 'OnAfterValidateEvent', 'Description', false, false)]
+    local procedure TAB7317_OnAfterValidateEvent_WarehouseReceiptLine_Description(var Rec: Record "Warehouse Receipt Line"; var xRec: Record "Warehouse Receipt Line"; CurrFieldNo: Integer)
+    begin
+        //>>FE_LAPIERRETTE_ART02.001
+        IF Rec."PWD LPSA Description 1" = '' THEN
+            Rec."PWD LPSA Description 1" := Rec.Description;
+        //<<FE_LAPIERRETTE_ART02.001
+    end;
+
+    [EventSubscriber(ObjectType::table, database::"Warehouse Receipt Line", 'OnAfterValidateEvent', 'Description 2', false, false)]
+    local procedure TAB7317_OnAfterValidateEvent_WarehouseReceiptLine_Description2(var Rec: Record "Warehouse Receipt Line"; var xRec: Record "Warehouse Receipt Line"; CurrFieldNo: Integer)
+    begin
+        //>>FE_LAPIERRETTE_ART02.001
+        IF Rec."PWD LPSA Description 2" = '' THEN
+            Rec."PWD LPSA Description 2" := Rec."Description 2";
+        //<<FE_LAPIERRETTE_ART02.001
+    end;
+    //---CDU22--
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Item Jnl.-Post Line", 'OnPostOutputOnAfterUpdateProdOrderLine', '', false, false)]
+    local procedure CDU22_OnPostOutputOnAfterUpdateProdOrderLine_ItemJnlPostLine(var ItemJournalLine: Record "Item Journal Line"; var WhseJnlLine: Record "Warehouse Journal Line"; var GlobalItemLedgEntry: Record "Item Ledger Entry");
+    var
+        PWDLPSAFunctionsMgt: Codeunit "PWD LPSA Functions Mgt.";
+        ProdOrderLine: Record "Prod. Order Line";
+    begin
+        //>>FE_PROD01.002
+        ProdOrderLine.Get(ProdOrderLine.Status::Released, ItemJournalLine."Order No.", ItemJournalLine."Order Line No.");
+        PWDLPSAFunctionsMgt.UpdateNextLevelProdLine(ProdOrderLine, ItemJournalLine."Lot No.");
+        //<<FE_PROD01.002
+    end;
+
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Item Jnl.-Post Line", 'OnPostItemOnBeforeCheckInventoryPostingGroup', '', false, false)]
+    local procedure CDU22_OnPostItemOnBeforeCheckInventoryPostingGroup_ItemJnlPostLine(var ItemJnlLine: Record "Item Journal Line"; var CalledFromAdjustment: Boolean; var Item: Record Item; var ItemTrackingCode: Record "Item Tracking Code")
+    begin
+        // >>FE_LAPRIERRETTE_GP0003
+        Item.TESTFIELD("PWD Phantom Item", FALSE);
+        // <<FE_LAPRIERRETTE_GP0003
+    end;
+
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Item Jnl.-Post Line", 'OnBeforeInsertCapLedgEntry', '', false, false)]
+    local procedure CDU22_OnBeforeInsertCapLedgEntry_ItemJnlPostLine(var CapLedgEntry: Record "Capacity Ledger Entry"; ItemJournalLine: Record "Item Journal Line")
+    begin
+        //>>FE_LAPIERRETTE_PROD02.001
+        CapLedgEntry."PWD Quartis Comment" := ItemJournalLine."PWD Quartis Comment";
+        //<<FE_LAPIERRETTE_PROD02.001
+    end;
+
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Item Jnl.-Post Line", 'OnAfterInitItemLedgEntry', '', false, false)]
+    local procedure CDU22_OnAfterInitItemLedgEntry_ItemJnlPostLine(var NewItemLedgEntry: Record "Item Ledger Entry"; var ItemJournalLine: Record "Item Journal Line"; var ItemLedgEntryNo: Integer)
+    begin
+        //>>FE_LAPIERRETTE_PRO12.001
+        IF NOT (ItemJournalLine."PWD Conform quality control") THEN
+            NewItemLedgEntry.VALIDATE("PWD NC", TRUE);
+        //<<FE_LAPIERRETTE_PRO12.001
     end;
 
     var
