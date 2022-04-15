@@ -107,6 +107,15 @@ codeunit 50021 "PWD LPSA Functions Mgt."
             CduLCalcProdOrder.Recalculate(RecLProdOrderLine, 1);
         //<<FE_PROD01.002
     END;
-
+    
+    //---CDU99000854---
+    procedure Fct_OnCreateSupplyOnBeforeSupplyInvtProfileInsert_InventoryProfileOffsetting(var SupplyInvtProfile: Record "Inventory Profile"; var SKU: Record "Stockkeeping Unit")
+    var
+        SalesLine: Record 37;
+        ReqLine: Record 246;
+        ProdOrder: Record 5405;
+        Counter: Integer;
+    begin
+    end;
 
 }

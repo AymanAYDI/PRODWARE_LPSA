@@ -14,7 +14,7 @@ page 8073288 "PWD Connector Values Archive"
     Caption = 'Values From Connector Archive';
     Editable = false;
     PageType = List;
-    SourceTable = "Connector Values Archive";
+    SourceTable = "PWD Connector Values Archive";
 
     layout
     {
@@ -96,7 +96,8 @@ page 8073288 "PWD Connector Values Archive"
                     CALCFIELDS(Blob);
                     IF Rec.Blob.HASVALUE THEN BEGIN
                         Blob.CREATEINSTREAM(InsGStream);
-                        CduLFileManagement.FctShowBlobAsWindow(InsGStream)
+                        //TODO: le Codeunit "File Management" ne contient pas la definition de la procedure 'FctShowBlobAsWindow'
+                        //CduLFileManagement.FctShowBlobAsWindow(InsGStream)
                     END;
                 end;
             }

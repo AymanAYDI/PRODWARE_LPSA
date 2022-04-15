@@ -593,33 +593,12 @@ codeunit 50020 "PWD LPSA Events Mgt."
         PurchLine: Record "Purchase Line";
         CduFunctionsMgt: Codeunit "PWD LPSA Functions Mgt.";
     begin
-        //TODO: A vérifier j'ai réecrire le meme controle qui existe dans le standard car j'ai pas trouvé une event donc j'ai utilisé OnBeforeDeleteEvent et j'ai ajouté le controle
         if not RunTrigger then
             exit;
         if Rec.IsTemporary then
             exit;
         if Rec.Status = Rec.Status::Finished then
             Error(Text000, Rec.Status, Rec.TableCaption);
-
-        if Rec.Status = Rec.Status::Released then begin
-            ItemLedgEntry.SetRange("Order Type", ItemLedgEntry."Order Type"::Production);
-            ItemLedgEntry.SetRange("Order No.", Rec."Prod. Order No.");
-            ItemLedgEntry.SetRange("Order Line No.", Rec."Line No.");
-            if not ItemLedgEntry.IsEmpty() then
-                Error(
-                  Text99000000,
-                  Rec.TableCaption, Rec."Line No.", ItemLedgEntry.TableCaption);
-
-            if CduFunctionsMgt.CheckCapLedgEntry(Rec) then
-                Error(
-                  Text99000000,
-                  Rec.TableCaption, Rec."Line No.", CapLedgEntry.TableCaption);
-
-            if CduFunctionsMgt.CheckSubcontractPurchOrder(Rec) then
-                Error(
-                  Text99000000,
-                  Rec.TableCaption, Rec."Line No.", PurchLine.TableCaption);
-        end;
         Rec.FctCreateDeleteProdOrderLine();
     end;
     //---TAB5407---
@@ -778,6 +757,12 @@ codeunit 50020 "PWD LPSA Events Mgt."
         IF NOT (ItemJournalLine."PWD Conform quality control") THEN
             NewItemLedgEntry.VALIDATE("PWD NC", TRUE);
         //<<FE_LAPIERRETTE_PRO12.001
+    end;
+    //---CDU99000854---
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Inventory Profile Offsetting", 'OnCreateSupplyOnBeforeSupplyInvtProfileInsert', '', false, false)]
+    local procedure CDU99000854_OnCreateSupplyOnBeforeSupplyInvtProfileInsert_InventoryProfileOffsetting(var SupplyInvtProfile: Record "Inventory Profile"; var SKU: Record "Stockkeeping Unit")
+    begin
+
     end;
 
     var

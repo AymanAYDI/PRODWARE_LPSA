@@ -257,7 +257,7 @@ page 8073320 "PWD Item Journal Line Buffer"
 
                     trigger OnAction()
                     var
-                        CduLBufferManagement: Codeunit "Buffer Management";
+                        CduLBufferManagement: Codeunit "PWD Buffer Management";
                     begin
                         //>>OSYS-Int001.001
                         CLEAR(CduLBufferManagement);
@@ -266,7 +266,7 @@ page 8073320 "PWD Item Journal Line Buffer"
                         CduLBufferManagement.FctProcessItemJournaLine(Rec);
 
                         //>>OSYS-Int001.001
-                        IF ("Auto-Post Document") AND CduLBufferManagement.FctCanPost THEN
+                        IF ("Auto-Post Document") AND CduLBufferManagement.FctCanPost() THEN
                             CduLBufferManagement.FctValidateItemJournaLine("Journal Template Name", "Journal Batch Name");
                         //<<OSYS-Int001.001
                     end;
@@ -301,7 +301,7 @@ page 8073320 "PWD Item Journal Line Buffer"
 
                     trigger OnAction()
                     var
-                        CduLBufferManagement: Codeunit "Buffer Management";
+                        CduLBufferManagement: Codeunit "PWD Buffer Management";
                         RecLItemJounalLineBuffer: Record "PWD Item Jounal Line Buffer";
                     begin
                         CurrPage.SETSELECTIONFILTER(RecLItemJounalLineBuffer);
@@ -319,7 +319,7 @@ page 8073320 "PWD Item Journal Line Buffer"
 
                     trigger OnAction()
                     var
-                        CduLBufferManagement: Codeunit "Buffer Management";
+                        CduLBufferManagement: Codeunit "PWD Buffer Management";
                     begin
                         CduLBufferManagement.FctShowItemJournaLine(Rec);
                     end;
@@ -334,7 +334,7 @@ page 8073320 "PWD Item Journal Line Buffer"
     end;
 
     var
-        CduGBufferManagement: Codeunit "Buffer Management";
+        CduGBufferManagement: Codeunit "PWD Buffer Management";
         RecGWMSItemJounalLineBuffer: Record "PWD WMS Item Jnl Line Buffer";
 
 

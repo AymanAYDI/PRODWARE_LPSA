@@ -93,7 +93,8 @@ page 8073287 "PWD Values form Connector"
                     CALCFIELDS(Blob);
                     IF Rec.Blob.HASVALUE THEN BEGIN
                         Blob.CREATEINSTREAM(InsGStream);
-                        CduLFileManagement.FctShowBlobAsWindow(InsGStream)
+                        //TODO: le Codeunit "File Management" ne contient pas la definition de la procedure 'FctShowBlobAsWindow'
+                        //CduLFileManagement.FctShowBlobAsWindow(InsGStream)
                     END;
                 end;
             }

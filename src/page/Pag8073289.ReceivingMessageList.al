@@ -17,7 +17,7 @@ page 8073289 "PWD Receiving Message List"
     PageType = List;
     PopulateAllFields = false;
     SourceTable = "PWD Connector Messages";
-    SourceTableView = SORTING(Partner Code, Code, Direction) ORDER(Ascending) WHERE(Direction = FILTER(Import));
+    SourceTableView = SORTING("Partner Code", Code, Direction) ORDER(Ascending) WHERE(Direction = FILTER(Import));
 
     layout
     {
@@ -94,9 +94,9 @@ page 8073289 "PWD Receiving Message List"
                     PromotedCategory = Process;
                     PromotedIsBig = true;
                     RunObject = Page "PWD Fields Export Setup";
-                    RunPageLink = Partner Code=                    ApplicationArea = All;
+                    RunPageLink = "Partner Code"=  FIELD("Partner Code"),"Message Code"=FIELD(Code),"Table ID"=FIELD("Table ID"),Direction=FIELD(Direction);
+                  
                     ApplicationArea = All;
-FIELD(Partner Code),Message Code=FIELD(Code),Table ID=FIELD(Table ID),Direction=FIELD(Direction);
                     ShortCutKey = 'Shift+Ctrl+F';
                 }
             }

@@ -348,7 +348,7 @@ page 50021 "PWD Item List requirement"
                             CurrPage.SETSELECTIONFILTER(Item);
                             //TODO: a vérifier: SetMultiItem est remplacer par SetMultiRecord dans la nouvelle version 
                             //DefaultDimMultiple.SetMultiItem(Item);
-                            DefaultDimMultiple.SetMultiRecord(Item, Item.FieldNo("No.");
+                            DefaultDimMultiple.SetMultiRecord(Item, Item.FieldNo("No."));
                             DefaultDimMultiple.RUNMODAL();
                         end;
                     }
