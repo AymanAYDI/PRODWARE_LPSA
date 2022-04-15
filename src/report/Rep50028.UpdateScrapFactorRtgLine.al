@@ -46,33 +46,33 @@ report 50028 "Update Scrap Factor Rtg Line"
                 ItemMem.Modify(false);
 
                 if ItemMem.Blocked then
-                    CurrReport.Skip;
+                    CurrReport.Skip();
 
                 if CopyStr(ItemMem."No.", 1, 4) = '9911' then
-                    CurrReport.Skip;
+                    CurrReport.Skip();
 
                 if CopyStr(ItemMem."No.", 1, 4) = '9912' then
-                    CurrReport.Skip;
+                    CurrReport.Skip();
 
                 if CopyStr(ItemMem."No.", 1, 4) = '9915' then
-                    CurrReport.Skip;
+                    CurrReport.Skip();
 
                 if ItemMem."Order Multiple" = 0 then
-                    CurrReport.Skip;
+                    CurrReport.Skip();
 
                 if ItemMem."Inventory Posting Group" = '' then
-                    CurrReport.Skip;
+                    CurrReport.Skip();
 
                 if not RecLRoutingHeader.Get(ItemMem."Routing No.") then
-                    CurrReport.Skip;
+                    CurrReport.Skip();
 
                 if RecLRoutingHeader.Status <> RecLRoutingHeader.Status::Certified then begin
                     ItemMem."Component Initial Qty" := 0;
                     ItemMem.Modify(false);
-                    CurrReport.Skip;
+                    CurrReport.Skip();
                 end;
 
-                RecLProductionOrder.Init;
+                RecLProductionOrder.Init();
                 RecLProductionOrder.Validate(Status, RecLProductionOrder.Status::Simulated);
                 RecLProductionOrder.Validate("No.", 'OF_TEMPO_FOR_TPL');
                 RecLProductionOrder.Insert(true);
@@ -80,7 +80,7 @@ report 50028 "Update Scrap Factor Rtg Line"
                 RecLProductionOrder.Validate(Quantity, ItemMem."Order Multiple");
                 RecLProductionOrder.Modify(true);
 
-                Commit;
+                Commit();
 
                 //>>>>>>>>>>>> ACTUALISATION >>>>>>>>>>>>>>>>>>>
                 RecGProductionOrder.Get(RecLProductionOrder.Status::Simulated, 'OF_TEMPO_FOR_TPL');
@@ -94,45 +94,45 @@ report 50028 "Update Scrap Factor Rtg Line"
                 RoutingNo := Item."Routing No.";
                 if RoutingNo <> RecGProductionOrder."Routing No." then begin
                     RecGProductionOrder."Routing No." := RoutingNo;
-                    RecGProductionOrder.Modify;
+                    RecGProductionOrder.Modify();
                 end;
 
-                ProdOrderLine.LockTable;
+                ProdOrderLine.LockTable();
 
                 CreateProdOrderLines.Copy(RecGProductionOrder, Direction, '');
 
                 if (Direction = Direction::Backward) and
                    (RecGProductionOrder."Source Type" = RecGProductionOrder."Source Type"::Family)
                 then begin
-                    RecGProductionOrder.SetUpdateEndDate;
+                    RecGProductionOrder.SetUpdateEndDate();
                     RecGProductionOrder.Validate("Due Date", RecGProductionOrder."Due Date");
                 end;
 
                 //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-                Commit;
+                Commit();
 
                 RecLProdOrderLine.SetRange(Status, RecLProdOrderLine.Status::Simulated);
                 RecLProdOrderLine.SetRange("Prod. Order No.", 'OF_TEMPO_FOR_TPL');
-                if RecLProdOrderLine.FindFirst then begin
+                if RecLProdOrderLine.FindFirst() then begin
                     RecLProdOrderComponent.SetRange(Status, RecLProdOrderComponent.Status::Simulated);
                     RecLProdOrderComponent.SetRange("Prod. Order No.", 'OF_TEMPO_FOR_TPL');
                     RecLProdOrderComponent.SetRange("Prod. Order Line No.", RecLProdOrderLine."Line No.");
-                    if RecLProdOrderComponent.FindFirst then begin
+                    if RecLProdOrderComponent.FindFirst() then begin
                         ItemMem."Component Initial Qty" := RecLProdOrderComponent."Expected Quantity";
                         ItemMem.Modify(false);
                     end;
                 end;
-                Commit;
+                Commit();
 
                 RecLProductionOrder.Get(RecLProductionOrder.Status::Simulated, 'OF_TEMPO_FOR_TPL');
                 RecLProductionOrder.Delete(true);
-                Commit;
+                Commit();
             end;
 
             trigger OnPostDataItem()
             begin
                 if OptGStep = OptGStep::"Step1: Mémorisation qté composant" then begin
-                    Bdialog.Close;
+                    Bdialog.Close();
                     Message(TxtG004);
                 end;
             end;
@@ -142,7 +142,7 @@ report 50028 "Update Scrap Factor Rtg Line"
                 RecLProductionOrder: Record "Production Order";
             begin
                 if OptGStep <> OptGStep::"Step1: Mémorisation qté composant" then
-                    CurrReport.Break;
+                    CurrReport.Break();
 
                 Bdialog.Open('Step1: Mémorisation qté composant\' +
                              'Enregistrements restants #1########################');
@@ -150,7 +150,7 @@ report 50028 "Update Scrap Factor Rtg Line"
 
                 if RecLProductionOrder.Get(RecLProductionOrder.Status::Simulated, 'OF_TEMPO_FOR_TPL') then
                     RecLProductionOrder.Delete(true);
-                Commit;
+                Commit();
             end;
         }
         dataitem(RL_Reference; "Routing Line")
@@ -170,26 +170,26 @@ report 50028 "Update Scrap Factor Rtg Line"
 
                     IntGCounter -= 1;
 
-                    RecLItem.Reset;
+                    RecLItem.Reset();
                     RecLItem.SetRange("Routing No.", RL_Others."Routing No.");
                     RecLItem.SetFilter("No.", '9911*');
-                    if RecLItem.FindFirst then
-                        CurrReport.Skip;
+                    if RecLItem.FindFirst() then
+                        CurrReport.Skip();
 
                     RecLItem.SetFilter("No.", '9912*');
-                    if RecLItem.FindFirst then
-                        CurrReport.Skip;
+                    if RecLItem.FindFirst() then
+                        CurrReport.Skip();
 
                     RecLItem.SetFilter("No.", '9915*');
-                    if RecLItem.FindFirst then
-                        CurrReport.Skip;
+                    if RecLItem.FindFirst() then
+                        CurrReport.Skip();
 
                     if not ((RL_Others."Routing No." = RL_Reference."Routing No.") and
                            (RL_Others."Operation No." = RL_Reference."Operation No.")) then begin
                         RecGRoutingHeader.Get(RL_Others."Routing No.");
 
                         if RecGRoutingHeader.PlanningGroup <> 'PIERRES' then
-                            CurrReport.Skip;
+                            CurrReport.Skip();
 
                         if RecGRoutingHeader.Status <> RecGRoutingHeader.Status::Closed then begin
                             Stat := RecGRoutingHeader.Status;
@@ -212,9 +212,8 @@ report 50028 "Update Scrap Factor Rtg Line"
 
                 trigger OnPostDataItem()
                 begin
-                    if OptGStep = OptGStep::"Step2: MAJ % perte sur Gamme" then begin
-                        Bdialog.Close;
-                    end;
+                    if OptGStep = OptGStep::"Step2: MAJ % perte sur Gamme" then
+                        Bdialog.Close();
                 end;
 
                 trigger OnPreDataItem()
@@ -237,19 +236,19 @@ report 50028 "Update Scrap Factor Rtg Line"
 
                     IntGCounter -= 1;
 
-                    RecLItem.Reset;
+                    RecLItem.Reset();
                     RecLItem.SetRange("Routing No.", RL_OthersVersion."Routing No.");
                     RecLItem.SetFilter("No.", '9911*');
-                    if RecLItem.FindFirst then
-                        CurrReport.Skip;
+                    if RecLItem.FindFirst() then
+                        CurrReport.Skip();
 
                     RecLItem.SetFilter("No.", '9912*');
-                    if RecLItem.FindFirst then
-                        CurrReport.Skip;
+                    if RecLItem.FindFirst() then
+                        CurrReport.Skip();
 
                     RecLItem.SetFilter("No.", '9915*');
-                    if RecLItem.FindFirst then
-                        CurrReport.Skip;
+                    if RecLItem.FindFirst() then
+                        CurrReport.Skip();
 
                     if not ((RL_OthersVersion."Routing No." = RL_Reference."Routing No.") and
                            (RL_OthersVersion."Operation No." = RL_Reference."Operation No.")) then begin
@@ -258,7 +257,7 @@ report 50028 "Update Scrap Factor Rtg Line"
                         RecGRoutingHeader.Get(RL_Others."Routing No.");
 
                         if RecGRoutingHeader.PlanningGroup <> 'PIERRES' then
-                            CurrReport.Skip;
+                            CurrReport.Skip();
 
                         if RecGRoutingVersion.Status <> RecGRoutingHeader.Status::Closed then begin
                             Stat := RecGRoutingVersion.Status;
@@ -282,7 +281,7 @@ report 50028 "Update Scrap Factor Rtg Line"
                 trigger OnPostDataItem()
                 begin
                     if OptGStep = OptGStep::"Step2: MAJ % perte sur Gamme" then begin
-                        Bdialog.Close;
+                        Bdialog.Close();
                         Message(TxtG002);
                     end;
                 end;
@@ -298,7 +297,7 @@ report 50028 "Update Scrap Factor Rtg Line"
             trigger OnAfterGetRecord()
             begin
                 if CodGPrevCode = "No." then
-                    CurrReport.Skip;
+                    CurrReport.Skip();
                 CodGPrevCode := "No.";
             end;
 
@@ -308,7 +307,7 @@ report 50028 "Update Scrap Factor Rtg Line"
                 SetFilter("Operation No.", CodGOperationNo);
 
                 if (OptGStep <> OptGStep::"Step2: MAJ % perte sur Gamme") then
-                    CurrReport.Break;
+                    CurrReport.Break();
                 CodGPrevCode := '';
             end;
         }
@@ -331,39 +330,39 @@ report 50028 "Update Scrap Factor Rtg Line"
                 IntGCounter -= 1;
 
                 if ItemMAJ."Component Initial Qty" = 0 then
-                    CurrReport.Skip;
+                    CurrReport.Skip();
 
                 if ItemMem.Blocked then
-                    CurrReport.Skip;
+                    CurrReport.Skip();
 
                 if CopyStr(ItemMAJ."No.", 1, 4) = '9911' then
-                    CurrReport.Skip;
+                    CurrReport.Skip();
 
                 if CopyStr(ItemMem."No.", 1, 4) = '9912' then
-                    CurrReport.Skip;
+                    CurrReport.Skip();
 
                 if CopyStr(ItemMem."No.", 1, 4) = '9915' then
-                    CurrReport.Skip;
+                    CurrReport.Skip();
 
                 if ItemMAJ."Order Multiple" = 0 then
-                    CurrReport.Skip;
+                    CurrReport.Skip();
 
                 if ItemMAJ."Inventory Posting Group" = '' then
-                    CurrReport.Skip;
+                    CurrReport.Skip();
 
                 DecLNewQtyGet := ItemMAJ."Component Initial Qty";
 
                 if ItemMAJ."Scrap %" <> 0 then
                     DecLNewQtyGet := DecLNewQtyGet / (1 + ItemMAJ."Scrap %" / 100);
 
-                RecLRoutingLine.Reset;
+                RecLRoutingLine.Reset();
                 RecLRoutingLine.SetRange("Routing No.", ItemMAJ."Routing No.");
                 RecLRoutingLine.SetRange("Version Code", '');
                 RecLRoutingLine.SetFilter("Scrap Factor %", '<>%1', 0);
-                if RecLRoutingLine.FindFirst then
+                if RecLRoutingLine.FindFirst() then
                     repeat
                         DecLNewQtyGet := DecLNewQtyGet / (1 + RecLRoutingLine."Scrap Factor %" / 100);
-                    until RecLRoutingLine.Next = 0;
+                    until RecLRoutingLine.Next() = 0;
 
 
                 DecLNewQtyGet := Round(DecLNewQtyGet, 1);
@@ -377,7 +376,7 @@ report 50028 "Update Scrap Factor Rtg Line"
             trigger OnPostDataItem()
             begin
                 if OptGStep = OptGStep::"Step3: Calcul de la quantité obtenue" then begin
-                    Bdialog.Close;
+                    Bdialog.Close();
                     Message(TxtG005);
                 end;
             end;
@@ -385,7 +384,7 @@ report 50028 "Update Scrap Factor Rtg Line"
             trigger OnPreDataItem()
             begin
                 if OptGStep <> OptGStep::"Step3: Calcul de la quantité obtenue" then
-                    CurrReport.Break;
+                    CurrReport.Break();
 
                 Bdialog.Open('Step3: Calcul de la quantité obtenue\Enregistrements restants #1########################');
                 IntGCounter := ItemMAJ.Count;
@@ -437,9 +436,9 @@ report 50028 "Update Scrap Factor Rtg Line"
                             RecLRoutingLines.SetRange("Routing No.", CodGRoutingHeader);
                             PagLRoutingLines.SetTableView(RecLRoutingLines);
                             PagLRoutingLines.LookupMode(true);
-                            if not (PagLRoutingLines.RunModal = ACTION::LookupOK) then begin
-                                exit(false);
-                            end else begin
+                            if not (PagLRoutingLines.RunModal = ACTION::LookupOK) then
+                                exit(false)
+                            else begin
                                 Text := PagLRoutingLines.GetSelectionFilter;
                                 exit(true);
                             end;
@@ -480,7 +479,6 @@ report 50028 "Update Scrap Factor Rtg Line"
     var
         Stat: Option New,Certified,"Under Development",Closed;
         RecGRoutingHeader: Record "Routing Header";
-        TxtG001: Label 'Warning, you are about to update all routings and production orders related to %1 %2 and operation no. %3.';
         TxtG002: Label 'Updated finished.';
         RecGRoutingVersion: Record "Routing Version";
         CodGRoutingHeader: Code[20];
@@ -492,12 +490,10 @@ report 50028 "Update Scrap Factor Rtg Line"
         OptGStep: Option "Step1: Mémorisation qté composant","Step2: MAJ % perte sur Gamme","Step3: Calcul de la quantité obtenue";
         Bdialog: Dialog;
         IntGCounter: Integer;
-        "-------": Integer;
         Direction: Option Forward,Backward;
         CalcLines: Boolean;
         CalcRoutings: Boolean;
         CalcComponents: Boolean;
-        CreateInbRqst: Boolean;
         RecGProductionOrder: Record "Production Order";
 }
 

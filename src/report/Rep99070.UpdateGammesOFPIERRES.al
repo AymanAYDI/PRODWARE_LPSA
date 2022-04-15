@@ -22,33 +22,33 @@ report 99070 "PWD Update Gammes OF  PIERRES"
                 RecLRL: Record "Routing Line";
             begin
                 if "Production Order".Status = "Production Order".Status::Finished then
-                    CurrReport.Skip;
+                    CurrReport.Skip();
 
                 if Direction = Direction::Backward then
                     TestField("Due Date");
 
                 ProdOrderLine.SetRange(Status, Status);
                 ProdOrderLine.SetRange("Prod. Order No.", "No.");
-                if ProdOrderLine.FindFirst then
+                if ProdOrderLine.FindFirst() then
                     if not (ProdOrderLine.PlanningGroup in ['PIERRES', 'PREPARAGES', 'LEVEES_ELI']) then
-                        CurrReport.Skip;
+                        CurrReport.Skip();
 
 
-                RecLRoutingH.Init;
+                RecLRoutingH.Init();
                 RecLRoutingH."No." := "Production Order"."No.";
                 RecLRoutingH.Description := "Production Order"."No.";
                 RecLRoutingH.Status := RecLRoutingH.Status::"Under Development";
                 RecLRoutingH.Type := RecLRoutingH.Type::Parallel;
                 RecLRoutingH.PlanningGroup := ProdOrderLine.PlanningGroup;
-                RecLRoutingH.Insert;
+                RecLRoutingH.Insert();
 
                 ProdOrderRtngLine.SetRange(Status, Status);
                 ProdOrderRtngLine.SetRange("Prod. Order No.", "No.");
                 ProdOrderRtngLine.SetRange("Routing Reference No.", ProdOrderLine."Routing Reference No.");
                 ProdOrderRtngLine.SetRange("Routing No.", ProdOrderLine."Routing No.");
-                if ProdOrderRtngLine.FindFirst then
+                if ProdOrderRtngLine.FindFirst() then
                     repeat
-                        RoutingLine.Init;
+                        RoutingLine.Init();
                         RoutingLine."Routing No." := "No.";
                         RoutingLine."Operation No." := ProdOrderRtngLine."Operation No.";
                         RoutingLine."Next Operation No." := ProdOrderRtngLine."Next Operation No.";
@@ -58,26 +58,23 @@ report 99070 "PWD Update Gammes OF  PIERRES"
                           ((RoutingLine."No." = 'M00000') or (RoutingLine."No." = 'M99999')) then
                             case ProdOrderLine.PlanningGroup of
                                 'LEVEES_ELI':
-                                    begin
-                                        if RoutingLine."No." = 'M00000' then
-                                            RoutingLine.Validate("No.", 'ML00000')
-                                        else
-                                            RoutingLine.Validate("No.", 'ML99999');
-                                    end;
+
+                                    if RoutingLine."No." = 'M00000' then
+                                        RoutingLine.Validate("No.", 'ML00000')
+                                    else
+                                        RoutingLine.Validate("No.", 'ML99999');
                                 'PIERRES':
-                                    begin
-                                        if RoutingLine."No." = 'M00000' then
-                                            RoutingLine.Validate("No.", 'M00000')
-                                        else
-                                            RoutingLine.Validate("No.", 'M99999');
-                                    end;
+
+                                    if RoutingLine."No." = 'M00000' then
+                                        RoutingLine.Validate("No.", 'M00000')
+                                    else
+                                        RoutingLine.Validate("No.", 'M99999');
                                 'PREPARAGES':
-                                    begin
-                                        if RoutingLine."No." = 'M00000' then
-                                            RoutingLine.Validate("No.", 'MR00000')
-                                        else
-                                            RoutingLine.Validate("No.", 'MR99999');
-                                    end;
+
+                                    if RoutingLine."No." = 'M00000' then
+                                        RoutingLine.Validate("No.", 'MR00000')
+                                    else
+                                        RoutingLine.Validate("No.", 'MR99999');
                             end
                         else
                             RoutingLine."No." := ProdOrderRtngLine."No.";
@@ -111,7 +108,7 @@ report 99070 "PWD Update Gammes OF  PIERRES"
                         RecLRL.SetRange(RecLRL."Routing No.", 'PIE_TT_OPE_PIERRE');
                         RecLRL.SetRange(Type, RecLRL.Type::"Machine Center");
                         RecLRL.SetRange("No.", "No.");
-                        if RecLRL.FindFirst then begin
+                        if RecLRL.FindFirst() then begin
                             RoutingLine.Validate("Setup Time", RecLRL."Setup Time");
                             RoutingLine.Validate("Run Time", RecLRL."Run Time");
                             RoutingLine.Validate("Wait Time", RecLRL."Wait Time");
@@ -122,7 +119,7 @@ report 99070 "PWD Update Gammes OF  PIERRES"
                             RoutingLine.Validate("Move Time Unit of Meas. Code", RecLRL."Move Time Unit of Meas. Code");
                         end;
                         RoutingLine.Insert(true);
-                    until ProdOrderRtngLine.Next = 0;
+                    until ProdOrderRtngLine.Next() = 0;
 
                 RecLRoutingH.Validate(Status, RecLRoutingH.Status::Certified);
                 RecLRoutingH.Modify(true);
@@ -131,7 +128,7 @@ report 99070 "PWD Update Gammes OF  PIERRES"
                 RecLRoutingH.Validate(Type, RecLRoutingH.Type::Serial);
                 RecLRoutingH.Modify(true);
 
-                RoutingLine.Reset;
+                RoutingLine.Reset();
                 RoutingLine.SetRange("Routing No.", RecLRoutingH."No.");
                 RoutingLine.SetRange("Version Code", RecLRoutingH."Version Nos.");
                 RoutingLine.SetRange(Type, RoutingLine.Type::"Work Center");
@@ -146,21 +143,21 @@ report 99070 "PWD Update Gammes OF  PIERRES"
                 if RoutingNo <> "Routing No." then begin
                     "Routing No." := RoutingNo;
                     Modify(true);
-                    ProdOrderLine.Reset;
+                    ProdOrderLine.Reset();
                     ProdOrderLine.SetRange(Status, Status);
                     ProdOrderLine.SetRange("Prod. Order No.", "No.");
-                    if ProdOrderLine.FindFirst then
+                    if ProdOrderLine.FindFirst() then
                         repeat
                             ProdOrderLine.Validate("Routing No.", RoutingNo);
                             ProdOrderLine.Validate("Routing Type", RecLRoutingH.Type);
-                            ProdOrderLine.Modify;
-                        until ProdOrderLine.Next = 0;
+                            ProdOrderLine.Modify();
+                        until ProdOrderLine.Next() = 0;
                 end;
 
 
-                ProdOrderLine.LockTable;
+                ProdOrderLine.LockTable();
 
-                CheckReservationExist;
+                CheckReservationExist();
 
                 if CalcLines then
                     CreateProdOrderLines.Copy("Production Order", Direction, '')
@@ -171,30 +168,30 @@ report 99070 "PWD Update Gammes OF  PIERRES"
                         if ProdOrderLine.Find('-') then
                             repeat
                                 if CalcRoutings then begin
-                                    ProdOrderRtngLine.Reset;
+                                    ProdOrderRtngLine.Reset();
                                     ProdOrderRtngLine.SetRange(Status, Status);
                                     ProdOrderRtngLine.SetRange("Prod. Order No.", "No.");
                                     ProdOrderRtngLine.SetRange("Routing Reference No.", ProdOrderLine."Routing Reference No.");
                                     ProdOrderRtngLine.SetRange("Routing No.", ProdOrderLine."Routing No.");
                                     ProdOrderRtngLine.DeleteAll(true);
                                 end;
-                            until ProdOrderLine.Next = 0;
+                            until ProdOrderLine.Next() = 0;
                         if ProdOrderLine.Find('-') then
                             repeat
                                 ProdOrderLine."Due Date" := "Due Date";
                                 CalcProdOrder.Calculate(ProdOrderLine, Direction, CalcRoutings, CalcComponents, false);
-                            until ProdOrderLine.Next = 0;
+                            until ProdOrderLine.Next() = 0;
                     end;
                 end;
                 if (Direction = Direction::Backward) and
                    ("Source Type" = "Source Type"::Family)
                 then begin
-                    SetUpdateEndDate;
+                    SetUpdateEndDate();
                     Validate("Due Date", "Due Date");
                 end;
 
                 if Status = Status::Released then begin
-                    ProdOrderStatusMgt.FlushProdOrder("Production Order", "Production Order".Status, WorkDate);
+                    ProdOrderStatusMgt.FlushProdOrder("Production Order", "Production Order".Status, WorkDate());
                     WhseProdRelease.Release("Production Order");
                     if CreateInbRqst then
                         WhseOutputProdRelease.Release("Production Order");
@@ -233,13 +230,10 @@ report 99070 "PWD Update Gammes OF  PIERRES"
     }
 
     var
-        RecLItem: Record Item;
-        RecLItem2: Record Item;
         CalcProdOrder: Codeunit "Calculate Prod. Order";
         CreateProdOrderLines: Codeunit "Create Prod. Order Lines";
         WhseProdRelease: Codeunit "Whse.-Production Release";
         WhseOutputProdRelease: Codeunit "Whse.-Output Prod. Release";
-        Window: Dialog;
         Direction: Option Forward,Backward;
         CalcLines: Boolean;
         CalcRoutings: Boolean;
@@ -306,9 +300,9 @@ report 99070 "PWD Update Gammes OF  PIERRES"
                                         ProdOrderComp2.TestField("Reserved Qty. (Base)", 0);
                                 end;
                             end;
-                        until ProdOrderComp2.Next = 0;
+                        until ProdOrderComp2.Next() = 0;
                 end;
-            until ProdOrderLine2.Next = 0;
+            until ProdOrderLine2.Next() = 0;
     end;
 }
 

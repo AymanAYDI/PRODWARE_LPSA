@@ -20,7 +20,7 @@ report 99085 "PWD Update Gammes avec TTE OPE"
                     RecLRL.SetRange(RecLRL."Routing No.", 'PIE_TT_OPE_PIERRE');
                     RecLRL.SetRange(Type, Type);
                     RecLRL.SetRange("No.", "No.");
-                    if RecLRL.FindFirst then begin
+                    if RecLRL.FindFirst() then begin
                         Validate("Setup Time", RecLRL."Setup Time");
                         Validate("Run Time", RecLRL."Run Time");
                         Validate("Wait Time", RecLRL."Wait Time");

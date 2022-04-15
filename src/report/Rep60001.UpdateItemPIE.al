@@ -13,7 +13,7 @@ report 60001 "PWD Update Item PIE"
             begin
 
                 Item."Maximum Order Quantity" := Item."Order Multiple";
-                Modify;
+                Modify();
             end;
         }
     }

@@ -37,7 +37,7 @@ report 50054 "MAJ OP Gamme PIE Sans 1/2;B"
                             RecLWorkCenter.Get(RecLMachineCenter."Work Center No.");
                             "Routing Line"."Work Center No." := RecLWorkCenter."No.";
                             "Routing Line"."Work Center Group Code" := RecLWorkCenter."Work Center Group Code";
-                            "Routing Line".Modify;
+                            "Routing Line".Modify();
                         end;
                     end;
                 }
@@ -54,12 +54,12 @@ report 50054 "MAJ OP Gamme PIE Sans 1/2;B"
                 IntGCounter -= 1;
                 if (StrPos(Item."PWD LPSA Description 1", '½') <> 0) or
                    (StrPos(Item."PWD LPSA Description 1", 'B') <> 0) then
-                    CurrReport.Skip;
+                    CurrReport.Skip();
             end;
 
             trigger OnPostDataItem()
             begin
-                BDialog.Close;
+                BDialog.Close();
             end;
 
             trigger OnPreDataItem()

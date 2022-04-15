@@ -17,7 +17,7 @@ report 50077 "Update Rtg Line Global-Step 3"
                     Modify(true);
                     Processed := true;
                     Modify(false);
-                    Commit;
+                    Commit();
                 end;
             end;
 
@@ -72,9 +72,9 @@ report 50077 "Update Rtg Line Global-Step 3"
                             RecLRoutingLines.SetRange("Routing No.", CodGRoutingHeader);
                             PagLRoutingLines.SetTableView(RecLRoutingLines);
                             PagLRoutingLines.LookupMode(true);
-                            if not (PagLRoutingLines.RunModal = ACTION::LookupOK) then begin
-                                exit(false);
-                            end else begin
+                            if not (PagLRoutingLines.RunModal = ACTION::LookupOK) then
+                                exit(false)
+                            else begin
                                 Text := PagLRoutingLines.GetSelectionFilter;
                                 exit(true);
                             end;
@@ -200,10 +200,6 @@ report 50077 "Update Rtg Line Global-Step 3"
     }
 
     var
-        Stat: Option New,Certified,"Under Development",Closed;
-        RecGRoutingHeader: Record "Routing Header";
-        TxtG001: Label 'Warning, you are about to update all routings and production orders related to %1 %2 and operation no. %3.';
-        TxtG002: Label 'Updated finished.';
         BooG_Setup_Time_Unit: Boolean;
         BooG_Run_Time_Unit: Boolean;
         BooG_Wait_Time_Unit: Boolean;
@@ -218,7 +214,6 @@ report 50077 "Update Rtg Line Global-Step 3"
         BooG_Update_Cost_FromMC: Boolean;
         CodGRoutingHeader: Code[20];
         CodGOperationNo: Code[150];
-        TxtG003: Label 'Pensez à calculer vos calendriers avant de lancer une mise à jour. Si l''impact des mises à jour dépasse le calendrier, un message d''erreur bloquant arrêtera le traitement.';
         CstL001: Label 'The reference routing is not ''TT_OPE_PIE'', do you want to continue ?';
         TxtG004: Label 'Restauration terminée.';
 }

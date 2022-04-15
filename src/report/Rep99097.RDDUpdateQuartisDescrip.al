@@ -78,26 +78,22 @@ report 99097 "RDD - Update Quartis Descrip"
                     ;
                 end else begin
                     if (("Piercing Min." <> 0) or ("Piercing Max." <> 0)) then
-                        if "Piercing Min." = "Piercing Max." then begin
-                            "PWD Quartis Description" := "PWD Quartis Description" + 'T' + '+/-' + Format("Piercing Max.");
-                        end else begin
+                        if "Piercing Min." = "Piercing Max." then
+                            "PWD Quartis Description" := "PWD Quartis Description" + 'T' + '+/-' + Format("Piercing Max.")
+                        else
                             "PWD Quartis Description" := "PWD Quartis Description" + 'T-' + Format("Piercing Min.") + '/+' + Format("Piercing Max.");
-                        end;
-                    if Note <> 0 then begin
+                    if Note <> 0 then
                         "PWD Quartis Description" := "PWD Quartis Description" + '(' + Format(Note) + ')';
-                    end;
                     if (("Diameter Min." <> 0) or ("Diameter Max." <> 0)) then
-                        if "Diameter Min." = "Diameter Max." then begin
-                            "PWD Quartis Description" := "PWD Quartis Description" + 'x D' + '+/-' + Format("Diameter Max.");
-                        end else begin
+                        if "Diameter Min." = "Diameter Max." then
+                            "PWD Quartis Description" := "PWD Quartis Description" + 'x D' + '+/-' + Format("Diameter Max.")
+                        else
                             "PWD Quartis Description" := "PWD Quartis Description" + 'x D-' + Format("Diameter Min.") + '/+' + Format("Diameter Max.");
-                        end;
                     if ("Thick Min." <> 0) or ("Thick Max." <> 0) then
-                        if "Thick Min." = "Thick Max." then begin
-                            "PWD Quartis Description" := "PWD Quartis Description" + 'x E' + '+/-' + Format("Thick Max.");
-                        end else begin
+                        if "Thick Min." = "Thick Max." then
+                            "PWD Quartis Description" := "PWD Quartis Description" + 'x E' + '+/-' + Format("Thick Max.")
+                        else
                             "PWD Quartis Description" := "PWD Quartis Description" + 'x E-' + Format("Thick Min.") + '/+' + Format("Thick Max.");
-                        end;
                 end;
         end;
     end;
@@ -108,47 +104,35 @@ report 99097 "RDD - Update Quartis Descrip"
         with RecPItemConfigurator do begin
             "PWD Quartis Description" := "Piece Type Lifted&Ellipses" + '-';
             if "Piece Type Lifted&Ellipses" = 'LEVEES' then begin
-                if (Angle <> 0) then begin
+                if (Angle <> 0) then
                     "PWD Quartis Description" := "PWD Quartis Description" + 'A' + Format(Angle);
-                end;
-                if ("Height Tol" <> 0) then begin
+                if ("Height Tol" <> 0) then
                     "PWD Quartis Description" := "PWD Quartis Description" + 'H' + Format("Height Tol");
-                end;
-                if ("Thick Tol" <> 0) then begin
+                if ("Thick Tol" <> 0) then
                     "PWD Quartis Description" := "PWD Quartis Description" + 'E' + Format("Thick Tol");
-                end;
-                if ("Lg Tol" <> 0) then begin
+                if ("Lg Tol" <> 0) then
                     "PWD Quartis Description" := "PWD Quartis Description" + 'L' + Format("Lg Tol");
-                end;
             end else
                 if "Piece Type Lifted&Ellipses" in ['ELLIPSES', 'PLAT POLI'] then begin
-                    if ("Diameter Tol" <> 0) then begin
+                    if ("Diameter Tol" <> 0) then
                         "PWD Quartis Description" := "PWD Quartis Description" + 'D' + Format("Diameter Tol");
-                    end;
-                    if ("Thick Tol" <> 0) then begin
+                    if ("Thick Tol" <> 0) then
                         "PWD Quartis Description" := "PWD Quartis Description" + 'P' + Format("Thick Tol");
-                    end;
-                    if ("Lg Tol" <> 0) then begin
+                    if ("Lg Tol" <> 0) then
                         "PWD Quartis Description" := "PWD Quartis Description" + 'L' + Format("Lg Tol");
-                    end;
                 end else
                     if "Piece Type Lifted&Ellipses" in ['GOUPILLE', 'CHEVILLE'] then begin
-                        if ("Diameter Tol" <> 0) then begin
+                        if ("Diameter Tol" <> 0) then
                             "PWD Quartis Description" := "PWD Quartis Description" + 'D' + Format("Diameter Tol");
-                        end;
-                        if ("Lg Tol" <> 0) then begin
+                        if ("Lg Tol" <> 0) then
                             "PWD Quartis Description" := "PWD Quartis Description" + 'L' + Format("Lg Tol");
-                        end;
                     end else begin
-                        if ("Thick Tol" <> 0) then begin
+                        if ("Thick Tol" <> 0) then
                             "PWD Quartis Description" := "PWD Quartis Description" + 'L' + Format("Thick Tol");
-                        end;
-                        if ("Height Tol" <> 0) then begin
+                        if ("Height Tol" <> 0) then
                             "PWD Quartis Description" := "PWD Quartis Description" + 'H' + Format("Height Tol");
-                        end;
-                        if ("Lg Tol" <> 0) then begin
+                        if ("Lg Tol" <> 0) then
                             "PWD Quartis Description" := "PWD Quartis Description" + 'P' + Format("Lg Tol");
-                        end;
                     end;
         end;
     end;
@@ -158,7 +142,7 @@ report 99097 "RDD - Update Quartis Descrip"
     var
         TxtLDim1: Text[30];
     begin
-        with RecPItemConfigurator do begin
+        with RecPItemConfigurator do
             if "Piece Type Semi-finished" = 'GRANDI' then begin
                 TxtLDim1 := Format("Hole Tol");
                 TxtLDim1 := CopyStr(TxtLDim1, 1, StrPos(TxtLDim1, ',') + 1);
@@ -173,7 +157,6 @@ report 99097 "RDD - Update Quartis Descrip"
                                           '/+' + Format("Ep Max.") + ')';
 
             end;
-        end;
     end;
 }
 

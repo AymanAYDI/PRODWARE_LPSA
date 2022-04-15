@@ -25,13 +25,13 @@ codeunit 50021 "PWD LPSA Functions Mgt."
         PageLCommentSheet: Page 124;
     begin
         //>>TDL.LPSA.20.04.15
-        RecLComment.RESET;
+        RecLComment.RESET();
         RecLComment.SETRANGE("Table Name", RecLComment."Table Name"::Customer);
         RecLComment.SETRANGE("No.", SalesHeader."Bill-to Customer No.");
-        IF RecLComment.FINDFIRST THEN BEGIN
+        IF RecLComment.FINDFIRST() THEN BEGIN
             CLEAR(PageLCommentSheet);
             PageLCommentSheet.SETTABLEVIEW(RecLComment);
-            PageLCommentSheet.RUNMODAL;
+            PageLCommentSheet.RUNMODAL();
         END;
         //<<TDL.LPSA.20.04.15
     end;
@@ -69,19 +69,15 @@ codeunit 50021 "PWD LPSA Functions Mgt."
         RecLNegReservEntry: Record 337;
         RecLPosReservEntry: Record 337;
         RecLProdOrderLine: Record 5406;
-        RecLLinkedProdOrder: Record 5405;
         RecLPlannerOneSetup: Record 8076502;
         RecLPlannerOneUtil: Codeunit 8076503;
         CduLCalcProdOrder: Codeunit 99000773;
-        DecLRemQty: Decimal;
-        DecLBaseRemQty: Decimal;
-        CstL50000: Label 'ENU=More than on product order is linked to item %1, lot %2. Update is stopped.';
     BEGIN
         //>>FE_PROD01.002
         IF CodPLotNo = '' THEN
             EXIT;
         // Search Reservation entry for item, lot no.
-        RecLPosReservEntry.RESET;
+        RecLPosReservEntry.RESET();
         RecLPosReservEntry.SETRANGE("Item No.", RecPProdOrderLine."Item No.");
         RecLPosReservEntry.SETRANGE("Lot No.", CodPLotNo);
         RecLPosReservEntry.SETRANGE(Positive, TRUE);
@@ -94,7 +90,7 @@ codeunit 50021 "PWD LPSA Functions Mgt."
             EXIT;
         //IF RecLPosReservEntry.COUNT > 1 THEN
         //  ERROR(CstL50000,RecPProdOrderLine."Item No.",CodPLotNo);
-        RecLPosReservEntry.FINDFIRST;
+        RecLPosReservEntry.FINDFIRST();
         // Search associated entry
         RecLNegReservEntry.GET(RecLPosReservEntry."Entry No.", NOT RecLPosReservEntry.Positive);
         IF RecLNegReservEntry."Source Type" <> DATABASE::"Prod. Order Component" THEN

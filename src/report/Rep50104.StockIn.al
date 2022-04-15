@@ -11,11 +11,11 @@ report 50104 "PWD Stock - In"
 
             trigger OnAfterGetRecord()
             begin
-                RecG83.Init;
+                RecG83.Init();
                 RecG83."Journal Template Name" := 'ARTICLE';
                 RecG83."Journal Batch Name" := 'COUTS';
                 RecG83."Line No." := LineNo;
-                RecG83.Insert;
+                RecG83.Insert();
                 LineNo += 10000;
 
                 RecG83.Validate("Item No.", "Item No.");
@@ -39,17 +39,17 @@ report 50104 "PWD Stock - In"
 
                 RecG83.Validate("Source Code", RecGJnlTempl."Source Code");
                 //RecG83.VALIDATE("Applies-to Entry","Entry No.");
-                RecG83.Modify;
+                RecG83.Modify();
                 if "Lot No." <> '' then
                     FctCreateSerialNos(RecG83, Inventory."Lot No.");
             end;
 
             trigger OnPreDataItem()
             begin
-                RecG83.Reset;
+                RecG83.Reset();
                 RecG83.SetRange("Journal Template Name", 'ARTICLE');
                 RecG83.SetRange("Journal Batch Name", 'COUTS');
-                RecG83.DeleteAll;
+                RecG83.DeleteAll();
                 /*
                 IF RecG83.FINDLAST THEN
                   LineNo := RecG83."Line No." + 10000
@@ -83,7 +83,6 @@ report 50104 "PWD Stock - In"
         LineNo: Integer;
         RecG83: Record "Item Journal Line";
         RecGJnlTempl: Record "Item Journal Template";
-        CduGTracking: Codeunit "Item Tracking Management";
         CodGSerialNo: array[999] of Code[20];
 
 
@@ -91,13 +90,7 @@ report 50104 "PWD Stock - In"
     var
         CduLItemTrackingManagment: Codeunit "LPSA Tracking Management";
         CduLReserveItemJLine: Codeunit "Item Jnl. Line-Reserve";
-        DecLSecondSourceQtyArray: array[3] of Decimal;
         RecLTrackingSpecification: Record "Tracking Specification";
-        RecLItemUOM: Record "Item Unit of Measure";
-        DecLQtyToHandleBase: Decimal;
-        DecLTemp: Decimal;
-        i: Integer;
-        LineNo: Integer;
         ItemTrackingMgt: Codeunit "Item Tracking Management";
     begin
         //Simulate Page(6510) initialization

@@ -51,23 +51,22 @@ report 50060 "PWD Inventory Recovery"
 
         BooGProcess := true;
 
-        RecGItemJnlLine.Reset;
+        RecGItemJnlLine.Reset();
         RecGItemJnlLine.SetRange("Journal Template Name", CodGJnlTemplateName);
         RecGItemJnlLine.SetRange("Journal Batch Name", CodGJnlBatchName);
         if RecGItemJnlLine.IsEmpty then begin
             if not Confirm(CstG001, false, CodGJnlTemplateName, CodGJnlBatchName) then
                 BooGProcess := false;
-        end else begin
+        end else
             if not Confirm(CstG002, false, CodGJnlTemplateName, CodGJnlBatchName) then
                 BooGProcess := false;
-        end;
 
         if BooGProcess then begin
-            RecGItemJnlLine.Reset;
+            RecGItemJnlLine.Reset();
             RecGItemJnlLine.SetRange("Journal Template Name", CodGJnlTemplateName);
             RecGItemJnlLine.SetRange("Journal Batch Name", CodGJnlBatchName);
             if not RecGItemJnlLine.IsEmpty then
-                RecGItemJnlLine.DeleteAll;
+                RecGItemJnlLine.DeleteAll();
 
             IntLineNo := 10000;
             RecGItemJnlLineBuffer.Reset;
@@ -93,7 +92,7 @@ report 50060 "PWD Inventory Recovery"
                             RecGItemLedgerEntryBuffer.CalcFields("Cost Amount (Actual)");
                             RecGItemJnlLine.Validate("Unit Cost", RecGItemLedgerEntryBuffer."Cost Amount (Actual)" /
                                                                  RecGItemLedgerEntryBuffer."Invoiced Quantity");
-                            RecGItemJnlLine.Insert;
+                            RecGItemJnlLine.Insert();
 
                             IntLineNo += 10000;
 
@@ -101,15 +100,15 @@ report 50060 "PWD Inventory Recovery"
                             RecLItem.Get(RecGItemJnlLine."Item No.");
                             if RecLItem."Item Tracking Code" <> '' then begin
                                 // On supprime les lignes de la T337 lié à la ligne de notre feuille
-                                RecLReservationEntry.Reset;
+                                RecLReservationEntry.Reset();
                                 RecLReservationEntry.SetRange("Source Type", 83);
                                 RecLReservationEntry.SetRange("Source ID", RecGItemJnlLine."Journal Template Name");
                                 RecLReservationEntry.SetRange("Source Batch Name", RecGItemJnlLine."Journal Batch Name");
                                 RecLReservationEntry.SetRange("Source Ref. No.", RecGItemJnlLine."Line No.");
-                                RecLReservationEntry.DeleteAll;
+                                RecLReservationEntry.DeleteAll();
 
-                                RecLReservationEntry.Reset;
-                                RecLReservationEntry.FindLast;
+                                RecLReservationEntry.Reset();
+                                RecLReservationEntry.FindLast();
                                 IntLEntryNoLast := RecLReservationEntry."Entry No.";
                                 RecLReservationEntry."Entry No." := IntLEntryNoLast + 1;
                                 if RecGItemJnlLine."Entry Type" = RecGItemJnlLine."Entry Type"::"Positive Adjmt." then
@@ -119,13 +118,13 @@ report 50060 "PWD Inventory Recovery"
                                 RecLReservationEntry."Item No." := RecGItemJnlLine."Item No.";
                                 RecLReservationEntry."Location Code" := RecGItemJnlLine."Location Code";
                                 RecLReservationEntry."Reservation Status" := RecLReservationEntry."Reservation Status"::Prospect;
-                                RecLReservationEntry."Creation Date" := WorkDate;
+                                RecLReservationEntry."Creation Date" := WorkDate();
                                 RecLReservationEntry."Source Type" := DATABASE::"Item Journal Line";
                                 RecLReservationEntry."Source Subtype" := RecGItemJnlLine."Entry Type";
                                 RecLReservationEntry."Source ID" := RecGItemJnlLine."Journal Template Name";
                                 RecLReservationEntry."Source Batch Name" := RecGItemJnlLine."Journal Batch Name";
                                 RecLReservationEntry."Source Ref. No." := RecGItemJnlLine."Line No.";
-                                RecLReservationEntry."Shipment Date" := WorkDate;
+                                RecLReservationEntry."Shipment Date" := WorkDate();
                                 RecLReservationEntry."Created By" := UserId;
                                 RecLReservationEntry."Qty. per Unit of Measure" := RecGItemJnlLine."Qty. per Unit of Measure";
                                 if RecGItemJnlLine."Entry Type" = RecGItemJnlLine."Entry Type"::"Positive Adjmt." then
@@ -137,7 +136,7 @@ report 50060 "PWD Inventory Recovery"
                                 RecLReservationEntry."Lot No." := RecGItemLedgerEntryBuffer."Lot No.";
                                 RecLReservationEntry."Serial No." := RecGItemLedgerEntryBuffer."Serial No.";
                                 RecLReservationEntry."Item Tracking" := RecLReservationEntry."Item Tracking"::"Lot No.";
-                                RecLReservationEntry.Insert;
+                                RecLReservationEntry.Insert();
 
                             end;
                             RecGItemJnlLine.CreateDim(

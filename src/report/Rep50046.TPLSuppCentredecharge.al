@@ -16,7 +16,7 @@ report 50046 "PWD TPL Supp Centre de charge"
     {
         dataitem("Work Center"; "Work Center")
         {
-            DataItemTableView = SORTING ("No.") WHERE ("No." = FILTER ('CPERSON'));
+            DataItemTableView = SORTING("No.") WHERE("No." = FILTER('CPERSON'));
 
             trigger OnAfterGetRecord()
             begin
@@ -25,16 +25,16 @@ report 50046 "PWD TPL Supp Centre de charge"
                     RecGCalendarEntry.SetCurrentKey("Capacity Type", "No.");
                     RecGCalendarEntry.SetRange("Capacity Type", RecGCalendarEntry."Capacity Type"::"Work Center");
                     RecGCalendarEntry.SetRange("No.", "Work Center"."No.");
-                    RecGCalendarEntry.DeleteAll;
+                    RecGCalendarEntry.DeleteAll();
 
                     RecGCalAbsentEntry.SetCurrentKey("Capacity Type", "No.");
                     RecGCalAbsentEntry.SetRange("Capacity Type", RecGCalendarEntry."Capacity Type"::"Work Center");
                     RecGCalAbsentEntry.SetRange("No.", "Work Center"."No.");
-                    RecGCalAbsentEntry.DeleteAll;
+                    RecGCalAbsentEntry.DeleteAll();
 
                     RecGMfgCommentLine.SetRange("Table Name", RecGMfgCommentLine."Table Name"::"Work Center");
                     RecGMfgCommentLine.SetRange("No.", "Work Center"."No.");
-                    RecGMfgCommentLine.DeleteAll;
+                    RecGMfgCommentLine.DeleteAll();
 
                     if CduGApplicationManagement.CheckPlannerOneLicence then begin
                         RecGPlannerOneParameters.SetRange(Type, RecGPlannerOneParameters.Type::"Work Center");
@@ -42,7 +42,7 @@ report 50046 "PWD TPL Supp Centre de charge"
                         RecGPlannerOneParameters.DeleteAll;
                     end;
 
-                    "Work Center".Delete;
+                    "Work Center".Delete();
                 end;
             end;
         }
@@ -85,16 +85,16 @@ report 50046 "PWD TPL Supp Centre de charge"
                 RecGCalendarEntry.SetCurrentKey("Capacity Type", "No.");
                 RecGCalendarEntry.SetRange("Capacity Type", RecGCalendarEntry."Capacity Type"::"Machine Center");
                 RecGCalendarEntry.SetRange("No.", RecGMachineCenter."No.");
-                RecGCalendarEntry.DeleteAll;
+                RecGCalendarEntry.DeleteAll();
 
                 RecGCalAbsentEntry.SetCurrentKey("Capacity Type", "No.");
                 RecGCalAbsentEntry.SetRange("Capacity Type", RecGCalendarEntry."Capacity Type"::"Machine Center");
                 RecGCalAbsentEntry.SetRange("No.", RecGMachineCenter."No.");
-                RecGCalAbsentEntry.DeleteAll;
+                RecGCalAbsentEntry.DeleteAll();
 
                 RecGMfgCommentLine.SetRange("Table Name", RecGMfgCommentLine."Table Name"::"Machine Center");
                 RecGMfgCommentLine.SetRange("No.", RecGMachineCenter."No.");
-                RecGMfgCommentLine.DeleteAll;
+                RecGMfgCommentLine.DeleteAll();
 
                 if CduGApplicationManagement.CheckPlannerOneLicence then begin
                     RecGPlannerOneParameters.SetRange(Type, RecGPlannerOneParameters.Type::"Machine Center");
@@ -102,10 +102,10 @@ report 50046 "PWD TPL Supp Centre de charge"
                     RecGPlannerOneParameters.DeleteAll;
                 end;
 
-                RecGMachineCenter.Delete;
+                RecGMachineCenter.Delete();
             end;
         end;
-        BDialog.Close;
+        BDialog.Close();
     end;
 
     var

@@ -48,13 +48,13 @@ report 50045 "PWD TPL Suppression Gamme"
                 if Number = 1 then
                     RecGRoutingHeaderTemp.Find('-')
                 else
-                    RecGRoutingHeaderTemp.Next;
+                    RecGRoutingHeaderTemp.Next();
             end;
 
             trigger OnPreDataItem()
             begin
                 if RecGRoutingHeaderTemp.Count = 0 then
-                    CurrReport.Break;
+                    CurrReport.Break();
 
                 SetRange(Number, 1, RecGRoutingHeaderTemp.Count);
             end;
@@ -93,34 +93,34 @@ report 50045 "PWD TPL Suppression Gamme"
         while not (InsGDataFileInstream.EOS) do begin
             InsGDataFileInstream.ReadText(TxtGReadLine);
             if RecGRoutingHeader.Get(TxtGReadLine) then begin
-                RecGItem.Reset;
+                RecGItem.Reset();
                 RecGItem.SetCurrentKey("Routing No.");
                 RecGItem.SetRange("Routing No.", RecGRoutingHeader."No.");
-                if RecGItem.FindFirst then
+                if RecGItem.FindFirst() then
                     BooGItemFind := true
                 else
                     BooGItemFind := false;
 
-                RecGProdOrderRoutingLine.Reset;
+                RecGProdOrderRoutingLine.Reset();
                 RecGProdOrderRoutingLine.SetCurrentKey("Routing No.");
                 RecGProdOrderRoutingLine.SetRange("Routing No.", RecGRoutingHeader."No.");
                 RecGProdOrderRoutingLine.SetFilter(Status, '<%1', RecGProdOrderRoutingLine.Status::Finished);
-                if RecGProdOrderRoutingLine.FindFirst then
+                if RecGProdOrderRoutingLine.FindFirst() then
                     BooGOFFind := true
                 else
                     BooGOFFind := false;
 
                 if BooGItemFind or BooGOFFind then begin
-                    RecGRoutingHeaderTemp.Init;
+                    RecGRoutingHeaderTemp.Init();
                     RecGRoutingHeaderTemp."No." := RecGRoutingHeader."No.";
-                    RecGRoutingHeaderTemp.Insert;
+                    RecGRoutingHeaderTemp.Insert();
                     RecGRoutingHeaderTemp.Description := '';
                     RecGRoutingHeaderTemp."Description 2" := '';
                     if BooGItemFind then
                         RecGRoutingHeaderTemp.Description := RecGItem."No.";
                     if BooGOFFind then
                         RecGRoutingHeaderTemp."Description 2" := RecGProdOrderRoutingLine."Prod. Order No.";
-                    RecGRoutingHeaderTemp.Modify;
+                    RecGRoutingHeaderTemp.Modify();
                 end else begin
                     if (RecGRoutingHeader.Status = RecGRoutingHeader.Status::Certified) then begin
                         RecGRoutingHeader.Validate(Status, RecGRoutingHeader.Status::"Under Development");
@@ -134,26 +134,26 @@ report 50045 "PWD TPL Suppression Gamme"
         // cas où on vide le N° gamme sur la fiche article.
         if BooGDelRoutingNoOnItem then begin
             //On commence par vider N° gamme sur la fiche article.
-            RecGRoutingHeaderTemp.Reset;
-            if RecGRoutingHeaderTemp.FindFirst then
+            RecGRoutingHeaderTemp.Reset();
+            if RecGRoutingHeaderTemp.FindFirst() then
                 repeat
-                    RecGItem.Reset;
+                    RecGItem.Reset();
                     RecGItem.SetCurrentKey("Routing No.");
                     RecGItem.SetRange("Routing No.", RecGRoutingHeaderTemp."No.");
-                    if RecGItem.FindFirst then
+                    if RecGItem.FindFirst() then
                         repeat
                             RecLItem.Get(RecGItem."No.");
                             RecLItem.Validate("Routing No.", '');
                             RecLItem.Modify(true);
-                        until RecGItem.Next = 0;
-                until RecGRoutingHeaderTemp.Next = 0;
+                        until RecGItem.Next() = 0;
+                until RecGRoutingHeaderTemp.Next() = 0;
 
-            Commit;
+            Commit();
 
             // on supprime la gamme
 
-            RecGRoutingHeaderTemp.Reset;
-            if RecGRoutingHeaderTemp.FindFirst then
+            RecGRoutingHeaderTemp.Reset();
+            if RecGRoutingHeaderTemp.FindFirst() then
                 repeat
                     if (RecGRoutingHeaderTemp."Description 2" = '') then begin
                         RecGRoutingHeader.Get(RecGRoutingHeaderTemp."No.");
@@ -163,19 +163,19 @@ report 50045 "PWD TPL Suppression Gamme"
                         end;
                         RecGMfgComment.SetRange("Table Name", RecGMfgComment."Table Name"::"Routing Header");
                         RecGMfgComment.SetRange("No.", RecGRoutingHeader."No.");
-                        RecGMfgComment.DeleteAll;
+                        RecGMfgComment.DeleteAll();
 
-                        RecGRtngLine.LockTable;
+                        RecGRtngLine.LockTable();
                         RecGRtngLine.SetRange("Routing No.", RecGRoutingHeader."No.");
                         RecGRtngLine.DeleteAll(true);
 
                         RecGRtngVersion.SetRange("Routing No.", RecGRoutingHeader."No.");
-                        RecGRtngVersion.DeleteAll;
+                        RecGRtngVersion.DeleteAll();
 
-                        RecGRoutingHeader.Delete;
+                        RecGRoutingHeader.Delete();
 
                     end;
-                until RecGRoutingHeaderTemp.Next = 0;
+                until RecGRoutingHeaderTemp.Next() = 0;
         end;
     end;
 

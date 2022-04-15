@@ -17,7 +17,7 @@ report 50100 "PWD Unblock Items"
                     Blocked := false;
                     "Sale blocked" := false;
                     "Purchase blocked" := false;
-                    Modify;
+                    Modify();
                 end;
             end;
         }

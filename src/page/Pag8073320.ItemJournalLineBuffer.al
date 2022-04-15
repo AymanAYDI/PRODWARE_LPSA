@@ -197,7 +197,7 @@ page 8073320 "PWD Item Journal Line Buffer"
 
                     trigger OnValidate()
                     begin
-                        IF RecGWMSItemJounalLineBuffer.MODIFY THEN;
+                        IF RecGWMSItemJounalLineBuffer.MODIFY() THEN;
                     end;
                 }
                 field("RecGWMSItemJounalLineBuffer.""WMS Company Code"""; RecGWMSItemJounalLineBuffer."WMS Company Code")
@@ -207,7 +207,7 @@ page 8073320 "PWD Item Journal Line Buffer"
 
                     trigger OnValidate()
                     begin
-                        IF RecGWMSItemJounalLineBuffer.MODIFY THEN;
+                        IF RecGWMSItemJounalLineBuffer.MODIFY() THEN;
                     end;
                 }
                 field("Conform quality control"; "Conform quality control")

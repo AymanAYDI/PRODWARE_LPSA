@@ -18,7 +18,7 @@ report 50083 "PWD Update Order Multiple"
                         RecLItem.Validate("Order Multiple", "New Order By"."Qty Order By Init");
                         RecLItem.Validate("Maximum Order Quantity", "New Order By"."Qty Order By Init");
                         RecLItem.Validate("Lot Size", "New Order By"."Qty Order By Init");
-                        RecLItem.Modify;
+                        RecLItem.Modify();
                     end;
                 end;
             end;

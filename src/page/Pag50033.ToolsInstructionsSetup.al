@@ -11,7 +11,7 @@ page 50033 "PWD Tools Instructions Setup"
 
     Caption = 'Tools Instructions';
     PageType = List;
-    SourceTable = "Tools Instructions";
+    SourceTable = "PWD Tools Instructions";
 
     layout
     {

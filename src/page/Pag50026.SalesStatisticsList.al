@@ -13,7 +13,7 @@ page 50026 "PWD Sales Statistics List"
     Editable = false;
     PageType = List;
     SourceTable = "Sales Line Archive";
-    SourceTableView = SORTING(Document Type, Document No., Doc. No. Occurrence, Version No., Line No.) WHERE(Document Type=FILTER(Order),Version No.=FILTER(1),Type=FILTER(Item));
+    SourceTableView = SORTING("Document Type", "Document No.", "Doc. No. Occurrence", "Version No.", "Line No.") WHERE("Document Type" = FILTER(Order), "Version No." = FILTER(1), Type = FILTER(Item));
 
     layout
     {
@@ -21,64 +21,82 @@ page 50026 "PWD Sales Statistics List"
         {
             repeater(Group)
             {
-                field("Sell-to Customer No."; "Sell-to Customer No.")
+                field("Sell-to Customer No."; Rec."Sell-to Customer No.")
                 {
+                    ApplicationArea = All;
                 }
                 field(CustomerName; TxtGCustomerName)
                 {
                     Caption = 'Name';
+                    ApplicationArea = All;
                 }
-                field("Document No."; "Document No.")
+                field("Document No."; Rec."Document No.")
                 {
+                    ApplicationArea = All;
                 }
-                field("Line No."; "Line No.")
+                field("Line No."; Rec."Line No.")
                 {
+                    ApplicationArea = All;
                 }
-                field("Version No."; "Version No.")
+                field("Version No."; Rec."Version No.")
                 {
                     Visible = false;
+                    ApplicationArea = All;
                 }
-                field("Doc. No. Occurrence"; "Doc. No. Occurrence")
+                field("Doc. No. Occurrence"; Rec."Doc. No. Occurrence")
                 {
                     Visible = false;
+                    ApplicationArea = All;
                 }
-                field("No."; "No.")
+                field("No."; Rec."No.")
                 {
+                    ApplicationArea = All;
                 }
                 field(Quantity; Quantity)
                 {
+                    ApplicationArea = All;
                 }
-                field("PWD LPSA Description 1"; "PWD LPSA Description 1")
+                field("PWD LPSA Description 1"; Rec."PWD LPSA Description 1")
                 {
+                    ApplicationArea = All;
                 }
                 field(OutstandingQty; DecGOutstandingQty)
                 {
                     Caption = 'Outstanding Quantity';
+                    ApplicationArea = All;
                 }
-                field("Unit Price"; "Unit Price")
+                field("Unit Price"; Rec."Unit Price")
                 {
+                    ApplicationArea = All;
                 }
-                field("Unit Cost"; "Unit Cost")
+                field("Unit Cost"; Rec."Unit Cost")
                 {
+                    ApplicationArea = All;
                 }
-                field("Line Discount %";"Line Discount %")
+                field("Line Discount %"; Rec."Line Discount %")
                 {
+                    ApplicationArea = All;
                 }
-                field("Line Amount"; "Line Amount")
+                field("Line Amount"; Rec."Line Amount")
                 {
+                    ApplicationArea = All;
                 }
                 field(OrderDate; DatGOrderDate)
                 {
                     Caption = 'Order Date';
+                    ApplicationArea = All;
                 }
-                field("Promised Delivery Date"; "Promised Delivery Date")
+                field("Promised Delivery Date"; Rec."Promised Delivery Date")
                 {
+                    ApplicationArea = All;
                 }
-                field("Shipment Date"; "Shipment Date")
+                field("Shipment Date"; Rec."Shipment Date")
                 {
+                    ApplicationArea = All;
                 }
-                field("Location Code"; "Location Code")
+                field("Location Code"; Rec."Location Code")
                 {
+                    ApplicationArea = All;
                 }
             }
         }
@@ -90,18 +108,18 @@ page 50026 "PWD Sales Statistics List"
 
     trigger OnAfterGetRecord()
     begin
-        IF RecGCustomer.GET("Sell-to Customer No.") THEN
-           TxtGCustomerName := RecGCustomer.Name
+        IF RecGCustomer.GET(Rec."Sell-to Customer No.") THEN
+            TxtGCustomerName := RecGCustomer.Name
         ELSE
-           TxtGCustomerName := '';
+            TxtGCustomerName := '';
 
-        RecGSalesHeaderArchive.GET("Document Type","Document No.","Doc. No. Occurrence","Version No.");
+        RecGSalesHeaderArchive.GET(Rec."Document Type", Rec."Document No.", Rec."Doc. No. Occurrence", Rec."Version No.");
         DatGOrderDate := RecGSalesHeaderArchive."Order Date";
 
-        IF RecGSalesLine.GET("Document Type","Document No.","Line No.") THEN
-           DecGOutstandingQty := RecGSalesLine."Outstanding Quantity"
+        IF RecGSalesLine.GET(Rec."Document Type", Rec."Document No.", Rec."Line No.") THEN
+            DecGOutstandingQty := RecGSalesLine."Outstanding Quantity"
         ELSE
-           DecGOutstandingQty := 0;
+            DecGOutstandingQty := 0;
     end;
 
     var

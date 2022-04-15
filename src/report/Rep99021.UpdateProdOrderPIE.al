@@ -101,7 +101,7 @@ report 99021 "PWD Update Prod Order PIE"
                     begin
                         "Remaining Quantity" := 0;
                         "Remaining Qty. (Base)" := 0;
-                        Modify;
+                        Modify();
                     end;
                 }
             }
@@ -111,8 +111,8 @@ report 99021 "PWD Update Prod Order PIE"
                 ProdOrderComp.SetRange(Status, Status);
                 ProdOrderComp.SetRange("Prod. Order No.", "No.");
 
-                if not ProdOrderComp.FindFirst then
-                    CurrReport.Skip;
+                if not ProdOrderComp.FindFirst() then
+                    CurrReport.Skip();
             end;
         }
     }

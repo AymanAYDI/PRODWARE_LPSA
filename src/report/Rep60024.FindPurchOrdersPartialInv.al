@@ -15,16 +15,16 @@ report 60024 "Find Purch. Orders Partial Inv"
                 PurchLine.SetRange("Document No.", "No.");
                 PurchLine.SetRange("Qty. Rcd. Not Invoiced");
                 if PurchLine.Count = 1 then
-                    CurrReport.Skip;
+                    CurrReport.Skip();
                 PurchLine.SetFilter("Outstanding Quantity", '<>0');
-                if not PurchLine.FindFirst then
-                    CurrReport.Skip;
+                if not PurchLine.FindFirst() then
+                    CurrReport.Skip();
 
                 PurchLine.SetRange("Outstanding Quantity");
                 PurchLine.SetFilter("Qty. Rcd. Not Invoiced", '<>0');
 
-                if not PurchLine.FindFirst then
-                    CurrReport.Skip;
+                if not PurchLine.FindFirst() then
+                    CurrReport.Skip();
 
                 Message("No.");
             end;

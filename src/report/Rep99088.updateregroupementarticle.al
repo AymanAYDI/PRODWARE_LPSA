@@ -21,7 +21,7 @@ report 99088 "update regroupement article"
             begin
 
                 Validate("Reorder Cycle", DateF);
-                Modify;
+                Modify();
             end;
 
             trigger OnPreDataItem()

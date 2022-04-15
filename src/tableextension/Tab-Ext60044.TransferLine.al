@@ -59,7 +59,7 @@ tableextension 60044 "PWD TransferLine" extends "Transfer Line"
         InvtCommentLine.SETRANGE("No.", "Document No.");
         InvtCommentLine.SETRANGE("PWD Document Line No.", "Line No.");
         InvtCommentSheet.SETTABLEVIEW(InvtCommentLine);
-        InvtCommentSheet.RUNMODAL;
+        InvtCommentSheet.RUNMODAL();
     end;
 
 }

@@ -32,7 +32,7 @@ xmlport 50000 "PWD Possible Items Export"
                 trigger OnAfterGetRecord()
                 begin
                     if not BooGExportAll and not FctCanExportPossibleItems(RecGPossibleItems."Item Code", RecGMessage."Export DateTime") then
-                        currXMLport.Skip;
+                        currXMLport.Skip();
                 end;
             }
         }

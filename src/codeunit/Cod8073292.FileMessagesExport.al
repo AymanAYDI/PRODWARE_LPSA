@@ -36,17 +36,12 @@ codeunit 8073292 "PWD File Messages Export"
         BigTLToReturn: BigText;
         CduLBufferMgt: Codeunit "Buffer Management";
         InLStream: InStream;
-        OutLStream: OutStream;
         CduLFileManagement: Codeunit "File Management";
         TxtLFile: Text[1024];
         BooLResult: Boolean;
         CduLConnecPimParseData: Codeunit "Connector Pim Parse Data";
-        CduLConnecWMSParseData: Codeunit "PWD Connector WMS Parse Data";
-        "-ProdConnect1.5-": Integer;
         RecLConnectorsActivation: Record "PWD WMS Setup";
         RecLRef: RecordRef;
-        "-SDA1.00-": Integer;
-        RecLItem: Record Item;
         RecLCustomer: Record Customer;
     begin
         Clear(BigTLToReturn);
@@ -57,9 +52,9 @@ codeunit 8073292 "PWD File Messages Export"
             'GETCUSTOMER':
                 begin
                     //>>WMS-EBL1-003.001
-                    RecLCustomer.Reset;
-                    RecLCustomer.FindSet;
-                    CduLConnecPimParseData.FctGetCustomerWithSep(RecLCustomer.GetView, Rec, RecLTempBlob);
+                    RecLCustomer.Reset();
+                    RecLCustomer.FindSet();
+                    CduLConnecPimParseData.FctGetCustomerWithSep(RecLCustomer.GetView(), Rec, RecLTempBlob);
                     // CduLConnecPimParseData.FctGetCustomerWithSep('',Rec, RecLTempBlob);
                     //<<WMS-EBL1-003.001
                 end;
@@ -104,15 +99,15 @@ codeunit 8073292 "PWD File Messages Export"
 
                     case RecLPartnerConnector."Data Format" of
                         RecLPartnerConnector."Data Format"::Xml:
-                            CduLConBufMgtExport.FctCreateXml(RecLRef.GetView, Rec, RecLTempBlob, true);
+                            CduLConBufMgtExport.FctCreateXml(RecLRef.GetView(), Rec, RecLTempBlob, true);
                         RecLPartnerConnector."Data Format"::"with separator":
-                            CduLConBufMgtExport.FctCreateSeparator(RecLRef.GetView, Rec, RecLTempBlob);
+                            CduLConBufMgtExport.FctCreateSeparator(RecLRef.GetView(), Rec, RecLTempBlob);
                         RecLPartnerConnector."Data Format"::"File Position":
-                            CduLConBufMgtExport.FctCreateFileWithPosition(RecLRef.GetView, Rec, RecLTempBlob);
+                            CduLConBufMgtExport.FctCreateFileWithPosition(RecLRef.GetView(), Rec, RecLTempBlob);
                     end;
 
                     //>>WMS-FEMOT.001
-                    RecLRef.Close;
+                    RecLRef.Close();
                     //<<WMS-FEMOT.001
 
                 end;
@@ -125,7 +120,7 @@ codeunit 8073292 "PWD File Messages Export"
             IntGSequenceNo := CduLBufferMgt.FctCreateBufferValues(InLStream, "Partner Code", '', Code,
                                                                   RecLPartnerConnector."Data Format"::Xml,
                                                                   RecLPartnerConnector.Separator, 1, 0, Code);
-            RecLConnectorsActivation.Get;
+            RecLConnectorsActivation.Get();
             //>>WMS-EBL1-003.001
             TxtLFile := CduLConBufMgtExport.FctMakeFileName(
                                            Path,
@@ -142,7 +137,7 @@ codeunit 8073292 "PWD File Messages Export"
             Clear(InLStream);
             RecLConnectorValues.Get(IntGSequenceNo);
             RecLConnectorValues."File Name" := CopyStr(TxtLFile, 1, 250);
-            RecLConnectorValues.Modify;
+            RecLConnectorValues.Modify();
             RecLConnectorValues.CalcFields(Blob);
             RecLConnectorValues.Blob.CreateInStream(InLStream);
             BooLResult := CduLFileManagement.FctbTransformBlobToFile(TxtLFile, InLStream, RecLConnectorValues."Partner Code",
@@ -162,7 +157,6 @@ codeunit 8073292 "PWD File Messages Export"
         CduLConBufMgtExport: Codeunit "Connector Buffer Mgt Export";
         OptGFlowType: Option " ","Import Connector","Export Connector";
         IntGSequenceNo: Integer;
-        "-ProdConnect1.5.1-": Integer;
         CduLFTPExport: Codeunit "FTP Messages Import/Export";
 
 

@@ -86,22 +86,8 @@ table 50097 "PWD Routing Header BKP"
     }
 
     trigger OnDelete()
-    var
-        Item: Record Item;
-        RtngLine: Record "Routing Line";
-        MfgComment: Record "Manufacturing Comment Line";
     begin
     end;
-
-    var
-        Text000: Label 'This Routing is being used on Items.';
-        Text001: Label 'All versions attached to the routing will be closed. Close routing?';
-        MfgSetup: Record "Manufacturing Setup";
-        RoutingHeader: Record "Routing Header";
-        RtngVersion: Record "Routing Version";
-        CheckRouting: Codeunit "Check Routing Lines";
-        NoSeriesMgt: Codeunit NoSeriesManagement;
-        Text002: Label 'You cannot rename the %1 when %2 is %3.';
 
 
     procedure AssistEdit(OldRtngHeader: Record "Routing Header"): Boolean

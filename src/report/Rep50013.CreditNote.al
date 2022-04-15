@@ -83,7 +83,7 @@ report 50013 "PWD Credit Note"
                     column(CompanyInfo_City; FORMAT(CompanyInfo.City) + ',' + FORMAT(TODAY, 0, 4))
                     {
                     }
-                    column(FORMAT__Sales_Header___Document_Date__0_4_; FORMAT(WORKDATE, 0, 4))
+                    column(FORMAT__Sales_Header___Document_Date__0_4_; FORMAT(WORKDATE(), 0, 4))
                     {
                     }
                     column(Sales_Header___Sell_to_Customer_No__; CustName)
@@ -223,7 +223,7 @@ report 50013 "PWD Credit Note"
                         }
                         column(Sales_Cr_Memo_Line__Unit_Price_; "Unit Price")
                         {
-                            AutoFormatExpression = "Sales Cr.Memo Line".GetCurrencyCode;
+                            AutoFormatExpression = "Sales Cr.Memo Line".GetCurrencyCode();
                             AutoFormatType = 2;
                         }
                         column(Sales_Cr_Memo_Line__Line_Discount___; "Line Discount %")
@@ -231,7 +231,7 @@ report 50013 "PWD Credit Note"
                         }
                         column(Sales_Cr_Memo_Line__Line_Amount__Control67; "Line Amount")
                         {
-                            AutoFormatExpression = "Sales Cr.Memo Line".GetCurrencyCode;
+                            AutoFormatExpression = "Sales Cr.Memo Line".GetCurrencyCode();
                             AutoFormatType = 1;
                         }
                         column(Sales_Cr_Memo_Line__VAT_Identifier_; "VAT Identifier")
@@ -284,7 +284,7 @@ report 50013 "PWD Credit Note"
                         }
                         column(Inv__Discount_Amount_; -"Inv. Discount Amount")
                         {
-                            AutoFormatExpression = "Sales Cr.Memo Line".GetCurrencyCode;
+                            AutoFormatExpression = "Sales Cr.Memo Line".GetCurrencyCode();
                             AutoFormatType = 1;
                         }
                         column(Sales_Cr_Memo_Line__Line_Amount__Control96; "Line Amount")
@@ -297,12 +297,12 @@ report 50013 "PWD Credit Note"
                         }
                         column(Sales_Cr_Memo_Line__Amount_Including_VAT_; "Amount Including VAT")
                         {
-                            AutoFormatExpression = "Sales Cr.Memo Line".GetCurrencyCode;
+                            AutoFormatExpression = "Sales Cr.Memo Line".GetCurrencyCode();
                             AutoFormatType = 1;
                         }
                         column(Amount_Including_VAT____Amount; "Amount Including VAT" - Amount)
                         {
-                            AutoFormatExpression = "Sales Cr.Memo Line".GetCurrencyCode;
+                            AutoFormatExpression = "Sales Cr.Memo Line".GetCurrencyCode();
                             AutoFormatType = 1;
                         }
                         column(VATAmountLine_VATAmountText; CstG011 + ' ' + FORMAT(VATAmountLine."VAT %") + '%')
@@ -310,7 +310,7 @@ report 50013 "PWD Credit Note"
                         }
                         column(Sales_Cr_Memo_Line_Amount_Control69; Amount)
                         {
-                            AutoFormatExpression = "Sales Cr.Memo Line".GetCurrencyCode;
+                            AutoFormatExpression = "Sales Cr.Memo Line".GetCurrencyCode();
                             AutoFormatType = 1;
                         }
                         column(CstG_012; CstG012)
@@ -369,13 +369,13 @@ report 50013 "PWD Credit Note"
                                 NNC_TotalAmount += Amount;
                             END;
 
-                            SalesShipmentBuffer.DELETEALL;
+                            SalesShipmentBuffer.DELETEALL();
                             PostedReceiptDate := 0D;
 
                             IF (Type = Type::"G/L Account") AND (NOT ShowInternalInfo) THEN
                                 "No." := '';
 
-                            VATAmountLine.INIT;
+                            VATAmountLine.INIT();
                             VATAmountLine."VAT Identifier" := "VAT Identifier";
                             VATAmountLine."VAT Calculation Type" := "VAT Calculation Type";
                             VATAmountLine."Tax Group Code" := "Tax Group Code";
@@ -386,7 +386,7 @@ report 50013 "PWD Credit Note"
                             IF "Allow Invoice Disc." THEN
                                 VATAmountLine."Inv. Disc. Base Amount" := "Line Amount";
                             VATAmountLine."Invoice Discount Amount" := "Inv. Discount Amount";
-                            VATAmountLine.InsertLine;
+                            VATAmountLine.InsertLine();
 
                             //>>TI414158
                             IF (("Sales Cr.Memo Line".Type = "Sales Cr.Memo Line".Type::Item) AND ("Sales Cr.Memo Line"."Item Category Code" <> 'ACI')) THEN
@@ -410,18 +410,17 @@ report 50013 "PWD Credit Note"
                             //>>Regie
                             CLEAR(TxtGComment);
                             BooGStopComment := FALSE;
-                            RecGSalesCommentLine.RESET;
+                            RecGSalesCommentLine.RESET();
                             RecGSalesCommentLine.SETRANGE("Document Type", RecGSalesCommentLine."Document Type"::"Posted Credit Memo");
                             RecGSalesCommentLine.SETRANGE("No.", "Document No.");
                             RecGSalesCommentLine.SETRANGE("Document Line No.", "Line No.");
-                            IF RecGSalesCommentLine.FINDSET THEN BEGIN
+                            IF RecGSalesCommentLine.FINDSET() THEN
                                 REPEAT
                                     IF STRLEN(TxtGComment) + STRLEN(RecGSalesCommentLine.Comment) < 1024 THEN
                                         TxtGComment += RecGSalesCommentLine.Comment + ' '
                                     ELSE
                                         BooGStopComment := TRUE;
-                                UNTIL (RecGSalesCommentLine.NEXT = 0) OR (BooGStopComment);
-                            END;
+                                UNTIL (RecGSalesCommentLine.NEXT() = 0) OR (BooGStopComment);
                         end;
 
                         trigger OnPostDataItem()
@@ -433,15 +432,15 @@ report 50013 "PWD Credit Note"
 
                         trigger OnPreDataItem()
                         begin
-                            VATAmountLine.DELETEALL;
-                            SalesShipmentBuffer.RESET;
-                            SalesShipmentBuffer.DELETEALL;
+                            VATAmountLine.DELETEALL();
+                            SalesShipmentBuffer.RESET();
+                            SalesShipmentBuffer.DELETEALL();
                             FirstValueEntryNo := 0;
                             MoreLines := FIND('+');
                             WHILE MoreLines AND (Description = '') AND ("No." = '') AND (Quantity = 0) AND (Amount = 0) DO
                                 MoreLines := NEXT(-1) <> 0;
                             IF NOT MoreLines THEN
-                                CurrReport.BREAK;
+                                CurrReport.BREAK();
                             SETRANGE("Line No.", 0, "Line No.");
                             CurrReport.CREATETOTALS(Amount, "Amount Including VAT", "Inv. Discount Amount", VATAmountLine."VAT Base");
                         end;
@@ -485,14 +484,14 @@ report 50013 "PWD Credit Note"
 
                         trigger OnPreDataItem()
                         begin
-                            IF VATAmountLine.GetTotalVATAmount = 0 THEN
-                                CurrReport.BREAK;
+                            IF VATAmountLine.GetTotalVATAmount() = 0 THEN
+                                CurrReport.BREAK();
                             SETRANGE(Number, 1, VATAmountLine.COUNT);
                             CurrReport.CREATETOTALS(
                               VATAmountLine."Line Amount", VATAmountLine."Inv. Disc. Base Amount",
                               VATAmountLine."Invoice Discount Amount", VATAmountLine."VAT Base", VATAmountLine."VAT Amount");
 
-                            NNC_VATAmount := VATAmountLine.GetTotalVATAmount;
+                            NNC_VATAmount := VATAmountLine.GetTotalVATAmount();
 
                             //>>LAP2.03
                             CLEAR(TxtGVAT);
@@ -583,15 +582,14 @@ report 50013 "PWD Credit Note"
                 IntGImpText := 0;
                 //<<TI414158
 
-                CompanyInfo.GET;
+                CompanyInfo.GET();
 
                 IF RespCenter.GET("Responsibility Center") THEN BEGIN
                     FormatAddr.RespCenter(CompanyAddr, RespCenter);
                     CompanyInfo."Phone No." := RespCenter."Phone No.";
                     CompanyInfo."Fax No." := RespCenter."Fax No.";
-                END ELSE BEGIN
+                END ELSE
                     FormatAddr.Company(CompanyAddr, CompanyInfo);
-                END;
 
                 PostedDocDim1.SETRANGE("Table ID", DATABASE::"Sales Cr.Memo Header");
                 PostedDocDim1.SETRANGE("Document No.", "Sales Cr.Memo Header"."No.");
@@ -601,7 +599,7 @@ report 50013 "PWD Credit Note"
                 ELSE
                     ReturnOrderNoText := FIELDCAPTION("Return Order No.");
                 IF "Salesperson Code" = '' THEN BEGIN
-                    SalesPurchPerson.INIT;
+                    SalesPurchPerson.INIT();
                     SalesPersonText := '';
                 END ELSE BEGIN
                     SalesPurchPerson.GET("Salesperson Code");
@@ -649,7 +647,7 @@ report 50013 "PWD Credit Note"
                           "Campaign No.", "Posting Description", '');
 
                 IF "Payment Terms Code" = '' THEN
-                    PaymentTerms.INIT
+                    PaymentTerms.INIT()
                 ELSE BEGIN
                     PaymentTerms.GET("Payment Terms Code");
                     PaymentTerms.TranslateDescription(PaymentTerms, "Sales Cr.Memo Header"."Language Code");
@@ -695,7 +693,7 @@ report 50013 "PWD Credit Note"
 
     trigger OnInitReport()
     begin
-        GLSetup.GET;
+        GLSetup.GET();
 
         //>>NDBI
         BooGEnvoiMail := TRUE;
@@ -709,7 +707,7 @@ report 50013 "PWD Credit Note"
     begin
         //>>NDBI
         IF NOT BooGSkipSendEmail AND BooGEnvoiMail THEN BEGIN
-            RecLSalesCrMHeader.SETVIEW("Sales Cr.Memo Header".GETVIEW);
+            RecLSalesCrMHeader.SETVIEW("Sales Cr.Memo Header".GETVIEW());
             SendPDFMail(RecLSalesCrMHeader);
         END;
         //<<NDBI
@@ -851,16 +849,14 @@ report 50013 "PWD Credit Note"
     begin
         CLEAR(TempItemLedgEntry);
         ValueEntryRelation.SETCURRENTKEY("Source RowId");
-        ValueEntryRelation.SETRANGE("Source RowId", "Sales Cr.Memo Line".RowID1);
-        IF ValueEntryRelation.FIND('-') THEN BEGIN
-
+        ValueEntryRelation.SETRANGE("Source RowId", "Sales Cr.Memo Line".RowID1());
+        IF ValueEntryRelation.FIND('-') THEN
             REPEAT
                 ValueEntry.GET(ValueEntryRelation."Value Entry No.");
                 ItemLedgEntry.GET(ValueEntry."Item Ledger Entry No.");
                 TempItemLedgEntry := ItemLedgEntry;
                 TempItemLedgEntry.Quantity := ValueEntry."Invoiced Quantity";
-            UNTIL ValueEntryRelation.NEXT = 0;
-        END;
+            UNTIL ValueEntryRelation.NEXT() = 0;
     end;
 
 
@@ -872,7 +868,7 @@ report 50013 "PWD Credit Note"
         ItemCrossRef.SETRANGE("Unit of Measure", "Sales Cr.Memo Line"."Unit of Measure Code");
         ItemCrossRef.SETRANGE("Cross-Reference Type", ItemCrossRef."Cross-Reference Type"::Customer);
         ItemCrossRef.SETRANGE("Cross-Reference Type No.", "Sales Cr.Memo Header"."Sell-to Customer No.");
-        IF ItemCrossRef.FINDFIRST THEN BEGIN
+        IF ItemCrossRef.FINDFIRST() THEN BEGIN
             CrossReferenceNo := ItemCrossRef."Cross-Reference No.";
             //>>TDL.LPSA.09022015
             TxtGCustPlanNo_C := ItemCrossRef."Customer Plan No.";
@@ -922,7 +918,7 @@ report 50013 "PWD Credit Note"
         CLEAR(Recipient);
         CLEAR(CodLMail);
 
-        RecPSalesCrMHeader.FINDFIRST;
+        RecPSalesCrMHeader.FINDFIRST();
 
         // pas besoin d'avoir l'adresse destinataire rempli mais ça va peut être évoluer.
         /*

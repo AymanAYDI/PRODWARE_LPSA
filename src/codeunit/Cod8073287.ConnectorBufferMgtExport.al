@@ -37,12 +37,10 @@ codeunit 8073287 "Connector Buffer Mgt Export"
     end;
 
     var
-        CduGConvertAsciiToAnsi: Codeunit "PWD Convert Ascii To Ansi";
         CduGFileManagement: Codeunit "File Management";
         CduGConnectFieldsMgt: Codeunit "Connector Fields Management";
         IntGNbPosition: Integer;
         CstG001: Label 'The field %1 of the table %2 is too long to be export for this partner. Record %3 value : %4. The maximum lenght is %5.';
-        "---ProdConnect1.6--": Integer;
         CodGConnectorPartner: Code[20];
         IntGConnectorValue: Integer;
         BooGError: Boolean;
@@ -61,11 +59,8 @@ codeunit 8073287 "Connector Buffer Mgt Export"
         RecLFieldsExportSetup: Record "PWD Fields Export Setup";
         OusLStream: OutStream;
         TxtLValue: Text[250];
-        intCpt: Integer;
-        InsLInStream: InStream;
         ChrL10: Char;
         ChrL13: Char;
-        "-ProdConnect1.5-": Integer;
         RecLPartnerConnector: Record "PWD Partner Connector";
         DatLValue: Date;
         DecLValue: Decimal;
@@ -76,7 +71,7 @@ codeunit 8073287 "Connector Buffer Mgt Export"
 
         RecLRecRef2.OPEN(RecPSendingMessage."Table ID");
 
-        RecLRecRef2.RESET;
+        RecLRecRef2.RESET();
         IF TxtPFilters <> '' THEN
             RecLRecRef2.SETVIEW(TxtPFilters);
 
@@ -106,11 +101,11 @@ codeunit 8073287 "Connector Buffer Mgt Export"
 
 
         IF NOT RecLRecRef2.ISEMPTY THEN BEGIN
-            RecLRecRef2.FINDFIRST;
+            RecLRecRef2.FINDFIRST();
             REPEAT
 
                 //>>OSYS-Int001.001
-                RecLRecRef := RecLRecRef2.DUPLICATE;
+                RecLRecRef := RecLRecRef2.DUPLICATE();
                 IF NOT FctCheckFields(RecLRecRef) THEN BEGIN
                     //<<OSYS-Int001.001
 
@@ -125,7 +120,7 @@ codeunit 8073287 "Connector Buffer Mgt Export"
                     //<<OSYS-Int001.001
 
                     AutLXMLDomElement.appendChild(AutLXMLDomElement2);
-                    RecLFieldsExportSetup.RESET;
+                    RecLFieldsExportSetup.RESET();
                     RecLFieldsExportSetup.SETRANGE("Partner Code", RecPSendingMessage."Partner Code");
                     RecLFieldsExportSetup.SETRANGE("Message Code", RecPSendingMessage.Code);
                     RecLFieldsExportSetup.SETRANGE("Table ID", RecLRecRef.NUMBER);
@@ -135,7 +130,7 @@ codeunit 8073287 "Connector Buffer Mgt Export"
                     //<<WMS-FE10.001
 
                     IF NOT RecLFieldsExportSetup.ISEMPTY THEN BEGIN
-                        RecLFieldsExportSetup.FINDSET;
+                        RecLFieldsExportSetup.FINDSET();
                         REPEAT
                             RecLFieldsExportSetup.TESTFIELD("Xml Tag");
                             AutLXMLDomElement3 := AutLXMLDom.createElement(RecLFieldsExportSetup."Xml Tag");
@@ -246,16 +241,16 @@ codeunit 8073287 "Connector Buffer Mgt Export"
 
                             AutLXMLDomElement3.appendChild(AutLXMLDomNodeTxt);
                             AutLXMLDomElement2.appendChild(AutLXMLDomElement3);
-                        UNTIL RecLFieldsExportSetup.NEXT = 0;
+                        UNTIL RecLFieldsExportSetup.NEXT() = 0;
                     END;
 
                     //>>OSYS-Int001.001
                 END;
             //<<OSYS-Int001.001
-            UNTIL RecLRecRef2.NEXT = 0;
+            UNTIL RecLRecRef2.NEXT() = 0;
         END;
 
-        RecLRecRef2.CLOSE;
+        RecLRecRef2.CLOSE();
         RecPTempBlob.Blob.CREATEOUTSTREAM(OusLStream);
         AutLXMLDom.save(OusLStream);
 
@@ -269,7 +264,6 @@ codeunit 8073287 "Connector Buffer Mgt Export"
         FldRef: FieldRef;
         RecLRecRef: RecordRef;
         RecLRecRef2: RecordRef;
-        CstLtxt001: Label 'Le partenaire n''a pas de séparateur défini';
         BooLFirstInLoop: Boolean;
         ChrL10: Char;
         ChrL13: Char;
@@ -285,7 +279,7 @@ codeunit 8073287 "Connector Buffer Mgt Export"
 
 
         RecLRecRef2.OPEN(RecPSendingMessage."Table ID");
-        RecLRecRef2.RESET;
+        RecLRecRef2.RESET();
         ChrL10 := 10;
         ChrL13 := 13;
         IF RecLPartnerConnector.GET(RecPSendingMessage."Partner Code") THEN BEGIN
@@ -305,14 +299,14 @@ codeunit 8073287 "Connector Buffer Mgt Export"
 
             RecLPartnerConnector.TESTFIELD(Separator);
             IF NOT RecLRecRef2.ISEMPTY THEN BEGIN
-                RecLRecRef2.FINDSET;
+                RecLRecRef2.FINDSET();
                 REPEAT
                     //>>OSYS-Int001.001
-                    RecLRecRef := RecLRecRef2.DUPLICATE;
+                    RecLRecRef := RecLRecRef2.DUPLICATE();
                     IF NOT FctCheckFields(RecLRecRef) THEN BEGIN
                         //<<OSYS-Int001.001
 
-                        RecLFieldsExportSetup.RESET;
+                        RecLFieldsExportSetup.RESET();
                         RecLFieldsExportSetup.SETRANGE("Partner Code", RecPSendingMessage."Partner Code");
                         RecLFieldsExportSetup.SETRANGE("Message Code", RecPSendingMessage.Code);
                         RecLFieldsExportSetup.SETRANGE("Table ID", RecLRecRef.NUMBER);
@@ -323,7 +317,7 @@ codeunit 8073287 "Connector Buffer Mgt Export"
 
                         BooLFirstInLoop := TRUE;
                         IF NOT RecLFieldsExportSetup.ISEMPTY THEN BEGIN
-                            RecLFieldsExportSetup.FINDSET;
+                            RecLFieldsExportSetup.FINDSET();
                             REPEAT
                                 FldRef := RecLRecRef.FIELD(RecLFieldsExportSetup."Field ID");
                                 IF NOT BooLFirstInLoop THEN
@@ -439,7 +433,7 @@ codeunit 8073287 "Connector Buffer Mgt Export"
                                 //<<WMS-FE10.001
 
                                 BooLFirstInLoop := FALSE;
-                            UNTIL RecLFieldsExportSetup.NEXT = 0;
+                            UNTIL RecLFieldsExportSetup.NEXT() = 0;
                             BigTLBigTextToReturn.ADDTEXT(FORMAT(ChrL13) + FORMAT(ChrL10));
                         END;
 
@@ -447,11 +441,11 @@ codeunit 8073287 "Connector Buffer Mgt Export"
                     END;
                 //<<OSYS-Int001.001
 
-                UNTIL RecLRecRef2.NEXT = 0;
+                UNTIL RecLRecRef2.NEXT() = 0;
             END;
         END;
 
-        RecLRecRef2.CLOSE;
+        RecLRecRef2.CLOSE();
 
         //>>WMS-FE10.001
         IF BigTLBigTextToReturn.LENGTH <> 0 THEN BEGIN
@@ -471,7 +465,6 @@ codeunit 8073287 "Connector Buffer Mgt Export"
     var
         TxtLModifyInProcess: Text[250];
         Chr255: Char;
-        Chr160: Char;
         TxtLChar: Text[1];
     begin
         TxtLModifyInProcess := DELCHR(TxtPTextToModify);
@@ -491,12 +484,11 @@ codeunit 8073287 "Connector Buffer Mgt Export"
         IntLI: Integer;
         ChrLChar: Char;
     begin
-        FOR IntLI := 0 TO 47 DO BEGIN
+        FOR IntLI := 0 TO 47 DO
             IF (IntLI <> 44) AND (IntLI <> 45) AND (IntLI <> 46) THEN BEGIN
                 ChrLChar := IntLI;
                 TxtPDecimalToNormalize := DELCHR(TxtPDecimalToNormalize, '=', FORMAT(ChrLChar));
             END;
-        END;
         FOR IntLI := 58 TO 255 DO BEGIN
             ChrLChar := IntLI;
             TxtPDecimalToNormalize := DELCHR(TxtPDecimalToNormalize, '=', FORMAT(ChrLChar));
@@ -519,11 +511,9 @@ codeunit 8073287 "Connector Buffer Mgt Export"
         RecLRecRef: RecordRef;
         RecLRecRef2: RecordRef;
         FldRef: FieldRef;
-        CstLtxt001: Label 'Le partenaire n''a pas de séparateur défini';
         ChrL10: Char;
         ChrL13: Char;
         TxtLValue: Text[250];
-        OusLStream: OutStream;
         IntLMaxLength: Integer;
         IntLCurrentLenth: Integer;
         i: Integer;
@@ -536,7 +526,7 @@ codeunit 8073287 "Connector Buffer Mgt Export"
         //**********************************************************************************************************//
 
         RecLRecRef2.OPEN(RecPSendingMessage."Table ID");
-        RecLRecRef2.RESET;
+        RecLRecRef2.RESET();
 
         ChrL10 := 10;
         ChrL13 := 13;
@@ -548,13 +538,13 @@ codeunit 8073287 "Connector Buffer Mgt Export"
             //**********************************************************************************************************
             IntLMaxLength := 0;
 
-            RecLSendingMessage.RESET;
+            RecLSendingMessage.RESET();
             RecLSendingMessage.SETRANGE("Partner Code", RecPSendingMessage."Partner Code");
             RecLSendingMessage.SETRANGE("Function", RecPSendingMessage."Function");
-            IF RecLSendingMessage.FINDSET THEN
+            IF RecLSendingMessage.FINDSET() THEN
                 REPEAT
                     RecLFieldsExportLenght.SETCURRENTKEY("File Position");
-                    RecLFieldsExportLenght.RESET;
+                    RecLFieldsExportLenght.RESET();
                     RecLFieldsExportLenght.SETRANGE("Partner Code", RecLSendingMessage."Partner Code");
                     RecLFieldsExportLenght.SETRANGE("Message Code", RecLSendingMessage.Code);
 
@@ -562,10 +552,10 @@ codeunit 8073287 "Connector Buffer Mgt Export"
                     RecLFieldsExportLenght.SETRANGE(Direction, RecLFieldsExportSetup.Direction::Export);
                     //<<WMS-FE10.001
 
-                    IF RecLFieldsExportLenght.FINDLAST THEN
+                    IF RecLFieldsExportLenght.FINDLAST() THEN
                         IF (RecLFieldsExportLenght."File Position" + (RecLFieldsExportLenght."File Length" - 1)) > IntLMaxLength THEN
                             IntLMaxLength := RecLFieldsExportLenght."File Position" + (RecLFieldsExportLenght."File Length" - 1);
-                UNTIL RecLSendingMessage.NEXT = 0;
+                UNTIL RecLSendingMessage.NEXT() = 0;
 
             //**********************************************************************************************************
             //Passage des filtres
@@ -587,10 +577,10 @@ codeunit 8073287 "Connector Buffer Mgt Export"
             //Travail sur plusieurs lignes
             //**********************************************************************************************************
             IF NOT RecLRecRef2.ISEMPTY THEN BEGIN
-                RecLRecRef2.FINDSET;
+                RecLRecRef2.FINDSET();
                 REPEAT
                     //>>OSYS-Int001.001
-                    RecLRecRef := RecLRecRef2.DUPLICATE;
+                    RecLRecRef := RecLRecRef2.DUPLICATE();
                     IF NOT FctCheckFields(RecLRecRef) THEN BEGIN
                         //<<OSYS-Int001.001
 
@@ -598,7 +588,7 @@ codeunit 8073287 "Connector Buffer Mgt Export"
                         IntLCurrentLenth := 0;
 
                         RecLFieldsExportSetup.SETCURRENTKEY("File Position");
-                        RecLFieldsExportSetup.RESET;
+                        RecLFieldsExportSetup.RESET();
                         RecLFieldsExportSetup.SETRANGE("Partner Code", RecPSendingMessage."Partner Code");
                         RecLFieldsExportSetup.SETRANGE("Message Code", RecPSendingMessage.Code);
                         RecLFieldsExportSetup.SETRANGE("Table ID", RecLRecRef.NUMBER);
@@ -608,7 +598,7 @@ codeunit 8073287 "Connector Buffer Mgt Export"
                         //<<WMS-FE10.001
 
                         IF NOT RecLFieldsExportSetup.ISEMPTY THEN BEGIN
-                            RecLFieldsExportSetup.FINDSET;
+                            RecLFieldsExportSetup.FINDSET();
 
                             //**********************************************************************************************************
                             //Travail sur 1 ligne
@@ -711,7 +701,7 @@ codeunit 8073287 "Connector Buffer Mgt Export"
                                     END;
                                 END;
                                 IntLCurrentLenth := (RecLFieldsExportSetup."File Length" - 1) + RecLFieldsExportSetup."File Position";
-                            UNTIL RecLFieldsExportSetup.NEXT = 0;
+                            UNTIL RecLFieldsExportSetup.NEXT() = 0;
                         END;
                         IF BigTPToReturn.LENGTH <> 0 THEN BEGIN
                             IF IntLMaxLength > IntLCurrentLenth THEN
@@ -728,9 +718,9 @@ codeunit 8073287 "Connector Buffer Mgt Export"
                     END;
                 //<<OSYS-Int001.001
 
-                UNTIL RecLRecRef2.NEXT = 0;
+                UNTIL RecLRecRef2.NEXT() = 0;
             END
-            ELSE BEGIN
+            ELSE
                 IF BigTPToReturn.LENGTH <> 0 THEN BEGIN
                     IF IntLMaxLength > IntLCurrentLenth THEN
                         FOR i := (IntLCurrentLenth + 1) TO IntLMaxLength DO
@@ -740,10 +730,9 @@ codeunit 8073287 "Connector Buffer Mgt Export"
                                 BigTPToReturn.ADDTEXT(' ');
                     BigTPToReturn.ADDTEXT(FORMAT(ChrL13) + FORMAT(ChrL10));
                 END;
-            END;
         END;
 
-        RecLRecRef2.CLOSE;
+        RecLRecRef2.CLOSE();
 
     end;
 
@@ -787,11 +776,6 @@ codeunit 8073287 "Connector Buffer Mgt Export"
 
 
     procedure FctConcatBigText(BigTPBigTextToAdd: BigText; var BigTPBigTextToReturn: BigText)
-    var
-        IntLMaxLength: Integer;
-        i: Integer;
-        CharLValueText1: Text[1];
-        CharLValueText2: Text[1];
     begin
         BigTPBigTextToReturn.ADDTEXT(BigTPBigTextToAdd);
     end;
@@ -822,12 +806,11 @@ codeunit 8073287 "Connector Buffer Mgt Export"
     begin
         IF RecPPartner."Data Format" = RecPPartner."Data Format"::Xml THEN
             TxLExtension := '.xml'
-        ELSE BEGIN
+        ELSE
             IF TxtPExtension <> '' THEN
                 TxLExtension := '.' + TxtPExtension
             ELSE
                 TxLExtension := '.txt';
-        END;
 
         TxtPNameValue := '';
         IF TxtPFixedValue <> '' THEN BEGIN
@@ -837,12 +820,12 @@ codeunit 8073287 "Connector Buffer Mgt Export"
             TxtPNameValue := TxtPNameValue + TxtPFixedValue + '_' + FORMAT(IntPBufferMessageNo);
 
             IF BooPDate THEN
-                TxtPNameValue := TxtPNameValue + '_' + FORMAT(WORKDATE, 0, '<year4><month,2><day,2>');
+                TxtPNameValue := TxtPNameValue + '_' + FORMAT(WORKDATE(), 0, '<year4><month,2><day,2>');
             IF BooPTime THEN
                 TxtPNameValue := TxtPNameValue + '_' + FORMAT(TIME, 0, '<hour,2><minute,2><Second,2>');
         END
         ELSE
-            TxtPNameValue := CodPPartner + '_' + FORMAT(IntPBufferMessageNo) + '_' + FORMAT(WORKDATE, 0, '<year4><month,2><day,2>') + '_' +
+            TxtPNameValue := CodPPartner + '_' + FORMAT(IntPBufferMessageNo) + '_' + FORMAT(WORKDATE(), 0, '<year4><month,2><day,2>') + '_' +
                              FORMAT(TIME, 0, '<hour,2><minute,2><Second,2>');
 
         EXIT(TxtPPath + '\' + TxtPNameValue + TxLExtension);
@@ -867,10 +850,10 @@ codeunit 8073287 "Connector Buffer Mgt Export"
         CduLConnectorErrorlog: Codeunit "PWD Connector Error log";
     begin
         //>>OSYS-Int001.001
-        WITH RecLPartnerConnectorFields DO BEGIN
+        WITH RecLPartnerConnectorFields DO
             IF GET(CodGConnectorPartner, IntPTableID, IntPFieldID) THEN BEGIN
                 //Gestion des erreurs de longueur max
-                IF (STRLEN(TxtPValue) > "Max Lenght") THEN BEGIN
+                IF (STRLEN(TxtPValue) > "Max Lenght") THEN
                     CASE "Max Lenght Error" OF
 
                         "Max Lenght Error"::Error:
@@ -885,16 +868,14 @@ codeunit 8073287 "Connector Buffer Mgt Export"
                             END;
 
                         "Max Lenght Error"::Truncate:
-                            BEGIN
-                                EXIT(COPYSTR(TxtPValue, 1, "Max Lenght"));
-                            END;
-                    END;
-                END ELSE
+
+                            EXIT(COPYSTR(TxtPValue, 1, "Max Lenght"));
+                    END
+                ELSE
                     EXIT(TxtPValue);
 
             END ELSE
                 EXIT(TxtPValue);
-        END;
         //<<OSYS-Int001.001
     end;
 
@@ -975,13 +956,13 @@ codeunit 8073287 "Connector Buffer Mgt Export"
         //>>OSYS-Int001.001
         RecLField.SETRANGE(TableNo, RecordRefFrom.NUMBER);
         IF NOT RecLField.ISEMPTY THEN BEGIN
-            RecLField.FINDSET;
+            RecLField.FINDSET();
 
             REPEAT
                 RecLFieldFrom := RecordRefFrom.FIELD(RecLField."No.");
                 RecLFieldTo := RecordRefTo.FIELD(RecLField."No.");
                 RecLFieldTo.VALUE := RecLFieldFrom.VALUE;
-            UNTIL RecLField.NEXT = 0;
+            UNTIL RecLField.NEXT() = 0;
         END;
         //<<OSYS-Int001.001
     end;
@@ -1007,7 +988,6 @@ codeunit 8073287 "Connector Buffer Mgt Export"
         RecLFieldsExportSetup: Record "PWD Fields Export Setup";
         RecLRecRef: RecordRef;
         FldRef: FieldRef;
-        CstLtxt001: Label 'Le partenaire n''a pas de séparateur défini';
         ChrL10: Char;
         ChrL13: Char;
         TxtLValue: Text[250];
@@ -1020,22 +1000,22 @@ codeunit 8073287 "Connector Buffer Mgt Export"
         //**********************************************************************************************************//
 
         RecLRecRef.OPEN(RecPSendingMessage."Table ID");
-        RecLRecRef.RESET;
+        RecLRecRef.RESET();
         ChrL10 := 10;
         ChrL13 := 13;
         IF RecLPartnerConnector.GET(RecPSendingMessage."Partner Code") THEN
             IF TxtPFilters <> '' THEN
                 RecLRecRef.SETVIEW(TxtPFilters);
         IF NOT RecLRecRef.ISEMPTY THEN BEGIN
-            RecLRecRef.FINDSET;
+            RecLRecRef.FINDSET();
             REPEAT
                 RecLFieldsExportSetup.SETCURRENTKEY("File Position");
-                RecLFieldsExportSetup.RESET;
+                RecLFieldsExportSetup.RESET();
                 RecLFieldsExportSetup.SETRANGE("Partner Code", RecPSendingMessage."Partner Code");
                 RecLFieldsExportSetup.SETRANGE("Message Code", RecPSendingMessage.Code);
                 RecLFieldsExportSetup.SETRANGE("Table ID", RecLRecRef.NUMBER);
                 IF NOT RecLFieldsExportSetup.ISEMPTY THEN BEGIN
-                    RecLFieldsExportSetup.FINDSET;
+                    RecLFieldsExportSetup.FINDSET();
                     REPEAT
                         RecLFieldsExportSetup.TESTFIELD("File Length");
 
@@ -1084,13 +1064,13 @@ codeunit 8073287 "Connector Buffer Mgt Export"
                                 END;
                         END;
 
-                    UNTIL RecLFieldsExportSetup.NEXT = 0;
+                    UNTIL RecLFieldsExportSetup.NEXT() = 0;
                 END;
                 BigTLBigTextToReturn.ADDTEXT(FORMAT(ChrL13) + FORMAT(ChrL10));
-            UNTIL RecLRecRef.NEXT = 0;
+            UNTIL RecLRecRef.NEXT() = 0;
         END;
 
-        RecLRecRef.CLOSE;
+        RecLRecRef.CLOSE();
 
         RecPTempBlob.Blob.CREATEOUTSTREAM(OusLStream);
         BigTLBigTextToReturn.WRITE(OusLStream);

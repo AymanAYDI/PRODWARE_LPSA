@@ -26,14 +26,14 @@ report 50047 "Create Dedicated Item Routing"
                 Bdialog.Update(2, Item."No.");
 
                 // création gamme
-                RecGRoutingHeader.Init;
+                RecGRoutingHeader.Init();
 
                 if BooGAddUnderscore then
                     RecGRoutingHeader.Validate("No.", CodGPrefixe + '_' + Item."No.")
                 else
                     RecGRoutingHeader.Validate("No.", CodGPrefixe + Item."No.");
 
-                if not RecGRoutingHeader.Insert(true) then begin
+                if not RecGRoutingHeader.Insert(true) then
                     if Confirm(CstG004, false, RecGRoutingHeader."No.") then begin
                         if (RecGRoutingHeader.Status <> RecGRoutingHeader.Status::"Under Development") then begin
                             RecGRoutingHeader.Validate(Status, RecGRoutingHeader.Status::"Under Development");
@@ -41,21 +41,20 @@ report 50047 "Create Dedicated Item Routing"
                         end;
                         RecGMfgComment.SetRange("Table Name", RecGMfgComment."Table Name"::"Routing Header");
                         RecGMfgComment.SetRange("No.", RecGRoutingHeader."No.");
-                        RecGMfgComment.DeleteAll;
+                        RecGMfgComment.DeleteAll();
 
-                        RecGRtngLine.LockTable;
+                        RecGRtngLine.LockTable();
                         RecGRtngLine.SetRange("Routing No.", RecGRoutingHeader."No.");
                         RecGRtngLine.DeleteAll(true);
 
                         RecGRtngVersion.SetRange("Routing No.", RecGRoutingHeader."No.");
-                        RecGRtngVersion.DeleteAll;
+                        RecGRtngVersion.DeleteAll();
 
-                        RecGRoutingHeader.Delete;
+                        RecGRoutingHeader.Delete();
 
                         RecGRoutingHeader.Insert(true);
                     end else
-                        CurrReport.Skip;
-                end;
+                        CurrReport.Skip();
 
                 // copie gamme
                 CduGCopyRouting.CopyRouting(CodGGenericRouting, '', RecGRoutingHeader, '');
@@ -71,12 +70,12 @@ report 50047 "Create Dedicated Item Routing"
 
                 // affectation de la gamme à l'article
                 Item.Validate("Routing No.", RecGRoutingHeader."No.");
-                Item.Modify;
+                Item.Modify();
             end;
 
             trigger OnPostDataItem()
             begin
-                Bdialog.Close;
+                Bdialog.Close();
                 Message('Traitement terminé');
             end;
 

@@ -76,7 +76,7 @@ table 50010 "PWD Possible Items"
 
     trigger OnDelete()
     begin
-        RecLPossibleItems.Reset;
+        RecLPossibleItems.Reset();
         RecLPossibleItems.SetRange("Item Code", "Item Code");
         RecLPossibleItems.SetFilter("Work Center Code", '<>%1', "Work Center Code");
         RecLPossibleItems.SetFilter("Possible Item Code", '<>%1', "Possible Item Code");
@@ -85,7 +85,7 @@ table 50010 "PWD Possible Items"
 
     trigger OnInsert()
     begin
-        RecLPossibleItems.Reset;
+        RecLPossibleItems.Reset();
         RecLPossibleItems.SetRange("Item Code", "Item Code");
         RecLPossibleItems.SetFilter("Work Center Code", '<>%1', "Work Center Code");
         RecLPossibleItems.SetFilter("Possible Item Code", '<>%1', "Possible Item Code");
@@ -95,7 +95,7 @@ table 50010 "PWD Possible Items"
 
     trigger OnModify()
     begin
-        RecLPossibleItems.Reset;
+        RecLPossibleItems.Reset();
         RecLPossibleItems.SetRange("Item Code", "Item Code");
         RecLPossibleItems.SetFilter("Work Center Code", '<>%1', "Work Center Code");
         RecLPossibleItems.SetFilter("Possible Item Code", '<>%1', "Possible Item Code");

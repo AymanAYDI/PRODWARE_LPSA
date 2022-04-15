@@ -21,7 +21,7 @@ report 60020 "Close Purch. Orders Before..."
 
 
                 //Pour les lignes réception, si la quantité restante est <> 0, alors on ajuste
-                PurchLine.Reset;
+                PurchLine.Reset();
                 PurchLine.SetRange("Document Type", "Document Type");
                 PurchLine.SetRange("Document No.", "No.");
                 PurchLine.SetFilter("Quantity Received", '<>0');
@@ -38,15 +38,15 @@ report 60020 "Close Purch. Orders Before..."
                                 WarRcpLine.SetRange(WarRcpLine."Source Subtype", 1);
                                 WarRcpLine.SetRange("Source No.", PurchLine."Document No.");
                                 WarRcpLine.SetRange("Source Line No.", PurchLine."Line No.");
-                                if WarRcpLine.FindFirst then
-                                    WarRcpLine.DeleteAll;
+                                if WarRcpLine.FindFirst() then
+                                    WarRcpLine.DeleteAll();
                                 ReservEntry.SetRange("Reservation Status", ReservEntry."Reservation Status"::Surplus);
                                 ReservEntry.SetRange("Source Type", 39);
                                 ReservEntry.SetRange("Source Subtype", 1);
                                 ReservEntry.SetRange("Source ID", PurchLine."Document No.");
                                 ReservEntry.SetRange("Source Ref. No.", PurchLine."Line No.");
-                                if ReservEntry.FindFirst then
-                                    ReservEntry.DeleteAll;
+                                if ReservEntry.FindFirst() then
+                                    ReservEntry.DeleteAll();
                                 // On mémorise le prix
                                 DecGUnitPrice := PurchLine."Direct Unit Cost";
                                 DecGDiscLine := PurchLine."Line Discount %";
@@ -55,9 +55,9 @@ report 60020 "Close Purch. Orders Before..."
                                 PurchLine.Validate("Direct Unit Cost", DecGUnitPrice);
                                 PurchLine.Validate("Line Discount %", DecGDiscLine);
                                 // On remet le prix
-                                PurchLine.Modify;
+                                PurchLine.Modify();
                             end;
-                        until PurchLine.Next = 0;
+                        until PurchLine.Next() = 0;
                 end;
             end;
 

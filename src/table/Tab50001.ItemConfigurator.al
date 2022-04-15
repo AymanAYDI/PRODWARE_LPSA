@@ -65,10 +65,10 @@ table 50001 "PWD Item Configurator"
                 PgeLDimensionValueList: Page "Dimension Value List";
                 RecLDimensionValue: Record "Dimension Value";
             begin
-                RecLGeneralLedgerSetup.Get;
+                RecLGeneralLedgerSetup.Get();
                 Clear(PgeLDimensionValueList);
                 PgeLDimensionValueList.LookupMode(true);
-                RecLDimensionValue.Reset;
+                RecLDimensionValue.Reset();
                 RecLDimensionValue.SetRange("Dimension Code", RecLGeneralLedgerSetup."Shortcut Dimension 3 Code");
                 PgeLDimensionValueList.SetTableView(RecLDimensionValue);
                 if PAGE.RunModal(560, RecLDimensionValue) = ACTION::LookupOK then
@@ -80,7 +80,7 @@ table 50001 "PWD Item Configurator"
                 RecLDimensionValue: Record "Dimension Value";
                 RecLGeneralLedgerSetup: Record "General Ledger Setup";
             begin
-                RecLGeneralLedgerSetup.Get;
+                RecLGeneralLedgerSetup.Get();
                 RecLDimensionValue.Get(RecLGeneralLedgerSetup."Shortcut Dimension 3 Code", "Dimension 3 Code");
             end;
         }
@@ -109,14 +109,13 @@ table 50001 "PWD Item Configurator"
             var
                 RecLItemCat: Record "Item Category";
             begin
-                if RecLItemCat.Get("Item Category Code") then begin
+                if RecLItemCat.Get("Item Category Code") then
                     case RecLItemCat."Def. Costing Method" of    //TODO: Les champs Standard du table "Item Category" sont mofifiées
                         RecLItemCat."Def. Costing Method"::Standard:
                             Validate("Replenishment System", "Replenishment System"::"Prod. Order");
                         RecLItemCat."Def. Costing Method"::Average:
                             Validate("Replenishment System", "Replenishment System"::Purchase);
                     end;
-                end;
             end;
         }
         field(13; "Product Group Code"; Code[10])
@@ -531,8 +530,8 @@ table 50001 "PWD Item Configurator"
 
     trigger OnInsert()
     begin
-        RecGItemConfigurator.Reset;
-        if RecGItemConfigurator.FindLast then
+        RecGItemConfigurator.Reset();
+        if RecGItemConfigurator.FindLast() then
             "Entry No." := RecGItemConfigurator."Entry No." + 10000
         else
             "Entry No." := 10000;

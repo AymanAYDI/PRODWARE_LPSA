@@ -16,7 +16,6 @@ codeunit 8073302 "Transform Import Files To Blob"
     var
         CduLFileManagement: Codeunit "File Management";
         TxtLFileFound: Text[1024];
-        OutLStream: OutStream;
         CduLBufferMgt: Codeunit "Buffer Management";
         IntLSequenceNo: Integer;
         TxtLFilePathName: Text[250];

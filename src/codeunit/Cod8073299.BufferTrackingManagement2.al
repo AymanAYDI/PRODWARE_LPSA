@@ -38,7 +38,6 @@ codeunit 8073299 "Buffer Tracking Management 2"
         SourceQuantityArray: array[5] of Decimal;
         QtyPerUOM: Decimal;
         QtyToAddAsBlank: Decimal;
-        CurrentSteps: Integer;
         CurrentSignFactor: Integer;
         LastEntryNo: Integer;
         ColorOfQuantityArray: array[3] of Integer;
@@ -61,22 +60,17 @@ codeunit 8073299 "Buffer Tracking Management 2"
         SecondSourceRowID: Text[100];
         ForBinCode: Code[20];
         IsPick: Boolean;
-        "--- New Variables ---": Integer;
         WhseReceiptLineNC: Record "Warehouse Receipt Line";
         PurchLineNC: Record "Purchase Line";
         WhseShptLineNC: Record "Warehouse Shipment Line";
         SalesLineNC: Record "Sales Line";
         TransferLineNC: Record "Transfer Line";
         SourceTable: Integer;
-        NonConformities: Boolean;
         DirectionNC: Option Outbound,Inbound;
-        Text000: Label 'Reservation is defined for the %1.\You must cancel the existing Reservation before deleting or changing Item Tracking.';
-        Text001: Label 'Reservation is defined for the %1.\You must not set %2 lower then %3.';
         Text002: Label 'Quantity must be %1.';
         Text003: Label 'negative';
         Text004: Label 'positive';
         Text005: Label 'Error when writing to database.';
-        Text006: Label 'The corrections cannot be saved as excess quantity has been defined.\Close the form anyway?';
         Text007: Label 'Another user has modified the item tracking data since it was retrieved from the database.\Start again.';
         Text008: Label 'The quantity to create must be an integer.';
         Text009: Label 'The quantity to create must be positive.';
@@ -84,12 +78,7 @@ codeunit 8073299 "Buffer Tracking Management 2"
         Text012: Label '%1 already exists with %2 %3.';
         Text013: Label 'The string %1 contains no number and cannot be incremented.';
         Text014: Label 'The total item tracking quantity %1 exceeds the %2 quantity %3.\The changes cannot be saved to the database.';
-        Text015: Label 'Do you want to synchronize item tracking on the line with item tracking on the related drop shipment %1?';
-        Text016: Label 'purchase order line';
-        Text017: Label 'sales order line';
         Text018: Label 'Saving item tracking line changes';
-        Text019: Label 'There are availability warnings on one or more lines.\Close the form anyway?';
-        Text020: Label 'Placeholder';
         Rec: Record "Tracking Specification" temporary;
 
 
@@ -105,26 +94,25 @@ codeunit 8073299 "Buffer Tracking Management 2"
         TempTrackingSpecification: Record "Tracking Specification" temporary;
         TempTrackingSpecification2: Record "Tracking Specification" temporary;
         CreateReservEntry: Codeunit "Create Reserv. Entry";
-        Controls: Option Handle,Invoice,Quantity,Reclass,LotSN;
     begin
-        Rec.RESET;
-        Rec.DELETEALL;
+        Rec.RESET();
+        Rec.DELETEALL();
 
         GetItem(TrackingSpecification."Item No.");
         ForBinCode := TrackingSpecification."Bin Code";
         SetFilters(TrackingSpecification);
 
-        TempTrackingSpecification.RESET;
-        TempItemTrackLineInsert.RESET;
-        TempItemTrackLineModify.RESET;
-        TempItemTrackLineDelete.RESET;
-        TempReservEntry.RESET;
+        TempTrackingSpecification.RESET();
+        TempItemTrackLineInsert.RESET();
+        TempItemTrackLineModify.RESET();
+        TempItemTrackLineDelete.RESET();
+        TempReservEntry.RESET();
 
-        TempTrackingSpecification.DELETEALL;
-        TempItemTrackLineInsert.DELETEALL;
-        TempItemTrackLineModify.DELETEALL;
-        TempItemTrackLineDelete.DELETEALL;
-        TempReservEntry.DELETEALL;
+        TempTrackingSpecification.DELETEALL();
+        TempItemTrackLineInsert.DELETEALL();
+        TempItemTrackLineModify.DELETEALL();
+        TempItemTrackLineDelete.DELETEALL();
+        TempReservEntry.DELETEALL();
         LastEntryNo := 0;
 
         IF ItemTrackingMgt.IsOrderNetworkEntity(TrackingSpecification."Source Type",
@@ -149,7 +137,7 @@ codeunit 8073299 "Buffer Tracking Management 2"
         ReservEntry."Source Type" := TrackingSpecification."Source Type";
         ReservEntry."Source Subtype" := TrackingSpecification."Source Subtype";
         CurrentSignFactor := CreateReservEntry.SignFactor(ReservEntry);
-        CurrentSourceCaption := ReservEntry.TextCaption;
+        CurrentSourceCaption := ReservEntry.TextCaption();
         CurrentSourceType := ReservEntry."Source Type";
 
         IF CurrentSignFactor < 0 THEN BEGIN
@@ -205,11 +193,11 @@ codeunit 8073299 "Buffer Tracking Management 2"
         TrackingSpecification.SETRANGE("Source Prod. Order Line", TrackingSpecification."Source Prod. Order Line");
         TrackingSpecification.SETRANGE("Source Ref. No.", TrackingSpecification."Source Ref. No.");
 
-        IF TrackingSpecification.FINDSET THEN
+        IF TrackingSpecification.FINDSET() THEN
             REPEAT
                 TempTrackingSpecification := TrackingSpecification;
-                TempTrackingSpecification.INSERT;
-            UNTIL TrackingSpecification.NEXT = 0;
+                TempTrackingSpecification.INSERT();
+            UNTIL TrackingSpecification.NEXT() = 0;
 
         // Data regarding posted quantities on transfers is collected from Item Ledger Entries:
         IF TrackingSpecification."Source Type" = DATABASE::"Transfer Line" THEN
@@ -244,7 +232,7 @@ codeunit 8073299 "Buffer Tracking Management 2"
 
         AddToGlobalRecordSet(TempTrackingSpecification);
         AddToGlobalRecordSet(TempTrackingSpecification2);
-        CalculateSums;
+        CalculateSums();
 
         ItemTrackingDataCollection.SetCurrentBinAndItemTrkgCode(ForBinCode, ItemTrackingCode);
         ItemTrackingDataCollection.RetrieveLookupData(Rec, FALSE);
@@ -252,8 +240,6 @@ codeunit 8073299 "Buffer Tracking Management 2"
 
 
     procedure SetSecondSourceQuantity(var SecondSourceQuantityArray: array[3] of Decimal)
-    var
-        Controls: Option Handle,Invoice;
     begin
         CASE SecondSourceQuantityArray[1] OF
             DATABASE::"Warehouse Receipt Line", DATABASE::"Warehouse Shipment Line":
@@ -264,7 +250,7 @@ codeunit 8073299 "Buffer Tracking Management 2"
             ELSE
                 EXIT;
         END;
-        CalculateSums;
+        CalculateSums();
     end;
 
 
@@ -275,11 +261,11 @@ codeunit 8073299 "Buffer Tracking Management 2"
 
     local procedure AddReservEntriesToTempRecSet(var ReservEntry: Record "Reservation Entry"; var TempTrackingSpecification: Record "Tracking Specification" temporary; SwapSign: Boolean; Color: Integer)
     begin
-        IF ReservEntry.FINDSET THEN
+        IF ReservEntry.FINDSET() THEN
             REPEAT
                 IF Color = 0 THEN BEGIN
                     TempReservEntry := ReservEntry;
-                    TempReservEntry.INSERT;
+                    TempReservEntry.INSERT();
                 END;
                 IF (ReservEntry."Lot No." <> '') OR (ReservEntry."Serial No." <> '') THEN BEGIN
                     TempTrackingSpecification.TRANSFERFIELDS(ReservEntry);
@@ -296,9 +282,9 @@ codeunit 8073299 "Buffer Tracking Management 2"
                         TempTrackingSpecification."Qty. to Invoice (Base)" := 0;
                     END;
                     TempTrackingSpecification."Buffer Status" := Color;
-                    TempTrackingSpecification.INSERT;
+                    TempTrackingSpecification.INSERT();
                 END;
-            UNTIL ReservEntry.NEXT = 0;
+            UNTIL ReservEntry.NEXT() = 0;
     end;
 
     local procedure AddToGlobalRecordSet(var TempTrackingSpecification: Record "Tracking Specification" temporary)
@@ -323,7 +309,7 @@ codeunit 8073299 "Buffer Tracking Management 2"
                   Rec.CalcQty(Rec."Qty. to Handle (Base)");
                 Rec."Qty. to Invoice" :=
                   Rec.CalcQty(Rec."Qty. to Invoice (Base)");
-                Rec."Entry No." := NextEntryNo;
+                Rec."Entry No." := NextEntryNo();
 
                 ExpDate := ItemTrackingMgt.ExistingExpirationDate(
                   Rec."Item No.", Rec."Variant Code",
@@ -334,15 +320,15 @@ codeunit 8073299 "Buffer Tracking Management 2"
                     Rec."Buffer Status2" := Rec."Buffer Status2"::"ExpDate blocked";
                 END;
 
-                Rec.INSERT;
+                Rec.INSERT();
                 IF Rec."Buffer Status" = 0 THEN BEGIN
                     xTempItemTrackingLine := Rec;
-                    xTempItemTrackingLine.INSERT;
+                    xTempItemTrackingLine.INSERT();
                 END;
                 TempTrackingSpecification.FIND('+');
                 TempTrackingSpecification.SETRANGE("Lot No.");
                 TempTrackingSpecification.SETRANGE("Serial No.");
-            UNTIL TempTrackingSpecification.NEXT = 0;
+            UNTIL TempTrackingSpecification.NEXT() = 0;
     end;
 
     local procedure GetItem(ItemNo: Code[20])
@@ -391,14 +377,14 @@ codeunit 8073299 "Buffer Tracking Management 2"
         xTrackingSpec: Record "Tracking Specification";
     begin
         xTrackingSpec.COPY(Rec);
-        Rec.RESET;
+        Rec.RESET();
         Rec.CALCSUMS("Quantity (Base)",
           "Qty. to Handle (Base)",
           "Qty. to Invoice (Base)");
         TotalItemTrackingLine := Rec;
         Rec.COPY(xTrackingSpec);
 
-        UpdateUndefinedQty;
+        UpdateUndefinedQty();
     end;
 
     local procedure UpdateUndefinedQty() QtyIsValid: Boolean
@@ -439,14 +425,14 @@ codeunit 8073299 "Buffer Tracking Management 2"
 
         ReservEntry.COPYFILTERS(TempReservEntry);
 
-        IF ReservEntry.FINDSET THEN
+        IF ReservEntry.FINDSET() THEN
             REPEAT
                 IF NOT TempReservEntry.GET(ReservEntry."Entry No.", ReservEntry.Positive) THEN
                     EXIT(FALSE);
                 IF NOT EntriesAreIdentical(ReservEntry, TempReservEntry, IdenticalArray) THEN
                     EXIT(FALSE);
                 RecordCount += 1;
-            UNTIL ReservEntry.NEXT = 0;
+            UNTIL ReservEntry.NEXT() = 0;
 
         OK := RecordCount = TempReservEntry.COUNT;
     end;
@@ -518,8 +504,8 @@ codeunit 8073299 "Buffer Tracking Management 2"
         Decrease: Boolean;
     begin
         IF CurrentFormIsOpen THEN BEGIN
-            TempReservEntry.LOCKTABLE;
-            IF NOT TempRecIsValid THEN
+            TempReservEntry.LOCKTABLE();
+            IF NOT TempRecIsValid() THEN
                 ERROR(Text007);
 
             IF Item."Order Tracking Policy" = Item."Order Tracking Policy"::None THEN
@@ -527,8 +513,8 @@ codeunit 8073299 "Buffer Tracking Management 2"
             ELSE
                 QtyToAddAsBlank := UndefinedQtyArray[1] * CurrentSignFactor;
 
-            Rec.RESET;
-            Rec.DELETEALL;
+            Rec.RESET();
+            Rec.DELETEALL();
 
             Window.OPEN('#1############# @2@@@@@@@@@@@@@@@@@@@@@');
             Window.UPDATE(1, Text018);
@@ -540,13 +526,13 @@ codeunit 8073299 "Buffer Tracking Management 2"
                         Window.UPDATE(2, ROUND(i / NoOfLines * 10000, 1));
                     RegisterChange(TempItemTrackLineDelete, TempItemTrackLineDelete, ChangeType::Delete, FALSE);
                     IF TempItemTrackLineModify.GET(TempItemTrackLineDelete."Entry No.") THEN
-                        TempItemTrackLineModify.DELETE;
-                UNTIL TempItemTrackLineDelete.NEXT = 0;
-                TempItemTrackLineDelete.DELETEALL;
+                        TempItemTrackLineModify.DELETE();
+                UNTIL TempItemTrackLineDelete.NEXT() = 0;
+                TempItemTrackLineDelete.DELETEALL();
             END;
 
-            FOR ModifyLoop := 1 TO 2 DO BEGIN
-                IF TempItemTrackLineModify.FIND('-') THEN BEGIN
+            FOR ModifyLoop := 1 TO 2 DO
+                IF TempItemTrackLineModify.FIND('-') THEN
                     REPEAT
                         IF xTempItemTrackingLine.GET(TempItemTrackLineModify."Entry No.") THEN BEGIN
                             // Process decreases before increases
@@ -567,17 +553,15 @@ codeunit 8073299 "Buffer Tracking Management 2"
                                     RegisterChange(xTempItemTrackingLine, TempItemTrackLineModify, ChangeType::Modify, FALSE);
                                     SetQtyToHandleAndInvoice(TempItemTrackLineModify);
                                 END;
-                                TempItemTrackLineModify.DELETE;
+                                TempItemTrackLineModify.DELETE();
                             END;
                         END ELSE BEGIN
                             i := i + 1;
-                            TempItemTrackLineModify.DELETE;
+                            TempItemTrackLineModify.DELETE();
                         END;
                         IF i MOD 100 = 0 THEN
                             Window.UPDATE(2, ROUND(i / NoOfLines * 10000, 1));
-                    UNTIL TempItemTrackLineModify.NEXT = 0;
-                END;
-            END;
+                    UNTIL TempItemTrackLineModify.NEXT() = 0;
 
             IF TempItemTrackLineInsert.FIND('-') THEN BEGIN
                 REPEAT
@@ -592,15 +576,15 @@ codeunit 8073299 "Buffer Tracking Management 2"
                        (TempItemTrackLineInsert."Quantity (Base)" <> TempItemTrackLineInsert."Qty. to Invoice (Base)")
                     THEN
                         SetQtyToHandleAndInvoice(TempItemTrackLineInsert);
-                UNTIL TempItemTrackLineInsert.NEXT = 0;
-                TempItemTrackLineInsert.DELETEALL;
+                UNTIL TempItemTrackLineInsert.NEXT() = 0;
+                TempItemTrackLineInsert.DELETEALL();
             END;
-            Window.CLOSE;
+            Window.CLOSE();
 
         END ELSE BEGIN
 
-            TempReservEntry.LOCKTABLE;
-            IF NOT TempRecIsValid THEN
+            TempReservEntry.LOCKTABLE();
+            IF NOT TempRecIsValid() THEN
                 ERROR(Text007);
 
             IF Item."Order Tracking Policy" = Item."Order Tracking Policy"::None THEN
@@ -608,12 +592,12 @@ codeunit 8073299 "Buffer Tracking Management 2"
             ELSE
                 QtyToAddAsBlank := UndefinedQtyArray[1] * CurrentSignFactor;
 
-            Rec.RESET;
+            Rec.RESET();
             Rec.SETFILTER("Buffer Status", '<>%1', 0);
-            Rec.DELETEALL;
-            Rec.RESET;
+            Rec.DELETEALL();
+            Rec.RESET();
 
-            xTempItemTrackingLine.RESET;
+            xTempItemTrackingLine.RESET();
             Rec.SETCURRENTKEY("Entry No.");
             xTempItemTrackingLine.SETCURRENTKEY("Entry No.");
             IF xTempItemTrackingLine.FIND('-') THEN
@@ -625,36 +609,36 @@ codeunit 8073299 "Buffer Tracking Management 2"
                             EntryNo := xTempItemTrackingLine."Entry No.";
                             xTempItemTrackingLine := Rec;
                             xTempItemTrackingLine."Entry No." := EntryNo;
-                            xTempItemTrackingLine.MODIFY;
+                            xTempItemTrackingLine.MODIFY();
                         END;
                         SetQtyToHandleAndInvoice(Rec);
-                        Rec.DELETE;
+                        Rec.DELETE();
                     END ELSE BEGIN
                         RegisterChange(xTempItemTrackingLine, xTempItemTrackingLine, ChangeType::Delete, FALSE);
-                        xTempItemTrackingLine.DELETE;
+                        xTempItemTrackingLine.DELETE();
                     END;
-                UNTIL xTempItemTrackingLine.NEXT = 0;
+                UNTIL xTempItemTrackingLine.NEXT() = 0;
 
-            Rec.RESET;
+            Rec.RESET();
 
             IF Rec.FIND('-') THEN
                 REPEAT
                     IF RegisterChange(Rec, Rec, ChangeType::Insert, FALSE) THEN BEGIN
                         xTempItemTrackingLine := Rec;
-                        xTempItemTrackingLine.INSERT;
+                        xTempItemTrackingLine.INSERT();
                     END ELSE
                         ERROR(Text005);
                     SetQtyToHandleAndInvoice(Rec);
-                    Rec.DELETE;
-                UNTIL Rec.NEXT = 0;
+                    Rec.DELETE();
+                UNTIL Rec.NEXT() = 0;
 
         END;
 
-        UpdateOrderTracking;
-        ReestablishReservations; // Late Binding
+        UpdateOrderTracking();
+        ReestablishReservations(); // Late Binding
 
         IF NOT BlockCommit THEN
-            COMMIT;
+            COMMIT();
     end;
 
     local procedure RegisterChange(var OldTrackingSpecification: Record "Tracking Specification"; var NewTrackingSpecification: Record "Tracking Specification"; ChangeType: Option Insert,Modify,FullDelete,PartDelete,ModifyAll; ModifySharedFields: Boolean) OK: Boolean
@@ -697,7 +681,7 @@ codeunit 8073299 "Buffer Tracking Management 2"
                     IF ReservEngineMgt.RetrieveLostReservQty(LostReservQty) THEN BEGIN
                         TempItemTrackLineReserv := NewTrackingSpecification;
                         TempItemTrackLineReserv."Quantity (Base)" := LostReservQty * CurrentSignFactor;
-                        TempItemTrackLineReserv.INSERT;
+                        TempItemTrackLineReserv.INSERT();
                     END;
 
                     IF OldTrackingSpecification."Quantity (Base)" = 0 THEN
@@ -774,7 +758,7 @@ codeunit 8073299 "Buffer Tracking Management 2"
                         IF ReservEngineMgt.RetrieveLostReservQty(LostReservQty) THEN BEGIN
                             TempItemTrackLineReserv := NewTrackingSpecification;
                             TempItemTrackLineReserv."Quantity (Base)" := LostReservQty * CurrentSignFactor;
-                            TempItemTrackLineReserv.INSERT;
+                            TempItemTrackLineReserv.INSERT();
                         END;
 
                         OldTrackingSpecification."Quantity (Base)" := QtyToAdd;
@@ -864,8 +848,8 @@ codeunit 8073299 "Buffer Tracking Management 2"
                 ReservEntry1."New Serial No." := TrackingSpecification."New Serial No.";
                 ReservEntry1."New Lot No." := TrackingSpecification."New Lot No.";
                 ReservEntry1."New Expiration Date" := TrackingSpecification."New Expiration Date";
-                ReservEntry1.MODIFY;
-            UNTIL ReservEntry1.NEXT = 0;
+                ReservEntry1.MODIFY();
+            UNTIL ReservEntry1.NEXT() = 0;
     end;
 
     local procedure SetQtyToHandleAndInvoice(TrackingSpecification: Record "Tracking Specification") OK: Boolean
@@ -917,12 +901,12 @@ codeunit 8073299 "Buffer Tracking Management 2"
 
                         IF TrackingSpecification."Qty. to Invoice (Base)" <> QtyToInvoiceThisLine THEN BEGIN
                             TrackingSpecification."Qty. to Invoice (Base)" := QtyToInvoiceThisLine;
-                            TrackingSpecification.MODIFY;
+                            TrackingSpecification.MODIFY();
                         END;
 
                         TotalQtyToInvoice -= QtyToInvoiceThisLine;
                     END;
-                UNTIL (TrackingSpecification.NEXT = 0);
+                UNTIL (TrackingSpecification.NEXT() = 0);
 
             OK := ((TotalQtyToHandle = 0) AND (TotalQtyToInvoice = 0));
         END;
@@ -947,13 +931,13 @@ codeunit 8073299 "Buffer Tracking Management 2"
                         THEN BEGIN
                             ReservEntry1."Qty. to Handle (Base)" := QtyToHandleThisLine;
                             ReservEntry1."Qty. to Invoice (Base)" := QtyToInvoiceThisLine;
-                            ReservEntry1.MODIFY;
+                            ReservEntry1.MODIFY();
                         END;
 
                         TotalQtyToHandle -= QtyToHandleThisLine;
                         TotalQtyToInvoice -= QtyToInvoiceThisLine;
 
-                    UNTIL (ReservEntry1.NEXT = 0);
+                    UNTIL (ReservEntry1.NEXT() = 0);
             END;
 
             OK := ((TotalQtyToHandle = 0) AND (TotalQtyToInvoice = 0));
@@ -964,7 +948,7 @@ codeunit 8073299 "Buffer Tracking Management 2"
                 THEN BEGIN
                     ReservEntry1."Qty. to Handle (Base)" := TotalQtyToHandle;
                     ReservEntry1."Qty. to Invoice (Base)" := TotalQtyToInvoice;
-                    ReservEntry1.MODIFY;
+                    ReservEntry1.MODIFY();
                 END;
     end;
 
@@ -983,13 +967,13 @@ codeunit 8073299 "Buffer Tracking Management 2"
 
         CASE TrackingSpecification."Source Subtype" OF
             0: // Outbound
-                BEGIN
-                    ItemEntryRelation.SETRANGE("Source Type", DATABASE::"Transfer Shipment Line");
-                END;
+
+
+                ItemEntryRelation.SETRANGE("Source Type", DATABASE::"Transfer Shipment Line");
             1: // Inbound
-                BEGIN
-                    ItemEntryRelation.SETRANGE("Source Type", DATABASE::"Transfer Receipt Line");
-                END;
+
+
+                ItemEntryRelation.SETRANGE("Source Type", DATABASE::"Transfer Receipt Line");
         END;
 
         IF ItemEntryRelation.FIND('-') THEN
@@ -1004,9 +988,9 @@ codeunit 8073299 "Buffer Tracking Management 2"
                 TempTrackingSpecification."Quantity Handled (Base)" := ItemLedgerEntry.Quantity;
                 TempTrackingSpecification."Quantity Invoiced (Base)" := ItemLedgerEntry.Quantity;
                 TempTrackingSpecification."Qty. per Unit of Measure" := ItemLedgerEntry."Qty. per Unit of Measure";
-                TempTrackingSpecification.InitQtyToShip;
-                TempTrackingSpecification.INSERT;
-            UNTIL ItemEntryRelation.NEXT = 0;
+                TempTrackingSpecification.InitQtyToShip();
+                TempTrackingSpecification.INSERT();
+            UNTIL ItemEntryRelation.NEXT() = 0;
     end;
 
     local procedure CollectPostedOutputEntries(TrackingSpecification: Record "Tracking Specification"; var TempTrackingSpecification: Record "Tracking Specification" temporary)
@@ -1046,8 +1030,8 @@ codeunit 8073299 "Buffer Tracking Management 2"
                 TempTrackingSpecification."Quantity Handled (Base)" := ItemLedgerEntry.Quantity;
                 TempTrackingSpecification."Quantity Invoiced (Base)" := ItemLedgerEntry.Quantity;
                 TempTrackingSpecification."Qty. per Unit of Measure" := ItemLedgerEntry."Qty. per Unit of Measure";
-                TempTrackingSpecification.InitQtyToShip;
-                TempTrackingSpecification.INSERT;
+                TempTrackingSpecification.InitQtyToShip();
+                TempTrackingSpecification.INSERT();
 
                 IF BackwardFlushing THEN BEGIN
                     SourceQuantityArray[1] += ItemLedgerEntry.Quantity;
@@ -1055,7 +1039,7 @@ codeunit 8073299 "Buffer Tracking Management 2"
                     SourceQuantityArray[3] += ItemLedgerEntry.Quantity;
                 END;
 
-            UNTIL ItemLedgerEntry.NEXT = 0;
+            UNTIL ItemLedgerEntry.NEXT() = 0;
     end;
 
     local procedure ZeroLineExists() OK: Boolean
@@ -1065,7 +1049,7 @@ codeunit 8073299 "Buffer Tracking Management 2"
         IF (Rec."Quantity (Base)" <> 0) OR (Rec."Serial No." <> '') OR (Rec."Lot No." <> '') THEN
             EXIT(FALSE);
         xTrackingSpec.COPY(Rec);
-        Rec.RESET;
+        Rec.RESET();
         Rec.SETRANGE("Quantity (Base)", 0);
         Rec.SETRANGE("Serial No.", '');
         Rec.SETRANGE("Lot No.", '');
@@ -1080,10 +1064,10 @@ codeunit 8073299 "Buffer Tracking Management 2"
         QtyToCreateInt: Integer;
         CreateLotNo: Boolean;
     begin
-        IF ZeroLineExists THEN
-            Rec.DELETE;
+        IF ZeroLineExists() THEN
+            Rec.DELETE();
 
-        QtyToCreate := UndefinedQtyArray[1] * QtySignFactor;
+        QtyToCreate := UndefinedQtyArray[1] * QtySignFactor();
         IF QtyToCreate < 0 THEN
             QtyToCreate := 0;
 
@@ -1116,23 +1100,23 @@ codeunit 8073299 "Buffer Tracking Management 2"
         IF CreateLotNo THEN BEGIN
             Rec.TESTFIELD("Lot No.", '');
             Item.TESTFIELD("Lot Nos.");
-            Rec.VALIDATE("Lot No.", NoSeriesMgt.GetNextNo(Item."Lot Nos.", WORKDATE, TRUE));
+            Rec.VALIDATE("Lot No.", NoSeriesMgt.GetNextNo(Item."Lot Nos.", WORKDATE(), TRUE));
         END;
 
         Item.TESTFIELD("Serial Nos.");
         FOR i := 1 TO QtyToCreate DO BEGIN
-            Rec.VALIDATE("Serial No.", NoSeriesMgt.GetNextNo(Item."Serial Nos.", WORKDATE, TRUE));
-            Rec.VALIDATE("Quantity (Base)", QtySignFactor);
-            Rec."Entry No." := NextEntryNo;
-            IF TestTempSpecificationExists THEN
+            Rec.VALIDATE("Serial No.", NoSeriesMgt.GetNextNo(Item."Serial Nos.", WORKDATE(), TRUE));
+            Rec.VALIDATE("Quantity (Base)", QtySignFactor());
+            Rec."Entry No." := NextEntryNo();
+            IF TestTempSpecificationExists() THEN
                 ERROR('');
-            Rec.INSERT;
+            Rec.INSERT();
             TempItemTrackLineInsert.TRANSFERFIELDS(Rec);
-            TempItemTrackLineInsert.INSERT;
+            TempItemTrackLineInsert.INSERT();
             ItemTrackingDataCollection.UpdateLotSNDataSetWithChange(
               TempItemTrackLineInsert, CurrentSignFactor * SourceQuantityArray[1] < 0, CurrentSignFactor, 0);
         END;
-        CalculateSums;
+        CalculateSums();
     end;
 
 
@@ -1140,8 +1124,8 @@ codeunit 8073299 "Buffer Tracking Management 2"
     var
         QtyToCreate: Decimal;
     begin
-        IF ZeroLineExists THEN
-            Rec.DELETE;
+        IF ZeroLineExists() THEN
+            Rec.DELETE();
 
         IF (SourceQuantityArray[1] * UndefinedQtyArray[1] <= 0) OR
            (ABS(SourceQuantityArray[1]) < ABS(UndefinedQtyArray[1]))
@@ -1153,17 +1137,17 @@ codeunit 8073299 "Buffer Tracking Management 2"
         GetItem(Rec."Item No.");
 
         Item.TESTFIELD("Lot Nos.");
-        Rec.VALIDATE("Lot No.", NoSeriesMgt.GetNextNo(Item."Lot Nos.", WORKDATE, TRUE));
+        Rec.VALIDATE("Lot No.", NoSeriesMgt.GetNextNo(Item."Lot Nos.", WORKDATE(), TRUE));
         Rec."Qty. per Unit of Measure" := QtyPerUOM;
         Rec.VALIDATE("Quantity (Base)", QtyToCreate);
-        Rec."Entry No." := NextEntryNo;
-        TestTempSpecificationExists;
-        Rec.INSERT;
+        Rec."Entry No." := NextEntryNo();
+        TestTempSpecificationExists();
+        Rec.INSERT();
         TempItemTrackLineInsert.TRANSFERFIELDS(Rec);
-        TempItemTrackLineInsert.INSERT;
+        TempItemTrackLineInsert.INSERT();
         ItemTrackingDataCollection.UpdateLotSNDataSetWithChange(
           TempItemTrackLineInsert, CurrentSignFactor * SourceQuantityArray[1] < 0, CurrentSignFactor, 0);
-        CalculateSums;
+        CalculateSums();
     end;
 
 
@@ -1175,12 +1159,12 @@ codeunit 8073299 "Buffer Tracking Management 2"
         CreateLotNo: Boolean;
         CustomizedSN: Code[20];
     begin
-        IF ZeroLineExists THEN
-            Rec.DELETE;
+        IF ZeroLineExists() THEN
+            Rec.DELETE();
         Rec.TESTFIELD("Quantity Handled (Base)", 0);
         Rec.TESTFIELD("Quantity Invoiced (Base)", 0);
 
-        QtyToCreate := UndefinedQtyArray[1] * QtySignFactor;
+        QtyToCreate := UndefinedQtyArray[1] * QtySignFactor();
         IF QtyToCreate < 0 THEN
             QtyToCreate := 0;
 
@@ -1196,7 +1180,7 @@ codeunit 8073299 "Buffer Tracking Management 2"
             EnterCustomizedSN.GetFields(QtyToCreateInt, CreateLotNo, CustomizedSN, Increment);
             CreateCustomizedSNBatch(QtyToCreateInt, CreateLotNo, CustomizedSN, Increment);
         END;
-        CalculateSums;
+        CalculateSums();
     end;
 
 
@@ -1220,18 +1204,18 @@ codeunit 8073299 "Buffer Tracking Management 2"
         IF CreateLotNo THEN BEGIN
             Rec.TESTFIELD("Lot No.", '');
             Item.TESTFIELD("Lot Nos.");
-            Rec.VALIDATE("Lot No.", NoSeriesMgt.GetNextNo(Item."Lot Nos.", WORKDATE, TRUE));
+            Rec.VALIDATE("Lot No.", NoSeriesMgt.GetNextNo(Item."Lot Nos.", WORKDATE(), TRUE));
         END;
 
         FOR i := 1 TO QtyToCreate DO BEGIN
             Rec.VALIDATE("Serial No.", CustomizedSN);
-            Rec.VALIDATE("Quantity (Base)", QtySignFactor);
-            Rec."Entry No." := NextEntryNo;
-            IF TestTempSpecificationExists THEN
+            Rec.VALIDATE("Quantity (Base)", QtySignFactor());
+            Rec."Entry No." := NextEntryNo();
+            IF TestTempSpecificationExists() THEN
                 ERROR('');
-            Rec.INSERT;
+            Rec.INSERT();
             TempItemTrackLineInsert.TRANSFERFIELDS(Rec);
-            TempItemTrackLineInsert.INSERT;
+            TempItemTrackLineInsert.INSERT();
             ItemTrackingDataCollection.UpdateLotSNDataSetWithChange(
               TempItemTrackLineInsert, CurrentSignFactor * SourceQuantityArray[1] < 0, CurrentSignFactor, 0);
             IF i < QtyToCreate THEN BEGIN
@@ -1242,7 +1226,7 @@ codeunit 8073299 "Buffer Tracking Management 2"
                 UNTIL Counter <= 0;
             END;
         END;
-        CalculateSums;
+        CalculateSums();
     end;
 
 
@@ -1284,13 +1268,13 @@ codeunit 8073299 "Buffer Tracking Management 2"
     begin
         SourceSpecification.TESTFIELD("Source Type"); // Check if source has been set.
         IF NOT CalledFromSynchWhseItemTrkg THEN
-            TempSpecification.RESET;
+            TempSpecification.RESET();
         IF NOT TempSpecification.FIND('-') THEN
             EXIT;
 
         IsCorrection := SourceSpecification.Correction;
         SetSource(SourceSpecification, AvailabilityDate);
-        Rec.RESET;
+        Rec.RESET();
         Rec.SETCURRENTKEY("Lot No.", "Serial No.");
 
         REPEAT
@@ -1307,7 +1291,7 @@ codeunit 8073299 "Buffer Tracking Management 2"
                 END ELSE
                     Rec.VALIDATE("Quantity (Base)",
                       Rec."Quantity (Base)" + TempSpecification."Quantity (Base)");
-                Rec.MODIFY;
+                Rec.MODIFY();
             END ELSE BEGIN
                 Rec.TRANSFERFIELDS(SourceSpecification);
                 Rec."Serial No." := TempSpecification."Serial No.";
@@ -1320,25 +1304,25 @@ codeunit 8073299 "Buffer Tracking Management 2"
                     Rec."New Expiration Date" := TempSpecification."New Expiration Date"
                 END;
                 Rec.VALIDATE("Quantity (Base)", TempSpecification."Quantity (Base)");
-                Rec."Entry No." := NextEntryNo;
-                Rec.INSERT;
+                Rec."Entry No." := NextEntryNo();
+                Rec.INSERT();
             END;
-        UNTIL TempSpecification.NEXT = 0;
-        Rec.RESET;
+        UNTIL TempSpecification.NEXT() = 0;
+        Rec.RESET();
         IF Rec.FIND('-') THEN
             REPEAT
                 CheckLine(Rec);
-            UNTIL Rec.NEXT = 0;
+            UNTIL Rec.NEXT() = 0;
 
         Rec.SETRANGE("Lot No.", SourceSpecification."Lot No.");
         Rec.SETRANGE("Serial No.", SourceSpecification."Serial No.");
 
-        CalculateSums;
-        IF UpdateUndefinedQty THEN
-            WriteToDatabase
+        CalculateSums();
+        IF UpdateUndefinedQty() THEN
+            WriteToDatabase()
         ELSE
             ERROR(Text014, TotalItemTrackingLine."Quantity (Base)",
-              LOWERCASE(TempReservEntry.TextCaption), SourceQuantityArray[1]);
+              LOWERCASE(TempReservEntry.TextCaption()), SourceQuantityArray[1]);
 
         // Copy to inbound part of transfer
         IF FormRunMode = FormRunMode::Transfer THEN
@@ -1367,13 +1351,13 @@ codeunit 8073299 "Buffer Tracking Management 2"
     procedure TempItemTrackingDef(NewTrackingSpecification: Record "Tracking Specification")
     begin
         Rec := NewTrackingSpecification;
-        Rec."Entry No." := NextEntryNo;
-        IF (NOT InsertIsBlocked) AND (NOT ZeroLineExists) THEN
-            IF NOT TestTempSpecificationExists THEN
-                Rec.INSERT
+        Rec."Entry No." := NextEntryNo();
+        IF (NOT InsertIsBlocked) AND (NOT ZeroLineExists()) THEN
+            IF NOT TestTempSpecificationExists() THEN
+                Rec.INSERT()
             ELSE
                 ModifyTrackingSpecification(NewTrackingSpecification);
-        WriteToDatabase;
+        WriteToDatabase();
     end;
 
 
@@ -1396,7 +1380,7 @@ codeunit 8073299 "Buffer Tracking Management 2"
         IF Rec.FIND('-') THEN BEGIN
             Rec.VALIDATE("Quantity (Base)",
               Rec."Quantity (Base)" + NewTrackingSpecification."Quantity (Base)");
-            Rec.MODIFY;
+            Rec.MODIFY();
         END;
         Rec.COPY(CrntTempTrackingSpec);
     end;
@@ -1437,33 +1421,33 @@ codeunit 8073299 "Buffer Tracking Management 2"
         Rec."Bin Code" := ForBinCode;
         ItemTrackingDataCollection.SelectMultipleLotSerialNo(Rec, MaxQuantity, CurrentSignFactor);
         Rec."Bin Code" := '';
-        IF Rec.FINDSET THEN
+        IF Rec.FINDSET() THEN
             REPEAT
                 CASE Rec."Buffer Status" OF
                     Rec."Buffer Status"::MODIFY:
                         BEGIN
                             IF TempItemTrackLineModify.GET(Rec."Entry No.") THEN
-                                TempItemTrackLineModify.DELETE;
+                                TempItemTrackLineModify.DELETE();
                             IF TempItemTrackLineInsert.GET(Rec."Entry No.") THEN BEGIN
                                 TempItemTrackLineInsert.TRANSFERFIELDS(Rec);
-                                TempItemTrackLineInsert.MODIFY;
+                                TempItemTrackLineInsert.MODIFY();
                             END ELSE BEGIN
                                 TempItemTrackLineModify.TRANSFERFIELDS(Rec);
-                                TempItemTrackLineModify.INSERT;
+                                TempItemTrackLineModify.INSERT();
                             END;
                         END;
                     Rec."Buffer Status"::INSERT:
                         BEGIN
                             TempItemTrackLineInsert.TRANSFERFIELDS(Rec);
-                            TempItemTrackLineInsert.INSERT;
+                            TempItemTrackLineInsert.INSERT();
                         END;
                 END;
                 Rec."Buffer Status" := 0;
-                Rec.MODIFY;
-            UNTIL Rec.NEXT = 0;
+                Rec.MODIFY();
+            UNTIL Rec.NEXT() = 0;
         LastEntryNo := Rec."Entry No.";
-        CalculateSums;
-        UpdateUndefinedQty;
+        CalculateSums();
+        UpdateUndefinedQty();
         Rec.COPYFILTERS(xTrackingSpec);
     end;
 
@@ -1480,12 +1464,12 @@ codeunit 8073299 "Buffer Tracking Management 2"
     var
         LateBindingMgt: Codeunit "Late Binding Management";
     begin
-        IF TempItemTrackLineReserv.FINDSET THEN
+        IF TempItemTrackLineReserv.FINDSET() THEN
             REPEAT
                 LateBindingMgt.ReserveItemTrackingLine2(TempItemTrackLineReserv, TempItemTrackLineReserv."Quantity (Base)");
                 SetQtyToHandleAndInvoice(TempItemTrackLineReserv);
-            UNTIL TempItemTrackLineReserv.NEXT = 0;
-        TempItemTrackLineReserv.DELETEALL;
+            UNTIL TempItemTrackLineReserv.NEXT() = 0;
+        TempItemTrackLineReserv.DELETEALL();
     end;
 
 
@@ -1552,13 +1536,13 @@ codeunit 8073299 "Buffer Tracking Management 2"
     begin
         //>>OSYS-Int001.001
         IF NOT Rec.ISEMPTY THEN BEGIN
-            Rec.FINDSET;
+            Rec.FINDSET();
 
             REPEAT
-                RecPTrackingSpecificationTemp.INIT;
+                RecPTrackingSpecificationTemp.INIT();
                 RecPTrackingSpecificationTemp.TRANSFERFIELDS(Rec);
-                RecPTrackingSpecificationTemp.INSERT;
-            UNTIL Rec.NEXT = 0;
+                RecPTrackingSpecificationTemp.INSERT();
+            UNTIL Rec.NEXT() = 0;
         END;
         //<<OSYS-Int001.001
     end;
@@ -1590,12 +1574,12 @@ codeunit 8073299 "Buffer Tracking Management 2"
         END;
 
         IF NOT ItemLedgEntry.ISEMPTY THEN BEGIN
-            ItemLedgEntry.FINDSET;
+            ItemLedgEntry.FINDSET();
             REPEAT
                 IntPIncrement += 1;
 
                 IF (ItemLedgEntry."Serial No." <> '') OR (ItemLedgEntry."Lot No." <> '') THEN BEGIN
-                    RecPTrackingSpecificationTemp.INIT;
+                    RecPTrackingSpecificationTemp.INIT();
                     RecPTrackingSpecificationTemp."Entry No." := IntPIncrement;
                     RecPTrackingSpecificationTemp."Item No." := ItemLedgEntry."Item No.";
                     RecPTrackingSpecificationTemp."Location Code" := ItemLedgEntry."Location Code";
@@ -1609,9 +1593,9 @@ codeunit 8073299 "Buffer Tracking Management 2"
                     RecPTrackingSpecificationTemp."Serial No." := ItemLedgEntry."Serial No.";
                     RecPTrackingSpecificationTemp."Lot No." := ItemLedgEntry."Lot No.";
                     RecPTrackingSpecificationTemp."Variant Code" := ItemLedgEntry."Variant Code";
-                    RecPTrackingSpecificationTemp.INSERT;
+                    RecPTrackingSpecificationTemp.INSERT();
                 END
-            UNTIL ItemLedgEntry.NEXT = 0;
+            UNTIL ItemLedgEntry.NEXT() = 0;
         END;
         //<<OSYS-Int001.001
     end;
@@ -1619,7 +1603,7 @@ codeunit 8073299 "Buffer Tracking Management 2"
 
     procedure FctInitTrackingSpecification(var RecPProdOrderLine: Record "Prod. Order Line"; var RecPTrackingSpecification: Record "Tracking Specification")
     begin
-        RecPTrackingSpecification.INIT;
+        RecPTrackingSpecification.INIT();
         RecPTrackingSpecification."Source Type" := DATABASE::"Prod. Order Line";
         WITH RecPProdOrderLine DO BEGIN
             RecPTrackingSpecification."Item No." := "Item No.";
@@ -1645,7 +1629,7 @@ codeunit 8073299 "Buffer Tracking Management 2"
 
     procedure FctInitTrackingSpecifComponent(var RecPProdOrderComponent: Record "Prod. Order Component"; var RecPTrackingSpecification: Record "Tracking Specification")
     begin
-        RecPTrackingSpecification.INIT;
+        RecPTrackingSpecification.INIT();
         RecPTrackingSpecification."Source Type" := DATABASE::"Prod. Order Component";
         WITH RecPProdOrderComponent DO BEGIN
             RecPTrackingSpecification."Item No." := "Item No.";

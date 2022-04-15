@@ -20,14 +20,12 @@ codeunit 50000 "File Export Launcher LAP1.00"
     var
         RecLPartnerConnector: Record "PWD Partner Connector";
         CduLFileExport: Codeunit "PWD File Export";
-        IntLPostion: Integer;
-        TxtLPameter: Text[250];
     begin
         //**********************************************************************************************************//
         //                                  Launch File Export connectors                                           //
         //**********************************************************************************************************//
 
-        RecLPartnerConnector.Reset;
+        RecLPartnerConnector.Reset();
         RecLPartnerConnector.SetRange(Blocked, false);
         RecLPartnerConnector.SetRange("Communication Mode", RecLPartnerConnector."Communication Mode"::File);
 
@@ -44,16 +42,16 @@ codeunit 50000 "File Export Launcher LAP1.00"
         //<<OSYS-Int001.001
 
         if not RecLPartnerConnector.IsEmpty then begin
-            RecLPartnerConnector.FindSet;
+            RecLPartnerConnector.FindSet();
             repeat
-                Commit;
+                Commit();
 
                 //>>OSYS-Int001.001
                 //CduLFileExport.FctInitJobQueueEntry(Rec);
                 //<<OSYS-Int001.001
 
                 if not CduLFileExport.Run(RecLPartnerConnector) then;
-            until RecLPartnerConnector.Next = 0;
+            until RecLPartnerConnector.Next() = 0;
         end;
 
     end;

@@ -23,7 +23,7 @@ codeunit 8073311 "Connectors Journal Valid Batch"
 
     trigger OnRun()
     begin
-        if RecGOsysSetup.Get then
+        if RecGOsysSetup.Get() then
             if RecGOsysSetup.OSYS then begin
                 if ((RecGOsysSetup."Journal Templ Name Prod" <> '') and (RecGOsysSetup."Journal Batch Name Prod" <> '')) then
                     CduGBufferManagment.FctValidateItemJournaLineBatch(RecGOsysSetup."Journal Templ Name Prod",
@@ -82,9 +82,6 @@ codeunit 8073311 "Connectors Journal Valid Batch"
 
     var
         RecGOsysSetup: Record "PWD OSYS Setup";
-        RecGWmsSetup: Record "PWD WMS Setup";
         CduGBufferManagment: Codeunit "Buffer Management";
-        RepGBatchPostPurchOrders: Report "Batch Post Purchase Orders";
-        RepGBatchPostSalesOrders: Report "Batch Post Sales Orders";
 }
 

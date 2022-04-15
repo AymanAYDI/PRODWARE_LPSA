@@ -36,7 +36,6 @@ codeunit 50098 "PWD RDD - Tracking Management"
         SourceQuantityArray: array[5] of Decimal;
         QtyPerUOM: Decimal;
         QtyToAddAsBlank: Decimal;
-        CurrentSteps: Integer;
         CurrentSignFactor: Integer;
         LastEntryNo: Integer;
         ColorOfQuantityArray: array[3] of Integer;
@@ -66,19 +65,14 @@ codeunit 50098 "PWD RDD - Tracking Management"
         Text003: Label 'negative';
         Text004: Label 'positive';
         Text005: Label 'Error when writing to database.';
-        Text006: Label 'The corrections cannot be saved as excess quantity has been defined.\Close the form anyway?';
         Text007: Label 'Another user has modified the item tracking data since it was retrieved from the database.\Start again.';
         Text008: Label 'The quantity to create must be an integer.';
         Text009: Label 'The quantity to create must be positive.';
-        Text011: Label '%1 already exists with %2 %3 and %4 %5.';
-        Text012: Label '%1 already exists with %2 %3.';
         Text013: Label 'The string %1 contains no number and cannot be incremented.';
         Text014: Label 'The total item tracking quantity %1 exceeds the %2 quantity %3.\The changes cannot be saved to the database.';
         Text015: Label 'Do you want to synchronize item tracking on the line with item tracking on the related drop shipment %1?';
         Text016: Label 'purchase order line';
         Text017: Label 'sales order line';
-        Text018: Label 'Saving item tracking line changes';
-        Text019: Label 'There are availability warnings on one or more lines.\Close the form anyway?';
         xrec: Record "Tracking Specification" temporary;
 
 
@@ -95,17 +89,16 @@ codeunit 50098 "PWD RDD - Tracking Management"
         TempTrackingSpecification: Record "Tracking Specification" temporary;
         TempTrackingSpecification2: Record "Tracking Specification" temporary;
         CreateReservEntry: Codeunit "Create Reserv. Entry";
-        Controls: Option Handle,Invoice,Quantity,Reclass,LotSN;
     begin
         GetItem(TrackingSpecification."Item No.");
         ForBinCode := TrackingSpecification."Bin Code";
         SetFilters(TrackingSpecification);
-        TempTrackingSpecification.DeleteAll;
-        TempItemTrackLineInsert.DeleteAll;
-        TempItemTrackLineModify.DeleteAll;
-        TempItemTrackLineDelete.DeleteAll;
+        TempTrackingSpecification.DeleteAll();
+        TempItemTrackLineInsert.DeleteAll();
+        TempItemTrackLineModify.DeleteAll();
+        TempItemTrackLineDelete.DeleteAll();
 
-        TempReservEntry.DeleteAll;
+        TempReservEntry.DeleteAll();
         LastEntryNo := 0;
 
         if ItemTrackingMgt.IsOrderNetworkEntity(TrackingSpecification."Source Type",
@@ -126,16 +119,15 @@ codeunit 50098 "PWD RDD - Tracking Management"
           TrackingSpecification."Source Ref. No.",
           TrackingSpecification."Location Code",
           TrackingSpecification."Item No.")
-        then begin
+        then
             //SetControls(Controls::Quantity,FALSE);
             //CurrForm."Qty. to Handle (Base)".EDITABLE(FALSE);
             DeleteIsBlocked := true;
-        end;
 
         ReservEntry."Source Type" := TrackingSpecification."Source Type";
         ReservEntry."Source Subtype" := TrackingSpecification."Source Subtype";
         CurrentSignFactor := CreateReservEntry.SignFactor(ReservEntry);
-        CurrentSourceCaption := ReservEntry.TextCaption;
+        CurrentSourceCaption := ReservEntry.TextCaption();
         CurrentSourceType := ReservEntry."Source Type";
 
         if CurrentSignFactor < 0 then begin
@@ -192,11 +184,11 @@ codeunit 50098 "PWD RDD - Tracking Management"
         TrackingSpecification.SetRange("Source Prod. Order Line", TrackingSpecification."Source Prod. Order Line");
         TrackingSpecification.SetRange("Source Ref. No.", TrackingSpecification."Source Ref. No.");
 
-        if TrackingSpecification.FindSet then
+        if TrackingSpecification.FindSet() then
             repeat
                 TempTrackingSpecification := TrackingSpecification;
-                TempTrackingSpecification.Insert;
-            until TrackingSpecification.Next = 0;
+                TempTrackingSpecification.Insert();
+            until TrackingSpecification.Next() = 0;
 
         // Data regarding posted quantities on transfers is collected from Item Ledger Entries:
         if TrackingSpecification."Source Type" = DATABASE::"Transfer Line" then
@@ -238,7 +230,7 @@ codeunit 50098 "PWD RDD - Tracking Management"
 
         AddToGlobalRecordSet(TempTrackingSpecification);
         AddToGlobalRecordSet(TempTrackingSpecification2);
-        CalculateSums;
+        CalculateSums();
 
         ItemTrackingDataCollection.SetCurrentBinAndItemTrkgCode(ForBinCode, ItemTrackingCode);
         ItemTrackingDataCollection.RetrieveLookupData(rec, false);
@@ -249,8 +241,6 @@ codeunit 50098 "PWD RDD - Tracking Management"
 
 
     procedure SetSecondSourceQuantity(var SecondSourceQuantityArray: array[3] of Decimal)
-    var
-        Controls: Option Handle,Invoice;
     begin
         case SecondSourceQuantityArray[1] of
             DATABASE::"Warehouse Receipt Line", DATABASE::"Warehouse Shipment Line":
@@ -262,7 +252,7 @@ codeunit 50098 "PWD RDD - Tracking Management"
             else
                 exit;
         end;
-        CalculateSums;
+        CalculateSums();
     end;
 
 
@@ -273,11 +263,11 @@ codeunit 50098 "PWD RDD - Tracking Management"
 
     local procedure AddReservEntriesToTempRecSet(var ReservEntry: Record "Reservation Entry"; var TempTrackingSpecification: Record "Tracking Specification" temporary; SwapSign: Boolean; Color: Integer)
     begin
-        if ReservEntry.FindSet then
+        if ReservEntry.FindSet() then
             repeat
                 if Color = 0 then begin
                     TempReservEntry := ReservEntry;
-                    TempReservEntry.Insert;
+                    TempReservEntry.Insert();
                 end;
                 if (ReservEntry."Lot No." <> '') or (ReservEntry."Serial No." <> '') then begin
                     TempTrackingSpecification.TransferFields(ReservEntry);
@@ -294,9 +284,9 @@ codeunit 50098 "PWD RDD - Tracking Management"
                         TempTrackingSpecification."Qty. to Invoice (Base)" := 0;
                     end;
                     TempTrackingSpecification."Buffer Status" := Color;
-                    TempTrackingSpecification.Insert;
+                    TempTrackingSpecification.Insert();
                 end;
-            until ReservEntry.Next = 0;
+            until ReservEntry.Next() = 0;
     end;
 
     local procedure AddToGlobalRecordSet(var TempTrackingSpecification: Record "Tracking Specification" temporary)
@@ -321,7 +311,7 @@ codeunit 50098 "PWD RDD - Tracking Management"
                   rec.CalcQty(rec."Qty. to Handle (Base)");
                 rec."Qty. to Invoice" :=
                   rec.CalcQty(rec."Qty. to Invoice (Base)");
-                rec."Entry No." := NextEntryNo;
+                rec."Entry No." := NextEntryNo();
 
                 ExpDate := ItemTrackingMgt.ExistingExpirationDate(
                   rec."Item No.", rec."Variant Code",
@@ -332,15 +322,15 @@ codeunit 50098 "PWD RDD - Tracking Management"
                     rec."Buffer Status2" := rec."Buffer Status2"::"ExpDate blocked";
                 end;
 
-                rec.Insert;
+                rec.Insert();
                 if rec."Buffer Status" = 0 then begin
                     xTempItemTrackingLine := rec;
-                    xTempItemTrackingLine.Insert;
+                    xTempItemTrackingLine.Insert();
                 end;
                 TempTrackingSpecification.Find('+');
                 TempTrackingSpecification.SetRange("Lot No.");
                 TempTrackingSpecification.SetRange("Serial No.");
-            until TempTrackingSpecification.Next = 0;
+            until TempTrackingSpecification.Next() = 0;
     end;
 
     local procedure GetItem(ItemNo: Code[20])
@@ -389,14 +379,14 @@ codeunit 50098 "PWD RDD - Tracking Management"
         xTrackingSpec: Record "Tracking Specification";
     begin
         xTrackingSpec.Copy(rec);
-        rec.Reset;
+        rec.Reset();
         rec.CalcSums("Quantity (Base)",
           rec."Qty. to Handle (Base)",
           rec."Qty. to Invoice (Base)");
         TotalItemTrackingLine := rec;
         rec.Copy(xTrackingSpec);
 
-        UpdateUndefinedQty;
+        UpdateUndefinedQty();
     end;
 
     local procedure UpdateUndefinedQty() QtyIsValid: Boolean
@@ -435,14 +425,14 @@ codeunit 50098 "PWD RDD - Tracking Management"
         ReservEntry.SetCurrentKey("Entry No.", Positive);
         ReservEntry.CopyFilters(TempReservEntry);
 
-        if ReservEntry.FindSet then
+        if ReservEntry.FindSet() then
             repeat
                 if not TempReservEntry.Get(ReservEntry."Entry No.", ReservEntry.Positive) then
                     exit(false);
                 if not EntriesAreIdentical(ReservEntry, TempReservEntry, IdenticalArray) then
                     exit(false);
                 RecordCount += 1;
-            until ReservEntry.Next = 0;
+            until ReservEntry.Next() = 0;
 
         OK := RecordCount = TempReservEntry.Count;
     end;
@@ -505,15 +495,14 @@ codeunit 50098 "PWD RDD - Tracking Management"
 
     local procedure WriteToDatabase()
     var
-        Window: Dialog;
         ChangeType: Option Insert,Modify,Delete;
         EntryNo: Integer;
         NoOfLines: Integer;
         i: Integer;
     begin
         if CurrentFormIsOpen then begin
-            TempReservEntry.LockTable;
-            if not TempRecIsValid then
+            TempReservEntry.LockTable();
+            if not TempRecIsValid() then
                 Error(Text007);
 
             if Item."Order Tracking Policy" = Item."Order Tracking Policy"::None then
@@ -521,8 +510,8 @@ codeunit 50098 "PWD RDD - Tracking Management"
             else
                 QtyToAddAsBlank := UndefinedQtyArray[1] * CurrentSignFactor;
 
-            rec.Reset;
-            rec.DeleteAll;
+            rec.Reset();
+            rec.DeleteAll();
 
             NoOfLines := TempItemTrackLineInsert.Count + TempItemTrackLineModify.Count + TempItemTrackLineDelete.Count;
             if TempItemTrackLineDelete.Find('-') then begin
@@ -531,9 +520,9 @@ codeunit 50098 "PWD RDD - Tracking Management"
                     if i mod 100 = 0 then
                         RegisterChange(TempItemTrackLineDelete, TempItemTrackLineDelete, ChangeType::Delete, false);
                     if TempItemTrackLineModify.Get(TempItemTrackLineDelete."Entry No.") then
-                        TempItemTrackLineModify.Delete;
-                until TempItemTrackLineDelete.Next = 0;
-                TempItemTrackLineDelete.DeleteAll;
+                        TempItemTrackLineModify.Delete();
+                until TempItemTrackLineDelete.Next() = 0;
+                TempItemTrackLineDelete.DeleteAll();
             end;
 
             if TempItemTrackLineModify.Find('-') then begin
@@ -555,8 +544,8 @@ codeunit 50098 "PWD RDD - Tracking Management"
                                 RegisterChange(xTempItemTrackingLine, TempItemTrackLineModify, ChangeType::Modify, false);
                                 SetQtyToHandleAndInvoice(TempItemTrackLineModify);
                             end;
-                until TempItemTrackLineModify.Next = 0;
-                TempItemTrackLineModify.DeleteAll;
+                until TempItemTrackLineModify.Next() = 0;
+                TempItemTrackLineModify.DeleteAll();
             end;
 
             if TempItemTrackLineInsert.Find('-') then begin
@@ -570,15 +559,15 @@ codeunit 50098 "PWD RDD - Tracking Management"
                        (TempItemTrackLineInsert."Quantity (Base)" <> TempItemTrackLineInsert."Qty. to Invoice (Base)")
                     then
                         SetQtyToHandleAndInvoice(TempItemTrackLineInsert);
-                until TempItemTrackLineInsert.Next = 0;
-                TempItemTrackLineInsert.DeleteAll;
+                until TempItemTrackLineInsert.Next() = 0;
+                TempItemTrackLineInsert.DeleteAll();
             end;
 
 
         end else begin
 
-            TempReservEntry.LockTable;
-            if not TempRecIsValid then
+            TempReservEntry.LockTable();
+            if not TempRecIsValid() then
                 Error(Text007);
 
             if Item."Order Tracking Policy" = Item."Order Tracking Policy"::None then
@@ -586,12 +575,12 @@ codeunit 50098 "PWD RDD - Tracking Management"
             else
                 QtyToAddAsBlank := UndefinedQtyArray[1] * CurrentSignFactor;
 
-            rec.Reset;
+            rec.Reset();
             rec.SetFilter("Buffer Status", '<>%1', 0);
-            rec.DeleteAll;
-            rec.Reset;
+            rec.DeleteAll();
+            rec.Reset();
 
-            xTempItemTrackingLine.Reset;
+            xTempItemTrackingLine.Reset();
             rec.SetCurrentKey("Entry No.");
             xTempItemTrackingLine.SetCurrentKey("Entry No.");
             if xTempItemTrackingLine.Find('-') then
@@ -603,36 +592,36 @@ codeunit 50098 "PWD RDD - Tracking Management"
                             EntryNo := xTempItemTrackingLine."Entry No.";
                             xTempItemTrackingLine := rec;
                             xTempItemTrackingLine."Entry No." := EntryNo;
-                            xTempItemTrackingLine.Modify;
+                            xTempItemTrackingLine.Modify();
                         end;
                         SetQtyToHandleAndInvoice(rec);
-                        rec.Delete;
+                        rec.Delete();
                     end else begin
                         RegisterChange(xTempItemTrackingLine, xTempItemTrackingLine, ChangeType::Delete, false);
-                        xTempItemTrackingLine.Delete;
+                        xTempItemTrackingLine.Delete();
                     end;
-                until xTempItemTrackingLine.Next = 0;
+                until xTempItemTrackingLine.Next() = 0;
 
-            rec.Reset;
+            rec.Reset();
 
             if rec.Find('-') then
                 repeat
                     if RegisterChange(rec, rec, ChangeType::Insert, false) then begin
                         xTempItemTrackingLine := rec;
-                        xTempItemTrackingLine.Insert;
+                        xTempItemTrackingLine.Insert();
                     end else
                         Error(Text005);
                     SetQtyToHandleAndInvoice(rec);
-                    rec.Delete;
-                until rec.Next = 0;
+                    rec.Delete();
+                until rec.Next() = 0;
 
         end;
 
-        UpdateOrderTracking;
-        ReestablishReservations; // Late Binding
+        UpdateOrderTracking();
+        ReestablishReservations(); // Late Binding
 
         if not BlockCommit then
-            Commit;
+            Commit();
     end;
 
     local procedure RegisterChange(var OldTrackingSpecification: Record "Tracking Specification"; var NewTrackingSpecification: Record "Tracking Specification"; ChangeType: Option Insert,Modify,FullDelete,PartDelete,ModifyAll; ModifySharedFields: Boolean) OK: Boolean
@@ -674,7 +663,7 @@ codeunit 50098 "PWD RDD - Tracking Management"
                     if ReservEngineMgt.RetrieveLostReservQty(LostReservQty) then begin
                         TempItemTrackLineReserv := OldTrackingSpecification;
                         TempItemTrackLineReserv."Quantity (Base)" := LostReservQty * CurrentSignFactor;
-                        TempItemTrackLineReserv.Insert;
+                        TempItemTrackLineReserv.Insert();
                     end;
 
                     if OldTrackingSpecification."Quantity (Base)" = 0 then
@@ -751,7 +740,7 @@ codeunit 50098 "PWD RDD - Tracking Management"
                         if ReservEngineMgt.RetrieveLostReservQty(LostReservQty) then begin
                             TempItemTrackLineReserv := OldTrackingSpecification;
                             TempItemTrackLineReserv."Quantity (Base)" := LostReservQty * CurrentSignFactor;
-                            TempItemTrackLineReserv.Insert;
+                            TempItemTrackLineReserv.Insert();
                         end;
 
                         OldTrackingSpecification."Quantity (Base)" := QtyToAdd;
@@ -841,8 +830,8 @@ codeunit 50098 "PWD RDD - Tracking Management"
                 ReservEntry1."New Serial No." := TrackingSpecification."New Serial No.";
                 ReservEntry1."New Lot No." := TrackingSpecification."New Lot No.";
                 ReservEntry1."New Expiration Date" := TrackingSpecification."New Expiration Date";
-                ReservEntry1.Modify;
-            until ReservEntry1.Next = 0;
+                ReservEntry1.Modify();
+            until ReservEntry1.Next() = 0;
     end;
 
     local procedure SetQtyToHandleAndInvoice(TrackingSpecification: Record "Tracking Specification") OK: Boolean
@@ -894,12 +883,12 @@ codeunit 50098 "PWD RDD - Tracking Management"
 
                         if TrackingSpecification."Qty. to Invoice (Base)" <> QtyToInvoiceThisLine then begin
                             TrackingSpecification."Qty. to Invoice (Base)" := QtyToInvoiceThisLine;
-                            TrackingSpecification.Modify;
+                            TrackingSpecification.Modify();
                         end;
 
                         TotalQtyToInvoice -= QtyToInvoiceThisLine;
                     end;
-                until (TrackingSpecification.Next = 0);
+                until (TrackingSpecification.Next() = 0);
 
             OK := ((TotalQtyToHandle = 0) and (TotalQtyToInvoice = 0));
         end;
@@ -924,13 +913,13 @@ codeunit 50098 "PWD RDD - Tracking Management"
                         then begin
                             ReservEntry1."Qty. to Handle (Base)" := QtyToHandleThisLine;
                             ReservEntry1."Qty. to Invoice (Base)" := QtyToInvoiceThisLine;
-                            ReservEntry1.Modify;
+                            ReservEntry1.Modify();
                         end;
 
                         TotalQtyToHandle -= QtyToHandleThisLine;
                         TotalQtyToInvoice -= QtyToInvoiceThisLine;
 
-                    until (ReservEntry1.Next = 0);
+                    until (ReservEntry1.Next() = 0);
             end;
 
             OK := ((TotalQtyToHandle = 0) and (TotalQtyToInvoice = 0));
@@ -941,7 +930,7 @@ codeunit 50098 "PWD RDD - Tracking Management"
                 then begin
                     ReservEntry1."Qty. to Handle (Base)" := TotalQtyToHandle;
                     ReservEntry1."Qty. to Invoice (Base)" := TotalQtyToInvoice;
-                    ReservEntry1.Modify;
+                    ReservEntry1.Modify();
                 end;
     end;
 
@@ -960,13 +949,13 @@ codeunit 50098 "PWD RDD - Tracking Management"
 
         case TrackingSpecification."Source Subtype" of
             0: // Outbound
-                begin
-                    ItemEntryRelation.SetRange("Source Type", DATABASE::"Transfer Shipment Line");
-                end;
+
+
+                ItemEntryRelation.SetRange("Source Type", DATABASE::"Transfer Shipment Line");
             1: // Inbound
-                begin
-                    ItemEntryRelation.SetRange("Source Type", DATABASE::"Transfer Receipt Line");
-                end;
+
+
+                ItemEntryRelation.SetRange("Source Type", DATABASE::"Transfer Receipt Line");
         end;
 
         if ItemEntryRelation.Find('-') then
@@ -981,9 +970,9 @@ codeunit 50098 "PWD RDD - Tracking Management"
                 TempTrackingSpecification."Quantity Handled (Base)" := ItemLedgerEntry.Quantity;
                 TempTrackingSpecification."Quantity Invoiced (Base)" := ItemLedgerEntry.Quantity;
                 TempTrackingSpecification."Qty. per Unit of Measure" := ItemLedgerEntry."Qty. per Unit of Measure";
-                TempTrackingSpecification.InitQtyToShip;
-                TempTrackingSpecification.Insert;
-            until ItemEntryRelation.Next = 0;
+                TempTrackingSpecification.InitQtyToShip();
+                TempTrackingSpecification.Insert();
+            until ItemEntryRelation.Next() = 0;
     end;
 
     local procedure CollectPostedOutputEntries(TrackingSpecification: Record "Tracking Specification"; var TempTrackingSpecification: Record "Tracking Specification" temporary)
@@ -1023,8 +1012,8 @@ codeunit 50098 "PWD RDD - Tracking Management"
                 TempTrackingSpecification."Quantity Handled (Base)" := ItemLedgerEntry.Quantity;
                 TempTrackingSpecification."Quantity Invoiced (Base)" := ItemLedgerEntry.Quantity;
                 TempTrackingSpecification."Qty. per Unit of Measure" := ItemLedgerEntry."Qty. per Unit of Measure";
-                TempTrackingSpecification.InitQtyToShip;
-                TempTrackingSpecification.Insert;
+                TempTrackingSpecification.InitQtyToShip();
+                TempTrackingSpecification.Insert();
 
                 if BackwardFlushing then begin
                     SourceQuantityArray[1] += ItemLedgerEntry.Quantity;
@@ -1032,7 +1021,7 @@ codeunit 50098 "PWD RDD - Tracking Management"
                     SourceQuantityArray[3] += ItemLedgerEntry.Quantity;
                 end;
 
-            until ItemLedgerEntry.Next = 0;
+            until ItemLedgerEntry.Next() = 0;
     end;
 
     local procedure ZeroLineExists() OK: Boolean
@@ -1042,7 +1031,7 @@ codeunit 50098 "PWD RDD - Tracking Management"
         if (rec."Quantity (Base)" <> 0) or (rec."Serial No." <> '') or (rec."Lot No." <> '') then
             exit(false);
         xTrackingSpec.Copy(rec);
-        rec.Reset;
+        rec.Reset();
         rec.SetRange("Quantity (Base)", 0);
         rec.SetRange("Serial No.", '');
         rec.SetRange("Lot No.", '');
@@ -1055,12 +1044,11 @@ codeunit 50098 "PWD RDD - Tracking Management"
     var
         QtyToCreate: Decimal;
         QtyToCreateInt: Integer;
-        CreateLotNo: Boolean;
     begin
-        if ZeroLineExists then
-            rec.Delete;
+        if ZeroLineExists() then
+            rec.Delete();
 
-        QtyToCreate := UndefinedQtyArray[1] * QtySignFactor;
+        QtyToCreate := UndefinedQtyArray[1] * QtySignFactor();
         if QtyToCreate < 0 then
             QtyToCreate := 0;
 
@@ -1095,22 +1083,22 @@ codeunit 50098 "PWD RDD - Tracking Management"
         if CreateLotNo then begin
             rec.TestField(rec."Lot No.", '');
             Item.TestField("Lot Nos.");
-            rec.Validate("Lot No.", NoSeriesMgt.GetNextNo(Item."Lot Nos.", WorkDate, true));
+            rec.Validate("Lot No.", NoSeriesMgt.GetNextNo(Item."Lot Nos.", WorkDate(), true));
         end;
 
         Item.TestField("Serial Nos.");
         for i := 1 to QtyToCreate do begin
-            rec.Validate("Serial No.", NoSeriesMgt.GetNextNo(Item."Serial Nos.", WorkDate, true));
-            rec.Validate("Quantity (Base)", QtySignFactor);
-            rec."Entry No." := NextEntryNo;
-            TestTempSpecificationExists;
-            rec.Insert;
+            rec.Validate("Serial No.", NoSeriesMgt.GetNextNo(Item."Serial Nos.", WorkDate(), true));
+            rec.Validate("Quantity (Base)", QtySignFactor());
+            rec."Entry No." := NextEntryNo();
+            TestTempSpecificationExists();
+            rec.Insert();
             TempItemTrackLineInsert.TransferFields(rec);
-            TempItemTrackLineInsert.Insert;
+            TempItemTrackLineInsert.Insert();
             ItemTrackingDataCollection.UpdateLotSNDataSetWithChange(
               TempItemTrackLineInsert, CurrentSignFactor * SourceQuantityArray[1] < 0, CurrentSignFactor, 0);
         end;
-        CalculateSums;
+        CalculateSums();
     end;
 
 
@@ -1118,8 +1106,8 @@ codeunit 50098 "PWD RDD - Tracking Management"
     var
         QtyToCreate: Decimal;
     begin
-        if ZeroLineExists then
-            rec.Delete;
+        if ZeroLineExists() then
+            rec.Delete();
 
         if (SourceQuantityArray[1] * UndefinedQtyArray[1] <= 0) or
            (Abs(SourceQuantityArray[1]) < Abs(UndefinedQtyArray[1]))
@@ -1131,17 +1119,17 @@ codeunit 50098 "PWD RDD - Tracking Management"
         GetItem(rec."Item No.");
 
         Item.TestField("Lot Nos.");
-        rec.Validate("Lot No.", NoSeriesMgt.GetNextNo(Item."Lot Nos.", WorkDate, true));
+        rec.Validate("Lot No.", NoSeriesMgt.GetNextNo(Item."Lot Nos.", WorkDate(), true));
         rec."Qty. per Unit of Measure" := QtyPerUOM;
         rec.Validate("Quantity (Base)", QtyToCreate);
-        rec."Entry No." := NextEntryNo;
-        TestTempSpecificationExists;
-        rec.Insert;
+        rec."Entry No." := NextEntryNo();
+        TestTempSpecificationExists();
+        rec.Insert();
         TempItemTrackLineInsert.TransferFields(rec);
-        TempItemTrackLineInsert.Insert;
+        TempItemTrackLineInsert.Insert();
         ItemTrackingDataCollection.UpdateLotSNDataSetWithChange(
           TempItemTrackLineInsert, CurrentSignFactor * SourceQuantityArray[1] < 0, CurrentSignFactor, 0);
-        CalculateSums;
+        CalculateSums();
     end;
 
 
@@ -1149,16 +1137,13 @@ codeunit 50098 "PWD RDD - Tracking Management"
     var
         QtyToCreate: Decimal;
         QtyToCreateInt: Integer;
-        Increment: Integer;
-        CreateLotNo: Boolean;
-        CustomizedSN: Code[20];
     begin
-        if ZeroLineExists then
-            rec.Delete;
+        if ZeroLineExists() then
+            rec.Delete();
         rec.TestField("Quantity Handled (Base)", 0);
         rec.TestField("Quantity Invoiced (Base)", 0);
 
-        QtyToCreate := UndefinedQtyArray[1] * QtySignFactor;
+        QtyToCreate := UndefinedQtyArray[1] * QtySignFactor();
         if QtyToCreate < 0 then
             QtyToCreate := 0;
 
@@ -1175,7 +1160,7 @@ codeunit 50098 "PWD RDD - Tracking Management"
           CreateCustomizedSNBatch(QtyToCreateInt,CreateLotNo,CustomizedSN,Increment);
         END;
         */
-        CalculateSums;
+        CalculateSums();
 
     end;
 
@@ -1200,17 +1185,17 @@ codeunit 50098 "PWD RDD - Tracking Management"
         if CreateLotNo then begin
             rec.TestField("Lot No.", '');
             Item.TestField("Lot Nos.");
-            rec.Validate("Lot No.", NoSeriesMgt.GetNextNo(Item."Lot Nos.", WorkDate, true));
+            rec.Validate("Lot No.", NoSeriesMgt.GetNextNo(Item."Lot Nos.", WorkDate(), true));
         end;
 
         for i := 1 to QtyToCreate do begin
             rec.Validate("Serial No.", CustomizedSN);
-            rec.Validate("Quantity (Base)", QtySignFactor);
-            rec."Entry No." := NextEntryNo;
-            TestTempSpecificationExists;
-            rec.Insert;
+            rec.Validate("Quantity (Base)", QtySignFactor());
+            rec."Entry No." := NextEntryNo();
+            TestTempSpecificationExists();
+            rec.Insert();
             TempItemTrackLineInsert.TransferFields(rec);
-            TempItemTrackLineInsert.Insert;
+            TempItemTrackLineInsert.Insert();
             ItemTrackingDataCollection.UpdateLotSNDataSetWithChange(
               TempItemTrackLineInsert, CurrentSignFactor * SourceQuantityArray[1] < 0, CurrentSignFactor, 0);
             if i < QtyToCreate then begin
@@ -1221,7 +1206,7 @@ codeunit 50098 "PWD RDD - Tracking Management"
                 until Counter <= 0;
             end;
         end;
-        CalculateSums;
+        CalculateSums();
     end;
 
 
@@ -1266,13 +1251,13 @@ codeunit 50098 "PWD RDD - Tracking Management"
     begin
         SourceSpecification.TestField("Source Type"); // Check if source has been set.
         if not CalledFromSynchWhseItemTrkg then
-            TempSpecification.Reset;
+            TempSpecification.Reset();
         if not TempSpecification.Find('-') then
             exit;
 
         IsCorrection := SourceSpecification.Correction;
         SetSource(SourceSpecification, AvailabilityDate);
-        rec.Reset;
+        rec.Reset();
         rec.SetCurrentKey("Lot No.", "Serial No.");
 
         repeat
@@ -1289,7 +1274,7 @@ codeunit 50098 "PWD RDD - Tracking Management"
                 end else
                     rec.Validate("Quantity (Base)",
                       rec."Quantity (Base)" + TempSpecification."Quantity (Base)");
-                rec.Modify;
+                rec.Modify();
             end else begin
                 rec.TransferFields(SourceSpecification);
                 rec."Serial No." := TempSpecification."Serial No.";
@@ -1297,25 +1282,25 @@ codeunit 50098 "PWD RDD - Tracking Management"
                 rec."Warranty Date" := TempSpecification."Warranty Date";
                 rec."Expiration Date" := TempSpecification."Expiration Date";
                 rec.Validate("Quantity (Base)", TempSpecification."Quantity (Base)");
-                rec."Entry No." := NextEntryNo;
-                rec.Insert;
+                rec."Entry No." := NextEntryNo();
+                rec.Insert();
             end;
-        until TempSpecification.Next = 0;
-        rec.Reset;
+        until TempSpecification.Next() = 0;
+        rec.Reset();
         if rec.Find('-') then
             repeat
                 CheckLine(rec);
-            until rec.Next = 0;
+            until rec.Next() = 0;
 
         rec.SetRange("Lot No.", SourceSpecification."Lot No.");
         rec.SetRange("Serial No.", SourceSpecification."Serial No.");
 
-        CalculateSums;
-        if UpdateUndefinedQty then
-            WriteToDatabase
+        CalculateSums();
+        if UpdateUndefinedQty() then
+            WriteToDatabase()
         else
             Error(Text014, TotalItemTrackingLine."Quantity (Base)",
-              LowerCase(TempReservEntry.TextCaption), SourceQuantityArray[1]);
+              LowerCase(TempReservEntry.TextCaption()), SourceQuantityArray[1]);
 
         // Copy to inbound part of transfer
         if FormRunMode = FormRunMode::Transfer then
@@ -1345,25 +1330,25 @@ codeunit 50098 "PWD RDD - Tracking Management"
     procedure BinContentItemTrackingInsert(TempItemTrackingLineNew: Record "Tracking Specification")
     begin
         rec := TempItemTrackingLineNew;
-        rec."Entry No." := NextEntryNo;
-        if (not InsertIsBlocked) and (not ZeroLineExists) then
-            if not TestTempSpecificationExists then
-                rec.Insert;
+        rec."Entry No." := NextEntryNo();
+        if (not InsertIsBlocked) and (not ZeroLineExists()) then
+            if not TestTempSpecificationExists() then
+                rec.Insert();
         MoveBinContent := true;
-        WriteToDatabase;
+        WriteToDatabase();
     end;
 
 
     procedure TempItemTrackingDef(NewTrackingSpecification: Record "Tracking Specification")
     begin
         rec := NewTrackingSpecification;
-        rec."Entry No." := NextEntryNo;
-        if (not InsertIsBlocked) and (not ZeroLineExists) then
-            if not TestTempSpecificationExists then
-                rec.Insert
+        rec."Entry No." := NextEntryNo();
+        if (not InsertIsBlocked) and (not ZeroLineExists()) then
+            if not TestTempSpecificationExists() then
+                rec.Insert()
             else
                 ModifyTrackingSpecification(NewTrackingSpecification);
-        WriteToDatabase;
+        WriteToDatabase();
     end;
 
     local procedure CheckEntryIsReservation(Checktype: Option "Rename/Delete",Quantity; Messagetype: Option Error,Message) EntryIsReservation: Boolean
@@ -1384,14 +1369,14 @@ codeunit 50098 "PWD RDD - Tracking Management"
             SetRange("Reservation Status", "Reservation Status"::Reservation);
             SetRange("Serial No.", xrec."Serial No.");
             SetRange("Lot No.", xrec."Lot No.");
-            if Find('-') then begin
+            if Find('-') then
                 case Checktype of
                     Checktype::"Rename/Delete":
                         begin
                             EntryIsReservation := true;
                             case Messagetype of
                                 Messagetype::Error:
-                                    Error(Text000, TextCaption);
+                                    Error(Text000, TextCaption());
                                 Messagetype::Message:
                                     ;// MESSAGE(Text000,TextCaption);
                             end;
@@ -1400,12 +1385,11 @@ codeunit 50098 "PWD RDD - Tracking Management"
                         begin
                             repeat
                                 QtyToCheck := QtyToCheck + "Quantity (Base)";
-                            until Next = 0;
+                            until Next() = 0;
                             if Abs(rec."Quantity (Base)") < Abs(QtyToCheck) then
-                                Error(Text001, TextCaption, FieldCaption("Quantity (Base)"), Abs(QtyToCheck));
+                                Error(Text001, TextCaption(), FieldCaption("Quantity (Base)"), Abs(QtyToCheck));
                         end;
                 end;
-            end;
         end;
     end;
 
@@ -1429,7 +1413,7 @@ codeunit 50098 "PWD RDD - Tracking Management"
         if rec.Find('-') then begin
             rec.Validate("Quantity (Base)",
               rec."Quantity (Base)" + NewTrackingSpecification."Quantity (Base)");
-            rec.Modify;
+            rec.Modify();
         end;
         rec.Copy(CrntTempTrackingSpec);
     end;
@@ -1485,33 +1469,33 @@ codeunit 50098 "PWD RDD - Tracking Management"
         rec."Bin Code" := ForBinCode;
         ItemTrackingDataCollection.SelectMultipleLotSerialNo(rec, MaxQuantity, CurrentSignFactor);
         rec."Bin Code" := '';
-        if rec.FindSet then
+        if rec.FindSet() then
             repeat
                 case rec."Buffer Status" of
                     rec."Buffer Status"::MODIFY:
                         begin
                             if TempItemTrackLineModify.Get(rec."Entry No.") then
-                                TempItemTrackLineModify.Delete;
+                                TempItemTrackLineModify.Delete();
                             if TempItemTrackLineInsert.Get(rec."Entry No.") then begin
                                 TempItemTrackLineInsert.TransferFields(rec);
-                                TempItemTrackLineInsert.Modify;
+                                TempItemTrackLineInsert.Modify();
                             end else begin
                                 TempItemTrackLineModify.TransferFields(rec);
-                                TempItemTrackLineModify.Insert;
+                                TempItemTrackLineModify.Insert();
                             end;
                         end;
                     rec."Buffer Status"::INSERT:
                         begin
                             TempItemTrackLineInsert.TransferFields(rec);
-                            TempItemTrackLineInsert.Insert;
+                            TempItemTrackLineInsert.Insert();
                         end;
                 end;
                 rec."Buffer Status" := 0;
-                rec.Modify;
-            until rec.Next = 0;
+                rec.Modify();
+            until rec.Next() = 0;
         LastEntryNo := rec."Entry No.";
-        CalculateSums;
-        UpdateUndefinedQty;
+        CalculateSums();
+        UpdateUndefinedQty();
         rec.CopyFilters(xTrackingSpec);
         //CurrForm.UPDATE(FALSE);
     end;
@@ -1529,12 +1513,12 @@ codeunit 50098 "PWD RDD - Tracking Management"
     var
         LateBindingMgt: Codeunit "Late Binding Management";
     begin
-        if TempItemTrackLineReserv.FindSet then
+        if TempItemTrackLineReserv.FindSet() then
             repeat
                 LateBindingMgt.ReserveItemTrackingLine2(TempItemTrackLineReserv, TempItemTrackLineReserv."Quantity (Base)");
                 SetQtyToHandleAndInvoice(TempItemTrackLineReserv);
-            until TempItemTrackLineReserv.Next = 0;
-        TempItemTrackLineReserv.DeleteAll;
+            until TempItemTrackLineReserv.Next() = 0;
+        TempItemTrackLineReserv.DeleteAll();
     end;
 
 
@@ -1558,7 +1542,7 @@ codeunit 50098 "PWD RDD - Tracking Management"
 
         while CodPLotNo[i] <> '' do begin
             rec := RecLTrackingSpec;
-            rec."Entry No." := NextEntryNo;
+            rec."Entry No." := NextEntryNo();
 
             rec."Qty. to Handle (Base)" := 0;
             rec."Qty. to Invoice (Base)" := 0;
@@ -1569,22 +1553,22 @@ codeunit 50098 "PWD RDD - Tracking Management"
             rec.Validate(rec."Serial No.", CodPLotNo[i]);
 
             rec."Qty. per Unit of Measure" := QtyPerUOM;
-            if (not InsertIsBlocked) and (not ZeroLineExists) then
-                if not TestTempSpecificationExists then begin
+            if (not InsertIsBlocked) and (not ZeroLineExists()) then
+                if not TestTempSpecificationExists() then begin
                     TempItemTrackLineInsert.TransferFields(rec);
-                    TempItemTrackLineInsert.Insert;
-                    rec.Insert;
+                    TempItemTrackLineInsert.Insert();
+                    rec.Insert();
                     ItemTrackingDataCollection.UpdateLotSNDataSetWithChange(
                       TempItemTrackLineInsert, CurrentSignFactor * SourceQuantityArray[1] < 0, CurrentSignFactor, 0);
                 end;
-            CalculateSums;
+            CalculateSums();
             i += 1;
         end;
 
 
         //Copy of the "OnCloseForm" Trigger of the form ...
-        if UpdateUndefinedQty then
-            WriteToDatabase;
+        if UpdateUndefinedQty() then
+            WriteToDatabase();
 
 
         if FormRunMode = FormRunMode::"Drop Shipment" then
@@ -1617,12 +1601,10 @@ codeunit 50098 "PWD RDD - Tracking Management"
 
 
     procedure InsertLine2(CodPSerialNo: array[999] of Code[20]; CodPLotNo: array[999] of Code[20]; DecLQty: Decimal; RecLTrackingSpec: Record "Tracking Specification"): Boolean
-    var
-        i: Integer;
     begin
         //>>INTEGRATION.002
         rec := RecLTrackingSpec;
-        rec."Entry No." := NextEntryNo;
+        rec."Entry No." := NextEntryNo();
 
         rec."Qty. to Handle (Base)" := 0;
         rec."Qty. to Invoice (Base)" := 0;
@@ -1634,18 +1616,18 @@ codeunit 50098 "PWD RDD - Tracking Management"
         rec.Validate(rec."Serial No.", CodPSerialNo[1]);
         rec.Validate(rec."Lot No.", CodPLotNo[1]);
         rec."Qty. per Unit of Measure" := QtyPerUOM;
-        if (not InsertIsBlocked) and (not ZeroLineExists) then
-            if not TestTempSpecificationExists then begin
+        if (not InsertIsBlocked) and (not ZeroLineExists()) then
+            if not TestTempSpecificationExists() then begin
                 TempItemTrackLineInsert.TransferFields(rec);
-                TempItemTrackLineInsert.Insert;
-                rec.Insert;
+                TempItemTrackLineInsert.Insert();
+                rec.Insert();
                 ItemTrackingDataCollection.UpdateLotSNDataSetWithChange(
                   TempItemTrackLineInsert, CurrentSignFactor * SourceQuantityArray[1] < 0, CurrentSignFactor, 0);
             end;
-        CalculateSums;
+        CalculateSums();
 
-        if UpdateUndefinedQty then
-            WriteToDatabase;
+        if UpdateUndefinedQty() then
+            WriteToDatabase();
 
 
         if FormRunMode = FormRunMode::"Drop Shipment" then

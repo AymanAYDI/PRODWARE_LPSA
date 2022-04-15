@@ -60,18 +60,14 @@ codeunit 8073296 "PWD Connector WMS Parse Data"
                 end;
 
             Direction::Import:
-                begin
-                    FctProcessImport(Rec);
-                end;
+
+                FctProcessImport(Rec);
         end;
     end;
 
     var
         CduGConnectBufMgtExport: Codeunit "Connector Buffer Mgt Export";
         CduGBufferManagement: Codeunit "PWD Buffer Management";
-        TxtGError: Label 'Data not available';
-        CduGFileManagement: Codeunit "File Management";
-        CstGDecValue: Label 'La valeur décimal %1 n''est pas correcte';
         RecGAllConnectorMes: Record "PWD Connector Messages";
         BigTGEqualNbLineMainTable: BigText;
         BigTGOneLine: BigText;
@@ -86,7 +82,6 @@ codeunit 8073296 "PWD Connector WMS Parse Data"
         IntGLoop: Integer;
         ChrG10: Char;
         ChrG13: Char;
-        RecGRef: RecordRef;
         OptGFlowType: Option " ","Import Connector","Export Connector";
         IntGSequenceNo: Integer;
 
@@ -114,12 +109,10 @@ codeunit 8073296 "PWD Connector WMS Parse Data"
         BigTLToReturn: BigText;
         CduLBufferMgt: Codeunit "Buffer Management";
         InLStream: InStream;
-        OutLStream: OutStream;
         CduLFileManagement: Codeunit "File Management";
         TxtLFile: Text[1024];
         BooLResult: Boolean;
         RecLConnectorsActivation: Record "PWD WMS Setup";
-        RecLRef: RecordRef;
     begin
         Clear(BigTLToReturn);
         Clear(IntGSequenceNo);
@@ -142,13 +135,12 @@ codeunit 8073296 "PWD Connector WMS Parse Data"
                 FctGetKitMgtFilePos(RecPConnectorMessages, RecLTempBlob);
             'PWACREATECUSTSHIP':
                 FctCreateCustShipFilePos(RecPConnectorMessages, RecLTempBlob);
-            else begin
-                    case RecLPartnerConnector."Data Format" of
-                        RecLPartnerConnector."Data Format"::Xml:
-                            CduGConnectBufMgtExport.FctCreateXml('', RecPConnectorMessages, RecLTempBlob, true);
-                        RecLPartnerConnector."Data Format"::"with separator":
-                            CduGConnectBufMgtExport.FctCreateSeparator('', RecPConnectorMessages, RecLTempBlob);
-                    end;
+            else
+                case RecLPartnerConnector."Data Format" of
+                    RecLPartnerConnector."Data Format"::Xml:
+                        CduGConnectBufMgtExport.FctCreateXml('', RecPConnectorMessages, RecLTempBlob, true);
+                    RecLPartnerConnector."Data Format"::"with separator":
+                        CduGConnectBufMgtExport.FctCreateSeparator('', RecPConnectorMessages, RecLTempBlob);
                 end;
         end;
 
@@ -161,7 +153,7 @@ codeunit 8073296 "PWD Connector WMS Parse Data"
                                                                   RecLPartnerConnector.Separator, 1, 0,
                                                                   RecPConnectorMessages.Code);
 
-            if RecLConnectorsActivation.Get then;
+            if RecLConnectorsActivation.Get() then;
             TxtLFile := CduGConnectBufMgtExport.FctMakeFileName(
                                                 RecPConnectorMessages.Path,
                                                 RecLConnectorsActivation."WMS Company Code",
@@ -181,7 +173,7 @@ codeunit 8073296 "PWD Connector WMS Parse Data"
             Clear(InLStream);
             RecLConnectorValues.Get(IntGSequenceNo);
             RecLConnectorValues."File Name" := CopyStr(TxtLFile, 1, 250);
-            RecLConnectorValues.Modify;
+            RecLConnectorValues.Modify();
             RecLConnectorValues.CalcFields(Blob);
             RecLConnectorValues.Blob.CreateInStream(InLStream);
             BooLResult := CduLFileManagement.FctbTransformBlobToFile(TxtLFile, InLStream, RecLConnectorValues."Partner Code",
@@ -213,13 +205,13 @@ codeunit 8073296 "PWD Connector WMS Parse Data"
             //*******************************************************************************************************************************
 
             //Sélections de toutes les lignes de la table "PWD Connector Messages" correspondant à la fonction à traiter
-            RecGAllConnectorMes.Reset;
+            RecGAllConnectorMes.Reset();
             RecGAllConnectorMes.SetRange("Partner Code", RecPConnectorMes."Partner Code");
             RecGAllConnectorMes.SetRange("Function", RecPConnectorMes."Function");
             RecGAllConnectorMes.SetRange(Direction, RecPConnectorMes.Direction::Export);
             RecGAllConnectorMes.SetCurrentKey("Master Table");
             RecGAllConnectorMes.Ascending(false);
-            if RecGAllConnectorMes.FindFirst then
+            if RecGAllConnectorMes.FindFirst() then
                 repeat
 
                     case RecGAllConnectorMes."Table ID" of
@@ -228,33 +220,33 @@ codeunit 8073296 "PWD Connector WMS Parse Data"
                         //*********************************************************************************
                         27:
                             begin
-                                RecLItemForCrossRef.Reset;
+                                RecLItemForCrossRef.Reset();
                                 RecLItemForCrossRef.SetRange("PWD WMS_Item", true);
                                 RecLItemForCrossRef.SetFilter("Vendor No.", '<>%1', '');
-                                if RecLItemForCrossRef.FindFirst then
+                                if RecLItemForCrossRef.FindFirst() then
                                     repeat
                                         RecLItemCrossReference.SetRange("Item No.", RecLItemForCrossRef."No.");
                                         RecLItemCrossReference.SetRange("Unit of Measure", RecLItemForCrossRef."Base Unit of Measure");
                                         RecLItemCrossReference.SetRange("Cross-Reference Type", RecLItemCrossReference."Cross-Reference Type"::Vendor);
                                         RecLItemCrossReference.SetRange("Cross-Reference Type No.", RecLItemForCrossRef."Vendor No.");
-                                        if not RecLItemCrossReference.FindFirst then begin
-                                            RecLItemCrossReference.Init;
+                                        if not RecLItemCrossReference.FindFirst() then begin
+                                            RecLItemCrossReference.Init();
                                             RecLItemCrossReference."Item No." := RecLItemForCrossRef."No.";
                                             RecLItemCrossReference."Unit of Measure" := RecLItemForCrossRef."Base Unit of Measure";
                                             RecLItemCrossReference."Cross-Reference Type" := RecLItemCrossReference."Cross-Reference Type"::Vendor;
                                             RecLItemCrossReference."Cross-Reference Type No." := RecLItemForCrossRef."Vendor No.";
                                             RecLItemCrossReference."Cross-Reference No." := RecLItemForCrossRef."Vendor Item No.";
-                                            RecLItemCrossReference.Insert;
+                                            RecLItemCrossReference.Insert();
                                         end;
-                                    until RecLItemForCrossRef.Next = 0;
-                                Commit;
+                                    until RecLItemForCrossRef.Next() = 0;
+                                Commit();
 
-                                RecLItem.Reset;
+                                RecLItem.Reset();
                                 RecLItem.SetRange("PWD WMS_Item", true);
                                 RecLItem.SetFilter("Vendor No.", '<>%1', '');
                                 IntGNbLineMainTable := RecLItem.Count;
                                 Clear(BigTGEqualNbLineMainTable);
-                                CduGConnectBufMgtExport.FctCreateBigTextWithPosition(RecLItem.GetView, RecGAllConnectorMes, BigTGEqualNbLineMainTable);
+                                CduGConnectBufMgtExport.FctCreateBigTextWithPosition(RecLItem.GetView(), RecGAllConnectorMes, BigTGEqualNbLineMainTable);
                             end;
 
                         //*********************************************************************************
@@ -275,34 +267,34 @@ codeunit 8073296 "PWD Connector WMS Parse Data"
                             begin
                                 Clear(BigTGEqualNbLineMainTable);
                                 //Boucle pour récupérer autant de lignes ds le BigText, de la table 5404, que celles générées pour les articles
-                                if RecLItem.FindSet then
+                                if RecLItem.FindSet() then
                                     repeat
                                         Clear(BigTGOneLine);
                                         RecLItemUnitofMeasure.SetRange("Item No.", RecLItem."No.");
                                         RecLItemUnitofMeasure.SetRange(Code, RecLItem."Base Unit of Measure");
-                                        CduGConnectBufMgtExport.FctCreateBigTextWithPosition(RecLItemUnitofMeasure.GetView, RecGAllConnectorMes, BigTGOneLine);
+                                        CduGConnectBufMgtExport.FctCreateBigTextWithPosition(RecLItemUnitofMeasure.GetView(), RecGAllConnectorMes, BigTGOneLine);
                                         CduGConnectBufMgtExport.FctConcatBigText(BigTGOneLine, BigTGEqualNbLineMainTable);
-                                    until RecLItem.Next = 0;
+                                    until RecLItem.Next() = 0;
                             end;
 
                         23:
                             begin
                                 Clear(BigTGEqualNbLineMainTable);
                                 //Boucle pour récupérer autant de lignes ds le BigText, de la table 5404, que celles générées pour les articles
-                                if RecLItem.FindSet then
+                                if RecLItem.FindSet() then
                                     repeat
                                         Clear(BigTGOneLine);
                                         RecLVendor.SetRange("No.", RecLItem."Vendor No.");
-                                        CduGConnectBufMgtExport.FctCreateBigTextWithPosition(RecLVendor.GetView, RecGAllConnectorMes, BigTGOneLine);
+                                        CduGConnectBufMgtExport.FctCreateBigTextWithPosition(RecLVendor.GetView(), RecGAllConnectorMes, BigTGOneLine);
                                         CduGConnectBufMgtExport.FctConcatBigText(BigTGOneLine, BigTGEqualNbLineMainTable);
-                                    until RecLItem.Next = 0;
+                                    until RecLItem.Next() = 0;
                             end;
 
                         5717:
                             begin
                                 Clear(BigTGEqualNbLineMainTable);
                                 //Boucle pour récupérer autant de lignes ds le BigText, de la table 5404, que celles générées pour les articles
-                                if RecLItem.FindSet then
+                                if RecLItem.FindSet() then
                                     repeat
                                         Clear(BigTGOneLine);
                                         RecLItemCrossReference.SetRange("Item No.", RecLItem."No.");
@@ -310,25 +302,25 @@ codeunit 8073296 "PWD Connector WMS Parse Data"
                                         RecLItemCrossReference.SetRange("Cross-Reference Type", RecLItemCrossReference."Cross-Reference Type"::Vendor);
                                         RecLItemCrossReference.SetRange("Cross-Reference Type No.", RecLItem."Vendor No.");
                                         RecLItemCrossReference.SetRange("Cross-Reference No.", RecLItem."Vendor Item No.");
-                                        CduGConnectBufMgtExport.FctCreateBigTextWithPosition(RecLItemCrossReference.GetView, RecGAllConnectorMes, BigTGOneLine);
+                                        CduGConnectBufMgtExport.FctCreateBigTextWithPosition(RecLItemCrossReference.GetView(), RecGAllConnectorMes, BigTGOneLine);
                                         CduGConnectBufMgtExport.FctConcatBigText(BigTGOneLine, BigTGEqualNbLineMainTable);
-                                    until RecLItem.Next = 0;
+                                    until RecLItem.Next() = 0;
                             end;
 
                         6502:
                             begin
                                 Clear(BigTGEqualNbLineMainTable);
                                 //Boucle pour récupérer autant de lignes ds le BigText, de la table 5404, que celles générées pour les articles
-                                if RecLItem.FindSet then
+                                if RecLItem.FindSet() then
                                     repeat
                                         Clear(BigTGOneLine);
                                         RecLItemCrossReference.SetRange("Item No.", RecLItem."No.");
                                         RecLItemCrossReference.SetRange("Unit of Measure", RecLItem."Base Unit of Measure");
                                         RecLItemCrossReference.SetRange("Cross-Reference Type", RecLItemCrossReference."Cross-Reference Type"::Vendor);
                                         RecLItemCrossReference.SetRange("Cross-Reference Type No.", RecLItem."Vendor No.");
-                                        CduGConnectBufMgtExport.FctCreateBigTextWithPosition(RecLItemCrossReference.GetView, RecGAllConnectorMes, BigTGOneLine);
+                                        CduGConnectBufMgtExport.FctCreateBigTextWithPosition(RecLItemCrossReference.GetView(), RecGAllConnectorMes, BigTGOneLine);
                                         CduGConnectBufMgtExport.FctConcatBigText(BigTGOneLine, BigTGEqualNbLineMainTable);
-                                    until RecLItem.Next = 0;
+                                    until RecLItem.Next() = 0;
                             end;
 
                     end;
@@ -345,17 +337,17 @@ codeunit 8073296 "PWD Connector WMS Parse Data"
                     Clear(BigTGMergeInProgress);
                     BigTGMergeInProgress.AddText(BigTGFinal);
 
-                until RecGAllConnectorMes.Next = 0;
+                until RecGAllConnectorMes.Next() = 0;
 
             //*******************************************************************************************************************************
             //************************Second bloc*******************************************************************************************
             //*******************************************************************************************************************************
 
-            RecGAllConnectorMes.Reset;
+            RecGAllConnectorMes.Reset();
             RecGAllConnectorMes.SetRange("Partner Code", RecPConnectorMes."Partner Code");
             RecGAllConnectorMes.SetRange("Function", RecPConnectorMes."Function");
             RecGAllConnectorMes.SetRange(Direction, RecPConnectorMes.Direction::Export);
-            if RecGAllConnectorMes.FindFirst then
+            if RecGAllConnectorMes.FindFirst() then
                 repeat
 
                     case RecGAllConnectorMes."Table ID" of
@@ -365,13 +357,13 @@ codeunit 8073296 "PWD Connector WMS Parse Data"
                         14:
                             begin
                                 Clear(BigTGSecondBloc);
-                                RecLLocation.Reset;
+                                RecLLocation.Reset();
                                 RecLLocation.SetRange("PWD WMS_Location", true);
-                                CduGConnectBufMgtExport.FctCreateBigTextWithPosition(RecLLocation.GetView, RecGAllConnectorMes, BigTGSecondBloc);
+                                CduGConnectBufMgtExport.FctCreateBigTextWithPosition(RecLLocation.GetView(), RecGAllConnectorMes, BigTGSecondBloc);
                             end;
                     end;
 
-                until RecGAllConnectorMes.Next = 0;
+                until RecGAllConnectorMes.Next() = 0;
 
             if BigTGFinal.Length <> 0 then
                 BigTGFinal.AddText(Format(ChrG13) + Format(ChrG10));
@@ -387,13 +379,8 @@ codeunit 8073296 "PWD Connector WMS Parse Data"
 
     procedure FctGetVendOrderFilePos(RecPConnectorMes: Record "PWD Connector Messages"; var RecPTempBlob: Record TempBlob temporary)
     var
-        StrLStreamIn: InStream;
-        TxtLReadBlob: Text[250];
-        IntLLengthOfLine: Integer;
         RecLPurchaseLine: Record "Purchase Line";
         RecLPurchaseHeader: Record "Purchase Header";
-        RecLItem: Record Item;
-        RecLLocation: Record Location;
         CodLDocNo: Code[20];
     begin
         if not FctWMSEnabled() then
@@ -411,13 +398,13 @@ codeunit 8073296 "PWD Connector WMS Parse Data"
             //*******************************************************************************************************************************
 
             //Sélections de toutes les lignes de la table "PWD Connector Messages" correspondant à la fonction à traiter
-            RecGAllConnectorMes.Reset;
+            RecGAllConnectorMes.Reset();
             RecGAllConnectorMes.SetRange("Partner Code", RecPConnectorMes."Partner Code");
             RecGAllConnectorMes.SetRange("Function", RecPConnectorMes."Function");
             RecGAllConnectorMes.SetRange(Direction, RecPConnectorMes.Direction::Export);
             RecGAllConnectorMes.SetCurrentKey("Master Table");
             RecGAllConnectorMes.Ascending(false);
-            if RecGAllConnectorMes.FindFirst then
+            if RecGAllConnectorMes.FindFirst() then
                 repeat
 
                     case RecGAllConnectorMes."Table ID" of
@@ -426,7 +413,7 @@ codeunit 8073296 "PWD Connector WMS Parse Data"
                         //*********************************************************************************
                         39:
                             begin
-                                RecLPurchaseLine.Reset;
+                                RecLPurchaseLine.Reset();
                                 RecLPurchaseLine.SetRange("Document Type", RecLPurchaseLine."Document Type"::Order);
                                 RecLPurchaseLine.SetRange("Drop Shipment", false);
                                 RecLPurchaseLine.SetRange(Type, RecLPurchaseLine.Type::Item);
@@ -437,7 +424,7 @@ codeunit 8073296 "PWD Connector WMS Parse Data"
                                 RecLPurchaseLine.SetFilter("Outstanding Quantity", '<>%1', 0);
                                 IntGNbLineMainTable := RecLPurchaseLine.Count;
                                 Clear(BigTGEqualNbLineMainTable);
-                                CduGConnectBufMgtExport.FctCreateBigTextWithPosition(RecLPurchaseLine.GetView,
+                                CduGConnectBufMgtExport.FctCreateBigTextWithPosition(RecLPurchaseLine.GetView(),
                                                                                      RecGAllConnectorMes, BigTGEqualNbLineMainTable);
                             end;
 
@@ -468,7 +455,7 @@ codeunit 8073296 "PWD Connector WMS Parse Data"
                     Clear(BigTGMergeInProgress);
                     BigTGMergeInProgress.AddText(BigTGFinal);
 
-                until RecGAllConnectorMes.Next = 0;
+                until RecGAllConnectorMes.Next() = 0;
 
             //*******************************************************************************************************************************
             //************************Second bloc*******************************************************************************************
@@ -479,11 +466,11 @@ codeunit 8073296 "PWD Connector WMS Parse Data"
             Clear(BigTGMergeInProgress);
             Clear(BigTGSecondBloc);
 
-            RecGAllConnectorMes.Reset;
+            RecGAllConnectorMes.Reset();
             RecGAllConnectorMes.SetRange("Partner Code", RecPConnectorMes."Partner Code");
             RecGAllConnectorMes.SetRange("Function", RecPConnectorMes."Function");
             RecGAllConnectorMes.SetRange(Direction, RecPConnectorMes.Direction::Export);
-            if RecGAllConnectorMes.FindFirst then
+            if RecGAllConnectorMes.FindFirst() then
                 repeat
 
                     case RecGAllConnectorMes."Table ID" of
@@ -495,19 +482,19 @@ codeunit 8073296 "PWD Connector WMS Parse Data"
                                 CodLDocNo := '0';
                                 IntGNbLineMainTable := 0;
                                 //Boucle pour récupérer autant de lignes ds le BigText, de la table 38, que celles générées pour les articles
-                                if RecLPurchaseLine.FindSet then
+                                if RecLPurchaseLine.FindSet() then
                                     repeat
                                         if CodLDocNo <> RecLPurchaseLine."Document No." then begin
                                             IntGNbLineMainTable += 1;
                                             Clear(BigTGOneLine);
                                             RecLPurchaseHeader.SetRange("Document Type", RecLPurchaseLine."Document Type");
                                             RecLPurchaseHeader.SetRange("No.", RecLPurchaseLine."Document No.");
-                                            CduGConnectBufMgtExport.FctCreateBigTextWithPosition(RecLPurchaseHeader.GetView,
+                                            CduGConnectBufMgtExport.FctCreateBigTextWithPosition(RecLPurchaseHeader.GetView(),
                                                                                                  RecGAllConnectorMes, BigTGOneLine);
                                             CduGConnectBufMgtExport.FctConcatBigText(BigTGOneLine, BigTGEqualNbLineMainTable);
                                             CodLDocNo := RecLPurchaseLine."Document No.";
                                         end;
-                                    until RecLPurchaseLine.Next = 0;
+                                    until RecLPurchaseLine.Next() = 0;
                             end;
 
                         8073288:
@@ -533,7 +520,7 @@ codeunit 8073296 "PWD Connector WMS Parse Data"
                     Clear(BigTGMergeInProgress);
                     BigTGMergeInProgress.AddText(BigTGSecondBloc);
 
-                until RecGAllConnectorMes.Next = 0;
+                until RecGAllConnectorMes.Next() = 0;
 
             if BigTGFinal.Length <> 0 then
 
@@ -552,13 +539,13 @@ codeunit 8073296 "PWD Connector WMS Parse Data"
                 CduGConnectBufMgtExport.FctGenerateBlob(BigTGFinal, RecPTempBlob);
 
             RecLPurchaseLine.SetRange(RecLPurchaseLine."PWD WMS_Status");
-            if RecLPurchaseLine.FindSet then
+            if RecLPurchaseLine.FindSet() then
                 repeat
                     if (RecLPurchaseLine."PWD WMS_Status" = RecLPurchaseLine."PWD WMS_Status"::" ") then begin
                         RecLPurchaseLine."PWD WMS_Status" := RecLPurchaseLine."PWD WMS_Status"::Send;
-                        RecLPurchaseLine.Modify;
+                        RecLPurchaseLine.Modify();
                     end;
-                until RecLPurchaseLine.Next = 0;
+                until RecLPurchaseLine.Next() = 0;
 
         end;
     end;
@@ -566,20 +553,15 @@ codeunit 8073296 "PWD Connector WMS Parse Data"
 
     procedure FctGetCustOrderFilePos(RecPConnectorMes: Record "PWD Connector Messages"; var RecPTempBlob: Record TempBlob temporary)
     var
-        StrLStreamIn: InStream;
-        TxtLReadBlob: Text[250];
         RecLSalesLine: Record "Sales Line";
         RecLSalesHeader: Record "Sales Header";
         RecLSalesCommentLine: Record "Sales Comment Line";
         RecLSalesCommentLToSend: Record "Sales Comment Line";
-        RecLItem: Record Item;
-        RecLLocation: Record Location;
         RecLConnectorsActivation: Record "PWD WMS Setup";
         RecLReservationEntry: Record "Reservation Entry";
         CodLDocNo: Code[20];
         intLLineNo: Integer;
         intLCommentLineNo: array[5] of Integer;
-        IntLLengthOfLine: Integer;
         BooLCommentPrepa: Boolean;
     begin
         Clear(CduGConnectBufMgtExport);
@@ -597,16 +579,16 @@ codeunit 8073296 "PWD Connector WMS Parse Data"
             //************************Premier bloc*******************************************************************************************
             //*******************************************************************************************************************************
 
-            if RecLConnectorsActivation.Get then;
+            if RecLConnectorsActivation.Get() then;
 
             //Sélections de toutes les lignes de la table "PWD Connector Messages" correspondant à la fonction à traiter
-            RecGAllConnectorMes.Reset;
+            RecGAllConnectorMes.Reset();
             RecGAllConnectorMes.SetRange("Partner Code", RecPConnectorMes."Partner Code");
             RecGAllConnectorMes.SetRange("Function", RecPConnectorMes."Function");
             RecGAllConnectorMes.SetRange(Direction, RecPConnectorMes.Direction::Export);
             RecGAllConnectorMes.SetCurrentKey("Master Table");
             RecGAllConnectorMes.Ascending(false);
-            if RecGAllConnectorMes.FindFirst then
+            if RecGAllConnectorMes.FindFirst() then
                 repeat
 
                     case RecGAllConnectorMes."Table ID" of
@@ -615,7 +597,7 @@ codeunit 8073296 "PWD Connector WMS Parse Data"
                         //*********************************************************************************
                         37:
                             begin
-                                RecLSalesLine.Reset;
+                                RecLSalesLine.Reset();
                                 RecLSalesLine.SetRange("Document Type", RecLSalesLine."Document Type"::Order);
                                 RecLSalesLine.SetRange("Drop Shipment", false);
                                 RecLSalesLine.SetRange(Type, RecLSalesLine.Type::Item);
@@ -627,7 +609,7 @@ codeunit 8073296 "PWD Connector WMS Parse Data"
                                 RecLSalesLine.SetFilter("Outstanding Quantity", '<>%1', 0);
                                 IntGNbLineMainTable := RecLSalesLine.Count;
                                 Clear(BigTGEqualNbLineMainTable);
-                                CduGConnectBufMgtExport.FctCreateBigTextWithPosition(RecLSalesLine.GetView,
+                                CduGConnectBufMgtExport.FctCreateBigTextWithPosition(RecLSalesLine.GetView(),
                                                                                      RecGAllConnectorMes, BigTGEqualNbLineMainTable);
                             end;
 
@@ -658,7 +640,7 @@ codeunit 8073296 "PWD Connector WMS Parse Data"
                     Clear(BigTGMergeInProgress);
                     BigTGMergeInProgress.AddText(BigTGFinal);
 
-                until RecGAllConnectorMes.Next = 0;
+                until RecGAllConnectorMes.Next() = 0;
 
             //*************************************************************************************************************************
             //************************Second bloc**************************************************************************************
@@ -669,11 +651,11 @@ codeunit 8073296 "PWD Connector WMS Parse Data"
             Clear(BigTGMergeInProgress);
             Clear(BigTGSecondBloc);
 
-            RecGAllConnectorMes.Reset;
+            RecGAllConnectorMes.Reset();
             RecGAllConnectorMes.SetRange("Partner Code", RecPConnectorMes."Partner Code");
             RecGAllConnectorMes.SetRange("Function", RecPConnectorMes."Function");
             RecGAllConnectorMes.SetRange(Direction, RecPConnectorMes.Direction::Export);
-            if RecGAllConnectorMes.FindFirst then
+            if RecGAllConnectorMes.FindFirst() then
                 repeat
 
                     case RecGAllConnectorMes."Table ID" of
@@ -683,20 +665,20 @@ codeunit 8073296 "PWD Connector WMS Parse Data"
                                 IntGNbLineMainTable := 0;
                                 //Boucle pour récupérer autant de lignes ds le BigText, de la table 38, que celles générées pour les articles
 
-                                if RecLSalesLine.FindSet then
+                                if RecLSalesLine.FindSet() then
                                     repeat
                                         if CodLDocNo <> RecLSalesLine."Document No." then begin
                                             IntGNbLineMainTable += 1;
                                             Clear(BigTGOneLine);
-                                            RecLReservationEntry.Reset;
+                                            RecLReservationEntry.Reset();
                                             RecLReservationEntry.SetRange("Source Type", DATABASE::"Sales Line");
                                             RecLReservationEntry.SetRange("Source ID", RecLSalesLine."Document No.");
                                             RecLReservationEntry.SetRange("Source Ref. No.", RecLSalesLine."Line No.");
-                                            CduGConnectBufMgtExport.FctCreateBigTextWithPosition(RecLReservationEntry.GetView, RecGAllConnectorMes, BigTGOneLine);
+                                            CduGConnectBufMgtExport.FctCreateBigTextWithPosition(RecLReservationEntry.GetView(), RecGAllConnectorMes, BigTGOneLine);
                                             CduGConnectBufMgtExport.FctConcatBigText(BigTGOneLine, BigTGEqualNbLineMainTable);
                                             CodLDocNo := RecLSalesLine."Document No.";
                                         end;
-                                    until RecLSalesLine.Next = 0;
+                                    until RecLSalesLine.Next() = 0;
                             end;
                     end;
 
@@ -711,7 +693,7 @@ codeunit 8073296 "PWD Connector WMS Parse Data"
                     Clear(BigTGMergeInProgress);
                     BigTGMergeInProgress.AddText(BigTGSecondBloc);
 
-                until RecGAllConnectorMes.Next = 0;
+                until RecGAllConnectorMes.Next() = 0;
 
             if BigTGFinal.Length <> 0 then
                 BigTGFinal.AddText(Format(ChrG13) + Format(ChrG10));
@@ -784,11 +766,11 @@ codeunit 8073296 "PWD Connector WMS Parse Data"
             Clear(BigTGSecondBloc);
             Clear(BigTGFinal2);
 
-            RecGAllConnectorMes.Reset;
+            RecGAllConnectorMes.Reset();
             RecGAllConnectorMes.SetRange("Partner Code", RecPConnectorMes."Partner Code");
             RecGAllConnectorMes.SetRange("Function", RecPConnectorMes."Function");
             RecGAllConnectorMes.SetRange(Direction, RecPConnectorMes.Direction::Export);
-            if RecGAllConnectorMes.FindFirst then
+            if RecGAllConnectorMes.FindFirst() then
                 repeat
                     case RecGAllConnectorMes."Table ID" of
                         //*********************************************************************************
@@ -800,23 +782,23 @@ codeunit 8073296 "PWD Connector WMS Parse Data"
                                 IntGNbLineMainTable := 0;
                                 //Boucle pour récupérer autant de lignes ds le BigText, de la table 38, que celles générées pour les articles
 
-                                if RecLSalesLine.FindSet then
+                                if RecLSalesLine.FindSet() then
                                     repeat
                                         if CodLDocNo <> RecLSalesLine."Document No." then begin
                                             IntGNbLineMainTable += 1;
                                             Clear(BigTGOneLine);
                                             RecLSalesHeader.SetRange("Document Type", RecLSalesLine."Document Type");
                                             RecLSalesHeader.SetRange("No.", RecLSalesLine."Document No.");
-                                            CduGConnectBufMgtExport.FctCreateBigTextWithPosition(RecLSalesHeader.GetView,
+                                            CduGConnectBufMgtExport.FctCreateBigTextWithPosition(RecLSalesHeader.GetView(),
                                                                                                  RecGAllConnectorMes, BigTGOneLine);
                                             CduGConnectBufMgtExport.FctConcatBigText(BigTGOneLine, BigTGEqualNbLineMainTable);
                                             CodLDocNo := RecLSalesLine."Document No.";
-                                            if RecLSalesHeader.FindFirst then begin
+                                            if RecLSalesHeader.FindFirst() then begin
                                                 RecLSalesHeader."PWD WMS_Status" := RecLSalesHeader."PWD WMS_Status"::Send;
-                                                RecLSalesHeader.Modify;
+                                                RecLSalesHeader.Modify();
                                             end;
                                         end;
-                                    until RecLSalesLine.Next = 0;
+                                    until RecLSalesLine.Next() = 0;
                             end;
 
                         8073288:
@@ -838,7 +820,7 @@ codeunit 8073296 "PWD Connector WMS Parse Data"
                                 Clear(BigTGEqualNbLineMainTable);
 
                                 //Boucle pour récupérer autant de lignes ds le BigText, de la table 44, que celles générées pour les articles
-                                if RecLSalesLine.FindSet then
+                                if RecLSalesLine.FindSet() then
                                     repeat
                                         if CodLDocNo <> RecLSalesLine."Document No." then begin
                                             Clear(intLCommentLineNo);
@@ -846,23 +828,23 @@ codeunit 8073296 "PWD Connector WMS Parse Data"
                                             Clear(BigTGCommentMergeInProgress);
                                             intLLineNo := 1;
                                             BooLCommentPrepa := false;
-                                            RecLSalesCommentLine.Reset;
+                                            RecLSalesCommentLine.Reset();
                                             RecLSalesCommentLine.SetRange("Document Type", RecLSalesLine."Document Type");
                                             RecLSalesCommentLine.SetRange("No.", RecLSalesLine."Document No.");
                                             RecLSalesCommentLine.SetRange("Document Line No.", 0);
-                                            if RecLSalesCommentLine.FindFirst then
+                                            if RecLSalesCommentLine.FindFirst() then
                                                 repeat
                                                     Clear(BigTGOneLine);
-                                                    if RecLSalesCommentLine.Code = RecLConnectorsActivation."WMS Delivery" then begin
+                                                    if RecLSalesCommentLine.Code = RecLConnectorsActivation."WMS Delivery" then
                                                         if intLLineNo < 5 then begin
-                                                            RecLSalesCommentLToSend.Reset;
+                                                            RecLSalesCommentLToSend.Reset();
                                                             RecLSalesCommentLToSend.SetRange("Document Type", RecLSalesLine."Document Type");
                                                             RecLSalesCommentLToSend.SetRange("No.", RecLSalesLine."Document No.");
                                                             RecLSalesCommentLToSend.SetRange("Document Line No.", 0);
                                                             RecLSalesCommentLToSend.SetRange("Line No.", RecLSalesCommentLine."Line No.");
 
                                                             CduGConnectBufMgtExport.FctNbPosition(intLLineNo - 1);
-                                                            CduGConnectBufMgtExport.FctCreateBigTextWithPosition(RecLSalesCommentLToSend.GetView,
+                                                            CduGConnectBufMgtExport.FctCreateBigTextWithPosition(RecLSalesCommentLToSend.GetView(),
                                                                                                                    RecGAllConnectorMes, BigTGOneLine);
                                                             if BigTGCommentMergeInProgress.Length <> 0 then
                                                                 CduGConnectBufMgtExport.FctMergeBigText(RecGAllConnectorMes."Fill Character",
@@ -876,17 +858,16 @@ codeunit 8073296 "PWD Connector WMS Parse Data"
                                                             BigTGCommentMergeInProgress.AddText(BigTGOneLineComment);
                                                             intLLineNo += 1;
                                                         end;
-                                                    end;
 
                                                     if ((RecLSalesCommentLine.Code = RecLConnectorsActivation."WMS Shipment") and (not BooLCommentPrepa)) then begin
-                                                        RecLSalesCommentLToSend.Reset;
+                                                        RecLSalesCommentLToSend.Reset();
                                                         RecLSalesCommentLToSend.SetRange("Document Type", RecLSalesLine."Document Type");
                                                         RecLSalesCommentLToSend.SetRange("No.", RecLSalesLine."Document No.");
                                                         RecLSalesCommentLToSend.SetRange("Document Line No.", 0);
                                                         RecLSalesCommentLToSend.SetRange("Line No.", RecLSalesCommentLine."Line No.");
 
                                                         CduGConnectBufMgtExport.FctNbPosition(4);
-                                                        CduGConnectBufMgtExport.FctCreateBigTextWithPosition(RecLSalesCommentLToSend.GetView,
+                                                        CduGConnectBufMgtExport.FctCreateBigTextWithPosition(RecLSalesCommentLToSend.GetView(),
                                                                                                              RecGAllConnectorMes, BigTGOneLine);
                                                         BooLCommentPrepa := true;
                                                         if BigTGCommentMergeInProgress.Length <> 0 then
@@ -900,15 +881,15 @@ codeunit 8073296 "PWD Connector WMS Parse Data"
                                                         Clear(BigTGCommentMergeInProgress);
                                                         BigTGCommentMergeInProgress.AddText(BigTGOneLineComment);
                                                     end;
-                                                until RecLSalesCommentLine.Next = 0;
+                                                until RecLSalesCommentLine.Next() = 0;
                                             CduGConnectBufMgtExport.FctConcatBigText(BigTGOneLineComment, BigTGEqualNbLineMainTable);
                                             CodLDocNo := RecLSalesLine."Document No.";
                                         end;
 
                                         RecLSalesLine."PWD WMS_Status" := RecLSalesLine."PWD WMS_Status"::Send;
-                                        RecLSalesLine.Modify;
+                                        RecLSalesLine.Modify();
 
-                                    until RecLSalesLine.Next = 0;
+                                    until RecLSalesLine.Next() = 0;
 
                                 CduGConnectBufMgtExport.FctNbPosition(0);
                             end;
@@ -924,7 +905,7 @@ codeunit 8073296 "PWD Connector WMS Parse Data"
 
                     Clear(BigTGMergeInProgress);
                     BigTGMergeInProgress.AddText(BigTGSecondBloc);
-                until RecGAllConnectorMes.Next = 0;
+                until RecGAllConnectorMes.Next() = 0;
 
             BigTGFinal2.AddText(BigTGSecondBloc);
             if BigTGFinal2.Length <> 0 then
@@ -941,13 +922,6 @@ codeunit 8073296 "PWD Connector WMS Parse Data"
 
 
     procedure FctGetAddressFilePos(RecPConnectorMes: Record "PWD Connector Messages"; var RecPTempBlob: Record TempBlob temporary)
-    var
-        RecLSendingMessage: Record "PWD Connector Messages";
-        RecLItem: Record Item;
-        RecLGeneralLedgerSetup: Record "General Ledger Setup";
-        BigTLToReturn: BigText;
-        TxtLQtyWithoutSpace: Text[250];
-        StrLStreamOut: OutStream;
     begin
     end;
 
@@ -955,11 +929,7 @@ codeunit 8073296 "PWD Connector WMS Parse Data"
     procedure FctGetLogisticUnitsFilePos(RecPConnectorMes: Record "PWD Connector Messages"; var RecPTempBlob: Record TempBlob temporary)
     var
         RecLItem: Record Item;
-        RecLItemForCrossRef: Record Item;
         RecLItemUnitofMeasure: Record "Item Unit of Measure";
-        RecLItemCrossReference: Record "Item Cross Reference";
-        RecLLocation: Record Location;
-        RecLVendor: Record Vendor;
     begin
         //Travail sur la table "PWD Connector Messages" afin de ne générer cette fonction qu'une fois, en prenant pour référence la table 5404
         if RecPConnectorMes."Master Table" then begin
@@ -967,13 +937,13 @@ codeunit 8073296 "PWD Connector WMS Parse Data"
             Clear(BigTGMergeInProgress);
 
             //Sélections de toutes les lignes de la table "PWD Connector Messages" correspondant à la fonction à traiter
-            RecGAllConnectorMes.Reset;
+            RecGAllConnectorMes.Reset();
             RecGAllConnectorMes.SetRange("Partner Code", RecPConnectorMes."Partner Code");
             RecGAllConnectorMes.SetRange("Function", RecPConnectorMes."Function");
             RecGAllConnectorMes.SetRange(Direction, RecPConnectorMes.Direction::Export);
             RecGAllConnectorMes.SetCurrentKey("Master Table");
             RecGAllConnectorMes.Ascending(false);
-            if RecGAllConnectorMes.FindFirst then
+            if RecGAllConnectorMes.FindFirst() then
                 repeat
 
                     //*********************************************************************************
@@ -983,11 +953,11 @@ codeunit 8073296 "PWD Connector WMS Parse Data"
                     case RecGAllConnectorMes."Table ID" of
                         5404:
                             begin
-                                RecLItemUnitofMeasure.Reset;
+                                RecLItemUnitofMeasure.Reset();
                                 RecLItemUnitofMeasure.SetRange("PWD WMS_Item", true);
                                 Clear(BigTGEqualNbLineMainTable);
                                 IntGNbLineMainTable := RecLItemUnitofMeasure.Count;
-                                CduGConnectBufMgtExport.FctCreateBigTextWithPosition(RecLItemUnitofMeasure.GetView,
+                                CduGConnectBufMgtExport.FctCreateBigTextWithPosition(RecLItemUnitofMeasure.GetView(),
                                                                                      RecGAllConnectorMes, BigTGEqualNbLineMainTable);
                             end;
 
@@ -1009,13 +979,13 @@ codeunit 8073296 "PWD Connector WMS Parse Data"
                             begin
                                 Clear(BigTGEqualNbLineMainTable);
                                 //Boucle pour récupérer autant de lignes ds le BigText, de la table 5404, que celles générées pour les articles
-                                if RecLItemUnitofMeasure.FindSet then
+                                if RecLItemUnitofMeasure.FindSet() then
                                     repeat
                                         Clear(BigTGOneLine);
                                         RecLItem.SetRange("No.", RecLItemUnitofMeasure."Item No.");
-                                        CduGConnectBufMgtExport.FctCreateBigTextWithPosition(RecLItem.GetView, RecGAllConnectorMes, BigTGOneLine);
+                                        CduGConnectBufMgtExport.FctCreateBigTextWithPosition(RecLItem.GetView(), RecGAllConnectorMes, BigTGOneLine);
                                         CduGConnectBufMgtExport.FctConcatBigText(BigTGOneLine, BigTGEqualNbLineMainTable);
-                                    until RecLItemUnitofMeasure.Next = 0;
+                                    until RecLItemUnitofMeasure.Next() = 0;
                             end;
                     end;
 
@@ -1031,7 +1001,7 @@ codeunit 8073296 "PWD Connector WMS Parse Data"
                     Clear(BigTGMergeInProgress);
                     BigTGMergeInProgress.AddText(BigTGFinal);
 
-                until RecGAllConnectorMes.Next = 0;
+                until RecGAllConnectorMes.Next() = 0;
 
             //Génération du blog avec le bigText mergé
             if BigTGFinal.Length <> 0 then
@@ -1042,9 +1012,6 @@ codeunit 8073296 "PWD Connector WMS Parse Data"
 
     procedure FctGetKitMgtFilePos(RecPConnectorMes: Record "PWD Connector Messages"; var RecPTempBlob: Record TempBlob temporary)
     var
-        StrLStreamIn: InStream;
-        TxtLReadBlob: Text[250];
-        IntLLengthOfLine: Integer;
         RecLProdBOMLine: Record "Production BOM Line";
         RecLProdBOMHeader: Record "Production BOM Header";
     begin
@@ -1056,13 +1023,13 @@ codeunit 8073296 "PWD Connector WMS Parse Data"
             Clear(BigTGMergeInProgress);
 
             //Sélections de toutes les lignes de la table "PWD Connector Messages" correspondant à la fonction à traiter
-            RecGAllConnectorMes.Reset;
+            RecGAllConnectorMes.Reset();
             RecGAllConnectorMes.SetRange("Partner Code", RecPConnectorMes."Partner Code");
             RecGAllConnectorMes.SetRange("Function", RecPConnectorMes."Function");
             RecGAllConnectorMes.SetRange(Direction, RecPConnectorMes.Direction::Export);
             RecGAllConnectorMes.SetCurrentKey("Master Table");
             RecGAllConnectorMes.Ascending(false);
-            if RecGAllConnectorMes.FindFirst then begin
+            if RecGAllConnectorMes.FindFirst() then begin
                 FctUpdateProdBomLine();
 
                 repeat
@@ -1073,7 +1040,7 @@ codeunit 8073296 "PWD Connector WMS Parse Data"
                     case RecGAllConnectorMes."Table ID" of
                         99000772:
                             begin
-                                RecLProdBOMLine.Reset;
+                                RecLProdBOMLine.Reset();
                                 RecLProdBOMLine.SetRange("PWD WMS_Item", true);
                                 RecLProdBOMLine.SetRange("PWD WMS_Status", RecLProdBOMLine."PWD WMS_Status"::Certified);
                                 //************************************************************
@@ -1081,7 +1048,7 @@ codeunit 8073296 "PWD Connector WMS Parse Data"
                                 //************************************************************
                                 Clear(BigTGEqualNbLineMainTable);
                                 IntGNbLineMainTable := RecLProdBOMLine.Count;
-                                CduGConnectBufMgtExport.FctCreateBigTextWithPosition(RecLProdBOMLine.GetView,
+                                CduGConnectBufMgtExport.FctCreateBigTextWithPosition(RecLProdBOMLine.GetView(),
                                                                                      RecGAllConnectorMes, BigTGEqualNbLineMainTable);
                             end;
 
@@ -1107,14 +1074,14 @@ codeunit 8073296 "PWD Connector WMS Parse Data"
                                 //Ajout control sur type: Kitting de l'entete, pour base FR
                                 //************************************************************
 
-                                if RecLProdBOMLine.FindSet then
+                                if RecLProdBOMLine.FindSet() then
                                     repeat
                                         Clear(BigTGOneLine);
                                         RecLProdBOMHeader.SetRange("No.", RecLProdBOMLine."Production BOM No.");
                                         RecLProdBOMHeader.SetRange("Version Nos.", RecLProdBOMLine."Version Code");
-                                        CduGConnectBufMgtExport.FctCreateBigTextWithPosition(RecLProdBOMHeader.GetView, RecGAllConnectorMes, BigTGOneLine);
+                                        CduGConnectBufMgtExport.FctCreateBigTextWithPosition(RecLProdBOMHeader.GetView(), RecGAllConnectorMes, BigTGOneLine);
                                         CduGConnectBufMgtExport.FctConcatBigText(BigTGOneLine, BigTGEqualNbLineMainTable);
-                                    until RecLProdBOMLine.Next = 0;
+                                    until RecLProdBOMLine.Next() = 0;
                             end;
                     end;
 
@@ -1130,7 +1097,7 @@ codeunit 8073296 "PWD Connector WMS Parse Data"
                     Clear(BigTGMergeInProgress);
                     BigTGMergeInProgress.AddText(BigTGFinal);
 
-                until RecGAllConnectorMes.Next = 0;
+                until RecGAllConnectorMes.Next() = 0;
             end;
 
             //Génération du blog avec le bigText mergé
@@ -1142,9 +1109,6 @@ codeunit 8073296 "PWD Connector WMS Parse Data"
 
     procedure FctCreateCustShipFilePos(RecPConnectorMes: Record "PWD Connector Messages"; var RecPTempBlob: Record TempBlob temporary)
     var
-        StrLStreamIn: InStream;
-        TxtLReadBlob: Text[250];
-        IntLLengthOfLine: Integer;
         RecLCustomer: Record Customer;
         RecLShipToAddress: Record "Ship-to Address";
     begin
@@ -1163,25 +1127,25 @@ codeunit 8073296 "PWD Connector WMS Parse Data"
             //*******************************************************************************************************************************
 
             //Sélections de toutes les lignes de la table "PWD Connector Messages" correspondant à la fonction à traiter
-            RecGAllConnectorMes.Reset;
+            RecGAllConnectorMes.Reset();
             RecGAllConnectorMes.SetRange("Partner Code", RecPConnectorMes."Partner Code");
             RecGAllConnectorMes.SetRange("Function", RecPConnectorMes."Function");
             RecGAllConnectorMes.SetRange(Direction, RecPConnectorMes.Direction::Export);
             RecGAllConnectorMes.SetCurrentKey("Master Table");
             RecGAllConnectorMes.Ascending(false);
-            if RecGAllConnectorMes.FindFirst then
+            if RecGAllConnectorMes.FindFirst() then
                 repeat
                     case RecGAllConnectorMes."Table ID" of
                         18:
                             begin
-                                RecLCustomer.Reset;
+                                RecLCustomer.Reset();
                                 RecLCustomer.SetRange(Blocked, RecLCustomer.Blocked::" ");
                                 //************************************************************
                                 //Ajout control sur type: Kitting de l'entete, pour base FR, en créant un flowfield de type lookup sur les lignes
                                 //************************************************************
                                 Clear(BigTGEqualNbLineMainTable);
                                 IntGNbLineMainTable := RecLCustomer.Count;
-                                CduGConnectBufMgtExport.FctCreateBigTextWithPosition(RecLCustomer.GetView,
+                                CduGConnectBufMgtExport.FctCreateBigTextWithPosition(RecLCustomer.GetView(),
                                                                                      RecGAllConnectorMes, BigTGEqualNbLineMainTable);
                             end;
 
@@ -1212,7 +1176,7 @@ codeunit 8073296 "PWD Connector WMS Parse Data"
                     Clear(BigTGMergeInProgress);
                     BigTGMergeInProgress.AddText(BigTGFinal);
 
-                until RecGAllConnectorMes.Next = 0;
+                until RecGAllConnectorMes.Next() = 0;
 
             //*******************************************************************************************************************************
             //************************Second bloc*******************************************************************************************
@@ -1223,11 +1187,11 @@ codeunit 8073296 "PWD Connector WMS Parse Data"
             Clear(BigTGMergeInProgress);
             Clear(BigTGSecondBloc);
 
-            RecGAllConnectorMes.Reset;
+            RecGAllConnectorMes.Reset();
             RecGAllConnectorMes.SetRange("Partner Code", RecPConnectorMes."Partner Code");
             RecGAllConnectorMes.SetRange("Function", RecPConnectorMes."Function");
             RecGAllConnectorMes.SetRange(Direction, RecPConnectorMes.Direction::Export);
-            if RecGAllConnectorMes.FindFirst then
+            if RecGAllConnectorMes.FindFirst() then
                 repeat
 
                     case RecGAllConnectorMes."Table ID" of
@@ -1239,18 +1203,18 @@ codeunit 8073296 "PWD Connector WMS Parse Data"
                                 IntGNbSecondBloc := 0;
                                 Clear(BigTGEqualNbLineMainTable);
                                 Clear(BigTGSecondBloc);
-                                if RecLCustomer.FindFirst then
+                                if RecLCustomer.FindFirst() then
                                     repeat
                                         Clear(BigTGOneLine);
-                                        RecLShipToAddress.Reset;
+                                        RecLShipToAddress.Reset();
                                         RecLShipToAddress.SetRange("Customer No.", RecLCustomer."No.");
                                         IntGNbSecondBloc += RecLShipToAddress.Count;
-                                        if RecLShipToAddress.FindFirst then begin
-                                            CduGConnectBufMgtExport.FctCreateBigTextWithPosition(RecLShipToAddress.GetView,
+                                        if RecLShipToAddress.FindFirst() then begin
+                                            CduGConnectBufMgtExport.FctCreateBigTextWithPosition(RecLShipToAddress.GetView(),
                                                                                                  RecGAllConnectorMes, BigTGOneLine);
                                             CduGConnectBufMgtExport.FctConcatBigText(BigTGOneLine, BigTGEqualNbLineMainTable);
                                         end;
-                                    until RecLCustomer.Next = 0;
+                                    until RecLCustomer.Next() = 0;
                             end;
 
                         8073288:
@@ -1265,19 +1229,18 @@ codeunit 8073296 "PWD Connector WMS Parse Data"
                             end;
                     end;
 
-                    if BigTGMergeInProgress.Length <> 0 then begin
+                    if BigTGMergeInProgress.Length <> 0 then
                         CduGConnectBufMgtExport.FctMergeBigText(RecGAllConnectorMes."Fill Character",
                                                                 BigTGEqualNbLineMainTable,
                                                                 BigTGMergeInProgress,
                                                                 BigTGSecondBloc)
-                    end
                     else
                         BigTGSecondBloc.AddText(BigTGEqualNbLineMainTable);
 
                     Clear(BigTGMergeInProgress);
                     BigTGMergeInProgress.AddText(BigTGSecondBloc);
 
-                until RecGAllConnectorMes.Next = 0;
+                until RecGAllConnectorMes.Next() = 0;
 
             if BigTGFinal.Length <> 0 then
                 BigTGFinal.AddText(Format(ChrG13) + Format(ChrG10));
@@ -1292,10 +1255,6 @@ codeunit 8073296 "PWD Connector WMS Parse Data"
 
 
     procedure FctImportVendShipFilePos(var RecPConnectorValues: Record "PWD Connector Values")
-    var
-        StrLStreamIn: InStream;
-        TxtLReadBlob: Text[250];
-        IntLLengthOfLine: Integer;
     begin
     end;
 
@@ -1305,15 +1264,15 @@ codeunit 8073296 "PWD Connector WMS Parse Data"
         RecLItemUnitMeas: Record "Item Unit of Measure";
         RecLProdBomLine: Record "Production BOM Line";
     begin
-        RecLProdBomLine.Reset;
-        if RecLProdBomLine.FindSet then
+        RecLProdBomLine.Reset();
+        if RecLProdBomLine.FindSet() then
             repeat
                 if RecLItemUnitMeas.Get(RecLProdBomLine."No.", RecLProdBomLine."Unit of Measure Code") then
                     RecLProdBomLine."PWD WMS_Quantity_Per(Base)" := RecLProdBomLine.Quantity * RecLItemUnitMeas."Qty. per Unit of Measure"
                 else
                     RecLProdBomLine."PWD WMS_Quantity_Per(Base)" := 0;
                 RecLProdBomLine.Modify(false);
-            until RecLProdBomLine.Next = 0;
+            until RecLProdBomLine.Next() = 0;
     end;
 
 
@@ -1321,7 +1280,7 @@ codeunit 8073296 "PWD Connector WMS Parse Data"
     var
         RecLConnectorsActivation: Record "PWD WMS Setup";
     begin
-        if RecLConnectorsActivation.Get then;
+        if RecLConnectorsActivation.Get() then;
         exit(RecLConnectorsActivation.WMS);
     end;
 
@@ -1330,7 +1289,7 @@ codeunit 8073296 "PWD Connector WMS Parse Data"
     begin
         if RecPPurchaseLine."PWD WMS_Status" = RecPPurchaseLine."PWD WMS_Status"::Send then begin
             RecPPurchaseLine."PWD WMS_Status" := RecPPurchaseLine."PWD WMS_Status"::" ";
-            RecPPurchaseLine.Modify;
+            RecPPurchaseLine.Modify();
         end;
     end;
 
@@ -1339,7 +1298,7 @@ codeunit 8073296 "PWD Connector WMS Parse Data"
     begin
         if RecPSalesLine."PWD WMS_Status" = RecPSalesLine."PWD WMS_Status"::Send then begin
             RecPSalesLine."PWD WMS_Status" := RecPSalesLine."PWD WMS_Status"::" ";
-            RecPSalesLine.Modify;
+            RecPSalesLine.Modify();
         end;
     end;
 
@@ -1350,16 +1309,16 @@ codeunit 8073296 "PWD Connector WMS Parse Data"
     begin
         if RecPSalesHeader."PWD WMS_Status" = RecPSalesHeader."PWD WMS_Status"::Send then begin
             RecPSalesHeader."PWD WMS_Status" := RecPSalesHeader."PWD WMS_Status"::" ";
-            RecPSalesHeader.Modify;
+            RecPSalesHeader.Modify();
 
-            RecLSalesLines.Reset;
+            RecLSalesLines.Reset();
             RecLSalesLines.SetRange("Document Type", RecPSalesHeader."Document Type");
             RecLSalesLines.SetRange("Document No.", RecPSalesHeader."No.");
-            if RecLSalesLines.FindSet then
+            if RecLSalesLines.FindSet() then
                 repeat
                     FctChangeSalesOrderLineStatus(RecLSalesLines);
-                    RecLSalesLines.Modify;
-                until RecLSalesLines.Next = 0;
+                    RecLSalesLines.Modify();
+                until RecLSalesLines.Next() = 0;
         end;
     end;
 
@@ -1373,7 +1332,6 @@ codeunit 8073296 "PWD Connector WMS Parse Data"
     var
         RecLWMSReceiptLineBuffer: Record "PWD WMS Receipt Line Buffer";
         DecLQtyError: Decimal;
-        "-OSYS-Int001.001-": Integer;
         RecLReceiptLineBuffer: Record "PWD Receipt Line Buffer";
     begin
         //>>OSYS-Int001.001
@@ -1408,7 +1366,6 @@ codeunit 8073296 "PWD Connector WMS Parse Data"
         RecLReceiptLineBuffer: Record "PWD Receipt Line Buffer";
         RecLWMSReceiptLineBuffer: Record "PWD WMS Receipt Line Buffer";
         RecordRef: RecordRef;
-        ChaLTmp: Char;
         InSLInStream: InStream;
         CduLBinaryFileManagement: Codeunit "PWD Binary File Management";
     begin
@@ -1459,7 +1416,7 @@ codeunit 8073296 "PWD Connector WMS Parse Data"
             RecLReceiptLineBuffer."Expiration Date" := CduLBinaryFileManagement.FctReturnFixData(131, 8);
             RecLReceiptLineBuffer."Serial No." := CduLBinaryFileManagement.FctReturnFixData(149, 20);
             RecLReceiptLineBuffer."Lot No." := CduLBinaryFileManagement.FctReturnFixData(169, 20);
-            RecLReceiptLineBuffer.Modify;
+            RecLReceiptLineBuffer.Modify();
 
             Clear(RecordRef);
             RecordRef.GetTable(RecLReceiptLineBuffer);
@@ -1468,7 +1425,7 @@ codeunit 8073296 "PWD Connector WMS Parse Data"
             RecLWMSReceiptLineBuffer."Qty on receipt error (Base)" := CduLBinaryFileManagement.FctReturnFixData(139, 8);
             RecLWMSReceiptLineBuffer."Reason Code Receipt Error" := CduLBinaryFileManagement.FctReturnFixData(147, 2);
             RecLWMSReceiptLineBuffer."Posting Date" := CduLBinaryFileManagement.FctReturnFixData(32, 12);
-            RecLWMSReceiptLineBuffer.Modify;
+            RecLWMSReceiptLineBuffer.Modify();
         end;
         //<<WMS-FE007_15.001
     end;
@@ -1487,7 +1444,6 @@ codeunit 8073296 "PWD Connector WMS Parse Data"
         RecLReason: Record "Reason Code";
         CstL000: Label 'The field %1 must be "O" or "N" in table %2, EntryNo.: %3';
         RecLWMSetup: Record "PWD WMS Setup";
-        "-OSYS-Int001.001-": Integer;
         RecLItemJounalLineBuffer: Record "PWD Item Jounal Line Buffer";
     begin
         if not FctWMSEnabled() then
@@ -1504,15 +1460,15 @@ codeunit 8073296 "PWD Connector WMS Parse Data"
 
 
             //Règle de gestion spécifique WMS
-            if RecLWMSetup.Get then;
+            if RecLWMSetup.Get() then;
             RecWMSItemJounalLineBuffer.TestField("WMS Company Code", RecLWMSetup."WMS Company Code");
             RecLItem.Get(RecPItemJounalLine."Item No.");
             RecLItem.TestField("PWD WMS_Item");
             RecLLocation.Get(RecPItemJounalLine."Location Code");
             RecLLocation.TestField("PWD WMS_Location");
-            RecLReason.Reset;
+            RecLReason.Reset();
             RecLReason.SetRange("PWD WMS Code", RecWMSItemJounalLineBuffer."WMS Reson Code");
-            RecLReason.FindFirst;
+            RecLReason.FindFirst();
             if (RecPItemJounalLine."Reason Code" <> 'O') and (RecPItemJounalLine."Reason Code" <> 'N') then
                 Error(StrSubstNo(CstL000, RecPItemJounalLine.FieldCaption("Reason Code"),
                                           RecPItemJounalLine.TableCaption, IntPEntryBufferNo));
@@ -1542,8 +1498,6 @@ codeunit 8073296 "PWD Connector WMS Parse Data"
     procedure FctImportInventoryFilePos(var RecPConnectorValues: Record "PWD Connector Values")
     var
         InSLInStream: InStream;
-        TxtLReadBlob: Text[250];
-        IntLLengthOfLine: Integer;
         RecLItemJounalLineBuffer: Record "PWD Item Jounal Line Buffer";
         RecLItemJounalLineBufferWMS: Record "PWD WMS Item Jnl Line Buffer";
         RecLConnectorsActivation: Record "PWD WMS Setup";
@@ -1574,7 +1528,7 @@ codeunit 8073296 "PWD Connector WMS Parse Data"
         //        17  :  N° SERIE                       (158,20)                                                    //
         //**********************************************************************************************************//
 
-        RecLConnectorsActivation.Get;
+        RecLConnectorsActivation.Get();
         RecPConnectorValues.CalcFields(Blob);
         RecPConnectorValues.Blob.CreateInStream(InSLInStream);
         while (InSLInStream.ReadText(TxtLLine) > 0) do begin
@@ -1598,7 +1552,7 @@ codeunit 8073296 "PWD Connector WMS Parse Data"
             if RecLItemJounalLineBuffer."Reason Code" = 'N' then
                 RecLItemJounalLineBuffer."Entry Type" := RecLItemJounalLineBuffer."Entry Type"::"Negative Adjmt.";
 
-            RecLItemJounalLineBuffer.Modify;
+            RecLItemJounalLineBuffer.Modify();
 
             Clear(RecordRef);
 
@@ -1607,17 +1561,13 @@ codeunit 8073296 "PWD Connector WMS Parse Data"
             //Placer les champs spécifiques WMS
             BigLText.GetSubText(RecLItemJounalLineBufferWMS."WMS Reson Code", 116, 2);
             BigLText.GetSubText(RecLItemJounalLineBufferWMS."WMS Company Code", 11, 2);
-            RecLItemJounalLineBufferWMS.Modify;
+            RecLItemJounalLineBufferWMS.Modify();
         end;
         //<<WMS-FE007_15.001
     end;
 
 
     procedure FctImportInventoryWithSep(var RecPConnectorValues: Record "PWD Connector Values")
-    var
-        StrLStreamIn: InStream;
-        TxtLReadBlob: Text[250];
-        IntLLengthOfLine: Integer;
     begin
         //A définir
     end;
@@ -1637,8 +1587,6 @@ codeunit 8073296 "PWD Connector WMS Parse Data"
     procedure FctUpdateShipmentLine(var RecPSalesLine: Record "Sales Line"; var IntPEntryBufferNo: Integer)
     var
         RecLWMSShipmentLineBuffer: Record "PWD WMS Sales Line Buffer";
-        DecLQtyError: Decimal;
-        "-OSYS-Int001.001-": Integer;
         RecLSalesLineBuffer: Record "PWD Sales Line Buffer";
     begin
         //>>OSYS-Int001.001
@@ -1664,11 +1612,8 @@ codeunit 8073296 "PWD Connector WMS Parse Data"
         RecLShipmentLineBuffer: Record "PWD Sales Line Buffer";
         RecLWMSShipmentLineBuffer: Record "PWD WMS Sales Line Buffer";
         RecordRef: RecordRef;
-        ChaLTmp: Char;
         InSLInStream: InStream;
         CduLBinaryFileManagement: Codeunit "PWD Binary File Management";
-        BigLText: BigText;
-        TxtLLine: Text[1024];
     begin
         //**********************************************************************************************************//
         //                                         Create sales line.                                               //
@@ -1715,13 +1660,13 @@ codeunit 8073296 "PWD Connector WMS Parse Data"
             RecLShipmentLineBuffer."Qty. to Ship (Base)" := CduLBinaryFileManagement.FctReturnFixData(146, 6);
             RecLShipmentLineBuffer."Serial No." := CduLBinaryFileManagement.FctReturnFixData(165, 20);
             RecLShipmentLineBuffer."Lot No." := CduLBinaryFileManagement.FctReturnFixData(101, 20);
-            RecLShipmentLineBuffer.Modify;
+            RecLShipmentLineBuffer.Modify();
 
             Clear(RecordRef);
             RecordRef.GetTable(RecLShipmentLineBuffer);
             RecLWMSShipmentLineBuffer.Get(CduGBufferManagement.FctDuplicateBuffer(DATABASE::"PWD WMS Sales Line Buffer", RecordRef));
             //Placer les champs spécifiques WMS
-            RecLWMSShipmentLineBuffer.Modify;
+            RecLWMSShipmentLineBuffer.Modify();
         end;
     end;
 
@@ -1740,27 +1685,12 @@ codeunit 8073296 "PWD Connector WMS Parse Data"
 
 
     procedure FctImportShipmentLineXML(var RecPConnectorValues: Record "PWD Connector Values")
-    var
-        InSLInStream: InStream;
-        TxtLReadBlob: Text[250];
-        IntLLengthOfLine: Integer;
-        RecLItemJounalLineBuffer: Record "PWD Item Jounal Line Buffer";
-        RecLItemJounalLineBufferWMS: Record "PWD WMS Item Jnl Line Buffer";
-        RecLConnectorsActivation: Record "PWD WMS Setup";
-        RecordRef: RecordRef;
-        RecLConnectorVal: Record "PWD Connector Values";
-        BigLText: BigText;
-        TxtLLine: Text[1024];
     begin
         //A définir
     end;
 
 
     procedure FctImportShipmentLineWithSep(var RecPConnectorValues: Record "PWD Connector Values")
-    var
-        StrLStreamIn: InStream;
-        TxtLReadBlob: Text[250];
-        IntLLengthOfLine: Integer;
     begin
         //A définir
     end;
@@ -1775,7 +1705,7 @@ codeunit 8073296 "PWD Connector WMS Parse Data"
     var
         RecLWMSSetup: Record "PWD WMS Setup";
     begin
-        RecLWMSSetup.Get;
+        RecLWMSSetup.Get();
         RecLWMSSetup.TestField(RecLWMSSetup."Partner Code");
         exit((RecLWMSSetup."Partner Code" = CodPPartner) and FctWMSEnabled());
     end;

@@ -98,9 +98,9 @@ tableextension 60037 "PWD ProdOrderLine" extends "Prod. Order Line"
         RecLDeleteProdOrderLine: Record "PWD Deleted Prod. Order Line";
     BEGIN
         FctIsRecreateOrderLine();
-        RecLDeleteProdOrderLine.INIT;
+        RecLDeleteProdOrderLine.INIT();
         RecLDeleteProdOrderLine.TRANSFERFIELDS(Rec);
-        RecLDeleteProdOrderLine.INSERT;
+        RecLDeleteProdOrderLine.INSERT();
     END;
 
     PROCEDURE FctIsRecreateOrderLine()
@@ -112,8 +112,6 @@ tableextension 60037 "PWD ProdOrderLine" extends "Prod. Order Line"
     END;
 
     PROCEDURE ItemChange(newItem: Record Item; oldItem: Record Item);
-    VAR
-        ProdOrderLine: Record "Prod. Order Line";
     BEGIN
         //TODO: champ ItemColor n'existe pas 
         // IF newItem."PWD PlannerOneColor" <> oldItem."PWD PlannerOneColor" THEN BEGIN
@@ -144,7 +142,7 @@ tableextension 60037 "PWD ProdOrderLine" extends "Prod. Order Line"
             REPEAT
                 RecLItem.GET(RecLProdOrderComponent."Item No.");
                 BooLPhantomFind := RecLItem."PWD Phantom Item";
-            UNTIL (RecLProdOrderComponent.NEXT = 0) OR BooLPhantomFind;
+            UNTIL (RecLProdOrderComponent.NEXT() = 0) OR BooLPhantomFind;
 
         IF BooLPhantomFind THEN
             EXIT('F')
@@ -156,7 +154,7 @@ tableextension 60037 "PWD ProdOrderLine" extends "Prod. Order Line"
     BEGIN
         IF (Status = Status::Released) AND ("Send to OSYS (Released)") THEN BEGIN
             "Send to OSYS (Released)" := FALSE;
-            MODIFY;
+            MODIFY();
         END;
     END;
 
@@ -166,21 +164,19 @@ tableextension 60037 "PWD ProdOrderLine" extends "Prod. Order Line"
         RecLProdOrderCompo: Record "Prod. Order Component";
     BEGIN
         BooLIsNotAvailable := FALSE;
-        RecLProdOrderCompo.RESET;
+        RecLProdOrderCompo.RESET();
         RecLProdOrderCompo.SETRANGE(Status, Status);
         RecLProdOrderCompo.SETRANGE("Prod. Order No.", "Prod. Order No.");
         RecLProdOrderCompo.SETRANGE("Prod. Order Line No.", "Line No.");
         RecLProdOrderCompo.SETFILTER("Remaining Quantity", '<>%1', 0);
-        IF RecLProdOrderCompo.FINDFIRST THEN
+        IF RecLProdOrderCompo.FINDFIRST() THEN
             REPEAT
-                BooLIsNotAvailable := RecLProdOrderCompo.CheckComponentAvailabilty;
-            UNTIL (BooLIsNotAvailable) OR (RecLProdOrderCompo.NEXT = 0);
+                BooLIsNotAvailable := RecLProdOrderCompo.CheckComponentAvailabilty();
+            UNTIL (BooLIsNotAvailable) OR (RecLProdOrderCompo.NEXT() = 0);
         EXIT(BooLIsNotAvailable);
     END;
 
     PROCEDURE FctUpdateDelay()
-    VAR
-        DaFLDateF: DateTime;
     BEGIN
         //TODO: le champ "Prod. Ending Date-Time" n'existe pas
         // IF ("Prod. Ending Date-Time" <> DaFLDateF) AND ("Ending Date-Time" <> DaFLDateF) THEN

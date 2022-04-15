@@ -86,7 +86,7 @@ xmlport 50001 "PWD Import STOCK"
                     CduGBufferManagement.FctNewBufferLine2(RefLRecordRef, RecGConnectorValues, 0);
                     RefLRecordRef.SetTable("PWD Item Jounal Line Buffer");
 
-                    RecLConnectorsActivation.Get;
+                    RecLConnectorsActivation.Get();
 
                     "PWD Item Jounal Line Buffer"."Auto-Post Document" := RecGConnectorMessages."Auto-Post Document";
                     "PWD Item Jounal Line Buffer"."Entry Type" := "PWD Item Jounal Line Buffer"."Entry Type"::Output;
@@ -106,7 +106,7 @@ xmlport 50001 "PWD Import STOCK"
                 begin
 
 
-                    RecLConnectorsActivation.Get;
+                    RecLConnectorsActivation.Get();
 
                     if ECRITURE = 'Transfert' then begin
                         "PWD Item Jounal Line Buffer"."Journal Batch Name" := RecLConnectorsActivation."Journal Batch Name Stock TRF";
@@ -147,13 +147,8 @@ xmlport 50001 "PWD Import STOCK"
     var
         RecGConnectorValues: Record "PWD Connector Values";
         CduGBufferManagement: Codeunit "Buffer Management";
-        CduGProductionJrnlMgt: Codeunit "Production Journal Mgt";
         RecGOSYSSetup: Record "PWD OSYS Setup";
-        RecGProdOrder: Record "Production Order";
         RecGConnectorMessages: Record "PWD Connector Messages";
-        RecGOSYSItemJnlLineBuffer: Record "OSYS Item Jounal Line Buffer";
-        IntGPos: Integer;
-        IntGLineNo: Integer;
 
 
     procedure FctInitXmlPort(RecPConnectorValues: Record "PWD Connector Values")

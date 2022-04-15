@@ -264,16 +264,6 @@ table 50012 "Tracking Specification Phantom"
     {
     }
 
-    var
-        Text000: Label 'You cannot invoice more than %1 units.';
-        Text001: Label 'You cannot handle more than %1 units.';
-        Text002: Label 'must not be less than %1';
-        Text003: Label '%1 must be -1, 0 or 1 when %2 is stated.';
-        Text004: Label 'Expiration date has been established by existing entries and cannot be changed.';
-        WMSManagement: Codeunit "WMS Management";
-        Text005: Label '%1 in %2 for %3 %4, %5: %6, %7: %8 is currently %9. It must be %10.';
-        SkipSerialNoQtyValidation: Boolean;
-
     procedure InitQtyToShip()
     begin
     end;
@@ -295,10 +285,6 @@ table 50012 "Tracking Specification Phantom"
     end;
 
     procedure InitExpirationDate()
-    var
-        ItemTrackingMgt: Codeunit "Item Tracking Management";
-        ExpDate: Date;
-        EntriesExist: Boolean;
     begin
     end;
 

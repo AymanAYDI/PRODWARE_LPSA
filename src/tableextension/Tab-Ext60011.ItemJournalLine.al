@@ -67,7 +67,7 @@ tableextension 60011 "PWD ItemJournalLine" extends "Item Journal Line"
             ELSE
                 EXIT('')
         ELSE
-            IF ManufacturingSetup.GET THEN BEGIN
+            IF ManufacturingSetup.GET() THEN BEGIN
                 ManufacturingSetup.TESTFIELD("Non conformity Prod. Location");
                 EXIT(ManufacturingSetup."Non conformity Prod. Location");
             end ELSE

@@ -118,7 +118,7 @@ report 50014 "PWD Invoice"
                     column(SalesPurchPerson_Name; SalesPurchPerson.Name)
                     {
                     }
-                    column(FORMAT__Sales_Header___Document_Date__0_4_; Format(WorkDate, 0, 4))
+                    column(FORMAT__Sales_Header___Document_Date__0_4_; Format(WorkDate(), 0, 4))
                     {
                     }
                     column(OutputNo; OutputNo)
@@ -194,7 +194,7 @@ report 50014 "PWD Invoice"
                         }
                         column(Sales_Invoice_Line__Unit_Price_; "Unit Price")
                         {
-                            AutoFormatExpression = "Sales Invoice Line".GetCurrencyCode;
+                            AutoFormatExpression = "Sales Invoice Line".GetCurrencyCode();
                             AutoFormatType = 2;
                         }
                         column(Sales_Invoice_Line__Line_Discount___; "Line Discount %")
@@ -202,7 +202,7 @@ report 50014 "PWD Invoice"
                         }
                         column(Sales_Invoice_Line__Line_Amount__Control70; "Line Amount")
                         {
-                            AutoFormatExpression = "Sales Invoice Line".GetCurrencyCode;
+                            AutoFormatExpression = "Sales Invoice Line".GetCurrencyCode();
                             AutoFormatType = 1;
                         }
                         column(Sales_Invoice_Line__VAT_Identifier_; "VAT Identifier")
@@ -261,7 +261,7 @@ report 50014 "PWD Invoice"
                         }
                         column(Inv__Discount_Amount_; -"Inv. Discount Amount")
                         {
-                            AutoFormatExpression = "Sales Invoice Line".GetCurrencyCode;
+                            AutoFormatExpression = "Sales Invoice Line".GetCurrencyCode();
                             AutoFormatType = 1;
                         }
                         column(Sales_Invoice_Line__Line_Amount__Control99; "Line Amount")
@@ -281,17 +281,17 @@ report 50014 "PWD Invoice"
                         }
                         column(Sales_Invoice_Line_Amount_Control90; Amount)
                         {
-                            AutoFormatExpression = "Sales Invoice Line".GetCurrencyCode;
+                            AutoFormatExpression = "Sales Invoice Line".GetCurrencyCode();
                             AutoFormatType = 1;
                         }
                         column(Amount_Including_VAT____Amount; "Amount Including VAT" - Amount)
                         {
-                            AutoFormatExpression = "Sales Invoice Line".GetCurrencyCode;
+                            AutoFormatExpression = "Sales Invoice Line".GetCurrencyCode();
                             AutoFormatType = 1;
                         }
                         column(Sales_Invoice_Line__Amount_Including_VAT_; "Amount Including VAT")
                         {
-                            AutoFormatExpression = "Sales Invoice Line".GetCurrencyCode;
+                            AutoFormatExpression = "Sales Invoice Line".GetCurrencyCode();
                             AutoFormatType = 1;
                         }
                         column(VATAmountLine_VATAmountText; StrSubstNo(CstG012, VATAmountLine."VAT %") + '%')
@@ -422,7 +422,7 @@ report 50014 "PWD Invoice"
                             //>>TI302984
                             if "Sales Invoice Line".Type <> "Sales Invoice Line".Type::" " then begin
                                 //<<TI302984
-                                VATAmountLine.Init;
+                                VATAmountLine.Init();
                                 VATAmountLine."VAT Identifier" := "VAT Identifier";
                                 VATAmountLine."VAT Calculation Type" := "VAT Calculation Type";
                                 VATAmountLine."Tax Group Code" := "Tax Group Code";
@@ -433,7 +433,7 @@ report 50014 "PWD Invoice"
                                 if "Allow Invoice Disc." then
                                     VATAmountLine."Inv. Disc. Base Amount" := "Line Amount";
                                 VATAmountLine."Invoice Discount Amount" := "Inv. Discount Amount";
-                                VATAmountLine.InsertLine;
+                                VATAmountLine.InsertLine();
                                 //>>TI302984
                             end;
                             //<<TI302984
@@ -476,15 +476,15 @@ report 50014 "PWD Invoice"
 
                         trigger OnPreDataItem()
                         begin
-                            VATAmountLine.DeleteAll;
-                            SalesShipmentBuffer.Reset;
-                            SalesShipmentBuffer.DeleteAll;
+                            VATAmountLine.DeleteAll();
+                            SalesShipmentBuffer.Reset();
+                            SalesShipmentBuffer.DeleteAll();
                             FirstValueEntryNo := 0;
                             MoreLines := Find('+');
                             while MoreLines and (Description = '') and ("No." = '') and (Quantity = 0) and (Amount = 0) do
                                 MoreLines := Next(-1) <> 0;
                             if not MoreLines then
-                                CurrReport.Break;
+                                CurrReport.Break();
                             SetRange("Line No.", 0, "Line No.");
                             CurrReport.CreateTotals("Line Amount", Amount, "Amount Including VAT", "Inv. Discount Amount", VATAmountLine."VAT Base");
 
@@ -526,8 +526,8 @@ report 50014 "PWD Invoice"
 
                         trigger OnPreDataItem()
                         begin
-                            if VATAmountLine.GetTotalVATAmount = 0 then
-                                CurrReport.Break;
+                            if VATAmountLine.GetTotalVATAmount() = 0 then
+                                CurrReport.Break();
                             SetRange(Number, 1, VATAmountLine.Count);
                             CurrReport.CreateTotals(
                               VATAmountLine."Line Amount", VATAmountLine."Inv. Disc. Base Amount",
@@ -603,9 +603,8 @@ report 50014 "PWD Invoice"
                     FormatAddr.RespCenter(CompanyAddr, RespCenter);
                     CompanyInfo."Phone No." := RespCenter."Phone No.";
                     CompanyInfo."Fax No." := RespCenter."Fax No.";
-                end else begin
+                end else
                     FormatAddr.Company(CompanyAddr, CompanyInfo);
-                end;
 
                 PostedDocDim1.SetRange("Table ID", DATABASE::"Sales Invoice Header");
                 PostedDocDim1.SetRange("Document No.", "Sales Invoice Header"."No.");
@@ -615,7 +614,7 @@ report 50014 "PWD Invoice"
                 else
                     OrderNoText := FieldCaption("Order No.");
                 if "Salesperson Code" = '' then begin
-                    SalesPurchPerson.Init;
+                    SalesPurchPerson.Init();
                     SalesPersonText := '';
                 end else begin
                     SalesPurchPerson.Get("Salesperson Code");
@@ -649,7 +648,7 @@ report 50014 "PWD Invoice"
                     Clear(Cust);
 
                 if "Payment Terms Code" = '' then
-                    PaymentTerms.Init
+                    PaymentTerms.Init()
                 else begin
                     PaymentTerms.Get("Payment Terms Code");
                     PaymentTerms.TranslateDescription(PaymentTerms, "Language Code");
@@ -657,7 +656,7 @@ report 50014 "PWD Invoice"
                 end;
 
                 if "Shipment Method Code" = '' then
-                    ShipmentMethod.Init
+                    ShipmentMethod.Init()
                 else begin
                     ShipmentMethod.Get("Shipment Method Code");
                     ShipmentMethod.TranslateDescription(ShipmentMethod, "Language Code");
@@ -669,7 +668,7 @@ report 50014 "PWD Invoice"
                         ShowShippingAddr := true;
 
                 if LogInteraction then
-                    if not CurrReport.Preview then begin
+                    if not CurrReport.Preview then
                         if "Bill-to Contact No." <> '' then
                             SegManagement.LogDocument(
                               4, "No.", 0, 0, DATABASE::Contact, "Bill-to Contact No.", "Salesperson Code",
@@ -678,7 +677,6 @@ report 50014 "PWD Invoice"
                             SegManagement.LogDocument(
                               4, "No.", 0, 0, DATABASE::Customer, "Bill-to Customer No.", "Salesperson Code",
                               "Campaign No.", "Posting Description", '');
-                    end;
             end;
         }
     }
@@ -724,25 +722,24 @@ report 50014 "PWD Invoice"
 
     trigger OnInitReport()
     begin
-        GLSetup.Get;
-        CompanyInfo.Get;
-        SalesSetup.Get;
+        GLSetup.Get();
+        CompanyInfo.Get();
+        SalesSetup.Get();
 
         case SalesSetup."Logo Position on Documents" of
             SalesSetup."Logo Position on Documents"::"No Logo":
                 ;
             SalesSetup."Logo Position on Documents"::Left:
-                begin
-                    CompanyInfo.CalcFields(Picture);
-                end;
+
+                CompanyInfo.CalcFields(Picture);
             SalesSetup."Logo Position on Documents"::Center:
                 begin
-                    CompanyInfo1.Get;
+                    CompanyInfo1.Get();
                     CompanyInfo1.CalcFields(Picture);
                 end;
             SalesSetup."Logo Position on Documents"::Right:
                 begin
-                    CompanyInfo2.Get;
+                    CompanyInfo2.Get();
                     CompanyInfo2.CalcFields(Picture);
                 end;
         end;
@@ -758,7 +755,7 @@ report 50014 "PWD Invoice"
     begin
         //>>NDBI
         if not BooGSkipSendEmail and BooGEnvoiMail then begin
-            RecLSalesInvoiceHeader.SetView("Sales Invoice Header".GetView);
+            RecLSalesInvoiceHeader.SetView("Sales Invoice Header".GetView());
             SendPDFMail(RecLSalesInvoiceHeader);
         end;
         //<<NDBI
@@ -768,8 +765,6 @@ report 50014 "PWD Invoice"
         Text000: Label 'Your contact : ';
         Text001: Label 'Total %1';
         Text003: Label 'COPY';
-        Text004: Label 'Sales - Invoice %1';
-        Text005: Label 'Page %1';
         Text006: Label 'Total %1 Excl. VAT';
         GLSetup: Record "General Ledger Setup";
         ShipmentMethod: Record "Shipment Method";
@@ -782,10 +777,8 @@ report 50014 "PWD Invoice"
         Cust: Record Customer;
         VATAmountLine: Record "VAT Amount Line" temporary;
         PostedDocDim1: Record "Posted Document Dimension";
-        PostedDocDim2: Record "Posted Document Dimension";
         RespCenter: Record "Responsibility Center";
         Language: Record Language;
-        CurrExchRate: Record "Currency Exchange Rate";
         SalesInvCountPrinted: Codeunit "Sales Inv.-Printed";
         FormatAddr: Codeunit "Format Address";
         SegManagement: Codeunit SegManagement;
@@ -807,22 +800,9 @@ report 50014 "PWD Invoice"
         CopyText: Text[30];
         ShowShippingAddr: Boolean;
         i: Integer;
-        NextEntryNo: Integer;
         FirstValueEntryNo: Integer;
-        DimText: Text[120];
-        OldDimText: Text[75];
         ShowInternalInfo: Boolean;
-        Continue: Boolean;
         LogInteraction: Boolean;
-        VALVATBaseLCY: Decimal;
-        VALVATAmountLCY: Decimal;
-        VALSpecLCYHeader: Text[80];
-        Text007: Label 'VAT Amount Specification in ';
-        Text008: Label 'Local Currency';
-        VALExchRate: Text[50];
-        Text009: Label 'Exchange rate: %1/%2';
-        CalculatedExchRate: Decimal;
-        Text010: Label 'Sales - Prepayment Invoice %1';
         OutputNo: Integer;
         TotalSubTotal: Decimal;
         TotalAmount: Decimal;
@@ -831,11 +811,6 @@ report 50014 "PWD Invoice"
         TotalInvoiceDiscountAmount: Decimal;
         TotalPaymentDiscountOnVAT: Decimal;
         Item: Record Item;
-        Text10800: Label 'ShipmentNo';
-        NoShipmentNumLoop: Integer;
-        NoShipmentDatas: array[3] of Text[20];
-        NoShipmentText: Text[30];
-        IncludeShptNo: Boolean;
         GetTotalLineAmount: Decimal;
         GetTotalInvDiscAmount: Decimal;
         GetTotalAmount: Decimal;
@@ -859,18 +834,12 @@ report 50014 "PWD Invoice"
         Text017: Label 'VAT';
         Text018: Label 'of';
         TxTGLabelCondPay: Text[250];
-        CstG011: Label '%1% VAT for %2';
         AfficherligneComptegeneral: Boolean;
         CstG012: Label '%1 VAT';
-        CstG013ex: Label 'Lauteur de la présente déclaration dorigine a pris connaissance du fait que lindication inexacte de lorigine selon les art. 9 ss. OOr et les art. 2 ss. OOr-DFE entraîne des mesures de droit administratif et des poursuites pénales. Suffisamment ouvré en Suisse selon laccord de libre-échange Suisse-CE.';
         TxtGCustPlanNo_C: Text[100];
         CstG013: Label 'Origine non préférentielle: Les marchandises auxquelles se rapporte le présent document commercial sont originaires de Suisse selon les dispositions des articles 9 à 16 de l''ordonnance du 9 avril 2008 sur l''attestation de l''origine non préférentielle des marchandises (OOr) et de l''ordonnance du DEFR du 9 avril 2008 sur l''attestation de l''origine non préférentielle des marchandises (OOr-DEFR).La marchandise a été produite par notre entreprise.L''auteur de la présente déclaration d''origine a pris connaissance du fait que l''indication inexacte de l''origine selon les art. 9 ss OOr et les art. 2 ss OOr-DEFR entraîne des mesures de droit administratif et des poursuites pénales.';
         CstG014: Label 'Origine préférentielle: Nous attestons par la présente que les marchandises susmentionnées, sont originaires de Suisse et satisfont aux règles d''origine régissant les échanges préférentiels avec CE, AELE, SACU, AL, CA CL, CO EG, FO, HR, HK, IL, JO, JP, KR, LB, ME, MK, MA, MX, PE, RS, SG, TN, TR, UA, CN, CR, PA, GCC. Peut être complétée, selon les cas avec :Aucun cumul appliqué (no cumulation applied) / " PSR " : fabriqué en Suisse ou en Chine en utilisant des matières non originaires et remplissant les " Products Specific Rules " et autres conditions du chapitre 3 de l''accord de libre-échange avec la Chine (suffisamment ouvré).';
-        "-TI397445-": Integer;
-        TxtGTexte13: Text[500];
-        TxtGTexte14: Text[500];
         IntGImpText: Integer;
-        "---- NDBI ----": Integer;
         BooGEnvoiMail: Boolean;
         BooGSkipSendEmail: Boolean;
         Facture_captionLbl: Label 'Invoice';
@@ -900,16 +869,14 @@ report 50014 "PWD Invoice"
     begin
         Clear(TempItemLedgEntry);
         ValueEntryRelation.SetCurrentKey("Source RowId");
-        ValueEntryRelation.SetRange("Source RowId", "Sales Invoice Line".RowID1);
-        if ValueEntryRelation.Find('-') then begin
-
+        ValueEntryRelation.SetRange("Source RowId", "Sales Invoice Line".RowID1());
+        if ValueEntryRelation.Find('-') then
             repeat
                 ValueEntry.Get(ValueEntryRelation."Value Entry No.");
                 ItemLedgEntry.Get(ValueEntry."Item Ledger Entry No.");
                 TempItemLedgEntry := ItemLedgEntry;
                 TempItemLedgEntry.Quantity := ValueEntry."Invoiced Quantity";
-            until ValueEntryRelation.Next = 0;
-        end;
+            until ValueEntryRelation.Next() = 0;
     end;
 
 
@@ -921,7 +888,7 @@ report 50014 "PWD Invoice"
         ItemCrossRef.SetRange("Unit of Measure", "Sales Invoice Line"."Unit of Measure Code");
         ItemCrossRef.SetRange("Cross-Reference Type", ItemCrossRef."Cross-Reference Type"::Customer);
         ItemCrossRef.SetRange("Cross-Reference Type No.", "Sales Invoice Header"."Sell-to Customer No.");
-        if ItemCrossRef.FindFirst then begin
+        if ItemCrossRef.FindFirst() then begin
             CrossReferenceNo := ItemCrossRef."Cross-Reference No.";
             //>>TDL.LPSA.09022015
             TxtGCustPlanNo_C := ItemCrossRef."Customer Plan No.";
@@ -950,9 +917,6 @@ report 50014 "PWD Invoice"
 
     procedure SendPDFMail(var RecPSalesInvoiceHeader: Record "Sales Invoice Header")
     var
-        RecLContBusRel: Record "Contact Business Relation";
-        RecLContact: Record Contact;
-        RecLCustomer: Record Customer;
         CstL001: Label 'LA PIERRETTE SA : Sales Invoice %1';
         CstL002: Label 'Next the invoice following your order %1';
         Recipient: Text[80];
@@ -971,7 +935,7 @@ report 50014 "PWD Invoice"
         Clear(Recipient);
         Clear(CodLMail);
 
-        RecPSalesInvoiceHeader.FindFirst;
+        RecPSalesInvoiceHeader.FindFirst();
 
         // pas besoin d'avoir l'adresse destinataire rempli mais ça va peut être évoluer.
         /*

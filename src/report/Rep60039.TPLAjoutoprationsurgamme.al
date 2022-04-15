@@ -16,7 +16,7 @@ report 60039 "TPL Ajout opération sur gamme"
     {
         dataitem(Item; Item)
         {
-            DataItemTableView = SORTING ("No.");
+            DataItemTableView = SORTING("No.");
             RequestFilterFields = "No.", Description;
 
             trigger OnAfterGetRecord()
@@ -41,7 +41,7 @@ report 60039 "TPL Ajout opération sur gamme"
                 if CodGActiveVersionCode = '' then begin
                     RecGRoutingHeader.SetRange("No.", "Routing No.");
                     RecGRoutingHeader.SetFilter(Status, '<>%1', RecGRoutingHeader.Status::Closed);
-                    if RecGRoutingHeader.FindFirst then begin
+                    if RecGRoutingHeader.FindFirst() then begin
                         if (RecGRoutingHeader.Status <> RecGRoutingHeader.Status::"Under Development") then begin
                             OptLOldStatus := RecGRoutingHeader.Status;
                             RecGRoutingHeader.Validate(Status, RecGRoutingHeader.Status::"Under Development");
@@ -54,7 +54,7 @@ report 60039 "TPL Ajout opération sur gamme"
                     RecGRoutingVersion.SetRange("Routing No.", "Routing No.");
                     RecGRoutingVersion.SetRange("Version Code", CodGActiveVersionCode);
                     RecGRoutingVersion.SetFilter(Status, '<>%1', RecGRoutingVersion.Status::"Under Development");
-                    if RecGRoutingVersion.FindFirst then begin
+                    if RecGRoutingVersion.FindFirst() then begin
                         if (RecGRoutingVersion.Status <> RecGRoutingVersion.Status::"Under Development") then begin
                             OptLOldStatus := RecGRoutingVersion.Status;
                             RecGRoutingVersion.Validate(Status, RecGRoutingVersion.Status::"Under Development");
@@ -70,19 +70,18 @@ report 60039 "TPL Ajout opération sur gamme"
                     RecLRoutingLine.SetRange("Version Code", CodGActiveVersionCode);
                     RecLRoutingLine.SetRange("No.", CodGBetweenOP);
                     if not RecLRoutingLine.IsEmpty then begin
-                        RecLRoutingLine.FindFirst;
+                        RecLRoutingLine.FindFirst();
                         RecLNextRoutingLine.Get(RecLRoutingLine."Routing No.", RecLRoutingLine."Version Code", RecLRoutingLine."Next Operation No.");
                         if RecLNextRoutingLine."No." <> CodGNewOP then begin
 
                             Evaluate(IntGOperation, RecLRoutingLine."Operation No.");
                             Evaluate(IntGNextOperation, RecLRoutingLine."Next Operation No.");
                             CodGNewOperation := Format(IntGOperation + (IntGNextOperation - IntGOperation) div 2);
-                            if StrLen(CodGNewOperation) < 5 then begin
+                            if StrLen(CodGNewOperation) < 5 then
                                 for i := 1 to (5 - StrLen(CodGNewOperation)) do
                                     CodGNewOperation := '0' + CodGNewOperation;
-                            end;
 
-                            RecLNewRoutingLine.Init;
+                            RecLNewRoutingLine.Init();
                             RecLNewRoutingLine.Validate("Routing No.", RecLRoutingLine."Routing No.");
                             RecLNewRoutingLine.Validate("Version Code", RecLRoutingLine."Version Code");
                             RecLNewRoutingLine."Operation No." := CodGNewOperation;
@@ -90,7 +89,7 @@ report 60039 "TPL Ajout opération sur gamme"
                             RecLNewRoutingLine."Previous Operation No." := RecLRoutingLine."Operation No.";
                             RecLNewRoutingLine.Validate(Type, RecLNewRoutingLine.Type::"Machine Center");
                             RecLNewRoutingLine.Validate("No.", CodGNewOP);
-                            RecLNewRoutingLine.Insert;
+                            RecLNewRoutingLine.Insert();
                         end;
                     end;
 
@@ -106,7 +105,7 @@ report 60039 "TPL Ajout opération sur gamme"
 
             trigger OnPostDataItem()
             begin
-                BDialog.Close;
+                BDialog.Close();
                 Message('Mise à jour terminée.');
             end;
 
@@ -144,7 +143,6 @@ report 60039 "TPL Ajout opération sur gamme"
     var
         BDialog: Dialog;
         IntGCounter: Integer;
-        IntGCounter2: Integer;
         IntGOperation: Integer;
         IntGNextOperation: Integer;
         CodGNewOperation: Code[10];
@@ -154,7 +152,6 @@ report 60039 "TPL Ajout opération sur gamme"
         RecGRoutingHeader: Record "Routing Header";
         RecGRoutingVersion: Record "Routing Version";
         BooGVersion: Boolean;
-        CodLRoutingNo: Code[20];
         CodGNewOP: Code[20];
         CodGBetweenOP: Code[20];
 }

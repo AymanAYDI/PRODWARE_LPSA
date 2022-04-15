@@ -40,26 +40,23 @@ report 50038 "PWD Inventory Valuation Excel"
                     CostOfInvDecreases := 0;
                     InvDecreases := 0;
 
-                    IsPositive := GetSign;
-                    if "Item Ledger Entry Quantity" <> 0 then begin
+                    IsPositive := GetSign();
+                    if "Item Ledger Entry Quantity" <> 0 then
                         if "Posting Date" < StartDate then
                             QtyOnHand := "Item Ledger Entry Quantity"
-                        else begin
+                        else
                             if IsPositive then
                                 RcdIncreases := "Item Ledger Entry Quantity"
                             else
                                 ShipDecreases := -"Item Ledger Entry Quantity";
-                        end;
-                    end;
 
                     if "Posting Date" < StartDate then
                         SetAmount(ValueOfQtyOnHand, ValueOfInvoicedQty, InvoicedQty, 1)
-                    else begin
+                    else
                         if IsPositive then
                             SetAmount(ValueOfRcdIncreases, ValueOfInvIncreases, InvIncreases, 1)
                         else
                             SetAmount(CostOfShipDecreases, CostOfInvDecreases, InvDecreases, -1);
-                    end;
 
                     ValueOfQtyOnHand := ValueOfQtyOnHand + ValueOfInvoicedQty;
                     ValueOfRcdIncreases := ValueOfRcdIncreases + ValueOfInvIncreases;
@@ -96,8 +93,8 @@ report 50038 "PWD Inventory Valuation Excel"
                 trigger OnPostDataItem()
                 begin
                     //>>LAP2.12
-                    if BooGExportExcel and ("Value Entry".Count <> 0) then begin
-                        if ShowExpected and InvAndShipDiffers then begin
+                    if BooGExportExcel and ("Value Entry".Count <> 0) then
+                        if ShowExpected and InvAndShipDiffers() then begin
                             IntGLineNo += 1;
                             IntGColNo := 1;
 
@@ -163,7 +160,6 @@ report 50038 "PWD Inventory Valuation Excel"
                             IntGColNo += 1;
 
                         end;
-                    end;
                     //<<LAP2.12
                 end;
 
@@ -225,7 +221,7 @@ report 50038 "PWD Inventory Valuation Excel"
             begin
                 //>>LAP2.12
                 if BooGExportExcel then begin
-                    Bdialog.Close;
+                    Bdialog.Close();
                     ExcelBuf.CreateBook;
                     ExcelBuf.CreateSheet(CstG006, CstG006, CompanyName, UserId);
                     ExcelBuf.GiveUserControl;
@@ -302,7 +298,7 @@ report 50038 "PWD Inventory Valuation Excel"
         trigger OnOpenPage()
         begin
             if (StartDate = 0D) and (EndDate = 0D) then
-                EndDate := WorkDate;
+                EndDate := WorkDate();
         end;
     }
 
@@ -318,7 +314,7 @@ report 50038 "PWD Inventory Valuation Excel"
     trigger OnPreReport()
     begin
         if (StartDate = 0D) and (EndDate = 0D) then
-            EndDate := WorkDate;
+            EndDate := WorkDate();
 
         if StartDate in [0D, 00000101D] then
             StartDateText := ''
@@ -411,12 +407,11 @@ report 50038 "PWD Inventory Valuation Excel"
               "Item Ledger Entry Type"::Output:
                     exit(true);
                 "Item Ledger Entry Type"::Transfer:
-                    begin
-                        if "Valued Quantity" < 0 then
-                            exit(false)
-                        else
-                            exit(GetOutboundItemEntry("Item Ledger Entry No."));
-                    end;
+
+                    if "Valued Quantity" < 0 then
+                        exit(false)
+                    else
+                        exit(GetOutboundItemEntry("Item Ledger Entry No."));
                 else
                     exit(false)
             end;
@@ -448,7 +443,7 @@ report 50038 "PWD Inventory Valuation Excel"
         ItemLedgEntry.SetFilter("Global Dimension 1 Code", Item.GetFilter("Global Dimension 1 Filter"));
         ItemLedgEntry.SetFilter("Global Dimension 2 Code", Item.GetFilter("Global Dimension 2 Filter"));
         ItemLedgEntry."Entry No." := ItemApplnEntry."Outbound Item Entry No.";
-        exit(not ItemLedgEntry.Find);
+        exit(not ItemLedgEntry.Find());
     end;
 
 
@@ -470,7 +465,7 @@ report 50038 "PWD Inventory Valuation Excel"
 
     local procedure EnterCell(RowNo: Integer; ColumnNo: Integer; CellValue: Text[250]; Bold: Boolean; UnderLine: Boolean; NumberFormat: Text[30])
     begin
-        ExcelBuf.Init;
+        ExcelBuf.Init();
         ExcelBuf.Validate("Row No.", RowNo);
         ExcelBuf.Validate("Column No.", ColumnNo);
         ExcelBuf."Cell Value as Text" := CellValue;
@@ -478,7 +473,7 @@ report 50038 "PWD Inventory Valuation Excel"
         ExcelBuf.Bold := Bold;
         ExcelBuf.Underline := UnderLine;
         ExcelBuf.NumberFormat := NumberFormat;
-        ExcelBuf.Insert;
+        ExcelBuf.Insert();
     end;
 
 

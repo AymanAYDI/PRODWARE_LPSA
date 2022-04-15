@@ -31,12 +31,11 @@ codeunit 8073286 "PWD File Export"
     var
         RecLSendingMessage: Record "PWD Connector Messages";
         CduLConnectorErrorlog: Codeunit "PWD Connector Error log";
-        CduLFileMessagesExport: Codeunit "PWD File Messages Export";
         RecLConnectiorValues: Record "PWD Connector Values";
         IntLPostion: Integer;
         TxtLPameter: Text[250];
     begin
-        RecLSendingMessage.Reset;
+        RecLSendingMessage.Reset();
         RecLSendingMessage.SetRange("Partner Code", Code);
         RecLSendingMessage.SetRange(Blocked, false);
 
@@ -56,10 +55,10 @@ codeunit 8073286 "PWD File Export"
         //<<OSYS-Int001.001
 
         if not RecLSendingMessage.IsEmpty then begin
-            RecLSendingMessage.FindSet;
+            RecLSendingMessage.FindSet();
             repeat
-                ClearLastError;
-                Commit;
+                ClearLastError();
+                Commit();
                 //<<WMS-FE10.001
                 FctInitConnectorBuffer(RecLConnectiorValues, RecLSendingMessage);
                 //OLD : IF NOT CduLFileMessagesExport.RUN(RecLSendingMessage) THEN
@@ -75,11 +74,11 @@ codeunit 8073286 "PWD File Export"
                     RecLSendingMessage."Export DateTime" := CurrentDateTime;
                     //<<FE_LAPRIERRETTE_GP0004.001
 
-                    RecLSendingMessage.Modify;
+                    RecLSendingMessage.Modify();
                 end;
             //<<WMS-FE10.001
 
-            until RecLSendingMessage.Next = 0;
+            until RecLSendingMessage.Next() = 0;
         end;
     end;
 
@@ -88,7 +87,7 @@ codeunit 8073286 "PWD File Export"
 
     procedure FctInitConnectorBuffer(var RecPConnectiorValues: Record "PWD Connector Values"; RecPSendingMessage: Record "PWD Connector Messages")
     begin
-        RecPConnectiorValues.Init;
+        RecPConnectiorValues.Init();
         RecPConnectiorValues."Partner Code" := RecPSendingMessage."Partner Code";
         RecPConnectiorValues."Function" := RecPSendingMessage."Function";
         RecPConnectiorValues.Direction := RecPSendingMessage.Direction;

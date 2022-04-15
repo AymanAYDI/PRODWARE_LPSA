@@ -19,7 +19,7 @@ report 50080 "PWD UPDATE NICOLAS"
                 RecLRoutingLine.SetRange("Routing No.", 'TT_OPE_PIE');
                 RecLRoutingLine.SetRange(Type, Type);
                 RecLRoutingLine.SetRange("No.", "No.");
-                if RecLRoutingLine.FindFirst then begin
+                if RecLRoutingLine.FindFirst() then begin
                     if ("Move Time" <> RecLRoutingLine."Move Time") then
                         //    VALIDATE("Move Time",RecLRoutingLine."Move Time");
                         "Move Time" := RecLRoutingLine."Move Time";
@@ -96,9 +96,9 @@ report 50080 "PWD UPDATE NICOLAS"
                             RecLRoutingLines.SetRange("Routing No.", CodGRoutingHeader);
                             PagLRoutingLines.SetTableView(RecLRoutingLines);
                             PagLRoutingLines.LookupMode(true);
-                            if not (PagLRoutingLines.RunModal = ACTION::LookupOK) then begin
-                                exit(false);
-                            end else begin
+                            if not (PagLRoutingLines.RunModal = ACTION::LookupOK) then
+                                exit(false)
+                            else begin
                                 Text := PagLRoutingLines.GetSelectionFilter;
                                 exit(true);
                             end;
@@ -234,9 +234,6 @@ report 50080 "PWD UPDATE NICOLAS"
     end;
 
     var
-        Stat: Option New,Certified,"Under Development",Closed;
-        RecGRoutingHeader: Record "Routing Header";
-        TxtG001: Label 'Warning, you are about to update all routings and production orders related to %1 %2 and operation no. %3.';
         TxtG002: Label 'Updated finished.';
         BooG_Setup_Time_Unit: Boolean;
         BooG_Run_Time_Unit: Boolean;

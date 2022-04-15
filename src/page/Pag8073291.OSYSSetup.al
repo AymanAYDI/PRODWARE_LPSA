@@ -125,13 +125,11 @@ page 8073291 "PWD OSYS Setup"
     }
 
     trigger OnOpenPage()
-    var
-        RecLInventorySetup: Record "Inventory Setup";
     begin
-        RESET;
-        IF NOT GET THEN BEGIN
-            INIT;
-            INSERT;
+        RESET();
+        IF NOT GET() THEN BEGIN
+            INIT();
+            INSERT();
         END;
     end;
 }

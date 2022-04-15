@@ -277,10 +277,10 @@ report 50022 "PWD Tracking Card"
                     if ("Prod. Order Routing Line".Type = "Prod. Order Routing Line".Type::"Machine Center") and
                        RecGMachineCenter.Get("Prod. Order Routing Line"."No.") and
                        RecGMachineCenter."To Exclure In Tracking Card" then
-                        CurrReport.Skip;
+                        CurrReport.Skip();
 
                     if ("Prod. Order Routing Line".Type = "Prod. Order Routing Line".Type::"Work Center") then
-                        CurrReport.Skip;
+                        CurrReport.Skip();
 
                     TxtGID := "Prod. Order No." + Format("Routing Reference No.") + "Operation No.";
 
@@ -295,8 +295,8 @@ report 50022 "PWD Tracking Card"
             var
                 RecLLocation: Record Location;
             begin
-                if not RecGItem.Get("Production Order"."Source No.") then RecGItem.Init;
-                if "Production Order"."Source Type" <> "Production Order"."Source Type"::Item then RecGItem.Init;
+                if not RecGItem.Get("Production Order"."Source No.") then RecGItem.Init();
+                if "Production Order"."Source Type" <> "Production Order"."Source Type"::Item then RecGItem.Init();
             end;
         }
     }
@@ -319,7 +319,7 @@ report 50022 "PWD Tracking Card"
 
     trigger OnPreReport()
     begin
-        RecGCompanyInformation.Get;
+        RecGCompanyInformation.Get();
         RecGCompanyInformation.CalcFields(Picture);
     end;
 

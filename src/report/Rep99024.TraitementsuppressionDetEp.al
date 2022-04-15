@@ -12,7 +12,7 @@ report 99024 "Traitement suppression D et Ep"
             begin
                 "PWD Item Configurator".D := 0;
                 "PWD Item Configurator".Ep := 0;
-                Modify;
+                Modify();
             end;
         }
     }

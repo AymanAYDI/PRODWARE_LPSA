@@ -123,40 +123,7 @@ table 8073291 "PWD Deleted Prod. Order Line"
     }
 
     trigger OnDelete()
-    var
-        ItemLedgEntry: Record "Item Ledger Entry";
-        CapLedgEntry: Record "Capacity Ledger Entry";
     begin
     end;
-
-    var
-        Text000: Label 'A %1 %2 cannot be inserted, modified, or deleted.';
-        Text99000000: Label 'You cannot delete %1 %2 because there exists at least one %3 associated with it.';
-        Text99000001: Label 'You cannot rename a %1.';
-        Text99000002: Label 'You cannot change %1 when %2 is %3.';
-        Text99000003: Label 'Change %1 from %2 to %3?';
-        Item: Record Item;
-        SKU: Record "Stockkeeping Unit";
-        ItemVariant: Record "Item Variant";
-        ReservEntry: Record "Reservation Entry";
-        ProdBOMHeader: Record "Production BOM Header";
-        ProdBOMVersion: Record "Production BOM Version";
-        RtngHeader: Record "Routing Header";
-        RtngVersion: Record "Routing Version";
-        ProdOrder: Record "Production Order";
-        ProdOrderLine: Record "Prod. Order Line";
-        ProdOrderComp: Record "Prod. Order Component";
-        ProdOrderRtngLine: Record "Prod. Order Routing Line";
-        GLSetup: Record "General Ledger Setup";
-        Location: Record Location;
-        ReservEngineMgt: Codeunit "Reservation Engine Mgt.";
-        ReserveProdOrderLine: Codeunit "Prod. Order Line-Reserve";
-        WhseValidateSourceLine: Codeunit "Whse. Validate Source Line";
-        UOMMgt: Codeunit "Unit of Measure Management";
-        VersionMgt: Codeunit VersionManagement;
-        CalcProdOrder: Codeunit "Calculate Prod. Order";
-        DimMgt: Codeunit DimensionManagement;
-        Blocked: Boolean;
-        GLSetupRead: Boolean;
 }
 

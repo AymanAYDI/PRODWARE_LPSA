@@ -333,14 +333,14 @@ table 50098 "PWD Prod. Order Line BKP"
         }
         field(5831; "Cost Amount (ACY)"; Decimal)
         {
-            AutoFormatExpression = GetCurrencyCode;
+            AutoFormatExpression = GetCurrencyCode();
             AutoFormatType = 1;
             Caption = 'Cost Amount (ACY)';
             Editable = false;
         }
         field(5832; "Unit Cost (ACY)"; Decimal)
         {
-            AutoFormatExpression = GetCurrencyCode;
+            AutoFormatExpression = GetCurrencyCode();
             AutoFormatType = 1;
             Caption = 'Unit Cost (ACY)';
             Editable = false;
@@ -480,45 +480,10 @@ table 50098 "PWD Prod. Order Line BKP"
     }
 
     trigger OnDelete()
-    var
-        ItemLedgEntry: Record "Item Ledger Entry";
-        CapLedgEntry: Record "Capacity Ledger Entry";
     begin
     end;
 
-    var
-        Text000: Label 'A %1 %2 cannot be inserted, modified, or deleted.';
-        Text99000000: Label 'You cannot delete %1 %2 because there exists at least one %3 associated with it.';
-        Text99000001: Label 'You cannot rename a %1.';
-        Text99000002: Label 'You cannot change %1 when %2 is %3.';
-        Text99000003: Label 'Change %1 from %2 to %3?';
-        Item: Record Item;
-        SKU: Record "Stockkeeping Unit";
-        ItemVariant: Record "Item Variant";
-        ReservEntry: Record "Reservation Entry";
-        ProdBOMHeader: Record "Production BOM Header";
-        ProdBOMVersion: Record "Production BOM Version";
-        RtngHeader: Record "Routing Header";
-        RtngVersion: Record "Routing Version";
-        ProdOrder: Record "Production Order";
-        ProdOrderLine: Record "Prod. Order Line";
-        ProdOrderComp: Record "Prod. Order Component";
-        ProdOrderRtngLine: Record "Prod. Order Routing Line";
-        GLSetup: Record "General Ledger Setup";
-        Location: Record Location;
-        ReservEngineMgt: Codeunit "Reservation Engine Mgt.";
-        ReserveProdOrderLine: Codeunit "Prod. Order Line-Reserve";
-        WhseValidateSourceLine: Codeunit "Whse. Validate Source Line";
-        UOMMgt: Codeunit "Unit of Measure Management";
-        VersionMgt: Codeunit VersionManagement;
-        CalcProdOrder: Codeunit "Calculate Prod. Order";
-        DimMgt: Codeunit DimensionManagement;
-        Blocked: Boolean;
-        GLSetupRead: Boolean;
-
     procedure DeleteRelations()
-    var
-        WhseOutputProdRelease: Codeunit "Whse.-Output Prod. Release";
     begin
     end;
 
@@ -539,8 +504,6 @@ table 50098 "PWD Prod. Order Line BKP"
 
 
     procedure CheckEndingDate(ShowWarning: Boolean)
-    var
-        CheckDateConflict: Codeunit "Reservation-Check Date Confl.";
     begin
     end;
 
@@ -551,9 +514,6 @@ table 50098 "PWD Prod. Order Line BKP"
 
 
     procedure CreateDim(Type1: Integer; No1: Code[20])
-    var
-        TableID: array[10] of Integer;
-        No: array[10] of Code[20];
     begin
     end;
 
@@ -619,16 +579,11 @@ table 50098 "PWD Prod. Order Line BKP"
     end;
 
     local procedure GetDefaultBin()
-    var
-        WMSManagement: Codeunit "WMS Management";
     begin
     end;
 
 
     procedure IsCompletelyInvoiced(): Boolean
-    var
-        ItemLedgEntry: Record "Item Ledger Entry";
-        CapLedgEntry: Record "Capacity Ledger Entry";
     begin
     end;
 
@@ -659,8 +614,6 @@ table 50098 "PWD Prod. Order Line BKP"
 
 
     procedure ItemChange(newItem: Record Item; oldItem: Record Item)
-    var
-        ProdOrderLine: Record "Prod. Order Line";
     begin
     end;
 
@@ -671,10 +624,6 @@ table 50098 "PWD Prod. Order Line BKP"
 
 
     procedure ExistPhantomItem(): Text[1]
-    var
-        RecLProdOrderComponent: Record "Prod. Order Component";
-        RecLItem: Record Item;
-        BooLPhantomFind: Boolean;
     begin
     end;
 

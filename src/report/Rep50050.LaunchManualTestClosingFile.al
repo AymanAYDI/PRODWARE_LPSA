@@ -31,7 +31,7 @@ report 50050 "Launch Manual TestClosing File"
 
             trigger OnPreDataItem()
             begin
-                RecGInventorySetup.Get;
+                RecGInventorySetup.Get();
                 RecGInventorySetup.TestField("Closing Export DateFormula");
                 RecGInventorySetup.TestField("Period for Inventory Cover");
                 RecGInventorySetup.TestField("Path for Closing Export");
@@ -88,7 +88,7 @@ report 50050 "Launch Manual TestClosing File"
 
         trigger OnInit()
         begin
-            DatGReferenceDate := WorkDate;
+            DatGReferenceDate := WorkDate();
         end;
     }
 

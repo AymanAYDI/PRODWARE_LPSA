@@ -64,7 +64,7 @@ tableextension 60038 "PWD ProdOrderComponent" extends "Prod. Order Component"
 
                 ProdOrderComp.SETRANGE("Item No.", "Item No.");
                 ProdOrderComp.SETRANGE("PWD Lot Determining", (NOT "PWD Lot Determining"));
-                IF ProdOrderComp.FIND('-') THEN BEGIN
+                IF ProdOrderComp.FIND('-') THEN
                     IF CONFIRM(CstG002, TRUE, ProdOrderComp.FIELDCAPTION("PWD Lot Determining"), "PWD Lot Determining") THEN
                         //Begin#803/01:A3046/2.10  18.11.04 ASTON.WW
                         //ProdOrderComp.MODIFYALL("Lot Determining", "Lot Determining",
@@ -76,7 +76,6 @@ tableextension 60038 "PWD ProdOrderComponent" extends "Prod. Order Component"
 
                     ELSE
                         ERROR('');
-                END;
 
             end;
         }
@@ -98,13 +97,11 @@ tableextension 60038 "PWD ProdOrderComponent" extends "Prod. Order Component"
         TempReservEntry: Record "Reservation Entry" temporary;
         RecLTrackingSpec: Record "Tracking Specification" temporary;
         RecLTrackingSpecPhantom: Record "Tracking Specification Phantom";
-        IntLLastEntryNo: Integer;
         CurrentSignFactor: Decimal;
         ItemTrackingDataCollection: Codeunit "Item Tracking Data Collection";
         ChangeType: Option Insert,Modify,FullDelete,PartDelete,ModifyAll;
         QtyToAddAsBlank: Decimal;
         Item: Record Item;
-        SourceSpecification: Record "Tracking Specification";
         ReservEngineMgt: Codeunit "Reservation Engine Mgt.";
         ReserveProdOrderComp: Codeunit "Prod. Order Comp.-Reserve";
     begin
@@ -119,7 +116,7 @@ tableextension 60038 "PWD ProdOrderComponent" extends "Prod. Order Component"
         RecLTrackingSpecPhantom.SETRANGE("Source ID", "Prod. Order No.");
         RecLTrackingSpecPhantom.SETRANGE("Source Prod. Order Line", "Prod. Order Line No.");
         RecLTrackingSpecPhantom.SETRANGE("Source Ref. No.", "Line No.");
-        IF RecLTrackingSpecPhantom.FINDFIRST THEN BEGIN
+        IF RecLTrackingSpecPhantom.FINDFIRST() THEN BEGIN
             ReservEntry.SETCURRENTKEY(
               "Source ID", "Source Ref. No.", "Source Type", "Source Subtype",
               "Source Batch Name", "Source Prod. Order Line", "Reservation Status");
@@ -136,26 +133,26 @@ tableextension 60038 "PWD ProdOrderComponent" extends "Prod. Order Component"
             TempReservEntry.COPYFILTERS(ReservEntry);
 
             REPEAT
-                RecLTrackingSpec.INIT;
+                RecLTrackingSpec.INIT();
                 RecLTrackingSpec.TRANSFERFIELDS(RecLTrackingSpecPhantom);
-                RecLTrackingSpec.INSERT;
+                RecLTrackingSpec.INSERT();
                 ItemTrackingDataCollection.UpdateTrackingDataSetWithChange(
                      RecLTrackingSpec, CurrentSignFactor * "Remaining Quantity" < 0, CurrentSignFactor, 0);
-            UNTIL RecLTrackingSpecPhantom.NEXT = 0;
+            UNTIL RecLTrackingSpecPhantom.NEXT() = 0;
 
-            IF RecLTrackingSpec.FINDFIRST THEN
+            IF RecLTrackingSpec.FINDFIRST() THEN
                 REPEAT
                     RegisterChange(RecLTrackingSpec, RecLTrackingSpec, ChangeType::Insert, FALSE, CurrentSignFactor, TempReservEntry, QtyToAddAsBlank);
 
-                UNTIL RecLTrackingSpec.NEXT = 0;
+                UNTIL RecLTrackingSpec.NEXT() = 0;
 
-            TempReservEntry.RESET;
+            TempReservEntry.RESET();
             ReservEngineMgt.UpdateOrderTracking(TempReservEntry);
 
         END;
 
         //ItemTrackingForm.RegisterItemTrackingLines2(SourceSpecification,"Due Date",RecLTrackingSpec);
-        RecLTrackingSpecPhantom.DELETEALL;
+        RecLTrackingSpecPhantom.DELETEALL();
 
         ReserveProdOrderComp.VerifyQuantityPhantom(Rec, xRec);
     end;
@@ -163,15 +160,9 @@ tableextension 60038 "PWD ProdOrderComponent" extends "Prod. Order Component"
     local procedure RegisterChange(var OldTrackingSpecification: Record "Tracking Specification"; var NewTrackingSpecification: Record "Tracking Specification"; ChangeType: Option Insert,Modify,FullDelete,PartDelete,ModifyAll; ModifySharedFields: Boolean; CurrentSignFactor: Decimal; var TempReservEntry: Record "Reservation Entry"; QtyToAddAsBlank: Decimal) OK: Boolean
     var
         ReservEntry1: Record "Reservation Entry";
-        ReservEntry2: Record "Reservation Entry";
         CreateReservEntry: Codeunit "Create Reserv. Entry";
-        ReservationMgt: Codeunit "Reservation Management";
         AvailabilityDate: Date;
-        QtyToAdd: Decimal;
         LostReservQty: Decimal;
-        IdenticalArray: array[2] of Boolean;
-        IsPick: Boolean;
-        ItemTrackingCode: Record "Item Tracking Code";
         TempItemTrackLineReserv: Record "Tracking Specification" temporary;
         CurrentEntryStatus: Option Reservation,Tracking,Surplus,Prospect;
         ReservEngineMgt: Codeunit "Reservation Engine Mgt.";
@@ -209,7 +200,7 @@ tableextension 60038 "PWD ProdOrderComponent" extends "Prod. Order Component"
                     IF ReservEngineMgt.RetrieveLostReservQty(LostReservQty) THEN BEGIN
                         TempItemTrackLineReserv := NewTrackingSpecification;
                         TempItemTrackLineReserv."Quantity (Base)" := LostReservQty * CurrentSignFactor;
-                        TempItemTrackLineReserv.INSERT;
+                        TempItemTrackLineReserv.INSERT();
                     END;
 
                     IF OldTrackingSpecification."Quantity (Base)" = 0 THEN
@@ -263,7 +254,6 @@ tableextension 60038 "PWD ProdOrderComponent" extends "Prod. Order Component"
     local procedure SetQtyToHandleAndInvoice(TrackingSpecification: Record "Tracking Specification"; CurrentSignFactor: Decimal; IsCorrection: Boolean) OK: Boolean
     var
         ReservEntry1: Record "Reservation Entry";
-        ReservationMgt: Codeunit "Reservation Management";
         TotalQtyToHandle: Decimal;
         TotalQtyToInvoice: Decimal;
         QtyAlreadyHandledToInvoice: Decimal;
@@ -313,12 +303,12 @@ tableextension 60038 "PWD ProdOrderComponent" extends "Prod. Order Component"
 
                         IF TrackingSpecification."Qty. to Invoice (Base)" <> QtyToInvoiceThisLine THEN BEGIN
                             TrackingSpecification."Qty. to Invoice (Base)" := QtyToInvoiceThisLine;
-                            TrackingSpecification.MODIFY;
+                            TrackingSpecification.MODIFY();
                         END;
 
                         TotalQtyToInvoice -= QtyToInvoiceThisLine;
                     END;
-                UNTIL (TrackingSpecification.NEXT = 0);
+                UNTIL (TrackingSpecification.NEXT() = 0);
 
             OK := ((TotalQtyToHandle = 0) AND (TotalQtyToInvoice = 0));
         END;
@@ -343,13 +333,13 @@ tableextension 60038 "PWD ProdOrderComponent" extends "Prod. Order Component"
                         THEN BEGIN
                             ReservEntry1."Qty. to Handle (Base)" := QtyToHandleThisLine;
                             ReservEntry1."Qty. to Invoice (Base)" := QtyToInvoiceThisLine;
-                            ReservEntry1.MODIFY;
+                            ReservEntry1.MODIFY();
                         END;
 
                         TotalQtyToHandle -= QtyToHandleThisLine;
                         TotalQtyToInvoice -= QtyToInvoiceThisLine;
 
-                    UNTIL (ReservEntry1.NEXT = 0);
+                    UNTIL (ReservEntry1.NEXT() = 0);
             END;
 
             OK := ((TotalQtyToHandle = 0) AND (TotalQtyToInvoice = 0));
@@ -360,7 +350,7 @@ tableextension 60038 "PWD ProdOrderComponent" extends "Prod. Order Component"
                 THEN BEGIN
                     ReservEntry1."Qty. to Handle (Base)" := TotalQtyToHandle;
                     ReservEntry1."Qty. to Invoice (Base)" := TotalQtyToInvoice;
-                    ReservEntry1.MODIFY;
+                    ReservEntry1.MODIFY();
                 END;
         //<<FE_LAPRIERRETTE_GP0003 : APA 16/05/2013
     end;
@@ -526,12 +516,12 @@ tableextension 60038 "PWD ProdOrderComponent" extends "Prod. Order Component"
         //>>LAP.TDL.09/10/2014 :
         ProdOrderLine.COPY(ProdOrderLineFields);
 
-        IF ProdOrderLine.FINDSET THEN
+        IF ProdOrderLine.FINDSET() THEN
             REPEAT
                 ProdOrderLine.CALCFIELDS("Reserved Qty. (Base)");
                 RemainingQtyBase += ProdOrderLine."Remaining Qty. (Base)";
                 ReservedQtyBase += ProdOrderLine."Reserved Qty. (Base)";
-            UNTIL ProdOrderLine.NEXT = 0;
+            UNTIL ProdOrderLine.NEXT() = 0;
 
         ProdOrderLineFields."Remaining Qty. (Base)" := RemainingQtyBase;
         ProdOrderLineFields."Reserved Qty. (Base)" := ReservedQtyBase;
@@ -546,12 +536,12 @@ tableextension 60038 "PWD ProdOrderComponent" extends "Prod. Order Component"
         //>>LAP.TDL.09/10/2014 :
         ProdOrderComp.COPY(ProdOrderCompFields);
 
-        IF ProdOrderComp.FINDSET THEN
+        IF ProdOrderComp.FINDSET() THEN
             REPEAT
                 ProdOrderComp.CALCFIELDS("Reserved Qty. (Base)");
                 RemainingQtyBase += ProdOrderComp."Remaining Qty. (Base)";
                 ReservedQtyBase += ProdOrderComp."Reserved Qty. (Base)";
-            UNTIL ProdOrderComp.NEXT = 0;
+            UNTIL ProdOrderComp.NEXT() = 0;
 
         ProdOrderCompFields."Remaining Qty. (Base)" := RemainingQtyBase;
         ProdOrderCompFields."Reserved Qty. (Base)" := ReservedQtyBase;
@@ -570,8 +560,8 @@ tableextension 60038 "PWD ProdOrderComponent" extends "Prod. Order Component"
                 ReservEntry1."New Serial No." := TrackingSpecification."New Serial No.";
                 ReservEntry1."New Lot No." := TrackingSpecification."New Lot No.";
                 ReservEntry1."New Expiration Date" := TrackingSpecification."New Expiration Date";
-                ReservEntry1.MODIFY;
-            UNTIL ReservEntry1.NEXT = 0;
+                ReservEntry1.MODIFY();
+            UNTIL ReservEntry1.NEXT() = 0;
 
         //<<FE_LAPRIERRETTE_GP0003 : APA 16/05/2013
     END;
@@ -579,7 +569,6 @@ tableextension 60038 "PWD ProdOrderComponent" extends "Prod. Order Component"
     var
         CstG001: Label '%1: Component %2 is already set to %3.';
         CstG002: Label '%1: Component %2 is already set to %3.';
-        gcuLotInheritanceMgt: Codeunit "PWD Lot Inheritance Mgt.PW";
         ReservEntry: Record "Reservation Entry";
         Item: Record Item;
 }

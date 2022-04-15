@@ -19,7 +19,7 @@ report 60003 "PWD Invoice ACI Purch. Orders"
                 BooGInvoiced := false;
 
                 //S'il existe des lignes non facture, on maj la qté à factruer et on facture
-                PurchLine.Reset;
+                PurchLine.Reset();
                 PurchLine.SetRange("Document Type", "Document Type");
                 PurchLine.SetRange("Document No.", "No.");
                 PurchLine.SetFilter("Qty. Rcd. Not Invoiced", '<>0');
@@ -27,23 +27,22 @@ report 60003 "PWD Invoice ACI Purch. Orders"
                     BooGInvoiced := true;
                     repeat
                         PurchLine.Validate("Qty. to Invoice", PurchLine."Qty. Rcd. Not Invoiced");
-                        PurchLine.Modify;
-                    until PurchLine.Next = 0;
+                        PurchLine.Modify();
+                    until PurchLine.Next() = 0;
                 end;
 
                 if BooGInvoiced then begin
                     ArchiveManagement.ArchPurchDocumentNoConfirm("Purchase Header");
                     "Purchase Header"."Vendor Invoice No." := 'Sold. ' + "No.";
-                    "Purchase Header".Modify;
-                    Commit;
+                    "Purchase Header".Modify();
+                    Commit();
                     CounterTotal += 1;
 
                     "Purchase Header".Invoice := true;
                     Clear(PurchPost);
                     PurchPost.SetPostingDate(false, false, "Purchase Header"."Posting Date");
-                    if PurchPost.Run("Purchase Header") then begin
+                    if PurchPost.Run("Purchase Header") then
                         CounterOK := CounterOK + 1;
-                    end;
                 end;
             end;
 
@@ -89,7 +88,6 @@ report 60003 "PWD Invoice ACI Purch. Orders"
 
     var
         Text000: Label 'Processing purch. orders #1##########';
-        PurchSetup: Record "Purchases & Payables Setup";
         PurchLine: Record "Purchase Line";
         PurchCalcDisc: Codeunit "Purch.-Calc.Discount";
         PurchPost: Codeunit "Purch.-Post";
@@ -97,28 +95,20 @@ report 60003 "PWD Invoice ACI Purch. Orders"
         Window: Dialog;
         DateGDateFilter: Date;
         BooGInvoiced: Boolean;
-        DecGUnitPrice: Decimal;
-        DecGDiscLine: Decimal;
-        ReplacePostingDate: Boolean;
-        ReplaceDocumentDate: Boolean;
-        PostingDateReq: Date;
         CounterTotal: Integer;
         CounterOK: Integer;
-        CalcInvDisc: Boolean;
-        Text001: Label 'Posting orders  #1########## @2@@@@@@@@@@@@@';
         Text002: Label '%1 orders out of a total of %2 have now been posted.';
-        Text003: Label 'The exchange rate associated with the new posting date on the purchase header will not apply to the purchase lines.';
 
 
     procedure CalculateInvoiceDiscount()
     begin
-        PurchLine.Reset;
+        PurchLine.Reset();
         PurchLine.SetRange("Document Type", "Purchase Header"."Document Type");
         PurchLine.SetRange("Document No.", "Purchase Header"."No.");
         if PurchLine.Find('-') then
             if PurchCalcDisc.Run(PurchLine) then begin
                 "Purchase Header".Get("Purchase Header"."Document Type", "Purchase Header"."No.");
-                Commit;
+                Commit();
             end;
     end;
 }

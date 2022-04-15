@@ -131,7 +131,7 @@ xmlport 8073322 "PWD Import Prod OSYS"
                     CduGBufferManagement.FctNewBufferLine2(RefLRecordRef, RecGConnectorValues, 0);
                     RefLRecordRef.SetTable("PWD Item Jounal Line Buffer");
 
-                    RecLConnectorsActivation.Get;
+                    RecLConnectorsActivation.Get();
                     Clear(CodLItemNo);
 
 
@@ -157,7 +157,7 @@ xmlport 8073322 "PWD Import Prod OSYS"
                     "PWD Item Jounal Line Buffer"."Entry Type" := "PWD Item Jounal Line Buffer"."Entry Type"::Output;
                     "PWD Item Jounal Line Buffer".Action := "PWD Item Jounal Line Buffer".Action::Insert;
                     "PWD Item Jounal Line Buffer".Type := "PWD Item Jounal Line Buffer".Type::"Machine Center";
-                    RecGProdOrder.Reset;
+                    RecGProdOrder.Reset();
 
                     //RecGOSYSItemJnlLineBuffer.INIT;
                     //RecGOSYSItemJnlLineBuffer."Entry No." := "PWD Item Jounal Line Buffer"."Entry No.";
@@ -184,7 +184,7 @@ xmlport 8073322 "PWD Import Prod OSYS"
                             RecLProdOrderRoutingLine.SetRange("Routing No.", RecLProdOrderLine."Routing No.");
                             RecLProdOrderRoutingLine.SetRange("Operation No.", "PWD Item Jounal Line Buffer"."Operation No.");
                             if not RecLProdOrderRoutingLine.IsEmpty then begin
-                                RecLProdOrderRoutingLine.FindFirst;
+                                RecLProdOrderRoutingLine.FindFirst();
                                 if RecLMachine.Get(RecLProdOrderRoutingLine."No.") then
                                     "PWD Item Jounal Line Buffer"."No." := RecLMachine."No.";
                             end;
@@ -196,7 +196,7 @@ xmlport 8073322 "PWD Import Prod OSYS"
                     //<<FE_LAPRIERRETTE_GP0004.001
 
                     //>>FE_LAPRIERRETTE_GP0004.002
-                    RecLConnectorsActivation.Get;
+                    RecLConnectorsActivation.Get();
                     if ("PWD Item Jounal Line Buffer"."Item No." <> '') then
                         CodLItemNo := CopyStr("PWD Item Jounal Line Buffer"."Item No.", 1, 20);
 
@@ -235,13 +235,10 @@ xmlport 8073322 "PWD Import Prod OSYS"
     var
         RecGConnectorValues: Record "PWD Connector Values";
         CduGBufferManagement: Codeunit "Buffer Management";
-        CduGProductionJrnlMgt: Codeunit "Production Journal Mgt";
         RecGOSYSSetup: Record "PWD OSYS Setup";
         RecGProdOrder: Record "Production Order";
         RecGConnectorMessages: Record "PWD Connector Messages";
-        RecGOSYSItemJnlLineBuffer: Record "OSYS Item Jounal Line Buffer";
         IntGPos: Integer;
-        IntGLineNo: Integer;
 
 
     procedure FctInitXmlPort(RecPConnectorValues: Record "PWD Connector Values")

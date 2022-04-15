@@ -104,7 +104,7 @@ tableextension 60007 "PWD SalesLine" extends "Sales Line"
 
             trigger OnValidate()
             begin
-                TestStatusOpen;
+                TestStatusOpen();
             end;
         }
         field(50010; "PWD Name of Sell-to Customer No."; Text[100])

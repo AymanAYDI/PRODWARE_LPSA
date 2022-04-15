@@ -23,27 +23,26 @@ report 60023 "Delete Purch. Orders Before 2"
                 DocDim.Reset;
                 DocDim.SetRange("Document Type", "Document Type");
                 DocDim.SetRange("Document No.", "No.");
-                ItemChargeAssgntPurch.Reset;
+                ItemChargeAssgntPurch.Reset();
                 ItemChargeAssgntPurch.SetRange("Document Type", "Document Type");
                 ItemChargeAssgntPurch.SetRange("Document No.", "No.");
 
                 // CAS DES COMMANDES AVEC DES LIGNES TOTALEMENT FACTUREES ET DES LIGNES TOTALEMENT OUVERTE
-                PurchLine.Reset;
+                PurchLine.Reset();
                 PurchLine.SetRange("Document Type", "Document Type");
                 PurchLine.SetRange("Document No.", "No.");
                 if PurchLine.Find('-') then
                     repeat
                         if not ((PurchLine.Quantity = PurchLine."Outstanding Quantity") or
-                                (PurchLine.Quantity = PurchLine."Quantity Invoiced")) then begin
+                                (PurchLine.Quantity = PurchLine."Quantity Invoiced")) then
                             BooGInvoiced := false;
-                            //MESSAGE(FORMAT(PurchLine."Line No."));
-                        end;
-                    until PurchLine.Next = 0;
+                    //MESSAGE(FORMAT(PurchLine."Line No."));
+                    until PurchLine.Next() = 0;
 
                 //ERROR(FORMAT(BooGInvoiced));
 
                 if BooGInvoiced then begin
-                    PurchLine.LockTable;
+                    PurchLine.LockTable();
                     DocDim.SetRange("Table ID", DATABASE::"Purchase Line");
 
                     ArchiveManagement.ArchPurchDocumentNoConfirm("Purchase Header");
@@ -59,14 +58,14 @@ report 60023 "Delete Purch. Orders Before 2"
                                 DocDim.DeleteAll;
                                 if PurchLine.Type = PurchLine.Type::"Charge (Item)" then begin
                                     ItemChargeAssgntPurch.SetRange("Document Line No.", PurchLine."Line No.");
-                                    ItemChargeAssgntPurch.DeleteAll;
+                                    ItemChargeAssgntPurch.DeleteAll();
                                 end;
                                 if PurchLine.HasLinks then
-                                    PurchLine.DeleteLinks;
-                                PurchLine.Delete;
+                                    PurchLine.DeleteLinks();
+                                PurchLine.Delete();
                             end else
                                 AllLinesDeleted := false;
-                        until PurchLine.Next = 0;
+                        until PurchLine.Next() = 0;
                     if AllLinesDeleted then begin
                         PurchPost.DeleteHeader(
                         "Purchase Header", PurchRcptHeader, PurchInvHeader, PurchCrMemoHeader,
@@ -74,7 +73,7 @@ report 60023 "Delete Purch. Orders Before 2"
                         ReservePurchLine.DeleteInvoiceSpecFromHeader("Purchase Header");
                         PurchCommentLine.SetRange("Document Type", "Document Type");
                         PurchCommentLine.SetRange("No.", "No.");
-                        PurchCommentLine.DeleteAll;
+                        PurchCommentLine.DeleteAll();
 
                         DocDim.SetRange("Table ID", DATABASE::"Purchase Header");
                         DocDim.SetRange("Line No.", 0);
@@ -86,11 +85,11 @@ report 60023 "Delete Purch. Orders Before 2"
                         WhseRequest.DeleteAll(true);
 
                         if HasLinks then
-                            DeleteLinks;
+                            DeleteLinks();
 
-                        Delete;
+                        Delete();
                     end;
-                    Commit;
+                    Commit();
                 end;
             end;
 
@@ -148,7 +147,6 @@ report 60023 "Delete Purch. Orders Before 2"
         PurchPost: Codeunit "Purch.-Post";
         Window: Dialog;
         AllLinesDeleted: Boolean;
-        PurchSetup: Record "Purchases & Payables Setup";
         ArchiveManagement: Codeunit ArchiveManagement;
         DateGDateFilter: Date;
         BooGInvoiced: Boolean;

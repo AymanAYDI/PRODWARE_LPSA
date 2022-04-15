@@ -235,7 +235,8 @@ table 50100 "PWD Item Ledger Entry Out"
         field(5707; "Product Group Code"; Code[10])
         {
             Caption = 'Product Group Code';
-            TableRelation = "Product Group".Code WHERE("Item Category Code" = FIELD("Item Category Code"));
+            //TODO : Table 'Product Group' is removed
+            //TableRelation = "Product Group".Code WHERE("Item Category Code" = FIELD("Item Category Code"));
         }
         field(5740; "Transfer Order No."; Code[20])
         {
@@ -280,7 +281,7 @@ table 50100 "PWD Item Ledger Entry Out"
         }
         field(5806; "Cost Amount (Expected) (ACY)"; Decimal)
         {
-            AutoFormatExpression = GetCurrencyCode;
+            AutoFormatExpression = GetCurrencyCode();
             AutoFormatType = 1;
             CalcFormula = Sum("Value Entry"."Cost Amount (Expected) (ACY)" WHERE("Item Ledger Entry No." = FIELD("Entry No.")));
             Caption = 'Cost Amount (Expected) (ACY)';
@@ -289,7 +290,7 @@ table 50100 "PWD Item Ledger Entry Out"
         }
         field(5807; "Cost Amount (Actual) (ACY)"; Decimal)
         {
-            AutoFormatExpression = GetCurrencyCode;
+            AutoFormatExpression = GetCurrencyCode();
             AutoFormatType = 1;
             CalcFormula = Sum("Value Entry"."Cost Amount (Actual) (ACY)" WHERE("Item Ledger Entry No." = FIELD("Entry No.")));
             Caption = 'Cost Amount (Actual) (ACY)';
@@ -298,7 +299,7 @@ table 50100 "PWD Item Ledger Entry Out"
         }
         field(5808; "Cost Amount (Non-Invtbl.)(ACY)"; Decimal)
         {
-            AutoFormatExpression = GetCurrencyCode;
+            AutoFormatExpression = GetCurrencyCode();
             AutoFormatType = 1;
             CalcFormula = Sum("Value Entry"."Cost Amount (Non-Invtbl.)(ACY)" WHERE("Item Ledger Entry No." = FIELD("Entry No.")));
             Caption = 'Cost Amount (Non-Invtbl.)(ACY)';
@@ -488,14 +489,6 @@ table 50100 "PWD Item Ledger Entry Out"
         }
     }
 
-    var
-        GLSetup: Record "General Ledger Setup";
-        ReservEntry: Record "Reservation Entry";
-        ReservEngineMgt: Codeunit "Reservation Engine Mgt.";
-        ReserveItemLedgEntry: Codeunit "Item Ledger Entry-Reserve";
-        ItemTrackingMgt: Codeunit "Item Tracking Management";
-        GLSetupRead: Boolean;
-
 
     procedure GetCurrencyCode(): Code[10]
     begin
@@ -513,10 +506,6 @@ table 50100 "PWD Item Ledger Entry Out"
 
 
     procedure SetAvgTransCompletelyInvoiced(): Boolean
-    var
-        ItemApplnEntry: Record "Item Application Entry";
-        InbndItemLedgEntry: Record "Item Ledger Entry";
-        CompletelyInvoiced: Boolean;
     begin
     end;
 
@@ -542,8 +531,6 @@ table 50100 "PWD Item Ledger Entry Out"
 
 
     procedure UpdateItemTracking()
-    var
-        ItemTrackingMgt: Codeunit "Item Tracking Management";
     begin
     end;
 

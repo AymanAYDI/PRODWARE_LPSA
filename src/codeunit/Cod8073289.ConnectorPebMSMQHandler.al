@@ -38,16 +38,13 @@ codeunit 8073289 "PWD Connector Peb MSMQ Handler"
         AutGMsQBusAdp: Automation;
         [WithEvents]
         AutGNavComComp: Automation;
-        AutGMsgIn: Automation;
         AutGXMLDom: Automation;
         AutGXMLNode: Automation;
-        InsGMsgInStream: InStream;
         CodGRequest: Code[30];
         CodGPartnerID: Code[20];
         TxtGSendQueue: Text[250];
         TxtGReceiveQueue: Text[250];
         RecGPrtCon: Record "PWD Partner Connector";
-        RecGPrtCon2: Record "PWD Partner Connector";
         BooGLaunched: Boolean;
 
     procedure FctInit(TxtPSendQueue: Text[250]; TxtPReceiveQueue: Text[250])

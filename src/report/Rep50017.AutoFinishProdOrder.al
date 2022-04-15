@@ -23,7 +23,7 @@ report 50017 "PWD Auto. Finish Prod. Order"
                         CduProdOrderStatusMgt.SetNoFinishCOntrol(true);
                         CduProdOrderStatusMgt.ChangeStatusOnProdOrder("Production Order",
                           "Production Order".Status::Finished,
-                          WorkDate,
+                          WorkDate(),
                           true);
                     end;
                 end;
@@ -49,12 +49,7 @@ report 50017 "PWD Auto. Finish Prod. Order"
 
     var
         CduProdOrderStatusMgt: Codeunit "Prod. Order Status Management";
-        Text004: Label '%1 %2 has not been finished. Some output is still missing. Do you still want to finish the order?';
-        Text005: Label 'The update has been interrupted to respect the warning.';
-        Text006: Label '%1 %2 has not been finished. Some consumption is still missing. Do you still want to finish the order?';
-        Text008: Label '%1 %2 cannot be finished as the associated subcontract order %3 has not been fully delivered.';
         BooGAlterCons: Boolean;
-        i: Integer;
 
 
     procedure FctCloseProdOrder(RecPProdOrder: Record "Production Order") TobeClosed: Boolean
@@ -63,14 +58,14 @@ report 50017 "PWD Auto. Finish Prod. Order"
         RecLIJLB: Record "PWD Item Jounal Line Buffer";
         RecLIJ: Record "Item Journal Line";
     begin
-        RecLProdOrderRoutingLine.Reset;
+        RecLProdOrderRoutingLine.Reset();
         RecLProdOrderRoutingLine.SetRange(Status, RecPProdOrder.Status);
         RecLProdOrderRoutingLine.SetRange("Prod. Order No.", RecPProdOrder."No.");
         RecLProdOrderRoutingLine.SetRange(Type, RecLProdOrderRoutingLine.Type::"Machine Center");
         RecLProdOrderRoutingLine.SetRange("No.", 'M99999');
-        if RecLProdOrderRoutingLine.FindFirst then begin
+        if RecLProdOrderRoutingLine.FindFirst() then begin
             RecLProdOrderRoutingLine.SetRange("Routing Status", RecLProdOrderRoutingLine."Routing Status"::Finished);
-            if RecLProdOrderRoutingLine.FindFirst then
+            if RecLProdOrderRoutingLine.FindFirst() then
                 exit(true)
             else begin
                 //>>TMP - Vérification dans le log QUARTIS
@@ -79,7 +74,7 @@ report 50017 "PWD Auto. Finish Prod. Order"
                 RecLIJLB.SetRange(Type, RecLIJLB.Type::"Machine Center");
                 RecLIJLB.SetRange("No.", 'M99999');
                 RecLIJLB.SetRange(Finished, true);
-                if RecLIJLB.FindFirst then begin
+                if RecLIJLB.FindFirst() then begin
                     RecLIJ.SetRange("Prod. Order No.", RecPProdOrder."No.");
                     if RecLIJ.IsEmpty then
                         exit(true)
@@ -97,11 +92,8 @@ report 50017 "PWD Auto. Finish Prod. Order"
 
     procedure CheckBeforeFinishProdOrder(ProdOrder: Record "Production Order"; var AlterCons: Boolean) TobeClosed: Boolean
     var
-        ProdOrderLine: Record "Prod. Order Line";
         ProdOrderComp: Record "Prod. Order Component";
-        ProdOrderRtngLine: Record "Prod. Order Routing Line";
         PurchLine: Record "Purchase Line";
-        ShowWarning: Boolean;
     begin
         with PurchLine do begin
             SetCurrentKey("Document Type", Type, "Prod. Order No.", "Prod. Order Line No.", "Routing No.", "Operation No.");
@@ -109,7 +101,7 @@ report 50017 "PWD Auto. Finish Prod. Order"
             SetRange(Type, Type::Item);
             SetRange("Prod. Order No.", ProdOrder."No.");
             SetFilter("Outstanding Quantity", '<>%1', 0);
-            if FindFirst then
+            if FindFirst() then
                 exit(false);
         end;
 
@@ -140,7 +132,7 @@ report 50017 "PWD Auto. Finish Prod. Order"
             SetRange(Status, ProdOrder.Status);
             SetRange("Prod. Order No.", ProdOrder."No.");
             SetFilter("Remaining Quantity", '<>0');
-            if FindSet then
+            if FindSet() then
                 repeat
                     if (("Flushing Method" <> "Flushing Method"::Backward) and
                         ("Flushing Method" <> "Flushing Method"::"Pick + Backward") and
@@ -150,7 +142,7 @@ report 50017 "PWD Auto. Finish Prod. Order"
                         exit(true);
                         AlterCons := true;
                     end;
-                until Next = 0;
+                until Next() = 0;
         end;
         exit(true);
 
@@ -175,7 +167,7 @@ report 50017 "PWD Auto. Finish Prod. Order"
             SetRange("Routing Link Code", ProdOrderComp."Routing Link Code");
             SetRange("Routing No.", ProdOrderLine."Routing No.");
             SetRange("Routing Reference No.", ProdOrderLine."Routing Reference No.");
-            exit(FindFirst);
+            exit(FindFirst());
         end;
     end;
 
@@ -184,12 +176,12 @@ report 50017 "PWD Auto. Finish Prod. Order"
     var
         RecLReqLine: Record "Requisition Line";
     begin
-        RecLReqLine.Reset;
+        RecLReqLine.Reset();
         RecLReqLine.SetRange("Ref. Order No.", RecPProdOrder."No.");
-        if RecLReqLine.FindFirst then
+        if RecLReqLine.FindFirst() then
             repeat
                 RecLReqLine.Delete(true);
-            until RecLReqLine.Next = 0;
+            until RecLReqLine.Next() = 0;
     end;
 }
 

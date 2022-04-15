@@ -250,7 +250,7 @@ page 50021 "PWD Item List requirement"
                             ItemStatistics: Page "Item Statistics";
                         begin
                             ItemStatistics.SetItem(Rec);
-                            ItemStatistics.RUNMODAL;
+                            ItemStatistics.RUNMODAL();
                         end;
                     }
                     action(Action17)
@@ -279,7 +279,7 @@ page 50021 "PWD Item List requirement"
                         ItemsByLocation: Page "Items by Location";
                     begin
                         ItemsByLocation.SETRECORD(Rec);
-                        ItemsByLocation.RUN;
+                        ItemsByLocation.RUN();
                     end;
                 }
                 group(Action79)
@@ -349,7 +349,7 @@ page 50021 "PWD Item List requirement"
                             //TODO: a vérifier: SetMultiItem est remplacer par SetMultiRecord dans la nouvelle version 
                             //DefaultDimMultiple.SetMultiItem(Item);
                             DefaultDimMultiple.SetMultiRecord(Item, Item.FieldNo("No.");
-                            DefaultDimMultiple.RUNMODAL;
+                            DefaultDimMultiple.RUNMODAL();
                         end;
                     }
                 }
@@ -497,8 +497,8 @@ page 50021 "PWD Item List requirement"
                         var
                             ProdBOMWhereUsed: Page "Prod. BOM Where-Used";
                         begin
-                            ProdBOMWhereUsed.SetItem(Rec, WORKDATE);
-                            ProdBOMWhereUsed.RUNMODAL;
+                            ProdBOMWhereUsed.SetItem(Rec, WORKDATE());
+                            ProdBOMWhereUsed.RUNMODAL();
                         end;
                     }
                     action(Action88)
@@ -553,7 +553,7 @@ page 50021 "PWD Item List requirement"
                         begin
                             CLEAR(SkilledResourceList);
                             SkilledResourceList.Initialize(ResourceSkill.Type::Item, Rec."No.", Rec.Description);
-                            SkilledResourceList.RUNMODAL;
+                            SkilledResourceList.RUNMODAL();
                         end;
                     }
                 }
@@ -714,7 +714,7 @@ page 50021 "PWD Item List requirement"
                     begin
                         // dach1140.begin
                         CopyItem.ItemDef(Rec);
-                        CopyItem.RUNMODAL;
+                        CopyItem.RUNMODAL();
                         IF CopyItem.ItemReturn(ReturnItem) THEN
                             IF CONFIRM(Text11500, TRUE) THEN
                                 Rec := ReturnItem;
@@ -1173,10 +1173,10 @@ page 50021 "PWD Item List requirement"
                 LastItem := FirstItem;
                 More := (ItemCount > 0);
                 WHILE More DO
-                    IF Item.NEXT = 0 THEN
+                    IF Item.NEXT() = 0 THEN
                         More := FALSE
                     ELSE
-                        IF NOT Item.MARK THEN
+                        IF NOT Item.MARK() THEN
                             More := FALSE
                         ELSE BEGIN
                             LastItem := Item."No.";
@@ -1192,7 +1192,7 @@ page 50021 "PWD Item List requirement"
                     SelectionFilter := SelectionFilter + FirstItem + '..' + LastItem;
                 IF ItemCount > 0 THEN BEGIN
                     Item.MARKEDONLY(TRUE);
-                    Item.NEXT;
+                    Item.NEXT();
                 END;
             END;
         END;

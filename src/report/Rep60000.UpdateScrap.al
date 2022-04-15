@@ -18,7 +18,7 @@ report 60000 "PWD Update Scrap %"
                 begin
                     "Scrap Factor %" := "Machine Center"."Scrap %";
                     "Fixed Scrap Quantity" := "Machine Center"."Fixed Scrap Quantity";
-                    Modify;
+                    Modify();
                 end;
             }
             dataitem("Prod. Order Routing Line"; "Prod. Order Routing Line")
@@ -30,7 +30,7 @@ report 60000 "PWD Update Scrap %"
                 begin
                     "Scrap Factor %" := "Machine Center"."Scrap %";
                     "Fixed Scrap Quantity" := "Machine Center"."Fixed Scrap Quantity";
-                    Modify;
+                    Modify();
                 end;
             }
         }

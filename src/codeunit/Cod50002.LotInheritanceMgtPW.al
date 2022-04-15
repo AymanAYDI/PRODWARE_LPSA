@@ -29,9 +29,6 @@ codeunit 50002 "PWD Lot Inheritance Mgt.PW"
         gExtBincode: Code[20];
         gctxErr0006: Label 'Source Type %1 is not supported.';
         gctxMsg0002: Label 'Lot Inheritance: It is not possible to inherit the lot of the lot determining component to the item of the related product, because posted entries exist.';
-        gctxMsg0001: Label 'Lot Inheritance: It is not possible to inherit the lot of the lot determining component to the item of the related product, because it is handled in trading units.';
-        gcuLotInheritanceMgt: Codeunit "PWD Lot Inheritance Mgt.PW";
-        CstG005: Label 'Item %1 at Production BOM %2, Version %3 is already Lot Determining.';
 
 
     procedure CheckBOMDetermining(var pioProdBOMLine: Record "Production BOM Line"; var pioNeededHits: Integer): Boolean
@@ -86,7 +83,7 @@ codeunit 50002 "PWD Lot Inheritance Mgt.PW"
 
         StopLoop := FALSE;
         REPEAT
-            NoNext := ProdBOMLine[Level].NEXT = 0;
+            NoNext := ProdBOMLine[Level].NEXT() = 0;
             WHILE NoNext AND (NOT StopLoop) DO BEGIN
                 Level := Level - 1;
                 IF Level < 1 THEN
@@ -101,7 +98,7 @@ codeunit 50002 "PWD Lot Inheritance Mgt.PW"
                     IF SearchInVersions[Level] THEN
                         NoNext := FALSE
                     ELSE
-                        NoNext := ProdBOMLine[Level].NEXT = 0;
+                        NoNext := ProdBOMLine[Level].NEXT() = 0;
                 END;
             END;
 
@@ -110,82 +107,76 @@ codeunit 50002 "PWD Lot Inheritance Mgt.PW"
                 CLEAR(ItemComp);
                 CASE ProdBOMLine[Level].Type OF
                     ProdBOMLine[Level].Type::Item:
-                        BEGIN
-                            //Begin#803/01:A9227/2.10.09  22.02.06 TECTURA.WW
-                            IF ProdBOMLine[Level]."No." <> '' THEN BEGIN
-                                //End#803/01:A9227/2.10.09  22.02.06 TECTURA.WW
-                                CASE piSearchFor OF
-                                    piSearchFor::Determining:
-                                        BEGIN
-                                            IF ProdBOMLine[Level]."No." <> piActualItem THEN BEGIN
-                                                IF ProdBOMLine[Level]."Lot Determining" THEN BEGIN
-                                                    pioNeededHits -= 1;
-                                                    IF pioNeededHits < 0 THEN BEGIN
-                                                        pioProdBOMLine := ProdBOMLine[Level];
-                                                        EXIT(TRUE);
-                                                    END;
-                                                END;
-                                            END;
-                                        END;
-                                    piSearchFor::DetermAllSet:
-                                        BEGIN
-                                            IF (ProdBOMLine[Level]."No." = piActualItem) AND
-                                               (ProdBOMLine[Level]."Lot Determining" <> piSet)
-                                            THEN BEGIN
-                                                pioNeededHits -= 1;
-                                                IF pioNeededHits < 0 THEN BEGIN
-                                                    pioProdBOMLine := ProdBOMLine[Level];
-                                                    EXIT(TRUE);
-                                                END;
-                                            END;
-                                        END;
-                                    piSearchFor::FromSameLotAllSet:
-                                        BEGIN
-                                            //                  IF (ProdBOMLine[Level]."No." = piActualItem) AND
-                                            //                     (ProdBOMLine[Level]."From the same Lot" <> piSet)
-                                            //                  THEN BEGIN
-                                            //                    pioNeededHits -= 1;
-                                            //                    IF pioNeededHits < 0 THEN BEGIN
-                                            //                      pioProdBOMLine := ProdBOMLine[Level];
-                                            //                      EXIT(TRUE);
-                                            //                    END;
-                                            //                  END;
-                                        END;
-                                END;
-                                ItemComp.GET(ProdBOMLine[Level]."No.");
-                                //Begin#803/01:A9227/2.10.09  22.02.06 TECTURA.WW
-                            END;
+
+                        //Begin#803/01:A9227/2.10.09  22.02.06 TECTURA.WW
+                        IF ProdBOMLine[Level]."No." <> '' THEN BEGIN
                             //End#803/01:A9227/2.10.09  22.02.06 TECTURA.WW
+                            CASE piSearchFor OF
+                                piSearchFor::Determining:
+
+                                    IF ProdBOMLine[Level]."No." <> piActualItem THEN
+                                        IF ProdBOMLine[Level]."Lot Determining" THEN BEGIN
+                                            pioNeededHits -= 1;
+                                            IF pioNeededHits < 0 THEN BEGIN
+                                                pioProdBOMLine := ProdBOMLine[Level];
+                                                EXIT(TRUE);
+                                            END;
+                                        END;
+                                piSearchFor::DetermAllSet:
+
+                                    IF (ProdBOMLine[Level]."No." = piActualItem) AND
+                                       (ProdBOMLine[Level]."Lot Determining" <> piSet)
+                                    THEN BEGIN
+                                        pioNeededHits -= 1;
+                                        IF pioNeededHits < 0 THEN BEGIN
+                                            pioProdBOMLine := ProdBOMLine[Level];
+                                            EXIT(TRUE);
+                                        END;
+                                    END;
+                                piSearchFor::FromSameLotAllSet:
+
+                                    ;
+                            //                  IF (ProdBOMLine[Level]."No." = piActualItem) AND
+                            //                     (ProdBOMLine[Level]."From the same Lot" <> piSet)
+                            //                  THEN BEGIN
+                            //                    pioNeededHits -= 1;
+                            //                    IF pioNeededHits < 0 THEN BEGIN
+                            //                      pioProdBOMLine := ProdBOMLine[Level];
+                            //                      EXIT(TRUE);
+                            //                    END;
+                            //                  END;
+                            END;
+                            ItemComp.GET(ProdBOMLine[Level]."No.");
+                            //Begin#803/01:A9227/2.10.09  22.02.06 TECTURA.WW
                         END;
+                    //End#803/01:A9227/2.10.09  22.02.06 TECTURA.WW
                     ProdBOMLine[Level].Type::"Production BOM":
-                        BEGIN
-                            IF SearchInVersions[Level] THEN BEGIN
+
+                        IF SearchInVersions[Level] THEN BEGIN
+                            NextLevel := Level + 1;
+                            IF ProdBOMVersion[Level].NEXT() = 0 THEN BEGIN
+                                SearchInVersions[Level] := FALSE;
+                                CLEAR(ProdBOMVersion[Level]);
+                            END;
+                            VersionCode[NextLevel] := ProdBOMVersion[Level]."Version Code";
+                            ProdBOMLine[NextLevel].SETRANGE("Production BOM No.", NoList[NextLevel]);
+                            ProdBOMLine[NextLevel].SETRANGE("Version Code", VersionCode[NextLevel]);
+                        END ELSE
+                            IF ProdBOMLine[Level]."No." <> pioProdBOMLine."Production BOM No." THEN BEGIN
+                                ProdBOMHeader.GET(ProdBOMLine[Level]."No.");
                                 NextLevel := Level + 1;
-                                IF ProdBOMVersion[Level].NEXT = 0 THEN BEGIN
-                                    SearchInVersions[Level] := FALSE;
+                                CLEAR(ProdBOMLine[NextLevel]);
+                                NoListType[NextLevel] := NoListType[NextLevel] ::"Production BOM";
+                                NoList[NextLevel] := ProdBOMHeader."No.";
+                                ProdBOMVersion[Level].SETRANGE("Production BOM No.", ProdBOMHeader."No.");
+                                IF ProdBOMVersion[Level].FIND('-') THEN
+                                    SearchInVersions[Level] := TRUE
+                                ELSE
                                     CLEAR(ProdBOMVersion[Level]);
-                                END;
                                 VersionCode[NextLevel] := ProdBOMVersion[Level]."Version Code";
                                 ProdBOMLine[NextLevel].SETRANGE("Production BOM No.", NoList[NextLevel]);
                                 ProdBOMLine[NextLevel].SETRANGE("Version Code", VersionCode[NextLevel]);
-                            END ELSE BEGIN
-                                IF ProdBOMLine[Level]."No." <> pioProdBOMLine."Production BOM No." THEN BEGIN
-                                    ProdBOMHeader.GET(ProdBOMLine[Level]."No.");
-                                    NextLevel := Level + 1;
-                                    CLEAR(ProdBOMLine[NextLevel]);
-                                    NoListType[NextLevel] := NoListType[NextLevel] ::"Production BOM";
-                                    NoList[NextLevel] := ProdBOMHeader."No.";
-                                    ProdBOMVersion[Level].SETRANGE("Production BOM No.", ProdBOMHeader."No.");
-                                    IF ProdBOMVersion[Level].FIND('-') THEN
-                                        SearchInVersions[Level] := TRUE
-                                    ELSE
-                                        CLEAR(ProdBOMVersion[Level]);
-                                    VersionCode[NextLevel] := ProdBOMVersion[Level]."Version Code";
-                                    ProdBOMLine[NextLevel].SETRANGE("Production BOM No.", NoList[NextLevel]);
-                                    ProdBOMLine[NextLevel].SETRANGE("Version Code", VersionCode[NextLevel]);
-                                END;
                             END;
-                        END;
                 END;
 
                 Level := NextLevel;
@@ -232,7 +223,7 @@ codeunit 50002 "PWD Lot Inheritance Mgt.PW"
                         EXIT(TRUE);
                     END;
                 END;
-            UNTIL ProdBOMLine.NEXT = 0;
+            UNTIL ProdBOMLine.NEXT() = 0;
 
         EXIT(FALSE);
 
@@ -246,7 +237,6 @@ codeunit 50002 "PWD Lot Inheritance Mgt.PW"
         TempItemLedgEntry: Record "Item Ledger Entry" temporary;
         ItemJnlLine: Record "Item Journal Line";
         ReservEntry: Record "Reservation Entry";
-        LotNoInfo: Record "Lot No. Information";
         totalQty: Decimal;
     begin
         //Begin#803/01:A20071/3.00  11.05.07 TECTURA.WW
@@ -279,8 +269,8 @@ codeunit 50002 "PWD Lot Inheritance Mgt.PW"
                 IF ItemLedgEntry.FIND('-') THEN
                     REPEAT
                         TempItemLedgEntry := ItemLedgEntry;
-                        TempItemLedgEntry.INSERT;
-                    UNTIL ItemLedgEntry.NEXT = 0;
+                        TempItemLedgEntry.INSERT();
+                    UNTIL ItemLedgEntry.NEXT() = 0;
 
                 IF TempItemLedgEntry.FIND('-') THEN BEGIN
                     REPEAT
@@ -309,11 +299,11 @@ codeunit 50002 "PWD Lot Inheritance Mgt.PW"
                             THEN
                                 poLotDetExpirDate := TempItemLedgEntry."Expiration Date";
                             totalQty += TempItemLedgEntry.Quantity;
-                        UNTIL TempItemLedgEntry.NEXT = 0;
+                        UNTIL TempItemLedgEntry.NEXT() = 0;
 
                         IF totalQty = 0 THEN
-                            TempItemLedgEntry.DELETEALL;
-                        TempItemLedgEntry.RESET;
+                            TempItemLedgEntry.DELETEALL();
+                        TempItemLedgEntry.RESET();
                     UNTIL (NOT TempItemLedgEntry.FIND('-')) OR (totalQty <> 0);
 
                     IF totalQty = 0 THEN BEGIN
@@ -418,7 +408,7 @@ codeunit 50002 "PWD Lot Inheritance Mgt.PW"
         IF pioItemLedgEntry.FIND('-') THEN BEGIN
             REPEAT
                 retQty += pioItemLedgEntry.Quantity;
-            UNTIL pioItemLedgEntry.NEXT = 0;
+            UNTIL pioItemLedgEntry.NEXT() = 0;
             pioItemLedgEntry.FIND('-');
         END;
     end;
@@ -433,9 +423,8 @@ codeunit 50002 "PWD Lot Inheritance Mgt.PW"
         ProdOrderComp.SETRANGE("Prod. Order Line No.", pioProdOrderComp."Prod. Order Line No.");
         ProdOrderComp.SETRANGE("Item No.", pioProdOrderComp."Item No.");
 
-        IF ProdOrderComp.FIND('-') THEN BEGIN
+        IF ProdOrderComp.FIND('-') THEN
             pioProdOrderComp."Lot Determining" := ProdOrderComp."Lot Determining";
-        END;
     end;
 
 
@@ -479,7 +468,6 @@ codeunit 50002 "PWD Lot Inheritance Mgt.PW"
         ProdOrderLine: Record "Prod. Order Line";
         ProdOrderComp: Record "Prod. Order Component";
         ProdOrderRtngLine: Record "Prod. Order Routing Line";
-        LotNoInfo: Record "Lot No. Information";
         cuReserveItemJnlLine: Codeunit "Item Jnl. Line-Reserve";
         LotDetLotCode: Code[30];
         LotDetExpirDate: Date;
@@ -525,7 +513,7 @@ codeunit 50002 "PWD Lot Inheritance Mgt.PW"
             OutputJnlLine.SETRANGE("Entry Type", OutputJnlLine."Entry Type"::Output);
             OutputJnlLine.SETRANGE("Prod. Order No.", piItemJnlLine."Prod. Order No.");
             OutputJnlLine.SETRANGE("Prod. Order Line No.", piItemJnlLine."Prod. Order Line No.");
-            OutputFound := OutputJnlLine.FINDFIRST;
+            OutputFound := OutputJnlLine.FINDFIRST();
         END ELSE BEGIN
             //End#803/01:A10211/2.20.04  12.01.07 TECTURA.WW
             OutputJnlLine.SETRANGE("Journal Template Name", piItemJnlLine."Journal Template Name");
@@ -541,7 +529,7 @@ codeunit 50002 "PWD Lot Inheritance Mgt.PW"
                       OutputJnlLine."Routing Reference No.",
                       OutputJnlLine."Routing No.",
                       OutputJnlLine."Operation No.");
-                    ProdOrderRtngLine.RESET;
+                    ProdOrderRtngLine.RESET();
                     ProdOrderRtngLine.SETRANGE(Status, ProdOrderRtngLine.Status);
                     ProdOrderRtngLine.SETRANGE("Prod. Order No.", ProdOrderRtngLine."Prod. Order No.");
                     ProdOrderRtngLine.SETRANGE("Routing No.", ProdOrderRtngLine."Routing No.");
@@ -550,7 +538,7 @@ codeunit 50002 "PWD Lot Inheritance Mgt.PW"
                         Stop := TRUE;
                         OutputFound := TRUE;
                     END ELSE
-                        Stop := OutputJnlLine.NEXT = 0;
+                        Stop := OutputJnlLine.NEXT() = 0;
                 UNTIL Stop;
             //Begin#803/01:A10211/2.20.04  12.01.07 TECTURA.WW
         END;
@@ -607,7 +595,7 @@ codeunit 50002 "PWD Lot Inheritance Mgt.PW"
         ReservEntry.SETRANGE("Source Ref. No.", piItemJnlLine."Line No.");
         ReservEntry.SETFILTER("Lot No.", '<>%1', '');
 
-        IF ReservEntry.FIND('><=') THEN BEGIN
+        IF ReservEntry.FIND('><=') THEN
             //IF LotNoInfo.GET(
             //  piItemJnlLine."Item No.",
             //  piItemJnlLine."Variant Code",
@@ -633,8 +621,6 @@ codeunit 50002 "PWD Lot Inheritance Mgt.PW"
 
             LotDetLotCode := ReservEntry."Lot No.";
 
-        END;
-
 
         cuReserveItemJnlLine.InitTrackingSpecification(OutputJnlLine, TrackingSpecification);
         IF LotDetLotCode <> '' THEN BEGIN
@@ -653,7 +639,7 @@ codeunit 50002 "PWD Lot Inheritance Mgt.PW"
             TempTrackingSpecification."Quantity (Base)" := OutputJnlLine."Output Quantity (Base)";
             TempTrackingSpecification."Qty. to Handle (Base)" := OutputJnlLine."Output Quantity (Base)";
             TempTrackingSpecification."Qty. to Invoice (Base)" := OutputJnlLine."Output Quantity (Base)";
-            TempTrackingSpecification.INSERT;
+            TempTrackingSpecification.INSERT();
         END;
 
 
@@ -673,7 +659,6 @@ codeunit 50002 "PWD Lot Inheritance Mgt.PW"
         ItemLedgEntry: Record "Item Ledger Entry";
         TempItemLedgEntry: Record "Item Ledger Entry" temporary;
         ReservEntry: Record "Reservation Entry";
-        LotNoInfo: Record "Lot No. Information";
         totalQty: Decimal;
     begin
         //  locales manquantes
@@ -705,8 +690,8 @@ codeunit 50002 "PWD Lot Inheritance Mgt.PW"
                 IF ItemLedgEntry.FIND('-') THEN
                     REPEAT
                         TempItemLedgEntry := ItemLedgEntry;
-                        TempItemLedgEntry.INSERT;
-                    UNTIL ItemLedgEntry.NEXT = 0;
+                        TempItemLedgEntry.INSERT();
+                    UNTIL ItemLedgEntry.NEXT() = 0;
 
                 IF TempItemLedgEntry.FIND('-') THEN BEGIN
                     REPEAT
@@ -739,11 +724,11 @@ codeunit 50002 "PWD Lot Inheritance Mgt.PW"
                             THEN
                                 poLotDetExpirDate := TempItemLedgEntry."Expiration Date";
                             totalQty += TempItemLedgEntry.Quantity;
-                        UNTIL TempItemLedgEntry.NEXT = 0;
+                        UNTIL TempItemLedgEntry.NEXT() = 0;
 
                         IF totalQty = 0 THEN
-                            TempItemLedgEntry.DELETEALL;
-                        TempItemLedgEntry.RESET;
+                            TempItemLedgEntry.DELETEALL();
+                        TempItemLedgEntry.RESET();
                     UNTIL (NOT TempItemLedgEntry.FIND('-')) OR (totalQty <> 0);
 
                     IF totalQty = 0 THEN BEGIN
@@ -783,7 +768,7 @@ codeunit 50002 "PWD Lot Inheritance Mgt.PW"
                     ReservEntry.SETRANGE("Source Ref. No.", ProdOrderComp."Line No.");
                     ReservEntry.SETFILTER("Lot No.", '<>%1', '');
 
-                    IF ReservEntry.FIND('-') THEN BEGIN
+                    IF ReservEntry.FIND('-') THEN
                         //IF LotNoInfo.GET(
                         //  ProdOrderComp."Item No.",
                         //  ProdOrderComp."Variant Code",
@@ -809,8 +794,6 @@ codeunit 50002 "PWD Lot Inheritance Mgt.PW"
                         //  poLotDetLotCode := ReservEntry."Lot Number";
 
                         poLotDetLotCode := ReservEntry."Lot No.";                                  //pade
-
-                    END;
                 END;
 
 
@@ -838,7 +821,6 @@ codeunit 50002 "PWD Lot Inheritance Mgt.PW"
         ServiceLine: Record "Service Line";
         TestItemJnlLine: Record "Item Journal Line";
         ItemTrackingCode: Record "Item Tracking Code";
-        LotSerialNoInfo: Record "Lot No. Information";
         cuItemTrackingMgt: Codeunit "Item Tracking Management";
         SNRequired: Boolean;
         SNInfoRequired: Boolean;
@@ -849,7 +831,6 @@ codeunit 50002 "PWD Lot Inheritance Mgt.PW"
         CheckDates: Boolean;
         CheckStatus: Boolean;
         CustomerNo: Code[20];
-        CustomerGroupCode: Code[20];
         CountryCode: Code[10];
     begin
         // manque locales
@@ -1230,8 +1211,8 @@ codeunit 50002 "PWD Lot Inheritance Mgt.PW"
                         MESSAGE(gctxMsg0002);
                         EXIT;
                     END;
-                UNTIL TempTrackingSpecification.NEXT = 0;
-            TempTrackingSpecification.DELETEALL;
+                UNTIL TempTrackingSpecification.NEXT() = 0;
+            TempTrackingSpecification.DELETEALL();
             TempTrackingSpecification := TrackingSpecification;
             //Begin#803/01:A10017-7/2.20  22.06.06 TECTURA.WW
             TempTrackingSpecification."Lot Number" := cuTradingUnitMgt.GetLotNo(LotDetLotCode);
@@ -1249,7 +1230,7 @@ codeunit 50002 "PWD Lot Inheritance Mgt.PW"
             //IF TempTrackingSpecification."Expiration Date" = 0D THEN
             //cuLSStdInt.T336_InitDateValues(TempTrackingSpecification);
             //End#803/01:A20220/3.00  22.05.07 TECTURA.WW
-            TempTrackingSpecification.INSERT;
+            TempTrackingSpecification.INSERT();
             CLEAR(frmItemTrackingForm);
             frmItemTrackingForm.SetBlockCommit(TRUE);
             frmItemTrackingForm.RegisterItemTrackingLines2(TrackingSpecification, "Due Date", TempTrackingSpecification, TRUE);
@@ -1259,17 +1240,14 @@ codeunit 50002 "PWD Lot Inheritance Mgt.PW"
 
     procedure CheckItemDetermined(RecPItem: Record Item): Boolean
     var
-        LotDeterminingBOMLine: Record "Production BOM Line";
         NeededHits: Integer;
-        Item2: Record Item;
-        ProdBOMVersion: Record "Production BOM Version";
         RecLProdBOM: Record "Production BOM Header";
         RecLProdBOMLine: Record "Production BOM Line";
     begin
         IF RecLProdBOM.GET(RecPItem."Production BOM No.") THEN BEGIN
             NeededHits := 0;
             RecLProdBOMLine.SETRANGE(RecLProdBOMLine."Production BOM No.", RecLProdBOM."No.");
-            IF RecLProdBOMLine.FINDFIRST THEN
+            IF RecLProdBOMLine.FINDFIRST() THEN
                 REPEAT
                     /*
                     IF gcuLotInheritanceMgt.CheckBOMDetermining(RecLProdBOMLine, NeededHits) THEN
@@ -1280,7 +1258,7 @@ codeunit 50002 "PWD Lot Inheritance Mgt.PW"
                     */
                     IF RecLProdBOMLine."Lot Determining" THEN
                         EXIT(TRUE);
-                UNTIL RecLProdBOMLine.NEXT = 0;
+                UNTIL RecLProdBOMLine.NEXT() = 0;
         END;
         EXIT(FALSE);
 
@@ -1318,8 +1296,8 @@ codeunit 50002 "PWD Lot Inheritance Mgt.PW"
                         MESSAGE(gctxMsg0002);
                         EXIT;
                     END;
-                UNTIL TempTrackingSpecification.NEXT = 0;
-            TempTrackingSpecification.DELETEALL;
+                UNTIL TempTrackingSpecification.NEXT() = 0;
+            TempTrackingSpecification.DELETEALL();
             TempTrackingSpecification := TrackingSpecification;
             //Begin#803/01:A10017-7/2.20  22.06.06 TECTURA.WW
             TempTrackingSpecification."Lot Number" := cuTradingUnitMgt.GetLotNo(LotDetLotCode);
@@ -1333,7 +1311,7 @@ codeunit 50002 "PWD Lot Inheritance Mgt.PW"
             TempTrackingSpecification."Quantity (Base)" := pioReqLine."Remaining Qty. (Base)";
             TempTrackingSpecification."Qty. to Handle (Base)" := pioReqLine."Remaining Qty. (Base)";
             TempTrackingSpecification."Qty. to Invoice (Base)" := pioReqLine."Remaining Qty. (Base)";
-            TempTrackingSpecification.INSERT;
+            TempTrackingSpecification.INSERT();
             CLEAR(frmItemTrackingForm);
             frmItemTrackingForm.SetBlockCommit(TRUE);
             frmItemTrackingForm.RegisterItemTrackingLines2(TrackingSpecification, "Due Date", TempTrackingSpecification, TRUE);
@@ -1436,8 +1414,8 @@ codeunit 50002 "PWD Lot Inheritance Mgt.PW"
                         MESSAGE(gctxMsg0002);
                         EXIT;
                     END;
-                UNTIL TempTrackingSpecification.NEXT = 0;
-            TempTrackingSpecification.DELETEALL;
+                UNTIL TempTrackingSpecification.NEXT() = 0;
+            TempTrackingSpecification.DELETEALL();
             TempTrackingSpecification := TrackingSpecification;
             //Begin#803/01:A10017-7/2.20  22.06.06 TECTURA.WW
             TempTrackingSpecification."Lot Number" := cuTradingUnitMgt.GetLotNo(LotDetLotCode);
@@ -1455,7 +1433,7 @@ codeunit 50002 "PWD Lot Inheritance Mgt.PW"
             //IF TempTrackingSpecification."Expiration Date" = 0D THEN
             //cuLSStdInt.T336_InitDateValues(TempTrackingSpecification);
             //End#803/01:A20220/3.00  22.05.07 TECTURA.WW
-            TempTrackingSpecification.INSERT;
+            TempTrackingSpecification.INSERT();
             CLEAR(frmItemTrackingForm);
             frmItemTrackingForm.SetBlockCommit(TRUE);
             frmItemTrackingForm.RegisterItemTrackingLines2(TrackingSpecification, "Due Date", TempTrackingSpecification, TRUE);

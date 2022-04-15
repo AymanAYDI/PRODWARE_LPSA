@@ -15,23 +15,23 @@ report 50053 "Ajout NouvelleFin De Gamme PIE"
     {
         dataitem("Routing Header"; "Routing Header")
         {
-            DataItemTableView = SORTING ("No.");
+            DataItemTableView = SORTING("No.");
             dataitem("Routing Line"; "Routing Line")
             {
-                DataItemLink = "Routing No." = FIELD ("No.");
-                DataItemTableView = SORTING ("Routing No.", "Version Code", "Operation No.") WHERE (Type = FILTER ("Machine Center"));
+                DataItemLink = "Routing No." = FIELD("No.");
+                DataItemTableView = SORTING("Routing No.", "Version Code", "Operation No.") WHERE(Type = FILTER("Machine Center"));
 
                 trigger OnAfterGetRecord()
                 begin
                     if BooGStartDelete then begin
-                        "Routing Line".Delete;
-                        CurrReport.Skip;
+                        "Routing Line".Delete();
+                        CurrReport.Skip();
                     end;
 
                     if ("Routing Line"."No." = CodGStartOperation) then begin
-                        RecGRoutingLineToAdd.Reset;
+                        RecGRoutingLineToAdd.Reset();
                         RecGRoutingLineToAdd.SetRange("Routing No.", CodGRoutingToAdd);
-                        RecGRoutingLineToAdd.FindFirst;
+                        RecGRoutingLineToAdd.FindFirst();
                         if "Routing Line"."Operation No." >= RecGRoutingLineToAdd."Operation No." then
                             Error(CstG005, CodGStartOperation, CodGRoutingToAdd);
 
@@ -47,9 +47,9 @@ report 50053 "Ajout NouvelleFin De Gamme PIE"
                     CduLCheckRoutingLines: Codeunit "Check Routing Lines";
                 begin
                     if BooGStartDelete then begin
-                        RecGRoutingLineToAdd.Reset;
+                        RecGRoutingLineToAdd.Reset();
                         RecGRoutingLineToAdd.SetRange("Routing No.", CodGRoutingToAdd);
-                        if RecGRoutingLineToAdd.FindFirst then
+                        if RecGRoutingLineToAdd.FindFirst() then
                             repeat
                                 RecGRoutingLineAdded := RecGRoutingLineToAdd;
                                 RecGRoutingLineAdded."Routing No." := CodGRoutingNo;
@@ -57,9 +57,9 @@ report 50053 "Ajout NouvelleFin De Gamme PIE"
                                     RecGRoutingLineAdded."Previous Operation No." := CodGOperationNo;
                                     CodGOperationNo := '';
                                 end;
-                                RecGRoutingLineAdded.Insert;
+                                RecGRoutingLineAdded.Insert();
 
-                            until RecGRoutingLineToAdd.Next = 0;
+                            until RecGRoutingLineToAdd.Next() = 0;
 
                         if ("Routing Header".Status = "Routing Header".Status::Certified) then begin
                             RecLRoutingHeader.Get("Routing Header"."No.");
@@ -83,7 +83,7 @@ report 50053 "Ajout NouvelleFin De Gamme PIE"
 
             trigger OnPostDataItem()
             begin
-                BDialog.Close;
+                BDialog.Close();
             end;
 
             trigger OnPreDataItem()

@@ -80,7 +80,7 @@ report 50008 "PWD Sales Quote"
                     column(CompanyAddr_6_; CompanyAddr[6])
                     {
                     }
-                    column(Sales_Header___Document_Date_; StrSubstNo(CstG002, CompanyInfo.City, Format(WorkDate, 0, 4)))
+                    column(Sales_Header___Document_Date_; StrSubstNo(CstG002, CompanyInfo.City, Format(WorkDate(), 0, 4)))
                     {
                     }
                     column(CopyText; CopyText)
@@ -107,7 +107,7 @@ report 50008 "PWD Sales Quote"
                     column(CopyText_Control1150145; CopyText)
                     {
                     }
-                    column(STRSUBSTNO_Text005_FORMAT_CurrReport_PAGENO__; StrSubstNo(Text005, Format(CurrReport.PageNo)))
+                    column(STRSUBSTNO_Text005_FORMAT_CurrReport_PAGENO__; StrSubstNo(Text005, Format(CurrReport.PageNo())))
                     {
                     }
                     column(CurrGroupPageNO; CurrGroupPageNO)
@@ -167,10 +167,10 @@ report 50008 "PWD Sales Quote"
                         begin
                             if Number = 1 then begin
                                 if not DocDim1.Find('-') then
-                                    CurrReport.Break;
+                                    CurrReport.Break();
                             end else
                                 if not Continue then
-                                    CurrReport.Break;
+                                    CurrReport.Break();
 
                             Clear(DimText);
                             Continue := false;
@@ -195,7 +195,7 @@ report 50008 "PWD Sales Quote"
                         trigger OnPreDataItem()
                         begin
                             if not ShowInternalInfo then
-                                CurrReport.Break;
+                                CurrReport.Break();
                         end;
                     }
                     dataitem("Sales Line"; "Sales Line")
@@ -206,7 +206,7 @@ report 50008 "PWD Sales Quote"
 
                         trigger OnPreDataItem()
                         begin
-                            CurrReport.Break;
+                            CurrReport.Break();
                         end;
                     }
                     dataitem(RoundLoop; "Integer")
@@ -339,10 +339,10 @@ report 50008 "PWD Sales Quote"
                             begin
                                 if Number = 1 then begin
                                     if not DocDim2.Find('-') then
-                                        CurrReport.Break;
+                                        CurrReport.Break();
                                 end else
                                     if not Continue then
-                                        CurrReport.Break;
+                                        CurrReport.Break();
 
                                 Clear(DimText);
                                 Continue := false;
@@ -367,7 +367,7 @@ report 50008 "PWD Sales Quote"
                             trigger OnPreDataItem()
                             begin
                                 if not ShowInternalInfo then
-                                    CurrReport.Break;
+                                    CurrReport.Break();
 
                                 DocDim2.SetRange("Table ID", DATABASE::"Sales Line");
                                 DocDim2.SetRange("Document Type", "Sales Line"."Document Type");
@@ -385,14 +385,13 @@ report 50008 "PWD Sales Quote"
                                 // CH0004.BEGIN
                                 if not ("Sales Line".Type = "Sales Line".Type::"New Page") then begin
                                     CurrPageHeaderHiddenFlag := 0;
-                                    CurrReport.Break;
-                                end else begin
+                                    CurrReport.Break();
+                                end else
                                     if IsServiceTier then begin
                                         CurrGroupPageNO += 1;
                                         InnerGroupPageNO += 1;
                                         CurrPageHeaderHiddenFlag := 1;
                                     end;
-                                end;
                                 // CH0004.END
                                 // CH4410.END
                             end;
@@ -403,7 +402,7 @@ report 50008 "PWD Sales Quote"
                             if Number = 1 then
                                 SalesLine.Find('-')
                             else
-                                SalesLine.Next;
+                                SalesLine.Next();
                             "Sales Line" := SalesLine;
 
                             if not "Sales Header"."Prices Including VAT" and
@@ -417,34 +416,31 @@ report 50008 "PWD Sales Quote"
                             //>>Regie
                             Clear(TxtGComment);
                             BooGStopComment := false;
-                            RecGSalesCommentLine.Reset;
+                            RecGSalesCommentLine.Reset();
                             RecGSalesCommentLine.SetRange("Document Type", RecGSalesCommentLine."Document Type"::Quote);
                             RecGSalesCommentLine.SetRange("No.", "Sales Line"."Document No.");
                             RecGSalesCommentLine.SetRange("Document Line No.", "Sales Line"."Line No.");
-                            if RecGSalesCommentLine.FindSet then begin
+                            if RecGSalesCommentLine.FindSet() then
                                 repeat
                                     if StrLen(TxtGComment) + StrLen(RecGSalesCommentLine.Comment) < 1024 then
                                         TxtGComment += RecGSalesCommentLine.Comment + ' '
                                     else
                                         BooGStopComment := true;
-                                until (RecGSalesCommentLine.Next = 0) or (BooGStopComment);
-                            end;
+                                until (RecGSalesCommentLine.Next() = 0) or (BooGStopComment);
 
 
                             // CH0004.begin
-                            if IsServiceTier then begin
-                                if ("Sales Line".Type = "Sales Line".Type::"New Page") then begin
-                                    CurrPageFooterHiddenFlag := 1;
-                                end else begin
+                            if IsServiceTier then
+                                if ("Sales Line".Type = "Sales Line".Type::"New Page") then
+                                    CurrPageFooterHiddenFlag := 1
+                                else
                                     CurrPageFooterHiddenFlag := 0;
-                                end;
-                            end;
                             // CH0004.end
                         end;
 
                         trigger OnPostDataItem()
                         begin
-                            SalesLine.DeleteAll;
+                            SalesLine.DeleteAll();
                         end;
 
                         trigger OnPreDataItem()
@@ -456,7 +452,7 @@ report 50008 "PWD Sales Quote"
                             do
                                 MoreLines := SalesLine.Next(-1) <> 0;
                             if not MoreLines then
-                                CurrReport.Break;
+                                CurrReport.Break();
                             SalesLine.SetRange("Line No.", 0, SalesLine."Line No.");
                             SetRange(Number, 1, SalesLine.Count);
                             CurrReport.CreateTotals(SalesLine."Line Amount", SalesLine."Inv. Discount Amount");
@@ -474,7 +470,7 @@ report 50008 "PWD Sales Quote"
                         trigger OnPreDataItem()
                         begin
                             if VATAmount = 0 then
-                                CurrReport.Break;
+                                CurrReport.Break();
                             SetRange(Number, 1, VATAmountLine.Count);
                             CurrReport.CreateTotals(
                               VATAmountLine."Line Amount", VATAmountLine."Inv. Disc. Base Amount",
@@ -501,8 +497,8 @@ report 50008 "PWD Sales Quote"
                         begin
                             if (not GLSetup."Print VAT specification in LCY") or
                                ("Sales Header"."Currency Code" = '') or
-                               (VATAmountLine.GetTotalVATAmount = 0) then
-                                CurrReport.Break;
+                               (VATAmountLine.GetTotalVATAmount() = 0) then
+                                CurrReport.Break();
 
                             SetRange(Number, 1, VATAmountLine.Count);
                             CurrReport.CreateTotals(VALVATBaseLCY, VALVATAmountLCY);
@@ -528,16 +524,16 @@ report 50008 "PWD Sales Quote"
                 begin
                     Clear(SalesLine);
                     Clear(SalesPost);
-                    SalesLine.DeleteAll;
-                    VATAmountLine.DeleteAll;
+                    SalesLine.DeleteAll();
+                    VATAmountLine.DeleteAll();
                     SalesPost.GetSalesLines("Sales Header", SalesLine, 0);
                     SalesLine.CalcVATAmountLines(0, "Sales Header", SalesLine, VATAmountLine);
                     SalesLine.UpdateVATOnLines(0, "Sales Header", SalesLine, VATAmountLine);
-                    VATAmount := VATAmountLine.GetTotalVATAmount;
-                    VATBaseAmount := VATAmountLine.GetTotalVATBase;
+                    VATAmount := VATAmountLine.GetTotalVATAmount();
+                    VATBaseAmount := VATAmountLine.GetTotalVATBase();
                     VATDiscountAmount :=
                       VATAmountLine.GetTotalVATDiscount("Sales Header"."Currency Code", "Sales Header"."Prices Including VAT");
-                    TotalAmountInclVAT := VATAmountLine.GetTotalAmountInclVAT;
+                    TotalAmountInclVAT := VATAmountLine.GetTotalAmountInclVAT();
 
                     if Number > 1 then begin
                         CopyText := Text003;
@@ -572,7 +568,7 @@ report 50008 "PWD Sales Quote"
                 //>>LAP.001
                 RecGCustomer.Get("Sell-to Customer No.");
                 RecGSalespersonPurchaser.Get("Salesperson Code");
-                RecGGenLedSetup.Get;
+                RecGGenLedSetup.Get();
                 if "Currency Code" <> '' then
                     TxTGLabelAmount := StrSubstNo(CstG003, "Currency Code")
                 else
@@ -597,7 +593,7 @@ report 50008 "PWD Sales Quote"
                 DocDim1.SetRange("Document No.", "Sales Header"."No.");
 
                 if "Salesperson Code" = '' then begin
-                    SalesPurchPerson.Init;
+                    SalesPurchPerson.Init();
                     SalesPersonText := '';
                 end else begin
                     SalesPurchPerson.Get("Salesperson Code");
@@ -623,13 +619,13 @@ report 50008 "PWD Sales Quote"
                 end;
 
                 if "Payment Terms Code" = '' then
-                    PaymentTerms.Init
+                    PaymentTerms.Init()
                 else begin
                     PaymentTerms.Get("Payment Terms Code");
                     PaymentTerms.TranslateDescription(PaymentTerms, "Sales Header"."Language Code");
                 end;
                 if "Shipment Method Code" = '' then
-                    ShipmentMethod.Init
+                    ShipmentMethod.Init()
                 else begin
                     ShipmentMethod.Get("Shipment Method Code");
                     ShipmentMethod.TranslateDescription(ShipmentMethod, "Sales Header"."Language Code");
@@ -661,7 +657,7 @@ report 50008 "PWD Sales Quote"
                 ToDo: Record "To-do";
             begin
                 "Sales Header".MarkedOnly := true;
-                Commit;
+                Commit();
                 CurrReport.Language := GlobalLanguage;
                 if "Sales Header".Find('-') and ToDo.WritePermission then
                     if not CurrReport.Preview and (NoOfRecords = 1) then
@@ -762,25 +758,24 @@ report 50008 "PWD Sales Quote"
 
     trigger OnInitReport()
     begin
-        GLSetup.Get;
-        CompanyInfo.Get;
-        SalesSetup.Get;
+        GLSetup.Get();
+        CompanyInfo.Get();
+        SalesSetup.Get();
 
         case SalesSetup."Logo Position on Documents" of
             SalesSetup."Logo Position on Documents"::"No Logo":
                 ;
             SalesSetup."Logo Position on Documents"::Left:
-                begin
-                    CompanyInfo.CalcFields(Picture);
-                end;
+
+                CompanyInfo.CalcFields(Picture);
             SalesSetup."Logo Position on Documents"::Center:
                 begin
-                    CompanyInfo1.Get;
+                    CompanyInfo1.Get();
                     CompanyInfo1.CalcFields(Picture);
                 end;
             SalesSetup."Logo Position on Documents"::Right:
                 begin
-                    CompanyInfo2.Get;
+                    CompanyInfo2.Get();
                     CompanyInfo2.CalcFields(Picture);
                 end;
         end;
@@ -791,7 +786,6 @@ report 50008 "PWD Sales Quote"
         Text001: Label 'Total %1';
         Text002: Label 'Total %1 Incl. VAT';
         Text003: Label 'COPY';
-        Text004: Label 'Sales - Quote %1';
         Text005: Label 'Page %1';
         Text006: Label 'Total %1 Excl. VAT';
         GLSetup: Record "General Ledger Setup";
@@ -806,16 +800,12 @@ report 50008 "PWD Sales Quote"
         SalesLine: Record "Sales Line" temporary;
         DocDim1: Record "Document Dimension";
         DocDim2: Record "Document Dimension";
-        RespCenter: Record "Responsibility Center";
         Language: Record Language;
-        Country: Record "Country/Region";
         CurrExchRate: Record "Currency Exchange Rate";
         SalesCountPrinted: Codeunit "Sales-Printed";
         FormatAddr: Codeunit "Format Address";
         SegManagement: Codeunit SegManagement;
         ArchiveManagement: Codeunit ArchiveManagement;
-        CustAddr: array[8] of Text[50];
-        ShipToAddr: array[8] of Text[50];
         CompanyAddr: array[8] of Text[50];
         SalesPersonText: Text[30];
         VATNoText: Text[80];
@@ -827,8 +817,6 @@ report 50008 "PWD Sales Quote"
         NoOfCopies: Integer;
         NoOfLoops: Integer;
         CopyText: Text[30];
-        ShowShippingAddr: Boolean;
-        i: Integer;
         DimText: Text[120];
         OldDimText: Text[75];
         ShowInternalInfo: Boolean;
@@ -849,22 +837,7 @@ report 50008 "PWD Sales Quote"
         Text009: Label 'Local Currency';
         Text010: Label 'Exchange rate: %1/%2';
         OutputNo: Integer;
-        HeaderLabel: array[20] of Text[30];
-        HeaderTxt: array[20] of Text[120];
-        FooterLabel: array[20] of Text[30];
-        FooterTxt: array[20] of Text[120];
         Text11500: Label 'Quote %1';
-        ML_SalesPerson: Label 'Salesperson';
-        ML_Reference: Label 'Reference';
-        ML_PmtTerms: Label 'Payment Terms';
-        ML_ApplyToDoc: Label 'Refers to Document';
-        ML_ShipCond: Label 'Shipping Conditions';
-        ML_ShipAdr: Label 'Shipping Address';
-        ML_InvAdr: Label 'Invoice Address';
-        ML_OrderAdr: Label 'Order Address';
-        ML_ShipDate: Label 'Shipping Date';
-        ML_Bank: Label 'Bank Information';
-        ML_AccNo: Label 'Account';
         CurrGroupPageNO: Integer;
         CurrPageFooterHiddenFlag: Integer;
         CurrPageHeaderHiddenFlag: Integer;
@@ -874,7 +847,6 @@ report 50008 "PWD Sales Quote"
         [InDataSet]
         LogInteractionEnable: Boolean;
         CstG001: Label 'Sales Quote';
-        "-LAP.001-": Integer;
         RecGCustomer: Record Customer;
         RecGSalespersonPurchaser: Record "Salesperson/Purchaser";
         CstG002: Label '%1, on %2';

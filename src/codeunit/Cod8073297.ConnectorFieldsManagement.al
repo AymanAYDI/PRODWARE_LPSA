@@ -79,7 +79,6 @@ codeunit 8073297 "Connector Fields Management"
     var
         FldRef: FieldRef;
         RecLItemTrackingCode: Record "Item Tracking Code";
-        BooLReturn: Boolean;
     begin
         FldRef := RecGRecRef.Field(6500);
         if RecLItemTrackingCode.Get(FldRef.Value) then

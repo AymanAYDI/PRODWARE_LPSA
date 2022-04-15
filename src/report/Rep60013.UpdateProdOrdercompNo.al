@@ -12,9 +12,9 @@ report 60013 "PWD Update Prod Order comp No"
             begin
                 ProdOrderComp.SetRange(Status, Status);
                 ProdOrderComp.SetRange("Prod. Order No.", "No.");
-                if ProdOrderComp.FindFirst then begin
+                if ProdOrderComp.FindFirst() then begin
                     "Component No." := ProdOrderComp."Item No.";
-                    Modify;
+                    Modify();
                 end;
             end;
         }

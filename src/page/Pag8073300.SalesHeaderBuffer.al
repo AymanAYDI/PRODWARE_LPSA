@@ -180,6 +180,7 @@ page 8073300 "PWD Sales Header Buffer"
                     Caption = 'Show Sales Line Buffer';
                     RunObject = Page "Sales Line Buffer";
                     RunPageLink = Document Type=                    ApplicationArea = All;
+                    ApplicationArea = All;
 FIELD(Document Type),Document No.=FIELD(Document No.);
                     RunPageView = SORTING(Document Type,Document No.);
                 }

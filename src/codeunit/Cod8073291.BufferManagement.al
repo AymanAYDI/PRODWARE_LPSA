@@ -140,7 +140,6 @@ codeunit 8073291 "PWD Buffer Management"
     end;
 
     var
-        RecGConnectorVal: Record "PWD Connector Values";
         CstG001: Label 'This buffer line is skipped.';
         CstG002: Label 'Are you sure to process this line ?';
         CstG003: Label 'Are you sure to delete the selected line ?';
@@ -151,7 +150,6 @@ codeunit 8073291 "PWD Buffer Management"
         CstG006: Label 'Are you sure to process the selected lines ?';
         CstG007: Label 'Shipment is waiting on this order.';
         CstG008: Label 'Recept is waiting on this order.';
-        "-OSYS-Int001-": Integer;
         RecGItemJnlLineTempBufferPost: Record "PWD Item Jounal Line Buffer" temporary;
         BooGCanPost: Boolean;
 
@@ -166,7 +164,7 @@ codeunit 8073291 "PWD Buffer Management"
         //**********************************************************************************************************//
 
         RecLPartner.GET(CodPPartnerCode);
-        RecLConnectorValues.INIT;
+        RecLConnectorValues.INIT();
         RecLConnectorValues."Entry No." := FctEntryNoForBufferTable();
         RecLConnectorValues."Partner Code" := CodPPartnerCode;
         RecLConnectorValues."File Name" := TxtPFileName;
@@ -183,7 +181,7 @@ codeunit 8073291 "PWD Buffer Management"
         RecLConnectorValues.Blob.CREATEOUTSTREAM(OusLstream);
         COPYSTREAM(OusLstream, InsPStream);
         RecLConnectorValues."Communication Mode" := RecLPartner."Communication Mode";
-        RecLConnectorValues.INSERT;
+        RecLConnectorValues.INSERT();
         EXIT(RecLConnectorValues."Entry No.");
     end;
 
@@ -195,13 +193,13 @@ codeunit 8073291 "PWD Buffer Management"
         //**********************************************************************************************************//
         //                                  Remove Connector Value buffer (Archive in optional case)                //
         //**********************************************************************************************************//
-        RecLSendingMessage.RESET;
+        RecLSendingMessage.RESET();
         RecLSendingMessage.SETRANGE("Partner Code", RecPConnectorValues."Partner Code");
         RecLSendingMessage.SETRANGE("Function", RecPConnectorValues."Function");
         IF NOT RecLSendingMessage.ISEMPTY THEN BEGIN
-            RecLSendingMessage.FINDFIRST;
+            RecLSendingMessage.FINDFIRST();
             IF RecLSendingMessage."Archive Message" THEN BEGIN
-                RecLConnectorValuesArc.INIT;
+                RecLConnectorValuesArc.INIT();
                 RecPConnectorValues.CALCFIELDS(Blob);
                 RecLConnectorValuesArc.TRANSFERFIELDS(RecPConnectorValues);
                 RecLConnectorValuesArc.Succes := BooPSucces;
@@ -209,13 +207,13 @@ codeunit 8073291 "PWD Buffer Management"
             END;
         END
         ELSE BEGIN
-            RecLSendingMessage.RESET;
+            RecLSendingMessage.RESET();
             RecLSendingMessage.SETRANGE("Partner Code", RecPConnectorValues."Partner Code");
             RecLSendingMessage.SETRANGE(Code, RecPConnectorValues."Message Code");
             IF NOT RecLSendingMessage.ISEMPTY THEN BEGIN
-                RecLSendingMessage.FINDFIRST;
+                RecLSendingMessage.FINDFIRST();
                 IF RecLSendingMessage."Archive Message" THEN BEGIN
-                    RecLConnectorValuesArc.INIT;
+                    RecLConnectorValuesArc.INIT();
                     RecPConnectorValues.CALCFIELDS(Blob);
                     RecLConnectorValuesArc.TRANSFERFIELDS(RecPConnectorValues);
                     RecLConnectorValuesArc.Succes := BooPSucces;
@@ -237,11 +235,11 @@ codeunit 8073291 "PWD Buffer Management"
         //**********************************************************************************************************//
 
         IntLEntryNo := 0;
-        RecLConnectorValues.RESET;
-        IF RecLConnectorValues.FINDLAST THEN
+        RecLConnectorValues.RESET();
+        IF RecLConnectorValues.FINDLAST() THEN
             IntLEntryNo := RecLConnectorValues."Entry No.";
-        RecLConnectValueArch.RESET;
-        IF RecLConnectValueArch.FINDLAST THEN
+        RecLConnectValueArch.RESET();
+        IF RecLConnectValueArch.FINDLAST() THEN
             IF (IntLEntryNo < RecLConnectValueArch."Entry No.") THEN
                 IntLEntryNo := RecLConnectValueArch."Entry No.";
         EXIT(IntLEntryNo + 1);
@@ -261,10 +259,10 @@ codeunit 8073291 "PWD Buffer Management"
     begin
         //>>WMS-FEMOT.001
         RecordRef.OPEN(IntPTable, FALSE, COMPANYNAME);
-        RecordRef.INIT;
+        RecordRef.INIT();
 
         RecordRef2.OPEN(RecordRef.NUMBER, FALSE, COMPANYNAME);
-        IF RecordRef2.FINDLAST THEN BEGIN
+        IF RecordRef2.FINDLAST() THEN BEGIN
             FieldRef2 := RecordRef2.FIELD(1);
             FieldRef := RecordRef.FIELD(1);
             EVALUATE(IntLEntryNo, FORMAT(FieldRef2.VALUE));
@@ -291,7 +289,7 @@ codeunit 8073291 "PWD Buffer Management"
         FieldRef := RecordRef.FIELD(19);
         FieldRef.VALUE := CURRENTDATETIME;
 
-        RecordRef.INSERT;
+        RecordRef.INSERT();
         //<<WMS-FEMOT.001
     end;
 
@@ -301,14 +299,13 @@ codeunit 8073291 "PWD Buffer Management"
         RecordRef2: RecordRef;
         FieldRef2: FieldRef;
         IntLEntryNo: Integer;
-        RecordRef: RecordRef;
     begin
         //>>WMS-FEMOT.001
 
-        RefPRecordRef.INIT;
+        RefPRecordRef.INIT();
 
         RecordRef2.OPEN(RefPRecordRef.NUMBER, FALSE, COMPANYNAME);
-        IF RecordRef2.FINDLAST THEN BEGIN
+        IF RecordRef2.FINDLAST() THEN BEGIN
             FieldRef2 := RecordRef2.FIELD(1);
             FieldRef := RefPRecordRef.FIELD(1);
             EVALUATE(IntLEntryNo, FORMAT(FieldRef2.VALUE));
@@ -348,7 +345,7 @@ codeunit 8073291 "PWD Buffer Management"
         RecordRef.OPEN(IntPTable, FALSE, COMPANYNAME);
         FieldRef := RecordRef.FIELD(1);
         FieldRef.SETRANGE(IntPEntryNo);
-        IF RecordRef.FINDFIRST THEN
+        IF RecordRef.FINDFIRST() THEN
             RecordRef.DELETE(TRUE);
         //<<WMS-FEMOT.001
     end;
@@ -361,7 +358,7 @@ codeunit 8073291 "PWD Buffer Management"
     begin
         //>>WMS-FEMOT.001
         RecordRef.OPEN(IntPTable, FALSE, COMPANYNAME);
-        RecordRef.INIT;
+        RecordRef.INIT();
 
         FieldRef2 := RecordRef2.FIELD(1);
         FieldRef := RecordRef.FIELD(1);
@@ -369,7 +366,7 @@ codeunit 8073291 "PWD Buffer Management"
 
         EVALUATE(IntRKey, FORMAT(FieldRef.VALUE));
 
-        RecordRef.INSERT;
+        RecordRef.INSERT();
         //<<WMS-FEMOT.001
     end;
 
@@ -393,7 +390,7 @@ codeunit 8073291 "PWD Buffer Management"
         FieldRef := RecordRef.FIELD(16);
         FieldRef.VALUE := '';
 
-        RecordRef.MODIFY;
+        RecordRef.MODIFY();
         //<<WMS-FEMOT.001
     end;
 
@@ -417,10 +414,10 @@ codeunit 8073291 "PWD Buffer Management"
         //                                    Find the next line No. for an order                                   //
         //**********************************************************************************************************//
 
-        RecLSalesLine.RESET;
+        RecLSalesLine.RESET();
         RecLSalesLine.SETRANGE("Document Type", RecLSalesLine."Document Type"::Order);
         RecLSalesLine.SETRANGE("Document No.", CodPDocNo);
-        IF RecLSalesLine.FINDLAST THEN
+        IF RecLSalesLine.FINDLAST() THEN
             EXIT(RecLSalesLine."Line No." + 10000)
         ELSE
             EXIT(10000);
@@ -450,7 +447,7 @@ codeunit 8073291 "PWD Buffer Management"
         RecLTempBlob: Record TempBlob;
     begin
         //>>WMS-FE007_15.001
-        Fieldref.CALCFIELD;
+        Fieldref.CALCFIELD();
         RecLTempBlob.Blob := Fieldref.VALUE;
         CLEAR(RecLTempBlob.Blob);
 
@@ -469,7 +466,7 @@ codeunit 8073291 "PWD Buffer Management"
     begin
         //>>WMS-FE007_15.001
         Fieldref := RecordRef.FIELD(9);
-        Fieldref.CALCFIELD;
+        Fieldref.CALCFIELD();
         RecLTempBlob.Blob := Fieldref.VALUE;
         RecLTempBlob.CALCFIELDS(Blob);
         IF RecLTempBlob.Blob.HASVALUE THEN BEGIN
@@ -487,7 +484,6 @@ codeunit 8073291 "PWD Buffer Management"
         IntLLine: Integer;
         FieldRef: FieldRef;
         FieldRefKey: FieldRef;
-        RecLItemJournalLineBuffer: Record "PWD Item Jounal Line Buffer";
     begin
         //>>WMS-FE007_15.001
 
@@ -502,7 +498,7 @@ codeunit 8073291 "PWD Buffer Management"
         FctInitItemJnlLineTempBuffer();
         //<<OSYS-Int001.001
 
-        WITH Rec DO BEGIN
+        WITH Rec DO
             IF NOT ISEMPTY THEN BEGIN
                 IntLTotal := COUNT;
                 IntLLine := 1;
@@ -512,40 +508,38 @@ codeunit 8073291 "PWD Buffer Management"
 
                     DiaLWin.OPEN('@@@@@@@@@@@@@@1@@@@@@@@@@@@@@');
 
-                FINDSET;
+                FINDSET();
                 REPEAT
                     IF GUIALLOWED THEN
                         DiaLWin.UPDATE(1, ROUND(IntLLine / IntLTotal * 10000, 1));
 
-                    RecLObject.INIT;
+                    RecLObject.INIT();
                     RecLObject.ID := NUMBER;
                     FieldRefKey := FIELD(1);
                     EVALUATE(RecLObject."DBM Table No.", FORMAT(FieldRefKey.VALUE));
-                    COMMIT;
+                    COMMIT();
                     IF NOT CODEUNIT.RUN(8073291, RecLObject) THEN BEGIN
                         FieldRef := Rec.FIELD(16);
                         FieldRef.VALUE := COPYSTR(GETLASTERRORTEXT, 1, 250);
                         FieldRef := Rec.FIELD(9);
                         FctTransformErrorToBlob(FieldRef);
-                        MODIFY;
-                        CLEARLASTERROR;
+                        MODIFY();
+                        CLEARLASTERROR();
                     END
 
                     //>>OSYS-Int001.001
-                    ELSE BEGIN
+                    ELSE
                         FctInsertItemJnlLineTempBuffer(Rec);
-                    END;
                     //<<OSYS-Int001.001
 
                     IntLLine += 1;
-                UNTIL NEXT = 0;
+                UNTIL NEXT() = 0;
 
                 //>>WMS-EBL1-003.001.001
                 IF GUIALLOWED THEN
                     //<<WMS-EBL1-003.001.001
                     DiaLWin.CLOSE();
             END;
-        END;
         //<<WMS-FE007_15.001
     end;
 
@@ -592,7 +586,7 @@ codeunit 8073291 "PWD Buffer Management"
         CduLConnectorPebParseData: Codeunit "PWD Connector Peb Parse Data";
     begin
         //>>WMS-FEMOT.001
-        RecLSalesHeader.INIT;
+        RecLSalesHeader.INIT();
         RecLSalesHeader."Document Type" := RecLSalesHeader."Document Type"::Order;
         RecLSalesHeader."No." := '';
         RecLSalesHeader.INSERT(TRUE);
@@ -620,12 +614,12 @@ codeunit 8073291 "PWD Buffer Management"
         RecLSalesCommentLineBuffer.SETRANGE("Document No.", RecPSalesHeaderBuffer."Document No.");
         RecLSalesCommentLineBuffer.SETRANGE("Document Line No.", 0);
         IF NOT RecLSalesCommentLineBuffer.ISEMPTY THEN BEGIN
-            RecLSalesCommentLineBuffer.FINDSET;
+            RecLSalesCommentLineBuffer.FINDSET();
             REPEAT
                 RecordRefBuf.GETTABLE(RecLSalesCommentLineBuffer);
                 FctCheckBufferLine(RecordRefBuf);
 
-                RecLSalesCommentLine.INIT;
+                RecLSalesCommentLine.INIT();
                 RecLSalesCommentLine."Document Type" := RecPSalesHeaderBuffer."Document Type";
                 RecLSalesCommentLine."No." := RecLSalesHeader."No.";
                 RecLSalesCommentLine."Line No." := IntLLineNo;
@@ -642,19 +636,19 @@ codeunit 8073291 "PWD Buffer Management"
                 FctUpdateBufferLineProcessed(RecordRefBuf, 1, RecordRef.RECORDID);
 
                 IntLLineNo := 10000;
-            UNTIL RecLSalesCommentLineBuffer.NEXT = 0;
+            UNTIL RecLSalesCommentLineBuffer.NEXT() = 0;
         END;
 
         RecLSalesLineBuffer.SETCURRENTKEY("Document Type", "Document No.");
         RecLSalesLineBuffer.SETRANGE("Document Type", RecPSalesHeaderBuffer."Document Type");
         RecLSalesLineBuffer.SETRANGE("Document No.", RecPSalesHeaderBuffer."Document No.");
         IF NOT RecLSalesLineBuffer.ISEMPTY THEN BEGIN
-            RecLSalesLineBuffer.FINDSET;
+            RecLSalesLineBuffer.FINDSET();
             REPEAT
                 RecordRefBuf.GETTABLE(RecLSalesLineBuffer);
                 FctCheckBufferLine(RecordRefBuf);
 
-                RecLSalesLine.INIT;
+                RecLSalesLine.INIT();
                 RecLSalesLine.VALIDATE("Document Type", RecLSalesLine."Document Type"::Order);
                 RecLSalesLine.VALIDATE("Document No.", RecLSalesHeader."No.");
                 RecLSalesLine."Line No." := FctNextLineNo(RecLSalesHeader."No.");
@@ -684,12 +678,12 @@ codeunit 8073291 "PWD Buffer Management"
                 RecLSalesCommentLineBuffer.SETRANGE("Document No.", RecLSalesLineBuffer."Document No.");
                 RecLSalesCommentLineBuffer.SETRANGE("Document Line No.", RecLSalesLineBuffer."Entry No.");
                 IF NOT RecLSalesCommentLineBuffer.ISEMPTY THEN BEGIN
-                    RecLSalesCommentLineBuffer.FINDSET;
+                    RecLSalesCommentLineBuffer.FINDSET();
                     REPEAT
                         RecordRefBuf.GETTABLE(RecLSalesCommentLineBuffer);
                         FctCheckBufferLine(RecordRefBuf);
 
-                        RecLSalesCommentLine.INIT;
+                        RecLSalesCommentLine.INIT();
                         RecLSalesCommentLine."Document Type" := RecPSalesHeaderBuffer."Document Type";
                         RecLSalesCommentLine."No." := RecLSalesLine."Document No.";
                         RecLSalesCommentLine."Line No." := IntLLineNo;
@@ -706,15 +700,15 @@ codeunit 8073291 "PWD Buffer Management"
                         FctUpdateBufferLineProcessed(RecordRefBuf, 1, RecordRef.RECORDID);
 
                         IntLLineNo := 10000;
-                    UNTIL RecLSalesCommentLineBuffer.NEXT = 0;
+                    UNTIL RecLSalesCommentLineBuffer.NEXT() = 0;
                 END;
-            UNTIL RecLSalesLineBuffer.NEXT = 0;
+            UNTIL RecLSalesLineBuffer.NEXT() = 0;
         END;
 
         //Calc SalesHeaderAmount
         RecLSalesHeader.GET(RecLSalesHeader."Document Type", RecLSalesHeader."No.");
-        RecLSalesLine.RESET;
-        RecLSalesSetup.GET;
+        RecLSalesLine.RESET();
+        RecLSalesSetup.GET();
         IF RecLSalesSetup."Calc. Inv. Discount" THEN BEGIN
             CODEUNIT.RUN(CODEUNIT::"Sales-Calc. Discount", RecLSalesLine);
             RecLSalesHeader.GET(RecLSalesHeader."Document Type", RecLSalesHeader."No.");
@@ -770,7 +764,7 @@ codeunit 8073291 "PWD Buffer Management"
         RecLSalesCommentLineBuffer.SETRANGE("Document No.", RecPSalesHeaderBuffer."Document No.");
         RecLSalesCommentLineBuffer.SETRANGE("Document Line No.", 0);
         IF NOT RecLSalesCommentLineBuffer.ISEMPTY THEN BEGIN
-            RecLSalesCommentLineBuffer.FINDSET;
+            RecLSalesCommentLineBuffer.FINDSET();
             REPEAT
                 RecordRefBuf.GETTABLE(RecLSalesCommentLineBuffer);
                 FctCheckBufferLine(RecordRefBuf);
@@ -796,14 +790,14 @@ codeunit 8073291 "PWD Buffer Management"
                 FctUpdateBufferLineProcessed(RecordRefBuf, 2, RecordRef.RECORDID);
 
                 IntLLineNo := 10000;
-            UNTIL RecLSalesCommentLineBuffer.NEXT = 0;
+            UNTIL RecLSalesCommentLineBuffer.NEXT() = 0;
         END;
 
         RecLSalesLineBuffer.SETCURRENTKEY("Document Type", "Document No.");
         RecLSalesLineBuffer.SETRANGE("Document Type", RecPSalesHeaderBuffer."Document Type");
         RecLSalesLineBuffer.SETRANGE("Document No.", RecPSalesHeaderBuffer."Document No.");
         IF NOT RecLSalesLineBuffer.ISEMPTY THEN BEGIN
-            RecLSalesLineBuffer.FINDSET;
+            RecLSalesLineBuffer.FINDSET();
             REPEAT
                 RecordRefBuf.GETTABLE(RecLSalesLineBuffer);
                 FctCheckBufferLine(RecordRefBuf);
@@ -835,7 +829,7 @@ codeunit 8073291 "PWD Buffer Management"
                 RecLSalesCommentLineBuffer.SETRANGE("Document No.", RecLSalesLineBuffer."Document No.");
                 RecLSalesCommentLineBuffer.SETRANGE("Document Line No.", RecLSalesLineBuffer."Entry No.");
                 IF NOT RecLSalesCommentLineBuffer.ISEMPTY THEN BEGIN
-                    RecLSalesCommentLineBuffer.FINDSET;
+                    RecLSalesCommentLineBuffer.FINDSET();
                     REPEAT
                         RecordRefBuf.GETTABLE(RecLSalesCommentLineBuffer);
                         FctCheckBufferLine(RecordRefBuf);
@@ -861,15 +855,15 @@ codeunit 8073291 "PWD Buffer Management"
                         FctUpdateBufferLineProcessed(RecordRefBuf, 2, RecordRef.RECORDID);
 
                         IntLLineNo := 10000;
-                    UNTIL RecLSalesCommentLineBuffer.NEXT = 0;
+                    UNTIL RecLSalesCommentLineBuffer.NEXT() = 0;
                 END;
-            UNTIL RecLSalesLineBuffer.NEXT = 0;
+            UNTIL RecLSalesLineBuffer.NEXT() = 0;
         END;
 
         //Calc SalesHeaderAmount
         RecLSalesHeader.GET(RecLSalesHeader."Document Type", RecLSalesHeader."No.");
-        RecLSalesLine.RESET;
-        RecLSalesSetup.GET;
+        RecLSalesLine.RESET();
+        RecLSalesSetup.GET();
         IF RecLSalesSetup."Calc. Inv. Discount" THEN BEGIN
             CODEUNIT.RUN(CODEUNIT::"Sales-Calc. Discount", RecLSalesLine);
             RecLSalesHeader.GET(RecLSalesHeader."Document Type", RecLSalesHeader."No.");
@@ -885,7 +879,6 @@ codeunit 8073291 "PWD Buffer Management"
 
     procedure FctDeleteSalesOrder(var RecPSalesHeaderBuffer: Record "PWD Sales Header Buffer")
     var
-        RecLSalesHeader: Record "Sales Header";
         RecordRef: RecordRef;
         RecordRefBuf: RecordRef;
     begin
@@ -964,7 +957,7 @@ codeunit 8073291 "PWD Buffer Management"
         RecordRef: RecordRef;
     begin
         //>>WMS-FEMOT.001
-        RecLCustomer.INIT;
+        RecLCustomer.INIT();
         RecLCustomer.Name := COPYSTR(RecPCustomerBuffer.Name, 1, 50);
         RecLCustomer.INSERT(TRUE);
 
@@ -1102,7 +1095,6 @@ codeunit 8073291 "PWD Buffer Management"
     var
         RecordRefBuf: RecordRef;
         RecLItemJounalLine: Record "Item Journal Line";
-        CduLConnectorPebParseData: Codeunit "PWD Connector Peb Parse Data";
         RecordRef: RecordRef;
         IntLLineNo: Integer;
         RecLItemJnlBatch: Record "Item Journal Batch";
@@ -1118,11 +1110,6 @@ codeunit 8073291 "PWD Buffer Management"
         RecLItemJnlTemplate: Record "Item Journal Template";
         CodLLotNo: Code[20];
         CodLSerialNo: Code[20];
-        "---LAP2.01---": Integer;
-        RecLReservEntry: Record "Reservation Entry";
-        RecLProdOrdLine2: Record "Prod. Order Line";
-        DecLQty: Decimal;
-        DecLQtyLine: Decimal;
         RecLItem: Record Item;
         CduLLotInheritanceMgt: Codeunit "Lot Inheritance Mgt.PW";
         RecLProdOrderRoutingLine: Record "Prod. Order Routing Line";
@@ -1142,14 +1129,14 @@ codeunit 8073291 "PWD Buffer Management"
         CduLConnectorOSYSParseData.FctInsertNewProdOrderLine(RecPItemJounalLineBuffer);
         //<<FE_LAPRIERRETTE_GP0004.001
 
-        RecLItemJounalLine.RESET;
+        RecLItemJounalLine.RESET();
         RecLItemJounalLine.SETRANGE("Journal Template Name", RecPItemJounalLineBuffer."Journal Template Name");
         RecLItemJounalLine.SETRANGE("Journal Batch Name", RecPItemJounalLineBuffer."Journal Batch Name");
-        IF RecLItemJounalLine.FINDLAST THEN
+        IF RecLItemJounalLine.FINDLAST() THEN
             IntLLineNo := RecLItemJounalLine."Line No.";
 
         IntLLineNo += 10000;
-        RecLItemJounalLine.INIT;
+        RecLItemJounalLine.INIT();
         IF RecPItemJounalLineBuffer."Posting Date" <> '' THEN
             EVALUATE(RecLItemJounalLine."Posting Date", RecPItemJounalLineBuffer."Posting Date")
         ELSE
@@ -1165,7 +1152,7 @@ codeunit 8073291 "PWD Buffer Management"
             //RecLItemJounalLine."Document No.":=CduLNoSeriesMgt.TryGetNextNo(RecLItemJnlBatch."No. Series",RecLItemJounalLine."Posting Date"
             CduLNoSeriesMgt.GetNextNo1(RecLItemJnlBatch."No. Series", RecLItemJounalLine."Posting Date");
             CduLNoSeriesMgt.GetNextNo(RecLItemJnlBatch."No. Series", RecLItemJounalLine."Posting Date", FALSE);
-            RecLItemJounalLine."Document No." := CduLNoSeriesMgt.GetNextNo2;
+            RecLItemJounalLine."Document No." := CduLNoSeriesMgt.GetNextNo2();
             //>>LAP2.22
             IF RecPItemJounalLineBuffer."Message Code" = 'IMPORTSTOCK' THEN
                 RecLItemJounalLine."Document No." := CduLNoSeriesMgt.TryGetNextNo
@@ -1217,13 +1204,12 @@ codeunit 8073291 "PWD Buffer Management"
         IntLTrackingType := 0;
         IF (CodLLotNo <> '') AND (CodLSerialNo <> '') THEN
             IntLTrackingType := 2
-        ELSE BEGIN
+        ELSE
             IF (CodLLotNo <> '') THEN
                 IntLTrackingType := 1
             ELSE
                 IF (CodLSerialNo <> '') THEN
                     IntLTrackingType := 3;
-        END;
 
         //>>OSYS-Int001
         CASE RecLItemJounalLine."Entry Type" OF
@@ -1250,21 +1236,21 @@ codeunit 8073291 "PWD Buffer Management"
                     ELSE BEGIN
                         RecLProdOrderLine.SETRANGE(Status, RecLProdOrderLine.Status::Released);
                         RecLProdOrderLine.SETRANGE("Prod. Order No.", RecPItemJounalLineBuffer."Prod. Order No.");
-                        IF RecLProdOrderLine.FINDFIRST THEN BEGIN
+                        IF RecLProdOrderLine.FINDFIRST() THEN BEGIN
                             RecLProdOrderRtngLine.SETRANGE(Status, RecLProdOrderLine.Status);
                             RecLProdOrderRtngLine.SETRANGE("Prod. Order No.", RecLProdOrderLine."Prod. Order No.");
                             RecLProdOrderRtngLine.SETRANGE("Routing Reference No.", RecLProdOrderLine."Routing Reference No.");
                             RecLProdOrderRtngLine.SETRANGE("Routing No.", RecLProdOrderLine."Routing No.");
                             RecLProdOrderRtngLine.SETRANGE(RecLProdOrderRtngLine."Next Operation No.", '');
-                            IF RecLProdOrderRtngLine.FINDLAST THEN BEGIN
+                            IF RecLProdOrderRtngLine.FINDLAST() THEN BEGIN
                                 RecLItemJounalLine."Routing No." := RecLProdOrderRtngLine."Routing No.";
                                 RecLItemJounalLine."Operation No." := RecLProdOrderRtngLine."Operation No.";
                                 RecLItemJounalLine.Type := RecLProdOrderRtngLine.Type;
                                 //RecLItemJounalLine."No."            :=  RecLProdOrderRtngLine."No.";
                                 RecLItemJounalLine.VALIDATE("No.", RecLProdOrderRtngLine."No.");
                             END;
-                            RecLProdOrderLine.RESET;
-                            RecLProdOrderRtngLine.RESET;
+                            RecLProdOrderLine.RESET();
+                            RecLProdOrderRtngLine.RESET();
                         END;
                     END;
                     //<<FE_LAPRIERRETTE_GP0004.001
@@ -1287,7 +1273,7 @@ codeunit 8073291 "PWD Buffer Management"
                     RecLItemJounalLine.VALIDATE("Setup Time", RecPItemJounalLineBuffer."Setup Time");
                     RecLItemJounalLine.VALIDATE("Run Time", RecPItemJounalLineBuffer."Run Time");
                     //>>LPSA 14/12/2015 - on remplace les temps QUARTIS par les temps théoriques
-                    IF RecPItemJounalLineBuffer.Finished THEN BEGIN
+                    IF RecPItemJounalLineBuffer.Finished THEN
                         IF RecLProdOrderRoutingLine.GET(RecLProdOrderLine.Status,
                         RecLProdOrderLine."Prod. Order No.",
                         RecLProdOrderLine."Line No.",
@@ -1296,7 +1282,6 @@ codeunit 8073291 "PWD Buffer Management"
                             RecLItemJounalLine.VALIDATE("Setup Time", RecLProdOrderRoutingLine."Setup Time");
                             RecLItemJounalLine.VALIDATE("Run Time", RecLProdOrderRoutingLine."Run Time" * RecLProdOrderRtngLine."Input Quantity");
                         END;
-                    END;
                     //<<LPSA 14/12/2015
 
                     RecLItemJounalLine.Finished := RecPItemJounalLineBuffer.Finished;
@@ -1315,14 +1300,14 @@ codeunit 8073291 "PWD Buffer Management"
                     RecLItemJounalLine.VALIDATE("Item No.", RecPItemJounalLineBuffer."Item No.");
                     IF RecLProdOrderLine.GET(RecLProdOrderLine.Status::Released, RecPItemJounalLineBuffer."Prod. Order No.",
                                               RecPItemJounalLineBuffer."Prod. Order Line No.") THEN BEGIN
-                        RecLProdOrderComponent.RESET;
+                        RecLProdOrderComponent.RESET();
                         RecLProdOrderComponent.SETRANGE(Status, RecLProdOrderLine.Status);
                         RecLProdOrderComponent.SETRANGE("Prod. Order No.", RecLProdOrderLine."Prod. Order No.");
                         RecLProdOrderComponent.SETRANGE("Prod. Order Line No.", RecLProdOrderLine."Line No.");
                         RecLProdOrderComponent.SETRANGE("Item No.", RecPItemJounalLineBuffer."Item No.");
                         RecLProdOrderComponent.SETRANGE("Variant Code", RecPItemJounalLineBuffer."Variant Code");
                         IF NOT RecLProdOrderComponent.ISEMPTY THEN BEGIN
-                            RecLProdOrderComponent.FINDFIRST;
+                            RecLProdOrderComponent.FINDFIRST();
                             RecLItemJounalLine.VALIDATE("Location Code", RecLProdOrderComponent."Location Code");
                             RecLItemJounalLine.VALIDATE("Bin Code", RecLProdOrderComponent."Bin Code");
                             RecLItemJounalLine.VALIDATE("Prod. Order Comp. Line No.", RecLProdOrderComponent."Line No.");
@@ -1406,7 +1391,7 @@ codeunit 8073291 "PWD Buffer Management"
         //<<FE_LAPIERRETTE_PROD11.001
 
         //>>FE_LAPIERRETTE_PROD11.002
-        IF IntLTrackingType <> 0 THEN BEGIN
+        IF IntLTrackingType <> 0 THEN
             IF RecLItem.GET(RecLItemJounalLine."Item No.") THEN
 
                 //>>FE_LAPRIERRETTE_GP0004.001
@@ -1435,7 +1420,6 @@ codeunit 8073291 "PWD Buffer Management"
                                                          CodLLotNo,
                                                          //<<WMS-EBL1-003.001
                                                          RecLItemJounalLine."Expiration Date");
-        END;
         //<<WMS-FEMOT.001
         //<<FE_LAPIERRETTE_PROD11.002
 
@@ -1450,12 +1434,10 @@ codeunit 8073291 "PWD Buffer Management"
     var
         RecordRefBuf: RecordRef;
         RecLItemJounalLine: Record "Item Journal Line";
-        CduLConnectorPebParseData: Codeunit "PWD Connector Peb Parse Data";
         RecordRef: RecordRef;
         IntLTrackingType: Integer;
         CduLBufferTrackingManagement: Codeunit "PWD Buffer Tracking Management";
         CduLConnectorWMSParseData: Codeunit "PWD Connector WMS Parse Data";
-        "-OSYS-Int001-": Integer;
         CduLConnectorOSYSParseData: Codeunit "Connector OSYS Parse Data";
         IntLSourceSubType: Integer;
         CduLItemJnlLineReserve: Codeunit "Item Jnl. Line-Reserve";
@@ -1561,14 +1543,14 @@ codeunit 8073291 "PWD Buffer Management"
                     RecLItemJounalLine.VALIDATE("Operation No.", RecPItemJounalLineBuffer."Operation No.");
                     IF RecLProdOrderLine.GET(RecLProdOrderLine.Status::Released, RecPItemJounalLineBuffer."Prod. Order No.",
                                               RecPItemJounalLineBuffer."Prod. Order Line No.") THEN BEGIN
-                        RecLProdOrderComponent.RESET;
+                        RecLProdOrderComponent.RESET();
                         RecLProdOrderComponent.SETRANGE(Status, RecLProdOrderLine.Status);
                         RecLProdOrderComponent.SETRANGE("Prod. Order No.", RecLProdOrderLine."Prod. Order No.");
                         RecLProdOrderComponent.SETRANGE("Prod. Order Line No.", RecLProdOrderLine."Line No.");
                         RecLProdOrderComponent.SETRANGE("Item No.", RecPItemJounalLineBuffer."Item No.");
                         RecLProdOrderComponent.SETRANGE("Variant Code", RecPItemJounalLineBuffer."Variant Code");
                         IF NOT RecLProdOrderComponent.ISEMPTY THEN BEGIN
-                            RecLProdOrderComponent.FINDFIRST;
+                            RecLProdOrderComponent.FINDFIRST();
                             RecLItemJounalLine.VALIDATE("Prod. Order Comp. Line No.", RecLProdOrderComponent."Line No.");
                         END;
                     END;
@@ -1581,13 +1563,12 @@ codeunit 8073291 "PWD Buffer Management"
         IntLTrackingType := 0;
         IF (RecPItemJounalLineBuffer."Lot No." <> '') AND (RecPItemJounalLineBuffer."Serial No." <> '') THEN
             IntLTrackingType := 2
-        ELSE BEGIN
+        ELSE
             IF (RecPItemJounalLineBuffer."Lot No." <> '') THEN
                 IntLTrackingType := 1
             ELSE
                 IF (RecPItemJounalLineBuffer."Serial No." <> '') THEN
                     IntLTrackingType := 3;
-        END;
 
 
         //Spécifiques WMS
@@ -1659,7 +1640,7 @@ codeunit 8073291 "PWD Buffer Management"
 
         //>>OSYS-Int001
         //OLD : FORM.RUN(FORM::"Item Journal", RecLItemJounalLine);
-        WITH RecLItemJounalLine DO BEGIN
+        WITH RecLItemJounalLine DO
             CASE "Entry Type" OF
                 "Entry Type"::Purchase:
                     FORM.RUN(FORM::"Item Journal", RecLItemJounalLine);
@@ -1670,8 +1651,6 @@ codeunit 8073291 "PWD Buffer Management"
                 "Entry Type"::Consumption:
                     FORM.RUN(FORM::"Consumption Journal", RecLItemJounalLine);
             END;
-
-        END;
         //>>OSYS-Int001
 
         //<<WMS-FEMOT.001
@@ -1697,25 +1676,16 @@ codeunit 8073291 "PWD Buffer Management"
 
     procedure FctValidateItemJournaLine(TxtPJTempName: Text[30]; TxtPJBatchName: Text[30])
     var
-        RecordRefBuf: RecordRef;
         RecLItemJounalLine: Record "Item Journal Line";
-        CduLConnectorPebParseData: Codeunit "PWD Connector Peb Parse Data";
-        RecordRef: RecordRef;
-        IntLLineNo: Integer;
-        RecLItemJnlBatch: Record "Item Journal Batch";
-        CduLNoSeriesMgt: Codeunit NoSeriesManagement;
-        IntLTrackingType: Integer;
-        CduLBufferTrackingManagement: Codeunit "PWD Buffer Tracking Management";
-        CduLConnectorWMSParseData: Codeunit "PWD Connector WMS Parse Data";
         CduLConnectorErrorlog: Codeunit "PWD Connector Error log";
     begin
         //>>OSYS-Int001
-        CLEARLASTERROR;
-        COMMIT;
+        CLEARLASTERROR();
+        COMMIT();
         RecLItemJounalLine.SETRANGE("Journal Template Name", TxtPJTempName);
         RecLItemJounalLine.SETRANGE("Journal Batch Name", TxtPJBatchName);
         IF NOT RecLItemJounalLine.ISEMPTY THEN BEGIN
-            RecLItemJounalLine.FINDFIRST;
+            RecLItemJounalLine.FINDFIRST();
             IF NOT CODEUNIT.RUN(CODEUNIT::"Item Jnl.-Post", RecLItemJounalLine) THEN
                 CduLConnectorErrorlog.InsertLogEntry(2, 1, '', COPYSTR(GETLASTERRORTEXT, 1, 250), 0);
         END;
@@ -1833,13 +1803,12 @@ codeunit 8073291 "PWD Buffer Management"
         IntLTrackingType := 0;
         IF (CodLLotNo <> '') AND (CodLSerialNo <> '') THEN
             IntLTrackingType := 2
-        ELSE BEGIN
+        ELSE
             IF (CodLLotNo <> '') THEN
                 IntLTrackingType := 1
             ELSE
                 IF (CodLSerialNo <> '') THEN
                     IntLTrackingType := 3;
-        END;
 
         IF IntLTrackingType <> 0 THEN BEGIN
             CduLBufferTrackingManagement.FctAssignSerialNo(DATABASE::"Purchase Line",
@@ -1871,14 +1840,14 @@ codeunit 8073291 "PWD Buffer Management"
 
         END
         ELSE
-        //RecLPuchaseLine.VALIDATE("Qty. to Receive (Base)", DecLQtyReceipt);
-        BEGIN
+            //RecLPuchaseLine.VALIDATE("Qty. to Receive (Base)", DecLQtyReceipt);
+            //RecLPuchaseLine.VALIDATE("Qty. to Receive (Base)", DecLQtyReceipt);
+
             IF RecLPurchLToGetINfo.GET(RecLPuchaseLine."Document Type", RecLPuchaseLine."Document No.", RecLPuchaseLine."Line No.") THEN
                 IF RecLPurchLToGetINfo."Qty. per Unit of Measure" <> 0 THEN
                     RecLPuchaseLine.VALIDATE("Qty. to Receive", DecLQtyReceipt / RecLPurchLToGetINfo."Qty. per Unit of Measure")
                 ELSE
                     RecLPuchaseLine.VALIDATE("Qty. to Receive", DecLQtyReceipt);
-        END;
 
         //Spécifiques PEB
         CduLConnectorPebParseData.FctUpdateReceiptLine(RecLPuchaseLine, RecPReceiptLineBuffer."Entry No.");
@@ -1942,7 +1911,7 @@ codeunit 8073291 "PWD Buffer Management"
 
         //>>WMS-FEMOT.001
         RecLPartner.GET(CodPPartnerCode);
-        RecLConnectorValues.INIT;
+        RecLConnectorValues.INIT();
         RecLConnectorValues."Entry No." := FctEntryNoForBufferTable();
         RecLConnectorValues."Partner Code" := CodPPartnerCode;
         RecLConnectorValues."File Name" := TxtPFileName;
@@ -1964,7 +1933,7 @@ codeunit 8073291 "PWD Buffer Management"
         RecLTempBlob.Blob.CREATEINSTREAM(InsLstream);
         RecLConnectorValues.Blob.CREATEOUTSTREAM(OusLstream);
         COPYSTREAM(OusLstream, InsLstream);
-        RecLConnectorValues.INSERT;
+        RecLConnectorValues.INSERT();
         EXIT(RecLConnectorValues."Entry No.");
         //<<WMS-FEMOT.001
     end;
@@ -2007,7 +1976,6 @@ codeunit 8073291 "PWD Buffer Management"
         IntLTrackingType: Integer;
         RecordRef: RecordRef;
         RecordRefBuf: RecordRef;
-        DecLQty: Decimal;
         IntLLineNo: Integer;
         CduLConnectorPebParseData: Codeunit "PWD Connector Peb Parse Data";
         CduLConnectorWMSParseData: Codeunit "PWD Connector WMS Parse Data";
@@ -2065,13 +2033,12 @@ codeunit 8073291 "PWD Buffer Management"
         IntLTrackingType := 0;
         IF (CodLLotNo <> '') AND (CodLSerialNo <> '') THEN
             IntLTrackingType := 2
-        ELSE BEGIN
+        ELSE
             IF (CodLLotNo <> '') THEN
                 IntLTrackingType := 1
             ELSE
                 IF (CodLSerialNo <> '') THEN
                     IntLTrackingType := 3;
-        END;
 
         IF IntLTrackingType <> 0 THEN BEGIN
             CduLBufferTrackingManagement.FctAssignSerialNo(DATABASE::"Sales Line",
@@ -2103,13 +2070,12 @@ codeunit 8073291 "PWD Buffer Management"
         END
 
         //RecLSalesLine.VALIDATE("Qty. to Ship (Base)", DecLQtyShip);
-        ELSE BEGIN
+        ELSE
             IF RecLSalesLineToGetInf.GET(RecLSalesLine."Document Type", RecLSalesLine."Document No.", RecLSalesLine."Line No.") THEN
                 IF RecLSalesLineToGetInf."Qty. per Unit of Measure" <> 0 THEN
                     RecLSalesLine.VALIDATE("Qty. to Ship", DecLQtyShip / RecLSalesLineToGetInf."Qty. per Unit of Measure")
                 ELSE
                     RecLSalesLine.VALIDATE("Qty. to Ship", DecLQtyShip);
-        END;
 
         //Spécifiques PEB
         CduLConnectorPebParseData.FctUpdateShipmentLine(RecLSalesLine, RecPShipmentLineBuffer."Entry No.");
@@ -2118,7 +2084,7 @@ codeunit 8073291 "PWD Buffer Management"
 
         RecLSalesLine.MODIFY(TRUE);
 
-        COMMIT;
+        COMMIT();
         CduLReleaseSalesDocument.RUN(RecLSalesHeader);
     end;
 
@@ -2158,21 +2124,21 @@ codeunit 8073291 "PWD Buffer Management"
 
     procedure FctInitItemJnlLineTempBuffer()
     begin
-        RecGItemJnlLineTempBufferPost.RESET;
-        RecGItemJnlLineTempBufferPost.DELETEALL;
+        RecGItemJnlLineTempBufferPost.RESET();
+        RecGItemJnlLineTempBufferPost.DELETEALL();
     end;
 
 
     procedure FctValidateMultiItemJournaLine()
     begin
-        RecGItemJnlLineTempBufferPost.RESET;
+        RecGItemJnlLineTempBufferPost.RESET();
         RecGItemJnlLineTempBufferPost.SETRANGE("Auto-Post Document", TRUE);
         IF NOT RecGItemJnlLineTempBufferPost.ISEMPTY THEN BEGIN
-            RecGItemJnlLineTempBufferPost.FINDSET;
+            RecGItemJnlLineTempBufferPost.FINDSET();
             REPEAT
                 FctValidateItemJournaLine(RecGItemJnlLineTempBufferPost."Journal Template Name",
                                           RecGItemJnlLineTempBufferPost."Journal Batch Name");
-            UNTIL RecGItemJnlLineTempBufferPost.NEXT = 0;
+            UNTIL RecGItemJnlLineTempBufferPost.NEXT() = 0;
         END;
     end;
 
@@ -2187,20 +2153,20 @@ codeunit 8073291 "PWD Buffer Management"
         //Rec.SETTABLE(RecLItemJournalLineBuffer);
         FieldRef := Rec.FIELD(1);
         RecLItemJournalLineBuffer.GET(FieldRef.VALUE);
-        RecGItemJnlLineTempBufferPost.RESET;
-        IF RecGItemJnlLineTempBufferPost.FINDLAST THEN;
+        RecGItemJnlLineTempBufferPost.RESET();
+        IF RecGItemJnlLineTempBufferPost.FINDLAST() THEN;
         RecGItemJnlLineTempBufferPost.SETRANGE("Journal Template Name", RecLItemJournalLineBuffer."Journal Template Name");
         RecGItemJnlLineTempBufferPost.SETRANGE("Journal Batch Name", RecLItemJournalLineBuffer."Journal Batch Name");
         IF RecGItemJnlLineTempBufferPost.ISEMPTY THEN BEGIN
             RecGItemJnlLineTempBufferPost := RecLItemJournalLineBuffer;
             RecGItemJnlLineTempBufferPost."Entry No." := RecGItemJnlLineTempBufferPost."Entry No." + 1;
-            RecGItemJnlLineTempBufferPost.INSERT;
+            RecGItemJnlLineTempBufferPost.INSERT();
         END
         ELSE BEGIN
-            RecGItemJnlLineTempBufferPost.FINDFIRST;
+            RecGItemJnlLineTempBufferPost.FINDFIRST();
             IF (NOT RecGItemJnlLineTempBufferPost."Auto-Post Document") AND (RecLItemJournalLineBuffer."Auto-Post Document") THEN BEGIN
                 RecGItemJnlLineTempBufferPost."Auto-Post Document" := RecLItemJournalLineBuffer."Auto-Post Document";
-                RecGItemJnlLineTempBufferPost.MODIFY;
+                RecGItemJnlLineTempBufferPost.MODIFY();
             END;
         END;
     end;
@@ -2225,24 +2191,15 @@ codeunit 8073291 "PWD Buffer Management"
 
     procedure FctValidateItemJournaLineBatch(TxtPJTempName: Text[30]; TxtPJBatchName: Text[30])
     var
-        RecordRefBuf: RecordRef;
         RecLItemJounalLine: Record "Item Journal Line";
-        CduLConnectorPebParseData: Codeunit "PWD Connector Peb Parse Data";
-        RecordRef: RecordRef;
-        IntLLineNo: Integer;
-        RecLItemJnlBatch: Record "Item Journal Batch";
-        CduLNoSeriesMgt: Codeunit NoSeriesManagement;
-        IntLTrackingType: Integer;
-        CduLBufferTrackingManagement: Codeunit "PWD Buffer Tracking Management";
-        CduLConnectorWMSParseData: Codeunit "PWD Connector WMS Parse Data";
         CduLConnectorErrorlog: Codeunit "PWD Connector Error log";
     begin
-        CLEARLASTERROR;
-        COMMIT;
+        CLEARLASTERROR();
+        COMMIT();
         RecLItemJounalLine.SETRANGE("Journal Template Name", TxtPJTempName);
         RecLItemJounalLine.SETRANGE("Journal Batch Name", TxtPJBatchName);
         IF NOT RecLItemJounalLine.ISEMPTY THEN BEGIN
-            RecLItemJounalLine.FINDFIRST;
+            RecLItemJounalLine.FINDFIRST();
             IF NOT CODEUNIT.RUN(CODEUNIT::"Item Jnl.-Post Batch", RecLItemJounalLine) THEN
                 CduLConnectorErrorlog.InsertLogEntry(2, 1, '', COPYSTR(GETLASTERRORTEXT, 1, 250), 0);
         END;

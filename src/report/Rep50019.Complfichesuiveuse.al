@@ -128,11 +128,11 @@ report 50019 "PWD Compl. fiche suiveuse"
                 //Determine l'article PF
                 RecLProdOL.SetRange(Status, Status);
                 RecLProdOL.SetRange("Prod. Order No.", "No.");
-                if RecLProdOL.FindFirst then
+                if RecLProdOL.FindFirst() then
                     RecLItemPF.Get(RecLProdOL."Item No.");
                 RecLConfPF.SetRange("Item Code", RecLItemPF."No.");
-                if not RecLConfPF.FindFirst then
-                    RecLConfPF.Init;
+                if not RecLConfPF.FindFirst() then
+                    RecLConfPF.Init();
 
                 //>>
                 Lot1 := '';
@@ -153,15 +153,15 @@ report 50019 "PWD Compl. fiche suiveuse"
                 //>>
                 //IF RecLProdOC.FINDFIRST THEN BEGIN
                 RecLProdOC.SetFilter("Quantity per", '<>%1', 0);
-                if RecLProdOC.Find('-') then begin
+                if RecLProdOC.Find('-') then
                     repeat
                         //<<
                         RecLItemSO.Get(RecLProdOC."Item No.");
                         RecLConfSO.SetRange("Item Code", RecLItemSO."No.");
-                        if not RecLConfSO.FindFirst then
-                            RecLConfSO.Init;
+                        if not RecLConfSO.FindFirst() then
+                            RecLConfSO.Init();
 
-                        RecLReservation.Reset;
+                        RecLReservation.Reset();
                         RecLReservation.SetRange("Source Type", DATABASE::"Prod. Order Component");
                         RecLReservation.SetRange("Source Subtype", 3);
                         RecLReservation.SetRange("Source ID", RecLProdOC."Prod. Order No.");
@@ -179,34 +179,32 @@ report 50019 "PWD Compl. fiche suiveuse"
                                         Qty3 += RecLReservation.Quantity;
                                     Lot4:
                                         Qty4 += RecLReservation.Quantity;
-                                    else begin
-                                            if Lot1 = '' then begin
-                                                Lot1 := RecLReservation."Lot No.";
-                                                Qty1 := RecLReservation.Quantity;
+                                    else
+                                        if Lot1 = '' then begin
+                                            Lot1 := RecLReservation."Lot No.";
+                                            Qty1 := RecLReservation.Quantity;
+                                        end else
+                                            if Lot2 = '' then begin
+                                                Lot2 := RecLReservation."Lot No.";
+                                                Qty2 := RecLReservation.Quantity;
                                             end else
-                                                if Lot2 = '' then begin
-                                                    Lot2 := RecLReservation."Lot No.";
-                                                    Qty2 := RecLReservation.Quantity;
+                                                if Lot3 = '' then begin
+                                                    Lot3 := RecLReservation."Lot No.";
+                                                    Qty3 := RecLReservation.Quantity;
+                                                    //END;
                                                 end else
-                                                    if Lot3 = '' then begin
-                                                        Lot3 := RecLReservation."Lot No.";
-                                                        Qty3 := RecLReservation.Quantity;
-                                                        //END;
-                                                    end else
-                                                        if Lot4 = '' then begin
-                                                            Lot4 := RecLReservation."Lot No.";
-                                                            Qty4 := RecLReservation.Quantity;
-                                                        end;
-
-                                        end;
+                                                    if Lot4 = '' then begin
+                                                        Lot4 := RecLReservation."Lot No.";
+                                                        Qty4 := RecLReservation.Quantity;
+                                                    end;
                                 end;
-                            until RecLReservation.Next = 0;
+                            until RecLReservation.Next() = 0;
 
-                        RecLItemLedgerEntry.Reset;
+                        RecLItemLedgerEntry.Reset();
                         RecLItemLedgerEntry.SetRange("Entry Type", RecLItemLedgerEntry."Entry Type"::Consumption);
                         RecLItemLedgerEntry.SetRange("Document No.", "Production Order"."No.");
                         RecLItemLedgerEntry.SetFilter("Lot No.", '<>%1', '');
-                        if RecLItemLedgerEntry.FindFirst then
+                        if RecLItemLedgerEntry.FindFirst() then
                             repeat
                                 case RecLItemLedgerEntry."Lot No." of
                                     Lot1:
@@ -217,36 +215,34 @@ report 50019 "PWD Compl. fiche suiveuse"
                                         Qty3 += Abs(RecLItemLedgerEntry.Quantity);
                                     Lot4:
                                         Qty4 += Abs(RecLItemLedgerEntry.Quantity);
-                                    else begin
-                                            if Lot1 = '' then begin
-                                                Lot1 := RecLItemLedgerEntry."Lot No.";
-                                                Qty1 := Abs(RecLItemLedgerEntry.Quantity);
+                                    else
+                                        if Lot1 = '' then begin
+                                            Lot1 := RecLItemLedgerEntry."Lot No.";
+                                            Qty1 := Abs(RecLItemLedgerEntry.Quantity);
+                                        end else
+                                            if Lot2 = '' then begin
+                                                Lot2 := RecLItemLedgerEntry."Lot No.";
+                                                Qty2 := Abs(RecLItemLedgerEntry.Quantity);
                                             end else
-                                                if Lot2 = '' then begin
-                                                    Lot2 := RecLItemLedgerEntry."Lot No.";
-                                                    Qty2 := Abs(RecLItemLedgerEntry.Quantity);
+                                                if Lot3 = '' then begin
+                                                    Lot3 := RecLItemLedgerEntry."Lot No.";
+                                                    Qty3 := Abs(RecLItemLedgerEntry.Quantity);
+                                                    //END;
                                                 end else
-                                                    if Lot3 = '' then begin
-                                                        Lot3 := RecLItemLedgerEntry."Lot No.";
-                                                        Qty3 := Abs(RecLItemLedgerEntry.Quantity);
-                                                        //END;
-                                                    end else
-                                                        if Lot4 = '' then begin
-                                                            Lot4 := RecLReservation."Lot No.";
-                                                            Qty4 := RecLReservation.Quantity;
-                                                        end;
-                                        end;
+                                                    if Lot4 = '' then begin
+                                                        Lot4 := RecLReservation."Lot No.";
+                                                        Qty4 := RecLReservation.Quantity;
+                                                    end;
                                 end;
-                            until RecLItemLedgerEntry.Next = 0;
+                            until RecLItemLedgerEntry.Next() = 0;
 
                         //>>
                         SumComponentQty += RecLProdOC."Expected Quantity";
                         if ConcatComponentNo <> '' then
                             ConcatComponentNo += ' ';
                         ConcatComponentNo += RecLItemSO."No.";
-                    until RecLProdOC.Next = 0;
-                    //<<
-                end;
+                    until RecLProdOC.Next() = 0;
+                //<<
             end;
         }
     }
@@ -303,10 +299,10 @@ report 50019 "PWD Compl. fiche suiveuse"
     begin
         if (Min = 0) and (Max = 0) then
             exit('0/0')
-        else begin
+        else
             if (Abs(Min) = Abs(Max)) and (Min < 0) and (Max > 0) then
                 exit('+/-' + Format(Max))
-            else begin
+            else
                 if (Min < 0) and (Max < 0) then
                     exit('-' + Format(Min) + '/-' + Format(Max))
                 else
@@ -316,9 +312,7 @@ report 50019 "PWD Compl. fiche suiveuse"
                         if (Min > 0) and (Max < 0) then
                             exit('+' + Format(Min) + '/-' + Format(Max))
                         else
-                            exit('+' + Format(Min) + '/+' + Format(Max))
-            end;
-        end;
+                            exit('+' + Format(Min) + '/+' + Format(Max));
     end;
 }
 

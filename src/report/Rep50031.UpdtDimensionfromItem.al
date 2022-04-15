@@ -29,7 +29,7 @@ report 50031 "PWD Updt Dimension from Item"
 
             trigger OnPostDataItem()
             begin
-                DiaGWindow.Close;
+                DiaGWindow.Close();
                 Message('Traitement terminé');
             end;
 

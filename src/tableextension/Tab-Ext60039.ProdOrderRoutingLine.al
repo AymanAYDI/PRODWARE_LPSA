@@ -82,7 +82,7 @@ tableextension 60039 "PWD ProdOrderRoutingLine" extends "Prod. Order Routing Lin
                             //PLAW12.0 END
 
                             ProdOrderLine.MODIFY(TRUE);
-                UNTIL ProdOrderLine.NEXT = 0;
+                UNTIL ProdOrderLine.NEXT() = 0;
         END;
         //PLAW11.0 END
     end;
@@ -101,7 +101,7 @@ tableextension 60039 "PWD ProdOrderRoutingLine" extends "Prod. Order Routing Lin
             IF ProdOrderComp.FIND('-') THEN
                 REPEAT
                     RecalculateComponent(ProdOrderComp);
-                UNTIL ProdOrderComp.NEXT = 0;
+                UNTIL ProdOrderComp.NEXT() = 0;
         END;
 
         // update components whith no routing link code
@@ -114,7 +114,7 @@ tableextension 60039 "PWD ProdOrderRoutingLine" extends "Prod. Order Routing Lin
             IF ProdOrderComp.FIND('-') THEN
                 REPEAT
                     RecalculateComponent(ProdOrderComp);
-                UNTIL ProdOrderComp.NEXT = 0;
+                UNTIL ProdOrderComp.NEXT() = 0;
         END;
         //PLAW11.0 END
     end;
@@ -127,12 +127,12 @@ tableextension 60039 "PWD ProdOrderRoutingLine" extends "Prod. Order Routing Lin
         ProdOrderComp."Due Time" := "Starting Time";
         IF FORMAT(ProdOrderComp."Lead-Time Offset") <> '' THEN BEGIN
             ProdOrderComp."Due Date" :=
-              ProdOrderComp."Due Date" - (CALCDATE(ProdOrderComp."Lead-Time Offset", WORKDATE) - WORKDATE);
+              ProdOrderComp."Due Date" - (CALCDATE(ProdOrderComp."Lead-Time Offset", WORKDATE()) - WORKDATE());
             ProdOrderComp."Due Time" := 0T;
         END;
         ProdOrderComp.VALIDATE("Due Date");
-        ProdOrderComp.MODIFY;
-        ProdOrderComp.AutoReserve;
+        ProdOrderComp.MODIFY();
+        ProdOrderComp.AutoReserve();
         //PLAW11.0 END
     end;
 
@@ -161,9 +161,8 @@ tableextension 60039 "PWD ProdOrderRoutingLine" extends "Prod. Order Routing Lin
     var
         CalcProdOrderRtngLine: Codeunit "Calculate Routing Line";
     begin
-        IF DateChangedByPlannerOne THEN BEGIN
+        IF DateChangedByPlannerOne THEN
             CalcProdOrderRtngLine.CalculateRoutingLineP1(Rec);
-        END;
     end;
 
     var

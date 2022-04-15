@@ -70,7 +70,7 @@ table 8073283 "PWD Partner Connector"
                 FrmLObjects.SETRECORD(RecLObject);
                 FrmLObjects.SETTABLEVIEW(RecLObject);
                 FrmLObjects.LOOKUPMODE := TRUE;
-                IF FrmLObjects.RUNMODAL = ACTION::LookupOK THEN BEGIN
+                IF FrmLObjects.RUNMODAL() = ACTION::LookupOK THEN BEGIN
                     FrmLObjects.GETRECORD(RecLObject);
                     VALIDATE("Object ID to Run", RecLObject.ID);
                 END;
@@ -115,7 +115,7 @@ table 8073283 "PWD Partner Connector"
                 FrmLObjects.SETRECORD(RecLObject);
                 FrmLObjects.SETTABLEVIEW(RecLObject);
                 FrmLObjects.LOOKUPMODE := TRUE;
-                IF FrmLObjects.RUNMODAL = ACTION::LookupOK THEN BEGIN
+                IF FrmLObjects.RUNMODAL() = ACTION::LookupOK THEN BEGIN
                     FrmLObjects.GETRECORD(RecLObject);
                     VALIDATE("Functions CodeUnit ID", RecLObject.ID);
                 END;
@@ -184,7 +184,7 @@ table 8073283 "PWD Partner Connector"
     var
         RecLSendingMessage: Record "PWD Connector Messages";
     begin
-        RecLSendingMessage.RESET;
+        RecLSendingMessage.RESET();
         RecLSendingMessage.SETRANGE("Partner Code", Code);
         RecLSendingMessage.DELETEALL(TRUE);
     end;

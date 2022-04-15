@@ -15,10 +15,10 @@ report 50103 "PWD Update Cost Method"
                     Item."Replenishment System"::"Prod. Order":
                         Item."Costing Method" := Item."Costing Method"::Standard;
                 end;
-                Item.Modify;
+                Item.Modify();
 
                 ItemCostMgt.UpdateUnitCost(Item, '', '', 0, 0, false, false, true, FieldNo("Costing Method"));
-                Item.Modify;
+                Item.Modify();
             end;
         }
     }

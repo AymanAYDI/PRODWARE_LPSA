@@ -30,7 +30,7 @@ report 50037 "PWD Export Prod Order LPSA"
                                                    "Reservation Entry"."Source ID",
                                                    "Reservation Entry"."Source Prod. Order Line",
                                                    "Reservation Entry"."Source Ref. No.");
-                        if not RecGProdOrderComponent."Lot Determining" then CurrReport.Skip;
+                        if not RecGProdOrderComponent."Lot Determining" then CurrReport.Skip();
                         BooGLotDetermined := true;
                     end;
 
@@ -116,12 +116,11 @@ report 50037 "PWD Export Prod Order LPSA"
                     //Colonne Q
                     if ("Reservation Entry"."Lot No." = '') and ("Reservation Entry"."Serial No." = '') then
                         OutStreamGlobal.WriteText('0')
-                    else begin
+                    else
                         if BooGLotDetermined then
                             OutStreamGlobal.WriteText(Format(-"Reservation Entry"."Quantity (Base)", 0, 2))
                         else
                             OutStreamGlobal.WriteText(Format("Reservation Entry"."Quantity (Base)", 0, 2));
-                    end;
                     OutStreamGlobal.WriteText(';');
 
                     //Colonne R
@@ -212,7 +211,7 @@ report 50037 "PWD Export Prod Order LPSA"
                     OutStreamGlobal.WriteText('');
                     OutStreamGlobal.WriteText(';');
 
-                    OutStreamGlobal.WriteText;
+                    OutStreamGlobal.WriteText();
                 end;
             }
             dataitem("Prod. Order Routing Line"; "Prod. Order Routing Line")
@@ -312,7 +311,7 @@ report 50037 "PWD Export Prod Order LPSA"
                     OutStreamGlobal.WriteText(';');
 
                     //Colonne T
-                    if ("Prod. Order Routing Line"."Planned Ress. No." <> '') and RecGOSYSSetup.PlannerOne and FctPlannerOnePermission then begin
+                    if ("Prod. Order Routing Line"."Planned Ress. No." <> '') and RecGOSYSSetup.PlannerOne and FctPlannerOnePermission() then begin
                         IntGTempField := "Prod. Order Routing Line"."Planned Ress. Type";
                         OutStreamGlobal.WriteText(Format(IntGTempField));
                     end
@@ -327,18 +326,17 @@ report 50037 "PWD Export Prod Order LPSA"
                     OutStreamGlobal.WriteText(';');
 
                     //Colonne V
-                    if ("Prod. Order Routing Line"."Planned Ress. No." <> '') and RecGOSYSSetup.PlannerOne and FctPlannerOnePermission then begin
+                    if ("Prod. Order Routing Line"."Planned Ress. No." <> '') and RecGOSYSSetup.PlannerOne and FctPlannerOnePermission() then begin
                         if "Prod. Order Routing Line"."Planned Ress. Type" = "Prod. Order Routing Line"."Planned Ress. Type"::"Machine Center" then
                             OutStreamGlobal.WriteText("Prod. Order Routing Line"."Planned Ress. No.")
                         else
                             OutStreamGlobal.WriteText('');
                     end
-                    else begin
+                    else
                         if "Prod. Order Routing Line".Type = "Prod. Order Routing Line".Type::"Machine Center" then
                             OutStreamGlobal.WriteText("Prod. Order Routing Line"."No.")
                         else
                             OutStreamGlobal.WriteText('');
-                    end;
                     OutStreamGlobal.WriteText(';');
 
                     //Colonne W
@@ -369,7 +367,7 @@ report 50037 "PWD Export Prod Order LPSA"
                     OutStreamGlobal.WriteText(';');
 
                     //Colonne AC
-                    RecGProdOrderRtngCommLine.Reset;
+                    RecGProdOrderRtngCommLine.Reset();
                     RecGProdOrderRtngCommLine.SetRange("Prod. Order No.", "Prod. Order Routing Line"."Prod. Order No.");
                     RecGProdOrderRtngCommLine.SetRange("Routing Reference No.", "Prod. Order Routing Line"."Routing Reference No.");
                     RecGProdOrderRtngCommLine.SetRange("Routing No.", "Prod. Order Routing Line"."Routing No.");
@@ -420,7 +418,7 @@ report 50037 "PWD Export Prod Order LPSA"
                     OutStreamGlobal.WriteText('');
                     OutStreamGlobal.WriteText(';');
 
-                    OutStreamGlobal.WriteText;
+                    OutStreamGlobal.WriteText();
                 end;
             }
             dataitem("Prod. Order Component"; "Prod. Order Component")
@@ -578,12 +576,12 @@ report 50037 "PWD Export Prod Order LPSA"
                         OutStreamGlobal.WriteText(';');
 
                         //Colonne AG
-                        RecGProdOrderRoutingLine.Reset;
+                        RecGProdOrderRoutingLine.Reset();
                         RecGProdOrderRoutingLine.SetRange("Prod. Order No.", "Prod. Order Component"."Prod. Order No.");
                         RecGProdOrderRoutingLine.SetRange("Routing Link Code", "Prod. Order Component"."Routing Link Code");
-                        if RecGProdOrderRoutingLine.FindFirst then begin
-                            OutStreamGlobal.WriteText(Format(RecGProdOrderRoutingLine."Operation No."));
-                        end else
+                        if RecGProdOrderRoutingLine.FindFirst() then
+                            OutStreamGlobal.WriteText(Format(RecGProdOrderRoutingLine."Operation No."))
+                        else
                             OutStreamGlobal.WriteText('');
                         OutStreamGlobal.WriteText(';');
 
@@ -614,7 +612,7 @@ report 50037 "PWD Export Prod Order LPSA"
                             OutStreamGlobal.WriteText(Format(-ReservationEntryComponent."Quantity (Base)", 0, 2));
                         OutStreamGlobal.WriteText(';');
 
-                        OutStreamGlobal.WriteText;
+                        OutStreamGlobal.WriteText();
                     end;
                 }
 
@@ -764,12 +762,12 @@ report 50037 "PWD Export Prod Order LPSA"
                     OutStreamGlobal.WriteText(';');
 
                     //Colonne AG
-                    RecGProdOrderRoutingLine.Reset;
+                    RecGProdOrderRoutingLine.Reset();
                     RecGProdOrderRoutingLine.SetRange("Prod. Order No.", "Prod. Order Component"."Prod. Order No.");
                     RecGProdOrderRoutingLine.SetRange("Routing Link Code", "Prod. Order Component"."Routing Link Code");
-                    if RecGProdOrderRoutingLine.FindFirst then begin
-                        OutStreamGlobal.WriteText(Format(RecGProdOrderRoutingLine."Operation No."));
-                    end else
+                    if RecGProdOrderRoutingLine.FindFirst() then
+                        OutStreamGlobal.WriteText(Format(RecGProdOrderRoutingLine."Operation No."))
+                    else
                         OutStreamGlobal.WriteText('');
                     OutStreamGlobal.WriteText(';');
 
@@ -797,7 +795,7 @@ report 50037 "PWD Export Prod Order LPSA"
                     OutStreamGlobal.WriteText('');
                     OutStreamGlobal.WriteText(';');
 
-                    OutStreamGlobal.WriteText;
+                    OutStreamGlobal.WriteText();
                 end;
             }
 
@@ -976,16 +974,16 @@ report 50037 "PWD Export Prod Order LPSA"
                 OutStreamGlobal.WriteText('');
                 OutStreamGlobal.WriteText(';');
 
-                OutStreamGlobal.WriteText;
+                OutStreamGlobal.WriteText();
 
                 RecLProdOrderLine.Get("Prod. Order Line".Status, "Prod. Order Line"."Prod. Order No.", "Prod. Order Line"."Line No.");
                 RecLProdOrderLine."Send to OSYS (Released)" := true;
-                RecLProdOrderLine.Modify;
+                RecLProdOrderLine.Modify();
             end;
 
             trigger OnPreDataItem()
             begin
-                RecGOSYSSetup.Get;
+                RecGOSYSSetup.Get();
 
                 RecGTempBlob.Blob.CreateOutStream(OutStreamGlobal);
             end;

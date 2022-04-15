@@ -20,9 +20,6 @@ codeunit 99990 "PWD test LALE"
     end;
 
     var
-        IntG1: Integer;
-        IntG2: Integer;
-        RecGStandardText: Record "Standard Text";
         CstG007: Label 'Attention pour l''article %1 l''écriture correspondant au document %2 n''a pas été entiérement facturée !\Traitement annulé !';
 }
 

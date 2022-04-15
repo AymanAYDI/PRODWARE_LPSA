@@ -7,7 +7,7 @@ report 50002 "PWD test"
     {
         dataitem("Tracking Specification"; "Tracking Specification")
         {
-            DataItemTableView = SORTING ("Lot No.", "Serial No.") ORDER(Ascending) WHERE ("Lot No." = CONST ('CFST-13-1899'));
+            DataItemTableView = SORTING("Lot No.", "Serial No.") ORDER(Ascending) WHERE("Lot No." = CONST('CFST-13-1899'));
 
             trigger OnAfterGetRecord()
             begin
@@ -15,7 +15,7 @@ report 50002 "PWD test"
                 "Tracking Specification"."Quantity Handled (Base)" := 9960;
                 "Tracking Specification"."Qty. to Invoice (Base)" := 9960;
                 "Tracking Specification"."Qty. to Invoice" := 9960;
-                "Tracking Specification".Modify;
+                "Tracking Specification".Modify();
             end;
         }
     }

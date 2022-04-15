@@ -7,10 +7,10 @@ codeunit 50020 "PWD LPSA Events Mgt."
     var
         ItemConfigurator: Record "PWD Item Configurator";
     begin
-        ItemConfigurator.RESET;
+        ItemConfigurator.RESET();
         ItemConfigurator.SETCURRENTKEY("Item Code");
         ItemConfigurator.SETRANGE("Item Code", Item."No.");
-        ItemConfigurator.DELETEALL;
+        ItemConfigurator.DELETEALL();
     end;
 
     [EventSubscriber(ObjectType::table, database::Item, 'OnAfterValidateEvent', 'Costing Method', false, false)]
@@ -37,7 +37,7 @@ codeunit 50020 "PWD LPSA Events Mgt."
     [EventSubscriber(ObjectType::table, database::Item, 'OnbeforeValidateEvent', 'Replenishment System', false, false)]
     local procedure TAB27_OnbeforeValidateEvent_Item_ReplenishmentSystem(var Rec: Record Item; var xRec: Record Item; CurrFieldNo: Integer)
     begin
-        IF Rec.TestNoEntriesExist_Cost THEN
+        IF Rec.TestNoEntriesExist_Cost() THEN
             IF Rec."Replenishment System" = "Replenishment System"::Purchase THEN
                 Rec.VALIDATE("Costing Method", "Costing Method"::Average)
             ELSE
@@ -92,9 +92,8 @@ codeunit 50020 "PWD LPSA Events Mgt."
         LPSAFunctionsMgt: Codeunit "PWD LPSA Functions Mgt.";
     begin
         //>>TDL.LPSA.20.04.15
-        IF SalesHeader."Bill-to Customer No." <> SalesHeader."Sell-to Customer No." THEN BEGIN
+        IF SalesHeader."Bill-to Customer No." <> SalesHeader."Sell-to Customer No." THEN
             LPSAFunctionsMgt.RunPageCommentSheet(SalesHeader);
-        END;
         //<<TDL.LPSA.20.04.15
     end;
 
@@ -233,9 +232,6 @@ codeunit 50020 "PWD LPSA Events Mgt."
 
     [EventSubscriber(ObjectType::table, database::"Sales Line", 'OnBeforeUpdateDates', '', false, false)]
     local procedure TAB37_OnBeforeUpdateDates_SalesLine(var SalesLine: Record "Sales Line"; var IsHandled: Boolean)
-    var
-        PlannedShipmentDateCalculated: Boolean;
-        PlannedDeliveryDateCalculated: Boolean;
     begin
         // IsHandled := true; //TODO : A vérifier CurrFieldNo ne fonctionne pas
         // if CurrFieldNo = 0 then begin
@@ -354,7 +350,7 @@ codeunit 50020 "PWD LPSA Events Mgt."
         ManufSetup: Record "Manufacturing Setup";
     //RecLProdOrderLine: Record "Prod. Order Line";
     begin
-        ManufSetup.GET;
+        ManufSetup.GET();
         IF ItemJournalLine."Work Center No." = ManufSetup."Mach. center - Inventory input" THEN
             ItemJournalLine.VALIDATE("Location Code", ManufSetup."Non conformity Prod. Location")
         ELSE
@@ -417,8 +413,6 @@ codeunit 50020 "PWD LPSA Events Mgt."
     //---TAB246---
     [EventSubscriber(ObjectType::table, database::"Requisition Line", 'OnAfterValidateEvent', 'Routing No.', false, false)]
     local procedure TAB246_OnAfterValidateEvent_RequisitionLine_RoutingNo(var Rec: Record "Requisition Line"; var xRec: Record "Requisition Line"; CurrFieldNo: Integer)
-    var
-        RoutingHeader: Record "Routing Header";
     begin
         //TODO: champ PlanningGroup n'existe pas car a un table relation avec la table PlannerOnePlanningGroup
         //Rec.PlanningGroup := RoutingHeader.PlanningGroup;
@@ -582,12 +576,11 @@ codeunit 50020 "PWD LPSA Events Mgt."
         if Rec.IsTemporary then
             exit;
         IF Rec.Status = Rec.Status::Released THEN BEGIN
-            Rec.ResendProdOrdertoQuartis;
-            Rec.FctUpdateDelay;
+            Rec.ResendProdOrdertoQuartis();
+            Rec.FctUpdateDelay();
         END;
-        IF Rec.Status = Rec.Status::"Firm Planned" THEN BEGIN
-            Rec.FctUpdateDelay;
-        END;
+        IF Rec.Status = Rec.Status::"Firm Planned" THEN
+            Rec.FctUpdateDelay();
     end;
 
     [EventSubscriber(ObjectType::table, database::"Prod. Order Line", 'OnBeforeDeleteEvent', '', false, false)]
@@ -641,12 +634,11 @@ codeunit 50020 "PWD LPSA Events Mgt."
         if Rec.IsTemporary then
             exit;
         LotInheritanceMgt.CheckPOCompOnInsert(Rec);
-        IF ProdOrder.GET(ProdOrder.Status, Rec."Prod. Order No.") THEN BEGIN
+        IF ProdOrder.GET(ProdOrder.Status, Rec."Prod. Order No.") THEN
             IF ProdOrder."PWD Component No." = '' THEN BEGIN
                 ProdOrder."PWD Component No." := Rec."Item No.";
-                ProdOrder.MODIFY;
+                ProdOrder.MODIFY();
             END;
-        END;
     end;
 
     [EventSubscriber(ObjectType::Table, Database::"Prod. Order Component", 'OnValidateItemNoOnAfterUpdateUOMFromItem', '', false, false)]
@@ -670,9 +662,8 @@ codeunit 50020 "PWD LPSA Events Mgt."
         //TODO: CheckAlternate utilise la table PlannerOneProdOrdRoutLineAlt et le codeunit 1
         //Rec.CheckAlternate();
         Rec.CalculateRoutingLine();
-        IF (Rec.Status = Rec.Status::Released) AND (ProdOrderLine.GET(Rec.Status, Rec."Prod. Order No.", Rec."Routing Reference No.")) THEN BEGIN
-            ProdOrderLine.ResendProdOrdertoQuartis;
-        END;
+        IF (Rec.Status = Rec.Status::Released) AND (ProdOrderLine.GET(Rec.Status, Rec."Prod. Order No.", Rec."Routing Reference No.")) THEN
+            ProdOrderLine.ResendProdOrdertoQuartis();
     end;
     //---TAB5411---
     [EventSubscriber(ObjectType::table, database::"Prod. Order Routing Tool", 'OnAfterValidateEvent', 'No.', false, false)]

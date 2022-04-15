@@ -76,7 +76,7 @@ xmlport 8073324 "PWD Import Conso OSYS"
                     CduGBufferManagement.FctNewBufferLine2(RefLRecordRef, RecGConnectorValues, 0);
                     RefLRecordRef.SetTable("PWD Item Jounal Line Buffer");
 
-                    RecLConnectorsActivation.Get;
+                    RecLConnectorsActivation.Get();
                     "PWD Item Jounal Line Buffer"."Journal Batch Name" := RecLConnectorsActivation."Journal Batch Name Cons";
                     "PWD Item Jounal Line Buffer"."Journal Template Name" := RecLConnectorsActivation."Journal Templ Name Cons";
                     "PWD Item Jounal Line Buffer"."Entry Type" := "PWD Item Jounal Line Buffer"."Entry Type"::Consumption;

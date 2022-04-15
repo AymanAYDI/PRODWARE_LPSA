@@ -240,22 +240,7 @@ table 50096 "PWD Routing Line BKP"
     {
     }
 
-    var
-        WorkCenter: Record "Work Center";
-        MachineCenter: Record "Machine Center";
-        RtngTool: Record "Routing Tool";
-        RtngPersonnel: Record "Routing Personnel";
-        RtngQltyMeasure: Record "Routing Quality Measure";
-        RtngComment: Record "Routing Comment Line";
-        StdTaskTool: Record "Standard Task Tool";
-        StdTaskPersonnel: Record "Standard Task Personnel";
-        StdTaskQltyMeasure: Record "Standard Task Quality Measure";
-        StdTaskComment: Record "Standard Task Description";
-
     procedure TestStatus()
-    var
-        RtngHeader: Record "Routing Header";
-        RtngVersion: Record "Routing Version";
     begin
     end;
 
@@ -280,8 +265,6 @@ table 50096 "PWD Routing Line BKP"
     end;
 
     procedure CheckAlternate()
-    var
-        Text001: Label 'Alternate resource %1 %2 was replaced by resource %3 %4.';
     begin
     end;
 }

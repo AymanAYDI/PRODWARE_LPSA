@@ -11,12 +11,9 @@ codeunit 50009 "PWD Test Closing Management"
 
 
     trigger OnRun()
-    var
-        TxtLFileName: Text[80];
-        TxtLPath: Text[250];
     begin
-        RecGGenLdgSetup.Get;
-        RecGInventorySetup.Get;
+        RecGGenLdgSetup.Get();
+        RecGInventorySetup.Get();
         RecGUserSetup.Get(RecGInventorySetup."Recipient User ID");
         if not BooGManualLaunch then
             RecGUserSetup.TestField("E-Mail");
@@ -28,19 +25,19 @@ codeunit 50009 "PWD Test Closing Management"
             DiaGWindows.Open(CstG00000);
 
         if BooGItem then
-            ExportItem;
+            ExportItem();
 
         if BooGInventory then
-            ExportInventory;
+            ExportInventory();
 
         if BooGProdOrder then
-            ExportProdOrder;
+            ExportProdOrder();
 
         if BooGFinishedPO then
-            ExportFinishedPO;
+            ExportFinishedPO();
 
         if GuiAllowed then
-            DiaGWindows.Close;
+            DiaGWindows.Close();
 
         //>>TDL131219
         // En attente
@@ -60,7 +57,6 @@ codeunit 50009 "PWD Test Closing Management"
         RecGUserSetup: Record "User Setup";
         CduG3TierMgt: Codeunit "3-Tier Automation Mgt.";
         CduGConvert: Codeunit "Convert Ascii To Ansi";
-        SMTP: Codeunit "SMTP Mail";
         TxtGServerFileName: Text[250];
         TxtGExportFileName: Text[250];
         FilGToExport: File;
@@ -77,7 +73,6 @@ codeunit 50009 "PWD Test Closing Management"
         DiaGWindows: Dialog;
         DatGCurrStartMonth: Date;
         DatGCurrEndMonth: Date;
-        CstG00001: Label 'L''export des fichiers de bouclement est terminé.';
         BooGManualLaunch: Boolean;
 
 
@@ -85,7 +80,7 @@ codeunit 50009 "PWD Test Closing Management"
     var
         DimensionCode: Code[20];
     begin
-        RecGInventorySetup.Get;
+        RecGInventorySetup.Get();
         case FromIDTable of
             5722:
                 begin
@@ -104,7 +99,7 @@ codeunit 50009 "PWD Test Closing Management"
         end;
 
         if not RecGDimValue.Get(DimensionCode, FromIDCode) then begin
-            RecGDimValue.Init;
+            RecGDimValue.Init();
             RecGDimValue."Dimension Code" := DimensionCode;
             RecGDimValue.Code := FromIDCode;
             RecGDimValue.Name := FromDescription;
@@ -112,7 +107,7 @@ codeunit 50009 "PWD Test Closing Management"
         end;
         if (FromDescription <> '') and (RecGDimValue.Name <> FromDescription) then begin
             RecGDimValue.Name := FromDescription;
-            RecGDimValue.Modify;
+            RecGDimValue.Modify();
         end;
     end;
 
@@ -121,7 +116,7 @@ codeunit 50009 "PWD Test Closing Management"
     var
         DimensionCode: Code[20];
     begin
-        RecGInventorySetup.Get;
+        RecGInventorySetup.Get();
         case FromIDTable of
             5722:
                 begin
@@ -142,19 +137,19 @@ codeunit 50009 "PWD Test Closing Management"
         RecGDefaultDim.SetRange("Table ID", DATABASE::Item);
         RecGDefaultDim.SetRange("No.", FromItemNo);
         RecGDefaultDim.SetRange("Dimension Code", DimensionCode);
-        if RecGDefaultDim.FindFirst then begin
+        if RecGDefaultDim.FindFirst() then begin
             if RecGDefaultDim."Dimension Value Code" <> FromIDCode then begin
                 RecGDefaultDim."Dimension Value Code" := FromIDCode;
-                RecGDefaultDim.Modify;
+                RecGDefaultDim.Modify();
             end;
         end else begin
-            RecGDefaultDim.Init;
+            RecGDefaultDim.Init();
             RecGDefaultDim."Table ID" := DATABASE::Item;
             RecGDefaultDim."No." := FromItemNo;
             RecGDefaultDim."Dimension Code" := DimensionCode;
             RecGDefaultDim."Dimension Value Code" := FromIDCode;
             RecGDefaultDim."Value Posting" := RecGDefaultDim."Value Posting"::"Code Mandatory";
-            RecGDefaultDim.Insert;
+            RecGDefaultDim.Insert();
         end;
     end;
 
@@ -193,9 +188,9 @@ codeunit 50009 "PWD Test Closing Management"
         FilGToExport.WriteMode(true);
 
         if FilGToExport.Open(TxtGExportFileName) then begin
-            if FilGToExport.Len > 0 then begin
-                FilGToExport.Seek(FilGToExport.Len);
-            end else
+            if FilGToExport.Len > 0 then
+                FilGToExport.Seek(FilGToExport.Len)
+            else
                 FilGToExport.Create(TxtGExportFileName);
             FilGToExport.CreateOutStream(OusGOutstream);
         end else begin
@@ -298,7 +293,7 @@ codeunit 50009 "PWD Test Closing Management"
 
 
         //*************** DETAIL ***************//
-        RecLItem.FindSet;
+        RecLItem.FindSet();
         repeat
             if GuiAllowed then
                 DiaGWindows.Update(2, RecLItem."No.");
@@ -310,7 +305,7 @@ codeunit 50009 "PWD Test Closing Management"
             RecLValueEntry.SetRange("Item No.", RecLItem."No.");
             RecLValueEntry.CalcSums("Cost Amount (Actual)", "Cost Amount (Expected)");
 
-            RecGDefaultDim.Reset;
+            RecGDefaultDim.Reset();
             RecGDefaultDim.SetRange("Table ID", DATABASE::Item);
             RecGDefaultDim.SetRange("No.", RecLItem."No.");
 
@@ -325,14 +320,14 @@ codeunit 50009 "PWD Test Closing Management"
 
             // 4 - Code catégories articles
             RecGDefaultDim.SetRange("Dimension Code", RecGInventorySetup."Item Category Dimension");
-            if not RecGDefaultDim.FindFirst then
-                RecGDefaultDim.Init;
+            if not RecGDefaultDim.FindFirst() then
+                RecGDefaultDim.Init();
             TxtLTextFields[4] := RecGDefaultDim."Dimension Value Code";
 
             // 5 - Code groupe produits
             RecGDefaultDim.SetRange("Dimension Code", RecGInventorySetup."Product Group Dimension");
-            if not RecGDefaultDim.FindFirst then
-                RecGDefaultDim.Init;
+            if not RecGDefaultDim.FindFirst() then
+                RecGDefaultDim.Init();
             TxtLTextFields[5] := RecGDefaultDim."Dimension Value Code";
 
             // 6 - PRP actuel
@@ -346,8 +341,8 @@ codeunit 50009 "PWD Test Closing Management"
 
             // 9 - Centre de profit
             RecGDefaultDim.SetRange("Dimension Code", RecGGenLdgSetup."Global Dimension 2 Code");
-            if not RecGDefaultDim.FindFirst then
-                RecGDefaultDim.Init;
+            if not RecGDefaultDim.FindFirst() then
+                RecGDefaultDim.Init();
             TxtLTextFields[9] := RecGDefaultDim."Dimension Value Code";
 
             // 10 - Système réappro.
@@ -365,9 +360,9 @@ codeunit 50009 "PWD Test Closing Management"
             // WRITE
             WriteSegment(TxtLTextFields, 13);
 
-        until RecLItem.Next = 0;
+        until RecLItem.Next() = 0;
 
-        EndMessage;
+        EndMessage();
     end;
 
 
@@ -457,16 +452,16 @@ codeunit 50009 "PWD Test Closing Management"
 
         //*************** DETAIL ***************//
 
-        RecLItem.FindSet;
+        RecLItem.FindSet();
         repeat
             if GuiAllowed then
                 DiaGWindows.Update(2, RecLItem."No.");
 
-            RecGDefaultDim.Reset;
+            RecGDefaultDim.Reset();
             RecGDefaultDim.SetRange("Table ID", DATABASE::Item);
             RecGDefaultDim.SetRange("No.", RecLItem."No.");
 
-            RecLLocation.FindSet;
+            RecLLocation.FindSet();
             repeat
 
                 RecLItem.SetFilter("Location Filter", '%1', RecLLocation.Code);
@@ -476,7 +471,7 @@ codeunit 50009 "PWD Test Closing Management"
                 if RecLLocation."Bin Mandatory" then begin
                     RecLBinContent.SetRange("Location Code", RecLLocation.Code);
                     RecLBinContent.SetRange("Item No.", RecLItem."No.");
-                    if RecLBinContent.FindSet then
+                    if RecLBinContent.FindSet() then
                         repeat
                             RecLBinContent.CalcFields(Quantity);
                             ;
@@ -486,8 +481,8 @@ codeunit 50009 "PWD Test Closing Management"
                                 RecLWarehouseEntry.SetRange("Item No.", RecLItem."No.");
                                 RecLWarehouseEntry.SetRange("Location Code", RecLLocation.Code);
                                 RecLWarehouseEntry.SetRange("Bin Code", RecLBinContent."Bin Code");
-                                if not RecLWarehouseEntry.FindFirst then
-                                    RecLWarehouseEntry.Init;
+                                if not RecLWarehouseEntry.FindFirst() then
+                                    RecLWarehouseEntry.Init();
 
                                 // 1 - N° Article
                                 TxtLTextFields[1] := RecLItem."No.";
@@ -518,20 +513,20 @@ codeunit 50009 "PWD Test Closing Management"
 
                                 // 9 - Centre de profit
                                 RecGDefaultDim.SetRange("Dimension Code", RecGGenLdgSetup."Global Dimension 2 Code");
-                                if not RecGDefaultDim.FindFirst then
-                                    RecGDefaultDim.Init;
+                                if not RecGDefaultDim.FindFirst() then
+                                    RecGDefaultDim.Init();
                                 TxtLTextFields[9] := RecGDefaultDim."Dimension Value Code";
 
                                 // 10 - Code Catégorie
                                 RecGDefaultDim.SetRange("Dimension Code", RecGInventorySetup."Item Category Dimension");
-                                if not RecGDefaultDim.FindFirst then
-                                    RecGDefaultDim.Init;
+                                if not RecGDefaultDim.FindFirst() then
+                                    RecGDefaultDim.Init();
                                 TxtLTextFields[10] := RecGDefaultDim."Dimension Value Code";
 
                                 // 11 - Code Groupe Produit
                                 RecGDefaultDim.SetRange("Dimension Code", RecGInventorySetup."Product Group Dimension");
-                                if not RecGDefaultDim.FindFirst then
-                                    RecGDefaultDim.Init;
+                                if not RecGDefaultDim.FindFirst() then
+                                    RecGDefaultDim.Init();
                                 TxtLTextFields[11] := RecGDefaultDim."Dimension Value Code";
 
                                 // 12 - Type de stock
@@ -562,13 +557,13 @@ codeunit 50009 "PWD Test Closing Management"
                                     TxtLTextFields[18] := Format(RecLItem."Standard Cost");
 
                                 // 19 - Dernier prix de vente
-                                RecLLastSalesOrderLine.Reset;
+                                RecLLastSalesOrderLine.Reset();
                                 RecLLastSalesOrderLine.SetCurrentKey("Document Type", Type,
                                                              "No.", "Variant Code", "Drop Shipment", "Location Code", "Shipment Date");
                                 RecLLastSalesOrderLine.SetRange("Document Type", RecLLastSalesOrderLine."Document Type"::Order);
                                 RecLLastSalesOrderLine.SetRange(Type, RecLLastSalesOrderLine.Type::Item);
                                 RecLLastSalesOrderLine.SetRange("No.", RecLItem."No.");
-                                if RecLLastSalesOrderLine.FindLast then
+                                if RecLLastSalesOrderLine.FindLast() then
                                     TxtLTextFields[19] := Format(RecLLastSalesOrderLine."Unit Price")
                                 else
                                     TxtLTextFields[19] := Format(0);
@@ -576,13 +571,13 @@ codeunit 50009 "PWD Test Closing Management"
 
                                 WriteSegment(TxtLTextFields, 19);  //TDL21072020.001
                             end;
-                        until RecLBinContent.Next = 0;
-                end else begin
+                        until RecLBinContent.Next() = 0;
+                end else
                     if RecLItem.Inventory <> 0 then begin
                         RecLItemLdgEntry.SetRange("Item No.", RecLItem."No.");
                         RecLItemLdgEntry.SetRange("Location Code", RecLLocation.Code);
-                        if not RecLItemLdgEntry.FindFirst then
-                            RecLItemLdgEntry.Init;
+                        if not RecLItemLdgEntry.FindFirst() then
+                            RecLItemLdgEntry.Init();
 
                         Clear(TxtLTextFields);
 
@@ -615,20 +610,20 @@ codeunit 50009 "PWD Test Closing Management"
 
                         // 9 - Centre de profit
                         RecGDefaultDim.SetRange("Dimension Code", RecGGenLdgSetup."Global Dimension 2 Code");
-                        if not RecGDefaultDim.FindFirst then
-                            RecGDefaultDim.Init;
+                        if not RecGDefaultDim.FindFirst() then
+                            RecGDefaultDim.Init();
                         TxtLTextFields[9] := RecGDefaultDim."Dimension Value Code";
 
                         // 10 - Code Catégorie
                         RecGDefaultDim.SetRange("Dimension Code", RecGInventorySetup."Item Category Dimension");
-                        if not RecGDefaultDim.FindFirst then
-                            RecGDefaultDim.Init;
+                        if not RecGDefaultDim.FindFirst() then
+                            RecGDefaultDim.Init();
                         TxtLTextFields[10] := RecGDefaultDim."Dimension Value Code";
 
                         // 11 - Code Groupe Produit
                         RecGDefaultDim.SetRange("Dimension Code", RecGInventorySetup."Product Group Dimension");
-                        if not RecGDefaultDim.FindFirst then
-                            RecGDefaultDim.Init;
+                        if not RecGDefaultDim.FindFirst() then
+                            RecGDefaultDim.Init();
                         TxtLTextFields[11] := RecGDefaultDim."Dimension Value Code";
 
                         // 12 - Type de stock
@@ -658,13 +653,13 @@ codeunit 50009 "PWD Test Closing Management"
                             TxtLTextFields[18] := Format(RecLItem."Standard Cost");
 
                         // 19 - Dernier prix de vente
-                        RecLLastSalesOrderLine.Reset;
+                        RecLLastSalesOrderLine.Reset();
                         RecLLastSalesOrderLine.SetCurrentKey("Document Type", Type,
                                                      "No.", "Variant Code", "Drop Shipment", "Location Code", "Shipment Date");
                         RecLLastSalesOrderLine.SetRange("Document Type", RecLLastSalesOrderLine."Document Type"::Order);
                         RecLLastSalesOrderLine.SetRange(Type, RecLLastSalesOrderLine.Type::Item);
                         RecLLastSalesOrderLine.SetRange("No.", RecLItem."No.");
-                        if RecLLastSalesOrderLine.FindLast then
+                        if RecLLastSalesOrderLine.FindLast() then
                             TxtLTextFields[19] := Format(RecLLastSalesOrderLine."Unit Price")
                         else
                             TxtLTextFields[19] := Format(0);
@@ -672,12 +667,11 @@ codeunit 50009 "PWD Test Closing Management"
 
                         WriteSegment(TxtLTextFields, 19); //TDL21072020.001
                     end;
-                end;
 
-            until RecLLocation.Next = 0;
-        until RecLItem.Next = 0;
+            until RecLLocation.Next() = 0;
+        until RecLItem.Next() = 0;
 
-        EndMessage;
+        EndMessage();
     end;
 
 
@@ -685,13 +679,11 @@ codeunit 50009 "PWD Test Closing Management"
     var
         CstLCurrent: Label 'Current_%1.csv';
         TxtLTextFields: array[50] of Text[250];
-        DatLCurrPrevStartMonth: Date;
         DatLCurrPrevEndMonth: Date;
         RecLProductionOrder: Record "Production Order";
         RecLProdOrderLine: Record "Prod. Order Line";
         RecLItem: Record Item;
         CstLTitle: Label 'En-cours';
-        RecLItemLdgEntry: Record "Item Ledger Entry";
         RecLProdOrderRtngLine: Record "Prod. Order Routing Line";
     begin
         if GuiAllowed then
@@ -761,7 +753,7 @@ codeunit 50009 "PWD Test Closing Management"
         //RecLProductionOrder.SETFILTER("Finished Date",'%1|%2..%3',0D,DatGCurrStartMonth,DatGCurrEndMonth);
         RecLProductionOrder.SetRange(Status, RecLProductionOrder.Status::Released);
         //<<TDL21072020.001
-        if RecLProductionOrder.FindSet then
+        if RecLProductionOrder.FindSet() then
             repeat
                 if GuiAllowed then
                     DiaGWindows.Update(2, RecLProductionOrder."No.");
@@ -776,10 +768,10 @@ codeunit 50009 "PWD Test Closing Management"
                     //<<TDL21072020.001
                     RecLProdOrderLine.SetRange(Status, RecLProductionOrder.Status);
                     RecLProdOrderLine.SetRange("Prod. Order No.", RecLProductionOrder."No.");
-                    if RecLProdOrderLine.FindFirst then begin
+                    if RecLProdOrderLine.FindFirst() then begin
 
                         RecLItem.Get(RecLProdOrderLine."Item No.");
-                        RecGDefaultDim.Reset;
+                        RecGDefaultDim.Reset();
                         RecGDefaultDim.SetRange("Table ID", DATABASE::Item);
                         RecGDefaultDim.SetRange("No.", RecLItem."No.");
 
@@ -813,7 +805,7 @@ codeunit 50009 "PWD Test Closing Management"
                         //TxtLTextFields[13] := FORMAT(RecLProdOrderLine.Quantity);
                         RecLProdOrderRtngLine.SetRange("Prod. Order No.", RecLProdOrderLine."Prod. Order No.");
                         RecLProdOrderRtngLine.SetRange("Routing Status", RecLProdOrderRtngLine."Routing Status"::Finished);
-                        if RecLProdOrderRtngLine.FindLast then
+                        if RecLProdOrderRtngLine.FindLast() then
                             TxtLTextFields[13] := Format(Round(RecLProdOrderRtngLine."Input Quantity", 1))
                         else
                             TxtLTextFields[13] := '';
@@ -821,20 +813,20 @@ codeunit 50009 "PWD Test Closing Management"
 
                         // 14 - Code catégorie articles
                         RecGDefaultDim.SetRange("Dimension Code", RecGInventorySetup."Item Category Dimension");
-                        if not RecGDefaultDim.FindFirst then
-                            RecGDefaultDim.Init;
+                        if not RecGDefaultDim.FindFirst() then
+                            RecGDefaultDim.Init();
                         TxtLTextFields[14] := RecGDefaultDim."Dimension Value Code";
 
                         // 15 - Code groupe produits
                         RecGDefaultDim.SetRange("Dimension Code", RecGInventorySetup."Product Group Dimension");
-                        if not RecGDefaultDim.FindFirst then
-                            RecGDefaultDim.Init;
+                        if not RecGDefaultDim.FindFirst() then
+                            RecGDefaultDim.Init();
                         TxtLTextFields[15] := RecGDefaultDim."Dimension Value Code";
 
                         // 16 - Code groupe produits
                         RecGDefaultDim.SetRange("Dimension Code", RecGGenLdgSetup."Global Dimension 2 Code");
-                        if not RecGDefaultDim.FindFirst then
-                            RecGDefaultDim.Init;
+                        if not RecGDefaultDim.FindFirst() then
+                            RecGDefaultDim.Init();
                         TxtLTextFields[16] := RecGDefaultDim."Dimension Value Code";
 
                         // WRITE
@@ -844,9 +836,9 @@ codeunit 50009 "PWD Test Closing Management"
                     end;
                     //<<TDL21072020.001
                 end;
-            until RecLProductionOrder.Next = 0;
+            until RecLProductionOrder.Next() = 0;
 
-        EndMessage;
+        EndMessage();
     end;
 
 
@@ -854,7 +846,6 @@ codeunit 50009 "PWD Test Closing Management"
     var
         CstLFinisheProdOrder: Label 'Finished_PO_%1.csv';
         CstLTitle: Label 'OF terminé';
-        RecLValueEntry: Record "Value Entry";
         RecLProductionOrder: Record "Production Order";
         RecLProdOrderLine: Record "Prod. Order Line";
         RecLItemLdgrEntry: Record "Item Ledger Entry";
@@ -908,7 +899,7 @@ codeunit 50009 "PWD Test Closing Management"
 
         RecLProductionOrder.SetRange(Status, RecLProductionOrder.Status::Finished);
         // RecLProductionOrder.SETRANGE("Finished Date",DatGCurrStartMonth,DatGCurrEndMonth); // TDL21072020.001
-        if RecLProductionOrder.FindSet then
+        if RecLProductionOrder.FindSet() then
             repeat
                 if GuiAllowed then
                     DiaGWindows.Update(2, RecLProductionOrder."No.");
@@ -916,15 +907,14 @@ codeunit 50009 "PWD Test Closing Management"
                 //>>TDL21072020.001
                 ReclCapacityLdgrEntry.SetCurrentKey("Prod. Order No.");
                 ReclCapacityLdgrEntry.SetRange("Prod. Order No.", RecLProductionOrder."No.");
-                if ReclCapacityLdgrEntry.FindLast then begin
-
+                if ReclCapacityLdgrEntry.FindLast() then
                     if (ReclCapacityLdgrEntry."Posting Date" >= DatGCurrStartMonth)
                        and (ReclCapacityLdgrEntry."Posting Date" <= DatGCurrEndMonth)
                     then begin
                         //<<TDL21072020.001
                         RecLProdOrderLine.SetRange(Status, RecLProductionOrder.Status);
                         RecLProdOrderLine.SetRange("Prod. Order No.", RecLProductionOrder."No.");
-                        if RecLProdOrderLine.FindFirst then begin
+                        if RecLProdOrderLine.FindFirst() then begin
                             RecLItemLdgrEntry.SetCurrentKey("Prod. Order No.");
                             RecLItemLdgrEntry.SetRange("Prod. Order No.", RecLProductionOrder."No.");
 
@@ -945,14 +935,14 @@ codeunit 50009 "PWD Test Closing Management"
 
                             // 6 - Date de début
                             RecLItemLdgrEntry.SetRange("Entry Type", RecLItemLdgrEntry."Entry Type"::Consumption);
-                            if not RecLItemLdgrEntry.FindFirst then
-                                RecLItemLdgrEntry.Init;
+                            if not RecLItemLdgrEntry.FindFirst() then
+                                RecLItemLdgrEntry.Init();
                             TxtLTextFields[6] := Format(RecLItemLdgrEntry."Posting Date");
 
                             // 7 - Date de fin
                             RecLItemLdgrEntry.SetRange("Entry Type", RecLItemLdgrEntry."Entry Type"::Output);
-                            if not RecLItemLdgrEntry.FindLast then
-                                RecLItemLdgrEntry.Init;
+                            if not RecLItemLdgrEntry.FindLast() then
+                                RecLItemLdgrEntry.Init();
                             TxtLTextFields[7] := Format(RecLItemLdgrEntry."Posting Date");
 
                             // 8 - Unité de quantité
@@ -976,12 +966,10 @@ codeunit 50009 "PWD Test Closing Management"
                             //>>TDL21072020.001
                         end;
                     end;
-                    //<<TDL21072020.001
+            //<<TDL21072020.001
+            until RecLProductionOrder.Next() = 0;
 
-                end;
-            until RecLProductionOrder.Next = 0;
-
-        EndMessage;
+        EndMessage();
     end;
 
 
@@ -1006,9 +994,9 @@ codeunit 50009 "PWD Test Closing Management"
 
         RecLValueEntry.SetRange("Prod. Order No.", RecPProdOrder."No.");
         RecLValueEntry.SetRange("Posting Date", 0D, DatPCurrEndMonth);
-        if RecLValueEntry.FindSet then
+        if RecLValueEntry.FindSet() then
             repeat
-                if not IsNotWIP(RecLValueEntry) then begin
+                if not IsNotWIP(RecLValueEntry) then
                     if RecLValueEntry."Posting Date" < DatPCurrStartMonth then begin
                         if RecLValueEntry."Item Ledger Entry Type" = RecLValueEntry."Item Ledger Entry Type"::" " then
                             DecLValueOfWIP += RecLValueEntry."Cost Amount (Actual)"
@@ -1045,9 +1033,8 @@ codeunit 50009 "PWD Test Closing Management"
                                         DecLValueOfRevalCostAct += -RecLValueEntry."Cost Amount (Actual)";
                                 end;
                         end;
-                end;
 
-            until RecLValueEntry.Next = 0;
+            until RecLValueEntry.Next() = 0;
 
         if (DecLValueOfExpOutput2 + DecLValueOfExpOutput1) = 0 then
             DecLValueOfOutput -= DecLValueOfRevalCostAct;
@@ -1123,12 +1110,12 @@ codeunit 50009 "PWD Test Closing Management"
         RecLPORoutingLine.SetRange(Status, RecPProdOrder.Status);
         RecLPORoutingLine.SetRange("Prod. Order No.", RecPProdOrder."No.");
         RecLPORoutingLine.SetRange(Type, RecLPORoutingLine.Type::"Work Center");
-        if RecLPORoutingLine.FindSet then
+        if RecLPORoutingLine.FindSet() then
             repeat
                 RecLWorkCenter.Get(RecLPORoutingLine."No.");
                 BooLIsSubcontractor := RecLWorkCenter."Subcontractor No." <> '';
 
-            until (RecLPORoutingLine.Next = 0) or BooLIsSubcontractor;
+            until (RecLPORoutingLine.Next() = 0) or BooLIsSubcontractor;
 
         exit(BooLIsSubcontractor);
     end;
@@ -1154,10 +1141,8 @@ codeunit 50009 "PWD Test Closing Management"
 
     procedure CalcInventoryCover(CodPItem: Code[20]; RecPLocation: Record Location; DecPInventory: Decimal): Decimal
     var
-        RecLItem: Record Item;
         RecLItemLdgrEntry: Record "Item Ledger Entry";
         DatLCoverStartMonth: Date;
-        DatLCoverEndMonth: Date;
     begin
         DatLCoverStartMonth := CalcDate(StrSubstNo('<-%1M>', RecGInventorySetup."Period for Inventory Cover"), DatGCurrStartMonth);
 

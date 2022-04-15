@@ -15,28 +15,28 @@ report 50057 "PWD MAJ Tps OP Gamme PIE"
     {
         dataitem("Routing Header"; "Routing Header")
         {
-            DataItemTableView = SORTING ("No.");
+            DataItemTableView = SORTING("No.");
             dataitem("Routing Line"; "Routing Line")
             {
-                DataItemLink = "Routing No." = FIELD ("No.");
-                DataItemTableView = SORTING ("Routing No.", "Version Code", "Operation No.") WHERE (Type = FILTER ("Machine Center"));
+                DataItemLink = "Routing No." = FIELD("No.");
+                DataItemTableView = SORTING("Routing No.", "Version Code", "Operation No.") WHERE(Type = FILTER("Machine Center"));
 
                 trigger OnAfterGetRecord()
                 begin
                     if CodGOperation = "Routing Line"."No." then begin
                         if BooGSetupTime then begin
                             "Routing Line"."Setup Time" := DecGSetupTime;
-                            "Routing Line".Modify;
+                            "Routing Line".Modify();
                         end;
 
                         if BooGRunTime then begin
                             "Routing Line"."Run Time" := DecGRunTime;
-                            "Routing Line".Modify;
+                            "Routing Line".Modify();
                         end;
 
                         if BooGMoveTime then begin
                             "Routing Line"."Move Time" := DecGMoveTime;
-                            "Routing Line".Modify;
+                            "Routing Line".Modify();
                         end;
                     end;
                 end;
@@ -62,7 +62,7 @@ report 50057 "PWD MAJ Tps OP Gamme PIE"
 
             trigger OnPostDataItem()
             begin
-                BDialog.Close;
+                BDialog.Close();
             end;
 
             trigger OnPreDataItem()

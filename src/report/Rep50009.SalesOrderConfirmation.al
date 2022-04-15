@@ -106,7 +106,7 @@ report 50009 "PWD Sales Order Confirmation"
                     column(CompanyAddr_6_; CompanyAddr[6])
                     {
                     }
-                    column(Sales_Header___Document_Date_; Format(CompanyInfo.City) + ',' + Format(WorkDate, 0, 4))
+                    column(Sales_Header___Document_Date_; Format(CompanyInfo.City) + ',' + Format(WorkDate(), 0, 4))
                     {
                     }
                     column(CopyText; CopyText)
@@ -139,7 +139,7 @@ report 50009 "PWD Sales Order Confirmation"
                     column(CopyText_Control1150145; CopyText)
                     {
                     }
-                    column(STRSUBSTNO_Text005_FORMAT_CurrReport_PAGENO__; StrSubstNo(Text005, Format(CurrReport.PageNo)))
+                    column(STRSUBSTNO_Text005_FORMAT_CurrReport_PAGENO__; StrSubstNo(Text005, Format(CurrReport.PageNo())))
                     {
                     }
                     column(CurrGroupPageNO; CurrGroupPageNO)
@@ -241,7 +241,7 @@ report 50009 "PWD Sales Order Confirmation"
 
                         trigger OnPreDataItem()
                         begin
-                            CurrReport.Break;
+                            CurrReport.Break();
                         end;
                     }
                     dataitem(RoundLoop; "Integer")
@@ -435,7 +435,7 @@ report 50009 "PWD Sales Order Confirmation"
                             if Number = 1 then
                                 SalesLine.Find('-')
                             else
-                                SalesLine.Next;
+                                SalesLine.Next();
                             "Sales Line" := SalesLine;
 
                             if not "Sales Header"."Prices Including VAT" and
@@ -447,11 +447,10 @@ report 50009 "PWD Sales Order Confirmation"
                                 "Sales Line"."No." := '';
 
                             if IsServiceTier then begin
-                                if ("Sales Line".Type = "Sales Line".Type::"New Page") then begin
-                                    CurrPageFooterHiddenFlag := 1;
-                                end else begin
+                                if ("Sales Line".Type = "Sales Line".Type::"New Page") then
+                                    CurrPageFooterHiddenFlag := 1
+                                else
                                     CurrPageFooterHiddenFlag := 0;
-                                end;
                                 NNC_SalesLineLineAmt += SalesLine."Line Amount";
                                 NNC_SalesLineInvDiscAmt += SalesLine."Inv. Discount Amount";
                                 NNC_TotalLCY := NNC_SalesLineLineAmt - NNC_SalesLineInvDiscAmt;
@@ -488,18 +487,17 @@ report 50009 "PWD Sales Order Confirmation"
                             //>>Regie
                             Clear(TxtGComment);
                             BooGStopComment := false;
-                            RecGSalesCommentLine.Reset;
+                            RecGSalesCommentLine.Reset();
                             RecGSalesCommentLine.SetRange("Document Type", RecGSalesCommentLine."Document Type"::Order);
                             RecGSalesCommentLine.SetRange("No.", "Sales Line"."Document No.");
                             RecGSalesCommentLine.SetRange("Document Line No.", "Sales Line"."Line No.");
-                            if RecGSalesCommentLine.FindSet then begin
+                            if RecGSalesCommentLine.FindSet() then
                                 repeat
                                     if StrLen(TxtGComment) + StrLen(RecGSalesCommentLine.Comment) < 1024 then
                                         TxtGComment += RecGSalesCommentLine.Comment + ' '
                                     else
                                         BooGStopComment := true;
-                                until (RecGSalesCommentLine.Next = 0) or (BooGStopComment);
-                            end;
+                                until (RecGSalesCommentLine.Next() = 0) or (BooGStopComment);
 
 
                             if (SalesLine.Type = SalesLine.Type::Item) then
@@ -514,7 +512,7 @@ report 50009 "PWD Sales Order Confirmation"
 
                         trigger OnPostDataItem()
                         begin
-                            SalesLine.DeleteAll;
+                            SalesLine.DeleteAll();
                         end;
 
                         trigger OnPreDataItem()
@@ -526,7 +524,7 @@ report 50009 "PWD Sales Order Confirmation"
                             do
                                 MoreLines := SalesLine.Next(-1) <> 0;
                             if not MoreLines then
-                                CurrReport.Break;
+                                CurrReport.Break();
                             SalesLine.SetRange("Line No.", 0, SalesLine."Line No.");
                             SetRange(Number, 1, SalesLine.Count);
                             CurrReport.CreateTotals(SalesLine."Line Amount", SalesLine."Inv. Discount Amount");
@@ -550,7 +548,7 @@ report 50009 "PWD Sales Order Confirmation"
                         trigger OnPreDataItem()
                         begin
                             if VATAmount = 0 then
-                                CurrReport.Break;
+                                CurrReport.Break();
                             SetRange(Number, 1, VATAmountLine.Count);
                             CurrReport.CreateTotals(
                               VATAmountLine."Line Amount", VATAmountLine."Inv. Disc. Base Amount",
@@ -565,16 +563,16 @@ report 50009 "PWD Sales Order Confirmation"
                 begin
                     Clear(SalesLine);
                     Clear(SalesPost);
-                    SalesLine.DeleteAll;
-                    VATAmountLine.DeleteAll;
+                    SalesLine.DeleteAll();
+                    VATAmountLine.DeleteAll();
                     SalesPost.GetSalesLines("Sales Header", SalesLine, 0);
                     SalesLine.CalcVATAmountLines(0, "Sales Header", SalesLine, VATAmountLine);
                     SalesLine.UpdateVATOnLines(0, "Sales Header", SalesLine, VATAmountLine);
-                    VATAmount := VATAmountLine.GetTotalVATAmount;
-                    VATBaseAmount := VATAmountLine.GetTotalVATBase;
+                    VATAmount := VATAmountLine.GetTotalVATAmount();
+                    VATBaseAmount := VATAmountLine.GetTotalVATBase();
                     VATDiscountAmount :=
                       VATAmountLine.GetTotalVATDiscount("Sales Header"."Currency Code", "Sales Header"."Prices Including VAT");
-                    TotalAmountInclVAT := VATAmountLine.GetTotalAmountInclVAT;
+                    TotalAmountInclVAT := VATAmountLine.GetTotalAmountInclVAT();
 
                     if Number > 1 then begin
                         CopyText := Text003;
@@ -648,7 +646,7 @@ report 50009 "PWD Sales Order Confirmation"
 
                 Clear(TxTGLabelCondPay);
                 if "Payment Terms Code" = '' then
-                    PaymentTerms.Init
+                    PaymentTerms.Init()
                 else begin
                     if PaymentTerms.Get("Payment Terms Code") then;
                     PaymentTerms.TranslateDescription(PaymentTerms, "Sales Header"."Language Code");
@@ -779,8 +777,8 @@ report 50009 "PWD Sales Order Confirmation"
 
     trigger OnInitReport()
     begin
-        GLSetup.Get;
-        CompanyInfo.Get;
+        GLSetup.Get();
+        CompanyInfo.Get();
         BooGEnvoiMail := true;
     end;
 
@@ -789,17 +787,15 @@ report 50009 "PWD Sales Order Confirmation"
         RecLSalesHeader: Record "Sales Header";
     begin
         if not BooGSkipSendEmail and BooGEnvoiMail then begin
-            RecLSalesHeader.SetView("Sales Header".GetView);
+            RecLSalesHeader.SetView("Sales Header".GetView());
             SendPDFMail(RecLSalesHeader);
         end;
     end;
 
     var
-        Text000: Label 'Salesperson';
         Text001: Label 'Total %1';
         Text002: Label 'Total %1 Incl. VAT';
         Text003: Label 'COPY';
-        Text004: Label 'Sales - Quote %1';
         Text005: Label 'Page %1';
         Text006: Label 'Total %1 Excl. VAT';
         GLSetup: Record "General Ledger Setup";
@@ -808,17 +804,11 @@ report 50009 "PWD Sales Order Confirmation"
         VATAmountLine: Record "VAT Amount Line" temporary;
         SalesLine: Record "Sales Line" temporary;
         Language: Record Language;
-        Country: Record "Country/Region";
         FormatAddr: Codeunit "Format Address";
         SalesCountPrinted: Codeunit "Sales-Printed";
         SegManagement: Codeunit SegManagement;
         ArchiveManagement: Codeunit ArchiveManagement;
-        CustAddr: array[8] of Text[50];
-        ShipToAddr: array[8] of Text[50];
         CompanyAddr: array[8] of Text[50];
-        SalesPersonText: Text[30];
-        VATNoText: Text[80];
-        ReferenceText: Text[80];
         TotalText: Text[50];
         TotalExclVATText: Text[50];
         TotalInclVATText: Text[50];
@@ -826,44 +816,16 @@ report 50009 "PWD Sales Order Confirmation"
         NoOfCopies: Integer;
         NoOfLoops: Integer;
         CopyText: Text[30];
-        ShowShippingAddr: Boolean;
-        i: Integer;
-        DimText: Text[120];
-        OldDimText: Text[75];
         ShowInternalInfo: Boolean;
-        Continue: Boolean;
         ArchiveDocument: Boolean;
         LogInteraction: Boolean;
         VATAmount: Decimal;
         VATBaseAmount: Decimal;
         VATDiscountAmount: Decimal;
         TotalAmountInclVAT: Decimal;
-        Text007: Label 'Do you want to create a follow-up to-do?';
         NoOfRecords: Integer;
-        VALVATBaseLCY: Decimal;
-        VALVATAmountLCY: Decimal;
-        VALSpecLCYHeader: Text[80];
-        VALExchRate: Text[50];
-        Text008: Label 'VAT Amount Specification in ';
-        Text009: Label 'Local Currency';
-        Text010: Label 'Exchange rate: %1/%2';
         OutputNo: Integer;
-        HeaderLabel: array[20] of Text[30];
-        HeaderTxt: array[20] of Text[120];
-        FooterLabel: array[20] of Text[30];
-        FooterTxt: array[20] of Text[120];
         Text11500: Label 'Quote %1';
-        ML_SalesPerson: Label 'Salesperson';
-        ML_Reference: Label 'Reference';
-        ML_PmtTerms: Label 'Payment Terms';
-        ML_ApplyToDoc: Label 'Refers to Document';
-        ML_ShipCond: Label 'Shipping Conditions';
-        ML_ShipAdr: Label 'Shipping Address';
-        ML_InvAdr: Label 'Invoice Address';
-        ML_OrderAdr: Label 'Order Address';
-        ML_ShipDate: Label 'Shipping Date';
-        ML_Bank: Label 'Bank Information';
-        ML_AccNo: Label 'Account';
         CurrGroupPageNO: Integer;
         CurrPageFooterHiddenFlag: Integer;
         CurrPageHeaderHiddenFlag: Integer;
@@ -873,18 +835,10 @@ report 50009 "PWD Sales Order Confirmation"
         [InDataSet]
         LogInteractionEnable: Boolean;
         CstG001: Label 'Sales Order Confirmation';
-        "-LAP2.00-": Integer;
         RecGCustomer: Record Customer;
         RecGSalespersonPurchaser: Record "Salesperson/Purchaser";
         CstG004: Label 'POS. : %1';
-        CstG005: Label 'LPSA No. : %1';
-        RecGGenLedSetup: Record "General Ledger Setup";
-        TxTGLabelAmount: Text[50];
-        RecGReservEntry: Record "Reservation Entry";
         TxTGLabelLot: Text[50];
-        CstG002: Label '%1, on %2';
-        CstG003: Label 'Amount %1';
-        IntGSales_Nu_Type: Integer;
         NNC_TotalLCY: Decimal;
         NNC_VATAmt: Decimal;
         NNC_SalesLineLineAmt: Decimal;
@@ -898,11 +852,9 @@ report 50009 "PWD Sales Order Confirmation"
         CstG009: Label 'Shipment Date : %1';
         CstG010: Label 'Shipment Done';
         TxTGQuantity: Text[50];
-        IntGIDObject: Integer;
         CstG011: Label '%1 VAT';
         CrossReferenceNo: Code[20];
         ItemCrossRef: Record "Item Cross Reference";
-        Text014: Label 'LPSA No.';
         Text015: Label 'Your Item Ref.';
         Text016: Label 'You Pan No.';
         Item: Record Item;
@@ -948,7 +900,7 @@ report 50009 "PWD Sales Order Confirmation"
         ItemCrossRef.SetRange("Unit of Measure", "Sales Line"."Unit of Measure Code");
         ItemCrossRef.SetRange("Cross-Reference Type", ItemCrossRef."Cross-Reference Type"::Customer);
         ItemCrossRef.SetRange("Cross-Reference Type No.", "Sales Header"."Sell-to Customer No.");
-        if ItemCrossRef.FindFirst then begin
+        if ItemCrossRef.FindFirst() then begin
             CrossReferenceNo := ItemCrossRef."Cross-Reference No.";
             //>>TDL.LPSA.09022015
             TxtGCustPlanNo := ItemCrossRef."Customer Plan No.";
@@ -972,9 +924,6 @@ report 50009 "PWD Sales Order Confirmation"
 
     procedure SendPDFMail(var RecPSalesHeader: Record "Sales Header")
     var
-        RecLContBusRel: Record "Contact Business Relation";
-        RecLContact: Record Contact;
-        RecLCustomer: Record Customer;
         CstL001: Label 'LA PIERRETTE SA : Sales Order Confirmation';
         CstL002: Label 'Next the order confirmation following your order %1';
         Recipient: Text[80];
@@ -994,7 +943,7 @@ report 50009 "PWD Sales Order Confirmation"
         Clear(CodLMail);
 
         //>>NDBI
-        RecPSalesHeader.FindFirst;
+        RecPSalesHeader.FindFirst();
 
         // pas besoin d'avoir l'adresse destinataire rempli mais ça va peut être évoluer.
         /*

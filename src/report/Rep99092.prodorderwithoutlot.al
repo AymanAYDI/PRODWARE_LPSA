@@ -111,7 +111,7 @@ report 99092 "PWD prod order without lot"
                 var
                     RecL367: Record "Reservation Entry";
                 begin
-                    RecL367.Reset;
+                    RecL367.Reset();
                     RecL367.SetRange("Source Type", 5407);
                     //RecL367.SETRANGE("Source Subtype",3);
                     RecL367.SetRange("Source ID", "Prod. Order Line"."Prod. Order No.");
@@ -119,8 +119,8 @@ report 99092 "PWD prod order without lot"
                     RecL367.SetRange("Source Ref. No.", "Prod. Order Component"."Line No.");
                     RecL367.SetRange("Lot No.", '<>''');
 
-                    if RecL367.FindFirst then
-                        CurrReport.Skip;
+                    if RecL367.FindFirst() then
+                        CurrReport.Skip();
                 end;
             }
         }

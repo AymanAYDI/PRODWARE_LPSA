@@ -6,20 +6,20 @@ report 50082 "PWD UPDATE COST"
     {
         dataitem("Production Order"; "Production Order")
         {
-            DataItemTableView = WHERE (Status = CONST (Released), "Location Code" = FILTER (<> 'ACI'));
+            DataItemTableView = WHERE(Status = CONST(Released), "Location Code" = FILTER(<> 'ACI'));
             RequestFilterFields = Status, "No.";
             dataitem("Prod. Order Line"; "Prod. Order Line")
             {
-                DataItemLink = Status = FIELD (Status), "Prod. Order No." = FIELD ("No.");
-                DataItemTableView = SORTING (Status, "Prod. Order No.", "Line No.");
+                DataItemLink = Status = FIELD(Status), "Prod. Order No." = FIELD("No.");
+                DataItemTableView = SORTING(Status, "Prod. Order No.", "Line No.");
                 dataitem("Prod. Order Routing Line"; "Prod. Order Routing Line")
                 {
-                    DataItemLink = Status = FIELD (Status), "Prod. Order No." = FIELD ("Prod. Order No."), "Routing Reference No." = FIELD ("Line No."), "Routing No." = FIELD ("Routing No.");
-                    DataItemTableView = SORTING (Status, "Prod. Order No.", "Routing Reference No.", "Routing No.", "Operation No.") WHERE ("Routing Link Code" = FILTER (= ''));
+                    DataItemLink = Status = FIELD(Status), "Prod. Order No." = FIELD("Prod. Order No."), "Routing Reference No." = FIELD("Line No."), "Routing No." = FIELD("Routing No.");
+                    DataItemTableView = SORTING(Status, "Prod. Order No.", "Routing Reference No.", "Routing No.", "Operation No.") WHERE("Routing Link Code" = FILTER(= ''));
                     dataitem("Capacity Ledger Entry"; "Capacity Ledger Entry")
                     {
-                        DataItemLink = "Prod. Order No." = FIELD ("Prod. Order No."), "Operation No." = FIELD ("Operation No.");
-                        DataItemTableView = SORTING ("Prod. Order No.", "Prod. Order Line No.", "Routing No.", "Routing Reference No.", "Operation No.", "Last Output Line");
+                        DataItemLink = "Prod. Order No." = FIELD("Prod. Order No."), "Operation No." = FIELD("Operation No.");
+                        DataItemTableView = SORTING("Prod. Order No.", "Prod. Order Line No.", "Routing No.", "Routing Reference No.", "Operation No.", "Last Output Line");
 
                         trigger OnAfterGetRecord()
                         var
@@ -30,11 +30,11 @@ report 50082 "PWD UPDATE COST"
                         begin
                             RecLItem.Get("Production Order"."Source No.");
                             if not RecLItem.Blocked then begin
-                                RecGIJL.Init;
+                                RecGIJL.Init();
                                 RecGIJL.Validate("Journal Template Name", 'PRODUCTION');
                                 RecGIJL.Validate("Journal Batch Name", 'AJUSTEMENT');
                                 RecGIJL.Validate("Line No.", IntG);
-                                RecGIJL.Validate("Posting Date", WorkDate);
+                                RecGIJL.Validate("Posting Date", WorkDate());
                                 RecGIJL.Validate("Entry Type", RecGIJL."Entry Type"::Output);
                                 RecGIJL.Validate("Prod. Order No.", "Production Order"."No.");
                                 RecGIJL.Validate("Prod. Order Line No.", "Prod. Order Routing Line"."Routing Reference No.");
@@ -55,11 +55,11 @@ report 50082 "PWD UPDATE COST"
                                 IntG += 10000;
 
 
-                                RecGIJL.Init;
+                                RecGIJL.Init();
                                 RecGIJL.Validate("Journal Template Name", 'PRODUCTION');
                                 RecGIJL.Validate("Journal Batch Name", 'AJUSTEMENT');
                                 RecGIJL.Validate("Line No.", IntG);
-                                RecGIJL.Validate("Posting Date", WorkDate);
+                                RecGIJL.Validate("Posting Date", WorkDate());
                                 RecGIJL.Validate("Entry Type", RecGIJL."Entry Type"::Output);
                                 RecGIJL.Validate("Prod. Order No.", "Production Order"."No.");
                                 RecGIJL.Validate("Prod. Order Line No.", "Prod. Order Routing Line"."Routing Reference No.");
@@ -73,7 +73,7 @@ report 50082 "PWD UPDATE COST"
                                 RecLRoutingLine.SetRange("Routing No.", 'TT_OPE_PIE');
                                 RecLRoutingLine.SetRange(Type, Type);
                                 RecLRoutingLine.SetRange("No.", "No.");
-                                if RecLRoutingLine.FindFirst then begin
+                                if RecLRoutingLine.FindFirst() then begin
                                     RecGIJL.Validate("Run Time", RecLRoutingLine."Run Time" * "Prod. Order Routing Line"."Input Quantity");
                                     RecGIJL.Validate("Setup Time", RecLRoutingLine."Setup Time");
                                 end;
@@ -95,10 +95,10 @@ report 50082 "PWD UPDATE COST"
             trigger OnPreDataItem()
             begin
                 IntG := 10000;
-                RecGIJL.Reset;
+                RecGIJL.Reset();
                 RecGIJL.SetRange("Journal Template Name", 'PRODUCTION');
                 RecGIJL.SetRange("Journal Batch Name", 'AJUSTEMENT');
-                if RecGIJL.FindLast then
+                if RecGIJL.FindLast() then
                     IntG := RecGIJL."Line No." + 10000
                 else
                     IntG := 10000;
@@ -123,11 +123,7 @@ report 50082 "PWD UPDATE COST"
     }
 
     var
-        OperationName: Text[50];
-        UpdateProdOrderCost: Codeunit "Update Prod. Order Cost";
         IntG: Integer;
-        ItemJnlMgt: Codeunit ItemJnlManagement;
-        ProdOrderDescription: Text[50];
         RecGIJL: Record "Item Journal Line";
 }
 

@@ -12,7 +12,7 @@ report 99089 "PWD update qty transfert"
             begin
                 if "Send-Ahead Quantity" <> 0 then begin
                     "Routing Line".Validate("Send-Ahead Quantity", 0);
-                    Modify;
+                    Modify();
                 end;
             end;
         }
@@ -24,7 +24,7 @@ report 99089 "PWD update qty transfert"
             begin
                 if "Send-Ahead Quantity" <> 0 then begin
                     "Prod. Order Routing Line".Validate("Send-Ahead Quantity", 0);
-                    Modify;
+                    Modify();
                 end;
             end;
         }

@@ -16,7 +16,7 @@ codeunit 50005 "PWD Job Queue Calculate Plan"
     trigger OnRun()
     begin
         // Setup
-        RecGManufacturingSetup.Get;
+        RecGManufacturingSetup.Get();
         if (not RecGManufacturingSetup.MPS) and (not RecGManufacturingSetup.MRP) then
             Error(CstGTxt000, RecGManufacturingSetup.TableCaption);
 
@@ -31,7 +31,7 @@ codeunit 50005 "PWD Job Queue Calculate Plan"
         RecGItem.SetCurrentKey("Low-Level Code");
 
         // Each Location
-        RecGLocation.FindSet;
+        RecGLocation.FindSet();
         repeat
             if RecGLocation."Req. Wksh. Name" <> '' then begin
                 RecGItem.SetRange("Location Code", RecGLocation.Code);
@@ -48,12 +48,12 @@ codeunit 50005 "PWD Job Queue Calculate Plan"
                 RecGPlanningErrorLog.SetRange("Worksheet Template Name", RecGLocation."Req. Wksh. Template");
                 RecGPlanningErrorLog.SetRange("Journal Batch Name", RecGLocation."Req. Wksh. Name");
 
-                RecGPlanningErrorLog.DeleteAll;
-                ClearLastError;
-                Commit;
+                RecGPlanningErrorLog.DeleteAll();
+                ClearLastError();
+                Commit();
 
                 if not RecGItem.IsEmpty then begin
-                    RecGItem.FindSet;
+                    RecGItem.FindSet();
                     repeat
                         if not BooGSetAtStartPosition then begin
                             BooGSetAtStartPosition := true;
@@ -61,7 +61,7 @@ codeunit 50005 "PWD Job Queue Calculate Plan"
                             RecGItem.Find('=<>');
                         end;
 
-                        CduGCalcItemPlan.SetResiliencyOn;
+                        CduGCalcItemPlan.SetResiliencyOn();
                         if CduGCalcItemPlan.Run(RecGItem) then
                             IntGCounterOK += 1
                         else
@@ -70,20 +70,20 @@ codeunit 50005 "PWD Job Queue Calculate Plan"
                                 if TxtGErrorText = '' then
                                     TxtGErrorText := CstGTxt001
                                 else
-                                    ClearLastError;
+                                    ClearLastError();
                                 RecGPlanningErrorLog.SetJnlBatch(RecGLocation."Req. Wksh. Template", RecGLocation."Req. Wksh. Name", RecGItem."No.");
                                 RecGPlanningErrorLog.SetError(
-                                  StrSubstNo(TxtGErrorText, RecGItem.TableCaption, RecGItem."No."), 0, RecGItem.GetPosition);
+                                  StrSubstNo(TxtGErrorText, RecGItem.TableCaption, RecGItem."No."), 0, RecGItem.GetPosition());
                             end;
 
-                        Commit;
+                        Commit();
 
-                    until RecGItem.Next = 0;
-                    CduGCalcItemPlan.Finalize;
+                    until RecGItem.Next() = 0;
+                    CduGCalcItemPlan.Finalize();
                 end;
 
             end;
-        until RecGLocation.Next = 0;
+        until RecGLocation.Next() = 0;
     end;
 
     var
@@ -100,7 +100,6 @@ codeunit 50005 "PWD Job Queue Calculate Plan"
         TxtGErrorText: Text[1000];
         CstGTxt001: Label 'An unidentified error occurred while planning %1 %2. Recalculate the plan with the option "Stop and Show Error".';
         CstGTxt002: Label 'Planning Wkhs. must be define on Location.';
-        RepGCalcPlanning: Report "Calculate Plan - Plan. Wksh.";
         DatGFromDate: Date;
         DatGToDate: Date;
 }

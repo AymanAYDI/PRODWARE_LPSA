@@ -17,16 +17,16 @@ codeunit 50091 "PWD File Import Launcher2"
         //                                  Launch File Import connectors                                           //
         //**********************************************************************************************************//
 
-        RecLPartnerConnector.Reset;
+        RecLPartnerConnector.Reset();
         RecLPartnerConnector.SetRange(Blocked, false);
         RecLPartnerConnector.SetRange("Communication Mode", RecLPartnerConnector."Communication Mode"::File);
         if not RecLPartnerConnector.IsEmpty then begin
-            RecLPartnerConnector.FindSet;
+            RecLPartnerConnector.FindSet();
             repeat
 
-                Commit;
+                Commit();
                 if not CduLFileImport.Run(RecLPartnerConnector) then;
-            until RecLPartnerConnector.Next = 0;
+            until RecLPartnerConnector.Next() = 0;
         end;
     end;
 

@@ -33,7 +33,7 @@ report 50026 "Update Rtg Line Global IRON"
                     if BooG_Setup_Time
                       or BooG_Run_Time
                       or BooG_Wait_Time
-                      or BooG_Move_Time then begin
+                      or BooG_Move_Time then
 
                         //  IF NOT (RL_Others."Routing No." = RL_Reference."Routing No.") THEN BEGIN
                         if not ((RL_Others."Routing No." = RL_Reference."Routing No.") and
@@ -63,12 +63,11 @@ report 50026 "Update Rtg Line Global IRON"
 
                             end;
                         end;
-                    end;
                 end;
 
                 trigger OnPostDataItem()
                 begin
-                    Bdialog.Close;
+                    Bdialog.Close();
                 end;
 
                 trigger OnPreDataItem()
@@ -93,7 +92,7 @@ report 50026 "Update Rtg Line Global IRON"
                     if BooG_Setup_Time
                       or BooG_Run_Time
                       or BooG_Wait_Time
-                      or BooG_Move_Time then begin
+                      or BooG_Move_Time then
 
                         //  IF NOT (RL_OthersVersion."Routing No." = RL_Reference."Routing No.") THEN BEGIN
                         if not ((RL_OthersVersion."Routing No." = RL_Reference."Routing No.") and
@@ -123,12 +122,11 @@ report 50026 "Update Rtg Line Global IRON"
 
                             end;
                         end;
-                    end;
                 end;
 
                 trigger OnPostDataItem()
                 begin
-                    Bdialog.Close;
+                    Bdialog.Close();
                     Message(TxtG002);
                 end;
 
@@ -142,14 +140,14 @@ report 50026 "Update Rtg Line Global IRON"
             trigger OnAfterGetRecord()
             begin
                 if CodGPrevCode = "No." then
-                    CurrReport.Skip;
+                    CurrReport.Skip();
                 CodGPrevCode := "No.";
             end;
 
             trigger OnPreDataItem()
             begin
                 if not Confirm(TxtG003) then
-                    CurrReport.Break;
+                    CurrReport.Break();
 
                 SetRange("Routing No.", CodGRoutingHeader);
                 SetFilter("Operation No.", CodGOperationNo);
@@ -203,9 +201,9 @@ report 50026 "Update Rtg Line Global IRON"
                             RecLRoutingLines.SetRange("Routing No.", CodGRoutingHeader);
                             PagLRoutingLines.SetTableView(RecLRoutingLines);
                             PagLRoutingLines.LookupMode(true);
-                            if not (PagLRoutingLines.RunModal = ACTION::LookupOK) then begin
-                                exit(false);
-                            end else begin
+                            if not (PagLRoutingLines.RunModal = ACTION::LookupOK) then
+                                exit(false)
+                            else begin
                                 Text := PagLRoutingLines.GetSelectionFilter;
                                 exit(true);
                             end;
@@ -261,7 +259,6 @@ report 50026 "Update Rtg Line Global IRON"
     var
         Stat: Option New,Certified,"Under Development",Closed;
         RecGRoutingHeader: Record "Routing Header";
-        TxtG001: Label 'Warning, you are about to update all routings and production orders related to %1 %2 and operation no. %3.';
         TxtG002: Label 'Updated finished.';
         RecGRoutingVersion: Record "Routing Version";
         BooG_Setup_Time: Boolean;
@@ -272,9 +269,7 @@ report 50026 "Update Rtg Line Global IRON"
         CodGOperationNo: Code[150];
         TxtG003: Label 'Pensez à calculer vos calendriers avant de lancer une mise à jour. Si l''impact des mises à jour dépasse le calendrier, un message d''erreur bloquant arrêtera le traitement.\Voulez-vous continuer ?';
         CstL001: Label 'The reference routing is not ''TT_OPE_PIE'', do you want to continue ?';
-        TxtG004: Label 'Sauvegarde terminée.';
         CodGPrevCode: Code[20];
-        TxtG005: Label 'Replanification terminée.';
         Bdialog: Dialog;
         IntGCounter: Integer;
 }

@@ -21,15 +21,15 @@ codeunit 8073283 "PWD MSMQ Handler Launcher"
         //                                  Launch Codeunits MSMQ connectors                                        //
         //**********************************************************************************************************//
 
-        RecLPartnerConnector.Reset;
+        RecLPartnerConnector.Reset();
         RecLPartnerConnector.SetRange(Blocked, false);
         RecLPartnerConnector.SetRange("Communication Mode", RecLPartnerConnector."Communication Mode"::MSMQ);
         if not RecLPartnerConnector.IsEmpty then begin
-            RecLPartnerConnector.FindSet;
+            RecLPartnerConnector.FindSet();
             repeat
-                Commit;
+                Commit();
                 CODEUNIT.Run(RecLPartnerConnector."Object ID to Run", RecLPartnerConnector);
-            until RecLPartnerConnector.Next = 0;
+            until RecLPartnerConnector.Next() = 0;
         end;
     end;
 }
