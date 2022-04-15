@@ -441,7 +441,7 @@ codeunit 50020 "PWD LPSA Events Mgt."
     local procedure TAB205_OnBeforeDeleteEvent_ResourceUnitOfMeasure(var Rec: Record "Resource Unit of Measure"; RunTrigger: Boolean)
     var
     // PlannerOneSetup: Record 8076502;  //TODO: La table 8076502 n'existe pas 
-    // Text001: Label 'ENU=Deleting this unit will remove the resource from PlannerOne. Do you confirm deletion?;'
+    // Text001: Label 'Deleting this unit will remove the resource from PlannerOne. Do you confirm deletion?;'
     // ApplicationManagement: Codeunit 1;  //TODO: Cette fonction utilise le codeUnit 1
     begin
         // PLAW12.0 Confirm deletion of time base unit
@@ -458,7 +458,7 @@ codeunit 50020 "PWD LPSA Events Mgt."
     var
     // PlannerOneSetup: Record 8076502;  //TODO: La table 8076502 n'existe pas 
     // ApplicationManagement: Codeunit 1;  //TODO: Cette fonction utilise le codeUnit 1
-    // Text002: Label 'ENU=If the unit %1 does not convert to the base unit, the resource will be removed from PlannerOne. Do you wish to continue?;'
+    // Text002: Label 'If the unit %1 does not convert to the base unit, the resource will be removed from PlannerOne. Do you wish to continue?;'
     begin
         // PLAW12.0 Confirm convertibility of time base unit
         // PLAW12.2 Check LICENSE
@@ -699,7 +699,7 @@ codeunit 50020 "PWD LPSA Events Mgt."
     [EventSubscriber(ObjectType::Table, Database::"Return Shipment Line", 'OnInsertInvLineFromRetShptLineOnBeforePurchLineInsert', '', false, false)]
     local procedure TAB6651_OnInsertInvLineFromRetShptLineOnBeforePurchLineInsert_ReturnShipmentLine(var ReturnShipmentLine: Record "Return Shipment Line"; var PurchaseLine: Record "Purchase Line"; var NextLineNo: Integer; var IsHandled: Boolean)
     var
-        Text000: Label 'ENU=Return Shipment No. %1:';
+        Text000: Label 'Return Shipment No. %1:';
     begin
         //>>FE_LAPIERRETTE_ART02.001
         PurchaseLine."PWD LPSA Description 1" := STRSUBSTNO(Text000, ReturnShipmentLine."Document No.");
@@ -718,7 +718,7 @@ codeunit 50020 "PWD LPSA Events Mgt."
     [EventSubscriber(ObjectType::Table, Database::"Return Receipt Line", 'OnBeforeInsertInvLineFromRetRcptLineBeforeInsertTextLine', '', false, false)]
     local procedure TAB6661_OnBeforeInsertInvLineFromRetRcptLineBeforeInsertTextLine_ReturnReceiptLine(var ReturnReceiptLine: Record "Return Receipt Line"; var SalesLine: Record "Sales Line"; var NextLineNo: Integer; var IsHandled: Boolean)
     var
-        Text000: Label 'ENU=Return Receipt No. %1:';
+        Text000: Label 'Return Receipt No. %1:';
     begin
         //>>FE_LAPIERRETTE_ART02.001
         SalesLine."PWD LPSA Description 1" := STRSUBSTNO(Text000, ReturnReceiptLine."Document No.");

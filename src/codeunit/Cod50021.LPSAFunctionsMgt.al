@@ -70,12 +70,12 @@ codeunit 50021 "PWD LPSA Functions Mgt."
         RecLPosReservEntry: Record 337;
         RecLProdOrderLine: Record 5406;
         RecLLinkedProdOrder: Record 5405;
-        RecLPlannerOneSetup: Record 8076502;
-        RecLPlannerOneUtil: Codeunit 8076503;
+        RecLPlannerOneSetup: Record 8076502;  //TODO: Table n'existe pas
+        RecLPlannerOneUtil: Codeunit 8076503; //TODO: CodeUnit n'existe pas
         CduLCalcProdOrder: Codeunit 99000773;
         DecLRemQty: Decimal;
         DecLBaseRemQty: Decimal;
-        CstL50000: Label 'ENU=More than on product order is linked to item %1, lot %2. Update is stopped.';
+        CstL50000: Label 'More than on product order is linked to item %1, lot %2. Update is stopped.';
     BEGIN
         //>>FE_PROD01.002
         IF CodPLotNo = '' THEN
@@ -112,5 +112,30 @@ codeunit 50021 "PWD LPSA Functions Mgt."
         //<<FE_PROD01.002
     END;
 
+    PROCEDURE FctBooGFromWMS();
+    var
+        BooGFromWMS: Boolean;
+    BEGIN
+        BooGFromWMS := TRUE;
+    END;
+
+    PROCEDURE FctSalesLineFilterWMS(VAR RecPSalesLine: Record 37);
+    BEGIN
+        //RecPSalesLine.SETRANGE(WMS_Status,RecPSalesLine.WMS_Status::" ");
+        RecPSalesLine.SETRANGE("PWD WMS_Item", TRUE);
+        RecPSalesLine.CALCFIELDS("PWD WMS_Location");
+        RecPSalesLine.SETRANGE("PWD WMS_Location", TRUE);
+        RecPSalesLine.SETRANGE(Type, RecPSalesLine.Type::Item);
+        RecPSalesLine.SETFILTER("Outstanding Quantity", '<>%1', 0);
+        RecPSalesLine.SETRANGE("Drop Shipment", FALSE);
+        RecPSalesLine.SETRANGE("PWD WMS_Cust_Blocked", RecPSalesLine."PWD WMS_Cust_Blocked"::" ");
+    END;
+
+    PROCEDURE FctBooGFromConnector();
+    var
+        BooGFromConnector: Boolean;
+    BEGIN
+        BooGFromConnector := TRUE;
+    END;
 
 }
