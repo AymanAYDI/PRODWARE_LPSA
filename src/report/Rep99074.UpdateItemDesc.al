@@ -22,7 +22,7 @@ report 99074 "PWD Update Item Desc"
                     Txt := CopyStr("PWD LPSA Description 1", Pos + 1, Len);
                     Txt := CopyStr(Txt, 1, 40);
                     "PWD Quartis Description" := Txt;
-                    Modify;
+                    Modify();
                 end;
             end;
         }

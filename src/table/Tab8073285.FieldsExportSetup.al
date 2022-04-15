@@ -63,7 +63,7 @@ table 8073285 "PWD Fields Export Setup"
                 FrmLObjects.SETRECORD(RecLObject);
                 FrmLObjects.SETTABLEVIEW(RecLObject);
                 FrmLObjects.LOOKUPMODE := TRUE;
-                IF FrmLObjects.RUNMODAL = ACTION::LookupOK THEN BEGIN
+                IF FrmLObjects.RUNMODAL() = ACTION::LookupOK THEN BEGIN
                     FrmLObjects.GETRECORD(RecLObject);
                     VALIDATE("Table ID", RecLObject.ID);
                 END;
@@ -103,7 +103,7 @@ table 8073285 "PWD Fields Export Setup"
                 FrmLFields.SETTABLEVIEW(RecLField);
                 FrmLFields.LOOKUPMODE := TRUE;
                 FrmLFields.EDITABLE := FALSE;
-                IF FrmLFields.RUNMODAL = ACTION::LookupOK THEN BEGIN
+                IF FrmLFields.RUNMODAL() = ACTION::LookupOK THEN BEGIN
                     FrmLFields.GETRECORD(RecLField);
                     VALIDATE("Field ID", RecLField."No.");
                 END;
@@ -217,8 +217,6 @@ table 8073285 "PWD Fields Export Setup"
     }
 
     trigger OnInsert()
-    var
-        RecLConnectorMessage: Record "PWD Connector Messages";
     begin
     end;
 
@@ -266,10 +264,10 @@ table 8073285 "PWD Fields Export Setup"
         CstL000: Label 'Import';
     begin
         RecLFieldsExportSetup.COPYFILTERS(Rec);
-        RecLFieldsExportSetup.DELETEALL;
-        RecLFields.RESET;
+        RecLFieldsExportSetup.DELETEALL();
+        RecLFields.RESET();
         RecLFields.SETRANGE(TableNo, "Table ID");
-        RecLFields.FINDSET;
+        RecLFields.FINDSET();
         REPEAT
             IntLLineNo += 10000;
             RecLFieldsExportSetup."Line No." := IntLLineNo;
@@ -287,8 +285,8 @@ table 8073285 "PWD Fields Export Setup"
 
             RecLFieldsExportSetup.VALIDATE("Table ID", "Table ID");
             RecLFieldsExportSetup.VALIDATE("Field ID", RecLFields."No.");
-            RecLFieldsExportSetup.INSERT;
-        UNTIL RecLFields.NEXT = 0;
+            RecLFieldsExportSetup.INSERT();
+        UNTIL RecLFields.NEXT() = 0;
     end;
 
 
@@ -301,38 +299,37 @@ table 8073285 "PWD Fields Export Setup"
         CstLOK: Label 'No error detetected';
         CstLBadPosOtherPart: Label 'For information, Message Code %1 has a field defined in position %2,wich is in conflict with the current position %3. ';
         BooLVerifOK: Boolean;
-        CstLEndOFVerif: Label 'Check finished.';
     begin
         BooLVerifOK := TRUE;
 
-        RecLFieldsExportSetup.RESET;
+        RecLFieldsExportSetup.RESET();
         RecLFieldsExportSetup.SETCURRENTKEY("File Position");
         RecLFieldsExportSetup.SETRANGE("Partner Code", RecPFieldsExportSetup."Partner Code");
         RecLFieldsExportSetup.SETRANGE("Function", RecPFieldsExportSetup."Function");
         RecLFieldsExportSetup.SETRANGE("Message Code", RecPFieldsExportSetup."Message Code");
         IntLCurrentPosition := 0;
-        IF RecLFieldsExportSetup.FINDFIRST THEN
+        IF RecLFieldsExportSetup.FINDFIRST() THEN
             REPEAT
                 IF RecLFieldsExportSetup."File Position" <= IntLCurrentPosition THEN
                     ERROR(STRSUBSTNO(CstLBadPosition, RecLFieldsExportSetup."Field ID", RecLFieldsExportSetup."File Position"))
                 ELSE
                     IntLCurrentPosition += RecLFieldsExportSetup."File Length";
-            UNTIL RecLFieldsExportSetup.NEXT = 0;
+            UNTIL RecLFieldsExportSetup.NEXT() = 0;
 
 
-        RecLFieldsExportSetup.RESET;
+        RecLFieldsExportSetup.RESET();
         RecLFieldsExportSetup.SETCURRENTKEY("File Position");
         RecLFieldsExportSetup.SETRANGE("Partner Code", RecPFieldsExportSetup."Partner Code");
         RecLFieldsExportSetup.SETRANGE("Function", RecPFieldsExportSetup."Function");
         RecLFieldsExportSetup.SETRANGE("Message Code", RecPFieldsExportSetup."Message Code");
-        IF RecLFieldsExportSetup.FINDFIRST THEN
+        IF RecLFieldsExportSetup.FINDFIRST() THEN
             REPEAT
-                RecLFieldsExportSetupOther.RESET;
+                RecLFieldsExportSetupOther.RESET();
                 RecLFieldsExportSetupOther.SETCURRENTKEY("File Position");
                 RecLFieldsExportSetupOther.SETRANGE("Partner Code", RecLFieldsExportSetup."Partner Code");
                 RecLFieldsExportSetupOther.SETRANGE("Function", RecLFieldsExportSetup."Function");
                 RecLFieldsExportSetupOther.SETFILTER("Message Code", '<>%1', RecLFieldsExportSetup."Message Code");
-                IF RecLFieldsExportSetupOther.FINDFIRST THEN
+                IF RecLFieldsExportSetupOther.FINDFIRST() THEN
                     REPEAT
                         IF ((((RecLFieldsExportSetupOther."File Position" + RecLFieldsExportSetupOther."File Length") >
                           RecLFieldsExportSetup."File Position") AND
@@ -352,8 +349,8 @@ table 8073285 "PWD Fields Export Setup"
                                                RecLFieldsExportSetup."File Position"));
                             BooLVerifOK := FALSE;
                         END;
-                    UNTIL RecLFieldsExportSetupOther.NEXT = 0;
-            UNTIL RecLFieldsExportSetup.NEXT = 0;
+                    UNTIL RecLFieldsExportSetupOther.NEXT() = 0;
+            UNTIL RecLFieldsExportSetup.NEXT() = 0;
 
         IF BooLVerifOK THEN
             MESSAGE(CstLOK);

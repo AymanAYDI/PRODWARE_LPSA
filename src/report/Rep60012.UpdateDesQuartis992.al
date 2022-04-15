@@ -14,11 +14,11 @@ report 60012 "PWD Update Des Quartis <>992*"
             begin
 
                 CdUGItemConfigurator.FctConfigDescSemiFinish("PWD Item Configurator");
-                Modify;
+                Modify();
 
                 RecGItem.Get("Item Code");
                 RecGItem."PWD Quartis Description" := "PWD Quartis Description";
-                RecGItem.Modify;
+                RecGItem.Modify();
             end;
         }
     }

@@ -27,7 +27,7 @@ report 50024 "PWD Update Rtg Line Global"
                 begin
                     if PORL_Termined."No." = 'M00000' then begin
                         PORL_Termined."Routing Status" := PORL_Termined."Routing Status"::Finished;
-                        PORL_Termined.Modify;
+                        PORL_Termined.Modify();
                     end;
                 end;
             }
@@ -47,7 +47,7 @@ report 50024 "PWD Update Rtg Line Global"
             trigger OnPostDataItem()
             begin
                 if OptGStep = OptGStep::"Step2: Mémorisation Date de fin OF" then begin
-                    Bdialog.Close;
+                    Bdialog.Close();
                     Message(TxtG004);
                 end;
             end;
@@ -55,7 +55,7 @@ report 50024 "PWD Update Rtg Line Global"
             trigger OnPreDataItem()
             begin
                 if OptGStep <> OptGStep::"Step2: Mémorisation Date de fin OF" then
-                    CurrReport.Break;
+                    CurrReport.Break();
 
                 Bdialog.Open('Step2: Memorisation Date de fin OF\' +
                              'Statut Gamme = Terminée pour poste de charge M00000 \Enregistrements restants #1########################');
@@ -80,7 +80,7 @@ report 50024 "PWD Update Rtg Line Global"
                     if BooG_Setup_Time
                       or BooG_Run_Time
                       or BooG_Wait_Time
-                      or BooG_Move_Time then begin
+                      or BooG_Move_Time then
 
                         //  IF NOT (RL_Others."Routing No." = RL_Reference."Routing No.") THEN BEGIN
                         if not ((RL_Others."Routing No." = RL_Reference."Routing No.") and
@@ -110,20 +110,18 @@ report 50024 "PWD Update Rtg Line Global"
 
                             end;
                         end;
-                    end;
                 end;
 
                 trigger OnPostDataItem()
                 begin
-                    if OptGStep = OptGStep::"Step1: MAJ Gamme" then begin
-                        Bdialog.Close;
-                    end;
+                    if OptGStep = OptGStep::"Step1: MAJ Gamme" then
+                        Bdialog.Close();
                 end;
 
                 trigger OnPreDataItem()
                 begin
                     if OptGStep <> OptGStep::"Step1: MAJ Gamme" then
-                        CurrReport.Break;
+                        CurrReport.Break();
 
                     Bdialog.Open('Step1: MAJ Gamme pour opération #2#############\Enregistrements restants #1########################');
                     IntGCounter := RL_Others.Count;
@@ -144,7 +142,7 @@ report 50024 "PWD Update Rtg Line Global"
                     if BooG_Setup_Time
                       or BooG_Run_Time
                       or BooG_Wait_Time
-                      or BooG_Move_Time then begin
+                      or BooG_Move_Time then
 
                         //  IF NOT (RL_OthersVersion."Routing No." = RL_Reference."Routing No.") THEN BEGIN
                         if not ((RL_OthersVersion."Routing No." = RL_Reference."Routing No.") and
@@ -174,13 +172,12 @@ report 50024 "PWD Update Rtg Line Global"
 
                             end;
                         end;
-                    end;
                 end;
 
                 trigger OnPostDataItem()
                 begin
                     if OptGStep = OptGStep::"Step1: MAJ Gamme" then begin
-                        Bdialog.Close;
+                        Bdialog.Close();
                         Message(TxtG002);
                     end;
                 end;
@@ -188,7 +185,7 @@ report 50024 "PWD Update Rtg Line Global"
                 trigger OnPreDataItem()
                 begin
                     if OptGStep <> OptGStep::"Step1: MAJ Gamme" then
-                        CurrReport.Break;
+                        CurrReport.Break();
 
                     Bdialog.Open('MAJ version Gamme pour opération #2#############\Enregistrements restants #1########################');
                     IntGCounter := RL_Others.Count;
@@ -224,12 +221,11 @@ report 50024 "PWD Update Rtg Line Global"
                             RecLWorkCenter.Get("Prod. Order Routing Line"."No.");
                             "Prod. Order Routing Line".Validate("Unit Cost per", RecLWorkCenter."Unit Cost");
                         end;
-                    end else begin
+                    end else
                         if BooG_Update_Cost_FromMC then begin
                             RecLMachineCenter.Get("Prod. Order Routing Line"."No.");
                             "Prod. Order Routing Line".Validate("Unit Cost per", RecLMachineCenter."Unit Cost");
                         end;
-                    end;
                     Modify(false);
 
                     if BooG_Setup_Time or BooG_Run_Time or BooG_Wait_Time or BooG_Move_Time or
@@ -243,22 +239,22 @@ report 50024 "PWD Update Rtg Line Global"
                             repeat
                                 RecLProdOrderLine."To Be Updated" := true;
                                 RecLProdOrderLine.Modify(false);
-                            until RecLProdOrderLine.Next = 0;
+                            until RecLProdOrderLine.Next() = 0;
                     end;
                 end;
 
                 trigger OnPostDataItem()
                 begin
                     if OptGStep = OptGStep::"Step3: MAJ Gamme OF" then begin
-                        Bdialog.Close;
-                        Commit;
+                        Bdialog.Close();
+                        Commit();
                     end;
                 end;
 
                 trigger OnPreDataItem()
                 begin
                     if OptGStep <> OptGStep::"Step3: MAJ Gamme OF" then
-                        CurrReport.Break;
+                        CurrReport.Break();
 
                     Bdialog.Open('Step3: MAJ Gamme OF pour opération #2#############\Enregistrements restants #1########################');
                     IntGCounter := "Prod. Order Routing Line".Count;
@@ -268,7 +264,7 @@ report 50024 "PWD Update Rtg Line Global"
             trigger OnAfterGetRecord()
             begin
                 if CodGPrevCode = "No." then
-                    CurrReport.Skip;
+                    CurrReport.Skip();
                 CodGPrevCode := "No.";
             end;
 
@@ -280,7 +276,7 @@ report 50024 "PWD Update Rtg Line Global"
                 if (OptGStep = OptGStep::"Step1: MAJ Gamme") or
                    (OptGStep = OptGStep::"Step3: MAJ Gamme OF") then
                     if not Confirm(TxtG003) then
-                        CurrReport.Quit;
+                        CurrReport.Quit();
 
                 CodGPrevCode := '';
             end;
@@ -307,15 +303,15 @@ report 50024 "PWD Update Rtg Line Global"
                     Processed := true;
                     Modify(false);
 
-                    Commit;
+                    Commit();
                     RecLProdOrder.SetRange(Status, POL_rest.Status);
                     RecLProdOrder.SetRange("No.", POL_rest."Prod. Order No.");
                     RepLReplanProductionOrder.InitializeRequest(Direction::Backward, CalcMethod::"One level");
                     RepLReplanProductionOrder.SetTableView(RecLProdOrder);
                     RepLReplanProductionOrder.UseRequestPage := false;
-                    RepLReplanProductionOrder.RunModal;
+                    RepLReplanProductionOrder.RunModal();
 
-                    Commit;
+                    Commit();
                     RecLProdOrderLine.Get(POL_rest.Status, POL_rest."Prod. Order No.", POL_rest."Line No.");
                     RecLProdOrderLine."To Be Updated" := false;
                     RecLProdOrderLine."Send to OSYS (Released)" := false;
@@ -326,7 +322,7 @@ report 50024 "PWD Update Rtg Line Global"
             trigger OnPostDataItem()
             begin
                 if OptGStep = OptGStep::"Step3: MAJ Gamme OF" then begin
-                    Bdialog.Close;
+                    Bdialog.Close();
                     Message(TxtG005);
                 end;
             end;
@@ -334,7 +330,7 @@ report 50024 "PWD Update Rtg Line Global"
             trigger OnPreDataItem()
             begin
                 if OptGStep <> OptGStep::"Step3: MAJ Gamme OF" then
-                    CurrReport.Break;
+                    CurrReport.Break();
 
                 Bdialog.Open('Step3: Restauration Date de fin OF et replanification OF\Enregistrements restants #1########################');
                 IntGCounter := POL_rest.Count;
@@ -386,9 +382,9 @@ report 50024 "PWD Update Rtg Line Global"
                             RecLRoutingLines.SetRange("Routing No.", CodGRoutingHeader);
                             PagLRoutingLines.SetTableView(RecLRoutingLines);
                             PagLRoutingLines.LookupMode(true);
-                            if not (PagLRoutingLines.RunModal = ACTION::LookupOK) then begin
-                                exit(false);
-                            end else begin
+                            if not (PagLRoutingLines.RunModal = ACTION::LookupOK) then
+                                exit(false)
+                            else begin
                                 Text := PagLRoutingLines.GetSelectionFilter;
                                 exit(true);
                             end;
@@ -465,7 +461,6 @@ report 50024 "PWD Update Rtg Line Global"
     var
         Stat: Option New,Certified,"Under Development",Closed;
         RecGRoutingHeader: Record "Routing Header";
-        TxtG001: Label 'Warning, you are about to update all routings and production orders related to %1 %2 and operation no. %3.';
         TxtG002: Label 'Updated finished.';
         RecGRoutingVersion: Record "Routing Version";
         BooG_Setup_Time: Boolean;

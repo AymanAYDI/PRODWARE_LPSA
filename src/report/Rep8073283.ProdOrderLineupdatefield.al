@@ -17,13 +17,13 @@ report 8073283 "Prod. Order Line update field"
     {
         dataitem("Prod. Order Line"; "Prod. Order Line")
         {
-            DataItemTableView = SORTING (Status, "Prod. Order No.", "Line No.") WHERE (Status = CONST (Released));
+            DataItemTableView = SORTING(Status, "Prod. Order No.", "Line No.") WHERE(Status = CONST(Released));
             RequestFilterFields = "Prod. Order No.", "Line No.";
 
             trigger OnAfterGetRecord()
             begin
                 "Send to OSYS (Released)" := false;
-                Modify;
+                Modify();
             end;
         }
     }

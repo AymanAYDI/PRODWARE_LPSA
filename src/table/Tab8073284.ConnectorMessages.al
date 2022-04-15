@@ -120,7 +120,7 @@ table 8073284 "PWD Connector Messages"
                 FrmLObjects.SETRECORD(RecLObject);
                 FrmLObjects.SETTABLEVIEW(RecLObject);
                 FrmLObjects.LOOKUPMODE := TRUE;
-                IF FrmLObjects.RUNMODAL = ACTION::LookupOK THEN BEGIN
+                IF FrmLObjects.RUNMODAL() = ACTION::LookupOK THEN BEGIN
                     FrmLObjects.GETRECORD(RecLObject);
                     VALIDATE("Table ID", RecLObject.ID);
                 END;
@@ -181,7 +181,7 @@ table 8073284 "PWD Connector Messages"
                 FrmLFields.SETTABLEVIEW(RecLField);
                 FrmLFields.LOOKUPMODE := TRUE;
                 FrmLFields.EDITABLE := FALSE;
-                IF FrmLFields.RUNMODAL = ACTION::LookupOK THEN BEGIN
+                IF FrmLFields.RUNMODAL() = ACTION::LookupOK THEN BEGIN
                     FrmLFields.GETRECORD(RecLField);
                     VALIDATE("Field ID", RecLField."No.");
                 END;
@@ -306,7 +306,7 @@ table 8073284 "PWD Connector Messages"
     var
         RecLFieldsExport: Record "PWD Fields Export Setup";
     begin
-        RecLFieldsExport.RESET;
+        RecLFieldsExport.RESET();
         RecLFieldsExport.SETRANGE("Partner Code", "Partner Code");
         RecLFieldsExport.SETRANGE("Message Code", Code);
         RecLFieldsExport.SETRANGE("Table ID", "Table ID");
@@ -319,26 +319,26 @@ table 8073284 "PWD Connector Messages"
     begin
         //>>WMS-FE10.001
         IF "Fill Character" <> xRec."Fill Character" THEN BEGIN
-            RecLFieldsExport.RESET;
+            RecLFieldsExport.RESET();
             RecLFieldsExport.SETRANGE("Partner Code", "Partner Code");
             RecLFieldsExport.SETRANGE("Message Code", Code);
             RecLFieldsExport.SETRANGE("Table ID", "Table ID");
-            IF RecLFieldsExport.FINDSET THEN
+            IF RecLFieldsExport.FINDSET() THEN
                 REPEAT
                     RecLFieldsExport."Fill Character" := "Fill Character";
                     RecLFieldsExport.MODIFY(TRUE);
-                UNTIL RecLFieldsExport.NEXT = 0;
+                UNTIL RecLFieldsExport.NEXT() = 0;
         END;
         IF "Function" <> xRec."Function" THEN BEGIN
-            RecLFieldsExport.RESET;
+            RecLFieldsExport.RESET();
             RecLFieldsExport.SETRANGE("Partner Code", "Partner Code");
             RecLFieldsExport.SETRANGE("Message Code", Code);
             RecLFieldsExport.SETRANGE("Table ID", "Table ID");
-            IF RecLFieldsExport.FINDSET THEN
+            IF RecLFieldsExport.FINDSET() THEN
                 REPEAT
                     RecLFieldsExport."Function" := "Function";
                     RecLFieldsExport.MODIFY(TRUE);
-                UNTIL RecLFieldsExport.NEXT = 0;
+                UNTIL RecLFieldsExport.NEXT() = 0;
         END;
 
         //<<WMS-FE10.001

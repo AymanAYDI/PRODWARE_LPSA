@@ -40,15 +40,13 @@ codeunit 8073290 "PWD Connector Peb Parse Data"
         CASE "Function" OF
             //>>WMS-FEMOT.001
             'ADDORDER':
-                BEGIN
-                    //FctAddOrderXml(Rec);
-                    FctAddOrder(Rec);
-                END;
+
+                //FctAddOrderXml(Rec);
+                FctAddOrder(Rec);
 
             'CREATECUSTOMER':
-                BEGIN
-                    FctCreateCustomer(Rec);
-                END;
+
+                FctCreateCustomer(Rec);
             //>>WMS-FEMOT.001
 
             'GETITEMPRICE':
@@ -144,13 +142,10 @@ codeunit 8073290 "PWD Connector Peb Parse Data"
     end;
 
     var
-        TxtGFunctionName: Text[100];
         TxtGFields: array[100] of Text[50];
         TxtGFilters: array[100] of Text[1024];
         TxtGData: array[100] of Text[250];
         AutGXMLDom: Automation;
-        BigTGTempBlob: BigText;
-        OusGStream: OutStream;
         CduGConnectBufMgtExport: Codeunit "Connector Buffer Mgt Export";
         CduGBufferManagement: Codeunit "Buffer Management";
         TxtGError: Label 'Data not available';
@@ -242,7 +237,7 @@ codeunit 8073290 "PWD Connector Peb Parse Data"
             END;
 
         IF BooLFindFilter THEN
-            EXIT(RecRefLTableToFilter.GETVIEW)
+            EXIT(RecRefLTableToFilter.GETVIEW())
         ELSE
             EXIT('');
     end;
@@ -254,10 +249,8 @@ codeunit 8073290 "PWD Connector Peb Parse Data"
         RecLSalesPrice2: Record "Sales Price";
         RecLSendingMessage: Record "PWD Connector Messages";
         RecLItem: Record Item;
-        RecLCustomer: Record Customer;
         RecLGeneralLedgerSetup: Record "General Ledger Setup";
         DecLQty: Decimal;
-        BigTLToReturn: BigText;
         TxtLQtyWithoutSpace: Text[250];
         OusLStream: OutStream;
         InsLStream: InStream;
@@ -283,13 +276,13 @@ codeunit 8073290 "PWD Connector Peb Parse Data"
         FctParseData();
 
         RecLItem.GET(TxtGData[2]);
-        RecLSalesPrice.RESET;
+        RecLSalesPrice.RESET();
         RecLSalesPrice.SETRANGE("Item No.", TxtGData[2]);
         IF TxtGData[1] <> '' THEN BEGIN
             RecLSalesPrice.SETRANGE("Sales Type", RecLSalesPrice."Sales Type"::Customer);
             RecLSalesPrice.SETRANGE("Sales Code", TxtGData[1]);
             IF RecLSalesPrice.ISEMPTY THEN BEGIN
-                RecLSalesPrice.RESET;
+                RecLSalesPrice.RESET();
                 RecLSalesPrice.SETRANGE("Item No.", TxtGData[2]);
                 RecLSalesPrice.SETRANGE("Sales Type", RecLSalesPrice."Sales Type"::"All Customers");
             END;
@@ -312,15 +305,15 @@ codeunit 8073290 "PWD Connector Peb Parse Data"
 
         BooLTreatmentOK := FALSE;
 
-        IF RecLSalesPrice.FINDLAST THEN BEGIN
-            RecLSalesPrice2.RESET;
+        IF RecLSalesPrice.FINDLAST() THEN BEGIN
+            RecLSalesPrice2.RESET();
             RecLSalesPrice2.COPYFILTERS(RecLSalesPrice);
             RecLSalesPrice2.SETRANGE("Minimum Quantity", RecLSalesPrice."Minimum Quantity");
-            IF RecLSalesPrice2.FINDLAST THEN BEGIN
-                RecLSendingMessage.RESET;
+            IF RecLSalesPrice2.FINDLAST() THEN BEGIN
+                RecLSendingMessage.RESET();
                 RecLSendingMessage.SETRANGE("Partner Code", RecPConnectorVal."Partner Code");
                 RecLSendingMessage.SETRANGE("Function", RecPConnectorVal."Function");
-                RecLSendingMessage.FINDFIRST;
+                RecLSendingMessage.FINDFIRST();
 
                 //>>WMS-FEMOT.001
                 IF RecLSendingMessage."Export Option" = RecLSendingMessage."Export Option"::Partial THEN BEGIN
@@ -330,7 +323,7 @@ codeunit 8073290 "PWD Connector Peb Parse Data"
                 END;
                 //<<WMS-FEMOT.001
 
-                CduGConnectBufMgtExport.FctCreateXml(RecLSalesPrice2.GETVIEW, RecLSendingMessage, RecLTempBlob, TRUE);
+                CduGConnectBufMgtExport.FctCreateXml(RecLSalesPrice2.GETVIEW(), RecLSendingMessage, RecLTempBlob, TRUE);
                 RecLTempBlob.CALCFIELDS(Blob);
                 IF RecLTempBlob.Blob.HASVALUE THEN BEGIN
                     RecLTempBlob.Blob.CREATEINSTREAM(InsLStream);
@@ -349,19 +342,6 @@ codeunit 8073290 "PWD Connector Peb Parse Data"
 
 
     procedure FctGetItemXml_File(RecPConnectorVal: Record "PWD Connector Values")
-    var
-        AutLXMLDom: Automation;
-        AutLXMLNodeTable: Automation;
-        AutLXMLNodeTableList: Automation;
-        AutLXMLNodeTable2: Automation;
-        AutLXMLNodeTableField: Automation;
-        AutLXMLNodeTableList2: Automation;
-        AutLXMLNodeTableFieldList: Automation;
-        AutLXMLNodeID: Automation;
-        AutLXMLNodeKey: Automation;
-        AutLXMLNodeNameField: Automation;
-        AutLXMLNodeNameFieldList: Automation;
-        StrLStreamIn: InStream;
     begin
         //**********************************************************************************************************//
         //                            Return Unit Price for an Item, by using File Management.                      //
@@ -425,12 +405,6 @@ codeunit 8073290 "PWD Connector Peb Parse Data"
 
 
     procedure FctGetItemWithSep(RecPConnectorVal: Record "PWD Connector Values")
-    var
-        StrLStreamIn: InStream;
-        TxtLReadBlob: Text[250];
-        TxtLTextLine: Text[250];
-        IntLMeter: Integer;
-        IntLPositions: array[2] of Integer;
     begin
         //**********************************************************************************************************//
         //                       Return Unit Price for an Item, by using Separator File Management.                 //
@@ -478,10 +452,6 @@ codeunit 8073290 "PWD Connector Peb Parse Data"
 
 
     procedure FctGetItemFilePos(RecPConnectorVal: Record "PWD Connector Values")
-    var
-        StrLStreamIn: InStream;
-        TxtLReadBlob: Text[250];
-        IntLLengthOfLine: Integer;
     begin
         //**********************************************************************************************************//
         //                       Return Unit Price for an Item, by using File Position Management.                  //
@@ -527,9 +497,6 @@ codeunit 8073290 "PWD Connector Peb Parse Data"
     var
         RecLSendingMessage: Record "PWD Connector Messages";
         RecLItem: Record Item;
-        RecLGeneralLedgerSetup: Record "General Ledger Setup";
-        BigTLToReturn: BigText;
-        TxtLQtyWithoutSpace: Text[250];
         OusLStream: OutStream;
         InsLStream: InStream;
         RecLTempBlob: Record TempBlob temporary;
@@ -552,12 +519,12 @@ codeunit 8073290 "PWD Connector Peb Parse Data"
         RecLItem.GET(TxtGData[1]);
 
         RecLItem.SETRANGE("No.", TxtGData[1]);
-        IF RecLItem.FINDFIRST THEN BEGIN
-            RecLSendingMessage.RESET;
+        IF RecLItem.FINDFIRST() THEN BEGIN
+            RecLSendingMessage.RESET();
             RecLSendingMessage.SETRANGE("Partner Code", RecPConnectorVal."Partner Code");
             RecLSendingMessage.SETRANGE("Function", RecPConnectorVal."Function");
-            RecLSendingMessage.FINDFIRST;
-            CduGConnectBufMgtExport.FctCreateXml(RecLItem.GETVIEW, RecLSendingMessage, RecLTempBlob, TRUE);
+            RecLSendingMessage.FINDFIRST();
+            CduGConnectBufMgtExport.FctCreateXml(RecLItem.GETVIEW(), RecLSendingMessage, RecLTempBlob, TRUE);
             RecLTempBlob.CALCFIELDS(Blob);
             IF RecLTempBlob.Blob.HASVALUE THEN BEGIN
                 RecLTempBlob.Blob.CREATEINSTREAM(InsLStream);
@@ -576,53 +543,26 @@ codeunit 8073290 "PWD Connector Peb Parse Data"
 
 
     procedure FctGetItemStockWithSep(RecPConnectorVal: Record "PWD Connector Values")
-    var
-        StrLStreamIn: InStream;
-        TxtLReadBlob: Text[250];
-        TxtLTextLine: Text[250];
-        IntLMeter: Integer;
-        IntLPositions: array[2] of Integer;
     begin
     end;
 
 
     procedure FctGetItemStockFilePos(RecPConnectorVal: Record "PWD Connector Values")
-    var
-        StrLStreamIn: InStream;
-        TxtLReadBlob: Text[250];
-        IntLLengthOfLine: Integer;
     begin
     end;
 
 
     procedure FctGetItemPByPackingXml(RecPConnectorVal: Record "PWD Connector Values")
-    var
-        RecLSendingMessage: Record "PWD Connector Messages";
-        RecLItem: Record Item;
-        RecLGeneralLedgerSetup: Record "General Ledger Setup";
-        BigTLToReturn: BigText;
-        TxtLQtyWithoutSpace: Text[250];
-        StrLStreamOut: OutStream;
     begin
     end;
 
 
     procedure FctGetItemPByPackingWithSep(RecPConnectorVal: Record "PWD Connector Values")
-    var
-        StrLStreamIn: InStream;
-        TxtLReadBlob: Text[250];
-        TxtLTextLine: Text[250];
-        IntLMeter: Integer;
-        IntLPositions: array[2] of Integer;
     begin
     end;
 
 
     procedure FctGetItemPByPackingFilePos(RecPConnectorVal: Record "PWD Connector Values")
-    var
-        StrLStreamIn: InStream;
-        TxtLReadBlob: Text[250];
-        IntLLengthOfLine: Integer;
     begin
     end;
 
@@ -632,7 +572,6 @@ codeunit 8073290 "PWD Connector Peb Parse Data"
         AutLXMLNode: Automation;
         AutLXMLNodeList: Automation;
         AutLXMLNodeList1: Automation;
-        AutLXMLNodeList2: Automation;
         AutLXMLNodeList3: Automation;
         RecLTempBlob: Record TempBlob;
         RecLSendingMessage: Record "PWD Connector Messages";
@@ -647,28 +586,18 @@ codeunit 8073290 "PWD Connector Peb Parse Data"
         CodLCustomer: Code[20];
         CodLExternalDocNo: Code[20];
         CodLItemNo: Code[20];
-        CodLCountryReg: Code[10];
-        CodLPostCode: Code[20];
         DatLStartingDate: Date;
         TxtLCommentHeader: Text[1024];
         TxtLCommentHeaderPartial: Text[80];
         TxtLCommentline: Text[1024];
         TxtLCommentlinePartial: Text[80];
-        TxtLName: Text[50];
-        TxtLName2: Text[50];
-        TxtLAddress: Text[50];
-        TxtLAddress2: Text[50];
-        TxtLCity: Text[30];
-        TxtLCounty: Text[30];
         IntLYear: Integer;
         IntLDay: Integer;
         IntLMonth: Integer;
         IntLQtty: Integer;
         i: Integer;
         DecLItemPrice: Decimal;
-        DecLQuantity: Decimal;
         DecLLineAmount: Decimal;
-        BigTLToReturn: BigText;
         InsLStream: InStream;
         BooLOrderInserted: Boolean;
         OusLStream: OutStream;
@@ -701,9 +630,9 @@ codeunit 8073290 "PWD Connector Peb Parse Data"
                         BEGIN
                             IF AutLXMLNode.text <> '' THEN
                                 CodLOrderNo := COPYSTR(AutLXMLNode.text, 1, 20);
-                            RecLSalesHeader2.RESET;
+                            RecLSalesHeader2.RESET();
                             RecLSalesHeader2.SETRANGE("Order No. From Partner", CodLOrderNo);
-                            IF RecLSalesHeader2.FINDFIRST THEN
+                            IF RecLSalesHeader2.FINDFIRST() THEN
                                 ERROR(CstLOrderExist);
                         END;
                     'CustomerNo':
@@ -739,7 +668,7 @@ codeunit 8073290 "PWD Connector Peb Parse Data"
                         BEGIN
                             IF NOT BooLOrderInserted THEN BEGIN
                                 BooLOrderInserted := TRUE;
-                                RecLSalesHeader.INIT;
+                                RecLSalesHeader.INIT();
                                 RecLSalesHeader."Document Type" := RecLSalesHeader."Document Type"::Order;
                                 RecLSalesHeader."No." := '';
                                 RecLSalesHeader.INSERT(TRUE);
@@ -747,20 +676,20 @@ codeunit 8073290 "PWD Connector Peb Parse Data"
                                 RecLSalesHeader.VALIDATE("Posting Date", DMY2DATE(IntLDay, IntLMonth, IntLYear));
                                 RecLSalesHeader."External Document No." := CodLExternalDocNo;
                                 RecLSalesHeader."Order No. From Partner" := CodLOrderNo;
-                                RecLSalesHeader.MODIFY;
+                                RecLSalesHeader.MODIFY();
                                 i := 1;
                                 TxtLCommentHeaderPartial := TxtLCommentHeader;
                                 TxtLCommentHeaderPartial := COPYSTR(TxtLCommentHeader, 1, 80);
                                 IF TxtLCommentHeaderPartial <> '' THEN
                                     REPEAT
-                                        RecLSalesCommentLine.INIT;
+                                        RecLSalesCommentLine.INIT();
                                         RecLSalesCommentLine."Document Type" := RecLSalesCommentLine."Document Type"::Order;
                                         RecLSalesCommentLine."No." := RecLSalesHeader."No.";
                                         RecLSalesCommentLine."Line No." := i * 10000;
                                         RecLSalesCommentLine."Document Line No." := 0;
                                         RecLSalesCommentLine.Date := DatLStartingDate;
                                         RecLSalesCommentLine.Comment := TxtLCommentHeaderPartial;
-                                        RecLSalesCommentLine.INSERT;
+                                        RecLSalesCommentLine.INSERT();
                                         TxtLCommentHeaderPartial := COPYSTR(TxtLCommentHeader, (1 + i * 80), 80);
                                         i += 1;
                                     UNTIL TxtLCommentHeaderPartial = '';
@@ -788,7 +717,7 @@ codeunit 8073290 "PWD Connector Peb Parse Data"
                                 AutLXMLNode := AutLXMLNodeList3.nextNode();
                             END;
                             IF RecLSalesHeader."No." <> '' THEN BEGIN
-                                RecLSalesLine.INIT;
+                                RecLSalesLine.INIT();
                                 RecLSalesLine.VALIDATE("Document Type", RecLSalesLine."Document Type"::Order);
                                 RecLSalesLine.VALIDATE("Document No.", RecLSalesHeader."No.");
                                 RecLSalesLine."Line No." := FctNextLineNo(RecLSalesHeader."No.");
@@ -799,20 +728,20 @@ codeunit 8073290 "PWD Connector Peb Parse Data"
                                 RecLSalesLine.VALIDATE(Quantity, IntLQtty);
                                 IF DecLItemPrice <> 0 THEN
                                     RecLSalesLine.VALIDATE("Line Amount", DecLLineAmount);
-                                RecLSalesLine.MODIFY;
+                                RecLSalesLine.MODIFY();
                             END;
                             i := 1;
                             TxtLCommentlinePartial := COPYSTR(TxtLCommentline, 1, 80);
                             IF TxtLCommentlinePartial <> '' THEN
                                 REPEAT
-                                    RecLSalesCommentLine.INIT;
+                                    RecLSalesCommentLine.INIT();
                                     RecLSalesCommentLine."Document Type" := RecLSalesCommentLine."Document Type"::Order;
                                     RecLSalesCommentLine."No." := RecLSalesHeader."No.";
                                     RecLSalesCommentLine."Line No." := i * 10000;
                                     RecLSalesCommentLine."Document Line No." := RecLSalesLine."Line No.";
                                     RecLSalesCommentLine.Date := DatLStartingDate;
                                     RecLSalesCommentLine.Comment := TxtLCommentlinePartial;
-                                    RecLSalesCommentLine.INSERT;
+                                    RecLSalesCommentLine.INSERT();
                                     TxtLCommentlinePartial := COPYSTR(TxtLCommentline, (1 + i * 80), 80);
                                     i += 1;
                                 UNTIL TxtLCommentlinePartial = '';
@@ -827,8 +756,8 @@ codeunit 8073290 "PWD Connector Peb Parse Data"
 
         //Calc SalesHeaderAmount
         RecLSalesHeader.GET(RecLSalesHeader."Document Type", RecLSalesHeader."No.");
-        RecLSalesLine.RESET;
-        RecLSalesSetup.GET;
+        RecLSalesLine.RESET();
+        RecLSalesSetup.GET();
         IF RecLSalesSetup."Calc. Inv. Discount" THEN BEGIN
             CODEUNIT.RUN(CODEUNIT::"Sales-Calc. Discount", RecLSalesLine);
             RecLSalesHeader.GET(RecLSalesHeader."Document Type", RecLSalesHeader."No.");
@@ -843,11 +772,11 @@ codeunit 8073290 "PWD Connector Peb Parse Data"
         CLEAR(OusLStream);
         RecLSalesHeader.SETRANGE("Document Type", RecLSalesHeader."Document Type");
         RecLSalesHeader.SETRANGE("No.", RecLSalesHeader."No.");
-        RecLSendingMessage.RESET;
+        RecLSendingMessage.RESET();
         RecLSendingMessage.SETRANGE("Partner Code", RecPConnectorVal."Partner Code");
         RecLSendingMessage.SETRANGE("Function", RecPConnectorVal."Function");
-        RecLSendingMessage.FINDFIRST;
-        CduGConnectBufMgtExport.FctCreateXml(RecLSalesHeader.GETVIEW, RecLSendingMessage, RecLTempBlob, TRUE);
+        RecLSendingMessage.FINDFIRST();
+        CduGConnectBufMgtExport.FctCreateXml(RecLSalesHeader.GETVIEW(), RecLSendingMessage, RecLTempBlob, TRUE);
         RecLTempBlob.CALCFIELDS(Blob);
         IF RecLTempBlob.Blob.HASVALUE THEN BEGIN
             RecLTempBlob.Blob.CREATEINSTREAM(InsLStream);
@@ -863,22 +792,11 @@ codeunit 8073290 "PWD Connector Peb Parse Data"
 
 
     procedure FctAddOrderFilePos(RecPConnectorVal: Record "PWD Connector Values")
-    var
-        StrLStreamIn: InStream;
-        TxtLReadBlob: Text[250];
-        IntLLengthOfLine: Integer;
     begin
     end;
 
 
     procedure FctAddOrderWithSep(RecPConnectorVal: Record "PWD Connector Values")
-    var
-        RecLSendingMessage: Record "PWD Connector Messages";
-        RecLItem: Record Item;
-        RecLGeneralLedgerSetup: Record "General Ledger Setup";
-        BigTLToReturn: BigText;
-        TxtLQtyWithoutSpace: Text[250];
-        StrLStreamOut: OutStream;
     begin
     end;
 
@@ -891,10 +809,10 @@ codeunit 8073290 "PWD Connector Peb Parse Data"
         //                                    Find the next line No. for an order                                   //
         //**********************************************************************************************************//
 
-        RecLSalesLine.RESET;
+        RecLSalesLine.RESET();
         RecLSalesLine.SETRANGE("Document Type", RecLSalesLine."Document Type"::Order);
         RecLSalesLine.SETRANGE("Document No.", CodPDocNo);
-        IF RecLSalesLine.FINDLAST THEN
+        IF RecLSalesLine.FINDLAST() THEN
             EXIT(RecLSalesLine."Line No." + 10000)
         ELSE
             EXIT(10000);
@@ -903,19 +821,12 @@ codeunit 8073290 "PWD Connector Peb Parse Data"
 
     procedure FctGetOrderXml(RecPConnectorVal: Record "PWD Connector Values")
     var
-        RecLSendingMessage: Record "PWD Connector Messages";
         RecLSalesHeader: Record "Sales Header";
-        BigTLHeaderInfo: BigText;
-        BigTLToReturn: BigText;
-        BigTLLineInfo: BigText;
-        BigTLLineInfoTemp: BigText;
-        TxtLQtyWithoutSpace: Text[250];
         OusLStream: OutStream;
         InsLStream: InStream;
         InsLStream1: InStream;
         InsLStream2: InStream;
         RecLTempBlob: Record TempBlob temporary;
-        IntLPosition: Integer;
         CduLStreamMgt: Codeunit "File Management";
         RecLTempBlob1: Record TempBlob temporary;
         RecLTempBlob2: Record TempBlob temporary;
@@ -979,9 +890,6 @@ codeunit 8073290 "PWD Connector Peb Parse Data"
     var
         RecLSendingMessage: Record "PWD Connector Messages";
         RecLSalesHeader: Record "Sales Header";
-        BigTLToReturn: BigText;
-        TxtLQtyWithoutSpace: Text[250];
-        StrLStreamOut: OutStream;
     begin
         //**********************************************************************************************************//
         //                                           Return Order Header                                            //
@@ -995,13 +903,13 @@ codeunit 8073290 "PWD Connector Peb Parse Data"
         RecLSalesHeader.GET(RecLSalesHeader."Document Type"::Order, TxtPValue);
         RecLSalesHeader.SETRANGE("Document Type", RecLSalesHeader."Document Type"::Order);
         RecLSalesHeader.SETRANGE("No.", TxtPValue);
-        IF RecLSalesHeader.FINDFIRST THEN BEGIN
-            RecLSendingMessage.RESET;
+        IF RecLSalesHeader.FINDFIRST() THEN BEGIN
+            RecLSendingMessage.RESET();
             RecLSendingMessage.SETRANGE("Partner Code", RecPConnectorVal."Partner Code");
             RecLSendingMessage.SETRANGE("Function", RecPConnectorVal."Function");
             RecLSendingMessage.SETRANGE("Table ID", DATABASE::"Sales Header");
-            RecLSendingMessage.FINDFIRST;
-            CduGConnectBufMgtExport.FctCreateXml(RecLSalesHeader.GETVIEW, RecLSendingMessage, RecLTempBlob, TRUE);
+            RecLSendingMessage.FINDFIRST();
+            CduGConnectBufMgtExport.FctCreateXml(RecLSalesHeader.GETVIEW(), RecLSendingMessage, RecLTempBlob, TRUE);
         END
         ELSE
             ERROR(TxtGError);
@@ -1012,9 +920,6 @@ codeunit 8073290 "PWD Connector Peb Parse Data"
     var
         RecLSendingMessage: Record "PWD Connector Messages";
         RecLSalesLine: Record "Sales Line";
-        BigTLToReturn: BigText;
-        TxtLQtyWithoutSpace: Text[250];
-        StrLStreamOut: OutStream;
     begin
         //**********************************************************************************************************//
         //                                           Return Order Header                                            //
@@ -1027,13 +932,13 @@ codeunit 8073290 "PWD Connector Peb Parse Data"
 
         RecLSalesLine.SETRANGE("Document Type", RecLSalesLine."Document Type"::Order);
         RecLSalesLine.SETRANGE("Document No.", TxtPValue);
-        IF RecLSalesLine.FINDFIRST THEN BEGIN
-            RecLSendingMessage.RESET;
+        IF RecLSalesLine.FINDFIRST() THEN BEGIN
+            RecLSendingMessage.RESET();
             RecLSendingMessage.SETRANGE("Partner Code", RecPConnectorVal."Partner Code");
             RecLSendingMessage.SETRANGE("Function", RecPConnectorVal."Function");
             RecLSendingMessage.SETRANGE("Table ID", DATABASE::"Sales Line");
-            RecLSendingMessage.FINDFIRST;
-            CduGConnectBufMgtExport.FctCreateXml(RecLSalesLine.GETVIEW, RecLSendingMessage, RecLTempBlob, FALSE);
+            RecLSendingMessage.FINDFIRST();
+            CduGConnectBufMgtExport.FctCreateXml(RecLSalesLine.GETVIEW(), RecLSendingMessage, RecLTempBlob, FALSE);
         END;
         //>>FE_ProdConnect.002
         //ELSE
@@ -1043,41 +948,21 @@ codeunit 8073290 "PWD Connector Peb Parse Data"
 
 
     procedure FctGetOrderWithSep(RecPConnectorVal: Record "PWD Connector Values")
-    var
-        StrLStreamIn: InStream;
-        TxtLReadBlob: Text[250];
-        TxtLTextLine: Text[250];
-        IntLMeter: Integer;
-        IntLPositions: array[2] of Integer;
     begin
     end;
 
 
     procedure FctGetOrderFilePos(RecPConnectorVal: Record "PWD Connector Values")
-    var
-        StrLStreamIn: InStream;
-        TxtLReadBlob: Text[250];
-        IntLLengthOfLine: Integer;
     begin
     end;
 
 
     procedure FctGetOrdersWithSep(RecPConnectorVal: Record "PWD Connector Values")
-    var
-        StrLStreamIn: InStream;
-        TxtLReadBlob: Text[250];
-        TxtLTextLine: Text[250];
-        IntLMeter: Integer;
-        IntLPositions: array[2] of Integer;
     begin
     end;
 
 
     procedure FctGetOrdersFilePos(RecPConnectorVal: Record "PWD Connector Values")
-    var
-        StrLStreamIn: InStream;
-        TxtLReadBlob: Text[250];
-        IntLLengthOfLine: Integer;
     begin
     end;
 
@@ -1086,10 +971,7 @@ codeunit 8073290 "PWD Connector Peb Parse Data"
     var
         RecLSendingMessage: Record "PWD Connector Messages";
         RecLSalesShipmentHeader: Record "Sales Shipment Header";
-        BigTLToReturn: BigText;
-        TxtLQtyWithoutSpace: Text[250];
         StrLStreamOut: OutStream;
-        OusLStream: OutStream;
         InsLStream: InStream;
         RecLTempBlob: Record TempBlob temporary;
     begin
@@ -1109,12 +991,12 @@ codeunit 8073290 "PWD Connector Peb Parse Data"
         FctParseData();
 
         RecLSalesShipmentHeader.SETRANGE("Order No.", TxtGData[1]);
-        IF RecLSalesShipmentHeader.FINDFIRST THEN BEGIN
-            RecLSendingMessage.RESET;
+        IF RecLSalesShipmentHeader.FINDFIRST() THEN BEGIN
+            RecLSendingMessage.RESET();
             RecLSendingMessage.SETRANGE("Partner Code", RecPConnectorVal."Partner Code");
             RecLSendingMessage.SETRANGE("Function", RecPConnectorVal."Function");
-            RecLSendingMessage.FINDFIRST;
-            CduGConnectBufMgtExport.FctCreateXml(RecLSalesShipmentHeader.GETVIEW, RecLSendingMessage, RecLTempBlob, TRUE);
+            RecLSendingMessage.FINDFIRST();
+            CduGConnectBufMgtExport.FctCreateXml(RecLSalesShipmentHeader.GETVIEW(), RecLSendingMessage, RecLTempBlob, TRUE);
             RecLTempBlob.CALCFIELDS(Blob);
             IF RecLTempBlob.Blob.HASVALUE THEN BEGIN
                 RecLTempBlob.Blob.CREATEINSTREAM(InsLStream);
@@ -1133,21 +1015,11 @@ codeunit 8073290 "PWD Connector Peb Parse Data"
 
 
     procedure FctGetShipmentStatusWithSep(RecPConnectorVal: Record "PWD Connector Values")
-    var
-        StrLStreamIn: InStream;
-        TxtLReadBlob: Text[250];
-        TxtLTextLine: Text[250];
-        IntLMeter: Integer;
-        IntLPositions: array[2] of Integer;
     begin
     end;
 
 
     procedure FctGetShipmentStatusFilePos(RecPConnectorVal: Record "PWD Connector Values")
-    var
-        StrLStreamIn: InStream;
-        TxtLReadBlob: Text[250];
-        IntLLengthOfLine: Integer;
     begin
     end;
 
@@ -1157,10 +1029,7 @@ codeunit 8073290 "PWD Connector Peb Parse Data"
         RecLSendingMessage: Record "PWD Connector Messages";
         RecLCustomer: Record Customer;
         RecLCustomer2: Record Customer;
-        BigTLToReturn: BigText;
-        TxtLQtyWithoutSpace: Text[250];
         StrLStreamOut: OutStream;
-        OusLStream: OutStream;
         InsLStream: InStream;
         RecLTempBlob: Record TempBlob temporary;
     begin
@@ -1187,12 +1056,12 @@ codeunit 8073290 "PWD Connector Peb Parse Data"
 
         FctParseData();
 
-        RecLSendingMessage.RESET;
+        RecLSendingMessage.RESET();
         RecLSendingMessage.SETRANGE("Partner Code", RecPConnectorVal."Partner Code");
         RecLSendingMessage.SETRANGE("Function", RecPConnectorVal."Function");
-        RecLSendingMessage.FINDFIRST;
+        RecLSendingMessage.FINDFIRST();
 
-        RecLCustomer.INIT;
+        RecLCustomer.INIT();
         RecLCustomer.VALIDATE(Name, TxtGData[1]);
         RecLCustomer.INSERT(TRUE);
         RecLCustomer.VALIDATE("Search Name", TxtGData[2]);
@@ -1205,10 +1074,10 @@ codeunit 8073290 "PWD Connector Peb Parse Data"
         RecLCustomer.VALIDATE("Phone No.", TxtGData[6]);
         RecLCustomer.MODIFY(TRUE);
         RecLCustomer2.GET(RecLCustomer."No.");
-        RecLCustomer2.RESET;
+        RecLCustomer2.RESET();
         RecLCustomer2.SETRANGE("No.", RecLCustomer."No.");
-        IF RecLCustomer2.FINDFIRST THEN BEGIN
-            CduGConnectBufMgtExport.FctCreateXml(RecLCustomer2.GETVIEW, RecLSendingMessage, RecLTempBlob, TRUE);
+        IF RecLCustomer2.FINDFIRST() THEN BEGIN
+            CduGConnectBufMgtExport.FctCreateXml(RecLCustomer2.GETVIEW(), RecLSendingMessage, RecLTempBlob, TRUE);
             RecLTempBlob.CALCFIELDS(Blob);
             IF RecLTempBlob.Blob.HASVALUE THEN BEGIN
                 RecLTempBlob.Blob.CREATEINSTREAM(InsLStream);
@@ -1227,52 +1096,26 @@ codeunit 8073290 "PWD Connector Peb Parse Data"
 
 
     procedure FctCreateCustomerWithSep(RecPConnectorVal: Record "PWD Connector Values")
-    var
-        StrLStreamIn: InStream;
-        TxtLReadBlob: Text[250];
-        TxtLTextLine: Text[250];
-        IntLMeter: Integer;
-        IntLPositions: array[2] of Integer;
     begin
     end;
 
 
     procedure FctCreateCustomerFilePos(RecPConnectorVal: Record "PWD Connector Values")
-    var
-        StrLStreamIn: InStream;
-        TxtLReadBlob: Text[250];
-        IntLLengthOfLine: Integer;
     begin
     end;
 
 
     procedure FctGetShipmentCostXml(RecPConnectorVal: Record "PWD Connector Values")
-    var
-        RecLSendingMessage: Record "PWD Connector Messages";
-        RecLSalesShipmentHeader: Record "Sales Shipment Header";
-        BigTLToReturn: BigText;
-        TxtLQtyWithoutSpace: Text[250];
-        StrLStreamOut: OutStream;
     begin
     end;
 
 
     procedure FctGetShipmentCostWithSep(RecPConnectorVal: Record "PWD Connector Values")
-    var
-        StrLStreamIn: InStream;
-        TxtLReadBlob: Text[250];
-        TxtLTextLine: Text[250];
-        IntLMeter: Integer;
-        IntLPositions: array[2] of Integer;
     begin
     end;
 
 
     procedure FctGetShipmentCostFilePos(RecPConnectorVal: Record "PWD Connector Values")
-    var
-        StrLStreamIn: InStream;
-        TxtLReadBlob: Text[250];
-        IntLLengthOfLine: Integer;
     begin
     end;
 
@@ -1292,7 +1135,6 @@ codeunit 8073290 "PWD Connector Peb Parse Data"
         IntLYear2: Integer;
         DatLDate1: Date;
         DatLDate2: Date;
-        "-FE_ProdConnect.002-": Integer;
         RecLSalesHeaderArchive: Record "Sales Header Archive";
         InsLStream1: InStream;
         InsLStream2: InStream;
@@ -1321,7 +1163,7 @@ codeunit 8073290 "PWD Connector Peb Parse Data"
 
         FctParseData();
 
-        RecLSalesHeader.RESET;
+        RecLSalesHeader.RESET();
         RecLSalesHeader.SETRANGE("Document Type", RecLSalesHeader."Document Type"::Order);
         RecLSalesHeader.SETRANGE("Sell-to Customer No.", TxtGData[1]);
 
@@ -1371,30 +1213,30 @@ codeunit 8073290 "PWD Connector Peb Parse Data"
               ERROR(TxtGError);
         */
 
-        RecLSalesHeaderArchive.RESET;
+        RecLSalesHeaderArchive.RESET();
         RecLSalesHeaderArchive.SETRANGE("Document Type", RecLSalesHeaderArchive."Document Type"::Order);
         RecLSalesHeaderArchive.SETRANGE("Sell-to Customer No.", TxtGData[1]);
         IF (DatLDate1 <> 0D) AND (DatLDate2 <> 0D) THEN
             RecLSalesHeaderArchive.SETRANGE("Order Date", DatLDate1, DatLDate2);
 
         IF NOT RecLSalesHeader.ISEMPTY THEN BEGIN
-            RecLSendingMessage.RESET;
+            RecLSendingMessage.RESET();
             RecLSendingMessage.SETRANGE("Partner Code", RecPConnectorVal."Partner Code");
             RecLSendingMessage.SETRANGE("Function", RecPConnectorVal."Function");
             RecLSendingMessage.SETRANGE("Table ID", DATABASE::"Sales Header");
-            RecLSendingMessage.FINDFIRST;
-            CduGConnectBufMgtExport.FctCreateXml(RecLSalesHeader.GETVIEW, RecLSendingMessage, RecLTempBlob1, TRUE);
+            RecLSendingMessage.FINDFIRST();
+            CduGConnectBufMgtExport.FctCreateXml(RecLSalesHeader.GETVIEW(), RecLSendingMessage, RecLTempBlob1, TRUE);
             RecLTempBlob1.CALCFIELDS(Blob);
             RecLTempBlob1.Blob.CREATEINSTREAM(InsLStream1);
         END;
 
         IF NOT RecLSalesHeaderArchive.ISEMPTY THEN BEGIN
-            RecLSendingMessage.RESET;
+            RecLSendingMessage.RESET();
             RecLSendingMessage.SETRANGE("Partner Code", RecPConnectorVal."Partner Code");
             RecLSendingMessage.SETRANGE("Function", RecPConnectorVal."Function");
             RecLSendingMessage.SETRANGE("Table ID", DATABASE::"Sales Header Archive");
-            RecLSendingMessage.FINDFIRST;
-            CduGConnectBufMgtExport.FctCreateXml(RecLSalesHeaderArchive.GETVIEW, RecLSendingMessage, RecLTempBlob2, FALSE);
+            RecLSendingMessage.FINDFIRST();
+            CduGConnectBufMgtExport.FctCreateXml(RecLSalesHeaderArchive.GETVIEW(), RecLSendingMessage, RecLTempBlob2, FALSE);
             RecLTempBlob2.CALCFIELDS(Blob);
             RecLTempBlob2.Blob.CREATEINSTREAM(InsLStream2);
         END;
@@ -1413,7 +1255,7 @@ codeunit 8073290 "PWD Connector Peb Parse Data"
                                                        RecPConnectorVal.Direction::Export, RecPConnectorVal."Entry No.",
                                                        RecPConnectorVal."Message Code");
         END
-        ELSE BEGIN
+        ELSE
             IF (RecLTempBlob1.Blob.HASVALUE) THEN
                 CduGBufferManagement.FctCreateBufferValues(InsLStream1, RecPConnectorVal."Partner Code", RecPConnectorVal."File Name",
                                                            RecPConnectorVal."Function", RecPConnectorVal."File format",
@@ -1426,28 +1268,17 @@ codeunit 8073290 "PWD Connector Peb Parse Data"
                                                            RecPConnectorVal.Separator,
                                                            RecPConnectorVal.Direction::Export, RecPConnectorVal."Entry No.",
                                                            RecPConnectorVal."Message Code");
-        END;
         //<<FE_ProdConnect.002
 
     end;
 
 
     procedure FctGetCustOrdersWithSep(RecPConnectorVal: Record "PWD Connector Values")
-    var
-        StrLStreamIn: InStream;
-        TxtLReadBlob: Text[250];
-        TxtLTextLine: Text[250];
-        IntLMeter: Integer;
-        IntLPositions: array[2] of Integer;
     begin
     end;
 
 
     procedure FctGetCustOrdersFilePos(RecPConnectorVal: Record "PWD Connector Values")
-    var
-        StrLStreamIn: InStream;
-        TxtLReadBlob: Text[250];
-        IntLLengthOfLine: Integer;
     begin
     end;
 
@@ -1462,7 +1293,6 @@ codeunit 8073290 "PWD Connector Peb Parse Data"
         AutLXMLNode: Automation;
         AutLXMLNodeList: Automation;
         AutLXMLNodeList1: Automation;
-        AutLXMLNodeList2: Automation;
         AutLXMLNodeList3: Automation;
         RecLTempBlob: Record TempBlob;
         RecLSendingMessage: Record "PWD Connector Messages";
@@ -1470,28 +1300,18 @@ codeunit 8073290 "PWD Connector Peb Parse Data"
         CodLCustomer: Code[20];
         CodLExternalDocNo: Code[20];
         TxtLItemNo: Text[30];
-        CodLCountryReg: Code[10];
-        CodLPostCode: Code[20];
         DatLStartingDate: Date;
         TxtLCommentHeader: Text[1024];
         TxtLCommentHeaderPartial: Text[80];
         TxtLCommentline: Text[1024];
         TxtLCommentlinePartial: Text[80];
-        TxtLName: Text[50];
-        TxtLName2: Text[50];
-        TxtLAddress: Text[50];
-        TxtLAddress2: Text[50];
-        TxtLCity: Text[30];
-        TxtLCounty: Text[30];
         IntLDay: Integer;
         IntLMonth: Integer;
         IntLYear: Integer;
         TxtLQtty: Text[15];
         i: Integer;
         TxtLItemPrice: Text[15];
-        TxtLQuantity: Text[15];
         TxtLLineAmount: Text[15];
-        BigTLToReturn: BigText;
         InsLStream: InStream;
         BooLOrderInserted: Boolean;
         OusLStream: OutStream;
@@ -1591,7 +1411,7 @@ codeunit 8073290 "PWD Connector Peb Parse Data"
 
                                 i := 1;
                                 TxtLCommentHeaderPartial := COPYSTR(TxtLCommentHeader, 1, 80);
-                                IF TxtLCommentHeaderPartial <> '' THEN BEGIN
+                                IF TxtLCommentHeaderPartial <> '' THEN
                                     REPEAT
                                         RecLSalesCommentLineBuffer.GET(
                                                   CduGBufferManagement.FctNewBufferLine(DATABASE::"Sales Comment Line Buffer",
@@ -1613,7 +1433,6 @@ codeunit 8073290 "PWD Connector Peb Parse Data"
                                         TxtLCommentHeaderPartial := COPYSTR(TxtLCommentHeader, (1 + i * 80), 80);
                                         i += 1;
                                     UNTIL TxtLCommentHeaderPartial = '';
-                                END;
                             END;
                             AutLXMLNodeList3 := AutLXMLNode.childNodes();
                             AutLXMLNode := AutLXMLNodeList3.nextNode();
@@ -1656,7 +1475,7 @@ codeunit 8073290 "PWD Connector Peb Parse Data"
 
                             i := 1;
                             TxtLCommentlinePartial := COPYSTR(TxtLCommentline, 1, 80);
-                            IF TxtLCommentlinePartial <> '' THEN BEGIN
+                            IF TxtLCommentlinePartial <> '' THEN
                                 REPEAT
                                     RecLSalesCommentLineBuffer.GET(
                                             CduGBufferManagement.FctNewBufferLine(DATABASE::"Sales Comment Line Buffer", RecPConnectorVal
@@ -1678,7 +1497,6 @@ codeunit 8073290 "PWD Connector Peb Parse Data"
                                     TxtLCommentlinePartial := COPYSTR(TxtLCommentline, (1 + i * 80), 80);
                                     i += 1;
                                 UNTIL TxtLCommentlinePartial = '';
-                            END;
                         END;
                 END;
                 AutLXMLNode := AutLXMLNodeList1.nextNode();
@@ -1694,14 +1512,14 @@ codeunit 8073290 "PWD Connector Peb Parse Data"
             RecordRef.OPEN(DATABASE::"Sales Header", FALSE, COMPANYNAME);
             RecordRef.GET(RecLSalesHeaderBuffer."RecordID Created");
             RecordRef.SETTABLE(RecLSalesHeader);
-            RecLSalesHeader.SETRECFILTER;
+            RecLSalesHeader.SETRECFILTER();
 
             CLEAR(OusLStream);
-            RecLSendingMessage.RESET;
+            RecLSendingMessage.RESET();
             RecLSendingMessage.SETRANGE("Partner Code", RecPConnectorVal."Partner Code");
             RecLSendingMessage.SETRANGE("Function", RecPConnectorVal."Function");
-            RecLSendingMessage.FINDFIRST;
-            CduGConnectBufMgtExport.FctCreateXml(RecLSalesHeader.GETVIEW, RecLSendingMessage, RecLTempBlob, TRUE);
+            RecLSendingMessage.FINDFIRST();
+            CduGConnectBufMgtExport.FctCreateXml(RecLSalesHeader.GETVIEW(), RecLSendingMessage, RecLTempBlob, TRUE);
             RecLTempBlob.CALCFIELDS(Blob);
             IF RecLTempBlob.Blob.HASVALUE THEN BEGIN
                 RecLTempBlob.Blob.CREATEINSTREAM(InsLStream);
@@ -1723,10 +1541,9 @@ codeunit 8073290 "PWD Connector Peb Parse Data"
         RecLPEBSalesHeaderBuffer: Record "PEB Sales Header Buffer";
     begin
         //>>WMS-FEMOT.001
-        IF RecLPEBSalesHeaderBuffer.GET(IntPEntryBufferNo) THEN BEGIN
-            //Placer les champs spécifiques PEB
-
-        END;
+        IF RecLPEBSalesHeaderBuffer.GET(IntPEntryBufferNo) THEN
+            ;
+        //Placer les champs spécifiques PEB
         //<<WMS-FEMOT.001
     end;
 
@@ -1736,10 +1553,9 @@ codeunit 8073290 "PWD Connector Peb Parse Data"
         RecLPEBSalesLineBuffer: Record "PEB Sales Line Buffer";
     begin
         //>>WMS-FEMOT.001
-        IF RecLPEBSalesLineBuffer.GET(IntPEntryBufferNo) THEN BEGIN
-            //Placer les champs spécifiques PEB
-
-        END;
+        IF RecLPEBSalesLineBuffer.GET(IntPEntryBufferNo) THEN
+            ;
+        //Placer les champs spécifiques PEB
         //<<WMS-FEMOT.001
     end;
 
@@ -1749,10 +1565,9 @@ codeunit 8073290 "PWD Connector Peb Parse Data"
         RecLPEBSalesCommentLineBuffer: Record "PEB Sales Comment Line Buffer";
     begin
         //>>WMS-FEMOT.001
-        IF RecLPEBSalesCommentLineBuffer.GET(IntPEntryBufferNo) THEN BEGIN
-            //Placer les champs spécifiques PEB
-
-        END;
+        IF RecLPEBSalesCommentLineBuffer.GET(IntPEntryBufferNo) THEN
+            ;
+        //Placer les champs spécifiques PEB
         //<<WMS-FEMOT.001
     end;
 
@@ -1762,10 +1577,7 @@ codeunit 8073290 "PWD Connector Peb Parse Data"
         RecLSendingMessage: Record "PWD Connector Messages";
         RecLCustomerBuffer: Record "Customer Buffer";
         RecLCustomer: Record Customer;
-        BigTLToReturn: BigText;
-        TxtLQtyWithoutSpace: Text[250];
         StrLStreamOut: OutStream;
-        OusLStream: OutStream;
         InsLStream: InStream;
         RecLTempBlob: Record TempBlob temporary;
         RecordRef: RecordRef;
@@ -1795,10 +1607,10 @@ codeunit 8073290 "PWD Connector Peb Parse Data"
 
         FctParseData();
 
-        RecLSendingMessage.RESET;
+        RecLSendingMessage.RESET();
         RecLSendingMessage.SETRANGE("Partner Code", RecPConnectorVal."Partner Code");
         RecLSendingMessage.SETRANGE("Function", RecPConnectorVal."Function");
-        RecLSendingMessage.FINDFIRST;
+        RecLSendingMessage.FINDFIRST();
 
         RecLCustomerBuffer.GET(
                        CduGBufferManagement.FctNewBufferLine(DATABASE::"Customer Buffer", RecPConnectorVal, 1));
@@ -1826,10 +1638,10 @@ codeunit 8073290 "PWD Connector Peb Parse Data"
             RecordRef.OPEN(DATABASE::Customer, FALSE, COMPANYNAME);
             RecordRef.GET(RecLCustomerBuffer."RecordID Created");
             RecordRef.SETTABLE(RecLCustomer);
-            RecLCustomer.SETRECFILTER;
+            RecLCustomer.SETRECFILTER();
 
-            IF RecLCustomer.FINDFIRST THEN BEGIN
-                CduGConnectBufMgtExport.FctCreateXml(RecLCustomer.GETVIEW, RecLSendingMessage, RecLTempBlob, TRUE);
+            IF RecLCustomer.FINDFIRST() THEN BEGIN
+                CduGConnectBufMgtExport.FctCreateXml(RecLCustomer.GETVIEW(), RecLSendingMessage, RecLTempBlob, TRUE);
                 RecLTempBlob.CALCFIELDS(Blob);
                 IF RecLTempBlob.Blob.HASVALUE THEN BEGIN
                     RecLTempBlob.Blob.CREATEINSTREAM(InsLStream);
@@ -1854,10 +1666,9 @@ codeunit 8073290 "PWD Connector Peb Parse Data"
         RecLPEBCustomerBuffer: Record "PEB Customer Buffer";
     begin
         //>>WMS-FEMOT.001
-        IF RecLPEBCustomerBuffer.GET(IntPEntryBufferNo) THEN BEGIN
-            //Placer les champs spécifiques PEB
-
-        END;
+        IF RecLPEBCustomerBuffer.GET(IntPEntryBufferNo) THEN
+            ;
+        //Placer les champs spécifiques PEB
         //<<WMS-FEMOT.001
     end;
 
@@ -1867,10 +1678,9 @@ codeunit 8073290 "PWD Connector Peb Parse Data"
         RecLPEBReceiptLineBuffer: Record "PEB Receipt Line Buffer";
     begin
         //>>WMS-FE007_15.001
-        IF RecLPEBReceiptLineBuffer.GET(IntPEntryBufferNo) THEN BEGIN
-            //Placer les champs spécifiques PEB
-
-        END;
+        IF RecLPEBReceiptLineBuffer.GET(IntPEntryBufferNo) THEN
+            ;
+        //Placer les champs spécifiques PEB
         //<<WMS-FE007_15.001
     end;
 
@@ -1880,10 +1690,9 @@ codeunit 8073290 "PWD Connector Peb Parse Data"
         RecLPEBSalesLineBuffer: Record "PEB Sales Line Buffer";
     begin
         //>>WMS-FE008_15.001
-        IF RecLPEBSalesLineBuffer.GET(IntPEntryBufferNo) THEN BEGIN
-            //Placer les champs spécifiques PEB
-
-        END;
+        IF RecLPEBSalesLineBuffer.GET(IntPEntryBufferNo) THEN
+            ;
+        //Placer les champs spécifiques PEB
         //<<WMS-FE008_15.001
     end;
 
@@ -1897,9 +1706,6 @@ codeunit 8073290 "PWD Connector Peb Parse Data"
     var
         RecLSendingMessage: Record "PWD Connector Messages";
         RecLSalesHeaderArchive: Record "Sales Header Archive";
-        BigTLToReturn: BigText;
-        TxtLQtyWithoutSpace: Text[250];
-        StrLStreamOut: OutStream;
     begin
         //**********************************************************************************************************//
         //                                           Return Invoice Header                                          //
@@ -1915,15 +1721,15 @@ codeunit 8073290 "PWD Connector Peb Parse Data"
         RecLSalesHeaderArchive.SETRANGE("Document Type", RecLSalesHeaderArchive."Document Type"::Order);
         RecLSalesHeaderArchive.SETRANGE("No.", TxtPValue);
         IF NOT RecLSalesHeaderArchive.ISEMPTY THEN BEGIN
-            RecLSalesHeaderArchive.FINDLAST;
+            RecLSalesHeaderArchive.FINDLAST();
             RecLSalesHeaderArchive.SETRANGE("Doc. No. Occurrence", RecLSalesHeaderArchive."Doc. No. Occurrence");
             RecLSalesHeaderArchive.SETRANGE("Version No.", RecLSalesHeaderArchive."Version No.");
-            RecLSendingMessage.RESET;
+            RecLSendingMessage.RESET();
             RecLSendingMessage.SETRANGE("Partner Code", RecPConnectorVal."Partner Code");
             RecLSendingMessage.SETRANGE("Function", RecPConnectorVal."Function");
             RecLSendingMessage.SETRANGE("Table ID", DATABASE::"Sales Header Archive");
-            RecLSendingMessage.FINDFIRST;
-            CduGConnectBufMgtExport.FctCreateXml(RecLSalesHeaderArchive.GETVIEW, RecLSendingMessage, RecLTempBlob, TRUE);
+            RecLSendingMessage.FINDFIRST();
+            CduGConnectBufMgtExport.FctCreateXml(RecLSalesHeaderArchive.GETVIEW(), RecLSendingMessage, RecLTempBlob, TRUE);
         END
         ELSE
             ERROR(TxtGError);
@@ -1936,9 +1742,6 @@ codeunit 8073290 "PWD Connector Peb Parse Data"
         RecLSendingMessage: Record "PWD Connector Messages";
         RecLSalesLineArchive: Record "Sales Line Archive";
         RecLSalesHeaderArchive: Record "Sales Header Archive";
-        BigTLToReturn: BigText;
-        TxtLQtyWithoutSpace: Text[250];
-        StrLStreamOut: OutStream;
     begin
         //**********************************************************************************************************//
         //                                           Return Invoice Lines                                           //
@@ -1954,18 +1757,18 @@ codeunit 8073290 "PWD Connector Peb Parse Data"
         RecLSalesHeaderArchive.SETRANGE("Document Type", RecLSalesHeaderArchive."Document Type"::Order);
         RecLSalesHeaderArchive.SETRANGE("No.", TxtPValue);
         IF NOT RecLSalesHeaderArchive.ISEMPTY THEN BEGIN
-            RecLSalesHeaderArchive.FINDLAST;
+            RecLSalesHeaderArchive.FINDLAST();
             RecLSalesLineArchive.SETRANGE("Document Type", RecLSalesLineArchive."Document Type"::Order);
             RecLSalesLineArchive.SETRANGE("Document No.", RecLSalesHeaderArchive."No.");
             RecLSalesLineArchive.SETRANGE("Doc. No. Occurrence", RecLSalesHeaderArchive."Doc. No. Occurrence");
             RecLSalesLineArchive.SETRANGE("Version No.", RecLSalesHeaderArchive."Version No.");
             IF NOT RecLSalesLineArchive.ISEMPTY THEN BEGIN
-                RecLSendingMessage.RESET;
+                RecLSendingMessage.RESET();
                 RecLSendingMessage.SETRANGE("Partner Code", RecPConnectorVal."Partner Code");
                 RecLSendingMessage.SETRANGE("Function", RecPConnectorVal."Function");
                 RecLSendingMessage.SETRANGE("Table ID", DATABASE::"Sales Line Archive");
-                RecLSendingMessage.FINDFIRST;
-                CduGConnectBufMgtExport.FctCreateXml(RecLSalesLineArchive.GETVIEW, RecLSendingMessage, RecLTempBlob, FALSE);
+                RecLSendingMessage.FINDFIRST();
+                CduGConnectBufMgtExport.FctCreateXml(RecLSalesLineArchive.GETVIEW(), RecLSendingMessage, RecLTempBlob, FALSE);
             END;
         END;
         //<<FE_ProdConnect.002

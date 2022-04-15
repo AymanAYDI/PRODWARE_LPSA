@@ -22,12 +22,12 @@ report 50034 "PWD MAJ Flexibilité=Aucune T39"
                 IntGCounter -= 1;
 
                 "Purchase Line"."Planning Flexibility" := "Purchase Line"."Planning Flexibility"::None;
-                "Purchase Line".Modify;
+                "Purchase Line".Modify();
             end;
 
             trigger OnPostDataItem()
             begin
-                Bdialog.Close;
+                Bdialog.Close();
             end;
 
             trigger OnPreDataItem()

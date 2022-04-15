@@ -15,7 +15,7 @@ report 50027 "PWD TPL MAJ Gamme ACIER"
     {
         dataitem("Routing Header"; "Routing Header")
         {
-            DataItemTableView = SORTING ("No.") WHERE (PlanningGroup = FILTER ('ACIERS'));
+            DataItemTableView = SORTING("No.") WHERE(PlanningGroup = FILTER('ACIERS'));
             RequestFilterFields = "No.";
 
             trigger OnAfterGetRecord()
@@ -28,20 +28,20 @@ report 50027 "PWD TPL MAJ Gamme ACIER"
                     "Routing Header".Modify(true);
                 end;
 
-                RecGRoutingLine.Reset;
+                RecGRoutingLine.Reset();
                 RecGRoutingLine.SetRange("Routing No.", "Routing Header"."No.");
                 RecGRoutingLine.SetRange(Type, RecGRoutingLine.Type::"Work Center");
-                if RecGRoutingLine.FindFirst then
+                if RecGRoutingLine.FindFirst() then
                     repeat
                         RecGWorkCenter.Get(RecGRoutingLine."No.");
                         if RecGWorkCenter."Subcontractor No." = '' then
-                            RecGRoutingLine.Delete;
-                    until RecGRoutingLine.Next = 0;
+                            RecGRoutingLine.Delete();
+                    until RecGRoutingLine.Next() = 0;
 
 
                 RecGRoutingLine.SetRange(Type, RecGRoutingLine.Type::"Machine Center");
                 RecGRoutingLine.SetFilter(Description, 'ACI_MO_*');
-                RecGRoutingLine.DeleteAll;
+                RecGRoutingLine.DeleteAll();
 
                 if "Routing Header".Type <> "Routing Header".Type::Serial then begin
                     "Routing Header".Validate(Type, "Routing Header".Type::Serial);
@@ -54,7 +54,7 @@ report 50027 "PWD TPL MAJ Gamme ACIER"
 
             trigger OnPostDataItem()
             begin
-                BDialog.Close;
+                BDialog.Close();
                 Message('Traitement terminé');
             end;
 

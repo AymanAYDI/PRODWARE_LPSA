@@ -6,7 +6,7 @@ report 99076 "PWD Update Prod. Line From BKP"
     {
         dataitem("Prod. Order Line"; "Prod. Order Line")
         {
-            DataItemTableView = SORTING (Status, "Prod. Order No.", "Line No.") WHERE (Status = FILTER (< Finished));
+            DataItemTableView = SORTING(Status, "Prod. Order No.", "Line No.") WHERE(Status = FILTER(< Finished));
             RequestFilterFields = "Prod. Order No.";
 
             trigger OnAfterGetRecord()

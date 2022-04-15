@@ -6,7 +6,7 @@ report 50081 "PWD CALC NEW QTY"
     {
         dataitem(Item; Item)
         {
-            DataItemTableView = WHERE ("Order Multiple" = FILTER (<> 0), "Routing No." = FILTER (<> ''), Blocked = CONST (false), "Production BOM No." = FILTER (<> ''));
+            DataItemTableView = WHERE("Order Multiple" = FILTER(<> 0), "Routing No." = FILTER(<> ''), Blocked = CONST(false), "Production BOM No." = FILTER(<> ''));
             RequestFilterFields = "No.";
 
             trigger OnAfterGetRecord()
@@ -38,7 +38,7 @@ report 50081 "PWD CALC NEW QTY"
                         RecLOrderBY."Qty Order By Init" := Item."Order Multiple";
                         RecLOrderBY."Qty Order By New" := 0;
                         RecLOrderBY.Insert;
-                        CurrReport.Skip;
+                        CurrReport.Skip();
                     end;
                 end else begin
                     RecLOrderBY.Init;
@@ -48,26 +48,26 @@ report 50081 "PWD CALC NEW QTY"
                     RecLOrderBY."Qty Order By Init" := Item."Order Multiple";
                     RecLOrderBY."Qty Order By New" := 0;
                     RecLOrderBY.Insert;
-                    CurrReport.Skip;
+                    CurrReport.Skip();
                 end;
                 //Calcul Quantité Composant Initiale
                 if RecLProdOrderInit.Get(RecLProdOrderInit.Status::Simulated, 'INIT') then
                     RecLProdOrderInit.Delete(true);
 
-                RecLProdOrderInit.Init;
+                RecLProdOrderInit.Init();
                 RecLProdOrderInit.Validate(Status, RecLProdOrderInit.Status::Simulated);
                 RecLProdOrderInit.Validate("No.", 'INIT');
                 RecLProdOrderInit.Validate("Source Type", RecLProdOrderInit."Source Type"::Item);
                 RecLProdOrderInit.Validate("Source No.", "No.");
                 RecLProdOrderInit.Validate(Quantity, Item."Order Multiple");
                 RecLProdOrderInit.Insert(true);
-                Commit;
+                Commit();
                 Clear(RepUpdate);
                 RecLProdOrderInit.SetRange(Status, RecLProdOrderInit.Status::Simulated);
                 RecLProdOrderInit.SetRange("No.", 'INIT');
                 RepUpdate.SetTableView(RecLProdOrderInit);
                 RepUpdate.UseRequestPage(false);
-                RepUpdate.RunModal;
+                RepUpdate.RunModal();
                 //REPORT.RUNMODAL(REPORT::"Refresh Production Order",FALSE,FALSE,RecLProdOrderInit);
                 if RecLProdOrderComInit.Get(RecLProdOrderInit.Status, RecLProdOrderInit."No.", 10000, 10000) then
                     DecLInitQty := RecLProdOrderComInit."Expected Quantity";
@@ -83,33 +83,33 @@ report 50081 "PWD CALC NEW QTY"
                     RecLRoutringNew.Validate(Status, RecLRoutringNew.Status::"Under Development");
                     RecLRoutringNew.Delete(true);
                 end;
-                RecLRoutringNew.Init;
+                RecLRoutringNew.Init();
                 RecLRoutringNew.Validate("No.", 'NEW');
                 RecLRoutringNew.Insert(true);
                 RecLRoutringNew.Validate(Type, RecLRoutringInit.Type);
                 RecLRoutringNew.Validate(Status, RecLRoutringNew.Status::"Under Development");
-                RecLRoutringNew.Modify;
+                RecLRoutringNew.Modify();
 
                 RecLRoutingLineInit.SetRange("Routing No.", RecLRoutringInit."No.");
-                if RecLRoutingLineInit.FindSet then
+                if RecLRoutingLineInit.FindSet() then
                     repeat
                         RecLRoutingLineNew := RecLRoutingLineInit;
                         RecLRoutingLineNew.Validate("Routing No.", 'NEW');
-                        RecLRoutingLineNew.Insert;
+                        RecLRoutingLineNew.Insert();
                         RecLroutingTTE.SetRange("Routing No.", 'TT_OPE_PIE');
                         RecLroutingTTE.SetRange(Type, RecLRoutingLineInit.Type);
                         RecLroutingTTE.SetRange("No.", RecLRoutingLineInit."No.");
-                        if RecLroutingTTE.FindFirst then begin
+                        if RecLroutingTTE.FindFirst() then begin
                             RecLRoutingLineNew.Validate("Scrap Factor %", RecLroutingTTE."Scrap Factor %");
-                            RecLRoutingLineNew.Modify;
+                            RecLRoutingLineNew.Modify();
                         end;
-                    until RecLRoutingLineInit.Next = 0;
+                    until RecLRoutingLineInit.Next() = 0;
                 RecLRoutringNew.Validate(Status, RecLRoutringNew.Status::Certified);
-                RecLRoutringNew.Modify;
+                RecLRoutringNew.Modify();
 
                 Validate("Routing No.", 'NEW');
 
-                RecLProdOrderNew.Init;
+                RecLProdOrderNew.Init();
                 RecLProdOrderNew.Validate(Status, RecLProdOrderNew.Status::Simulated);
                 RecLProdOrderNew.Validate("No.", 'NEW');
                 RecLProdOrderNew.Validate("Source Type", RecLProdOrderNew."Source Type"::Item);
@@ -123,12 +123,12 @@ report 50081 "PWD CALC NEW QTY"
                 RecLProdOrderNew.SetRange("No.", 'NEW');
                 RepUpdate.SetTableView(RecLProdOrderNew);
                 RepUpdate.UseRequestPage(false);
-                RepUpdate.RunModal;
+                RepUpdate.RunModal();
                 if RecLProdOrderComNew.Get(RecLProdOrderNew.Status, RecLProdOrderNew."No.", 10000, 10000) then
                     DecLNewQty := RecLProdOrderComNew."Expected Quantity";
 
                 Validate("Routing No.", CodRouting);
-                Modify;
+                Modify();
 
                 RecLOrderBY.Init;
                 RecLOrderBY."Item No." := "No.";

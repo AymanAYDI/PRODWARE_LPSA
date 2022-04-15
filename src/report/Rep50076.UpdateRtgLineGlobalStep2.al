@@ -25,8 +25,7 @@ report 50076 "Update Rtg Line Global-Step 2"
                       or BooG_Wait_Time
                       or BooG_Move_Time
                       or BooG_Concurrent_Capacities
-                      or BooG_Scrap_Factor then begin
-
+                      or BooG_Scrap_Factor then
                         if not (RL_Others."Routing No." = RL_Reference."Routing No.") then begin
                             RecGRoutingHeader.Get(RL_Others."Routing No.");
                             if RecGRoutingHeader.Status <> RecGRoutingHeader.Status::Closed then begin
@@ -66,7 +65,6 @@ report 50076 "Update Rtg Line Global-Step 2"
 
                             end;
                         end;
-                    end;
                 end;
             }
             dataitem("Prod. Order Routing Line"; "Prod. Order Routing Line")
@@ -105,26 +103,25 @@ report 50076 "Update Rtg Line Global-Step 2"
                             RecLWorkCenter.Get("Prod. Order Routing Line"."No.");
                             "Prod. Order Routing Line".Validate("Unit Cost per", RecLWorkCenter."Unit Cost");
                         end;
-                    end else begin
+                    end else
                         if BooG_Update_Cost_FromMC then begin
                             RecLMachineCenter.Get("Prod. Order Routing Line"."No.");
                             "Prod. Order Routing Line".Validate("Unit Cost per", RecLMachineCenter."Unit Cost");
                         end;
-                    end;
                     Modify(false);
                 end;
 
                 trigger OnPreDataItem()
                 begin
                     if BooGExcludeGammeOF then
-                        CurrReport.Break;
+                        CurrReport.Break();
                 end;
             }
 
             trigger OnAfterGetRecord()
             begin
                 if CodGPrevCode = "No." then
-                    CurrReport.Skip;
+                    CurrReport.Skip();
                 CodGPrevCode := "No.";
             end;
 
@@ -182,9 +179,9 @@ report 50076 "Update Rtg Line Global-Step 2"
                             RecLRoutingLines.SetRange("Routing No.", CodGRoutingHeader);
                             PagLRoutingLines.SetTableView(RecLRoutingLines);
                             PagLRoutingLines.LookupMode(true);
-                            if not (PagLRoutingLines.RunModal = ACTION::LookupOK) then begin
-                                exit(false);
-                            end else begin
+                            if not (PagLRoutingLines.RunModal = ACTION::LookupOK) then
+                                exit(false)
+                            else begin
                                 Text := PagLRoutingLines.GetSelectionFilter;
                                 exit(true);
                             end;
@@ -322,7 +319,6 @@ report 50076 "Update Rtg Line Global-Step 2"
     var
         Stat: Option New,Certified,"Under Development",Closed;
         RecGRoutingHeader: Record "Routing Header";
-        TxtG001: Label 'Warning, you are about to update all routings and production orders related to %1 %2 and operation no. %3.';
         TxtG002: Label 'Updated finished.';
         BooG_Setup_Time_Unit: Boolean;
         BooG_Run_Time_Unit: Boolean;

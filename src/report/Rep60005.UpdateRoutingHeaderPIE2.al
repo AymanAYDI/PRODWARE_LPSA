@@ -13,12 +13,12 @@ report 60005 "Update Routing Header PIE 2"
             begin
                 if CopyStr("No.", 1, 4) = '9911' then begin
                     Item."Routing No." := 'PIE_P_LASER';
-                    Modify;
+                    Modify();
                 end;
 
                 if CopyStr("No.", 1, 4) = '9912' then begin
                     Item."Routing No." := 'PIE_P_BROCHE';
-                    Modify;
+                    Modify();
                 end;
             end;
         }

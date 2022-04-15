@@ -20,7 +20,6 @@ codeunit 8073308 "PWD Buffers Process Batch"
     var
         CduLBufferManagement: Codeunit "Buffer Management";
         FieldLRef: FieldRef;
-        "-LAP2.06-": Integer;
         RecLItemJounalLineBuffer: Record "PWD Item Jounal Line Buffer";
     begin
         Clear(CduLBufferManagement);
@@ -29,7 +28,7 @@ codeunit 8073308 "PWD Buffers Process Batch"
         //>>FE_LAPRIERRETTE_GP0004.001
         if (RecGRef.Number = DATABASE::"PWD Item Jounal Line Buffer") then begin
             RecLItemJounalLineBuffer.SetCurrentKey("Prod. Order No.", "Entry Type", "Prod. Order Line No.");
-            RecGRef.SetView(RecLItemJounalLineBuffer.GetView)
+            RecGRef.SetView(RecLItemJounalLineBuffer.GetView())
         end;
         //<<FE_LAPRIERRETTE_GP0004.001
 

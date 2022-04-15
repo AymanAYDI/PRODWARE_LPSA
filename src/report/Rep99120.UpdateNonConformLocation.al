@@ -9,8 +9,8 @@ report 99120 "Update Non Conform. Location"
 
             trigger OnAfterGetRecord()
             begin
-                RecGManufSetup.Reset;
-                RecGManufSetup.Get;
+                RecGManufSetup.Reset();
+                RecGManufSetup.Get();
                 RecGManufSetup."PWD Non conformity Prod. Location" := '';
                 RecGManufSetup.Modify(false);
                 RecGManufSetup.ChangeCompany(Company.Name);

@@ -12,7 +12,7 @@ report 50111 "PWD update linkes"
             begin
                 if "Record Link".Company = 'LPSA-BKP-31-07-2015' then begin
                     "Record Link".Company := 'LPSA';
-                    Modify;
+                    Modify();
                 end;
             end;
         }

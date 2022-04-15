@@ -20,7 +20,7 @@ report 50001 "Export Planning Client Excel"
                     if NewOrder then
                         SalesHeader.Get("Document Type", "Document No.");
 
-                    if "Shipment Date" <= WorkDate then
+                    if "Shipment Date" <= WorkDate() then
                         BackOrderQty := "Outstanding Quantity"
                     else
                         BackOrderQty := 0;
@@ -28,7 +28,7 @@ report 50001 "Export Planning Client Excel"
                     RowNo += 1;
 
                     if not Item.Get("No.") then
-                        Item.Init;
+                        Item.Init();
 
                     Item.CalcFields(Inventory);
 
@@ -55,25 +55,25 @@ report 50001 "Export Planning Client Excel"
                 TotalRecNo := Customer.CountApprox;
                 RecNo := 0;
 
-                TempExcelBuffer.DeleteAll;
+                TempExcelBuffer.DeleteAll();
                 Clear(TempExcelBuffer);
 
                 if Option = Option::"Update Workbook" then begin
-                    ReadExcelSheet;
+                    ReadExcelSheet();
                     MaxRowNo := 0;
-                    if TempExcelBuffer.FindFirst then
+                    if TempExcelBuffer.FindFirst() then
                         repeat
                             if TempExcelBuffer."Row No." > MaxRowNo then
                                 MaxRowNo := TempExcelBuffer."Row No.";
-                        until TempExcelBuffer.Next = 0;
+                        until TempExcelBuffer.Next() = 0;
                 end;
 
-                TempExcelBuffer.DeleteAll;
+                TempExcelBuffer.DeleteAll();
                 Clear(TempExcelBuffer);
 
 
                 //Title
-                MakeExcelInfo;
+                MakeExcelInfo();
             end;
         }
         dataitem("Production Forecast Entry"; "Production Forecast Entry")
@@ -85,12 +85,12 @@ report 50001 "Export Planning Client Excel"
                 RowNo += 1;
 
                 if not Item.Get("Item No.") then
-                    Item.Init;
+                    Item.Init();
 
                 Item.CalcFields(Inventory);
 
                 if not ProductionForecastName.Get("Production Forecast Name") then
-                    ProductionForecastName.Init;
+                    ProductionForecastName.Init();
 
                 EnterCell(RowNo, 1, '', false, false, false, '@');
                 EnterCell(RowNo, 2, "Production Forecast Name", false, false, false, '@');
@@ -121,7 +121,7 @@ report 50001 "Export Planning Client Excel"
                 if Option = Option::"Update Workbook" then begin
                     if IsServiceTier then
                         if UploadedFileName = '' then
-                            UploadFile
+                            UploadFile()
                         else
                             FileName := UploadedFileName;
                     TempExcelBuffer.OpenBook(FileName, SheetName);
@@ -131,7 +131,7 @@ report 50001 "Export Planning Client Excel"
                     TempExcelBuffer.CreateSheet(Text002E, Text003E, CompanyName, UserId);
                 end;
 
-                Commit;
+                Commit();
                 TempExcelBuffer.GiveUserControl;
                 Error('');
             end;
@@ -139,7 +139,7 @@ report 50001 "Export Planning Client Excel"
             trigger OnPreDataItem()
             begin
 
-                if RowNo < MaxRowNo then begin
+                if RowNo < MaxRowNo then
                     for i := 1 to (MaxRowNo - RowNo) do begin
                         EnterCell(RowNo + i, 1, '', false, false, false, '@');
                         EnterCell(RowNo + i, 2, '', false, false, false, '@');
@@ -153,7 +153,6 @@ report 50001 "Export Planning Client Excel"
                         EnterCell(RowNo + i, 10, '', false, false, false, '');
                         EnterCell(RowNo + i, 11, '', false, false, false, '');
                     end;
-                end;
             end;
         }
     }
@@ -179,7 +178,7 @@ report 50001 "Export Planning Client Excel"
 
                         trigger OnValidate()
                         begin
-                            UpdateRequestForm;
+                            UpdateRequestForm();
                         end;
                     }
                     field(FileName; FileName)
@@ -190,14 +189,14 @@ report 50001 "Export Planning Client Excel"
 
                         trigger OnAssistEdit()
                         begin
-                            UploadFile;
+                            UploadFile();
                             if IsServiceTier and (UploadedFileName <> '') then
                                 FileName := Text003;
                         end;
 
                         trigger OnValidate()
                         begin
-                            FileNameOnAfterValidate;
+                            FileNameOnAfterValidate();
                         end;
                     }
                     field(SheetName; SheetName)
@@ -232,7 +231,7 @@ report 50001 "Export Planning Client Excel"
 
         trigger OnOpenPage()
         begin
-            UpdateRequestForm;
+            UpdateRequestForm();
         end;
     }
 
@@ -248,13 +247,11 @@ report 50001 "Export Planning Client Excel"
 
     var
         Text000: Label 'Analyzing Data...\\';
-        Text001: Label 'Filters';
         Text002: Label 'Update Workbook';
         Item: Record Item;
         SalesHeader: Record "Sales Header";
         ProductionForecastName: Record "Production Forecast Name";
         TempExcelBuffer: Record "Excel Buffer" temporary;
-        ColumnValue: Decimal;
         FileName: Text[250];
         UploadedFileName: Text[1024];
         SheetName: Text[250];
@@ -270,7 +267,6 @@ report 50001 "Export Planning Client Excel"
         TotalRecNo: Integer;
         RecNo: Integer;
         RowNo: Integer;
-        ColumnNo: Integer;
         NewOrder: Boolean;
         BackOrderQty: Decimal;
         Text004E: Label 'Company Name';
@@ -290,22 +286,22 @@ report 50001 "Export Planning Client Excel"
     procedure UpdateRequestForm()
     begin
         if IsServiceTier then begin
-            PageUpdateRequestForm;
+            PageUpdateRequestForm();
             exit;
         end;
         if Option = Option::"Update Workbook" then begin
-            if not IsServiceTier then begin
-                //TODO RequestOptionsForm.FileName.ENABLED(TRUE);
-                //TODO RequestOptionsForm.SheetName.ENABLED(TRUE);
-            end;
+            if not IsServiceTier then
+                ;
+            //TODO RequestOptionsForm.FileName.ENABLED(TRUE);
+            //TODO RequestOptionsForm.SheetName.ENABLED(TRUE);
         end else begin
             FileName := '';
             UploadedFileName := '';
             SheetName := '';
-            if not IsServiceTier then begin
-                //TODO RequestOptionsForm.FileName.ENABLED(FALSE);
-                //TODO RequestOptionsForm.SheetName.ENABLED(FALSE);
-            end;
+            if not IsServiceTier then
+                ;
+            //TODO RequestOptionsForm.FileName.ENABLED(FALSE);
+            //TODO RequestOptionsForm.SheetName.ENABLED(FALSE);
         end;
     end;
 
@@ -315,28 +311,28 @@ report 50001 "Export Planning Client Excel"
 
         TempExcelBuffer.AddColumn(Format(Text004E), false, '', true, false, false, '');
         TempExcelBuffer.AddColumn(CompanyName, false, '', false, false, false, '');
-        TempExcelBuffer.NewRow;
+        TempExcelBuffer.NewRow();
         TempExcelBuffer.AddColumn(Format(Text006E), false, '', true, false, false, '');
         TempExcelBuffer.AddColumn(Format(Text003E), false, '', false, false, false, '');
-        TempExcelBuffer.NewRow;
+        TempExcelBuffer.NewRow();
         TempExcelBuffer.AddColumn(Format(Text005E), false, '', true, false, false, '');
         TempExcelBuffer.AddColumn(REPORT::"Export Planning Client Excel", false, '', false, false, false, '');
-        TempExcelBuffer.NewRow;
+        TempExcelBuffer.NewRow();
         TempExcelBuffer.AddColumn(Format(Text007E), false, '', true, false, false, '');
         TempExcelBuffer.AddColumn(UserId, false, '', false, false, false, '');
-        TempExcelBuffer.NewRow;
+        TempExcelBuffer.NewRow();
         TempExcelBuffer.AddColumn(Format(Text008E), false, '', true, false, false, '');
         TempExcelBuffer.AddColumn(Today, false, '', false, false, false, '');
-        TempExcelBuffer.NewRow;
+        TempExcelBuffer.NewRow();
         TempExcelBuffer.AddColumn(Format(Text009E), false, '', true, false, false, '');
         TempExcelBuffer.AddColumn(Customer.GetFilters, false, '', false, false, false, '');
-        TempExcelBuffer.NewRow;
+        TempExcelBuffer.NewRow();
         TempExcelBuffer.AddColumn(Format(Text010E), false, '', true, false, false, '');
         TempExcelBuffer.AddColumn(SalesLineFiter, false, '', false, false, false, '');
-        TempExcelBuffer.NewRow;
+        TempExcelBuffer.NewRow();
         TempExcelBuffer.AddColumn(Format(Text011E), false, '', true, false, false, '');
         TempExcelBuffer.AddColumn(ForecastEntryFiter, false, '', false, false, false, '');
-        TempExcelBuffer.ClearNewRow;
+        TempExcelBuffer.ClearNewRow();
 
         RowNo := 10;
 
@@ -363,7 +359,7 @@ report 50001 "Export Planning Client Excel"
 
     local procedure EnterCell(RowNo: Integer; ColumnNo: Integer; CellValue: Text[250]; Bold: Boolean; Italic: Boolean; UnderLine: Boolean; NumFormat: Text[30])
     begin
-        TempExcelBuffer.Init;
+        TempExcelBuffer.Init();
         TempExcelBuffer.Validate("Row No.", RowNo);
         TempExcelBuffer.Validate("Column No.", ColumnNo);
         TempExcelBuffer."Cell Value as Text" := CellValue;
@@ -372,7 +368,7 @@ report 50001 "Export Planning Client Excel"
         TempExcelBuffer.Italic := Italic;
         TempExcelBuffer.Underline := UnderLine;
         TempExcelBuffer.NumberFormat := NumFormat;
-        TempExcelBuffer.Insert;
+        TempExcelBuffer.Insert();
     end;
 
 
@@ -386,7 +382,7 @@ report 50001 "Export Planning Client Excel"
 
     local procedure FileNameOnAfterValidate()
     begin
-        UploadFile;
+        UploadFile();
         if IsServiceTier and (UploadedFileName <> '') then
             FileName := Text003;
     end;
@@ -413,12 +409,12 @@ report 50001 "Export Planning Client Excel"
     begin
         if IsServiceTier then
             if UploadedFileName = '' then
-                UploadFile
+                UploadFile()
             else
                 FileName := UploadedFileName;
 
         TempExcelBuffer.OpenBook(FileName, SheetName);
-        TempExcelBuffer.ReadSheet;
+        TempExcelBuffer.ReadSheet();
     end;
 }
 

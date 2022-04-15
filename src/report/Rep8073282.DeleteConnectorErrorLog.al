@@ -28,13 +28,13 @@ report 8073282 "PWD Delete Connector Error Log"
 
             trigger OnPostDataItem()
             begin
-                FrmGDialog.Close
+                FrmGDialog.Close()
             end;
 
             trigger OnPreDataItem()
             begin
                 if not Confirm(CstG001) then
-                    CurrReport.Quit;
+                    CurrReport.Quit();
 
                 FrmGDialog.Open(CstG002);
             end;

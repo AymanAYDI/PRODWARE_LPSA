@@ -12,7 +12,6 @@ codeunit 50097 "Tools Kill manual Prod Order"
 
     trigger OnRun()
     var
-        "---- LAP2.17 ----": Integer;
         RecLProductionOrder: Record "Production Order";
     begin
         RecLProductionOrder.GET(RecLProductionOrder.Status::Released, Rec."No.");
@@ -21,7 +20,7 @@ codeunit 50097 "Tools Kill manual Prod Order"
         IF ChangeStatusForm.RUNMODAL = ACTION::Yes THEN BEGIN
             ChangeStatusForm.ReturnPostingInfo(NewStatus, NewPostingDate, NewUpdateUnitCost);
             ChangeStatusOnProdOrder(RecLProductionOrder, NewStatus, NewPostingDate, NewUpdateUnitCost);
-            COMMIT;
+            COMMIT();
             MESSAGE(Text000, RecLProductionOrder.Status, RecLProductionOrder.TABLECAPTION,
             RecLProductionOrder."No.", ToProdOrder.Status, ToProdOrder.TABLECAPTION, ToProdOrder."No.")
         END;
@@ -38,7 +37,6 @@ codeunit 50097 "Tools Kill manual Prod Order"
         ToProdOrder: Record "Production Order";
         SourceCodeSetup: Record "Source Code Setup";
         Item: Record Item;
-        InvtSetup: Record "Inventory Setup";
         GLSetup: Record "General Ledger Setup";
         DimMgt: Codeunit DimensionManagement;
         ReserveProdOrderLine: Codeunit "Prod. Order Line-Reserve";
@@ -83,7 +81,7 @@ codeunit 50097 "Tools Kill manual Prod Order"
             FlushProdOrder(ProdOrder, NewStatus, NewPostingDate);
             WhseProdRelease.Release(ProdOrder);
         END;
-        COMMIT;
+        COMMIT();
 
         CLEAR(InvtAdjmt);
     end;
@@ -93,7 +91,7 @@ codeunit 50097 "Tools Kill manual Prod Order"
         ToProdOrderLine: Record "Prod. Order Line";
     begin
         WITH FromProdOrder DO BEGIN
-            ToProdOrderLine.LOCKTABLE;
+            ToProdOrderLine.LOCKTABLE();
 
             ToProdOrder := FromProdOrder;
             ToProdOrder.Status := NewStatus;
@@ -123,8 +121,8 @@ codeunit 50097 "Tools Kill manual Prod Order"
                 ToProdOrder."Original Source No." := "Original Source No.";
                 ToProdOrder."Original Source Position" := "Original Source Position";
             END ELSE BEGIN
-                ToProdOrder.TestNoSeries;
-                IF (ToProdOrder.GetNoSeriesCode <> GetNoSeriesCode) AND
+                ToProdOrder.TestNoSeries();
+                IF (ToProdOrder.GetNoSeriesCode() <> GetNoSeriesCode()) AND
                    (ToProdOrder.Status <> ToProdOrder.Status::Finished)
                 THEN
                     ToProdOrder."No." := '';
@@ -147,7 +145,7 @@ codeunit 50097 "Tools Kill manual Prod Order"
             ToProdOrder.Selection := FALSE;
             //<<LPSA2.06
 
-            ToProdOrder.MODIFY;
+            ToProdOrder.MODIFY();
 
             TransProdOrderLine(FromProdOrder);
             TransProdOrderRtngLine(FromProdOrder);
@@ -166,7 +164,7 @@ codeunit 50097 "Tools Kill manual Prod Order"
             //PLAW1 2.1 transport prod order links
             TransProdOrderLink(FromProdOrder);
             //PLAW1 2.1 END
-            DELETE;
+            DELETE();
             FromProdOrder := ToProdOrder;
         END;
     end;
@@ -179,17 +177,17 @@ codeunit 50097 "Tools Kill manual Prod Order"
         WITH FromProdOrderLine DO BEGIN
             SETRANGE(Status, FromProdOrder.Status);
             SETRANGE("Prod. Order No.", FromProdOrder."No.");
-            LOCKTABLE;
-            IF FINDSET THEN BEGIN
+            LOCKTABLE();
+            IF FINDSET() THEN BEGIN
                 REPEAT
                     //>>FE_LAPRIERRETTE_GP0003 : APA 16/05/2013
-                    IF (ExistPhantomItem <> '') AND (NewStatus = NewStatus::Released) THEN
+                    IF (ExistPhantomItem() <> '') AND (NewStatus = NewStatus::Released) THEN
                         ERROR(Txt50000, "Line No.");
                     //<<FE_LAPRIERRETTE_GP0003 : APA 16/05/2013
                     ToProdOrderLine := FromProdOrderLine;
                     ToProdOrderLine.Status := ToProdOrder.Status;
                     ToProdOrderLine."Prod. Order No." := ToProdOrder."No.";
-                    ToProdOrderLine.INSERT;
+                    ToProdOrderLine.INSERT();
                     IF NewStatus = NewStatus::Finished THEN BEGIN
                         ToProdOrderLine."Cost is Adjusted" := FALSE;
                         IF NewUpdateUnitCost THEN
@@ -201,18 +199,17 @@ codeunit 50097 "Tools Kill manual Prod Order"
                         ReservMgt.SetProdOrderLine(FromProdOrderLine);
                         ReservMgt.DeleteReservEntries(TRUE, 0);
                     END ELSE BEGIN
-                        IF Item.GET("Item No.") THEN BEGIN
+                        IF Item.GET("Item No.") THEN
                             IF (Item."Costing Method" <> Item."Costing Method"::Standard) AND NewUpdateUnitCost THEN
                                 UpdateProdOrderCost.UpdateUnitCostOnProdOrder(FromProdOrderLine, FALSE, TRUE);
-                        END;
                         ToProdOrderLine.BlockDynamicTracking(TRUE);
                         ToProdOrderLine.VALIDATE(Quantity);
                         ReserveProdOrderLine.TransferPOLineToPOLine(FromProdOrderLine, ToProdOrderLine, 0, TRUE);
                     END;
                     ToProdOrderLine.VALIDATE("Unit Cost", "Unit Cost");
-                    ToProdOrderLine.MODIFY;
-                UNTIL NEXT = 0;
-                DELETEALL;
+                    ToProdOrderLine.MODIFY();
+                UNTIL NEXT() = 0;
+                DELETEALL();
             END;
         END;
     end;
@@ -225,17 +222,17 @@ codeunit 50097 "Tools Kill manual Prod Order"
         WITH FromProdOrderRtngLine DO BEGIN
             SETRANGE(Status, FromProdOrder.Status);
             SETRANGE("Prod. Order No.", FromProdOrder."No.");
-            LOCKTABLE;
-            IF FINDSET THEN BEGIN
+            LOCKTABLE();
+            IF FINDSET() THEN BEGIN
                 REPEAT
                     ToProdOrderRtngLine := FromProdOrderRtngLine;
                     ToProdOrderRtngLine.Status := ToProdOrder.Status;
                     ToProdOrderRtngLine."Prod. Order No." := ToProdOrder."No.";
                     IF ToProdOrder.Status = ToProdOrder.Status::Released THEN
                         ToProdOrderRtngLine."Routing Status" := "Routing Status"::Planned;
-                    ToProdOrderRtngLine.INSERT;
-                UNTIL NEXT = 0;
-                DELETEALL;
+                    ToProdOrderRtngLine.INSERT();
+                UNTIL NEXT() = 0;
+                DELETEALL();
             END;
         END;
     end;
@@ -249,8 +246,8 @@ codeunit 50097 "Tools Kill manual Prod Order"
         WITH FromProdOrderComp DO BEGIN
             SETRANGE(Status, FromProdOrder.Status);
             SETRANGE("Prod. Order No.", FromProdOrder."No.");
-            LOCKTABLE;
-            IF FINDSET THEN BEGIN
+            LOCKTABLE();
+            IF FINDSET() THEN BEGIN
                 REPEAT
                     IF Location.GET("Location Code") AND
                        Location."Bin Mandatory" AND
@@ -270,7 +267,7 @@ codeunit 50097 "Tools Kill manual Prod Order"
                     ToProdOrderComp := FromProdOrderComp;
                     ToProdOrderComp.Status := ToProdOrder.Status;
                     ToProdOrderComp."Prod. Order No." := ToProdOrder."No.";
-                    ToProdOrderComp.INSERT;
+                    ToProdOrderComp.INSERT();
                     IF NewStatus = NewStatus::Finished THEN BEGIN
                         ReservMgt.SetProdOrderComponent(FromProdOrderComp);
                         ReservMgt.DeleteReservEntries(TRUE, 0);
@@ -279,11 +276,11 @@ codeunit 50097 "Tools Kill manual Prod Order"
                         ToProdOrderComp.VALIDATE("Expected Quantity");
                         ReserveProdOrderComp.TransferPOCompToPOComp(FromProdOrderComp, ToProdOrderComp, 0, TRUE);
                         IF ToProdOrderComp.Status IN [ToProdOrderComp.Status::"Firm Planned", ToProdOrderComp.Status::Released] THEN
-                            ToProdOrderComp.AutoReserve;
+                            ToProdOrderComp.AutoReserve();
                     END;
-                    ToProdOrderComp.MODIFY;
-                UNTIL NEXT = 0;
-                DELETEALL;
+                    ToProdOrderComp.MODIFY();
+                UNTIL NEXT() = 0;
+                DELETEALL();
             END;
         END;
     end;
@@ -296,15 +293,15 @@ codeunit 50097 "Tools Kill manual Prod Order"
         WITH FromProdOrderRtngTool DO BEGIN
             SETRANGE(Status, FromProdOrder.Status);
             SETRANGE("Prod. Order No.", FromProdOrder."No.");
-            LOCKTABLE;
-            IF FINDSET THEN BEGIN
+            LOCKTABLE();
+            IF FINDSET() THEN BEGIN
                 REPEAT
                     ToProdOrderRoutTool := FromProdOrderRtngTool;
                     ToProdOrderRoutTool.Status := ToProdOrder.Status;
                     ToProdOrderRoutTool."Prod. Order No." := ToProdOrder."No.";
-                    ToProdOrderRoutTool.INSERT;
-                UNTIL NEXT = 0;
-                DELETEALL;
+                    ToProdOrderRoutTool.INSERT();
+                UNTIL NEXT() = 0;
+                DELETEALL();
             END;
         END;
     end;
@@ -342,15 +339,15 @@ codeunit 50097 "Tools Kill manual Prod Order"
         WITH FromProdOrderRtngPersonnel DO BEGIN
             SETRANGE(Status, FromProdOrder.Status);
             SETRANGE("Prod. Order No.", FromProdOrder."No.");
-            LOCKTABLE;
-            IF FINDSET THEN BEGIN
+            LOCKTABLE();
+            IF FINDSET() THEN BEGIN
                 REPEAT
                     ToProdOrderRtngPersonnel := FromProdOrderRtngPersonnel;
                     ToProdOrderRtngPersonnel.Status := ToProdOrder.Status;
                     ToProdOrderRtngPersonnel."Prod. Order No." := ToProdOrder."No.";
-                    ToProdOrderRtngPersonnel.INSERT;
-                UNTIL NEXT = 0;
-                DELETEALL;
+                    ToProdOrderRtngPersonnel.INSERT();
+                UNTIL NEXT() = 0;
+                DELETEALL();
             END;
         END;
     end;
@@ -363,15 +360,15 @@ codeunit 50097 "Tools Kill manual Prod Order"
         WITH FromProdOrderRtngQltyMeas DO BEGIN
             SETRANGE(Status, FromProdOrder.Status);
             SETRANGE("Prod. Order No.", FromProdOrder."No.");
-            LOCKTABLE;
-            IF FINDSET THEN BEGIN
+            LOCKTABLE();
+            IF FINDSET() THEN BEGIN
                 REPEAT
                     ToProdOrderRtngQltyMeas := FromProdOrderRtngQltyMeas;
                     ToProdOrderRtngQltyMeas.Status := ToProdOrder.Status;
                     ToProdOrderRtngQltyMeas."Prod. Order No." := ToProdOrder."No.";
-                    ToProdOrderRtngQltyMeas.INSERT;
-                UNTIL NEXT = 0;
-                DELETEALL;
+                    ToProdOrderRtngQltyMeas.INSERT();
+                UNTIL NEXT() = 0;
+                DELETEALL();
             END;
         END;
     end;
@@ -384,15 +381,15 @@ codeunit 50097 "Tools Kill manual Prod Order"
         WITH FromProdOrderCommentLine DO BEGIN
             SETRANGE(Status, FromProdOrder.Status);
             SETRANGE("Prod. Order No.", FromProdOrder."No.");
-            LOCKTABLE;
-            IF FINDSET THEN BEGIN
+            LOCKTABLE();
+            IF FINDSET() THEN BEGIN
                 REPEAT
                     ToProdOrderCommentLine := FromProdOrderCommentLine;
                     ToProdOrderCommentLine.Status := ToProdOrder.Status;
                     ToProdOrderCommentLine."Prod. Order No." := ToProdOrder."No.";
-                    ToProdOrderCommentLine.INSERT;
-                UNTIL NEXT = 0;
-                DELETEALL;
+                    ToProdOrderCommentLine.INSERT();
+                UNTIL NEXT() = 0;
+                DELETEALL();
             END;
         END;
         ToProdOrder.COPYLINKS(FromProdOrder);
@@ -406,15 +403,15 @@ codeunit 50097 "Tools Kill manual Prod Order"
         WITH FromProdOrderRtngComment DO BEGIN
             SETRANGE(Status, FromProdOrder.Status);
             SETRANGE("Prod. Order No.", FromProdOrder."No.");
-            LOCKTABLE;
-            IF FINDSET THEN BEGIN
+            LOCKTABLE();
+            IF FINDSET() THEN BEGIN
                 REPEAT
                     ToProdOrderRtngComment := FromProdOrderRtngComment;
                     ToProdOrderRtngComment.Status := ToProdOrder.Status;
                     ToProdOrderRtngComment."Prod. Order No." := ToProdOrder."No.";
-                    ToProdOrderRtngComment.INSERT;
-                UNTIL NEXT = 0;
-                DELETEALL;
+                    ToProdOrderRtngComment.INSERT();
+                UNTIL NEXT() = 0;
+                DELETEALL();
             END;
         END;
     end;
@@ -474,18 +471,18 @@ codeunit 50097 "Tools Kill manual Prod Order"
             SETRANGE("Prod. Order No.", FromProdOrder."No.");
             SETRANGE("Requested Only", FALSE);
             IF NewStatus = NewStatus::Finished THEN
-                DELETEALL
+                DELETEALL()
             ELSE BEGIN
-                LOCKTABLE;
-                IF FINDSET THEN BEGIN
+                LOCKTABLE();
+                IF FINDSET() THEN BEGIN
                     REPEAT
                         ToProdOrderCapNeed := FromProdOrderCapNeed;
                         ToProdOrderCapNeed.Status := ToProdOrder.Status;
                         ToProdOrderCapNeed."Prod. Order No." := ToProdOrder."No.";
                         ToProdOrderCapNeed."Allocated Time" := ToProdOrderCapNeed."Needed Time";
-                        ToProdOrderCapNeed.INSERT;
-                    UNTIL NEXT = 0;
-                    DELETEALL;
+                        ToProdOrderCapNeed.INSERT();
+                    UNTIL NEXT() = 0;
+                    DELETEALL();
                 END;
             END;
         END;
@@ -558,7 +555,6 @@ codeunit 50097 "Tools Kill manual Prod Order"
         OutputQtyBase: Decimal;
         ActualOutputAndScrapQty: Decimal;
         ActualOutputAndScrapQtyBase: Decimal;
-        "----- LAP2.12 ----": Integer;
         RecLProdOrderRtngLine: Record "Prod. Order Routing Line";
         RecLCapacityLedgerEntry: Record "Capacity Ledger Entry";
         BooLOpFind: Boolean;
@@ -567,13 +563,13 @@ codeunit 50097 "Tools Kill manual Prod Order"
         IF NewStatus < NewStatus::Released THEN
             EXIT;
 
-        GetSourceCodeSetup;
+        GetSourceCodeSetup();
 
-        ProdOrderLine.LOCKTABLE;
-        ProdOrderLine.RESET;
+        ProdOrderLine.LOCKTABLE();
+        ProdOrderLine.RESET();
         ProdOrderLine.SETRANGE(Status, ProdOrder.Status);
         ProdOrderLine.SETRANGE("Prod. Order No.", ProdOrder."No.");
-        IF ProdOrderLine.FINDSET THEN
+        IF ProdOrderLine.FINDSET() THEN
             REPEAT
                 ProdOrderRtngLine.SETCURRENTKEY("Prod. Order No.", Status, "Flushing Method");
                 IF NewStatus = NewStatus::Released THEN
@@ -586,7 +582,7 @@ codeunit 50097 "Tools Kill manual Prod Order"
                 ProdOrderRtngLine.SETRANGE("Prod. Order No.", ProdOrder."No.");
                 ProdOrderRtngLine.SETRANGE("Routing No.", ProdOrderLine."Routing No.");
                 ProdOrderRtngLine.SETRANGE("Routing Reference No.", ProdOrderLine."Routing Reference No.");
-                ProdOrderRtngLine.LOCKTABLE;
+                ProdOrderRtngLine.LOCKTABLE();
                 IF ProdOrderRtngLine.FIND('-') THEN BEGIN
                     // First found operation
                     IF ProdOrderRtngLine."Flushing Method" = ProdOrderRtngLine."Flushing Method"::Backward THEN BEGIN
@@ -607,7 +603,7 @@ codeunit 50097 "Tools Kill manual Prod Order"
                         END;
 
                     REPEAT
-                        ItemJnlLine.INIT;
+                        ItemJnlLine.INIT();
                         ItemJnlLine.VALIDATE("Entry Type", ItemJnlLine."Entry Type"::Output);
                         ItemJnlLine.VALIDATE("Posting Date", PostingDate);
                         ItemJnlLine."Document No." := ProdOrder."No.";
@@ -647,13 +643,13 @@ codeunit 50097 "Tools Kill manual Prod Order"
                         DecLQty := 0;
                         BooLOpFind := FALSE;
                         IF ProdOrderRtngLine."Flushing Method" = ProdOrderRtngLine."Flushing Method"::Backward THEN BEGIN
-                            RecLProdOrderRtngLine.RESET;
+                            RecLProdOrderRtngLine.RESET();
                             RecLProdOrderRtngLine.SETRANGE(Status, ProdOrderRtngLine.Status);
                             RecLProdOrderRtngLine.SETRANGE("Prod. Order No.", ProdOrderRtngLine."Prod. Order No.");
                             RecLProdOrderRtngLine.SETRANGE("Routing Reference No.", ProdOrderRtngLine."Routing Reference No.");
                             RecLProdOrderRtngLine.SETRANGE("Routing No.", ProdOrderRtngLine."Routing No.");
                             RecLProdOrderRtngLine.SETFILTER("Operation No.", ProdOrderRtngLine."Previous Operation No.");
-                            IF RecLProdOrderRtngLine.FINDLAST THEN BEGIN
+                            IF RecLProdOrderRtngLine.FINDLAST() THEN BEGIN
                                 RecLProdOrderRtngLine.SETRANGE("Operation No.");
                                 REPEAT
                                     IF RecLProdOrderRtngLine."Flushing Method" = RecLProdOrderRtngLine."Flushing Method"::Manual THEN BEGIN
@@ -669,7 +665,7 @@ codeunit 50097 "Tools Kill manual Prod Order"
                                         IF RecLCapacityLedgerEntry.FIND('-') THEN
                                             REPEAT
                                                 DecLQty += RecLCapacityLedgerEntry."Output Quantity" + RecLCapacityLedgerEntry."Scrap Quantity";
-                                            UNTIL RecLCapacityLedgerEntry.NEXT = 0;
+                                            UNTIL RecLCapacityLedgerEntry.NEXT() = 0;
                                     END;
                                 UNTIL BooLOpFind OR (RecLProdOrderRtngLine.NEXT(-1) = 0);
                             END;
@@ -682,7 +678,7 @@ codeunit 50097 "Tools Kill manual Prod Order"
                             ItemJnlLine.VALIDATE("Output Quantity", OutputQty);
 
                         ItemJnlLine."Source Code" := SourceCodeSetup.Flushing;
-                        IF NOT (ItemJnlLine.TimeIsEmpty AND (ItemJnlLine."Output Quantity" = 0)) THEN BEGIN
+                        IF NOT (ItemJnlLine.TimeIsEmpty() AND (ItemJnlLine."Output Quantity" = 0)) THEN BEGIN
                             FillDimensions(ItemJnlLine, TempJnlLineDim);
                             IF ProdOrderRtngLine."Next Operation No." = '' THEN
                                 ReserveProdOrderLine.TransferPOLineToItemJnlLine(ProdOrderLine, ItemJnlLine, ItemJnlLine."Output Quantity");
@@ -695,9 +691,9 @@ codeunit 50097 "Tools Kill manual Prod Order"
                             OutputQty += ActualOutputAndScrapQty;
                             OutputQtyBase += ActualOutputAndScrapQtyBase;
                         END;
-                    UNTIL ProdOrderRtngLine.NEXT = 0;
+                    UNTIL ProdOrderRtngLine.NEXT() = 0;
                 END;
-            UNTIL ProdOrderLine.NEXT = 0;
+            UNTIL ProdOrderLine.NEXT() = 0;
 
         WITH ProdOrderComp DO BEGIN
             SETCURRENTKEY(Status, "Prod. Order No.", "Routing Link Code", "Flushing Method");
@@ -717,8 +713,8 @@ codeunit 50097 "Tools Kill manual Prod Order"
             SETRANGE(Status, Status::Released);
             SETRANGE("Prod. Order No.", ProdOrder."No.");
             SETFILTER("Item No.", '<>%1', '');
-            LOCKTABLE;
-            IF FINDSET THEN BEGIN
+            LOCKTABLE();
+            IF FINDSET() THEN BEGIN
                 NoOfRecords := COUNTAPPROX;
                 Window.OPEN(
                   Text002 +
@@ -739,7 +735,7 @@ codeunit 50097 "Tools Kill manual Prod Order"
                     QtyToPost := ROUND(QtyToPost, Item."Rounding Precision", '>');
 
                     IF QtyToPost <> 0 THEN BEGIN
-                        ItemJnlLine.INIT;
+                        ItemJnlLine.INIT();
                         ItemJnlLine.VALIDATE("Entry Type", ItemJnlLine."Entry Type"::Consumption);
                         ItemJnlLine.VALIDATE("Posting Date", PostingDate);
                         ItemJnlLine."Prod. Order No." := ProdOrder."No.";
@@ -763,11 +759,11 @@ codeunit 50097 "Tools Kill manual Prod Order"
                         ItemJnlLine."Gen. Prod. Posting Group" := Item."Gen. Prod. Posting Group";
                         ItemJnlLine.GetDim(TempJnlLineDim);
                         IF Item."Item Tracking Code" <> '' THEN
-                            ItemTrackingMgt.CopyItemTracking(RowID1, ItemJnlLine.RowID1, FALSE);
+                            ItemTrackingMgt.CopyItemTracking(RowID1(), ItemJnlLine.RowID1(), FALSE);
                         ItemJnlPostLine.RunWithCheck(ItemJnlLine, TempJnlLineDim);
                     END;
-                UNTIL NEXT = 0;
-                Window.CLOSE;
+                UNTIL NEXT() = 0;
+                Window.CLOSE();
             END;
         END;
     end;
@@ -787,7 +783,7 @@ codeunit 50097 "Tools Kill manual Prod Order"
             SETRANGE(Type, Type::Item);
             SETRANGE("Prod. Order No.", ProdOrder."No.");
             SETFILTER("Outstanding Quantity", '<>%1', 0);
-            IF FINDFIRST THEN
+            IF FINDFIRST() THEN
                 ERROR(Text008, ProdOrder.TABLECAPTION, ProdOrder."No.", "Document No.");
         END;
 
@@ -818,7 +814,7 @@ codeunit 50097 "Tools Kill manual Prod Order"
             SETRANGE(Status, ProdOrder.Status);
             SETRANGE("Prod. Order No.", ProdOrder."No.");
             SETFILTER("Remaining Quantity", '<>0');
-            IF FINDSET THEN
+            IF FINDSET() THEN
                 REPEAT
                     IF (("Flushing Method" <> "Flushing Method"::Backward) AND
                         ("Flushing Method" <> "Flushing Method"::"Pick + Backward") AND
@@ -829,7 +825,7 @@ codeunit 50097 "Tools Kill manual Prod Order"
                             EXIT;
                         ERROR(Text005);
                     END;
-                UNTIL NEXT = 0;
+                UNTIL NEXT() = 0;
         END;
     end;
 
@@ -852,14 +848,14 @@ codeunit 50097 "Tools Kill manual Prod Order"
             SETRANGE("Routing Link Code", ProdOrderComp."Routing Link Code");
             SETRANGE("Routing No.", ProdOrderLine."Routing No.");
             SETRANGE("Routing Reference No.", ProdOrderLine."Routing Reference No.");
-            EXIT(FINDFIRST);
+            EXIT(FINDFIRST());
         END;
     end;
 
     local procedure GetSourceCodeSetup()
     begin
         IF NOT SourceCodeSetupRead THEN
-            SourceCodeSetup.GET;
+            SourceCodeSetup.GET();
         SourceCodeSetupRead := TRUE;
     end;
 
@@ -872,7 +868,7 @@ codeunit 50097 "Tools Kill manual Prod Order"
         ReqLine.SETRANGE("Ref. Order Type", ReqLine."Ref. Order Type"::"Prod. Order");
         ReqLine.SETRANGE("Ref. Order Status", ProdOrder.Status);
         ReqLine.SETRANGE("Ref. Order No.", ProdOrder."No.");
-        IF ReqLine.FINDFIRST THEN
+        IF ReqLine.FINDFIRST() THEN
             ERROR(Text007,
               ProdOrder."No.", ReqLine."Line No.", ReqLine."Worksheet Template Name", ReqLine."Journal Batch Name");
     end;
@@ -892,12 +888,12 @@ codeunit 50097 "Tools Kill manual Prod Order"
     begin
         ProdOrderLine.SETRANGE(Status, ProdOrder.Status);
         ProdOrderLine.SETRANGE("Prod. Order No.", ProdOrder."No.");
-        IF ProdOrderLine.FINDSET THEN
+        IF ProdOrderLine.FINDSET() THEN
             REPEAT
                 IF NOT OutputExists(ProdOrderLine) THEN
                     IF MatrOrCapConsumpExists(ProdOrderLine) THEN
                         ERROR(Text009, ProdOrderLine."Line No.", ToProdOrder.TABLECAPTION, ProdOrderLine."Prod. Order No.");
-            UNTIL ProdOrderLine.NEXT = 0;
+            UNTIL ProdOrderLine.NEXT() = 0;
     end;
 
 
@@ -909,7 +905,7 @@ codeunit 50097 "Tools Kill manual Prod Order"
         ItemLedgEntry.SETRANGE("Prod. Order No.", ProdOrderLine."Prod. Order No.");
         ItemLedgEntry.SETRANGE("Prod. Order Line No.", ProdOrderLine."Line No.");
         ItemLedgEntry.SETRANGE("Entry Type", ItemLedgEntry."Entry Type"::Output);
-        IF ItemLedgEntry.FINDSET THEN BEGIN
+        IF ItemLedgEntry.FINDSET() THEN BEGIN
             ItemLedgEntry.CALCSUMS(Quantity);
             IF ItemLedgEntry.Quantity <> 0 THEN
                 EXIT(TRUE)
@@ -927,14 +923,14 @@ codeunit 50097 "Tools Kill manual Prod Order"
         ItemLedgEntry.SETRANGE("Prod. Order No.", ProdOrderLine."Prod. Order No.");
         ItemLedgEntry.SETRANGE("Prod. Order Line No.", ProdOrderLine."Line No.");
         ItemLedgEntry.SETRANGE("Entry Type", ItemLedgEntry."Entry Type"::Consumption);
-        IF ItemLedgEntry.FINDFIRST THEN
+        IF ItemLedgEntry.FINDFIRST() THEN
             EXIT(TRUE);
 
         CapLedgEntry.SETCURRENTKEY("Prod. Order No.", "Prod. Order Line No.", "Routing No.", "Routing Reference No.");
         CapLedgEntry.SETRANGE("Prod. Order No.", ProdOrderLine."Prod. Order No.");
         CapLedgEntry.SETRANGE("Routing No.", ProdOrderLine."Routing No.");
         CapLedgEntry.SETRANGE("Routing Reference No.", ProdOrderLine."Routing Reference No.");
-        EXIT(CapLedgEntry.FINDFIRST);
+        EXIT(CapLedgEntry.FINDFIRST());
     end;
 
 
@@ -942,7 +938,7 @@ codeunit 50097 "Tools Kill manual Prod Order"
     begin
         IF NOT HasGLSetup THEN BEGIN
             HasGLSetup := TRUE;
-            GLSetup.GET;
+            GLSetup.GET();
         END;
         IF TempJnlLineDim.FINDSET THEN
             REPEAT

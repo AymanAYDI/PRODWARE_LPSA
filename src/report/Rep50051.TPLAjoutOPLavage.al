@@ -15,7 +15,7 @@ report 50051 "PWD TPL Ajout OP Lavage"
     {
         dataitem("Routing Header"; "Routing Header")
         {
-            DataItemTableView = SORTING ("No.") WHERE ("No." = FILTER ('PIE_DL_9915*'));
+            DataItemTableView = SORTING("No.") WHERE("No." = FILTER('PIE_DL_9915*'));
             RequestFilterFields = "No.";
 
             trigger OnAfterGetRecord()
@@ -28,20 +28,20 @@ report 50051 "PWD TPL Ajout OP Lavage"
                 OptGStatus := "Routing Header".Status;
 
                 if OptGStatus = OptGStatus::Closed then
-                    CurrReport.Skip;
+                    CurrReport.Skip();
 
                 if OptGStatus = OptGStatus::Certified then begin
                     "Routing Header".Validate(Status, "Routing Header".Status::"Under Development");
                     "Routing Header".Modify(true);
                 end;
 
-                RecGRoutingLine.Reset;
+                RecGRoutingLine.Reset();
                 RecGRoutingLine.SetRange("Routing No.", "Routing Header"."No.");
-                if RecGRoutingLine.FindFirst then
+                if RecGRoutingLine.FindFirst() then
                     repeat
                         if (RecGRoutingLine.Type = RecGRoutingLine.Type::"Machine Center") and
                            (RecGRoutingLine."No." = 'OP11810') then begin
-                            RecLRoutingLine.Init;
+                            RecLRoutingLine.Init();
                             RecLRoutingLine.Validate("Routing No.", "Routing Header"."No.");
                             RecLRoutingLine.Validate("Operation No.", IncStr(RecGRoutingLine."Operation No."));
                             RecLRoutingLine.Validate(Type, RecLRoutingLine.Type::"Machine Center");
@@ -52,7 +52,7 @@ report 50051 "PWD TPL Ajout OP Lavage"
                             RecLRoutingLine.Validate("Move Time", 240);
                             RecLRoutingLine.Insert(true);
                         end;
-                    until RecGRoutingLine.Next = 0;
+                    until RecGRoutingLine.Next() = 0;
 
 
                 if OptGStatus = OptGStatus::Certified then begin
@@ -63,7 +63,7 @@ report 50051 "PWD TPL Ajout OP Lavage"
 
             trigger OnPostDataItem()
             begin
-                BDialog.Close;
+                BDialog.Close();
             end;
 
             trigger OnPreDataItem()
@@ -94,7 +94,6 @@ report 50051 "PWD TPL Ajout OP Lavage"
         BDialog: Dialog;
         IntGCounter: Integer;
         RecGRoutingLine: Record "Routing Line";
-        RecGWorkCenter: Record "Work Center";
         OptGStatus: Option New,Certified,"Under Development",Closed;
 }
 

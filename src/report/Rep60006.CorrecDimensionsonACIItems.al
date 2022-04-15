@@ -6,7 +6,7 @@ report 60006 "Correc Dimensions on ACI Items"
     {
         dataitem(Item; Item)
         {
-            DataItemTableView = SORTING ("No.");
+            DataItemTableView = SORTING("No.");
 
             trigger OnAfterGetRecord()
             var
@@ -14,17 +14,17 @@ report 60006 "Correc Dimensions on ACI Items"
                 RecLDefDim2: Record "Default Dimension";
             begin
                 if StrPos("No.", 'CTRL') > 0 then
-                    CurrReport.Skip;
+                    CurrReport.Skip();
 
                 if RecLDefDim2.Get(27, "No.", 'ARTICLE_ROLEX') then begin
-                    RecLDefDim.Init;
+                    RecLDefDim.Init();
                     RecLDefDim."Table ID" := 27;
                     RecLDefDim."No." := "No.";
                     RecLDefDim."Dimension Code" := 'ARTICLE_ROLEX';
                     RecLDefDim."Dimension Value Code" := '4089323';
                     RecLDefDim."Value Posting" := RecLDefDim."Value Posting"::" ";
                     RecLDefDim.Insert(true);
-                    RecLDefDim2.Delete;
+                    RecLDefDim2.Delete();
                 end;
             end;
 

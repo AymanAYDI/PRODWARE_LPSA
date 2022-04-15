@@ -577,7 +577,6 @@ report 50000 "Export Invoicing Data (Excel)"
     trigger OnPreReport()
     var
         ThreeTierMngt: Codeunit "3-Tier Automation Mgt.";
-        ServerFileName: Text[1024];
         ServerFile: File;
         TempFileName: Text[1024];
     begin
@@ -592,7 +591,7 @@ report 50000 "Export Invoicing Data (Excel)"
         //  ERROR(CstGtxt001);
 
 
-        RecGGenLedgerSetup.Get;
+        RecGGenLedgerSetup.Get();
 
 
         Create(Excel, true, true);
@@ -636,32 +635,15 @@ report 50000 "Export Invoicing Data (Excel)"
         TxtGOurAccountNo: Text[20];
         Excel: Automation;
         Book: Automation;
-        Range: Automation;
         Sheet: Automation;
         Compteur: Integer;
-        "No.": Code[20];
-        Name: Text[30];
-        Address: Text[30];
-        "Address 2": Text[30];
-        "Post Code": Text[30];
-        City: Text[30];
-        "Country Code": Text[30];
-        "Phone No.": Text[30];
-        "Fax No.": Text[30];
         DatGStarting: Date;
         DatGEnding: Date;
         TxtGFilename: Text[250];
         CstGtxt001: Label 'The Starting Date  %1 must be filled,';
         CstGtxt002: Label 'The Ending date must be filled,';
-        CstGtxt003: Label 'The field %1 must be filled,';
         CstGtxt004: Label 'BL not found for lines of CR Memo No. %1. It is necessary to check manually.';
-        DatGFormat: Date;
-        xlApp: Automation;
-        xlWorkBook: Automation;
-        xlWorkSheet: Automation;
-        xlRange: Automation;
         CstGtxt005: Label 'BL not found for lines of Invoice  No. %1. It is necessary to check manually.';
-        TxtGFormat: Text[2];
         CstG01: Label '''01';
         CstG11: Label '''11';
         CstG40: Label '''40';
@@ -692,10 +674,10 @@ report 50000 "Export Invoicing Data (Excel)"
         case TxtPLineType of
             '01':
                 begin
-                    RecLSalesInvoiceLine.Reset;
+                    RecLSalesInvoiceLine.Reset();
                     RecLSalesInvoiceLine.SetRange("Document No.", CodPDocNo);
 
-                    if RecLSalesInvoiceLine.FindSet then
+                    if RecLSalesInvoiceLine.FindSet() then
                         repeat
                             if RecLSalesInvoiceLine.Amount > DecLAmount then begin
                                 DecLAmount := RecLSalesInvoiceLine.Amount;
@@ -703,16 +685,16 @@ report 50000 "Export Invoicing Data (Excel)"
                                 TxtLDesc := CopyStr(RecLSalesInvoiceLine."PWD LPSA Description 1", 1, 50);
 
                             end;
-                        until RecLSalesInvoiceLine.Next = 0;
+                        until RecLSalesInvoiceLine.Next() = 0;
 
                 end;
 
             '11':
                 begin
-                    RecLSalesCrMemoLine.Reset;
+                    RecLSalesCrMemoLine.Reset();
                     RecLSalesCrMemoLine.SetRange("Document No.", CodPDocNo);
 
-                    if RecLSalesCrMemoLine.FindSet then
+                    if RecLSalesCrMemoLine.FindSet() then
                         repeat
                             if RecLSalesCrMemoLine.Amount > DecLAmount then begin
                                 DecLAmount := RecLSalesCrMemoLine.Amount;
@@ -720,7 +702,7 @@ report 50000 "Export Invoicing Data (Excel)"
                                 TxtLDesc := CopyStr(RecLSalesCrMemoLine."PWD LPSA Description 1", 1, 50);
 
                             end;
-                        until RecLSalesCrMemoLine.Next = 0;
+                        until RecLSalesCrMemoLine.Next() = 0;
                 end;
         end;
 
@@ -731,8 +713,6 @@ report 50000 "Export Invoicing Data (Excel)"
     procedure Fct_CalcBarCode(CodPExternalDocno: Code[20]): Text[15]
     var
         TxtLBarCode: Text[15];
-        IntLLength: Integer;
-        CstLZero: Label '00000000000000';
     begin
         TxtLBarCode := '';
 
@@ -799,41 +779,39 @@ report 50000 "Export Invoicing Data (Excel)"
         case TxtPLineType of
             '01':
                 begin
-                    RecLSalesInvoiceLine.Reset;
+                    RecLSalesInvoiceLine.Reset();
                     RecLSalesInvoiceLine.SetRange("Document No.", CodPDocNo);
 
-                    if RecLSalesInvoiceLine.FindSet then
+                    if RecLSalesInvoiceLine.FindSet() then
                         repeat
                             if RecLSalesInvoiceLine."Shipment No." = '' then begin
-                                if RecLItemLedgerEntry.Get(RecLSalesInvoiceLine."Appl.-from Item Entry") then begin
+                                if RecLItemLedgerEntry.Get(RecLSalesInvoiceLine."Appl.-from Item Entry") then
                                     if RecLItemLedgerEntry."Document Type" = RecLItemLedgerEntry."Document Type"::"Sales Shipment" then begin
                                         CodLShipNo := RecLItemLedgerEntry."Document No.";
                                         BooLFound := true;
                                     end;
-                                end;
                             end else begin
                                 CodLShipNo := RecLSalesInvoiceLine."Shipment No.";
                                 BooLFound := true;
                             end;
 
-                        until ((RecLSalesInvoiceLine.Next = 0) or (BooLFound = true));
+                        until ((RecLSalesInvoiceLine.Next() = 0) or (BooLFound = true));
 
                 end;
 
             '11':
                 begin
-                    RecLSalesCrMemoLine.Reset;
+                    RecLSalesCrMemoLine.Reset();
                     RecLSalesCrMemoLine.SetRange("Document No.", CodPDocNo);
 
-                    if RecLSalesCrMemoLine.FindSet then
+                    if RecLSalesCrMemoLine.FindSet() then
                         repeat
-                            if RecLItemLedgerEntry.Get(RecLSalesCrMemoLine."Appl.-from Item Entry") then begin
+                            if RecLItemLedgerEntry.Get(RecLSalesCrMemoLine."Appl.-from Item Entry") then
                                 if RecLItemLedgerEntry."Document Type" = RecLItemLedgerEntry."Document Type"::"Sales Shipment" then begin
                                     CodLShipNo := RecLItemLedgerEntry."Document No.";
                                     BooLFound := true;
                                 end;
-                            end;
-                        until ((RecLSalesCrMemoLine.Next = 0) or (BooLFound = true));
+                        until ((RecLSalesCrMemoLine.Next() = 0) or (BooLFound = true));
                 end;
         end;
 
@@ -844,17 +822,13 @@ report 50000 "Export Invoicing Data (Excel)"
 
     procedure Fct_CalcShipNoLine(IntPEntryNo: Integer) CodLShipNo: Code[20]
     var
-        RecLSalesCrMemoLine: Record "Sales Cr.Memo Line";
         RecLItemLedgerEntry: Record "Item Ledger Entry";
-        BooLFound: Boolean;
     begin
         CodLShipNo := '';
 
-        if RecLItemLedgerEntry.Get(IntPEntryNo) then begin
-            if RecLItemLedgerEntry."Document Type" = RecLItemLedgerEntry."Document Type"::"Sales Shipment" then begin
+        if RecLItemLedgerEntry.Get(IntPEntryNo) then
+            if RecLItemLedgerEntry."Document Type" = RecLItemLedgerEntry."Document Type"::"Sales Shipment" then
                 CodLShipNo := RecLItemLedgerEntry."Document No.";
-            end;
-        end;
 
         exit(CodLShipNo);
     end;

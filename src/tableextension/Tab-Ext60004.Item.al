@@ -131,10 +131,9 @@ tableextension 60004 "PWD Item" extends Item
 
             trigger OnValidate()
             begin
-                if "PWD Lot Determining" then begin
+                if "PWD Lot Determining" then
                     IsLotItem(true);
-                    //  TESTFIELD("From the same Lot", TRUE);
-                end;
+                //  TESTFIELD("From the same Lot", TRUE);
             end;
         }
         field(50008; "PWD Phantom Item"; Boolean)
@@ -401,7 +400,6 @@ tableextension 60004 "PWD Item" extends Item
     procedure IsLotItem(piForceError: Boolean): Boolean
     var
         ItemTrackingCode3: Record "Item Tracking Code";
-        RecLItemCategory: Record "Item Category";
     begin
         if "Item Tracking Code" = '' then
             if piForceError then
@@ -459,22 +457,7 @@ tableextension 60004 "PWD Item" extends Item
 
 
     var
-        Text001: Label 'You cannot delete %1 %2 because there is at least one outstanding Sales %3 that includes this item.';
 
         PurchOrderLine: Record "Purchase Line";
-        SalesOrderLine: Record "Sales Line";
-
-        ItemCategory: Record "Item Category";
-        Text92000: Label 'You can''t change this field if %1 or %2 are zero.';
-        Text92001: Label 'You can''t change this field because there are not invoiced sales orders or return orders for this item.';
-        Text92002: Label 'You can''t change this field because there are not invoiced purchase orders or return orders for this item.';
-        Text92003: Label 'You can''t change this field because there are one or more outstanding transfer orders for this item.';
-        Text92004: Label 'You cannot change this field because there are open reservations for this item.';
-        Text92005: Label 'Future item movements won''t create any item ledger entries. Statistics for this item are not possible anymore.';
-        ReservEntry: Record "Reservation Entry";
-        ItemStock: Record Item;
-        RecGItemConfigurator: Record "PWD Item Configurator";
-        Text92006: Label 'Item Category Code must be "Transmitted to Order" to activate this feature.';
-        CduGClosingMgt: Codeunit "PWD Closing Management";
 }
 

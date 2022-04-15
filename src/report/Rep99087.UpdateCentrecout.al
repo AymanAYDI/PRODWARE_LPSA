@@ -34,10 +34,10 @@ report 99087 "PWD Update Centre cout"
                 RecL349: Record "Default Dimension";
             begin
                 if RecLItem.Get("Prod. Order Line"."Item No.") then begin
-                    RecL349.Reset;
+                    RecL349.Reset();
                     RecL349.SetRange("Table ID", 27);
                     RecL349.SetRange("No.", RecLItem."No.");
-                    if RecL349.FindFirst then
+                    if RecL349.FindFirst() then
                         repeat
                             RecProdOrder.Reset;
 
@@ -58,7 +58,7 @@ report 99087 "PWD Update Centre cout"
                                 RecProdOrder.Validate("Dimension Value Code", RecL349."Dimension Value Code");
                                 RecProdOrder.Insert;
                             end;
-                        until RecL349.Next = 0;
+                        until RecL349.Next() = 0;
                 end;
             end;
         }
@@ -73,10 +73,10 @@ report 99087 "PWD Update Centre cout"
                 RecL349: Record "Default Dimension";
             begin
                 if RecLItem.Get("No.") then begin
-                    RecL349.Reset;
+                    RecL349.Reset();
                     RecL349.SetRange("Table ID", 27);
                     RecL349.SetRange("No.", RecLItem."No.");
-                    if RecL349.FindFirst then
+                    if RecL349.FindFirst() then
                         repeat
                             RecDimSale.Reset;
                             if not RecDimSale.Get(37,
@@ -93,7 +93,7 @@ report 99087 "PWD Update Centre cout"
                                 RecDimSale.Validate("Dimension Value Code", RecL349."Dimension Value Code");
                                 RecDimSale.Insert;
                             end;
-                        until RecL349.Next = 0;
+                        until RecL349.Next() = 0;
                 end;
             end;
         }
@@ -107,10 +107,10 @@ report 99087 "PWD Update Centre cout"
                 RecL349: Record "Default Dimension";
             begin
                 if RecLItem.Get("Prod. Order Line"."Item No.") then begin
-                    RecL349.Reset;
+                    RecL349.Reset();
                     RecL349.SetRange("Table ID", 27);
                     RecL349.SetRange("No.", RecLItem."No.");
-                    if RecL349.FindFirst then
+                    if RecL349.FindFirst() then
                         repeat
                             RecProdOrder.Reset;
 
@@ -131,7 +131,7 @@ report 99087 "PWD Update Centre cout"
                                 RecProdOrder.Validate("Dimension Value Code", RecL349."Dimension Value Code");
                                 RecProdOrder.Insert;
                             end;
-                        until RecL349.Next = 0;
+                        until RecL349.Next() = 0;
                 end;
             end;
         }
@@ -162,7 +162,7 @@ report 99087 "PWD Update Centre cout"
         RecL342: Record "Default Dimension";
     begin
         if not RecL342.Get(27, Item2."No.", 'PROFIT') then begin
-            RecL342.Init;
+            RecL342.Init();
             RecL342.Validate("Table ID", 27);
             RecL342.Validate("No.", Item2."No.");
             RecL342.Validate("Dimension Code", 'PROFIT');

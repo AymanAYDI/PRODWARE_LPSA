@@ -16,11 +16,11 @@ report 99095 "PWD Item : Delete Doublon"
                 RecItem2.SetRange("PWD LPSA Description 1", "PWD LPSA Description 1");
                 RecItem2.SetRange("PWD LPSA Description 1", "PWD LPSA Description 1");
                 RecItem2.SetRange("Last Date Modified", "Last Date Modified");
-                if RecItem2.FindFirst then begin
+                if RecItem2.FindFirst() then begin
                     repeat
                         RecGProdBOMLine.SetRange("No.", RecItem2."No.");
                         RecGProdBOMLine.ModifyAll("No.", "No.");
-                    until RecItem2.Next = 0;
+                    until RecItem2.Next() = 0;
                     RecItem2.DeleteAll(true);
                 end;
             end;

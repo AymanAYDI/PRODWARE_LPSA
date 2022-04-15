@@ -37,7 +37,7 @@ report 50011 "PWD Soumission"
                 dataitem(PageLoop; "Integer")
                 {
                     DataItemTableView = SORTING(Number) WHERE(Number = CONST(1));
-                    column(STRSUBSTNO_Text002_FORMAT_CurrReport_PAGENO__; StrSubstNo(Text002, Format(CurrReport.PageNo)))
+                    column(STRSUBSTNO_Text002_FORMAT_CurrReport_PAGENO__; StrSubstNo(Text002, Format(CurrReport.PageNo())))
                     {
                     }
                     column(TransferToAddr_1_; TransferToAddr[1])
@@ -82,7 +82,7 @@ report 50011 "PWD Soumission"
                     column(CodGCustomerNo; CodGCustomerNo)
                     {
                     }
-                    column(RecGCompanyInfo_City; RecGCompanyInfo.City + ', le ' + Format(WorkDate, 0, 4))
+                    column(RecGCompanyInfo_City; RecGCompanyInfo.City + ', le ' + Format(WorkDate(), 0, 4))
                     {
                     }
                     column(Customer_VATRegistrationNo; RecGCustomer."VAT Registration No.")
@@ -212,14 +212,14 @@ report 50011 "PWD Soumission"
                                 Clear(CodGYourItemRef);
 
                                 if RecGSalesHeader.Get(RecGSalesHeader."Document Type"::Order, "Transfer Shipment Header"."Sales Order No.") then begin
-                                    RecGItemCrossReference.Reset;
+                                    RecGItemCrossReference.Reset();
                                     RecGItemCrossReference.SetRange("Item No.", "Transfer Shipment Line"."Item No.");
                                     RecGItemCrossReference.SetRange("Variant Code", "Transfer Shipment Line"."Variant Code");
                                     RecGItemCrossReference.SetRange("Unit of Measure", "Transfer Shipment Line"."Unit of Measure Code");
                                     RecGItemCrossReference.SetRange("Cross-Reference Type", RecGItemCrossReference."Cross-Reference Type"::Customer);
                                     RecGItemCrossReference.SetRange("Cross-Reference Type No.", RecGSalesHeader."Sell-to Customer No.");
 
-                                    if RecGItemCrossReference.FindFirst then begin
+                                    if RecGItemCrossReference.FindFirst() then begin
                                         CodGYourItemRef := RecGItemCrossReference."Cross-Reference No.";
                                         //>>TDL.LPSA.09022015
                                         CodGYourPlanNo := RecGItemCrossReference."Customer Plan No.";
@@ -242,7 +242,7 @@ report 50011 "PWD Soumission"
                             while MoreLines and (Description = '') and ("Item No." = '') and (Quantity = 0) do
                                 MoreLines := Next(-1) <> 0;
                             if not MoreLines then
-                                CurrReport.Break;
+                                CurrReport.Break();
                             SetRange("Line No.", 0, "Line No.");
                         end;
                     }
@@ -278,7 +278,7 @@ report 50011 "PWD Soumission"
                 //<<LAP2.02.001
 
                 if not ShipmentMethod.Get("Shipment Method Code") then
-                    ShipmentMethod.Init;
+                    ShipmentMethod.Init();
 
 
                 if RecGSalesHeader.Get(RecGSalesHeader."Document Type"::Order, "Sales Order No.") then begin
@@ -328,12 +328,11 @@ report 50011 "PWD Soumission"
 
     trigger OnInitReport()
     begin
-        RecGCompanyInfo.Get;
+        RecGCompanyInfo.Get();
     end;
 
     var
         Text000: Label 'COPY';
-        Text001: Label 'Transfer Shipment %1';
         Text002: Label 'Page %1';
         ShipmentMethod: Record "Shipment Method";
         FormatAddr: Codeunit "Format Address";
@@ -343,7 +342,6 @@ report 50011 "PWD Soumission"
         NoOfCopies: Integer;
         NoOfLoops: Integer;
         CopyText: Text[30];
-        Continue: Boolean;
         OutputNo: Integer;
         Text003: Label 'Based on order';
         Text004: Label 'of';
@@ -354,7 +352,6 @@ report 50011 "PWD Soumission"
         RecGItem: Record Item;
         CodGYourPlanNo: Code[100];
         CodGDocumentNo: Code[20];
-        DatGDocumentDate: Date;
         CodGCustomerNo: Code[20];
         CodFVATRegNo: Code[20];
         CodGExtDocumentNo: Code[20];

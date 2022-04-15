@@ -16,20 +16,20 @@ report 50033 "PWD MAJ Methode Conso Gamme"
                         begin
                             WorkCenter.Get("No.");
                             "Flushing Method" := WorkCenter."Flushing Method";
-                            Modify;
+                            Modify();
                         end;
                     Type::"Machine Center":
                         begin
                             MachineCenter.Get("No.");
                             "Flushing Method" := MachineCenter."Flushing Method";
-                            Modify;
+                            Modify();
                         end;
                 end;
             end;
 
             trigger OnPostDataItem()
             begin
-                BDialog.Close;
+                BDialog.Close();
                 Message('Traitement terminé');
             end;
 

@@ -22,23 +22,19 @@ codeunit 8073298 "PWD Buffer Tracking Management"
     end;
 
     var
-        RecGTempItemTrackLineInsert: Integer;
         RecGTempItemTrackLineReserv: Record "Tracking Specification" temporary;
         RecGItem: Record Item;
-        RecGTempPurchLine: Record "Purchase Line" temporary;
-        RecGPurchLine: Record "Purchase Line";
         RecGTempReservEntry: Record "Reservation Entry" temporary;
         CduGReservEngineMgt: Codeunit "Reservation Engine Mgt.";
         RecGItemTrackingCode: Record "Item Tracking Code";
         OptGCurrentEntryStatus: Option Reservation,Tracking,Surplus,Prospect;
-        "**************": Integer;
 
     local procedure FctNextEntryNo(): Integer
     var
         RecLTrackingSpecification: Record "Tracking Specification";
     begin
-        RecLTrackingSpecification.Reset;
-        if RecLTrackingSpecification.FindLast then
+        RecLTrackingSpecification.Reset();
+        if RecLTrackingSpecification.FindLast() then
             exit(RecLTrackingSpecification."Entry No." + 1)
         else
             exit(1);
@@ -50,10 +46,10 @@ codeunit 8073298 "PWD Buffer Tracking Management"
         RecLPurchLine: Record "Purchase Line";
     begin
         with RecLPurchLine do begin
-            Reset;
+            Reset();
             SetRange("Document Type", "Document Type"::Order);
             SetRange("Document No.", CodPPurchOrderNo);
-            if FindLast then
+            if FindLast() then
                 exit("Line No." + 10000)
             else
                 exit(10000);
@@ -67,9 +63,9 @@ codeunit 8073298 "PWD Buffer Tracking Management"
         RecLReservationEntry: Record "Reservation Entry";
         RecLTempItemTrackLineDelete: Record "Tracking Specification" temporary;
     begin
-        RecLTempItemTrackLineDelete.Reset;
-        RecLTempItemTrackLineDelete.DeleteAll;
-        RecLReservationEntry.Reset;
+        RecLTempItemTrackLineDelete.Reset();
+        RecLTempItemTrackLineDelete.DeleteAll();
+        RecLReservationEntry.Reset();
         RecLReservationEntry.SetRange("Source Type", DATABASE::"Purchase Line");
         RecLReservationEntry.SetRange("Source Subtype", 1); //Order
         RecLReservationEntry.SetRange("Source ID", CodPPurchOrderNo);
@@ -78,15 +74,15 @@ codeunit 8073298 "PWD Buffer Tracking Management"
         RecLReservationEntry.SetRange("Quantity Invoiced (Base)", 0);
         if RecLReservationEntry.IsEmpty then
             exit;
-        RecLReservationEntry.FindSet;
+        RecLReservationEntry.FindSet();
         repeat
             RecLTempItemTrackLineDelete.TransferFields(RecLReservationEntry);
-            RecLTempItemTrackLineDelete.Insert;
+            RecLTempItemTrackLineDelete.Insert();
             CduGItemTrackingDataCollection.UpdateLotSNDataSetWithChange(RecLTempItemTrackLineDelete, false, 1, 2);
             FctRegisterChange(RecLTempItemTrackLineDelete, RecLTempItemTrackLineDelete, 2, false);
-            FctUpdateOrderTracking;
-            FctReestablishReservations;
-        until RecLReservationEntry.Next = 0;
+            FctUpdateOrderTracking();
+            FctReestablishReservations();
+        until RecLReservationEntry.Next() = 0;
     end;
 
 
@@ -127,7 +123,7 @@ codeunit 8073298 "PWD Buffer Tracking Management"
                 FctIsSerializedItemSales(RecGItem, IntPTrackingType);
         end;
         //FctIsSerializedItem(RecGItem , IntPTrackingType);
-        RecLTempItemTrackLineInsert.Init;
+        RecLTempItemTrackLineInsert.Init();
         RecLTempItemTrackLineInsert."Source Type" := IntPTableID;
         RecLTempItemTrackLineInsert."Source Subtype" := IntPSubTypeID;
         RecLTempItemTrackLineInsert."Source ID" := CodPSourceID;
@@ -152,14 +148,14 @@ codeunit 8073298 "PWD Buffer Tracking Management"
         end;
 
         RecLTempItemTrackLineInsert.Validate("Quantity (Base)", IntPQtyToCreate);
-        RecLTempItemTrackLineInsert."Entry No." := FctNextEntryNo;
-        RecLTempItemTrackLineInsert.Insert;
+        RecLTempItemTrackLineInsert."Entry No." := FctNextEntryNo();
+        RecLTempItemTrackLineInsert.Insert();
 
         CduGItemTrackingDataCollection.UpdateLotSNDataSetWithChange(RecLTempItemTrackLineInsert, false, 1, 0);
 
         FctRegisterChange(RecLTempItemTrackLineInsert, RecLTempItemTrackLineInsert, 0, false);
-        FctUpdateOrderTracking;
-        FctReestablishReservations;
+        FctUpdateOrderTracking();
+        FctReestablishReservations();
 
         //Lien des commandes d'achat en drop shipment
         if IntPTableID = DATABASE::"Purchase Line" then begin
@@ -201,13 +197,10 @@ codeunit 8073298 "PWD Buffer Tracking Management"
     local procedure FctRegisterChange(var OldTrackingSpecification: Record "Tracking Specification"; var NewTrackingSpecification: Record "Tracking Specification"; ChangeType: Option Insert,Modify,FullDelete,PartDelete,ModifyAll; ModifySharedFields: Boolean) OK: Boolean
     var
         ReservEntry1: Record "Reservation Entry";
-        ReservEntry2: Record "Reservation Entry";
         CreateReservEntry: Codeunit "Create Reserv. Entry";
         ReservationMgt: Codeunit "Reservation Management";
-        AvailabilityDate: Date;
         QtyToAdd: Decimal;
         LostReservQty: Decimal;
-        IdenticalArray: array[2] of Boolean;
         DecLTempDec: Decimal;
         RecLPurchLine: Record "Purchase Line";
         RecLSalesLine: Record "Sales Line";
@@ -215,8 +208,8 @@ codeunit 8073298 "PWD Buffer Tracking Management"
         DatLExpectedReceiptDate: Date;
         DatLShipmentDate: Date;
     begin
-        RecGTempReservEntry.Reset;
-        RecGTempReservEntry.DeleteAll;
+        RecGTempReservEntry.Reset();
+        RecGTempReservEntry.DeleteAll();
         DecLTempDec := 0;
         RecGItem.Get(OldTrackingSpecification."Item No.");
         RecGItemTrackingCode.Get(RecGItem."Item Tracking Code");
@@ -272,7 +265,7 @@ codeunit 8073298 "PWD Buffer Tracking Management"
                     if CduGReservEngineMgt.RetrieveLostReservQty(LostReservQty) then begin
                         RecGTempItemTrackLineReserv := NewTrackingSpecification;
                         RecGTempItemTrackLineReserv."Quantity (Base)" := LostReservQty;
-                        RecGTempItemTrackLineReserv.Insert;
+                        RecGTempItemTrackLineReserv.Insert();
                     end;
 
                     if OldTrackingSpecification."Quantity (Base)" = 0 then
@@ -350,8 +343,6 @@ codeunit 8073298 "PWD Buffer Tracking Management"
     end;
 
     local procedure FctUpdateOrderTracking()
-    var
-        TempReservEntry: Record "Reservation Entry" temporary;
     begin
         if not CduGReservEngineMgt.CollectAffectedSurplusEntries(RecGTempReservEntry) then
             exit;
@@ -364,12 +355,12 @@ codeunit 8073298 "PWD Buffer Tracking Management"
     var
         LateBindingMgt: Codeunit "Late Binding Management";
     begin
-        if RecGTempItemTrackLineReserv.FindSet then
+        if RecGTempItemTrackLineReserv.FindSet() then
             repeat
                 LateBindingMgt.ReserveItemTrackingLine2(RecGTempItemTrackLineReserv, RecGTempItemTrackLineReserv."Quantity (Base)");
                 FctSetQtyToHandleAndInvoice(RecGTempItemTrackLineReserv);
-            until RecGTempItemTrackLineReserv.Next = 0;
-        RecGTempItemTrackLineReserv.DeleteAll;
+            until RecGTempItemTrackLineReserv.Next() = 0;
+        RecGTempItemTrackLineReserv.DeleteAll();
     end;
 
     local procedure FctModifyFieldsWithinFilter(var ReservEntry1: Record "Reservation Entry"; var TrackingSpecification: Record "Tracking Specification")
@@ -383,8 +374,8 @@ codeunit 8073298 "PWD Buffer Tracking Management"
                 ReservEntry1."New Serial No." := TrackingSpecification."New Serial No.";
                 ReservEntry1."New Lot No." := TrackingSpecification."New Lot No.";
                 ReservEntry1."New Expiration Date" := TrackingSpecification."New Expiration Date";
-                ReservEntry1.Modify;
-            until ReservEntry1.Next = 0;
+                ReservEntry1.Modify();
+            until ReservEntry1.Next() = 0;
     end;
 
     local procedure FctSetQtyToHandleAndInvoice(TrackingSpecification: Record "Tracking Specification") OK: Boolean
@@ -434,12 +425,12 @@ codeunit 8073298 "PWD Buffer Tracking Management"
 
                         if TrackingSpecification."Qty. to Invoice (Base)" <> QtyToInvoiceThisLine then begin
                             TrackingSpecification."Qty. to Invoice (Base)" := QtyToInvoiceThisLine;
-                            TrackingSpecification.Modify;
+                            TrackingSpecification.Modify();
                         end;
 
                         TotalQtyToInvoice -= QtyToInvoiceThisLine;
                     end;
-                until (TrackingSpecification.Next = 0);
+                until (TrackingSpecification.Next() = 0);
 
             OK := ((TotalQtyToHandle = 0) and (TotalQtyToInvoice = 0));
         end;
@@ -464,13 +455,13 @@ codeunit 8073298 "PWD Buffer Tracking Management"
                         then begin
                             ReservEntry1."Qty. to Handle (Base)" := QtyToHandleThisLine;
                             ReservEntry1."Qty. to Invoice (Base)" := QtyToInvoiceThisLine;
-                            ReservEntry1.Modify;
+                            ReservEntry1.Modify();
                         end;
 
                         TotalQtyToHandle -= QtyToHandleThisLine;
                         TotalQtyToInvoice -= QtyToInvoiceThisLine;
 
-                    until (ReservEntry1.Next = 0);
+                    until (ReservEntry1.Next() = 0);
             end;
 
             OK := ((TotalQtyToHandle = 0) and (TotalQtyToInvoice = 0));
@@ -481,7 +472,7 @@ codeunit 8073298 "PWD Buffer Tracking Management"
                 then begin
                     ReservEntry1."Qty. to Handle (Base)" := TotalQtyToHandle;
                     ReservEntry1."Qty. to Invoice (Base)" := TotalQtyToInvoice;
-                    ReservEntry1.Modify;
+                    ReservEntry1.Modify();
                 end;
     end;
 
@@ -528,7 +519,6 @@ codeunit 8073298 "PWD Buffer Tracking Management"
 
     local procedure FctIsSerializedItem(RecPItem: Record Item; IntPTrackingType: Integer)
     var
-        RecLItem: Record Item;
         RecLItemTrackingCode: Record "Item Tracking Code";
     begin
         if IntPTrackingType = 0 then
@@ -558,7 +548,6 @@ codeunit 8073298 "PWD Buffer Tracking Management"
 
     local procedure FctIsSerializedItem2(RecPItem: Record Item; IntPTrackingType: Integer)
     var
-        RecLItem: Record Item;
         RecLItemTrackingCode: Record "Item Tracking Code";
     begin
         if IntPTrackingType = 0 then
@@ -596,7 +585,6 @@ codeunit 8073298 "PWD Buffer Tracking Management"
 
     local procedure FctIsSerializedItemSales(RecPItem: Record Item; IntPTrackingType: Integer)
     var
-        RecLItem: Record Item;
         RecLItemTrackingCode: Record "Item Tracking Code";
     begin
         if IntPTrackingType = 0 then

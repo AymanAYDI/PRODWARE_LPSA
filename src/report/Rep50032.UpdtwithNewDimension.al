@@ -460,7 +460,7 @@ report 50032 "PWD Updt with New Dimension"
 
             trigger OnPostDataItem()
             begin
-                Window.Close;
+                Window.Close();
                 Message(CstTxt004);
             end;
 
@@ -525,7 +525,6 @@ report 50032 "PWD Updt with New Dimension"
     end;
 
     var
-        Item: Record Item;
         ItemStatisticsBuffer: Record "Item Statistics Buffer";
         DateFilter: Text[30];
         DimensionCode: Code[150];

@@ -44,7 +44,7 @@ report 50003 "Purchase - Return Shipment LAP"
                     column(STRSUBSTNO_Text002_CopyText_; STRSUBSTNO(Text002, CopyText))
                     {
                     }
-                    column(STRSUBSTNO_Text003_FORMAT_CurrReport_PAGENO__; STRSUBSTNO(Text003, FORMAT(CurrReport.PAGENO)))
+                    column(STRSUBSTNO_Text003_FORMAT_CurrReport_PAGENO__; STRSUBSTNO(Text003, FORMAT(CurrReport.PAGENO())))
                     {
                     }
                     column(CompanyAddr_1_; CompanyAddr[1])
@@ -224,10 +224,10 @@ report 50003 "Purchase - Return Shipment LAP"
                         begin
                             IF Number = 1 THEN BEGIN
                                 IF NOT PostedDocDim1.FIND('-') THEN
-                                    CurrReport.BREAK;
+                                    CurrReport.BREAK();
                             END ELSE
                                 IF NOT Continue THEN
-                                    CurrReport.BREAK;
+                                    CurrReport.BREAK();
 
                             CLEAR(DimText);
                             Continue := FALSE;
@@ -252,7 +252,7 @@ report 50003 "Purchase - Return Shipment LAP"
                         trigger OnPreDataItem()
                         begin
                             IF NOT ShowInternalInfo THEN
-                                CurrReport.BREAK;
+                                CurrReport.BREAK();
                         end;
                     }
                     dataitem("Return Shipment Line"; "Return Shipment Line")
@@ -357,10 +357,10 @@ report 50003 "Purchase - Return Shipment LAP"
                             begin
                                 IF Number = 1 THEN BEGIN
                                     IF NOT PostedDocDim2.FIND('-') THEN
-                                        CurrReport.BREAK;
+                                        CurrReport.BREAK();
                                 END ELSE
                                     IF NOT Continue THEN
-                                        CurrReport.BREAK;
+                                        CurrReport.BREAK();
 
                                 CLEAR(DimText);
                                 Continue := FALSE;
@@ -385,7 +385,7 @@ report 50003 "Purchase - Return Shipment LAP"
                             trigger OnPreDataItem()
                             begin
                                 IF NOT ShowInternalInfo THEN
-                                    CurrReport.BREAK;
+                                    CurrReport.BREAK();
                             end;
                         }
 
@@ -402,7 +402,7 @@ report 50003 "Purchase - Return Shipment LAP"
                             RecGItemCrossRef.SETRANGE("Unit of Measure", "Unit of Measure Code");
                             RecGItemCrossRef.SETRANGE("Cross-Reference Type", RecGItemCrossRef."Cross-Reference Type"::Customer);
                             RecGItemCrossRef.SETRANGE("Cross-Reference Type No.", "Return Shipment Header"."Sell-to Customer No.");
-                            IF RecGItemCrossRef.FINDFIRST THEN
+                            IF RecGItemCrossRef.FINDFIRST() THEN
                                 TxtGCustRefNo := RecGItemCrossRef."Cross-Reference No.";
                             TxtGCustPlanNo := RecGItemCrossRef."Customer Plan No.";
 
@@ -414,22 +414,21 @@ report 50003 "Purchase - Return Shipment LAP"
                             //>>Regie
                             CLEAR(TxtGComment);
                             BooGStopComment := FALSE;
-                            RecGPurchCommentLine.RESET;
+                            RecGPurchCommentLine.RESET();
                             RecGPurchCommentLine.SETRANGE("Document Type", RecGPurchCommentLine."Document Type"::"Posted Return Shipment");
                             RecGPurchCommentLine.SETRANGE("No.", "Document No.");
                             RecGPurchCommentLine.SETRANGE("Document Line No.", "Line No.");
-                            IF RecGPurchCommentLine.FINDSET THEN BEGIN
+                            IF RecGPurchCommentLine.FINDSET() THEN
                                 REPEAT
                                     IF STRLEN(TxtGComment) + STRLEN(RecGPurchCommentLine.Comment) < 1024 THEN
                                         TxtGComment += RecGPurchCommentLine.Comment + ' '
                                     ELSE
                                         BooGStopComment := TRUE;
-                                UNTIL (RecGPurchCommentLine.NEXT = 0) OR (BooGStopComment);
-                            END;
+                                UNTIL (RecGPurchCommentLine.NEXT() = 0) OR (BooGStopComment);
 
 
                             IF (NOT ShowCorrectionLines) AND Correction THEN
-                                CurrReport.SKIP;
+                                CurrReport.SKIP();
 
                             PostedDocDim2.SETRANGE("Table ID", DATABASE::"Return Shipment Line");
                             PostedDocDim2.SETRANGE("Document No.", "Return Shipment Line"."Document No.");
@@ -445,7 +444,7 @@ report 50003 "Purchase - Return Shipment LAP"
                             WHILE MoreLines AND (Description = '') AND ("No." = '') AND (Quantity = 0) DO
                                 MoreLines := NEXT(-1) <> 0;
                             IF NOT MoreLines THEN
-                                CurrReport.BREAK;
+                                CurrReport.BREAK();
                             SETRANGE("Line No.", 0, "Line No.");
                         end;
                     }
@@ -474,7 +473,7 @@ report 50003 "Purchase - Return Shipment LAP"
                         trigger OnPreDataItem()
                         begin
                             IF "Return Shipment Header"."Buy-from Vendor No." = "Return Shipment Header"."Pay-to Vendor No." THEN
-                                CurrReport.BREAK;
+                                CurrReport.BREAK();
                         end;
                     }
                     dataitem(Total2; "Integer")
@@ -550,7 +549,7 @@ report 50003 "Purchase - Return Shipment LAP"
 
             trigger OnAfterGetRecord()
             begin
-                CompanyInfo.GET;
+                CompanyInfo.GET();
 
                 RecGVendor.GET("Return Shipment Header"."Buy-from Vendor No.");
 
@@ -558,15 +557,14 @@ report 50003 "Purchase - Return Shipment LAP"
                     FormatAddr.RespCenter(CompanyAddr, RespCenter);
                     CompanyInfo."Phone No." := RespCenter."Phone No.";
                     CompanyInfo."Fax No." := RespCenter."Fax No.";
-                END ELSE BEGIN
+                END ELSE
                     FormatAddr.Company(CompanyAddr, CompanyInfo);
-                END;
 
                 PostedDocDim1.SETRANGE("Table ID", DATABASE::"Return Shipment Header");
                 PostedDocDim1.SETRANGE("Document No.", "Return Shipment Header"."No.");
 
                 IF "Purchaser Code" = '' THEN BEGIN
-                    SalesPurchPerson.INIT;
+                    SalesPurchPerson.INIT();
                     PurchaserText := '';
                 END ELSE BEGIN
                     SalesPurchPerson.GET("Purchaser Code");
@@ -587,10 +585,10 @@ report 50003 "Purchase - Return Shipment LAP"
                         SegManagement.LogDocument(
                           21, "No.", 0, 0, DATABASE::Vendor, "Buy-from Vendor No.", "Purchaser Code", '', "Posting Description", '');
 
-                RecGPurchHderArch.RESET;
+                RecGPurchHderArch.RESET();
                 RecGPurchHderArch.SETRANGE("Document Type", RecGPurchHderArch."Document Type"::"Return Order");
                 RecGPurchHderArch.SETRANGE("No.", "Return Shipment Header"."Return Order No.");
-                IF ((RecGPurchHderArch.FINDFIRST) AND (RecGPurchHderArch."Vendor Order No." <> '')) THEN
+                IF ((RecGPurchHderArch.FINDFIRST()) AND (RecGPurchHderArch."Vendor Order No." <> '')) THEN
                     TxtGText009 := CstGText009
                 ELSE
                     TxtGText009 := '';

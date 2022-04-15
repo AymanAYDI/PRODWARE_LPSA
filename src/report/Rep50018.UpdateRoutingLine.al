@@ -9,11 +9,11 @@ report 50018 "PWD Update Routing Line"
     {
         dataitem(RL_Reference; "Routing Line")
         {
-            DataItemTableView = SORTING ("Routing No.", "Version Code", "Operation No.");
+            DataItemTableView = SORTING("Routing No.", "Version Code", "Operation No.");
             dataitem(RL_Others; "Routing Line")
             {
-                DataItemLink = Type = FIELD (Type), "No." = FIELD ("No.");
-                DataItemTableView = SORTING ("Routing No.", "Version Code", "Operation No.");
+                DataItemLink = Type = FIELD(Type), "No." = FIELD("No.");
+                DataItemTableView = SORTING("Routing No.", "Version Code", "Operation No.");
 
                 trigger OnAfterGetRecord()
                 begin
@@ -49,8 +49,8 @@ report 50018 "PWD Update Routing Line"
             }
             dataitem("Prod. Order Routing Line"; "Prod. Order Routing Line")
             {
-                DataItemLink = Type = FIELD (Type), "No." = FIELD ("No.");
-                DataItemTableView = SORTING (Status, "Prod. Order No.", "Routing Reference No.", "Routing No.", "Operation No.") WHERE (Status = FILTER (< Finished), "Routing Status" = FILTER (< Finished));
+                DataItemLink = Type = FIELD(Type), "No." = FIELD("No.");
+                DataItemTableView = SORTING(Status, "Prod. Order No.", "Routing Reference No.", "Routing No.", "Operation No.") WHERE(Status = FILTER(< Finished), "Routing Status" = FILTER(< Finished));
 
                 trigger OnAfterGetRecord()
                 var
@@ -81,7 +81,7 @@ report 50018 "PWD Update Routing Line"
             trigger OnAfterGetRecord()
             begin
                 if not Confirm(StrSubstNo(TxtG001, Type, "No.", "Operation No.")) then
-                    CurrReport.Break;
+                    CurrReport.Break();
             end;
 
             trigger OnPostDataItem()

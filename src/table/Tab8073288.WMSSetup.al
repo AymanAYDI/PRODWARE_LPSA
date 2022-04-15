@@ -49,9 +49,9 @@ table 8073288 "PWD WMS Setup"
             var
                 RecLInventorySetup: Record "Inventory Setup";
             begin
-                RecLInventorySetup.Get;
+                RecLInventorySetup.Get();
                 RecLInventorySetup."Location Mandatory" := "Location Mandatory";
-                RecLInventorySetup.Modify;
+                RecLInventorySetup.Modify();
             end;
         }
         field(5; "WMS Delivery"; Code[10])

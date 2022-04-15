@@ -6,7 +6,7 @@ report 99086 "PWD Update Gammes PIERRES"
     {
         dataitem(RH2; "Routing Header")
         {
-            DataItemTableView = SORTING ("No.") WHERE (PlanningGroup = CONST ('PIERRES'));
+            DataItemTableView = SORTING("No.") WHERE(PlanningGroup = CONST('PIERRES'));
 
             trigger OnAfterGetRecord()
             var
@@ -21,13 +21,13 @@ report 99086 "PWD Update Gammes PIERRES"
                 Validate(Status, RH2.Status::"Under Development");
                 Validate(Type, Type::Serial);
                 Modify(true);
-                RecLRoutingLine.Reset;
+                RecLRoutingLine.Reset();
                 RecLRoutingLine.SetRange("Routing No.", RH2."No.");
                 RecLRoutingLine.SetRange("Version Code", RH2."Version Nos.");
                 RecLRoutingLine.SetRange(Type, RecLRoutingLine.Type::"Machine Center");
                 RecLRoutingLine.SetFilter("No.", 'M99999|M00000');
 
-                if RecLRoutingLine.FindFirst then
+                if RecLRoutingLine.FindFirst() then
                     repeat
                         case RH2.PlanningGroup of
                             'LEVEES_ELI':
@@ -65,16 +65,16 @@ report 99086 "PWD Update Gammes PIERRES"
                                     RecLRoutingLine.Modify(true);
                                 end;
                         end;
-                    until RecLRoutingLine.Next = 0;
+                    until RecLRoutingLine.Next() = 0;
 
                 RecLRoutingLine.SetRange(Type);
                 RecLRoutingLine.SetRange("No.");
-                if RecLRoutingLine.FindFirst then
+                if RecLRoutingLine.FindFirst() then
                     repeat
                         RecLRL.SetRange(RecLRL."Routing No.", 'PIE_TT_OPE_PIERRE');
                         RecLRL.SetRange(Type, RecLRL.Type::"Machine Center");
                         RecLRL.SetRange("No.", "No.");
-                        if RecLRL.FindFirst then begin
+                        if RecLRL.FindFirst() then begin
                             RecLRoutingLine.Validate("Setup Time", RecLRL."Setup Time");
                             RecLRoutingLine.Validate("Run Time", RecLRL."Run Time");
                             RecLRoutingLine.Validate("Wait Time", RecLRL."Wait Time");
@@ -83,14 +83,14 @@ report 99086 "PWD Update Gammes PIERRES"
                             RecLRoutingLine.Validate("Run Time Unit of Meas. Code", RecLRL."Run Time Unit of Meas. Code");
                             RecLRoutingLine.Validate("Wait Time Unit of Meas. Code", RecLRL."Wait Time Unit of Meas. Code");
                             RecLRoutingLine.Validate("Move Time Unit of Meas. Code", RecLRL."Move Time Unit of Meas. Code");
-                            RecLRoutingLine.Modify;
+                            RecLRoutingLine.Modify();
                         end;
-                    until RecLRoutingLine.Next = 0;
+                    until RecLRoutingLine.Next() = 0;
 
                 RecLRoutingLine.SetRange(Type, RecLRoutingLine.Type::"Machine Center");
                 RecLRoutingLine.SetRange("No.", 'OP11710');
-                if RecLRoutingLine.FindFirst then begin
-                    RoutingLine2.Reset;
+                if RecLRoutingLine.FindFirst() then begin
+                    RoutingLine2.Reset();
                     RoutingLine2.SetRange("Routing No.", RecLRoutingLine."Routing No.");
                     RoutingLine2.SetRange("Version Code", RecLRoutingLine."Version Code");
                     RoutingLine2.SetRange(Type, RoutingLine2.Type::"Machine Center");
@@ -112,7 +112,7 @@ report 99086 "PWD Update Gammes PIERRES"
         }
         dataitem(RH; "Routing Header")
         {
-            DataItemTableView = SORTING ("No.") WHERE (PlanningGroup = CONST ('PIERRES'));
+            DataItemTableView = SORTING("No.") WHERE(PlanningGroup = CONST('PIERRES'));
 
             trigger OnAfterGetRecord()
             var
@@ -123,7 +123,7 @@ report 99086 "PWD Update Gammes PIERRES"
                 Validate(Type, Type::Serial);
                 Modify(true);
 
-                RecLRoutingLine.Reset;
+                RecLRoutingLine.Reset();
                 RecLRoutingLine.SetRange("Routing No.", RH."No.");
                 RecLRoutingLine.SetRange("Version Code", RH."Version Nos.");
                 RecLRoutingLine.SetRange(Type, RecLRoutingLine.Type::"Work Center");
@@ -158,18 +158,6 @@ report 99086 "PWD Update Gammes PIERRES"
     }
 
     var
-        RecLItem: Record Item;
-        RecLItem2: Record Item;
-        CalcProdOrder: Codeunit "Calculate Prod. Order";
-        CreateProdOrderLines: Codeunit "Create Prod. Order Lines";
-        WhseProdRelease: Codeunit "Whse.-Production Release";
-        WhseOutputProdRelease: Codeunit "Whse.-Output Prod. Release";
-        Window: Dialog;
-        Direction: Option Forward,Backward;
-        CalcLines: Boolean;
-        CalcRoutings: Boolean;
-        CalcComponents: Boolean;
-        CreateInbRqst: Boolean;
         Stat: Option New,Certified,"Under Development",Closed;
 }
 

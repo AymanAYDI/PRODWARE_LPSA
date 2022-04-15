@@ -17,7 +17,7 @@ tableextension 60024 "PWD VATAmountLine" extends "VAT Amount Line"
     begin
         //>>FED-LAPIERRETTE-VTE-02-Documents Vente-V5
         if Find('-') then
-            if Next = 0 then
+            if Next() = 0 then
                 exit(StrSubstNo(CstG001, "VAT %", "VAT Base"));
         exit('');
         //<<FED-LAPIERRETTE-VTE-02-Documents Vente-V5

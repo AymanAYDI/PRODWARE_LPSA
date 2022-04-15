@@ -144,7 +144,7 @@ page 8073284 "PWD Sending Message List"
 
     trigger OnOpenPage()
     begin
-        FctShowColumns;
+        FctShowColumns();
     end;
 
     var
@@ -175,7 +175,7 @@ page 8073284 "PWD Sending Message List"
                 RecLPartner."Data Format"::"with separator":
                     BooGXmlTagVisible := FALSE;
             END;
-        IF FINDFIRST THEN;
+        IF FINDFIRST() THEN;
         BooGVisible := (Direction = Direction::Export) AND (RecLPartner."Communication Mode" = RecLPartner."Communication Mode"::File);
         //<<WMS-FE10.001
     end;

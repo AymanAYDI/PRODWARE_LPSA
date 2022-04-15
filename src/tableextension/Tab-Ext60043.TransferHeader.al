@@ -25,10 +25,10 @@ tableextension 60043 "PWD TransferHeader" extends "Transfer Header"
                 TransLine: Record "Transfer Line";
                 DefaultNumber: Option " ",Shipment,Receipt;
             begin
-                TestStatusOpen;
+                TestStatusOpen();
 
                 TransLine.SetRange("Document No.", "No.");
-                if TransLine.Find('-') then begin
+                if TransLine.Find('-') then
                     repeat
                         if (TransLine."Quantity Shipped" < TransLine.Quantity) and
                            (DefaultNumber = DefaultNumber::" ") then
@@ -36,16 +36,15 @@ tableextension 60043 "PWD TransferHeader" extends "Transfer Header"
                         if (TransLine."Quantity Received" < TransLine.Quantity) and
                            (DefaultNumber = DefaultNumber::" ") then
                             DefaultNumber := DefaultNumber::Receipt;
-                    until (TransLine.Next = 0) or (DefaultNumber > 0);
-                end;
+                    until (TransLine.Next() = 0) or (DefaultNumber > 0);
                 if DefaultNumber <> 0 then
                     Error(CstG001);
 
 
                 if "PWD Sales Order No." = '' then
-                    "FillTransfer-to info Location"
+                    "FillTransfer-to info Location"()
                 else
-                    "FillTransfer-to info with cmd";
+                    "FillTransfer-to info with cmd"();
             end;
         }
     }
@@ -63,14 +62,13 @@ tableextension 60043 "PWD TransferHeader" extends "Transfer Header"
             "Transfer-to Post Code" := RecLSalesHeader."Ship-to Post Code";
             "Transfer-to City" := RecLSalesHeader."Ship-to City";
             "Transfer-to Contact" := RecLSalesHeader."Ship-to Contact";
-            Modify;
+            Modify();
         end;
     end;
 
     procedure "FillTransfer-to info Location"()  //TODO: Lappel de la fonction n'est pas possible, il y'a pas un evenement liée
     var
         Location: Record Location;
-        Confirmed: Boolean;
         TransferRoute: Record "Transfer Route";
         TransLine: Record "Transfer Line";
     begin
@@ -103,10 +101,10 @@ tableextension 60043 "PWD TransferHeader" extends "Transfer Header"
               "Transfer-to Code",
               "Shipping Agent Code",
               "Shipping Agent Service Code");
-            TransLine.LockTable;
+            TransLine.LockTable();
             TransLine.SetRange("Document No.", "No.");
-            if TransLine.FindSet then;
-            Modify;
+            if TransLine.FindSet() then;
+            Modify();
         end;
     end;
 

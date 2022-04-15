@@ -52,12 +52,12 @@ table 8073289 "PWD OSYS Setup"
                 FrmGItemJournalBatches: Page "Item Journal Batches";
             begin
                 CLEAR(FrmGItemJournalBatches);
-                RecGItemJnlBatch.RESET;
+                RecGItemJnlBatch.RESET();
                 RecGItemJnlBatch.SETRANGE("Journal Template Name", "Journal Templ Name Prod");
                 FrmGItemJournalBatches.LOOKUPMODE := TRUE;
                 FrmGItemJournalBatches.SETRECORD(RecGItemJnlBatch);
                 FrmGItemJournalBatches.SETTABLEVIEW(RecGItemJnlBatch);
-                IF (FrmGItemJournalBatches.RUNMODAL = ACTION::LookupOK) THEN BEGIN
+                IF (FrmGItemJournalBatches.RUNMODAL() = ACTION::LookupOK) THEN BEGIN
                     FrmGItemJournalBatches.GETRECORD(RecGItemJnlBatch);
                     VALIDATE("Journal Batch Name Prod", RecGItemJnlBatch.Name);
                 END;
@@ -92,12 +92,12 @@ table 8073289 "PWD OSYS Setup"
                 FrmGItemJournalBatches: Page "Item Journal Batches";
             begin
                 CLEAR(FrmGItemJournalBatches);
-                RecGItemJnlBatch.RESET;
+                RecGItemJnlBatch.RESET();
                 RecGItemJnlBatch.SETRANGE("Journal Template Name", "Journal Templ Name Cons");
                 FrmGItemJournalBatches.LOOKUPMODE := TRUE;
                 FrmGItemJournalBatches.SETRECORD(RecGItemJnlBatch);
                 FrmGItemJournalBatches.SETTABLEVIEW(RecGItemJnlBatch);
-                IF (FrmGItemJournalBatches.RUNMODAL = ACTION::LookupOK) THEN BEGIN
+                IF (FrmGItemJournalBatches.RUNMODAL() = ACTION::LookupOK) THEN BEGIN
                     FrmGItemJournalBatches.GETRECORD(RecGItemJnlBatch);
                     VALIDATE("Journal Batch Name Cons", RecGItemJnlBatch.Name);
                 END;
@@ -133,12 +133,12 @@ table 8073289 "PWD OSYS Setup"
             begin
                 //>>FE_LAPRIERRETTE_GP0004.002
                 CLEAR(FrmGItemJournalBatches);
-                RecGItemJnlBatch.RESET;
+                RecGItemJnlBatch.RESET();
                 RecGItemJnlBatch.SETRANGE("Journal Template Name", "Journal Templ Name Prod 1");
                 FrmGItemJournalBatches.LOOKUPMODE := TRUE;
                 FrmGItemJournalBatches.SETRECORD(RecGItemJnlBatch);
                 FrmGItemJournalBatches.SETTABLEVIEW(RecGItemJnlBatch);
-                IF (FrmGItemJournalBatches.RUNMODAL = ACTION::LookupOK) THEN BEGIN
+                IF (FrmGItemJournalBatches.RUNMODAL() = ACTION::LookupOK) THEN BEGIN
                     FrmGItemJournalBatches.GETRECORD(RecGItemJnlBatch);
                     VALIDATE("Journal Batch Name Prod 1", RecGItemJnlBatch.Name);
                 END;
@@ -191,12 +191,12 @@ table 8073289 "PWD OSYS Setup"
         RecLOSYSSetup: Record "PWD OSYS Setup";
         RecLItem: Record Item;
     begin
-        RecLOSYSSetup.GET;
+        RecLOSYSSetup.GET();
         IF (RecPXIUOM."Qty. per Unit of Measure" <> RecPIUOM."Qty. per Unit of Measure") AND
            ((RecPXIUOM.Code = RecLOSYSSetup."Packaging Unit") OR (RecPXIUOM.Code = RecLOSYSSetup."Pallet  Unit")) THEN BEGIN
             RecLItem.GET(RecPIUOM."Item No.");
             RecLItem."Last Date Modified" := TODAY;
-            RecLItem.MODIFY;
+            RecLItem.MODIFY();
         END;
     end;
 }

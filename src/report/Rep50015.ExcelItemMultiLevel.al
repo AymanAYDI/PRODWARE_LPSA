@@ -43,11 +43,11 @@ report 50015 "PWD Excel Item Multi-Level"
                 EnterCell(IntGLineNo, IntGColNo, "Search Description", false, false, '@');
                 IntGColNo += 1;
 
-                RecLItemConfig.Reset;
+                RecLItemConfig.Reset();
                 RecLItemConfig.SetCurrentKey("Item Code");
                 RecLItemConfig.SetRange("Item Code", "No.");
                 if not RecLItemConfig.IsEmpty then begin
-                    RecLItemConfig.FindFirst;
+                    RecLItemConfig.FindFirst();
 
                     EnterCell(IntGLineNo, IntGColNo, RecLItemConfig."Piece Type Stone", false, false, '@');
                     IntGColNo += 1;
@@ -81,7 +81,7 @@ report 50015 "PWD Excel Item Multi-Level"
                 if GetFilter("No.") = '' then
                     SetFilter("No.", RecGInvtSetup."Item Filter Level 1");
 
-                MakeHeader;
+                MakeHeader();
             end;
         }
     }
@@ -104,7 +104,7 @@ report 50015 "PWD Excel Item Multi-Level"
 
     trigger OnPreReport()
     begin
-        RecGInvtSetup.Get;
+        RecGInvtSetup.Get();
         RecGInvtSetup.TestField("Item Filter Level 1");
         RecGInvtSetup.TestField("Item Filter Level 2");
         RecGInvtSetup.TestField("Item Filter Level 3");
@@ -132,7 +132,7 @@ report 50015 "PWD Excel Item Multi-Level"
 
     local procedure EnterCell(RowNo: Integer; ColumnNo: Integer; CellValue: Text[250]; Bold: Boolean; UnderLine: Boolean; NumberFormat: Text[30])
     begin
-        ExcelBuf.Init;
+        ExcelBuf.Init();
         ExcelBuf.Validate("Row No.", RowNo);
         ExcelBuf.Validate("Column No.", ColumnNo);
         ExcelBuf."Cell Value as Text" := CellValue;
@@ -140,7 +140,7 @@ report 50015 "PWD Excel Item Multi-Level"
         ExcelBuf.Bold := Bold;
         ExcelBuf.Underline := UnderLine;
         ExcelBuf.NumberFormat := NumberFormat;
-        ExcelBuf.Insert;
+        ExcelBuf.Insert();
     end;
 
 
@@ -196,23 +196,20 @@ report 50015 "PWD Excel Item Multi-Level"
         RecLItem: Record Item;
         CodLNextBOM: Code[20];
     begin
-        RecLBOMLine.Reset;
+        RecLBOMLine.Reset();
         RecLBOMLine.SetRange("Production BOM No.", CodPBOMNo);
         RecLBOMLine.SetRange("Version Code", CduGVersionMgt.GetBOMVersion(CodPBOMNo, Today, true));
         RecLBOMLine.SetRange(Type, RecLBOMLine.Type::Item);
         case IntPLevel of
             2:
-                begin
-                    RecLBOMLine.SetFilter("No.", RecGInvtSetup."Item Filter Level 2");
-                end;
+
+                RecLBOMLine.SetFilter("No.", RecGInvtSetup."Item Filter Level 2");
             3:
-                begin
-                    RecLBOMLine.SetFilter("No.", RecGInvtSetup."Item Filter Level 3");
-                end;
+
+                RecLBOMLine.SetFilter("No.", RecGInvtSetup."Item Filter Level 3");
             4:
-                begin
-                    RecLBOMLine.SetFilter("No.", RecGInvtSetup."Item Filter Level 4");
-                end;
+
+                RecLBOMLine.SetFilter("No.", RecGInvtSetup."Item Filter Level 4");
         end;
 
         //>>TDL260619.001
@@ -222,7 +219,7 @@ report 50015 "PWD Excel Item Multi-Level"
         //<<TDL260619.001
 
         if not RecLBOMLine.IsEmpty then begin
-            RecLBOMLine.FindFirst;
+            RecLBOMLine.FindFirst();
             RecLItem.Get(RecLBOMLine."No.");
 
             EnterCell(IntGLineNo, IntGColNo, RecLItem."No.", false, false, '@');
@@ -240,9 +237,9 @@ report 50015 "PWD Excel Item Multi-Level"
         end;
 
         //IF (RecLItem."No." <> '') AND (IntPLevel < 4) THEN BEGIN
-        if (IntPLevel < 4) then begin
-            GetBOMInfo(CodLNextBOM, IntPLevel + 1);
-        end else
+        if (IntPLevel < 4) then
+            GetBOMInfo(CodLNextBOM, IntPLevel + 1)
+        else
             IntGColNo := 13; //il n'y a plus de composant, on force le positionnement à la fin de  la ligne = 13ème colonne
     end;
 
@@ -256,14 +253,14 @@ report 50015 "PWD Excel Item Multi-Level"
             exit(1);
 
         DecLScrap := 1;
-        RecLRoutingLine.Reset;
+        RecLRoutingLine.Reset();
         RecLRoutingLine.SetRange("Routing No.", CodPRoutingNo);
         RecLRoutingLine.SetRange("Version Code", CduGVersionMgt.GetRtngVersion(CodPRoutingNo, Today, true));
         RecLRoutingLine.SetFilter("Scrap Factor %", '<>0');
-        if RecLRoutingLine.FindSet then
+        if RecLRoutingLine.FindSet() then
             repeat
                 DecLScrap := DecLScrap * (1 + RecLRoutingLine."Scrap Factor %" / 100);
-            until RecLRoutingLine.Next = 0;
+            until RecLRoutingLine.Next() = 0;
         exit(DecLScrap);
     end;
 
@@ -274,29 +271,26 @@ report 50015 "PWD Excel Item Multi-Level"
         RecLItem: Record Item;
         CodLNextBOM: Code[20];
     begin
-        RecLBOMLine.Reset;
+        RecLBOMLine.Reset();
         RecLBOMLine.SetRange("Production BOM No.", CodPBOMNo);
         RecLBOMLine.SetRange("Version Code", CduGVersionMgt.GetBOMVersion(CodPBOMNo, Today, true));
         RecLBOMLine.SetRange(Type, RecLBOMLine.Type::Item);
         case IntPLevel of
             2:
-                begin
-                    RecLBOMLine.SetFilter("No.", RecGInvtSetup."Item Filter Level 2");
-                end;
+
+                RecLBOMLine.SetFilter("No.", RecGInvtSetup."Item Filter Level 2");
             3:
-                begin
-                    RecLBOMLine.SetFilter("No.", RecGInvtSetup."Item Filter Level 3");
-                end;
+
+                RecLBOMLine.SetFilter("No.", RecGInvtSetup."Item Filter Level 3");
             4:
-                begin
-                    RecLBOMLine.SetFilter("No.", RecGInvtSetup."Item Filter Level 4");
-                end;
+
+                RecLBOMLine.SetFilter("No.", RecGInvtSetup."Item Filter Level 4");
         end;
 
         RecLBOMLine.SetFilter("Starting Date", '%1|<=%2', 0D, Today);
         RecLBOMLine.SetFilter("Ending Date", '%1|>=%2', 0D, Today);
         RecLBOMLine.SetFilter("Quantity per", '<>%1', 0);
-        if RecLBOMLine.FindSet then begin
+        if RecLBOMLine.FindSet() then
             repeat
                 RecLItem.Get(RecLBOMLine."No.");
 
@@ -308,13 +302,13 @@ report 50015 "PWD Excel Item Multi-Level"
                 IntPColNo += 1;
                 CodLNextBOM := RecLItem."Production BOM No.";
 
-                if (IntPLevel < 4) then begin
-                    GetBOMInfoMulti(CodLNextBOM, IntPLevel + 1, IntPColNo, IntPLineNo);
-                end else
+                if (IntPLevel < 4) then
+                    GetBOMInfoMulti(CodLNextBOM, IntPLevel + 1, IntPColNo, IntPLineNo)
+                else
                     IntGColNo := 13; //il n'y a plus de composant, on force le positionnement à la fin de  la ligne = 13ème colonne
 
-            until RecLBOMLine.Next = 0;
-        end else begin
+            until RecLBOMLine.Next() = 0
+        else begin
             IntGColNo += 3;
             CodLNextBOM := CodPBOMNo;
         end;

@@ -223,7 +223,7 @@ report 99100 "PWD Shipment Advice bis"
                             SalesLine.SetRange("Document No.", "Order No.");
                             SalesLine.SetRange(Type, "Sales Shipment Line".Type);
                             SalesLine.SetRange("Line No.", "Order Line No.");
-                            if SalesLine.FindFirst then begin
+                            if SalesLine.FindFirst() then begin
                                 OrdredQty := SalesLine.Quantity;
                                 if OrdredQty <> 0 then
                                     OutstandingQtytoShip := OrdredQty - SalesLine."Quantity Shipped" - "Sales Shipment Line"."PWD Scrap Quantity";
@@ -232,10 +232,10 @@ report 99100 "PWD Shipment Advice bis"
                                 SalesInvoiceLine.SetRange("Order No.", "Order No.");
                                 SalesInvoiceLine.SetRange(Type, "Sales Shipment Line".Type);
                                 SalesInvoiceLine.SetRange("Order Line No.", "Order Line No.");
-                                if SalesInvoiceLine.FindFirst then begin
+                                if SalesInvoiceLine.FindFirst() then begin
                                     repeat
                                         OrdredQty := OrdredQty + SalesInvoiceLine.Quantity;
-                                    until SalesInvoiceLine.Next = 0;
+                                    until SalesInvoiceLine.Next() = 0;
 
                                     if OrdredQty <> 0 then
                                         OutstandingQtytoShip := CalcOustandingQty("Order No.", "Order Line No.");
@@ -248,7 +248,7 @@ report 99100 "PWD Shipment Advice bis"
                                 OutstandingQtytoShip := 0;
 
                             if not ShowCorrectionLines and Correction then
-                                CurrReport.Skip;
+                                CurrReport.Skip();
 
                             PostedDocDim2.SetRange("Table ID", DATABASE::"Sales Shipment Line");
                             PostedDocDim2.SetRange("Document No.", "Sales Shipment Line"."Document No.");
@@ -285,7 +285,7 @@ report 99100 "PWD Shipment Advice bis"
                             while MoreLines and (Description = '') and ("No." = '') and (Quantity = 0) do
                                 MoreLines := Next(-1) <> 0;
                             if not MoreLines then
-                                CurrReport.Break;
+                                CurrReport.Break();
                             SetRange("Line No.", 0, "Line No.");
 
                             /*SETRANGE(Number,1,TrackingSpecCount);
@@ -311,7 +311,7 @@ report 99100 "PWD Shipment Advice bis"
                     begin
                         SalesHeader.SetRange("Document Type", SalesLine."Document Type"::Order);
                         SalesHeader.SetRange("No.", "Sales Shipment Header"."Order No.");
-                        if SalesHeader.FindFirst then begin
+                        if SalesHeader.FindFirst() then begin
                             DocumentDate := SalesHeader."Document Date";
                             YourDocumentNo := SalesHeader."External Document No.";
                         end;
@@ -360,15 +360,14 @@ report 99100 "PWD Shipment Advice bis"
                     FormatAddr.RespCenter(CompanyAddr, RespCenter);
                     CompanyInfo."Phone No." := RespCenter."Phone No.";
                     CompanyInfo."Fax No." := RespCenter."Fax No.";
-                end else begin
+                end else
                     FormatAddr.Company(CompanyAddr, CompanyInfo);
-                end;
 
                 PostedDocDim1.SetRange("Table ID", DATABASE::"Sales Shipment Header");
                 PostedDocDim1.SetRange("Document No.", "Sales Shipment Header"."No.");
 
                 if "Salesperson Code" = '' then begin
-                    SalesPurchPerson.Init;
+                    SalesPurchPerson.Init();
                     SalesPersonText := '';
                 end else begin
                     if SalesPurchPerson.Get("Salesperson Code") then;
@@ -431,24 +430,23 @@ report 99100 "PWD Shipment Advice bis"
 
     trigger OnInitReport()
     begin
-        CompanyInfo.Get;
-        SalesSetup.Get;
+        CompanyInfo.Get();
+        SalesSetup.Get();
 
         case SalesSetup."Logo Position on Documents" of
             SalesSetup."Logo Position on Documents"::"No Logo":
                 ;
             SalesSetup."Logo Position on Documents"::Left:
-                begin
-                    CompanyInfo.CalcFields(Picture);
-                end;
+
+                CompanyInfo.CalcFields(Picture);
             SalesSetup."Logo Position on Documents"::Center:
                 begin
-                    CompanyInfo1.Get;
+                    CompanyInfo1.Get();
                     CompanyInfo1.CalcFields(Picture);
                 end;
             SalesSetup."Logo Position on Documents"::Right:
                 begin
-                    CompanyInfo2.Get;
+                    CompanyInfo2.Get();
                     CompanyInfo2.CalcFields(Picture);
                 end;
         end;
@@ -551,7 +549,7 @@ report 99100 "PWD Shipment Advice bis"
         ItemCrossRef.SetRange("Unit of Measure", "Sales Shipment Line"."Unit of Measure Code");
         ItemCrossRef.SetRange("Cross-Reference Type", ItemCrossRef."Cross-Reference Type"::Customer);
         ItemCrossRef.SetRange("Cross-Reference Type No.", "Sales Shipment Header"."Sell-to Customer No.");
-        if ItemCrossRef.FindFirst then
+        if ItemCrossRef.FindFirst() then
             CrossReferenceNo := ItemCrossRef."Cross-Reference No."
     end;
 
@@ -560,11 +558,11 @@ report 99100 "PWD Shipment Advice bis"
     begin
         //>>FE-VTE-07.001
         Clear(TempItemLedgEntry);
-        RecGItemRelation.Reset;
+        RecGItemRelation.Reset();
         RecGItemRelation.SetRange("Source Type", DATABASE::"Sales Shipment Line");
         RecGItemRelation.SetRange("Source ID", "Sales Shipment Line"."Document No.");
         RecGItemRelation.SetRange("Source Ref. No.", "Sales Shipment Line"."Line No.");
-        if RecGItemRelation.FindFirst then begin
+        if RecGItemRelation.FindFirst() then begin
             RecGItemLedgEntry.Get(RecGItemRelation."Item Entry No.");
             TempItemLedgEntry := RecGItemLedgEntry;
         end;
@@ -578,18 +576,17 @@ report 99100 "PWD Shipment Advice bis"
         ScrapQt: Decimal;
         Qt: Decimal;
     begin
-        SalesShipmentLine.Reset;
+        SalesShipmentLine.Reset();
         Qt := 0;
         ScrapQt := 0;
         SalesShipmentLine.SetRange("Order No.", OrderNo);
         SalesShipmentLine.SetRange("Order Line No.", OrderLineNo);
-        if SalesShipmentLine.FindFirst then begin
+        if SalesShipmentLine.FindFirst() then
             repeat
                 Qt := Qt + SalesShipmentLine.Quantity;
                 ScrapQt := ScrapQt + SalesShipmentLine."PWD Scrap Quantity";
 
-            until SalesShipmentLine.Next = 0;
-        end;
+            until SalesShipmentLine.Next() = 0;
         Return := OrdredQty - Qt - ScrapQt;
     end;
 }

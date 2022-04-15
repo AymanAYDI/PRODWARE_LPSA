@@ -36,123 +36,123 @@ report 50035 "PWD Item Extraction"
                 trigger OnAfterGetRecord()
                 begin
 
-                    FctAddDelimiterOnly;
+                    FctAddDelimiterOnly();
                     TestOutStream.WriteText(AsciiToAnsi(Item."No."));
-                    FctAddSeparatorWithDelimitor;
+                    FctAddSeparatorWithDelimitor();
                     TestOutStream.WriteText(AsciiToAnsi(Item."PWD LPSA Description 1"));
-                    FctAddSeparatorWithDelimitor;
+                    FctAddSeparatorWithDelimitor();
                     TestOutStream.WriteText(AsciiToAnsi(Item."PWD LPSA Description 2"));
-                    FctAddSeparatorWithDelimitor;
+                    FctAddSeparatorWithDelimitor();
                     TestOutStream.WriteText(AsciiToAnsi(Item."Search Description"));
-                    FctAddSeparatorWithDelimitor;
+                    FctAddSeparatorWithDelimitor();
                     TestOutStream.WriteText(Format(Item."Lot Size"));
-                    FctAddSeparatorWithDelimitor;
+                    FctAddSeparatorWithDelimitor();
                     TestOutStream.WriteText(AsciiToAnsi(Item."Routing No."));
-                    FctAddSeparatorWithDelimitor;
+                    FctAddSeparatorWithDelimitor();
                     //>>LAP2.13
                     TestOutStream.WriteText('''');
                     //<<LAP2.13
                     TestOutStream.WriteText(AsciiToAnsi(CodGActiveVersionCode));
-                    FctAddSeparatorWithDelimitor;
+                    FctAddSeparatorWithDelimitor();
                     TestOutStream.WriteText(AsciiToAnsi(Format(RecGItemConfigurator."Product Type")));
-                    FctAddSeparatorWithDelimitor;
+                    FctAddSeparatorWithDelimitor();
                     TestOutStream.WriteText(AsciiToAnsi(RecGItemConfigurator."Location Code"));
-                    FctAddSeparatorWithDelimitor;
+                    FctAddSeparatorWithDelimitor();
                     TestOutStream.WriteText(AsciiToAnsi(RecGItemConfigurator."Product Group Code"));
-                    FctAddSeparatorWithDelimitor;
+                    FctAddSeparatorWithDelimitor();
                     TestOutStream.WriteText(AsciiToAnsi(RecGItemConfigurator."Piece Type Stone"));
-                    FctAddSeparatorWithDelimitor;
+                    FctAddSeparatorWithDelimitor();
                     TestOutStream.WriteText(AsciiToAnsi(RecGItemConfigurator."Matter Stone"));
-                    FctAddSeparatorWithDelimitor;
+                    FctAddSeparatorWithDelimitor();
                     TestOutStream.WriteText(Format(RecGItemConfigurator.Hole));
-                    FctAddSeparatorWithDelimitor;
+                    FctAddSeparatorWithDelimitor();
                     TestOutStream.WriteText(Format(RecGItemConfigurator."External Diameter"));
-                    FctAddSeparatorWithDelimitor;
+                    FctAddSeparatorWithDelimitor();
                     TestOutStream.WriteText(Format(RecGItemConfigurator.Thickness));
-                    FctAddSeparatorWithDelimitor;
+                    FctAddSeparatorWithDelimitor();
                     TestOutStream.WriteText(Format(RecGItemConfigurator."Piercing Min."));
-                    FctAddSeparatorWithDelimitor;
+                    FctAddSeparatorWithDelimitor();
                     TestOutStream.WriteText(Format(RecGItemConfigurator."Piercing Max."));
-                    FctAddSeparatorWithDelimitor;
+                    FctAddSeparatorWithDelimitor();
                     TestOutStream.WriteText(Format(RecGItemConfigurator."Diameter Min."));
-                    FctAddSeparatorWithDelimitor;
+                    FctAddSeparatorWithDelimitor();
                     TestOutStream.WriteText(Format(RecGItemConfigurator."Diameter Max."));
-                    FctAddSeparatorWithDelimitor;
+                    FctAddSeparatorWithDelimitor();
                     TestOutStream.WriteText(Format(RecGItemConfigurator."Thick Min."));
-                    FctAddSeparatorWithDelimitor;
+                    FctAddSeparatorWithDelimitor();
                     TestOutStream.WriteText(Format(RecGItemConfigurator."Thick Max."));
-                    FctAddSeparatorWithDelimitor;
+                    FctAddSeparatorWithDelimitor();
                     TestOutStream.WriteText(Format(RecGItemConfigurator."Hole Tol"));
-                    FctAddSeparatorWithDelimitor;
+                    FctAddSeparatorWithDelimitor();
                     TestOutStream.WriteText(Format(RecGItemConfigurator."External Diameter Tol"));
-                    FctAddSeparatorWithDelimitor;
+                    FctAddSeparatorWithDelimitor();
                     TestOutStream.WriteText(Format(RecGItemConfigurator."Ep Min."));
-                    FctAddSeparatorWithDelimitor;
+                    FctAddSeparatorWithDelimitor();
                     TestOutStream.WriteText(Format(RecGItemConfigurator."Ep Max."));
-                    FctAddSeparatorWithDelimitor;
+                    FctAddSeparatorWithDelimitor();
                     TestOutStream.WriteText('''');
                     TestOutStream.WriteText(AsciiToAnsi("Routing Line"."Operation No."));
-                    FctAddSeparatorWithDelimitor;
+                    FctAddSeparatorWithDelimitor();
                     if "Routing Line".Type = "Routing Line".Type::"Work Center" then begin
 
                         //>>LAP2.20
                         //   RecGWorkCenter.GET("Routing Line"."No.");
                         if not RecGWorkCenter.Get("Routing Line"."No.") then
-                            RecGWorkCenter.Init;
+                            RecGWorkCenter.Init();
 
                         //<<LAP2.20
 
                         TestOutStream.WriteText(AsciiToAnsi("Routing Line"."Work Center No."));
-                        FctAddSeparatorWithDelimitor;
+                        FctAddSeparatorWithDelimitor();
                         TestOutStream.WriteText(AsciiToAnsi(RecGWorkCenter.Name));
-                        FctAddSeparatorWithDelimitor;
+                        FctAddSeparatorWithDelimitor();
                         TestOutStream.WriteText(AsciiToAnsi(RecGWorkCenter."Shop Calendar Code"));
-                        FctAddSeparatorWithDelimitor;
+                        FctAddSeparatorWithDelimitor();
                         TestOutStream.WriteText('');
-                        FctAddSeparatorWithDelimitor;
+                        FctAddSeparatorWithDelimitor();
                         TestOutStream.WriteText('');
-                        FctAddSeparatorWithDelimitor;
+                        FctAddSeparatorWithDelimitor();
                         TestOutStream.WriteText('');
-                        FctAddSeparatorWithDelimitor;
+                        FctAddSeparatorWithDelimitor();
                         TestOutStream.WriteText('');
                     end else begin
 
                         //>>LAP2.20
                         //   RecGMachineCenter.GET("Routing Line"."No.");
                         if not RecGMachineCenter.Get("Routing Line"."No.") then
-                            RecGMachineCenter.Init;
+                            RecGMachineCenter.Init();
                         //   RecGWorkCenter.GET("Routing Line"."Work Center No.");
                         if not RecGWorkCenter.Get("Routing Line"."Work Center No.") then
-                            RecGWorkCenter.Init;
+                            RecGWorkCenter.Init();
                         //>>LAP2.20
 
                         TestOutStream.WriteText(AsciiToAnsi("Routing Line"."Work Center No."));
-                        FctAddSeparatorWithDelimitor;
+                        FctAddSeparatorWithDelimitor();
                         TestOutStream.WriteText(AsciiToAnsi(RecGWorkCenter.Name));
-                        FctAddSeparatorWithDelimitor;
+                        FctAddSeparatorWithDelimitor();
                         TestOutStream.WriteText(AsciiToAnsi(RecGWorkCenter."Shop Calendar Code"));
-                        FctAddSeparatorWithDelimitor;
+                        FctAddSeparatorWithDelimitor();
                         TestOutStream.WriteText(AsciiToAnsi("Routing Line"."No."));
-                        FctAddSeparatorWithDelimitor;
+                        FctAddSeparatorWithDelimitor();
                         TestOutStream.WriteText(AsciiToAnsi(RecGMachineCenter.Name));
-                        FctAddSeparatorWithDelimitor;
+                        FctAddSeparatorWithDelimitor();
                         TestOutStream.WriteText(Format(RecGMachineCenter.Capacity));
-                        FctAddSeparatorWithDelimitor;
+                        FctAddSeparatorWithDelimitor();
                         TestOutStream.WriteText(Format(RecGMachineCenter.Efficiency));
                     end;
-                    FctAddSeparatorWithDelimitor;
+                    FctAddSeparatorWithDelimitor();
                     TestOutStream.WriteText(Format("Routing Line"."Setup Time"));
-                    FctAddSeparatorWithDelimitor;
+                    FctAddSeparatorWithDelimitor();
                     TestOutStream.WriteText(Format("Routing Line"."Run Time"));
-                    FctAddSeparatorWithDelimitor;
+                    FctAddSeparatorWithDelimitor();
                     TestOutStream.WriteText(Format("Routing Line"."Move Time"));
                     //>>LAP2.13 (P24578_004)
-                    FctAddSeparatorWithDelimitor;
+                    FctAddSeparatorWithDelimitor();
                     TestOutStream.WriteText(Format("Routing Line"."Scrap Factor %"));
                     //<<LAP2.13 (P24578_004)
 
-                    FctAddDelimiterOnly;
-                    TestOutStream.WriteText;
+                    FctAddDelimiterOnly();
+                    TestOutStream.WriteText();
                 end;
 
                 trigger OnPreDataItem()
@@ -170,33 +170,33 @@ report 50035 "PWD Item Extraction"
                 IntGCounter -= 1;
 
                 if "Routing No." = '' then
-                    CurrReport.Skip;
+                    CurrReport.Skip();
 
-                RecGItemConfigurator.Reset;
+                RecGItemConfigurator.Reset();
                 RecGItemConfigurator.SetCurrentKey("Item Code");
                 RecGItemConfigurator.SetRange("Item Code", Item."No.");
-                if not RecGItemConfigurator.FindFirst then
-                    CurrReport.Skip;
+                if not RecGItemConfigurator.FindFirst() then
+                    CurrReport.Skip();
 
-                CodGActiveVersionCode := CduGVersionMgt.GetRtngVersion("Routing No.", WorkDate, true);
+                CodGActiveVersionCode := CduGVersionMgt.GetRtngVersion("Routing No.", WorkDate(), true);
                 if CodGActiveVersionCode = '' then begin
                     if not RecLRoutingHeader.Get("Routing No.") then
-                        CurrReport.Skip;
+                        CurrReport.Skip();
 
                     if RecLRoutingHeader.Status <> RecLRoutingHeader.Status::Certified then
-                        CurrReport.Skip;
+                        CurrReport.Skip();
                 end else begin
                     if not RecLRoutingVersion.Get("Routing No.", CodGActiveVersionCode) then
-                        CurrReport.Skip;
+                        CurrReport.Skip();
 
                     if RecLRoutingVersion.Status <> RecLRoutingVersion.Status::Certified then
-                        CurrReport.Skip;
+                        CurrReport.Skip();
                 end;
             end;
 
             trigger OnPostDataItem()
             begin
-                Bdialog.Close;
+                Bdialog.Close();
             end;
 
             trigger OnPreDataItem()
@@ -205,85 +205,85 @@ report 50035 "PWD Item Extraction"
                 IntGCounter := Count;
 
                 //Création de la ligne de titre
-                FctAddDelimiterOnly;
+                FctAddDelimiterOnly();
                 TestOutStream.WriteText(AsciiToAnsi(Item.FieldCaption("No.")));
-                FctAddSeparatorWithDelimitor;
+                FctAddSeparatorWithDelimitor();
                 TestOutStream.WriteText(AsciiToAnsi(Item.FieldCaption("PWD LPSA Description 1")));
-                FctAddSeparatorWithDelimitor;
+                FctAddSeparatorWithDelimitor();
                 TestOutStream.WriteText(AsciiToAnsi(Item.FieldCaption("PWD LPSA Description 2")));
-                FctAddSeparatorWithDelimitor;
+                FctAddSeparatorWithDelimitor();
                 TestOutStream.WriteText(AsciiToAnsi(Item.FieldCaption("Search Description")));
-                FctAddSeparatorWithDelimitor;
+                FctAddSeparatorWithDelimitor();
                 TestOutStream.WriteText(AsciiToAnsi(Item.FieldCaption("Lot Size")));
-                FctAddSeparatorWithDelimitor;
+                FctAddSeparatorWithDelimitor();
                 TestOutStream.WriteText(AsciiToAnsi(Item.FieldCaption("Routing No.")));
-                FctAddSeparatorWithDelimitor;
+                FctAddSeparatorWithDelimitor();
                 TestOutStream.WriteText(AsciiToAnsi("Routing Line".FieldCaption("Version Code")));
-                FctAddSeparatorWithDelimitor;
+                FctAddSeparatorWithDelimitor();
                 TestOutStream.WriteText(AsciiToAnsi(RecGItemConfigurator.FieldCaption("Product Type")));
-                FctAddSeparatorWithDelimitor;
+                FctAddSeparatorWithDelimitor();
                 TestOutStream.WriteText(AsciiToAnsi(RecGItemConfigurator.FieldCaption("Location Code")));
-                FctAddSeparatorWithDelimitor;
+                FctAddSeparatorWithDelimitor();
                 TestOutStream.WriteText(AsciiToAnsi(RecGItemConfigurator.FieldCaption("Product Group Code")));
-                FctAddSeparatorWithDelimitor;
+                FctAddSeparatorWithDelimitor();
                 TestOutStream.WriteText('PIE_' + AsciiToAnsi(RecGItemConfigurator.FieldCaption("Piece Type Stone")));
-                FctAddSeparatorWithDelimitor;
+                FctAddSeparatorWithDelimitor();
                 TestOutStream.WriteText('PIE_' + AsciiToAnsi(RecGItemConfigurator.FieldCaption("Matter Stone")));
-                FctAddSeparatorWithDelimitor;
+                FctAddSeparatorWithDelimitor();
                 TestOutStream.WriteText('PIE_' + AsciiToAnsi(RecGItemConfigurator.FieldCaption(Hole)));
-                FctAddSeparatorWithDelimitor;
+                FctAddSeparatorWithDelimitor();
                 TestOutStream.WriteText('PIE_' + AsciiToAnsi(RecGItemConfigurator.FieldCaption("External Diameter")));
-                FctAddSeparatorWithDelimitor;
+                FctAddSeparatorWithDelimitor();
                 TestOutStream.WriteText('PIE_' + AsciiToAnsi(RecGItemConfigurator.FieldCaption(Thickness)));
-                FctAddSeparatorWithDelimitor;
+                FctAddSeparatorWithDelimitor();
                 TestOutStream.WriteText('PREP_' + AsciiToAnsi(RecGItemConfigurator.FieldCaption("Piercing Min.")));
-                FctAddSeparatorWithDelimitor;
+                FctAddSeparatorWithDelimitor();
                 TestOutStream.WriteText('PREP_' + AsciiToAnsi(RecGItemConfigurator.FieldCaption("Piercing Max.")));
-                FctAddSeparatorWithDelimitor;
+                FctAddSeparatorWithDelimitor();
                 TestOutStream.WriteText('PREP_' + AsciiToAnsi(RecGItemConfigurator.FieldCaption("Diameter Min.")));
-                FctAddSeparatorWithDelimitor;
+                FctAddSeparatorWithDelimitor();
                 TestOutStream.WriteText('PREP_' + AsciiToAnsi(RecGItemConfigurator.FieldCaption("Diameter Max.")));
-                FctAddSeparatorWithDelimitor;
+                FctAddSeparatorWithDelimitor();
                 TestOutStream.WriteText('PREP_' + AsciiToAnsi(RecGItemConfigurator.FieldCaption("Thick Min.")));
-                FctAddSeparatorWithDelimitor;
+                FctAddSeparatorWithDelimitor();
                 TestOutStream.WriteText('PREP_' + AsciiToAnsi(RecGItemConfigurator.FieldCaption("Thick Max.")));
-                FctAddSeparatorWithDelimitor;
+                FctAddSeparatorWithDelimitor();
                 TestOutStream.WriteText('SEMI.OUV_' + AsciiToAnsi(RecGItemConfigurator.FieldCaption("Hole Tol")));
-                FctAddSeparatorWithDelimitor;
+                FctAddSeparatorWithDelimitor();
                 TestOutStream.WriteText('SEMI.OUV_' + AsciiToAnsi(RecGItemConfigurator.FieldCaption("External Diameter Tol")));
-                FctAddSeparatorWithDelimitor;
+                FctAddSeparatorWithDelimitor();
                 TestOutStream.WriteText('SEMI.OUV_' + AsciiToAnsi(RecGItemConfigurator.FieldCaption("Ep Min.")));
-                FctAddSeparatorWithDelimitor;
+                FctAddSeparatorWithDelimitor();
                 TestOutStream.WriteText('SEMI.OUV_' + AsciiToAnsi(RecGItemConfigurator.FieldCaption("Ep Max.")));
-                FctAddSeparatorWithDelimitor;
+                FctAddSeparatorWithDelimitor();
                 TestOutStream.WriteText(AsciiToAnsi("Routing Line".FieldCaption("Operation No.")));
-                FctAddSeparatorWithDelimitor;
+                FctAddSeparatorWithDelimitor();
                 TestOutStream.WriteText(AsciiToAnsi(CstG002));
-                FctAddSeparatorWithDelimitor;
+                FctAddSeparatorWithDelimitor();
                 TestOutStream.WriteText(AsciiToAnsi(CstG003));
-                FctAddSeparatorWithDelimitor;
+                FctAddSeparatorWithDelimitor();
                 TestOutStream.WriteText(AsciiToAnsi(CstG004));
-                FctAddSeparatorWithDelimitor;
+                FctAddSeparatorWithDelimitor();
                 TestOutStream.WriteText(AsciiToAnsi(CstG005));
-                FctAddSeparatorWithDelimitor;
+                FctAddSeparatorWithDelimitor();
                 TestOutStream.WriteText(AsciiToAnsi(CstG006));
-                FctAddSeparatorWithDelimitor;
+                FctAddSeparatorWithDelimitor();
                 TestOutStream.WriteText(AsciiToAnsi(RecGMachineCenter.FieldCaption(Capacity)));
-                FctAddSeparatorWithDelimitor;
+                FctAddSeparatorWithDelimitor();
                 TestOutStream.WriteText(AsciiToAnsi(RecGMachineCenter.FieldCaption(Efficiency)));
-                FctAddSeparatorWithDelimitor;
+                FctAddSeparatorWithDelimitor();
                 TestOutStream.WriteText(AsciiToAnsi("Routing Line".FieldCaption("Setup Time")));
-                FctAddSeparatorWithDelimitor;
+                FctAddSeparatorWithDelimitor();
                 TestOutStream.WriteText(AsciiToAnsi("Routing Line".FieldCaption("Run Time")));
-                FctAddSeparatorWithDelimitor;
+                FctAddSeparatorWithDelimitor();
                 TestOutStream.WriteText(AsciiToAnsi("Routing Line".FieldCaption("Move Time")));
                 //>>LAP2.13 (P24578_004)
-                FctAddSeparatorWithDelimitor;
+                FctAddSeparatorWithDelimitor();
                 TestOutStream.WriteText(AsciiToAnsi("Routing Line".FieldCaption("Scrap Factor %")));
                 //<<LAP2.13 (P24578_004)
 
-                FctAddDelimiterOnly;
-                TestOutStream.WriteText;
+                FctAddDelimiterOnly();
+                TestOutStream.WriteText();
             end;
         }
     }
@@ -324,7 +324,6 @@ report 50035 "PWD Item Extraction"
 
     var
         TxtGFileName: Text[1024];
-        CstG001: Label 'Fichier à exporter';
         MyFile: File;
         TestOutStream: OutStream;
         Bdialog: Dialog;
@@ -382,9 +381,8 @@ report 50035 "PWD Item Extraction"
     local procedure InitCharArray()
     begin
         Clear(ANSIChar);
-        for i := 1 to 127 do begin
+        for i := 1 to 127 do
             ANSIChar[i] := i;
-        end;
 
         /*Ç*/
         ANSIChar[128] := 199;

@@ -79,7 +79,7 @@ table 8073282 "PWD Connector Error Log"
     var
         RecLICError: Record "PWD Connector Error Log";
     begin
-        if RecLICError.FindLast then
+        if RecLICError.FindLast() then
             "Entry No." := RecLICError."Entry No." + 1
         else
             "Entry No." := 1;

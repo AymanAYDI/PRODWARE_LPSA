@@ -12,7 +12,7 @@ report 60010 "PWD Update Printed Purch Order"
             trigger OnAfterGetRecord()
             begin
                 Printed := true;
-                Modify;
+                Modify();
             end;
         }
     }

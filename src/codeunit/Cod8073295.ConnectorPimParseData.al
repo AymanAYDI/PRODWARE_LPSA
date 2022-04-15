@@ -26,12 +26,9 @@ codeunit 8073295 "PWD Connector Pim Parse Data"
         BigTLToReturn: BigText;
         CduLBufferMgt: Codeunit "Buffer Management";
         InLStream: InStream;
-        OutLStream: OutStream;
         CduLFileManagement: Codeunit "File Management";
         TxtLFile: Text[1024];
         BooLResult: Boolean;
-        RecLConnectorsActivation: Record "PWD WMS Setup";
-        RecLRef: RecordRef;
         RecLConnectorMessages: Record "PWD Connector Messages";
     begin
         Clear(BigTLToReturn);
@@ -46,13 +43,12 @@ codeunit 8073295 "PWD Connector Pim Parse Data"
                     FctGetCustomerWithSep('', RecLConnectorMessages, RecLTempBlob);
                     RecLPartnerConnector."Data Format" := RecLPartnerConnector."Data Format"::"with separator";
                 end;
-            else begin
-                    case RecLPartnerConnector."Data Format" of
-                        RecLPartnerConnector."Data Format"::Xml:
-                            CduGConBufMgtExport.FctCreateXml('', RecLConnectorMessages, RecLTempBlob, true);
-                        RecLPartnerConnector."Data Format"::"with separator":
-                            CduGConBufMgtExport.FctCreateSeparator('', RecLConnectorMessages, RecLTempBlob);
-                    end;
+            else
+                case RecLPartnerConnector."Data Format" of
+                    RecLPartnerConnector."Data Format"::Xml:
+                        CduGConBufMgtExport.FctCreateXml('', RecLConnectorMessages, RecLTempBlob, true);
+                    RecLPartnerConnector."Data Format"::"with separator":
+                        CduGConBufMgtExport.FctCreateSeparator('', RecLConnectorMessages, RecLTempBlob);
                 end;
 
         end;
@@ -82,7 +78,7 @@ codeunit 8073295 "PWD Connector Pim Parse Data"
             Clear(InLStream);
             RecLConnectorValues.Get(IntGSequenceNo);
             RecLConnectorValues."File Name" := CopyStr(TxtLFile, 1, 250);
-            RecLConnectorValues.Modify;
+            RecLConnectorValues.Modify();
             RecLConnectorValues.CalcFields(Blob);
             RecLConnectorValues.Blob.CreateInStream(InLStream);
             BooLResult := CduLFileManagement.FctbTransformBlobToFile(TxtLFile, InLStream, "Partner Code",
@@ -100,8 +96,6 @@ codeunit 8073295 "PWD Connector Pim Parse Data"
     procedure FctGetCustomerWithSep(TxtPFilters: Text[1024]; RecPSendingMessage: Record "PWD Connector Messages"; var RecPTempBlob: Record TempBlob temporary)
     var
         RecLPartnerConnector: Record "PWD Partner Connector";
-        RecLFieldsExportSetup: Record "PWD Fields Export Setup";
-        CstLtxt001: Label 'Le partenaire n''a pas de séparateur défini';
         ChrL10: Char;
         ChrL13: Char;
         BigTLBigTextToReturn: BigText;
@@ -117,7 +111,7 @@ codeunit 8073295 "PWD Connector Pim Parse Data"
         //**********************************************************************************************************//
 
 
-        RecLCustomer.Reset;
+        RecLCustomer.Reset();
         ChrL10 := 10;
         ChrL13 := 13;
         if RecLPartnerConnector.Get(RecPSendingMessage."Partner Code") then begin
@@ -130,15 +124,15 @@ codeunit 8073295 "PWD Connector Pim Parse Data"
                 Clear(RecLRef);
                 RecLRef.Open(RecPSendingMessage."Table ID");
                 CduGConBufMgtExport.FctSetExportDateFilter(RecPSendingMessage, RecLRef);
-                if RecLRef.GetView <> '' then
-                    RecLCustomer.SetView(RecLRef.GetView);
-                RecLRef.Close;
+                if RecLRef.GetView() <> '' then
+                    RecLCustomer.SetView(RecLRef.GetView());
+                RecLRef.Close();
             end;
             //<<WMS-FEMOT.001
 
             RecLPartnerConnector.TestField(Separator);
             if not RecLCustomer.IsEmpty then begin
-                RecLCustomer.FindSet;
+                RecLCustomer.FindSet();
                 repeat
                     //adresse du client
                     BigTLBigTextToReturn.AddText(Format(RecLCustomer."No."));
@@ -166,10 +160,10 @@ codeunit 8073295 "PWD Connector Pim Parse Data"
                     BigTLBigTextToReturn.AddText(Format(ChrL13) + Format(ChrL10));
 
                     //adresse de livraison
-                    RecLShiptoAddress.Reset;
+                    RecLShiptoAddress.Reset();
                     RecLShiptoAddress.SetRange("Customer No.", RecLCustomer."No.");
                     IntLShipNber := 1;
-                    if RecLShiptoAddress.FindFirst then
+                    if RecLShiptoAddress.FindFirst() then
                         repeat
                             BigTLBigTextToReturn.AddText(Format(RecLCustomer."No."));
                             BigTLBigTextToReturn.AddText(Format(RecLPartnerConnector.Separator));
@@ -195,7 +189,7 @@ codeunit 8073295 "PWD Connector Pim Parse Data"
                             BigTLBigTextToReturn.AddText(Format(RecLPartnerConnector.Separator));
                             BigTLBigTextToReturn.AddText(Format(ChrL13) + Format(ChrL10));
                             IntLShipNber += 1;
-                        until RecLShiptoAddress.Next = 0;
+                        until RecLShiptoAddress.Next() = 0;
 
                     //adresse du client facturé
                     if RecLCustomer."Bill-to Customer No." <> '' then
@@ -225,7 +219,7 @@ codeunit 8073295 "PWD Connector Pim Parse Data"
                             BigTLBigTextToReturn.AddText(Format(RecLBillToCust."No."));
                             BigTLBigTextToReturn.AddText(Format(ChrL13) + Format(ChrL10));
                         end;
-                until RecLCustomer.Next = 0;
+                until RecLCustomer.Next() = 0;
             end;
         end;
 

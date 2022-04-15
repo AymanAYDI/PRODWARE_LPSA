@@ -136,6 +136,7 @@ page 8073283 "PWD Partner Connector"
                     Promoted = true;
                     RunObject = Page "Sending Message List";
                     RunPageLink = Partner Code=                    ApplicationArea = All;
+                    ApplicationArea = All;
 FIELD(Code);
                     ShortCutKey = 'Shift+Ctrl+M';
                 }

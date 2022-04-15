@@ -25,7 +25,7 @@ codeunit 8073282 "PWD Connector Error log"
         //**********************************************************************************************************//
 
         with RecLICError do begin
-            Init;
+            Init();
             RecLICError.ErrorType := OptErrorLevel;
             RecLICError."Flow Type" := OptFlowType;
             RecLICError."Connector Partner" := CodConnectorPartner;

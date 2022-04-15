@@ -27,7 +27,7 @@ report 50059 "PWD Update Cost Method V2"
             trigger OnAfterGetRecord()
             begin
                 if PurchasedItem."Replenishment System" <> PurchasedItem."Replenishment System"::Purchase then
-                    CurrReport.Skip;
+                    CurrReport.Skip();
 
                 if OptCostMethForPurchasedItem = "Costing Method"::Specific then begin
                     PurchasedItem.TestField("Item Tracking Code");
@@ -40,28 +40,28 @@ report 50059 "PWD Update Cost Method V2"
                 end;
 
                 PurchasedItem."Costing Method" := OptCostMethForPurchasedItem;
-                PurchasedItem.Modify;
+                PurchasedItem.Modify();
 
                 ItemCostMgt.UpdateUnitCost(PurchasedItem, '', '', 0, 0, false, false, true, FieldNo("Costing Method"));
-                PurchasedItem.Modify;
+                PurchasedItem.Modify();
 
                 //>>NDBI
                 // MAJ Configurateur
-                RecGItemConfigurator.Reset;
+                RecGItemConfigurator.Reset();
                 RecGItemConfigurator.SetCurrentKey("Item Code");
                 RecGItemConfigurator.SetRange("Item Code", PurchasedItem."No.");
-                if RecGItemConfigurator.FindFirst then
+                if RecGItemConfigurator.FindFirst() then
                     repeat
                         RecGItemConfigurator."Costing Method" := PurchasedItem."Costing Method";
-                        RecGItemConfigurator.Modify;
-                    until RecGItemConfigurator.Next = 0;
+                        RecGItemConfigurator.Modify();
+                    until RecGItemConfigurator.Next() = 0;
                 //<<NDBI
             end;
 
             trigger OnPreDataItem()
             begin
                 if (OptGReplenishmentSystem = OptGReplenishmentSystem::Manufactured) then
-                    CurrReport.Break;
+                    CurrReport.Break();
 
                 PurchasedItem.SetRange("Replenishment System", PurchasedItem."Replenishment System"::Purchase);
             end;
@@ -75,7 +75,7 @@ report 50059 "PWD Update Cost Method V2"
             trigger OnAfterGetRecord()
             begin
                 if ManufacturedItem."Replenishment System" <> ManufacturedItem."Replenishment System"::"Prod. Order" then
-                    CurrReport.Skip;
+                    CurrReport.Skip();
 
                 if OptCostMethForManufacturedItem = "Costing Method"::Specific then begin
                     ManufacturedItem.TestField("Item Tracking Code");
@@ -88,28 +88,28 @@ report 50059 "PWD Update Cost Method V2"
                 end;
 
                 ManufacturedItem."Costing Method" := OptCostMethForManufacturedItem;
-                ManufacturedItem.Modify;
+                ManufacturedItem.Modify();
 
                 ItemCostMgt.UpdateUnitCost(ManufacturedItem, '', '', 0, 0, false, false, true, FieldNo("Costing Method"));
-                ManufacturedItem.Modify;
+                ManufacturedItem.Modify();
 
                 //>>NDBI
                 // MAJ Configurateur
-                RecGItemConfigurator.Reset;
+                RecGItemConfigurator.Reset();
                 RecGItemConfigurator.SetCurrentKey("Item Code");
                 RecGItemConfigurator.SetRange("Item Code", ManufacturedItem."No.");
-                if RecGItemConfigurator.FindFirst then
+                if RecGItemConfigurator.FindFirst() then
                     repeat
                         RecGItemConfigurator."Costing Method" := ManufacturedItem."Costing Method";
-                        RecGItemConfigurator.Modify;
-                    until RecGItemConfigurator.Next = 0;
+                        RecGItemConfigurator.Modify();
+                    until RecGItemConfigurator.Next() = 0;
                 //<<NDBI
             end;
 
             trigger OnPreDataItem()
             begin
                 if (OptGReplenishmentSystem = OptGReplenishmentSystem::Purchased) then
-                    CurrReport.Break;
+                    CurrReport.Break();
 
                 ManufacturedItem.SetRange("Replenishment System", ManufacturedItem."Replenishment System"::Purchase);
             end;
@@ -151,7 +151,7 @@ report 50059 "PWD Update Cost Method V2"
                     if not Confirm(CstG001, false, PurchasedItem.GetFilters, OptCostMethForPurchasedItem) then
                         Error(CstG004);
 
-                    RecLItem.Reset;
+                    RecLItem.Reset();
                     RecLItem.CopyFilters(PurchasedItem);
                     RecLItem.SetFilter(Inventory, '<>%1', 0);
                     if not RecLItem.IsEmpty then
@@ -165,7 +165,7 @@ report 50059 "PWD Update Cost Method V2"
                     if not Confirm(CstG002, false, ManufacturedItem.GetFilters, OptCostMethForManufacturedItem) then
                         Error(CstG004);
 
-                    RecLItem.Reset;
+                    RecLItem.Reset();
                     RecLItem.CopyFilters(ManufacturedItem);
                     RecLItem.SetFilter(Inventory, '<>%1', 0);
                     if not RecLItem.IsEmpty then
@@ -181,13 +181,13 @@ report 50059 "PWD Update Cost Method V2"
                                             ManufacturedItem.GetFilters, OptCostMethForManufacturedItem) then
                         Error(CstG004);
 
-                    RecLItem.Reset;
+                    RecLItem.Reset();
                     RecLItem.CopyFilters(PurchasedItem);
                     RecLItem.SetFilter(Inventory, '<>%1', 0);
                     if not RecLItem.IsEmpty then
                         Error(CstG008);
 
-                    RecLItem.Reset;
+                    RecLItem.Reset();
                     RecLItem.CopyFilters(ManufacturedItem);
                     RecLItem.SetFilter(Inventory, '<>%1', 0);
                     if not RecLItem.IsEmpty then

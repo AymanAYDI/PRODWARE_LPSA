@@ -17,133 +17,133 @@ report 99091 "PWD tmp art pierres"
                         begin
                             Validate("Location Code", 'PIE');
                             Validate("Shelf No.", 'GRAND');
-                            Modify;
+                            Modify();
                         end;
                     '5131':
                         begin
                             Validate("Location Code", 'PIE');
                             Validate("Shelf No.", 'TOURN_1');
-                            Modify;
+                            Modify();
                         end;
                     '5141':
                         begin
                             Validate("Location Code", 'PIE');
                             Validate("Shelf No.", 'CREUS');
-                            Modify;
+                            Modify();
                         end;
                     '5151':
                         begin
                             Validate("Location Code", 'PIE');
                             Validate("Shelf No.", 'OLIV');
-                            Modify;
+                            Modify();
                         end;
                     '5161':
                         begin
                             Validate("Location Code", 'PIE');
                             Validate("Shelf No.", 'POLI_2');
-                            Modify;
+                            Modify();
                         end;
                     '5171':
                         begin
                             Validate("Location Code", 'PIE');
                             Validate("Shelf No.", 'POLI_1');
-                            Modify;
+                            Modify();
                         end;
                     '8020':
                         begin
                             Validate("Location Code", 'PIE');
                             Validate("Shelf No.", 'PIE');
-                            Modify;
+                            Modify();
                         end;
                     '8030':
                         begin
                             Validate("Location Code", 'LEV_ELIPS');
                             Validate("Shelf No.", 'LEV_ELIPS');
-                            Modify;
+                            Modify();
                         end;
                     '8040':
                         begin
                             Validate("Location Code", 'LEV_ELIPS');
                             Validate("Shelf No.", 'LEV_ELIPS');
-                            Modify;
+                            Modify();
                         end;
                     '9901':
                         begin
                             Validate("Location Code", 'PIE');
                             Validate("Shelf No.", 'CP');
-                            Modify;
+                            Modify();
                         end;
                     '9902':
                         begin
                             Validate("Location Code", 'PIE');
                             Validate("Shelf No.", 'PREP');
-                            Modify;
+                            Modify();
                         end;
                     '9903':
                         begin
                             Validate("Location Code", 'PIE');
                             Validate("Shelf No.", 'BAR_TUB');
-                            Modify;
+                            Modify();
                         end;
                     '9904':
                         begin
                             Validate("Location Code", 'LEV_ELIPS');
                             Validate("Shelf No.", 'CARRELET');
-                            Modify;
+                            Modify();
                         end;
                     '9905':
                         begin
                             Validate("Location Code", 'LEV_ELIPS');
                             Validate("Shelf No.", 'CHEV');
-                            Modify;
+                            Modify();
                         end;
                     '9906':
                         begin
                             Validate("Location Code", 'PIE');
                             Validate("Shelf No.", 'GOUP');
-                            Modify;
+                            Modify();
                         end;
                     '9911':
                         begin
                             Validate("Location Code", 'PIE');
                             Validate("Shelf No.", 'PERC_LASER');
-                            Modify;
+                            Modify();
                         end;
                     '9912':
                         begin
                             Validate("Location Code", 'PIE');
                             Validate("Shelf No.", 'PERC_BROCH');
-                            Modify;
+                            Modify();
                         end;
                     '9913':
                         begin
                             Validate("Location Code", 'PIE');
                             Validate("Shelf No.", 'P_FIL');
-                            Modify;
+                            Modify();
                         end;
                     '9914':
                         begin
                             Validate("Location Code", 'PIE');
                             Validate("Shelf No.", 'BAR_TUB');
-                            Modify;
+                            Modify();
                         end;
                     '9920':
                         begin
                             Validate("Location Code", 'PIE');
                             Validate("Shelf No.", 'PIE');
-                            Modify;
+                            Modify();
                         end;
                     '9930':
                         begin
                             Validate("Location Code", 'LEV_ELIPS');
                             Validate("Shelf No.", 'LEV_ELIPS');
-                            Modify;
+                            Modify();
                         end;
                     '9940':
                         begin
                             Validate("Location Code", 'LEV_ELIPS');
                             Validate("Shelf No.", 'LEV_ELIPS');
-                            Modify;
+                            Modify();
                         end;
 
 

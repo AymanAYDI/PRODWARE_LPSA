@@ -279,7 +279,7 @@ xmlport 8073323 "PWD Export Prod Order OSYS"
                             IntGTempField := "Prod. Order Routing Line".Type;
                             F_Type := FORMAT(IntGTempField);
                             */
-                            if ("Prod. Order Routing Line"."Planned Ress. No." <> '') and RecGOSYSSetup.PlannerOne and FctPlannerOnePermission then begin
+                            if ("Prod. Order Routing Line"."Planned Ress. No." <> '') and RecGOSYSSetup.PlannerOne and FctPlannerOnePermission() then begin
                                 IntGTempField := "Prod. Order Routing Line"."Planned Ress. Type";
                                 F_Type := Format(IntGTempField);
                             end
@@ -311,18 +311,17 @@ xmlport 8073323 "PWD Export Prod Order OSYS"
                             ELSE
                               F_No := '';
                             */
-                            if ("Prod. Order Routing Line"."Planned Ress. No." <> '') and RecGOSYSSetup.PlannerOne and FctPlannerOnePermission then begin
+                            if ("Prod. Order Routing Line"."Planned Ress. No." <> '') and RecGOSYSSetup.PlannerOne and FctPlannerOnePermission() then begin
                                 if "Prod. Order Routing Line"."Planned Ress. Type" = "Prod. Order Routing Line"."Planned Ress. Type"::"Machine Center" then
                                     F_No := "Prod. Order Routing Line"."Planned Ress. No."
                                 else
                                     F_No := '';
                             end
-                            else begin
+                            else
                                 if "Prod. Order Routing Line".Type = "Prod. Order Routing Line".Type::"Machine Center" then
                                     F_No := "Prod. Order Routing Line"."No."
                                 else
                                     F_No := '';
-                            end;
                             //>>OSYS-Int001.002
 
                         end;
@@ -533,14 +532,14 @@ xmlport 8073323 "PWD Export Prod Order OSYS"
 
                         trigger OnBeforePassVariable()
                         begin
-                            "Prod. Order Routing Line".Reset;
+                            "Prod. Order Routing Line".Reset();
                             "Prod. Order Routing Line".SetRange("Prod. Order No.", "Prod. Order Component"."Prod. Order No.");
                             "Prod. Order Routing Line".SetRange("Routing Link Code", "Prod. Order Component"."Routing Link Code");
-                            if "Prod. Order Routing Line".FindFirst then begin
-                                F_OperationNo := Format("Prod. Order Routing Line"."Operation No.");
-                            end else
+                            if "Prod. Order Routing Line".FindFirst() then
+                                F_OperationNo := Format("Prod. Order Routing Line"."Operation No.")
+                            else
                                 F_OperationNo := '';
-                            "Prod. Order Routing Line".Reset;
+                            "Prod. Order Routing Line".Reset();
                         end;
                     }
                     textelement(F_Postion1)
@@ -602,7 +601,7 @@ xmlport 8073323 "PWD Export Prod Order OSYS"
                         RecLProdOrderLine."Send to OSYS (Released)" := true
                     else
                         RecLProdOrderLine."Send to OSYS (Finished)" := true;
-                    RecLProdOrderLine.Modify;
+                    RecLProdOrderLine.Modify();
                 end;
 
                 trigger OnPreXmlItem()
@@ -666,8 +665,6 @@ xmlport 8073323 "PWD Export Prod Order OSYS"
         FieldRef: FieldRef;
         CodLConnectorOSYSParseData: Codeunit "Connector OSYS Parse Data";
         CodLNextOp: Code[1024];
-        FieldLRef: FieldRef;
-        "-Spe-": Integer;
         RecLProdOrderComponent2: Record "Prod. Order Component";
     begin
         BooLError := false;
@@ -679,9 +676,9 @@ xmlport 8073323 "PWD Export Prod Order OSYS"
 
         if BooPInsertValue then begin
             RecordRefTemp.GetTable("Prod. Order Line");
-            RecordRefTemp.Init;
+            RecordRefTemp.Init();
             CduGConnectorBufferMgtExport.FctTransferFields(RecordRef, RecordRefTemp);
-            RecordRefTemp.Insert;
+            RecordRefTemp.Insert();
         end;
 
         //>>DEBUT Parcours de la tracabilité
@@ -693,7 +690,7 @@ xmlport 8073323 "PWD Export Prod Order OSYS"
             RecLProdOrderComponent2.SetRange("Flushing Method");
             RecLProdOrderComponent2.SetRange("Lot Determining", true);
             if not RecLProdOrderComponent2.IsEmpty then begin
-                RecLProdOrderComponent2.FindFirst;
+                RecLProdOrderComponent2.FindFirst();
                 FctProdOrderTrackingSpecCompo(RecLProdOrderComponent2, RecLTrackingSpecificationTemp);
                 FctGetTrackingSpecifComponent(RecLProdOrderComponent2, RecLTrackingSpecificationTemp);
             end;
@@ -701,7 +698,7 @@ xmlport 8073323 "PWD Export Prod Order OSYS"
         //<<Specifique.LPSA.001
 
         if not RecLTrackingSpecificationTemp.IsEmpty then begin
-            RecLTrackingSpecificationTemp.FindSet;
+            RecLTrackingSpecificationTemp.FindSet();
             repeat
                 RecordRef.GetTable(RecLTrackingSpecificationTemp);
 
@@ -711,21 +708,21 @@ xmlport 8073323 "PWD Export Prod Order OSYS"
                 if BooPInsertValue then begin
                     IntGTranckingSpecificationNo += 1;
                     RecordRefTemp.GetTable("Tracking Specification");
-                    RecordRefTemp.Init;
+                    RecordRefTemp.Init();
                     CduGConnectorBufferMgtExport.FctTransferFields(RecordRef, RecordRefTemp);
 
                     FieldRef := RecordRefTemp.Field(1);
                     FieldRef.Value := IntGTranckingSpecificationNo;
-                    RecordRefTemp.Insert;
+                    RecordRefTemp.Insert();
                 end;
-            until RecLTrackingSpecificationTemp.Next = 0;
+            until RecLTrackingSpecificationTemp.Next() = 0;
         end;
         //<<FIN Parcours de la tracabilité
 
         //>>DEBUT Parcours des liens associés
         FctRecordLink(RecPProdOrderLine, RecLRecordLink);
         if not RecLRecordLink.IsEmpty then begin
-            RecLRecordLink.FindSet;
+            RecLRecordLink.FindSet();
             repeat
                 RecordRef.GetTable(RecLRecordLink);
 
@@ -734,18 +731,18 @@ xmlport 8073323 "PWD Export Prod Order OSYS"
 
                 if BooPInsertValue then begin
                     RecordRefTemp.GetTable("Record Link");
-                    RecordRefTemp.Init;
+                    RecordRefTemp.Init();
                     CduGConnectorBufferMgtExport.FctTransferFields(RecordRef, RecordRefTemp);
-                    if RecordRefTemp.Insert then;
+                    if RecordRefTemp.Insert() then;
                 end;
-            until RecLRecordLink.Next = 0;
+            until RecLRecordLink.Next() = 0;
         end;
         //<<FIN Parcours des liens associés
 
         //>>DEBUT Parcours des gammes
         FctProdOrderRoutingLine(RecPProdOrderLine, RecLProdOrderRoutingLine);
         if not RecLProdOrderRoutingLine.IsEmpty then begin
-            RecLProdOrderRoutingLine.FindSet;
+            RecLProdOrderRoutingLine.FindSet();
             repeat
                 CodLNextOp := '';
                 if FctCanExportRoutingLine(RecLProdOrderRoutingLine, CodLNextOp) then begin
@@ -758,17 +755,17 @@ xmlport 8073323 "PWD Export Prod Order OSYS"
 
                     if BooPInsertValue then begin
                         RecordRefTemp.GetTable("Prod. Order Routing Line");
-                        RecordRefTemp.Init;
+                        RecordRefTemp.Init();
                         CduGConnectorBufferMgtExport.FctTransferFields(RecordRef, RecordRefTemp);
                         FieldRef := RecordRefTemp.Field(5);
                         FieldRef.Value(CopyStr(CodLNextOp, 1, 30));
-                        RecordRefTemp.Insert;
+                        RecordRefTemp.Insert();
                     end;
 
                     //>>DEBUT Parcours des liens associés
                     FctRecordLinkRouting(RecLProdOrderRoutingLine, RecLRecordLinkRouting);
                     if not RecLRecordLinkRouting.IsEmpty then begin
-                        RecLRecordLinkRouting.FindSet;
+                        RecLRecordLinkRouting.FindSet();
                         repeat
                             RecordRef.GetTable(RecLRecordLinkRouting);
 
@@ -777,19 +774,19 @@ xmlport 8073323 "PWD Export Prod Order OSYS"
 
                             if BooPInsertValue then begin
                                 RecordRefTemp.GetTable(RecordLinkRouting);
-                                RecordRefTemp.Init;
+                                RecordRefTemp.Init();
 
                                 CduGConnectorBufferMgtExport.FctTransferFields(RecordRef, RecordRefTemp);
-                                RecordRefTemp.Insert;
+                                RecordRefTemp.Insert();
                             end;
-                        until RecLRecordLinkRouting.Next = 0;
+                        until RecLRecordLinkRouting.Next() = 0;
                     end;
                     //<<FIN Parcours des liens associés
 
                     //>>DEBUT Parcours des lignes de commentaires d'une gamme
                     FctProdOrderRtngCommentLine(RecLProdOrderRoutingLine, RecLProdOrderRtngCommentLine);
                     if not RecLProdOrderRtngCommentLine.IsEmpty then begin
-                        RecLProdOrderRtngCommentLine.FindSet;
+                        RecLProdOrderRtngCommentLine.FindSet();
                         repeat
                             RecordRef.GetTable(RecLProdOrderRtngCommentLine);
 
@@ -798,18 +795,18 @@ xmlport 8073323 "PWD Export Prod Order OSYS"
 
                             if BooPInsertValue then begin
                                 RecordRefTemp.GetTable("Prod. Order Rtng Comment Line");
-                                RecordRefTemp.Init;
+                                RecordRefTemp.Init();
                                 CduGConnectorBufferMgtExport.FctTransferFields(RecordRef, RecordRefTemp);
-                                RecordRefTemp.Insert;
+                                RecordRefTemp.Insert();
                             end;
-                        until RecLProdOrderRtngCommentLine.Next = 0;
+                        until RecLProdOrderRtngCommentLine.Next() = 0;
                     end;
                     //<<FIN Parcours des lignes de commentaires d'une gamme
 
                     //>>DEBUT Parcours des outillages d'une gamme
                     FctProdOrderRoutingTool(RecLProdOrderRoutingLine, RecLProdOrderRoutingTool);
                     if not RecLProdOrderRoutingTool.IsEmpty then begin
-                        RecLProdOrderRoutingTool.FindSet;
+                        RecLProdOrderRoutingTool.FindSet();
                         repeat
                             RecordRef.GetTable(RecLProdOrderRoutingTool);
 
@@ -818,18 +815,18 @@ xmlport 8073323 "PWD Export Prod Order OSYS"
 
                             if BooPInsertValue then begin
                                 RecordRefTemp.GetTable("Prod. Order Routing Tool");
-                                RecordRefTemp.Init;
+                                RecordRefTemp.Init();
                                 CduGConnectorBufferMgtExport.FctTransferFields(RecordRef, RecordRefTemp);
-                                RecordRefTemp.Insert;
+                                RecordRefTemp.Insert();
                             end;
-                        until RecLProdOrderRoutingTool.Next = 0;
+                        until RecLProdOrderRoutingTool.Next() = 0;
                     end;
                     //<<FIN Parcours des outillages d'une gamme
 
                     //>>DEBUT Parcours des qualifications d'une gamme
                     FctProdOrderRtngPersonnel(RecLProdOrderRoutingLine, RecLProdOrderRtngPersonnel);
                     if not RecLProdOrderRtngPersonnel.IsEmpty then begin
-                        RecLProdOrderRtngPersonnel.FindSet;
+                        RecLProdOrderRtngPersonnel.FindSet();
                         repeat
                             RecordRef.GetTable(RecLProdOrderRtngPersonnel);
 
@@ -838,22 +835,22 @@ xmlport 8073323 "PWD Export Prod Order OSYS"
 
                             if BooPInsertValue then begin
                                 RecordRefTemp.GetTable("Prod. Order Routing Personnel");
-                                RecordRefTemp.Init;
+                                RecordRefTemp.Init();
                                 CduGConnectorBufferMgtExport.FctTransferFields(RecordRef, RecordRefTemp);
-                                RecordRefTemp.Insert;
+                                RecordRefTemp.Insert();
                             end;
-                        until RecLProdOrderRtngPersonnel.Next = 0;
+                        until RecLProdOrderRtngPersonnel.Next() = 0;
                     end;
                     //<<FIN Parcours des qualifications d'une gamme
                 end;
-            until RecLProdOrderRoutingLine.Next = 0;
+            until RecLProdOrderRoutingLine.Next() = 0;
         end;
         //<<FIN Parcours des gammes
 
         //>>DEBUT Parcours des composants
         FctProdOrderComponent(RecPProdOrderLine, RecLProdOrderComponent);
         if not RecLProdOrderComponent.IsEmpty then begin
-            RecLProdOrderComponent.FindSet;
+            RecLProdOrderComponent.FindSet();
             repeat
                 RecordRef.GetTable(RecLProdOrderComponent);
 
@@ -862,17 +859,17 @@ xmlport 8073323 "PWD Export Prod Order OSYS"
 
                 if BooPInsertValue then begin
                     RecordRefTemp.GetTable("Prod. Order Component");
-                    RecordRefTemp.Init;
+                    RecordRefTemp.Init();
                     CduGConnectorBufferMgtExport.FctTransferFields(RecordRef, RecordRefTemp);
-                    RecordRefTemp.Insert;
+                    RecordRefTemp.Insert();
                 end;
 
                 //>>DEBUT Parcours de la tracabilité
-                RecLTrackingSpecifCompoTemp.Reset;
-                RecLTrackingSpecifCompoTemp.DeleteAll;
+                RecLTrackingSpecifCompoTemp.Reset();
+                RecLTrackingSpecifCompoTemp.DeleteAll();
                 FctGetTrackingSpecifComponent(RecLProdOrderComponent, RecLTrackingSpecifCompoTemp);
                 if not RecLTrackingSpecifCompoTemp.IsEmpty then begin
-                    RecLTrackingSpecifCompoTemp.FindSet;
+                    RecLTrackingSpecifCompoTemp.FindSet();
                     repeat
                         RecordRef.GetTable(RecLTrackingSpecifCompoTemp);
 
@@ -882,17 +879,17 @@ xmlport 8073323 "PWD Export Prod Order OSYS"
                         if BooPInsertValue then begin
                             IntGTranckingSpecifCompoTempNo += 1;
                             RecordRefTemp.GetTable(TrackingSpecificationComponent);
-                            RecordRefTemp.Init;
+                            RecordRefTemp.Init();
                             CduGConnectorBufferMgtExport.FctTransferFields(RecordRef, RecordRefTemp);
 
                             FieldRef := RecordRefTemp.Field(1);
                             FieldRef.Value := IntGTranckingSpecifCompoTempNo;
-                            RecordRefTemp.Insert;
+                            RecordRefTemp.Insert();
                         end;
-                    until RecLTrackingSpecifCompoTemp.Next = 0;
+                    until RecLTrackingSpecifCompoTemp.Next() = 0;
                 end;
             //<<FIN Parcours de la tracabilité
-            until RecLProdOrderComponent.Next = 0;
+            until RecLProdOrderComponent.Next() = 0;
         end;
         //<<FIN Parcours des composants
 
@@ -905,30 +902,30 @@ xmlport 8073323 "PWD Export Prod Order OSYS"
         RecLProdOrderLine: Record "Prod. Order Line";
     begin
         //>>OSYS-Int001.002
-        RecGOSYSSetup.Get;
+        RecGOSYSSetup.Get();
         //<<OSYS-Int001.002
 
-        "Prod. Order Line".DeleteAll;
-        "Prod. Order Routing Line".DeleteAll;
-        "Prod. Order Rtng Comment Line".DeleteAll;
-        "Prod. Order Routing Tool".DeleteAll;
-        "Prod. Order Routing Personnel".DeleteAll;
-        "Prod. Order Component".DeleteAll;
-        TrackingSpecificationComponent.DeleteAll;
-        "Tracking Specification".DeleteAll;
-        "Record Link".DeleteAll;
-        RecordLinkRouting.DeleteAll;
+        "Prod. Order Line".DeleteAll();
+        "Prod. Order Routing Line".DeleteAll();
+        "Prod. Order Rtng Comment Line".DeleteAll();
+        "Prod. Order Routing Tool".DeleteAll();
+        "Prod. Order Routing Personnel".DeleteAll();
+        "Prod. Order Component".DeleteAll();
+        TrackingSpecificationComponent.DeleteAll();
+        "Tracking Specification".DeleteAll();
+        "Record Link".DeleteAll();
+        RecordLinkRouting.DeleteAll();
 
         CduGConnectorBufferMgtExport.FctInitValidateField(CodGConnectorPartner, 0);
 
         FctProdOrderLine(RecLProdOrderLine);
         //>>DEBUT Parcours des OF
         if not RecLProdOrderLine.IsEmpty then begin
-            RecLProdOrderLine.FindSet;
+            RecLProdOrderLine.FindSet();
             repeat
                 if not FctCheckValues(RecLProdOrderLine, false) then
                     FctCheckValues(RecLProdOrderLine, true);
-            until RecLProdOrderLine.Next = 0;
+            until RecLProdOrderLine.Next() = 0;
         end;
 
         exit(not "Prod. Order Line".IsEmpty);
@@ -1076,8 +1073,8 @@ xmlport 8073323 "PWD Export Prod Order OSYS"
         CduLBufferTrackingManagement: Codeunit "Buffer Tracking Management 2";
     begin
         if (RecLItem.Get(RecPProdOrderLine."Item No.") and (RecLItem."Item Tracking Code" <> '')) then begin
-            RecPTrackingSpecificationTemp.Reset;
-            RecPTrackingSpecificationTemp.DeleteAll;
+            RecPTrackingSpecificationTemp.Reset();
+            RecPTrackingSpecificationTemp.DeleteAll();
 
             if RecPProdOrderLine.Status = RecPProdOrderLine.Status::Finished then begin
                 IntGIndent += 1;
@@ -1100,7 +1097,7 @@ xmlport 8073323 "PWD Export Prod Order OSYS"
         RecLItem: Record Item;
         CduLBufferTrackingManagement: Codeunit "Buffer Tracking Management 2";
     begin
-        if (RecLItem.Get(RecPProdOrderComponent."Item No.") and (RecLItem."Item Tracking Code" <> '')) then begin
+        if (RecLItem.Get(RecPProdOrderComponent."Item No.") and (RecLItem."Item Tracking Code" <> '')) then
             if RecPProdOrderComponent.Status = RecPProdOrderComponent.Status::Finished then begin
                 IntGIndent += 1;
 
@@ -1113,7 +1110,6 @@ xmlport 8073323 "PWD Export Prod Order OSYS"
                 CduLBufferTrackingManagement.SetSource(RecLTrackingSpecification, RecPProdOrderComponent."Due Date");
                 CduLBufferTrackingManagement.GetTrackingSpecification(RecPTrackingSpecificationTemp);
             end;
-        end;
     end;
 
 
@@ -1149,13 +1145,13 @@ xmlport 8073323 "PWD Export Prod Order OSYS"
             exit(true);
         end
         else begin
-            RecLProdOrderRoutingLine2.FindSet;
+            RecLProdOrderRoutingLine2.FindSet();
             repeat
                 if CodPNextOp = '' then
                     CodPNextOp := RecLProdOrderRoutingLine2."Operation No."
                 else
                     CodPNextOp := CodPNextOp + '|' + RecLProdOrderRoutingLine2."Operation No.";
-            until RecLProdOrderRoutingLine2.Next = 0;
+            until RecLProdOrderRoutingLine2.Next() = 0;
             //RecPProdOrderRoutingLine.MODIFY;
         end;
 

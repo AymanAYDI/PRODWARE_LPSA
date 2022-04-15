@@ -20,7 +20,7 @@ report 99096 "PWD NETOYBUFFER"
                 RecLProdOrder: Record "Production Order";
             begin
                 if not RecLProdOrder.Get(RecLProdOrder.Status::Released, "Prod. Order No.") then
-                    Delete;
+                    Delete();
             end;
         }
     }

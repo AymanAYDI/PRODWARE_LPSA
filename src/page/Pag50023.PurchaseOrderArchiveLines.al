@@ -279,7 +279,7 @@ page 50023 "Purchase Order Archive Lines"
                     begin
                         //This functionality was copied from page #5167. Unsupported part was commented. Please check it.
                         /*CurrPage.PurchLinesArchive.FORM.*/
-                        _ShowDimensions;
+                        _ShowDimensions();
 
                     end;
                 }
@@ -293,7 +293,7 @@ page 50023 "Purchase Order Archive Lines"
                     begin
                         //This functionality was copied from page #5167. Unsupported part was commented. Please check it.
                         /*CurrPage.PurchLinesArchive.FORM.*/
-                        _ShowLineComments;
+                        _ShowLineComments();
 
                     end;
                 }
@@ -307,7 +307,7 @@ page 50023 "Purchase Order Archive Lines"
                         // dach0001.begin
                         //This functionality was copied from page #5167. Unsupported part was commented. Please check it.
                         /*CurrPage.PurchLinesArchive.FORM.*/
-                        ShowDocumentLineTracking;
+                        ShowDocumentLineTracking();
                         // dach0001.end
 
                     end;
@@ -319,25 +319,25 @@ page 50023 "Purchase Order Archive Lines"
 
     procedure _ShowDimensions()
     begin
-        Rec.ShowDimensions;
+        Rec.ShowDimensions();
     end;
 
 
     procedure ShowDimensions()
     begin
-        Rec.ShowDimensions;
+        Rec.ShowDimensions();
     end;
 
 
     procedure _ShowLineComments()
     begin
-        Rec.ShowLineComments;
+        Rec.ShowLineComments();
     end;
 
 
     procedure ShowLineComments()
     begin
-        Rec.ShowLineComments;
+        Rec.ShowLineComments();
     end;
 
 

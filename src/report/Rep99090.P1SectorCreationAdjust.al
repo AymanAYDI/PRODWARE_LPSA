@@ -6,7 +6,7 @@ report 99090 "P1 : Sector Creation+Adjust"
     {
         dataitem("Integer"; "Integer")
         {
-            DataItemTableView = WHERE (Number = CONST (1));
+            DataItemTableView = WHERE(Number = CONST(1));
 
             trigger OnAfterGetRecord()
             begin
@@ -77,7 +77,7 @@ report 99090 "P1 : Sector Creation+Adjust"
         }
         dataitem(WC; "Work Center")
         {
-            DataItemTableView = WHERE ("No." = FILTER (<> '*P'));
+            DataItemTableView = WHERE("No." = FILTER(<> '*P'));
 
             trigger OnAfterGetRecord()
             begin
@@ -92,7 +92,7 @@ report 99090 "P1 : Sector Creation+Adjust"
         }
         dataitem(WC2; "Work Center")
         {
-            DataItemTableView = WHERE (ResourceBehavior = FILTER (<> Ignored));
+            DataItemTableView = WHERE(ResourceBehavior = FILTER(<> Ignored));
 
             trigger OnAfterGetRecord()
             begin
@@ -128,11 +128,11 @@ report 99090 "P1 : Sector Creation+Adjust"
         }
         dataitem(RH; "Routing Header")
         {
-            DataItemTableView = WHERE (Description = CONST ('TEST'));
+            DataItemTableView = WHERE(Description = CONST('TEST'));
 
             trigger OnAfterGetRecord()
             begin
-                Delete;
+                Delete();
             end;
         }
         dataitem(RH2; "Routing Header")
@@ -146,7 +146,7 @@ report 99090 "P1 : Sector Creation+Adjust"
                 if CopyStr(RH2.Description, 1, 7) = 'Ru8sp30' then begin
                     RH2.Validate(PlanningGroup, 'PIERRES');
                     Modify(true)
-                end else begin
+                end else
                     case CopyStr(RH2."No.", 1, 3) of
                         'PIE':
                             begin
@@ -164,9 +164,9 @@ report 99090 "P1 : Sector Creation+Adjust"
                                 Modify(true);
                             end;
                         else begin
-                                RecLItem.Reset;
+                                RecLItem.Reset();
                                 RecLItem.SetRange(RecLItem."Routing No.", RH2."No.");
-                                if RecLItem.FindFirst then
+                                if RecLItem.FindFirst() then
                                     case RecLItem."Item Category Code" of
                                         'ACI':
                                             begin
@@ -195,9 +195,9 @@ report 99090 "P1 : Sector Creation+Adjust"
                                             end;
                                     end
                                 else begin
-                                    RecLItem2.Reset;
+                                    RecLItem2.Reset();
                                     RecLItem2.SetRange("No.", CopyStr(RH2."No.", 1, 8));
-                                    if RecLItem2.FindFirst then
+                                    if RecLItem2.FindFirst() then
                                         case RecLItem2."Item Category Code" of
                                             'ACI':
                                                 begin
@@ -228,24 +228,22 @@ report 99090 "P1 : Sector Creation+Adjust"
                                 end;
                             end;
                     end;
-                end
             end;
         }
         dataitem(POL; "Prod. Order Line")
         {
-            DataItemTableView = WHERE (Status = FILTER (<> Finished));
+            DataItemTableView = WHERE(Status = FILTER(<> Finished));
 
             trigger OnAfterGetRecord()
             var
                 RecLRouting: Record "Routing Header";
                 RecLItem: Record Item;
             begin
-                if RecLItem.Get(POL."Item No.") then begin
+                if RecLItem.Get(POL."Item No.") then
                     if RecLRouting.Get(RecLItem."Routing No.") then begin
                         POL.PlanningGroup := RecLRouting.PlanningGroup;
-                        POL.Modify;
+                        POL.Modify();
                     end;
-                end;
             end;
         }
     }

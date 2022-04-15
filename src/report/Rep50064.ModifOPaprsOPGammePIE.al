@@ -15,11 +15,11 @@ report 50064 "Modif OP après OP Gamme PIE"
     {
         dataitem("Routing Header"; "Routing Header")
         {
-            DataItemTableView = SORTING ("No.");
+            DataItemTableView = SORTING("No.");
             dataitem("Routing Line"; "Routing Line")
             {
-                DataItemLink = "Routing No." = FIELD ("No.");
-                DataItemTableView = SORTING ("Routing No.", "Version Code", "Operation No.") WHERE (Type = FILTER ("Machine Center"));
+                DataItemLink = "Routing No." = FIELD("No.");
+                DataItemTableView = SORTING("Routing No.", "Version Code", "Operation No.") WHERE(Type = FILTER("Machine Center"));
 
                 trigger OnAfterGetRecord()
                 var
@@ -34,7 +34,7 @@ report 50064 "Modif OP après OP Gamme PIE"
                         RecLWorkCenter.Get(RecLMachineCenter."Work Center No.");
                         "Routing Line"."Work Center No." := RecLWorkCenter."No.";
                         "Routing Line"."Work Center Group Code" := RecLWorkCenter."Work Center Group Code";
-                        "Routing Line".Modify;
+                        "Routing Line".Modify();
                     end;
 
                     CodGOperationToCheck := "Routing Line"."No.";
@@ -54,7 +54,7 @@ report 50064 "Modif OP après OP Gamme PIE"
 
             trigger OnPostDataItem()
             begin
-                BDialog.Close;
+                BDialog.Close();
             end;
 
             trigger OnPreDataItem()

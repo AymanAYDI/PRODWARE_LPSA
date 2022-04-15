@@ -13,7 +13,7 @@ codeunit 8073303 "PWD Binary File Management"
 
     trigger OnRun()
     begin
-        FctOpenFile2;
+        FctOpenFile2();
     end;
 
     var
@@ -135,12 +135,12 @@ codeunit 8073303 "PWD Binary File Management"
         IntPValueIndex -= 1;
 
         repeat
-            if CodPFieldSeparator <> '' then begin
+            if CodPFieldSeparator <> '' then
                 if TxtGChaTab[j] = CodPFieldSeparator then begin
                     IntPValueIndex -= 1;
                     BooLFindValue := (IntPValueIndex = -1);
                 end
-                else begin
+                else
                     if (IntPValueIndex = 0) and (CodPFieldSeparator <> '') then
                         if TxtGChaTab[j] <> CodPFieldSeparator then begin
                             if TxtGChaTab[j] = ' ' then
@@ -158,22 +158,18 @@ codeunit 8073303 "PWD Binary File Management"
                                     (TxtGChaTab[j + 1] = CodPFieldSeparator)) then
                                     x -= 1;
                             end
-                            else begin
+                            else
                                 if ((CodPFieldDelimiter <> '') and
                                     (TxtGChaTab[j] = CodPFieldDelimiter)) then
                                     x -= 1;
-                            end;
                         end;
-                end;
-            end;
             j += 1;
         until (BooLFindValue) or (j > ArrayLen(TxtGChaTab));
 
-        if (CodPFieldDelimiter <> '') then begin
+        if (CodPFieldDelimiter <> '') then
             if (TxtGChaTab[j - 1] = '') or
                (TxtGChaTab[j - 1] = CodPFieldDelimiter) then
                 TxtPBufferDatasTab[x] := '';
-        end;
 
         CompressArray(TxtPBufferDatasTab);
     end;
@@ -209,12 +205,12 @@ codeunit 8073303 "PWD Binary File Management"
         IntPValueIndex -= 1;
 
         repeat
-            if CodPFieldSeparator <> '' then begin
+            if CodPFieldSeparator <> '' then
                 if TxtGChaTab[j] = CodPFieldSeparator then begin
                     IntPValueIndex -= 1;
                     BooLFindValue := (IntPValueIndex = -1);
                 end
-                else begin
+                else
                     if (IntPValueIndex = 0) and (CodPFieldSeparator <> '') then
                         if TxtGChaTab[j] <> CodPFieldSeparator then begin
                             if TxtGChaTab[j] = Format(ChaLSpaceReplace) then
@@ -231,22 +227,18 @@ codeunit 8073303 "PWD Binary File Management"
                                     (TxtGChaTab[j + 1] = CodPFieldSeparator)) then
                                     TxtLVal := CopyStr(TxtLVal, 1, StrLen(TxtLVal) - 1);
                             end
-                            else begin
+                            else
                                 if ((CodPFieldDelimiter <> '') and
                                     (TxtGChaTab[j] = CodPFieldDelimiter)) then
                                     TxtLVal := CopyStr(TxtLVal, 1, StrLen(TxtLVal) - 1);
-                            end;
                         end;
-                end;
-            end;
             j += 1;
         until (BooLFindValue) or (j > ArrayLen(TxtGChaTab));
 
-        if (CodPFieldDelimiter <> '') then begin
+        if (CodPFieldDelimiter <> '') then
             if (TxtGChaTab[j - 1] = '') or
                (TxtGChaTab[j - 1] = CodPFieldDelimiter) then
                 TxtLVal := CopyStr(TxtLVal, 1, StrLen(TxtLVal) - 1);
-        end;
 
         exit(DelChr(TxtLVal, '<>', ' '));
     end;
@@ -268,12 +260,12 @@ codeunit 8073303 "PWD Binary File Management"
         IntPValueIndex -= 1;
 
         repeat
-            if txtPFieldSeparator <> '' then begin
+            if txtPFieldSeparator <> '' then
                 if TxtGChaTab[j] = txtPFieldSeparator then begin
                     IntPValueIndex -= 1;
                     BooLFindValue := (IntPValueIndex = -1);
                 end
-                else begin
+                else
                     if (IntPValueIndex = 0) and (txtPFieldSeparator <> '') then
                         if TxtGChaTab[j] <> txtPFieldSeparator then begin
                             if TxtGChaTab[j] = Format(ChaLSpaceReplace) then
@@ -290,22 +282,18 @@ codeunit 8073303 "PWD Binary File Management"
                                     (TxtGChaTab[j + 1] = txtPFieldSeparator)) then
                                     TxtLVal := CopyStr(TxtLVal, 1, StrLen(TxtLVal) - 1);
                             end
-                            else begin
+                            else
                                 if ((TxtPFieldDelimiter <> '') and
                                     (TxtGChaTab[j] = TxtPFieldDelimiter)) then
                                     TxtLVal := CopyStr(TxtLVal, 1, StrLen(TxtLVal) - 1);
-                            end;
                         end;
-                end;
-            end;
             j += 1;
         until (BooLFindValue) or (j > ArrayLen(TxtGChaTab));
 
-        if (TxtPFieldDelimiter <> '') then begin
+        if (TxtPFieldDelimiter <> '') then
             if (TxtGChaTab[j - 1] = '') or
                (TxtGChaTab[j - 1] = TxtPFieldDelimiter) then
                 TxtLVal := CopyStr(TxtLVal, 1, StrLen(TxtLVal) - 1);
-        end;
 
         exit(DelChr(TxtLVal, '<>', ' '));
     end;
@@ -354,12 +342,12 @@ codeunit 8073303 "PWD Binary File Management"
         IntPValueIndex -= 1;
 
         repeat
-            if txtPFieldSeparator <> '' then begin
+            if txtPFieldSeparator <> '' then
                 if TxtGChaTab[j] = txtPFieldSeparator then begin
                     IntPValueIndex -= 1;
                     BooLFindValue := (IntPValueIndex = -1);
                 end
-                else begin
+                else
                     if (IntPValueIndex = 0) and (txtPFieldSeparator <> '') then
                         if TxtGChaTab[j] <> txtPFieldSeparator then begin
                             if TxtGChaTab[j] = Format(ChaLSpaceReplace) then
@@ -376,22 +364,18 @@ codeunit 8073303 "PWD Binary File Management"
                                     (TxtGChaTab[j + 1] = txtPFieldSeparator)) then
                                     TxtLVal := CopyStr(TxtLVal, 1, StrLen(TxtLVal) - 1);
                             end
-                            else begin
+                            else
                                 if ((TxtPFieldDelimiter <> '') and
                                     (TxtGChaTab[j] = TxtPFieldDelimiter)) then
                                     TxtLVal := CopyStr(TxtLVal, 1, StrLen(TxtLVal) - 1);
-                            end;
                         end;
-                end;
-            end;
             j += 1;
         until (BooLFindValue) or (j > ArrayLen(TxtGChaTab));
 
-        if (TxtPFieldDelimiter <> '') then begin
+        if (TxtPFieldDelimiter <> '') then
             if (TxtGChaTab[j - 1] = '') or
                (TxtGChaTab[j - 1] = TxtPFieldDelimiter) then
                 TxtLVal := CopyStr(TxtLVal, 1, StrLen(TxtLVal) - 1);
-        end;
 
         exit(TxtLVal);
     end;
@@ -449,22 +433,18 @@ codeunit 8073303 "PWD Binary File Management"
     begin
         IntLTotalElement := CompressArray(TxtGChaTab2);
         ChaLSpaceReplace := 231;
-        if CodPFieldSeparator <> '' then begin
-            for j := 1 to IntLTotalElement - 1 do begin
+        if CodPFieldSeparator <> '' then
+            for j := 1 to IntLTotalElement - 1 do
+                if TxtGChaTab2[j] = Format(ChaLSpaceReplace) then
+                    OusGOustream.WriteText(Format(' '))
+                else
+                    OusGOustream.WriteText(Format(TxtGChaTab2[j]))
+        else
+            for j := 1 to IntLTotalElement do
                 if TxtGChaTab2[j] = Format(ChaLSpaceReplace) then
                     OusGOustream.WriteText(Format(' '))
                 else
                     OusGOustream.WriteText(Format(TxtGChaTab2[j]));
-            end;
-        end
-        else begin
-            for j := 1 to IntLTotalElement do begin
-                if TxtGChaTab2[j] = Format(ChaLSpaceReplace) then
-                    OusGOustream.WriteText(Format(' '))
-                else
-                    OusGOustream.WriteText(Format(TxtGChaTab2[j]));
-            end;
-        end;
         OusGOustream.WriteText('');
 
         if BooPLF then begin
@@ -484,7 +464,6 @@ codeunit 8073303 "PWD Binary File Management"
     procedure FctWriteLineDirect(TxtPValue: Text[250]; CodPFieldSeparator: Code[10]; CodPFieldDelimiter: Code[10]; IntPFixLength: Integer; TxtPCompChar: Text[1]; CodPSens: Text[1]; BooPLF: Boolean; BooPCR: Boolean): Boolean
     var
         j: Integer;
-        IntLTotalElement: Integer;
         ChaLLForCR: Char;
         ChaLSpaceReplace: Char;
         TxtLComp: Text[250];
@@ -540,7 +519,7 @@ codeunit 8073303 "PWD Binary File Management"
     procedure FctCloseFile()
     begin
         if GuiAllowed then
-            DiaGWin.Close;
+            DiaGWin.Close();
 
         FilGFile.Close;
     end;
@@ -573,11 +552,8 @@ codeunit 8073303 "PWD Binary File Management"
 
     procedure FctModifyLineDirect(TxtPValue: Text[250]; CodPFieldSeparator: Code[10]; CodPFieldDelimiter: Code[10]; IntPBegin: Integer; IntPFixLength: Integer; TxtPCompChar: Text[1]; CodPSens: Text[1]; BooPLF: Boolean; BooPCR: Boolean): Boolean
     var
-        j: Integer;
-        IntLTotalElement: Integer;
         ChaLLForCR: Char;
         ChaLSpaceReplace: Char;
-        TxtLComp: Text[250];
         TxtLValue: Text[250];
         i: Integer;
     begin
@@ -585,9 +561,8 @@ codeunit 8073303 "PWD Binary File Management"
 
         if IntPBegin > 0 then begin
             TxtLValue := CopyStr(FctReturnRetreiveVarDatas(1, CodPFieldSeparator, CodPFieldDelimiter), 1, IntPBegin - 1);
-            for i := 1 to IntPFixLength do begin
+            for i := 1 to IntPFixLength do
                 TxtLValue += TxtPValue;
-            end;
         end;
         TxtPValue := TxtLValue;
 

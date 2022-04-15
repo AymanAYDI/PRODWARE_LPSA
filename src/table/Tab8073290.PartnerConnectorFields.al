@@ -36,7 +36,7 @@ table 8073290 "PWD Partner Connector Fields"
                 FrmLObjects.SETRECORD(RecLObject);
                 FrmLObjects.SETTABLEVIEW(RecLObject);
                 FrmLObjects.LOOKUPMODE := TRUE;
-                IF FrmLObjects.RUNMODAL = ACTION::LookupOK THEN BEGIN
+                IF FrmLObjects.RUNMODAL() = ACTION::LookupOK THEN BEGIN
                     FrmLObjects.GETRECORD(RecLObject);
                     VALIDATE("Table ID", RecLObject.ID);
                 END;
@@ -69,7 +69,7 @@ table 8073290 "PWD Partner Connector Fields"
                 FrmLFields.SETTABLEVIEW(RecLField);
                 FrmLFields.LOOKUPMODE := TRUE;
                 FrmLFields.EDITABLE := FALSE;
-                IF FrmLFields.RUNMODAL = ACTION::LookupOK THEN BEGIN
+                IF FrmLFields.RUNMODAL() = ACTION::LookupOK THEN BEGIN
                     FrmLFields.GETRECORD(RecLField);
                     VALIDATE("Field ID", RecLField."No.");
                 END;

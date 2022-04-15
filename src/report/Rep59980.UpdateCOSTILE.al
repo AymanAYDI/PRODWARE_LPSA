@@ -68,7 +68,7 @@ report 59980 "PWD Update COST ILE"
                             //    ELSE BEGIN
                             //      IF Positive THEN BEGIN
                             //      END ELSE BEGIN
-                            ItemApplnEntry.Reset;
+                            ItemApplnEntry.Reset();
                             ItemApplnEntry.SetCurrentKey("Outbound Item Entry No.", "Item Ledger Entry No.", "Cost Application");
                             ItemApplnEntry.SetRange("Outbound Item Entry No.", "Entry No.");
                             ItemApplnEntry.SetRange("Item Ledger Entry No.", "Entry No.");
@@ -78,10 +78,10 @@ report 59980 "PWD Update COST ILE"
                                     RecLOldEntrt.Get(ItemApplnEntry."Inbound Item Entry No.");
 
                                     if not RecLOldEntrt."Completely Invoiced" then
-                                        CurrReport.Skip;
+                                        CurrReport.Skip();
                                     RecLOldEntrt.CalcFields("Cost Amount (Actual)", "Cost Amount (Expected)");
                                     if not ((RecLOldEntrt."Cost Amount (Actual)" = 0) and (RecLOldEntrt."Cost Amount (Expected)" = 0)) then
-                                        CurrReport.Skip;
+                                        CurrReport.Skip();
                                 //          RecLItem2.GET(RecLOldEntrt."Item No.");
                                 //          RecLILE.RESET;
                                 //          RecLILE.SETRANGE("Journal Template Name",'REEVAL');
@@ -102,12 +102,12 @@ report 59980 "PWD Update COST ILE"
                                     RecLILE.MODIFY;
                                     IntG += 10000;
                                    END;*/
-                                until ItemApplnEntry.Next = 0;
+                                until ItemApplnEntry.Next() = 0;
                             //      END;
                             //    END;
                         end;
                     end else
-                        CurrReport.Skip;
+                        CurrReport.Skip();
 
                 end;
             }
@@ -116,10 +116,10 @@ report 59980 "PWD Update COST ILE"
             var
                 RecLILE: Record "Item Journal Line";
             begin
-                RecLILE.Reset;
+                RecLILE.Reset();
                 RecLILE.SetRange("Journal Template Name", 'REEVAL');
                 RecLILE.SetRange("Journal Batch Name", 'COUTS');
-                if RecLILE.FindLast then
+                if RecLILE.FindLast() then
                     IntG := RecLILE."Line No." + 10000
                 else
                     IntG := 10000;

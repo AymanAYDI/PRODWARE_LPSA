@@ -25,34 +25,31 @@ table 50006 "PWD Manufacturing cycles Setup"
             begin
                 case Type of
                     Type::"Work Center":
-                        begin
-                            if RecGWorkCenter.Get("No.") then begin
-                                Name := RecGWorkCenter.Name;
-                                "Setup Time Unit of Meas. Code" := RecGWorkCenter."Unit of Measure Code";
-                                "Run Time Unit of Meas. Code" := RecGWorkCenter."Unit of Measure Code";
-                            end else begin
-                                Name := '';
-                                "Setup Time Unit of Meas. Code" := '';
-                                "Run Time Unit of Meas. Code" := '';
-                            end;
+                        if RecGWorkCenter.Get("No.") then begin
+                            Name := RecGWorkCenter.Name;
+                            "Setup Time Unit of Meas. Code" := RecGWorkCenter."Unit of Measure Code";
+                            "Run Time Unit of Meas. Code" := RecGWorkCenter."Unit of Measure Code";
+                        end else begin
+                            Name := '';
+                            "Setup Time Unit of Meas. Code" := '';
+                            "Run Time Unit of Meas. Code" := '';
                         end;
                     Type::"Machine Center":
-                        begin
-                            if RecGMachineCenter.Get("No.") then begin
-                                Name := RecGMachineCenter.Name;
-                                if RecGWorkCenter.Get(RecGMachineCenter."Work Center No.") then begin
-                                    "Setup Time Unit of Meas. Code" := RecGWorkCenter."Unit of Measure Code";
-                                    "Run Time Unit of Meas. Code" := RecGWorkCenter."Unit of Measure Code";
-                                end
-                                else begin
-                                    "Setup Time Unit of Meas. Code" := '';
-                                    "Run Time Unit of Meas. Code" := '';
-                                end;
-                            end else begin
-                                Name := '';
+
+                        if RecGMachineCenter.Get("No.") then begin
+                            Name := RecGMachineCenter.Name;
+                            if RecGWorkCenter.Get(RecGMachineCenter."Work Center No.") then begin
+                                "Setup Time Unit of Meas. Code" := RecGWorkCenter."Unit of Measure Code";
+                                "Run Time Unit of Meas. Code" := RecGWorkCenter."Unit of Measure Code";
+                            end
+                            else begin
                                 "Setup Time Unit of Meas. Code" := '';
                                 "Run Time Unit of Meas. Code" := '';
                             end;
+                        end else begin
+                            Name := '';
+                            "Setup Time Unit of Meas. Code" := '';
+                            "Run Time Unit of Meas. Code" := '';
                         end;
                 end;
             end;
@@ -68,34 +65,32 @@ table 50006 "PWD Manufacturing cycles Setup"
             begin
                 case Type of
                     Type::"Work Center":
-                        begin
-                            if RecGWorkCenter.Get("No.") then begin
-                                Name := RecGWorkCenter.Name;
-                                "Setup Time Unit of Meas. Code" := RecGWorkCenter."Unit of Measure Code";
-                                "Run Time Unit of Meas. Code" := RecGWorkCenter."Unit of Measure Code";
-                            end else begin
-                                Name := '';
-                                "Setup Time Unit of Meas. Code" := '';
-                                "Run Time Unit of Meas. Code" := '';
-                            end;
+
+                        if RecGWorkCenter.Get("No.") then begin
+                            Name := RecGWorkCenter.Name;
+                            "Setup Time Unit of Meas. Code" := RecGWorkCenter."Unit of Measure Code";
+                            "Run Time Unit of Meas. Code" := RecGWorkCenter."Unit of Measure Code";
+                        end else begin
+                            Name := '';
+                            "Setup Time Unit of Meas. Code" := '';
+                            "Run Time Unit of Meas. Code" := '';
                         end;
                     Type::"Machine Center":
-                        begin
-                            if RecGMachineCenter.Get("No.") then begin
-                                Name := RecGMachineCenter.Name;
-                                if RecGWorkCenter.Get(RecGMachineCenter."Work Center No.") then begin
-                                    "Setup Time Unit of Meas. Code" := RecGWorkCenter."Unit of Measure Code";
-                                    "Run Time Unit of Meas. Code" := RecGWorkCenter."Unit of Measure Code";
-                                end
-                                else begin
-                                    "Setup Time Unit of Meas. Code" := '';
-                                    "Run Time Unit of Meas. Code" := '';
-                                end;
-                            end else begin
-                                Name := '';
+
+                        if RecGMachineCenter.Get("No.") then begin
+                            Name := RecGMachineCenter.Name;
+                            if RecGWorkCenter.Get(RecGMachineCenter."Work Center No.") then begin
+                                "Setup Time Unit of Meas. Code" := RecGWorkCenter."Unit of Measure Code";
+                                "Run Time Unit of Meas. Code" := RecGWorkCenter."Unit of Measure Code";
+                            end
+                            else begin
                                 "Setup Time Unit of Meas. Code" := '';
                                 "Run Time Unit of Meas. Code" := '';
                             end;
+                        end else begin
+                            Name := '';
+                            "Setup Time Unit of Meas. Code" := '';
+                            "Run Time Unit of Meas. Code" := '';
                         end;
                 end;
             end;
@@ -147,7 +142,7 @@ table 50006 "PWD Manufacturing cycles Setup"
             trigger OnValidate()
             begin
                 if ("Maximun Quantity by cycle" <> 0) and ("Qty - Units of Measure" <> '') then
-                    FctCalcQtyBase
+                    FctCalcQtyBase()
                 else
                     "Maximun Qty by cycle (Base)" := 0;
             end;
@@ -160,7 +155,7 @@ table 50006 "PWD Manufacturing cycles Setup"
             trigger OnValidate()
             begin
                 if ("Maximun Quantity by cycle" <> 0) and ("Qty - Units of Measure" <> '') then
-                    FctCalcQtyBase
+                    FctCalcQtyBase()
                 else
                     "Maximun Qty by cycle (Base)" := 0;
             end;

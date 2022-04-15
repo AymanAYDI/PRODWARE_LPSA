@@ -194,7 +194,6 @@ page 50020 "PWD Routing Lines choice"
     end;
 
     var
-        RtngComment: Record "Routing Comment Line";
         [InDataSet]
         BooGStyle: Boolean;
 
@@ -226,10 +225,10 @@ page 50020 "PWD Routing Lines choice"
                 LastRL := FirstRL;
                 More := (RLCount > 0);
                 WHILE More DO
-                    IF RL.NEXT = 0 THEN
+                    IF RL.NEXT() = 0 THEN
                         More := FALSE
                     ELSE
-                        IF NOT RL.MARK THEN
+                        IF NOT RL.MARK() THEN
                             More := FALSE
                         ELSE BEGIN
                             LastRL := RL."Operation No.";
@@ -245,7 +244,7 @@ page 50020 "PWD Routing Lines choice"
                     SelectionFilter := SelectionFilter + FirstRL + '..' + LastRL;
                 IF RLCount > 0 THEN BEGIN
                     RL.MARKEDONLY(TRUE);
-                    RL.NEXT;
+                    RL.NEXT();
                 END;
             END;
         END;

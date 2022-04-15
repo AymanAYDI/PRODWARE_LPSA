@@ -32,7 +32,7 @@ codeunit 8073293 "PWD Convert Ascii To Ansi"
 
     procedure AsciiToAnsi(var TextAscii: Text[250]) TextAnsi: Text[250]
     begin
-        InitConversionArray;
+        InitConversionArray();
         TextAnsi := TextAscii;
         for pos := 1 to StrLen(TextAscii) do
             if (TextAnsi[pos] > 127) then begin                      //different chars after 127
@@ -54,7 +54,7 @@ codeunit 8073293 "PWD Convert Ascii To Ansi"
 
     procedure AnsiToAscii(var TextAnsi: Text[250]) TextAscii: Text[250]
     begin
-        InitConversionArray;
+        InitConversionArray();
         TextAscii := TextAnsi;
         for pos := 1 to StrLen(TextAscii) do
             if (TextAscii[pos] > 127) then begin                     //different chars after 127

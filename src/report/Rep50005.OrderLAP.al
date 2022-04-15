@@ -259,7 +259,7 @@ report 50005 "PWD Order LAP"
                     column(Text015; CstGText015)
                     {
                     }
-                    column(STRSUBSTNO_Text005_FORMAT_CurrReport_PAGENO__; StrSubstNo(Text005, Format(CurrReport.PageNo)))
+                    column(STRSUBSTNO_Text005_FORMAT_CurrReport_PAGENO__; StrSubstNo(Text005, Format(CurrReport.PageNo())))
                     {
                     }
                     column(CopyText_Control1150106; CopyText)
@@ -310,10 +310,10 @@ report 50005 "PWD Order LAP"
                         begin
                             if Number = 1 then begin
                                 if not DocDim1.Find('-') then
-                                    CurrReport.Break;
+                                    CurrReport.Break();
                             end else
                                 if not Continue then
-                                    CurrReport.Break;
+                                    CurrReport.Break();
 
                             Clear(DimText);
                             Continue := false;
@@ -338,7 +338,7 @@ report 50005 "PWD Order LAP"
                         trigger OnPreDataItem()
                         begin
                             if not ShowInternalInfo then
-                                CurrReport.Break;
+                                CurrReport.Break();
                         end;
                     }
                     dataitem("Purchase Line"; "Purchase Line")
@@ -349,7 +349,7 @@ report 50005 "PWD Order LAP"
 
                         trigger OnPreDataItem()
                         begin
-                            CurrReport.Break;
+                            CurrReport.Break();
                         end;
                     }
                     dataitem(RoundLoop; "Integer")
@@ -467,7 +467,7 @@ report 50005 "PWD Order LAP"
                         column(TotalInclVATText; TotalInclVATText)
                         {
                         }
-                        column(VATAmountLine_VATAmountText; VATAmountLine.VATAmountText)
+                        column(VATAmountLine_VATAmountText; VATAmountLine.VATAmountText())
                         {
                         }
                         column(VATAmount; VATAmount)
@@ -493,7 +493,7 @@ report 50005 "PWD Order LAP"
                             AutoFormatExpression = "Purchase Header"."Currency Code";
                             AutoFormatType = 1;
                         }
-                        column(VATAmountLine_VATAmountText_Control32; VATAmountLine.VATAmountText)
+                        column(VATAmountLine_VATAmountText_Control32; VATAmountLine.VATAmountText())
                         {
                         }
                         column(TotalExclVATText_Control51; TotalExclVATText)
@@ -585,10 +585,10 @@ report 50005 "PWD Order LAP"
                             begin
                                 if Number = 1 then begin
                                     if not DocDim2.Find('-') then
-                                        CurrReport.Break;
+                                        CurrReport.Break();
                                 end else
                                     if not Continue then
-                                        CurrReport.Break;
+                                        CurrReport.Break();
 
                                 Clear(DimText);
                                 Continue := false;
@@ -613,7 +613,7 @@ report 50005 "PWD Order LAP"
                             trigger OnPreDataItem()
                             begin
                                 if not ShowInternalInfo then
-                                    CurrReport.Break;
+                                    CurrReport.Break();
 
                                 DocDim2.SetRange("Table ID", DATABASE::"Purchase Line");
                                 DocDim2.SetRange("Document Type", "Purchase Line"."Document Type");
@@ -627,7 +627,7 @@ report 50005 "PWD Order LAP"
                             if Number = 1 then
                                 PurchLine.Find('-')
                             else
-                                PurchLine.Next;
+                                PurchLine.Next();
                             "Purchase Line" := PurchLine;
 
                             if not "Purchase Header"."Prices Including VAT" and
@@ -648,18 +648,17 @@ report 50005 "PWD Order LAP"
                             //>>Regie
                             Clear(TxtGComment);
                             BooGStopComment := false;
-                            RecGPurchCommentLine.Reset;
+                            RecGPurchCommentLine.Reset();
                             RecGPurchCommentLine.SetRange("Document Type", RecGPurchCommentLine."Document Type"::Order);
                             RecGPurchCommentLine.SetRange("No.", "Purchase Line"."Document No.");
                             RecGPurchCommentLine.SetRange("Document Line No.", "Purchase Line"."Line No.");
-                            if RecGPurchCommentLine.FindSet then begin
+                            if RecGPurchCommentLine.FindSet() then
                                 repeat
                                     if StrLen(TxtGComment) + StrLen(RecGPurchCommentLine.Comment) < 1024 then
                                         TxtGComment += RecGPurchCommentLine.Comment + ' '
                                     else
                                         BooGStopComment := true;
-                                until (RecGPurchCommentLine.Next = 0) or (BooGStopComment);
-                            end;
+                                until (RecGPurchCommentLine.Next() = 0) or (BooGStopComment);
 
                             //>>LAP2.15
                             if PurchLine.Type = PurchLine.Type::Item then begin
@@ -674,7 +673,7 @@ report 50005 "PWD Order LAP"
 
                         trigger OnPostDataItem()
                         begin
-                            PurchLine.DeleteAll;
+                            PurchLine.DeleteAll();
                         end;
 
                         trigger OnPreDataItem()
@@ -685,7 +684,7 @@ report 50005 "PWD Order LAP"
                                   (PurchLine.Amount = 0) do
                                 MoreLines := PurchLine.Next(-1) <> 0;
                             if not MoreLines then
-                                CurrReport.Break;
+                                CurrReport.Break();
                             PurchLine.SetRange("Line No.", 0, PurchLine."Line No.");
                             SetRange(Number, 1, PurchLine.Count);
                             CurrReport.CreateTotals(PurchLine."Line Amount", PurchLine."Inv. Discount Amount");
@@ -846,7 +845,7 @@ report 50005 "PWD Order LAP"
                         trigger OnPreDataItem()
                         begin
                             if VATAmount = 0 then
-                                CurrReport.Break;
+                                CurrReport.Break();
                             SetRange(Number, 1, VATAmountLine.Count);
                             CurrReport.CreateTotals(
                               VATAmountLine."Line Amount", VATAmountLine."Inv. Disc. Base Amount",
@@ -942,8 +941,8 @@ report 50005 "PWD Order LAP"
                         begin
                             if (not GLSetup."Print VAT specification in LCY") or
                                ("Purchase Header"."Currency Code" = '') or
-                               (VATAmountLine.GetTotalVATAmount = 0) then
-                                CurrReport.Break;
+                               (VATAmountLine.GetTotalVATAmount() = 0) then
+                                CurrReport.Break();
 
                             SetRange(Number, 1, VATAmountLine.Count);
                             CurrReport.CreateTotals(VALVATBaseLCY, VALVATAmountLCY);
@@ -1061,7 +1060,7 @@ report 50005 "PWD Order LAP"
                         trigger OnPreDataItem()
                         begin
                             if ("Purchase Header"."Sell-to Customer No." = '') and (ShipToAddr[1] = '') then
-                                CurrReport.Break;
+                                CurrReport.Break();
                         end;
                     }
                     dataitem(PrepmtLoop; "Integer")
@@ -1095,7 +1094,7 @@ report 50005 "PWD Order LAP"
                             AutoFormatExpression = "Purchase Header"."Currency Code";
                             AutoFormatType = 1;
                         }
-                        column(PrepmtVATAmountLine_VATAmountText; PrepmtVATAmountLine.VATAmountText)
+                        column(PrepmtVATAmountLine_VATAmountText; PrepmtVATAmountLine.VATAmountText())
                         {
                         }
                         column(PrepmtVATAmount; PrepmtVATAmount)
@@ -1114,7 +1113,7 @@ report 50005 "PWD Order LAP"
                         column(TotalInclVATText_Control188; TotalInclVATText)
                         {
                         }
-                        column(VATAmountLine_VATAmountText_Control189; VATAmountLine.VATAmountText)
+                        column(VATAmountLine_VATAmountText_Control189; VATAmountLine.VATAmountText())
                         {
                         }
                         column(PrepmtVATAmount_Control190; PrepmtVATAmount)
@@ -1176,10 +1175,10 @@ report 50005 "PWD Order LAP"
                             begin
                                 if Number = 1 then begin
                                     if not PrepmtDocDim.Find('-') then
-                                        CurrReport.Break;
+                                        CurrReport.Break();
                                 end else
                                     if not Continue then
-                                        CurrReport.Break;
+                                        CurrReport.Break();
 
                                 Clear(DimText);
                                 Continue := false;
@@ -1206,10 +1205,10 @@ report 50005 "PWD Order LAP"
                         begin
                             if Number = 1 then begin
                                 if not PrepmtInvBuf.Find('-') then
-                                    CurrReport.Break;
+                                    CurrReport.Break();
                             end else
-                                if PrepmtInvBuf.Next = 0 then
-                                    CurrReport.Break;
+                                if PrepmtInvBuf.Next() = 0 then
+                                    CurrReport.Break();
 
                             if ShowInternalInfo then
                                 PurchPostPrepmt.GetDimBuf(PrepmtInvBuf."Dimension Entry No.", PrepmtDocDim);
@@ -1364,7 +1363,7 @@ report 50005 "PWD Order LAP"
                         trigger OnPreDataItem()
                         begin
                             if not PrepmtInvBuf.Find('-') then
-                                CurrReport.Break;
+                                CurrReport.Break();
                         end;
                     }
                 }
@@ -1377,18 +1376,18 @@ report 50005 "PWD Order LAP"
                 begin
                     Clear(PurchLine);
                     Clear(PurchPost);
-                    PurchLine.DeleteAll;
-                    VATAmountLine.DeleteAll;
+                    PurchLine.DeleteAll();
+                    VATAmountLine.DeleteAll();
                     PurchPost.GetPurchLines("Purchase Header", PurchLine, 0);
                     PurchLine.CalcVATAmountLines(0, "Purchase Header", PurchLine, VATAmountLine);
                     PurchLine.UpdateVATOnLines(0, "Purchase Header", PurchLine, VATAmountLine);
-                    VATAmount := VATAmountLine.GetTotalVATAmount;
-                    VATBaseAmount := VATAmountLine.GetTotalVATBase;
+                    VATAmount := VATAmountLine.GetTotalVATAmount();
+                    VATBaseAmount := VATAmountLine.GetTotalVATBase();
                     VATDiscountAmount :=
                       VATAmountLine.GetTotalVATDiscount("Purchase Header"."Currency Code", "Purchase Header"."Prices Including VAT");
-                    TotalAmountInclVAT := VATAmountLine.GetTotalAmountInclVAT;
+                    TotalAmountInclVAT := VATAmountLine.GetTotalAmountInclVAT();
 
-                    PrepmtInvBuf.DeleteAll;
+                    PrepmtInvBuf.DeleteAll();
                     PurchPostPrepmt.GetPurchLines("Purchase Header", 0, PrepmtPurchLine);
                     if (not PrepmtPurchLine.IsEmpty) then begin
                         PurchPostPrepmt.GetPurchLinesToDeduct("Purchase Header", TempPurchLine);
@@ -1396,10 +1395,10 @@ report 50005 "PWD Order LAP"
                             PurchPostPrepmt.CalcVATAmountLines("Purchase Header", TempPurchLine, PrePmtVATAmountLineDeduct, 1);
                     end;
                     PurchPostPrepmt.CalcVATAmountLines("Purchase Header", PrepmtPurchLine, PrepmtVATAmountLine, 0);
-                    if PrepmtVATAmountLine.FindSet then
+                    if PrepmtVATAmountLine.FindSet() then
                         repeat
                             PrePmtVATAmountLineDeduct := PrepmtVATAmountLine;
-                            if PrePmtVATAmountLineDeduct.Find then begin
+                            if PrePmtVATAmountLineDeduct.Find() then begin
                                 PrepmtVATAmountLine."VAT Base" := PrepmtVATAmountLine."VAT Base" - PrePmtVATAmountLineDeduct."VAT Base";
                                 PrepmtVATAmountLine."VAT Amount" := PrepmtVATAmountLine."VAT Amount" - PrePmtVATAmountLineDeduct."VAT Amount";
                                 PrepmtVATAmountLine."Amount Including VAT" := PrepmtVATAmountLine."Amount Including VAT" -
@@ -1411,14 +1410,14 @@ report 50005 "PWD Order LAP"
                                   PrePmtVATAmountLineDeduct."Invoice Discount Amount";
                                 PrepmtVATAmountLine."Calculated VAT Amount" := PrepmtVATAmountLine."Calculated VAT Amount" -
                                   PrePmtVATAmountLineDeduct."Calculated VAT Amount";
-                                PrepmtVATAmountLine.Modify;
+                                PrepmtVATAmountLine.Modify();
                             end;
-                        until PrepmtVATAmountLine.Next = 0;
+                        until PrepmtVATAmountLine.Next() = 0;
                     PurchPostPrepmt.UpdateVATOnLines("Purchase Header", PrepmtPurchLine, PrepmtVATAmountLine, 0);
                     PurchPostPrepmt.BuildInvLineBuffer2("Purchase Header", PrepmtPurchLine, 0, PrepmtInvBuf, DocDim);
-                    PrepmtVATAmount := PrepmtVATAmountLine.GetTotalVATAmount;
-                    PrepmtVATBaseAmount := PrepmtVATAmountLine.GetTotalVATBase;
-                    PrepmtTotalAmountInclVAT := PrepmtVATAmountLine.GetTotalAmountInclVAT;
+                    PrepmtVATAmount := PrepmtVATAmountLine.GetTotalVATAmount();
+                    PrepmtVATBaseAmount := PrepmtVATAmountLine.GetTotalVATBase();
+                    PrepmtTotalAmountInclVAT := PrepmtVATAmountLine.GetTotalAmountInclVAT();
 
                     if Number > 1 then
                         CopyText := Text003;
@@ -1449,7 +1448,7 @@ report 50005 "PWD Order LAP"
             begin
                 CurrReport.Language := Language.GetLanguageID("Language Code");
 
-                CompanyInfo.Get;
+                CompanyInfo.Get();
 
                 RecGVendor.Get("Purchase Header"."Buy-from Vendor No.");
 
@@ -1464,8 +1463,8 @@ report 50005 "PWD Order LAP"
                     TxtGText011 := '';
 
                 // CH4401.begin
-                PrepareHeader;
-                PrepareFooter;
+                PrepareHeader();
+                PrepareFooter();
                 // CH4401.end
 
                 if RespCenter.Get("Responsibility Center") then begin
@@ -1480,7 +1479,7 @@ report 50005 "PWD Order LAP"
                 DocDim1.SetRange("Document No.", "Purchase Header"."No.");
 
                 if "Purchaser Code" = '' then begin
-                    SalesPurchPerson.Init;
+                    SalesPurchPerson.Init();
                     PurchaserText := '';
                 end else begin
                     SalesPurchPerson.Get("Purchaser Code");
@@ -1509,19 +1508,19 @@ report 50005 "PWD Order LAP"
                 if ("Purchase Header"."Buy-from Vendor No." <> "Purchase Header"."Pay-to Vendor No.") then
                     FormatAddr.PurchHeaderPayTo(VendAddr, "Purchase Header");
                 if "Payment Terms Code" = '' then
-                    PaymentTerms.Init
+                    PaymentTerms.Init()
                 else begin
                     PaymentTerms.Get("Payment Terms Code");
                     PaymentTerms.TranslateDescription(PaymentTerms, "Language Code");
                 end;
                 if "Prepmt. Payment Terms Code" = '' then
-                    PrepmtPaymentTerms.Init
+                    PrepmtPaymentTerms.Init()
                 else begin
                     PrepmtPaymentTerms.Get("Prepmt. Payment Terms Code");
                     PrepmtPaymentTerms.TranslateDescription(PrepmtPaymentTerms, "Language Code");
                 end;
                 if "Shipment Method Code" = '' then
-                    ShipmentMethod.Init
+                    ShipmentMethod.Init()
                 else begin
                     ShipmentMethod.Get("Shipment Method Code");
                     ShipmentMethod.TranslateDescription(ShipmentMethod, "Language Code");
@@ -1633,8 +1632,8 @@ report 50005 "PWD Order LAP"
 
     trigger OnInitReport()
     begin
-        GLSetup.Get;
-        PurchSetup.Get;
+        GLSetup.Get();
+        PurchSetup.Get();
     end;
 
     var
@@ -1911,7 +1910,7 @@ report 50005 "PWD Order LAP"
         RecGItemCrossRef.SetRange("Unit of Measure", "Purchase Line"."Unit of Measure Code");
         RecGItemCrossRef.SetRange("Cross-Reference Type", RecGItemCrossRef."Cross-Reference Type"::Vendor);
         RecGItemCrossRef.SetRange("Cross-Reference Type No.", "Purchase Header"."Buy-from Vendor No.");
-        if RecGItemCrossRef.FindFirst then begin
+        if RecGItemCrossRef.FindFirst() then begin
             CodGCrossReferenceNo := RecGItemCrossRef."Cross-Reference No.";
             //>>TI404560
             DescrCrossRef := RecGItemCrossRef.Description;

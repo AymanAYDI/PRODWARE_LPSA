@@ -436,46 +436,15 @@ table 50099 "Prod. Order Routing Line BKP"
     }
 
     trigger OnDelete()
-    var
-        CapLedgEntry: Record "Capacity Ledger Entry";
     begin
     end;
 
     trigger OnModify()
-    var
-        RecLProdOrderLine: Record "Prod. Order Line";
     begin
     end;
 
-    var
-        Text000: Label 'You cannot delete %1 %2 %3, because there exists at least one %4 associated with it.';
-        Text001: Label 'You cannot rename a %1.';
-        Text002: Label 'This routing line cannot be moved because of critical work centers in previous operations';
-        Text003: Label 'This routing line cannot be moved because of critical work centers in next operations';
-        WorkCenter: Record "Work Center";
-        MachineCenter: Record "Machine Center";
-        ProdOrderLine: Record "Prod. Order Line";
-        ProdOrderRtngLine: Record "Prod. Order Routing Line";
-        ProdOrderRoutTool: Record "Prod. Order Routing Tool";
-        ProdOrderRtngPersonnel: Record "Prod. Order Routing Personnel";
-        ProdOrderRtngQltyMeas: Record "Prod. Order Rtng Qlty Meas.";
-        ProdOrderRtngComment: Record "Prod. Order Rtng Comment Line";
-        GLSetup: Record "General Ledger Setup";
-        ProdOrderCapNeed: Record "Prod. Order Capacity Need";
-        PurchLine: Record "Purchase Line";
-        CalcProdOrder: Codeunit "Calculate Prod. Order";
-        ProdOrderRouteMgt: Codeunit "Prod. Order Route Management";
-        Text004: Label 'Some routing lines are referring to the operation just deleted. The references are\in the fields %1 and %2.\\This may have to be corrected as a routing line referring to a non-existent\operation will lead to serious errors in capacity planning.\\Do you want to see a list of the lines in question?\(Access the columns Next Operation No. and Previous Operation No.)';
-        Text005: Label 'Routing Lines referring to deleted Operation No. %1';
-        Text006: Label 'A %1 %2 can not be inserted, modified, or deleted.';
-        Direction: Option Forward,Backward;
-        Text007: Label 'You cannot change %1, because there is at least one %2 associated with %3 %4 %5.';
-        DateChangedByPlannerOne: Boolean;
-
 
     procedure Caption(): Text[100]
-    var
-        ProdOrder: Record "Production Order";
     begin
     end;
 
@@ -501,8 +470,6 @@ table 50099 "Prod. Order Routing Line BKP"
 
 
     procedure CalcStartingEndingDates(Direction1: Option Forward,Backward)
-    var
-        loggedUser: Code[250];
     begin
     end;
 
@@ -518,17 +485,11 @@ table 50099 "Prod. Order Routing Line BKP"
 
 
     procedure CalculateRoutingBack()
-    var
-        ProdOrderLine: Record "Prod. Order Line";
-        ProdOrderRtngLine: Record "Prod. Order Routing Line";
     begin
     end;
 
 
     procedure CalculateRoutingForward()
-    var
-        ProdOrderLine: Record "Prod. Order Line";
-        ProdOrderRtngLine: Record "Prod. Order Routing Line";
     begin
     end;
 
@@ -539,8 +500,6 @@ table 50099 "Prod. Order Routing Line BKP"
 
 
     procedure AdjustComponents(var ProdOrderLine: Record "Prod. Order Line")
-    var
-        ProdOrderComp: Record "Prod. Order Component";
     begin
     end;
 
@@ -551,19 +510,11 @@ table 50099 "Prod. Order Routing Line BKP"
 
 
     procedure "CheckPrevious&Next"()
-    var
-        ProdOrderRtngLine: Record "Prod. Order Routing Line";
-        TempDeletedOrderRtngLine: Record "Prod. Order Routing Line" temporary;
-        TempRemainingOrderRtngLine: Record "Prod. Order Routing Line" temporary;
-        ErrorOnNext: Boolean;
-        ErrorOnPrevious: Boolean;
     begin
     end;
 
 
     procedure SetNextOperations(var RtngLine: Record "Prod. Order Routing Line")
-    var
-        RtngLine2: Record "Prod. Order Routing Line";
     begin
     end;
 
@@ -579,8 +530,6 @@ table 50099 "Prod. Order Routing Line BKP"
 
 
     procedure RecalculateComponents()
-    var
-        ProdOrderComp: Record "Prod. Order Component";
     begin
     end;
 
@@ -591,15 +540,11 @@ table 50099 "Prod. Order Routing Line BKP"
 
 
     procedure CheckAlternate()
-    var
-        TEXT001: Label 'Alternate resource %1 %2 was replaced by resource %3 %4.';
     begin
     end;
 
 
     procedure CalculateRoutingLine()
-    var
-        CalcProdOrderRtngLine: Codeunit "Calculate Routing Line";
     begin
     end;
 }

@@ -29,14 +29,14 @@ xmlport 8073326 "PWD Stock Export OSYS"
                     var
                         RecLOSYSSetup: Record "PWD OSYS Setup";
                     begin
-                        RecLOSYSSetup.Get;
+                        RecLOSYSSetup.Get();
                         if "Item Ledger Entry"."Variant Code" <> '' then
                             F_ItemNo := "Item Ledger Entry"."Item No." + RecLOSYSSetup."Separator Character" + "Item Ledger Entry"."Variant Code"
                         else
                             F_ItemNo := "Item Ledger Entry"."Item No.";
 
                         if not RecGItem.Get("Item Ledger Entry"."Item No.") then
-                            RecGItem.Init;
+                            RecGItem.Init();
                     end;
                 }
                 textelement(F_Quantity)
@@ -115,31 +115,31 @@ xmlport 8073326 "PWD Stock Export OSYS"
         CodLLastVariantCode := '';
         CodLLastLotNo := '';
         CodLLastSerialNo := '';
-        "Item Ledger Entry".DeleteAll;
+        "Item Ledger Entry".DeleteAll();
         CduLConnectorBufferMgtExport.FctInitValidateField(RecGMessgae."Partner Code", 0);
         RecLItemLedgerEntry.SetCurrentKey(Open, "Item Tracking", "Item No.", "Variant Code", "Lot No.", "Serial No.");
         RecLItemLedgerEntry.SetRange(Open, true);
         RecLItemLedgerEntry.SetFilter("Item Tracking", '<>%1', RecLItemLedgerEntry."Item Tracking"::None);
         if not RecLItemLedgerEntry.IsEmpty then begin
-            RecLItemLedgerEntry.FindSet;
+            RecLItemLedgerEntry.FindSet();
             repeat
                 if FctNewRecord(RecLItemLedgerEntry, CodLLastItemNo, CodLLastVariantCode, CodLLastLotNo, CodLLastSerialNo) then begin
                     RecordRef.GetTable(RecLItemLedgerEntry);
                     if not CduLConnectorBufferMgtExport.FctCheckFields(RecordRef) then begin
                         RecordRef.SetTable(RecLItemLedgerEntry2);
                         IntLSequenceNo += 1;
-                        "Item Ledger Entry".Init;
+                        "Item Ledger Entry".Init();
                         "Item Ledger Entry"."Entry No." := IntLSequenceNo;
                         "Item Ledger Entry"."Item No." := RecLItemLedgerEntry2."Item No.";
                         "Item Ledger Entry"."Variant Code" := RecLItemLedgerEntry2."Variant Code";
                         "Item Ledger Entry".Quantity := FctGetStock(RecLItemLedgerEntry);
                         "Item Ledger Entry"."Lot No." := RecLItemLedgerEntry2."Lot No.";
                         "Item Ledger Entry"."Serial No." := RecLItemLedgerEntry2."Serial No.";
-                        "Item Ledger Entry".Insert;
+                        "Item Ledger Entry".Insert();
                     end;
 
                 end;
-            until RecLItemLedgerEntry.Next = 0;
+            until RecLItemLedgerEntry.Next() = 0;
         end
         else
             BooLResult := false;

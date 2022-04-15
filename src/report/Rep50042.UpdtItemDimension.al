@@ -39,7 +39,7 @@ report 50042 "PWD Updt Item - Dimension"
 
                 "Item Category Code" := RecGItemCategory.Code;
                 "Product Group Code" := CodGGroupCode;
-                Modify;
+                Modify();
 
                 RecGProductGroup.Get(RecGItemCategory.Code, CodGGroupCode);
 
@@ -59,8 +59,8 @@ report 50042 "PWD Updt Item - Dimension"
 
                         RecLSalesLine."Item Category Code" := Item."Item Category Code";
                         RecLSalesLine."Product Group Code" := Item."Product Group Code";
-                        RecLSalesLine.Modify;
-                    until RecLSalesLine.Next = 0;
+                        RecLSalesLine.Modify();
+                    until RecLSalesLine.Next() = 0;
 
                 // Mise à jour Purchase Line
                 RecLPurchLine.SetRange(Type, RecLPurchLine.Type::Item);
@@ -72,8 +72,8 @@ report 50042 "PWD Updt Item - Dimension"
 
                         RecLPurchLine."Item Category Code" := Item."Item Category Code";
                         RecLPurchLine."Product Group Code" := Item."Product Group Code";
-                        RecLPurchLine.Modify;
-                    until RecLPurchLine.Next = 0;
+                        RecLPurchLine.Modify();
+                    until RecLPurchLine.Next() = 0;
 
                 // Mise à jour feuille article
                 RecLItemJnlLine.SetRange("Item No.", "No.");
@@ -84,8 +84,8 @@ report 50042 "PWD Updt Item - Dimension"
 
                         RecLItemJnlLine."Item Category Code" := Item."Item Category Code";
                         RecLItemJnlLine."Product Group Code" := Item."Product Group Code";
-                        RecLItemJnlLine.Modify;
-                    until RecLItemJnlLine.Next = 0;
+                        RecLItemJnlLine.Modify();
+                    until RecLItemJnlLine.Next() = 0;
 
                 // Mise à jour feuille achat
                 RecLRequisitionLine.SetRange(Type, RecLRequisitionLine.Type::Item);
@@ -97,8 +97,8 @@ report 50042 "PWD Updt Item - Dimension"
 
                         RecLRequisitionLine."Item Category Code" := Item."Item Category Code";
                         RecLRequisitionLine."Product Group Code" := Item."Product Group Code";
-                        RecLRequisitionLine.Modify;
-                    until RecLRequisitionLine.Next = 0;
+                        RecLRequisitionLine.Modify();
+                    until RecLRequisitionLine.Next() = 0;
 
                 // Mise à jour Transfer Line
                 RecLTransferLine.SetRange("Item No.", "No.");
@@ -109,8 +109,8 @@ report 50042 "PWD Updt Item - Dimension"
 
                         RecLTransferLine."Item Category Code" := Item."Item Category Code";
                         RecLTransferLine."Product Group Code" := Item."Product Group Code";
-                        RecLTransferLine.Modify;
-                    until RecLTransferLine.Next = 0;
+                        RecLTransferLine.Modify();
+                    until RecLTransferLine.Next() = 0;
 
                 //
                 RecLManufacturingCycles.SetRange("Item Code", "No.");
@@ -133,13 +133,13 @@ report 50042 "PWD Updt Item - Dimension"
 
                         RecLItemConfiguration."Item Category Code" := Item."Item Category Code";
                         RecLItemConfiguration."Product Group Code" := Item."Product Group Code";
-                        RecLItemConfiguration.Modify;
+                        RecLItemConfiguration.Modify();
                     until RecLManufacturingCycles.Next = 0;
             end;
 
             trigger OnPostDataItem()
             begin
-                DiagWindows.Close;
+                DiagWindows.Close();
             end;
 
             trigger OnPreDataItem()

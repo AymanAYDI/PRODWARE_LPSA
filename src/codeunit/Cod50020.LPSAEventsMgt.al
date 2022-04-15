@@ -7,10 +7,10 @@ codeunit 50020 "PWD LPSA Events Mgt."
     var
         ItemConfigurator: Record "PWD Item Configurator";
     begin
-        ItemConfigurator.RESET;
+        ItemConfigurator.RESET();
         ItemConfigurator.SETCURRENTKEY("Item Code");
         ItemConfigurator.SETRANGE("Item Code", Item."No.");
-        ItemConfigurator.DELETEALL;
+        ItemConfigurator.DELETEALL();
     end;
 
     [EventSubscriber(ObjectType::table, database::Item, 'OnAfterValidateEvent', 'Costing Method', false, false)]
@@ -37,7 +37,7 @@ codeunit 50020 "PWD LPSA Events Mgt."
     [EventSubscriber(ObjectType::table, database::Item, 'OnbeforeValidateEvent', 'Replenishment System', false, false)]
     local procedure TAB27_OnbeforeValidateEvent_Item_ReplenishmentSystem(var Rec: Record Item; var xRec: Record Item; CurrFieldNo: Integer)
     begin
-        IF Rec.TestNoEntriesExist_Cost THEN
+        IF Rec.TestNoEntriesExist_Cost() THEN
             IF Rec."Replenishment System" = "Replenishment System"::Purchase THEN
                 Rec.VALIDATE("Costing Method", "Costing Method"::Average)
             ELSE
@@ -92,9 +92,8 @@ codeunit 50020 "PWD LPSA Events Mgt."
         LPSAFunctionsMgt: Codeunit "PWD LPSA Functions Mgt.";
     begin
         //>>TDL.LPSA.20.04.15
-        IF SalesHeader."Bill-to Customer No." <> SalesHeader."Sell-to Customer No." THEN BEGIN
+        IF SalesHeader."Bill-to Customer No." <> SalesHeader."Sell-to Customer No." THEN
             LPSAFunctionsMgt.RunPageCommentSheet(SalesHeader);
-        END;
         //<<TDL.LPSA.20.04.15
     end;
 
@@ -233,9 +232,6 @@ codeunit 50020 "PWD LPSA Events Mgt."
 
     [EventSubscriber(ObjectType::table, database::"Sales Line", 'OnBeforeUpdateDates', '', false, false)]
     local procedure TAB37_OnBeforeUpdateDates_SalesLine(var SalesLine: Record "Sales Line"; var IsHandled: Boolean)
-    var
-        PlannedShipmentDateCalculated: Boolean;
-        PlannedDeliveryDateCalculated: Boolean;
     begin
         // IsHandled := true; //TODO : A vérifier CurrFieldNo ne fonctionne pas
         // if CurrFieldNo = 0 then begin
@@ -354,7 +350,7 @@ codeunit 50020 "PWD LPSA Events Mgt."
         ManufSetup: Record "Manufacturing Setup";
     //RecLProdOrderLine: Record "Prod. Order Line";
     begin
-        ManufSetup.GET;
+        ManufSetup.GET();
         IF ItemJournalLine."Work Center No." = ManufSetup."Mach. center - Inventory input" THEN
             ItemJournalLine.VALIDATE("Location Code", ManufSetup."Non conformity Prod. Location")
         ELSE
@@ -417,8 +413,6 @@ codeunit 50020 "PWD LPSA Events Mgt."
     //---TAB246---
     [EventSubscriber(ObjectType::table, database::"Requisition Line", 'OnAfterValidateEvent', 'Routing No.', false, false)]
     local procedure TAB246_OnAfterValidateEvent_RequisitionLine_RoutingNo(var Rec: Record "Requisition Line"; var xRec: Record "Requisition Line"; CurrFieldNo: Integer)
-    var
-        RoutingHeader: Record "Routing Header";
     begin
         //TODO: champ PlanningGroup n'existe pas car a un table relation avec la table PlannerOnePlanningGroup
         //Rec.PlanningGroup := RoutingHeader.PlanningGroup;
@@ -582,12 +576,11 @@ codeunit 50020 "PWD LPSA Events Mgt."
         if Rec.IsTemporary then
             exit;
         IF Rec.Status = Rec.Status::Released THEN BEGIN
-            Rec.ResendProdOrdertoQuartis;
-            Rec.FctUpdateDelay;
+            Rec.ResendProdOrdertoQuartis();
+            Rec.FctUpdateDelay();
         END;
-        IF Rec.Status = Rec.Status::"Firm Planned" THEN BEGIN
-            Rec.FctUpdateDelay;
-        END;
+        IF Rec.Status = Rec.Status::"Firm Planned" THEN
+            Rec.FctUpdateDelay();
     end;
 
     [EventSubscriber(ObjectType::table, database::"Prod. Order Line", 'OnBeforeDeleteEvent', '', false, false)]
@@ -641,12 +634,11 @@ codeunit 50020 "PWD LPSA Events Mgt."
         if Rec.IsTemporary then
             exit;
         LotInheritanceMgt.CheckPOCompOnInsert(Rec);
-        IF ProdOrder.GET(ProdOrder.Status, Rec."Prod. Order No.") THEN BEGIN
+        IF ProdOrder.GET(ProdOrder.Status, Rec."Prod. Order No.") THEN
             IF ProdOrder."PWD Component No." = '' THEN BEGIN
                 ProdOrder."PWD Component No." := Rec."Item No.";
-                ProdOrder.MODIFY;
+                ProdOrder.MODIFY();
             END;
-        END;
     end;
 
     [EventSubscriber(ObjectType::Table, Database::"Prod. Order Component", 'OnValidateItemNoOnAfterUpdateUOMFromItem', '', false, false)]
@@ -670,9 +662,8 @@ codeunit 50020 "PWD LPSA Events Mgt."
         //TODO: CheckAlternate utilise la table PlannerOneProdOrdRoutLineAlt et le codeunit 1
         //Rec.CheckAlternate();
         Rec.CalculateRoutingLine();
-        IF (Rec.Status = Rec.Status::Released) AND (ProdOrderLine.GET(Rec.Status, Rec."Prod. Order No.", Rec."Routing Reference No.")) THEN BEGIN
-            ProdOrderLine.ResendProdOrdertoQuartis;
-        END;
+        IF (Rec.Status = Rec.Status::Released) AND (ProdOrderLine.GET(Rec.Status, Rec."Prod. Order No.", Rec."Routing Reference No.")) THEN
+            ProdOrderLine.ResendProdOrdertoQuartis();
     end;
     //---TAB5411---
     [EventSubscriber(ObjectType::table, database::"Prod. Order Routing Tool", 'OnAfterValidateEvent', 'No.', false, false)]
@@ -787,6 +778,120 @@ codeunit 50020 "PWD LPSA Events Mgt."
         IF NOT (ItemJournalLine."PWD Conform quality control") THEN
             NewItemLedgEntry.VALIDATE("PWD NC", TRUE);
         //<<FE_LAPIERRETTE_PRO12.001
+    end;
+    //---CDU241--
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Item Jnl.-Post", 'OnCodeOnBeforeItemJnlPostBatchRun', '', false, false)]
+    local procedure CDU241_OnCodeOnBeforeItemJnlPostBatchRun_ItemJnlPost(var ItemJournalLine: Record "Item Journal Line")
+    var
+        "PWDLPSAFunctionsMgt.": Codeunit "PWD LPSA Functions Mgt.";
+    begin
+        //>>FE_PROD01.001
+        "PWDLPSAFunctionsMgt.".FctRecreateJournalLine(ItemJournalLine);
+        //<<FE_PROD01.001
+    end;
+
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Item Jnl.-Post", 'OnCodeOnAfterItemJnlPostBatchRun', '', false, false)]
+    local procedure CDU241_OnCodeOnAfterItemJnlPostBatchRun_ItemJnlPost(var ItemJournalLine: Record "Item Journal Line"; var HideDialog: Boolean; SuppressCommit: Boolean)
+    var
+        "PWDLPSAFunctionsMgt.": Codeunit "PWD LPSA Functions Mgt.";
+    begin
+        //>>LAP2.08
+        "PWDLPSAFunctionsMgt.".ClearWrongReservEntries(ItemJournalLine);
+        //<<LAP2.08 
+    end;
+    //---CDU313--
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Sales-Printed", 'OnBeforeModify', '', false, false)]
+    local procedure CDU313_OnBeforeModify_SalesPrinted(var SalesHeader: Record "Sales Header")
+    begin
+        //>>FE_LAPIERRETTE_VTE06.001
+        SalesHeader."PWD ConfirmedLPSA" := TRUE;
+        //<<FE_LAPIERRETTE_VTE06.001
+
+        //>>TDL.LPSA.01.06.15:APA
+        IF SalesHeader."PWD Print confirmation Date" = 0D THEN
+            SalesHeader."PWD Print confirmation Date" := TODAY;
+        //<<TDL.LPSA.01.06.15:APA
+    end;
+    //---CDU317--
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Purch.Header-Printed", 'OnBeforeModify', '', false, false)]
+    local procedure CDU317_OnBeforeModify_PurchHeaderPrinted(var PurchaseHeader: Record "Purchase Header")
+    begin
+        //>>TDL.LPSA.20.04.2015
+        IF (NOT PurchaseHeader."PWD Printed") THEN
+            PurchaseHeader."PWD Printed" := TRUE;
+        //<<TDL.LPSA.20.04.2015 
+    end;
+    //---CDU333--
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Req. Wksh.-Make Order", 'OnAfterInitPurchOrderLine', '', false, false)]
+    local procedure CDU333_OnAfterInitPurchOrderLine_ReqWkshMakeOrder(var PurchaseLine: Record "Purchase Line"; RequisitionLine: Record "Requisition Line")
+    begin
+        //>>TDL.LPSA.001
+        IF RequisitionLine."Prod. Order No." <> '' THEN
+            PurchaseLine.Description := RequisitionLine."Prod. Order No.";
+        //<<TDL.LPSA.001
+    end;
+
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Req. Wksh.-Make Order", 'OnFinalizeOrderHeaderOnAfterSetFiltersForNonRecurringReqLine', '', false, false)]
+    local procedure CDU333_OOnFinalizeOrderHeaderOnAfterSetFiltersForNonRecurringReqLine_ReqWkshMakeOrder(var RequisitionLine: Record "Requisition Line"; PurchaseHeader: Record "Purchase Header"; var IsHandled: Boolean)
+    var
+        CduLReleasePurchOrder: Codeunit "Release Purchase Document";
+        ReqWkshMakeOrder: Codeunit "Req. Wksh.-Make Order";
+    begin
+        if not IsHandled then
+            if RequisitionLine.FindSet then begin
+                repeat
+                    if ReqWkshMakeOrder.PurchaseOrderLineMatchReqLine(RequisitionLine) then begin
+                        //>>FE_LAPIERRETTE_NDT01.001
+                        //IF ReqLine2."Prod. Order No." <> '' THEN BEGIN
+                        // Release Order
+                        CduLReleasePurchOrder.RUN(PurchaseHeader);
+                        //END;
+                        //<<FE_LAPIERRETTE_NDT01.001  
+                    end;
+                until RequisitionLine.Next() = 0;
+            end;
+    end;
+    //---CDU391--
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Shipment Header - Edit", 'OnBeforeSalesShptHeaderModify', '', false, false)]
+    local procedure CDU391_OnBeforeSalesShptHeaderModify_ShipmentHeaderEdit(var SalesShptHeader: Record "Sales Shipment Header"; FromSalesShptHeader: Record "Sales Shipment Header")
+    begin
+        //>>TDL.LPSA.30.07.15:NBO
+        SalesShptHeader."Ship-to Contact" := FromSalesShptHeader."Ship-to Contact";
+        //<<TDL.LPSA.30.07.15:NBO
+    end;
+    //---CDU414--
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Release Sales Document", 'OnCodeOnAfterCheckCustomerCreated', '', false, false)]
+    local procedure CDU414_OnCodeOnAfterCheckCustomerCreated_ReleaseSalesDocument(var SalesHeader: Record "Sales Header"; PreviewMode: Boolean; var IsHandled: Boolean)
+    var
+        SalesLine: Record "Sales Line";
+    begin
+        //>>TDL.LPSA.001 19/01/2014
+        IF SalesHeader."Document Type" = SalesHeader."Document Type"::Order THEN BEGIN
+            //>>TDL.LPSA.20.04.15
+            IF SalesHeader."PWD Cust Promised Delivery Date" = 0D THEN
+                SalesHeader."PWD Cust Promised Delivery Date" := SalesHeader."Shipment Date";
+            //<<TDL.LPSA.20.04.15
+            SalesLine.SETRANGE("Document Type", SalesHeader."Document Type");
+            SalesLine.SETRANGE("Document No.", SalesHeader."No.");
+            SalesLine.SETRANGE(Type, SalesLine.Type::Item);
+            SalesLine.SETFILTER(Quantity, '<>0');
+            IF SalesLine.FINDFIRST THEN
+                REPEAT
+                    IF SalesLine."PWD Initial Shipment Date" = 0D THEN BEGIN
+                        SalesLine."PWD Initial Shipment Date" := SalesLine."Shipment Date";
+                        SalesLine.MODIFY;
+                    END;
+                    //>>TDL.LPSA.20.04.15
+                    IF SalesLine."PWD Cust Promised Delivery Date" = 0D THEN BEGIN
+                        SalesLine."PWD Cust Promised Delivery Date" := SalesLine."Planned Delivery Date";
+                        SalesLine.MODIFY;
+                    END;
+                //<<TDL.LPSA.20.04.15
+                UNTIL SalesLine.NEXT = 0;
+            SalesLine.RESET;
+        END;
+        //<<TDL.LPSA.001 19/01/2014
+
     end;
 
     var

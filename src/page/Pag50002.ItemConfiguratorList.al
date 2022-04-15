@@ -97,9 +97,9 @@ page 50002 "PWD Item Configurator List"
                             // Open Card
                             RecLItemConfigurator.SETCURRENTKEY("Item Code");
                             RecLItemConfigurator.SETRANGE("Item Code", RecGNewItem."No.");
-                            RecLItemConfigurator.FINDLAST;
+                            RecLItemConfigurator.FINDLAST();
                             PagGItemConfigurator.SETRECORD(RecLItemConfigurator);
-                            PagGItemConfigurator.RUN;
+                            PagGItemConfigurator.RUN();
                         END;
                         //<<FE_LAPIERRETTE_NDT01.001
                     end;

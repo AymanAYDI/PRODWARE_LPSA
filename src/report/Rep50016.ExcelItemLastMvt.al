@@ -57,7 +57,7 @@ report 50016 "PWD Excel Item Last Mvt"
                     TxtGEntryType := 'Mvt Old ERP';
                 //<<LAP2.12
 
-                RecLItemLedgEntry.Reset;
+                RecLItemLedgEntry.Reset();
                 //>>HOTLINE
                 //RecLItemLedgEntry.SETCURRENTKEY("Item No.","Entry Type","Variant Code","Drop Shipment","Location Code","Posting Date");
                 RecLItemLedgEntry.SetCurrentKey("Item No.", "Posting Date", "Entry Type", "Variant Code", "Drop Shipment", "Location Code");
@@ -70,7 +70,7 @@ report 50016 "PWD Excel Item Last Mvt"
                     RecLItemLedgEntry.SetFilter("Location Code", TxtGLocationFilter);
                 //RecLItemLedgEntry.SETRANGE("Posting Date",0D,DatGMax);
                 //>>HOTLINE
-                if RecLItemLedgEntry.FindLast then begin
+                if RecLItemLedgEntry.FindLast() then begin
                     EnterCell(IntGLineNo, IntGColNo, Format(RecLItemLedgEntry."Posting Date"), false, false, '');
                     IntGColNo += 1;
                     if DatLMax < RecLItemLedgEntry."Posting Date" then
@@ -93,7 +93,7 @@ report 50016 "PWD Excel Item Last Mvt"
 
                 RecLItemLedgEntry.SetFilter("Entry Type", '%1|%2', RecLItemLedgEntry."Entry Type"::Consumption,
                                                                   RecLItemLedgEntry."Entry Type"::Sale);
-                if RecLItemLedgEntry.FindLast then begin
+                if RecLItemLedgEntry.FindLast() then begin
                     EnterCell(IntGLineNo, IntGColNo, Format(RecLItemLedgEntry."Posting Date"), false, false, '');
                     IntGColNo += 1;
                     if DatLMax < RecLItemLedgEntry."Posting Date" then
@@ -140,7 +140,7 @@ report 50016 "PWD Excel Item Last Mvt"
                 TxtGLocationFilter := GetFilter("Location Filter");
                 DatGMax := GetRangeMax("Date Filter");
 
-                MakeHeader;
+                MakeHeader();
             end;
         }
     }
@@ -190,7 +190,7 @@ report 50016 "PWD Excel Item Last Mvt"
 
     local procedure EnterCell(RowNo: Integer; ColumnNo: Integer; CellValue: Text[250]; Bold: Boolean; UnderLine: Boolean; NumberFormat: Text[30])
     begin
-        ExcelBuf.Init;
+        ExcelBuf.Init();
         ExcelBuf.Validate("Row No.", RowNo);
         ExcelBuf.Validate("Column No.", ColumnNo);
         ExcelBuf."Cell Value as Text" := CellValue;
@@ -198,7 +198,7 @@ report 50016 "PWD Excel Item Last Mvt"
         ExcelBuf.Bold := Bold;
         ExcelBuf.Underline := UnderLine;
         ExcelBuf.NumberFormat := NumberFormat;
-        ExcelBuf.Insert;
+        ExcelBuf.Insert();
     end;
 
 

@@ -16,7 +16,7 @@ report 99099 "PWD Balance of production OLD"
             column(COMPANYNAME; CompanyName)
             {
             }
-            column(CurrReport_PAGENO; CurrReport.PageNo)
+            column(CurrReport_PAGENO; CurrReport.PageNo())
             {
             }
             column(USERID; UserId)
@@ -407,12 +407,12 @@ report 99099 "PWD Balance of production OLD"
                                     if (GQtyProductT[i - 1] <> 0) then
                                         Grend := GQtyProduct / GQtyProductT[i - 1];
 
-                                RecGCapLedEntry.Reset;
+                                RecGCapLedEntry.Reset();
                                 RecGCapLedEntry.SetRange("Posting Date", GStartDate, GEndDate);
                                 RecGCapLedEntry.SetRange("Operation No.", "Operation No.");
                                 RecGCapLedEntry.SetRange("Item No.", Item."No.");
                                 RecGCapLedEntry.SetRange("Prod. Order No.", "Prod. Order Line"."Prod. Order No.");
-                                if RecGCapLedEntry.FindFirst then;
+                                if RecGCapLedEntry.FindFirst() then;
                             end;
 
                             trigger OnPreDataItem()
@@ -513,7 +513,6 @@ report 99099 "PWD Balance of production OLD"
         i: Integer;
         GQtyProductT: array[100] of Decimal;
         GOpertLenght: Integer;
-        GText001: Label 'la date de début ou la date de fin ne doit pas être vide.';
         GsalesNo: Code[20];
         Prod__Order___ListCaptionLbl: Label 'Bilan production par commande';
         CurrReport_PAGENOCaptionLbl: Label 'Page';
@@ -566,14 +565,14 @@ report 99099 "PWD Balance of production OLD"
         LQtyConsommed: Decimal;
         RecLItemLedEntry: Record "Item Ledger Entry";
     begin
-        RecLItemLedEntry.Reset;
+        RecLItemLedEntry.Reset();
         RecLItemLedEntry.SetRange("Posting Date", GStartDate, GEndDate);
         RecLItemLedEntry.SetRange("Prod. Order No.", ProdOrderNo);
         RecLItemLedEntry.SetRange("Item No.", PItemNo);
-        if RecLItemLedEntry.FindFirst then
+        if RecLItemLedEntry.FindFirst() then
             repeat
                 LQtyConsommed += RecLItemLedEntry.Quantity;
-            until RecLItemLedEntry.Next = 0;
+            until RecLItemLedEntry.Next() = 0;
         exit(LQtyConsommed);
     end;
 
@@ -583,13 +582,13 @@ report 99099 "PWD Balance of production OLD"
         LQtyNeed: Decimal;
         RecLProdOrderComp: Record "Prod. Order Component";
     begin
-        RecLProdOrderComp.Reset;
+        RecLProdOrderComp.Reset();
         RecLProdOrderComp.SetRange("Prod. Order No.", ProdOrderNo);
         RecLProdOrderComp.SetRange("Item No.", PItemNo);
-        if RecLProdOrderComp.FindFirst then
+        if RecLProdOrderComp.FindFirst() then
             repeat
                 LQtyNeed += RecLProdOrderComp.Quantity;
-            until RecLProdOrderComp.Next = 0;
+            until RecLProdOrderComp.Next() = 0;
         exit(LQtyNeed);
     end;
 
@@ -599,14 +598,14 @@ report 99099 "PWD Balance of production OLD"
         LCostReal: Decimal;
         RecLItemLedEntry: Record "Item Ledger Entry";
     begin
-        RecLItemLedEntry.Reset;
+        RecLItemLedEntry.Reset();
         RecLItemLedEntry.SetRange("Posting Date", GStartDate, GEndDate);
         RecLItemLedEntry.SetRange("Prod. Order No.", ProdOrderNo);
         RecLItemLedEntry.SetRange("Item No.", PItemNo);
-        if RecLItemLedEntry.FindFirst then
+        if RecLItemLedEntry.FindFirst() then
             repeat
                 LCostReal += RecLItemLedEntry."Cost Amount (Actual)";
-            until RecLItemLedEntry.Next = 0;
+            until RecLItemLedEntry.Next() = 0;
         exit(LCostReal);
     end;
 
@@ -616,13 +615,13 @@ report 99099 "PWD Balance of production OLD"
         LCostPrevu: Decimal;
         RecLProdOrderComp: Record "Prod. Order Component";
     begin
-        RecLProdOrderComp.Reset;
+        RecLProdOrderComp.Reset();
         RecLProdOrderComp.SetRange("Prod. Order No.", ProdOrderNo);
         RecLProdOrderComp.SetRange("Item No.", PItemNo);
-        if RecLProdOrderComp.FindFirst then
+        if RecLProdOrderComp.FindFirst() then
             repeat
                 LCostPrevu += RecLProdOrderComp."Cost Amount";
-            until RecLProdOrderComp.Next = 0;
+            until RecLProdOrderComp.Next() = 0;
         exit(LCostPrevu);
     end;
 
@@ -632,13 +631,13 @@ report 99099 "PWD Balance of production OLD"
         LQtyOF: Decimal;
         RecLProdOrderLine: Record "Prod. Order Line";
     begin
-        RecLProdOrderLine.Reset;
+        RecLProdOrderLine.Reset();
         RecLProdOrderLine.SetRange("Prod. Order No.", ProdOrderNo);
         RecLProdOrderLine.SetRange("Item No.", PItemNo);
-        if RecLProdOrderLine.FindFirst then
+        if RecLProdOrderLine.FindFirst() then
             repeat
                 LQtyOF += RecLProdOrderLine.Quantity;
-            until RecLProdOrderLine.Next = 0;
+            until RecLProdOrderLine.Next() = 0;
         exit(LQtyOF);
     end;
 
@@ -648,14 +647,14 @@ report 99099 "PWD Balance of production OLD"
         LQtyProduct: Decimal;
         RecLCapLedEntry: Record "Capacity Ledger Entry";
     begin
-        RecLCapLedEntry.Reset;
+        RecLCapLedEntry.Reset();
         RecLCapLedEntry.SetRange("Posting Date", GStartDate, GEndDate);
         RecLCapLedEntry.SetRange("Operation No.", Poperation);
         RecLCapLedEntry.SetRange("Item No.", PItemNo);
-        if RecLCapLedEntry.FindFirst then
+        if RecLCapLedEntry.FindFirst() then
             repeat
                 LQtyProduct += RecLCapLedEntry."Output Quantity";
-            until RecLCapLedEntry.Next = 0;
+            until RecLCapLedEntry.Next() = 0;
         exit(LQtyProduct);
     end;
 
@@ -665,14 +664,14 @@ report 99099 "PWD Balance of production OLD"
         LQtyPerte: Decimal;
         RecLCapLedEntry: Record "Capacity Ledger Entry";
     begin
-        RecLCapLedEntry.Reset;
+        RecLCapLedEntry.Reset();
         RecLCapLedEntry.SetRange("Posting Date", GStartDate, GEndDate);
         RecLCapLedEntry.SetRange("Operation No.", Poperation);
         RecLCapLedEntry.SetRange("Item No.", PItemNo);
-        if RecLCapLedEntry.FindFirst then
+        if RecLCapLedEntry.FindFirst() then
             repeat
                 LQtyPerte += RecLCapLedEntry."Scrap Quantity";
-            until RecLCapLedEntry.Next = 0;
+            until RecLCapLedEntry.Next() = 0;
         exit(LQtyPerte);
     end;
 
@@ -682,12 +681,12 @@ report 99099 "PWD Balance of production OLD"
         LTimePrevu: Decimal;
         RecLProdRoutingLine: Record "Prod. Order Routing Line";
     begin
-        RecLProdRoutingLine.Reset;
+        RecLProdRoutingLine.Reset();
         RecLProdRoutingLine.SetRange("Operation No.", Poperation);
-        if RecLProdRoutingLine.FindFirst then
+        if RecLProdRoutingLine.FindFirst() then
             repeat
                 LTimePrevu += RecLProdRoutingLine."Expected Capacity Need";
-            until RecLProdRoutingLine.Next = 0;
+            until RecLProdRoutingLine.Next() = 0;
         exit(LTimePrevu);
     end;
 
@@ -697,14 +696,14 @@ report 99099 "PWD Balance of production OLD"
         LTimeReal: Decimal;
         RecLCapLedEntry: Record "Capacity Ledger Entry";
     begin
-        RecLCapLedEntry.Reset;
+        RecLCapLedEntry.Reset();
         RecLCapLedEntry.SetRange("Posting Date", GStartDate, GEndDate);
         RecLCapLedEntry.SetRange("Operation No.", Poperation);
         RecLCapLedEntry.SetRange("Item No.", PItemNo);
-        if RecLCapLedEntry.FindFirst then
+        if RecLCapLedEntry.FindFirst() then
             repeat
                 LTimeReal += RecLCapLedEntry."Setup Time" + RecLCapLedEntry."Run Time";
-            until RecLCapLedEntry.Next = 0;
+            until RecLCapLedEntry.Next() = 0;
         exit(LTimeReal);
     end;
 
@@ -714,12 +713,12 @@ report 99099 "PWD Balance of production OLD"
         LCostPrevu2: Decimal;
         RecLProdRoutingLine: Record "Prod. Order Routing Line";
     begin
-        RecLProdRoutingLine.Reset;
+        RecLProdRoutingLine.Reset();
         RecLProdRoutingLine.SetRange("Operation No.", Poperation);
-        if RecLProdRoutingLine.FindFirst then
+        if RecLProdRoutingLine.FindFirst() then
             repeat
                 LCostPrevu2 += RecLProdRoutingLine."Expected Capacity Need";
-            until RecLProdRoutingLine.Next = 0;
+            until RecLProdRoutingLine.Next() = 0;
         exit(LCostPrevu2);
     end;
 
@@ -729,14 +728,14 @@ report 99099 "PWD Balance of production OLD"
         LCostReal2: Decimal;
         RecLCapLedEntry: Record "Capacity Ledger Entry";
     begin
-        RecLCapLedEntry.Reset;
+        RecLCapLedEntry.Reset();
         RecLCapLedEntry.SetRange("Posting Date", GStartDate, GEndDate);
         RecLCapLedEntry.SetRange("Operation No.", Poperation);
         RecLCapLedEntry.SetRange("Item No.", PItemNo);
-        if RecLCapLedEntry.FindFirst then
+        if RecLCapLedEntry.FindFirst() then
             repeat
                 LCostReal2 += RecLCapLedEntry."Setup Time" + RecLCapLedEntry."Run Time";
-            until RecLCapLedEntry.Next = 0;
+            until RecLCapLedEntry.Next() = 0;
         exit(LCostReal2);
     end;
 }

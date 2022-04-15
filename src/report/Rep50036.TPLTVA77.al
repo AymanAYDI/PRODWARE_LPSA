@@ -23,13 +23,13 @@ report 50036 "PWD TPL TVA 7.7"
 
                 if Customer."VAT Bus. Posting Group" = '7.7' then begin
                     Customer."VAT Bus. Posting Group" := 'H3';
-                    Customer.Modify;
+                    Customer.Modify();
                 end;
             end;
 
             trigger OnPostDataItem()
             begin
-                BDialog.Close;
+                BDialog.Close();
             end;
 
             trigger OnPreDataItem()
@@ -46,22 +46,22 @@ report 50036 "PWD TPL TVA 7.7"
                 IntGCounter -= 1;
                 BDialog.Update(1, IntGCounter);
 
-                if "Sales Line"."Document No." = 'CC170857' then CurrReport.Skip;
-                if "Sales Line"."Document No." = 'CC171392' then CurrReport.Skip;
+                if "Sales Line"."Document No." = 'CC170857' then CurrReport.Skip();
+                if "Sales Line"."Document No." = 'CC171392' then CurrReport.Skip();
 
                 if ("Sales Line"."VAT Bus. Posting Group" = '7.7') and
                    ("Sales Line"."Quantity Shipped" = 0) then begin
                     "Sales Line"."VAT Bus. Posting Group" := 'H3';
-                    "Sales Line".Modify;
+                    "Sales Line".Modify();
                     RecGSalesHeader.Get("Sales Line"."Document Type", "Sales Line"."Document No.");
                     RecGSalesHeader."VAT Bus. Posting Group" := 'H3';
-                    RecGSalesHeader.Modify;
+                    RecGSalesHeader.Modify();
                 end;
             end;
 
             trigger OnPostDataItem()
             begin
-                BDialog.Close;
+                BDialog.Close();
             end;
 
             trigger OnPreDataItem()

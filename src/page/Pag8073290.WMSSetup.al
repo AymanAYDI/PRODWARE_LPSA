@@ -85,15 +85,15 @@ page 8073290 "PWD WMS Setup"
     var
         RecLInventorySetup: Record "Inventory Setup";
     begin
-        RESET;
-        IF NOT GET THEN BEGIN
-            INIT;
-            INSERT;
+        RESET();
+        IF NOT GET() THEN BEGIN
+            INIT();
+            INSERT();
         END;
 
-        RecLInventorySetup.GET;
+        RecLInventorySetup.GET();
         "Location Mandatory" := RecLInventorySetup."Location Mandatory";
-        MODIFY;
+        MODIFY();
     end;
 }
 

@@ -7,10 +7,10 @@ codeunit 50006 "Clean Old Reservation Entries"
     begin
         RecGItemJournalTemplate.SetRange(Type, RecGItemJournalTemplate.Type::"Prod.Order");
         RecGItemJournalTemplate.SetRange(Recurring, false);
-        if RecGItemJournalTemplate.FindFirst then
+        if RecGItemJournalTemplate.FindFirst() then
             repeat
                 RecGProductionName.SetRange("Journal Template Name", RecGItemJournalTemplate.Name);
-                if RecGProductionName.FindFirst then
+                if RecGProductionName.FindFirst() then
                     repeat
                         RecGItemJnlLine.SetRange("Journal Template Name", RecGProductionName."Journal Template Name");
                         RecGItemJnlLine.SetRange("Journal Batch Name", RecGProductionName.Name);
@@ -18,27 +18,27 @@ codeunit 50006 "Clean Old Reservation Entries"
                             RecGResEntry.SetRange("Source Type", DATABASE::"Item Journal Line");
                             RecGResEntry.SetRange("Source ID", RecGProductionName."Journal Template Name");
                             RecGResEntry.SetRange("Source Batch Name", RecGProductionName.Name);
-                            if RecGResEntry.FindFirst then
+                            if RecGResEntry.FindFirst() then
                                 repeat
                                     RecGResEntryBis.SetRange("Entry No.", RecGResEntry."Entry No.");
                                     if not RecGResEntryBis.IsEmpty then
                                         repeat
-                                            RecGResEntryBis.Delete;
-                                        until RecGResEntryBis.Next = 0;
-                                until RecGResEntry.Next = 0;
+                                            RecGResEntryBis.Delete();
+                                        until RecGResEntryBis.Next() = 0;
+                                until RecGResEntry.Next() = 0;
                         end;
-                    until RecGProductionName.Next = 0;
-            until RecGItemJournalTemplate.Next = 0;
+                    until RecGProductionName.Next() = 0;
+            until RecGItemJournalTemplate.Next() = 0;
 
 
-        RecGResEntry.Reset;
-        if RecGResEntry.FindFirst then
+        RecGResEntry.Reset();
+        if RecGResEntry.FindFirst() then
             repeat
                 if RecGResEntry."Reservation Status" = RecGResEntry."Reservation Status"::Tracking then begin
-                    RecGResEntryBis.Reset;
+                    RecGResEntryBis.Reset();
                     RecGResEntryBis.SetRange("Entry No.", RecGResEntry."Entry No.");
                     if RecGResEntryBis.Count <> 2 then
-                        RecGResEntryBis.DeleteAll;
+                        RecGResEntryBis.DeleteAll();
                 end;
                 case RecGResEntry."Source Type" of
                     DATABASE::"Prod. Order Line":
@@ -46,10 +46,10 @@ codeunit 50006 "Clean Old Reservation Entries"
                             RecGProdOrderLine.SetFilter(Status, '<>%1', RecGProdOrderLine.Status::Finished);
                             RecGProdOrderLine.SetRange("Prod. Order No.", RecGResEntry."Source ID");
                             RecGProdOrderLine.SetRange("Line No.", RecGResEntry."Source Prod. Order Line");
-                            if not RecGProdOrderLine.FindFirst then begin
-                                RecGResEntryBis.Reset;
+                            if not RecGProdOrderLine.FindFirst() then begin
+                                RecGResEntryBis.Reset();
                                 RecGResEntryBis.SetRange("Entry No.", RecGResEntry."Entry No.");
-                                RecGResEntryBis.DeleteAll;
+                                RecGResEntryBis.DeleteAll();
                             end;
                         end;
                     DATABASE::"Prod. Order Component":
@@ -59,14 +59,14 @@ codeunit 50006 "Clean Old Reservation Entries"
                             RecGProdOrderComp.SetRange("Prod. Order No.", RecGResEntry."Source ID");
                             RecGProdOrderComp.SetRange("Prod. Order Line No.", RecGResEntry."Source Prod. Order Line");
                             RecGProdOrderComp.SetRange("Line No.", RecGResEntry."Source Ref. No.");
-                            if not RecGProdOrderComp.FindFirst then begin
-                                RecGResEntryBis.Reset;
+                            if not RecGProdOrderComp.FindFirst() then begin
+                                RecGResEntryBis.Reset();
                                 RecGResEntryBis.SetRange("Entry No.", RecGResEntry."Entry No.");
-                                RecGResEntryBis.DeleteAll;
+                                RecGResEntryBis.DeleteAll();
                             end;
                         end;
                 end;
-            until RecGResEntry.Next = 0;
+            until RecGResEntry.Next() = 0;
     end;
 
     var

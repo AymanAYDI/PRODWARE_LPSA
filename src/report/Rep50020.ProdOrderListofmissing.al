@@ -33,7 +33,7 @@ report 50020 "Prod. Order - List of missing"
             column(COMPANYNAME; CompanyName)
             {
             }
-            column(CurrReport_PAGENO; CurrReport.PageNo)
+            column(CurrReport_PAGENO; CurrReport.PageNo())
             {
             }
             column(USERID; UserId)
@@ -352,9 +352,9 @@ report 50020 "Prod. Order - List of missing"
                                 BooGShow := false;
 
                             if Number = 2 then
-                                Temp.FindFirst
+                                Temp.FindFirst()
                             else
-                                Temp.Next;
+                                Temp.Next();
 
                             Clear(TxtGTracking);
 
@@ -366,7 +366,7 @@ report 50020 "Prod. Order - List of missing"
 
                             if Number = 1 then begin
                                 if (CodGComponentNo <> '') and (CodGComponentNo <> "Production Order"."Component No.") then
-                                    CurrReport.NewPage;
+                                    CurrReport.NewPage();
                                 CodGComponentNo := "Production Order"."Component No.";
                             end;
                             //>>TDL.LPSA.002
@@ -386,7 +386,7 @@ report 50020 "Prod. Order - List of missing"
                                                 NomTiers[3] := ''
                                             else begin
                                                 if not RecGCust.Get(Temp."Source Batch Name") then
-                                                    RecGCust.Init;
+                                                    RecGCust.Init();
                                                 NomTiers[3] := RecGCust.Name;
                                             end;
                                             Date[3] := Temp."Creation Date";
@@ -397,16 +397,15 @@ report 50020 "Prod. Order - List of missing"
                                                 TrackingMgt.SetSalesLine(RecGSalesLine);
                                                 TxtGTracking := TrackingMgt.FindFirsRecord;
                                                 IntGNumber := StrLen(TxtGTracking);
-                                            end else begin
+                                            end else
                                                 TxtGTracking := 'Prévisions';
-                                            end;
                                             //<<TDL.LPSA.001
                                         end;
                                     39:
                                         begin
                                             NoDoc[1] := Temp."Source ID";
                                             if not RecGvend.Get(Temp."Source Batch Name") then
-                                                RecGvend.Init;
+                                                RecGvend.Init();
                                             NomTiers[1] := RecGvend.Name;
                                             Date[1] := Temp."Creation Date";
                                             Qty[1] := Temp."Quantity (Base)";
@@ -426,7 +425,7 @@ report 50020 "Prod. Order - List of missing"
                                             DueDate := Temp."Expiration Date";
                                             RecGCapLedgEntry.SetRange("Prod. Order No.", Temp."Source ID");
                                             //>>TDL.LPSA.002
-                                            if RecGCapLedgEntry.FindLast then
+                                            if RecGCapLedgEntry.FindLast() then
                                                 NomTiers[3] := RecGCapLedgEntry.Description
                                             else
                                                 NomTiers[3] := '';
@@ -586,43 +585,42 @@ report 50020 "Prod. Order - List of missing"
                                             TempItemSubPhantom."Lot No." := RecLItemLedgEntry."Lot No.";
                                             TempItemSubPhantom."Expected Quantity" := "Expected Quantity";
 
-                                            RecLTrackingSpec.Init;
+                                            RecLTrackingSpec.Init();
                                             RecLTrackingSpec."Item No." := ItemSubPhantom."Item No.";
                                             RecLTrackingSpec."Location Code" := "Location Code";
                                             RecLTrackingSpec."Lot No." := RecLItemLedgEntry."Lot No.";
                                             TempItemSubPhantom."Total Available Quantity" := ItemTrackingDataCollection.LotSNAvailablePhantom(RecLTrackingSpec);
-                                            if TempItemSubPhantom."Total Available Quantity" <> 0 then begin
+                                            if TempItemSubPhantom."Total Available Quantity" <> 0 then
                                                 if not TempItemSubPhantom.Insert then
                                                     TempItemSubPhantom.Modify
                                                 else begin
                                                     IntGNbDoc += 1;
-                                                    Temp.Init;
+                                                    Temp.Init();
                                                     Temp."Entry No." := IntGNbDoc;
                                                     Temp."Source Type" := 50011;
                                                     Temp."Item No." := ItemSubPhantom."Item No.";
                                                     Temp."Lot No." := RecLItemLedgEntry."Lot No.";
-                                                    Temp.Insert;
+                                                    Temp.Insert();
                                                 end;
-                                            end;
-                                        until RecLItemLedgEntry.Next = 0
+                                        until RecLItemLedgEntry.Next() = 0
                                     else begin
                                         TempItemSubPhantom."Phantom Item No." := ItemSubPhantom."Phantom Item No.";
                                         TempItemSubPhantom."Item No." := ItemSubPhantom."Item No.";
                                         TempItemSubPhantom.Priority := ItemSubPhantom.Priority;
                                         TempItemSubPhantom."Expected Quantity" := "Expected Quantity";
 
-                                        RecLTrackingSpec.Init;
+                                        RecLTrackingSpec.Init();
                                         RecLTrackingSpec."Item No." := ItemSubPhantom."Item No.";
                                         RecLTrackingSpec."Location Code" := "Location Code";
                                         TempItemSubPhantom."Total Available Quantity" := ItemTrackingDataCollection.LotSNAvailablePhantom(RecLTrackingSpec);
                                         if TempItemSubPhantom."Total Available Quantity" <> 0 then begin
                                             TempItemSubPhantom.Insert;
                                             IntGNbDoc += 1;
-                                            Temp.Init;
+                                            Temp.Init();
                                             Temp."Entry No." := IntGNbDoc;
                                             Temp."Source Type" := 50011;
                                             Temp."Item No." := ItemSubPhantom."Item No.";
-                                            Temp.Insert;
+                                            Temp.Insert();
                                         end;
                                     end;
                                 until ItemSubPhantom.Next = 0;
@@ -631,26 +629,26 @@ report 50020 "Prod. Order - List of missing"
                         IntGNbPhantom := IntGNbDoc;
 
                         RecGPurchLine.SetRange("No.", CompItem."No.");
-                        if RecGPurchLine.FindFirst then
+                        if RecGPurchLine.FindFirst() then
                             repeat
                                 IntGNbDoc += 1;
-                                Temp.Init;
+                                Temp.Init();
                                 Temp."Entry No." := IntGNbDoc;
                                 Temp."Source Type" := 39;
                                 Temp."Source ID" := RecGPurchLine."Document No.";
                                 Temp."Source Batch Name" := RecGPurchLine."Buy-from Vendor No.";
                                 Temp."Creation Date" := RecGPurchLine."Expected Receipt Date";
                                 Temp."Quantity (Base)" := RecGPurchLine."Outstanding Qty. (Base)";
-                                Temp.Insert;
-                            until RecGPurchLine.Next = 0;
+                                Temp.Insert();
+                            until RecGPurchLine.Next() = 0;
 
                         RecGProdOrderLine.SetFilter("Item No.", '%1', CompItem."No.");
                         RecGProdOrderLine.SetRange("Item No.", CompItem."No.");
-                        if RecGProdOrderLine.FindFirst then
+                        if RecGProdOrderLine.FindFirst() then
                             repeat
                                 if RecGProdOrderLine."Remaining Qty. (Base)" <> 0 then begin
                                     IntGNbDoc += 1;
-                                    Temp.Init;
+                                    Temp.Init();
                                     Temp."Entry No." := IntGNbDoc;
                                     Temp."Source Type" := 5406;
                                     Temp."Source ID" := RecGProdOrderLine."Prod. Order No.";
@@ -660,16 +658,16 @@ report 50020 "Prod. Order - List of missing"
                                     //>>TDL.LPSA.002
                                     Temp."Expiration Date" := RecGProdOrderLine."Due Date";
                                     //<<TDL.LPSA.002
-                                    Temp.Insert;
+                                    Temp.Insert();
                                 end;
-                            until RecGProdOrderLine.Next = 0;
+                            until RecGProdOrderLine.Next() = 0;
 
                         RecGSalesLine.SetFilter("No.", '%1|%2', "Prod. Order Line"."Item No.", CompItem."No.");
                         RecGSalesLine.SetCurrentKey("Shipment Date");
-                        if RecGSalesLine.FindFirst then
+                        if RecGSalesLine.FindFirst() then
                             repeat
                                 IntGNbDoc += 1;
-                                Temp.Init;
+                                Temp.Init();
                                 Temp."Entry No." := IntGNbDoc;
                                 Temp."Source Type" := 37;
                                 Temp."Source ID" := RecGSalesLine."Document No.";
@@ -677,23 +675,23 @@ report 50020 "Prod. Order - List of missing"
                                 Temp."Source Batch Name" := RecGSalesLine."Sell-to Customer No.";
                                 Temp."Creation Date" := RecGSalesLine."Planned Delivery Date";
                                 Temp."Quantity (Base)" := RecGSalesLine."Outstanding Qty. (Base)";
-                                Temp.Insert;
-                            until RecGSalesLine.Next = 0;
+                                Temp.Insert();
+                            until RecGSalesLine.Next() = 0;
 
                         RecGProdForecastEntry.SetFilter("Item No.", '%1|%2', "Prod. Order Line"."Item No.", CompItem."No.");
                         RecGProdForecastEntry.SetRange("Forecast Date", "Production Order"."Due Date");
-                        if RecGProdForecastEntry.FindFirst then
+                        if RecGProdForecastEntry.FindFirst() then
                             repeat
                                 IntGNbDoc += 1;
-                                Temp.Init;
+                                Temp.Init();
                                 Temp."Entry No." := IntGNbDoc;
                                 Temp."Source Type" := 37;
                                 Temp."Source ID" := 'PREVISION';
                                 Temp."Source Batch Name" := '';
                                 Temp."Creation Date" := RecGProdForecastEntry."Forecast Date";
                                 Temp."Quantity (Base)" := RecGProdForecastEntry."Forecast Quantity (Base)";
-                                Temp.Insert;
-                            until RecGProdForecastEntry.Next = 0;
+                                Temp.Insert();
+                            until RecGProdForecastEntry.Next() = 0;
                     end;
 
                     trigger OnPreDataItem()
@@ -701,7 +699,7 @@ report 50020 "Prod. Order - List of missing"
                         SetFilter("Due Date", "Production Order".GetFilter("Date Filter"));
                         SetFilter("Remaining Qty. (Base)", '>0');
 
-                        Temp.DeleteAll;
+                        Temp.DeleteAll();
                         IntGNbDoc := 0;
 
                         RecGPurchLine.SetRange("Document Type", RecGPurchLine."Document Type"::Order);
@@ -723,7 +721,7 @@ report 50020 "Prod. Order - List of missing"
             begin
                 if "Source Type" = "Source Type"::Item then begin
                     if not Item.Get("Source No.") then
-                        Item.Init;
+                        Item.Init();
                     Item.SetRange("Location Filter", "Location Code");
                     Item.SetRange("Date Filter");
                     Item.CalcFields(Item."Released Qty. on Prod. Order");
@@ -744,7 +742,7 @@ report 50020 "Prod. Order - List of missing"
                       Item."Released Scheduled Need (Qty.)" -
                       Item."Res. Qty. on Prod. Order Comp.";
                 end else
-                    Item.Init;
+                    Item.Init();
 
                 //>>TDL.LPSA.002
                 //IF (CodGComponentNo <>'') AND (CodGComponentNo <> "Component No.") THEN
@@ -772,8 +770,6 @@ report 50020 "Prod. Order - List of missing"
     }
 
     var
-        ReservationEntry: Record "Reservation Entry";
-        ReservationEntry2: Record "Reservation Entry";
         Item: Record Item;
         CompItem: Record Item;
         RecGPurchLine: Record "Purchase Line";
@@ -784,7 +780,6 @@ report 50020 "Prod. Order - List of missing"
         RemainingQty: Decimal;
         NeededQty: Decimal;
         QtyOnHandAfterProd: Decimal;
-        RemainingQtyReserved: Decimal;
         Temp: Record "Tracking Specification Phantom" temporary;
         IntGNbDoc: Integer;
         NoDoc: array[3] of Code[20];
@@ -802,7 +797,6 @@ report 50020 "Prod. Order - List of missing"
         RecGProdForecastEntry: Record "Production Forecast Entry";
         DateDebut: Date;
         TrackingMgt: Codeunit OrderTrackingManagement;
-        OrderTrakingEntry: Record "Order Tracking Entry";
         TxtGTracking: Text[250];
         IntGNumber: Integer;
         DueDate: Date;
@@ -849,12 +843,12 @@ report 50020 "Prod. Order - List of missing"
     begin
         ProdOrderLine.Copy(ProdOrderLineFields);
 
-        if ProdOrderLine.FindSet then
+        if ProdOrderLine.FindSet() then
             repeat
                 ProdOrderLine.CalcFields("Reserved Qty. (Base)");
                 RemainingQtyBase += ProdOrderLine."Remaining Qty. (Base)";
                 ReservedQtyBase += ProdOrderLine."Reserved Qty. (Base)";
-            until ProdOrderLine.Next = 0;
+            until ProdOrderLine.Next() = 0;
 
         ProdOrderLineFields."Remaining Qty. (Base)" := RemainingQtyBase;
         ProdOrderLineFields."Reserved Qty. (Base)" := ReservedQtyBase;
@@ -869,12 +863,12 @@ report 50020 "Prod. Order - List of missing"
     begin
         ProdOrderComp.Copy(ProdOrderCompFields);
 
-        if ProdOrderComp.FindSet then
+        if ProdOrderComp.FindSet() then
             repeat
                 ProdOrderComp.CalcFields("Reserved Qty. (Base)");
                 RemainingQtyBase += ProdOrderComp."Remaining Qty. (Base)";
                 ReservedQtyBase += ProdOrderComp."Reserved Qty. (Base)";
-            until ProdOrderComp.Next = 0;
+            until ProdOrderComp.Next() = 0;
 
         ProdOrderCompFields."Remaining Qty. (Base)" := RemainingQtyBase;
         ProdOrderCompFields."Reserved Qty. (Base)" := ReservedQtyBase;

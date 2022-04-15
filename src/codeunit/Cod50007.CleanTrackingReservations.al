@@ -15,7 +15,6 @@ codeunit 50007 "Clean Tracking Reservations"
         RecLReservEntry: Record "Reservation Entry";
         RecLReservEntry2: Record "Reservation Entry";
         DiaLWindow: Dialog;
-        IntLCount: Integer;
         UpdtReservationEntry: Label 'Vérification de la traçabilité #1###############';
     begin
         // Supprime les réservations de type Suivi qui ne vont pas par paire
@@ -28,47 +27,46 @@ codeunit 50007 "Clean Tracking Reservations"
                 if GuiAllowed then
                     DiaLWindow.Update(1, RecLReservEntry."Entry No.");
 
-                if not RecLReservEntry2.Get(RecLReservEntry."Entry No.", not RecLReservEntry.Positive) then begin
+                if not RecLReservEntry2.Get(RecLReservEntry."Entry No.", not RecLReservEntry.Positive) then
                     if RecLReservEntry2.Get(RecLReservEntry."Entry No.", RecLReservEntry.Positive) then
-                        RecLReservEntry2.Delete;
-                end;
+                        RecLReservEntry2.Delete();
 
 
-            until RecLReservEntry.Next = 0;
+            until RecLReservEntry.Next() = 0;
 
         // Supprime les écritures de type Excédent
-        RecLReservEntry.Reset;
+        RecLReservEntry.Reset();
         RecLReservEntry.SetRange("Reservation Status", RecLReservEntry."Reservation Status"::Surplus);
         RecLReservEntry.SetRange("Source Type", 32);
 
-        if RecLReservEntry.FindSet then
+        if RecLReservEntry.FindSet() then
             repeat
                 if GuiAllowed then
                     DiaLWindow.Update(1, RecLReservEntry."Entry No.");
 
                 RecLReservEntry2.Get(RecLReservEntry."Entry No.", RecLReservEntry.Positive);
-                RecLReservEntry2.Delete;
+                RecLReservEntry2.Delete();
 
-            until RecLReservEntry.Next = 0;
+            until RecLReservEntry.Next() = 0;
 
         // Supprime les réservations de type Origine 83 et avec état de la réservation Prospect antèrieurs au jour de travail
         RecLReservEntry.SetRange("Reservation Status", RecLReservEntry."Reservation Status"::Prospect);
         RecLReservEntry.SetRange("Source Type", 83);
-        RecLReservEntry.SetFilter("Creation Date", '<%1', WorkDate);
+        RecLReservEntry.SetFilter("Creation Date", '<%1', WorkDate());
 
-        if RecLReservEntry.FindSet then
+        if RecLReservEntry.FindSet() then
             repeat
                 if GuiAllowed then
                     DiaLWindow.Update(1, RecLReservEntry."Entry No.");
 
                 RecLReservEntry2.Get(RecLReservEntry."Entry No.", RecLReservEntry.Positive);
-                RecLReservEntry2.Delete;
+                RecLReservEntry2.Delete();
 
-            until RecLReservEntry.Next = 0;
+            until RecLReservEntry.Next() = 0;
 
 
         if GuiAllowed then
-            DiaLWindow.Close;
+            DiaLWindow.Close();
     end;
 }
 

@@ -27,7 +27,7 @@ report 50010 "Real Std Comparison Routing"
             column(COMPANYNAME; CompanyName)
             {
             }
-            column(CurrReport_PAGENO; CurrReport.PageNo)
+            column(CurrReport_PAGENO; CurrReport.PageNo())
             {
             }
             column(USERID; UserId)
@@ -187,9 +187,9 @@ report 50010 "Real Std Comparison Routing"
                     trigger OnAfterGetRecord()
                     begin
                         if Number = 1 then
-                            RecGRoutingTemp.FindFirst
+                            RecGRoutingTemp.FindFirst()
                         else
-                            RecGRoutingTemp.Next;
+                            RecGRoutingTemp.Next();
 
                         // Temps de préparation standard & Temps d'execution standard
                         DecGSetupTime := 0;
@@ -209,7 +209,7 @@ report 50010 "Real Std Comparison Routing"
                                 DecGRunTime := Round((RecGManuCycleSetup."Run Time" / RecGManuCycleSetup."Maximun Quantity by cycle"), 0.001);
                             end;
 
-                        RecGCapLedEntry.Reset;
+                        RecGCapLedEntry.Reset();
                         RecGCapLedEntry.SetCurrentKey("Document No.", "Posting Date");
                         RecGCapLedEntry.SetRange("Document No.", "Prod. Order Line"."Prod. Order No.");
                         RecGCapLedEntry.SetFilter("Posting Date", DateFilter);
@@ -334,7 +334,6 @@ report 50010 "Real Std Comparison Routing"
 
     procedure GetTimePrepExReal(RecPRoutingLine: Record "Routing Line"; RecPOrderLine: Record "Prod. Order Line"; var DecPTimeExReal: Decimal; var DecPTimePrepReal: Decimal; var DecPQtyRebut: Decimal)
     var
-        DecLTimeEx: Decimal;
         RecLCapLedEntry: Record "Capacity Ledger Entry";
         Nbre: Integer;
         RecLProdOrderLine: Record "Prod. Order Line";
@@ -342,15 +341,15 @@ report 50010 "Real Std Comparison Routing"
         Clear(DecPTimeExReal);
         Clear(DecPTimePrepReal);
         Clear(DecPQtyRebut);
-        RecLCapLedEntry.Reset;
+        RecLCapLedEntry.Reset();
         RecLCapLedEntry.SetFilter("Posting Date", DateFilter);
         RecLCapLedEntry.SetRange("Item No.", RecPOrderLine."Item No.");
         RecLCapLedEntry.SetRange("Operation No.", RecPRoutingLine."Operation No.");
         RecLCapLedEntry.SetRange("Routing No.", RecPRoutingLine."Routing No.");
         Nbre := 0;
-        if RecLCapLedEntry.FindFirst then begin
+        if RecLCapLedEntry.FindFirst() then
             repeat
-                RecLProdOrderLine.Reset;
+                RecLProdOrderLine.Reset();
                 RecLProdOrderLine.SetRange(Status, RecLProdOrderLine.Status::Finished);
                 RecLProdOrderLine.SetRange("Routing No.", RecPRoutingLine."Routing No.");
                 RecLProdOrderLine.SetRange("Routing Version Code", RecPRoutingLine."Version Code");
@@ -361,8 +360,7 @@ report 50010 "Real Std Comparison Routing"
                     DecPTimePrepReal += RecLCapLedEntry."Setup Time";
                     DecPQtyRebut += RecLCapLedEntry."Scrap Quantity" / (RecLCapLedEntry."Scrap Quantity" + RecLCapLedEntry."Output Quantity");
                 end;
-            until RecLCapLedEntry.Next = 0;
-        end;
+            until RecLCapLedEntry.Next() = 0;
         if Nbre <> 0 then begin
             DecPTimeExReal := Round((DecPTimeExReal / Nbre), 0.001);
             DecPTimePrepReal := Round((DecPTimePrepReal / Nbre), 0.001);
@@ -375,41 +373,34 @@ report 50010 "Real Std Comparison Routing"
         RecLRtngLine: Record "Routing Line";
         RecLProdOrderRtngLine: Record "Prod. Order Routing Line";
         RecLRtngLine2: Record "Routing Line";
-        WorkCenter: Record "Work Center";
-        MachineCenter: Record "Machine Center";
-        "---FE_LAPIERRETTE_PROD04---": Integer;
-        DecLSetupTime: Decimal;
-        DecLRunTime: Decimal;
-        CodLSetupTimeUnit: Code[10];
-        CodLRunTimeUnit: Code[10];
     begin
         if RecPProdOrderLine."Routing No." = '' then
             exit;
-        RecPRoutingTemp.DeleteAll;
+        RecPRoutingTemp.DeleteAll();
         if (CodGRoutingNo <> RecPProdOrderLine."Routing No.") or (CodGRoutingVer <> RecPProdOrderLine."Routing Version Code") then begin
-            RecLRtngLine.Reset;
+            RecLRtngLine.Reset();
             RecLRtngLine.SetRange("Routing No.", RecPProdOrderLine."Routing No.");
             RecLRtngLine.SetRange("Version Code", RecPProdOrderLine."Routing Version Code");
-            if RecLRtngLine.FindFirst then
+            if RecLRtngLine.FindFirst() then
                 repeat
                     RecPRoutingTemp.TransferFields(RecLRtngLine);
-                    RecPRoutingTemp.Insert;
-                until RecLRtngLine.Next = 0;
+                    RecPRoutingTemp.Insert();
+                until RecLRtngLine.Next() = 0;
             CodGRoutingNo := RecPProdOrderLine."Routing No.";
             CodGRoutingVer := RecPProdOrderLine."Routing Version Code";
         end;
 
         BooLExist := false;
-        RecLProdOrderRtngLine.Reset;
+        RecLProdOrderRtngLine.Reset();
         RecLProdOrderRtngLine.SetRange(Status, RecPProdOrderLine.Status);
         RecLProdOrderRtngLine.SetRange("Prod. Order No.", RecPProdOrderLine."Prod. Order No.");
         RecLProdOrderRtngLine.SetRange("Routing Reference No.", RecPProdOrderLine."Routing Reference No.");
         RecLProdOrderRtngLine.SetRange("Routing No.", RecPProdOrderLine."Routing No.");
-        if RecLProdOrderRtngLine.FindFirst then
+        if RecLProdOrderRtngLine.FindFirst() then
             repeat
                 if not RecLRtngLine2.Get(RecLProdOrderRtngLine."Routing No.", RecPProdOrderLine."Routing Version Code",
                                             RecLProdOrderRtngLine."Operation No.") then begin
-                    RecPRoutingTemp.Init;
+                    RecPRoutingTemp.Init();
                     RecPRoutingTemp."Routing No." := RecLProdOrderRtngLine."Routing No.";
                     RecPRoutingTemp."Version Code" := RecPProdOrderLine."Routing Version Code";
                     RecPRoutingTemp."Operation No." := RecLProdOrderRtngLine."Operation No.";
@@ -425,9 +416,9 @@ report 50010 "Real Std Comparison Routing"
                     RecPRoutingTemp."Setup Time Unit of Meas. Code" := RecLProdOrderRtngLine."Setup Time Unit of Meas. Code";
                     RecPRoutingTemp."Run Time Unit of Meas. Code" := RecLProdOrderRtngLine."Run Time Unit of Meas. Code";
                     RecPRoutingTemp."Fixed-step Prod. Rate time" := false;
-                    RecPRoutingTemp.Insert;
+                    RecPRoutingTemp.Insert();
                 end;
-            until RecLProdOrderRtngLine.Next = 0;
+            until RecLProdOrderRtngLine.Next() = 0;
     end;
 }
 

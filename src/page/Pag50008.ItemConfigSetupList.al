@@ -201,17 +201,17 @@ page 50008 "PWD Item Config. Setup List"
 
     trigger OnAfterGetRecord()
     begin
-        FctEditableFields;
+        FctEditableFields();
     end;
 
     trigger OnInit()
     begin
-        FctEditableFields;
+        FctEditableFields();
     end;
 
     trigger OnOpenPage()
     begin
-        FctEditableFields;
+        FctEditableFields();
     end;
 
     var

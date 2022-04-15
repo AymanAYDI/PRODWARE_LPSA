@@ -28,7 +28,7 @@ report 50102 "PWD Inv. Phys. to 0"
                 RecL50100.Validate("Item No.", "Item No.");
 
                 RecL50100.Validate("Unit of Measure Code", "Unit of Measure Code");
-                RecL50100.Validate("Posting Date", WorkDate);
+                RecL50100.Validate("Posting Date", WorkDate());
                 if "Item Journal Line"."Qty. (Calculated)" < 0 then
                     RecL50100."Entry Type" := RecL50100."Entry Type"::"Negative Adjmt."
                 else
@@ -42,7 +42,7 @@ report 50102 "PWD Inv. Phys. to 0"
                 recL342.SetRange("Table ID", DATABASE::Item);
                 recL342.SetRange("No.", "Item No.");
                 recL342.SetFilter("Dimension Value Code", '<>%1', '');
-                if recL342.FindFirst then
+                if recL342.FindFirst() then
                     repeat
                         if recL342."Dimension Code" = RecL98."Global Dimension 1 Code" then begin
                             RecL50100."Global Dimension 1 Code" := recL342."Dimension Value Code";
@@ -76,21 +76,21 @@ report 50102 "PWD Inv. Phys. to 0"
                             end;
                         end;
                         RecL50100.Modify;
-                        "Item Journal Line".Modify;
+                        "Item Journal Line".Modify();
 
-                    until recL342.Next = 0;
+                    until recL342.Next() = 0;
 
                 EntryNO += 1;
 
                 "Item Journal Line".Validate("Qty. (Phys. Inventory)", 0);
-                Modify;
+                Modify();
             end;
 
             trigger OnPreDataItem()
             var
                 RecL50100: Record "Item Ledger Entry Out";
             begin
-                RecL98.Get;
+                RecL98.Get();
 
 
                 RecGJnlTempl.Get('INV. PHYS');
@@ -119,7 +119,6 @@ report 50102 "PWD Inv. Phys. to 0"
     var
         EntryNO: Integer;
         RecGJnlTempl: Record "Item Journal Template";
-        CduGTracking: Codeunit "Item Tracking Management";
         CodGSerialNo: array[999] of Code[20];
         RecL98: Record "General Ledger Setup";
 
@@ -128,13 +127,7 @@ report 50102 "PWD Inv. Phys. to 0"
     var
         CduLItemTrackingManagment: Codeunit "LPSA Tracking Management";
         CduLReserveItemJLine: Codeunit "Item Jnl. Line-Reserve";
-        DecLSecondSourceQtyArray: array[3] of Decimal;
         RecLTrackingSpecification: Record "Tracking Specification";
-        RecLItemUOM: Record "Item Unit of Measure";
-        DecLQtyToHandleBase: Decimal;
-        DecLTemp: Decimal;
-        i: Integer;
-        LineNo: Integer;
         ItemTrackingMgt: Codeunit "Item Tracking Management";
     begin
         //Simulate Page(6510) initialization

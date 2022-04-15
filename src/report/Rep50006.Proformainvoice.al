@@ -68,7 +68,7 @@ report 50006 "PWD Proforma invoice"
                     column(CompanyInfo_City; CompanyInfo.City + ', ' + Format(Today, 0, 4))
                     {
                     }
-                    column(FORMAT__Sales_Header___Document_Date__0_4_; Format(WorkDate, 0, 4))
+                    column(FORMAT__Sales_Header___Document_Date__0_4_; Format(WorkDate(), 0, 4))
                     {
                     }
                     column(Sales_Header_Document_Date; "Sales Header"."Document Date")
@@ -194,7 +194,7 @@ report 50006 "PWD Proforma invoice"
 
                         trigger OnPreDataItem()
                         begin
-                            CurrReport.Break;
+                            CurrReport.Break();
                         end;
                     }
                     dataitem(RoundLoop; "Integer")
@@ -367,7 +367,7 @@ report 50006 "PWD Proforma invoice"
                             if Number = 1 then
                                 SalesLine.Find('-')
                             else
-                                SalesLine.Next;
+                                SalesLine.Next();
                             "Sales Line" := SalesLine;
 
                             if not "Sales Header"."Prices Including VAT" and
@@ -401,7 +401,7 @@ report 50006 "PWD Proforma invoice"
                             ReservEntry.SetRange("Source Type", 37);
                             ReservEntry.SetRange("Source Subtype", ReservEntry."Source Subtype"::"1");
                             ReservEntry.SetRange("Source ID", "Sales Line"."Document No.");
-                            if ReservEntry.FindFirst then
+                            if ReservEntry.FindFirst() then
                                 LotNo := ReservEntry."Lot No.";
                             LPSADescription := '';
                             //>>TI460631
@@ -425,24 +425,23 @@ report 50006 "PWD Proforma invoice"
                             //>>Regie
                             Clear(TxtGComment);
                             BooGStopComment := false;
-                            RecGSalesCommentLine.Reset;
+                            RecGSalesCommentLine.Reset();
                             RecGSalesCommentLine.SetRange("Document Type", RecGSalesCommentLine."Document Type"::Order);
                             RecGSalesCommentLine.SetRange("No.", "Sales Line"."Document No.");
                             RecGSalesCommentLine.SetRange("Document Line No.", "Sales Line"."Line No.");
-                            if RecGSalesCommentLine.FindSet then begin
+                            if RecGSalesCommentLine.FindSet() then
                                 repeat
                                     if StrLen(TxtGComment) + StrLen(RecGSalesCommentLine.Comment) < 1024 then
                                         TxtGComment += RecGSalesCommentLine.Comment + ' '
                                     else
                                         BooGStopComment := true;
-                                until (RecGSalesCommentLine.Next = 0) or (BooGStopComment);
-                            end;
+                                until (RecGSalesCommentLine.Next() = 0) or (BooGStopComment);
                         end;
 
                         trigger OnPostDataItem()
                         begin
 
-                            SalesLine.DeleteAll;
+                            SalesLine.DeleteAll();
                         end;
 
                         trigger OnPreDataItem()
@@ -454,7 +453,7 @@ report 50006 "PWD Proforma invoice"
                             do
                                 MoreLines := SalesLine.Next(-1) <> 0;
                             if not MoreLines then
-                                CurrReport.Break;
+                                CurrReport.Break();
                             SalesLine.SetRange("Line No.", 0, SalesLine."Line No.");
                             SetRange(Number, 1, SalesLine.Count);
                             CurrReport.CreateTotals(SalesLine."Line Amount", SalesLine."Inv. Discount Amount", VATAmountLine."VAT Base");
@@ -492,7 +491,7 @@ report 50006 "PWD Proforma invoice"
                         trigger OnPreDataItem()
                         begin
                             if VATAmount = 0 then
-                                CurrReport.Break;
+                                CurrReport.Break();
                             SetRange(Number, 1, VATAmountLine.Count);
                             CurrReport.CreateTotals(
                               VATAmountLine."Line Amount", VATAmountLine."Inv. Disc. Base Amount",
@@ -521,18 +520,18 @@ report 50006 "PWD Proforma invoice"
                 begin
                     Clear(SalesLine);
                     Clear(SalesPost);
-                    VATAmountLine.DeleteAll;
-                    SalesLine.DeleteAll;
+                    VATAmountLine.DeleteAll();
+                    SalesLine.DeleteAll();
                     SalesPost.GetSalesLines("Sales Header", SalesLine, 0);
                     SalesLine.CalcVATAmountLines(0, "Sales Header", SalesLine, VATAmountLine);
                     SalesLine.UpdateVATOnLines(0, "Sales Header", SalesLine, VATAmountLine);
-                    VATAmount := VATAmountLine.GetTotalVATAmount;
-                    VATBaseAmount := VATAmountLine.GetTotalVATBase;
+                    VATAmount := VATAmountLine.GetTotalVATAmount();
+                    VATBaseAmount := VATAmountLine.GetTotalVATBase();
                     VATDiscountAmount :=
                       VATAmountLine.GetTotalVATDiscount("Sales Header"."Currency Code", "Sales Header"."Prices Including VAT");
-                    TotalAmountInclVAT := VATAmountLine.GetTotalAmountInclVAT;
+                    TotalAmountInclVAT := VATAmountLine.GetTotalAmountInclVAT();
 
-                    PrepmtInvBuf.DeleteAll;
+                    PrepmtInvBuf.DeleteAll();
                     SalesPostPrepmt.GetSalesLines("Sales Header", 0, PrepmtSalesLine);
 
                     if (not PrepmtSalesLine.IsEmpty) then begin
@@ -541,10 +540,10 @@ report 50006 "PWD Proforma invoice"
                             SalesPostPrepmt.CalcVATAmountLines("Sales Header", TempSalesLine, PrepmtVATAmountLineDeduct, 1);
                     end;
                     SalesPostPrepmt.CalcVATAmountLines("Sales Header", PrepmtSalesLine, PrepmtVATAmountLine, 0);
-                    if PrepmtVATAmountLine.FindSet then
+                    if PrepmtVATAmountLine.FindSet() then
                         repeat
                             PrepmtVATAmountLineDeduct := PrepmtVATAmountLine;
-                            if PrepmtVATAmountLineDeduct.Find then begin
+                            if PrepmtVATAmountLineDeduct.Find() then begin
                                 PrepmtVATAmountLine."VAT Base" := PrepmtVATAmountLine."VAT Base" - PrepmtVATAmountLineDeduct."VAT Base";
                                 PrepmtVATAmountLine."VAT Amount" := PrepmtVATAmountLine."VAT Amount" - PrepmtVATAmountLineDeduct."VAT Amount";
                                 PrepmtVATAmountLine."Amount Including VAT" := PrepmtVATAmountLine."Amount Including VAT" -
@@ -556,15 +555,15 @@ report 50006 "PWD Proforma invoice"
                                   PrepmtVATAmountLineDeduct."Invoice Discount Amount";
                                 PrepmtVATAmountLine."Calculated VAT Amount" := PrepmtVATAmountLine."Calculated VAT Amount" -
                                   PrepmtVATAmountLineDeduct."Calculated VAT Amount";
-                                PrepmtVATAmountLine.Modify;
+                                PrepmtVATAmountLine.Modify();
                             end;
-                        until PrepmtVATAmountLine.Next = 0;
+                        until PrepmtVATAmountLine.Next() = 0;
 
                     SalesPostPrepmt.UpdateVATOnLines("Sales Header", PrepmtSalesLine, PrepmtVATAmountLine, 0);
                     SalesPostPrepmt.BuildInvLineBuffer2("Sales Header", PrepmtSalesLine, 0, PrepmtInvBuf, DocDim);
-                    PrepmtVATAmount := PrepmtVATAmountLine.GetTotalVATAmount;
-                    PrepmtVATBaseAmount := PrepmtVATAmountLine.GetTotalVATBase;
-                    PrepmtTotalAmountInclVAT := PrepmtVATAmountLine.GetTotalAmountInclVAT;
+                    PrepmtVATAmount := PrepmtVATAmountLine.GetTotalVATAmount();
+                    PrepmtVATBaseAmount := PrepmtVATAmountLine.GetTotalVATBase();
+                    PrepmtTotalAmountInclVAT := PrepmtVATAmountLine.GetTotalAmountInclVAT();
 
                     if Number > 1 then begin
                         CopyText := Text003;
@@ -647,26 +646,26 @@ report 50006 "PWD Proforma invoice"
                 FormatAddr.SalesHeaderBillTo(CustAddr, "Sales Header");
 
                 if "Payment Terms Code" = '' then
-                    PaymentTerms.Init
+                    PaymentTerms.Init()
                 else begin
                     PaymentTerms.Get("Payment Terms Code");
                     PaymentTerms.TranslateDescription(PaymentTerms, "Sales Header"."Language Code");
                     TxTGLabelCondPay := StrSubstNo(Text011, PaymentTerms.Description);
                 end;
                 if "Prepmt. Payment Terms Code" = '' then
-                    PrepmtPaymentTerms.Init
+                    PrepmtPaymentTerms.Init()
                 else begin
                     PrepmtPaymentTerms.Get("Prepmt. Payment Terms Code");
                     PrepmtPaymentTerms.TranslateDescription(PrepmtPaymentTerms, "Sales Header"."Language Code");
                 end;
                 if "Prepmt. Payment Terms Code" = '' then
-                    PrepmtPaymentTerms.Init
+                    PrepmtPaymentTerms.Init()
                 else begin
                     PrepmtPaymentTerms.Get("Prepmt. Payment Terms Code");
                     PrepmtPaymentTerms.TranslateDescription(PrepmtPaymentTerms, "Sales Header"."Language Code");
                 end;
                 if "Shipment Method Code" = '' then
-                    ShipmentMethod.Init
+                    ShipmentMethod.Init()
                 else begin
                     ShipmentMethod.Get("Shipment Method Code");
                     ShipmentMethod.TranslateDescription(ShipmentMethod, "Sales Header"."Language Code");
@@ -739,25 +738,24 @@ report 50006 "PWD Proforma invoice"
 
     trigger OnInitReport()
     begin
-        GLSetup.Get;
-        CompanyInfo.Get;
-        SalesSetup.Get;
+        GLSetup.Get();
+        CompanyInfo.Get();
+        SalesSetup.Get();
 
         case SalesSetup."Logo Position on Documents" of
             SalesSetup."Logo Position on Documents"::"No Logo":
                 ;
             SalesSetup."Logo Position on Documents"::Left:
-                begin
-                    CompanyInfo.CalcFields(Picture);
-                end;
+
+                CompanyInfo.CalcFields(Picture);
             SalesSetup."Logo Position on Documents"::Center:
                 begin
-                    CompanyInfo1.Get;
+                    CompanyInfo1.Get();
                     CompanyInfo1.CalcFields(Picture);
                 end;
             SalesSetup."Logo Position on Documents"::Right:
                 begin
-                    CompanyInfo2.Get;
+                    CompanyInfo2.Get();
                     CompanyInfo2.CalcFields(Picture);
                 end;
         end;
@@ -769,12 +767,11 @@ report 50006 "PWD Proforma invoice"
 
     trigger OnPostReport()
     var
-        "---- NDBI ----": Integer;
         RecLSalesHeader: Record "Sales Header";
     begin
         //>>NDBI
         if not BooGSkipSendEmail and BooGEnvoiMail then begin
-            RecLSalesHeader.SetView("Sales Header".GetView);
+            RecLSalesHeader.SetView("Sales Header".GetView());
             SendPDFMail(RecLSalesHeader);
         end;
         //<<NDBI
@@ -785,8 +782,6 @@ report 50006 "PWD Proforma invoice"
         Text001: Label 'Total %1';
         Text002: Label 'Total %1 Incl. VAT';
         Text003: Label 'COPY';
-        Text004: Label 'Order Confirmation %1';
-        Text005: Label 'Page %1';
         Text006: Label 'Total %1 Excl. VAT';
         GLSetup: Record "General Ledger Setup";
         ShipmentMethod: Record "Shipment Method";
@@ -802,12 +797,9 @@ report 50006 "PWD Proforma invoice"
         PrepmtVATAmountLineDeduct: Record "VAT Amount Line" temporary;
         SalesLine: Record "Sales Line" temporary;
         DocDim1: Record "Document Dimension";
-        DocDim2: Record "Document Dimension";
-        PrepmtDocDim: Record "Document Dimension" temporary;
         PrepmtInvBuf: Record "Prepayment Inv. Line Buffer" temporary;
         RespCenter: Record "Responsibility Center";
         Language: Record Language;
-        CurrExchRate: Record "Currency Exchange Rate";
         SalesCountPrinted: Codeunit "Sales-Printed";
         FormatAddr: Codeunit "Format Address";
         SegManagement: Codeunit SegManagement;
@@ -828,28 +820,16 @@ report 50006 "PWD Proforma invoice"
         CopyText: Text[30];
         ShowShippingAddr: Boolean;
         i: Integer;
-        DimText: Text[120];
-        OldDimText: Text[75];
         ShowInternalInfo: Boolean;
-        Continue: Boolean;
         ArchiveDocument: Boolean;
         LogInteraction: Boolean;
         VATAmount: Decimal;
         VATBaseAmount: Decimal;
         VATDiscountAmount: Decimal;
         TotalAmountInclVAT: Decimal;
-        VALVATBaseLCY: Decimal;
-        VALVATAmountLCY: Decimal;
-        VALSpecLCYHeader: Text[80];
-        Text007: Label 'VAT Amount Specification in ';
-        Text008: Label 'Local Currency';
-        Text009: Label 'Exchange rate: %1/%2';
-        VALExchRate: Text[50];
         PrepmtVATAmount: Decimal;
         PrepmtVATBaseAmount: Decimal;
-        PrepmtAmountInclVAT: Decimal;
         PrepmtTotalAmountInclVAT: Decimal;
-        PrepmtLineAmount: Decimal;
         OutputNo: Integer;
         NNC_TotalLCY: Decimal;
         NNC_TotalExclVAT: Decimal;
@@ -862,14 +842,8 @@ report 50006 "PWD Proforma invoice"
         NNC_SalesLineLineAmt: Decimal;
         NNC_SalesLineInvDiscAmt: Decimal;
         Cust: Record Customer;
-        Item: Record Item;
         GetTotalLineAmount: Decimal;
         GetTotalInvDiscAmount: Decimal;
-        [InDataSet]
-        ArchiveDocumentEnable: Boolean;
-        [InDataSet]
-        LogInteractionEnable: Boolean;
-        Text010: Label 'According Shipping No. %1 of the %2 ';
         Text011: Label 'Payment Terms  %1';
         Text012: Label 'Due Date';
         Text013: Label 'Amount';
@@ -879,7 +853,6 @@ report 50006 "PWD Proforma invoice"
         LotNo: Code[20];
         BSContact: Text[50];
         LPSADescription: Text[120];
-        TOTALTTC: Decimal;
         Text015: Label '  VAT';
         Text016: Label 'of';
         TxTGLabelCondPay: Text[250];
@@ -888,7 +861,6 @@ report 50006 "PWD Proforma invoice"
         RecGSalesCommentLine: Record "Sales Comment Line";
         TxtGComment: Text[1024];
         BooGStopComment: Boolean;
-        "---- NDBI ----": Integer;
         BooGEnvoiMail: Boolean;
         BooGSkipSendEmail: Boolean;
         Sales_Header_No_captionLbl: Label 'Document No. : ';
@@ -920,9 +892,6 @@ report 50006 "PWD Proforma invoice"
 
     procedure SendPDFMail(var RecPSalesHeader: Record "Sales Header")
     var
-        RecLContBusRel: Record "Contact Business Relation";
-        RecLContact: Record Contact;
-        RecLCustomer: Record Customer;
         CstL001: Label 'LA PIERRETTE SA : Sales Invoice %1';
         CstL002: Label 'Next the invoice following your order %1';
         Recipient: Text[80];
@@ -941,7 +910,7 @@ report 50006 "PWD Proforma invoice"
         Clear(Recipient);
         Clear(CodLMail);
 
-        RecPSalesHeader.FindFirst;
+        RecPSalesHeader.FindFirst();
 
         // pas besoin d'avoir l'adresse destinataire rempli mais ça va peut être évoluer.
         /*

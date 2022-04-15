@@ -30,7 +30,7 @@ report 50021 "PWD Inventory Valuation - LPSA"
             column(USERID; UserId)
             {
             }
-            column(CurrReport_PAGENO; CurrReport.PageNo)
+            column(CurrReport_PAGENO; CurrReport.PageNo())
             {
             }
             column(STRSUBSTNO___1___2___Production_Order__TABLECAPTION_ProdOrderFilter_; StrSubstNo('%1: %2', "Production Order".TableCaption, ProdOrderFilter))
@@ -187,7 +187,7 @@ report 50021 "PWD Inventory Valuation - LPSA"
                         AtLastDate := 0;
                         LastWIP := 0;
 
-                        if (CountRecord = LengthRecord) and IsNotWIP then begin
+                        if (CountRecord = LengthRecord) and IsNotWIP() then begin
                             ValueEntryOnPostDataItem("Value Entry");
 
                             AtLastDate := NcValueOfWIP + NcValueOfMatConsump + NcValueOfCap + NcValueOfOutput;
@@ -211,10 +211,10 @@ report 50021 "PWD Inventory Valuation - LPSA"
                     end;
 
                     if not IsServiceTier then
-                        if IsNotWIP then
-                            CurrReport.Skip;
+                        if IsNotWIP() then
+                            CurrReport.Skip();
 
-                    if not IsNotWIP then begin
+                    if not IsNotWIP() then begin
                         ValueOfWIP := 0;
                         ValueOfMatConsump := 0;
                         ValueOfCap := 0;
@@ -324,7 +324,7 @@ report 50021 "PWD Inventory Valuation - LPSA"
                     TotalLastWIP := TotalLastWIP + LastWIP;
 
                     if CountRecord <> LengthRecord then
-                        CurrReport.Skip;
+                        CurrReport.Skip();
                     //<<TI316306
                 end;
 
@@ -361,12 +361,11 @@ report 50021 "PWD Inventory Valuation - LPSA"
                     LengthRecord := 0;
                     CountRecord := 0;
 
-                    if IsServiceTier then begin
+                    if IsServiceTier then
                         if "Value Entry".Find('-') then
                             repeat
                                 LengthRecord := LengthRecord + 1;
-                            until "Value Entry".Next = 0;
-                    end;
+                            until "Value Entry".Next() = 0;
                 end;
             }
 
@@ -376,7 +375,7 @@ report 50021 "PWD Inventory Valuation - LPSA"
             begin
                 //>>TI316306
                 if FinishedProdOrderHasNoValueEnt("Production Order") then
-                    CurrReport.Skip;
+                    CurrReport.Skip();
                 EntryFound := ValueEntryExist("Production Order", StartDate, EndDate);
                 //<<TI316306
 
@@ -387,7 +386,7 @@ report 50021 "PWD Inventory Valuation - LPSA"
                 //ProdOrderRtngLine.SETRANGE("Routing Reference No.","Routing Reference No.");
                 //ProdOrderRtngLine.SETRANGE("Routing No.","Routing No.");
                 ProdOrderRtngLine.SetRange(ProdOrderRtngLine."Routing Status", ProdOrderRtngLine."Routing Status"::Finished);
-                if ProdOrderRtngLine.FindLast then
+                if ProdOrderRtngLine.FindLast() then
                     DecGInputQty := Round(ProdOrderRtngLine."Input Quantity", 1);
                 //<<JEPE
             end;
@@ -440,7 +439,7 @@ report 50021 "PWD Inventory Valuation - LPSA"
         trigger OnOpenPage()
         begin
             if (StartDate = 0D) and (EndDate = 0D) then
-                EndDate := WorkDate;
+                EndDate := WorkDate();
         end;
     }
 
@@ -452,7 +451,7 @@ report 50021 "PWD Inventory Valuation - LPSA"
     begin
         ProdOrderFilter := "Production Order".GetFilters;
         if (StartDate = 0D) and (EndDate = 0D) then
-            EndDate := WorkDate;
+            EndDate := WorkDate();
 
         if StartDate in [0D, 00000101D] then
             StartDateText := ''
@@ -491,7 +490,6 @@ report 50021 "PWD Inventory Valuation - LPSA"
         CountRecord: Integer;
         AtLastDate: Decimal;
         LastWIP: Decimal;
-        ValueEntry: Record "Value Entry";
         TotalValueOfCostPstdToGL: Decimal;
         TotalValueOfOutput: Decimal;
         TotalValueOfCap: Decimal;
@@ -518,7 +516,7 @@ report 50021 "PWD Inventory Valuation - LPSA"
 
     procedure ValueEntryOnPostDataItem(ValueEntry: Record "Value Entry")
     begin
-        with ValueEntry do begin
+        with ValueEntry do
             if IsServiceTier then begin
                 //>>TI316306
                 /*
@@ -545,7 +543,7 @@ report 50021 "PWD Inventory Valuation - LPSA"
                     NcValueOfOutput := NcValueOfExpOutPut2;
                 END;*/
                 //<<TI316306
-            end else begin
+            end else
                 //>>TI316306
                 /*
                 IF ValueOfExpOutput2 = 0 THEN BEGIN // if prod. order is invoiced
@@ -564,16 +562,12 @@ report 50021 "PWD Inventory Valuation - LPSA"
                     ValueOfOutput := ValueOfOutput - ValueOfRevalCostAct; // take out revalued differnce
                     ValueOfCostPstdToGL := ValueOfCostPstdToGL - ValueOfRevalCostPstd; // take out Cost posted to G/L
                 end;
-
-                /*IF ValueOfWIP + ValueOfMatConsump + ValueOfCap <> -ValueOfOutput THEN BEGIN
-                  ValueOfWIP := ValueOfWIP - ValueOfInvOutput1 + ValueOfExpOutput1;
-                  IF ValueOfExpOutput2 <> 0 THEN // prod. order is un-invoiced, so Actual Output = 0
-                    ValueOfOutput := ValueOfExpOutput2;
-                END; */
-
-                //<<TI316306
-            end;
-        end;
+        /*IF ValueOfWIP + ValueOfMatConsump + ValueOfCap <> -ValueOfOutput THEN BEGIN
+          ValueOfWIP := ValueOfWIP - ValueOfInvOutput1 + ValueOfExpOutput1;
+          IF ValueOfExpOutput2 <> 0 THEN // prod. order is un-invoiced, so Actual Output = 0
+            ValueOfOutput := ValueOfExpOutput2;
+        END; */
+        //<<TI316306
 
     end;
 

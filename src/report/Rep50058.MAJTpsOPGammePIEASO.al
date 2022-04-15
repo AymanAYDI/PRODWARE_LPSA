@@ -27,29 +27,28 @@ report 50058 "PWD MAJ Tps OP Gamme PIE A/S O"
 
                     trigger OnAfterGetRecord()
                     begin
-                        if CodGOperation = "Routing Line"."No." then begin
+                        if CodGOperation = "Routing Line"."No." then
                             if BooGDescriptionWithO then begin
                                 if BooGSetupTime then begin
                                     "Routing Line"."Setup Time" := DecGSetupTimeO;
-                                    "Routing Line".Modify;
+                                    "Routing Line".Modify();
                                 end;
 
                                 if BooGMoveTime then begin
                                     "Routing Line"."Move Time" := DecGMoveTimeO;
-                                    "Routing Line".Modify;
+                                    "Routing Line".Modify();
                                 end;
                             end else begin
                                 if BooGSetupTime then begin
                                     "Routing Line"."Setup Time" := DecGSetupTime;
-                                    "Routing Line".Modify;
+                                    "Routing Line".Modify();
                                 end;
 
                                 if BooGMoveTime then begin
                                     "Routing Line"."Move Time" := DecGMoveTime;
-                                    "Routing Line".Modify;
+                                    "Routing Line".Modify();
                                 end;
                             end;
-                        end;
                     end;
 
                     trigger OnPostDataItem()
@@ -81,7 +80,7 @@ report 50058 "PWD MAJ Tps OP Gamme PIE A/S O"
 
             trigger OnPostDataItem()
             begin
-                BDialog.Close;
+                BDialog.Close();
             end;
 
             trigger OnPreDataItem()

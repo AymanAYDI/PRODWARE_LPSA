@@ -23,13 +23,11 @@ codeunit 50003 "PWD Trading Unit Mgt.PW"
         gctxErr0003: Label 'Trading Unit No. %1 exceeds the maximum length.';
         gctxErr0004: Label 'Lot-/Trading Unit No. %1 exceeds the maximum length.';
         gctxErr0005: Label 'Lot No. has to be entered.';
-        gctxErr0006: Label 'Item %1 is handled in Trading Units. Trading Unit Number must be entered.';
-        gctxErr0007: Label 'Item %1 is not handled in Trading Units. Trading Unit Number must not be entered.';
 
 
     procedure CheckLotNo(piLotNo: Code[20])
     begin
-        InitVars;
+        InitVars();
 
         if StrLen(piLotNo) > gMaxLenLotNo then
             Error(gctxErr0002, piLotNo);
@@ -38,7 +36,7 @@ codeunit 50003 "PWD Trading Unit Mgt.PW"
 
     procedure CheckTradingUnitNo(piTradingUnitNo: Code[20])
     begin
-        InitVars;
+        InitVars();
 
         if StrLen(piTradingUnitNo) > gMaxLenTradingUnitNo then
             Error(gctxErr0003, piTradingUnitNo);
@@ -47,7 +45,7 @@ codeunit 50003 "PWD Trading Unit Mgt.PW"
 
     procedure CheckLotTradingUnitNo(piLotTradingUnitNo: Code[40])
     begin
-        InitVars;
+        InitVars();
 
         if StrLen(piLotTradingUnitNo) > (gMaxLenLotNo + gMaxLenTradingUnitNo) then
             Error(gctxErr0004, piLotTradingUnitNo);
@@ -56,7 +54,7 @@ codeunit 50003 "PWD Trading Unit Mgt.PW"
 
     procedure GetLotTradingUnitNo(piLotNo: Code[20]; piTradingUnitNo: Code[20]): Code[40]
     begin
-        InitVars;
+        InitVars();
         if piTradingUnitNo <> '' then
             if piLotNo = '' then
                 Error(gctxErr0005);
@@ -66,14 +64,14 @@ codeunit 50003 "PWD Trading Unit Mgt.PW"
 
     procedure GetLotNo(piLotNo: Code[40]): Code[20]
     begin
-        InitVars;
+        InitVars();
         exit(DelChr(CopyStr(piLotNo, 1, gMaxLenLotNo), '><', ' '));
     end;
 
 
     procedure GetTradingUnitNo(piLotNo: Code[40]): Code[20]
     begin
-        InitVars;
+        InitVars();
         exit(DelChr(CopyStr(piLotNo, gMaxLenLotNo + 1, gMaxLenTradingUnitNo), '><', ' '));
     end;
 
@@ -87,7 +85,7 @@ codeunit 50003 "PWD Trading Unit Mgt.PW"
 
     procedure SplitLotTradingUnitNo(piLotTradingUnitNo: Code[30]; var poLotNo: Code[20]; var poTradingUnitNo: Code[20])
     begin
-        InitVars;
+        InitVars();
         if StrLen(piLotTradingUnitNo) > (gMaxLenLotNo + gMaxLenTradingUnitNo) then
             Error(gctxErr0001, gMaxLenLotNo, gMaxLenTradingUnitNo);
         poLotNo := DelChr(CopyStr(piLotTradingUnitNo, 1, gMaxLenLotNo), '><', ' ');
@@ -130,8 +128,6 @@ codeunit 50003 "PWD Trading Unit Mgt.PW"
 
 
     procedure Item_OnValidateHandledInTU(var pioItem: Record Item)
-    var
-        ItemTrackingCode: Record "Item Tracking Code";
     begin
         /*IF pioItem."Handled in Trading Units" THEN BEGIN
           pioItem.TESTFIELD("Item Tracking Code");

@@ -21,45 +21,45 @@ codeunit 8073309 "Buffers Process Batch Launcher"
         //***************************************************************************************************
         //                                        Buffers Processing                                        //
         //***************************************************************************************************
-        Commit;
+        Commit();
         Clear(CduLBuffersProcessBatch);
         Clear(RecLRef);
         RecLRef.Open(DATABASE::"PWD Receipt Line Buffer");
         CduLBuffersProcessBatch.FctInit(RecLRef);
         if CduLBuffersProcessBatch.Run then;
-        RecLRef.Close;
+        RecLRef.Close();
 
-        Commit;
+        Commit();
         Clear(CduLBuffersProcessBatch);
         Clear(RecLRef);
         RecLRef.Open(DATABASE::"Customer Buffer");
         CduLBuffersProcessBatch.FctInit(RecLRef);
         if CduLBuffersProcessBatch.Run then;
-        RecLRef.Close;
+        RecLRef.Close();
 
-        Commit;
+        Commit();
         Clear(CduLBuffersProcessBatch);
         Clear(RecLRef);
         RecLRef.Open(DATABASE::"Sales Header Buffer");
         CduLBuffersProcessBatch.FctInit(RecLRef);
         if CduLBuffersProcessBatch.Run then;
-        RecLRef.Close;
+        RecLRef.Close();
 
-        Commit;
+        Commit();
         Clear(CduLBuffersProcessBatch);
         Clear(RecLRef);
         RecLRef.Open(DATABASE::"PWD Item Jounal Line Buffer");
         CduLBuffersProcessBatch.FctInit(RecLRef);
         if CduLBuffersProcessBatch.Run then;
-        RecLRef.Close;
+        RecLRef.Close();
 
-        Commit;
+        Commit();
         Clear(CduLBuffersProcessBatch);
         Clear(RecLRef);
         RecLRef.Open(DATABASE::"Sales Line Buffer");
         CduLBuffersProcessBatch.FctInit(RecLRef);
         if CduLBuffersProcessBatch.Run then;
-        RecLRef.Close;
+        RecLRef.Close();
     end;
 }
 

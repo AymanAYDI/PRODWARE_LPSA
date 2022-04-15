@@ -59,7 +59,7 @@ tableextension 60005 "PWD ItemLedgerEntry" extends "Item Ledger Entry"
         {
             SumIndexFields = "Remaining Quantity";
         }
-        key(Key50001; "Item No.", "Prod. Order No.", "Entry Type")
+        key(Key50001; "Item No.", "Order No.", "Entry Type")
         {
             SumIndexFields = Quantity;
         }

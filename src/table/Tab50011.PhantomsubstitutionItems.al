@@ -122,9 +122,8 @@ table 50011 "PWD Phantom substitution Items"
         ItemLedgEntry.SETRANGE(Open, TRUE);
         ItemLedgEntry.SETRANGE("Item No.", "Item No.");
         ItemLedgEntry.SETFILTER("Lot No.", '<>%1', '');
-        IF PAGE.RUNMODAL(0, ItemLedgEntry) = ACTION::LookupOK THEN BEGIN
+        IF PAGE.RUNMODAL(0, ItemLedgEntry) = ACTION::LookupOK THEN
             VALIDATE("Lot No.", ItemLedgEntry."Lot No.");
-        END;
     end;
 }
 

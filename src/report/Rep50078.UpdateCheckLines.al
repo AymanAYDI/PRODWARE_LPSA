@@ -77,20 +77,20 @@ report 50078 "PWD Update Check Lines"
                 RecLRoutingLineOF.SetRange("Operation No.", "Operation No.");
                 RecLRoutingLineOF.SetRange("No.", "No.");
                 RecLRoutingLineOF.SetFilter("Run Time", '<>%1', "Run Time");
-                if not RecLRoutingLineOF.FindFirst then
+                if not RecLRoutingLineOF.FindFirst() then
                     BooLOK := true
                 else
                     BooLOK := false;
 
                 RecLRoutingLineOF.SetRange("Run Time");
                 RecLRoutingLineOF.SetFilter("Move Time", '<>%1', "Move Time");
-                if not RecLRoutingLineOF.FindFirst then
+                if not RecLRoutingLineOF.FindFirst() then
                     BooLOK := true
                 else
                     BooLOK := false;
 
                 if BooLOK then
-                    CurrReport.Skip;
+                    CurrReport.Skip();
             end;
         }
     }

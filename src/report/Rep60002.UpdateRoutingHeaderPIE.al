@@ -18,7 +18,7 @@ report 60002 "PWD Update Routing Header PIE"
                     if Status = Status::Certified then begin
                         Validate(Status, Status::"Under Development");
                         Validate(Status, Status::Certified);
-                        Modify;
+                        Modify();
                     end;
                 end;
             }

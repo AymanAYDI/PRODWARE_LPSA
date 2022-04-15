@@ -198,7 +198,7 @@ report 50004 "PWD Purchase - Quote LAP"
                     column(Text007; CstGText007)
                     {
                     }
-                    column(STRSUBSTNO_Text003_FORMAT_CurrReport_PAGENO__; StrSubstNo(Text003, Format(CurrReport.PageNo)))
+                    column(STRSUBSTNO_Text003_FORMAT_CurrReport_PAGENO__; StrSubstNo(Text003, Format(CurrReport.PageNo())))
                     {
                     }
                     column(CopyText_Control1150106; CopyText)
@@ -249,10 +249,10 @@ report 50004 "PWD Purchase - Quote LAP"
                         begin
                             if Number = 1 then begin
                                 if not DocDim1.Find('-') then
-                                    CurrReport.Break;
+                                    CurrReport.Break();
                             end else
                                 if not Continue then
-                                    CurrReport.Break;
+                                    CurrReport.Break();
 
                             Clear(DimText);
                             Continue := false;
@@ -277,7 +277,7 @@ report 50004 "PWD Purchase - Quote LAP"
                         trigger OnPreDataItem()
                         begin
                             if not ShowInternalInfo then
-                                CurrReport.Break;
+                                CurrReport.Break();
                         end;
                     }
                     dataitem("Purchase Line"; "Purchase Line")
@@ -288,7 +288,7 @@ report 50004 "PWD Purchase - Quote LAP"
 
                         trigger OnPreDataItem()
                         begin
-                            CurrReport.Break;
+                            CurrReport.Break();
                         end;
                     }
                     dataitem(RoundLoop; "Integer")
@@ -400,10 +400,10 @@ report 50004 "PWD Purchase - Quote LAP"
                             begin
                                 if Number = 1 then begin
                                     if not DocDim2.Find('-') then
-                                        CurrReport.Break;
+                                        CurrReport.Break();
                                 end else
                                     if not Continue then
-                                        CurrReport.Break;
+                                        CurrReport.Break();
 
                                 Clear(DimText);
                                 Continue := false;
@@ -428,7 +428,7 @@ report 50004 "PWD Purchase - Quote LAP"
                             trigger OnPreDataItem()
                             begin
                                 if not ShowInternalInfo then
-                                    CurrReport.Break;
+                                    CurrReport.Break();
                             end;
                         }
 
@@ -437,24 +437,23 @@ report 50004 "PWD Purchase - Quote LAP"
                             if Number = 1 then
                                 PurchLine.Find('-')
                             else
-                                PurchLine.Next;
+                                PurchLine.Next();
                             "Purchase Line" := PurchLine;
 
                             //>>Regie
                             Clear(TxtGComment);
                             BooGStopComment := false;
-                            RecGPurchCommentLine.Reset;
+                            RecGPurchCommentLine.Reset();
                             RecGPurchCommentLine.SetRange("Document Type", RecGPurchCommentLine."Document Type"::Quote);
                             RecGPurchCommentLine.SetRange("No.", "Purchase Line"."Document No.");
                             RecGPurchCommentLine.SetRange("Document Line No.", "Purchase Line"."Line No.");
-                            if RecGPurchCommentLine.FindSet then begin
+                            if RecGPurchCommentLine.FindSet() then
                                 repeat
                                     if StrLen(TxtGComment) + StrLen(RecGPurchCommentLine.Comment) < 1024 then
                                         TxtGComment += RecGPurchCommentLine.Comment + ' '
                                     else
                                         BooGStopComment := true;
-                                until (RecGPurchCommentLine.Next = 0) or (BooGStopComment);
-                            end;
+                                until (RecGPurchCommentLine.Next() = 0) or (BooGStopComment);
 
 
 
@@ -466,7 +465,7 @@ report 50004 "PWD Purchase - Quote LAP"
 
                         trigger OnPostDataItem()
                         begin
-                            PurchLine.DeleteAll;
+                            PurchLine.DeleteAll();
                         end;
 
                         trigger OnPreDataItem()
@@ -478,7 +477,7 @@ report 50004 "PWD Purchase - Quote LAP"
                             do
                                 MoreLines := PurchLine.Next(-1) <> 0;
                             if not MoreLines then
-                                CurrReport.Break;
+                                CurrReport.Break();
                             PurchLine.SetRange("Line No.", 0, PurchLine."Line No.");
                             SetRange(Number, 1, PurchLine.Count);
                         end;
@@ -544,7 +543,7 @@ report 50004 "PWD Purchase - Quote LAP"
                 begin
                     Clear(PurchLine);
                     Clear(PurchPost);
-                    PurchLine.DeleteAll;
+                    PurchLine.DeleteAll();
                     PurchPost.GetPurchLines("Purchase Header", PurchLine, 0);
 
                     if Number > 1 then begin
@@ -576,7 +575,7 @@ report 50004 "PWD Purchase - Quote LAP"
             begin
                 CurrReport.Language := Language.GetLanguageID("Language Code");
 
-                CompanyInfo.Get;
+                CompanyInfo.Get();
 
                 RecGVendor.Get("Purchase Header"."Buy-from Vendor No.");
 
@@ -586,8 +585,8 @@ report 50004 "PWD Purchase - Quote LAP"
                     TxtGText009 := '';
 
                 // CH4401.begin
-                PrepareHeader;
-                PrepareFooter;
+                PrepareHeader();
+                PrepareFooter();
                 // CH4401.end
 
                 if RespCenter.Get("Responsibility Center") then begin
@@ -602,7 +601,7 @@ report 50004 "PWD Purchase - Quote LAP"
                 DocDim1.SetRange("Document No.", "Purchase Header"."No.");
 
                 if "Purchaser Code" = '' then begin
-                    SalesPurchPerson.Init;
+                    SalesPurchPerson.Init();
                     PurchaserText := '';
                 end else begin
                     SalesPurchPerson.Get("Purchaser Code");
@@ -619,7 +618,7 @@ report 50004 "PWD Purchase - Quote LAP"
                 FormatAddr.PurchHeaderPayTo(VendAddr, "Purchase Header");
 
                 if "Shipment Method Code" = '' then
-                    ShipmentMethod.Init
+                    ShipmentMethod.Init()
                 else begin
                     ShipmentMethod.Get("Shipment Method Code");
                     ShipmentMethod.TranslateDescription(ShipmentMethod, "Language Code");
@@ -726,16 +725,13 @@ report 50004 "PWD Purchase - Quote LAP"
 
     trigger OnInitReport()
     begin
-        PurchSetup.Get;
+        PurchSetup.Get();
     end;
 
     var
         Text000: Label 'Purchaser';
         Text001: Label 'COPY';
-        Text002: Label 'Purchase - Quote %1';
         Text003: Label 'Page %1';
-        Item: Record Item;
-        FA: Record "Fixed Asset";
         ShipmentMethod: Record "Shipment Method";
         SalesPurchPerson: Record "Salesperson/Purchaser";
         CompanyInfo: Record "Company Information";

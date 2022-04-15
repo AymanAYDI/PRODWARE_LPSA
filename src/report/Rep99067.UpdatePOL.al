@@ -13,7 +13,7 @@ report 99067 "PWD Update POL"
             begin
                 if POL.Get(Status, "Prod. Order No.", "Line No.") then begin
                     "Routing No." := POL."Routing No.";
-                    Modify;
+                    Modify();
                 end;
             end;
         }

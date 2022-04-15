@@ -17,21 +17,21 @@ report 99082 "PWD Update centre charge"
                             "Work Center".ResourceBehavior := "Work Center".ResourceBehavior::FiniteCapacity;
                             "Work Center".PlanningGroup := 'PIERRES';
                             "Work Center"."PWD ColorScheme" := 'DEFAULT';
-                            Modify;
+                            Modify();
                         end;
                     'PRE':
                         begin
                             "Work Center".ResourceBehavior := "Work Center".ResourceBehavior::FiniteCapacity;
                             "Work Center".PlanningGroup := 'PREPARAGES';
                             "Work Center".ColorScheme := 'DEFAULT';
-                            Modify;
+                            Modify();
                         end;
                     'ACI':
                         begin
                             "Work Center".ResourceBehavior := "Work Center".ResourceBehavior::FiniteCapacity;
                             "Work Center".PlanningGroup := 'ACIERS';
                             "Work Center".ColorScheme := 'DEFAULT';
-                            Modify;
+                            Modify();
                         end;
                 end;
             end;

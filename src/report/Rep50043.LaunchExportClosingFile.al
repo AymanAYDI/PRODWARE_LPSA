@@ -16,12 +16,12 @@ report 50043 "PWD Launch Export Closing File"
     {
         dataitem("Integer"; "Integer")
         {
-            DataItemTableView = SORTING (Number) WHERE (Number = CONST (1));
+            DataItemTableView = SORTING(Number) WHERE(Number = CONST(1));
             MaxIteration = 1;
 
             trigger OnAfterGetRecord()
             begin
-                RecGInventorySetup.Get;
+                RecGInventorySetup.Get();
                 RecGInventorySetup.TestField("Closing Export DateFormula");
                 RecGInventorySetup.TestField("Period for Inventory Cover");
                 RecGInventorySetup.TestField("Path for Closing Export");

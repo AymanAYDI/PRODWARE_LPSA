@@ -25,7 +25,7 @@ report 50055 "MAJ Description LPSA PIERRE"
                 RecLItem: Record Item;
             begin
                 CduLItemConfigurator.FctConfigDescStone("PWD Item Configurator");
-                "PWD Item Configurator".Modify;
+                "PWD Item Configurator".Modify();
 
                 if RecLItem.Get("PWD Item Configurator"."Item Code") then begin
                     RecLItem."PWD LPSA Description 1" := "PWD Item Configurator"."PWD LPSA Description 1";
@@ -36,7 +36,7 @@ report 50055 "MAJ Description LPSA PIERRE"
                     if RecLItem."Search Description" = '' then
                         RecLItem.Validate("Search Description", CopyStr("PWD Item Configurator"."PWD Quartis Description", 1, 30));
                     ;
-                    RecLItem.Modify;
+                    RecLItem.Modify();
                 end;
                 IntGCounter -= 1;
                 Bdialog.Update(1, IntGCounter);
@@ -44,7 +44,7 @@ report 50055 "MAJ Description LPSA PIERRE"
 
             trigger OnPostDataItem()
             begin
-                Bdialog.Close;
+                Bdialog.Close();
             end;
 
             trigger OnPreDataItem()

@@ -344,11 +344,11 @@ report 50007 "PWD Production Balance"
 
                 case OptGFilter of
                     OptGFilter::"Production Order":
-                        FctProductionOrder;
+                        FctProductionOrder();
                     OptGFilter::Item:
-                        FctItem;
+                        FctItem();
                     OptGFilter::Order:
-                        FctOrder;
+                        FctOrder();
                 end;
 
                 "Production Balance".SetRange("User ID", UserId);
@@ -395,7 +395,7 @@ report 50007 "PWD Production Balance"
                         case OptGFilter of
                             OptGFilter::"Production Order":
                                 begin
-                                    RecGProductionOrder.Reset;
+                                    RecGProductionOrder.Reset();
                                     RecGProductionOrder.SetRange(RecGProductionOrder.Status, RecGProductionOrder.Status::Released,
                                                                                             RecGProductionOrder.Status::Finished);
                                     if PAGE.RunModal(PAGE::"Production Order List", RecGProductionOrder) = ACTION::LookupOK then begin
@@ -409,13 +409,13 @@ report 50007 "PWD Production Balance"
                                 end;
                             OptGFilter::Item:
                                 begin
-                                    RecGItem.Reset;
+                                    RecGItem.Reset();
                                     if PAGE.RunModal(PAGE::"Item List", RecGItem) = ACTION::LookupOK then
                                         CodGList := RecGItem."No.";
                                 end;
                             OptGFilter::Order:
                                 begin
-                                    RecGSalesHeader.Reset;
+                                    RecGSalesHeader.Reset();
                                     RecGSalesHeader.SetRange(RecGSalesHeader."Document Type", RecGSalesHeader."Document Type"::Order);
                                     if PAGE.RunModal(PAGE::"Sales List", RecGSalesHeader) = ACTION::LookupOK then
                                         CodGList := RecGSalesHeader."No.";
@@ -486,7 +486,6 @@ report 50007 "PWD Production Balance"
         DecGLastExpectedQty: Decimal;
         DecGLastQuantity: Decimal;
         DecGLastUnitPrice: Decimal;
-        CstGT002: Label 'Nothing to print.';
         DecGLastAmountCost: Decimal;
         DecGProducitvityTot: Decimal;
         Planned_Order_No_CaptionLbl: Label 'Planned Order No.';
@@ -522,14 +521,14 @@ report 50007 "PWD Production Balance"
         IntGI := 0;
 
         //* Components Lines
-        RecGProdOrderComponent.Reset;
+        RecGProdOrderComponent.Reset();
         if OptGStatus = OptGStatus::Released then
             RecGProdOrderComponent.SetRange(Status, RecGProdOrderComponent.Status::Released)
         else
             if OptGStatus = OptGStatus::Finished then
                 RecGProdOrderComponent.SetRange(Status, RecGProdOrderComponent.Status::Finished);
         RecGProdOrderComponent.SetRange("Prod. Order No.", CodGList);
-        if RecGProdOrderComponent.FindSet then
+        if RecGProdOrderComponent.FindSet() then
             repeat
                 IntGI := IntGI + 1;
                 RecGProductionBalance.Init;
@@ -542,7 +541,7 @@ report 50007 "PWD Production Balance"
                 RecGProductionBalance.Description := RecGProdOrderComponent.Description;
                 RecGProductionBalance.Status := RecGProdOrderComponent.Status;
                 RecGProductionBalance."Expected Quantity" := RecGProdOrderComponent."Expected Quantity";
-                FctFindItemLedgerEntry;
+                FctFindItemLedgerEntry();
                 RecGProductionBalance.Quantity := -RecGItemLedgerEntry.Quantity;
                 RecGProductionBalance."Unit of Measure Code" := RecGProdOrderComponent."Unit of Measure Code";
                 RecGProductionBalance."Scrap Quantity" := RecGProductionBalance.Quantity - RecGProductionBalance."Expected Quantity";
@@ -557,17 +556,17 @@ report 50007 "PWD Production Balance"
                     RecGProductionBalance."Unit Price" := RecGItem."Unit Price";
                 end;
                 RecGProductionBalance.Insert;
-            until RecGProdOrderComponent.Next = 0;
+            until RecGProdOrderComponent.Next() = 0;
 
         //* Operations Lines
-        RecGProdOrderRoutingLine.Reset;
+        RecGProdOrderRoutingLine.Reset();
         if OptGStatus = OptGStatus::Released then
             RecGProdOrderRoutingLine.SetRange(Status, RecGProdOrderRoutingLine.Status::Released)
         else
             if OptGStatus = OptGStatus::Finished then
                 RecGProdOrderRoutingLine.SetRange(Status, RecGProdOrderRoutingLine.Status::Finished);
         RecGProdOrderRoutingLine.SetRange("Prod. Order No.", CodGList);
-        if RecGProdOrderRoutingLine.FindSet then
+        if RecGProdOrderRoutingLine.FindSet() then
             repeat
                 IntGI := IntGI + 1;
                 RecGProductionBalance.Init;
@@ -580,9 +579,9 @@ report 50007 "PWD Production Balance"
                 RecGProductionBalance."No." := RecGProdOrderRoutingLine."No.";
                 RecGProductionBalance.Description := RecGProdOrderRoutingLine.Description;
                 RecGProductionBalance.Status := RecGProdOrderRoutingLine.Status;
-                FctFindProdOrderLine;
+                FctFindProdOrderLine();
                 RecGProductionBalance."Expected Quantity" := RecGProdOrderLine.Quantity;
-                FctFindCapacityLedgerEntry;
+                FctFindCapacityLedgerEntry();
                 RecGProductionBalance.Quantity := RecGCapacityLedgerEntry."Output Quantity";
                 RecGProductionBalance."Unit of Measure Code" := RecGCapacityLedgerEntry."Cap. Unit of Measure Code";
                 RecGProductionBalance."Scrap Quantity" := RecGCapacityLedgerEntry."Scrap Quantity";
@@ -600,7 +599,7 @@ report 50007 "PWD Production Balance"
                     RecGProductionBalance.Output := RecGProductionBalance.Quantity / RecGProductionBalance."Expected Quantity" * 100;
                 RecGProductionBalance.Insert;
 
-            until RecGProdOrderRoutingLine.Next = 0;
+            until RecGProdOrderRoutingLine.Next() = 0;
         //>>FE_LAPIERRETTE_PRO06.002
         FctGetLastAmountsFromProdBal();
         //<<FE_LAPIERRETTE_PRO06.002
@@ -614,7 +613,7 @@ report 50007 "PWD Production Balance"
         IntGI := 0;
         TxtGFilterPO := '';
         RecGItem.Get(CodGList);
-        RecGProdOrderLine.Reset;
+        RecGProdOrderLine.Reset();
         RecGProdOrderLine.SetCurrentKey(Status, "Item No.", "Variant Code", "Location Code", "Starting Date");
         if OptGStatus = OptGStatus::Released then
             RecGProdOrderLine.SetRange(Status, RecGProdOrderLine.Status::Released)
@@ -624,23 +623,23 @@ report 50007 "PWD Production Balance"
         RecGProdOrderLine.SetRange("Item No.", CodGList);
         if ((DatGBeginDate <> 0D) or (DatGEndDate <> 0D)) then
             RecGProdOrderLine.SetFilter("Due Date", '%1..%2', DatGBeginDate, DatGEndDate);
-        if RecGProdOrderLine.FindSet then
+        if RecGProdOrderLine.FindSet() then
             repeat
                 if TxtGFilterPO = '' then
                     TxtGFilterPO := RecGProdOrderLine."Prod. Order No."
                 else
                     TxtGFilterPO := TxtGFilterPO + '|' + RecGProdOrderLine."Prod. Order No.";
-            until RecGProdOrderLine.Next = 0;
+            until RecGProdOrderLine.Next() = 0;
 
         //* Components Lines
-        RecGProdOrderComponent.Reset;
+        RecGProdOrderComponent.Reset();
         if OptGStatus = OptGStatus::Released then
             RecGProdOrderComponent.SetRange(Status, RecGProdOrderComponent.Status::Released)
         else
             if OptGStatus = OptGStatus::Finished then
                 RecGProdOrderComponent.SetRange(Status, RecGProdOrderComponent.Status::Finished);
         RecGProdOrderComponent.SetFilter("Prod. Order No.", TxtGFilterPO);
-        if RecGProdOrderComponent.FindSet then
+        if RecGProdOrderComponent.FindSet() then
             repeat
                 RecLProductionBalance.Reset;
                 RecLProductionBalance.SetCurrentKey("User ID", "Line Type", Type, "No.");
@@ -670,7 +669,7 @@ report 50007 "PWD Production Balance"
                     RecGProductionBalance.Description := RecGProdOrderComponent.Description;
                     RecGProductionBalance.Status := RecGProductionBalance.Status::" ";
                     RecGProductionBalance."Expected Quantity" := RecGProdOrderComponent."Expected Quantity";
-                    FctFindItemLedgerEntry2;
+                    FctFindItemLedgerEntry2();
                     RecGProductionBalance.Quantity := -RecGItemLedgerEntry.Quantity;
                     RecGProductionBalance."Unit of Measure Code" := RecGProdOrderComponent."Unit of Measure Code";
                     RecGProductionBalance."Scrap Quantity" := RecGProductionBalance.Quantity - RecGProductionBalance."Expected Quantity";
@@ -684,17 +683,17 @@ report 50007 "PWD Production Balance"
                     RecGProductionBalance.Insert;
                 end;
 
-            until RecGProdOrderComponent.Next = 0;
+            until RecGProdOrderComponent.Next() = 0;
 
         //* Operations Lines
-        RecGProdOrderRoutingLine.Reset;
+        RecGProdOrderRoutingLine.Reset();
         if OptGStatus = OptGStatus::Released then
             RecGProdOrderRoutingLine.SetRange(Status, RecGProdOrderRoutingLine.Status::Released)
         else
             if OptGStatus = OptGStatus::Finished then
                 RecGProdOrderRoutingLine.SetRange(Status, RecGProdOrderRoutingLine.Status::Finished);
         RecGProdOrderRoutingLine.SetFilter("Prod. Order No.", TxtGFilterPO);
-        if RecGProdOrderRoutingLine.FindSet then
+        if RecGProdOrderRoutingLine.FindSet() then
             repeat
                 RecLProductionBalance.Reset;
                 RecLProductionBalance.SetCurrentKey("User ID", "Line Type", "Operation No.", Type, "No.");
@@ -720,7 +719,7 @@ report 50007 "PWD Production Balance"
                         RecLProductionBalance.Output := RecLProductionBalance.Quantity / RecLProductionBalance."Expected Quantity" * 100;
 
                     //>>TDL_PROD04_28_02_2012.001
-                    FctFindCapacityLedgerEntry2;
+                    FctFindCapacityLedgerEntry2();
                     RecLProductionBalance."Unit of Measure Code" := RecGCapacityLedgerEntry."Cap. Unit of Measure Code";
                     //<<TDL_PROD04_28_02_2012.001
 
@@ -738,7 +737,7 @@ report 50007 "PWD Production Balance"
                     RecGProductionBalance.Description := RecGProdOrderRoutingLine.Description;
                     RecGProductionBalance.Status := RecGProductionBalance.Status::" ";
                     RecGProductionBalance."Expected Quantity" := RecGProdOrderRoutingLine."Input Quantity";
-                    FctFindCapacityLedgerEntry2;
+                    FctFindCapacityLedgerEntry2();
                     RecGProductionBalance.Quantity := RecGCapacityLedgerEntry."Output Quantity";
                     RecGProductionBalance."Unit of Measure Code" := RecGCapacityLedgerEntry."Cap. Unit of Measure Code";
                     RecGProductionBalance."Scrap Quantity" := RecGCapacityLedgerEntry."Scrap Quantity";
@@ -757,7 +756,7 @@ report 50007 "PWD Production Balance"
                     RecGProductionBalance.Insert;
                 end;
 
-            until RecGProdOrderRoutingLine.Next = 0;
+            until RecGProdOrderRoutingLine.Next() = 0;
         //>>FE_LAPIERRETTE_PRO06.002
         FctGetLastAmountsFromProdBal();
         //<<FE_LAPIERRETTE_PRO06.002
@@ -796,22 +795,22 @@ report 50007 "PWD Production Balance"
         //Old RecGProdOrderLine.RESET;
         //Old RecGProdOrderLine.SETFILTER(Status,'%1..%2',RecGProdOrderLine.Status::Released,RecGProdOrderLine.Status::Finished);
         //Old RecGProdOrderLine.SETFILTER("Prod. Order No.",TxtGFilterPO2);
-        RecGProductionOrder.Reset;
+        RecGProductionOrder.Reset();
         RecGProductionOrder.SetFilter(Status, '%1..%2', RecGProdOrderLine.Status::Released, RecGProdOrderLine.Status::Finished);
         RecGProductionOrder.SetRange("Original Source No.", CodGList);
-        if RecGProductionOrder.FindFirst then
+        if RecGProductionOrder.FindFirst() then
             repeat
-                RecLProdOrderLine.Reset;
+                RecLProdOrderLine.Reset();
                 RecLProdOrderLine.SetFilter(Status, '%1..%2', RecGProdOrderLine.Status::Released, RecGProdOrderLine.Status::Finished);
                 RecLProdOrderLine.SetRange("Prod. Order No.", RecGProductionOrder."No.");
                 if ((DatGBeginDate <> 0D) or (DatGEndDate <> 0D)) then
                     RecLProdOrderLine.SetFilter("Due Date", '%1..%2', DatGBeginDate, DatGEndDate);
-                if RecLProdOrderLine.FindFirst then
+                if RecLProdOrderLine.FindFirst() then
                     repeat
                         RecLTempProdOrderLine.Copy(RecLProdOrderLine);
                         RecLTempProdOrderLine.Insert(false);
-                    until RecLProdOrderLine.Next = 0;
-            until RecGProductionOrder.Next = 0;
+                    until RecLProdOrderLine.Next() = 0;
+            until RecGProductionOrder.Next() = 0;
 
 
 
@@ -825,9 +824,9 @@ report 50007 "PWD Production Balance"
 
         //<<TDL_29_02_2012.001
 
-        RecLTempProdOrderLine.Reset;
+        RecLTempProdOrderLine.Reset();
 
-        if RecLTempProdOrderLine.FindSet then
+        if RecLTempProdOrderLine.FindSet() then
             repeat
                 RecGItem.Get(RecLTempProdOrderLine."Item No.");
                 RecLProductionBalance.Reset;
@@ -835,11 +834,11 @@ report 50007 "PWD Production Balance"
                 RecLProductionBalance.SetRange("User ID", UserId);
 
                 //* Components Lines
-                RecGProdOrderComponent.Reset;
+                RecGProdOrderComponent.Reset();
                 RecGProdOrderComponent.SetFilter(Status, '%1..%2', RecGProdOrderComponent.Status::Released, RecGProdOrderComponent.Status::Finished
               );
                 RecGProdOrderComponent.SetFilter("Prod. Order No.", RecLTempProdOrderLine."Prod. Order No.");
-                if RecGProdOrderComponent.FindSet then
+                if RecGProdOrderComponent.FindSet() then
                     repeat
                         RecLProductionBalance.Reset;
                         RecLProductionBalance.SetCurrentKey("User ID", "Line Type", Type, "No.");
@@ -871,7 +870,7 @@ report 50007 "PWD Production Balance"
                             RecGProductionBalance.Description := RecGProdOrderComponent.Description;
                             RecGProductionBalance.Status := RecGProductionBalance.Status::" ";
                             RecGProductionBalance."Expected Quantity" := RecGProdOrderComponent."Expected Quantity";
-                            FctFindItemLedgerEntry2;
+                            FctFindItemLedgerEntry2();
                             RecGProductionBalance.Quantity := -RecGItemLedgerEntry.Quantity;
                             RecGProductionBalance."Unit of Measure Code" := RecGProdOrderComponent."Unit of Measure Code";
                             RecGProductionBalance."Scrap Quantity" := RecGProductionBalance.Quantity - RecGProductionBalance."Expected Quantity";
@@ -888,15 +887,15 @@ report 50007 "PWD Production Balance"
                             RecGProductionBalance.Insert;
                         end;
 
-                    until RecGProdOrderComponent.Next = 0;
+                    until RecGProdOrderComponent.Next() = 0;
 
                 //* Operations Lines
-                RecGProdOrderRoutingLine.Reset;
+                RecGProdOrderRoutingLine.Reset();
                 RecGProdOrderRoutingLine.SetFilter(Status, '%1..%2', RecGProdOrderRoutingLine.Status::Released,
                                                                   RecGProdOrderRoutingLine.Status::Finished);
                 //RecGProdOrderRoutingLine.SETFILTER("Prod. Order No.",TxtGFilterPO2);
                 RecGProdOrderRoutingLine.SetFilter("Prod. Order No.", RecLTempProdOrderLine."Prod. Order No.");
-                if RecGProdOrderRoutingLine.FindSet then
+                if RecGProdOrderRoutingLine.FindSet() then
                     repeat
                         RecLProductionBalance.Reset;
                         RecLProductionBalance.SetCurrentKey("User ID", "Line Type", "Operation No.", Type, "No.");
@@ -963,8 +962,8 @@ report 50007 "PWD Production Balance"
                             RecGProductionBalance.Insert;
                         end;
 
-                    until RecGProdOrderRoutingLine.Next = 0;
-            until RecLTempProdOrderLine.Next = 0;
+                    until RecGProdOrderRoutingLine.Next() = 0;
+            until RecLTempProdOrderLine.Next() = 0;
         //>>FE_LAPIERRETTE_PRO06.002
         FctGetLastAmountsFromProdBal();
         /*
@@ -985,77 +984,77 @@ report 50007 "PWD Production Balance"
     procedure FctFindItemLedgerEntry()
     begin
         DecGCostAmountActual := 0;
-        RecGItemLedgerEntry.Reset;
+        RecGItemLedgerEntry.Reset();
         RecGItemLedgerEntry.SetCurrentKey("Prod. Order No.", "Prod. Order Line No.", "Entry Type", "Prod. Order Comp. Line No.");
         RecGItemLedgerEntry.SetRange("Prod. Order No.", RecGProdOrderComponent."Prod. Order No.");
         RecGItemLedgerEntry.SetRange("Prod. Order Line No.", RecGProdOrderComponent."Prod. Order Line No.");
         RecGItemLedgerEntry.SetRange("Entry Type", RecGItemLedgerEntry."Entry Type"::Consumption);
         RecGItemLedgerEntry.SetRange("Prod. Order Comp. Line No.", RecGProdOrderComponent."Line No.");
-        if RecGItemLedgerEntry.FindSet then
+        if RecGItemLedgerEntry.FindSet() then
             repeat
                 RecGItemLedgerEntry.CalcFields("Cost Amount (Actual)");
                 DecGCostAmountActual := DecGCostAmountActual + RecGItemLedgerEntry."Cost Amount (Actual)";
-            until RecGItemLedgerEntry.Next = 0;
-        if RecGItemLedgerEntry.FindSet then
+            until RecGItemLedgerEntry.Next() = 0;
+        if RecGItemLedgerEntry.FindSet() then
             RecGItemLedgerEntry.CalcSums(Quantity)
         else
-            RecGItemLedgerEntry.Init;
+            RecGItemLedgerEntry.Init();
     end;
 
 
     procedure FctFindProdOrderLine()
     begin
-        RecGProdOrderLine.Reset;
+        RecGProdOrderLine.Reset();
         if OptGStatus = OptGStatus::Released then
             RecGProdOrderLine.SetRange(Status, RecGProdOrderLine.Status::Released)
         else
             if OptGStatus = OptGStatus::Finished then
                 RecGProdOrderLine.SetRange(Status, RecGProdOrderLine.Status::Finished);
         RecGProdOrderLine.SetRange("Prod. Order No.", CodGList);
-        if RecGProdOrderLine.FindSet then
+        if RecGProdOrderLine.FindSet() then
             RecGProdOrderLine.CalcSums(Quantity)
         else
-            RecGProdOrderLine.Init;
+            RecGProdOrderLine.Init();
     end;
 
 
     procedure FctFindCapacityLedgerEntry()
     begin
-        RecGCapacityLedgerEntry.Reset;
+        RecGCapacityLedgerEntry.Reset();
         RecGCapacityLedgerEntry.SetCurrentKey("Prod. Order No.", "Prod. Order Line No.", "Routing No.", "Routing Reference No.",
                                               "Operation No.", "Last Output Line");
         RecGCapacityLedgerEntry.SetRange("Prod. Order No.", CodGList);
-        if RecGCapacityLedgerEntry.FindSet then begin
+        if RecGCapacityLedgerEntry.FindSet() then begin
             RecGCapacityLedgerEntry.CalcSums("Output Quantity");
             RecGCapacityLedgerEntry.CalcSums("Scrap Quantity");
         end else
-            RecGCapacityLedgerEntry.Init;
+            RecGCapacityLedgerEntry.Init();
     end;
 
 
     procedure FctFindItemLedgerEntry2()
     begin
-        RecGItemLedgerEntry.Reset;
+        RecGItemLedgerEntry.Reset();
         RecGItemLedgerEntry.SetCurrentKey("Item No.", "Prod. Order No.", "Entry Type");
         RecGItemLedgerEntry.SetRange("Item No.", RecGProdOrderComponent."Item No.");
         RecGItemLedgerEntry.SetFilter("Prod. Order No.", TxtGFilterPO);
         RecGItemLedgerEntry.SetRange("Entry Type", RecGItemLedgerEntry."Entry Type"::Consumption);
         DecGCostAmountActual := 0;
-        if RecGItemLedgerEntry.FindSet then
+        if RecGItemLedgerEntry.FindSet() then
             repeat
                 RecGItemLedgerEntry.CalcFields("Cost Amount (Actual)");
                 DecGCostAmountActual := DecGCostAmountActual + RecGItemLedgerEntry."Cost Amount (Actual)";
-            until RecGItemLedgerEntry.Next = 0;
-        if RecGItemLedgerEntry.FindSet then
+            until RecGItemLedgerEntry.Next() = 0;
+        if RecGItemLedgerEntry.FindSet() then
             RecGItemLedgerEntry.CalcSums(Quantity)
         else
-            RecGItemLedgerEntry.Init;
+            RecGItemLedgerEntry.Init();
     end;
 
 
     procedure FctFindCapacityLedgerEntry2()
     begin
-        RecGCapacityLedgerEntry.Reset;
+        RecGCapacityLedgerEntry.Reset();
         RecGCapacityLedgerEntry.SetCurrentKey("Item No.", "Prod. Order No.", "Operation No.", Type, "No.");
         RecGCapacityLedgerEntry.SetRange("Item No.", CodGList);
         RecGCapacityLedgerEntry.SetFilter("Prod. Order No.", TxtGFilterPO);
@@ -1063,24 +1062,24 @@ report 50007 "PWD Production Balance"
         RecGCapacityLedgerEntry.SetRange(Type, RecGProdOrderRoutingLine.Type);
         RecGCapacityLedgerEntry.SetRange("No.", RecGProdOrderRoutingLine."No.");
         DecGDirectCost := 0;
-        if RecGCapacityLedgerEntry.FindSet then
+        if RecGCapacityLedgerEntry.FindSet() then
             repeat
                 RecGCapacityLedgerEntry.CalcFields("Direct Cost");
                 DecGDirectCost := DecGDirectCost + RecGCapacityLedgerEntry."Direct Cost";
-            until RecGCapacityLedgerEntry.Next = 0;
-        if RecGCapacityLedgerEntry.FindSet then begin
+            until RecGCapacityLedgerEntry.Next() = 0;
+        if RecGCapacityLedgerEntry.FindSet() then begin
             RecGCapacityLedgerEntry.CalcSums("Output Quantity");
             RecGCapacityLedgerEntry.CalcSums("Scrap Quantity");
             RecGCapacityLedgerEntry.CalcSums("Setup Time");
             RecGCapacityLedgerEntry.CalcSums("Run Time");
         end else
-            RecGCapacityLedgerEntry.Init;
+            RecGCapacityLedgerEntry.Init();
     end;
 
 
     procedure FctFindCapacityLedgerEntry3()
     begin
-        RecGCapacityLedgerEntry.Reset;
+        RecGCapacityLedgerEntry.Reset();
         RecGCapacityLedgerEntry.SetCurrentKey("Item No.", "Prod. Order No.", "Operation No.", Type, "No.");
         RecGCapacityLedgerEntry.SetRange("Item No.", RecGProdOrderLine."Item No.");
         RecGCapacityLedgerEntry.SetFilter("Prod. Order No.", TxtGFilterPO);
@@ -1088,24 +1087,24 @@ report 50007 "PWD Production Balance"
         RecGCapacityLedgerEntry.SetRange(Type, RecGProdOrderRoutingLine.Type);
         RecGCapacityLedgerEntry.SetRange("No.", RecGProdOrderRoutingLine."No.");
         DecGDirectCost := 0;
-        if RecGCapacityLedgerEntry.FindSet then
+        if RecGCapacityLedgerEntry.FindSet() then
             repeat
                 RecGCapacityLedgerEntry.CalcFields("Direct Cost");
                 DecGDirectCost := DecGDirectCost + RecGCapacityLedgerEntry."Direct Cost";
-            until RecGCapacityLedgerEntry.Next = 0;
-        if RecGCapacityLedgerEntry.FindSet then begin
+            until RecGCapacityLedgerEntry.Next() = 0;
+        if RecGCapacityLedgerEntry.FindSet() then begin
             RecGCapacityLedgerEntry.CalcSums("Output Quantity");
             RecGCapacityLedgerEntry.CalcSums("Scrap Quantity");
             RecGCapacityLedgerEntry.CalcSums("Setup Time");
             RecGCapacityLedgerEntry.CalcSums("Run Time");
         end else
-            RecGCapacityLedgerEntry.Init;
+            RecGCapacityLedgerEntry.Init();
     end;
 
 
     procedure FctFindTempCapacityLedgerEntry(RecPprodOrderLine: Record "Prod. Order Line")
     begin
-        RecGCapacityLedgerEntry.Reset;
+        RecGCapacityLedgerEntry.Reset();
         RecGCapacityLedgerEntry.SetCurrentKey("Item No.", "Prod. Order No.", "Operation No.", Type, "No.");
         RecGCapacityLedgerEntry.SetRange("Item No.", RecPprodOrderLine."Item No.");
         RecGCapacityLedgerEntry.SetFilter("Prod. Order No.", TxtGFilterPO);
@@ -1113,18 +1112,18 @@ report 50007 "PWD Production Balance"
         RecGCapacityLedgerEntry.SetRange(Type, RecGProdOrderRoutingLine.Type);
         RecGCapacityLedgerEntry.SetRange("No.", RecGProdOrderRoutingLine."No.");
         DecGDirectCost := 0;
-        if RecGCapacityLedgerEntry.FindSet then
+        if RecGCapacityLedgerEntry.FindSet() then
             repeat
                 RecGCapacityLedgerEntry.CalcFields("Direct Cost");
                 DecGDirectCost := DecGDirectCost + RecGCapacityLedgerEntry."Direct Cost";
-            until RecGCapacityLedgerEntry.Next = 0;
-        if RecGCapacityLedgerEntry.FindSet then begin
+            until RecGCapacityLedgerEntry.Next() = 0;
+        if RecGCapacityLedgerEntry.FindSet() then begin
             RecGCapacityLedgerEntry.CalcSums("Output Quantity");
             RecGCapacityLedgerEntry.CalcSums("Scrap Quantity");
             RecGCapacityLedgerEntry.CalcSums("Setup Time");
             RecGCapacityLedgerEntry.CalcSums("Run Time");
         end else
-            RecGCapacityLedgerEntry.Init;
+            RecGCapacityLedgerEntry.Init();
     end;
 
 

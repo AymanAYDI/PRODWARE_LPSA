@@ -41,7 +41,7 @@ report 50110 "PWD Check Items"
                     Boo2 := true;
 
                 if (Boo1 and Boo2) then
-                    CurrReport.Skip;
+                    CurrReport.Skip();
 
 
                 //<<NICOLAS

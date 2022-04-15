@@ -43,7 +43,7 @@ report 99068 "PWD Update PORL"
             trigger OnAfterGetRecord()
             begin
                 PORL.SetRange("Prod. Order No.", "Prod. Order Line"."Prod. Order No.");
-                if PORL.FindFirst then
+                if PORL.FindFirst() then
                     repeat
                         PORL2.Get(PORL.Status, PORL."Prod. Order No.",
                           PORL."Routing Reference No.",
@@ -53,7 +53,7 @@ report 99068 "PWD Update PORL"
                           PORL."Routing Reference No.",
                           "Prod. Order Line"."Routing No.",
                           PORL."Operation No.");
-                    until PORL.Next = 0;
+                    until PORL.Next() = 0;
             end;
         }
     }
@@ -75,9 +75,6 @@ report 99068 "PWD Update PORL"
     }
 
     var
-        PORLB: Record "Prod. Order Routing Line BKP";
-        RH: Record "Routing Header";
-        tmp: Record "OF Sans Gamme";
         PORL: Record "Prod. Order Routing Line";
         PORL2: Record "Prod. Order Routing Line";
 }

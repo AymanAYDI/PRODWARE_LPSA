@@ -13,9 +13,9 @@ report 50030 "PWD Clean Forecast Entries"
                 R99000851: Record "Production Forecast Name";
             begin
                 if R99000851.Get("Production Forecast Entry"."Production Forecast Name") then
-                    CurrReport.Skip
+                    CurrReport.Skip()
                 else
-                    Delete;
+                    Delete();
             end;
 
             trigger OnPostDataItem()

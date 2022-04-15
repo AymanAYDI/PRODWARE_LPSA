@@ -75,7 +75,7 @@ page 50001 "PWD Item Configurator"
 
                     trigger OnValidate()
                     begin
-                        FctEnableFields;
+                        FctEnableFields();
                     end;
                 }
                 field("Location Code"; Rec."Location Code")
@@ -142,7 +142,7 @@ page 50001 "PWD Item Configurator"
 
                     trigger OnValidate()
                     begin
-                        FctEditableFieldsStone;
+                        FctEditableFieldsStone();
                     end;
                 }
                 field("Matter Stone"; Rec."Matter Stone")
@@ -288,7 +288,7 @@ page 50001 "PWD Item Configurator"
 
                     trigger OnValidate()
                     begin
-                        FctEditableFieldsPreparage;
+                        FctEditableFieldsPreparage();
                     end;
                 }
                 field("Matter Preparage"; Rec."Matter Preparage")
@@ -379,7 +379,7 @@ page 50001 "PWD Item Configurator"
 
                     trigger OnValidate()
                     begin
-                        FctEditableFieldsLAndE;
+                        FctEditableFieldsLAndE();
                     end;
                 }
                 field("Matter Lifted&Ellipses"; Rec."Matter Lifted&Ellipses")
@@ -497,7 +497,7 @@ page 50001 "PWD Item Configurator"
 
                     trigger OnValidate()
                     begin
-                        FctEditableFieldsSF;
+                        FctEditableFieldsSF();
                     end;
                 }
                 field("Matter Semi-finished"; Rec."Matter Semi-finished")
@@ -598,30 +598,30 @@ page 50001 "PWD Item Configurator"
                     IntLLoop: Integer;
                 begin
                     TESTFIELD("Item Code");
-                    RecGItemConfigurator.RESET;
+                    RecGItemConfigurator.RESET();
                     RecGItemConfigurator.SETCURRENTKEY("Item Code");
                     RecGItemConfigurator.SETRANGE("Item Code", "Item Code");
                     RecGItemConfigurator.SETFILTER("Entry No.", '<>%1', "Entry No.");
-                    IF RecGItemConfigurator.FINDSET THEN
+                    IF RecGItemConfigurator.FINDSET() THEN
                         ERROR(CstGT001, "Item Code");
-                    RecGItem.RESET;
+                    RecGItem.RESET();
                     RecGItem.SETRANGE("No.", "Item Code");
                     IF RecGItem.FINDSET(TRUE) THEN BEGIN
                         IF BooGNotEditable2 THEN
                             ERROR(CstGT002, "Item Code");
-                        FctUpdateItem;
+                        FctUpdateItem();
                         BooLInsertItem := FALSE;
                         RecGItem.MODIFY(TRUE);
                     END ELSE BEGIN
-                        RecGItem.INIT;
+                        RecGItem.INIT();
                         RecGItem."No." := "Item Code";
                         BooLInsertItem := TRUE;
                         RecGItem.INSERT(TRUE);
-                        COMMIT;
-                        FctUpdateItem;
+                        COMMIT();
+                        FctUpdateItem();
                         RecGItem.MODIFY(TRUE);
                         IF "Item Template Code" <> '' THEN BEGIN
-                            COMMIT;
+                            COMMIT();
                             RecGItem.GET("Item Code");
                             RecGItem.FILTERGROUP(2);
                             RecRef.GETTABLE(RecGItem);
@@ -631,30 +631,30 @@ page 50001 "PWD Item Configurator"
                     END;
 
                     IF "Dimension 3 Code" <> '' THEN BEGIN
-                        RecLGeneralLedgerSetup.GET;
+                        RecLGeneralLedgerSetup.GET();
                         IF RecLDefaultDimension.GET(DATABASE::Item, "Item Code", RecLGeneralLedgerSetup."Shortcut Dimension 3 Code") THEN BEGIN
                             RecLDefaultDimension."Dimension Value Code" := "Dimension 3 Code";
-                            RecLDefaultDimension.MODIFY;
+                            RecLDefaultDimension.MODIFY();
                         END ELSE BEGIN
                             RecLDefaultDimension."Table ID" := DATABASE::Item;
                             RecLDefaultDimension."No." := "Item Code";
                             RecLDefaultDimension."Dimension Code" := RecLGeneralLedgerSetup."Shortcut Dimension 3 Code";
                             RecLDefaultDimension."Dimension Value Code" := "Dimension 3 Code";
-                            RecLDefaultDimension.INSERT;
+                            RecLDefaultDimension.INSERT();
                         END;
                     END;
 
                     //>>LAP2.12
-                    RecLInventorySetup.GET;
+                    RecLInventorySetup.GET();
                     RecLInventorySetup.TESTFIELD("PWD Product Group Code Dim");
 
-                    IF "Product Group Code" <> '' THEN BEGIN
+                    IF "Product Group Code" <> '' THEN
                         IF RecLDefaultDimension.GET(DATABASE::Item, "Item Code", RecLInventorySetup."PWD Product Group Code Dim") THEN BEGIN
                             //>>TDL21072020.001
                             //RecLDefaultDimension."Dimension Value Code" := "Item Category Code"+'_'+"Product Group Code";
                             RecLDefaultDimension."Dimension Value Code" := "Product Group Code";
                             //<<TDL21072020.001
-                            RecLDefaultDimension.MODIFY;
+                            RecLDefaultDimension.MODIFY();
                         END ELSE BEGIN
                             RecLDefaultDimension."Table ID" := DATABASE::Item;
                             RecLDefaultDimension."No." := "Item Code";
@@ -663,9 +663,8 @@ page 50001 "PWD Item Configurator"
                             //RecLDefaultDimension."Dimension Value Code" := "Item Category Code"+'_'+"Product Group Code";
                             RecLDefaultDimension."Dimension Value Code" := "Product Group Code";
                             //<<TDL21072020.001
-                            RecLDefaultDimension.INSERT;
+                            RecLDefaultDimension.INSERT();
                         END;
-                    END;
 
                     BooLCreateItemCrossRef := FALSE;
 
@@ -695,35 +694,34 @@ page 50001 "PWD Item Configurator"
                     UNTIL (IntLPipePosition = 0) OR (BooLCreateItemCrossRef) OR (IntLLoop > 200);
 
                     IF BooLCreateItemCrossRef THEN BEGIN
-                        IF RecLInventorySetup."PWD STRATEGY Customer No." <> '' THEN BEGIN
+                        IF RecLInventorySetup."PWD STRATEGY Customer No." <> '' THEN
                             IF NOT RecLItemCrossReference.GET(RecGItem."No.",
                                                               '',
                                                               RecGItem."Base Unit of Measure",
                                                               RecLItemCrossReference."Cross-Reference Type"::Customer,
                                                               RecLInventorySetup."PWD STRATEGY Customer No.",
                                                               'NC') THEN BEGIN
-                                RecLItemCrossReference.INIT;
+                                RecLItemCrossReference.INIT();
                                 RecLItemCrossReference.VALIDATE("Item No.", RecGItem."No.");
                                 RecLItemCrossReference.VALIDATE("Unit of Measure", RecGItem."Base Unit of Measure");
                                 RecLItemCrossReference.VALIDATE("Cross-Reference Type", RecLItemCrossReference."Cross-Reference Type"::Customer);
                                 RecLItemCrossReference.VALIDATE("Cross-Reference Type No.", RecLInventorySetup."PWD STRATEGY Customer No.");
                                 RecLItemCrossReference.VALIDATE("Cross-Reference No.", 'NC');
-                                RecLItemCrossReference.INSERT;
+                                RecLItemCrossReference.INSERT();
                             END;
-                        END;
                         IF NOT RecLItemCrossReference.GET(RecGItem."No.",
                                                           '',
                                                           RecGItem."Base Unit of Measure",
                                                           RecLItemCrossReference."Cross-Reference Type"::Customer,
                                                           RecLInventorySetup."PWD LPSA Customer No.",
                                                           'NC') THEN BEGIN
-                            RecLItemCrossReference.INIT;
+                            RecLItemCrossReference.INIT();
                             RecLItemCrossReference.VALIDATE("Item No.", RecGItem."No.");
                             RecLItemCrossReference.VALIDATE("Unit of Measure", RecGItem."Base Unit of Measure");
                             RecLItemCrossReference.VALIDATE("Cross-Reference Type", RecLItemCrossReference."Cross-Reference Type"::Customer);
                             RecLItemCrossReference.VALIDATE("Cross-Reference Type No.", RecLInventorySetup."PWD LPSA Customer No.");
                             RecLItemCrossReference.VALIDATE("Cross-Reference No.", 'NC');
-                            RecLItemCrossReference.INSERT;
+                            RecLItemCrossReference.INSERT();
                         END;
                     END;
                     //<<LAP2.12
@@ -734,13 +732,13 @@ page 50001 "PWD Item Configurator"
                             RecGSubFamily.NumberF := RecGSubFamily.NumberF + 1
                         ELSE
                             RecGSubFamily.Number := RecGSubFamily.Number + 1;
-                        RecGSubFamily.MODIFY;
+                        RecGSubFamily.MODIFY();
                     END;
 
-                    COMMIT;
+                    COMMIT();
 
                     CLEAR(PgeGItemCard);
-                    RecGItem.RESET;
+                    RecGItem.RESET();
                     RecGItem.GET("Item Code");
                     PgeGItemCard.SETTABLEVIEW(RecGItem);
                     PAGE.RUNMODAL(30, RecGItem);
@@ -760,8 +758,8 @@ page 50001 "PWD Item Configurator"
                     ELSE
                         BooGNotEditable2 := FALSE;
                     IF NOT BooGNotEditable THEN
-                        FctConfigItemCode;
-                    FctConfigDes;
+                        FctConfigItemCode();
+                    FctConfigDes();
                 end;
             }
         }
@@ -769,20 +767,20 @@ page 50001 "PWD Item Configurator"
 
     trigger OnAfterGetRecord()
     begin
-        FctEnableFields;
-        FctEditableFields;
+        FctEnableFields();
+        FctEditableFields();
     end;
 
     trigger OnInit()
     begin
-        FctEnableFields;
-        FctEditableFields;
+        FctEnableFields();
+        FctEditableFields();
     end;
 
     trigger OnOpenPage()
     begin
-        FctEnableFields;
-        FctEditableFields;
+        FctEnableFields();
+        FctEditableFields();
     end;
 
     var
@@ -818,14 +816,6 @@ page 50001 "PWD Item Configurator"
         HeightCamberedEditable: Boolean;
         [InDataSet]
         HHGlazedEditable: Boolean;
-        [InDataSet]
-        PTStoneEditable: Boolean;
-        [InDataSet]
-        MatterStoneEditable: Boolean;
-        [InDataSet]
-        NumberEditable: Boolean;
-        [InDataSet]
-        OrientationEditable: Boolean;
         [InDataSet]
         PiercingEditable: Boolean;
         [InDataSet]
@@ -886,22 +876,22 @@ page 50001 "PWD Item Configurator"
             "Product Type"::STONE:
                 BEGIN
                     StoneEnable := TRUE;
-                    FctEditableFieldsStone;
+                    FctEditableFieldsStone();
                 END;
             "Product Type"::PREPARAGE:
                 BEGIN
                     PrepEnable := TRUE;
-                    FctEditableFieldsPreparage;
+                    FctEditableFieldsPreparage();
                 END;
             "Product Type"::"LIFTED AND ELLIPSES":
                 BEGIN
                     LiftedAndEllipsesEnable := TRUE;
-                    FctEditableFieldsLAndE;
+                    FctEditableFieldsLAndE();
                 END;
             "Product Type"::"SEMI-FINISHED":
                 BEGIN
                     SemiFinishedEnable := TRUE;
-                    FctEditableFieldsSF;
+                    FctEditableFieldsSF();
                 END;
         END;
     end;
@@ -957,9 +947,8 @@ page 50001 "PWD Item Configurator"
     begin
         CASE "Product Type" OF
             "Product Type"::STONE:
-                BEGIN
-                    CdUGItemConfigurator.FctConfigDescStone(Rec);
-                END;
+
+                CdUGItemConfigurator.FctConfigDescStone(Rec);
             "Product Type"::PREPARAGE:
                 CdUGItemConfigurator.FctConfigDescPrepa(Rec);
             "Product Type"::"LIFTED AND ELLIPSES":
@@ -1196,7 +1185,7 @@ page 50001 "PWD Item Configurator"
         //<<FE_LAPIERRETTE_GP0003
 
         RecGItem.VALIDATE("Replenishment System", "Replenishment System");
-        IF RecGItem.TestNoEntriesExist_Cost THEN
+        IF RecGItem.TestNoEntriesExist_Cost() THEN
             RecGItem.VALIDATE("Costing Method", "Costing Method");
 
     end;

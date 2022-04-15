@@ -55,22 +55,22 @@ table 50009 "PWD Lot Size Standard Cost"
         RecLLotSizeStdCost: Record "PWD Lot Size Standard Cost";
     begin
         //===Line Inserting on update Item Costing Method To Standard========================
-        RecLLotSize.Reset;
+        RecLLotSize.Reset();
         RecLLotSize.SetRange("Item Category Code", CodPItemCatCode);
-        if RecLLotSize.FindFirst then
+        if RecLLotSize.FindSet() then
             repeat
-                RecLLotSizeStdCost.Reset;
+                RecLLotSizeStdCost.Reset();
                 RecLLotSizeStdCost.SetRange("Item No.", CodPItemNo);
                 RecLLotSizeStdCost.SetRange("Item category code", CodPItemCatCode);
                 RecLLotSizeStdCost.SetRange("Lot Size", RecLLotSize."Lot Size");
-                if not (RecLLotSizeStdCost.FindFirst) then begin
-                    RecLLotSizeStdCost.Init;
+                if not (RecLLotSizeStdCost.FindFirst()) then begin
+                    RecLLotSizeStdCost.Init();
                     RecLLotSizeStdCost.Validate("Item No.", CodPItemNo);
                     RecLLotSizeStdCost.Validate("Item category code", CodPItemCatCode);
                     RecLLotSizeStdCost.Validate("Lot Size", RecLLotSize."Lot Size");
                     RecLLotSizeStdCost.Insert(true);
                 end;
-            until RecLLotSize.Next = 0;
+            until RecLLotSize.Next() = 0;
     end;
 }
 

@@ -124,7 +124,7 @@ xmlport 8073327 "PWD Delete Prod. Order Line"
                     RecLDeletedProdOrderLine.Get("PWD Deleted Prod. Order Line".Status,
                                         "PWD Deleted Prod. Order Line"."Prod. Order No.", "PWD Deleted Prod. Order Line"."Line No.");
                     RecLDeletedProdOrderLine."Send to OSYS (Deleted)" := true;
-                    RecLDeletedProdOrderLine.Modify;
+                    RecLDeletedProdOrderLine.Modify();
                 end;
 
                 trigger OnPreXmlItem()
@@ -182,9 +182,9 @@ xmlport 8073327 "PWD Delete Prod. Order Line"
 
         if BooPInsertValue then begin
             RecordRefTemp.GetTable("PWD Deleted Prod. Order Line");
-            RecordRefTemp.Init;
+            RecordRefTemp.Init();
             CduGConnectorBufferMgtExport.FctTransferFields(RecordRef, RecordRefTemp);
-            RecordRefTemp.Insert;
+            RecordRefTemp.Insert();
         end;
 
         exit(BooLError);
@@ -195,18 +195,18 @@ xmlport 8073327 "PWD Delete Prod. Order Line"
     var
         RecLDeletedProdOrderLine: Record "PWD Deleted Prod. Order Line";
     begin
-        "PWD Deleted Prod. Order Line".DeleteAll;
+        "PWD Deleted Prod. Order Line".DeleteAll();
 
         CduGConnectorBufferMgtExport.FctInitValidateField(CodGConnectorPartner, 0);
 
         FctProdOrderLine(RecLDeletedProdOrderLine);
         //>>DEBUT Parcours des OF
         if not RecLDeletedProdOrderLine.IsEmpty then begin
-            RecLDeletedProdOrderLine.FindSet;
+            RecLDeletedProdOrderLine.FindSet();
             repeat
                 if not FctCheckValues(RecLDeletedProdOrderLine, false) then
                     FctCheckValues(RecLDeletedProdOrderLine, true);
-            until RecLDeletedProdOrderLine.Next = 0;
+            until RecLDeletedProdOrderLine.Next() = 0;
         end;
         //<<FIN Parcours des OF
 

@@ -121,7 +121,6 @@ page 8073305 "PWD Sales Line Buffer"
     end;
 
     var
-        CduGBufferManagement: Codeunit "Buffer Management";
         RecGPEBSalesLineBuffer: Record "PEB Sales Line Buffer";
         RecGWMSSalesLineBuffer: Record "WMS Sales Line Buffer";
 

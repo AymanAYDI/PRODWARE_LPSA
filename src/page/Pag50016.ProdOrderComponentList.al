@@ -53,7 +53,7 @@ page 50016 "PWD Prod. Order Component List"
     trigger OnAfterGetRecord()
     begin
         IF NOT RecGProdOrderLine.GET(Rec.Status, Rec."Prod. Order No.", Rec."Prod. Order Line No.") THEN
-            RecGProdOrderLine.INIT;
+            RecGProdOrderLine.INIT();
     end;
 
     var

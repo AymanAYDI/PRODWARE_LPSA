@@ -6,19 +6,19 @@ report 50041 "TPL coché export OSYS Terminé"
     {
         dataitem("Prod. Order Line"; "Prod. Order Line")
         {
-            DataItemTableView = WHERE (Status = FILTER (Finished));
+            DataItemTableView = WHERE(Status = FILTER(Finished));
             RequestFilterFields = "Prod. Order No.";
 
             trigger OnAfterGetRecord()
             begin
                 if "Prod. Order Line"."Send to OSYS (Released)" = false then begin
                     "Prod. Order Line"."Send to OSYS (Released)" := true;
-                    "Prod. Order Line".Modify;
+                    "Prod. Order Line".Modify();
                 end;
 
                 if "Prod. Order Line"."Send to OSYS (Finished)" = false then begin
                     "Prod. Order Line"."Send to OSYS (Finished)" := true;
-                    "Prod. Order Line".Modify;
+                    "Prod. Order Line".Modify();
                 end;
             end;
 

@@ -6,7 +6,7 @@ report 60004 "Update Dimensions on ACI Items"
     {
         dataitem(Item; Item)
         {
-            DataItemTableView = SORTING ("No.");
+            DataItemTableView = SORTING("No.");
 
             trigger OnAfterGetRecord()
             var
@@ -15,14 +15,14 @@ report 60004 "Update Dimensions on ACI Items"
                 RecLPurchLine: Record "Purchase Line";
             begin
                 if StrPos("No.", 'CTRL') > 0 then
-                    CurrReport.Skip;
+                    CurrReport.Skip();
 
                 if RecLDefDim.Get(27, "No.", 'ARTICLE_ROLEX') then begin
                     RecLDefDim."Dimension Value Code" := '4089323';
                     RecLDefDim."Value Posting" := RecLDefDim."Value Posting"::" ";
                     RecLDefDim.Modify(true);
                 end else begin
-                    RecLDefDim.Init;
+                    RecLDefDim.Init();
                     RecLDefDim."Table ID" := 27;
                     RecLDefDim."No." := "No.";
                     RecLDefDim."Dimension Code" := 'ARTICLE_ROLEX';
@@ -36,7 +36,7 @@ report 60004 "Update Dimensions on ACI Items"
                     RecLDefDim."Value Posting" := RecLDefDim."Value Posting"::"Code Mandatory";
                     RecLDefDim.Modify(true);
                 end else begin
-                    RecLDefDim.Init;
+                    RecLDefDim.Init();
                     RecLDefDim."Table ID" := 27;
                     RecLDefDim."No." := "No.";
                     RecLDefDim."Dimension Code" := 'COUT';
@@ -50,7 +50,7 @@ report 60004 "Update Dimensions on ACI Items"
                     RecLDefDim."Value Posting" := RecLDefDim."Value Posting"::"Code Mandatory";
                     RecLDefDim.Modify(true);
                 end else begin
-                    RecLDefDim.Init;
+                    RecLDefDim.Init();
                     RecLDefDim."Table ID" := 27;
                     RecLDefDim."No." := "No.";
                     RecLDefDim."Dimension Code" := 'PROFIT';
@@ -59,7 +59,7 @@ report 60004 "Update Dimensions on ACI Items"
                     RecLDefDim.Insert(true);
                 end;
 
-                RecLPurchLine.Reset;
+                RecLPurchLine.Reset();
                 RecLPurchLine.SetCurrentKey(Type, "No.");
                 RecLPurchLine.SetRange(Type, RecLPurchLine.Type::Item);
                 RecLPurchLine.SetRange("No.", "No.");
@@ -110,7 +110,7 @@ report 60004 "Update Dimensions on ACI Items"
                             RecLDocDim.Insert(true);
                         end;
 
-                    until RecLPurchLine.Next = 0;
+                    until RecLPurchLine.Next() = 0;
             end;
 
             trigger OnPreDataItem()

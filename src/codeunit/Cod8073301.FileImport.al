@@ -20,34 +20,31 @@ codeunit 8073301 "PWD File Import"
         CduLFileMessagesImport: Codeunit "Transform Import Files To Blob";
         RecLConnectorValues: Record "PWD Connector Values";
     begin
-        RecLRecevingMessage.Reset;
+        RecLRecevingMessage.Reset();
         RecLRecevingMessage.SetRange("Partner Code", Code);
         RecLRecevingMessage.SetRange(Blocked, false);
         RecLRecevingMessage.SetRange(Direction, RecLRecevingMessage.Direction::Import);
         if not RecLRecevingMessage.IsEmpty then begin
-            RecLRecevingMessage.FindSet;
+            RecLRecevingMessage.FindSet();
             repeat
-                ClearLastError;
-                Commit;
+                ClearLastError();
+                Commit();
                 if not CduLFileMessagesImport.Run(RecLRecevingMessage) then
                     CduLConnectorErrorlog.InsertLogEntry(2, 1, Code, GetLastErrorText, 0);
-            until RecLRecevingMessage.Next = 0;
+            until RecLRecevingMessage.Next() = 0;
         end;
 
-        RecLConnectorValues.Reset;
+        RecLConnectorValues.Reset();
         RecLConnectorValues.SetRange(Direction, RecLConnectorValues.Direction::Import);
         if not RecLConnectorValues.IsEmpty then begin
-            RecLConnectorValues.FindSet;
+            RecLConnectorValues.FindSet();
             repeat
-                ClearLastError;
-                Commit;
+                ClearLastError();
+                Commit();
                 if not CODEUNIT.Run("Functions CodeUnit ID", RecLConnectorValues) then
                     CduLConnectorErrorlog.InsertLogEntry(2, 1, Code, GetLastErrorText, RecLConnectorValues."Entry No.")
-            until RecLConnectorValues.Next = 0;
+            until RecLConnectorValues.Next() = 0;
         end;
     end;
-
-    var
-        tt: Variant;
 }
 

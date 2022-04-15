@@ -15,11 +15,11 @@ report 50056 "PWD Suppression OP Gamme PIE"
     {
         dataitem("Routing Header"; "Routing Header")
         {
-            DataItemTableView = SORTING ("No.");
+            DataItemTableView = SORTING("No.");
             dataitem("Routing Line"; "Routing Line")
             {
-                DataItemLink = "Routing No." = FIELD ("No.");
-                DataItemTableView = SORTING ("Routing No.", "Version Code", "Operation No.") WHERE (Type = FILTER ("Machine Center"));
+                DataItemLink = "Routing No." = FIELD("No.");
+                DataItemTableView = SORTING("Routing No.", "Version Code", "Operation No.") WHERE(Type = FILTER("Machine Center"));
 
                 trigger OnAfterGetRecord()
                 var
@@ -30,7 +30,7 @@ report 50056 "PWD Suppression OP Gamme PIE"
                         RecLRoutingLine.Get("Routing Line"."Routing No.",
                                             "Routing Line"."Version Code",
                                             "Routing Line"."Operation No.");
-                        RecLRoutingLine.Delete;
+                        RecLRoutingLine.Delete();
                     end;
 
                     CodGOperationToCheck := "Routing Line"."No.";
@@ -50,7 +50,7 @@ report 50056 "PWD Suppression OP Gamme PIE"
 
             trigger OnPostDataItem()
             begin
-                BDialog.Close;
+                BDialog.Close();
             end;
 
             trigger OnPreDataItem()

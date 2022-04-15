@@ -15,7 +15,7 @@ codeunit 8073310 "Connectors Validation Batch"
 
     trigger OnRun()
     begin
-        if not CduGConnectJrnlValidBatch.Run then
+        if not CduGConnectJrnlValidBatch.Run() then
             CduGConnectorErrorlog.InsertLogEntry(2, 1, '', CopyStr(GetLastErrorText, 1, 250), 0);
     end;
 

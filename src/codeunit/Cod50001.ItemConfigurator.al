@@ -42,8 +42,6 @@ codeunit 50001 "PWD Item Configurator"
 
 
     trigger OnRun()
-    var
-        ItemConf: Record "PWD Item Configurator";
     begin
         //ItemConf.GET(2620);
         //BuildQuartisDesc(ItemConf);
@@ -68,11 +66,10 @@ codeunit 50001 "PWD Item Configurator"
             "PWD LPSA Description 2" := '';
 
             if Hole <> 0 then
-                if "Hole Min." = -"Hole Max." then begin
+                if "Hole Min." = -"Hole Max." then
                     "PWD LPSA Description 1" := "PWD LPSA Description 1" + '-T' + Format(Hole) + '(+/-' + Format("Hole Max.") + ')'
-                end else begin
+                else
                     "PWD LPSA Description 1" := FctBuildDescription("PWD LPSA Description 1", '-T', Hole, "Hole Min.", "Hole Max.");
-                end;
 
             //>>NDBI
             /*
@@ -98,7 +95,7 @@ codeunit 50001 "PWD Item Configurator"
                     else
                         "PWD LPSA Description 1" := FctBuildDescription("PWD LPSA Description 1", '-D', "External Diameter", "External Diameter Min.",
                                                                     "External Diameter Max.");
-            end else begin
+            end else
                 if "External Diameter" <> 0 then
                     if "External Diameter Min." = -"External Diameter Max." then
                         "PWD LPSA Description 1" := "PWD LPSA Description 1" + 'xD' + Format("External Diameter") + '(+/-' +
@@ -106,20 +103,18 @@ codeunit 50001 "PWD Item Configurator"
                     else
                         "PWD LPSA Description 1" := FctBuildDescription("PWD LPSA Description 1", 'xD', "External Diameter", "External Diameter Min.",
                                                                     "External Diameter Max.");
-            end;
             if (Hole = 0) and ("External Diameter" = 0) then begin
                 if Thickness <> 0 then
                     if "Thickness Min." = -"Thickness Max." then
                         "PWD LPSA Description 1" := "PWD LPSA Description 1" + '-E' + Format(Thickness) + '(+/-' + Format("Thickness Max.") + ')'
                     else
                         "PWD LPSA Description 1" := FctBuildDescription("PWD LPSA Description 1", '-E', Thickness, "Thickness Min.", "Thickness Max.");
-            end else begin
+            end else
                 if Thickness <> 0 then
                     if "Thickness Min." = -"Thickness Max." then
                         "PWD LPSA Description 1" := "PWD LPSA Description 1" + 'xE' + Format(Thickness) + '(+/-' + Format("Thickness Max.") + ')'
                     else
                         "PWD LPSA Description 1" := FctBuildDescription("PWD LPSA Description 1", 'xE', Thickness, "Thickness Min.", "Thickness Max.");
-            end;
             //>>NDBI
 
             if "Recess Diametre" <> 0 then
@@ -629,7 +624,7 @@ codeunit 50001 "PWD Item Configurator"
                     Quartis += '-' + Format("D Min.") + '/' + Format("D Max.") + '-' +
                                               Format("Ep Min.") + '/' + Format("Ep Max.") + '';
                 end
-                else begin
+                else
                     //>>TDL.LPSA.20.04.15
                     //"PWD Quartis Description" := "Piece Type Semi-finished" + '-' + FORMAT("Hole Tol") + '(' + FORMAT("Hole Tol Min.") + '/' +
                     //                          FORMAT("Hole Tol Max.") + ')-' + FORMAT("D Min.") + '/' + FORMAT("D Max.") + '-' +
@@ -647,8 +642,7 @@ codeunit 50001 "PWD Item Configurator"
                     Quartis := "Piece Type Semi-finished" + '-' + Format("Hole Tol") + '(' + Format("Hole Tol Min.") + '/' +
                                               Format("Hole Tol Max.") + ')-' + Format("D Min.") + '/' + Format("D Max.") + '-' +
                                               Format("Ep Min.") + '/' + Format("Ep Max.") + '';
-                    //>>TDL.LPSA.20.04.15
-                end;
+                //>>TDL.LPSA.20.04.15
             end
             else begin
                 if "Hole Tol" <> 0 then
@@ -744,7 +738,7 @@ codeunit 50001 "PWD Item Configurator"
     var
         RecLItem: Record Item;
     begin
-        RecLItem.Reset;
+        RecLItem.Reset();
         if RecLItem.Get(RecPItemConfig."Item Code") then begin
             RecLItem.Description := RecPItemConfig."PWD Quartis Description";
             RecLItem.Modify(false);

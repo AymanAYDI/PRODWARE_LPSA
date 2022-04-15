@@ -23,12 +23,12 @@ report 60022 "Delete Purch. Orders Before..."
                 DocDim.Reset;
                 DocDim.SetRange("Document Type", "Document Type");
                 DocDim.SetRange("Document No.", "No.");
-                ItemChargeAssgntPurch.Reset;
+                ItemChargeAssgntPurch.Reset();
                 ItemChargeAssgntPurch.SetRange("Document Type", "Document Type");
                 ItemChargeAssgntPurch.SetRange("Document No.", "No.");
 
                 // CAS DES COMMANDES ENTIEREMENT FACTUREES : ARCHIVAGE + SUPPRESSION
-                PurchLine.Reset;
+                PurchLine.Reset();
                 PurchLine.SetRange("Document Type", "Document Type");
                 PurchLine.SetRange("Document No.", "No.");
                 PurchLine.SetFilter("Quantity Invoiced", '<>0');
@@ -39,7 +39,7 @@ report 60022 "Delete Purch. Orders Before..."
                         PurchLine.SetRange("Outstanding Quantity");
                         PurchLine.SetFilter("Qty. Rcd. Not Invoiced", '<>0');
                         if not PurchLine.Find('-') then begin
-                            PurchLine.LockTable;
+                            PurchLine.LockTable();
                             if not PurchLine.Find('-') then begin
 
                                 BooGInvoiced := true;
@@ -59,15 +59,15 @@ report 60022 "Delete Purch. Orders Before..."
                                             DocDim.DeleteAll;
                                             if PurchLine.Type = PurchLine.Type::"Charge (Item)" then begin
                                                 ItemChargeAssgntPurch.SetRange("Document Line No.", PurchLine."Line No.");
-                                                ItemChargeAssgntPurch.DeleteAll;
+                                                ItemChargeAssgntPurch.DeleteAll();
                                             end;
                                             if PurchLine.HasLinks then
-                                                PurchLine.DeleteLinks;
+                                                PurchLine.DeleteLinks();
 
-                                            PurchLine.Delete;
+                                            PurchLine.Delete();
                                         end else
                                             AllLinesDeleted := false;
-                                    until PurchLine.Next = 0;
+                                    until PurchLine.Next() = 0;
 
                                 if AllLinesDeleted then begin
                                     PurchPost.DeleteHeader(
@@ -78,7 +78,7 @@ report 60022 "Delete Purch. Orders Before..."
 
                                     PurchCommentLine.SetRange("Document Type", "Document Type");
                                     PurchCommentLine.SetRange("No.", "No.");
-                                    PurchCommentLine.DeleteAll;
+                                    PurchCommentLine.DeleteAll();
 
                                     DocDim.SetRange("Table ID", DATABASE::"Purchase Header");
                                     DocDim.SetRange("Line No.", 0);
@@ -90,11 +90,11 @@ report 60022 "Delete Purch. Orders Before..."
                                     WhseRequest.DeleteAll(true);
 
                                     if HasLinks then
-                                        DeleteLinks;
+                                        DeleteLinks();
 
-                                    Delete;
+                                    Delete();
                                 end;
-                                Commit;
+                                Commit();
                             end;
                         end;
                     end;
@@ -106,7 +106,7 @@ report 60022 "Delete Purch. Orders Before..."
                     PurchLine.SetRange("Quantity Invoiced");
                     PurchLine.SetFilter(PurchLine."Quantity Received", '<>0');
                     if not PurchLine.Find('-') then begin
-                        PurchLine.LockTable;
+                        PurchLine.LockTable();
                         if not PurchLine.Find('-') then begin
                             PurchLine.SetRange("Quantity Received");
                             DocDim.SetRange("Table ID", DATABASE::"Purchase Line");
@@ -124,14 +124,14 @@ report 60022 "Delete Purch. Orders Before..."
                                     //  DocDim.DELETEALL;
                                     if PurchLine.Type = PurchLine.Type::"Charge (Item)" then begin
                                         ItemChargeAssgntPurch.SetRange("Document Line No.", PurchLine."Line No.");
-                                        ItemChargeAssgntPurch.DeleteAll;
+                                        ItemChargeAssgntPurch.DeleteAll();
                                     end;
                                     if PurchLine.HasLinks then
-                                        PurchLine.DeleteLinks;
-                                    PurchLine.Delete;
+                                        PurchLine.DeleteLinks();
+                                    PurchLine.Delete();
                                 //END ELSE
                                 //  AllLinesDeleted := FALSE;
-                                until PurchLine.Next = 0;
+                                until PurchLine.Next() = 0;
                             if AllLinesDeleted then begin
                                 PurchPost.DeleteHeader(
                                   "Purchase Header", PurchRcptHeader, PurchInvHeader, PurchCrMemoHeader,
@@ -139,7 +139,7 @@ report 60022 "Delete Purch. Orders Before..."
                                 ReservePurchLine.DeleteInvoiceSpecFromHeader("Purchase Header");
                                 PurchCommentLine.SetRange("Document Type", "Document Type");
                                 PurchCommentLine.SetRange("No.", "No.");
-                                PurchCommentLine.DeleteAll;
+                                PurchCommentLine.DeleteAll();
 
                                 DocDim.SetRange("Table ID", DATABASE::"Purchase Header");
                                 DocDim.SetRange("Line No.", 0);
@@ -151,11 +151,11 @@ report 60022 "Delete Purch. Orders Before..."
                                 WhseRequest.DeleteAll(true);
 
                                 if HasLinks then
-                                    DeleteLinks;
+                                    DeleteLinks();
 
-                                Delete;
+                                Delete();
                             end;
-                            Commit;
+                            Commit();
                         end;
                     end;
                 end;
@@ -215,7 +215,6 @@ report 60022 "Delete Purch. Orders Before..."
         PurchPost: Codeunit "Purch.-Post";
         Window: Dialog;
         AllLinesDeleted: Boolean;
-        PurchSetup: Record "Purchases & Payables Setup";
         ArchiveManagement: Codeunit ArchiveManagement;
         DateGDateFilter: Date;
         BooGInvoiced: Boolean;

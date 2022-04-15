@@ -16,14 +16,14 @@ report 60011 "Update Cust Date Sales Order"
                 trigger OnAfterGetRecord()
                 begin
                     "Cust Promised Delivery Date" := "Planned Delivery Date";
-                    Modify;
+                    Modify();
                 end;
             }
 
             trigger OnAfterGetRecord()
             begin
                 "Cust Promised Delivery Date" := "Shipment Date";
-                Modify;
+                Modify();
             end;
         }
     }

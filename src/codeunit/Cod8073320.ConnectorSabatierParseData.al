@@ -32,36 +32,16 @@ codeunit 8073320 "Connector Sabatier Parse Data"
                 END;
 
             Direction::Import:
-                BEGIN
-                    FctProcessImport(Rec);
-                END;
+
+                FctProcessImport(Rec);
         END;
     end;
 
     var
         CduGConnectBufMgtExport: Codeunit "Connector Buffer Mgt Export";
         CduGBufferManagement: Codeunit "Buffer Management";
-        TxtGError: Label 'Data not available';
-        CduGFileManagement: Codeunit "File Management";
-        CstGDecValue: Label 'La valeur décimal %1 n''est pas correcte';
-        RecGAllConnectorMes: Record "PWD Connector Messages";
-        BigTGEqualNbLineMainTable: BigText;
-        BigTGOneLine: BigText;
-        BigTGFinal: BigText;
-        BigTGFinal2: BigText;
-        BigTGSecondBloc: BigText;
-        BigTGMergeInProgress: BigText;
-        BigTGCommentMergeInProgress: BigText;
-        BigTGOneLineComment: BigText;
-        IntGNbLineMainTable: Integer;
-        IntGNbSecondBloc: Integer;
-        IntGLoop: Integer;
-        ChrG10: Char;
-        ChrG13: Char;
-        RecGRef: RecordRef;
         OptGFlowType: Option " ","Import Connector","Export Connector";
         IntGSequenceNo: Integer;
-        AutGXMLDom: Automation;
 
 
     procedure FctProcessImport(var RecPConnectorValues: Record "PWD Connector Values")
@@ -83,11 +63,9 @@ codeunit 8073320 "Connector Sabatier Parse Data"
         BigTLToReturn: BigText;
         CduLBufferMgt: Codeunit "Buffer Management";
         InLStream: InStream;
-        OutLStream: OutStream;
         CduLFileManagement: Codeunit "File Management";
         TxtLFile: Text[1024];
         BooLResult: Boolean;
-        RecLConnectorsActivation: Record "PWD WMS Setup";
         RecLRef: RecordRef;
     begin
         CLEAR(BigTLToReturn);
@@ -99,13 +77,12 @@ codeunit 8073320 "Connector Sabatier Parse Data"
         CASE RecPConnectorMessages."Function" OF
             'CONTACT':
                 FctGetContactXML(RecPConnectorMessages, RecLTempBlob);
-            ELSE BEGIN
-                    CASE RecLPartnerConnector."Data Format" OF
-                        RecLPartnerConnector."Data Format"::Xml:
-                            CduGConnectBufMgtExport.FctCreateXml(RecLRef.GETVIEW, RecPConnectorMessages, RecLTempBlob, TRUE);
-                        RecLPartnerConnector."Data Format"::"with separator":
-                            CduGConnectBufMgtExport.FctCreateSeparator(RecLRef.GETVIEW, RecPConnectorMessages, RecLTempBlob);
-                    END;
+            ELSE
+                CASE RecLPartnerConnector."Data Format" OF
+                    RecLPartnerConnector."Data Format"::Xml:
+                        CduGConnectBufMgtExport.FctCreateXml(RecLRef.GETVIEW(), RecPConnectorMessages, RecLTempBlob, TRUE);
+                    RecLPartnerConnector."Data Format"::"with separator":
+                        CduGConnectBufMgtExport.FctCreateSeparator(RecLRef.GETVIEW(), RecPConnectorMessages, RecLTempBlob);
                 END;
         END;
 
@@ -133,7 +110,7 @@ codeunit 8073320 "Connector Sabatier Parse Data"
             CLEAR(InLStream);
             RecLConnectorValues.GET(IntGSequenceNo);
             RecLConnectorValues."File Name" := COPYSTR(TxtLFile, 1, 250);
-            RecLConnectorValues.MODIFY;
+            RecLConnectorValues.MODIFY();
             RecLConnectorValues.CALCFIELDS(Blob);
             RecLConnectorValues.Blob.CREATEINSTREAM(InLStream);
             BooLResult := CduLFileManagement.FctbTransformBlobToFile(TxtLFile, InLStream, RecLConnectorValues."Partner Code",
@@ -151,7 +128,7 @@ codeunit 8073320 "Connector Sabatier Parse Data"
         CLEAR(XmlLExportContactSabatier);
         RecPTempBlob.Blob.CREATEOUTSTREAM(OutLStream);
         XmlLExportContactSabatier.SETDESTINATION(OutLStream);
-        XmlLExportContactSabatier.EXPORT;
+        XmlLExportContactSabatier.EXPORT();
     end;
 
 
@@ -164,7 +141,7 @@ codeunit 8073320 "Connector Sabatier Parse Data"
         RecPConnectorValues.Blob.CREATEINSTREAM(InsLSrtream);
         XmlLImportOTSabatier.FctInitXmlPort(RecPConnectorValues);
         XmlLImportOTSabatier.SETSOURCE(InsLSrtream);
-        XmlLImportOTSabatier.IMPORT;
+        XmlLImportOTSabatier.IMPORT();
     end;
 }
 

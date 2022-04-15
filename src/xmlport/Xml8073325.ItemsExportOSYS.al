@@ -44,7 +44,7 @@ xmlport 8073325 "PWD Items Export OSYS"
                     var
                         RecLOSYSSetup: Record "PWD OSYS Setup";
                     begin
-                        RecLOSYSSetup.Get;
+                        RecLOSYSSetup.Get();
                         if "G/L Entry"."Document No." <> '' then
                             F_ItemNo := "G/L Entry"."G/L Account No." + RecLOSYSSetup."Separator Character" + "G/L Entry"."Document No."
                         else
@@ -120,31 +120,30 @@ xmlport 8073325 "PWD Items Export OSYS"
         RecordRef2: RecordRef;
         IntLSequenceNo: Integer;
         BooLResult: Boolean;
-        "-OSYS-Int001.002-": Integer;
         IntLTrackingType: Integer;
     begin
         BooLResult := true;
-        RecLOSYSSetup.Get;
+        RecLOSYSSetup.Get();
         RecLOSYSSetup.TestField("Packaging Unit");
         RecLOSYSSetup.TestField("Pallet  Unit");
         IntLSequenceNo := 0;
-        "G/L Entry".DeleteAll;
+        "G/L Entry".DeleteAll();
         CduLConnectorBufferMgtExport.FctInitValidateField(RecGMessgae."Partner Code", 0);
         RecordRef.Open(RecGMessgae."Table ID");
         if RecGMessgae."Export Option" = RecGMessgae."Export Option"::Partial then begin
             CduLConnectorBufferMgtExport.FctSetExportDateFilter(RecGMessgae, RecordRef);
-            RecLItem.SetView(RecordRef.GetView);
-            RecordRef.Close;
+            RecLItem.SetView(RecordRef.GetView());
+            RecordRef.Close();
         end;
         Clear(RecordRef);
         if not RecLItem.IsEmpty then begin
-            RecLItem.FindSet;
+            RecLItem.FindSet();
             repeat
                 RecordRef.GetTable(RecLItem);
                 if not CduLConnectorBufferMgtExport.FctCheckFields(RecordRef) then begin
                     RecordRef.SetTable(RecLItem2);
                     IntLSequenceNo += 1;
-                    "G/L Entry".Init;
+                    "G/L Entry".Init();
                     "G/L Entry"."Entry No." := IntLSequenceNo;
                     "G/L Entry"."G/L Account No." := RecLItem2."No.";
 
@@ -163,18 +162,18 @@ xmlport 8073325 "PWD Items Export OSYS"
                     "G/L Entry"."Bal. Account No." := RecLItem."Product Group Code";
                     "G/L Entry".Amount := FctGetItemQtyPer(RecLItem."No.", RecLOSYSSetup."Packaging Unit");
                     "G/L Entry".Quantity := FctGetItemQtyPer(RecLItem."No.", RecLOSYSSetup."Pallet  Unit");
-                    "G/L Entry".Insert;
-                    RecLItemVariant.Reset;
+                    "G/L Entry".Insert();
+                    RecLItemVariant.Reset();
                     RecLItemVariant.SetRange("Item No.", RecLItem."No.");
                     ;
                     if not RecLItemVariant.IsEmpty then begin
-                        RecLItemVariant.FindSet;
+                        RecLItemVariant.FindSet();
                         repeat
                             RecordRef2.GetTable(RecLItemVariant);
                             if not CduLConnectorBufferMgtExport.FctCheckFields(RecordRef2) then begin
                                 RecordRef2.SetTable(RecLItemVariant2);
                                 IntLSequenceNo += 1;
-                                "G/L Entry".Init;
+                                "G/L Entry".Init();
                                 "G/L Entry"."Entry No." := IntLSequenceNo;
                                 "G/L Entry"."G/L Account No." := RecLItem2."No.";
 
@@ -189,12 +188,12 @@ xmlport 8073325 "PWD Items Export OSYS"
                                 "G/L Entry"."Bal. Account No." := RecLItem2."Product Group Code";
                                 "G/L Entry".Amount := FctGetItemQtyPer(RecLItem."No.", RecLOSYSSetup."Packaging Unit");
                                 "G/L Entry".Quantity := FctGetItemQtyPer(RecLItem."No.", RecLOSYSSetup."Pallet  Unit");
-                                "G/L Entry".Insert;
+                                "G/L Entry".Insert();
                             end;
-                        until RecLItemVariant.Next = 0;
+                        until RecLItemVariant.Next() = 0;
                     end;
                 end;
-            until RecLItem.Next = 0;
+            until RecLItem.Next() = 0;
         end
         else
             BooLResult := false;

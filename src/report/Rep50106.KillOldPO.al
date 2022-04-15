@@ -6,7 +6,7 @@ report 50106 "PWD Kill Old PO"
     {
         dataitem("Production Order"; "Production Order")
         {
-            DataItemTableView = SORTING (Status, "No.") WHERE (Status = CONST (Released), "Location Code" = FILTER ('ACI*'));
+            DataItemTableView = SORTING(Status, "No.") WHERE(Status = CONST(Released), "Location Code" = FILTER('ACI*'));
             RequestFilterFields = "No.";
 
             trigger OnAfterGetRecord()

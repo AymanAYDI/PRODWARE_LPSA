@@ -32,7 +32,7 @@ tableextension 60047 "PWD TransferShipmentLine" extends "Transfer Shipment Line"
         InvtCommentLine.SETRANGE("No.", "Document No.");
         InvtCommentLine.SETRANGE("PWD Document Line No.", "Line No.");
         InvtCommentSheet.SETTABLEVIEW(InvtCommentLine);
-        InvtCommentSheet.RUNMODAL;
+        InvtCommentSheet.RUNMODAL();
     end;
 }
 

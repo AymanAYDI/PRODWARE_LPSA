@@ -144,11 +144,11 @@ tableextension 60036 "PWD ProductionOrder" extends "Production Order"
         if (Status = Status::Released) then begin
             ProdOrderLine.SETRANGE(Status, Status);
             ProdOrderLine.SETRANGE("Prod. Order No.", "No.");
-            if ProdOrderLine.FINDFIRST then
+            if ProdOrderLine.FINDFIRST() then
                 REPEAT
                     //TODO la table extension de "Prod. Order Line" n'existe pas      
-                    ProdOrderLine.ResendProdOrdertoQuartis;
-                UNTIL ProdOrderLine.NEXT = 0;
+                    ProdOrderLine.ResendProdOrdertoQuartis();
+                UNTIL ProdOrderLine.NEXT() = 0;
         end;
     end;
 
@@ -158,14 +158,14 @@ tableextension 60036 "PWD ProductionOrder" extends "Production Order"
         ProdOrderLine: Record "Prod. Order Line";
     BEGIN
         BooLIsNotAvailable := FALSE;
-        ProdOrderLine.RESET;
+        ProdOrderLine.RESET();
         ProdOrderLine.SETRANGE(Status, Status);
         ProdOrderLine.SETRANGE("Prod. Order No.", "No.");
-        IF ProdOrderLine.FINDFIRST THEN
+        IF ProdOrderLine.FINDFIRST() THEN
             REPEAT
                 //TODO la table extension de "Prod. Order Line" n'existe pas      
-                BooLIsNotAvailable := ProdOrderLine.CheckComponentAvailabilty;
-            UNTIL (BooLIsNotAvailable) OR (ProdOrderLine.NEXT = 0);
+                BooLIsNotAvailable := ProdOrderLine.CheckComponentAvailabilty();
+            UNTIL (BooLIsNotAvailable) OR (ProdOrderLine.NEXT() = 0);
         EXIT(BooLIsNotAvailable);
     END;
 
@@ -176,16 +176,16 @@ tableextension 60036 "PWD ProductionOrder" extends "Production Order"
         DecLInv: Decimal;
     BEGIN
         DecLInv := 0;
-        RecLProdOrderComponent.RESET;
+        RecLProdOrderComponent.RESET();
         RecLProdOrderComponent.SETRANGE(Status, Status);
         RecLProdOrderComponent.SETRANGE("Prod. Order No.", "No.");
-        IF RecLProdOrderComponent.FINDFIRST THEN
+        IF RecLProdOrderComponent.FINDFIRST() THEN
             REPEAT
                 RecLItem.GET(RecLProdOrderComponent."Item No.");
                 RecLItem.SETFILTER("Location Filter", '=%1', RecLProdOrderComponent."Location Code");
                 RecLItem.CALCFIELDS(Inventory);
                 DecLInv += RecLItem.Inventory;
-            UNTIL RecLProdOrderComponent.NEXT = 0;
+            UNTIL RecLProdOrderComponent.NEXT() = 0;
         EXIT(DecLInv);
     END;
 
@@ -198,11 +198,11 @@ tableextension 60036 "PWD ProductionOrder" extends "Production Order"
         RecordIDLink: RecordID;
     BEGIN
         IF "Source Type" = "Source Type"::Item THEN BEGIN
-            ManufacturingSetup.GET;
+            ManufacturingSetup.GET();
             //TODO: "PDF Exe Path" champ spécifique dans la table "Manufacturing Setup"
             //ManufacturingSetup.TESTFIELD("PDF Exe Path");
             EVALUATE(RecordIDLink, 'Item: ' + "Source No.");
-            RecordLink.RESET;
+            RecordLink.RESET();
             RecordLink.SETRANGE("Record ID", RecordIDLink);
             RecordLink.SETRANGE(Type, RecordLink.Type::Link);
             RecordLink.SETFILTER(Description, "Source No." + '*');
