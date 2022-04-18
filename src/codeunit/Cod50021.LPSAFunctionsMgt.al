@@ -423,4 +423,94 @@ codeunit 50021 "PWD LPSA Functions Mgt."
     begin
     end;
 
+    PROCEDURE SetNoFinishCOntrol(BooPAvoidControl: Boolean);
+    BEGIN
+        BooGAvoidControl := BooPAvoidControl;
+    END;
+
+    PROCEDURE GetNoFinishCOntrol(): Boolean;//TODO: A vérifier cette fonction de get avec la fonction SetNoFinishCOntrol et le variable globale BooGAvoidControl
+    BEGIN
+        Exit(BooGAvoidControl);
+    END;
+
+    PROCEDURE TransProdOrderRtngLineAlt(Var FromProdOrder: Record 5405);
+    VAR
+        FromProdOrderRtngLineAlt: Record 8076509;//TODO: Record n'existe pas 
+        ToProdOrderRoutLineAlt: Record 8076509; //TODO: Record n'existe pas 
+        ApplicationManagement: Codeunit 1; //TODO: CodeUnite 1 n'existe pas 
+        ToProdOrder: Record "Production Order";
+    BEGIN
+        ToProdOrder := FromProdOrder;
+        // PLAW1 2.1
+        // PLAW12.2 Check LICENSE
+        IF NOT ApplicationManagement.CheckPlannerOneLicence THEN EXIT;
+        WITH FromProdOrderRtngLineAlt DO BEGIN
+            SETRANGE(Status, FromProdOrder.Status);
+            SETRANGE("Prod. Order No.", FromProdOrder."No.");
+            LOCKTABLE;
+            IF FINDSET THEN BEGIN
+                REPEAT
+                    ToProdOrderRoutLineAlt := FromProdOrderRtngLineAlt;
+                    ToProdOrderRoutLineAlt.Status := ToProdOrder.Status;
+                    ToProdOrderRoutLineAlt."Prod. Order No." := ToProdOrder."No.";
+                    ToProdOrderRoutLineAlt.INSERT;
+                UNTIL NEXT = 0;
+                DELETEALL;
+            END;
+        END;
+        // PLAW1 2.1 END
+    END;
+
+    PROCEDURE TransProdOrderLink(Var FromProdOrder: Record 5405);
+    VAR
+        FromProdOrderLink: Record 8076507;  //TODO: Record n'existe pas 
+        ToProdOrderLink: Record 8076507;  //TODO: Record n'existe pas 
+        ApplicationManagement: Codeunit 1;  //TODO: CodeUnite 1 n'existe pas 
+        ToProdOrder: Record "Production Order";
+    BEGIN
+        ToProdOrder := FromProdOrder;
+        //PLAW1 2.1
+        // PLAW12.2 Check LICENSE
+        IF NOT ApplicationManagement.CheckPlannerOneLicence THEN EXIT;
+        WITH FromProdOrderLink DO BEGIN
+            SETRANGE(Status, FromProdOrder.Status);
+            SETRANGE("Prod. Order No.", FromProdOrder."No.");
+            IF NewStatus = NewStatus::Finished THEN
+                DELETEALL
+            ELSE BEGIN
+                LOCKTABLE;
+                IF FINDSET THEN BEGIN
+                    REPEAT
+                        ToProdOrderLink := FromProdOrderLink;
+                        ToProdOrderLink.Status := ToProdOrder.Status;
+                        ToProdOrderLink."Prod. Order No." := ToProdOrder."No.";
+                        ToProdOrderLink.INSERT;
+                    UNTIL NEXT = 0;
+                    DELETEALL;
+                END;
+            END;
+
+            RESET;
+            SETRANGE("Next Status", FromProdOrder.Status);
+            SETRANGE("Next Prod. Order No.", FromProdOrder."No.");
+            IF NewStatus = NewStatus::Finished THEN
+                DELETEALL
+            ELSE BEGIN
+                LOCKTABLE;
+                IF FINDSET THEN BEGIN
+                    REPEAT
+                        ToProdOrderLink := FromProdOrderLink;
+                        ToProdOrderLink."Next Status" := ToProdOrder.Status;
+                        ToProdOrderLink."Next Prod. Order No." := ToProdOrder."No.";
+                        ToProdOrderLink.INSERT;
+                    UNTIL NEXT = 0;
+                    DELETEALL;
+                END;
+            END;
+        END;
+        //PLAW1 2.1 END
+    END;
+
+    Var
+        BooGAvoidControl: Boolean;
 }

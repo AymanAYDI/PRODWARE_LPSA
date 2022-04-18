@@ -817,18 +817,16 @@ codeunit 50020 "PWD LPSA Events Mgt."
         ReqWkshMakeOrder: Codeunit "Req. Wksh.-Make Order";
     begin
         if not IsHandled then
-            if RequisitionLine.FindSet then begin
+            if RequisitionLine.FindSet then
                 repeat
-                    if ReqWkshMakeOrder.PurchaseOrderLineMatchReqLine(RequisitionLine) then begin
+                    if ReqWkshMakeOrder.PurchaseOrderLineMatchReqLine(RequisitionLine) then
                         //>>FE_LAPIERRETTE_NDT01.001
                         //IF ReqLine2."Prod. Order No." <> '' THEN BEGIN
                         // Release Order
                         CduLReleasePurchOrder.RUN(PurchaseHeader);
-                        //END;
-                        //<<FE_LAPIERRETTE_NDT01.001  
-                    end;
+                //END;
+                //<<FE_LAPIERRETTE_NDT01.001  
                 until RequisitionLine.Next() = 0;
-            end;
     end;
     //---CDU391--
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Shipment Header - Edit", 'OnBeforeSalesShptHeaderModify', '', false, false)]
@@ -854,7 +852,7 @@ codeunit 50020 "PWD LPSA Events Mgt."
             SalesLine.SETRANGE("Document No.", SalesHeader."No.");
             SalesLine.SETRANGE(Type, SalesLine.Type::Item);
             SalesLine.SETFILTER(Quantity, '<>0');
-            IF SalesLine.FINDFIRST THEN
+            IF SalesLine.FindSet() THEN
                 REPEAT
                     IF SalesLine."PWD Initial Shipment Date" = 0D THEN BEGIN
                         SalesLine."PWD Initial Shipment Date" := SalesLine."Shipment Date";
@@ -870,11 +868,219 @@ codeunit 50020 "PWD LPSA Events Mgt."
             SalesLine.RESET;
         END;
         //<<TDL.LPSA.001 19/01/2014
-        //---CDU99000854---
+    end;
+    //---CDU99000854---
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Inventory Profile Offsetting", 'OnCreateSupplyOnBeforeSupplyInvtProfileInsert', '', false, false)]
     local procedure CDU99000854_OnCreateSupplyOnBeforeSupplyInvtProfileInsert_InventoryProfileOffsetting(var SupplyInvtProfile: Record "Inventory Profile"; var SKU: Record "Stockkeeping Unit")
     begin
 
+    end;
+    //---CDU5063---
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::ArchiveManagement, 'OnBeforeRestoreSalesDocument', '', false, false)]
+    local procedure CDU5063_OnBeforeRestoreSalesDocument_ArchiveManagement(var SalesHeaderArchive: Record "Sales Header Archive"; var IsHandled: Boolean)
+    var
+        SalesHeader: Record "Sales Header";
+        SalesShptHeader: Record "Sales Shipment Header";
+        SalesInvHeader: Record "Sales Invoice Header";
+        ReservEntry: Record "Reservation Entry";
+        ItemChargeAssgntSales: Record "Item Charge Assignment (Sales)";
+        ConfirmManagement: Codeunit "Confirm Management";
+        ConfirmRequired: Boolean;
+        RestoreDocument: Boolean;
+        OldOpportunityNo: Code[20];
+        DoCheck: Boolean;
+        DeferralUtilities: Codeunit "Deferral Utilities";
+        RecordLinkManagement: Codeunit "Record Link Management";
+        ArchiveManagement: Codeunit ArchiveManagement;
+        ReleaseSalesDoc: Codeunit "Release Sales Document";
+        Text009: Label 'Unposted %1 %2 does not exist anymore.\It is not possible to restore the %1.';
+        Text005: Label '%1 %2 has been partly posted.\Restore not possible.';
+        Text006: Label 'Entries exist for on or more of the following:\  - %1\  - %2\  - %3.\Restoration of document will delete these entries.\Continue with restore?';
+        Text002: Label 'Do you want to Restore %1 %2 Version %3?';
+        Text003: Label '%1 %2 has been restored.';
+        Text008: Label 'Item Tracking Line';
+    begin
+        IsHandled := true;
+        if not SalesHeader.Get(SalesHeaderArchive."Document Type", SalesHeaderArchive."No.") then
+            //>>TDL.LPSA.30.07.15:NBO
+            //ERROR(Text009,SalesHeaderArchive."Document Type",SalesHeaderArchive."No.");
+            IF SalesHeaderArchive."Document Type" <> SalesHeaderArchive."Document Type"::Quote THEN
+                Error(Text009, SalesHeaderArchive."Document Type", SalesHeaderArchive."No.")
+            ELSE BEGIN
+                SalesHeader.INIT;
+                SalesHeader.TRANSFERFIELDS(SalesHeaderArchive);
+                SalesHeader.INSERT(TRUE);
+                SalesHeader."Doc. No. Occurrence" := 1;
+                SalesHeader.MODIFY;
+                //BooLRecreated := TRUE;
+            END;
+        //<<TDL.LPSA.30.07.15:NBO
+        SalesHeader.TestField(Status, SalesHeader.Status::Open);
+        DoCheck := true;
+        if (SalesHeader."Document Type" = SalesHeader."Document Type"::Order) and DoCheck then begin
+            SalesShptHeader.Reset();
+            SalesShptHeader.SetCurrentKey("Order No.");
+            SalesShptHeader.SetRange("Order No.", SalesHeader."No.");
+            if not SalesShptHeader.IsEmpty() then
+                Error(Text005, SalesHeader."Document Type", SalesHeader."No.");
+            SalesInvHeader.Reset();
+            SalesInvHeader.SetCurrentKey("Order No.");
+            SalesInvHeader.SetRange("Order No.", SalesHeader."No.");
+            if not SalesInvHeader.IsEmpty() then
+                Error(Text005, SalesHeader."Document Type", SalesHeader."No.");
+        end;
+
+        ConfirmRequired := false;
+        ReservEntry.Reset();
+        ReservEntry.SetCurrentKey("Source ID", "Source Ref. No.", "Source Type", "Source Subtype");
+        ReservEntry.SetRange("Source ID", SalesHeader."No.");
+        ReservEntry.SetRange("Source Type", DATABASE::"Sales Line");
+        ReservEntry.SetRange("Source Subtype", SalesHeader."Document Type");
+        if ReservEntry.FindFirst then
+            ConfirmRequired := true;
+
+        ItemChargeAssgntSales.Reset();
+        ItemChargeAssgntSales.SetRange("Document Type", SalesHeader."Document Type");
+        ItemChargeAssgntSales.SetRange("Document No.", SalesHeader."No.");
+        if ItemChargeAssgntSales.FindFirst then
+            ConfirmRequired := true;
+
+        RestoreDocument := false;
+        if ConfirmRequired then begin
+            if ConfirmManagement.GetResponseOrDefault(
+                 StrSubstNo(
+                   Text006, ReservEntry.TableCaption, ItemChargeAssgntSales.TableCaption, Text008), true)
+            then
+                RestoreDocument := true;
+        end else
+            if ConfirmManagement.GetResponseOrDefault(
+                 StrSubstNo(
+                   Text002, SalesHeaderArchive."Document Type",
+                   SalesHeaderArchive."No.", SalesHeaderArchive."Version No."), true)
+            then
+                RestoreDocument := true;
+        if RestoreDocument then begin
+            SalesHeader.TestField("Doc. No. Occurrence", SalesHeaderArchive."Doc. No. Occurrence");
+            SalesHeaderArchive.CalcFields("Work Description");
+            if SalesHeader."Opportunity No." <> '' then begin
+                OldOpportunityNo := SalesHeader."Opportunity No.";
+                SalesHeader."Opportunity No." := '';
+            end;
+            SalesHeader.DeleteLinks;
+            SalesHeader.Delete(true);
+            SalesHeader.Init();
+            SalesHeader.SetHideValidationDialog(true);
+            SalesHeader."Document Type" := SalesHeaderArchive."Document Type";
+            SalesHeader."No." := SalesHeaderArchive."No.";
+            SalesHeader.Insert(true);
+            SalesHeader.TransferFields(SalesHeaderArchive);
+            SalesHeader.Status := SalesHeader.Status::Open;
+            if SalesHeaderArchive."Sell-to Contact No." <> '' then
+                SalesHeader.Validate("Sell-to Contact No.", SalesHeaderArchive."Sell-to Contact No.")
+            else
+                SalesHeader.Validate("Sell-to Customer No.", SalesHeaderArchive."Sell-to Customer No.");
+            if SalesHeaderArchive."Bill-to Contact No." <> '' then
+                SalesHeader.Validate("Bill-to Contact No.", SalesHeaderArchive."Bill-to Contact No.")
+            else
+                SalesHeader.Validate("Bill-to Customer No.", SalesHeaderArchive."Bill-to Customer No.");
+            SalesHeader.Validate("Salesperson Code", SalesHeaderArchive."Salesperson Code");
+            SalesHeader.Validate("Payment Terms Code", SalesHeaderArchive."Payment Terms Code");
+            SalesHeader.Validate("Payment Discount %", SalesHeaderArchive."Payment Discount %");
+            SalesHeader."Shortcut Dimension 1 Code" := SalesHeaderArchive."Shortcut Dimension 1 Code";
+            SalesHeader."Shortcut Dimension 2 Code" := SalesHeaderArchive."Shortcut Dimension 2 Code";
+            SalesHeader."Dimension Set ID" := SalesHeaderArchive."Dimension Set ID";
+            RecordLinkManagement.CopyLinks(SalesHeaderArchive, SalesHeader);
+            SalesHeader.LinkSalesDocWithOpportunity(OldOpportunityNo);
+            SalesHeader.Modify(true);
+            ArchiveManagement.ResetQuoteStatus(SalesHeader);
+            ArchiveManagement.RestoreSalesLines(SalesHeaderArchive, SalesHeader); //TODO: La fonction RestoreSalesLines est locale dans le CodeUnite ArchiveManagement
+            SalesHeader.Status := SalesHeader.Status::Released;
+            ReleaseSalesDoc.Reopen(SalesHeader);
+            Message(Text003, SalesHeader."Document Type", SalesHeader."No.");
+        end;
+    end;
+    //---CDU5406---
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Output Jnl.-Expl. Route", 'OnBeforeOutputItemJnlLineInsert', '', false, false)]
+    local procedure CDU5406_OnBeforeOutputItemJnlLineInsert_OutputJnlExplRoute(var ItemJournalLine: Record "Item Journal Line"; LastOperation: Boolean)
+    VAR
+        RecLManufacturingSetup: Record "Manufacturing Setup";
+    begin
+        //>>FE_LAPIERRETTE_PROD03.001
+        RecLManufacturingSetup.GET;
+        //>>FE_LAPIERRETTE_PRO12.001
+        //RecLManufacturingSetup.TESTFIELD("Non conformity Prod. Location");
+        //<<FE_LAPIERRETTE_PRO12.001
+        RecLManufacturingSetup.TESTFIELD("Mach. center - Inventory input"); //TODO: table extension "Manufacturing Setup" n'existe pas
+        //<FE_LAPIERRETTE_PROD03.001
+    end;
+    //---CDU5407---
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Prod. Order Status Management", 'OnBeforeShowStatusMessage', '', false, false)]
+    local procedure CDU5407_OnBeforeShowStatusMessage_ProdOrderStatusManagement(ProdOrder: Record "Production Order"; ToProdOrder: Record "Production Order"; var IsHandled: Boolean)
+    Var
+        RecLProductionOrder: Record "Production Order";
+        Text000: Label '%2 %3  with status %1 has been changed to %5 %6 with status %4.';
+    begin
+        IsHandled := true;
+        Message(Text000, ProdOrder.Status, ProdOrder.TableCaption, ProdOrder."No.", ToProdOrder.Status, ToProdOrder.TableCaption, ToProdOrder."No.");
+        //>>LAP2.17
+        IF ToProdOrder.Status = ToProdOrder.Status::Released THEN BEGIN
+            RecLProductionOrder.RESET;
+            RecLProductionOrder.SETRANGE(Status, ToProdOrder.Status);
+            RecLProductionOrder.SETRANGE("No.", ToProdOrder."No.");
+            //>>LAP2.20
+            //   REPORT.RUNMODAL(50022,FALSE,FALSE,RecLProductionOrder);
+            REPORT.RUNMODAL(50022, TRUE, TRUE, RecLProductionOrder);
+            //<<LAP2.20
+            //>>REGIE
+            //   REPORT.RUNMODAL(50019,FALSE,FALSE,RecLProductionOrder);
+            IF RecLProductionOrder.FINDFIRST THEN
+                RecLProductionOrder.FctPrintPDF;
+            //<<REGIE
+        END;
+        //<<LAP2.17
+    end;
+
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Prod. Order Status Management", 'OnBeforeCheckBeforeFinishProdOrder', '', false, false)]
+    local procedure CDU5407_OnBeforeCheckBeforeFinishProdOrder_ProdOrderStatusManagement(var ProductionOrder: Record "Production Order"; var IsHandled: Boolean)
+    var
+        PWDLPSAFunctionsMgt: Codeunit "PWD LPSA Functions Mgt.";
+    begin
+        //>>DEVTDL10/01/2014
+        IF PWDLPSAFunctionsMgt.GetNoFinishCOntrol THEN
+            IsHandled := true;
+        //<<DEVTDL10/01/2014
+    end;
+
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Prod. Order Status Management", 'OnCopyFromProdOrder', '', false, false)]
+    local procedure CDU5407_OnCopyFromProdOrder_ProdOrderStatusManagement(var ToProdOrder: Record "Production Order"; FromProdOrder: Record "Production Order")
+    begin
+        //>>LPSA2.06
+        ToProdOrder."PWD Selection" := FALSE;
+        //<<LPSA2.06
+    end;
+
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Prod. Order Status Management", 'OnAfterTransProdOrder', '', false, false)]
+    local procedure CDU5407_OnAfterTransProdOrder_ProdOrderStatusManagement(var FromProdOrder: Record "Production Order"; var ToProdOrder: Record "Production Order")
+    var
+        PWDLPSAFunctionsMgt: Codeunit "PWD LPSA Functions Mgt.";
+    begin
+        // PLAW1 2.1
+        PWDLPSAFunctionsMgt.TransProdOrderRtngLineAlt(FromProdOrder);
+        // PLAW1 2.1 END  
+        //PLAW1 2.1 transport prod order links
+        PWDLPSAFunctionsMgt.TransProdOrderLink(FromProdOrder);
+        //PLAW1 2.1 END
+    end;
+
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Prod. Order Status Management", 'OnTransProdOrderLineOnAfterFromProdOrderLineFindSet', '', false, false)]
+    local procedure CDU5407_OnTransProdOrderLineOnAfterFromProdOrderLineFindSet_ProdOrderStatusManagement(FromProdOrderLine: Record "Prod. Order Line"; var ToProdOrderLine: Record "Prod. Order Line"; NewStatus: Enum "Production Order Status")
+    var
+        Txt50000: Label 'There is a phantom item for Line no. %1';
+    begin
+        //>>FE_LAPRIERRETTE_GP0003 : APA 16/05/2013
+        IF (FromProdOrderLine.ExistPhantomItem <> '') AND (NewStatus = NewStatus::Released) THEN
+            ERROR(Txt50000, FromProdOrderLine."Line No.");
+        //<<FE_LAPRIERRETTE_GP0003 : APA 16/05/2013  
     end;
 
     var
