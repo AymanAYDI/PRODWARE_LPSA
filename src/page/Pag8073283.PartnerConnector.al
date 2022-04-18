@@ -134,18 +134,18 @@ page 8073283 "PWD Partner Connector"
                 {
                     Caption = 'Sending Message List';
                     Promoted = true;
-                    RunObject = Page "Sending Message List";
-                    RunPageLink = Partner Code=                    ApplicationArea = All;
+                    RunObject = Page "PWD Sending Message List";
+                    RunPageLink = "Partner Code" = FIELD(Code);
                     ApplicationArea = All;
-FIELD(Code);
                     ShortCutKey = 'Shift+Ctrl+M';
                 }
                 action(Action1100294012)
                 {
                     Caption = 'Receiving Message List';
                     Promoted = true;
-                    RunObject = Page "Receiving Message List";
-                                    RunPageLink = Partner Code=FIELD(Code);
+                    RunObject = Page "PWD Receiving Message List";
+                    RunPageLink = "Partner Code" = FIELD(Code);
+                    ApplicationArea = All;
                 }
             }
         }
@@ -185,10 +185,10 @@ FIELD(Code);
     local procedure OnAfterGetCurrRecord()
     begin
         xRec := Rec;
-        BooGSeparatorVisible           := "Data Format" = "Data Format"::"with separator";
-        BooGReceiveQueueVisible        := "Communication Mode" = "Communication Mode"::MSMQ;
-        BooGReplyQueueVisible          := "Communication Mode" = "Communication Mode"::MSMQ;
-        BooGObjectIDRunVisible         := "Communication Mode" = "Communication Mode"::MSMQ;
+        BooGSeparatorVisible := "Data Format" = "Data Format"::"with separator";
+        BooGReceiveQueueVisible := "Communication Mode" = "Communication Mode"::MSMQ;
+        BooGReplyQueueVisible := "Communication Mode" = "Communication Mode"::MSMQ;
+        BooGObjectIDRunVisible := "Communication Mode" = "Communication Mode"::MSMQ;
         BooGFunctionsCodeUnitIDVisible := "Communication Mode" = "Communication Mode"::MSMQ;
     end;
 }

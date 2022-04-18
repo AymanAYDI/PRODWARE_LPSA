@@ -13,7 +13,7 @@ page 8073300 "PWD Sales Header Buffer"
     Caption = 'Sales Header Buffer';
     InsertAllowed = false;
     PageType = Card;
-    SourceTable = "Sales Header Buffer";
+    SourceTable = "PWD Sales Header Buffer";
 
     layout
     {
@@ -117,7 +117,7 @@ page 8073300 "PWD Sales Header Buffer"
 
                     trigger OnAction()
                     var
-                        CduLBufferManagement: Codeunit "Buffer Management";
+                        CduLBufferManagement: Codeunit "PWD Buffer Management";
                     begin
                         CduLBufferManagement.FctProcessSalesOrder(Rec);
                     end;
@@ -152,8 +152,8 @@ page 8073300 "PWD Sales Header Buffer"
 
                     trigger OnAction()
                     var
-                        CduLBufferManagement: Codeunit "Buffer Management";
-                        RecLSalesHeaderBuffer: Record "Sales Header Buffer";
+                        CduLBufferManagement: Codeunit "PWD Buffer Management";
+                        RecLSalesHeaderBuffer: Record "PWD Sales Header Buffer";
                     begin
                         CurrPage.SETSELECTIONFILTER(RecLSalesHeaderBuffer);
                         CduLBufferManagement.FctPurgeSalesHeader(RecLSalesHeaderBuffer);
@@ -170,7 +170,7 @@ page 8073300 "PWD Sales Header Buffer"
 
                     trigger OnAction()
                     var
-                        CduLBufferManagement: Codeunit "Buffer Management";
+                        CduLBufferManagement: Codeunit "PWD Buffer Management";
                     begin
                         CduLBufferManagement.FctShowSalesOrder(Rec);
                     end;
@@ -178,18 +178,18 @@ page 8073300 "PWD Sales Header Buffer"
                 action(Action1100294034)
                 {
                     Caption = 'Show Sales Line Buffer';
-                    RunObject = Page "Sales Line Buffer";
-                    RunPageLink = Document Type=                    ApplicationArea = All;
+                    RunObject = Page "PWD Sales Line Buffer";
+                    RunPageLink = "Document Type" = FIELD("Document Type"), "Document No." = FIELD("Document No.");
+                    RunPageView = SORTING("Document Type", "Document No.");  
                     ApplicationArea = All;
-FIELD(Document Type),Document No.=FIELD(Document No.);
-                    RunPageView = SORTING(Document Type,Document No.);
                 }
                 action(Action1100294039)
                 {
                     Caption = 'Show Sales Comment Line Buffer';
-                    RunObject = Page "Sales Comment Line Buffer";
-                                    RunPageLink = Document Type=FIELD(Document Type),Document No.=FIELD(Document No.);
-                    RunPageView = SORTING(Document Type,Document No.,Document Line No.);
+                    RunObject = Page "PWD Sales Comment Line Buffer";
+                    RunPageLink = "Document Type" = FIELD("Document Type"), "Document No." = FIELD("Document No.");
+                    RunPageView = SORTING("Document Type", "Document No.", "Document Line No.");
+                    ApplicationArea = All;
                 }
             }
         }
@@ -201,9 +201,9 @@ FIELD(Document Type),Document No.=FIELD(Document No.);
     end;
 
     var
-        RecGPEBSalesHeaderBuffer: Record "PEB Sales Header Buffer";
-        RecGWMSSalesHeaderBuffer: Record "WMS Sales Header Buffer";
-        CduGBufferManagement: Codeunit "Buffer Management";
+        RecGPEBSalesHeaderBuffer: Record "PWD PEB Sales Header Buffer";
+        RecGWMSSalesHeaderBuffer: Record "PWD WMS Sales Header Buffer";
+        CduGBufferManagement: Codeunit "PWD Buffer Management";
 
 
     procedure FctGetBufferLinked()
@@ -216,11 +216,11 @@ FIELD(Document Type),Document No.=FIELD(Document No.);
 
     procedure FctProcessSelected()
     var
-        RecLSalesHeaderBuffer: Record "Sales Header Buffer";
+        RecLSalesHeaderBuffer: Record "PWD Sales Header Buffer";
         RecordRef: RecordRef;
     begin
         CurrPage.SETSELECTIONFILTER(RecLSalesHeaderBuffer);
-        RecordRef.OPEN(DATABASE::"Sales Header Buffer", FALSE, COMPANYNAME);
+        RecordRef.OPEN(DATABASE::"PWD Sales Header Buffer", FALSE, COMPANYNAME);
         RecordRef.SETTABLE(RecLSalesHeaderBuffer);
         CduGBufferManagement.FctMultiProcessLine(RecordRef);
     end;

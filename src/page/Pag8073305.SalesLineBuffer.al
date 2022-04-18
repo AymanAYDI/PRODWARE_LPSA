@@ -13,7 +13,8 @@ page 8073305 "PWD Sales Line Buffer"
     Caption = 'Sales Line Buffer';
     InsertAllowed = false;
     PageType = Card;
-    SourceTable = "Sales Line Buffer";
+    //TODO: Table "Sales Line Buffer" is missing
+    SourceTable = "PWD Sales Line Buffer";
 
     layout
     {
@@ -121,8 +122,8 @@ page 8073305 "PWD Sales Line Buffer"
     end;
 
     var
-        RecGPEBSalesLineBuffer: Record "PEB Sales Line Buffer";
-        RecGWMSSalesLineBuffer: Record "WMS Sales Line Buffer";
+        RecGPEBSalesLineBuffer: Record "PWD PEB Sales Line Buffer";
+        RecGWMSSalesLineBuffer: Record "PWD WMS Sales Line Buffer";
 
 
     procedure FctGetBufferLinked()

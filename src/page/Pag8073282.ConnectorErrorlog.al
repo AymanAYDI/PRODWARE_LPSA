@@ -79,21 +79,25 @@ page 8073282 "PWD Connector Error log"
 
     actions
     {
-        group(Action1100294011)
+        area(navigation)
         {
-            action(Action1100294013)
+            group(Action1100294011)
             {
-                Caption = 'Purge';
-                Image = Delete;
-                Promoted = true;
-                PromotedCategory = Process;
-                PromotedIsBig = true;
+                action(Action1100294013)
+                {
+                    Caption = 'Purge';
+                    Image = Delete;
+                    Promoted = true;
+                    PromotedCategory = Process;
+                    PromotedIsBig = true;
+                    ApplicationArea = All;
 
-                trigger OnAction()
-                begin
-                    REPORT.RUNMODAL(REPORT::"Delete Connector Error Log");
-                    CurrPage.UPDATE(FALSE);
-                end;
+                    trigger OnAction()
+                    begin
+                        REPORT.RUNMODAL(REPORT::"PWD Delete Connector Error Log");
+                        CurrPage.UPDATE(FALSE);
+                    end;
+                }
             }
         }
     }

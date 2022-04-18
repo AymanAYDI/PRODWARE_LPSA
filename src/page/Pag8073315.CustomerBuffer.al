@@ -13,7 +13,7 @@ page 8073315 "PWD Customer Buffer"
     Caption = 'Customer Buffer';
     InsertAllowed = false;
     PageType = Card;
-    SourceTable = "Customer Buffer";
+    SourceTable = "PWD Customer Buffer";
 
     layout
     {
@@ -137,7 +137,7 @@ page 8073315 "PWD Customer Buffer"
 
                     trigger OnAction()
                     var
-                        CduLBufferManagement: Codeunit "Buffer Management";
+                        CduLBufferManagement: Codeunit "PWD Buffer Management";
                     begin
                         CduLBufferManagement.FctProcessCustomer(Rec);
                     end;
@@ -172,8 +172,8 @@ page 8073315 "PWD Customer Buffer"
 
                     trigger OnAction()
                     var
-                        CduLBufferManagement: Codeunit "Buffer Management";
-                        RecLCustomerBuffer: Record "Customer Buffer";
+                        CduLBufferManagement: Codeunit "PWD Buffer Management";
+                        RecLCustomerBuffer: Record "PWD Customer Buffer";
                     begin
                         CurrPage.SETSELECTIONFILTER(RecLCustomerBuffer);
                         CduLBufferManagement.FctPurgeCustomer(RecLCustomerBuffer);
@@ -190,7 +190,7 @@ page 8073315 "PWD Customer Buffer"
 
                     trigger OnAction()
                     var
-                        CduLBufferManagement: Codeunit "Buffer Management";
+                        CduLBufferManagement: Codeunit "PWD Buffer Management";
                     begin
                         CduLBufferManagement.FctShowCustomer(Rec);
                     end;
@@ -205,9 +205,9 @@ page 8073315 "PWD Customer Buffer"
     end;
 
     var
-        CduGBufferManagement: Codeunit "Buffer Management";
-        RecGPEBCustomerBuffer: Record "PEB Customer Buffer";
-        RecGWMSCustomerBuffer: Record "WMS Customer Buffer";
+        CduGBufferManagement: Codeunit "PWD Buffer Management";
+        RecGPEBCustomerBuffer: Record "PWD PEB Customer Buffer";
+        RecGWMSCustomerBuffer: Record "PWD WMS Customer Buffer";
 
 
     procedure FctGetBufferLinked()
@@ -220,11 +220,11 @@ page 8073315 "PWD Customer Buffer"
 
     procedure FctProcessSelected()
     var
-        RecLCustomerBuffer: Record "Customer Buffer";
+        RecLCustomerBuffer: Record "PWD Customer Buffer";
         RecordRef: RecordRef;
     begin
         CurrPage.SETSELECTIONFILTER(RecLCustomerBuffer);
-        RecordRef.OPEN(DATABASE::"Customer Buffer", FALSE, COMPANYNAME);
+        RecordRef.OPEN(DATABASE::"PWD Customer Buffer", FALSE, COMPANYNAME);
         RecordRef.SETTABLE(RecLCustomerBuffer);
         CduGBufferManagement.FctMultiProcessLine(RecordRef);
     end;

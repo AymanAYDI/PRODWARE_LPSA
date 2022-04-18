@@ -13,7 +13,7 @@ page 8073310 "PWD Sales Comment Line Buffer"
     Caption = 'Sales Comment Line Buffer';
     InsertAllowed = false;
     PageType = Card;
-    SourceTable = "Sales Comment Line Buffer";
+    SourceTable = "PWD Sales Comment Line Buffer";
 
     layout
     {
@@ -124,8 +124,8 @@ page 8073310 "PWD Sales Comment Line Buffer"
 
                     trigger OnAction()
                     var
-                        CduLBufferManagement: Codeunit "Buffer Management";
-                        RecLSalesHeaderBuffer: Record "Sales Header Buffer";
+                        CduLBufferManagement: Codeunit "PWD Buffer Management";
+                        RecLSalesHeaderBuffer: Record "PWD Sales Header Buffer";
                     begin
                         CurrPage.SETSELECTIONFILTER(RecLSalesHeaderBuffer);
                         CduLBufferManagement.FctPurgeSalesHeader(RecLSalesHeaderBuffer);
@@ -144,8 +144,8 @@ page 8073310 "PWD Sales Comment Line Buffer"
     end;
 
     var
-        RecGPEBSalesCommentLineBuffer: Record "PEB Sales Comment Line Buffer";
-        RecGWMSSalesCommentLineBuffer: Record "WMS Sales Comment Line Buffer";
+        RecGPEBSalesCommentLineBuffer: Record "PWD PEB Sales Comm Line Buffer";
+        RecGWMSSalesCommentLineBuffer: Record "PWD WMS Sales Comm Line Buffer";
 
 
     procedure FctGetBufferLinked()
