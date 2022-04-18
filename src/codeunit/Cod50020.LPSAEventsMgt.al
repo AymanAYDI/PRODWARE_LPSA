@@ -870,11 +870,101 @@ codeunit 50020 "PWD LPSA Events Mgt."
             SalesLine.RESET;
         END;
         //<<TDL.LPSA.001 19/01/2014
-        //---CDU99000854---
-    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Inventory Profile Offsetting", 'OnCreateSupplyOnBeforeSupplyInvtProfileInsert', '', false, false)]
-    local procedure CDU99000854_OnCreateSupplyOnBeforeSupplyInvtProfileInsert_InventoryProfileOffsetting(var SupplyInvtProfile: Record "Inventory Profile"; var SKU: Record "Stockkeeping Unit")
-    begin
 
+        //---CDU99000854---
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Inventory Profile Offsetting", 'OnBeforeCreateSupply', '', false, false)]
+    local procedure CDU99000854_OnBeforeCreateSupply_InventoryProfileOffsetting(var SupplyInvtProfile: Record "Inventory Profile"; var DemandInvtProfile: Record "Inventory Profile")
+    var
+        FunctionsMgt: Codeunit "PWD LPSA Functions Mgt.";
+    begin
+        FunctionsMgt.Fct_OnBeforeCreateSupply_InventoryProfileOffsetting(SupplyInvtProfile, DemandInvtProfile);
+    end;
+
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Inventory Profile Offsetting", 'OnMaintainPlanningLineOnBeforeAdjustPlanLine', '', false, false)]
+    local procedure CDU99000854_OnMaintainPlanningLineOnBeforeAdjustPlanLine_InventoryProfileOffsetting(var RequisitionLine: Record "Requisition Line"; InventoryProfile: Record "Inventory Profile"; StockkeepingUnit: Record "Stockkeeping Unit")
+    begin
+        //TODO: table extension "Inventory Profile" n'exsiste pas
+        RequisitionLine."PWD Original Source Id" := InventoryProfile."Original Source Id";
+        RequisitionLine."PWD Original Source No." := InventoryProfile."Original Source No.";
+        RequisitionLine."PWD Original Source Position" := InventoryProfile."Original Source Position";
+        RequisitionLine."PWD Original Counter" := InventoryProfile."Original Counter";
+        RequisitionLine."PWD Transmitted Order No." := InventoryProfile."Transmitted Order No.";
+    end;
+
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Inventory Profile Offsetting", 'OnAfterTransferAttributes', '', false, false)]
+    local procedure CDU99000854_OnAfterTransferAttributes_InventoryProfileOffsetting(var ToInventoryProfile: Record "Inventory Profile"; var FromInventoryProfile: Record "Inventory Profile"; var TempSKU: Record "Stockkeeping Unit" temporary; SpecificLotTracking: Boolean; SpecificSNTracking: Boolean)
+    begin
+        //TODO: table extension "Inventory Profile" n'exsiste pas
+        ToInventoryProfile."Original Source Id" := FromInventoryProfile."Original Source Id";
+        ToInventoryProfile."Original Source No." := FromInventoryProfile."Original Source No.";
+        ToInventoryProfile."Original Source Position" := FromInventoryProfile."Original Source Position";
+        ToInventoryProfile."Original Counter" := FromInventoryProfile."Original Counter";
+        ToInventoryProfile."Transmitted Order No." := FromInventoryProfile."Transmitted Order No.";
+        IF ((ToInventoryProfile."Transmitted Order No." = TRUE) AND (ToInvProfile."Original Source Id" = 5407)) THEN
+            ToInventoryProfile."Original Counter" := Fct_CalcCounter(ToInventoryProfile."Original Source No.", ToInventoryProfile."Original Source Position");
+    end;
+    //---CDU99000840---
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Plng. Component-Reserve", 'OnAfterCallItemTracking', '', false, false)]
+    local procedure CDU99000840_OnAfterCallItemTracking_PlngComponentReserve(var PlanningComponent: Record "Planning Component")
+    var
+        ReqLine: Record "Requisition Line";
+        cuLotInheritanceMgt: Codeunit "PWD Lot Inheritance Mgt.PW";
+    begin
+        //TODO: table extension "Planning Component" n'exsiste pas
+        IF PlanningComponent."Lot Determining" THEN BEGIN
+            ReqLine.GET(
+              PlanningComponent."Worksheet Template Name",
+              PlanningComponent."Worksheet Batch Name",
+              PlanningComponent."Worksheet Line No.");
+            cuLotInheritanceMgt.AutoCreatePlanLineTracking(ReqLine);
+        END;
+    end;
+
+    //---CDU99000837---
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Prod. Order Line-Reserve", 'OnCallItemTrackingOnBeforeItemTrackingLinesRunModal', '', false, false)]
+    local procedure CDU99000837_OnCallItemTrackingOnBeforeItemTrackingLinesRunModal_ProdOrderLineReserve(var ProdOrderLine: Record "Prod. Order Line"; var ItemTrackingLines: Page "Item Tracking Lines")
+    var
+        LotInheritanceMgt: Codeunit "PWD Lot Inheritance Mgt.PW";
+        Item: Record Item;
+        TxtG001: label 'You cannot set Lot No on item %1. Lot No is set by a component.';
+    begin
+        Item.GET(ProdOrderLine."Item No.");
+        IF LotInheritanceMgt.CheckItemDetermined(Item) THEN
+            MESSAGE(STRSUBSTNO(TxtG001, Item."No."));
+        //ItemTrackingForm.EDITABLE := FALSE;
+    end;
+    //---CDU99000813---
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Carry Out Action", 'OnProdOrderChgAndResheduleOnAfterValidateQuantity', '', false, false)]
+    local procedure CDU99000813_OnProdOrderChgAndResheduleOnAfterValidateQuantity_CarryOutAction(var ProdOrderLine: Record "Prod. Order Line"; var RequisitionLine: Record "Requisition Line")
+    begin
+        //TODO: "End Date Objective" and "Earliest Start Date" does not exist
+        // ProdOrderLine.VALIDATE("End Date Objective", 0DT);
+        // ProdOrderLine.VALIDATE("Earliest Start Date", 0D);
+    end;
+
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Carry Out Action", 'OnInsertProdOrderOnAfterProdOrderInsert', '', false, false)]
+    local procedure CDU99000813_OnInsertProdOrderOnAfterProdOrderInsert_CarryOutAction(var ProdOrder: Record "Production Order"; ReqLine: Record "Requisition Line")
+    var
+        Item: Record Item;
+    begin
+        Item.Get(ReqLine."No.");
+        ProdOrder."Search Description" := Item."Search Description";
+        //TODO: 'Record "Production Order"' does not contain a definition for 'End Date Objective'
+        // ProdOrder."End Date Objective" := CREATEDATETIME(ProdOrder."Ending Date", ProdOrder."Ending Time");
+    end;
+
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Carry Out Action", 'OnAfterTransferPlanningComp', '', false, false)]
+    local procedure CDU99000813_OnAfterTransferPlanningComp_CarryOutAction(var PlanningComponent: Record "Planning Component"; var ProdOrderComponent: Record "Prod. Order Component")
+    begin
+        //TODO: table extension "Planning Component" n'exsiste pas
+        ProdOrderComponent."PWD Lot Determining" := PlanningComponent."Lot Determining";
+    end;
+    //---CDU99000809---
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Planning Line Management", 'OnBeforeInsertAsmPlanningComponent', '', false, false)]
+    local procedure CDU99000809_OnBeforeInsertAsmPlanningComponent_PlanningLineManagement(var ReqLine: Record "Requisition Line"; var BOMComponent: Record "BOM Component"; var PlanningComponent: Record "Planning Component")
+    begin
+        //TODO: Level?
+        PlanningComponent."Lot Determining" := BOMComponent[Level]."Lot Determining";
     end;
 
     var

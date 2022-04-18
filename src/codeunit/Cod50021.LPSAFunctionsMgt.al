@@ -414,13 +414,287 @@ codeunit 50021 "PWD LPSA Functions Mgt."
     END;
 
     //---CDU99000854---
-    procedure Fct_OnCreateSupplyOnBeforeSupplyInvtProfileInsert_InventoryProfileOffsetting(var SupplyInvtProfile: Record "Inventory Profile"; var SKU: Record "Stockkeeping Unit")
+    procedure Fct_OnBeforeCreateSupply_InventoryProfileOffsetting(var Supply: Record "Inventory Profile"; var Demand: Record "Inventory Profile")
     var
-        SalesLine: Record 37;
-        ReqLine: Record 246;
-        ProdOrder: Record 5405;
-        Counter: Integer;
+        //SalesLine: Record "Sales Line";
+        ReqLine: Record "Requisition Line";
+        ProdOrder: Record "Production Order";
+    //Counter: Integer;
     begin
+        //TODO: table extension "Inventory Profile" n'exsiste pas
+        CASE Demand."Source Type" OF
+            DATABASE::"Sales Line":
+                //IF RecLSalesLine.GET(Demand."Source Order Status",Demand."Source ID",Demand."Source Ref. No.") THEN BEGIN
+                IF Demand."Transmitted Order No." THEN BEGIN
+                    Supply."Original Source Id" := Demand."Original Source Id";
+                    Supply."Original Source No." := Demand."Original Source No.";
+                    Supply."Original Source Position" := Demand."Original Source Position";
+                    Supply."Original Counter" := 0;
+                    Supply."Transmitted Order No." := TRUE;
+                END;
+            DATABASE::"Planning Component":
+                IF ReqLine.GET(Demand."Source ID", Demand."Source Batch Name", Demand."Source Prod. Order Line") THEN
+                    IF ReqLine."Transmitted Order No." THEN BEGIN
+                        Supply."Original Source Id" := ReqLine."Original Source Id";
+                        Supply."Original Source No." := ReqLine."Original Source No.";
+                        Supply."Original Source Position" := ReqLine."Original Source Position";
+                        Supply."Transmitted Order No." := TRUE;
+
+                        ReqLine.RESET();
+                        ReqLine.SETRANGE("Original Source Id", Supply."Original Source Id");
+                        ReqLine.SETRANGE("Original Source No.", Supply."Original Source No.");
+                        ReqLine.SETRANGE("Original Source Position", Supply."Original Source Position");
+                        IF ReqLine.FINDLAST() THEN
+                            Supply."Original Counter" := ReqLine."Original Counter" + 1;
+                    END;
+            DATABASE::"Prod. Order Component":
+                IF ProdOrder.GET(Demand."Source Order Status", Demand."Source ID") THEN
+                    IF ProdOrder."Transmitted Order No." THEN BEGIN
+                        Supply."Original Source Id" := Demand."Source Type";
+                        Supply."Original Source No." := ProdOrder."Original Source No.";
+                        Supply."Original Source Position" := ProdOrder."Original Source Position";
+                        Supply."Original Counter" := 1;
+                        Supply."Transmitted Order No." := TRUE;
+                    END;
+        END;
     end;
+
+    PROCEDURE Fct_CalcCounter(CodPSourceNo: Code[20]; IntPSourcePos: Integer): Integer
+    VAR
+        ReqLine: Record "Requisition Line";
+        IntLCounter: Integer;
+    BEGIN
+        IntLCounter := 0;
+        ReqLine.RESET();
+        ReqLine.SETRANGE("PWD Original Source No.", CodPSourceNo);
+        ReqLine.SETRANGE("PWD Original Source Position", IntPSourcePos);
+        //>>TDL_12_06_18.001
+        IF ReqLine.FINDSET() THEN
+            REPEAT
+                IF IntLCounter < ReqLine."PWD Original Counter" THEN
+                    IntLCounter := ReqLine."PWD Original Counter";
+            UNTIL ReqLine.NEXT = 0;
+        //<<TDL_12_06_18.001
+        EXIT(IntLCounter + 1);
+    END;
+    //---CDU99000838---
+    PROCEDURE VerifyQuantityPhantom(VAR NewProdOrderComp: Record "Prod. Order Component"; VAR OldProdOrderComp: Record "Prod. Order Component")
+    VAR
+        ReservMgt: Codeunit "Reservation Management";
+    BEGIN
+        //TODO: Blocked Variable global  dans le codeunit "Prod. Order Comp.-Reserve"
+        //   IF Blocked THEN
+        //     EXIT;
+
+        WITH NewProdOrderComp DO BEGIN
+            IF Status = Status::Finished THEN
+                EXIT;
+            //TODO: SetSourceForProdOrderComp procedure local dans le codeunit "Reservation Management"  
+            //ReservMgt.SetSourceForProdOrderComp();
+            IF "Qty. per Unit of Measure" <> OldProdOrderComp."Qty. per Unit of Measure" THEN
+                ReservMgt.ModifyUnitOfMeasure();
+            IF "Remaining Qty. (Base)" * OldProdOrderComp."Remaining Qty. (Base)" < 0 THEN
+                ReservMgt.DeleteReservEntries(TRUE, 0)
+            ELSE
+                ReservMgt.DeleteReservEntries(FALSE, "Remaining Qty. (Base)");
+            ReservMgt.ClearSurplus();
+            ReservMgt.AutoTrack("Remaining Qty. (Base)");
+            //TODO: AssignForPlanning procedure local dans le codeunit "Prod. Order Comp.-Reserve"
+            //AssignForPlanning(NewProdOrderComp);
+        END;
+    END;
+    //---CDU99000835---
+    PROCEDURE SetgFromTheSameLot(piSet: Boolean)
+    BEGIN
+        gFromTheSameLot := piSet;
+    END;
+
+    PROCEDURE SetgLotDeterminingData(piSetLotCode: Code[30]; piSetExpirDate: Date): Code[20]
+    BEGIN
+        gLotDeterminingLotCode := piSetLotCode;
+        gLotDeterminingExpirDate := piSetExpirDate;
+        IF piSetLotCode <> '' THEN
+            gFromTheSameLot := TRUE;
+    END;
+    //---CDU99000813---
+    PROCEDURE FctGetTime(OptPType: option "Work Center","Machine Center"; CodPNo: Code[20]; CodPItemNo: Code[20]; DecPQty: Decimal; VAR DecPSetupTime: Decimal; VAR DecPRunTime: Decimal; VAR CodPSetupTimeUnit: Code[10]; VAR CodPRunTimeUnit: Code[10])
+    VAR
+        RecLManufCyclesSetup: Record "PWD Manufacturing cycles Setup";
+        DecLQm: Decimal;
+        DecLQ: Decimal;
+        DecLn: Decimal;
+    BEGIN
+        DecLQ := DecPQty;
+
+        RecLManufCyclesSetup.GET(OptPType, CodPNo, CodPItemNo);
+        DecLQm := RecLManufCyclesSetup."Maximun Qty by cycle (Base)";
+        IF DecLQm <> 0 THEN DecLn := DecLQ / DecLQm;
+
+        DecLn := ROUND(DecLn, 1, '>');
+
+        DecPRunTime := (DecLn * RecLManufCyclesSetup."Run Time") / DecLQ;
+
+        DecPSetupTime := RecLManufCyclesSetup."Setup Time";
+        CodPSetupTimeUnit := RecLManufCyclesSetup."Setup Time Unit of Meas. Code";
+        CodPRunTimeUnit := RecLManufCyclesSetup."Run Time Unit of Meas. Code";
+    END;
+
+    PROCEDURE FctGetTimeForCost(OptPType: option "Work Center","Machine Center"; CodPNo: Code[20]; CodPItemNo: Code[20]; DecPQty: Decimal; VAR DecPSetupTime: Decimal; VAR DecPRunTime: Decimal; VAR CodPSetupTimeUnit: Code[10]; VAR CodPRunTimeUnit: Code[10])
+    VAR
+        RecLManufCyclesSetup: Record "PWD Manufacturing cycles Setup";
+        DecLQm: Decimal;
+        DecLQ: Decimal;
+        DecLn: Decimal;
+    BEGIN
+        DecLQ := DecPQty;
+
+        RecLManufCyclesSetup.GET(OptPType, CodPNo, CodPItemNo);
+        DecLQm := RecLManufCyclesSetup."Maximun Qty by cycle (Base)";
+
+        DecPRunTime := (RecLManufCyclesSetup."Run Time") / DecLQm;
+        DecPSetupTime := RecLManufCyclesSetup."Setup Time";
+
+        CodPSetupTimeUnit := RecLManufCyclesSetup."Setup Time Unit of Meas. Code";
+        CodPRunTimeUnit := RecLManufCyclesSetup."Run Time Unit of Meas. Code";
+    END;
+
+    PROCEDURE TransferRoutingProd04(ReqLine: Record 246; ProdOrder: Record 5405; RoutingNo: Code[20]; RoutingRefNo: Integer; RecPProdOrderLine: Record 5406)
+    VAR
+        WorkCenter: Record "Work Center";
+        MachineCenter: Record "Machine Center";
+        PlanningRtngLine: Record "Planning Routing Line";
+        ProdOrderRtngLine: Record "Prod. Order Routing Line";
+        RecLRoutingLine: Record "Routing Line";
+        DecLSetupTime: Decimal;
+        DecLRunTime: Decimal;
+        CodLSetupTimeUnit: Code[10];
+        CodLRunTimeUnit: Code[10];
+    BEGIN
+        PlanningRtngLine.SETRANGE("Worksheet Template Name", ReqLine."Worksheet Template Name");
+        PlanningRtngLine.SETRANGE("Worksheet Batch Name", ReqLine."Journal Batch Name");
+        PlanningRtngLine.SETRANGE("Worksheet Line No.", ReqLine."Line No.");
+        IF PlanningRtngLine.FIND('-') THEN
+            REPEAT
+                ProdOrderRtngLine.INIT;
+                ProdOrderRtngLine.Status := ProdOrder.Status;
+                ProdOrderRtngLine."Prod. Order No." := ProdOrder."No.";
+                ProdOrderRtngLine."Routing No." := RoutingNo;
+                ProdOrderRtngLine."Routing Reference No." := RoutingRefNo;
+                ProdOrderRtngLine."Operation No." := PlanningRtngLine."Operation No.";
+                ProdOrderRtngLine."Next Operation No." := PlanningRtngLine."Next Operation No.";
+                //TODO: 'Record "Prod. Order Routing Line"' does not contain a definition for 'Next Operation Link Type'
+                //ProdOrderRtngLine."Next Operation Link Type" := PlanningRtngLine."Next Operation Link Type";
+                ProdOrderRtngLine."Previous Operation No." := PlanningRtngLine."Previous Operation No.";
+                ProdOrderRtngLine.Type := PlanningRtngLine.Type;
+                ProdOrderRtngLine."No." := PlanningRtngLine."No.";
+                ProdOrderRtngLine."Work Center No." := PlanningRtngLine."Work Center No.";
+                ProdOrderRtngLine."Work Center Group Code" := PlanningRtngLine."Work Center Group Code";
+                ProdOrderRtngLine.Description := PlanningRtngLine.Description;
+                //>>FE_LAPIERRETTE_PROD04.001
+                RecLRoutingLine.RESET;
+                RecLRoutingLine.SETRANGE(RecLRoutingLine."Routing No.", RecPProdOrderLine."Routing No.");
+                RecLRoutingLine.SETRANGE(RecLRoutingLine."Version Code", RecPProdOrderLine."Routing Version Code");
+                RecLRoutingLine.SETRANGE(RecLRoutingLine."Operation No.", ProdOrderRtngLine."Operation No.");
+                IF RecLRoutingLine.FINDFIRST THEN BEGIN
+                    //TODO: table extension "Routing Line" n'exsiste pas
+                    IF RecLRoutingLine."Fixed-step Prod. Rate time" THEN BEGIN
+                        FctGetTime(RecLRoutingLine.Type, RecLRoutingLine."No.", RecPProdOrderLine."Item No.",
+                                   ProdOrder.Quantity,
+                                   DecLSetupTime, DecLRunTime,
+                                   CodLSetupTimeUnit, CodLRunTimeUnit);
+
+                        ProdOrderRtngLine."Run Time" := DecLRunTime;
+                        ProdOrderRtngLine."Setup Time" := DecLSetupTime;
+                    END
+                    ELSE BEGIN
+                        ProdOrderRtngLine."Setup Time" := PlanningRtngLine."Setup Time";
+                        ProdOrderRtngLine."Run Time" := PlanningRtngLine."Run Time";
+
+
+                    END;
+                END
+                ELSE BEGIN
+                    ProdOrderRtngLine."Setup Time" := PlanningRtngLine."Setup Time";
+                    ProdOrderRtngLine."Run Time" := PlanningRtngLine."Run Time";
+                END;
+                ProdOrderRtngLine."Wait Time" := PlanningRtngLine."Wait Time";
+                ProdOrderRtngLine."Move Time" := PlanningRtngLine."Move Time";
+                ProdOrderRtngLine."Fixed Scrap Quantity" := PlanningRtngLine."Fixed Scrap Quantity";
+                ProdOrderRtngLine."Lot Size" := PlanningRtngLine."Lot Size";
+                ProdOrderRtngLine."Scrap Factor %" := PlanningRtngLine."Scrap Factor %";
+                //STD ProdOrderRtngLine."Setup Time Unit of Meas. Code" := RtngLine."Setup Time Unit of Meas. Code";
+                //STD ProdOrderRtngLine."Run Time Unit of Meas. Code" := RtngLine."Run Time Unit of Meas. Code";
+                RecLRoutingLine.RESET;
+                RecLRoutingLine.SETRANGE(RecLRoutingLine."Routing No.", RecPProdOrderLine."Routing No.");
+                RecLRoutingLine.SETRANGE(RecLRoutingLine."Version Code", RecPProdOrderLine."Routing Version Code");
+                RecLRoutingLine.SETRANGE(RecLRoutingLine."Operation No.", ProdOrderRtngLine."Operation No.");
+                IF RecLRoutingLine.FINDFIRST THEN BEGIN
+                    IF RecLRoutingLine."Fixed-step Prod. Rate time" THEN BEGIN
+                        ProdOrderRtngLine."Setup Time Unit of Meas. Code" := CodLSetupTimeUnit;
+                        ProdOrderRtngLine."Run Time Unit of Meas. Code" := CodLRunTimeUnit;
+                    END
+                    ELSE BEGIN
+                        ProdOrderRtngLine."Setup Time Unit of Meas. Code" := PlanningRtngLine."Setup Time Unit of Meas. Code";
+                        ProdOrderRtngLine."Run Time Unit of Meas. Code" := PlanningRtngLine."Run Time Unit of Meas. Code";
+                    END;
+                END
+                ELSE BEGIN
+                    ProdOrderRtngLine."Setup Time Unit of Meas. Code" := PlanningRtngLine."Setup Time Unit of Meas. Code";
+                    ProdOrderRtngLine."Run Time Unit of Meas. Code" := PlanningRtngLine."Run Time Unit of Meas. Code";
+                END;
+                //<<FE_LAPIERRETTE_PROD04.001
+
+                ProdOrderRtngLine."Wait Time Unit of Meas. Code" := PlanningRtngLine."Wait Time Unit of Meas. Code";
+                ProdOrderRtngLine."Move Time Unit of Meas. Code" := PlanningRtngLine."Move Time Unit of Meas. Code";
+                ProdOrderRtngLine."Minimum Process Time" := PlanningRtngLine."Minimum Process Time";
+                ProdOrderRtngLine."Maximum Process Time" := PlanningRtngLine."Maximum Process Time";
+                ProdOrderRtngLine."Concurrent Capacities" := PlanningRtngLine."Concurrent Capacities";
+                ProdOrderRtngLine."Send-Ahead Quantity" := PlanningRtngLine."Send-Ahead Quantity";
+                ProdOrderRtngLine."Routing Link Code" := PlanningRtngLine."Routing Link Code";
+                ProdOrderRtngLine."Standard Task Code" := PlanningRtngLine."Standard Task Code";
+                ProdOrderRtngLine."Unit Cost per" := PlanningRtngLine."Unit Cost per";
+                ProdOrderRtngLine.Recalculate := PlanningRtngLine.Recalculate;
+                ProdOrderRtngLine."Sequence No. (Forward)" := PlanningRtngLine."Sequence No.(Forward)";
+                ProdOrderRtngLine."Sequence No. (Backward)" := PlanningRtngLine."Sequence No.(Backward)";
+                ProdOrderRtngLine."Fixed Scrap Qty. (Accum.)" := PlanningRtngLine."Fixed Scrap Qty. (Accum.)";
+                ProdOrderRtngLine."Scrap Factor % (Accumulated)" := PlanningRtngLine."Scrap Factor % (Accumulated)";
+                ProdOrderRtngLine."Sequence No. (Actual)" := PlanningRtngLine."Sequence No. (Actual)";
+                ProdOrderRtngLine."Starting Time" := PlanningRtngLine."Starting Time";
+                ProdOrderRtngLine."Starting Date" := PlanningRtngLine."Starting Date";
+                ProdOrderRtngLine."Ending Time" := PlanningRtngLine."Ending Time";
+                ProdOrderRtngLine."Ending Date" := PlanningRtngLine."Ending Date";
+                ProdOrderRtngLine."Unit Cost Calculation" := PlanningRtngLine."Unit Cost Calculation";
+                ProdOrderRtngLine."Input Quantity" := PlanningRtngLine."Input Quantity";
+                ProdOrderRtngLine."Critical Path" := PlanningRtngLine."Critical Path";
+                ProdOrderRtngLine."Direct Unit Cost" := PlanningRtngLine."Direct Unit Cost";
+                ProdOrderRtngLine."Indirect Cost %" := PlanningRtngLine."Indirect Cost %";
+                ProdOrderRtngLine."Overhead Rate" := PlanningRtngLine."Overhead Rate";
+                CASE ProdOrderRtngLine.Type OF
+                    ProdOrderRtngLine.Type::"Work Center":
+                        BEGIN
+                            WorkCenter.GET(PlanningRtngLine."No.");
+                            ProdOrderRtngLine."Flushing Method" := WorkCenter."Flushing Method";
+                        END;
+                    ProdOrderRtngLine.Type::"Machine Center":
+                        BEGIN
+                            MachineCenter.GET(ProdOrderRtngLine."No.");
+                            ProdOrderRtngLine."Flushing Method" := MachineCenter."Flushing Method";
+                        END;
+                END;
+                ProdOrderRtngLine."Expected Operation Cost Amt." := PlanningRtngLine."Expected Operation Cost Amt.";
+                ProdOrderRtngLine."Expected Capacity Ovhd. Cost" := PlanningRtngLine."Expected Capacity Ovhd. Cost";
+                ProdOrderRtngLine."Expected Capacity Need" := PlanningRtngLine."Expected Capacity Need";
+
+                ProdOrderRtngLine.UpdateDatetime;
+                ProdOrderRtngLine.INSERT;
+            UNTIL PlanningRtngLine.NEXT = 0;
+    END;
+
+    var
+        gFromTheSameLot: Boolean;
+        gLotDeterminingLotCode: Code[30];
+        gLotDeterminingExpirDate: Date;
+
+
 
 }
