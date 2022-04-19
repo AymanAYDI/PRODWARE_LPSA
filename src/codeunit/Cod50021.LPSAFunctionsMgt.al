@@ -689,7 +689,7 @@ codeunit 50021 "PWD LPSA Functions Mgt."
                 ProdOrderRtngLine.INSERT;
             UNTIL PlanningRtngLine.NEXT = 0;
     END;
-
+    //---CDU5407---
     PROCEDURE SetNoFinishCOntrol(BooPAvoidControl: Boolean);
     BEGIN
         BooGAvoidControl := BooPAvoidControl;
@@ -831,6 +831,649 @@ codeunit 50021 "PWD LPSA Functions Mgt."
         //<<LAP2.06
     END;
 
+    //---CDU5510---
+    PROCEDURE DeleteReservEntryFromOF(CodPProdOrderNo: Code[20]; IntPActualLineNo: Integer);
+    VAR
+        ProductionJnl: Page "Production Journal";
+        LeaveForm: Boolean;
+        MfgSetup: Record "Manufacturing Setup";
+        OroductionJournalMGT: Codeunit "Production Journal Mgt";
+    BEGIN
+        MfgSetup.GET;
+        OroductionJournalMGT.SetTemplateAndBatchName;
+        OroductionJournalMGT.InitSetupValues;
+        OroductionJournalMGT.DeleteJnlLines(ToTemplateName, ToBatchName, CodPProdOrderNo, IntPActualLineNo);
+    END;
+
+    PROCEDURE InitJnalName(CodPToTemplateName: Code[10]; CodPToBatchName: Code[10]);
+    BEGIN
+        ToTemplateName := CodPToTemplateName;   //TODO: A verifier le variable, c'est un variable globale dans le CodeUnite "Production Journal Mgt"
+        ToBatchName := CodPToBatchName;         //TODO: A verifier le variable, c'est un variable globale dans le CodeUnite "Production Journal Mgt"  
+    END;
+
+    PROCEDURE InsertOutputJnlLine2(RecPItemJnalLine: Record 83; RecPProdOrderLine: Record 5406);
+    VAR
+        WorkCenter: Record "Work Center";
+        MachineCenter: Record "Machine Center";
+        ItemTrackingMgt: Codeunit "Item Tracking Management";
+        CostCalcMgt: Codeunit "Cost Calculation Management";
+        QtyToPost: Decimal;
+        RecLManufacturingSetup: Record "Manufacturing Setup";
+        CodLWorkCenter: Code[10];
+        ItemJnlLine: Record "Item Journal Line";
+        NextLineNo: Integer;
+        PostingDate: Date;
+        ItemJnlTemplate: Record "Item Journal Template";
+        ItemJnlBatch: Record "Item Journal Batch";
+    BEGIN
+        PostingDate := WORKDATE; //TODO: A verifier ce ligne parceque le codeunite 5510 utiliste l'insertion de WORKDATE dans le variable PostingDate
+                                 //===Copy of Function InsertOutputJnlLine to work on Manufacturing Sheet=======================================
+
+        //>>FE_LAPIERRETTE_PROD03.001
+        RecLManufacturingSetup.GET;
+        //>>FE_LAPIERRETTE_PRO12.001
+        //RecLManufacturingSetup.TESTFIELD("Non conformity Prod. Location");
+        //<<FE_LAPIERRETTE_PRO12.001
+        RecLManufacturingSetup.TESTFIELD("Mach. center - Inventory input"); //TODO: table extension "Manufacturing Setup" n'existe pas
+        CodLWorkCenter := RecLManufacturingSetup."Mach. center - Inventory input"; //TODO: table extension "Manufacturing Setup" n'existe pas                                                                                   //<FE_LAPIERRETTE_PROD03.001
+        QtyToPost := RecPItemJnalLine."Output Quantity";
+        WITH RecPItemJnalLine DO BEGIN
+            //>>ProdOrderRtngLine
+            //>>ProdOrderLine
+            ItemJnlLine.INIT;
+            ItemJnlLine."Journal Template Name" := ToTemplateName;
+            ItemJnlLine."Journal Batch Name" := ToBatchName;
+            ItemJnlLine."Line No." := NextLineNo;
+            ItemJnlLine."PWD Conform quality control" := "PWD Conform quality control";
+            ItemJnlLine.VALIDATE("Posting Date", PostingDate);
+            ItemJnlLine.VALIDATE("Entry Type", ItemJnlLine."Entry Type"::Output);
+            ItemJnlLine.VALIDATE("Order Type", "ItemJnlLine"."Order Type"::Production);
+            ItemJnlLine.VALIDATE("Order No.", "Order No.");
+            ItemJnlLine.VALIDATE("Order Line No.", "Order Line No.");
+            ItemJnlLine.VALIDATE("Item No.", "Item No.");
+            ItemJnlLine.VALIDATE("Variant Code", "Variant Code");
+            ItemJnlLine.VALIDATE("Location Code", "Location Code");
+            IF "Bin Code" <> '' THEN
+                ItemJnlLine.VALIDATE("Bin Code", "Bin Code");
+            ItemJnlLine.VALIDATE("Routing No.", "Routing No.");
+            ItemJnlLine.VALIDATE("Routing Reference No.", "Routing Reference No.");
+            IF RecPItemJnalLine."Order No." <> '' THEN
+                ItemJnlLine.VALIDATE("Operation No.", RecPItemJnalLine."Operation No.");
+            ItemJnlLine.VALIDATE("Unit of Measure Code", "Unit of Measure Code");
+            ItemJnlLine.VALIDATE("Setup Time", 0);
+            ItemJnlLine.VALIDATE("Run Time", 0);
+            IF ("Location Code" <> '') THEN
+                ItemJnlLine.CheckWhse("Location Code", QtyToPost);
+            ItemJnlLine.VALIDATE("Output Quantity", QtyToPost);
+            //IF ProdOrderRtngLine."Routing Status" = ProdOrderRtngLine."Routing Status"::Finished THEN
+            ItemJnlLine.Finished := TRUE;
+            ItemJnlLine."Flushing Method" := RecPItemJnalLine."Flushing Method";
+            //
+            ItemJnlTemplate.SetRange("Page ID", PAGE::"Production Journal");
+            ItemJnlTemplate.SetRange(Recurring, false);
+            ItemJnlTemplate.SetRange(Type, ItemJnlTemplate.Type::"Prod. Order");
+            if ItemJnlTemplate.FindFirst then
+                //
+                ItemJnlLine."Source Code" := ItemJnlTemplate."Source Code";
+            //
+            if ItemJnlBatch.Get(ToTemplateName, ToBatchName) then begin
+                //
+                ItemJnlLine."Reason Code" := ItemJnlBatch."Reason Code";
+                ItemJnlLine."Posting No. Series" := ItemJnlBatch."Posting No. Series";
+            End;
+            ItemJnlLine.INSERT;
+            //IF ProdOrderRtngLine."Next Operation No." = '' THEN // Last or no Routing Line
+            ItemTrackingMgt.CopyItemTracking(RecPProdOrderLine.RowID1, ItemJnlLine.RowID1, FALSE);
+            //ItemTrackingMgt.CopyItemTracking(RecPProdOrderLine.RowID1,ItemJnlLine.RowID1,FALSE);
+        END;
+        NextLineNo += 10000;
+    END;
+
+    PROCEDURE DeleteReservEntry(CodPProdOrderNo: Code[20]; IntPActualLineNo: Integer);
+    VAR
+        ProductionJnl: Page "Production Journal";
+        LeaveForm: Boolean;
+        MfgSetup: Record "Manufacturing Setup";
+        ProductionJournalMgt: Codeunit "Production Journal Mgt";
+    BEGIN
+        MfgSetup.GET;
+        ProductionJournalMgt.InitSetupValues;
+        ProductionJournalMgt.DeleteJnlLines(ToTemplateName, ToBatchName, CodPProdOrderNo, IntPActualLineNo);
+    END;
+    //---CDU5701---
+    PROCEDURE GetCompSubstPhantom(VAR ProdOrderComp: Record 5407): Code[10];
+    Var
+        ItemSubst: Codeunit "Item Subst.";
+        TempItemSubPhantom: Record "PWD Phantom substitution Items" TEMPORARY;
+    BEGIN
+        // >> FE_LAPRIERRETTE_GP0003 : APA 16/05/13
+        IF NOT PrepareSubstListPhantom(
+                 ProdOrderComp."Item No.",
+                 ProdOrderComp."Location Code",
+                 ProdOrderComp."Due Date",
+                 TRUE,
+                 ProdOrderComp."Expected Quantity"
+                 )
+        THEN
+            ItemSubst.ErrorMessage(ProdOrderComp."Item No.", ProdOrderComp."Variant Code");
+
+        TempItemSubPhantom.RESET;
+        IF TempItemSubPhantom.FIND('-') THEN;
+        IF Page.RUNMODAL(Page::"Item Subst. Phantom Entries", TempItemSubPhantom) = ACTION::LookupOK THEN
+            UpdateComponentPhantom(ProdOrderComp, TempItemSubPhantom."Item No.", TempItemSubPhantom);
+
+        // << FE_LAPRIERRETTE_GP0003 : APA 16/05/13
+    END;
+
+    PROCEDURE UpdateComponentPhantom(VAR ProdOrderComp: Record 5407; SubstItemNo: Code[20]; VAR PhantomItem: Record 50011);
+    VAR
+        TempProdOrderComp: Record "Prod. Order Component" TEMPORARY;
+        RecLTrackingSpecPhantom: Record "Tracking Specification Phantom";
+        IntLastEntryNo: Integer;
+        BooLOneItem: Boolean;
+        DecLQty: Decimal;
+        TempReservEntry: Record "Reservation Entry" TEMPORARY;
+        ReservEntry: Record "Reservation Entry";
+        RecLProdOrderLine: Record "Prod. Order Line";
+        DecLxQty: Decimal;
+        Text50000: Label 'Vous ne pouvez pas s‚lectionner des articles diff‚rents. Veuillez s‚lectionner le mˆme article, pour des nø lot diff‚rents';
+        Text50001: Label 'Confirmez-vous la diff‚rence de quantit‚ de %1 au lieu de %2?';
+        SaveQty: Decimal;
+        ItemUnitOfMeasure: Record "Item Unit of Measure";
+    BEGIN
+        // >> FE_LAPRIERRETTE_GP0003 : APA 16/05/13
+        TempProdOrderComp := ProdOrderComp;
+        // Mise … jour des informations composants
+        PhantomItem.SETFILTER("Quantity Requested", '<>0');
+        IF NOT PhantomItem.FINDFIRST THEN
+            ERROR('Aucun article s‚lectionn‚');
+        //Contr“le qu'un seul article est s‚lectionn‚ et de la quantit‚ totale choisie
+        SubstItemNo := PhantomItem."Item No.";
+        BooLOneItem := TRUE;
+        DecLQty := 0;
+        REPEAT
+            BooLOneItem := (PhantomItem."Item No." = SubstItemNo);
+        UNTIL (PhantomItem.NEXT = 0) OR (NOT BooLOneItem);
+
+        PhantomItem.FINDFIRST;
+        REPEAT
+            DecLQty += PhantomItem."Quantity Requested";
+        UNTIL PhantomItem.NEXT = 0;
+
+        IF NOT BooLOneItem THEN
+            ERROR(Text50000);
+
+        IF DecLQty <> TempProdOrderComp."Expected Quantity" THEN
+            IF NOT CONFIRM(Text50001, FALSE, DecLQty, TempProdOrderComp."Expected Quantity") THEN
+                EXIT;
+
+        DeleteReservationEntryPhantom(ProdOrderComp);
+
+        WITH TempProdOrderComp DO BEGIN
+            SaveQty := "Quantity per";
+
+            "Item No." := SubstItemNo;
+            "Location Code" := ProdOrderComp."Location Code";
+            "Quantity per" := 0;
+
+            VALIDATE("Item No.");
+
+            "Original Item No." := ProdOrderComp."Item No.";
+
+            IF DecLQty <> TempProdOrderComp."Expected Quantity" THEN
+                TempProdOrderComp.VALIDATE("Expected Quantity", DecLQty * (1 + TempProdOrderComp."Scrap %" / 100));
+
+            IF ProdOrderComp."Qty. per Unit of Measure" <> 1 THEN BEGIN
+                IF ItemUnitOfMeasure.GET(PhantomItem."Item No.", ProdOrderComp."Unit of Measure Code") AND //TODO: j'ai changer le Item.NO par PhantomItem."Item No."
+                   (ItemUnitOfMeasure."Qty. per Unit of Measure" = ProdOrderComp."Qty. per Unit of Measure") THEN
+                    VALIDATE("Unit of Measure Code", ProdOrderComp."Unit of Measure Code")
+                ELSE
+                    SaveQty := ROUND(ProdOrderComp."Quantity per" * ProdOrderComp."Qty. per Unit of Measure", 0.00001);
+            END;
+            VALIDATE("Quantity per", SaveQty);
+
+            IF DecLQty <> TempProdOrderComp."Expected Quantity" THEN BEGIN
+                DecLxQty := TempProdOrderComp."Expected Quantity";
+                TempProdOrderComp.VALIDATE("Expected Quantity", DecLQty);
+                ProdOrderComp := TempProdOrderComp;
+                ProdOrderComp.MODIFY;
+                IF RecLProdOrderLine.GET(Status, "Prod. Order No.", "Prod. Order Line No.") THEN BEGIN
+                    //ERROR(FORMAT( RecLProdOrderLine.Quantity * TempProdOrderComp."Expected Quantity" / DecLxQty));
+                    RecLProdOrderLine.VALIDATE(Quantity, ROUND((RecLProdOrderLine.Quantity * TempProdOrderComp."Expected Quantity" / DecLxQty), 1))
+            ;
+                    RecLProdOrderLine.MODIFY;
+                END;
+            END ELSE BEGIN
+                ProdOrderComp := TempProdOrderComp;
+                ProdOrderComp.MODIFY;
+            END;
+        END;
+
+
+        DeletePreviousOperationPhantom(ProdOrderComp);
+
+        // Mise … jour des informations de tra‡abilit‚
+        IF RecLTrackingSpecPhantom.FINDLAST THEN
+            IntLastEntryNo := RecLTrackingSpecPhantom."Entry No."
+        ELSE
+            IntLastEntryNo := 0;
+
+        PhantomItem.SETFILTER("Quantity Requested", '<>0');
+        IF PhantomItem.FINDFIRST THEN
+            REPEAT
+                RecLTrackingSpecPhantom.INIT;
+                IntLastEntryNo += 1;
+                RecLTrackingSpecPhantom."Entry No." := IntLastEntryNo;
+                RecLTrackingSpecPhantom."Source Type" := DATABASE::"Prod. Order Component";
+                WITH ProdOrderComp DO BEGIN
+                    RecLTrackingSpecPhantom."Item No." := "Item No.";
+                    RecLTrackingSpecPhantom."Location Code" := "Location Code";
+                    RecLTrackingSpecPhantom."Bin Code" := "Bin Code";
+                    RecLTrackingSpecPhantom.Description := Description;
+                    RecLTrackingSpecPhantom."Variant Code" := "Variant Code";
+                    RecLTrackingSpecPhantom."Source Subtype" := Status;
+                    RecLTrackingSpecPhantom."Source ID" := "Prod. Order No.";
+                    RecLTrackingSpecPhantom."Source Batch Name" := '';
+                    RecLTrackingSpecPhantom."Source Prod. Order Line" := "Prod. Order Line No.";
+                    RecLTrackingSpecPhantom."Source Ref. No." := "Line No.";
+                    RecLTrackingSpecPhantom."Quantity (Base)" := PhantomItem."Quantity Requested";
+                    RecLTrackingSpecPhantom."Qty. to Handle" := PhantomItem."Quantity Requested";
+                    RecLTrackingSpecPhantom."Qty. to Handle (Base)" := PhantomItem."Quantity Requested";
+                    RecLTrackingSpecPhantom."Qty. to Invoice" := PhantomItem."Quantity Requested";
+                    RecLTrackingSpecPhantom."Qty. to Invoice (Base)" := PhantomItem."Quantity Requested";
+                    RecLTrackingSpecPhantom."Quantity Handled (Base)" := "Expected Qty. (Base)" - "Remaining Qty. (Base)";
+                    RecLTrackingSpecPhantom."Quantity Invoiced (Base)" := "Expected Qty. (Base)" - "Remaining Qty. (Base)";
+                    RecLTrackingSpecPhantom."Qty. per Unit of Measure" := "Qty. per Unit of Measure";
+                    RecLTrackingSpecPhantom."Lot No." := PhantomItem."Lot No.";
+                END;
+                RecLTrackingSpecPhantom.INSERT;
+            UNTIL PhantomItem.NEXT = 0;
+
+        // << FE_LAPRIERRETTE_GP0003 : APA 16/05/13
+    END;
+
+    PROCEDURE PrepareSubstListPhantom(ItemNo: Code[20]; LocationCode: Code[10]; DemandDate: Date; CalcATP: Boolean; ExpectedQuantity: Decimal): Boolean;
+    var
+        Item: Record Item;
+        ItemSubPhantom: Record "PWD Phantom substitution Items";
+        TempItemSubPhantom: Record "PWD Phantom substitution Items" TEMPORARY;
+    BEGIN
+        // >> FE_LAPRIERRETTE_GP0003 : APA 16/05/13
+        Item.GET(ItemNo);
+        Item.SETFILTER("Location Filter", LocationCode);
+        Item.SETRANGE("Date Filter", 0D, DemandDate);
+
+        ItemSubPhantom.RESET;
+        ItemSubPhantom.SETRANGE("Phantom Item No.", ItemNo);
+        IF ItemSubPhantom.FIND('-') THEN BEGIN
+            TempItemSubPhantom.DELETEALL;
+            CreateSubstListPhantom(ItemNo, ItemSubPhantom, 1, DemandDate, LocationCode, ExpectedQuantity);
+            EXIT(TRUE);
+        END;
+
+        EXIT(FALSE);
+        // << FE_LAPRIERRETTE_GP0003 : APA 16/05/13
+    END;
+
+    LOCAL PROCEDURE CreateSubstListPhantom(OrgNo: Code[20]; VAR ItemSubPhantom3: Record 50011; RelationsLevel: Integer; DemandDate: Date; LocationCode: Code[10]; ExpectedQuantity: Decimal);
+    VAR
+        ItemSubPhantom: Record "PWD Phantom substitution Items";
+        ItemSubPhantom2: Record "PWD Phantom substitution Items";
+        NonStockItem: Record "Nonstock Item";
+        RelationsLevel2: Integer;
+        ODF: DateFormula;
+        RecLTrackingSpec: Record "Tracking Specification";
+        ItemTrackingDataCollection: Codeunit "Item Tracking Data Collection";
+        RecLItemLedgEntry: Record "Item Ledger Entry";
+        TempItemSubPhantom: Record "PWD Phantom substitution Items" TEMPORARY;
+    BEGIN
+        // >> FE_LAPRIERRETTE_GP0003 : APA 16/05/13
+        ItemSubPhantom.COPY(ItemSubPhantom3);
+        RelationsLevel2 := RelationsLevel;
+
+        RecLItemLedgEntry.SETCURRENTKEY(Open, "Item Tracking", "Item No.", "Variant Code", "Lot No.", "Serial No.");
+
+        IF ItemSubPhantom.FIND('-') THEN
+            REPEAT
+                CLEAR(TempItemSubPhantom);
+
+                RecLItemLedgEntry.SETRANGE(Open, TRUE);
+                RecLItemLedgEntry.SETRANGE("Item No.", ItemSubPhantom."Item No.");
+                RecLItemLedgEntry.SETFILTER("Lot No.", '<>%1', '');
+                IF RecLItemLedgEntry.FIND('-') THEN
+                    REPEAT
+                        TempItemSubPhantom."Phantom Item No." := ItemSubPhantom."Phantom Item No.";
+                        TempItemSubPhantom."Item No." := ItemSubPhantom."Item No.";
+                        TempItemSubPhantom.Priority := ItemSubPhantom.Priority;
+                        TempItemSubPhantom."Lot No." := RecLItemLedgEntry."Lot No.";
+                        TempItemSubPhantom."Expected Quantity" := ExpectedQuantity;
+
+                        RecLTrackingSpec.INIT;
+                        RecLTrackingSpec."Item No." := ItemSubPhantom."Item No.";
+                        RecLTrackingSpec."Location Code" := LocationCode;
+                        RecLTrackingSpec."Lot No." := RecLItemLedgEntry."Lot No.";
+                        TempItemSubPhantom."Total Available Quantity" := ItemTrackingDataCollection.LotSNAvailablePhantom(RecLTrackingSpec);
+                        IF TempItemSubPhantom."Total Available Quantity" <> 0 THEN BEGIN
+                            IF NOT TempItemSubPhantom.INSERT THEN
+                                TempItemSubPhantom.MODIFY;
+                        END;
+                    UNTIL RecLItemLedgEntry.NEXT = 0
+                ELSE BEGIN
+                    TempItemSubPhantom."Phantom Item No." := ItemSubPhantom."Phantom Item No.";
+                    TempItemSubPhantom."Item No." := ItemSubPhantom."Item No.";
+                    TempItemSubPhantom.Priority := ItemSubPhantom.Priority;
+                    TempItemSubPhantom."Expected Quantity" := ExpectedQuantity;
+
+                    RecLTrackingSpec.INIT;
+                    RecLTrackingSpec."Item No." := ItemSubPhantom."Item No.";
+                    RecLTrackingSpec."Location Code" := LocationCode;
+                    TempItemSubPhantom."Total Available Quantity" := ItemTrackingDataCollection.LotSNAvailablePhantom(RecLTrackingSpec);
+                    IF TempItemSubPhantom."Total Available Quantity" <> 0 THEN
+                        TempItemSubPhantom.INSERT;
+                END;
+            UNTIL ItemSubPhantom.NEXT = 0;
+
+        // << FE_LAPRIERRETTE_GP0003 : APA 16/05/13
+    END;
+
+    PROCEDURE DeletePreviousOperationPhantom(VAR ProdOrderComp: Record 5407);
+    VAR
+        ProdOrderLine: Record "Prod. Order Line";
+    BEGIN
+        // >> FE_LAPRIERRETTE_GP0003 : APA 16/05/13
+        WITH ProdOrderComp DO BEGIN
+            ProdOrderLine.SETRANGE(Status, Status);
+            ProdOrderLine.SETRANGE("Prod. Order No.", "Prod. Order No.");
+            ProdOrderLine.SETFILTER("Line No.", '>%1', "Prod. Order Line No.");
+            ProdOrderLine.SETRANGE("Item No.", ProdOrderComp."Original Item No.");
+            IF ProdOrderLine.FINDFIRST THEN
+                ProdOrderLine.DELETEALL(TRUE);
+        END;
+        // << FE_LAPRIERRETTE_GP0003 : APA 16/05/13
+    END;
+
+    PROCEDURE DeleteReservationEntryPhantom(VAR ProdOrderComp: Record 5407);
+    VAR
+        ReservEntry: Record "Reservation Entry";
+        ReservEntry2: Record "Reservation Entry";
+        ReservEntry3: Record "Reservation Entry";
+        ReservMgt: Codeunit "Reservation Management";
+        ReservEngineMgt: Codeunit "Reservation Engine Mgt.";
+    BEGIN
+        // >> FE_LAPRIERRETTE_GP0003 : APA 16/05/13
+        ReservEntry.SETRANGE("Source Type", DATABASE::"Prod. Order Component");
+        ReservEntry.SETRANGE("Source Subtype", ProdOrderComp.Status);
+        ReservEntry.SETRANGE("Source ID", ProdOrderComp."Prod. Order No.");
+        ReservEntry.SETRANGE("Source Prod. Order Line", ProdOrderComp."Prod. Order Line No.");
+        ReservEntry.SETRANGE("Source Ref. No.", ProdOrderComp."Line No.");
+        ReservEntry.SETRANGE("Item No.", ProdOrderComp."Item No.");
+        ReservEntry.SETRANGE("Variant Code", ProdOrderComp."Variant Code");
+        ReservEntry.SETRANGE("Location Code", ProdOrderComp."Location Code");
+        ReservEntry.SETRANGE("Shipment Date", ProdOrderComp."Due Date");
+        //UnitOfMeasureCode := ProdOrderComp."Unit of Measure Code";
+
+        IF ReservEntry.FINDSET THEN BEGIN
+            CLEAR(ReservEntry2);
+            ReservEntry2 := ReservEntry;
+            ReservEntry2.SetPointerFilter();
+            ReservEntry2.SETRANGE("Reservation Status", ReservEntry2."Reservation Status"::Reservation);
+            IF ReservEntry2.FIND('-') THEN
+                REPEAT
+                    ReservEngineMgt.CancelReservation(ReservEntry2);  //TODO J'ai modifié la foncion CloseReservEntry2 par CancelReservation(la foncion CloseReservEntry2 n'existe pas dans la nouvelle version)
+                UNTIL ReservEntry2.NEXT = 0;
+        END;
+
+        // << FE_LAPRIERRETTE_GP0003 : APA 16/05/13
+    END;
+    //---CDU5063---
+    PROCEDURE BeforeRestoreSalesDocument(var SalesHeaderArchive: Record "Sales Header Archive");
+    var
+        SalesHeader: Record "Sales Header";
+        SalesShptHeader: Record "Sales Shipment Header";
+        SalesInvHeader: Record "Sales Invoice Header";
+        ReservEntry: Record "Reservation Entry";
+        ItemChargeAssgntSales: Record "Item Charge Assignment (Sales)";
+        ConfirmManagement: Codeunit "Confirm Management";
+        ConfirmRequired: Boolean;
+        RestoreDocument: Boolean;
+        OldOpportunityNo: Code[20];
+        DoCheck: Boolean;
+        DeferralUtilities: Codeunit "Deferral Utilities";
+        RecordLinkManagement: Codeunit "Record Link Management";
+        ArchiveManagement: Codeunit ArchiveManagement;
+        ReleaseSalesDoc: Codeunit "Release Sales Document";
+        Text009: Label 'Unposted %1 %2 does not exist anymore.\It is not possible to restore the %1.';
+        Text005: Label '%1 %2 has been partly posted.\Restore not possible.';
+        Text006: Label 'Entries exist for on or more of the following:\  - %1\  - %2\  - %3.\Restoration of document will delete these entries.\Continue with restore?';
+        Text002: Label 'Do you want to Restore %1 %2 Version %3?';
+        Text003: Label '%1 %2 has been restored.';
+        Text008: Label 'Item Tracking Line';
+    begin
+        if not SalesHeader.Get(SalesHeaderArchive."Document Type", SalesHeaderArchive."No.") then
+            //>>TDL.LPSA.30.07.15:NBO
+            //ERROR(Text009,SalesHeaderArchive."Document Type",SalesHeaderArchive."No.");
+            IF SalesHeaderArchive."Document Type" <> SalesHeaderArchive."Document Type"::Quote THEN
+                Error(Text009, SalesHeaderArchive."Document Type", SalesHeaderArchive."No.")
+            ELSE BEGIN
+                SalesHeader.INIT;
+                SalesHeader.TRANSFERFIELDS(SalesHeaderArchive);
+                SalesHeader.INSERT(TRUE);
+                SalesHeader."Doc. No. Occurrence" := 1;
+                SalesHeader.MODIFY;
+                //BooLRecreated := TRUE;
+            END;
+        //<<TDL.LPSA.30.07.15:NBO
+        SalesHeader.TestField(Status, SalesHeader.Status::Open);
+        DoCheck := true;
+        if (SalesHeader."Document Type" = SalesHeader."Document Type"::Order) and DoCheck then begin
+            SalesShptHeader.Reset();
+            SalesShptHeader.SetCurrentKey("Order No.");
+            SalesShptHeader.SetRange("Order No.", SalesHeader."No.");
+            if not SalesShptHeader.IsEmpty() then
+                Error(Text005, SalesHeader."Document Type", SalesHeader."No.");
+            SalesInvHeader.Reset();
+            SalesInvHeader.SetCurrentKey("Order No.");
+            SalesInvHeader.SetRange("Order No.", SalesHeader."No.");
+            if not SalesInvHeader.IsEmpty() then
+                Error(Text005, SalesHeader."Document Type", SalesHeader."No.");
+        end;
+
+        ConfirmRequired := false;
+        ReservEntry.Reset();
+        ReservEntry.SetCurrentKey("Source ID", "Source Ref. No.", "Source Type", "Source Subtype");
+        ReservEntry.SetRange("Source ID", SalesHeader."No.");
+        ReservEntry.SetRange("Source Type", DATABASE::"Sales Line");
+        ReservEntry.SetRange("Source Subtype", SalesHeader."Document Type");
+        if ReservEntry.FindFirst then
+            ConfirmRequired := true;
+
+        ItemChargeAssgntSales.Reset();
+        ItemChargeAssgntSales.SetRange("Document Type", SalesHeader."Document Type");
+        ItemChargeAssgntSales.SetRange("Document No.", SalesHeader."No.");
+        if ItemChargeAssgntSales.FindFirst then
+            ConfirmRequired := true;
+
+        RestoreDocument := false;
+        if ConfirmRequired then begin
+            if ConfirmManagement.GetResponseOrDefault(
+                 StrSubstNo(
+                   Text006, ReservEntry.TableCaption, ItemChargeAssgntSales.TableCaption, Text008), true)
+            then
+                RestoreDocument := true;
+        end else
+            if ConfirmManagement.GetResponseOrDefault(
+                 StrSubstNo(
+                   Text002, SalesHeaderArchive."Document Type",
+                   SalesHeaderArchive."No.", SalesHeaderArchive."Version No."), true)
+            then
+                RestoreDocument := true;
+        if RestoreDocument then begin
+            SalesHeader.TestField("Doc. No. Occurrence", SalesHeaderArchive."Doc. No. Occurrence");
+            SalesHeaderArchive.CalcFields("Work Description");
+            if SalesHeader."Opportunity No." <> '' then begin
+                OldOpportunityNo := SalesHeader."Opportunity No.";
+                SalesHeader."Opportunity No." := '';
+            end;
+            SalesHeader.DeleteLinks;
+            SalesHeader.Delete(true);
+            SalesHeader.Init();
+            SalesHeader.SetHideValidationDialog(true);
+            SalesHeader."Document Type" := SalesHeaderArchive."Document Type";
+            SalesHeader."No." := SalesHeaderArchive."No.";
+            SalesHeader.Insert(true);
+            SalesHeader.TransferFields(SalesHeaderArchive);
+            SalesHeader.Status := SalesHeader.Status::Open;
+            if SalesHeaderArchive."Sell-to Contact No." <> '' then
+                SalesHeader.Validate("Sell-to Contact No.", SalesHeaderArchive."Sell-to Contact No.")
+            else
+                SalesHeader.Validate("Sell-to Customer No.", SalesHeaderArchive."Sell-to Customer No.");
+            if SalesHeaderArchive."Bill-to Contact No." <> '' then
+                SalesHeader.Validate("Bill-to Contact No.", SalesHeaderArchive."Bill-to Contact No.")
+            else
+                SalesHeader.Validate("Bill-to Customer No.", SalesHeaderArchive."Bill-to Customer No.");
+            SalesHeader.Validate("Salesperson Code", SalesHeaderArchive."Salesperson Code");
+            SalesHeader.Validate("Payment Terms Code", SalesHeaderArchive."Payment Terms Code");
+            SalesHeader.Validate("Payment Discount %", SalesHeaderArchive."Payment Discount %");
+            SalesHeader."Shortcut Dimension 1 Code" := SalesHeaderArchive."Shortcut Dimension 1 Code";
+            SalesHeader."Shortcut Dimension 2 Code" := SalesHeaderArchive."Shortcut Dimension 2 Code";
+            SalesHeader."Dimension Set ID" := SalesHeaderArchive."Dimension Set ID";
+            RecordLinkManagement.CopyLinks(SalesHeaderArchive, SalesHeader);
+            SalesHeader.LinkSalesDocWithOpportunity(OldOpportunityNo);
+            SalesHeader.Modify(true);
+            ArchiveManagement.ResetQuoteStatus(SalesHeader);
+            RestoreSalesLines(SalesHeaderArchive, SalesHeader);
+            SalesHeader.Status := SalesHeader.Status::Released;
+            ReleaseSalesDoc.Reopen(SalesHeader);
+            Message(Text003, SalesHeader."Document Type", SalesHeader."No.");
+        end;
+    end;
+
+    local procedure RestoreSalesLines(var SalesHeaderArchive: Record "Sales Header Archive"; SalesHeader: Record "Sales Header")
+    var
+        SalesLine: Record "Sales Line";
+        SalesLineArchive: Record "Sales Line Archive";
+        RecordLinkManagement: Codeunit "Record Link Management";
+    begin
+        RestoreSalesLineComments(SalesHeaderArchive, SalesHeader);
+
+        SalesLineArchive.SetRange("Document Type", SalesHeaderArchive."Document Type");
+        SalesLineArchive.SetRange("Document No.", SalesHeaderArchive."No.");
+        SalesLineArchive.SetRange("Doc. No. Occurrence", SalesHeaderArchive."Doc. No. Occurrence");
+        SalesLineArchive.SetRange("Version No.", SalesHeaderArchive."Version No.");
+        if SalesLineArchive.FindSet then
+            repeat
+                with SalesLine do begin
+                    Init;
+                    TransferFields(SalesLineArchive);
+                    Insert(true);
+                    if Type <> Type::" " then begin
+                        Validate("No.");
+                        if SalesLineArchive."Variant Code" <> '' then
+                            Validate("Variant Code", SalesLineArchive."Variant Code");
+                        if SalesLineArchive."Unit of Measure Code" <> '' then
+                            Validate("Unit of Measure Code", SalesLineArchive."Unit of Measure Code");
+                        Validate("Location Code", SalesLineArchive."Location Code");
+                        if Quantity <> 0 then
+                            Validate(Quantity, SalesLineArchive.Quantity);
+                        Validate("Unit Price", SalesLineArchive."Unit Price");
+                        Validate("Unit Cost (LCY)", SalesLineArchive."Unit Cost (LCY)");
+                        Validate("Line Discount %", SalesLineArchive."Line Discount %");
+                        Validate("Quote Variant", SalesLineArchive."Quote Variant");
+                        if SalesLineArchive."Inv. Discount Amount" <> 0 then
+                            Validate("Inv. Discount Amount", SalesLineArchive."Inv. Discount Amount");
+                        if Amount <> SalesLineArchive.Amount then
+                            Validate(Amount, SalesLineArchive.Amount);
+                        Validate(Description, SalesLineArchive.Description);
+                    end;
+                    "Shortcut Dimension 1 Code" := SalesLineArchive."Shortcut Dimension 1 Code";
+                    "Shortcut Dimension 2 Code" := SalesLineArchive."Shortcut Dimension 2 Code";
+                    "Dimension Set ID" := SalesLineArchive."Dimension Set ID";
+                    "Deferral Code" := SalesLineArchive."Deferral Code";
+                    RestoreDeferrals(
+                        "Deferral Document Type"::Sales.AsInteger(),
+                        SalesLineArchive."Document Type".AsInteger(), SalesLineArchive."Document No.", SalesLineArchive."Line No.",
+                        SalesHeaderArchive."Doc. No. Occurrence", SalesHeaderArchive."Version No.");
+                    RecordLinkManagement.CopyLinks(SalesLineArchive, SalesLine);
+                    Modify(true);
+                end;
+            until SalesLineArchive.Next() = 0;
+    end;
+
+    local procedure RestoreSalesLineComments(SalesHeaderArchive: Record "Sales Header Archive"; SalesHeader: Record "Sales Header")
+    var
+        SalesCommentLineArchive: Record "Sales Comment Line Archive";
+        SalesCommentLine: Record "Sales Comment Line";
+        NextLine: Integer;
+        Text004: Label 'Document restored from Version %1.';
+    begin
+        SalesCommentLineArchive.SetRange("Document Type", SalesHeaderArchive."Document Type");
+        SalesCommentLineArchive.SetRange("No.", SalesHeaderArchive."No.");
+        SalesCommentLineArchive.SetRange("Doc. No. Occurrence", SalesHeaderArchive."Doc. No. Occurrence");
+        SalesCommentLineArchive.SetRange("Version No.", SalesHeaderArchive."Version No.");
+        if SalesCommentLineArchive.FindSet then
+            repeat
+                SalesCommentLine.Init();
+                SalesCommentLine.TransferFields(SalesCommentLineArchive);
+                SalesCommentLine.Insert();
+            until SalesCommentLineArchive.Next() = 0;
+
+        SalesCommentLine.SetRange("Document Type", SalesHeader."Document Type");
+        SalesCommentLine.SetRange("No.", SalesHeader."No.");
+        SalesCommentLine.SetRange("Document Line No.", 0);
+        if SalesCommentLine.FindLast then
+            NextLine := SalesCommentLine."Line No.";
+        NextLine += 10000;
+        SalesCommentLine.Init();
+        SalesCommentLine."Document Type" := SalesHeader."Document Type";
+        SalesCommentLine."No." := SalesHeader."No.";
+        SalesCommentLine."Document Line No." := 0;
+        SalesCommentLine."Line No." := NextLine;
+        SalesCommentLine.Date := WorkDate;
+        SalesCommentLine.Comment := StrSubstNo(Text004, Format(SalesHeaderArchive."Version No."));
+        SalesCommentLine.Insert();
+    end;
+
+    local procedure RestoreDeferrals(DeferralDocType: Integer; DocType: Integer; DocNo: Code[20]; LineNo: Integer; DocNoOccurrence: Integer; VersionNo: Integer)
+    var
+        DeferralHeaderArchive: Record "Deferral Header Archive";
+        DeferralLineArchive: Record "Deferral Line Archive";
+        DeferralHeader: Record "Deferral Header";
+        DeferralLine: Record "Deferral Line";
+        DeferralUtilities: Codeunit "Deferral Utilities";
+    begin
+        if DeferralHeaderArchive.Get(DeferralDocType, DocType, DocNo, DocNoOccurrence, VersionNo, LineNo) then begin
+            // Updates the header if is exists already and removes all the lines
+            DeferralUtilities.SetDeferralRecords(DeferralHeader,
+              DeferralDocType, '', '',
+              DocType, DocNo, LineNo,
+              DeferralHeaderArchive."Calc. Method",
+              DeferralHeaderArchive."No. of Periods",
+              DeferralHeaderArchive."Amount to Defer",
+              DeferralHeaderArchive."Start Date",
+              DeferralHeaderArchive."Deferral Code",
+              DeferralHeaderArchive."Schedule Description",
+              DeferralHeaderArchive."Initial Amount to Defer",
+              true,
+              DeferralHeaderArchive."Currency Code");
+
+            // Add lines as exist in the archives
+            DeferralLineArchive.SetRange("Deferral Doc. Type", DeferralDocType);
+            DeferralLineArchive.SetRange("Document Type", DocType);
+            DeferralLineArchive.SetRange("Document No.", DocNo);
+            DeferralLineArchive.SetRange("Doc. No. Occurrence", DocNoOccurrence);
+            DeferralLineArchive.SetRange("Version No.", VersionNo);
+            DeferralLineArchive.SetRange("Line No.", LineNo);
+            if DeferralLineArchive.FindSet then
+                repeat
+                    DeferralLine.Init();
+                    DeferralLine.TransferFields(DeferralLineArchive);
+                    DeferralLine.Insert();
+                until DeferralLineArchive.Next() = 0;
+        end else
+            // Removes any lines that may have been defaulted
+            DeferralUtilities.RemoveOrSetDeferralSchedule('', DeferralDocType, '', '', DocType, DocNo, LineNo, 0, 0D, '', '', true);
+    end;
+
     Var
         BooGAvoidControl: Boolean;
         gFromTheSameLot: Boolean;
@@ -838,4 +1481,6 @@ codeunit 50021 "PWD LPSA Functions Mgt."
         gLotDeterminingExpirDate: Date;
 
 
+        ToTemplateName: Code[10];
+        ToBatchName: Code[10];
 }

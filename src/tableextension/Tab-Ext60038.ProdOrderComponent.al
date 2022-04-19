@@ -87,9 +87,10 @@ tableextension 60038 "PWD ProdOrderComponent" extends "Prod. Order Component"
     }
 
     procedure ShowItemSubPhantom()
+    var
+        PWDLPSAFunctionsMgt: Codeunit "PWD LPSA Functions Mgt.";
     begin
-        //TODO: 'ItemSubstitutionMgt' is inaccessible due to its protection level
-        //ItemSubstitutionMgt.GetCompSubstPhantom(Rec);
+        PWDLPSAFunctionsMgt.GetCompSubstPhantom(Rec);
     end;
 
     procedure UpdateReserveItemPhantom()
