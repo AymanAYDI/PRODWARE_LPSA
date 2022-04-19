@@ -106,7 +106,7 @@ xmlport 8073321 "PWD Import OT Sabatier"
 
     var
         RecGConnectorValues: Record "PWD Connector Values";
-        CduGBufferManagement: Codeunit "Buffer Management";
+        CduGBufferManagement: Codeunit "PWD Buffer Management";
 
 
     procedure FctInitXmlPort(RecPConnectorValues: Record "PWD Connector Values")

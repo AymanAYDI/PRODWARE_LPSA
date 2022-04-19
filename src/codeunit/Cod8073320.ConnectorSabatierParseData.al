@@ -39,7 +39,7 @@ codeunit 8073320 "Connector Sabatier Parse Data"
 
     var
         CduGConnectBufMgtExport: Codeunit "Connector Buffer Mgt Export";
-        CduGBufferManagement: Codeunit "Buffer Management";
+        CduGBufferManagement: Codeunit "PWD Buffer Management";
         OptGFlowType: Option " ","Import Connector","Export Connector";
         IntGSequenceNo: Integer;
 
@@ -61,7 +61,7 @@ codeunit 8073320 "Connector Sabatier Parse Data"
         RecLPartnerConnector: Record "PWD Partner Connector";
         RecLConnectorValues: Record "PWD Connector Values";
         BigTLToReturn: BigText;
-        CduLBufferMgt: Codeunit "Buffer Management";
+        CduLBufferMgt: Codeunit "PWD Buffer Management";
         InLStream: InStream;
         CduLFileManagement: Codeunit "File Management";
         TxtLFile: Text[1024];

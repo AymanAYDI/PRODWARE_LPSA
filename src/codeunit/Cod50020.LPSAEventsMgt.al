@@ -932,13 +932,6 @@ codeunit 50020 "PWD LPSA Events Mgt."
         //ItemTrackingForm.EDITABLE := FALSE;
     end;
     //---CDU99000813---
-    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Carry Out Action", 'OnProdOrderChgAndResheduleOnAfterValidateQuantity', '', false, false)]
-    local procedure CDU99000813_OnProdOrderChgAndResheduleOnAfterValidateQuantity_CarryOutAction(var ProdOrderLine: Record "Prod. Order Line"; var RequisitionLine: Record "Requisition Line")
-    begin
-        //TODO: "End Date Objective" and "Earliest Start Date" does not exist
-        // ProdOrderLine.VALIDATE("End Date Objective", 0DT);
-        // ProdOrderLine.VALIDATE("Earliest Start Date", 0D);
-    end;
 
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Carry Out Action", 'OnInsertProdOrderOnAfterProdOrderInsert', '', false, false)]
     local procedure CDU99000813_OnInsertProdOrderOnAfterProdOrderInsert_CarryOutAction(var ProdOrder: Record "Production Order"; ReqLine: Record "Requisition Line")
@@ -947,8 +940,6 @@ codeunit 50020 "PWD LPSA Events Mgt."
     begin
         Item.Get(ReqLine."No.");
         ProdOrder."Search Description" := Item."Search Description";
-        //TODO: 'Record "Production Order"' does not contain a definition for 'End Date Objective'
-        // ProdOrder."End Date Objective" := CREATEDATETIME(ProdOrder."Ending Date", ProdOrder."Ending Time");
     end;
 
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Carry Out Action", 'OnAfterTransferPlanningComp', '', false, false)]
@@ -957,12 +948,30 @@ codeunit 50020 "PWD LPSA Events Mgt."
         //TODO: table extension "Planning Component" n'exsiste pas
         ProdOrderComponent."PWD Lot Determining" := PlanningComponent."Lot Determining";
     end;
+
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Carry Out Action", 'OnInsertProdOrderOnBeforeProdOrderInsert', '', false, false)]
+    local procedure CDU99000813_OnInsertProdOrderOnBeforeProdOrderInsert_CarryOutAction(var ProdOrder: Record "Production Order"; ReqLine: Record "Requisition Line")
+    var
+        CstG001: label 'Series No for orders is not correct to renum Production Orders';
+    begin
+        IF ReqLine."PWD Transmitted Order No." THEN
+            IF STRLEN(ReqLine."PWD Original Source No.") = 8 THEN
+                ProdOrder."No." := COPYSTR(ReqLine."PWD Original Source No.", 3, 6) + '-'
+                               + FORMAT(ReqLine."PWD Original Source Position") + '-0'
+                               + FORMAT(ReqLine."PWD Original Counter")
+            ELSE BEGIN
+                ERROR(CstG001);
+                ProdOrder."PWD Transmitted Order No." := TRUE;
+                ProdOrder."PWD Original Source No." := ReqLine."PWD Original Source No.";
+                ProdOrder."PWD Original Source Position" := ReqLine."PWD Original Source Position";
+                ProdOrder."No. Series" := '';
+            end;
+    end;
     //---CDU99000809---
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Planning Line Management", 'OnBeforeInsertAsmPlanningComponent', '', false, false)]
     local procedure CDU99000809_OnBeforeInsertAsmPlanningComponent_PlanningLineManagement(var ReqLine: Record "Requisition Line"; var BOMComponent: Record "BOM Component"; var PlanningComponent: Record "Planning Component")
     begin
-        //TODO: Level?
-        PlanningComponent."Lot Determining" := BOMComponent[Level]."Lot Determining";
+        PlanningComponent."Lot Determining" := BOMComponent."Lot Determining";
     end;
     //---CDU5063---
     [EventSubscriber(ObjectType::Codeunit, Codeunit::ArchiveManagement, 'OnBeforeRestoreSalesDocument', '', false, false)]
@@ -1170,6 +1179,26 @@ codeunit 50020 "PWD LPSA Events Mgt."
         IF (FromProdOrderLine.ExistPhantomItem <> '') AND (NewStatus = NewStatus::Released) THEN
             ERROR(Txt50000, FromProdOrderLine."Line No.");
         //<<FE_LAPRIERRETTE_GP0003 : APA 16/05/2013  
+    end;
+    //---CDU99000787---
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Create Prod. Order Lines", 'OnBeforeProdOrderLineInsert', '', false, false)]
+    local procedure CDU99000787_OnBeforeProdOrderLineInsert_CreateProdOrderLines(var ProdOrderLine: Record "Prod. Order Line"; var ProductionOrder: Record "Production Order"; SalesLineIsSet: Boolean; var SalesLine: Record "Sales Line")
+    begin
+        ProdOrderLine.FctIsRecreateOrderLine();
+    end;
+
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Create Prod. Order Lines", 'OnBeforeInsertProdOrderLine', '', false, false)]
+    local procedure CDU99000787_OnBeforeInsertProdOrderLine_CreateProdOrderLines(var ProdOrderLine: Record "Prod. Order Line"; var ProdOrderLine3: Record "Prod. Order Line"; var InsertNew: Boolean; var IsHandled: Boolean)
+    begin
+        if InsertNew and not (ProdOrderLine3.FindFirst()) then
+            ProdOrderLine.FctIsRecreateOrderLine();
+    end;
+    //---CDU99000773---
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Calculate Prod. Order", 'OnTransferBOMProcessItemOnBeforeGetPlanningParameters', '', false, false)]
+    local procedure CDU99000773_OnTransferBOMProcessItemOnBeforeGetPlanningParameters_CalculateProdOrder(var ProdOrderComponent: Record "Prod. Order Component"; ProductionBOMLine: Record "Production BOM Line")
+    begin
+        //TODO: table extension "Production BOM Line" n'exsiste pas
+        ProdOrderComponent."PWD Lot Determining" := ProductionBOMLine."Lot Determining";
     end;
 
     var

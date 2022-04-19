@@ -690,13 +690,6 @@ codeunit 50021 "PWD LPSA Functions Mgt."
             UNTIL PlanningRtngLine.NEXT = 0;
     END;
 
-    var
-        gFromTheSameLot: Boolean;
-        gLotDeterminingLotCode: Code[30];
-        gLotDeterminingExpirDate: Date;
-
-
-
     PROCEDURE SetNoFinishCOntrol(BooPAvoidControl: Boolean);
     BEGIN
         BooGAvoidControl := BooPAvoidControl;
@@ -784,7 +777,65 @@ codeunit 50021 "PWD LPSA Functions Mgt."
         END;
         //PLAW1 2.1 END
     END;
+    //---CDU99000792---
+    PROCEDURE Fct_TransmitOrderNo(SalesLine: Record "Sales Line") BooLTransOrderNo: Boolean
+    VAR
+        ReclItem: Record Item;
+        RecLItemCategory: Record "Item Category";
+    BEGIN
+        BooLTransOrderNo := FALSE;
+
+        IF SalesLine.Type = SalesLine.Type::Item THEN
+            IF ReclItem.GET(SalesLine."No.") THEN
+                IF RecLItemCategory.GET(ReclItem."Item Category Code") THEN
+                    IF RecLItemCategory."PWD Transmitted Order No." THEN
+                        BooLTransOrderNo := TRUE;
+    END;
+
+    //---CDU99000778---
+    PROCEDURE FindFirsRecord() Tracking: Text[250]
+    VAR
+        TrackingExists: Boolean;
+        //TODO: a vérifier : les variables TempReservEntryList,TrackingEntry, EntryNo, ItemLedgEntry2 sont des variables globales dans le codeunit OrderTrackingManagement
+        TempReservEntryList: Record "Reservation Entry" temporary;
+        TrackingEntry: Record "Order Tracking Entry" temporary;
+        EntryNo: Integer;
+        Window: Dialog;
+        ItemLedgEntry2: Record "Item Ledger Entry";
+        Text000: label 'Counting records...';
+    BEGIN
+        //>>LAP2.06
+        TempReservEntryList.DELETEALL;
+        TrackingEntry.DELETEALL;
+        EntryNo := 1;
+
+        WITH TrackingEntry DO BEGIN
+            Window.OPEN(Text000);
+            INIT;
+            "Entry No." := 0;
+            //TODO: DrillOrdersUp procedure local dans le codeunit OrderTrackingManagement
+            //DrillOrdersUp(ReservEntry, 1);
+            ItemLedgEntry2.SETCURRENTKEY("Entry No.");
+            ItemLedgEntry2.MARKEDONLY(TRUE);
+            IF ItemLedgEntry2.FIND('-') THEN
+                REPEAT
+                //TODO: InsertItemLedgTrackEntry procedure local dans le codeunit OrderTrackingManagement
+                //InsertItemLedgTrackEntry(1, ItemLedgEntry2, ItemLedgEntry2."Remaining Quantity", ItemLedgEntry2);
+                UNTIL ItemLedgEntry2.NEXT = 0;
+            TrackingExists := FIND('-');
+            IF TrackingExists THEN
+                EXIT(FORMAT(-Quantity) + ' - ' + "Supplied by")
+            ELSE
+                EXIT('Pas de chainage');
+        END;
+        //<<LAP2.06
+    END;
 
     Var
         BooGAvoidControl: Boolean;
+        gFromTheSameLot: Boolean;
+        gLotDeterminingLotCode: Code[30];
+        gLotDeterminingExpirDate: Date;
+
+
 }

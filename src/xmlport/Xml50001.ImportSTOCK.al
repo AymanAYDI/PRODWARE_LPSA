@@ -79,7 +79,7 @@ xmlport 50001 "PWD Import STOCK"
                     RecLProdOrderLine: Record "Prod. Order Line";
                     RecLMachine: Record "Machine Center";
                     "-LAP2.06.01-": Integer;
-                    CduLOSYSParseData: Codeunit "Connector OSYS Parse Data";
+                    CduLOSYSParseData: Codeunit "PWD Connector OSYS Parse Data";
                     CodLItemNo: Code[20];
                 begin
                     RefLRecordRef.GetTable("PWD Item Jounal Line Buffer");
@@ -100,7 +100,7 @@ xmlport 50001 "PWD Import STOCK"
                     RecLProdOrderLine: Record "Prod. Order Line";
                     RecLMachine: Record "Machine Center";
                     "-LAP2.06.01-": Integer;
-                    CduLOSYSParseData: Codeunit "Connector OSYS Parse Data";
+                    CduLOSYSParseData: Codeunit "PWD Connector OSYS Parse Data";
                     CodLItemNo: Code[20];
                     RecLConnectorsActivation: Record "PWD OSYS Setup";
                 begin
@@ -137,17 +137,17 @@ xmlport 50001 "PWD Import STOCK"
 
     trigger OnPreXmlPort()
     begin
-        RecGOSYSSetup.Get();
-        RecGOSYSSetup.TestField("Journal Templ Name Stock MVT");
-        RecGOSYSSetup.TestField("Journal Batch Name Stock MVT");
-        RecGOSYSSetup.TestField("Journal Templ Name Stock TRF");
-        RecGOSYSSetup.TestField("Journal Batch Name Stock TRF");
+        OSYSSetup.Get();
+        OSYSSetup.TestField("Journal Templ Name Stock MVT");
+        OSYSSetup.TestField("Journal Batch Name Stock MVT");
+        OSYSSetup.TestField("Journal Templ Name Stock TRF");
+        OSYSSetup.TestField("Journal Batch Name Stock TRF");
     end;
 
     var
         RecGConnectorValues: Record "PWD Connector Values";
-        CduGBufferManagement: Codeunit "Buffer Management";
-        RecGOSYSSetup: Record "PWD OSYS Setup";
+        CduGBufferManagement: Codeunit "PWD Buffer Management";
+        OSYSSetup: Record "PWD OSYS Setup";
         RecGConnectorMessages: Record "PWD Connector Messages";
 
 

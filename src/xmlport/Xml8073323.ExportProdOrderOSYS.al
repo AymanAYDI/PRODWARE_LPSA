@@ -171,7 +171,7 @@ xmlport 8073323 "PWD Export Prod Order OSYS"
 
                     trigger OnBeforePassVariable()
                     begin
-                        F_ManufacturingCode := "Prod. Order Line"."Manufacturing Code";
+                        F_ManufacturingCode := "Prod. Order Line"."PWD Manufacturing Code";
                     end;
                 }
                 tableelement("Tracking Specification"; "Tracking Specification")

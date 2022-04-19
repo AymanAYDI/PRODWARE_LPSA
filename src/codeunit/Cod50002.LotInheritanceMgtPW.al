@@ -250,19 +250,19 @@ codeunit 50002 "PWD Lot Inheritance Mgt.PW"
 
         WITH pioItemJnlLine DO BEGIN
             ProdOrderComp.SETRANGE(Status, ProdOrderComp.Status::Released);
-            ProdOrderComp.SETRANGE("Prod. Order No.", "Prod. Order No.");
-            ProdOrderComp.SETRANGE("Prod. Order Line No.", "Prod. Order Line No.");
-            ProdOrderComp.SETRANGE("Lot Determining", TRUE);
+            ProdOrderComp.SETRANGE("Order No.", "Order No.");
+            ProdOrderComp.SETRANGE("Order Line No.", "Order Line No.");
+            ProdOrderComp.SETRANGE("PWD Lot Determining", TRUE);
             IF ProdOrderComp.FIND('=><') THEN BEGIN
                 //Begin#803/01:A9203/2.10.08  19.12.05 TECTURA.WW
                 ItemLedgEntry.SETCURRENTKEY(
-                  "Prod. Order No.",
-                  "Prod. Order Line No.",
+                  "Order No.",
+                  "Order Line No.",
                   "Entry Type",
                   "Prod. Order Comp. Line No.");
                 //End#803/01:A9203/2.10.08  19.12.05 TECTURA.WW
-                ItemLedgEntry.SETRANGE("Prod. Order No.", ProdOrderComp."Prod. Order No.");
-                ItemLedgEntry.SETRANGE("Prod. Order Line No.", ProdOrderComp."Prod. Order Line No.");
+                ItemLedgEntry.SETRANGE("Order No.", ProdOrderComp."Order No.");
+                ItemLedgEntry.SETRANGE("Order Line No.", ProdOrderComp."Order Line No.");
                 ItemLedgEntry.SETRANGE("Entry Type", ItemLedgEntry."Entry Type"::Consumption);
                 ItemLedgEntry.SETRANGE("Item No.", ProdOrderComp."Item No.");
 
@@ -328,8 +328,8 @@ codeunit 50002 "PWD Lot Inheritance Mgt.PW"
                     ItemJnlLine.SETRANGE("Journal Template Name", pioItemJnlLine."Journal Template Name");
                     ItemJnlLine.SETRANGE("Journal Batch Name", pioItemJnlLine."Journal Batch Name");
                     ItemJnlLine.SETRANGE("Entry Type", ItemJnlLine."Entry Type"::Consumption);
-                    ItemJnlLine.SETRANGE("Prod. Order No.", pioItemJnlLine."Prod. Order No.");
-                    ItemJnlLine.SETRANGE("Prod. Order Line No.", pioItemJnlLine."Prod. Order Line No.");
+                    ItemJnlLine.SETRANGE("Order No.", pioItemJnlLine."Order No.");
+                    ItemJnlLine.SETRANGE("Order Line No.", pioItemJnlLine."Order Line No.");
                     IF ItemJnlLine.FIND('-') THEN BEGIN
                         ReservEntry.SETCURRENTKEY(
                             "Source Type",
@@ -387,14 +387,14 @@ codeunit 50002 "PWD Lot Inheritance Mgt.PW"
     begin
         //Begin#803/01:A9203/2.10.08  19.12.05 TECTURA.WW
         ItemLedgEntry.SETCURRENTKEY(
-          "Prod. Order No.",
-          "Prod. Order Line No.",
+          "Order No.",
+          "Order Line No.",
           "Entry Type",
           "Prod. Order Comp. Line No.");
         //End#803/01:A9203/2.10.08  19.12.05 TECTURA.WW
 
-        ItemLedgEntry.SETRANGE("Prod. Order No.", piProdOrderComp."Prod. Order No.");
-        ItemLedgEntry.SETRANGE("Prod. Order Line No.", piProdOrderComp."Prod. Order Line No.");
+        ItemLedgEntry.SETRANGE("Order No.", piProdOrderComp."Order No.");
+        ItemLedgEntry.SETRANGE("Order Line No.", piProdOrderComp."Order Line No.");
         ItemLedgEntry.SETRANGE("Prod. Order Comp. Line No.", piProdOrderComp."Line No.");
         ItemLedgEntry.SETRANGE("Entry Type", ItemLedgEntry."Entry Type"::Consumption);
 
@@ -419,8 +419,8 @@ codeunit 50002 "PWD Lot Inheritance Mgt.PW"
         ProdOrderComp: Record "Prod. Order Component";
     begin
         ProdOrderComp.SETRANGE(Status, pioProdOrderComp.Status);
-        ProdOrderComp.SETRANGE("Prod. Order No.", pioProdOrderComp."Prod. Order No.");
-        ProdOrderComp.SETRANGE("Prod. Order Line No.", pioProdOrderComp."Prod. Order Line No.");
+        ProdOrderComp.SETRANGE("Order No.", pioProdOrderComp."Order No.");
+        ProdOrderComp.SETRANGE("Order Line No.", pioProdOrderComp."Order Line No.");
         ProdOrderComp.SETRANGE("Item No.", pioProdOrderComp."Item No.");
 
         IF ProdOrderComp.FIND('-') THEN
@@ -484,8 +484,8 @@ codeunit 50002 "PWD Lot Inheritance Mgt.PW"
 
         IF NOT ProdOrderComp.GET(
           ProdOrderComp.Status::Released,
-          piItemJnlLine."Prod. Order No.",
-          piItemJnlLine."Prod. Order Line No.",
+          piItemJnlLine."Order No.",
+          piItemJnlLine."Order Line No.",
           piItemJnlLine."Prod. Order Comp. Line No.")
         THEN
             EXIT;
@@ -511,21 +511,21 @@ codeunit 50002 "PWD Lot Inheritance Mgt.PW"
             OutputJnlLine.SETRANGE("Journal Template Name", piItemJnlLine."Journal Template Name");
             OutputJnlLine.SETRANGE("Journal Batch Name", piItemJnlLine."Journal Batch Name");
             OutputJnlLine.SETRANGE("Entry Type", OutputJnlLine."Entry Type"::Output);
-            OutputJnlLine.SETRANGE("Prod. Order No.", piItemJnlLine."Prod. Order No.");
-            OutputJnlLine.SETRANGE("Prod. Order Line No.", piItemJnlLine."Prod. Order Line No.");
+            OutputJnlLine.SETRANGE("Order No.", piItemJnlLine."Order No.");
+            OutputJnlLine.SETRANGE("Order Line No.", piItemJnlLine."Order Line No.");
             OutputFound := OutputJnlLine.FINDFIRST();
         END ELSE BEGIN
             //End#803/01:A10211/2.20.04  12.01.07 TECTURA.WW
             OutputJnlLine.SETRANGE("Journal Template Name", piItemJnlLine."Journal Template Name");
             OutputJnlLine.SETRANGE("Journal Batch Name", piItemJnlLine."Journal Batch Name");
             OutputJnlLine.SETRANGE("Entry Type", OutputJnlLine."Entry Type"::Output);
-            OutputJnlLine.SETRANGE("Prod. Order No.", piItemJnlLine."Prod. Order No.");
-            OutputJnlLine.SETRANGE("Prod. Order Line No.", piItemJnlLine."Prod. Order Line No.");
+            OutputJnlLine.SETRANGE("Order No.", piItemJnlLine."Order No.");
+            OutputJnlLine.SETRANGE("Order Line No.", piItemJnlLine."Order Line No.");
             IF OutputJnlLine.FIND('-') THEN
                 REPEAT
                     ProdOrderRtngLine.GET(
                       ProdOrderRtngLine.Status::Released,
-                      OutputJnlLine."Prod. Order No.",
+                      OutputJnlLine."Order No.",
                       OutputJnlLine."Routing Reference No.",
                       OutputJnlLine."Routing No.",
                       OutputJnlLine."Operation No.");
@@ -561,8 +561,8 @@ codeunit 50002 "PWD Lot Inheritance Mgt.PW"
 
         IF NOT ProdOrderLine.GET(
           ProdOrderLine.Status::Released,
-          piItemJnlLine."Prod. Order No.",
-          piItemJnlLine."Prod. Order Line No.")
+          piItemJnlLine."Order No.",
+          piItemJnlLine."Order Line No.")
         THEN
             EXIT;
 
@@ -672,18 +672,18 @@ codeunit 50002 "PWD Lot Inheritance Mgt.PW"
 
         WITH pioProdOrderLine DO BEGIN
             ProdOrderComp.SETRANGE(Status, Status);
-            ProdOrderComp.SETRANGE("Prod. Order No.", "Prod. Order No.");
-            ProdOrderComp.SETRANGE("Prod. Order Line No.", "Line No.");
+            ProdOrderComp.SETRANGE("Order No.", "Order No.");
+            ProdOrderComp.SETRANGE("Order Line No.", "Line No.");
             ProdOrderComp.SETRANGE("Lot Determining", TRUE);
             IF ProdOrderComp.FIND('=><') THEN BEGIN
                 ItemLedgEntry.SETCURRENTKEY(
-                  "Prod. Order No.",
-                  "Prod. Order Line No.",
+                  "Order No.",
+                  "Order Line No.",
                   "Entry Type",
                   "Prod. Order Comp. Line No.");
 
-                ItemLedgEntry.SETRANGE("Prod. Order No.", ProdOrderComp."Prod. Order No.");
-                ItemLedgEntry.SETRANGE("Prod. Order Line No.", ProdOrderComp."Prod. Order Line No.");
+                ItemLedgEntry.SETRANGE("Order No.", ProdOrderComp."Order No.");
+                ItemLedgEntry.SETRANGE("Order Line No.", ProdOrderComp."Order Line No.");
                 ItemLedgEntry.SETRANGE("Entry Type", ItemLedgEntry."Entry Type"::Consumption);
                 ItemLedgEntry.SETRANGE("Item No.", ProdOrderComp."Item No.");
 
@@ -762,7 +762,7 @@ codeunit 50002 "PWD Lot Inheritance Mgt.PW"
 
                     ReservEntry.SETRANGE("Source Type", DATABASE::"Prod. Order Component");
                     ReservEntry.SETRANGE("Source Subtype", pioProdOrderLine.Status);
-                    ReservEntry.SETRANGE("Source ID", pioProdOrderLine."Prod. Order No.");
+                    ReservEntry.SETRANGE("Source ID", pioProdOrderLine."Order No.");
                     ReservEntry.SETRANGE("Source Batch Name", '');
                     ReservEntry.SETRANGE("Source Prod. Order Line", pioProdOrderLine."Line No.");
                     ReservEntry.SETRANGE("Source Ref. No.", ProdOrderComp."Line No.");
@@ -1161,17 +1161,17 @@ codeunit 50002 "PWD Lot Inheritance Mgt.PW"
         ProdOrderComp: Record "Prod. Order Component";
     begin
         WITH pioItemJnlLine DO BEGIN
-            IF pioItemJnlLine."Prod. Order No." = '' THEN
+            IF pioItemJnlLine."Order No." = '' THEN
                 EXIT(FALSE);
-            IF "Prod. Order Line No." = 0 THEN
+            IF "Order Line No." = 0 THEN
                 EXIT(FALSE);
             IF "Prod. Order Comp. Line No." = 0 THEN
                 EXIT(FALSE);
             IF NOT
               ProdOrderComp.GET(
                 ProdOrderComp.Status::Released,
-                "Prod. Order No.",
-                "Prod. Order Line No.",
+                "Order No.",
+                "Order Line No.",
                 "Prod. Order Comp. Line No.")
             THEN
                 EXIT(FALSE);

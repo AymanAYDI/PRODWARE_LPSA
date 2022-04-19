@@ -234,7 +234,7 @@ xmlport 8073322 "PWD Import Prod OSYS"
 
     var
         RecGConnectorValues: Record "PWD Connector Values";
-        CduGBufferManagement: Codeunit "Buffer Management";
+        CduGBufferManagement: Codeunit "PWD Buffer Management";
         RecGOSYSSetup: Record "PWD OSYS Setup";
         RecGProdOrder: Record "Production Order";
         RecGConnectorMessages: Record "PWD Connector Messages";

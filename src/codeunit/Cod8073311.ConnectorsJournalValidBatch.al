@@ -82,6 +82,6 @@ codeunit 8073311 "Connectors Journal Valid Batch"
 
     var
         RecGOsysSetup: Record "PWD OSYS Setup";
-        CduGBufferManagment: Codeunit "Buffer Management";
+        CduGBufferManagment: Codeunit "PWD Buffer Management";
 }
 

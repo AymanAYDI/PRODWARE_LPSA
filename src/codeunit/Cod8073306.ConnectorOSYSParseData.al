@@ -63,7 +63,7 @@ codeunit 8073306 "PWD Connector OSYS Parse Data"
 
     var
         CduGConnectBufMgtExport: Codeunit "Connector Buffer Mgt Export";
-        CduGBufferManagement: Codeunit "Buffer Management";
+        CduGBufferManagement: Codeunit "PWD Buffer Management";
         OptGFlowType: Option " ","Import Connector","Export Connector";
         IntGSequenceNo: Integer;
 
@@ -94,7 +94,7 @@ codeunit 8073306 "PWD Connector OSYS Parse Data"
         RecLPartnerConnector: Record "PWD Partner Connector";
         RecLConnectorValues: Record "PWD Connector Values";
         BigTLToReturn: BigText;
-        CduLBufferMgt: Codeunit "Buffer Management";
+        CduLBufferMgt: Codeunit "PWD Buffer Management";
         InLStream: InStream;
         CduLFileManagement: Codeunit "File Management";
         TxtLFile: Text[1024];
@@ -179,7 +179,7 @@ codeunit 8073306 "PWD Connector OSYS Parse Data"
 
     procedure FctGetItemsXML(RecPConnectorMes: Record "PWD Connector Messages"; var RecPTempBlob: Record TempBlob temporary)
     var
-        XmlLItemsExport: XMLport "Items Export OSYS";
+        XmlLItemsExport: XMLport "PWD Items Export OSYS";
         OutLStream: OutStream;
     begin
         CLEAR(XmlLItemsExport);
@@ -194,7 +194,7 @@ codeunit 8073306 "PWD Connector OSYS Parse Data"
 
     procedure FctGetStockXML(RecPConnectorMes: Record "PWD Connector Messages"; var RecPTempBlob: Record TempBlob temporary)
     var
-        XmlLStockExport: XMLport "Stock Export OSYS";
+        XmlLStockExport: XMLport "PWD Stock Export OSYS";
         OutLStream: OutStream;
     begin
         CLEAR(XmlLStockExport);
@@ -209,7 +209,7 @@ codeunit 8073306 "PWD Connector OSYS Parse Data"
 
     procedure FctImportProdXML(var RecPConnectorValues: Record "PWD Connector Values")
     var
-        XmlLImportProdOsys: XMLport "Import Prod OSYS";
+        XmlLImportProdOsys: XMLport "PWD Import Prod OSYS";
         InsLSrtream: InStream;
     begin
         RecPConnectorValues.CALCFIELDS(Blob);
@@ -222,7 +222,7 @@ codeunit 8073306 "PWD Connector OSYS Parse Data"
 
     procedure FctImportConsoXML(var RecPConnectorValues: Record "PWD Connector Values")
     var
-        XmlLImportConsoOsys: XMLport "Import Conso OSYS";
+        XmlLImportConsoOsys: XMLport "PWD Import Conso OSYS";
         InsLSrtream: InStream;
     begin
         RecPConnectorValues.CALCFIELDS(Blob);
@@ -249,7 +249,7 @@ codeunit 8073306 "PWD Connector OSYS Parse Data"
 
     procedure FctGetReleasedProdOrderXML(RecPConnectorMes: Record "PWD Connector Messages"; var RecPTempBlob: Record TempBlob temporary)
     var
-        XmlLExportProdOrderOSYS: XMLport "Export Prod Order OSYS";
+        XmlLExportProdOrderOSYS: XMLport "PWD Export Prod Order OSYS";
         OutLStream: OutStream;
     begin
         CLEAR(XmlLExportProdOrderOSYS);
@@ -265,7 +265,7 @@ codeunit 8073306 "PWD Connector OSYS Parse Data"
 
     procedure FctGetFinishedProdOrderXML(RecPConnectorMes: Record "PWD Connector Messages"; var RecPTempBlob: Record TempBlob temporary)
     var
-        XmlLExportProdOrderOSYS: XMLport "Export Prod Order OSYS";
+        XmlLExportProdOrderOSYS: XMLport "PWD Export Prod Order OSYS";
         OutLStream: OutStream;
     begin
         CLEAR(XmlLExportProdOrderOSYS);
@@ -281,7 +281,7 @@ codeunit 8073306 "PWD Connector OSYS Parse Data"
 
     procedure FctGetDeletedProdOrderXML(RecPConnectorMes: Record "PWD Connector Messages"; var RecPTempBlob: Record TempBlob temporary)
     var
-        XmlLExportDeleteProdOrderOSYS: XMLport "Delete Prod. Order Line";
+        XmlLExportDeleteProdOrderOSYS: XMLport "PWD Delete Prod. Order Line";
         OutLStream: OutStream;
     begin
         CLEAR(XmlLExportDeleteProdOrderOSYS);
@@ -323,8 +323,8 @@ codeunit 8073306 "PWD Connector OSYS Parse Data"
                 "Entry Type"::Output:
                     BEGIN
 
-                        IF RecLProdOrderLine.GET(RecLProdOrderLine.Status::Released, RecPItemJounalLine."Prod. Order No.",
-                                                  RecPItemJounalLine."Prod. Order Line No.") THEN
+                        IF RecLProdOrderLine.GET(RecLProdOrderLine.Status::Released, RecPItemJounalLine."Order No.",
+                                                  RecPItemJounalLine."Order Line No.") THEN
                             ;
 
 
@@ -407,8 +407,8 @@ codeunit 8073306 "PWD Connector OSYS Parse Data"
 
 
                     //gestion des gammes line link
-                    IF RecLProdOrderLine.GET(RecLProdOrderLine.Status::Released, RecPItemJounalLine."Prod. Order No.",
-                                              RecPItemJounalLine."Prod. Order Line No.") THEN
+                    IF RecLProdOrderLine.GET(RecLProdOrderLine.Status::Released, RecPItemJounalLine."Order No.",
+                                              RecPItemJounalLine."Order Line No.") THEN
                         IF RecLProdOrderRtngLine.GET(RecLProdOrderLine.Status, RecLProdOrderLine."Prod. Order No.", RecLProdOrderLine."Line No.",
                                                      RecLProdOrderLine."Routing No.", RecLItemJounalLineBuffer."Operation No.") THEN BEGIN
                             RecLProdOrderComponent.RESET();
@@ -484,9 +484,9 @@ codeunit 8073306 "PWD Connector OSYS Parse Data"
 
     procedure FctGetItemsPossibleXML(RecPConnectorMes: Record "PWD Connector Messages"; var RecPTempBlob: Record TempBlob temporary; CodPItemNo: Code[20])
     var
-        XmlLItemsPossibleExport: XMLport "Possible Items Export";
+        XmlLItemsPossibleExport: XMLport "PWD Possible Items Export";
         OutLStream: OutStream;
-        RecLPossibleItems: Record "Possible Items";
+        RecLPossibleItems: Record "PWD Possible Items";
     begin
         //>>FE_LAPRIERRETTE_GP0004.001
         CLEAR(XmlLItemsPossibleExport);
@@ -512,7 +512,7 @@ codeunit 8073306 "PWD Connector OSYS Parse Data"
         RecLTempBlob: Record TempBlob temporary;
         RecLPartnerConnector: Record "PWD Partner Connector";
         RecLConnectorValues: Record "PWD Connector Values";
-        CduLBufferMgt: Codeunit "Buffer Management";
+        CduLBufferMgt: Codeunit "PWD Buffer Management";
         InLStream: InStream;
         CduLFileManagement: Codeunit "File Management";
         TxtLFile: Text[1024];
@@ -593,8 +593,8 @@ codeunit 8073306 "PWD Connector OSYS Parse Data"
             IF RecLProdOrderLine.FINDFIRST() THEN BEGIN
                 RecPItemJounalLineBuffer."Lot No." := FORMAT(RecLProdOrder."No.");
                 RecPItemJounalLineBuffer."Prod. Order Line No." := RecLProdOrderLine."Line No.";
-                RecPItemJounalLineBuffer."Is Possible Item" := RecLProdOrderLine."Is Possible Item";
-                IF RecLProdOrderLine."Is Possible Item" THEN BEGIN
+                RecPItemJounalLineBuffer."Is Possible Item" := RecLProdOrderLine."PWD Is Possible Item";
+                IF RecLProdOrderLine."PWD Is Possible Item" THEN BEGIN
                     RecPItemJounalLineBuffer."Setup Time" := 0;
                     RecPItemJounalLineBuffer."Run Time" := 0;
                     RecPItemJounalLineBuffer.Finished := TRUE;
@@ -643,12 +643,12 @@ codeunit 8073306 "PWD Connector OSYS Parse Data"
         RecLProdOrderLine."Inventory Posting Group" := RecLItem."Inventory Posting Group";
         RecLProdOrderLine.UpdateDatetime();
         RecLProdOrderLine.VALIDATE("Unit Cost");
-        RecLProdOrderLine.VALIDATE("Earliest Start Date");
+        //RecLProdOrderLine.VALIDATE("Earliest Start Date");
         IF NOT CduLFileManagement.FctEvaluateDecimal(RecPItemJounalLineBuffer.Quantity, RecLProdOrderLine.Quantity) THEN
             EVALUATE(RecLProdOrderLine.Quantity, RecPItemJounalLineBuffer.Quantity);
         RecLProdOrderLine.VALIDATE(Quantity);
         RecLProdOrderLine.UpdateDatetime();
-        RecLProdOrderLine."Is Possible Item" := TRUE;
+        RecLProdOrderLine."PWD Is Possible Item" := TRUE;
         RecLProdOrderLine.INSERT(TRUE);
 
         RecPItemJounalLineBuffer."Lot No." := FORMAT(RecLProdOrder."No.");
@@ -669,7 +669,7 @@ codeunit 8073306 "PWD Connector OSYS Parse Data"
     begin
         IF RecLItem.GET(CodPItemNo) THEN
             IF RecLItemCategory.GET(RecLItem."Item Category Code") THEN
-                IF NOT RecLItemCategory."Transmitted Order No." THEN
+                IF NOT RecLItemCategory."PWD Transmitted Order No." THEN
                     EXIT(TRUE);
         EXIT(FALSE)
     end;
@@ -700,7 +700,7 @@ codeunit 8073306 "PWD Connector OSYS Parse Data"
             RecLItemJnlLine."Line No." := RecPItemJnlLine."Line No." + 10000;
             RecLItemJnlLine.VALIDATE("Posting Date", RecPItemJnlLine."Posting Date");
             RecLItemJnlLine.VALIDATE("Entry Type", RecLItemJnlLine."Entry Type"::Consumption);
-            RecLItemJnlLine.VALIDATE("Prod. Order No.", "Prod. Order No.");
+            RecLItemJnlLine.VALIDATE("Order No.", "Prod. Order No.");
             RecLItemJnlLine.VALIDATE("Source No.", RecPProdOrderLine."Item No.");
             RecLItemJnlLine.VALIDATE("Item No.", "Item No.");
             RecLItemJnlLine.VALIDATE("Unit of Measure Code", "Unit of Measure Code");
@@ -710,7 +710,7 @@ codeunit 8073306 "PWD Connector OSYS Parse Data"
             IF "Bin Code" <> '' THEN
                 RecLItemJnlLine.VALIDATE("Bin Code", "Bin Code");
             RecLItemJnlLine."Variant Code" := "Variant Code";
-            RecLItemJnlLine.VALIDATE("Prod. Order Line No.", "Prod. Order Line No.");
+            RecLItemJnlLine.VALIDATE("Order Line No.", "Prod. Order Line No.");
             RecLItemJnlLine.VALIDATE("Prod. Order Comp. Line No.", "Line No.");
 
             RecLItemJnlLine.Level := IntPLevel;
@@ -736,7 +736,7 @@ codeunit 8073306 "PWD Connector OSYS Parse Data"
         //>>FE_LAPRIERRETTE_GP0004.002
         IF RecLItem.GET(CodPItemNo) THEN
             IF RecLItemCategory.GET(RecLItem."Item Category Code") THEN
-                IF RecLItemCategory."Transmitted Order No." THEN
+                IF RecLItemCategory."PWD Transmitted Order No." THEN
                     EXIT(TRUE);
         EXIT(FALSE)
         //<<FE_LAPRIERRETTE_GP0004.002
@@ -750,7 +750,7 @@ codeunit 8073306 "PWD Connector OSYS Parse Data"
 
     procedure FctGetReleasedProdOrderLPSA(RecPConnectorMes: Record "PWD Connector Messages"; var RecPTempBlob: Record TempBlob temporary)
     var
-        RepLExportProdOrderLPSA: Report "Export Prod Order LPSA";
+        RepLExportProdOrderLPSA: Report "PWD Export Prod Order LPSA";
     begin
         CLEAR(RepLExportProdOrderLPSA);
         IF RepLExportProdOrderLPSA.FctInitRep() THEN BEGIN
@@ -759,15 +759,9 @@ codeunit 8073306 "PWD Connector OSYS Parse Data"
         END;
     end;
 
-
-    procedure "---- L1P2.22 ----"()
-    begin
-    end;
-
-
     procedure FctImportStockXML(var RecPConnectorValues: Record "PWD Connector Values")
     var
-        XmlLImportStock: XMLport "Import STOCK";
+        XmlLImportStock: XMLport "PWD Import STOCK";
         InsLSrtream: InStream;
     begin
         RecPConnectorValues.CALCFIELDS(Blob);

@@ -15,7 +15,7 @@ codeunit 8073309 "Buffers Process Batch Launcher"
 
     trigger OnRun()
     var
-        CduLBuffersProcessBatch: Codeunit "Buffers Process Batch";
+        CduLBuffersProcessBatch: Codeunit "PWD Buffers Process Batch";
         RecLRef: RecordRef;
     begin
         //***************************************************************************************************
@@ -32,7 +32,7 @@ codeunit 8073309 "Buffers Process Batch Launcher"
         Commit();
         Clear(CduLBuffersProcessBatch);
         Clear(RecLRef);
-        RecLRef.Open(DATABASE::"Customer Buffer");
+        RecLRef.Open(DATABASE::"PWD Customer Buffer");
         CduLBuffersProcessBatch.FctInit(RecLRef);
         if CduLBuffersProcessBatch.Run then;
         RecLRef.Close();
@@ -40,7 +40,7 @@ codeunit 8073309 "Buffers Process Batch Launcher"
         Commit();
         Clear(CduLBuffersProcessBatch);
         Clear(RecLRef);
-        RecLRef.Open(DATABASE::"Sales Header Buffer");
+        RecLRef.Open(DATABASE::"PWD Sales Header Buffer");
         CduLBuffersProcessBatch.FctInit(RecLRef);
         if CduLBuffersProcessBatch.Run then;
         RecLRef.Close();
@@ -56,7 +56,7 @@ codeunit 8073309 "Buffers Process Batch Launcher"
         Commit();
         Clear(CduLBuffersProcessBatch);
         Clear(RecLRef);
-        RecLRef.Open(DATABASE::"Sales Line Buffer");
+        RecLRef.Open(DATABASE::"PWD Sales Line Buffer");
         CduLBuffersProcessBatch.FctInit(RecLRef);
         if CduLBuffersProcessBatch.Run then;
         RecLRef.Close();
