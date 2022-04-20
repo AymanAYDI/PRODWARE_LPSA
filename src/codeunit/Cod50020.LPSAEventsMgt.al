@@ -1130,6 +1130,125 @@ codeunit 50020 "PWD LPSA Events Mgt."
     begin
         IsHandled := true;
     end;
+    //---CDU5750---
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Whse.-Create Source Document", 'OnAfterInitNewWhseShptLine', '', false, false)]
+    local procedure CDU5750_OnAfterInitNewWhseShptLine_WhseCreateSourceDocument(var WhseShptLine: Record "Warehouse Shipment Line"; WhseShptHeader: Record "Warehouse Shipment Header"; SalesLine: Record "Sales Line"; AssembleToOrder: Boolean)
+    begin
+        //<<LAP2.08
+        WhseShptLine."PWD LPSA Description 1" := SalesLine."PWD LPSA Description 1";
+        WhseShptLine."PWD LPSA Description 2" := SalesLine."PWD LPSA Description 2";
+        IF STRLEN(WhseShptLine."PWD LPSA Description 1") > 50 THEN
+            WhseShptLine.Description := PADSTR(WhseShptLine."PWD LPSA Description 1", 50)
+        ELSE
+            WhseShptLine.Description := WhseShptLine."PWD LPSA Description 1";
+        IF STRLEN(WhseShptLine."PWD LPSA Description 2") > 50 THEN
+            WhseShptLine."Description 2" := PADSTR(WhseShptLine."PWD LPSA Description 2", 50)
+        ELSE
+            WhseShptLine."Description 2" := WhseShptLine."PWD LPSA Description 2";
+        //<<LAP2.08
+    end;
+
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Whse.-Create Source Document", 'OnSalesLine2ReceiptLineOnAfterInitNewLine', '', false, false)]
+    local procedure CDU5750_OnSalesLine2ReceiptLineOnAfterInitNewLine_WhseCreateSourceDocument(var WhseReceiptLine: Record "Warehouse Receipt Line"; WhseReceiptHeader: Record "Warehouse Receipt Header"; SalesLine: Record "Sales Line")
+    begin
+        //<<LAP2.08
+        WhseReceiptLine."PWD LPSA Description 1" := SalesLine."PWD LPSA Description 1";
+        WhseReceiptLine."PWD LPSA Description 2" := SalesLine."PWD LPSA Description 2";
+        IF STRLEN(WhseReceiptLine."PWD LPSA Description 1") > 50 THEN
+            WhseReceiptLine.Description := PADSTR(WhseReceiptLine."PWD LPSA Description 1", 50)
+        ELSE
+            WhseReceiptLine.Description := WhseReceiptLine."PWD LPSA Description 1";
+        IF STRLEN(WhseReceiptLine."PWD LPSA Description 2") > 50 THEN
+            WhseReceiptLine."Description 2" := PADSTR(WhseReceiptLine."PWD LPSA Description 2", 50)
+        ELSE
+            WhseReceiptLine."Description 2" := WhseReceiptLine."PWD LPSA Description 2";
+        //<<LAP2.08
+    end;
+
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Whse.-Create Source Document", 'OnPurchLine2ReceiptLineOnAfterInitNewLine', '', false, false)]
+    local procedure CDU5750_OnPurchLine2ReceiptLineOnAfterInitNewLine_WhseCreateSourceDocument(var WhseReceiptLine: Record "Warehouse Receipt Line"; WhseReceiptHeader: Record "Warehouse Receipt Header"; PurchaseLine: Record "Purchase Line")
+    begin
+        //>>LAP2.08
+        WhseReceiptLine."PWD LPSA Description 1" := PurchaseLine."PWD LPSA Description 1";
+        WhseReceiptLine."PWD LPSA Description 2" := PurchaseLine."PWD LPSA Description 2";
+        IF STRLEN(WhseReceiptLine."PWD LPSA Description 1") > 50 THEN
+            WhseReceiptLine.Description := PADSTR(WhseReceiptLine."PWD LPSA Description 1", 50)
+        ELSE
+            WhseReceiptLine.Description := WhseReceiptLine."PWD LPSA Description 1";
+        IF STRLEN(WhseReceiptLine."PWD LPSA Description 2") > 50 THEN
+            WhseReceiptLine."Description 2" := PADSTR(WhseReceiptLine."PWD LPSA Description 2", 50)
+        ELSE
+            WhseReceiptLine."Description 2" := WhseReceiptLine."PWD LPSA Description 2";
+        //<<LAP2.08  
+    end;
+    //---CDU5812---
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Calculate Standard Cost", 'OnAfterSetProdBOMFilters', '', false, false)]
+    local procedure CDU5812_OnAfterSetProdBOMFilters_CalculateStandardCost(var ProdBOMLine: Record "Production BOM Line"; var PBOMVersionCode: Code[20]; var ProdBOMNo: Code[20])
+    begin
+        //>>TDL290719.001
+        ProdBOMLine.SETFILTER("Quantity per", '<>%1', 0);
+        //<<TDL290719.001
+    end;
+    //---CDU5895---
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Inventory Adjustment", 'OnBeforeOpenWindow', '', false, false)]
+    local procedure CDU5895_OnBeforeOpenWindow_InventoryAdjustment(var IsHandled: Boolean)
+    Begin
+        IF Not GUIALLOWED THEN
+            IsHandled := true;
+    End;
+
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Inventory Adjustment", 'OnBeforeUpdateWindow', '', false, false)]
+    local procedure CDU5895_OnBeforeUpdateWindow_InventoryAdjustment(var IsHandled: Boolean)
+    begin
+        IF Not GUIALLOWED THEN
+            IsHandled := true;
+    end;
+
+    //---CDU6500---
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Item Tracking Management", 'OnBeforeRegisterNewItemTrackingLines', '', false, false)]
+    local procedure CDU6500_OnBeforeRegisterNewItemTrackingLines_ItemTrackingManagement(var TempTrackingSpecification: Record "Tracking Specification" temporary)
+    var
+        PWDLPSAFunctionsMgt: codeunit "PWD LPSA Functions Mgt.";
+    begin
+        PWDLPSAFunctionsMgt.BeforeRegisterNewItemTrackingLines(TempTrackingSpecification);
+    end;
+
+    //---CDU6501---
+    [EventSubscriber(ObjectType::Table, Database::"Reservation Entry", 'OnAfterCopyTrackingFromItemLedgEntry', '', false, false)]
+    local procedure CDU6501_OnAfterCopyTrackingFromItemLedgEntry_ReservationEntry(var ReservationEntry: Record "Reservation Entry"; ItemLedgerEntry: Record "Item Ledger Entry")
+    begin
+        //>>FE_LAPIERRETTE_PRO12.001
+        IF ItemLedgerEntry."PWD NC" THEN
+            ReservationEntry."PWD NC" := ItemLedgerEntry."PWD NC";
+        //<<FE_LAPIERRETTE_PRO12.001
+    end;
+
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Item Tracking Data Collection", 'OnCreateEntrySummary2OnAfterSetDoubleEntryAdjustment', '', false, false)]
+    local procedure CDU6501_OnCreateEntrySummary2OnAfterSetDoubleEntryAdjustment_ItemTrackingDataCollection(var TempGlobalEntrySummary: Record "Entry Summary"; var TempReservEntry: Record "Reservation Entry")
+    begin
+        //>>FE_LAPIERRETTE_PRO12.001
+        IF TempReservEntry."PWD NC" THEN
+            TempGlobalEntrySummary."PWD NC" := TempReservEntry."PWD NC";
+        //<<FE_LAPIERRETTE_PRO12.001 
+    end;
+
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Item Tracking Data Collection", 'OnCreateEntrySummary2OnBeforeInsertOrModify', '', false, false)]
+    local procedure CDU6501_OnCreateEntrySummary2OnBeforeInsertOrModify_ItemTrackingDataCollection(var TempGlobalEntrySummary: Record "Entry Summary" temporary; TempReservEntry: Record "Reservation Entry" temporary; TrackingSpecification: Record "Tracking Specification")
+    begin
+        //>>FE_LAPIERRETTE_PRO12.001
+        IF TempReservEntry."PWD NC" THEN
+            TempGlobalEntrySummary."PWD NC" := TempReservEntry."PWD NC";
+        //<<FE_LAPIERRETTE_PRO12.001 
+    end;
+    //---CDU6620---
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Copy Document Mgt.", 'OnBeforeCopySalesToPurchDoc', '', false, false)]
+    local procedure CDU6620_OnBeforeCopySalesToPurchDoc_CopyDocumentMgt(var ToPurchLine: Record "Purchase Line"; var FromSalesLine: Record "Sales Line")
+    begin
+        IF FromSalesLine.Type = FromSalesLine.Type::" " THEN
+            //>>FE_LAPIERRETTE_ART02.001
+            ToPurchLine."PWD LPSA Description 1" := FromSalesLine.Description;
+        //<<FE_LAPIERRETTE_ART02.001
+    end;
 
     var
         DontExecuteIfImport: Boolean;
