@@ -1,8 +1,8 @@
 table 50100 "PWD Item Ledger Entry Out"
 {
     Caption = 'Item Ledger Entry';
-    DrillDownPageID = "PWD Item Ledger Entries";
-    LookupPageID = "PWD Item Ledger Entries";
+    DrillDownPageID = "Item Ledger Entries";
+    LookupPageID = "Item Ledger Entries";
 
     fields
     {

@@ -425,36 +425,36 @@ codeunit 50021 "PWD LPSA Functions Mgt."
         CASE Demand."Source Type" OF
             DATABASE::"Sales Line":
                 //IF RecLSalesLine.GET(Demand."Source Order Status",Demand."Source ID",Demand."Source Ref. No.") THEN BEGIN
-                IF Demand."Transmitted Order No." THEN BEGIN
-                    Supply."Original Source Id" := Demand."Original Source Id";
-                    Supply."Original Source No." := Demand."Original Source No.";
-                    Supply."Original Source Position" := Demand."Original Source Position";
-                    Supply."Original Counter" := 0;
-                    Supply."Transmitted Order No." := TRUE;
+                IF Demand."PWD Transmitted Order No." THEN BEGIN
+                    Supply."PWD Original Source Id" := Demand."PWD Original Source Id";
+                    Supply."PWD Original Source No." := Demand."PWD Original Source No.";
+                    Supply."PWD Original Source Position" := Demand."PWD Original Source Position";
+                    Supply."PWD Original Counter" := 0;
+                    Supply."PWD Transmitted Order No." := TRUE;
                 END;
             DATABASE::"Planning Component":
                 IF ReqLine.GET(Demand."Source ID", Demand."Source Batch Name", Demand."Source Prod. Order Line") THEN
-                    IF ReqLine."Transmitted Order No." THEN BEGIN
-                        Supply."Original Source Id" := ReqLine."Original Source Id";
-                        Supply."Original Source No." := ReqLine."Original Source No.";
-                        Supply."Original Source Position" := ReqLine."Original Source Position";
-                        Supply."Transmitted Order No." := TRUE;
+                    IF ReqLine."PWD Transmitted Order No." THEN BEGIN
+                        Supply."PWD Original Source Id" := ReqLine."PWD Original Source Id";
+                        Supply."PWD Original Source No." := ReqLine."PWD Original Source No.";
+                        Supply."PWD Original Source Position" := ReqLine."PWD Original Source Position";
+                        Supply."PWD Transmitted Order No." := TRUE;
 
                         ReqLine.RESET();
-                        ReqLine.SETRANGE("Original Source Id", Supply."Original Source Id");
-                        ReqLine.SETRANGE("Original Source No.", Supply."Original Source No.");
-                        ReqLine.SETRANGE("Original Source Position", Supply."Original Source Position");
+                        ReqLine.SETRANGE("PWD Original Source Id", Supply."PWD Original Source Id");
+                        ReqLine.SETRANGE("PWD Original Source No.", Supply."PWD Original Source No.");
+                        ReqLine.SETRANGE("PWD Original Source Position", Supply."PWD Original Source Position");
                         IF ReqLine.FINDLAST() THEN
-                            Supply."Original Counter" := ReqLine."Original Counter" + 1;
+                            Supply."PWD Original Counter" := ReqLine."PWD Original Counter" + 1;
                     END;
             DATABASE::"Prod. Order Component":
                 IF ProdOrder.GET(Demand."Source Order Status", Demand."Source ID") THEN
-                    IF ProdOrder."Transmitted Order No." THEN BEGIN
-                        Supply."Original Source Id" := Demand."Source Type";
-                        Supply."Original Source No." := ProdOrder."Original Source No.";
-                        Supply."Original Source Position" := ProdOrder."Original Source Position";
-                        Supply."Original Counter" := 1;
-                        Supply."Transmitted Order No." := TRUE;
+                    IF ProdOrder."PWD Transmitted Order No." THEN BEGIN
+                        Supply."PWD Original Source Id" := Demand."Source Type";
+                        Supply."PWD Original Source No." := ProdOrder."PWD Original Source No.";
+                        Supply."PWD Original Source Position" := ProdOrder."PWD Original Source Position";
+                        Supply."PWD Original Counter" := 1;
+                        Supply."PWD Transmitted Order No." := TRUE;
                     END;
         END;
     end;
@@ -468,13 +468,11 @@ codeunit 50021 "PWD LPSA Functions Mgt."
         ReqLine.RESET();
         ReqLine.SETRANGE("PWD Original Source No.", CodPSourceNo);
         ReqLine.SETRANGE("PWD Original Source Position", IntPSourcePos);
-        //>>TDL_12_06_18.001
         IF ReqLine.FINDSET() THEN
             REPEAT
                 IF IntLCounter < ReqLine."PWD Original Counter" THEN
                     IntLCounter := ReqLine."PWD Original Counter";
             UNTIL ReqLine.NEXT = 0;
-        //<<TDL_12_06_18.001
         EXIT(IntLCounter + 1);
     END;
     //---CDU99000838---
@@ -597,7 +595,7 @@ codeunit 50021 "PWD LPSA Functions Mgt."
                 RecLRoutingLine.SETRANGE(RecLRoutingLine."Operation No.", ProdOrderRtngLine."Operation No.");
                 IF RecLRoutingLine.FINDFIRST THEN BEGIN
                     //TODO: table extension "Routing Line" n'exsiste pas
-                    IF RecLRoutingLine."Fixed-step Prod. Rate time" THEN BEGIN
+                    IF RecLRoutingLine."PWD Fixed-step Prod. Rate time" THEN BEGIN
                         FctGetTime(RecLRoutingLine.Type, RecLRoutingLine."No.", RecPProdOrderLine."Item No.",
                                    ProdOrder.Quantity,
                                    DecLSetupTime, DecLRunTime,
@@ -629,7 +627,7 @@ codeunit 50021 "PWD LPSA Functions Mgt."
                 RecLRoutingLine.SETRANGE(RecLRoutingLine."Version Code", RecPProdOrderLine."Routing Version Code");
                 RecLRoutingLine.SETRANGE(RecLRoutingLine."Operation No.", ProdOrderRtngLine."Operation No.");
                 IF RecLRoutingLine.FINDFIRST THEN BEGIN
-                    IF RecLRoutingLine."Fixed-step Prod. Rate time" THEN BEGIN
+                    IF RecLRoutingLine."PWD Fixed-step Prod. Rate time" THEN BEGIN
                         ProdOrderRtngLine."Setup Time Unit of Meas. Code" := CodLSetupTimeUnit;
                         ProdOrderRtngLine."Run Time Unit of Meas. Code" := CodLRunTimeUnit;
                     END
@@ -698,84 +696,6 @@ codeunit 50021 "PWD LPSA Functions Mgt."
     PROCEDURE GetNoFinishCOntrol(): Boolean;//TODO: A vérifier cette fonction de get avec la fonction SetNoFinishCOntrol et le variable globale BooGAvoidControl
     BEGIN
         Exit(BooGAvoidControl);
-    END;
-
-    PROCEDURE TransProdOrderRtngLineAlt(Var FromProdOrder: Record 5405);
-    VAR
-        FromProdOrderRtngLineAlt: Record 8076509;//TODO: Record n'existe pas 
-        ToProdOrderRoutLineAlt: Record 8076509; //TODO: Record n'existe pas 
-        ApplicationManagement: Codeunit 1; //TODO: CodeUnite 1 n'existe pas 
-        ToProdOrder: Record "Production Order";
-    BEGIN
-        ToProdOrder := FromProdOrder;
-        // PLAW1 2.1
-        // PLAW12.2 Check LICENSE
-        IF NOT ApplicationManagement.CheckPlannerOneLicence THEN EXIT;
-        WITH FromProdOrderRtngLineAlt DO BEGIN
-            SETRANGE(Status, FromProdOrder.Status);
-            SETRANGE("Prod. Order No.", FromProdOrder."No.");
-            LOCKTABLE;
-            IF FINDSET THEN BEGIN
-                REPEAT
-                    ToProdOrderRoutLineAlt := FromProdOrderRtngLineAlt;
-                    ToProdOrderRoutLineAlt.Status := ToProdOrder.Status;
-                    ToProdOrderRoutLineAlt."Prod. Order No." := ToProdOrder."No.";
-                    ToProdOrderRoutLineAlt.INSERT;
-                UNTIL NEXT = 0;
-                DELETEALL;
-            END;
-        END;
-        // PLAW1 2.1 END
-    END;
-
-    PROCEDURE TransProdOrderLink(Var FromProdOrder: Record 5405);
-    VAR
-        FromProdOrderLink: Record 8076507;  //TODO: Record n'existe pas 
-        ToProdOrderLink: Record 8076507;  //TODO: Record n'existe pas 
-        ApplicationManagement: Codeunit 1;  //TODO: CodeUnite 1 n'existe pas 
-        ToProdOrder: Record "Production Order";
-    BEGIN
-        ToProdOrder := FromProdOrder;
-        //PLAW1 2.1
-        // PLAW12.2 Check LICENSE
-        IF NOT ApplicationManagement.CheckPlannerOneLicence THEN EXIT;
-        WITH FromProdOrderLink DO BEGIN
-            SETRANGE(Status, FromProdOrder.Status);
-            SETRANGE("Prod. Order No.", FromProdOrder."No.");
-            IF NewStatus = NewStatus::Finished THEN
-                DELETEALL
-            ELSE BEGIN
-                LOCKTABLE;
-                IF FINDSET THEN BEGIN
-                    REPEAT
-                        ToProdOrderLink := FromProdOrderLink;
-                        ToProdOrderLink.Status := ToProdOrder.Status;
-                        ToProdOrderLink."Prod. Order No." := ToProdOrder."No.";
-                        ToProdOrderLink.INSERT;
-                    UNTIL NEXT = 0;
-                    DELETEALL;
-                END;
-            END;
-
-            RESET;
-            SETRANGE("Next Status", FromProdOrder.Status);
-            SETRANGE("Next Prod. Order No.", FromProdOrder."No.");
-            IF NewStatus = NewStatus::Finished THEN
-                DELETEALL
-            ELSE BEGIN
-                LOCKTABLE;
-                IF FINDSET THEN BEGIN
-                    REPEAT
-                        ToProdOrderLink := FromProdOrderLink;
-                        ToProdOrderLink."Next Status" := ToProdOrder.Status;
-                        ToProdOrderLink."Next Prod. Order No." := ToProdOrder."No.";
-                        ToProdOrderLink.INSERT;
-                    UNTIL NEXT = 0;
-                    DELETEALL;
-                END;
-            END;
-        END;
-        //PLAW1 2.1 END
     END;
     //---CDU99000792---
     PROCEDURE Fct_TransmitOrderNo(SalesLine: Record "Sales Line") BooLTransOrderNo: Boolean
@@ -874,8 +794,8 @@ codeunit 50021 "PWD LPSA Functions Mgt."
         //>>FE_LAPIERRETTE_PRO12.001
         //RecLManufacturingSetup.TESTFIELD("Non conformity Prod. Location");
         //<<FE_LAPIERRETTE_PRO12.001
-        RecLManufacturingSetup.TESTFIELD("Mach. center - Inventory input"); //TODO: table extension "Manufacturing Setup" n'existe pas
-        CodLWorkCenter := RecLManufacturingSetup."Mach. center - Inventory input"; //TODO: table extension "Manufacturing Setup" n'existe pas                                                                                   //<FE_LAPIERRETTE_PROD03.001
+        RecLManufacturingSetup.TESTFIELD("PWD Mach. center - Inventory input");
+        CodLWorkCenter := RecLManufacturingSetup."PWD Mach. center - Inventory input";                                                                                  //<FE_LAPIERRETTE_PROD03.001
         QtyToPost := RecPItemJnalLine."Output Quantity";
         WITH RecPItemJnalLine DO BEGIN
             //>>ProdOrderRtngLine
@@ -1192,7 +1112,7 @@ codeunit 50021 "PWD LPSA Functions Mgt."
         // << FE_LAPRIERRETTE_GP0003 : APA 16/05/13
     END;
 
-    PROCEDURE DeleteReservationEntryPhantom(VAR ProdOrderComp: Record 5407);
+    PROCEDURE DeleteReservationEntryPhantom(VAR ProdOrderComp: Record "Prod. Order Component");
     VAR
         ReservEntry: Record "Reservation Entry";
         ReservEntry2: Record "Reservation Entry";

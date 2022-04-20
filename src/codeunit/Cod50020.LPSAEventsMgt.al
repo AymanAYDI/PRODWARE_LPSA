@@ -351,8 +351,8 @@ codeunit 50020 "PWD LPSA Events Mgt."
     //RecLProdOrderLine: Record "Prod. Order Line";
     begin
         ManufSetup.GET();
-        IF ItemJournalLine."Work Center No." = ManufSetup."Mach. center - Inventory input" THEN
-            ItemJournalLine.VALIDATE("Location Code", ManufSetup."Non conformity Prod. Location")
+        IF ItemJournalLine."Work Center No." = ManufSetup."PWD Mach. center - Inventory input" THEN
+            ItemJournalLine.VALIDATE("Location Code", ManufSetup."PWD Non conformity Prod. Location")
         ELSE
             //TODO: A vérifier le champ "Prod. Order No." devient "Order No." et le champ"Prod. Order Line No." devient " Order Line No."
             ItemJournalLine.VALIDATE("Location Code", ItemJournalLine.FctGetProdOrderLine(ItemJournalLine."Order No.", ItemJournalLine."Order Line No."));
@@ -881,25 +881,25 @@ codeunit 50020 "PWD LPSA Events Mgt."
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Inventory Profile Offsetting", 'OnMaintainPlanningLineOnBeforeAdjustPlanLine', '', false, false)]
     local procedure CDU99000854_OnMaintainPlanningLineOnBeforeAdjustPlanLine_InventoryProfileOffsetting(var RequisitionLine: Record "Requisition Line"; InventoryProfile: Record "Inventory Profile"; StockkeepingUnit: Record "Stockkeeping Unit")
     begin
-        //TODO: table extension "Inventory Profile" n'exsiste pas
-        RequisitionLine."PWD Original Source Id" := InventoryProfile."Original Source Id";
-        RequisitionLine."PWD Original Source No." := InventoryProfile."Original Source No.";
-        RequisitionLine."PWD Original Source Position" := InventoryProfile."Original Source Position";
-        RequisitionLine."PWD Original Counter" := InventoryProfile."Original Counter";
-        RequisitionLine."PWD Transmitted Order No." := InventoryProfile."Transmitted Order No.";
+        RequisitionLine."PWD Original Source Id" := InventoryProfile."PWD Original Source Id";
+        RequisitionLine."PWD Original Source No." := InventoryProfile."PWD Original Source No.";
+        RequisitionLine."PWD Original Source Position" := InventoryProfile."PWD Original Source Position";
+        RequisitionLine."PWD Original Counter" := InventoryProfile."PWD Original Counter";
+        RequisitionLine."PWD Transmitted Order No." := InventoryProfile."PWD Transmitted Order No.";
     end;
 
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Inventory Profile Offsetting", 'OnAfterTransferAttributes', '', false, false)]
     local procedure CDU99000854_OnAfterTransferAttributes_InventoryProfileOffsetting(var ToInventoryProfile: Record "Inventory Profile"; var FromInventoryProfile: Record "Inventory Profile"; var TempSKU: Record "Stockkeeping Unit" temporary; SpecificLotTracking: Boolean; SpecificSNTracking: Boolean)
+    var
+        LPSAFunctionsMgt: Codeunit "PWD LPSA Functions Mgt.";
     begin
-        //TODO: table extension "Inventory Profile" n'exsiste pas
-        ToInventoryProfile."Original Source Id" := FromInventoryProfile."Original Source Id";
-        ToInventoryProfile."Original Source No." := FromInventoryProfile."Original Source No.";
-        ToInventoryProfile."Original Source Position" := FromInventoryProfile."Original Source Position";
-        ToInventoryProfile."Original Counter" := FromInventoryProfile."Original Counter";
-        ToInventoryProfile."Transmitted Order No." := FromInventoryProfile."Transmitted Order No.";
-        IF ((ToInventoryProfile."Transmitted Order No." = TRUE) AND (ToInvProfile."Original Source Id" = 5407)) THEN
-            ToInventoryProfile."Original Counter" := Fct_CalcCounter(ToInventoryProfile."Original Source No.", ToInventoryProfile."Original Source Position");
+        ToInventoryProfile."PWD Original Source Id" := FromInventoryProfile."PWD Original Source Id";
+        ToInventoryProfile."PWD Original Source No." := FromInventoryProfile."PWD Original Source No.";
+        ToInventoryProfile."PWD Original Source Position" := FromInventoryProfile."PWD Original Source Position";
+        ToInventoryProfile."PWD Original Counter" := FromInventoryProfile."PWD Original Counter";
+        ToInventoryProfile."PWD Transmitted Order No." := FromInventoryProfile."PWD Transmitted Order No.";
+        IF ((ToInventoryProfile."PWD Transmitted Order No." = TRUE) AND (ToInventoryProfile."PWD Original Source Id" = 5407)) THEN
+            ToInventoryProfile."PWD Original Counter" := LPSAFunctionsMgt.Fct_CalcCounter(ToInventoryProfile."PWD Original Source No.", ToInventoryProfile."PWD Original Source Position");
     end;
     //---CDU99000840---
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Plng. Component-Reserve", 'OnAfterCallItemTracking', '', false, false)]
@@ -908,8 +908,7 @@ codeunit 50020 "PWD LPSA Events Mgt."
         ReqLine: Record "Requisition Line";
         cuLotInheritanceMgt: Codeunit "PWD Lot Inheritance Mgt.PW";
     begin
-        //TODO: table extension "Planning Component" n'exsiste pas
-        IF PlanningComponent."Lot Determining" THEN BEGIN
+        IF PlanningComponent."PWD Lot Determining" THEN BEGIN
             ReqLine.GET(
               PlanningComponent."Worksheet Template Name",
               PlanningComponent."Worksheet Batch Name",
@@ -945,8 +944,7 @@ codeunit 50020 "PWD LPSA Events Mgt."
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Carry Out Action", 'OnAfterTransferPlanningComp', '', false, false)]
     local procedure CDU99000813_OnAfterTransferPlanningComp_CarryOutAction(var PlanningComponent: Record "Planning Component"; var ProdOrderComponent: Record "Prod. Order Component")
     begin
-        //TODO: table extension "Planning Component" n'exsiste pas
-        ProdOrderComponent."PWD Lot Determining" := PlanningComponent."Lot Determining";
+        ProdOrderComponent."PWD Lot Determining" := PlanningComponent."PWD Lot Determining";
     end;
 
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Carry Out Action", 'OnInsertProdOrderOnBeforeProdOrderInsert', '', false, false)]
@@ -971,7 +969,7 @@ codeunit 50020 "PWD LPSA Events Mgt."
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Planning Line Management", 'OnBeforeInsertAsmPlanningComponent', '', false, false)]
     local procedure CDU99000809_OnBeforeInsertAsmPlanningComponent_PlanningLineManagement(var ReqLine: Record "Requisition Line"; var BOMComponent: Record "BOM Component"; var PlanningComponent: Record "Planning Component")
     begin
-        PlanningComponent."Lot Determining" := BOMComponent."Lot Determining";
+        PlanningComponent."PWD Lot Determining" := BOMComponent."Lot Determining";
     end;
     //---CDU5063---
     [EventSubscriber(ObjectType::Codeunit, Codeunit::ArchiveManagement, 'OnBeforeRestoreSalesDocument', '', false, false)] //TODO: A verifier cette fonction(evenement utilisé avec IsHandled pour modifier le standard )
@@ -993,7 +991,7 @@ codeunit 50020 "PWD LPSA Events Mgt."
         //>>FE_LAPIERRETTE_PRO12.001
         //RecLManufacturingSetup.TESTFIELD("Non conformity Prod. Location");
         //<<FE_LAPIERRETTE_PRO12.001
-        RecLManufacturingSetup.TESTFIELD("Mach. center - Inventory input"); //TODO: table extension "Manufacturing Setup" n'existe pas
+        RecLManufacturingSetup.TESTFIELD("PWD Mach. center - Inventory input"); //TODO: table extension "Manufacturing Setup" n'existe pas
         //<FE_LAPIERRETTE_PROD03.001
     end;
     //---CDU5407---
@@ -1082,8 +1080,8 @@ codeunit 50020 "PWD LPSA Events Mgt."
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Calculate Prod. Order", 'OnTransferBOMProcessItemOnBeforeGetPlanningParameters', '', false, false)]
     local procedure CDU99000773_OnTransferBOMProcessItemOnBeforeGetPlanningParameters_CalculateProdOrder(var ProdOrderComponent: Record "Prod. Order Component"; ProductionBOMLine: Record "Production BOM Line")
     begin
-        //TODO: table extension "Production BOM Line" n'exsiste pas
-        ProdOrderComponent."PWD Lot Determining" := ProductionBOMLine."Lot Determining";
+        ProdOrderComponent."PWD Lot Determining" := ProductionBOMLine."PWD Lot Determining";
+    end;
     //---CDU5510---
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Production Journal Mgt", 'OnBeforeInsertOutputItemJnlLine', '', false, false)]
     local procedure CDU5510_OnBeforeInsertOutputItemJnlLine_ProductionJournalMgt(ProdOrderRtngLine: Record "Prod. Order Routing Line"; ProdOrderLine: Record "Prod. Order Line"; var IsHandled: Boolean)
@@ -1096,9 +1094,9 @@ codeunit 50020 "PWD LPSA Events Mgt."
         //>>FE_LAPIERRETTE_PRO12.001
         //RecLManufacturingSetup.TESTFIELD("Non conformity Prod. Location");
         //<<FE_LAPIERRETTE_PRO12.001
-        RecLManufacturingSetup.TESTFIELD("Mach. center - Inventory input"); //TODO: table extension "Manufacturing Setup" n'existe pas
-        CodLWorkCenter := RecLManufacturingSetup."Mach. center - Inventory input"; //TODO: table extension "Manufacturing Setup" n'existe pas
-                                                                                   //<FE_LAPIERRETTE_PROD03.001
+        RecLManufacturingSetup.TESTFIELD("PWD Mach. center - Inventory input"); //TODO: table extension "Manufacturing Setup" n'existe pas
+        CodLWorkCenter := RecLManufacturingSetup."PWD Mach. center - Inventory input"; //TODO: table extension "Manufacturing Setup" n'existe pas
+                                                                                       //<FE_LAPIERRETTE_PROD03.001
 
     end;
 
@@ -1129,6 +1127,158 @@ codeunit 50020 "PWD LPSA Events Mgt."
     local procedure CDU5708_OnBeforeCheckTransferCode_ReleaseTransferDocument(var TransferHeader: Record "Transfer Header"; var IsHandled: Boolean)
     begin
         IsHandled := true;
+    end;
+    //---TAB99000802---
+    [EventSubscriber(ObjectType::table, database::"Routing Tool", 'OnAfterValidateEvent', 'No.', false, false)]
+    local procedure TAB99000802_OnAfterValidateEvent_RoutingTool_No(var Rec: Record "Routing Tool"; var xRec: Record "Routing Tool"; CurrFieldNo: Integer)
+    var
+        RecLToolsInstructions: Record "PWD Tools Instructions";
+        RecLItem: Record Item;
+    begin
+        //>>LAP2.12
+        CASE Rec."PWD Type" OF
+            "PWD Type"::Method, "PWD Type"::Quality, "PWD Type"::Plan, "PWD Type"::Zone, "PWD Type"::"Targeted dimension":
+                BEGIN
+                    RecLToolsInstructions.GET(Rec."PWD Type", Rec."No.");
+                    Rec.Description := RecLToolsInstructions.Description;
+                    Rec."PWD Criteria" := RecLToolsInstructions.Criteria;
+                END;
+            "PWD Type"::Item:
+                BEGIN
+                    RecLItem.GET(Rec."No.");
+                    Rec.Description := COPYSTR(RecLItem."PWD LPSA Description 1", 1, 50);
+                END;
+        END;
+        //<<LAP2.12
+    end;
+    //---TAB99000851---
+    [EventSubscriber(ObjectType::table, database::"Production Forecast Name", 'OnAfterDeleteEvent', '', false, false)]
+    local procedure TAB99000851_OnAfterDeleteEvent_ProductionForecastName(var Rec: Record "Production Forecast Name"; RunTrigger: Boolean)
+    var
+        ProdForecastEntry: Record "Production Forecast Entry";
+        Text001: label 'The Production Forecast %1 has entries. Do you want to delete it anyway?';
+        Confirmed: Boolean;
+    begin
+        if not RunTrigger then
+            exit;
+        if Rec.IsTemporary then
+            exit;
+        ProdForecastEntry.SETRANGE("Production Forecast Name", Rec.Name);
+        IF ProdForecastEntry.FINDSET() THEN
+            IF NOT GUIALLOWED THEN
+                Confirmed := TRUE
+            ELSE
+                Confirmed := CONFIRM(Text001, FALSE, Rec.Name);
+
+        IF NOT Confirmed THEN
+            ERROR('');
+
+        ProdForecastEntry.DELETEALL();
+
+    end;
+    //---TAB99000852---
+    [EventSubscriber(ObjectType::Table, Database::"Production Forecast Entry", 'OnAfterInsertEvent', '', false, false)]
+    local procedure TAB99000852_OnAfterInsertEvent_ProductionForecastEntry(var Rec: Record "Production Forecast Entry"; RunTrigger: Boolean)
+    var
+        CompanyInfo: Record "Company Information";
+        CompanyCalendar: Record "Calendar Entry";
+        NewDate: Date;
+        Nonworking: Boolean;
+        CalendarMgmt: Codeunit "Calendar Management";
+        Description: Text[50];
+        TargetCustomizedCalendarChange: Record "Customized Calendar Change";
+    begin
+        if not RunTrigger then
+            exit;
+        if Rec.IsTemporary then
+            exit;
+        CompanyInfo.GET();
+        CompanyInfo.TESTFIELD("Base Calendar Code");
+        NewDate := Rec."Forecast Date";
+        TargetCustomizedCalendarChange.Get();
+        REPEAT
+            Nonworking := CalendarMgmt.IsNonworkingDay(NewDate, TargetCustomizedCalendarChange);
+            IF Nonworking THEN
+                NewDate := CALCDATE('<-1D>', NewDate);
+        UNTIL Nonworking = FALSE;
+        Rec."Forecast Date" := NewDate;
+    end;
+    //TAB99000853
+    [EventSubscriber(ObjectType::Table, Database::"Inventory Profile", 'OnAfterTransferFromSalesLine', '', false, false)]
+    local procedure TAB99000853_OnAfterTransferFromSalesLine_InventoryProfile(var InventoryProfile: Record "Inventory Profile"; SalesLine: Record "Sales Line")
+    begin
+        IF InventoryProfile.Fct_TransmitOrderNo(InventoryProfile."Item No.") THEN BEGIN
+            InventoryProfile."PWD Original Source Id" := DATABASE::"Sales Line";
+            InventoryProfile."PWD Original Source No." := SalesLine."Document No.";
+            InventoryProfile."PWD Original Source Position" := SalesLine.Position;
+            InventoryProfile."PWD Original Counter" := 0;
+            InventoryProfile."PWD Transmitted Order No." := TRUE;
+        END;
+    end;
+
+    [EventSubscriber(ObjectType::Table, Database::"Inventory Profile", 'OnAfterTransferFromComponent', '', false, false)]
+    local procedure TAB99000853_OnAfterTransferFromComponent_InventoryProfile(var InventoryProfile: Record "Inventory Profile"; ProdOrderComp: Record "Prod. Order Component")
+    var
+        ProductionOrder: Record "Production Order";
+    begin
+        IF ProductionOrder.GET(ProdOrderComp.Status, ProdOrderComp."Prod. Order No.") THEN BEGIN
+            InventoryProfile."PWD Original Source Id" := DATABASE::"Prod. Order Component";
+            InventoryProfile."PWD Original Source No." := ProductionOrder."PWD Original Source No.";
+            InventoryProfile."PWD Original Source Position" := ProductionOrder."PWD Original Source Position";
+            //"Original Counter" := "Original Counter" + 1;
+            InventoryProfile."PWD Transmitted Order No." := ProductionOrder."PWD Transmitted Order No.";
+        END;
+    end;
+
+    [EventSubscriber(ObjectType::Table, Database::"Inventory Profile", 'OnAfterTransferFromPlanComponent', '', false, false)]
+    local procedure TAB99000853_OnAfterTransferFromPlanComponent_InventoryProfile(var InventoryProfile: Record "Inventory Profile"; PlanningComponent: Record "Planning Component")
+    var
+        ReqLine: Record "Requisition Line";
+    begin
+        IF ReqLine.GET(InventoryProfile."Source ID", InventoryProfile."Source Batch Name", InventoryProfile."Source Prod. Order Line") THEN BEGIN
+            InventoryProfile."PWD Original Source Id" := DATABASE::"Planning Component";
+            InventoryProfile."PWD Original Source No." := ReqLine."PWD Original Source No.";
+            InventoryProfile."PWD Original Source Position" := ReqLine."PWD Original Source Position";
+            InventoryProfile."PWD Original Counter" := ReqLine."PWD Original Counter" + 1;
+            InventoryProfile."PWD Transmitted Order No." := ReqLine."PWD Transmitted Order No.";
+        END;
+    end;
+    //---TAB99000829---
+    [EventSubscriber(ObjectType::Table, Database::"Planning Component", 'OnItemNoOnValidateOnAfterInitFromItem', '', false, false)]
+    local procedure TAB99000829_OnItemNoOnValidateOnAfterInitFromItem_PlanningComponent(var PlanningComponent: Record "Planning Component"; Item: Record Item)
+    begin
+        PlanningComponent."PWD Lot Determining" := Item."PWD Lot Determining";
+    end;
+
+    [EventSubscriber(ObjectType::Table, Database::"Planning Component", 'OnAfterTransferFromComponent', '', false, false)]
+    local procedure TAB99000829_OnAfterTransferFromComponent_PlanningComponent(var PlanningComponent: Record "Planning Component"; var ProdOrderComp: Record "Prod. Order Component")
+    begin
+        PlanningComponent."PWD Lot Determining" := ProdOrderComp."PWD Lot Determining";
+    end;
+    //---TAB99000772---
+    [EventSubscriber(ObjectType::Table, Database::"Production BOM Line", 'OnValidateNoOnAfterAssignItemFields', '', false, false)]
+    local procedure TAB99000772_OnValidateNoOnAfterAssignItemFields_ProductionBOMLine(var ProductionBOMLine: Record "Production BOM Line"; Item: Record Item; var xProductionBOMLine: Record "Production BOM Line"; CallingFieldNo: Integer)
+    begin
+        ProductionBOMLine."PWD Lot Determining" := FALSE;
+        ProductionBOMLine.VALIDATE(ProductionBOMLine."PWD Lot Determining", Item."PWD Lot Determining");
+    end;
+    //---TAB99000764---
+    [EventSubscriber(ObjectType::Table, Database::"Routing Line", 'OnAfterWorkCenterTransferFields', '', false, false)]
+    local procedure TAB99000764_OnAfterWorkCenterTransferFields_RoutingLine(var RoutingLine: Record "Routing Line"; WorkCenter: Record "Work Center")
+    begin
+        RoutingLine."PWD Flushing Method" := WorkCenter."Flushing Method";
+    end;
+
+    [EventSubscriber(ObjectType::Table, Database::"Routing Line", 'OnAfterMachineCtrTransferFields', '', false, false)]
+    local procedure TAB99000764_OnAfterMachineCtrTransferFields_RoutingLine(var RoutingLine: Record "Routing Line"; WorkCenter: Record "Work Center"; MachineCenter: Record "Machine Center")
+    begin
+        RoutingLine."PWD Flushing Method" := MachineCenter."Flushing Method";
+    end;
+    //---PAG50---
+    [EventSubscriber(ObjectType::Page, Page::"Purchase Order", 'OnAfterActionEvent', '&Print', false, false)]
+    local procedure PAG50_OnAfterActionEvent_PurchaseOrder_Print(var Rec: Record "Purchase Header")
+    begin
+        Rec.TESTFIELD(Rec.Status, Rec.Status::Released);
     end;
 
     var
