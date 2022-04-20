@@ -1393,6 +1393,411 @@ codeunit 50021 "PWD LPSA Functions Mgt."
             // Removes any lines that may have been defaulted
             DeferralUtilities.RemoveOrSetDeferralSchedule('', DeferralDocType, '', '', DocType, DocNo, LineNo, 0, 0D, '', '', true);
     end;
+    //---CDU5812---
+    PROCEDURE CalcRtngCost2(RtngHeaderNo: Code[20]; MfgItemQtyBase: Decimal; VAR SLCap: Decimal; VAR SLSub: Decimal; VAR SLCapOvhd: Decimal; CodPItemNo: Code[20]);
+    VAR
+        WorkCenter: Record "Work Center";
+        RtngHeader: Record "Routing Header";
+        RtngVersion: Record "Routing Version";
+        RtngLine: Record "Routing Line";
+        CostCalcMgt: Codeunit "Cost Calculation Management";
+        CheckRouting: Codeunit "Check Routing Lines";
+        RtngVersionCode: Code[10];
+        UnitCost: Decimal;
+        DirUnitCost: Decimal;
+        IndirCostPct: Decimal;
+        OvhdRate: Decimal;
+        CostTime: Decimal;
+        UnitCostCalculation: Option;
+        CduLCalculateProdOrder: Codeunit "Calculate Prod. Order";
+        DecLRunTime: Decimal;
+        DecLSetupTime: Decimal;
+        CodLSetupTimeUnit: Code[10];
+        CodLRunTimeUnit: Code[10];
+        VersionMgt: Codeunit "VersionManagement";
+        CalculationDate: Date;
+        LogErrors: Boolean;
+        CalculateStandardCost: Codeunit "Calculate Standard Cost";
+        MfgSetup: Record "Manufacturing Setup";
+    BEGIN
+        IF RtngHeaderNo = '' THEN
+            EXIT;
+        MfgSetup.GET;
+        RtngVersionCode :=
+        GetAndTestCertifiedRtngVersion(RtngHeader, RtngVersion, RtngHeaderNo, CalculationDate, LogErrors);//TODO: la fonction n'existe pas dans le CodeUnit standard VersionMgt(jai cree une autre fonction local)
+        TestRtngVersionIsCertified(RtngVersionCode, RtngHeader);//TODO: la fonction est local dans le codeUnit donc j'ai cree une nouvelle fonction local
+
+        IF CheckRouting.NeedsCalculation(RtngHeader, RtngVersionCode) THEN
+            CheckRouting.Calculate(RtngHeader, RtngVersionCode);
+
+        WITH RtngLine DO BEGIN
+            SETRANGE("Routing No.", RtngHeaderNo);
+            SETRANGE("Version Code", RtngVersionCode);
+            IF FIND('-') THEN
+                REPEAT
+                    IF (Type = Type::"Work Center") AND
+                       ("No." <> '')
+                    THEN
+                        WorkCenter.GET("No.")
+                    ELSE
+                        CLEAR(WorkCenter);
+                    UnitCost := "Unit Cost per";
+                    CalcRtngCostPerUnit(Type, "No.", DirUnitCost, IndirCostPct, OvhdRate, UnitCost, UnitCostCalculation);
+
+                    //>>FE_LAPIERRETTE_PROD04.001
+                    IF RtngLine."Fixed-step Prod. Rate time" THEN BEGIN
+                        FctGetTimeForCost(RtngLine.Type, RtngLine."No.", CodPItemNo, MfgItemQtyBase,
+                                                          DecLSetupTime, DecLRunTime, CodLSetupTimeUnit, CodLRunTimeUnit);
+                        CostTime :=
+                          CostCalcMgt.CalcCostTime(
+                            MfgItemQtyBase,
+                            DecLSetupTime, CodLSetupTimeUnit,
+                            DecLRunTime, CodLRunTimeUnit, "Lot Size",
+                            "Scrap Factor % (Accumulated)", "Fixed Scrap Qty. (Accum.)",
+                            "Work Center No.", UnitCostCalculation, MfgSetup."Cost Incl. Setup",
+                            "Concurrent Capacities");
+
+                    END ELSE
+                        //<<FE_LAPIERRETTE_PROD04.001
+
+                        CostTime :=
+                CostCalcMgt.CalcCostTime(
+                  MfgItemQtyBase,
+                  "Setup Time", "Setup Time Unit of Meas. Code",
+                  "Run Time", "Run Time Unit of Meas. Code", "Lot Size",
+                  "Scrap Factor % (Accumulated)", "Fixed Scrap Qty. (Accum.)",
+                  "Work Center No.", UnitCostCalculation, MfgSetup."Cost Incl. Setup",
+                  "Concurrent Capacities");
+
+                    IF (Type = Type::"Work Center") AND
+                       (WorkCenter."Subcontractor No." <> '')
+                    THEN
+                        IncrCost(SLSub, DirUnitCost, CostTime)
+                    ELSE
+                        IncrCost(SLCap, DirUnitCost, CostTime);
+                    IncrCost(SLCapOvhd, CostCalcMgt.CalcOvhdCost(DirUnitCost, IndirCostPct, OvhdRate, 1), CostTime);
+                UNTIL NEXT = 0;
+        END;
+    END;
+
+    PROCEDURE CalcMiddleLotSize(CodPitemNo: Code[20]; DecPLotSizeItem: Decimal): Decimal;
+    VAR
+        RecLProdOrdLine: Record "Prod. Order Line";
+        DatLBegin: Date;
+        DatLEnd: Date;
+        IntLCount: Integer;
+        DecLSum: Decimal;
+        DecLMiddle: Decimal;
+        DecLLotSizeItem: Decimal;
+    BEGIN
+        //===Calc Middle for Lot Size========================================
+        EVALUATE(DatLBegin, '01/01/' + FORMAT(DATE2DWY(WORKDATE, 3)));
+        EVALUATE(DatLEnd, '31/12/' + FORMAT(DATE2DWY(WORKDATE, 3)));
+        IntLCount := 0;
+        DecLSum := 0;
+        DecLMiddle := 1;
+        DecLLotSizeItem := DecPLotSizeItem;
+        RecLProdOrdLine.RESET;
+        RecLProdOrdLine.SETRANGE("Item No.", CodPitemNo);
+        RecLProdOrdLine.SETRANGE(Status, 4);
+        RecLProdOrdLine.SETRANGE("Ending Date", DatLBegin, DatLEnd);
+        IF RecLProdOrdLine.FINDFIRST THEN
+            REPEAT
+                IntLCount += 1;
+                DecLSum += RecLProdOrdLine.Quantity;
+            UNTIL RecLProdOrdLine.NEXT = 0;
+
+        IF IntLCount <> 0 THEN
+            DecLMiddle := ROUND(DecLSum / IntLCount, 0.01, '>')
+        ELSE
+            IF DecLLotSizeItem > DecLMiddle THEN
+                DecLMiddle := DecLLotSizeItem;
+
+        EXIT(DecLMiddle);
+    END;
+
+    PROCEDURE FctCalcItemMonoLevel(ItemNo: Code[20]; NewUseAssemblyList: Boolean);//TODO: Il y'a 2 fonction local liee a cette fonction et une table temporel chargé au niveau de son codeunit
+    VAR
+        Item: Record "Item";
+        ItemCostMgt: Codeunit "ItemCostManagement";
+        NewCalcMultiLevel: Boolean;
+        CalculateStandardCost: Codeunit "Calculate Standard Cost";
+    //TempItem : TEMPORARY Record 27;
+    BEGIN
+        // NewCalcMultiLevel := FALSE;
+        // CalculateStandardCost.SetProperties(WORKDATE, NewCalcMultiLevel, NewUseAssemblyList, FALSE, '', FALSE);
+        // IF NewUseAssemblyList THEN
+        //     CalcAssemblyItem(ItemNo, Item, 0)
+        // ELSE
+        //     CalcMfgItem(ItemNo, Item, 0);
+        // IF TempItem.FIND('-') THEN
+        //     REPEAT
+        //         ItemCostMgt.UpdateStdCostShares(TempItem);
+        //     UNTIL TempItem.NEXT = 0;
+    END;
+
+    PROCEDURE CalculateCost(RecPItem: Record 27);
+    VAR
+        RecLRoutingHeader: Record "Routing Header";
+        RecLProductionBOMHeader: Record "Production BOM Header";
+        RecLBOMLine: Record "Production BOM Line";
+        RecLItem: Record "Item";
+        VersionMgt: Codeunit "VersionManagement";
+        TxtL50000: label 'Item Cost can''t be calculated. The component %1 is not valued.';
+    BEGIN
+        //>>TDL290719.001
+        //>>TDL100220.001
+        //IF (RecPItem."Replenishment System" = RecPItem."Replenishment System"::Purchase) AND (RecPItem."Unit Cost" = 0) THEN
+        //    ERROR(TxtL50000,RecPItem."No.");
+        IF RecPItem."Replenishment System" = RecPItem."Replenishment System"::Purchase THEN BEGIN
+            IF ((RecPItem."Costing Method" = RecPItem."Costing Method"::Standard) AND (RecPItem."Standard Cost" = 0))
+               OR
+               ((RecPItem."Costing Method" = RecPItem."Costing Method"::Average) AND (RecPItem."Unit Cost" = 0))
+            THEN
+            //>>NDBI
+            BEGIN
+                IF RecPItem."Inventory Posting Group" <> 'NON_VALO' THEN
+                    //    ERROR(TxtL50000,RecPItem."No.");
+                    ERROR(TxtL50000, RecPItem."No.");
+            END;
+            //<<NDBI
+        END ELSE
+            //<<TDL100220.001
+
+            IF (RecPItem."Costing Method" = RecPItem."Costing Method"::Standard) AND (RecPItem."Standard Cost" = 0) THEN BEGIN
+                IF RecPItem."Replenishment System" = RecPItem."Replenishment System"::"Prod. Order" THEN BEGIN
+
+                    RecLRoutingHeader.GET(RecPItem."Routing No.");
+                    IF RecLRoutingHeader.Status <> RecLRoutingHeader.Status::Certified THEN
+                        RecLRoutingHeader.FIELDERROR(Status);
+
+                    RecLProductionBOMHeader.GET(RecPItem."Production BOM No.");
+                    IF RecLProductionBOMHeader.Status <> RecLProductionBOMHeader.Status::Certified THEN
+                        RecLProductionBOMHeader.FIELDERROR(Status);
+
+                    // on descend la nomenclature
+                    RecLBOMLine.RESET;
+                    RecLBOMLine.SETRANGE("Production BOM No.", RecPItem."Production BOM No.");
+                    RecLBOMLine.SETRANGE("Version Code", VersionMgt.GetBOMVersion(RecPItem."Production BOM No.", TODAY, TRUE));
+                    RecLBOMLine.SETRANGE(Type, RecLBOMLine.Type::Item);
+                    RecLBOMLine.SETFILTER("Starting Date", '%1|<=%2', 0D, TODAY);
+                    RecLBOMLine.SETFILTER("Ending Date", '%1|>=%2', 0D, TODAY);
+                    RecLBOMLine.SETFILTER("Quantity per", '<>%1', 0);
+                    IF RecLBOMLine.FINDSET THEN BEGIN
+                        REPEAT
+                            RecLItem.GET(RecLBOMLine."No.");
+                            CalculateCost(RecLItem);
+                        UNTIL RecLBOMLine.NEXT = 0;
+                        // Calculate Cost
+                        FctCalcItemMonoLevel(RecPItem."No.", FALSE)
+                    END;
+                END ELSE
+                //>>NDBI
+                BEGIN
+                    IF RecPItem."Inventory Posting Group" <> 'NON_VALO' THEN
+                        //    ERROR(TxtL50000,RecPItem."No.");
+                        ERROR(TxtL50000, RecPItem."No.");
+                END;
+                //<<NDBI
+            END;
+        //<<TDL290719.001
+    END;
+
+    procedure GetAndTestCertifiedRtngVersion(Var RtngHeader: Record "Routing Header"; Var RtngVersion: Record "Routing Version"; RtngNo: Code[20]; Date: Date; HideError: Boolean): Code[10];
+    begin
+        CLEAR(RtngHeader);
+        CLEAR(RtngVersion);
+        RtngHeader.GET(RtngNo);
+        RtngVersion.SETCURRENTKEY("Routing No.", "Starting Date");
+        RtngVersion.SETRANGE("Routing No.", RtngNo);
+        RtngVersion.SETFILTER("Starting Date", '%1|..%2', 0D, Date);
+        IF RtngVersion.FIND('+') THEN BEGIN
+            IF NOT HideError THEN
+                RtngVersion.TESTFIELD(Status, RtngVersion.Status::Certified);
+        END ELSE
+            IF NOT HideError THEN
+                RtngHeader.TESTFIELD(Status, RtngHeader.Status::Certified);
+
+        EXIT(RtngVersion."Version Code");
+    end;
+
+    local procedure TestRtngVersionIsCertified(RtngVersionCode: Code[20]; RtngHeader: Record "Routing Header")//TODO: la fonction InsertInErrBuf est une fonction local et le variable LogErrors se charge dans le codeunit 5812
+    begin
+        // if RtngVersionCode = '' then begin
+        //     if RtngHeader.Status <> RtngHeader.Status::Certified then
+        //         if LogErrors then
+        //             InsertInErrBuf(RtngHeader."No.", '', true)
+        //         else
+        //             RtngHeader.TestField(Status, RtngHeader.Status::Certified);
+        // end;
+    end;
+
+    procedure CalcRtngCostPerUnit(Type: Enum "Capacity Type Routing"; No: Code[20]; var DirUnitCost: Decimal; var IndirCostPct: Decimal; var OvhdRate: Decimal; var UnitCost: Decimal; var UnitCostCalculation: Option Time,Unit)//TODO: la fonction contient 2 fonction local dans le codeunit 5812
+    var
+        WorkCenter: Record "Work Center";
+        MachineCenter: Record "Machine Center";
+        IsHandled: Boolean;
+    begin
+        // case Type of
+        //     Type::"Work Center":
+        //         GetWorkCenter(No, WorkCenter);
+        //     Type::"Machine Center":
+        //         GetMachineCenter(No, MachineCenter);
+        // end;
+
+        // IsHandled := false;
+        // OnCalcRtngCostPerUnitOnBeforeCalc(Type.AsInteger(), DirUnitCost, IndirCostPct, OvhdRate, UnitCost, UnitCostCalculation, WorkCenter, MachineCenter, IsHandled);
+        // if IsHandled then
+        //     exit;
+
+        // CostCalcMgt.RoutingCostPerUnit(
+        //     Type, DirUnitCost, IndirCostPct, OvhdRate, UnitCost, UnitCostCalculation, WorkCenter, MachineCenter);
+    end;
+
+    procedure IncrCost(var Cost: Decimal; UnitCost: Decimal; Qty: Decimal)
+    begin
+        Cost := Cost + (Qty * UnitCost);
+    end;
+
+    //---CDU6500---
+    procedure BeforeRegisterNewItemTrackingLines(var TempTrackingSpecification: Record "Tracking Specification" temporary)
+    var
+        TempProdOrderComp: Record "Prod. Order Component" TEMPORARY;
+        cuLotInheritanceMgt: Codeunit "PWD Lot Inheritance Mgt.PW";
+        ProdOrderLine: Record "Prod. Order Line";
+        ProdOrderComp: Record "Prod. Order Component";
+    begin
+        IF TempTrackingSpecification.FINDSET THEN
+            REPEAT
+                //>>FE_PROD01.001
+                IF TempTrackingSpecification."Source Type" = DATABASE::"Prod. Order Component" THEN BEGIN
+                    TempProdOrderComp.Status := TempTrackingSpecification."Source Subtype";
+                    TempProdOrderComp."Prod. Order No." := TempTrackingSpecification."Source ID";
+                    TempProdOrderComp."Prod. Order Line No." := TempTrackingSpecification."Source Prod. Order Line";
+                    TempProdOrderComp."Line No." := TempTrackingSpecification."Source Ref. No.";
+                    IF TempProdOrderComp.INSERT THEN;
+                END;
+            //<<FE_PROD01.001
+            UNTIL TempTrackingSpecification.NEXT = 0;
+        //>>FE_PROD01.001
+        IF TempProdOrderComp.FIND('-') THEN
+            REPEAT
+                ProdOrderComp.GET(
+                  TempProdOrderComp.Status,
+                  TempProdOrderComp."Prod. Order No.",
+                  TempProdOrderComp."Prod. Order Line No.",
+                  TempProdOrderComp."Line No.");
+                IF ProdOrderComp."PWD Lot Determining" THEN BEGIN
+                    ProdOrderLine.GET(ProdOrderComp.Status, ProdOrderComp."Prod. Order No.", ProdOrderComp."Prod. Order Line No.");
+                    cuLotInheritanceMgt.AutoCreatePOLTracking(ProdOrderLine);
+                END;
+            UNTIL TempProdOrderComp.NEXT = 0;
+        //<<FE_PROD01.001
+    end;
+
+    PROCEDURE FctCopyItemTrackingSpec(FromRowID: Text[250]; ToRowID: Text[250]; SwapSign: Boolean; DecPQty: Decimal);
+    BEGIN
+        FctCopyItemTrackingSpec2(FromRowID, ToRowID, SwapSign, FALSE, DecPQty);
+    END;
+
+    PROCEDURE FctCopyItemTrackingSpec2(FromRowID: Text[250]; ToRowID: Text[250]; SwapSign: Boolean; SkipReservation: Boolean; DecPQty: Decimal);
+    VAR
+        ReservEntry: Record "Reservation Entry";
+        ReservMgt: Codeunit "Reservation Management";
+    BEGIN
+        ReservEntry.SetPointer(FromRowID);
+        ReservEntry.SetPointerFilter;
+        FctCopyItemTrackingSpec3(ReservEntry, ToRowID, SwapSign, SkipReservation, DecPQty);
+    END;
+
+    PROCEDURE FctCopyItemTrackingSpec3(VAR ReservEntry: Record 337; ToRowID: Text[250]; SwapSign: Boolean; SkipReservation: Boolean; DecPQty: Decimal);
+    VAR
+        ReservEntry1: Record "Reservation Entry";
+        TempReservEntry: Record "Reservation Entry" TEMPORARY;
+        LastEntryNo: Integer;
+        ItemTrackingManagement: Codeunit "Item Tracking Management";
+    BEGIN
+        IF SkipReservation THEN
+            ReservEntry.SETFILTER("Reservation Status", '<>%1', ReservEntry."Reservation Status"::Reservation);
+        IF ReservEntry.FINDSET THEN BEGIN
+            REPEAT
+                IF (ReservEntry."Lot No." <> '') OR (ReservEntry."Serial No." <> '') THEN BEGIN
+                    TempReservEntry := ReservEntry;
+                    TempReservEntry."Reservation Status" := TempReservEntry."Reservation Status"::Prospect;
+                    TempReservEntry."Quantity (Base)" := DecPQty;
+                    TempReservEntry.Quantity := DecPQty;
+                    //TempReservEntry."Qty. to Handle (Base)" := DecPQty;
+                    //TempReservEntry."Qty. to Invoice (Base)" := DecPQty;
+                    //TempReservEntry."Quantity Invoiced (Base)" := DecPQty;
+                    TempReservEntry.SetPointer(ToRowID);
+                    IF SwapSign THEN BEGIN
+                        TempReservEntry."Quantity (Base)" := -TempReservEntry."Quantity (Base)";
+                        TempReservEntry.Quantity := -TempReservEntry.Quantity;
+                        TempReservEntry."Qty. to Handle (Base)" := -TempReservEntry."Qty. to Handle (Base)";
+                        TempReservEntry."Qty. to Invoice (Base)" := -TempReservEntry."Qty. to Invoice (Base)";
+                        TempReservEntry."Quantity Invoiced (Base)" := -TempReservEntry."Quantity Invoiced (Base)";
+                        TempReservEntry.Positive := TempReservEntry."Quantity (Base)" > 0;
+                    END;
+                    TempReservEntry.INSERT;
+                END;
+            UNTIL ReservEntry.NEXT = 0;
+
+            ModifyTempReservEntrySetIfTransfer(TempReservEntry);
+
+            IF TempReservEntry.FINDSET THEN BEGIN
+                ReservEntry1.RESET;
+                ReservEntry1.LOCKTABLE;
+                IF ReservEntry1.FINDLAST THEN
+                    LastEntryNo := ReservEntry1."Entry No.";
+                REPEAT
+                    ReservEntry1 := TempReservEntry;
+                    LastEntryNo += 1;
+                    ReservEntry1."Entry No." := LastEntryNo;
+                    ReservEntry1.INSERT;
+                UNTIL TempReservEntry.NEXT = 0;
+            END;
+        END;
+    END;
+
+    local procedure ModifyTempReservEntrySetIfTransfer(var TempReservEntry: Record "Reservation Entry" temporary)
+    var
+        TransLine: Record "Transfer Line";
+    begin
+        if TempReservEntry."Source Type" = DATABASE::"Transfer Line" then begin
+            TransLine.Get(TempReservEntry."Source ID", TempReservEntry."Source Ref. No.");
+            TempReservEntry.ModifyAll("Reservation Status", TempReservEntry."Reservation Status"::Surplus);
+            if TempReservEntry."Source Subtype" = 0 then begin
+                TempReservEntry.ModifyAll("Location Code", TransLine."Transfer-from Code");
+                TempReservEntry.ModifyAll("Expected Receipt Date", 0D);
+                TempReservEntry.ModifyAll("Shipment Date", TransLine."Shipment Date");
+            end else begin
+                TempReservEntry.ModifyAll("Location Code", TransLine."Transfer-to Code");
+                TempReservEntry.ModifyAll("Expected Receipt Date", TransLine."Receipt Date");
+                TempReservEntry.ModifyAll("Shipment Date", 0D);
+            end;
+        end;
+    end;
+
+    PROCEDURE LotSNAvailablePhantom(TrackingSpecification: Record 336 TEMPORARY): Decimal;
+    VAR
+        TempReservEntry: Record 337 TEMPORARY;
+        TempEntrySummary: Record 338 TEMPORARY;
+        TempGlobalEntrySummary: Record 338 TEMPORARY;
+        ItemTrackingDataCollection: codeunit "Item Tracking Data Collection";
+    BEGIN
+        // >> FE_LAPRIERRETTE_GP0003 : APA 16/05/13
+        TempGlobalEntrySummary.RESET;
+        TempGlobalEntrySummary.DELETEALL;
+        ItemTrackingDataCollection.RetrieveLookupData(TrackingSpecification, TRUE);
+
+        TempGlobalEntrySummary.RESET;
+        TempGlobalEntrySummary.SETCURRENTKEY("Lot No.", "Serial No.");
+        TempGlobalEntrySummary.SETRANGE("Serial No.", '');
+        TempGlobalEntrySummary.SETRANGE("Lot No.", TrackingSpecification."Lot No.");
+        TempGlobalEntrySummary.CALCSUMS("Total Available Quantity");
+        EXIT(TempGlobalEntrySummary."Total Available Quantity");
+        // << FE_LAPRIERRETTE_GP0003 : APA 16/05/13
+    END;
 
     Var
         BooGAvoidControl: Boolean;
