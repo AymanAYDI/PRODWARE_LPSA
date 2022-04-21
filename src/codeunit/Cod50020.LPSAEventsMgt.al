@@ -1400,6 +1400,112 @@ codeunit 50020 "PWD LPSA Events Mgt."
         //<<FE_LAPIERRETTE_ART02.001
     end;
 
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Copy Document Mgt.", 'OnUpdateSalesLine', '', false, false)]
+    local procedure CDU6620_OnUpdateSalesLine_CopyDocumentMgt(var ToSalesLine: Record "Sales Line"; var FromSalesLine: Record "Sales Line")
+    begin
+        //>>TI327233
+        IF FromSalesLine."PWD LPSA Description 1" <> '' THEN
+            ToSalesLine.VALIDATE("PWD LPSA Description 1", FromSalesLine."PWD LPSA Description 1");
+        IF FromSalesLine."PWD LPSA Description 2" <> '' THEN
+            ToSalesLine.VALIDATE("PWD LPSA Description 2", FromSalesLine."PWD LPSA Description 2");
+        //<<TI327233
+    end;
+
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Copy Document Mgt.", 'OnBeforeInsertOldSalesDocNoLine', '', false, false)]
+    local procedure CDU6620_OnBeforeInsertOldSalesDocNoLine_CopyDocumentMgt(var ToSalesHeader: Record "Sales Header"; var ToSalesLine: Record "Sales Line"; OldDocType: Option; OldDocNo: Code[20]; var IsHandled: Boolean)
+    var
+        Text015: Label '%1 %2:';
+        Text013: Label 'Shipment No.,Invoice No.,Return Receipt No.,Credit Memo No.';
+    begin
+        //>>FE_LAPIERRETTE_ART02.001
+        ToSalesLine."PWD LPSA Description 1" := STRSUBSTNO(Text015, SELECTSTR(OldDocType, Text013), OldDocNo);
+        //<<FE_LAPIERRETTE_ART02.001
+    end;
+
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Copy Document Mgt.", 'OnBeforeInsertOldSalesCombDocNoLine', '', false, false)]
+    local procedure CDU6620_OnBeforeInsertOldSalesCombDocNoLine_CopyDocumentMgt(var ToSalesHeader: Record "Sales Header"; var ToSalesLine: Record "Sales Line"; CopyFromInvoice: Boolean; OldDocNo: Code[20]; OldDocNo2: Code[20]; var IsHandled: Boolean)
+    var
+        Text016: Label 'Inv. No. ,Shpt. No. ,Cr. Memo No. ,Rtrn. Rcpt. No. ';
+        Text018: Label '%1 - %2:';
+    begin
+        IF CopyFromInvoice THEN
+            //>>FE_LAPIERRETTE_ART02.001
+            ToSalesLine."PWD LPSA Description 1" :=
+          STRSUBSTNO(
+            Text018,
+            COPYSTR(SELECTSTR(1, Text016) + OldDocNo, 1, 23),
+            COPYSTR(SELECTSTR(2, Text016) + OldDocNo2, 1, 23))
+        else
+            //>>FE_LAPIERRETTE_ART02.001
+            ToSalesLine."PWD LPSA Description 1" :=
+          STRSUBSTNO(
+            Text018,
+            COPYSTR(SELECTSTR(3, Text016) + OldDocNo, 1, 23),
+            COPYSTR(SELECTSTR(4, Text016) + OldDocNo2, 1, 23));
+        //<<FE_LAPIERRETTE_ART02.001
+    end;
+
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Copy Document Mgt.", 'OnBeforeInsertOldPurchDocNoLine', '', false, false)]
+    local procedure CDU6620_OnBeforeInsertOldPurchDocNoLine_CopyDocumentMgt(ToPurchHeader: Record "Purchase Header"; var ToPurchLine: Record "Purchase Line"; OldDocType: Option; OldDocNo: Code[20]; var IsHandled: Boolean)
+    var
+        Text014: Label 'Receipt No.,Invoice No.,Return Shipment No.,Credit Memo No.';
+        Text015: Label '%1 %2:';
+    begin
+        //>>FE_LAPIERRETTE_ART02.001
+        ToPurchLine."PWD LPSA Description 1" := STRSUBSTNO(Text015, SELECTSTR(OldDocType, Text014), OldDocNo);
+        //<<FE_LAPIERRETTE_ART02.001
+    end;
+
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Copy Document Mgt.", 'OnBeforeInsertOldPurchCombDocNoLine', '', false, false)]
+    local procedure CDU6620_OnBeforeInsertOldPurchCombDocNoLine_CopyDocumentMgt(var ToPurchHeader: Record "Purchase Header"; var ToPurchLine: Record "Purchase Line"; CopyFromInvoice: Boolean; OldDocNo: Code[20]; OldDocNo2: Code[20])
+    var
+        Text017: label 'Inv. No. ,Rcpt. No. ,Cr. Memo No. ,Rtrn. Shpt. No. ';
+        Text018: label '%1 - %2:';
+    begin
+        //>>FE_LAPIERRETTE_ART02.001
+        IF CopyFromInvoice THEN
+            ToPurchLine."PWD LPSA Description 1" :=
+              STRSUBSTNO(
+                Text018,
+                COPYSTR(SELECTSTR(1, Text017) + OldDocNo, 1, 23),
+                COPYSTR(SELECTSTR(2, Text017) + OldDocNo2, 1, 23))
+        //<<FE_LAPIERRETTE_ART02.001
+        Else
+            //>>FE_LAPIERRETTE_ART02.001
+            ToPurchLine."PWD LPSA Description 1" :=
+          STRSUBSTNO(
+            Text018,
+            COPYSTR(SELECTSTR(3, Text017) + OldDocNo, 1, 23),
+            COPYSTR(SELECTSTR(4, Text017) + OldDocNo2, 1, 23));
+        //<<FE_LAPIERRETTE_ART02.001
+    End;
+
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Transfer Extended Text", 'OnBeforeToSalesLineInsert', '', false, false)]
+    local procedure CDU378_OnBeforeToSalesLineInsert_TransferExtendedText(var ToSalesLine: Record "Sales Line"; SalesLine: Record "Sales Line"; TempExtTextLine: Record "Extended Text Line" temporary; var NextLineNo: Integer; LineSpacing: Integer; var IsHandled: Boolean)
+    begin
+        //>>FE_LAPIERRETTE_ART02.001
+        ToSalesLine."PWD LPSA Description 1" := SalesLine."PWD LPSA Description 1";
+        ToSalesLine."PWD LPSA Description 2" := SalesLine."PWD LPSA Description 2";
+        //<<FE_LAPIERRETTE_ART02.001
+    end;
+
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Transfer Extended Text", 'OnBeforeToPurchLineInsert', '', false, false)]
+    local procedure CDU378_OnBeforeToPurchLineInsert_TransferExtendedText(var ToPurchLine: Record "Purchase Line"; PurchLine: Record "Purchase Line"; TempExtTextLine: Record "Extended Text Line" temporary; var NextLineNo: Integer; LineSpacing: Integer)
+    begin
+        //>>FE_LAPIERRETTE_ART02.001
+        ToPurchLine."PWD LPSA Description 1" := PurchLine."PWD LPSA Description 1";
+        ToPurchLine."PWD LPSA Description 2" := PurchLine."PWD LPSA Description 2";
+        //<<FE_LAPIERRETTE_ART02.001   
+    end;
+    //---CDU6620---
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Sales Price Calc. Mgt.", 'OnFindSalesLinePriceOnItemTypeOnAfterSetUnitPrice', '', false, false)]
+    local procedure CDU7000_OnFindSalesLinePriceOnItemTypeOnAfterSetUnitPrice(var SalesHeader: Record "Sales Header"; var SalesLine: Record "Sales Line"; var TempSalesPrice: Record "Sales Price" temporary; CalledByFieldNo: Integer; FoundSalesPrice: Boolean)
+    begin
+        //>>FE_LAPIERRETTE_VTE03.001
+        SalesLine."PWD Fixed Price" := TempSalesPrice."PWD Fixed Price";
+        //<<FE_LAPIERRETTE_VTE03.001
+    end;
+
     var
         DontExecuteIfImport: Boolean;
         BooGFromImport: Boolean;

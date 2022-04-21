@@ -19,7 +19,7 @@ codeunit 50090 "PWD File Export Launcher2"
     trigger OnRun()
     var
         RecLPartnerConnector: Record "PWD Partner Connector";
-        CduLFileExport: Codeunit "File Export";
+        CduLFileExport: Codeunit "PWD File Export";
     begin
         //**********************************************************************************************************//
         //                                  Launch File Export connectors                                           //

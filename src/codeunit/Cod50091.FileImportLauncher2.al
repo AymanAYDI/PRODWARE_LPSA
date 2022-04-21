@@ -32,6 +32,6 @@ codeunit 50091 "PWD File Import Launcher2"
 
     var
         RecLPartnerConnector: Record "PWD Partner Connector";
-        CduLFileImport: Codeunit "File Import";
+        CduLFileImport: Codeunit "PWD File Import";
 }
 

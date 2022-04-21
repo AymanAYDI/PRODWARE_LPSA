@@ -17,36 +17,36 @@ codeunit 50005 "PWD Job Queue Calculate Plan"
     begin
         // Setup
         RecGManufacturingSetup.Get();
-        if (not RecGManufacturingSetup.MPS) and (not RecGManufacturingSetup.MRP) then
+        if (not RecGManufacturingSetup."PWD MPS") and (not RecGManufacturingSetup."PWD MRP") then
             Error(CstGTxt000, RecGManufacturingSetup.TableCaption);
 
-        BooGNetChange := RecGManufacturingSetup."Calc. Type" = RecGManufacturingSetup."Calc. Type"::"Net Change";
+        BooGNetChange := RecGManufacturingSetup."PWD Calc. Type" = RecGManufacturingSetup."PWD Calc. Type"::"Net Change";
 
         if RecGLocation.IsEmpty then
             Error(CstGTxt002);
 
-        DatGFromDate := CalcDate(RecGManufacturingSetup."Starting Date Calc.", Today);
-        DatGToDate := CalcDate(RecGManufacturingSetup."Ending Date Calc.", Today);
+        DatGFromDate := CalcDate(RecGManufacturingSetup."PWD Starting Date Calc.", Today);
+        DatGToDate := CalcDate(RecGManufacturingSetup."PWD Ending Date Calc.", Today);
 
         RecGItem.SetCurrentKey("Low-Level Code");
 
         // Each Location
         RecGLocation.FindSet();
         repeat
-            if RecGLocation."Req. Wksh. Name" <> '' then begin
+            if RecGLocation."PWD Req. Wksh. Name" <> '' then begin
                 RecGItem.SetRange("Location Code", RecGLocation.Code);
 
                 Clear(CduGCalcItemPlan);
-                CduGCalcItemPlan.SetTemplAndWorksheet(RecGLocation."Req. Wksh. Template", RecGLocation."Req. Wksh. Name", BooGNetChange);
-                CduGCalcItemPlan.SetParm(RecGManufacturingSetup."Use Forecast", RecGManufacturingSetup."Exclude Before", RecGItem);
-                CduGCalcItemPlan.Initialize(DatGFromDate, DatGToDate, RecGManufacturingSetup.MPS, RecGManufacturingSetup.MRP);
+                CduGCalcItemPlan.SetTemplAndWorksheet(RecGLocation."PWD Req. Wksh. Template", RecGLocation."PWD Req. Wksh. Name", BooGNetChange);
+                CduGCalcItemPlan.SetParm(RecGManufacturingSetup."PWD Use Forecast", RecGManufacturingSetup."PWD Exclude Before", RecGItem);
+                CduGCalcItemPlan.Initialize(DatGFromDate, DatGToDate, RecGManufacturingSetup."PWD MPS", RecGManufacturingSetup."PWD MRP", false);
 
                 BooGSetAtStartPosition := true;
 
-                RecGReqLine.SetRange("Worksheet Template Name", RecGLocation."Req. Wksh. Template");
-                RecGReqLine.SetRange("Journal Batch Name", RecGLocation."Req. Wksh. Name");
-                RecGPlanningErrorLog.SetRange("Worksheet Template Name", RecGLocation."Req. Wksh. Template");
-                RecGPlanningErrorLog.SetRange("Journal Batch Name", RecGLocation."Req. Wksh. Name");
+                RecGReqLine.SetRange("Worksheet Template Name", RecGLocation."PWD Req. Wksh. Template");
+                RecGReqLine.SetRange("Journal Batch Name", RecGLocation."PWD Req. Wksh. Name");
+                RecGPlanningErrorLog.SetRange("Worksheet Template Name", RecGLocation."PWD Req. Wksh. Template");
+                RecGPlanningErrorLog.SetRange("Journal Batch Name", RecGLocation."PWD Req. Wksh. Name");
 
                 RecGPlanningErrorLog.DeleteAll();
                 ClearLastError();
@@ -71,7 +71,7 @@ codeunit 50005 "PWD Job Queue Calculate Plan"
                                     TxtGErrorText := CstGTxt001
                                 else
                                     ClearLastError();
-                                RecGPlanningErrorLog.SetJnlBatch(RecGLocation."Req. Wksh. Template", RecGLocation."Req. Wksh. Name", RecGItem."No.");
+                                RecGPlanningErrorLog.SetJnlBatch(RecGLocation."PWD Req. Wksh. Template", RecGLocation."PWD Req. Wksh. Name", RecGItem."No.");
                                 RecGPlanningErrorLog.SetError(
                                   StrSubstNo(TxtGErrorText, RecGItem.TableCaption, RecGItem."No."), 0, RecGItem.GetPosition());
                             end;

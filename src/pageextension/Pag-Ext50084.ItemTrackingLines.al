@@ -1,4 +1,4 @@
-pageextension 50084 pageextension50084 extends "Item Tracking Lines"
+pageextension 50084 "PWD ItemTrackingLines" extends "Item Tracking Lines"
 {
     // #1..3
     // 
@@ -24,7 +24,7 @@ pageextension 50084 pageextension50084 extends "Item Tracking Lines"
     {
         addafter("Control 24")
         {
-            field(NC; NC)
+            field("PWD NC"; NC)
             {
                 ApplicationArea = All;
             }

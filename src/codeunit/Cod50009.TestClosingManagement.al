@@ -14,7 +14,7 @@ codeunit 50009 "PWD Test Closing Management"
     begin
         RecGGenLdgSetup.Get();
         RecGInventorySetup.Get();
-        RecGUserSetup.Get(RecGInventorySetup."Recipient User ID");
+        RecGUserSetup.Get(RecGInventorySetup."PWD Recipient User ID");
         if not BooGManualLaunch then
             RecGUserSetup.TestField("E-Mail");
 
@@ -55,8 +55,8 @@ codeunit 50009 "PWD Test Closing Management"
         RecGDimValue: Record "Dimension Value";
         RecGDefaultDim: Record "Default Dimension";
         RecGUserSetup: Record "User Setup";
-        CduG3TierMgt: Codeunit "3-Tier Automation Mgt.";
-        CduGConvert: Codeunit "Convert Ascii To Ansi";
+        CduG3TierMgt: Codeunit "3-Tier Automation Mgt."; //TODO: Codeunit n'existe pas dans la nouvelle version
+        CduGConvert: Codeunit "PWD Convert Ascii To Ansi";
         TxtGServerFileName: Text[250];
         TxtGExportFileName: Text[250];
         FilGToExport: File;
@@ -84,14 +84,14 @@ codeunit 50009 "PWD Test Closing Management"
         case FromIDTable of
             5722:
                 begin
-                    RecGInventorySetup.TestField("Item Category Dimension");
-                    DimensionCode := RecGInventorySetup."Item Category Dimension";
+                    RecGInventorySetup.TestField("PWD Item Category Dimension");
+                    DimensionCode := RecGInventorySetup."PWD Item Category Dimension";
                 end;
 
             5723:
                 begin
-                    RecGInventorySetup.TestField("Product Group Dimension");
-                    DimensionCode := RecGInventorySetup."Product Group Dimension";
+                    RecGInventorySetup.TestField("PWD Product Group Dimension");
+                    DimensionCode := RecGInventorySetup."PWD Product Group Dimension";
                 end;
 
             else
@@ -120,14 +120,14 @@ codeunit 50009 "PWD Test Closing Management"
         case FromIDTable of
             5722:
                 begin
-                    RecGInventorySetup.TestField("Item Category Dimension");
-                    DimensionCode := RecGInventorySetup."Item Category Dimension";
+                    RecGInventorySetup.TestField("PWD Item Category Dimension");
+                    DimensionCode := RecGInventorySetup."PWD Item Category Dimension";
                 end;
 
             5723:
                 begin
-                    RecGInventorySetup.TestField("Product Group Dimension");
-                    DimensionCode := RecGInventorySetup."Product Group Dimension";
+                    RecGInventorySetup.TestField("PWD Product Group Dimension");
+                    DimensionCode := RecGInventorySetup."PWD Product Group Dimension";
                 end;
 
             else
@@ -246,7 +246,7 @@ codeunit 50009 "PWD Test Closing Management"
         if GuiAllowed then
             DiaGWindows.Update(1, CstLTitle);
 
-        InitFile(RecGInventorySetup."Path for Closing Export", CstLItem);
+        InitFile(RecGInventorySetup."PWD Path for Closing Export", CstLItem);
 
         //*************** HEADER ***************//
         // 1 - N° Article
@@ -319,13 +319,13 @@ codeunit 50009 "PWD Test Closing Management"
             TxtLTextFields[3] := RecLItem."Search Description";
 
             // 4 - Code catégories articles
-            RecGDefaultDim.SetRange("Dimension Code", RecGInventorySetup."Item Category Dimension");
+            RecGDefaultDim.SetRange("Dimension Code", RecGInventorySetup."PWD Item Category Dimension");
             if not RecGDefaultDim.FindFirst() then
                 RecGDefaultDim.Init();
             TxtLTextFields[4] := RecGDefaultDim."Dimension Value Code";
 
             // 5 - Code groupe produits
-            RecGDefaultDim.SetRange("Dimension Code", RecGInventorySetup."Product Group Dimension");
+            RecGDefaultDim.SetRange("Dimension Code", RecGInventorySetup."PWD Product Group Dimension");
             if not RecGDefaultDim.FindFirst() then
                 RecGDefaultDim.Init();
             TxtLTextFields[5] := RecGDefaultDim."Dimension Value Code";
@@ -381,7 +381,7 @@ codeunit 50009 "PWD Test Closing Management"
         if GuiAllowed then
             DiaGWindows.Update(1, CstLTitle);
 
-        InitFile(RecGInventorySetup."Path for Closing Export", CstLInventory);
+        InitFile(RecGInventorySetup."PWD Path for Closing Export", CstLInventory);
 
         //*************** HEADER ***************//
 
@@ -466,7 +466,7 @@ codeunit 50009 "PWD Test Closing Management"
 
                 RecLItem.SetFilter("Location Filter", '%1', RecLLocation.Code);
                 RecLItem.SetFilter("Date Filter", '..%1', DatGCurrEndMonth);
-                RecLItem.CalcFields(Inventory, "Qty. on Sales Order", "Forecast Qty.", "Qty. on Component Lines");
+                RecLItem.CalcFields(Inventory, "Qty. on Sales Order", "PWD Forecast Qty.", "Qty. on Component Lines");
 
                 if RecLLocation."Bin Mandatory" then begin
                     RecLBinContent.SetRange("Location Code", RecLLocation.Code);
@@ -518,13 +518,13 @@ codeunit 50009 "PWD Test Closing Management"
                                 TxtLTextFields[9] := RecGDefaultDim."Dimension Value Code";
 
                                 // 10 - Code Catégorie
-                                RecGDefaultDim.SetRange("Dimension Code", RecGInventorySetup."Item Category Dimension");
+                                RecGDefaultDim.SetRange("Dimension Code", RecGInventorySetup."PWD Item Category Dimension");
                                 if not RecGDefaultDim.FindFirst() then
                                     RecGDefaultDim.Init();
                                 TxtLTextFields[10] := RecGDefaultDim."Dimension Value Code";
 
                                 // 11 - Code Groupe Produit
-                                RecGDefaultDim.SetRange("Dimension Code", RecGInventorySetup."Product Group Dimension");
+                                RecGDefaultDim.SetRange("Dimension Code", RecGInventorySetup."PWD Product Group Dimension");
                                 if not RecGDefaultDim.FindFirst() then
                                     RecGDefaultDim.Init();
                                 TxtLTextFields[11] := RecGDefaultDim."Dimension Value Code";
@@ -544,7 +544,7 @@ codeunit 50009 "PWD Test Closing Management"
 
                                 // 16 - Besoins
                                 TxtLTextFields[16] := Format(RecLItem."Qty. on Sales Order" +
-                                                             RecLItem."Forecast Qty." +
+                                                             RecLItem."PWD Forecast Qty." +
                                                              RecLItem."Qty. on Component Lines");
                                 //>>TDL21072020.001
                                 // 17 - Système réappro.
@@ -615,13 +615,13 @@ codeunit 50009 "PWD Test Closing Management"
                         TxtLTextFields[9] := RecGDefaultDim."Dimension Value Code";
 
                         // 10 - Code Catégorie
-                        RecGDefaultDim.SetRange("Dimension Code", RecGInventorySetup."Item Category Dimension");
+                        RecGDefaultDim.SetRange("Dimension Code", RecGInventorySetup."PWD Item Category Dimension");
                         if not RecGDefaultDim.FindFirst() then
                             RecGDefaultDim.Init();
                         TxtLTextFields[10] := RecGDefaultDim."Dimension Value Code";
 
                         // 11 - Code Groupe Produit
-                        RecGDefaultDim.SetRange("Dimension Code", RecGInventorySetup."Product Group Dimension");
+                        RecGDefaultDim.SetRange("Dimension Code", RecGInventorySetup."PWD Product Group Dimension");
                         if not RecGDefaultDim.FindFirst() then
                             RecGDefaultDim.Init();
                         TxtLTextFields[11] := RecGDefaultDim."Dimension Value Code";
@@ -640,7 +640,7 @@ codeunit 50009 "PWD Test Closing Management"
 
                         // 16 - Besoins
                         TxtLTextFields[16] := Format(RecLItem."Qty. on Sales Order" +
-                                                     RecLItem."Forecast Qty." +
+                                                     RecLItem."PWD Forecast Qty." +
                                                      RecLItem."Qty. on Component Lines");
 
                         // 17 - Système réappro.
@@ -689,7 +689,7 @@ codeunit 50009 "PWD Test Closing Management"
         if GuiAllowed then
             DiaGWindows.Update(1, CstLTitle);
 
-        InitFile(RecGInventorySetup."Path for Closing Export", CstLCurrent);
+        InitFile(RecGInventorySetup."PWD Path for Closing Export", CstLCurrent);
 
         DatLCurrPrevEndMonth := CalcDate('<-1D>', DatGCurrStartMonth);
 
@@ -758,12 +758,12 @@ codeunit 50009 "PWD Test Closing Management"
                 if GuiAllowed then
                     DiaGWindows.Update(2, RecLProductionOrder."No.");
                 //>>TDL21072020.001
-                RecLProductionOrder.CalcFields("Consumption Date");
-                if (RecLProductionOrder."Consumption Date" <> 0D)
+                RecLProductionOrder.CalcFields("PWD Consumption Date");
+                if (RecLProductionOrder."PWD Consumption Date" <> 0D)
                   and
-                  (RecLProductionOrder."Consumption Date" <= DatGCurrEndMonth)
+                  (RecLProductionOrder."PWD Consumption Date" <= DatGCurrEndMonth)
                   and
-                  (RecLProductionOrder."Consumption Date" >= DatGCurrStartMonth)
+                  (RecLProductionOrder."PWD Consumption Date" >= DatGCurrStartMonth)
                 then begin
                     //<<TDL21072020.001
                     RecLProdOrderLine.SetRange(Status, RecLProductionOrder.Status);
@@ -812,13 +812,13 @@ codeunit 50009 "PWD Test Closing Management"
                         //<<TDL21072020.001
 
                         // 14 - Code catégorie articles
-                        RecGDefaultDim.SetRange("Dimension Code", RecGInventorySetup."Item Category Dimension");
+                        RecGDefaultDim.SetRange("Dimension Code", RecGInventorySetup."PWD Item Category Dimension");
                         if not RecGDefaultDim.FindFirst() then
                             RecGDefaultDim.Init();
                         TxtLTextFields[14] := RecGDefaultDim."Dimension Value Code";
 
                         // 15 - Code groupe produits
-                        RecGDefaultDim.SetRange("Dimension Code", RecGInventorySetup."Product Group Dimension");
+                        RecGDefaultDim.SetRange("Dimension Code", RecGInventorySetup."PWD Product Group Dimension");
                         if not RecGDefaultDim.FindFirst() then
                             RecGDefaultDim.Init();
                         TxtLTextFields[15] := RecGDefaultDim."Dimension Value Code";
@@ -855,7 +855,7 @@ codeunit 50009 "PWD Test Closing Management"
         if GuiAllowed then
             DiaGWindows.Update(1, CstLTitle);
 
-        InitFile(RecGInventorySetup."Path for Closing Export", CstLFinisheProdOrder);
+        InitFile(RecGInventorySetup."PWD Path for Closing Export", CstLFinisheProdOrder);
 
         //*************** HEADER ***************//
 
@@ -905,8 +905,8 @@ codeunit 50009 "PWD Test Closing Management"
                     DiaGWindows.Update(2, RecLProductionOrder."No.");
 
                 //>>TDL21072020.001
-                ReclCapacityLdgrEntry.SetCurrentKey("Prod. Order No.");
-                ReclCapacityLdgrEntry.SetRange("Prod. Order No.", RecLProductionOrder."No.");
+                ReclCapacityLdgrEntry.SetCurrentKey("Order No.");
+                ReclCapacityLdgrEntry.SetRange("Order No.", RecLProductionOrder."No.");
                 if ReclCapacityLdgrEntry.FindLast() then
                     if (ReclCapacityLdgrEntry."Posting Date" >= DatGCurrStartMonth)
                        and (ReclCapacityLdgrEntry."Posting Date" <= DatGCurrEndMonth)
@@ -915,8 +915,8 @@ codeunit 50009 "PWD Test Closing Management"
                         RecLProdOrderLine.SetRange(Status, RecLProductionOrder.Status);
                         RecLProdOrderLine.SetRange("Prod. Order No.", RecLProductionOrder."No.");
                         if RecLProdOrderLine.FindFirst() then begin
-                            RecLItemLdgrEntry.SetCurrentKey("Prod. Order No.");
-                            RecLItemLdgrEntry.SetRange("Prod. Order No.", RecLProductionOrder."No.");
+                            RecLItemLdgrEntry.SetCurrentKey("Order No.");
+                            RecLItemLdgrEntry.SetRange("Order No.", RecLProductionOrder."No.");
 
                             // 1 - N° O.F.
                             TxtLTextFields[1] := RecLProductionOrder."No.";
@@ -952,8 +952,8 @@ codeunit 50009 "PWD Test Closing Management"
                             TxtLTextFields[9] := Format(RecLProdOrderLine."Finished Quantity");
 
                             // 10 - Quantité rebut
-                            ReclCapacityLdgrEntry.SetCurrentKey("Prod. Order No.");
-                            ReclCapacityLdgrEntry.SetRange("Prod. Order No.", RecLProductionOrder."No.");
+                            ReclCapacityLdgrEntry.SetCurrentKey("Order No.");
+                            ReclCapacityLdgrEntry.SetRange("Order No.", RecLProductionOrder."No.");
                             ReclCapacityLdgrEntry.CalcSums("Scrap Quantity");
                             TxtLTextFields[10] := Format(ReclCapacityLdgrEntry."Scrap Quantity");
 
@@ -992,7 +992,7 @@ codeunit 50009 "PWD Test Closing Management"
         Clear(DecLValueOfCapVendor);
         Clear(DecLValueOfOutput);
 
-        RecLValueEntry.SetRange("Prod. Order No.", RecPProdOrder."No.");
+        RecLValueEntry.SetRange("Order No.", RecPProdOrder."No.");
         RecLValueEntry.SetRange("Posting Date", 0D, DatPCurrEndMonth);
         if RecLValueEntry.FindSet() then
             repeat
@@ -1144,7 +1144,7 @@ codeunit 50009 "PWD Test Closing Management"
         RecLItemLdgrEntry: Record "Item Ledger Entry";
         DatLCoverStartMonth: Date;
     begin
-        DatLCoverStartMonth := CalcDate(StrSubstNo('<-%1M>', RecGInventorySetup."Period for Inventory Cover"), DatGCurrStartMonth);
+        DatLCoverStartMonth := CalcDate(StrSubstNo('<-%1M>', RecGInventorySetup."PWD Period for Inventory Cover"), DatGCurrStartMonth);
 
         RecLItemLdgrEntry.SetCurrentKey("Item No.", "Entry Type", "Variant Code", "Drop Shipment", "Location Code", "Posting Date");
         RecLItemLdgrEntry.SetRange("Item No.", CodPItem);
@@ -1157,7 +1157,7 @@ codeunit 50009 "PWD Test Closing Management"
         if RecLItemLdgrEntry.Quantity = 0 then
             exit(0)
         else
-            exit(Abs(DecPInventory) / (Abs(RecLItemLdgrEntry.Quantity) / RecGInventorySetup."Period for Inventory Cover"));
+            exit(Abs(DecPInventory) / (Abs(RecLItemLdgrEntry.Quantity) / RecGInventorySetup."PWD Period for Inventory Cover"));
     end;
 }
 

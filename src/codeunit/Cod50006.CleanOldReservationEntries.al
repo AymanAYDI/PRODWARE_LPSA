@@ -5,7 +5,7 @@ codeunit 50006 "Clean Old Reservation Entries"
 
     trigger OnRun()
     begin
-        RecGItemJournalTemplate.SetRange(Type, RecGItemJournalTemplate.Type::"Prod.Order");
+        RecGItemJournalTemplate.SetRange(Type, RecGItemJournalTemplate.Type::"Prod. Order");
         RecGItemJournalTemplate.SetRange(Recurring, false);
         if RecGItemJournalTemplate.FindFirst() then
             repeat
