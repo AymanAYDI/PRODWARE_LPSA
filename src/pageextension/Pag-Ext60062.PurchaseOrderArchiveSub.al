@@ -1,23 +1,22 @@
-pageextension 50042 pageextension50042 extends "Sales Order Archive"
+pageextension 60062 "PWD PurchaseOrderArchiveSub" extends "Purchase Order Archive Subform"
 {
     // +----------------------------------------------------------------------------------------------------------------+
     // | ProdWare                                                                                                       |
     // | www.prodware.fr                                                                                                |
     // +----------------------------------------------------------------------------------------------------------------+
-    // 
     // //>>LAP1.00
-    // FE_LAPIERRETTE_VTE06.001: NI 23/11/2011:  Statut Commande vente
-    //                                           - Display field 50000..50001 on Tab [GENERAL]
+    // FE_LAPIERRETTE_ART02.001: NI 23/11/2011:  Désignation article 120 caracteres
+    //                                           - Add field 50004..50005
     // ------------------------------------------------------------------------------------------------------------------
     layout
     {
-        addafter("Control 34")
+        addafter(Description)
         {
-            field(Confirmed; Confirmed)
+            field("PWD LPSA Description 1"; "PWD LPSA Description 1")
             {
                 ApplicationArea = All;
             }
-            field(Planned; Planned)
+            field("PWD LPSA Description 2"; "PWD LPSA Description 2")
             {
                 ApplicationArea = All;
             }

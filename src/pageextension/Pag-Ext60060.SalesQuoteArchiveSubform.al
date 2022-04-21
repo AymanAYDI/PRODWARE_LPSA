@@ -1,6 +1,7 @@
-pageextension 50044 pageextension50044 extends "Sales Order Archive Subform"
+pageextension 60060 "PWD SalesQuoteArchiveSubform" extends "Sales Quote Archive Subform"
 {
-    // #1..19
+    // #1..10
+    // 
     // +----------------------------------------------------------------------------------------------------------------+
     // | ProdWare                                                                                                       |
     // | www.prodware.fr                                                                                                |
@@ -11,13 +12,13 @@ pageextension 50044 pageextension50044 extends "Sales Order Archive Subform"
     // ------------------------------------------------------------------------------------------------------------------
     layout
     {
-        addafter("Control 18")
+        addafter(Description)
         {
-            field("LPSA Description 1"; "LPSA Description 1")
+            field("PWD LPSA Description 1"; "PWD LPSA Description 1")
             {
                 ApplicationArea = All;
             }
-            field("LPSA Description 2"; "LPSA Description 2")
+            field("PWD LPSA Description 2"; "PWD LPSA Description 2")
             {
                 ApplicationArea = All;
             }
