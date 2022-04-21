@@ -1399,8 +1399,237 @@ codeunit 50020 "PWD LPSA Events Mgt."
             ToPurchLine."PWD LPSA Description 1" := FromSalesLine.Description;
         //<<FE_LAPIERRETTE_ART02.001
     end;
+    //---PAG5510---
+    [EventSubscriber(ObjectType::Page, Page::"Production Journal", 'OnBeforeActionEvent', 'Post', false, false)]
+    local procedure PAG5510_OnBeforeActionEvent_ProductionJournal_Post(var Rec: Record "Item Journal Line")
+    var
+        ManufacturingSetup: Record "Manufacturing Setup";
+        ItemJnlLineCopy: Record "Item Journal Line";
+        CstG00002: Label 'Lot non conform, do you want to post ?';
+        ProductionJournal: page "Production Journal";
+    begin
+        ManufacturingSetup.GET;
+        //RecLManufacturingSetup.TESTFIELD("Non conformity Prod. Location");
+        ManufacturingSetup.TESTFIELD("PWD Mach. center - Inventory input");
+        ItemJnlLineCopy.COPY(Rec);
+        IF ProductionJournal.FctExistControlQuality(ItemJnlLineCopy, ManufacturingSetup."PWD Mach. center - Inventory input") THEN
+            IF NOT ProductionJournal.FctCheckControlQuality(ItemJnlLineCopy) THEN
+                //IF NOT CONFIRM(STRSUBSTNO(CstG00001,RecLManufacturingSetup."Non conformity Prod. Location")) THEN
+                IF NOT CONFIRM(CstG00002) THEN
+                    EXIT;
+
+    end;
+
+    [EventSubscriber(ObjectType::Page, Page::"Production Journal", 'OnBeforeActionEvent', 'Post and &Print', false, false)]
+    local procedure PAG5510_OnBeforeActionEvent_ProductionJournal_PostandPrint(var Rec: Record "Item Journal Line")
+    var
+        ManufacturingSetup: Record "Manufacturing Setup";
+        ItemJnlLineCopy: Record "Item Journal Line";
+        CstG00002: Label 'Lot non conform, do you want to post ?';
+        ProductionJournal: page "Production Journal";
+    begin
+        ManufacturingSetup.GET;
+        //RecLManufacturingSetup.TESTFIELD("Non conformity Prod. Location");
+        ManufacturingSetup.TESTFIELD("PWD Mach. center - Inventory input");
+        ItemJnlLineCopy.COPY(Rec);
+        IF ProductionJournal.FctExistControlQuality(ItemJnlLineCopy, ManufacturingSetup."PWD Mach. center - Inventory input") THEN
+            IF NOT ProductionJournal.FctCheckControlQuality(ItemJnlLineCopy) THEN
+                //IF NOT CONFIRM(STRSUBSTNO(CstG00001,RecLManufacturingSetup."Non conformity Prod. Location")) THEN
+                IF NOT CONFIRM(CstG00002) THEN
+                    EXIT;
+    end;
+    //---PAG6510---
+    [EventSubscriber(ObjectType::Page, Page::"Item Tracking Lines", 'OnInsertRecordOnBeforeTempItemTrackLineInsert', '', false, false)]
+    local procedure PAG6510_OnInsertRecordOnBeforeTempItemTrackLineInsert_ItemTrackingLines(var TempTrackingSpecificationInsert: Record "Tracking Specification" temporary; var TempTrackingSpecification: Record "Tracking Specification" temporary)
+    var
+    begin
+    end;
+
+    [EventSubscriber(ObjectType::Page, Page::"Item Tracking Lines", 'OnBeforeSetSourceSpec', '', false, false)]
+    local procedure PAG6510_OnBeforeSetSourceSpec_ItemTrackingLines(var TrackingSpecification: Record "Tracking Specification"; var ReservationEntry: Record "Reservation Entry"; var ExcludePostedEntries: Boolean)
+    var
+        gCurrSourceSpecification: Record "Tracking Specification";
+        gCurrSourceSpecDueDate: Date;
+        gCurrSourceSpecificationSet: Boolean;
+    begin
+        gCurrSourceSpecification := TrackingSpecification;
+        //TODO: AvailabilityDate variable dans la fonction SetSourceSpec
+        //gCurrSourceSpecDueDate := AvailabilityDate;
+        gCurrSourceSpecificationSet := TRUE;
+    end;
+
+    [EventSubscriber(ObjectType::Page, Page::"Item Tracking Lines", 'OnSetSourceSpecOnAfterAssignCurrentEntryStatus', '', false, false)]
+    local procedure PAG6510_OnSetSourceSpecOnAfterAssignCurrentEntryStatus_ItemTrackingLines(var TrackingSpecification: Record "Tracking Specification"; var CurrentEntryStatus: Option)
+    var
+        ReservEntry: Record "Reservation Entry";
+        CurrentSignFactor: Integer;
+        CreateReservEntry: Codeunit "Create Reserv. Entry";
+    begin
+        ReservEntry."Source Type" := TrackingSpecification."Source Type";
+        ReservEntry."Source Subtype" := TrackingSpecification."Source Subtype";
+        CurrentSignFactor := CreateReservEntry.SignFactor(ReservEntry);
+    end;
+
+    [EventSubscriber(ObjectType::Page, Page::"Item Tracking Lines", 'OnBeforeAssignLotNo', '', false, false)]
+    local procedure PAG6510_OnBeforeAssignLotNo_ItemTrackingLines(var TrackingSpecification: Record "Tracking Specification"; var TempItemTrackLineInsert: Record "Tracking Specification" temporary; SourceQuantityArray: array[5] of Decimal; var IsHandled: Boolean)
+    var
+        CstGErr0002: Label 'Lot Inheritance: You can''t assign a Lot No.,\because there is no Lot assigned to the lot determining component.';
+    begin
+        //TODO: gNoAssignLotDetLotNo et gLotDeterminingLotCode sont des variables globales dans la page "Item Tracking Lines"
+        // IF gNoAssignLotDetLotNo AND (gLotDeterminingLotCode = '') THEN
+        //     ERROR(CstGErr0002);
+    end;
+
+    [EventSubscriber(ObjectType::Page, Page::"Item Tracking Lines", 'OnBeforeAssignNewLotNo', '', false, false)]
+    local procedure PAG6510_OnBeforeAssignNewLotNo_ItemTrackingLines(var TrackingSpecification: Record "Tracking Specification"; var IsHandled: Boolean; var SourceTrackingSpecification: Record "Tracking Specification")
+    var
+        cuLSAvailMgt: Codeunit "PWD Lot Inheritance Mgt.PW";
+        Item: Record Item;
+        NoSeriesMgt: Codeunit NoSeriesManagement;
+    begin
+        //TODO: gLotDeterminingLotCode est une variables globale dans la page "Item Tracking Lines"
+        // Item.Get(TrackingSpecification."Item No.");
+        // Item.TestField("Lot Nos.");
+        // IF gLotDeterminingLotCode = '' THEN BEGIN
+        //     TrackingSpecification.VALIDATE(TrackingSpecification."Lot No.", NoSeriesMgt.GetNextNo(Item."Lot Nos.", WORKDATE, TRUE));
+        // END ELSE
+        //     TrackingSpecification.VALIDATE(TrackingSpecification."Lot No.", gLotDeterminingLotCode);
+        // cuLSAvailMgt.CheckItemTrackingAssignment(
+        //   TrackingSpecification."Source Type",
+        //   TrackingSpecification."Source Subtype",
+        //   TrackingSpecification."Source ID",
+        //   TrackingSpecification."Source Batch Name",
+        //   TrackingSpecification."Source Prod. Order Line",
+        //   TrackingSpecification."Source Ref. No.",
+        //   TrackingSpecification."PWD Lot Number",
+        //   TrackingSpecification."PWD Trading Unit Number",
+        //   TrackingSpecification."Lot No.",
+        //   TrackingSpecification."Serial No.",
+        //   TRUE);
+        // IsHandled := true;
+    end;
+
+    [EventSubscriber(ObjectType::Page, Page::"Item Tracking Lines", 'OnAfterAssignNewTrackingNo', '', false, false)]
+    local procedure PAG6510_OnAfterAssignNewTrackingNo_ItemTrackingLines(var TrkgSpec: Record "Tracking Specification"; xTrkgSpec: Record "Tracking Specification"; FieldID: Integer)
+    begin
+        //TODO: gLotDeterminingExpirDate est une variables globale dans la page "Item Tracking Lines"
+        // IF gLotDeterminingExpirDate <> 0D THEN
+        //     TrkgSpec."Expiration Date" := gLotDeterminingExpirDate;
+    end;
+    //---PAG9063---
+    [EventSubscriber(ObjectType::Page, Page::"Purchase Agent Activities", 'OnOpenPageEvent', '', false, false)]
+    local procedure PAG9063_OnOpenPageEvent_PurchaseAgentActivities(var Rec: Record "Purchase Cue")
+    begin
+        //>>TEST NICO
+        Rec.SETFILTER(Rec."PWD UserID Filter", USERID);
+        //<<TEST NICO
+    end;
+    //---PAG9245---
+    [EventSubscriber(ObjectType::Page, Page::"Demand Forecast Matrix", 'OnMatrixOnDrillDownOnAfterSetFilters', '', false, false)]
+    local procedure PAG9245_OnMatrixOnDrillDownOnAfterSetFilters_DemandForecastMatrix(var Item: Record Item; MatrixRecord: Record Date; ColumnID: Integer; ForecastType: Enum "Demand Forecast Type"; ProductionForecastName: Text[30]; LocationFilter: Text; var ProductionForecastEntry: Record "Production Forecast Entry");
+    begin
+        //>>LAP080615
+        IF CustomerFilter <> '' THEN
+            ProductionForecastEntry.SETFILTER("PWD Customer No.", CustomerFilter)
+        ELSE
+            ProductionForecastEntry.SETRANGE("PWD Customer No.");
+        //<<LAP080615
+    end;
+
+    [EventSubscriber(ObjectType::Page, Page::"Demand Forecast Matrix", 'OnMATRIXOnAfterGetRecordOnAfterSetFilters', '', false, false)]
+
+    local procedure PAG9245_OnMATRIXOnAfterGetRecordOnAfterSetFilters_DemandForecastMatrix(var Item: Record Item; ColumnID: Integer; ForecastType: Enum "Demand Forecast Type"; ProductionForecastName: Text[30]; LocationFilter: Text)
+    begin
+        //>>LAP080615
+        IF CustomerFilter <> '' THEN
+            Item.SETFILTER("PWD Customer Filter", CustomerFilter)
+        ELSE
+            Item.SETRANGE("PWD Customer Filter");
+        //<<LAP080615
+    end;
+
+    [EventSubscriber(ObjectType::Page, Page::"Demand Forecast Matrix", 'OnEnterBaseQtyOnBeforeValidateProdForecastQty', '', false, false)]
+    local procedure PAG9245_OnEnterBaseQtyOnBeforeValidateProdForecastQty_DemandForecastMatrix(var Item: Record Item; ColumnID: Integer; MatrixRecords: array[32] of Record Date)
+    begin
+        //>>LAP080615
+        IF CustomerFilter <> '' THEN
+            Item.SETFILTER("PWD Customer Filter", CustomerFilter)
+        ELSE
+            Item.SETRANGE("PWD Customer Filter");
+        //<<LAP080615
+        //>>LAP181016
+        Item.SETRANGE("Date Filter", MatrixRecords[ColumnID]."Period End");
+        //<<LAP181016
+    end;
+
+    [EventSubscriber(ObjectType::Page, Page::"Demand Forecast Matrix", 'OnEnterBaseQtyOnAfterValidateProdForecastQty', '', false, false)]
+    local procedure PAG9245_OnEnterBaseQtyOnAfterValidateProdForecastQty_DemandForecastMatrix(var Item: Record Item; ColumnID: Integer; MatrixRecords: array[32] of Record Date; QtyType: Enum "Analysis Amount Type")
+    begin
+        //>>LAP181016
+        IF QtyType = QtyType::"Net Change" THEN
+            Item.SETRANGE("Date Filter", MatrixRecords[ColumnID]."Period Start", MatrixRecords[ColumnID]."Period End")
+        ELSE
+            Item.SETRANGE("Date Filter", 0D, MatrixRecords[ColumnID]."Period End");
+        //<<LAP181016
+    end;
+
+    [EventSubscriber(ObjectType::Page, Page::"Demand Forecast Matrix", 'OnBeforeProdForecastQtyBase_OnValidate', '', false, false)]
+    local procedure PAG9245_OnBeforeProdForecastQtyBase_OnValidate_DemandForecastMatrix(var Item: Record Item; ColumnID: Integer; var IsHandled: Boolean; MatrixRecords: array[32] of Record Date; QtyType: Enum "Analysis Amount Type");
+    var
+        ForecastType: Enum "Demand Forecast Type";
+        ProdForecastEntry: Record "Production Forecast Entry";
+        ProdForecastEntry2: Record "Production Forecast Entry";
+        LPSAFunctionsMgt: Codeunit "PWD LPSA Functions Mgt.";
+        Text000: Label 'The Forecast On field must be Sales Items or Component.';
+        Text003: Label 'You must set a location filter.';
+        Text005: Label 'You must set a customer filter.';
+        CustomerNo: Code[20];
+    begin
+        if ForecastType = ForecastType::Both then
+            Error(Text000);
+
+        ProdForecastEntry.SetCurrentKey("Production Forecast Name", "Item No.", "Location Code", "Forecast Date", "Component Forecast");
+        ProdForecastEntry.SetRange("Production Forecast Name", Item.GetFilter("Production Forecast Name"));
+        ProdForecastEntry.SetRange("Item No.", Item."No.");
+        ProdForecastEntry.SetFilter("Location Code", Item.GetFilter("Location Filter"));
+        //>>LAP080615
+        ProdForecastEntry.SETRANGE("PWD Customer No.", Item.GETFILTER("PWD Customer Filter"));
+        //<<LAP080615
+        ProdForecastEntry.SetRange(
+          "Forecast Date",
+          MatrixRecords[ColumnID]."Period Start",
+          MatrixRecords[ColumnID]."Period End");
+        ProdForecastEntry.SetFilter("Component Forecast", Item.GetFilter("Component Forecast"));
+        ProdForecastEntry2.SetCurrentKey(
+          "Production Forecast Name", "Item No.", "Location Code", "Forecast Date", "Component Forecast");
+        if Item.GetFilter("Location Filter") = '' then begin
+            ProdForecastEntry2.CopyFilters(ProdForecastEntry);
+            ProdForecastEntry2.SetFilter("Location Code", '>%1', '');
+            if ProdForecastEntry2.FindSet then
+                repeat
+                    if LPSAFunctionsMgt.ProdForecastByLocationQtyBase(ProdForecastEntry2) <> 0 then
+                        Error(Text003);
+                    ProdForecastEntry2.SetFilter("Location Code", '>%1', ProdForecastEntry2."Location Code");
+                until ProdForecastEntry2.Next() = 0;
+        end;
+        //>>LAP080615
+        IF Item.GETFILTER("PWD Customer Filter") = '' THEN BEGIN
+            ProdForecastEntry2.COPYFILTERS(ProdForecastEntry);
+            ProdForecastEntry2.SETRANGE("PWD Customer No.");
+            IF ProdForecastEntry2.FIND('-') THEN BEGIN
+                CustomerNo := ProdForecastEntry2."PWD Customer No.";
+                ProdForecastEntry2.FIND('+');
+                IF ProdForecastEntry2."PWD Customer No." <> CustomerNo THEN
+                    ERROR(Text005);
+            END;
+        END;
+        //<<LAP080615
+        IsHandled := true;
+    end;
 
     var
         DontExecuteIfImport: Boolean;
         BooGFromImport: Boolean;
+        CustomerFilter: Code[20];
+
 }

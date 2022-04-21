@@ -1798,6 +1798,18 @@ codeunit 50021 "PWD LPSA Functions Mgt."
         EXIT(TempGlobalEntrySummary."Total Available Quantity");
         // << FE_LAPRIERRETTE_GP0003 : APA 16/05/13
     END;
+    //---PAG9245---
+    procedure ProdForecastByLocationQtyBase(var SourceProdForecastEntry: Record "Production Forecast Entry"): Decimal
+    var
+        ProductionForecastEntry: Record "Production Forecast Entry";
+    begin
+        with ProductionForecastEntry do begin
+            CopyFilters(SourceProdForecastEntry);
+            SetRange("Location Code", SourceProdForecastEntry."Location Code");
+            CalcSums("Forecast Quantity (Base)");
+            exit("Forecast Quantity (Base)");
+        end;
+    end;
 
     Var
         BooGAvoidControl: Boolean;
