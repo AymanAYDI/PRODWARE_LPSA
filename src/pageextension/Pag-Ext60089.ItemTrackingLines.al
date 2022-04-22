@@ -1,8 +1,4 @@
-<<<<<<<< HEAD:src/pageextension/Pag-Ext50084.ItemTrackingLines.al
-pageextension 50084 "PWD ItemTrackingLines" extends "Item Tracking Lines"
-========
 pageextension 60089 "PWD ItemTrackingLines" extends "Item Tracking Lines"
->>>>>>>> 0e9c74a532778d823a8ce26e8cfe38db025f63e2:src/pageextension/Pag-Ext60089.ItemTrackingLines.al
 {
     // #1..3
     // 
@@ -28,11 +24,7 @@ pageextension 60089 "PWD ItemTrackingLines" extends "Item Tracking Lines"
     {
         addafter("Lot No.")
         {
-<<<<<<<< HEAD:src/pageextension/Pag-Ext50084.ItemTrackingLines.al
-            field("PWD NC"; NC)
-========
             field("PWD NC"; "PWD NC")
->>>>>>>> 0e9c74a532778d823a8ce26e8cfe38db025f63e2:src/pageextension/Pag-Ext60089.ItemTrackingLines.al
             {
                 ApplicationArea = All;
             }

@@ -78,7 +78,7 @@ codeunit 8073298 "PWD Buffer Tracking Management"
         repeat
             RecLTempItemTrackLineDelete.TransferFields(RecLReservationEntry);
             RecLTempItemTrackLineDelete.Insert();
-            CduGItemTrackingDataCollection.UpdateLotSNDataSetWithChange(RecLTempItemTrackLineDelete, false, 1, 2);
+            CduGItemTrackingDataCollection.UpdateTrackingDataSetWithChange(RecLTempItemTrackLineDelete, false, 1, 2);
             FctRegisterChange(RecLTempItemTrackLineDelete, RecLTempItemTrackLineDelete, 2, false);
             FctUpdateOrderTracking();
             FctReestablishReservations();
@@ -151,7 +151,7 @@ codeunit 8073298 "PWD Buffer Tracking Management"
         RecLTempItemTrackLineInsert."Entry No." := FctNextEntryNo();
         RecLTempItemTrackLineInsert.Insert();
 
-        CduGItemTrackingDataCollection.UpdateLotSNDataSetWithChange(RecLTempItemTrackLineInsert, false, 1, 0);
+        CduGItemTrackingDataCollection.UpdateTrackingDataSetWithChange(RecLTempItemTrackLineInsert, false, 1, 0);
 
         FctRegisterChange(RecLTempItemTrackLineInsert, RecLTempItemTrackLineInsert, 0, false);
         FctUpdateOrderTracking();
@@ -256,8 +256,7 @@ codeunit 8073298 "PWD Buffer Tracking Management"
                     OldTrackingSpecification."Quantity (Base)" := CduGReservEngineMgt.AddItemTrackingToTempRecSet(
                                                                   RecGTempReservEntry, NewTrackingSpecification,
                                                                   OldTrackingSpecification."Quantity (Base)", DecLTempDec,
-                                                                  RecGItemTrackingCode."SN Specific Tracking",
-                                                                  RecGItemTrackingCode."Lot Specific Tracking");
+                                                                  RecGItemTrackingCode);
                     RecGTempReservEntry.SetRange("Serial No.");
                     RecGTempReservEntry.SetRange("Lot No.");
 
@@ -297,7 +296,7 @@ codeunit 8073298 "PWD Buffer Tracking Management"
                         CduGReservEngineMgt.UpdateActionMessages(ReservEntry1);
 
                     if ModifySharedFields then begin
-                        ReservationMgt.SetPointerFilter(ReservEntry1);
+                        ReservEntry1.SetPointerFilter();
                         ReservEntry1.SetRange("Lot No.", ReservEntry1."Lot No.");
                         ReservEntry1.SetRange("Serial No.", ReservEntry1."Serial No.");
                         ReservEntry1.SetFilter("Entry No.", '<>%1', ReservEntry1."Entry No.");
@@ -310,7 +309,7 @@ codeunit 8073298 "PWD Buffer Tracking Management"
                 begin
                     ReservationMgt.SetItemTrackingHandling(1); // Allow deletion of Item Tracking
                     ReservEntry1.TransferFields(OldTrackingSpecification);
-                    ReservationMgt.SetPointerFilter(ReservEntry1);
+                    ReservEntry1.SetPointerFilter();
                     ReservEntry1.SetRange("Lot No.", ReservEntry1."Lot No.");
                     ReservEntry1.SetRange("Serial No.", ReservEntry1."Serial No.");
                     if ChangeType = ChangeType::FullDelete then begin
@@ -323,13 +322,13 @@ codeunit 8073298 "PWD Buffer Tracking Management"
                         QtyToAdd := CduGReservEngineMgt.AddItemTrackingToTempRecSet(
                                      RecGTempReservEntry, OldTrackingSpecification,
                                      OldTrackingSpecification."Quantity (Base)", DecLTempDec,
-                                     RecGItemTrackingCode."SN Specific Tracking", RecGItemTrackingCode."Lot Specific Tracking");
+                                     RecGItemTrackingCode);
                         RecGTempReservEntry.SetRange("Serial No.");
                         RecGTempReservEntry.SetRange("Lot No.");
-                        ReservationMgt.DeleteReservEntries2(true, 0, ReservEntry1)
+                        ReservationMgt.DeleteReservEntries(true, 0, ReservEntry1)
                     end
                     else begin
-                        ReservationMgt.DeleteReservEntries2(false, ReservEntry1."Quantity (Base)" -
+                        ReservationMgt.DeleteReservEntries(false, ReservEntry1."Quantity (Base)" -
                           OldTrackingSpecification."Quantity Handled (Base)", ReservEntry1);
                         if ModifySharedFields then begin
                             ReservEntry1.SetRange("Reservation Status");
@@ -357,7 +356,7 @@ codeunit 8073298 "PWD Buffer Tracking Management"
     begin
         if RecGTempItemTrackLineReserv.FindSet() then
             repeat
-                LateBindingMgt.ReserveItemTrackingLine2(RecGTempItemTrackLineReserv, RecGTempItemTrackLineReserv."Quantity (Base)");
+                LateBindingMgt.ReserveItemTrackingLine(RecGTempItemTrackLineReserv);
                 FctSetQtyToHandleAndInvoice(RecGTempItemTrackLineReserv);
             until RecGTempItemTrackLineReserv.Next() = 0;
         RecGTempItemTrackLineReserv.DeleteAll();
@@ -399,7 +398,7 @@ codeunit 8073298 "PWD Buffer Tracking Management"
             QtyAlreadyHandledToInvoice := TotalQtyToInvoice - TotalQtyToHandle;
 
         ReservEntry1.TransferFields(TrackingSpecification);
-        ReservationMgt.SetPointerFilter(ReservEntry1);
+        ReservEntry1.SetPointerFilter();
         ReservEntry1.SetRange("Lot No.", ReservEntry1."Lot No.");
         ReservEntry1.SetRange("Serial No.", ReservEntry1."Serial No.");
         if (TrackingSpecification."Lot No." <> '') or

@@ -1732,10 +1732,31 @@ codeunit 50020 "PWD LPSA Events Mgt."
         SalesLine."PWD Fixed Price" := TempSalesPrice."PWD Fixed Price";
         //<<FE_LAPIERRETTE_VTE03.001
     end;
+    //---PAG30---
+    [EventSubscriber(ObjectType::Page, Page::"Item Card", 'OnAfterInitControls', '', false, false)]
+    local procedure OnAfterInitControls()
+    begin
+        //>>FE_LAPIERRETTE_PROD01.001: TO 13/12/2011
+        "Lot DeterminingEnable" := FALSE;
+        //<<FE_LAPIERRETTE_PROD01.001: TO 13/12/2011
+    end;
+
+    [EventSubscriber(ObjectType::Page, Page::"Item Card", 'OnAfterValidateEvent', 'Item Category Code', false, false)]
+    local procedure PAG30_OnAfterValidateEvent_ItemCard_ItemCategoryCode(var Rec: Record Item; var xRec: Record Item)
+    var
+        ItemCard: Page "Item Card";
+    begin
+        //>>FE_LAPIERRETTE_PROD01.001: TO 13/12/2011
+        ItemCard.Fct_EnableLotDeterm();
+        //<<FE_LAPIERRETTE_PROD01.001: TO 13/12/2011
+    end;
 
     var
         DontExecuteIfImport: Boolean;
         BooGFromImport: Boolean;
         CustomerFilter: Code[20];
+        [InDataSet]
+        "Lot DeterminingEnable": Boolean;
+
 
 }

@@ -370,22 +370,6 @@ tableextension 60004 "PWD Item" extends Item
             Caption = 'WMS_Item';
             Description = 'ProdConnect1.5';
         }
-        field(8076501; "PWD Order Start Date Calc."; DateFormula)
-        {
-            Caption = 'Order Start Date Calculation';
-            Description = 'Should be a negative duration. Used by PlannerOne to calculate the production order earliest start date, starting from its due date.';
-        }
-        field(8076502; "PWD PlannerOneColor"; Text[30])
-        {
-            Caption = 'PlannerOne Color';
-            Description = 'Color displayed in PlannerOne';
-        }
-        field(8076503; "PWD ParamValuesForAllVariants"; Boolean)
-        {
-            Caption = 'Use Parameter Values For All Variants';
-            Description = 'Apply item parameter values to all variants';
-            InitValue = true;
-        }
         Modify("Shelf No.")
         {
             TableRelation = Bin.Code;

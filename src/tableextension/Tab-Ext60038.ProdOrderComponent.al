@@ -105,6 +105,7 @@ tableextension 60038 "PWD ProdOrderComponent" extends "Prod. Order Component"
         Item: Record Item;
         ReservEngineMgt: Codeunit "Reservation Engine Mgt.";
         ReserveProdOrderComp: Codeunit "Prod. Order Comp.-Reserve";
+        LPSAFunctionsMgt: Codeunit "PWD LPSA Functions Mgt.";
     begin
         CurrentSignFactor := 1;
         Item.GET("Item No.");
@@ -155,7 +156,7 @@ tableextension 60038 "PWD ProdOrderComponent" extends "Prod. Order Component"
         //ItemTrackingForm.RegisterItemTrackingLines2(SourceSpecification,"Due Date",RecLTrackingSpec);
         RecLTrackingSpecPhantom.DELETEALL();
 
-        ReserveProdOrderComp.VerifyQuantityPhantom(Rec, xRec);
+        LPSAFunctionsMgt.VerifyQuantityPhantom(Rec, xRec);
     end;
 
     local procedure RegisterChange(var OldTrackingSpecification: Record "Tracking Specification"; var NewTrackingSpecification: Record "Tracking Specification"; ChangeType: Option Insert,Modify,FullDelete,PartDelete,ModifyAll; ModifySharedFields: Boolean; CurrentSignFactor: Decimal; var TempReservEntry: Record "Reservation Entry"; QtyToAddAsBlank: Decimal) OK: Boolean

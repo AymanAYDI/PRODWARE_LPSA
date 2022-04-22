@@ -103,10 +103,12 @@ codeunit 8073296 "PWD Connector WMS Parse Data"
 
     procedure FctProcessExport(RecPConnectorMessages: Record "PWD Connector Messages")
     var
+    //TODO: Table 'TempBlob' is removed
         RecLTempBlob: Record TempBlob temporary;
         RecLPartnerConnector: Record "PWD Partner Connector";
         RecLConnectorValues: Record "PWD Connector Values";
         BigTLToReturn: BigText;
+        //TODO:Codeunit 'Buffer Management' is missing
         CduLBufferMgt: Codeunit "Buffer Management";
         InLStream: InStream;
         CduLFileManagement: Codeunit "File Management";
@@ -1265,7 +1267,7 @@ codeunit 8073296 "PWD Connector WMS Parse Data"
         RecLProdBomLine: Record "Production BOM Line";
     begin
         RecLProdBomLine.Reset();
-        if RecLProdBomLine.FindSet() then
+        if RecLProdBomLine.FindSet() then 
             repeat
                 if RecLItemUnitMeas.Get(RecLProdBomLine."No.", RecLProdBomLine."Unit of Measure Code") then
                     RecLProdBomLine."PWD WMS_Quantity_Per(Base)" := RecLProdBomLine.Quantity * RecLItemUnitMeas."Qty. per Unit of Measure"

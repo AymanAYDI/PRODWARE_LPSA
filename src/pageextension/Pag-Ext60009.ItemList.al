@@ -24,13 +24,13 @@ pageextension 60009 "PWD ItemList" extends "Item List"
                 ApplicationArea = All;
                 trigger OnLookup(var text: text): boolean
                 var
-                    RecLRtngVersion: Record 99000786;
+                    RecLRtngVersion: Record "Routing Version";
                 begin
                     //>>LAP2.12
                     RecLRtngVersion.SETRANGE("Routing No.", "Routing No.");
                     RecLRtngVersion.SETRANGE("Version Code", CodGActiveVersionCode);
                     Page.RUNMODAL(Page::"Routing Version", RecLRtngVersion);
-                    CodGActiveVersionCode := CduGVersionMgt.GetRtngVersion("Routing No.", WORKDATE, TRUE);
+                    CodGActiveVersionCode := CduGVersionMgt.GetRtngVersion("Routing No.", WORKDATE(), TRUE);
                     //<<LAP2.12
                 end;
             }
@@ -79,13 +79,13 @@ pageextension 60009 "PWD ItemList" extends "Item List"
                 ApplicationArea = All;
 
             }
-            field("PWD Customer Plan Description"; "Customer Plan Description")
+            field("PWD Customer Plan Description"; "PWD Customer Plan Description")
             {
                 ApplicationArea = All;
 
             }
 
-            field("PWD LPSA Plan No."; "LPSA Plan No.")
+            field("PWD LPSA Plan No."; "PWD LPSA Plan No.")
             {
                 ApplicationArea = All;
 
@@ -95,12 +95,12 @@ pageextension 60009 "PWD ItemList" extends "Item List"
                 ApplicationArea = All;
 
             }
-            field("PWD Barcode"; Barcode)
+            field("PWD Barcode"; "PWD Barcode")
             {
                 ApplicationArea = All;
 
             }
-            field("PWD Phantom Item"; "Phantom Item")
+            field("PWD Phantom Item2"; "PWD Phantom Item")
             {
                 ApplicationArea = All;
 
@@ -121,17 +121,17 @@ pageextension 60009 "PWD ItemList" extends "Item List"
                 ApplicationArea = All;
 
             }
-            field("PWD Configurator Exists"; "Configurator Exists")
+            field("PWD Configurator Exists"; "PWD Configurator Exists")
             {
                 editable = false;
                 ApplicationArea = All;
             }
-            field("PWD Plate Number"; "Plate Number")
+            field("PWD Plate Number"; "PWD Plate Number")
             {
                 ApplicationArea = All;
 
             }
-            field("PWD Part Number By Plate"; "Part Number By Plate")
+            field("PWD Part Number By Plate"; "PWD Part Number By Plate")
             {
                 ApplicationArea = All;
 
@@ -175,15 +175,59 @@ pageextension 60009 "PWD ItemList" extends "Item List"
         }
 
     }
+    actions
+    {
+        addlast(Item)
+        {
+            action("PWD PossibleItems")
+            {
+                Caption = 'Possible Items';
+                RunObject = Page "PWD Possible Items List";
+                RunPageLink = "Item Code" = FIELD("No.");
+                Promoted = True;
+                Image = SplitChecks;
+                ApplicationArea = all;
+            }
+            action("PWD PossibleItemsExport")
+            {
+                caption = 'Possible Items Export';
+                Promoted = true;
+                Image = Export;
+                PromotedCategory = Process;
+                ApplicationArea = all;
+                trigger OnAction()
+                VAR
+                    CduLConnectorOSYSParseData: Codeunit "PWD Connector OSYS Parse Data";
+                BEGIN
+                    //>>FE_LAPRIERRETTE_GP0004.001
+                    CLEAR(CduLConnectorOSYSParseData);
+                    CduLConnectorOSYSParseData.FctExportItemsPossibleManual("No.");
+                    //<<FE_LAPRIERRETTE_GP0004.001
+                END;
+
+            }
+            action("PWD PhantomsItems")
+            {
+                caption = 'Phantoms Items';
+                RunObject = Page "PWD Phantom subs. Items List";
+                RunPageLink = "Phantom Item No." = FIELD("No.");
+                Promoted = true;
+                Image = SplitChecks;
+                PromotedCategory = Process;
+                ApplicationArea = all;
+            }
+
+        }
+    }
     trigger OnAfterGetRecord()
     begin
         //>>LAP2.12
-        CodGActiveVersionCode := CduGVersionMgt.GetRtngVersion("Routing No.", WORKDATE, TRUE);
+        CodGActiveVersionCode := CduGVersionMgt.GetRtngVersion("Routing No.", WORKDATE(), TRUE);
         //<<LAP2.12   
     end;
 
     var
-        CduGVersionMgt: Codeunit 99000756;
+        CduGVersionMgt: Codeunit VersionManagement;
         CodGActiveVersionCode: Code[20];
 
 }

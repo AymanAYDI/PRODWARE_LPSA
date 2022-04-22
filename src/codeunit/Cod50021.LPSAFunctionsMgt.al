@@ -1810,6 +1810,20 @@ codeunit 50021 "PWD LPSA Functions Mgt."
             exit("Forecast Quantity (Base)");
         end;
     end;
+    //---CDU6501---
+    procedure ShouldExitLookupTrackingAvailability(TempTrackingSpecification: Record "Tracking Specification" temporary; LookupMode: Enum "Item Tracking Type"): Boolean
+    var
+        ShouldExit: Boolean;
+    begin
+        case LookupMode of
+            LookupMode::"Serial No.":
+                if TempTrackingSpecification."Serial No." = '' then
+                    exit(true);
+            LookupMode::"Lot No.":
+                if TempTrackingSpecification."Lot No." = '' then
+                    exit(true);
+        end;
+    end;
 
     Var
         BooGAvoidControl: Boolean;

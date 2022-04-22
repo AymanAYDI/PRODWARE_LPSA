@@ -20,6 +20,7 @@ codeunit 8073305 "PWD FTP Management"
     end;
 
     var
+        //TODO: 'Automation' is not recognized as a valid type
         AutGNavFTP: Automation;
         BooGNewServer: Boolean;
         BooGClientSide: Boolean;
@@ -96,12 +97,6 @@ codeunit 8073305 "PWD FTP Management"
     begin
         EXIT(AutGNavFTP.sDeleteFiles);
     end;
-
-
-    procedure "---ProdConnect1.07.02.01---"()
-    begin
-    end;
-
 
     procedure Fct_sGetFileNameByIndex(IntLFileIndex: Integer): Text[300]
     begin

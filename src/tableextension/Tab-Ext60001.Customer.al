@@ -20,22 +20,6 @@ tableextension 60001 "PWD Customer" extends Customer
         {
             Caption = 'Rolex Bienne';
         }
-        field(8076603; "PWD PlannerOneLatitude"; Decimal)
-        {
-            BlankZero = true;
-            Caption = 'Latitude';
-            DecimalPlaces = 0 : 10;
-            MaxValue = 90;
-            MinValue = -90;
-        }
-        field(8076604; "PWD PlannerOneLongitude"; Decimal)
-        {
-            BlankZero = true;
-            Caption = 'Longitude';
-            DecimalPlaces = 0 : 10;
-            MaxValue = 180;
-            MinValue = -180;
-        }
     }
 }
 

@@ -58,7 +58,7 @@ tableextension 60067 "PWD ProductionBOMLine" extends "Production BOM Line"
 
             end;
         }
-        field(8073282; "WMS_Quantity_Per(Base)"; Decimal)
+        field(8073282; "PWD WMS_Quantity_Per(Base)"; Decimal)
         {
             Caption = 'WMS Quantity Per (Base)';
             Description = 'ProdConnect1.5';

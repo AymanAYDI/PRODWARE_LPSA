@@ -66,22 +66,22 @@ tableextension 60036 "PWD ProductionOrder" extends "Production Order"
         field(50003; "PWD Selection"; Boolean)
         {
         }
-        field(50004; "PWD Prod. Starting Date-Time"; DateTime)
-        {
-            //TODO la table extension de "Prod. Order Line" n'existe pas      
-            //CalcFormula = Min("Prod. Order Line"."PWD Prod. Starting Date-Time" WHERE(Status = FIELD(Status), "Prod. Order No." = FIELD("No.")));
-            Caption = 'Prod. Starting Date-Time';
-            Description = 'Starting Date-Time of the first operation as planned in PlannerOne.';
-            FieldClass = FlowField;
-        }
-        field(50005; "PWD Prod. Ending Date-Time"; DateTime)
-        {
-            //TODO la table extension de "Prod. Order Line" n'existe pas      
-            //CalcFormula = Max("Prod. Order Line"."PWD Prod. Ending Date-Time" WHERE(Status = FIELD(Status), "Prod. Order No." = FIELD("No.")));
-            Caption = 'Prod. Ending Date-Time';
-            Description = 'Ending Date-Time of the last operation as planned in PlannerOne.';
-            FieldClass = FlowField;
-        }
+        // field(50004; "PWD Prod. Starting Date-Time"; DateTime)
+        // {
+        //     //TODO le champ "Prod. Starting Date-Time" n'existe pas dans la table extension de "Prod. Order Line"    
+        //     // CalcFormula = Min("Prod. Order Line"."PWD Prod. Starting Date-Time" WHERE(Status = FIELD(Status), "Prod. Order No." = FIELD("No.")));
+        //     Caption = 'Prod. Starting Date-Time';
+        //     Description = 'Starting Date-Time of the first operation as planned in PlannerOne.';
+        //     FieldClass = FlowField;
+        // }
+        // field(50005; "PWD Prod. Ending Date-Time"; DateTime)
+        // {
+        //     //TODO  le champ "Prod. Starting Date-Time" n'existe pas dans la table extension de "Prod. Order Line"      
+        //     //CalcFormula = Max("Prod. Order Line"."PWD Prod. Ending Date-Time" WHERE(Status = FIELD(Status), "Prod. Order No." = FIELD("No.")));
+        //     Caption = 'Prod. Ending Date-Time';
+        //     Description = 'Ending Date-Time of the last operation as planned in PlannerOne.';
+        //     FieldClass = FlowField;
+        // }
         field(50006; "PWD Indicator"; BLOB)
         {
             Caption = 'Component availability';
@@ -171,8 +171,8 @@ tableextension 60036 "PWD ProductionOrder" extends "Production Order"
 
     PROCEDURE ComponentInv() Qty: Decimal;
     VAR
-        RecLProdOrderComponent: Record 5407;
-        RecLItem: Record 27;
+        RecLProdOrderComponent: Record "Prod. Order Component";
+        RecLItem: Record Item;
         DecLInv: Decimal;
     BEGIN
         DecLInv := 0;

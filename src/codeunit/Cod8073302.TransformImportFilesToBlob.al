@@ -16,6 +16,7 @@ codeunit 8073302 "Transform Import Files To Blob"
     var
         CduLFileManagement: Codeunit "File Management";
         TxtLFileFound: Text[1024];
+        //TODO: Codeunit 'Buffer Management' is missing
         CduLBufferMgt: Codeunit "Buffer Management";
         IntLSequenceNo: Integer;
         TxtLFilePathName: Text[250];

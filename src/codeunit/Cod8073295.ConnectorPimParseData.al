@@ -20,10 +20,12 @@ codeunit 8073295 "PWD Connector Pim Parse Data"
 
     trigger OnRun()
     var
+    //TODO: Table 'TempBlob' is removed
         RecLTempBlob: Record TempBlob temporary;
         RecLPartnerConnector: Record "PWD Partner Connector";
         RecLConnectorValues: Record "PWD Connector Values";
         BigTLToReturn: BigText;
+        //TODO: Codeunit 'Buffer Management' is missing
         CduLBufferMgt: Codeunit "Buffer Management";
         InLStream: InStream;
         CduLFileManagement: Codeunit "File Management";

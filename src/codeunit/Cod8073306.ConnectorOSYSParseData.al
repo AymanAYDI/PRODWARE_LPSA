@@ -90,6 +90,7 @@ codeunit 8073306 "PWD Connector OSYS Parse Data"
 
     procedure FctProcessExport(RecPConnectorMessages: Record "PWD Connector Messages")
     var
+    //TODO:Table 'TempBlob' is removed
         RecLTempBlob: Record TempBlob temporary;
         RecLPartnerConnector: Record "PWD Partner Connector";
         RecLConnectorValues: Record "PWD Connector Values";
