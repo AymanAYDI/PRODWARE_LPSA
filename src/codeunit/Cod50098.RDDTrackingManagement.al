@@ -655,7 +655,7 @@ codeunit 50098 "PWD RDD - Tracking Management"
                       ReservEngineMgt.AddItemTrackingToTempRecSet(
                         TempReservEntry, NewTrackingSpecification,
                         CurrentSignFactor * OldTrackingSpecification."Quantity (Base)", QtyToAddAsBlank,
-                        ItemTrackingCode."SN Specific Tracking", ItemTrackingCode."Lot Specific Tracking");
+                        ItemTrackingCode);
                     TempReservEntry.SetRange("Serial No.");
                     TempReservEntry.SetRange("Lot No.");
 
@@ -678,6 +678,8 @@ codeunit 50098 "PWD RDD - Tracking Management"
                       NewTrackingSpecification."Warranty Date", NewTrackingSpecification."Expiration Date");
                     CreateReservEntry.SetApplyFromEntryNo(
                       NewTrackingSpecification."Appl.-from Item Entry");
+                    CreateReservEntry.SetApplyToEntryNo(NewTrackingSpecification."Appl.-to Item Entry");
+                    ReservEntry1.CopyTrackingFromSpec(OldTrackingSpecification);
                     CreateReservEntry.CreateReservEntryFor(
                       OldTrackingSpecification."Source Type",
                       OldTrackingSpecification."Source Subtype",
@@ -686,9 +688,9 @@ codeunit 50098 "PWD RDD - Tracking Management"
                       OldTrackingSpecification."Source Prod. Order Line",
                       OldTrackingSpecification."Source Ref. No.",
                       OldTrackingSpecification."Qty. per Unit of Measure",
+                      0,
                       OldTrackingSpecification."Quantity (Base)",
-                      OldTrackingSpecification."Serial No.",
-                      OldTrackingSpecification."Lot No.");
+                      ReservEntry1);
                     CreateReservEntry.CreateEntry(OldTrackingSpecification."Item No.",
                       OldTrackingSpecification."Variant Code",
                       OldTrackingSpecification."Location Code",
@@ -700,7 +702,7 @@ codeunit 50098 "PWD RDD - Tracking Management"
                         ReservEngineMgt.UpdateActionMessages(ReservEntry1);
 
                     if ModifySharedFields then begin
-                        ReservationMgt.SetPointerFilter(ReservEntry1);
+                        ReservEntry1.SetPointerFilter();
                         ReservEntry1.SetRange("Lot No.", ReservEntry1."Lot No.");
                         ReservEntry1.SetRange("Serial No.", ReservEntry1."Serial No.");
                         ReservEntry1.SetFilter("Entry No.", '<>%1', ReservEntry1."Entry No.");
@@ -732,7 +734,7 @@ codeunit 50098 "PWD RDD - Tracking Management"
                             TempReservEntry, NewTrackingSpecification,
                             CurrentSignFactor * (NewTrackingSpecification."Quantity (Base)" -
                             OldTrackingSpecification."Quantity (Base)"), QtyToAddAsBlank,
-                            ItemTrackingCode."SN Specific Tracking", ItemTrackingCode."Lot Specific Tracking");
+                            ItemTrackingCode);
                         TempReservEntry.SetRange("Serial No.");
                         TempReservEntry.SetRange("Lot No.");
 
@@ -762,7 +764,7 @@ codeunit 50098 "PWD RDD - Tracking Management"
                             TempReservEntry, OldTrackingSpecification,
                             CurrentSignFactor * (OldTrackingSpecification."Quantity (Base)" -
                             NewTrackingSpecification."Quantity (Base)"), QtyToAddAsBlank,
-                            ItemTrackingCode."SN Specific Tracking", ItemTrackingCode."Lot Specific Tracking");
+                            ItemTrackingCode);
                         TempReservEntry.SetRange("Serial No.");
                         TempReservEntry.SetRange("Lot No.");
                         RegisterChange(NewTrackingSpecification, NewTrackingSpecification,
@@ -774,7 +776,7 @@ codeunit 50098 "PWD RDD - Tracking Management"
                 begin
                     ReservationMgt.SetItemTrackingHandling(1); // Allow deletion of Item Tracking
                     ReservEntry1.TransferFields(OldTrackingSpecification);
-                    ReservationMgt.SetPointerFilter(ReservEntry1);
+                    ReservEntry1.SetPointerFilter();
                     ReservEntry1.SetRange("Lot No.", ReservEntry1."Lot No.");
                     ReservEntry1.SetRange("Serial No.", ReservEntry1."Serial No.");
                     if ChangeType = ChangeType::FullDelete then begin
@@ -789,12 +791,12 @@ codeunit 50098 "PWD RDD - Tracking Management"
                           ReservEngineMgt.AddItemTrackingToTempRecSet(
                             TempReservEntry, OldTrackingSpecification,
                             CurrentSignFactor * OldTrackingSpecification."Quantity (Base)", QtyToAddAsBlank,
-                            ItemTrackingCode."SN Specific Tracking", ItemTrackingCode."Lot Specific Tracking");
+                            ItemTrackingCode);
                         TempReservEntry.SetRange("Serial No.");
                         TempReservEntry.SetRange("Lot No.");
-                        ReservationMgt.DeleteReservEntries2(true, 0, ReservEntry1)
+                        ReservationMgt.DeleteReservEntries(true, 0, ReservEntry1)
                     end else begin
-                        ReservationMgt.DeleteReservEntries2(false, ReservEntry1."Quantity (Base)" -
+                        ReservationMgt.DeleteReservEntries(false, ReservEntry1."Quantity (Base)" -
                           OldTrackingSpecification."Quantity Handled (Base)", ReservEntry1);
                         if ModifySharedFields then begin
                             ReservEntry1.SetRange("Reservation Status");
@@ -857,7 +859,7 @@ codeunit 50098 "PWD RDD - Tracking Management"
             QtyAlreadyHandledToInvoice := TotalQtyToInvoice - TotalQtyToHandle;
 
         ReservEntry1.TransferFields(TrackingSpecification);
-        ReservationMgt.SetPointerFilter(ReservEntry1);
+        ReservEntry1.SetPointerFilter();
         ReservEntry1.SetRange("Lot No.", ReservEntry1."Lot No.");
         ReservEntry1.SetRange("Serial No.", ReservEntry1."Serial No.");
         if (TrackingSpecification."Lot No." <> '') or
@@ -996,9 +998,9 @@ codeunit 50098 "PWD RDD - Tracking Management"
                   ProdOrderRoutingLine."Flushing Method" = ProdOrderRoutingLine."Flushing Method"::Backward;
         end;
 
-        ItemLedgerEntry.SetCurrentKey("Prod. Order No.", "Prod. Order Line No.", "Entry Type");
-        ItemLedgerEntry.SetRange("Prod. Order No.", TrackingSpecification."Source ID");
-        ItemLedgerEntry.SetRange("Prod. Order Line No.", TrackingSpecification."Source Prod. Order Line");
+        ItemLedgerEntry.SetCurrentKey("Order No.", "Order Line No.", "Entry Type");
+        ItemLedgerEntry.SetRange("Order No.", TrackingSpecification."Source ID");
+        ItemLedgerEntry.SetRange("Order Line No.", TrackingSpecification."Source Prod. Order Line");
         ItemLedgerEntry.SetRange("Entry Type", ItemLedgerEntry."Entry Type"::Output);
 
         if ItemLedgerEntry.Find('-') then
@@ -1095,7 +1097,7 @@ codeunit 50098 "PWD RDD - Tracking Management"
             rec.Insert();
             TempItemTrackLineInsert.TransferFields(rec);
             TempItemTrackLineInsert.Insert();
-            ItemTrackingDataCollection.UpdateLotSNDataSetWithChange(
+            ItemTrackingDataCollection.UpdateTrackingDataSetWithChange(
               TempItemTrackLineInsert, CurrentSignFactor * SourceQuantityArray[1] < 0, CurrentSignFactor, 0);
         end;
         CalculateSums();
@@ -1127,7 +1129,7 @@ codeunit 50098 "PWD RDD - Tracking Management"
         rec.Insert();
         TempItemTrackLineInsert.TransferFields(rec);
         TempItemTrackLineInsert.Insert();
-        ItemTrackingDataCollection.UpdateLotSNDataSetWithChange(
+        ItemTrackingDataCollection.UpdateTrackingDataSetWithChange(
           TempItemTrackLineInsert, CurrentSignFactor * SourceQuantityArray[1] < 0, CurrentSignFactor, 0);
         CalculateSums();
     end;
@@ -1196,7 +1198,7 @@ codeunit 50098 "PWD RDD - Tracking Management"
             rec.Insert();
             TempItemTrackLineInsert.TransferFields(rec);
             TempItemTrackLineInsert.Insert();
-            ItemTrackingDataCollection.UpdateLotSNDataSetWithChange(
+            ItemTrackingDataCollection.UpdateTrackingDataSetWithChange(
               TempItemTrackLineInsert, CurrentSignFactor * SourceQuantityArray[1] < 0, CurrentSignFactor, 0);
             if i < QtyToCreate then begin
                 Counter := Increment;
@@ -1436,7 +1438,7 @@ codeunit 50098 "PWD RDD - Tracking Management"
     procedure LookupAvailable(LookupMode: Option "Serial No.","Lot No.")
     begin
         rec."Bin Code" := ForBinCode;
-        ItemTrackingDataCollection.LookupLotSerialNoAvailability(rec, LookupMode);
+        ItemTrackingDataCollection.LookupTrackingAvailability(rec, LookupMode);
         rec."Bin Code" := '';
         //CurrForm.UPDATE;
     end;
@@ -1453,7 +1455,7 @@ codeunit 50098 "PWD RDD - Tracking Management"
 
     procedure LotSnAvailable(var TrackingSpecification: Record "Tracking Specification"; LookupMode: Option "Serial No.","Lot No."): Boolean
     begin
-        exit(ItemTrackingDataCollection.LotSNAvailable(TrackingSpecification, LookupMode));
+        exit(ItemTrackingDataCollection.TrackingAvailable(TrackingSpecification, LookupMode));
     end;
 
 
@@ -1467,7 +1469,7 @@ codeunit 50098 "PWD RDD - Tracking Management"
         if MaxQuantity * CurrentSignFactor > 0 then
             MaxQuantity := 0;
         rec."Bin Code" := ForBinCode;
-        ItemTrackingDataCollection.SelectMultipleLotSerialNo(rec, MaxQuantity, CurrentSignFactor);
+        ItemTrackingDataCollection.SelectMultipleTrackingNo(rec, MaxQuantity, CurrentSignFactor);
         rec."Bin Code" := '';
         if rec.FindSet() then
             repeat
@@ -1515,7 +1517,7 @@ codeunit 50098 "PWD RDD - Tracking Management"
     begin
         if TempItemTrackLineReserv.FindSet() then
             repeat
-                LateBindingMgt.ReserveItemTrackingLine2(TempItemTrackLineReserv, TempItemTrackLineReserv."Quantity (Base)");
+                LateBindingMgt.ReserveItemTrackingLine(TempItemTrackLineReserv, 0, TempItemTrackLineReserv."Quantity (Base)");
                 SetQtyToHandleAndInvoice(TempItemTrackLineReserv);
             until TempItemTrackLineReserv.Next() = 0;
         TempItemTrackLineReserv.DeleteAll();
@@ -1558,7 +1560,7 @@ codeunit 50098 "PWD RDD - Tracking Management"
                     TempItemTrackLineInsert.TransferFields(rec);
                     TempItemTrackLineInsert.Insert();
                     rec.Insert();
-                    ItemTrackingDataCollection.UpdateLotSNDataSetWithChange(
+                    ItemTrackingDataCollection.UpdateTrackingDataSetWithChange(
                       TempItemTrackLineInsert, CurrentSignFactor * SourceQuantityArray[1] < 0, CurrentSignFactor, 0);
                 end;
             CalculateSums();
@@ -1621,7 +1623,7 @@ codeunit 50098 "PWD RDD - Tracking Management"
                 TempItemTrackLineInsert.TransferFields(rec);
                 TempItemTrackLineInsert.Insert();
                 rec.Insert();
-                ItemTrackingDataCollection.UpdateLotSNDataSetWithChange(
+                ItemTrackingDataCollection.UpdateTrackingDataSetWithChange(
                   TempItemTrackLineInsert, CurrentSignFactor * SourceQuantityArray[1] < 0, CurrentSignFactor, 0);
             end;
         CalculateSums();

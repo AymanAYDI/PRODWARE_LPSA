@@ -1810,14 +1810,35 @@ codeunit 50021 "PWD LPSA Functions Mgt."
             exit("Forecast Quantity (Base)");
         end;
     end;
+    //---CDU3010801---
+    PROCEDURE FctShippedLines(RecPSalesHeader: Record "Sales Header"): Boolean;
+    VAR
+        RecLSalesLines: Record "Sales Line";
+    BEGIN
+        RecLSalesLines.RESET;
+        RecLSalesLines.SETRANGE("Document Type", RecPSalesHeader."Document Type");
+        RecLSalesLines.SETRANGE("Document No.", RecPSalesHeader."No.");
+        RecLSalesLines.SETFILTER("Quantity Shipped", '<>%1', 0);
+        IF RecLSalesLines.ISEMPTY THEN
+            EXIT(FALSE)
+        ELSE
+            EXIT(TRUE);
+    END;
+//---CDU414---
+PROCEDURE FctIsImport(BooPDontExecuteIfImport : Boolean);
+    BEGIN
+      //>>WMS-FE05.001
+      BooGDontExecuteIfImport := BooPDontExecuteIfImport;
+      //<<WMS-FE05.001
+    END;
+
 
     Var
         BooGAvoidControl: Boolean;
         gFromTheSameLot: Boolean;
         gLotDeterminingLotCode: Code[30];
         gLotDeterminingExpirDate: Date;
-
-
         ToTemplateName: Code[10];
         ToBatchName: Code[10];
+        BooGDontExecuteIfImport: boolean;
 }

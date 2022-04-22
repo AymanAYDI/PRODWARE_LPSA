@@ -31,6 +31,6 @@ codeunit 50099 "PWD File Import Manual"
 
     var
         RecLPartnerConnector: Record "PWD Partner Connector";
-        CduLFileImport: Codeunit "File Import";
+        CduLFileImport: Codeunit "PWD File Import";
 }
 

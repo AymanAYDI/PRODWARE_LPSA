@@ -35,7 +35,7 @@ codeunit 8073289 "PWD Connector Peb MSMQ Handler"
     end;
 
     var
-        AutGMsQBusAdp: Automation;
+        AutGMsQBusAdp: Automation; //TODO: Type Automation n'existe pas dans la nouvelle version
         [WithEvents]
         AutGNavComComp: Automation;
         AutGXMLDom: Automation;

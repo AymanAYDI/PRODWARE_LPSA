@@ -147,7 +147,7 @@ codeunit 8073290 "PWD Connector Peb Parse Data"
         TxtGData: array[100] of Text[250];
         AutGXMLDom: Automation;
         CduGConnectBufMgtExport: Codeunit "Connector Buffer Mgt Export";
-        CduGBufferManagement: Codeunit "Buffer Management";
+        CduGBufferManagement: Codeunit "PWD Buffer Management";
         TxtGError: Label 'Data not available';
         CduGFileManagement: Codeunit "File Management";
         CstGDecValue: Label 'La valeur décimal %1 n''est pas correcte';
@@ -631,7 +631,7 @@ codeunit 8073290 "PWD Connector Peb Parse Data"
                             IF AutLXMLNode.text <> '' THEN
                                 CodLOrderNo := COPYSTR(AutLXMLNode.text, 1, 20);
                             RecLSalesHeader2.RESET();
-                            RecLSalesHeader2.SETRANGE("Order No. From Partner", CodLOrderNo);
+                            RecLSalesHeader2.SETRANGE("PWD Order No. From Partner", CodLOrderNo);
                             IF RecLSalesHeader2.FINDFIRST() THEN
                                 ERROR(CstLOrderExist);
                         END;
@@ -675,7 +675,7 @@ codeunit 8073290 "PWD Connector Peb Parse Data"
                                 RecLSalesHeader.VALIDATE("Sell-to Customer No.", CodLCustomer);
                                 RecLSalesHeader.VALIDATE("Posting Date", DMY2DATE(IntLDay, IntLMonth, IntLYear));
                                 RecLSalesHeader."External Document No." := CodLExternalDocNo;
-                                RecLSalesHeader."Order No. From Partner" := CodLOrderNo;
+                                RecLSalesHeader."PWD Order No. From Partner" := CodLOrderNo;
                                 RecLSalesHeader.MODIFY();
                                 i := 1;
                                 TxtLCommentHeaderPartial := TxtLCommentHeader;
@@ -1316,14 +1316,14 @@ codeunit 8073290 "PWD Connector Peb Parse Data"
         BooLOrderInserted: Boolean;
         OusLStream: OutStream;
         CstLOrderExist: Label 'Cette commande existe déjà';
-        RecLSalesHeaderBuffer: Record "Sales Header Buffer";
-        RecLSalesLineBuffer: Record "Sales Line Buffer";
-        RecLSalesCommentLineBuffer: Record "Sales Comment Line Buffer";
+        RecLSalesHeaderBuffer: Record "PWD Sales Header Buffer";
+        RecLSalesLineBuffer: Record "PWD Sales Line Buffer";
+        RecLSalesCommentLineBuffer: Record "PWD Sales Comment Line Buffer";
         RecLSalesHeader: Record "Sales Header";
         RecordRef: RecordRef;
-        RecLPEBSalesHeaderBuffer: Record "PEB Sales Header Buffer";
-        RecLPEBSalesLineBuffer: Record "PEB Sales Line Buffer";
-        RecLPEBSalesCommentLineBuffer: Record "PEB Sales Comment Line Buffer";
+        RecLPEBSalesHeaderBuffer: Record "PWD PEB Sales Header Buffer";
+        RecLPEBSalesLineBuffer: Record "PWD PEB Sales Line Buffer";
+        RecLPEBSalesCommentLineBuffer: Record "PWD PEB Sales Comm Line Buffer";
     begin
         //>>WMS-FEMOT.001
 
@@ -1394,7 +1394,7 @@ codeunit 8073290 "PWD Connector Peb Parse Data"
                             IF NOT BooLOrderInserted THEN BEGIN
                                 BooLOrderInserted := TRUE;
                                 RecLSalesHeaderBuffer.GET(
-                                               CduGBufferManagement.FctNewBufferLine(DATABASE::"Sales Header Buffer", RecPConnectorVal, 1));
+                                               CduGBufferManagement.FctNewBufferLine(DATABASE::"PWD Sales Header Buffer", RecPConnectorVal, 1));
                                 RecLSalesHeaderBuffer."Document Type" := RecLSalesHeaderBuffer."Document Type"::Order;
                                 RecLSalesHeaderBuffer."Document No." := CodLOrderNo;
                                 RecLSalesHeaderBuffer."Sell-to Customer No." := CodLCustomer;
@@ -1405,7 +1405,7 @@ codeunit 8073290 "PWD Connector Peb Parse Data"
                                 CLEAR(RecordRef);
                                 RecordRef.GETTABLE(RecLSalesHeaderBuffer);
                                 RecLPEBSalesHeaderBuffer.GET(CduGBufferManagement.FctDuplicateBuffer(
-                                                       DATABASE::"PEB Sales Header Buffer", RecordRef));
+                                                       DATABASE::"PWD PEB Sales Header Buffer", RecordRef));
                                 //Placer les champs spécifiques PEB
                                 RecLPEBSalesHeaderBuffer.MODIFY;
 
@@ -1414,7 +1414,7 @@ codeunit 8073290 "PWD Connector Peb Parse Data"
                                 IF TxtLCommentHeaderPartial <> '' THEN
                                     REPEAT
                                         RecLSalesCommentLineBuffer.GET(
-                                                  CduGBufferManagement.FctNewBufferLine(DATABASE::"Sales Comment Line Buffer",
+                                                  CduGBufferManagement.FctNewBufferLine(DATABASE::"PWD Sales Comment Line Buffer",
                                                                           RecPConnectorVal, 1));
                                         RecLSalesCommentLineBuffer."Document Type" := RecLSalesHeaderBuffer."Document Type";
                                         RecLSalesCommentLineBuffer."Document No." := RecLSalesHeaderBuffer."Document No.";
@@ -1426,7 +1426,7 @@ codeunit 8073290 "PWD Connector Peb Parse Data"
                                         CLEAR(RecordRef);
                                         RecordRef.GETTABLE(RecLSalesCommentLineBuffer);
                                         RecLPEBSalesCommentLineBuffer.GET(CduGBufferManagement.FctDuplicateBuffer(
-                                                               DATABASE::"PEB Sales Comment Line Buffer", RecordRef));
+                                                               DATABASE::"PWD PEB Sales Comm Line Buffer", RecordRef));
                                         //Placer les champs spécifiques PEB
                                         RecLPEBSalesCommentLineBuffer.MODIFY;
 
@@ -1454,7 +1454,7 @@ codeunit 8073290 "PWD Connector Peb Parse Data"
                             END;
 
                             RecLSalesLineBuffer.GET(
-                                    CduGBufferManagement.FctNewBufferLine(DATABASE::"Sales Line Buffer", RecPConnectorVal
+                                    CduGBufferManagement.FctNewBufferLine(DATABASE::"PWD Sales Line Buffer", RecPConnectorVal
                                                                                          , 1));
                             RecLSalesLineBuffer."Document Type" := RecLSalesLineBuffer."Document Type"::Order;
                             RecLSalesLineBuffer."Document No." := RecLSalesHeaderBuffer."Document No.";
@@ -1469,7 +1469,7 @@ codeunit 8073290 "PWD Connector Peb Parse Data"
                             CLEAR(RecordRef);
                             RecordRef.GETTABLE(RecLSalesLineBuffer);
                             RecLPEBSalesLineBuffer.GET(CduGBufferManagement.FctDuplicateBuffer(
-                                                   DATABASE::"PEB Sales Line Buffer", RecordRef));
+                                                   DATABASE::"PWD PEB Sales Line Buffer", RecordRef));
                             //Placer les champs spécifiques PEB
                             RecLPEBSalesLineBuffer.MODIFY;
 
@@ -1478,7 +1478,7 @@ codeunit 8073290 "PWD Connector Peb Parse Data"
                             IF TxtLCommentlinePartial <> '' THEN
                                 REPEAT
                                     RecLSalesCommentLineBuffer.GET(
-                                            CduGBufferManagement.FctNewBufferLine(DATABASE::"Sales Comment Line Buffer", RecPConnectorVal
+                                            CduGBufferManagement.FctNewBufferLine(DATABASE::"PWD Sales Comment Line Buffer", RecPConnectorVal
                                                                                    , 1));
                                     RecLSalesCommentLineBuffer."Document Type" := RecLSalesLineBuffer."Document Type";
                                     RecLSalesCommentLineBuffer."Document No." := RecLSalesLineBuffer."Document No.";
@@ -1490,7 +1490,7 @@ codeunit 8073290 "PWD Connector Peb Parse Data"
                                     CLEAR(RecordRef);
                                     RecordRef.GETTABLE(RecLSalesCommentLineBuffer);
                                     RecLPEBSalesCommentLineBuffer.GET(CduGBufferManagement.FctDuplicateBuffer(
-                                                           DATABASE::"PEB Sales Comment Line Buffer", RecordRef));
+                                                           DATABASE::"PWD PEB Sales Comm Line Buffer", RecordRef));
                                     //Placer les champs spécifiques PEB
                                     RecLPEBSalesCommentLineBuffer.MODIFY;
 
@@ -1538,11 +1538,10 @@ codeunit 8073290 "PWD Connector Peb Parse Data"
 
     procedure FctUpdateSalesHeader(var RecPSalesHeader: Record "Sales Header"; var IntPEntryBufferNo: Integer)
     var
-        RecLPEBSalesHeaderBuffer: Record "PEB Sales Header Buffer";
+        RecLPEBSalesHeaderBuffer: Record "PWD PEB Sales Header Buffer";
     begin
         //>>WMS-FEMOT.001
-        IF RecLPEBSalesHeaderBuffer.GET(IntPEntryBufferNo) THEN
-            ;
+        IF RecLPEBSalesHeaderBuffer.GET(IntPEntryBufferNo) THEN;
         //Placer les champs spécifiques PEB
         //<<WMS-FEMOT.001
     end;
@@ -1550,7 +1549,7 @@ codeunit 8073290 "PWD Connector Peb Parse Data"
 
     procedure FctUpdateSalesLine(var RecPSalesLine: Record "Sales Line"; var IntPEntryBufferNo: Integer)
     var
-        RecLPEBSalesLineBuffer: Record "PEB Sales Line Buffer";
+        RecLPEBSalesLineBuffer: Record "PWD PEB Sales Line Buffer";
     begin
         //>>WMS-FEMOT.001
         IF RecLPEBSalesLineBuffer.GET(IntPEntryBufferNo) THEN
@@ -1562,7 +1561,7 @@ codeunit 8073290 "PWD Connector Peb Parse Data"
 
     procedure FctUpdateSalesCommentLine(var RecPSalesCommentLine: Record "Sales Comment Line"; var IntPEntryBufferNo: Integer)
     var
-        RecLPEBSalesCommentLineBuffer: Record "PEB Sales Comment Line Buffer";
+        RecLPEBSalesCommentLineBuffer: Record "PWD PEB Sales Comm Line Buffer";
     begin
         //>>WMS-FEMOT.001
         IF RecLPEBSalesCommentLineBuffer.GET(IntPEntryBufferNo) THEN
@@ -1575,13 +1574,13 @@ codeunit 8073290 "PWD Connector Peb Parse Data"
     procedure FctCreateCustomer(var RecPConnectorVal: Record "PWD Connector Values")
     var
         RecLSendingMessage: Record "PWD Connector Messages";
-        RecLCustomerBuffer: Record "Customer Buffer";
+        RecLCustomerBuffer: Record "PWD Customer Buffer";
         RecLCustomer: Record Customer;
         StrLStreamOut: OutStream;
         InsLStream: InStream;
         RecLTempBlob: Record TempBlob temporary;
         RecordRef: RecordRef;
-        RecLPEBCustomerBuffer: Record "PEB Customer Buffer";
+        RecLPEBCustomerBuffer: Record "PWD PEB Customer Buffer";
     begin
         //>>WMS-FEMOT.001
         //**********************************************************************************************************//
@@ -1613,7 +1612,7 @@ codeunit 8073290 "PWD Connector Peb Parse Data"
         RecLSendingMessage.FINDFIRST();
 
         RecLCustomerBuffer.GET(
-                       CduGBufferManagement.FctNewBufferLine(DATABASE::"Customer Buffer", RecPConnectorVal, 1));
+                       CduGBufferManagement.FctNewBufferLine(DATABASE::"PWD Customer Buffer", RecPConnectorVal, 1));
         RecLCustomerBuffer.Name := TxtGData[1];
         RecLCustomerBuffer."Name 2" := TxtGData[2];
         RecLCustomerBuffer.Address := TxtGData[3];
@@ -1627,7 +1626,7 @@ codeunit 8073290 "PWD Connector Peb Parse Data"
 
         CLEAR(RecordRef);
         RecordRef.GETTABLE(RecLCustomerBuffer);
-        RecLPEBCustomerBuffer.GET(CduGBufferManagement.FctDuplicateBuffer(DATABASE::"PEB Customer Buffer", RecordRef));
+        RecLPEBCustomerBuffer.GET(CduGBufferManagement.FctDuplicateBuffer(DATABASE::"PWD PEB Customer Buffer", RecordRef));
         //Placer les champs spécifiques PEB
         RecLPEBCustomerBuffer.MODIFY;
 
@@ -1663,7 +1662,7 @@ codeunit 8073290 "PWD Connector Peb Parse Data"
 
     procedure FctUpdateCustomer(var RecPCustomer: Record Customer; var IntPEntryBufferNo: Integer)
     var
-        RecLPEBCustomerBuffer: Record "PEB Customer Buffer";
+        RecLPEBCustomerBuffer: Record "PWD PEB Customer Buffer";
     begin
         //>>WMS-FEMOT.001
         IF RecLPEBCustomerBuffer.GET(IntPEntryBufferNo) THEN
@@ -1675,7 +1674,7 @@ codeunit 8073290 "PWD Connector Peb Parse Data"
 
     procedure FctUpdateReceiptLine(var RecPPurchaseLine: Record "Purchase Line"; var IntPEntryBufferNo: Integer)
     var
-        RecLPEBReceiptLineBuffer: Record "PEB Receipt Line Buffer";
+        RecLPEBReceiptLineBuffer: Record "PWD PEB Receipt Line Buffer";
     begin
         //>>WMS-FE007_15.001
         IF RecLPEBReceiptLineBuffer.GET(IntPEntryBufferNo) THEN
@@ -1687,7 +1686,7 @@ codeunit 8073290 "PWD Connector Peb Parse Data"
 
     procedure FctUpdateShipmentLine(var RecPSalesLine: Record "Sales Line"; var IntPEntryBufferNo: Integer)
     var
-        RecLPEBSalesLineBuffer: Record "PEB Sales Line Buffer";
+        RecLPEBSalesLineBuffer: Record "PWD PEB Sales Line Buffer";
     begin
         //>>WMS-FE008_15.001
         IF RecLPEBSalesLineBuffer.GET(IntPEntryBufferNo) THEN

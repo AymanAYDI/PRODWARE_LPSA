@@ -119,7 +119,7 @@ codeunit 50100 "PWD LPSA Tracking Management"
             [DATABASE::"Item Ledger Entry",
             DATABASE::"Item Journal Line",
             DATABASE::"Job Journal Line",
-            DATABASE::"BOM Journal Line",
+            DATABASE::"BOM Journal Line", //TODO: Table "BOM Journal Line" n'est plus disponible dans la nouvelle version
             DATABASE::"Requisition Line"]) or
            ((TrackingSpecification."Source Type" in [DATABASE::"Sales Line", DATABASE::"Purchase Line", DATABASE::"Service Line"]) and
             (TrackingSpecification."Source Subtype" in [0, 2, 3]))
@@ -132,7 +132,7 @@ codeunit 50100 "PWD LPSA Tracking Management"
             [DATABASE::"Item Ledger Entry",
             DATABASE::"Item Journal Line",
             DATABASE::"Job Journal Line",
-            DATABASE::"BOM Journal Line",
+            DATABASE::"BOM Journal Line", //TODO: Table "BOM Journal Line" n'est plus disponible dans la nouvelle version
             DATABASE::"Requisition Line",
             DATABASE::"Transfer Line",
             DATABASE::"Prod. Order Line",
@@ -756,7 +756,7 @@ codeunit 50100 "PWD LPSA Tracking Management"
         IdenticalArray: array[2] of Boolean;
     begin
         OK := false;
-        ReservEngineMgt.SetPick(IsPick);
+        ReservEngineMgt.SetPick(IsPick); //TODO: La procedure SetPick n'existe pas dans le codeunit "Reservation Engine Mgt."
 
         if (CurrentSignFactor * NewTrackingSpecification."Qty. to Handle") < 0 then
             NewTrackingSpecification."Expiration Date" := 0D;
@@ -776,7 +776,7 @@ codeunit 50100 "PWD LPSA Tracking Management"
                       ReservEngineMgt.AddItemTrackingToTempRecSet(
                         TempReservEntry, NewTrackingSpecification,
                         CurrentSignFactor * OldTrackingSpecification."Quantity (Base)", QtyToAddAsBlank,
-                        ItemTrackingCode."SN Specific Tracking", ItemTrackingCode."Lot Specific Tracking");
+                        ItemTrackingCode);
                     TempReservEntry.SetRange("Serial No.");
                     TempReservEntry.SetRange("Lot No.");
 
@@ -799,6 +799,8 @@ codeunit 50100 "PWD LPSA Tracking Management"
                       NewTrackingSpecification."Warranty Date", NewTrackingSpecification."Expiration Date");
                     CreateReservEntry.SetApplyFromEntryNo(
                       NewTrackingSpecification."Appl.-from Item Entry");
+                      CreateReservEntry.SetApplyToEntryNo(NewTrackingSpecification."Appl.-to Item Entry");
+                    ReservEntry1.CopyTrackingFromSpec(OldTrackingSpecification);
                     CreateReservEntry.CreateReservEntryFor(
                       OldTrackingSpecification."Source Type",
                       OldTrackingSpecification."Source Subtype",
@@ -807,9 +809,9 @@ codeunit 50100 "PWD LPSA Tracking Management"
                       OldTrackingSpecification."Source Prod. Order Line",
                       OldTrackingSpecification."Source Ref. No.",
                       OldTrackingSpecification."Qty. per Unit of Measure",
+                      0,
                       OldTrackingSpecification."Quantity (Base)",
-                      OldTrackingSpecification."Serial No.",
-                      OldTrackingSpecification."Lot No.");
+                      ReservEntry1);
                     CreateReservEntry.CreateEntry(OldTrackingSpecification."Item No.",
                       OldTrackingSpecification."Variant Code",
                       OldTrackingSpecification."Location Code",
@@ -821,7 +823,7 @@ codeunit 50100 "PWD LPSA Tracking Management"
                         ReservEngineMgt.UpdateActionMessages(ReservEntry1);
 
                     if ModifySharedFields then begin
-                        ReservationMgt.SetPointerFilter(ReservEntry1);
+                        ReservEntry1.SetPointerFilter();
                         ReservEntry1.SetRange("Lot No.", ReservEntry1."Lot No.");
                         ReservEntry1.SetRange("Serial No.", ReservEntry1."Serial No.");
                         ReservEntry1.SetFilter("Entry No.", '<>%1', ReservEntry1."Entry No.");
@@ -853,7 +855,7 @@ codeunit 50100 "PWD LPSA Tracking Management"
                             TempReservEntry, NewTrackingSpecification,
                             CurrentSignFactor * (NewTrackingSpecification."Quantity (Base)" -
                             OldTrackingSpecification."Quantity (Base)"), QtyToAddAsBlank,
-                            ItemTrackingCode."SN Specific Tracking", ItemTrackingCode."Lot Specific Tracking");
+                            ItemTrackingCode);
                         TempReservEntry.SetRange("Serial No.");
                         TempReservEntry.SetRange("Lot No.");
 
@@ -883,7 +885,7 @@ codeunit 50100 "PWD LPSA Tracking Management"
                             TempReservEntry, OldTrackingSpecification,
                             CurrentSignFactor * (OldTrackingSpecification."Quantity (Base)" -
                             NewTrackingSpecification."Quantity (Base)"), QtyToAddAsBlank,
-                            ItemTrackingCode."SN Specific Tracking", ItemTrackingCode."Lot Specific Tracking");
+                            ItemTrackingCode);
                         TempReservEntry.SetRange("Serial No.");
                         TempReservEntry.SetRange("Lot No.");
                         RegisterChange(NewTrackingSpecification, NewTrackingSpecification,
@@ -895,7 +897,7 @@ codeunit 50100 "PWD LPSA Tracking Management"
                 begin
                     ReservationMgt.SetItemTrackingHandling(1); // Allow deletion of Item Tracking
                     ReservEntry1.TransferFields(OldTrackingSpecification);
-                    ReservationMgt.SetPointerFilter(ReservEntry1);
+                    ReservEntry1.SetPointerFilter();
                     ReservEntry1.SetRange("Lot No.", ReservEntry1."Lot No.");
                     ReservEntry1.SetRange("Serial No.", ReservEntry1."Serial No.");
                     if ChangeType = ChangeType::FullDelete then begin
@@ -910,12 +912,12 @@ codeunit 50100 "PWD LPSA Tracking Management"
                           ReservEngineMgt.AddItemTrackingToTempRecSet(
                             TempReservEntry, OldTrackingSpecification,
                             CurrentSignFactor * OldTrackingSpecification."Quantity (Base)", QtyToAddAsBlank,
-                            ItemTrackingCode."SN Specific Tracking", ItemTrackingCode."Lot Specific Tracking");
+                            ItemTrackingCode);
                         TempReservEntry.SetRange("Serial No.");
                         TempReservEntry.SetRange("Lot No.");
-                        ReservationMgt.DeleteReservEntries2(true, 0, ReservEntry1)
+                        ReservationMgt.DeleteReservEntries(true, 0, ReservEntry1)
                     end else begin
-                        ReservationMgt.DeleteReservEntries2(false, ReservEntry1."Quantity (Base)" -
+                        ReservationMgt.DeleteReservEntries(false, ReservEntry1."Quantity (Base)" -
                           OldTrackingSpecification."Quantity Handled (Base)", ReservEntry1);
                         if ModifySharedFields then begin
                             ReservEntry1.SetRange("Reservation Status");
@@ -978,7 +980,7 @@ codeunit 50100 "PWD LPSA Tracking Management"
             QtyAlreadyHandledToInvoice := TotalQtyToInvoice - TotalQtyToHandle;
 
         ReservEntry1.TransferFields(TrackingSpecification);
-        ReservationMgt.SetPointerFilter(ReservEntry1);
+        ReservEntry1.SetPointerFilter();
         ReservEntry1.SetRange("Lot No.", ReservEntry1."Lot No.");
         ReservEntry1.SetRange("Serial No.", ReservEntry1."Serial No.");
         if (TrackingSpecification."Lot No." <> '') or
@@ -1117,9 +1119,9 @@ codeunit 50100 "PWD LPSA Tracking Management"
                   ProdOrderRoutingLine."Flushing Method" = ProdOrderRoutingLine."Flushing Method"::Backward;
         end;
 
-        ItemLedgerEntry.SetCurrentKey("Prod. Order No.", "Prod. Order Line No.", "Entry Type");
-        ItemLedgerEntry.SetRange("Prod. Order No.", TrackingSpecification."Source ID");
-        ItemLedgerEntry.SetRange("Prod. Order Line No.", TrackingSpecification."Source Prod. Order Line");
+        ItemLedgerEntry.SetCurrentKey("Order No.", "Order Line No.", "Entry Type");
+        ItemLedgerEntry.SetRange("Order No.", TrackingSpecification."Source ID");
+        ItemLedgerEntry.SetRange("Order Line No.", TrackingSpecification."Source Prod. Order Line");
         ItemLedgerEntry.SetRange("Entry Type", ItemLedgerEntry."Entry Type"::Output);
 
         if ItemLedgerEntry.Find('-') then
@@ -1219,7 +1221,7 @@ codeunit 50100 "PWD LPSA Tracking Management"
             Rec.Insert();
             TempItemTrackLineInsert.TransferFields(Rec);
             TempItemTrackLineInsert.Insert();
-            ItemTrackingDataCollection.UpdateLotSNDataSetWithChange(
+            ItemTrackingDataCollection.UpdateTrackingDataSetWithChange(
               TempItemTrackLineInsert, CurrentSignFactor * SourceQuantityArray[1] < 0, CurrentSignFactor, 0);
         end;
         CalculateSums();
@@ -1251,7 +1253,7 @@ codeunit 50100 "PWD LPSA Tracking Management"
         Rec.Insert();
         TempItemTrackLineInsert.TransferFields(Rec);
         TempItemTrackLineInsert.Insert();
-        ItemTrackingDataCollection.UpdateLotSNDataSetWithChange(
+        ItemTrackingDataCollection.UpdateTrackingDataSetWithChange(
           TempItemTrackLineInsert, CurrentSignFactor * SourceQuantityArray[1] < 0, CurrentSignFactor, 0);
         CalculateSums();
     end;
@@ -1323,7 +1325,7 @@ codeunit 50100 "PWD LPSA Tracking Management"
             Rec.Insert();
             TempItemTrackLineInsert.TransferFields(Rec);
             TempItemTrackLineInsert.Insert();
-            ItemTrackingDataCollection.UpdateLotSNDataSetWithChange(
+            ItemTrackingDataCollection.UpdateTrackingDataSetWithChange(
               TempItemTrackLineInsert, CurrentSignFactor * SourceQuantityArray[1] < 0, CurrentSignFactor, 0);
             if i < QtyToCreate then begin
                 Counter := Increment;
@@ -1569,7 +1571,7 @@ codeunit 50100 "PWD LPSA Tracking Management"
     procedure LookupAvailable(LookupMode: Option "Serial No.","Lot No.")
     begin
         Rec."Bin Code" := ForBinCode;
-        ItemTrackingDataCollection.LookupLotSerialNoAvailability(Rec, LookupMode);
+        ItemTrackingDataCollection.LookupTrackingAvailability(Rec, LookupMode);
         Rec."Bin Code" := '';
         //>>MIG-2009-001
         //CurrForm.UPDATE;
@@ -1588,7 +1590,7 @@ codeunit 50100 "PWD LPSA Tracking Management"
 
     procedure LotSnAvailable(var TrackingSpecification: Record "Tracking Specification"; LookupMode: Option "Serial No.","Lot No."): Boolean
     begin
-        exit(ItemTrackingDataCollection.LotSNAvailable(TrackingSpecification, LookupMode));
+        exit(ItemTrackingDataCollection.TrackingAvailable(TrackingSpecification, LookupMode));
     end;
 
 
@@ -1602,7 +1604,7 @@ codeunit 50100 "PWD LPSA Tracking Management"
         if MaxQuantity * CurrentSignFactor > 0 then
             MaxQuantity := 0;
         Rec."Bin Code" := ForBinCode;
-        ItemTrackingDataCollection.SelectMultipleLotSerialNo(Rec, MaxQuantity, CurrentSignFactor);
+        ItemTrackingDataCollection.SelectMultipleTrackingNo(Rec, MaxQuantity, CurrentSignFactor);
         Rec."Bin Code" := '';
         if Rec.FindSet() then
             repeat
@@ -1652,7 +1654,7 @@ codeunit 50100 "PWD LPSA Tracking Management"
     begin
         if TempItemTrackLineReserv.FindSet() then
             repeat
-                LateBindingMgt.ReserveItemTrackingLine2(TempItemTrackLineReserv, TempItemTrackLineReserv."Quantity (Base)");
+                LateBindingMgt.ReserveItemTrackingLine(TempItemTrackLineReserv, TempItemTrackLineReserv."Quantity (Base)");
                 SetQtyToHandleAndInvoice(TempItemTrackLineReserv);
             until TempItemTrackLineReserv.Next() = 0;
         TempItemTrackLineReserv.DeleteAll();
@@ -1707,7 +1709,7 @@ codeunit 50100 "PWD LPSA Tracking Management"
                     TempItemTrackLineInsert.TransferFields(Rec);
                     TempItemTrackLineInsert.Insert();
                     Rec.Insert();
-                    ItemTrackingDataCollection.UpdateLotSNDataSetWithChange(
+                    ItemTrackingDataCollection.UpdateTrackingDataSetWithChange(
                       TempItemTrackLineInsert, CurrentSignFactor * SourceQuantityArray[1] < 0, CurrentSignFactor, 0);
                 end;
             CalculateSums();
