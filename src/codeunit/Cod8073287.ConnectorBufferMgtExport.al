@@ -37,7 +37,7 @@ codeunit 8073287 "Connector Buffer Mgt Export"
     end;
 
     var
-        CduGFileManagement: Codeunit "File Management";
+        CduGFileManagement: Codeunit "File Management"; //TODO: Le CodeUnit "File Management" à le numero 8073294 dans l'ancienne version et 419 la cette version mais il n'ont pas les memes fonctions
         CduGConnectFieldsMgt: Codeunit "Connector Fields Management";
         IntGNbPosition: Integer;
         CstG001: Label 'The field %1 of the table %2 is too long to be export for this partner. Record %3 value : %4. The maximum lenght is %5.';
@@ -45,14 +45,14 @@ codeunit 8073287 "Connector Buffer Mgt Export"
         IntGConnectorValue: Integer;
         BooGError: Boolean;
 
-    procedure FctCreateXml(TxtPFilters: Text[1024]; RecPSendingMessage: Record "PWD Connector Messages"; var RecPTempBlob: Record TempBlob temporary; BooLInsertXMLHeader: Boolean)
+    procedure FctCreateXml(TxtPFilters: Text[1024]; RecPSendingMessage: Record "PWD Connector Messages"; var RecPTempBlob: Record TempBlob temporary; BooLInsertXMLHeader: Boolean)//TODO: Record TempBlob n'existe pas dans la nouvelle version
     var
-        AutLXMLDom: Automation;
-        AutLXMLDomElement: Automation;
-        AutLXMLDomElement2: Automation;
-        AutLXMLDomElement3: Automation;
-        AutLXMLDomProcInst: Automation;
-        AutLXMLDomNodeTxt: Automation;
+        AutLXMLDom: Automation; //TODO: Type Automation n'existe pas dans la nouvelle version
+        AutLXMLDomElement: Automation;//TODO: Type Automation n'existe pas dans la nouvelle version
+        AutLXMLDomElement2: Automation;//TODO: Type Automation n'existe pas dans la nouvelle version
+        AutLXMLDomElement3: Automation;//TODO: Type Automation n'existe pas dans la nouvelle version
+        AutLXMLDomProcInst: Automation;//TODO: Type Automation n'existe pas dans la nouvelle version
+        AutLXMLDomNodeTxt: Automation;//TODO: Type Automation n'existe pas dans la nouvelle version
         FldRef: FieldRef;
         RecLRecRef: RecordRef;
         RecLRecRef2: RecordRef;
@@ -846,7 +846,7 @@ codeunit 8073287 "Connector Buffer Mgt Export"
 
     procedure FctValidateField(IntPTableID: Integer; IntPFieldID: Integer; TxtPValue: Text[250]; RecPRecordID: RecordID): Text[250]
     var
-        RecLPartnerConnectorFields: Record "Partner Connector Fields";
+        RecLPartnerConnectorFields: Record "PWD Partner Connector Fields";
         CduLConnectorErrorlog: Codeunit "PWD Connector Error log";
     begin
         //>>OSYS-Int001.001
@@ -892,7 +892,7 @@ codeunit 8073287 "Connector Buffer Mgt Export"
     procedure FctCheckFields(var RefRecord: RecordRef): Boolean
     var
         FieldRef: FieldRef;
-        RecLPartnerConnectorFields: Record "Partner Connector Fields";
+        RecLPartnerConnectorFields: Record "PWD Partner Connector Fields";
         RecLField: Record "Field";
         DatLDate: Date;
         DecLDecimal: Decimal;

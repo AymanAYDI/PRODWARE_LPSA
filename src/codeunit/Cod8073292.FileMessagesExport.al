@@ -34,12 +34,12 @@ codeunit 8073292 "PWD File Messages Export"
         RecLPartnerConnector: Record "PWD Partner Connector";
         RecLConnectorValues: Record "PWD Connector Values";
         BigTLToReturn: BigText;
-        CduLBufferMgt: Codeunit "Buffer Management";
+        CduLBufferMgt: Codeunit "PWD Buffer Management";
         InLStream: InStream;
         CduLFileManagement: Codeunit "File Management";
         TxtLFile: Text[1024];
         BooLResult: Boolean;
-        CduLConnecPimParseData: Codeunit "Connector Pim Parse Data";
+        CduLConnecPimParseData: Codeunit "PWD Connector Pim Parse Data";
         RecLConnectorsActivation: Record "PWD WMS Setup";
         RecLRef: RecordRef;
         RecLCustomer: Record Customer;
@@ -157,7 +157,7 @@ codeunit 8073292 "PWD File Messages Export"
         CduLConBufMgtExport: Codeunit "Connector Buffer Mgt Export";
         OptGFlowType: Option " ","Import Connector","Export Connector";
         IntGSequenceNo: Integer;
-        CduLFTPExport: Codeunit "FTP Messages Import/Export";
+        CduLFTPExport: Codeunit "PWD FTP Messages Import/Export";
 
 
     procedure FctGetTransactionNo(): Integer

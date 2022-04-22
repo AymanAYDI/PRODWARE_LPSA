@@ -1749,6 +1749,31 @@ codeunit 50020 "PWD LPSA Events Mgt."
         //>>FE_LAPIERRETTE_PROD01.001: TO 13/12/2011
         ItemCard.Fct_EnableLotDeterm();
         //<<FE_LAPIERRETTE_PROD01.001: TO 13/12/2011
+        //---CDU3010801---
+    end;
+
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"QuoteMgt", 'OnBeforeReCalc', '', false, false)]
+    local procedure CDU3010801_OnBeforeReCalc_QuoteMgt(var SalesHeader: Record "Sales Header"; ShowMessage: Boolean; var IsHandled: Boolean)
+    var
+        CstG0001: Label 'Warning, the order status must be Open to recalculate the lines. ';
+        CstG0002: Label 'Warning, the order must not  be Confirmed to recalculate the lines. ';
+        CstG0003: Label 'Warning, the order must not  be Planned to recalculate the lines. ';
+        CstG0004: Label 'Warning, this order has already been shipped (partly or totally), you cannot recalculate the lines. ';
+        CstG0005: Label 'Do you really want to recalculate the lines ?';
+        PWDLPSAFunctionsMgt: Codeunit "PWD LPSA Functions Mgt.";
+    begin
+        //>>FE_LAPIERRETTE_VTE05.001
+        //Test on Sales Order
+        IF SalesHeader."Document Type" IN [SalesHeader."Document Type"::Order] THEN BEGIN
+            IF SalesHeader.Status IN [SalesHeader.Status::Released] THEN ERROR(CstG0001);
+            IF SalesHeader."PWD ConfirmedLPSA" THEN ERROR(CstG0002);
+            IF SalesHeader."PWD Planned" THEN ERROR(CstG0003);
+            IF PWDLPSAFunctionsMgt.FctShippedLines(SalesHeader) THEN ERROR(CstG0004);
+            IF NOT CONFIRM(CstG0005) THEN
+                IsHandled := true;
+        END;
+
+        //<<FE_LAPIERRETTE_VTE05.001
     end;
 
     var
