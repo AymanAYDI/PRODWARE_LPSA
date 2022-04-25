@@ -53,6 +53,26 @@ report 50046 "PWD TPL Supp Centre de charge"
 
         layout
         {
+            area(content)
+            {
+                group(Control1000000000)
+                {
+                    Caption = 'Import';
+                    ShowCaption = false;
+                    field(TxtGFile; TxtGFile)
+                    {
+                        Caption = 'Fichier à importer';
+                        ShowCaption = false;
+                        ApplicationArea = All;
+                        trigger OnLookup(var Text: Text): Boolean
+                        var
+                            CduGCommonDialogMgt: CodeUnit "Common Dialog Management";//TODO: Codeunit n'existe pas(code standard dans la version 2009)
+                        begin
+                            TxtGFile := CduLCommonDialogMgt.OpenFile('Fichier à importer', TxtGFile, 1, 'Filter', 0);
+                        end;
+                    }
+                }
+            }
         }
 
         actions
@@ -114,11 +134,11 @@ report 50046 "PWD TPL Supp Centre de charge"
         RecGCalendarEntry: Record "Calendar Entry";
         RecGCalAbsentEntry: Record "Calendar Absence Entry";
         RecGMfgCommentLine: Record "Manufacturing Comment Line";
-        RecGPlannerOneParameters: Record PlannerOneMachineSetupParam;
+        RecGPlannerOneParameters: Record PlannerOneMachineSetupParam; //TODO: Numero de Table 8076517 
         FilGFileToImport: File;
         InsGDataFileInstream: InStream;
         TxtGReadLine: Text[30];
-        CduGApplicationManagement: Codeunit ApplicationManagement;
+        CduGApplicationManagement: Codeunit ApplicationManagement; //TODO: CodeUnit 1 n'existe pas dans la nouvelle version
         BDialog: Dialog;
 }
 

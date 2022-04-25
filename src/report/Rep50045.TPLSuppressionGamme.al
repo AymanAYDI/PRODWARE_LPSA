@@ -66,6 +66,32 @@ report 50045 "PWD TPL Suppression Gamme"
 
         layout
         {
+            area(content)
+            {
+                group(Control1000000000)
+                {
+                    Caption = 'Action';
+                    ShowCaption = false;
+                    field(TxtGFile; TxtGFile)
+                    {
+                        Caption = 'Fichier à importe';
+                        ShowCaption = false;
+                        ApplicationArea = All;
+                    }
+                    field(BooGDelRoutingNoOnItem; BooGDelRoutingNoOnItem)
+                    {
+                        Caption = 'Supprimer le N° gamme sur la fiche article lié';
+                        ApplicationArea = All;
+                        ShowCaption = false;
+                        trigger OnLookup(var Text: Text): Boolean
+                        var
+                            CduGCommonDialogMgt: CodeUnit "Common Dialog Management";//TODO: Codeunit n'existe pas(code standard dans la version 2009)
+                        begin
+                            TxtGFile := CduLCommonDialogMgt.OpenFile('Fichier à importer', TxtGFile, 1, 'Filter', 0);
+                        end;
+                    }
+                }
+            }
         }
 
         actions

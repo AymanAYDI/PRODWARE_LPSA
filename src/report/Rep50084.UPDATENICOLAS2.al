@@ -62,14 +62,14 @@ report 50084 "PWD UPDATE NICOLAS2"
                     field(CodGOperationNo; CodGOperationNo)
                     {
                         Caption = 'Operation No.';
-                        OptionCaption = 'Operations No.';
+                        //OptionCaption = 'Operations No.';
                         ShowCaption = false;
                         ApplicationArea = All;
 
                         trigger OnLookup(var Text: Text): Boolean
                         var
                             RecLRoutingLines: Record "Routing Line";
-                            PagLRoutingLines: Page "Routing Lines choice";
+                            PagLRoutingLines: Page "PWD Routing Lines choice";
                         begin
                             RecLRoutingLines.SetRange("Routing No.", CodGRoutingHeader);
                             PagLRoutingLines.SetTableView(RecLRoutingLines);

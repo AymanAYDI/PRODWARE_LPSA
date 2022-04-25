@@ -8,14 +8,14 @@ report 50077 "Update Rtg Line Global-Step 3"
     {
         dataitem(POL_rest; "Prod. Order Line")
         {
-            DataItemTableView = SORTING(Status, "Prod. Order No.", "Line No.") WHERE(Status = FILTER(< Finished), PlanningGroup = FILTER(<> 'ACIERS'), Processed = CONST(false));
+            DataItemTableView = SORTING(Status, "Prod. Order No.", "Line No.") WHERE(Status = FILTER(< Finished), "PWD Processed" = CONST(false));
 
             trigger OnAfterGetRecord()
             begin
-                if Format("Initial Ending Date Time") <> '' then begin
-                    Validate("Ending Date-Time", "Initial Ending Date Time");
+                if Format("PWD Initial Ending Date Time") <> '' then begin
+                    Validate("Ending Date-Time", "PWD Initial Ending Date Time");
                     Modify(true);
-                    Processed := true;
+                    "PWD Processed" := true;
                     Modify(false);
                     Commit();
                 end;
@@ -60,14 +60,14 @@ report 50077 "Update Rtg Line Global-Step 3"
                     field(CodGOperationNo; CodGOperationNo)
                     {
                         Caption = 'Operation No.';
-                        OptionCaption = 'Operations No.';
+                        //OptionCaption = 'Operations No.';
                         ShowCaption = false;
                         ApplicationArea = All;
 
                         trigger OnLookup(var Text: Text): Boolean
                         var
                             RecLRoutingLines: Record "Routing Line";
-                            PagLRoutingLines: Page "Routing Lines choice";
+                            PagLRoutingLines: Page "PWD Routing Lines choice";
                         begin
                             RecLRoutingLines.SetRange("Routing No.", CodGRoutingHeader);
                             PagLRoutingLines.SetTableView(RecLRoutingLines);

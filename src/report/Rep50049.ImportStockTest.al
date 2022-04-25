@@ -68,7 +68,7 @@ report 50049 "PWD Import Stock Test"
     var
         OptGTreatment: Option " ",Import,Buffer,Validation;
         RecGJobQueueEntry: Record "Job Queue Entry";
-        CduGFileImportLauncher: Codeunit "File Import Launcher";
+        CduGFileImportLauncher: Codeunit "PWD File Import Launcher";
         CduGValidationBatch: Codeunit "Connectors Validation Batch";
         CduGBuffersProcessBatchLaunche: Codeunit "Buffers Process Batch Launcher";
 }

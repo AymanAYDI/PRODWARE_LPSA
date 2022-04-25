@@ -1775,6 +1775,15 @@ codeunit 50020 "PWD LPSA Events Mgt."
 
         //<<FE_LAPIERRETTE_VTE05.001
     end;
+    //---Rep99003803---
+    [EventSubscriber(ObjectType::Report, Report::"Copy Production Forecast", 'OnBeforeProdForecastEntryInsert', '', false, false)]
+    local procedure Rep99003803_OnBeforeProdForecastEntryInsert_CopyProductionForecast(var ProdForecastEntry: Record "Production Forecast Entry"; ToProdForecastEntry: Record "Production Forecast Entry")
+    begin
+        //>>LAP080615
+        IF ToProdForecastEntry."PWD Customer No." <> '' THEN
+            ProdForecastEntry."PWD Customer No." := ToProdForecastEntry."PWD Customer No.";
+        //<<LAP080615
+    end;
 
     var
         DontExecuteIfImport: Boolean;

@@ -16,7 +16,7 @@ report 50075 "Update Rtg Line Global-Step 1"
             begin
                 //"Initial Ending Date Time" = DateTime THEN BEGIN
                 //IF "Initial Ending Date Time" = 0DT THEN BEGIN
-                "Initial Ending Date Time" := "Ending Date-Time";
+                "PWD Initial Ending Date Time" := "Ending Date-Time";
                 Modify(false);
                 //END;
             end;
@@ -60,14 +60,13 @@ report 50075 "Update Rtg Line Global-Step 1"
                     field(CodGOperationNo; CodGOperationNo)
                     {
                         Caption = 'Operation No.';
-                        OptionCaption = 'Operations No.';
                         ShowCaption = false;
                         ApplicationArea = All;
 
                         trigger OnLookup(var Text: Text): Boolean
                         var
                             RecLRoutingLines: Record "Routing Line";
-                            PagLRoutingLines: Page "Routing Lines choice";
+                            PagLRoutingLines: Page "PWD Routing Lines choice";
                         begin
                             RecLRoutingLines.SetRange("Routing No.", CodGRoutingHeader);
                             PagLRoutingLines.SetTableView(RecLRoutingLines);

@@ -21,6 +21,20 @@ report 50060 "PWD Inventory Recovery"
 
         layout
         {
+            area(content)
+            {
+                group(Control1000000000)
+                {
+                    Caption = 'Inventory';
+                    ShowCaption = false;
+                    field(CodGDocNo; CodGDocNo)
+                    {
+                        Caption = 'Document No for Inventory Recovery';
+                        ShowCaption = false;
+                        ApplicationArea = All;
+                    }
+                }
+            }
         }
 
         actions
@@ -167,8 +181,8 @@ report 50060 "PWD Inventory Recovery"
         CodGJnlTemplateName: Code[10];
         CodGJnlBatchName: Code[10];
         RecGItemJnlLine: Record "Item Journal Line";
-        RecGItemJnlLineBuffer: Record "Item Jnl Line Buffer";
-        RecGItemLedgerEntryBuffer: Record "Item Ledger Entry Buffer";
+        RecGItemJnlLineBuffer: Record "PWD Item Jnl Line Buffer";
+        RecGItemLedgerEntryBuffer: Record "PWD Item Ledger Entry Buffer";
         CstG005: Label 'Les tables Buffer sont vides, import impossible !';
         BooGProcess: Boolean;
         CodGDocNo: Code[20];

@@ -69,7 +69,7 @@ table 8073284 "PWD Connector Messages"
 
             trigger OnLookup()
             var
-                CduLCmDlgMgt: Codeunit "Common Dialog Management";
+                CduLCmDlgMgt: Codeunit "Common Dialog Management";//TODO: Le CodeUnit Common Dialog Management n'est plus disponible pour la nouvelle version
                 i: Integer;
                 InboxDetails: Text[250];
                 InboxDetails2: Text[250];
@@ -230,7 +230,7 @@ table 8073284 "PWD Connector Messages"
 
             trigger OnLookup()
             var
-                CduLCmDlgMgt: Codeunit "Common Dialog Management";
+                CduLCmDlgMgt: Codeunit "Common Dialog Management"; //TODO: Le CodeUnit Common Dialog Management n'est plus disponible pour la nouvelle version
                 i: Integer;
                 InboxDetails: Text[250];
                 InboxDetails2: Text[250];

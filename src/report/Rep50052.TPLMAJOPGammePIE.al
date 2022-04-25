@@ -67,6 +67,42 @@ report 50052 "PWD TPL MAJ OP Gamme PIE"
 
         layout
         {
+            area(content)
+            {
+                group(Control1000000000)
+                {
+                    Caption = 'Action';
+                    ShowCaption = false;
+                    field(CodGOldOperation; CodGOldOperation)
+                    {
+                        Caption = 'Remplacer';
+                        ShowCaption = false;
+                        TableRelation = "Machine Center";
+                        ApplicationArea = All;
+                    }
+                    field(CodGNewOperation; CodGNewOperation)
+                    {
+                        Caption = 'Par';
+                        ShowCaption = false;
+                        TableRelation = "Machine Center";
+                        ApplicationArea = All;
+                        trigger OnValidate()
+                        var
+                            RecLMachineCenter: Record "Machine Center";
+                        begin
+
+                            RecLMachineCenter.GET(CodGNewOperation);
+                            TxtGNewOperationDescription := RecLMachineCenter.Name;
+                        end;
+                    }
+                    field(TxtGNewOperationDescription; TxtGNewOperationDescription)
+                    {
+                        Caption = '';
+                        ShowCaption = false;
+                        ApplicationArea = All;
+                    }
+                }
+            }
         }
 
         actions

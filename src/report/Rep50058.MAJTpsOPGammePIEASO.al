@@ -114,6 +114,80 @@ report 50058 "PWD MAJ Tps OP Gamme PIE A/S O"
 
         layout
         {
+            area(content)
+            {
+                group(Control1000000000)
+                {
+                    Caption = 'Action';
+                    ShowCaption = false;
+                    field(CodGOperation; CodGOperation)
+                    {
+                        Caption = 'Pour l''opération';
+                        ShowCaption = false;
+                        TableRelation = "Machine Center";
+                        ApplicationArea = All;
+                    }
+                    field(CstG007; CstG007)
+                    {
+                        ApplicationArea = All;
+                        ShowCaption = false;
+                        Editable = false;
+                    }
+                    field(BooGSetupTime; BooGSetupTime)
+                    {
+                        Caption = 'prépa';
+                        ShowCaption = false;
+                        ApplicationArea = All;
+                    }
+                    field(BooGMoveTime; BooGMoveTime)
+                    {
+                        Caption = 'transfert';
+                        ShowCaption = false;
+                        ApplicationArea = All;
+
+                    }
+                    field(CstG008; CstG008)
+                    {
+                        ApplicationArea = All;
+                        ShowCaption = false;
+                        Editable = false;
+                    }
+                    field(DecGSetupTime; DecGSetupTime)
+                    {
+                        Caption = 'prépa';
+                        ShowCaption = false;
+                        ApplicationArea = All;
+                        Editable = BooGSetupTime;
+                    }
+                    field(DecGMoveTime; DecGMoveTime)
+                    {
+                        Caption = 'transfert';
+                        ShowCaption = false;
+                        ApplicationArea = All;
+                        Editable = BooGMoveTime;
+                    }
+                    field(CstG009; CstG009)
+                    {
+                        ApplicationArea = All;
+                        ShowCaption = false;
+                        Editable = false;
+                    }
+                    field(DecGSetupTimeO; DecGSetupTimeO)
+                    {
+                        Caption = 'prépa';
+                        ShowCaption = false;
+                        ApplicationArea = All;
+                        Editable = BooGSetupTime;
+                    }
+                    field(DecGMoveTimeO; DecGMoveTimeO)
+                    {
+                        Caption = 'transfert';
+                        ShowCaption = false;
+                        ApplicationArea = All;
+                        Editable = BooGMoveTime;
+                    }
+                }
+            }
         }
 
         actions
@@ -148,5 +222,8 @@ report 50058 "PWD MAJ Tps OP Gamme PIE A/S O"
         DecGSetupTimeO: Decimal;
         DecGMoveTimeO: Decimal;
         BooGDescriptionWithO: Boolean;
+        CstG007: Label 'Cocher et préciser la nouvelle valeur pour les temps';
+        CstG008: Label 'Désignation LPSA 1 sans "O"';
+        CstG009: Label 'Désignation LPSA 1 avec "O"';
 }
 

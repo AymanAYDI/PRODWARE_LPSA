@@ -167,14 +167,13 @@ report 50076 "Update Rtg Line Global-Step 2"
                     field(CodGOperationNo; CodGOperationNo)
                     {
                         Caption = 'Operation No.';
-                        OptionCaption = 'Operations No.';
                         ShowCaption = false;
                         ApplicationArea = All;
 
                         trigger OnLookup(var Text: Text): Boolean
                         var
                             RecLRoutingLines: Record "Routing Line";
-                            PagLRoutingLines: Page "Routing Lines choice";
+                            PagLRoutingLines: Page "PWD Routing Lines choice";
                         begin
                             RecLRoutingLines.SetRange("Routing No.", CodGRoutingHeader);
                             PagLRoutingLines.SetTableView(RecLRoutingLines);

@@ -22,10 +22,10 @@ report 50043 "PWD Launch Export Closing File"
             trigger OnAfterGetRecord()
             begin
                 RecGInventorySetup.Get();
-                RecGInventorySetup.TestField("Closing Export DateFormula");
-                RecGInventorySetup.TestField("Period for Inventory Cover");
-                RecGInventorySetup.TestField("Path for Closing Export");
-                if CalcDate(RecGInventorySetup."Closing Export DateFormula", Today) = Today then begin
+                RecGInventorySetup.TestField("PWD Closing Export DateFormula");
+                RecGInventorySetup.TestField("PWD Period for Inventory Cover");
+                RecGInventorySetup.TestField("PWD Path for Closing Export");
+                if CalcDate(RecGInventorySetup."PWD Closing Export DateFormula", Today) = Today then begin
 
                     CduGClosingManagement.SetDataExport(true, true, true, true, Today, false);
                     CduGClosingManagement.Run;
@@ -52,7 +52,7 @@ report 50043 "PWD Launch Export Closing File"
     }
 
     var
-        CduGClosingManagement: Codeunit "Closing Management";
+        CduGClosingManagement: Codeunit "PWD Closing Management";
         RecGInventorySetup: Record "Inventory Setup";
 }
 

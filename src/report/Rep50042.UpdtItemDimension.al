@@ -15,7 +15,7 @@ report 50042 "PWD Updt Item - Dimension"
                   TableData "Item Journal Line" = rm,
                   TableData "Requisition Line" = rm,
                   TableData "Transfer Line" = rm,
-                  TableData "Manufacturing cycles Setup" = rm;
+                  TableData "PWD Manufacturing cycles Setup" = rm;
     ProcessingOnly = true;
 
     dataset
@@ -31,7 +31,7 @@ report 50042 "PWD Updt Item - Dimension"
                 RecLItemJnlLine: Record "Item Journal Line";
                 RecLRequisitionLine: Record "Requisition Line";
                 RecLTransferLine: Record "Transfer Line";
-                RecLManufacturingCycles: Record "Manufacturing cycles Setup";
+                RecLManufacturingCycles: Record "PWD Manufacturing cycles Setup";
                 RecLItemConfiguration: Record "PWD Item Configurator";
             begin
                 DiagWindows.Update(1, DATABASE::Item);
@@ -116,7 +116,7 @@ report 50042 "PWD Updt Item - Dimension"
                 RecLManufacturingCycles.SetRange("Item Code", "No.");
                 if RecLManufacturingCycles.Find('-') then
                     repeat
-                        DiagWindows.Update(1, DATABASE::"Manufacturing cycles Setup");
+                        DiagWindows.Update(1, DATABASE::"PWD Manufacturing cycles Setup");
                         DiagWindows.Update(2, RecLManufacturingCycles."No.");
 
                         RecLManufacturingCycles."Item Category Code" := Item."Item Category Code";
@@ -154,6 +154,48 @@ report 50042 "PWD Updt Item - Dimension"
 
         layout
         {
+            area(content)
+            {
+                group(Control1100267000)
+                {
+                    Caption = 'Options';
+                    ShowCaption = false;
+                    field(RecGItemCategory;
+                    RecGItemCategory.Code)
+                    {
+                        Caption = 'Nouveau code catégorie';
+                        ShowCaption = false;
+                        ApplicationArea = All;
+                        TableRelation = "Item Category";
+                    }
+                    field(CodGGroupCode; CodGGroupCode)
+                    {
+                        Caption = 'Nouveau code catégorie';
+                        ShowCaption = false;
+                        ApplicationArea = All;
+                        trigger OnLookup(var Text: Text): Boolean
+                        begin
+
+                            CLEAR(FrmProductGroup);
+
+                            Text := '';
+                            RecGProductGroup.SETRANGE("Item Category Code", RecGItemCategory.Code);
+                            FrmProductGroup.SETTABLEVIEW(RecGProductGroup);
+                            FrmProductGroup.LOOKUPMODE(TRUE);
+                            IF FrmProductGroup.RUNMODAL = ACTION::LookupOK THEN
+                                Text := FrmProductGroup.GetSelectionFilter;
+
+                            EXIT(TRUE);
+                        end;
+                    }
+                    field(CstG0003; CstG0003)
+                    {
+                        ShowCaption = false;
+                        ApplicationArea = All;
+                        Editable = false;
+                    }
+                }
+            }
         }
 
         actions
@@ -184,6 +226,8 @@ report 50042 "PWD Updt Item - Dimension"
         CstG0000: Label 'Mise à jour #1################ #2#################';
         CstG0001: Label 'Code catégorie et code groupe produit sont obligatoires.';
         CstG0002: Label 'Mise à jour articles terminée.';
-        CduGClosingMgt: Codeunit "Closing Management";
+        CduGClosingMgt: Codeunit "PWD Closing Management";
+        CstG0003: Label 'ATTENTION, PENSEZ A POSITIONNER LES FILTRES ADEQUATS DANS L''ONGLET ARTICLE. ';
+        FrmProductGroup: Page "Product Groups";
 }
 

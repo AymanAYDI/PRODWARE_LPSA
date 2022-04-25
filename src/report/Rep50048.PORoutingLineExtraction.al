@@ -261,6 +261,28 @@ report 50048 "PWD PO Routing Line Extraction"
 
         layout
         {
+            area(content)
+            {
+                group(Control1000000000)
+                {
+                    Caption = 'Export';
+                    ShowCaption = false;
+                    field(TxtGFileName; TxtGFileName)
+                    {
+                        Caption = 'Fichier à exporter';
+                        ShowCaption = false;
+                        ApplicationArea = All;
+                        trigger OnAssistEdit()
+                        var
+                            CduGCommonDialogMgt: CodeUnit "Common Dialog Management";//TODO: Codeunit n'existe pas(code standard dans la version 2009)
+                            CstG001: label 'Fichier à exporte';
+                        begin
+                            TxtGFileName := CduGCommonDialogMgt.OpenFile(CstG001, TxtGFileName, 0, '', 1);
+                        end;
+
+                    }
+                }
+            }
         }
 
         actions

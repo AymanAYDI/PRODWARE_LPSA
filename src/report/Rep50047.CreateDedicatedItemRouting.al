@@ -62,7 +62,7 @@ report 50047 "Create Dedicated Item Routing"
                 RecGRoutingHeaderGeneric.Get(CodGGenericRouting);
                 RecGRoutingHeader.Validate(Description, RecGRoutingHeaderGeneric.Description);
                 RecGRoutingHeader.Validate("Search Description", RecGRoutingHeaderGeneric."Search Description");
-                RecGRoutingHeader.Validate(PlanningGroup, RecGRoutingHeaderGeneric.PlanningGroup);
+                //RecGRoutingHeader.Validate(PlanningGroup, RecGRoutingHeaderGeneric.PlanningGroup);
 
                 RecGRoutingHeader.Validate(Status, RecGRoutingHeader.Status::Certified);
 

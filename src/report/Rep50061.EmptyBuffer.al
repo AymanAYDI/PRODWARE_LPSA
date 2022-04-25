@@ -45,8 +45,8 @@ report 50061 "PWD Empty Buffer"
     end;
 
     var
-        RecGItemJnlLineBuffer: Record "Item Jnl Line Buffer";
-        RecGItemLedgerEntryBuffer: Record "Item Ledger Entry Buffer";
+        RecGItemJnlLineBuffer: Record "PWD Item Jnl Line Buffer";
+        RecGItemLedgerEntryBuffer: Record "PWD Item Ledger Entry Buffer";
         CstG001: Label 'Voulez-vous vider les tables Buffer du traitement de modification en masse du mode évaluation de stock ?';
         CstG002: Label 'Les tables Buffer ont été vidées !';
         CstG003: Label 'Traitement annulé !';

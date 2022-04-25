@@ -18,8 +18,8 @@ report 50082 "PWD UPDATE COST"
                     DataItemTableView = SORTING(Status, "Prod. Order No.", "Routing Reference No.", "Routing No.", "Operation No.") WHERE("Routing Link Code" = FILTER(= ''));
                     dataitem("Capacity Ledger Entry"; "Capacity Ledger Entry")
                     {
-                        DataItemLink = "Prod. Order No." = FIELD("Prod. Order No."), "Operation No." = FIELD("Operation No.");
-                        DataItemTableView = SORTING("Prod. Order No.", "Prod. Order Line No.", "Routing No.", "Routing Reference No.", "Operation No.", "Last Output Line");
+                        DataItemLink = "Order No." = FIELD("Prod. Order No."), "Operation No." = FIELD("Operation No.");
+                        DataItemTableView = SORTING("Order No.", "Order Line No.", "Routing No.", "Routing Reference No.", "Operation No.", "Last Output Line");
 
                         trigger OnAfterGetRecord()
                         var
@@ -36,8 +36,8 @@ report 50082 "PWD UPDATE COST"
                                 RecGIJL.Validate("Line No.", IntG);
                                 RecGIJL.Validate("Posting Date", WorkDate());
                                 RecGIJL.Validate("Entry Type", RecGIJL."Entry Type"::Output);
-                                RecGIJL.Validate("Prod. Order No.", "Production Order"."No.");
-                                RecGIJL.Validate("Prod. Order Line No.", "Prod. Order Routing Line"."Routing Reference No.");
+                                RecGIJL.Validate("Order No.", "Production Order"."No.");
+                                RecGIJL.Validate("Order Line No.", "Prod. Order Routing Line"."Routing Reference No.");
                                 RecGIJL.Validate("Item No.", "Production Order"."Source No.");
                                 RecGIJL.Validate("Location Code", "Production Order"."Location Code");
                                 RecGIJL.Validate("Routing Reference No.", "Prod. Order Routing Line"."Routing Reference No.");
@@ -61,8 +61,8 @@ report 50082 "PWD UPDATE COST"
                                 RecGIJL.Validate("Line No.", IntG);
                                 RecGIJL.Validate("Posting Date", WorkDate());
                                 RecGIJL.Validate("Entry Type", RecGIJL."Entry Type"::Output);
-                                RecGIJL.Validate("Prod. Order No.", "Production Order"."No.");
-                                RecGIJL.Validate("Prod. Order Line No.", "Prod. Order Routing Line"."Routing Reference No.");
+                                RecGIJL.Validate("Order No.", "Production Order"."No.");
+                                RecGIJL.Validate("Order Line No.", "Prod. Order Routing Line"."Routing Reference No.");
                                 RecGIJL.Validate("Item No.", "Production Order"."Source No.");
                                 RecGIJL.Validate("Location Code", "Production Order"."Location Code");
                                 RecGIJL.Validate("Routing Reference No.", "Prod. Order Routing Line"."Routing Reference No.");

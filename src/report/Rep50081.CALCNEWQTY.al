@@ -24,7 +24,7 @@ report 50081 "PWD CALC NEW QTY"
                 RecLRoutingLineNew: Record "Routing Line";
                 RecLroutingTTE: Record "Routing Line";
                 CodRouting: Code[20];
-                RecLOrderBY: Record "New Order By";
+                RecLOrderBY: Record "PWD New Order By";
                 RecLBOM: Record "Production BOM Header";
             begin
                 DecLInitQty := 0;

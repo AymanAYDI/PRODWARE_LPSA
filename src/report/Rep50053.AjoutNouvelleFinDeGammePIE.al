@@ -105,6 +105,28 @@ report 50053 "Ajout NouvelleFin De Gamme PIE"
 
         layout
         {
+            area(content)
+            {
+                group(Control1000000000)
+                {
+                    Caption = 'Action';
+                    ShowCaption = false;
+                    field(CodGStartOperation; CodGStartOperation)
+                    {
+                        Caption = 'Remplacer toutes les lignes de gammes après l''opératio';
+                        ShowCaption = false;
+                        TableRelation = "Machine Center";
+                        ApplicationArea = All;
+                    }
+                    field(CodGRoutingToAdd; CodGRoutingToAdd)
+                    {
+                        Caption = 'Par les lignes de la gamme';
+                        ShowCaption = false;
+                        TableRelation = "Routing Header";
+                        ApplicationArea = All;
+                    }
+                }
+            }
         }
 
         actions

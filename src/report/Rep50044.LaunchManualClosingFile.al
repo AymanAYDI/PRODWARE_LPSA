@@ -32,9 +32,9 @@ report 50044 "PWD Launch Manual Closing File"
             trigger OnPreDataItem()
             begin
                 RecGInventorySetup.Get();
-                RecGInventorySetup.TestField("Closing Export DateFormula");
-                RecGInventorySetup.TestField("Period for Inventory Cover");
-                RecGInventorySetup.TestField("Path for Closing Export");
+                RecGInventorySetup.TestField("PWD Closing Export DateFormula");
+                RecGInventorySetup.TestField("PWD Period for Inventory Cover");
+                RecGInventorySetup.TestField("PWD Path for Closing Export");
             end;
         }
     }
@@ -97,7 +97,7 @@ report 50044 "PWD Launch Manual Closing File"
     }
 
     var
-        CduGClosingManagement: Codeunit "Closing Management";
+        CduGClosingManagement: Codeunit "PWD Closing Management";
         RecGInventorySetup: Record "Inventory Setup";
         BooGItem: Boolean;
         BooGInventory: Boolean;

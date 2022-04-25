@@ -121,6 +121,44 @@ report 50059 "PWD Update Cost Method V2"
 
         layout
         {
+            area(content)
+            {
+                group(Control1000000000)
+                {
+                    Caption = 'Item type';
+                    ShowCaption = false;
+                    field(OptGReplenishmentSystem; OptGReplenishmentSystem)
+                    {
+                        Caption = 'Item type';
+                        OptionCaption = 'Purchase,Prod. Order, Purchase and Prod. Order';
+                        ShowCaption = false;
+                        ApplicationArea = All;
+                    }
+                    field(OptCostMethForPurchasedItem; OptCostMethForPurchasedItem)
+                    {
+                        Caption = 'Costing method to be forced for purchased items';
+                        OptionCaption = 'FIFO,LIFO,Specific,Average,Standard';
+                        ShowCaption = false;
+                        ApplicationArea = All;
+                        Editable = (OptGReplenishmentSystem = OptGReplenishmentSystem::Purchased) OR (OptGReplenishmentSystem = OptGReplenishmentSystem::Both);
+                    }
+                    field(OptCostMethForManufacturedItem; OptCostMethForManufacturedItem)
+                    {
+                        Caption = 'Costing method to be forced for manufactured items';
+                        OptionCaption = 'FIFO,LIFO,Specific,Average,Standard';
+                        ShowCaption = false;
+                        ApplicationArea = All;
+                        Editable = (OptGReplenishmentSystem = OptGReplenishmentSystem::Manufactured) OR (OptGReplenishmentSystem = OptGReplenishmentSystem::Both);
+                    }
+                    field(CstG011; CstG011)
+                    {
+                        ApplicationArea = All;
+                        ShowCaption = false;
+                        Editable = false;
+                    }
+
+                }
+            }
         }
 
         actions
@@ -214,5 +252,6 @@ report 50059 "PWD Update Cost Method V2"
         RecGItemTrackingCode: Record "Item Tracking Code";
         CstG010: Label 'L''article %1 doit être avec un code traçabilté série pour passer en mode évaluation de stock spécifique.';
         RecGItemConfigurator: Record "PWD Item Configurator";
+        CstG011: Label 'Please note that the specific costing method should only apply to items using serial numbers.';
 }
 

@@ -129,6 +129,75 @@ report 50057 "PWD MAJ Tps OP Gamme PIE"
 
         layout
         {
+            area(content)
+            {
+                group(Control1000000000)
+                {
+                    Caption = 'Action';
+                    ShowCaption = false;
+                    field(CodGOperation; CodGOperation)
+                    {
+                        Caption = 'Pour l''opération';
+                        ShowCaption = false;
+                        TableRelation = "Machine Center";
+                        ApplicationArea = All;
+                    }
+                    field(CstG011; CstG011)
+                    {
+                        ApplicationArea = All;
+                        ShowCaption = false;
+                        Editable = false;
+                    }
+                }
+                group(Control1000000001)
+                {
+                    field(BooGSetupTime; BooGSetupTime)
+                    {
+                        Caption = 'prépa';
+                        ShowCaption = false;
+                        ApplicationArea = All;
+                    }
+                    field(DecGSetupTime; DecGSetupTime)
+                    {
+                        Caption = '';
+                        ShowCaption = false;
+                        ApplicationArea = All;
+                        Editable = BooGSetupTime;
+                    }
+                }
+                group(Control1000000002)
+                {
+                    field(BooGRunTime; BooGRunTime)
+                    {
+                        Caption = 'exe';
+                        ShowCaption = false;
+                        ApplicationArea = All;
+                    }
+                    field(DecGRunTime; DecGRunTime)
+                    {
+                        Caption = '';
+                        ShowCaption = false;
+                        ApplicationArea = All;
+                        Editable = BooGRunTime;
+                    }
+                }
+                group(Control1000000003)
+                {
+                    field(BooGMoveTime; BooGMoveTime)
+                    {
+                        Caption = 'Transfert';
+                        ShowCaption = false;
+                        ApplicationArea = All;
+                    }
+                    field(DecGMoveTime; DecGMoveTime)
+                    {
+                        Caption = '';
+                        ShowCaption = false;
+                        ApplicationArea = All;
+                        Editable = BooGMoveTime;
+                    }
+                }
+            }
         }
 
         actions
@@ -166,5 +235,6 @@ report 50057 "PWD MAJ Tps OP Gamme PIE"
         CstG008: Label 'Dans les gammes PIE (Filtrage %1), voulez vous forcer pour l''opération %2 le temps de prépa à %3 et le temps de transfert à %4 dans toutes les lignes de gamme ?';
         CstG009: Label 'Dans les gammes PIE (Filtrage %1), voulez vous forcer pour l''opération %2 le temps d''exe à %3 et le temps de transfert à %4 dans toutes les lignes de gamme ?';
         CstG010: Label 'Dans les gammes PIE (Filtrage %1), voulez vous forcer pour l''opération %2 le temps de prépa à %3, le temps d''exe à %4 et le temps de transfert à %5 dans toutes les lignes de gamme ?';
+        CstG011: Label 'Cocher et préciser la nouvelle valeur pour les temps';
 }
 
