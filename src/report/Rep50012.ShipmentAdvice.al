@@ -175,7 +175,7 @@ report 50012 "PWD Shipment Advice"
                         column(Sales_Shipment_Line__Type; Format("Sales Shipment Line".Type, 0, 2))
                         {
                         }
-                        column(Scrap_Quantity; "Scrap Quantity")
+                        column(Scrap_Quantity; "PWD Scrap Quantity")
                         {
                         }
                         column(ItemType; "Sales Shipment Line".Type::Item = "Sales Shipment Line".Type)
@@ -202,7 +202,7 @@ report 50012 "PWD Shipment Advice"
                         column(OutstandingQtytoShip; OutstandingQtytoShip)
                         {
                         }
-                        column(STRSUBSTNO_Text004__Sales_Shipment_Line___Scrap_Quantity____Sales_Shipment_Line___Unit_of_Measure__; StrSubstNo(Text004, "Sales Shipment Line"."Scrap Quantity", "Sales Shipment Line"."Unit of Measure"))
+                        column(STRSUBSTNO_Text004__Sales_Shipment_Line___Scrap_Quantity____Sales_Shipment_Line___Unit_of_Measure__; StrSubstNo(Text004, "Sales Shipment Line"."PWD Scrap Quantity", "Sales Shipment Line"."Unit of Measure"))
                         {
                         }
                         column(Text005; Text005 + ' ' + Format(CrossReferenceNo))
@@ -214,10 +214,10 @@ report 50012 "PWD Shipment Advice"
                         column(CrossReferenceNo; CrossReferenceNo)
                         {
                         }
-                        column(Item_Customer_Plan_No; Item."Customer Plan No.")
+                        column(Item_Customer_Plan_No; Item."PWD Customer Plan No.")
                         {
                         }
-                        column(Sales_Shipment_Line__Scrap_Quantity_; "Scrap Quantity")
+                        column(Sales_Shipment_Line__Scrap_Quantity_; "PWD Scrap Quantity")
                         {
                         }
                         column(Text014____FORMAT_TempItemLedgEntry__Lot_No___; TxtGLotNo)
@@ -264,7 +264,7 @@ report 50012 "PWD Shipment Advice"
                             if SalesLine.FindFirst() then begin
                                 OrdredQty := SalesLine.Quantity;
                                 if OrdredQty <> 0 then
-                                    OutstandingQtytoShip := OrdredQty - SalesLine."Quantity Shipped" - "Sales Shipment Line"."Scrap Quantity";
+                                    OutstandingQtytoShip := OrdredQty - SalesLine."Quantity Shipped" - "Sales Shipment Line"."PWD Scrap Quantity";
                             end
                             else begin
                                 SalesInvoiceLine.SetRange("Order No.", "Order No.");
@@ -287,10 +287,10 @@ report 50012 "PWD Shipment Advice"
 
                             if not ShowCorrectionLines and Correction then
                                 CurrReport.Skip();
-
-                            PostedDocDim2.SetRange("Table ID", DATABASE::"Sales Shipment Line");
-                            PostedDocDim2.SetRange("Document No.", "Sales Shipment Line"."Document No.");
-                            PostedDocDim2.SetRange("Line No.", "Sales Shipment Line"."Line No.");
+                            DimSetEntry2.SetRange("Dimension Set ID", DATABASE::"Sales Shipment Line");
+                            // PostedDocDim2.SetRange("Table ID", DATABASE::"Sales Shipment Line");
+                            // PostedDocDim2.SetRange("Document No.", "Sales Shipment Line"."Document No.");
+                            // PostedDocDim2.SetRange("Line No.", "Sales Shipment Line"."Line No.");
                             //>>TDL.LPSA.09022015
                             TxtGCustPlanNo_C := '';
                             //<<TDL.LPSA.09022015
@@ -299,7 +299,7 @@ report 50012 "PWD Shipment Advice"
                                 FindCrossRef();
                                 //>>TDL.LPSA.09022015
                                 if TxtGCustPlanNo_C = '' then
-                                    TxtGCustPlanNo_C := Item."Customer Plan No.";
+                                    TxtGCustPlanNo_C := Item."PWD Customer Plan No.";
                                 //<<TDL.LPSA.09022015
                             end;
                             SearchLot();
@@ -335,7 +335,7 @@ report 50012 "PWD Shipment Advice"
                         begin
                             // Item Tracking:
                             if ShowLotSN then
-                                TrackingSpecCount := ItemTrackingMgt.RetrieveDocumentItemTracking(TrackingSpecBuffer, "Sales Shipment Header"."No.",
+                                TrackingSpecCount := ItemTrackingDocMgt.RetrieveDocumentItemTracking(TrackingSpecBuffer, "Sales Shipment Header"."No.",
                                   DATABASE::"Sales Shipment Header", 0);
                         end;
 
@@ -421,9 +421,9 @@ report 50012 "PWD Shipment Advice"
                     CompanyInfo."Fax No." := RespCenter."Fax No.";
                 end else
                     FormatAddr.Company(CompanyAddr, CompanyInfo);
-
-                PostedDocDim1.SetRange("Table ID", DATABASE::"Sales Shipment Header");
-                PostedDocDim1.SetRange("Document No.", "Sales Shipment Header"."No.");
+                DimSetEntry1.SetRange("Dimension Set ID", DATABASE::"Sales Shipment Header");
+                // PostedDocDim1.SetRange("Table ID", DATABASE::"Sales Shipment Header");
+                // PostedDocDim1.SetRange("Document No.", "Sales Shipment Header"."No.");
 
                 if "Salesperson Code" = '' then begin
                     SalesPurchPerson.Init();
@@ -439,10 +439,10 @@ report 50012 "PWD Shipment Advice"
 
                 //>>LAP2.02.001
                 //STD FormatAddr.SalesShptShipTo(ShipToAddr,"Sales Shipment Header");
-                FormatAddr.SalesShptShipToFixedAddr(ShipToAddr, "Sales Shipment Header");
+                LPSAFunctionsMgt.SalesShptShipToFixedAddr(ShipToAddr, "Sales Shipment Header");
                 //<<LAP2.02.001
 
-                FormatAddr.SalesShptBillTo(CustAddr, "Sales Shipment Header");
+                FormatAddr.SalesShptBillTo(CustAddr, ShipToAddr, "Sales Shipment Header");
 
                 ShowCustAddr := "Bill-to Customer No." <> "Sell-to Customer No.";
                 for i := 1 to ArrayLen(CustAddr) do
@@ -542,14 +542,18 @@ report 50012 "PWD Shipment Advice"
         CompanyInfo: Record "Company Information";
         CompanyInfo1: Record "Company Information";
         CompanyInfo2: Record "Company Information";
-        PostedDocDim1: Record "Posted Document Dimension";
-        PostedDocDim2: Record "Posted Document Dimension";
+        //TODO: Table 'Posted Document Dimension' is missing
+        // PostedDocDim1: Record "Posted Document Dimension";
+        // PostedDocDim2: Record "Posted Document Dimension";
+        DimSetEntry1: Record "Dimension Set Entry";
+        DimSetEntry2: Record "Dimension Set Entry";
         SalesSetup: Record "Sales & Receivables Setup";
-        Language: Record Language;
+        Language: Codeunit Language;
         TrackingSpecBuffer: Record "Tracking Specification" temporary;
         ShptCountPrinted: Codeunit "Sales Shpt.-Printed";
         SegManagement: Codeunit SegManagement;
-        ItemTrackingMgt: Codeunit "Item Tracking Management";
+        //ItemTrackingMgt: Codeunit "Item Tracking Management";
+        ItemTrackingDocMgt: Codeunit "Item Tracking Doc. Management";
         RespCenter: Record "Responsibility Center";
         ItemTrackingAppendix: Report "Item Tracking Appendix";
         CustAddr: array[8] of Text[50];
@@ -569,6 +573,7 @@ report 50012 "PWD Shipment Advice"
         ShowCustAddr: Boolean;
         i: Integer;
         FormatAddr: Codeunit "Format Address";
+        LPSAFunctionsMgt: Codeunit "PWD LPSA Functions Mgt.";
         DimText: Text[120];
         OldDimText: Text[75];
         ShowInternalInfo: Boolean;
@@ -601,7 +606,6 @@ report 50012 "PWD Shipment Advice"
         TempItemLedgEntry: Record "Item Ledger Entry";
         ValueEntryRelation: Record "Value Entry Relation";
         SalesInvoiceLine: Record "Sales Invoice Line";
-        "--LAP2.02--": ;
         CstGTxt014: Label 'LPSA No.:';
         "-LAP2.02-": Integer;
         RecGItemRelation: Record "Item Entry Relation";
@@ -641,7 +645,7 @@ report 50012 "PWD Shipment Advice"
         if ItemCrossRef.FindFirst() then begin
             CrossReferenceNo := ItemCrossRef."Cross-Reference No.";
             //>>TDL.LPSA.09022015
-            TxtGCustPlanNo_C := ItemCrossRef."Customer Plan No.";
+            TxtGCustPlanNo_C := ItemCrossRef."PWD Customer Plan No.";
             //<<TDL.LPSA.09022015
         end;
 
@@ -654,7 +658,7 @@ report 50012 "PWD Shipment Advice"
                                 ItemCrossRef."Cross-Reference Type"::Customer,
                                 "Sales Shipment Header"."Sell-to Customer No.",
                                 "Sales Shipment Line"."Cross-Reference No.") then
-                TxtGCustPlanNo_C := ItemCrossRef."Customer Plan No.";
+                TxtGCustPlanNo_C := ItemCrossRef."PWD Customer Plan No.";
         end;
         //<<NDBI
     end;
@@ -690,17 +694,11 @@ report 50012 "PWD Shipment Advice"
         if SalesShipmentLine.FindFirst() then
             repeat
                 Qt := Qt + SalesShipmentLine.Quantity;
-                ScrapQt := ScrapQt + SalesShipmentLine."Scrap Quantity";
+                ScrapQt := ScrapQt + SalesShipmentLine."PWD Scrap Quantity";
 
             until SalesShipmentLine.Next() = 0;
         Return := OrdredQty - Qt - ScrapQt;
     end;
-
-
-    procedure "---- NDBI -----"()
-    begin
-    end;
-
 
     procedure SendPDFMail(var RecPSalesShipmentHeader: Record "Sales Shipment Header")
     var
@@ -713,12 +711,14 @@ report 50012 "PWD Shipment Advice"
         CodLMail: Codeunit Mail;
         Subject: Text[100];
         Body: Text[100];
-        CduLTierAutomationMgt: Codeunit "3-Tier Automation Mgt.";
+        //TODO: Codeunit '3-Tier Automation Mgt.' is missing
+        //CduLTierAutomationMgt: Codeunit "3-Tier Automation Mgt.";
         TxtLFileName: Text[250];
         TxtLServerFile: Text[250];
-        RepLShipmentAdvice: Report "Shipment Advice";
+        RepLShipmentAdvice: Report "PWD Shipment Advice";
     begin
-        TxtLServerFile := CduLTierAutomationMgt.ServerTempFileName('', '');
+        //TODO: Codeunit '3-Tier Automation Mgt.' is missing
+        //TxtLServerFile := CduLTierAutomationMgt.ServerTempFileName('', '');
         RepLShipmentAdvice.SkipSendEmail(true);
         RepLShipmentAdvice.SetTableView(RecPSalesShipmentHeader);
         RepLShipmentAdvice.SaveAsPdf(TxtLServerFile);
@@ -749,7 +749,7 @@ report 50012 "PWD Shipment Advice"
         TxtLFileName := StrSubstNo('BL N° %1.pdf', RecPSalesShipmentHeader."No.");
         TxtLFileName := DownloadToClientFileName(TxtLServerFile, TxtLFileName);
         //Open E-Mail
-        CodLMail.NewMessage(Recipient, '', Subject, Body, TxtLFileName, true);
+        CodLMail.NewMessage(Recipient, '', '', Subject, Body, TxtLFileName, true);
 
     end;
 
@@ -758,16 +758,20 @@ report 50012 "PWD Shipment Advice"
     var
         TxtLClientFileName: Text[250];
         TxtLFinalClientFileName: Text[250];
-        AutLFileObjectSystem: Automation;
-        CduLTierAutomationMgt: Codeunit "3-Tier Automation Mgt.";
+    //TODO:'Automation' is not recognized as a valid type
+    // AutLFileObjectSystem: Automation;
+    //TODO: Codeunit '3-Tier Automation Mgt.' is missing
+    //CduLTierAutomationMgt: Codeunit "3-Tier Automation Mgt.";
     begin
-        TxtLClientFileName := CduLTierAutomationMgt.ClientTempFileName('', '');
-        TxtLFinalClientFileName := CduLTierAutomationMgt.Path(TxtLClientFileName) + TxtPFileName;
+        //TODO: Codeunit '3-Tier Automation Mgt.' is missing
+        // TxtLClientFileName := CduLTierAutomationMgt.ClientTempFileName('', '');
+        // TxtLFinalClientFileName := CduLTierAutomationMgt.Path(TxtLClientFileName) + TxtPFileName;
         Download(TxtPServerFile, '', '', '', TxtLClientFileName);
-        Create(AutLFileObjectSystem, false, true);
-        if AutLFileObjectSystem.FileExists(TxtLFinalClientFileName) then
-            AutLFileObjectSystem.DeleteFile(TxtLFinalClientFileName, true);
-        AutLFileObjectSystem.MoveFile(TxtLClientFileName, TxtLFinalClientFileName);
+        //TODO:'Automation' is not recognized as a valid type
+        // Create(AutLFileObjectSystem, false, true);
+        // if AutLFileObjectSystem.FileExists(TxtLFinalClientFileName) then
+        //     AutLFileObjectSystem.DeleteFile(TxtLFinalClientFileName, true);
+        // AutLFileObjectSystem.MoveFile(TxtLClientFileName, TxtLFinalClientFileName);
         exit(TxtLFinalClientFileName);
     end;
 

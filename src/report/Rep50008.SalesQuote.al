@@ -166,7 +166,7 @@ report 50008 "PWD Sales Quote"
                         trigger OnAfterGetRecord()
                         begin
                             if Number = 1 then begin
-                                if not DocDim1.Find('-') then
+                                if not DimSetEntry1.Find('-') then
                                     CurrReport.Break();
                             end else
                                 if not Continue then
@@ -178,18 +178,18 @@ report 50008 "PWD Sales Quote"
                                 OldDimText := DimText;
                                 if DimText = '' then
                                     DimText := StrSubstNo(
-                                      '%1 %2', DocDim1."Dimension Code", DocDim1."Dimension Value Code")
+                                      '%1 %2', DimSetEntry1."Dimension Code", DimSetEntry1."Dimension Value Code")
                                 else
                                     DimText :=
                                       StrSubstNo(
                                         '%1, %2 %3', DimText,
-                                        DocDim1."Dimension Code", DocDim1."Dimension Value Code");
+                                        DimSetEntry1."Dimension Code", DimSetEntry1."Dimension Value Code");
                                 if StrLen(DimText) > MaxStrLen(OldDimText) then begin
                                     DimText := OldDimText;
                                     Continue := true;
                                     exit;
                                 end;
-                            until (DocDim1.Next = 0);
+                            until (DimSetEntry1.Next = 0);
                         end;
 
                         trigger OnPreDataItem()
@@ -338,7 +338,7 @@ report 50008 "PWD Sales Quote"
                             trigger OnAfterGetRecord()
                             begin
                                 if Number = 1 then begin
-                                    if not DocDim2.Find('-') then
+                                    if not DimSetEntry2.Find('-') then
                                         CurrReport.Break();
                                 end else
                                     if not Continue then
@@ -350,29 +350,29 @@ report 50008 "PWD Sales Quote"
                                     OldDimText := DimText;
                                     if DimText = '' then
                                         DimText := StrSubstNo(
-                                          '%1 %2', DocDim2."Dimension Code", DocDim2."Dimension Value Code")
+                                          '%1 %2', DimSetEntry2."Dimension Code", DimSetEntry2."Dimension Value Code")
                                     else
                                         DimText :=
                                           StrSubstNo(
                                             '%1, %2 %3', DimText,
-                                            DocDim2."Dimension Code", DocDim2."Dimension Value Code");
+                                            DimSetEntry2."Dimension Code", DimSetEntry2."Dimension Value Code");
                                     if StrLen(DimText) > MaxStrLen(OldDimText) then begin
                                         DimText := OldDimText;
                                         Continue := true;
                                         exit;
                                     end;
-                                until (DocDim2.Next = 0);
+                                until (DimSetEntry2.Next = 0);
                             end;
 
                             trigger OnPreDataItem()
                             begin
                                 if not ShowInternalInfo then
                                     CurrReport.Break();
-
-                                DocDim2.SetRange("Table ID", DATABASE::"Sales Line");
-                                DocDim2.SetRange("Document Type", "Sales Line"."Document Type");
-                                DocDim2.SetRange("Document No.", "Sales Line"."Document No.");
-                                DocDim2.SetRange("Line No.", "Sales Line"."Line No.");
+                                DimSetEntry2.SetRange("Dimension Set ID", DATABASE::"Sales Line");
+                                // DocDim2.SetRange("Table ID", DATABASE::"Sales Line");
+                                // DocDim2.SetRange("Document Type", "Sales Line"."Document Type");
+                                // DocDim2.SetRange("Document No.", "Sales Line"."Document No.");
+                                // DocDim2.SetRange("Line No.", "Sales Line"."Line No.");
                             end;
                         }
                         dataitem(PageBreak; "Integer")
@@ -587,10 +587,10 @@ report 50008 "PWD Sales Quote"
 
                 //<<LAP.001
 
-
-                DocDim1.SetRange("Table ID", DATABASE::"Sales Header");
-                DocDim1.SetRange("Document Type", "Sales Header"."Document Type");
-                DocDim1.SetRange("Document No.", "Sales Header"."No.");
+                DimSetEntry1.SetRange("Dimension Set ID", DATABASE::"Sales Header");
+                // DocDim1.SetRange("Table ID", DATABASE::"Sales Header");
+                // DocDim1.SetRange("Document Type", "Sales Header"."Document Type");
+                // DocDim1.SetRange("Document No.", "Sales Header"."No.");
 
                 if "Salesperson Code" = '' then begin
                     SalesPurchPerson.Init();
@@ -662,7 +662,7 @@ report 50008 "PWD Sales Quote"
                 if "Sales Header".Find('-') and ToDo.WritePermission then
                     if not CurrReport.Preview and (NoOfRecords = 1) then
                         if Confirm(Text007) then
-                            "Sales Header".CreateTodo;
+                            "Sales Header".CreateTask;
             end;
 
             trigger OnPreDataItem()
@@ -798,9 +798,13 @@ report 50008 "PWD Sales Quote"
         SalesSetup: Record "Sales & Receivables Setup";
         VATAmountLine: Record "VAT Amount Line" temporary;
         SalesLine: Record "Sales Line" temporary;
-        DocDim1: Record "Document Dimension";
-        DocDim2: Record "Document Dimension";
-        Language: Record Language;
+        //TODO: Table 'Document Dimension' is missing
+        // DocDim1: Record "Document Dimension";
+        // DocDim2: Record "Document Dimension";
+        DimSetEntry1: Record "Dimension Set Entry";
+        DimSetEntry2: Record "Dimension Set Entry";
+
+        Language: Codeunit Language;
         CurrExchRate: Record "Currency Exchange Rate";
         SalesCountPrinted: Codeunit "Sales-Printed";
         FormatAddr: Codeunit "Format Address";

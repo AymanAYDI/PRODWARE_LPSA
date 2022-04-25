@@ -64,7 +64,7 @@ report 50019 "PWD Compl. fiche suiveuse"
             column(RecLItemPF__Type; Format(RecLConfPF."Product Type"))
             {
             }
-            column(Production_Order__Source_Material_Vendor_; "Source Material Vendor")
+            column(Production_Order__Source_Material_Vendor_; "PWD Source Material Vendor")
             {
             }
             column(Lot4; Lot4)
@@ -106,7 +106,7 @@ report 50019 "PWD Compl. fiche suiveuse"
             column(Quantite_Caption; Quantite_CaptionLbl)
             {
             }
-            column(Production_Order__Source_Material_Vendor_Caption; FieldCaption("Source Material Vendor"))
+            column(Production_Order__Source_Material_Vendor_Caption; FieldCaption("PWD Source Material Vendor"))
             {
             }
             column(Production_Order_Status; Status)

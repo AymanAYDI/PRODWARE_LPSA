@@ -42,7 +42,7 @@ report 50028 "Update Scrap Factor Rtg Line"
 
                 IntGCounter -= 1;
 
-                ItemMem."Component Initial Qty" := 0;
+                ItemMem."PWD Component Initial Qty" := 0;
                 ItemMem.Modify(false);
 
                 if ItemMem.Blocked then
@@ -67,7 +67,7 @@ report 50028 "Update Scrap Factor Rtg Line"
                     CurrReport.Skip();
 
                 if RecLRoutingHeader.Status <> RecLRoutingHeader.Status::Certified then begin
-                    ItemMem."Component Initial Qty" := 0;
+                    ItemMem."PWD Component Initial Qty" := 0;
                     ItemMem.Modify(false);
                     CurrReport.Skip();
                 end;
@@ -99,7 +99,7 @@ report 50028 "Update Scrap Factor Rtg Line"
 
                 ProdOrderLine.LockTable();
 
-                CreateProdOrderLines.Copy(RecGProductionOrder, Direction, '');
+                CreateProdOrderLines.Copy(RecGProductionOrder, Direction, '', false);
 
                 if (Direction = Direction::Backward) and
                    (RecGProductionOrder."Source Type" = RecGProductionOrder."Source Type"::Family)
@@ -118,7 +118,7 @@ report 50028 "Update Scrap Factor Rtg Line"
                     RecLProdOrderComponent.SetRange("Prod. Order No.", 'OF_TEMPO_FOR_TPL');
                     RecLProdOrderComponent.SetRange("Prod. Order Line No.", RecLProdOrderLine."Line No.");
                     if RecLProdOrderComponent.FindFirst() then begin
-                        ItemMem."Component Initial Qty" := RecLProdOrderComponent."Expected Quantity";
+                        ItemMem."PWD Component Initial Qty" := RecLProdOrderComponent."Expected Quantity";
                         ItemMem.Modify(false);
                     end;
                 end;
@@ -188,8 +188,8 @@ report 50028 "Update Scrap Factor Rtg Line"
                            (RL_Others."Operation No." = RL_Reference."Operation No.")) then begin
                         RecGRoutingHeader.Get(RL_Others."Routing No.");
 
-                        if RecGRoutingHeader.PlanningGroup <> 'PIERRES' then
-                            CurrReport.Skip();
+                        // if RecGRoutingHeader.PlanningGroup <> 'PIERRES' then
+                        //     CurrReport.Skip();
 
                         if RecGRoutingHeader.Status <> RecGRoutingHeader.Status::Closed then begin
                             Stat := RecGRoutingHeader.Status;
@@ -256,8 +256,8 @@ report 50028 "Update Scrap Factor Rtg Line"
 
                         RecGRoutingHeader.Get(RL_Others."Routing No.");
 
-                        if RecGRoutingHeader.PlanningGroup <> 'PIERRES' then
-                            CurrReport.Skip();
+                        // if RecGRoutingHeader.PlanningGroup <> 'PIERRES' then
+                        //     CurrReport.Skip();
 
                         if RecGRoutingVersion.Status <> RecGRoutingHeader.Status::Closed then begin
                             Stat := RecGRoutingVersion.Status;
@@ -329,7 +329,7 @@ report 50028 "Update Scrap Factor Rtg Line"
 
                 IntGCounter -= 1;
 
-                if ItemMAJ."Component Initial Qty" = 0 then
+                if ItemMAJ."PWD Component Initial Qty" = 0 then
                     CurrReport.Skip();
 
                 if ItemMem.Blocked then
@@ -350,7 +350,7 @@ report 50028 "Update Scrap Factor Rtg Line"
                 if ItemMAJ."Inventory Posting Group" = '' then
                     CurrReport.Skip();
 
-                DecLNewQtyGet := ItemMAJ."Component Initial Qty";
+                DecLNewQtyGet := ItemMAJ."PWD Component Initial Qty";
 
                 if ItemMAJ."Scrap %" <> 0 then
                     DecLNewQtyGet := DecLNewQtyGet / (1 + ItemMAJ."Scrap %" / 100);
@@ -424,14 +424,14 @@ report 50028 "Update Scrap Factor Rtg Line"
                     field(CodGOperationNo; CodGOperationNo)
                     {
                         Caption = 'Operation No.';
-                        OptionCaption = 'Operations No.';
+                        //OptionCaption = 'Operations No.';
                         ShowCaption = false;
                         ApplicationArea = All;
 
                         trigger OnLookup(var Text: Text): Boolean
                         var
                             RecLRoutingLines: Record "Routing Line";
-                            PagLRoutingLines: Page "Routing Lines choice";
+                            PagLRoutingLines: Page "PWD Routing Lines choice";
                         begin
                             RecLRoutingLines.SetRange("Routing No.", CodGRoutingHeader);
                             PagLRoutingLines.SetTableView(RecLRoutingLines);

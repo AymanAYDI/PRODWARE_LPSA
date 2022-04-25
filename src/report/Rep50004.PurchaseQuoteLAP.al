@@ -248,7 +248,7 @@ report 50004 "PWD Purchase - Quote LAP"
                         trigger OnAfterGetRecord()
                         begin
                             if Number = 1 then begin
-                                if not DocDim1.Find('-') then
+                                if not DimSetEntry1.Find('-') then
                                     CurrReport.Break();
                             end else
                                 if not Continue then
@@ -260,18 +260,18 @@ report 50004 "PWD Purchase - Quote LAP"
                                 OldDimText := DimText;
                                 if DimText = '' then
                                     DimText := StrSubstNo(
-                                      '%1 - %2', DocDim1."Dimension Code", DocDim1."Dimension Value Code")
+                                      '%1 - %2', DimSetEntry1."Dimension Code", DimSetEntry1."Dimension Value Code")
                                 else
                                     DimText :=
                                       StrSubstNo(
                                         '%1; %2 - %3', DimText,
-                                        DocDim1."Dimension Code", DocDim1."Dimension Value Code");
+                                        DimSetEntry1."Dimension Code", DimSetEntry1."Dimension Value Code");
                                 if StrLen(DimText) > MaxStrLen(OldDimText) then begin
                                     DimText := OldDimText;
                                     Continue := true;
                                     exit;
                                 end;
-                            until (DocDim1.Next = 0);
+                            until (DimSetEntry1.Next = 0);
                         end;
 
                         trigger OnPreDataItem()
@@ -348,7 +348,7 @@ report 50004 "PWD Purchase - Quote LAP"
                         }
                         column(CstGText013; CstGText013)
                         {
-                            DecimalPlaces = 0 : 0;
+                            //DecimalPlaces = 0 : 0;
                         }
                         column(Purchase_Line___LPSA_Description_2_; "Purchase Line"."PWD LPSA Description 2")
                         {
@@ -399,7 +399,7 @@ report 50004 "PWD Purchase - Quote LAP"
                             trigger OnAfterGetRecord()
                             begin
                                 if Number = 1 then begin
-                                    if not DocDim2.Find('-') then
+                                    if not DimSetEntry2.Find('-') then
                                         CurrReport.Break();
                                 end else
                                     if not Continue then
@@ -411,18 +411,18 @@ report 50004 "PWD Purchase - Quote LAP"
                                     OldDimText := DimText;
                                     if DimText = '' then
                                         DimText := StrSubstNo(
-                                          '%1 - %2', DocDim2."Dimension Code", DocDim2."Dimension Value Code")
+                                          '%1 - %2', DimSetEntry2."Dimension Code", DimSetEntry2."Dimension Value Code")
                                     else
                                         DimText :=
                                           StrSubstNo(
                                             '%1; %2 - %3', DimText,
-                                            DocDim2."Dimension Code", DocDim2."Dimension Value Code");
+                                            DimSetEntry2."Dimension Code", DimSetEntry2."Dimension Value Code");
                                     if StrLen(DimText) > MaxStrLen(OldDimText) then begin
                                         DimText := OldDimText;
                                         Continue := true;
                                         exit;
                                     end;
-                                until (DocDim2.Next = 0);
+                                until (DimSetEntry2.Next = 0);
                             end;
 
                             trigger OnPreDataItem()
@@ -456,11 +456,11 @@ report 50004 "PWD Purchase - Quote LAP"
                                 until (RecGPurchCommentLine.Next() = 0) or (BooGStopComment);
 
 
-
-                            DocDim2.SetRange("Table ID", DATABASE::"Purchase Line");
-                            DocDim2.SetRange("Document Type", "Purchase Line"."Document Type");
-                            DocDim2.SetRange("Document No.", "Purchase Line"."Document No.");
-                            DocDim2.SetRange("Line No.", "Purchase Line"."Line No.");
+                            DimSetEntry2.SetRange("Dimension Set ID", DATABASE::"Purchase Line");
+                            // DocDim2.SetRange("Table ID", DATABASE::"Purchase Line");
+                            // DocDim2.SetRange("Document Type", "Purchase Line"."Document Type");
+                            // DocDim2.SetRange("Document No.", "Purchase Line"."Document No.");
+                            // DocDim2.SetRange("Line No.", "Purchase Line"."Line No.");
                         end;
 
                         trigger OnPostDataItem()
@@ -595,10 +595,10 @@ report 50004 "PWD Purchase - Quote LAP"
                     CompanyInfo."Fax No." := RespCenter."Fax No.";
                 end else
                     FormatAddr.Company(CompanyAddr, CompanyInfo);
-
-                DocDim1.SetRange("Table ID", DATABASE::"Purchase Header");
-                DocDim1.SetRange("Document Type", "Purchase Header"."Document Type");
-                DocDim1.SetRange("Document No.", "Purchase Header"."No.");
+                DimSetEntry1.SetRange("Dimension Set ID", DATABASE::"Purchase Header");
+                // DocDim1.SetRange("Table ID", DATABASE::"Purchase Header");
+                // DocDim1.SetRange("Document Type", "Purchase Header"."Document Type");
+                // DocDim1.SetRange("Document No.", "Purchase Header"."No.");
 
                 if "Purchaser Code" = '' then begin
                     SalesPurchPerson.Init();
@@ -736,10 +736,14 @@ report 50004 "PWD Purchase - Quote LAP"
         SalesPurchPerson: Record "Salesperson/Purchaser";
         CompanyInfo: Record "Company Information";
         PurchLine: Record "Purchase Line" temporary;
-        DocDim1: Record "Document Dimension";
-        DocDim2: Record "Document Dimension";
+        //TODO: Table 'Document Dimension' is missing
+        // DocDim1: Record "Document Dimension";
+        // DocDim2: Record "Document Dimension";
+        DimSetEntry1: Record "Dimension Set Entry";
+        DimSetEntry2: Record "Dimension Set Entry";
+
         RespCenter: Record "Responsibility Center";
-        Language: Record Language;
+        Language: Codeunit Language;
         PurchSetup: Record "Purchases & Payables Setup";
         PurchCountPrinted: Codeunit "Purch.Header-Printed";
         PurchPost: Codeunit "Purch.-Post";

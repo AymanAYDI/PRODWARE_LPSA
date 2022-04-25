@@ -129,10 +129,10 @@ report 50011 "PWD Soumission"
                         column(NoOfCopies; NoOfCopies)
                         {
                         }
-                        column(Transfer_Shipment_Header___Sales_Order_No_; "Transfer Shipment Header"."Sales Order No.")
+                        column(Transfer_Shipment_Header___Sales_Order_No_; "Transfer Shipment Header"."PWD Sales Order No.")
                         {
                         }
-                        column(OrderNo; Text003 + ' ' + "Transfer Shipment Header"."Sales Order No." + ' ' + Text004 + ' ' + Format(OrderDate))
+                        column(OrderNo; Text003 + ' ' + "Transfer Shipment Header"."PWD Sales Order No." + ' ' + Text004 + ' ' + Format(OrderDate))
                         {
                         }
                         column(Transfer_Shipment_Line__Item_No__; CopyStr("Item No.", 1, 8))
@@ -211,7 +211,7 @@ report 50011 "PWD Soumission"
                                 Clear(CodGYourPlanNo);
                                 Clear(CodGYourItemRef);
 
-                                if RecGSalesHeader.Get(RecGSalesHeader."Document Type"::Order, "Transfer Shipment Header"."Sales Order No.") then begin
+                                if RecGSalesHeader.Get(RecGSalesHeader."Document Type"::Order, "Transfer Shipment Header"."PWD Sales Order No.") then begin
                                     RecGItemCrossReference.Reset();
                                     RecGItemCrossReference.SetRange("Item No.", "Transfer Shipment Line"."Item No.");
                                     RecGItemCrossReference.SetRange("Variant Code", "Transfer Shipment Line"."Variant Code");
@@ -222,7 +222,7 @@ report 50011 "PWD Soumission"
                                     if RecGItemCrossReference.FindFirst() then begin
                                         CodGYourItemRef := RecGItemCrossReference."Cross-Reference No.";
                                         //>>TDL.LPSA.09022015
-                                        CodGYourPlanNo := RecGItemCrossReference."Customer Plan No.";
+                                        CodGYourPlanNo := RecGItemCrossReference."PWD Customer Plan No.";
                                         //<<TDL.LPSA.09022015
                                     end;
 
@@ -231,7 +231,7 @@ report 50011 "PWD Soumission"
                                 if RecGItem.Get("Transfer Shipment Line"."Item No.") then
                                     //>>TDL.LPSA.09022015
                                     if CodGYourPlanNo = '' then
-                                        CodGYourPlanNo := RecGItem."Customer Plan No.";
+                                        CodGYourPlanNo := RecGItem."PWD Customer Plan No.";
                                 //>>TDL.LPSA.09022015
                             end;
                         }
@@ -274,14 +274,14 @@ report 50011 "PWD Soumission"
 
                 //>>LAP2.02.001
                 //STDFormatAddr.TransferShptTransferTo(TransferToAddr,"Transfer Shipment Header");
-                FormatAddr.TransferShptFixedTransferTo(TransferToAddr, "Transfer Shipment Header");
+                LPSAFunctionsMgt.TransferShptFixedTransferTo(TransferToAddr, "Transfer Shipment Header");
                 //<<LAP2.02.001
 
                 if not ShipmentMethod.Get("Shipment Method Code") then
                     ShipmentMethod.Init();
 
 
-                if RecGSalesHeader.Get(RecGSalesHeader."Document Type"::Order, "Sales Order No.") then begin
+                if RecGSalesHeader.Get(RecGSalesHeader."Document Type"::Order, "PWD Sales Order No.") then begin
                     CodGDocumentNo := RecGSalesHeader."No.";
                     OrderDate := RecGSalesHeader."Document Date";
                     CodGCustomerNo := RecGSalesHeader."Sell-to Customer No.";
@@ -336,6 +336,7 @@ report 50011 "PWD Soumission"
         Text002: Label 'Page %1';
         ShipmentMethod: Record "Shipment Method";
         FormatAddr: Codeunit "Format Address";
+        LPSAFunctionsMgt: codeunit "PWD LPSA Functions Mgt.";
         TransferFromAddr: array[8] of Text[50];
         TransferToAddr: array[8] of Text[50];
         MoreLines: Boolean;

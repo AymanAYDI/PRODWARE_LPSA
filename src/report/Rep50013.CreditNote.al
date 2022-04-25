@@ -53,7 +53,7 @@ report 50013 "PWD Credit Note"
     {
         dataitem("Sales Cr.Memo Header"; "Sales Cr.Memo Header")
         {
-            DataItemTableView = SORTING(No.);
+            DataItemTableView = SORTING("No.");
             RequestFilterFields = "No.", "Sell-to Customer No.", "No. Printed";
             RequestFilterHeading = 'Posted Sales Credit Memo';
             column(Sales_Cr_Memo_Header_No_; "No.")
@@ -200,9 +200,9 @@ report 50013 "PWD Credit Note"
                     }
                     dataitem("Sales Cr.Memo Line"; "Sales Cr.Memo Line")
                     {
-                        DataItemLink = Document No.=FIELD(No.);
+                        DataItemLink = "Document No." = FIELD("No.");
                         DataItemLinkReference = "Sales Cr.Memo Header";
-                        DataItemTableView = SORTING(Document No., Line No.);
+                        DataItemTableView = SORTING("Document No.", "Line No.");
                         column(AmountCaption; TotalInclVATText)
                         {
                         }
@@ -276,7 +276,7 @@ report 50013 "PWD Credit Note"
                         column(CrossReferenceNo; CrossReferenceNo)
                         {
                         }
-                        column(Item_Customer_Plan_No; Item."Customer Plan No.")
+                        column(Item_Customer_Plan_No; Item."PWD Customer Plan No.")
                         {
                         }
                         column(Comment_Line; TxtGComment)
@@ -403,7 +403,7 @@ report 50013 "PWD Credit Note"
                                 FindCrossRef();
                                 //>>TDL.LPSA.09022015
                                 IF TxtGCustPlanNo_C = '' THEN
-                                    TxtGCustPlanNo_C := Item."Customer Plan No.";
+                                    TxtGCustPlanNo_C := Item."PWD Customer Plan No.";
                                 //>>TDL.LPSA.09022015
                             END;
 
@@ -426,7 +426,7 @@ report 50013 "PWD Credit Note"
                         trigger OnPostDataItem()
                         begin
 
-                            TrackingSpecCount := ItemTrackingMgt.RetrieveDocumentItemTracking(TrackingSpecBuffer, "Sales Cr.Memo Header"."No.",
+                            TrackingSpecCount := ItemTrackingDocMgt.RetrieveDocumentItemTracking(TrackingSpecBuffer, "Sales Cr.Memo Header"."No.",
                               DATABASE::"Sales Shipment Header", 0);
                         end;
 
@@ -453,7 +453,7 @@ report 50013 "PWD Credit Note"
                         }
                         column(VATAmountLine__VAT___; Text018 + ' ' + FORMAT(VATAmountLine."VAT %") + '%')
                         {
-                            DecimalPlaces = 0 : 5;
+                            //DecimalPlaces = 0 : 5;
                         }
                         column(VATAmountLine__VAT_Base__Control105; Text019 + ' ' + FORMAT(VATAmountLine."VAT Base"))
                         {
@@ -590,9 +590,9 @@ report 50013 "PWD Credit Note"
                     CompanyInfo."Fax No." := RespCenter."Fax No.";
                 END ELSE
                     FormatAddr.Company(CompanyAddr, CompanyInfo);
-
-                PostedDocDim1.SETRANGE("Table ID", DATABASE::"Sales Cr.Memo Header");
-                PostedDocDim1.SETRANGE("Document No.", "Sales Cr.Memo Header"."No.");
+                DimSetEntry1.SETRANGE("Dimension Set ID", DATABASE::"Sales Cr.Memo Header");
+                // PostedDocDim1.SETRANGE("Table ID", DATABASE::"Sales Cr.Memo Header");
+                // PostedDocDim1.SETRANGE("Document No.", "Sales Cr.Memo Header"."No.");
 
                 IF "Return Order No." = '' THEN
                     ReturnOrderNoText := ''
@@ -626,7 +626,7 @@ report 50013 "PWD Credit Note"
 
                 //>>LAP2.02
                 //STD FormatAddr.SalesCrMemoBillTo(CustAddr,"Sales Cr.Memo Header");
-                FormatAddr.SalesCrMemoBillToFixedAddr(CustAddr, "Sales Cr.Memo Header");
+                LPSAFunctionsMgt.SalesCrMemoBillToFixedAddr(CustAddr, "Sales Cr.Memo Header");
                 //<<LAP2.02
 
                 IF "Applies-to Doc. No." = '' THEN
@@ -634,7 +634,7 @@ report 50013 "PWD Credit Note"
                 ELSE
                     AppliedToText := STRSUBSTNO(Text003, "Applies-to Doc. Type", "Applies-to Doc. No.");
 
-                FormatAddr.SalesCrMemoShipTo(ShipToAddr, "Sales Cr.Memo Header");
+                FormatAddr.SalesCrMemoShipTo(ShipToAddr, CustAddr, "Sales Cr.Memo Header");
                 ShowShippingAddr := "Sell-to Customer No." <> "Bill-to Customer No.";
                 FOR i := 1 TO ARRAYLEN(ShipToAddr) DO
                     IF ShipToAddr[i] <> CustAddr[i] THEN
@@ -702,7 +702,6 @@ report 50013 "PWD Credit Note"
 
     trigger OnPostReport()
     var
-        "---- NDBI ----": Integer;
         RecLSalesCrMHeader: Record "Sales Cr.Memo Header";
     begin
         //>>NDBI
@@ -715,7 +714,7 @@ report 50013 "PWD Credit Note"
 
     trigger OnPreReport()
     begin
-        IF NOT CurrReport.USEREQUESTPAGE THEN
+        IF NOT CurrReport.USEREQUESTPAGE THEN;
     end;
 
     var
@@ -731,13 +730,16 @@ report 50013 "PWD Credit Note"
         SalesPurchPerson: Record "Salesperson/Purchaser";
         CompanyInfo: Record "Company Information";
         VATAmountLine: Record "VAT Amount Line" temporary;
-        PostedDocDim1: Record "Posted Document Dimension";
-        PostedDocDim2: Record "Posted Document Dimension";
-        Language: Record Language;
+        //TODO: Table 'Posted Document Dimension' is missing
+        // PostedDocDim1: Record "Posted Document Dimension";
+        // PostedDocDim2: Record "Posted Document Dimension";
+        DimSetEntry1: Record "Dimension Set Entry";
+        Language: Codeunit Language;
         SalesShipmentBuffer: Record "Sales Shipment Buffer" temporary;
         CurrExchRate: Record "Currency Exchange Rate";
         SalesCrMemoCountPrinted: Codeunit "Sales Cr. Memo-Printed";
         FormatAddr: Codeunit "Format Address";
+        LPSAFunctionsMgt: codeunit "PWD LPSA Functions Mgt.";
         SegManagement: Codeunit SegManagement;
         RespCenter: Record "Responsibility Center";
         CustAddr: array[8] of Text[50];
@@ -790,7 +792,8 @@ report 50013 "PWD Credit Note"
         Text014: Label 'LPSA No.';
         ReservEntry: Record "Reservation Entry";
         LotNo: Code[20];
-        ItemTrackingMgt: Codeunit "Item Tracking Management";
+        // ItemTrackingMgt: Codeunit "Item Tracking Management";
+        ItemTrackingDocMgt: Codeunit "Item Tracking Doc. Management";
         TempItemLedgEntry: Record "Item Ledger Entry";
         TrackingSpecCount: Integer;
         TrackingSpecBuffer: Record "Tracking Specification" temporary;
@@ -871,7 +874,7 @@ report 50013 "PWD Credit Note"
         IF ItemCrossRef.FINDFIRST() THEN BEGIN
             CrossReferenceNo := ItemCrossRef."Cross-Reference No.";
             //>>TDL.LPSA.09022015
-            TxtGCustPlanNo_C := ItemCrossRef."Customer Plan No.";
+            TxtGCustPlanNo_C := ItemCrossRef."PWD Customer Plan No.";
             //>>TDL.LPSA.09022015
         END;
 
@@ -884,16 +887,10 @@ report 50013 "PWD Credit Note"
                                 ItemCrossRef."Cross-Reference Type"::Customer,
                                 "Sales Cr.Memo Header"."Sell-to Customer No.",
                                 "Sales Cr.Memo Line"."Cross-Reference No.") THEN
-                TxtGCustPlanNo_C := ItemCrossRef."Customer Plan No.";
+                TxtGCustPlanNo_C := ItemCrossRef."PWD Customer Plan No.";
         END;
         //<<NDBI
     end;
-
-
-    procedure "---- NDBI -----"()
-    begin
-    end;
-
 
     procedure SendPDFMail(var RecPSalesCrMHeader: Record "Sales Cr.Memo Header")
     var
@@ -906,12 +903,14 @@ report 50013 "PWD Credit Note"
         CodLMail: Codeunit Mail;
         Subject: Text[100];
         Body: Text[100];
-        CduLTierAutomationMgt: Codeunit "3-Tier Automation Mgt.";
+        //TODO: Codeunit '3-Tier Automation Mgt.' is missing
+        //CduLTierAutomationMgt: Codeunit "3-Tier Automation Mgt.";
         TxtLFileName: Text[250];
         TxtLServerFile: Text[250];
-        RepLCreditNote: Report "Credit Note";
+        RepLCreditNote: Report "PWD Credit Note";
     begin
-        TxtLServerFile := CduLTierAutomationMgt.ServerTempFileName('', '');
+        //TODO: Codeunit '3-Tier Automation Mgt.' is missing
+        //TxtLServerFile := CduLTierAutomationMgt.ServerTempFileName('', '');
         RepLCreditNote.SkipSendEmail(TRUE);
         RepLCreditNote.SETTABLEVIEW(RecPSalesCrMHeader);
         RepLCreditNote.SAVEASPDF(TxtLServerFile);
@@ -942,7 +941,7 @@ report 50013 "PWD Credit Note"
         TxtLFileName := STRSUBSTNO('AVOIR N° %1.pdf', RecPSalesCrMHeader."No.");
         TxtLFileName := DownloadToClientFileName(TxtLServerFile, TxtLFileName);
         //Open E-Mail
-        CodLMail.NewMessage(Recipient, '', Subject, Body, TxtLFileName, TRUE);
+        CodLMail.NewMessage(Recipient, '','', Subject, Body, TxtLFileName, TRUE);
 
     end;
 
@@ -951,16 +950,20 @@ report 50013 "PWD Credit Note"
     var
         TxtLClientFileName: Text[250];
         TxtLFinalClientFileName: Text[250];
-        AutLFileObjectSystem: Automation;
-        CduLTierAutomationMgt: Codeunit "3-Tier Automation Mgt.";
+        //TODO: 'Automation' is not recognized as a valid type
+        //AutLFileObjectSystem: Automation;
+    //TODO: Codeunit '3-Tier Automation Mgt.' is missing
+    // CduLTierAutomationMgt: Codeunit "3-Tier Automation Mgt.";
     begin
-        TxtLClientFileName := CduLTierAutomationMgt.ClientTempFileName('', '');
-        TxtLFinalClientFileName := CduLTierAutomationMgt.Path(TxtLClientFileName) + TxtPFileName;
+        //TODO: Codeunit '3-Tier Automation Mgt.' is missing
+        // TxtLClientFileName := CduLTierAutomationMgt.ClientTempFileName('', '');
+        // TxtLFinalClientFileName := CduLTierAutomationMgt.Path(TxtLClientFileName) + TxtPFileName;
         DOWNLOAD(TxtPServerFile, '', '', '', TxtLClientFileName);
-        CREATE(AutLFileObjectSystem, FALSE, TRUE);
-        IF AutLFileObjectSystem.FileExists(TxtLFinalClientFileName) THEN
-            AutLFileObjectSystem.DeleteFile(TxtLFinalClientFileName, TRUE);
-        AutLFileObjectSystem.MoveFile(TxtLClientFileName, TxtLFinalClientFileName);
+                //TODO: 'Automation' is not recognized as a valid type
+        // CREATE(AutLFileObjectSystem, FALSE, TRUE);
+        // IF AutLFileObjectSystem.FileExists(TxtLFinalClientFileName) THEN
+        //     AutLFileObjectSystem.DeleteFile(TxtLFinalClientFileName, TRUE);
+        // AutLFileObjectSystem.MoveFile(TxtLClientFileName, TxtLFinalClientFileName);
         EXIT(TxtLFinalClientFileName);
     end;
 

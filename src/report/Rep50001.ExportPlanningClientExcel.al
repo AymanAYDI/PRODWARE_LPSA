@@ -125,13 +125,17 @@ report 50001 "Export Planning Client Excel"
                         else
                             FileName := UploadedFileName;
                     TempExcelBuffer.OpenBook(FileName, SheetName);
-                    TempExcelBuffer.CreateSheet(SheetName, '', CompanyName, UserId);
+                    //TODO: 'Record "Excel Buffer"' does not contain a definition for 'CreateSheet'
+                    //TempExcelBuffer.CreateSheet(SheetName, '', CompanyName, UserId);
                 end else begin
-                    TempExcelBuffer.CreateBook;
-                    TempExcelBuffer.CreateSheet(Text002E, Text003E, CompanyName, UserId);
+                    //TODO:There is no argument given that corresponds to the required formal parameter 'FileName' of 'CreateBook(Text, Text)'
+                    //TempExcelBuffer.CreateBook;
+                    //TODO: 'Record "Excel Buffer"' does not contain a definition for 'CreateSheet'
+                    //TempExcelBuffer.CreateSheet(Text002E, Text003E, CompanyName, UserId);
                 end;
 
                 Commit();
+                //TODO: 'Record "Excel Buffer"' does not contain a definition for 'GiveUserControl'
                 TempExcelBuffer.GiveUserControl;
                 Error('');
             end;
@@ -308,7 +312,7 @@ report 50001 "Export Planning Client Excel"
 
     procedure MakeExcelInfo()
     begin
-
+        //TODO: There is no argument given that corresponds to the required formal parameter 'CellType' of 'AddColumn(Variant, Boolean, Text, Boolean, Boolean, Boolean, Text[30], Option)'
         TempExcelBuffer.AddColumn(Format(Text004E), false, '', true, false, false, '');
         TempExcelBuffer.AddColumn(CompanyName, false, '', false, false, false, '');
         TempExcelBuffer.NewRow();
@@ -374,6 +378,7 @@ report 50001 "Export Planning Client Excel"
 
     procedure UploadFile()
     var
+        //TODO: Codeunit 'Common Dialog Management' is missing
         CommonDialogMgt: Codeunit "Common Dialog Management";
     begin
         UploadedFileName := CommonDialogMgt.OpenFile(Text002, FileName, 2, '', 0);

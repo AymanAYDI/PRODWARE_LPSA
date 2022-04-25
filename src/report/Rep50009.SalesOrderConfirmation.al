@@ -362,7 +362,7 @@ report 50009 "PWD Sales Order Confirmation"
                         column(Sales_Line__Description_Control1150111; "Sales Line"."PWD LPSA Description 1")
                         {
                         }
-                        column(SalesLine__Subtotal_Net_; SalesLine."Scrap Quantity")
+                        column(SalesLine__Subtotal_Net_; SalesLine."PWD Scrap Quantity")
                         {
                             AutoFormatExpression = "Sales Header"."Currency Code";
                             AutoFormatType = 1;
@@ -394,7 +394,7 @@ report 50009 "PWD Sales Order Confirmation"
                         }
                         column(STRSUBSTNO_CstG011_VATAmountLine__VAT________; StrSubstNo(CstG011, VATAmountLine."VAT %") + '%')
                         {
-                            DecimalPlaces = 0 : 5;
+                            // DecimalPlaces = 0 : 5;
                         }
                         column(Sales_Line__DescriptionCaption; Sales_Line__DescriptionCaptionLbl)
                         {
@@ -465,15 +465,15 @@ report 50009 "PWD Sales Order Confirmation"
                                 FindCrossRef();
                                 //>>TDL.LPSA.09022015
                                 if TxtGCustPlanNo = '' then
-                                    TxtGCustPlanNo := Item."Customer Plan No.";
+                                    TxtGCustPlanNo := Item."PWD Customer Plan No.";
                                 //<<TDL.LPSA.09022015
                             end;
 
 
-                            if "Sales Line"."Scrap Quantity" + "Sales Line"."Quantity Shipped" < "Sales Line".Quantity then
+                            if "Sales Line"."PWD Scrap Quantity" + "Sales Line"."Quantity Shipped" < "Sales Line".Quantity then
                                 //>>TDL.LPSA.20.04.15
                                 //TxTGQuantity := STRSUBSTNO(CstG009,"Sales Line"."Shipment Date")
-                                TxTGQuantity := StrSubstNo(CstG009, "Sales Line"."Cust Promised Delivery Date")
+                                TxTGQuantity := StrSubstNo(CstG009, "Sales Line"."PWD Cust Promised Delivery Date")
                             //<<TDL.LPSA.20.04.15
                             else
                                 TxTGQuantity := StrSubstNo(CstG010);
@@ -615,7 +615,7 @@ report 50009 "PWD Sales Order Confirmation"
                 if ("Sell-to Customer No." <> "Bill-to Customer No.") and ("Bill-to Customer No." <> '') then begin
                     //>>LAP2.02
                     //STD FormatAddr.SalesHeaderSellTo(CompanyAddr,"Sales Header");
-                    FormatAddr.SalesHeaderSellToFixedAddr(CompanyAddr, "Sales Header");
+                    LPSAFunctionsMgt.SalesHeaderSellToFixedAddr(CompanyAddr, "Sales Header");
                     //<<LAP2.02
                     CodGNoCustomer := "Sell-to Customer No.";
                     TxTGContact := "Sell-to Contact";
@@ -623,7 +623,7 @@ report 50009 "PWD Sales Order Confirmation"
                 else begin
                     //>>LAP2.02
                     //STD FormatAddr.SalesHeaderBillTo(CompanyAddr,"Sales Header");
-                    FormatAddr.SalesHeaderSellToFixedAddr(CompanyAddr, "Sales Header");
+                    LPSAFunctionsMgt.SalesHeaderSellToFixedAddr(CompanyAddr, "Sales Header");
                     //<<LAP2.02
                     //>>TDL.001
                     //CodGNoCustomer := "Bill-to Customer No.";
@@ -803,8 +803,9 @@ report 50009 "PWD Sales Order Confirmation"
         CompanyInfo: Record "Company Information";
         VATAmountLine: Record "VAT Amount Line" temporary;
         SalesLine: Record "Sales Line" temporary;
-        Language: Record Language;
+        Language: Codeunit Language;
         FormatAddr: Codeunit "Format Address";
+        LPSAFunctionsMgt: codeunit "PWD LPSA Functions Mgt.";
         SalesCountPrinted: Codeunit "Sales-Printed";
         SegManagement: Codeunit SegManagement;
         ArchiveManagement: Codeunit ArchiveManagement;
@@ -903,7 +904,7 @@ report 50009 "PWD Sales Order Confirmation"
         if ItemCrossRef.FindFirst() then begin
             CrossReferenceNo := ItemCrossRef."Cross-Reference No.";
             //>>TDL.LPSA.09022015
-            TxtGCustPlanNo := ItemCrossRef."Customer Plan No.";
+            TxtGCustPlanNo := ItemCrossRef."PWD Customer Plan No.";
         end;
         //<<TD.LPSA.09022015
 
@@ -916,7 +917,7 @@ report 50009 "PWD Sales Order Confirmation"
                                 ItemCrossRef."Cross-Reference Type"::Customer,
                                 "Sales Header"."Sell-to Customer No.",
                                 "Sales Line"."Cross-Reference No.") then
-                TxtGCustPlanNo := ItemCrossRef."Customer Plan No.";
+                TxtGCustPlanNo := ItemCrossRef."PWD Customer Plan No.";
         end;
         //<<NDBI
     end;
@@ -930,12 +931,14 @@ report 50009 "PWD Sales Order Confirmation"
         CodLMail: Codeunit Mail;
         Subject: Text[100];
         Body: Text[100];
-        CduLTierAutomationMgt: Codeunit "3-Tier Automation Mgt.";
+        //TODO: Codeunit '3-Tier Automation Mgt.' is missing
+        //CduLTierAutomationMgt: Codeunit "3-Tier Automation Mgt.";
         TxtLFileName: Text[250];
         TxtLServerFile: Text[250];
-        RepLSalesOrderConfirmation: Report "Sales Order Confirmation";
+        RepLSalesOrderConfirmation: Report "PWD Sales Order Confirmation";
     begin
-        TxtLServerFile := CduLTierAutomationMgt.ServerTempFileName('', '');
+        //TODO: Codeunit '3-Tier Automation Mgt.' is missing
+        //TxtLServerFile := CduLTierAutomationMgt.ServerTempFileName('', '');
         RepLSalesOrderConfirmation.SkipSendEmail(true);
         RepLSalesOrderConfirmation.SetTableView(RecPSalesHeader);
         RepLSalesOrderConfirmation.SaveAsPdf(TxtLServerFile);
@@ -972,7 +975,7 @@ report 50009 "PWD Sales Order Confirmation"
         TxtLFileName := DownloadToClientFileName(TxtLServerFile, TxtLFileName);
 
         //Open E-Mail
-        CodLMail.NewMessage(Recipient, '', Subject, Body, TxtLFileName, true);
+        CodLMail.NewMessage(Recipient, '', '', Subject, Body, TxtLFileName, true);
 
     end;
 
@@ -981,16 +984,20 @@ report 50009 "PWD Sales Order Confirmation"
     var
         TxtLClientFileName: Text[250];
         TxtLFinalClientFileName: Text[250];
-        AutLFileObjectSystem: Automation;
-        CduLTierAutomationMgt: Codeunit "3-Tier Automation Mgt.";
+    //TODO: 'Automation' is not recognized as a valid type
+    //AutLFileObjectSystem: Automation;
+    //TODO: Codeunit '3-Tier Automation Mgt.' is missing
+    //CduLTierAutomationMgt: Codeunit "3-Tier Automation Mgt.";
     begin
-        TxtLClientFileName := CduLTierAutomationMgt.ClientTempFileName('', '');
-        TxtLFinalClientFileName := CduLTierAutomationMgt.Path(TxtLClientFileName) + TxtPFileName;
+        //TODO: Codeunit '3-Tier Automation Mgt.' is missing
+        // TxtLClientFileName := CduLTierAutomationMgt.ClientTempFileName('', '');
+        // TxtLFinalClientFileName := CduLTierAutomationMgt.Path(TxtLClientFileName) + TxtPFileName;
         Download(TxtPServerFile, '', '', '', TxtLClientFileName);
-        Create(AutLFileObjectSystem, false, true);
-        if AutLFileObjectSystem.FileExists(TxtLFinalClientFileName) then
-            AutLFileObjectSystem.DeleteFile(TxtLFinalClientFileName, true);
-        AutLFileObjectSystem.MoveFile(TxtLClientFileName, TxtLFinalClientFileName);
+        //TODO: 'Automation' is not recognized as a valid type
+        // Create(AutLFileObjectSystem, false, true);
+        // if AutLFileObjectSystem.FileExists(TxtLFinalClientFileName) then
+        //     AutLFileObjectSystem.DeleteFile(TxtLFinalClientFileName, true);
+        // AutLFileObjectSystem.MoveFile(TxtLClientFileName, TxtLFinalClientFileName);
         exit(TxtLFinalClientFileName);
     end;
 

@@ -159,17 +159,17 @@ report 50022 "PWD Tracking Card"
                 dataitem("Prod. Order Routing Tool"; "Prod. Order Routing Tool")
                 {
                     DataItemLink = Status = FIELD(Status), "Prod. Order No." = FIELD("Prod. Order No."), "Routing Reference No." = FIELD("Routing Reference No."), "Routing No." = FIELD("Routing No."), "Operation No." = FIELD("Operation No.");
-                    DataItemTableView = SORTING(Type, "No.");
+                    DataItemTableView = SORTING("PWD Type", "No.");
                     column(Prod__Order_Routing_Tool__No__; "No.")
                     {
                     }
                     column(Prod__Order_Routing_Tool_Description; Description)
                     {
                     }
-                    column(Prod__Order_Routing_Tool_Type; Type)
+                    column(Prod__Order_Routing_Tool_Type; "PWD Type")
                     {
                     }
-                    column(Prod__Order_Routing_Tool_Criteria; Criteria)
+                    column(Prod__Order_Routing_Tool_Criteria; "PWD Criteria")
                     {
                     }
                     column(BooGRootingTool; BooGRootingTool)
@@ -184,10 +184,10 @@ report 50022 "PWD Tracking Card"
                     column(Tools_ListCaption; Tools_ListCaptionLbl)
                     {
                     }
-                    column(Prod__Order_Routing_Tool_TypeCaption; FieldCaption(Type))
+                    column(Prod__Order_Routing_Tool_TypeCaption; FieldCaption("PWD Type"))
                     {
                     }
-                    column(Prod__Order_Routing_Tool_CriteriaCaption; FieldCaption(Criteria))
+                    column(Prod__Order_Routing_Tool_CriteriaCaption; FieldCaption("PWD Criteria"))
                     {
                     }
                     column(Prod__Order_Routing_Tool_Status; Status)
@@ -276,7 +276,7 @@ report 50022 "PWD Tracking Card"
                 begin
                     if ("Prod. Order Routing Line".Type = "Prod. Order Routing Line".Type::"Machine Center") and
                        RecGMachineCenter.Get("Prod. Order Routing Line"."No.") and
-                       RecGMachineCenter."To Exclure In Tracking Card" then
+                       RecGMachineCenter."PWD To Excl. In Tracking Card" then
                         CurrReport.Skip();
 
                     if ("Prod. Order Routing Line".Type = "Prod. Order Routing Line".Type::"Work Center") then

@@ -24,7 +24,7 @@ report 50020 "Prod. Order - List of missing"
     {
         dataitem("Production Order"; "Production Order")
         {
-            DataItemTableView = SORTING("Component No.");
+            DataItemTableView = SORTING("PWD Component No.");
             PrintOnlyIfDetail = true;
             RequestFilterFields = Status, "No.", "Date Filter";
             column(FORMAT_TODAY_0_4_; Format(Today, 0, 4))
@@ -162,9 +162,9 @@ report 50020 "Prod. Order - List of missing"
                         column(Header_Production_Order___Starting_Date__; Format("Production Order"."Starting Date"))
                         {
                         }
-                        column(Header_Item_Qty_on_prod_order; Item."Released Qty. on Prod. Order")
+                        column(Header_Item_Qty_on_prod_order; Item."PWD Released Qty. on Prod. Order")
                         {
-                            DecimalPlaces = 0 : 5;
+                            //DecimalPlaces = 0 : 5;
                         }
                         column(Comp_CompItem_Inventory; CompItem.Inventory)
                         {
@@ -204,18 +204,18 @@ report 50020 "Prod. Order - List of missing"
                         }
                         column(Comp_Integer_Number; Number)
                         {
-                            DecimalPlaces = 0 : 5;
+                            //DecimalPlaces = 0 : 5;
                         }
                         column(DetHead_Integer_IntGNbPhantom_; IntGNbPhantom)
                         {
-                            DecimalPlaces = 0 : 5;
+                            //DecimalPlaces = 0 : 5;
                         }
                         column(Comp_Production_Order___Start_Date_; Format("Production Order"."Starting Date"))
                         {
                         }
-                        column(Comp_CompItem_QtyOnProdOrder; CompItem."Released Qty. on Prod. Order")
+                        column(Comp_CompItem_QtyOnProdOrder; CompItem."PWD Released Qty. on Prod. Order")
                         {
-                            DecimalPlaces = 0 : 5;
+                            //DecimalPlaces = 0 : 5;
                         }
                         column(Comp_NeededQty; DecGQtyNeeded)
                         {
@@ -235,11 +235,11 @@ report 50020 "Prod. Order - List of missing"
                         }
                         column(Phantom_Dispo; TempItemSubPhantom."Total Available Quantity")
                         {
-                            DecimalPlaces = 0 : 5;
+                            //DecimalPlaces = 0 : 5;
                         }
                         column(DetHead_Integer_Number_; Number)
                         {
-                            DecimalPlaces = 0 : 5;
+                            //DecimalPlaces = 0 : 5;
                         }
                         column(Detail_NoDoc_1_; NoDoc[1])
                         {
@@ -276,7 +276,7 @@ report 50020 "Prod. Order - List of missing"
                         }
                         column(Detail_Integer_Number; Number)
                         {
-                            DecimalPlaces = 0 : 5;
+                            //DecimalPlaces = 0 : 5;
                         }
                         column(Detail_Date_Debut_; Format(DateDebut, 0, 1))
                         {
@@ -289,7 +289,7 @@ report 50020 "Prod. Order - List of missing"
                         }
                         column(Detail_Integer_Number_Tracking; IntGNumber)
                         {
-                            DecimalPlaces = 0 : 5;
+                            ///DecimalPlaces = 0 : 5;
                         }
                         column(Total_Qty_1_; Qty[1])
                         {
@@ -365,9 +365,9 @@ report 50020 "Prod. Order - List of missing"
                                 DecGQtyNeeded := 0;
 
                             if Number = 1 then begin
-                                if (CodGComponentNo <> '') and (CodGComponentNo <> "Production Order"."Component No.") then
+                                if (CodGComponentNo <> '') and (CodGComponentNo <> "Production Order"."PWD Component No.") then
                                     CurrReport.NewPage();
-                                CodGComponentNo := "Production Order"."Component No.";
+                                CodGComponentNo := "Production Order"."PWD Component No.";
                             end;
                             //>>TDL.LPSA.002
 
@@ -395,7 +395,7 @@ report 50020 "Prod. Order - List of missing"
                                             //RecGSalesLine.GET(RecGSalesLine."Document Type"::Order,Temp."Source ID",Temp."Source Ref. No.");
                                             if RecGSalesLine.Get(RecGSalesLine."Document Type"::Order, Temp."Source ID", Temp."Source Ref. No.") then begin
                                                 TrackingMgt.SetSalesLine(RecGSalesLine);
-                                                TxtGTracking := TrackingMgt.FindFirsRecord;
+                                                TxtGTracking := LPSAFunctionsMgt.FindFirsRecord;
                                                 IntGNumber := StrLen(TxtGTracking);
                                             end else
                                                 TxtGTracking := 'Prévisions';
@@ -415,7 +415,7 @@ report 50020 "Prod. Order - List of missing"
                                             TempItemSubPhantom.SetRange("Item No.", Temp."Item No.");
                                             TempItemSubPhantom.SetRange("Lot No.", Temp."Lot No.");
                                             TempItemSubPhantom.FindFirst;
-                                            TempItemSubPhantom.CalcFields(Description);
+                                            TempItemSubPhantom.CalcFields("Description");
                                         end;
                                     else begin
                                             NoDoc[2] := Temp."Source ID";
@@ -423,7 +423,7 @@ report 50020 "Prod. Order - List of missing"
                                             Qty[2] := Temp."Quantity (Base)";
                                             DateDebut := Temp."Warranty Date";
                                             DueDate := Temp."Expiration Date";
-                                            RecGCapLedgEntry.SetRange("Prod. Order No.", Temp."Source ID");
+                                            RecGCapLedgEntry.SetRange("Order No.", Temp."Source ID");
                                             //>>TDL.LPSA.002
                                             if RecGCapLedgEntry.FindLast() then
                                                 NomTiers[3] := RecGCapLedgEntry.Description
@@ -442,7 +442,7 @@ report 50020 "Prod. Order - List of missing"
                             CurrReport.CreateTotals(Qty);
 
                             //>>TDL.LPSA.002
-                            RecGCapLedgEntry.SetCurrentKey("Prod. Order No.");
+                            RecGCapLedgEntry.SetCurrentKey("Order No.");
                             //<<TDL.LPSA.002
                         end;
                     }
@@ -456,7 +456,7 @@ report 50020 "Prod. Order - List of missing"
                         CompItem.SetRange("Variant Filter", "Variant Code");
                         CompItem.SetRange("Location Filter", "Location Code");
                         CompItem.SetRange("Date Filter");
-                        CompItem.CalcFields("Released Qty. on Prod. Order");
+                        CompItem.CalcFields("PWD Released Qty. on Prod. Order");
 
                         CompItem.SetRange(
                           "Date Filter", 0D, "Due Date" - 1);
@@ -568,7 +568,7 @@ report 50020 "Prod. Order - List of missing"
                           TempProdOrderComp."Remaining Qty. (Base)";
                         //  TempProdOrderComp."Reserved Qty. (Base)";
 
-                        if CompItem."Phantom Item" then begin
+                        if CompItem."PWD Phantom Item" then begin
                             ItemSubPhantom.SetRange("Phantom Item No.", CompItem."No.");
                             TempItemSubPhantom.DeleteAll;
 
@@ -589,7 +589,7 @@ report 50020 "Prod. Order - List of missing"
                                             RecLTrackingSpec."Item No." := ItemSubPhantom."Item No.";
                                             RecLTrackingSpec."Location Code" := "Location Code";
                                             RecLTrackingSpec."Lot No." := RecLItemLedgEntry."Lot No.";
-                                            TempItemSubPhantom."Total Available Quantity" := ItemTrackingDataCollection.LotSNAvailablePhantom(RecLTrackingSpec);
+                                            TempItemSubPhantom."Total Available Quantity" := LPSAFunctionsMgt.LotSNAvailablePhantom(RecLTrackingSpec);
                                             if TempItemSubPhantom."Total Available Quantity" <> 0 then
                                                 if not TempItemSubPhantom.Insert then
                                                     TempItemSubPhantom.Modify
@@ -612,7 +612,7 @@ report 50020 "Prod. Order - List of missing"
                                         RecLTrackingSpec.Init();
                                         RecLTrackingSpec."Item No." := ItemSubPhantom."Item No.";
                                         RecLTrackingSpec."Location Code" := "Location Code";
-                                        TempItemSubPhantom."Total Available Quantity" := ItemTrackingDataCollection.LotSNAvailablePhantom(RecLTrackingSpec);
+                                        TempItemSubPhantom."Total Available Quantity" := LPSAFunctionsMgt.LotSNAvailablePhantom(RecLTrackingSpec);
                                         if TempItemSubPhantom."Total Available Quantity" <> 0 then begin
                                             TempItemSubPhantom.Insert;
                                             IntGNbDoc += 1;
@@ -724,7 +724,7 @@ report 50020 "Prod. Order - List of missing"
                         Item.Init();
                     Item.SetRange("Location Filter", "Location Code");
                     Item.SetRange("Date Filter");
-                    Item.CalcFields(Item."Released Qty. on Prod. Order");
+                    Item.CalcFields(Item."PWD Released Qty. on Prod. Order");
                     Item.SetRange(
                       "Date Filter", 0D, "Due Date" - 1);
 
@@ -791,12 +791,13 @@ report 50020 "Prod. Order - List of missing"
         RecLTrackingSpec: Record "Tracking Specification";
         ItemTrackingDataCollection: Codeunit "Item Tracking Data Collection";
         RecLItemLedgEntry: Record "Item Ledger Entry";
-        ItemSubPhantom: Record "Phantom substitution Items";
-        TempItemSubPhantom: Record "Phantom substitution Items" temporary;
+        ItemSubPhantom: Record "PWD Phantom substitution Items";
+        TempItemSubPhantom: Record "PWD Phantom substitution Items" temporary;
         IntGNbPhantom: Integer;
         RecGProdForecastEntry: Record "Production Forecast Entry";
         DateDebut: Date;
         TrackingMgt: Codeunit OrderTrackingManagement;
+        LPSAFunctionsMgt: codeunit "PWD LPSA Functions Mgt.";
         TxtGTracking: Text[250];
         IntGNumber: Integer;
         DueDate: Date;

@@ -241,7 +241,7 @@ report 50014 "PWD Invoice"
                         column(Text014____FORMAT_TempItemLedgEntry__Lot_No___; Text014 + ' ' + Format(TempItemLedgEntry."Lot No."))
                         {
                         }
-                        column(Item_Customer_Plan_No; Item."Customer Plan No.")
+                        column(Item_Customer_Plan_No; Item."PWD Customer Plan No.")
                         {
                         }
                         column(CrossReferenceNo; CrossReferenceNo)
@@ -464,7 +464,7 @@ report 50014 "PWD Invoice"
                                 FindCrossRef();
                                 //>>TDL.LPSA.09022015
                                 if TxtGCustPlanNo_C = '' then
-                                    TxtGCustPlanNo_C := Item."Customer Plan No.";
+                                    TxtGCustPlanNo_C := Item."PWD Customer Plan No.";
                                 //<<TDL.LPSA.09022015
                             end;
 
@@ -513,7 +513,7 @@ report 50014 "PWD Invoice"
                         }
                         column(Text015_____FORMAT_VATAmountLine__VAT__________; Text017 + ' ' + Format(VATAmountLine."VAT %") + '%')
                         {
-                            DecimalPlaces = 0 : 5;
+                            //DecimalPlaces = 0 : 5;
                         }
                         column(VATCounter_Number; Number)
                         {
@@ -605,9 +605,9 @@ report 50014 "PWD Invoice"
                     CompanyInfo."Fax No." := RespCenter."Fax No.";
                 end else
                     FormatAddr.Company(CompanyAddr, CompanyInfo);
-
-                PostedDocDim1.SetRange("Table ID", DATABASE::"Sales Invoice Header");
-                PostedDocDim1.SetRange("Document No.", "Sales Invoice Header"."No.");
+                DimSetEntry1.SetRange("Dimension Set ID", DATABASE::"Sales Invoice Header");
+                // PostedDocDim1.SetRange("Table ID", DATABASE::"Sales Invoice Header");
+                // PostedDocDim1.SetRange("Document No.", "Sales Invoice Header"."No.");
 
                 if "Order No." = '' then
                     OrderNoText := ''
@@ -641,7 +641,7 @@ report 50014 "PWD Invoice"
 
                 //>>LAP2.03 :TO 11/09/2012      (PT TDL 114)
                 //FormatAddr.SalesInvBillTo(CustAddr,"Sales Invoice Header");
-                FormatAddr.SalesInvBillToFixedAddr(CustAddr, "Sales Invoice Header");
+                LPSAFunctionsMgt.SalesInvBillToFixedAddr(CustAddr, "Sales Invoice Header");
                 //<<LAP2.03 :TO 11/09/2012      (PT TDL 114)
 
                 if not Cust.Get("Bill-to Customer No.") then
@@ -661,7 +661,7 @@ report 50014 "PWD Invoice"
                     ShipmentMethod.Get("Shipment Method Code");
                     ShipmentMethod.TranslateDescription(ShipmentMethod, "Language Code");
                 end;
-                FormatAddr.SalesInvShipTo(ShipToAddr, "Sales Invoice Header");
+                FormatAddr.SalesInvShipTo(ShipToAddr, CustAddr, "Sales Invoice Header");
                 ShowShippingAddr := "Sell-to Customer No." <> "Bill-to Customer No.";
                 for i := 1 to ArrayLen(ShipToAddr) do
                     if ShipToAddr[i] <> CustAddr[i] then
@@ -776,11 +776,14 @@ report 50014 "PWD Invoice"
         SalesSetup: Record "Sales & Receivables Setup";
         Cust: Record Customer;
         VATAmountLine: Record "VAT Amount Line" temporary;
-        PostedDocDim1: Record "Posted Document Dimension";
+        //TODO: Table 'Posted Document Dimension' is missing
+        //PostedDocDim1: Record "Posted Document Dimension";
+        DimSetEntry1: Record "Dimension Set Entry";
         RespCenter: Record "Responsibility Center";
-        Language: Record Language;
+        Language: Codeunit Language;
         SalesInvCountPrinted: Codeunit "Sales Inv.-Printed";
         FormatAddr: Codeunit "Format Address";
+        LPSAFunctionsMgt: codeunit "PWD LPSA Functions Mgt.";
         SegManagement: Codeunit SegManagement;
         SalesShipmentBuffer: Record "Sales Shipment Buffer" temporary;
         PostedShipmentDate: Date;
@@ -891,7 +894,7 @@ report 50014 "PWD Invoice"
         if ItemCrossRef.FindFirst() then begin
             CrossReferenceNo := ItemCrossRef."Cross-Reference No.";
             //>>TDL.LPSA.09022015
-            TxtGCustPlanNo_C := ItemCrossRef."Customer Plan No.";
+            TxtGCustPlanNo_C := ItemCrossRef."PWD Customer Plan No.";
             //<<TDL.LPSA.09022015
         end;
 
@@ -904,7 +907,7 @@ report 50014 "PWD Invoice"
                                 ItemCrossRef."Cross-Reference Type"::Customer,
                                 "Sales Invoice Header"."Sell-to Customer No.",
                                 "Sales Invoice Line"."Cross-Reference No.") then
-                TxtGCustPlanNo_C := ItemCrossRef."Customer Plan No.";
+                TxtGCustPlanNo_C := ItemCrossRef."PWD Customer Plan No.";
         end;
         //<<NDBI
     end;
@@ -923,12 +926,14 @@ report 50014 "PWD Invoice"
         CodLMail: Codeunit Mail;
         Subject: Text[100];
         Body: Text[100];
-        CduLTierAutomationMgt: Codeunit "3-Tier Automation Mgt.";
+        //TODO: Codeunit '3-Tier Automation Mgt.' is missing
+        //CduLTierAutomationMgt: Codeunit "3-Tier Automation Mgt.";
         TxtLFileName: Text[250];
         TxtLServerFile: Text[250];
-        RepLSalesInvoice: Report Invoice;
+        RepLSalesInvoice: Report "PWD Invoice";
     begin
-        TxtLServerFile := CduLTierAutomationMgt.ServerTempFileName('', '');
+                //TODO: Codeunit '3-Tier Automation Mgt.' is missing
+        //TxtLServerFile := CduLTierAutomationMgt.ServerTempFileName('', '');
         RepLSalesInvoice.SkipSendEmail(true);
         RepLSalesInvoice.SetTableView(RecPSalesInvoiceHeader);
         RepLSalesInvoice.SaveAsPdf(TxtLServerFile);
@@ -959,7 +964,7 @@ report 50014 "PWD Invoice"
         TxtLFileName := StrSubstNo('FACTURE N° %1.pdf', RecPSalesInvoiceHeader."No.");
         TxtLFileName := DownloadToClientFileName(TxtLServerFile, TxtLFileName);
         //Open E-Mail
-        CodLMail.NewMessage(Recipient, '', Subject, Body, TxtLFileName, true);
+        CodLMail.NewMessage(Recipient, '','', Subject, Body, TxtLFileName, true);
 
     end;
 
@@ -968,16 +973,20 @@ report 50014 "PWD Invoice"
     var
         TxtLClientFileName: Text[250];
         TxtLFinalClientFileName: Text[250];
-        AutLFileObjectSystem: Automation;
-        CduLTierAutomationMgt: Codeunit "3-Tier Automation Mgt.";
+        //TODO:'Automation' is not recognized as a valid type
+        //AutLFileObjectSystem: Automation;
+                //TODO: Codeunit '3-Tier Automation Mgt.' is missing
+        //CduLTierAutomationMgt: Codeunit "3-Tier Automation Mgt.";
     begin
-        TxtLClientFileName := CduLTierAutomationMgt.ClientTempFileName('', '');
-        TxtLFinalClientFileName := CduLTierAutomationMgt.Path(TxtLClientFileName) + TxtPFileName;
+                //TODO: Codeunit '3-Tier Automation Mgt.' is missing
+        // TxtLClientFileName := CduLTierAutomationMgt.ClientTempFileName('', '');
+        // TxtLFinalClientFileName := CduLTierAutomationMgt.Path(TxtLClientFileName) + TxtPFileName;
         Download(TxtPServerFile, '', '', '', TxtLClientFileName);
-        Create(AutLFileObjectSystem, false, true);
-        if AutLFileObjectSystem.FileExists(TxtLFinalClientFileName) then
-            AutLFileObjectSystem.DeleteFile(TxtLFinalClientFileName, true);
-        AutLFileObjectSystem.MoveFile(TxtLClientFileName, TxtLFinalClientFileName);
+                //TODO:'Automation' is not recognized as a valid type
+        // Create(AutLFileObjectSystem, false, true);
+        // if AutLFileObjectSystem.FileExists(TxtLFinalClientFileName) then
+        //     AutLFileObjectSystem.DeleteFile(TxtLFinalClientFileName, true);
+        // AutLFileObjectSystem.MoveFile(TxtLClientFileName, TxtLFinalClientFileName);
         exit(TxtLFinalClientFileName);
     end;
 
