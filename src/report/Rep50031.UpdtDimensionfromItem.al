@@ -22,8 +22,8 @@ report 50031 "PWD Updt Dimension from Item"
 
                 CduGClosingMgt.UpdtItemDimValue(DATABASE::"Item Category", "No.", "Item Category Code");
                 Clear(CduGClosingMgt);
-
-                CduGClosingMgt.UpdtItemDimValue(DATABASE::"Product Group", "No.", "Product Group Code");
+//TODO:Table 'Product Group' is removed
+                //CduGClosingMgt.UpdtItemDimValue(DATABASE::"Product Group", "No.", "Product Group Code");
                 Clear(CduGClosingMgt);
             end;
 
@@ -58,6 +58,6 @@ report 50031 "PWD Updt Dimension from Item"
 
     var
         DiaGWindow: Dialog;
-        CduGClosingMgt: Codeunit "Closing Management";
+        CduGClosingMgt: Codeunit "PWD Closing Management";
 }
 

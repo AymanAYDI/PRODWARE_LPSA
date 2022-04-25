@@ -177,7 +177,7 @@ report 50021 "PWD Inventory Valuation - LPSA"
             }
             dataitem("Value Entry"; "Value Entry")
             {
-                DataItemTableView = SORTING("Prod. Order No.");
+                DataItemTableView = SORTING("Order No.");
 
                 trigger OnAfterGetRecord()
                 begin
@@ -348,7 +348,7 @@ report 50021 "PWD Inventory Valuation - LPSA"
                     //SETRANGE("Order Type","Order Type"::Production);
                     //<<TI316306
 
-                    SetRange("Prod. Order No.", "Production Order"."No.");
+                    SetRange("Order No.", "Production Order"."No.");
                     if EndDate <> 0D then
                         SetRange("Posting Date", 0D, EndDate);
 
@@ -644,7 +644,7 @@ report 50021 "PWD Inventory Valuation - LPSA"
         //>>TI316306
         with ValueEntry do begin
             //SETRANGE("Order Type","Order Type"::Production);
-            SetRange("Prod. Order No.", ProductionOrder."No.");
+            SetRange("Order No.", ProductionOrder."No.");
             SetRange("Posting Date", StartDate, EndDate);
             exit(not IsEmpty);
         end;

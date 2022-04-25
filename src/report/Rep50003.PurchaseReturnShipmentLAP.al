@@ -29,7 +29,7 @@ report 50003 "Purchase - Return Shipment LAP"
     {
         dataitem("Return Shipment Header"; "Return Shipment Header")
         {
-            DataItemTableView = SORTING(No.);
+            DataItemTableView = SORTING("No.");
             RequestFilterFields = "No.", "Buy-from Vendor No.", "No. Printed";
             RequestFilterHeading = 'Posted Return Shipment';
             column(Return_Shipment_Header_No_; "No.")
@@ -223,7 +223,7 @@ report 50003 "Purchase - Return Shipment LAP"
                         trigger OnAfterGetRecord()
                         begin
                             IF Number = 1 THEN BEGIN
-                                IF NOT PostedDocDim1.FIND('-') THEN
+                                IF NOT DimSetEntry1.FIND('-') THEN
                                     CurrReport.BREAK();
                             END ELSE
                                 IF NOT Continue THEN
@@ -235,18 +235,18 @@ report 50003 "Purchase - Return Shipment LAP"
                                 OldDimText := DimText;
                                 IF DimText = '' THEN
                                     DimText := STRSUBSTNO(
-                                      '%1 - %2', PostedDocDim1."Dimension Code", PostedDocDim1."Dimension Value Code")
+                                      '%1 - %2', DimSetEntry1."Dimension Code", DimSetEntry1."Dimension Value Code")
                                 ELSE
                                     DimText :=
                                       STRSUBSTNO(
                                         '%1; %2 - %3', DimText,
-                                        PostedDocDim1."Dimension Code", PostedDocDim1."Dimension Value Code");
+                                        DimSetEntry1."Dimension Code", DimSetEntry1."Dimension Value Code");
                                 IF STRLEN(DimText) > MAXSTRLEN(OldDimText) THEN BEGIN
                                     DimText := OldDimText;
                                     Continue := TRUE;
                                     EXIT;
                                 END;
-                            UNTIL (PostedDocDim1.NEXT = 0);
+                            UNTIL (DimSetEntry1.NEXT = 0);
                         end;
 
                         trigger OnPreDataItem()
@@ -257,9 +257,9 @@ report 50003 "Purchase - Return Shipment LAP"
                     }
                     dataitem("Return Shipment Line"; "Return Shipment Line")
                     {
-                        DataItemLink = Document No.=FIELD(No.);
+                        DataItemLink = "Document No." = FIELD("No.");
                         DataItemLinkReference = "Return Shipment Header";
-                        DataItemTableView = SORTING(Document No., Line No.);
+                        DataItemTableView = SORTING("Document No.", "Line No.");
                         column(TypeInt; TypeInt)
                         {
                         }
@@ -296,7 +296,7 @@ report 50003 "Purchase - Return Shipment LAP"
                         }
                         column(CstGText013; CstGText013)
                         {
-                            DecimalPlaces = 0 : 0;
+                            //DecimalPlaces = 0 : 0;
                         }
                         column(Return_Shipment_Line___LPSA_Description_1_; "Return Shipment Line"."PWD LPSA Description 1")
                         {
@@ -356,7 +356,7 @@ report 50003 "Purchase - Return Shipment LAP"
                             trigger OnAfterGetRecord()
                             begin
                                 IF Number = 1 THEN BEGIN
-                                    IF NOT PostedDocDim2.FIND('-') THEN
+                                    IF NOT DimSetEntry2.FIND('-') THEN
                                         CurrReport.BREAK();
                                 END ELSE
                                     IF NOT Continue THEN
@@ -368,18 +368,18 @@ report 50003 "Purchase - Return Shipment LAP"
                                     OldDimText := DimText;
                                     IF DimText = '' THEN
                                         DimText := STRSUBSTNO(
-                                          '%1 - %2', PostedDocDim2."Dimension Code", PostedDocDim2."Dimension Value Code")
+                                          '%1 - %2', DimSetEntry2."Dimension Code", DimSetEntry2."Dimension Value Code")
                                     ELSE
                                         DimText :=
                                           STRSUBSTNO(
                                             '%1; %2 - %3', DimText,
-                                            PostedDocDim2."Dimension Code", PostedDocDim2."Dimension Value Code");
+                                            DimSetEntry2."Dimension Code", DimSetEntry2."Dimension Value Code");
                                     IF STRLEN(DimText) > MAXSTRLEN(OldDimText) THEN BEGIN
                                         DimText := OldDimText;
                                         Continue := TRUE;
                                         EXIT;
                                     END;
-                                UNTIL (PostedDocDim2.NEXT = 0);
+                                UNTIL (DimSetEntry2.NEXT = 0);
                             end;
 
                             trigger OnPreDataItem()
@@ -404,10 +404,10 @@ report 50003 "Purchase - Return Shipment LAP"
                             RecGItemCrossRef.SETRANGE("Cross-Reference Type No.", "Return Shipment Header"."Sell-to Customer No.");
                             IF RecGItemCrossRef.FINDFIRST() THEN
                                 TxtGCustRefNo := RecGItemCrossRef."Cross-Reference No.";
-                            TxtGCustPlanNo := RecGItemCrossRef."Customer Plan No.";
+                            TxtGCustPlanNo := RecGItemCrossRef."PWD Customer Plan No.";
 
                             IF TxtGCustPlanNo = '' THEN
-                                TxtGCustPlanNo := RecGItem."Customer Plan No.";
+                                TxtGCustPlanNo := RecGItem."PWD Customer Plan No.";
 
                             //<<TD.LPSA.09022015
 
@@ -429,10 +429,10 @@ report 50003 "Purchase - Return Shipment LAP"
 
                             IF (NOT ShowCorrectionLines) AND Correction THEN
                                 CurrReport.SKIP();
-
-                            PostedDocDim2.SETRANGE("Table ID", DATABASE::"Return Shipment Line");
-                            PostedDocDim2.SETRANGE("Document No.", "Return Shipment Line"."Document No.");
-                            PostedDocDim2.SETRANGE("Line No.", "Return Shipment Line"."Line No.");
+                            DimSetEntry2.SETRANGE("Dimension Set ID", DATABASE::"Return Shipment Line");
+                            // PostedDocDim2.SETRANGE("Table ID", DATABASE::"Return Shipment Line");
+                            // PostedDocDim2.SETRANGE("Document No.", "Return Shipment Line"."Document No.");
+                            // PostedDocDim2.SETRANGE("Line No.", "Return Shipment Line"."Line No.");
 
                             IF ISSERVICETIER THEN
                                 TypeInt := "Return Shipment Line".Type;
@@ -559,9 +559,9 @@ report 50003 "Purchase - Return Shipment LAP"
                     CompanyInfo."Fax No." := RespCenter."Fax No.";
                 END ELSE
                     FormatAddr.Company(CompanyAddr, CompanyInfo);
-
-                PostedDocDim1.SETRANGE("Table ID", DATABASE::"Return Shipment Header");
-                PostedDocDim1.SETRANGE("Document No.", "Return Shipment Header"."No.");
+                DimSetEntry1.SETRANGE("Dimension Set ID", DATABASE::"Return Shipment Header");
+                // PostedDocDim1.SETRANGE("Table ID", DATABASE::"Return Shipment Header");
+                // PostedDocDim1.SETRANGE("Document No.", "Return Shipment Header"."No.");
 
                 IF "Purchaser Code" = '' THEN BEGIN
                     SalesPurchPerson.INIT();
@@ -577,7 +577,7 @@ report 50003 "Purchase - Return Shipment LAP"
 
                 //>>TI128158
                 //FormatAddr.PurchShptBuyFrom(ShipToAddr,"Return Shipment Header");
-                FormatAddr.PurchShptBuyFromFixedAddr(ShipToAddr, "Return Shipment Header");
+                LPSAFunctionsMgt.PurchShptBuyFromFixedAddr(ShipToAddr, "Return Shipment Header");
                 //<<TI128158
                 FormatAddr.PurchShptPayTo(VendAddr, "Return Shipment Header");
                 IF LogInteraction THEN
@@ -663,11 +663,15 @@ report 50003 "Purchase - Return Shipment LAP"
         Text003: Label 'Page %1';
         CompanyInfo: Record "Company Information";
         SalesPurchPerson: Record "Salesperson/Purchaser";
-        PostedDocDim1: Record "Posted Document Dimension";
-        PostedDocDim2: Record "Posted Document Dimension";
+        //TODO: Table 'Posted Document Dimension' is missing
+        // PostedDocDim1: Record "Posted Document Dimension";
+        // PostedDocDim2: Record "Posted Document Dimension";
+        DimSetEntry1: Record "Dimension Set Entry";
+        DimSetEntry2: Record "Dimension Set Entry";
         RespCenter: Record "Responsibility Center";
         ShptCountPrinted: Codeunit "Return Shipment - Printed";
         FormatAddr: Codeunit "Format Address";
+        LPSAFunctionsMgt: Codeunit "PWD LPSA Functions Mgt.";
         SegManagement: Codeunit SegManagement;
         VendAddr: array[8] of Text[50];
         ShipToAddr: array[8] of Text[50];

@@ -20,7 +20,7 @@ report 50017 "PWD Auto. Finish Prod. Order"
                     CheckBeforeFinishProdOrder("Production Order", BooGAlterCons);
                     DeleteReqLine("Production Order");
                     if not BooGAlterCons then begin
-                        CduProdOrderStatusMgt.SetNoFinishCOntrol(true);
+                        LPSAFunctionsMgt.SetNoFinishCOntrol(true);
                         CduProdOrderStatusMgt.ChangeStatusOnProdOrder("Production Order",
                           "Production Order".Status::Finished,
                           WorkDate(),
@@ -49,6 +49,7 @@ report 50017 "PWD Auto. Finish Prod. Order"
 
     var
         CduProdOrderStatusMgt: Codeunit "Prod. Order Status Management";
+        LPSAFunctionsMgt: codeunit "PWD LPSA Functions Mgt.";
         BooGAlterCons: Boolean;
 
 
@@ -75,7 +76,7 @@ report 50017 "PWD Auto. Finish Prod. Order"
                 RecLIJLB.SetRange("No.", 'M99999');
                 RecLIJLB.SetRange(Finished, true);
                 if RecLIJLB.FindFirst() then begin
-                    RecLIJ.SetRange("Prod. Order No.", RecPProdOrder."No.");
+                    RecLIJ.SetRange("Order No.", RecPProdOrder."No.");
                     if RecLIJ.IsEmpty then
                         exit(true)
                     else

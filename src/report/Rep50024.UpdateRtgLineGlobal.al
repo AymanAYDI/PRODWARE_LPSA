@@ -17,7 +17,7 @@ report 50024 "PWD Update Rtg Line Global"
     {
         dataitem(POL_Sauv; "Prod. Order Line")
         {
-            DataItemTableView = SORTING(Status, "Prod. Order No.", "Line No.") WHERE(Status = FILTER(Released), PlanningGroup = FILTER(<> 'ACIERS'));
+            DataItemTableView = SORTING(Status, "Prod. Order No.", "Line No.") WHERE(Status = FILTER(Released));
             dataitem(PORL_Termined; "Prod. Order Routing Line")
             {
                 DataItemLink = Status = FIELD(Status), "Prod. Order No." = FIELD("Prod. Order No."), "Routing Reference No." = FIELD("Routing Reference No."), "Routing No." = FIELD("Routing No.");
@@ -40,7 +40,7 @@ report 50024 "PWD Update Rtg Line Global"
 
                 IntGCounter -= 1;
 
-                "Initial Ending Date Time" := "Ending Date-Time";
+                "PWD Initial Ending Date Time" := "Ending Date-Time";
                 Modify(false);
             end;
 
@@ -237,7 +237,7 @@ report 50024 "PWD Update Rtg Line Global"
                         RecLProdOrderLine.SetRange("Routing Reference No.", "Prod. Order Routing Line"."Routing Reference No.");
                         if RecLProdOrderLine.Find('-') then
                             repeat
-                                RecLProdOrderLine."To Be Updated" := true;
+                                RecLProdOrderLine."PWD To Be Updated" := true;
                                 RecLProdOrderLine.Modify(false);
                             until RecLProdOrderLine.Next() = 0;
                     end;
@@ -283,7 +283,7 @@ report 50024 "PWD Update Rtg Line Global"
         }
         dataitem(POL_rest; "Prod. Order Line")
         {
-            DataItemTableView = SORTING(Status, "Prod. Order No.", "Line No.") WHERE(Status = FILTER(Released), PlanningGroup = FILTER(<> 'ACIERS'), "To Be Updated" = FILTER(true));
+            DataItemTableView = SORTING(Status, "Prod. Order No.", "Line No.") WHERE(Status = FILTER(Released), "PWD To Be Updated" = FILTER(true));
 
             trigger OnAfterGetRecord()
             var
@@ -297,10 +297,10 @@ report 50024 "PWD Update Rtg Line Global"
 
                 IntGCounter -= 1;
 
-                if Format("Initial Ending Date Time") <> '' then begin
-                    Validate("Ending Date-Time", "Initial Ending Date Time");
+                if Format("PWD Initial Ending Date Time") <> '' then begin
+                    Validate("Ending Date-Time", "PWD Initial Ending Date Time");
                     Modify(true);
-                    Processed := true;
+                    "PWD Processed" := true;
                     Modify(false);
 
                     Commit();
@@ -313,7 +313,7 @@ report 50024 "PWD Update Rtg Line Global"
 
                     Commit();
                     RecLProdOrderLine.Get(POL_rest.Status, POL_rest."Prod. Order No.", POL_rest."Line No.");
-                    RecLProdOrderLine."To Be Updated" := false;
+                    RecLProdOrderLine."PWD To Be Updated" := false;
                     RecLProdOrderLine."Send to OSYS (Released)" := false;
                     RecLProdOrderLine.Modify(false);
                 end;
@@ -370,14 +370,14 @@ report 50024 "PWD Update Rtg Line Global"
                     field(CodGOperationNo; CodGOperationNo)
                     {
                         Caption = 'Operation No.';
-                        OptionCaption = 'Operations No.';
+                        //OptionCaption = 'Operations No.';
                         ShowCaption = false;
                         ApplicationArea = All;
 
                         trigger OnLookup(var Text: Text): Boolean
                         var
                             RecLRoutingLines: Record "Routing Line";
-                            PagLRoutingLines: Page "Routing Lines choice";
+                            PagLRoutingLines: Page "PWD Routing Lines choice";
                         begin
                             RecLRoutingLines.SetRange("Routing No.", CodGRoutingHeader);
                             PagLRoutingLines.SetTableView(RecLRoutingLines);

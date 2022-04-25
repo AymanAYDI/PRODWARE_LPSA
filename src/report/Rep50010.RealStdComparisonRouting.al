@@ -199,7 +199,7 @@ report 50010 "Real Std Comparison Routing"
                         DecGPerte := 0;
 
                         Clear(RecGManuCycleSetup);
-                        if not RecGRoutingTemp."Fixed-step Prod. Rate time" then begin
+                        if not RecGRoutingTemp."PWD Fixed-step Prod. Rate time" then begin
                             DecGSetupTime := RecGRoutingTemp."Setup Time";
                             DecGRunTime := RecGRoutingTemp."Run Time";
                         end
@@ -268,9 +268,9 @@ report 50010 "Real Std Comparison Routing"
 
                         trigger OnValidate()
                         var
-                            ApplicationManagement: Codeunit ApplicationManagement;
+                            FilterTokens: Codeunit "Filter Tokens";
                         begin
-                            if ApplicationManagement.MakeDateFilter(DateFilter) = 0 then;
+                            FilterTokens.MakeDateFilter(DateFilter);
                             GLAccBudgetBuf.SetFilter("Date Filter", DateFilter);
                             DateFilter := GLAccBudgetBuf.GetFilter("Date Filter");
                         end;
@@ -304,7 +304,7 @@ report 50010 "Real Std Comparison Routing"
         DecGTimeEx: Decimal;
         DecGPerte: Decimal;
         DecGSetupTime: Decimal;
-        RecGManuCycleSetup: Record "Manufacturing cycles Setup";
+        RecGManuCycleSetup: Record "PWD Manufacturing cycles Setup";
         DecGRunTime: Decimal;
         RecGRoutingTemp: Record "Routing Line" temporary;
         BooLExist: Boolean;
@@ -353,7 +353,7 @@ report 50010 "Real Std Comparison Routing"
                 RecLProdOrderLine.SetRange(Status, RecLProdOrderLine.Status::Finished);
                 RecLProdOrderLine.SetRange("Routing No.", RecPRoutingLine."Routing No.");
                 RecLProdOrderLine.SetRange("Routing Version Code", RecPRoutingLine."Version Code");
-                RecLProdOrderLine.SetRange("Prod. Order No.", RecLCapLedEntry."Prod. Order No.");
+                RecLProdOrderLine.SetRange("Prod. Order No.", RecLCapLedEntry."Order No.");
                 if not RecLProdOrderLine.IsEmpty then begin
                     Nbre += 1;
                     DecPTimeExReal += RecLCapLedEntry."Run Time" / RecLCapLedEntry."Output Quantity";
@@ -415,7 +415,7 @@ report 50010 "Real Std Comparison Routing"
                     RecPRoutingTemp."Run Time" := 0;
                     RecPRoutingTemp."Setup Time Unit of Meas. Code" := RecLProdOrderRtngLine."Setup Time Unit of Meas. Code";
                     RecPRoutingTemp."Run Time Unit of Meas. Code" := RecLProdOrderRtngLine."Run Time Unit of Meas. Code";
-                    RecPRoutingTemp."Fixed-step Prod. Rate time" := false;
+                    RecPRoutingTemp."PWD Fixed-step Prod. Rate time" := false;
                     RecPRoutingTemp.Insert();
                 end;
             until RecLProdOrderRtngLine.Next() = 0;

@@ -71,15 +71,16 @@ report 50015 "PWD Excel Item Multi-Level"
 
             trigger OnPostDataItem()
             begin
-                ExcelBuf.CreateBook;
-                ExcelBuf.CreateSheet(CstG001, CstG001, CompanyName, UserId);
-                ExcelBuf.GiveUserControl;
+                //TODO: There is no argument given that corresponds to the required formal parameter 'FileName' of 'CreateBook(Text, Text)'
+                //ExcelBuf.CreateBook;
+                ExcelBuf.WriteSheet(CstG001, CompanyName, UserId);
+                ExcelBuf.OpenExcel();
             end;
 
             trigger OnPreDataItem()
             begin
                 if GetFilter("No.") = '' then
-                    SetFilter("No.", RecGInvtSetup."Item Filter Level 1");
+                    SetFilter("No.", RecGInvtSetup."PWD Item Filter Level 1");
 
                 MakeHeader();
             end;
@@ -105,10 +106,10 @@ report 50015 "PWD Excel Item Multi-Level"
     trigger OnPreReport()
     begin
         RecGInvtSetup.Get();
-        RecGInvtSetup.TestField("Item Filter Level 1");
-        RecGInvtSetup.TestField("Item Filter Level 2");
-        RecGInvtSetup.TestField("Item Filter Level 3");
-        RecGInvtSetup.TestField("Item Filter Level 4");
+        RecGInvtSetup.TestField("PWD Item Filter Level 1");
+        RecGInvtSetup.TestField("PWD Item Filter Level 2");
+        RecGInvtSetup.TestField("PWD Item Filter Level 3");
+        RecGInvtSetup.TestField("PWD Item Filter Level 4");
     end;
 
     var
@@ -203,13 +204,13 @@ report 50015 "PWD Excel Item Multi-Level"
         case IntPLevel of
             2:
 
-                RecLBOMLine.SetFilter("No.", RecGInvtSetup."Item Filter Level 2");
+                RecLBOMLine.SetFilter("No.", RecGInvtSetup."PWD Item Filter Level 2");
             3:
 
-                RecLBOMLine.SetFilter("No.", RecGInvtSetup."Item Filter Level 3");
+                RecLBOMLine.SetFilter("No.", RecGInvtSetup."PWD Item Filter Level 3");
             4:
 
-                RecLBOMLine.SetFilter("No.", RecGInvtSetup."Item Filter Level 4");
+                RecLBOMLine.SetFilter("No.", RecGInvtSetup."PWD Item Filter Level 4");
         end;
 
         //>>TDL260619.001
@@ -278,13 +279,13 @@ report 50015 "PWD Excel Item Multi-Level"
         case IntPLevel of
             2:
 
-                RecLBOMLine.SetFilter("No.", RecGInvtSetup."Item Filter Level 2");
+                RecLBOMLine.SetFilter("No.", RecGInvtSetup."PWD Item Filter Level 2");
             3:
 
-                RecLBOMLine.SetFilter("No.", RecGInvtSetup."Item Filter Level 3");
+                RecLBOMLine.SetFilter("No.", RecGInvtSetup."PWD Item Filter Level 3");
             4:
 
-                RecLBOMLine.SetFilter("No.", RecGInvtSetup."Item Filter Level 4");
+                RecLBOMLine.SetFilter("No.", RecGInvtSetup."PWD Item Filter Level 4");
         end;
 
         RecLBOMLine.SetFilter("Starting Date", '%1|<=%2', 0D, Today);

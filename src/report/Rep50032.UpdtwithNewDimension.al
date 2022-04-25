@@ -498,9 +498,10 @@ report 50032 "PWD Updt with New Dimension"
 
                         trigger OnValidate()
                         var
-                            ApplicationManagement: Codeunit ApplicationManagement;
+                            // ApplicationManagement: Codeunit ApplicationManagement;
+                            FilterTokens: Codeunit "Filter Tokens";
                         begin
-                            if ApplicationManagement.MakeDateFilter(DateFilter) = 0 then;
+                            FilterTokens.MakeDateFilter(DateFilter);
                             ItemStatisticsBuffer.SetFilter("Date Filter", DateFilter);
                             DateFilter := ItemStatisticsBuffer.GetFilter("Date Filter");
                         end;
@@ -533,13 +534,14 @@ report 50032 "PWD Updt with New Dimension"
         Window: Dialog;
         CstTxt002: Label 'Traitement tables #1#################\\';
         CstTxt003: Label 'Document             #2#################';
-        CstTxt004: Label 'Update Finished.';
+        CstTxt004: Label 'Update Finished.'; 
         CstTxt005: Label 'Mise à jour Axe #3############### de l''article #4##################\';
 
 
     procedure UpdtLdgrEntryDimension(TableNo: Integer; EntryNo: Integer)
     var
-        LdgrEntryDimension: Record "Ledger Entry Dimension";
+        //LdgrEntryDimension: Record "Ledger Entry Dimension";
+                    DimSetEntry: Record "Dimension Set Entry";
     begin
         LdgrEntryDimension."Table ID" := TableNo;
         LdgrEntryDimension."Entry No." := EntryNo;

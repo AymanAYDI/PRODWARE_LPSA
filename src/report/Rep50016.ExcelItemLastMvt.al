@@ -47,10 +47,10 @@ report 50016 "PWD Excel Item Last Mvt"
 
                 EnterCell(IntGLineNo, IntGColNo, Format(RecLItem."Net Change", 0, 1), false, false, '0');
                 IntGColNo += 1;
-                EnterCell(IntGLineNo, IntGColNo, Format("Last Entry Date Old ERP"), false, false, '');
+                EnterCell(IntGLineNo, IntGColNo, Format("PWD Last Entry Date Old ERP"), false, false, '');
                 IntGColNo += 1;
 
-                DatLMax := "Last Entry Date Old ERP";
+                DatLMax := "PWD Last Entry Date Old ERP";
                 //>>LAP2.12
                 TxtGEntryType := '';
                 if DatLMax <> 0D then
@@ -124,9 +124,10 @@ report 50016 "PWD Excel Item Last Mvt"
 
             trigger OnPostDataItem()
             begin
-                ExcelBuf.CreateBook;
-                ExcelBuf.CreateSheet(CstG012, CstG012, CompanyName, UserId);
-                ExcelBuf.GiveUserControl;
+                //TODO: There is no argument given that corresponds to the required formal parameter 'FileName' of 'CreateBook(Text, Text)'
+                //ExcelBuf.CreateBook;
+                ExcelBuf.WriteSheet(CstG012, CompanyName, UserId);
+                ExcelBuf.OpenExcel();
             end;
 
             trigger OnPreDataItem()
@@ -183,7 +184,6 @@ report 50016 "PWD Excel Item Last Mvt"
         CstG013: Label 'Veuillez renseigner un filtre date';
         CstG014: Label 'Veuillez renseigner une date de fin';
         CstG015: Label 'Filtre magasin';
-        "---- LAP2.12 ----": ;
         CstG016: Label 'Entry type';
         "--- LAP2.12 ---": Integer;
         TxtGEntryType: Text[30];

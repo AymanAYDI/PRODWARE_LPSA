@@ -309,7 +309,7 @@ report 50005 "PWD Order LAP"
                         trigger OnAfterGetRecord()
                         begin
                             if Number = 1 then begin
-                                if not DocDim1.Find('-') then
+                                if not DimSetEntry1.Find('-') then
                                     CurrReport.Break();
                             end else
                                 if not Continue then
@@ -321,18 +321,18 @@ report 50005 "PWD Order LAP"
                                 OldDimText := DimText;
                                 if DimText = '' then
                                     DimText := StrSubstNo(
-                                      '%1 %2', DocDim1."Dimension Code", DocDim1."Dimension Value Code")
+                                      '%1 %2', DimSetEntry1."Dimension Code", DimSetEntry1."Dimension Value Code")
                                 else
                                     DimText :=
                                       StrSubstNo(
                                         '%1, %2 %3', DimText,
-                                        DocDim1."Dimension Code", DocDim1."Dimension Value Code");
+                                        DimSetEntry1."Dimension Code", DimSetEntry1."Dimension Value Code");
                                 if StrLen(DimText) > MaxStrLen(OldDimText) then begin
                                     DimText := OldDimText;
                                     Continue := true;
                                     exit;
                                 end;
-                            until (DocDim1.Next = 0);
+                            until (DimSetEntry1.Next = 0);
                         end;
 
                         trigger OnPreDataItem()
@@ -412,7 +412,7 @@ report 50005 "PWD Order LAP"
                         }
                         column(CstGText013; CstGText013)
                         {
-                            DecimalPlaces = 0 : 0;
+                            //DecimalPlaces = 0 : 0;
                         }
                         column(Purchase_Line___LPSA_Description_2_; "Purchase Line"."PWD LPSA Description 2")
                         {
@@ -584,7 +584,7 @@ report 50005 "PWD Order LAP"
                             trigger OnAfterGetRecord()
                             begin
                                 if Number = 1 then begin
-                                    if not DocDim2.Find('-') then
+                                    if not DimSetEntry2.Find('-') then
                                         CurrReport.Break();
                                 end else
                                     if not Continue then
@@ -596,29 +596,29 @@ report 50005 "PWD Order LAP"
                                     OldDimText := DimText;
                                     if DimText = '' then
                                         DimText := StrSubstNo(
-                                          '%1 %2', DocDim2."Dimension Code", DocDim2."Dimension Value Code")
+                                          '%1 %2', DimSetEntry2."Dimension Code", DimSetEntry2."Dimension Value Code")
                                     else
                                         DimText :=
                                           StrSubstNo(
                                             '%1, %2 %3', DimText,
-                                            DocDim2."Dimension Code", DocDim2."Dimension Value Code");
+                                            DimSetEntry2."Dimension Code", DimSetEntry2."Dimension Value Code");
                                     if StrLen(DimText) > MaxStrLen(OldDimText) then begin
                                         DimText := OldDimText;
                                         Continue := true;
                                         exit;
                                     end;
-                                until (DocDim2.Next = 0);
+                                until (DimSetEntry2.Next = 0);
                             end;
 
                             trigger OnPreDataItem()
                             begin
                                 if not ShowInternalInfo then
                                     CurrReport.Break();
-
-                                DocDim2.SetRange("Table ID", DATABASE::"Purchase Line");
-                                DocDim2.SetRange("Document Type", "Purchase Line"."Document Type");
-                                DocDim2.SetRange("Document No.", "Purchase Line"."Document No.");
-                                DocDim2.SetRange("Line No.", "Purchase Line"."Line No.");
+                                DimSetEntry2.SetRange("Dimension Set ID", DATABASE::"Purchase Line");
+                                // DocDim2.SetRange("Table ID", DATABASE::"Purchase Line");
+                                // DocDim2.SetRange("Document Type", "Purchase Line"."Document Type");
+                                // DocDim2.SetRange("Document No.", "Purchase Line"."Document No.");
+                                // DocDim2.SetRange("Line No.", "Purchase Line"."Line No.");
                             end;
                         }
 
@@ -1174,7 +1174,7 @@ report 50005 "PWD Order LAP"
                             trigger OnAfterGetRecord()
                             begin
                                 if Number = 1 then begin
-                                    if not PrepmtDocDim.Find('-') then
+                                    if not PrepmtDimSetEntry.Find('-') then
                                         CurrReport.Break();
                                 end else
                                     if not Continue then
@@ -1186,18 +1186,18 @@ report 50005 "PWD Order LAP"
                                     OldDimText := DimText;
                                     if DimText = '' then
                                         DimText := StrSubstNo(
-                                          '%1 %2', PrepmtDocDim."Dimension Code", PrepmtDocDim."Dimension Value Code")
+                                          '%1 %2', PrepmtDimSetEntry."Dimension Code", PrepmtDimSetEntry."Dimension Value Code")
                                     else
                                         DimText :=
                                           StrSubstNo(
                                             '%1, %2 %3', DimText,
-                                            PrepmtDocDim."Dimension Code", PrepmtDocDim."Dimension Value Code");
+                                            PrepmtDimSetEntry."Dimension Code", PrepmtDimSetEntry."Dimension Value Code");
                                     if StrLen(DimText) > MaxStrLen(OldDimText) then begin
                                         DimText := OldDimText;
                                         Continue := true;
                                         exit;
                                     end;
-                                until PrepmtDocDim.Next = 0;
+                                until PrepmtDimSetEntry.Next = 0;
                             end;
                         }
 
@@ -1211,7 +1211,10 @@ report 50005 "PWD Order LAP"
                                     CurrReport.Break();
 
                             if ShowInternalInfo then
-                                PurchPostPrepmt.GetDimBuf(PrepmtInvBuf."Dimension Entry No.", PrepmtDocDim);
+                                //TODO: 'Record "Prepayment Inv. Line Buffer"' does not contain a definition for 'Dimension Entry No.'
+                                //TODO: 'Codeunit "Purchase-Post Prepayments"' does not contain a definition for 'GetDimBuf'
+                                //PurchPostPrepmt.GetDimBuf(PrepmtInvBuf."Dimension Entry No.", PrepmtDocDim);
+                                PrepmtDimSetEntry.SetRange("Dimension Set ID", PrepmtInvBuf."Dimension Set ID");
 
                             if "Purchase Header"."Prices Including VAT" then
                                 PrepmtLineAmount := PrepmtInvBuf."Amount Incl. VAT"
@@ -1371,7 +1374,6 @@ report 50005 "PWD Order LAP"
                 trigger OnAfterGetRecord()
                 var
                     PrepmtPurchLine: Record "Purchase Line" temporary;
-                    DocDim: Record "Document Dimension";
                     TempPurchLine: Record "Purchase Line" temporary;
                 begin
                     Clear(PurchLine);
@@ -1414,7 +1416,7 @@ report 50005 "PWD Order LAP"
                             end;
                         until PrepmtVATAmountLine.Next() = 0;
                     PurchPostPrepmt.UpdateVATOnLines("Purchase Header", PrepmtPurchLine, PrepmtVATAmountLine, 0);
-                    PurchPostPrepmt.BuildInvLineBuffer2("Purchase Header", PrepmtPurchLine, 0, PrepmtInvBuf, DocDim);
+                    PurchPostPrepmt.BuildInvLineBuffer("Purchase Header", PrepmtPurchLine, 0, PrepmtInvBuf);
                     PrepmtVATAmount := PrepmtVATAmountLine.GetTotalVATAmount();
                     PrepmtVATBaseAmount := PrepmtVATAmountLine.GetTotalVATBase();
                     PrepmtTotalAmountInclVAT := PrepmtVATAmountLine.GetTotalAmountInclVAT();
@@ -1473,10 +1475,10 @@ report 50005 "PWD Order LAP"
                     CompanyInfo."Fax No." := RespCenter."Fax No.";
                 end else
                     FormatAddr.Company(CompanyAddr, CompanyInfo);
-
-                DocDim1.SetRange("Table ID", DATABASE::"Purchase Header");
-                DocDim1.SetRange("Document Type", "Purchase Header"."Document Type");
-                DocDim1.SetRange("Document No.", "Purchase Header"."No.");
+                DimSetEntry1.SetRange("Dimension Set ID", DATABASE::"Purchase Header");
+                // DocDim1.SetRange("Table ID", DATABASE::"Purchase Header");
+                // DocDim1.SetRange("Document Type", "Purchase Header"."Document Type");
+                // DocDim1.SetRange("Document No.", "Purchase Header"."No.");
 
                 if "Purchaser Code" = '' then begin
                     SalesPurchPerson.Init();
@@ -1547,8 +1549,8 @@ report 50005 "PWD Order LAP"
 
                 //>>LAP2.12
                 TxtGSubcontractingLegalText := '';
-                if PurchSetup."Subcontracting Order Series No" = "Purchase Header"."No. Series" then
-                    TxtGSubcontractingLegalText := PurchSetup."Subcontracting Legal Text";
+                if PurchSetup."PWD Subcontracting Order Series No" = "Purchase Header"."No. Series" then
+                    TxtGSubcontractingLegalText := PurchSetup."PWD Subcontracting Legal Text";
                 //<<LAP2.12
             end;
         }
@@ -1654,12 +1656,17 @@ report 50005 "PWD Order LAP"
         PrepmtVATAmountLine: Record "VAT Amount Line" temporary;
         PrePmtVATAmountLineDeduct: Record "VAT Amount Line" temporary;
         PurchLine: Record "Purchase Line" temporary;
-        DocDim1: Record "Document Dimension";
-        DocDim2: Record "Document Dimension";
-        PrepmtDocDim: Record "Document Dimension" temporary;
+        //TODO: Table 'Document Dimension' is missing
+        // DocDim1: Record "Document Dimension";
+        // DocDim2: Record "Document Dimension";
+        //PrepmtDocDim: Record "Document Dimension" temporary;
+        DimSetEntry1: Record "Dimension Set Entry";
+        DimSetEntry2: Record "Dimension Set Entry";
+        PrepmtDimSetEntry: Record "Dimension Set Entry";
+
         PrepmtInvBuf: Record "Prepayment Inv. Line Buffer" temporary;
         RespCenter: Record "Responsibility Center";
-        Language: Record Language;
+        Language: Codeunit Language;
         CurrExchRate: Record "Currency Exchange Rate";
         PurchSetup: Record "Purchases & Payables Setup";
         PurchCountPrinted: Codeunit "Purch.Header-Printed";
@@ -1749,11 +1756,9 @@ report 50005 "PWD Order LAP"
         RecGItem: Record Item;
         CodGCrossReferenceNo: Code[20];
         RecGItemCrossRef: Record "Item Cross Reference";
-        "----- LAP2.15 -----": ;
         Text015: Label 'Your Item Ref.';
         ISitem: Boolean;
         DescrCrossRef: Text[50];
-        "--TI416445--": ;
         CstGText015: Label 'Horaires réception : 8h-12h';
         CstGText016: Label '                                13h30-16h.';
         CompanyInfo__Phone_No__CaptionLbl: Label 'Phone No.';

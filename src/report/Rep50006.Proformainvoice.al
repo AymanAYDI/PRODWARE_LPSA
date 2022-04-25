@@ -464,7 +464,7 @@ report 50006 "PWD Proforma invoice"
                         DataItemTableView = SORTING(Number);
                         column(Text015_____FORMAT_VATAmountLine__VAT__________; Text015 + ' ' + Format(VATAmountLine."VAT %") + ' %')
                         {
-                            DecimalPlaces = 0 : 5;
+                            // DecimalPlaces = 0 : 5;
                         }
                         column(VATAmountLine__VAT_Base__Control106; Text016 + ' ' + Format(VATAmountLine."VAT Base"))
                         {
@@ -514,7 +514,6 @@ report 50006 "PWD Proforma invoice"
                 trigger OnAfterGetRecord()
                 var
                     PrepmtSalesLine: Record "Sales Line" temporary;
-                    DocDim: Record "Document Dimension";
                     SalesPost: Codeunit "Sales-Post";
                     TempSalesLine: Record "Sales Line" temporary;
                 begin
@@ -560,7 +559,7 @@ report 50006 "PWD Proforma invoice"
                         until PrepmtVATAmountLine.Next() = 0;
 
                     SalesPostPrepmt.UpdateVATOnLines("Sales Header", PrepmtSalesLine, PrepmtVATAmountLine, 0);
-                    SalesPostPrepmt.BuildInvLineBuffer2("Sales Header", PrepmtSalesLine, 0, PrepmtInvBuf, DocDim);
+                    SalesPostPrepmt.BuildInvLineBuffer("Sales Header", PrepmtSalesLine, 0, PrepmtInvBuf);
                     PrepmtVATAmount := PrepmtVATAmountLine.GetTotalVATAmount();
                     PrepmtVATBaseAmount := PrepmtVATAmountLine.GetTotalVATBase();
                     PrepmtTotalAmountInclVAT := PrepmtVATAmountLine.GetTotalAmountInclVAT();
@@ -612,10 +611,10 @@ report 50006 "PWD Proforma invoice"
                     CompanyInfo."Fax No." := RespCenter."Fax No.";
                 end else
                     FormatAddr.Company(CompanyAddr, CompanyInfo);
-
-                DocDim1.SetRange("Table ID", DATABASE::"Sales Header");
-                DocDim1.SetRange("Document Type", "Sales Header"."Document Type");
-                DocDim1.SetRange("Document No.", "Sales Header"."No.");
+                DimSetEntry1.SetRange("Dimension Set ID", DATABASE::"Sales Header");
+                // DocDim1.SetRange("Table ID", DATABASE::"Sales Header");
+                // DocDim1.SetRange("Document Type", "Sales Header"."Document Type");
+                // DocDim1.SetRange("Document No.", "Sales Header"."No.");
 
                 if "Salesperson Code" = '' then begin
                     Clear(SalesPurchPerson);
@@ -674,7 +673,7 @@ report 50006 "PWD Proforma invoice"
                 if not Cust.Get("Sell-to Customer No.") then
                     Clear(Cust);
 
-                FormatAddr.SalesHeaderShipTo(ShipToAddr, "Sales Header");
+                FormatAddr.SalesHeaderShipTo(ShipToAddr, CustAddr, "Sales Header");
                 ShowShippingAddr := "Sell-to Customer No." <> "Bill-to Customer No.";
                 for i := 1 to ArrayLen(ShipToAddr) do
                     if ShipToAddr[i] <> CustAddr[i] then
@@ -796,10 +795,12 @@ report 50006 "PWD Proforma invoice"
         PrepmtVATAmountLine: Record "VAT Amount Line" temporary;
         PrepmtVATAmountLineDeduct: Record "VAT Amount Line" temporary;
         SalesLine: Record "Sales Line" temporary;
-        DocDim1: Record "Document Dimension";
+        //TODO: Table 'Document Dimension' is missing
+        //DocDim1: Record "Document Dimension";
+        DimSetEntry1: Record "Dimension Set Entry";
         PrepmtInvBuf: Record "Prepayment Inv. Line Buffer" temporary;
         RespCenter: Record "Responsibility Center";
-        Language: Record Language;
+        Language: Codeunit Language;
         SalesCountPrinted: Codeunit "Sales-Printed";
         FormatAddr: Codeunit "Format Address";
         SegManagement: Codeunit SegManagement;
@@ -884,12 +885,6 @@ report 50006 "PWD Proforma invoice"
         SalesLine__Inv__Discount_Amount_CaptionLbl: Label 'Discount';
         Net_AmountCaptionLbl: Label 'Net Amount';
 
-
-    procedure "---- NDBI -----"()
-    begin
-    end;
-
-
     procedure SendPDFMail(var RecPSalesHeader: Record "Sales Header")
     var
         CstL001: Label 'LA PIERRETTE SA : Sales Invoice %1';
@@ -898,12 +893,14 @@ report 50006 "PWD Proforma invoice"
         CodLMail: Codeunit Mail;
         Subject: Text[100];
         Body: Text[100];
-        CduLTierAutomationMgt: Codeunit "3-Tier Automation Mgt.";
+        //TODO: Codeunit '3-Tier Automation Mgt.' is missing
+        //CduLTierAutomationMgt: Codeunit "3-Tier Automation Mgt.";
         TxtLFileName: Text[250];
         TxtLServerFile: Text[250];
-        RepLProformaInvoice: Report "Proforma invoice";
+        RepLProformaInvoice: Report "PWD Proforma invoice";
     begin
-        TxtLServerFile := CduLTierAutomationMgt.ServerTempFileName('', '');
+        //TODO: Codeunit '3-Tier Automation Mgt.' is missing
+        //TxtLServerFile := CduLTierAutomationMgt.ServerTempFileName('', '');
         RepLProformaInvoice.SkipSendEmail(true);
         RepLProformaInvoice.SetTableView(RecPSalesHeader);
         RepLProformaInvoice.SaveAsPdf(TxtLServerFile);
@@ -934,7 +931,7 @@ report 50006 "PWD Proforma invoice"
         TxtLFileName := StrSubstNo('FACTURE Proforma N° %1.pdf', RecPSalesHeader."No.");
         TxtLFileName := DownloadToClientFileName(TxtLServerFile, TxtLFileName);
         //Open E-Mail
-        CodLMail.NewMessage(Recipient, '', Subject, Body, TxtLFileName, true);
+        CodLMail.NewMessage(Recipient, '', '', Subject, Body, TxtLFileName, true);
 
     end;
 
@@ -943,16 +940,19 @@ report 50006 "PWD Proforma invoice"
     var
         TxtLClientFileName: Text[250];
         TxtLFinalClientFileName: Text[250];
-        AutLFileObjectSystem: Automation;
-        CduLTierAutomationMgt: Codeunit "3-Tier Automation Mgt.";
+    //TODO: 'Automation' is not recognized as a valid type
+    //AutLFileObjectSystem: Automation;
+    //TODO: Codeunit '3-Tier Automation Mgt.' is missing
+    // CduLTierAutomationMgt: Codeunit "3-Tier Automation Mgt.";
     begin
-        TxtLClientFileName := CduLTierAutomationMgt.ClientTempFileName('', '');
-        TxtLFinalClientFileName := CduLTierAutomationMgt.Path(TxtLClientFileName) + TxtPFileName;
+        //TODO: Codeunit '3-Tier Automation Mgt.' is missing
+        //TxtLClientFileName := CduLTierAutomationMgt.ClientTempFileName('', '');
+        //TxtLFinalClientFileName := CduLTierAutomationMgt.Path(TxtLClientFileName) + TxtPFileName;
         Download(TxtPServerFile, '', '', '', TxtLClientFileName);
-        Create(AutLFileObjectSystem, false, true);
-        if AutLFileObjectSystem.FileExists(TxtLFinalClientFileName) then
-            AutLFileObjectSystem.DeleteFile(TxtLFinalClientFileName, true);
-        AutLFileObjectSystem.MoveFile(TxtLClientFileName, TxtLFinalClientFileName);
+        // Create(AutLFileObjectSystem, false, true);
+        // if AutLFileObjectSystem.FileExists(TxtLFinalClientFileName) then
+        //     AutLFileObjectSystem.DeleteFile(TxtLFinalClientFileName, true);
+        // AutLFileObjectSystem.MoveFile(TxtLClientFileName, TxtLFinalClientFileName);
         exit(TxtLFinalClientFileName);
     end;
 

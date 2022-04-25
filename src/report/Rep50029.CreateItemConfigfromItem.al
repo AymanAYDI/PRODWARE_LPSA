@@ -48,19 +48,20 @@ report 50029 "Create Item Config. from Item"
                 RecGItemConfigurator."Location Code" := Item."Location Code";
                 RecGItemConfigurator."Bin Code" := Item."Shelf No.";
                 RecGItemConfigurator.Validate("Item Category Code", Item."Item Category Code");
-                RecGItemConfigurator."Product Group Code" := Item."Product Group Code";
+                                //TODO:Field 'Product Group Code' is removed.
+                //RecGItemConfigurator."Product Group Code" := Item."Product Group Code";
                 RecGItemConfigurator."Dimension 1 Code" := Item."Global Dimension 1 Code";
                 RecGItemConfigurator."Dimension 2 Code" := Item."Global Dimension 2 Code";
-                RecGItemConfigurator."Phantom Item" := Item."Phantom Item";
+                RecGItemConfigurator."Phantom Item" := Item."PWD Phantom Item";
                 RecGItemConfigurator."Create From Item" := true;
                 RecGItemConfigurator."Item Code" := Item."No.";
                 RecGItemConfigurator.Modify();
 
                 RecLInventorySetup.Get();
-                RecLInventorySetup.TestField("Product Group Code  Dimension");
-
+                RecLInventorySetup.TestField("PWD Product Group Code Dim");
+                //TODO:Field 'Product Group Code' is removed.
                 if "Product Group Code" <> '' then
-                    if RecLDefaultDimension.Get(DATABASE::Item, Item."No.", RecLInventorySetup."Product Group Code  Dimension") then begin
+                    if RecLDefaultDimension.Get(DATABASE::Item, Item."No.", RecLInventorySetup."PWD Product Group Code Dim") then begin
                         RecLDefaultDimension."Dimension Value Code" := "Product Group Code";
                         //RecLDefaultDimension."Dimension Value Code" := "Item Category Code"+'_'+"Product Group Code"; //TDL21072020.001
 
@@ -68,19 +69,20 @@ report 50029 "Create Item Config. from Item"
                     end else begin
                         RecLDefaultDimension."Table ID" := DATABASE::Item;
                         RecLDefaultDimension."No." := Item."No.";
-                        RecLDefaultDimension."Dimension Code" := RecLInventorySetup."Product Group Code  Dimension";
-                        RecLDefaultDimension."Dimension Value Code" := "Product Group Code";
+                        RecLDefaultDimension."Dimension Code" := RecLInventorySetup."PWD Product Group Code Dim";
+                        //TODO:Field 'Product Group Code' is removed.
+                        //RecLDefaultDimension."Dimension Value Code" := "Product Group Code";
                         //RecLDefaultDimension."Dimension Value Code" := "Item Category Code"+'_'+"Product Group Code"; //TDL21072020.001
                         RecLDefaultDimension.Insert();
                     end;
 
                 BooLCreateItemCrossRef := false;
 
-                RecLInventorySetup.TestField("Item Filter For Extern Ref");
-                RecLInventorySetup.TestField("LPSA Customer No.");
+                RecLInventorySetup.TestField("PWD Item Filter For Extern Ref");
+                RecLInventorySetup.TestField("PWD LPSA Customer No.");
                 //RecLInventorySetup.TESTFIELD("STRATEGY Customer No.");
 
-                CodLFilter := RecLInventorySetup."Item Filter For Extern Ref";
+                CodLFilter := RecLInventorySetup."PWD Item Filter For Extern Ref";
                 IntLLoop := 0;
 
                 repeat
@@ -102,18 +104,18 @@ report 50029 "Create Item Config. from Item"
                 until (IntLPipePosition = 0) or (BooLCreateItemCrossRef) or (IntLLoop > 200);
 
                 if BooLCreateItemCrossRef then begin
-                    if RecLInventorySetup."STRATEGY Customer No." <> '' then
+                    if RecLInventorySetup."PWD STRATEGY Customer No." <> '' then
                         if not RecLItemCrossReference.Get(Item."No.",
                                                           '',
                                                           Item."Base Unit of Measure",
                                                           RecLItemCrossReference."Cross-Reference Type"::Customer,
-                                                          RecLInventorySetup."STRATEGY Customer No.",
+                                                          RecLInventorySetup."PWD STRATEGY Customer No.",
                                                           'NC') then begin
                             RecLItemCrossReference.Init();
                             RecLItemCrossReference.Validate("Item No.", Item."No.");
                             RecLItemCrossReference.Validate("Unit of Measure", Item."Base Unit of Measure");
                             RecLItemCrossReference.Validate("Cross-Reference Type", RecLItemCrossReference."Cross-Reference Type"::Customer);
-                            RecLItemCrossReference.Validate("Cross-Reference Type No.", RecLInventorySetup."STRATEGY Customer No.");
+                            RecLItemCrossReference.Validate("Cross-Reference Type No.", RecLInventorySetup."PWD STRATEGY Customer No.");
                             RecLItemCrossReference.Validate("Cross-Reference No.", 'NC');
                             RecLItemCrossReference.Insert();
                         end;
@@ -121,13 +123,13 @@ report 50029 "Create Item Config. from Item"
                                                       '',
                                                       Item."Base Unit of Measure",
                                                       RecLItemCrossReference."Cross-Reference Type"::Customer,
-                                                      RecLInventorySetup."LPSA Customer No.",
+                                                      RecLInventorySetup."PWD LPSA Customer No.",
                                                       'NC') then begin
                         RecLItemCrossReference.Init();
                         RecLItemCrossReference.Validate("Item No.", Item."No.");
                         RecLItemCrossReference.Validate("Unit of Measure", Item."Base Unit of Measure");
                         RecLItemCrossReference.Validate("Cross-Reference Type", RecLItemCrossReference."Cross-Reference Type"::Customer);
-                        RecLItemCrossReference.Validate("Cross-Reference Type No.", RecLInventorySetup."LPSA Customer No.");
+                        RecLItemCrossReference.Validate("Cross-Reference Type No.", RecLInventorySetup."PWD LPSA Customer No.");
                         RecLItemCrossReference.Validate("Cross-Reference No.", 'NC');
                         RecLItemCrossReference.Insert();
                     end;
@@ -170,8 +172,8 @@ report 50029 "Create Item Config. from Item"
     var
         RecGItemConfigurator: Record "PWD Item Configurator";
         CstG001: Label 'Merci de spécifier un code magasin pour le filtrage';
-        RecGFamilyLPSA: Record "Family LPSA";
-        RecGSubFamilyLPSA: Record "SubFamily LPSA";
+        RecGFamilyLPSA: Record "PWD Family LPSA";
+        RecGSubFamilyLPSA: Record "PWD SubFamily LPSA";
         BDialog: Dialog;
         IntGCounter: Integer;
 }

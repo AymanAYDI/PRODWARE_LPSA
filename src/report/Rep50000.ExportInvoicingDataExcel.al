@@ -18,7 +18,7 @@ report 50000 "Export Invoicing Data (Excel)"
     {
         dataitem(CrMemoHeaderNR; "Sales Cr.Memo Header")
         {
-            DataItemTableView = SORTING("No.") WHERE("Rolex Bienne" = CONST(false));
+            DataItemTableView = SORTING("No.") WHERE("PWD Rolex Bienne" = CONST(false));
             dataitem(CrMemoLineNR; "Sales Cr.Memo Line")
             {
                 DataItemLink = "Document No." = FIELD("No.");
@@ -166,7 +166,7 @@ report 50000 "Export Invoicing Data (Excel)"
         }
         dataitem(InvoiceHeaderNR; "Sales Invoice Header")
         {
-            DataItemTableView = SORTING("No.") WHERE("Rolex Bienne" = CONST(false));
+            DataItemTableView = SORTING("No.") WHERE("PWD Rolex Bienne" = CONST(false));
             dataitem(InvoiceLineNR; "Sales Invoice Line")
             {
                 DataItemLink = "Document No." = FIELD("No.");
@@ -278,7 +278,7 @@ report 50000 "Export Invoicing Data (Excel)"
         }
         dataitem(CrMemoHeaderRol; "Sales Cr.Memo Header")
         {
-            DataItemTableView = SORTING("No.") WHERE("Rolex Bienne" = CONST(true));
+            DataItemTableView = SORTING("No.") WHERE("PWD Rolex Bienne" = CONST(true));
             dataitem(CrMemoLineRol1; "Sales Cr.Memo Line")
             {
                 DataItemLink = "Document No." = FIELD("No.");
@@ -398,7 +398,7 @@ report 50000 "Export Invoicing Data (Excel)"
         }
         dataitem(InvoiceHeaderRol; "Sales Invoice Header")
         {
-            DataItemTableView = SORTING("No.") WHERE("Rolex Bienne" = CONST(true));
+            DataItemTableView = SORTING("No.") WHERE("PWD Rolex Bienne" = CONST(true));
             dataitem(InvoiceLineRol1; "Sales Invoice Line")
             {
                 DataItemLink = "Document No." = FIELD("No.");
@@ -551,7 +551,8 @@ report 50000 "Export Invoicing Data (Excel)"
                     field(TxtGFilename; TxtGFilename)
                     {
                         Caption = 'File Name';
-                        OptionCaption = 'File Name';
+                        //TODO: The property 'OptionCaption' can only be set if the property 'Type' is set to 'Option'
+                        //OptionCaption = 'File Name';
                         ShowCaption = false;
                         Visible = false;
                         ApplicationArea = All;
@@ -576,6 +577,7 @@ report 50000 "Export Invoicing Data (Excel)"
 
     trigger OnPreReport()
     var
+        //TODO: Codeunit '3-Tier Automation Mgt.' is missing
         ThreeTierMngt: Codeunit "3-Tier Automation Mgt.";
         ServerFile: File;
         TempFileName: Text[1024];
@@ -593,8 +595,8 @@ report 50000 "Export Invoicing Data (Excel)"
 
         RecGGenLedgerSetup.Get();
 
-
-        Create(Excel, true, true);
+        //TODO: The name 'Create' does not exist in the current context
+        //Create(Excel, true, true);
 
 
         if not IsServiceTier then begin
@@ -633,6 +635,7 @@ report 50000 "Export Invoicing Data (Excel)"
         CodGShipNoLine: Code[20];
         LastFieldNo: Integer;
         TxtGOurAccountNo: Text[20];
+        //TODO:The name 'Create' does not exist in the current context
         Excel: Automation;
         Book: Automation;
         Sheet: Automation;
@@ -747,6 +750,7 @@ report 50000 "Export Invoicing Data (Excel)"
 
     procedure Fct_CalcShortcutDim3(CodPDocNo: Code[20]; IntPLineNo: Integer; TxtPLineType: Text[2]): Code[20]
     var
+    //TODO:Table 'Posted Document Dimension' is missing
         RecLPostedDocDim: Record "Posted Document Dimension";
         CodLDimValueCode: Code[20];
         IntLTableNo: Integer;
