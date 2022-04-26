@@ -19,7 +19,7 @@ codeunit 8073304 "PWD FTP Messages Import/Export"
     trigger OnRun()
     var
         CduLFTPMgt: Codeunit "PWD FTP Management";
-        CduLFileManagement: Codeunit "File Management";
+        CduLFileManagement: Codeunit "PWD File Management";
     begin
         RecGPartner.Get("Partner Code");
         if not RecGPartner."FTP Active" then
@@ -39,7 +39,6 @@ codeunit 8073304 "PWD FTP Messages Import/Export"
                     TxtGErrorMessage := CduLFTPMgt.Fct_sPutFiles("FTP Filter File");
                     if TxtGErrorMessage <> '' then
                         Error(TxtGErrorMessage);
-                    //TODO: 'Codeunit "File Management"' does not contain a definition for 'FctDeleteFiles'    
                     CduLFileManagement.FctDeleteFiles(Rec, OptGFlowType)
                 end;
             Direction::Import:

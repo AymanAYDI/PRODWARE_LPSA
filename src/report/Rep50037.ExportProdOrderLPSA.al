@@ -16,7 +16,7 @@ report 50037 "PWD Export Prod Order LPSA"
     {
         dataitem("Prod. Order Line"; "Prod. Order Line")
         {
-            DataItemTableView = SORTING(Status, "Send to OSYS (Released)") WHERE(Status = FILTER(Released), "Send to OSYS (Released)" = FILTER(false), "Is Possible Item" = FILTER(false));
+            DataItemTableView = SORTING(Status, "Send to OSYS (Released)") WHERE(Status = FILTER(Released), "Send to OSYS (Released)" = FILTER(false), "PWD Is Possible Item" = FILTER(false));
             dataitem("Reservation Entry"; "Reservation Entry")
             {
                 DataItemLink = "Source ID" = FIELD("Prod. Order No."), "Source Prod. Order Line" = FIELD("Line No.");
@@ -30,7 +30,7 @@ report 50037 "PWD Export Prod Order LPSA"
                                                    "Reservation Entry"."Source ID",
                                                    "Reservation Entry"."Source Prod. Order Line",
                                                    "Reservation Entry"."Source Ref. No.");
-                        if not RecGProdOrderComponent."Lot Determining" then CurrReport.Skip();
+                        if not RecGProdOrderComponent."PWD Lot Determining" then CurrReport.Skip();
                         BooGLotDetermined := true;
                     end;
 
@@ -102,7 +102,7 @@ report 50037 "PWD Export Prod Order LPSA"
                     OutStreamGlobal.WriteText(';');
 
                     //Colonne N
-                    OutStreamGlobal.WriteText("Prod. Order Line"."Manufacturing Code");
+                    OutStreamGlobal.WriteText("Prod. Order Line"."PWD Manufacturing Code");
                     OutStreamGlobal.WriteText(';');
 
                     //Colonne O
@@ -287,7 +287,7 @@ report 50037 "PWD Export Prod Order LPSA"
                     OutStreamGlobal.WriteText(';');
 
                     //Colonne N
-                    OutStreamGlobal.WriteText("Prod. Order Line"."Manufacturing Code");
+                    OutStreamGlobal.WriteText("Prod. Order Line"."PWD Manufacturing Code");
                     OutStreamGlobal.WriteText(';');
 
                     //Colonne O
@@ -311,6 +311,7 @@ report 50037 "PWD Export Prod Order LPSA"
                     OutStreamGlobal.WriteText(';');
 
                     //Colonne T
+                    //TODO: 'Record "Prod. Order Routing Line"' does not contain a definition for 'Planned Ress. No.' and 'Planned Ress. Type'
                     if ("Prod. Order Routing Line"."Planned Ress. No." <> '') and RecGOSYSSetup.PlannerOne and FctPlannerOnePermission() then begin
                         IntGTempField := "Prod. Order Routing Line"."Planned Ress. Type";
                         OutStreamGlobal.WriteText(Format(IntGTempField));
@@ -326,6 +327,7 @@ report 50037 "PWD Export Prod Order LPSA"
                     OutStreamGlobal.WriteText(';');
 
                     //Colonne V
+                    //TODO: 'Record "Prod. Order Routing Line"' does not contain a definition for 'Planned Ress. No.', 'Planned Ress. Type' and 'Planned Ress. Type'
                     if ("Prod. Order Routing Line"."Planned Ress. No." <> '') and RecGOSYSSetup.PlannerOne and FctPlannerOnePermission() then begin
                         if "Prod. Order Routing Line"."Planned Ress. Type" = "Prod. Order Routing Line"."Planned Ress. Type"::"Machine Center" then
                             OutStreamGlobal.WriteText("Prod. Order Routing Line"."Planned Ress. No.")
@@ -424,7 +426,7 @@ report 50037 "PWD Export Prod Order LPSA"
             dataitem("Prod. Order Component"; "Prod. Order Component")
             {
                 DataItemLink = Status = FIELD(Status), "Prod. Order No." = FIELD("Prod. Order No."), "Prod. Order Line No." = FIELD("Line No.");
-                DataItemTableView = WHERE("Lot Determining" = FILTER(false));
+                DataItemTableView = WHERE("PWD Lot Determining" = FILTER(false));
                 dataitem(ReservationEntryComponent; "Reservation Entry")
                 {
                     DataItemLink = "Source ID" = FIELD("Prod. Order No."), "Source Prod. Order Line" = FIELD("Prod. Order Line No."), "Source Ref. No." = FIELD("Line No.");
@@ -500,7 +502,7 @@ report 50037 "PWD Export Prod Order LPSA"
                         OutStreamGlobal.WriteText(';');
 
                         //Colonne N
-                        OutStreamGlobal.WriteText("Prod. Order Line"."Manufacturing Code");
+                        OutStreamGlobal.WriteText("Prod. Order Line"."PWD Manufacturing Code");
                         OutStreamGlobal.WriteText(';');
 
                         //Colonne O
@@ -686,7 +688,7 @@ report 50037 "PWD Export Prod Order LPSA"
                     OutStreamGlobal.WriteText(';');
 
                     //Colonne N
-                    OutStreamGlobal.WriteText("Prod. Order Line"."Manufacturing Code");
+                    OutStreamGlobal.WriteText("Prod. Order Line"."PWD Manufacturing Code");
                     OutStreamGlobal.WriteText(';');
 
                     //Colonne O
@@ -871,7 +873,7 @@ report 50037 "PWD Export Prod Order LPSA"
                 OutStreamGlobal.WriteText(';');
 
                 //Colonne N
-                OutStreamGlobal.WriteText("Prod. Order Line"."Manufacturing Code");
+                OutStreamGlobal.WriteText("Prod. Order Line"."PWD Manufacturing Code");
                 OutStreamGlobal.WriteText(';');
 
                 //Colonne O
@@ -984,8 +986,7 @@ report 50037 "PWD Export Prod Order LPSA"
             trigger OnPreDataItem()
             begin
                 RecGOSYSSetup.Get();
-
-                RecGTempBlob.Blob.CreateOutStream(OutStreamGlobal);
+                RecGTempBlob.CreateOutStream(OutStreamGlobal);
             end;
         }
     }
@@ -1012,12 +1013,12 @@ report 50037 "PWD Export Prod Order LPSA"
         RecGProductionOrder: Record "Production Order";
         RecGProdOrderRtngCommLine: Record "Prod. Order Rtng Comment Line";
         RecGProdOrderRoutingLine: Record "Prod. Order Routing Line";
-        RecGTempBlob: Record TempBlob;
+        RecGTempBlob: Codeunit "Temp Blob";
         RecGProdOrderComponent: Record "Prod. Order Component";
         OutStreamGlobal: OutStream;
         IntGOperation: Integer;
         IntGTempField: Integer;
-        CduGConvertAsciiToAnsi: Codeunit "Convert Ascii To Ansi";
+        CduGConvertAsciiToAnsi: Codeunit "PWD Convert Ascii To Ansi";
         TxtGRoutingNo: Text[30];
         TxtGSearchDescription: Text[50];
         BooGLotDetermined: Boolean;
@@ -1025,9 +1026,10 @@ report 50037 "PWD Export Prod Order LPSA"
 
     procedure FctPlannerOnePermission(): Boolean
     var
-        RecLPlannerOne: Record PlannerOneIntegrationRecord;
+    //TODO: Table 'PlannerOneIntegrationRecord' is missing
+    //RecLPlannerOne: Record PlannerOneIntegrationRecord;
     begin
-        exit(RecLPlannerOne.ReadPermission);
+        //exit(RecLPlannerOne.ReadPermission);
     end;
 
 
@@ -1037,17 +1039,16 @@ report 50037 "PWD Export Prod Order LPSA"
     begin
         RecLProdOrderLine.SetCurrentKey(Status, "Send to OSYS (Released)");
         RecLProdOrderLine.SetRange(Status, RecLProdOrderLine.Status::Released);
-        RecLProdOrderLine.SetRange("Is Possible Item", false);
+        RecLProdOrderLine.SetRange("PWD Is Possible Item", false);
         if not RecGOSYSSetup.PlannerOne then
             RecLProdOrderLine.SetRange("Send to OSYS (Released)", false);
 
         exit(not RecLProdOrderLine.IsEmpty);
     end;
 
-
-    procedure FctGetBlob(var RecPTempBlob: Record TempBlob temporary)
+    procedure FctGetBlob(var TempBlob: Codeunit "Temp Blob")
     begin
-        RecPTempBlob := RecGTempBlob;
+        TempBlob := RecGTempBlob;
     end;
 }
 

@@ -37,7 +37,7 @@ codeunit 8073287 "Connector Buffer Mgt Export"
     end;
 
     var
-        CduGFileManagement: Codeunit "File Management"; //TODO: Le CodeUnit "File Management" à le numero 8073294 dans l'ancienne version et 419 la cette version mais il n'ont pas les memes fonctions
+        CduGFileManagement: Codeunit "PWD File Management";
         CduGConnectFieldsMgt: Codeunit "Connector Fields Management";
         IntGNbPosition: Integer;
         CstG001: Label 'The field %1 of the table %2 is too long to be export for this partner. Record %3 value : %4. The maximum lenght is %5.';
@@ -45,7 +45,7 @@ codeunit 8073287 "Connector Buffer Mgt Export"
         IntGConnectorValue: Integer;
         BooGError: Boolean;
 
-    procedure FctCreateXml(TxtPFilters: Text[1024]; RecPSendingMessage: Record "PWD Connector Messages"; var RecPTempBlob: Record TempBlob temporary; BooLInsertXMLHeader: Boolean)//TODO: Record TempBlob n'existe pas dans la nouvelle version
+    procedure FctCreateXml(TxtPFilters: Text[1024]; RecPSendingMessage: Record "PWD Connector Messages"; var TempBlob: Codeunit "Temp Blob"; BooLInsertXMLHeader: Boolean)
     var
         AutLXMLDom: Automation; //TODO: Type Automation n'existe pas dans la nouvelle version
         AutLXMLDomElement: Automation;//TODO: Type Automation n'existe pas dans la nouvelle version
@@ -251,13 +251,13 @@ codeunit 8073287 "Connector Buffer Mgt Export"
         END;
 
         RecLRecRef2.CLOSE();
-        RecPTempBlob.Blob.CREATEOUTSTREAM(OusLStream);
+        TempBlob.CREATEOUTSTREAM(OusLStream);
         AutLXMLDom.save(OusLStream);
 
     end;
 
 
-    procedure FctCreateSeparator(TxtPFilters: Text[1024]; RecPSendingMessage: Record "PWD Connector Messages"; var RecPTempBlob: Record TempBlob temporary)
+    procedure FctCreateSeparator(TxtPFilters: Text[1024]; RecPSendingMessage: Record "PWD Connector Messages"; var TempBlob: Codeunit "Temp Blob")
     var
         RecLPartnerConnector: Record "PWD Partner Connector";
         RecLFieldsExportSetup: Record "PWD Fields Export Setup";
@@ -451,7 +451,7 @@ codeunit 8073287 "Connector Buffer Mgt Export"
         IF BigTLBigTextToReturn.LENGTH <> 0 THEN BEGIN
             //<<WMS-FE10.001
 
-            RecPTempBlob.Blob.CREATEOUTSTREAM(OusLStream);
+            TempBlob.CREATEOUTSTREAM(OusLStream);
             BigTLBigTextToReturn.WRITE(OusLStream);
 
             //>>WMS-FE10.001
@@ -781,11 +781,11 @@ codeunit 8073287 "Connector Buffer Mgt Export"
     end;
 
 
-    procedure FctGenerateBlob(BigTPToTransform: BigText; var RecPTempBlob: Record TempBlob temporary)
+    procedure FctGenerateBlob(BigTPToTransform: BigText; var TempBlob: Codeunit "Temp Blob")
     var
         OusLStream: OutStream;
     begin
-        RecPTempBlob.Blob.CREATEOUTSTREAM(OusLStream);
+        TempBlob.CREATEOUTSTREAM(OusLStream);
         BigTPToTransform.WRITE(OusLStream);
     end;
 
@@ -982,7 +982,7 @@ codeunit 8073287 "Connector Buffer Mgt Export"
     end;
 
 
-    procedure FctCreateFileWithPosition(TxtPFilters: Text[1024]; RecPSendingMessage: Record "PWD Connector Messages"; var RecPTempBlob: Record TempBlob temporary)
+    procedure FctCreateFileWithPosition(TxtPFilters: Text[1024]; RecPSendingMessage: Record "PWD Connector Messages"; var TempBlob: Codeunit "Temp Blob")
     var
         RecLPartnerConnector: Record "PWD Partner Connector";
         RecLFieldsExportSetup: Record "PWD Fields Export Setup";
@@ -1072,7 +1072,7 @@ codeunit 8073287 "Connector Buffer Mgt Export"
 
         RecLRecRef.CLOSE();
 
-        RecPTempBlob.Blob.CREATEOUTSTREAM(OusLStream);
+        TempBlob.CREATEOUTSTREAM(OusLStream);
         BigTLBigTextToReturn.WRITE(OusLStream);
     end;
 }

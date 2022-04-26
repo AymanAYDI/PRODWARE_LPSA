@@ -20,15 +20,13 @@ codeunit 8073295 "PWD Connector Pim Parse Data"
 
     trigger OnRun()
     var
-    //TODO: Table 'TempBlob' is removed
-        RecLTempBlob: Record TempBlob temporary;
+        TempBlob: Codeunit "Temp Blob";
         RecLPartnerConnector: Record "PWD Partner Connector";
         RecLConnectorValues: Record "PWD Connector Values";
         BigTLToReturn: BigText;
-        //TODO: Codeunit 'Buffer Management' is missing
-        CduLBufferMgt: Codeunit "Buffer Management";
+        CduLBufferMgt: Codeunit "PWD Buffer Management";
         InLStream: InStream;
-        CduLFileManagement: Codeunit "File Management";
+        CduLFileManagement: Codeunit "PWD File Management";
         TxtLFile: Text[1024];
         BooLResult: Boolean;
         RecLConnectorMessages: Record "PWD Connector Messages";
@@ -42,22 +40,22 @@ codeunit 8073295 "PWD Connector Pim Parse Data"
         case "Function" of
             'GETCUSTOMER':
                 begin
-                    FctGetCustomerWithSep('', RecLConnectorMessages, RecLTempBlob);
+                    FctGetCustomerWithSep('', RecLConnectorMessages, TempBlob);
                     RecLPartnerConnector."Data Format" := RecLPartnerConnector."Data Format"::"with separator";
                 end;
             else
                 case RecLPartnerConnector."Data Format" of
                     RecLPartnerConnector."Data Format"::Xml:
-                        CduGConBufMgtExport.FctCreateXml('', RecLConnectorMessages, RecLTempBlob, true);
+                        CduGConBufMgtExport.FctCreateXml('', RecLConnectorMessages, TempBlob, true);
                     RecLPartnerConnector."Data Format"::"with separator":
-                        CduGConBufMgtExport.FctCreateSeparator('', RecLConnectorMessages, RecLTempBlob);
+                        CduGConBufMgtExport.FctCreateSeparator('', RecLConnectorMessages, TempBlob);
                 end;
 
         end;
-
-        RecLTempBlob.CalcFields(Blob);
-        if RecLTempBlob.Blob.HasValue then begin
-            RecLTempBlob.Blob.CreateInStream(InLStream);
+        //TODO: 'Codeunit "Temp Blob"' does not contain a definition for 'CalcFields'
+        //TempBlob.CalcFields(Blob);
+        if TempBlob.HasValue then begin
+            TempBlob.CreateInStream(InLStream);
             IntGSequenceNo := CduLBufferMgt.FctCreateBufferValues(InLStream, "Partner Code", '',
                                                                   RecLConnectorMessages.Code, RecLPartnerConnector."Data Format",
                                                                   RecLPartnerConnector.Separator, 1, "Entry No.", RecLConnectorMessages.Code);
@@ -95,7 +93,7 @@ codeunit 8073295 "PWD Connector Pim Parse Data"
         IntGSequenceNo: Integer;
 
 
-    procedure FctGetCustomerWithSep(TxtPFilters: Text[1024]; RecPSendingMessage: Record "PWD Connector Messages"; var RecPTempBlob: Record TempBlob temporary)
+    procedure FctGetCustomerWithSep(TxtPFilters: Text[1024]; RecPSendingMessage: Record "PWD Connector Messages"; var TempBlob: Codeunit "Temp Blob")
     var
         RecLPartnerConnector: Record "PWD Partner Connector";
         ChrL10: Char;
@@ -225,7 +223,7 @@ codeunit 8073295 "PWD Connector Pim Parse Data"
             end;
         end;
 
-        RecPTempBlob.Blob.CreateOutStream(OusLStream);
+        TempBlob.CreateOutStream(OusLStream);
         BigTLBigTextToReturn.Write(OusLStream);
     end;
 }

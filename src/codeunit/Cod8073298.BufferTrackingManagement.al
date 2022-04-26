@@ -282,9 +282,9 @@ codeunit 8073298 "PWD Buffer Tracking Management"
                       OldTrackingSpecification."Source Prod. Order Line",
                       OldTrackingSpecification."Source Ref. No.",
                       OldTrackingSpecification."Qty. per Unit of Measure",
-                      OldTrackingSpecification."Quantity (Base)",
-                      OldTrackingSpecification."Serial No.",
-                      OldTrackingSpecification."Lot No.");
+                      OldTrackingSpecification."Qty. to Handle",
+                      OldTrackingSpecification."Qty. to Handle (Base)",
+                      ReservEntry1);
                     CreateReservEntry.CreateEntry(OldTrackingSpecification."Item No.",
                       OldTrackingSpecification."Variant Code",
                       OldTrackingSpecification."Location Code",

@@ -57,14 +57,13 @@ codeunit 8073320 "Connector Sabatier Parse Data"
 
     procedure FctProcessExport(RecPConnectorMessages: Record "PWD Connector Messages")
     var
-        //TODO: Table 'TempBlob' is removed
-        RecLTempBlob: Record TempBlob temporary;
+        TempBlob: Codeunit "Temp Blob";
         RecLPartnerConnector: Record "PWD Partner Connector";
         RecLConnectorValues: Record "PWD Connector Values";
         BigTLToReturn: BigText;
         CduLBufferMgt: Codeunit "PWD Buffer Management";
         InLStream: InStream;
-        CduLFileManagement: Codeunit "File Management";
+        CduLFileManagement: Codeunit "PWD File Management";
         TxtLFile: Text[1024];
         BooLResult: Boolean;
         RecLRef: RecordRef;
@@ -77,19 +76,19 @@ codeunit 8073320 "Connector Sabatier Parse Data"
 
         CASE RecPConnectorMessages."Function" OF
             'CONTACT':
-                FctGetContactXML(RecPConnectorMessages, RecLTempBlob);
+                FctGetContactXML(RecPConnectorMessages, TempBlob);
             ELSE
                 CASE RecLPartnerConnector."Data Format" OF
                     RecLPartnerConnector."Data Format"::Xml:
-                        CduGConnectBufMgtExport.FctCreateXml(RecLRef.GETVIEW(), RecPConnectorMessages, RecLTempBlob, TRUE);
+                        CduGConnectBufMgtExport.FctCreateXml(RecLRef.GETVIEW(), RecPConnectorMessages, TempBlob, TRUE);
                     RecLPartnerConnector."Data Format"::"with separator":
-                        CduGConnectBufMgtExport.FctCreateSeparator(RecLRef.GETVIEW(), RecPConnectorMessages, RecLTempBlob);
+                        CduGConnectBufMgtExport.FctCreateSeparator(RecLRef.GETVIEW(), RecPConnectorMessages, TempBlob);
                 END;
         END;
-
-        RecLTempBlob.CALCFIELDS(Blob);
-        IF RecLTempBlob.Blob.HASVALUE THEN BEGIN
-            RecLTempBlob.Blob.CREATEINSTREAM(InLStream);
+        //TODO:'Codeunit "Temp Blob"' does not contain a definition for 'CALCFIELDS'
+        //TempBlob.CALCFIELDS(Blob);
+        IF TempBlob.HASVALUE THEN BEGIN
+            TempBlob.CREATEINSTREAM(InLStream);
             IntGSequenceNo := CduLBufferMgt.FctCreateBufferValues(InLStream, RecPConnectorMessages."Partner Code", '',
                                                                   RecPConnectorMessages.Code,
                                                                   RecLPartnerConnector."Data Format"::Xml,
@@ -121,13 +120,13 @@ codeunit 8073320 "Connector Sabatier Parse Data"
     end;
 
 
-    procedure FctGetContactXML(RecPConnectorMes: Record "PWD Connector Messages"; var RecPTempBlob: Record TempBlob temporary)
+    procedure FctGetContactXML(RecPConnectorMes: Record "PWD Connector Messages"; var TempBlob: Codeunit "Temp Blob")
     var
         XmlLExportContactSabatier: XMLport "PWD Export Contact Sabatier";
         OutLStream: OutStream;
     begin
         CLEAR(XmlLExportContactSabatier);
-        RecPTempBlob.Blob.CREATEOUTSTREAM(OutLStream);
+        TempBlob.CREATEOUTSTREAM(OutLStream);
         XmlLExportContactSabatier.SETDESTINATION(OutLStream);
         XmlLExportContactSabatier.EXPORT();
     end;

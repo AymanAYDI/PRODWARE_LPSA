@@ -205,7 +205,7 @@ report 50038 "PWD Inventory Valuation Excel"
 
             trigger OnAfterGetRecord()
             begin
-                CalcFields("Bill of Materials");
+                CalcFields("Assembly BOM");
                 InvandShipDiffer := false;
                 //>>LAP2.12
                 if BooGExportExcel then begin
@@ -222,9 +222,10 @@ report 50038 "PWD Inventory Valuation Excel"
                 //>>LAP2.12
                 if BooGExportExcel then begin
                     Bdialog.Close();
-                    ExcelBuf.CreateBook;
-                    ExcelBuf.CreateSheet(CstG006, CstG006, CompanyName, UserId);
-                    ExcelBuf.GiveUserControl;
+                    //TODO: There is no argument given that corresponds to the required formal parameter 'FileName' of 'CreateBook(Text, Text)'
+                    // ExcelBuf.CreateBook;
+                    ExcelBuf.WriteSheet(CstG006, CompanyName, UserId);
+                    ExcelBuf.OpenExcel;
                     Error('');
                 end;
                 //<<LAP2.12
@@ -357,8 +358,6 @@ report 50038 "PWD Inventory Valuation Excel"
         ExpCostPostedToGL: Decimal;
         InvandShipDiffer: Boolean;
         IsPositive: Boolean;
-        "---- LAP2.12 ----": ;
-        "--- LAP2.12 ---": Integer;
         BooGExportExcel: Boolean;
         CstG001: Label 'Input (LCY)';
         CstG002: Label 'Output (LCY)';
