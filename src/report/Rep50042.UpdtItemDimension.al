@@ -38,16 +38,16 @@ report 50042 "PWD Updt Item - Dimension"
                 DiagWindows.Update(2, "No.");
 
                 "Item Category Code" := RecGItemCategory.Code;
-                "Product Group Code" := CodGGroupCode;
+                //"Product Group Code" := CodGGroupCode;
                 Modify();
 
                 RecGProductGroup.Get(RecGItemCategory.Code, CodGGroupCode);
 
                 CduGClosingMgt.UpdateDimValue(DATABASE::"Item Category", RecGItemCategory.Code, RecGItemCategory.Description);
-                CduGClosingMgt.UpdateDimValue(DATABASE::"Product Group", RecGProductGroup.Code, RecGProductGroup.Description);
+                CduGClosingMgt.UpdateDimValue(DATABASE::"Product Group", RecGProductGroup.Code, RecGProductGroup.Description); //TODO: La table Product Group n'exist pas dans la nouvelle version
 
                 CduGClosingMgt.UpdtItemDimValue(DATABASE::"Item Category", "No.", "Item Category Code");
-                CduGClosingMgt.UpdtItemDimValue(DATABASE::"Product Group", "No.", "Product Group Code");
+                CduGClosingMgt.UpdtItemDimValue(DATABASE::"Product Group", "No.", "Product Group Code");//TODO: La table Product Group n'exist pas dans la nouvelle version
 
                 // Mise à jour Sales Line
                 RecLSalesLine.SetRange(Type, RecLSalesLine.Type::Item);
@@ -58,7 +58,7 @@ report 50042 "PWD Updt Item - Dimension"
                         DiagWindows.Update(2, RecLSalesLine."No.");
 
                         RecLSalesLine."Item Category Code" := Item."Item Category Code";
-                        RecLSalesLine."Product Group Code" := Item."Product Group Code";
+                        //RecLSalesLine."Product Group Code" := Item."Product Group Code";
                         RecLSalesLine.Modify();
                     until RecLSalesLine.Next() = 0;
 
@@ -71,7 +71,7 @@ report 50042 "PWD Updt Item - Dimension"
                         DiagWindows.Update(2, RecLPurchLine."Document No.");
 
                         RecLPurchLine."Item Category Code" := Item."Item Category Code";
-                        RecLPurchLine."Product Group Code" := Item."Product Group Code";
+                        //RecLPurchLine."Product Group Code" := Item."Product Group Code";
                         RecLPurchLine.Modify();
                     until RecLPurchLine.Next() = 0;
 
@@ -83,7 +83,7 @@ report 50042 "PWD Updt Item - Dimension"
                         DiagWindows.Update(2, "No.");
 
                         RecLItemJnlLine."Item Category Code" := Item."Item Category Code";
-                        RecLItemJnlLine."Product Group Code" := Item."Product Group Code";
+                        //RecLItemJnlLine."Product Group Code" := Item."Product Group Code";
                         RecLItemJnlLine.Modify();
                     until RecLItemJnlLine.Next() = 0;
 
@@ -96,7 +96,7 @@ report 50042 "PWD Updt Item - Dimension"
                         DiagWindows.Update(2, "No.");
 
                         RecLRequisitionLine."Item Category Code" := Item."Item Category Code";
-                        RecLRequisitionLine."Product Group Code" := Item."Product Group Code";
+                        //RecLRequisitionLine."Product Group Code" := Item."Product Group Code";
                         RecLRequisitionLine.Modify();
                     until RecLRequisitionLine.Next() = 0;
 
@@ -108,7 +108,7 @@ report 50042 "PWD Updt Item - Dimension"
                         DiagWindows.Update(2, RecLTransferLine."Document No.");
 
                         RecLTransferLine."Item Category Code" := Item."Item Category Code";
-                        RecLTransferLine."Product Group Code" := Item."Product Group Code";
+                        //RecLTransferLine."Product Group Code" := Item."Product Group Code";
                         RecLTransferLine.Modify();
                     until RecLTransferLine.Next() = 0;
 
@@ -132,7 +132,7 @@ report 50042 "PWD Updt Item - Dimension"
                         DiagWindows.Update(2, "No.");
 
                         RecLItemConfiguration."Item Category Code" := Item."Item Category Code";
-                        RecLItemConfiguration."Product Group Code" := Item."Product Group Code";
+                        //RecLItemConfiguration."Product Group Code" := Item."Product Group Code";
                         RecLItemConfiguration.Modify();
                     until RecLManufacturingCycles.Next = 0;
             end;

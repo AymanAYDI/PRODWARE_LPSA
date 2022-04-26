@@ -66,7 +66,7 @@ report 50046 "PWD TPL Supp Centre de charge"
                         ApplicationArea = All;
                         trigger OnLookup(var Text: Text): Boolean
                         var
-                            CduGCommonDialogMgt: CodeUnit "Common Dialog Management";//TODO: Codeunit n'existe pas(code standard dans la version 2009)
+                            CduLCommonDialogMgt: CodeUnit "Common Dialog Management";//TODO: Codeunit n'existe pas(code standard dans la version 2009)
                         begin
                             TxtGFile := CduLCommonDialogMgt.OpenFile('Fichier à importer', TxtGFile, 1, 'Filter', 0);
                         end;
