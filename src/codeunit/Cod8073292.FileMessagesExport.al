@@ -30,13 +30,13 @@ codeunit 8073292 "PWD File Messages Export"
 
     trigger OnRun()
     var
-        RecLTempBlob: Record TempBlob temporary;
+        RecLTempBlob: Codeunit "Temp Blob";
         RecLPartnerConnector: Record "PWD Partner Connector";
         RecLConnectorValues: Record "PWD Connector Values";
         BigTLToReturn: BigText;
         CduLBufferMgt: Codeunit "PWD Buffer Management";
         InLStream: InStream;
-        CduLFileManagement: Codeunit "File Management";
+        CduLFileManagement: Codeunit "PWD File Management";
         TxtLFile: Text[1024];
         BooLResult: Boolean;
         CduLConnecPimParseData: Codeunit "PWD Connector Pim Parse Data";
@@ -113,10 +113,10 @@ codeunit 8073292 "PWD File Messages Export"
                 end;
 
         end;
-
-        RecLTempBlob.CalcFields(Blob);
-        if RecLTempBlob.Blob.HasValue then begin
-            RecLTempBlob.Blob.CreateInStream(InLStream);
+        //TODO:'Codeunit "Temp Blob"' does not contain a definition for 'CalcFields'
+        //RecLTempBlob.CalcFields(Blob);
+        if RecLTempBlob.HasValue then begin
+            RecLTempBlob.CreateInStream(InLStream);
             IntGSequenceNo := CduLBufferMgt.FctCreateBufferValues(InLStream, "Partner Code", '', Code,
                                                                   RecLPartnerConnector."Data Format"::Xml,
                                                                   RecLPartnerConnector.Separator, 1, 0, Code);

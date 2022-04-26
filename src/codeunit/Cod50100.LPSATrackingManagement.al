@@ -799,7 +799,7 @@ codeunit 50100 "PWD LPSA Tracking Management"
                       NewTrackingSpecification."Warranty Date", NewTrackingSpecification."Expiration Date");
                     CreateReservEntry.SetApplyFromEntryNo(
                       NewTrackingSpecification."Appl.-from Item Entry");
-                      CreateReservEntry.SetApplyToEntryNo(NewTrackingSpecification."Appl.-to Item Entry");
+                    CreateReservEntry.SetApplyToEntryNo(NewTrackingSpecification."Appl.-to Item Entry");
                     ReservEntry1.CopyTrackingFromSpec(OldTrackingSpecification);
                     CreateReservEntry.CreateReservEntryFor(
                       OldTrackingSpecification."Source Type",

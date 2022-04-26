@@ -14,10 +14,9 @@ codeunit 8073302 "Transform Import Files To Blob"
 
     trigger OnRun()
     var
-        CduLFileManagement: Codeunit "File Management";
+        CduLFileManagement: Codeunit "PWD File Management";
         TxtLFileFound: Text[1024];
-        //TODO: Codeunit 'Buffer Management' is missing
-        CduLBufferMgt: Codeunit "Buffer Management";
+        CduLBufferMgt: Codeunit "PWD Buffer Management";
         IntLSequenceNo: Integer;
         TxtLFilePathName: Text[250];
         RecLPartnerConnector: Record "PWD Partner Connector";

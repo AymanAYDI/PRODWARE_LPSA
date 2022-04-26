@@ -540,8 +540,8 @@ report 50032 "PWD Updt with New Dimension"
 
     procedure UpdtLdgrEntryDimension(TableNo: Integer; EntryNo: Integer)
     var
-        //LdgrEntryDimension: Record "Ledger Entry Dimension";
-                    DimSetEntry: Record "Dimension Set Entry";
+        LdgrEntryDimension: Record "Ledger Entry Dimension";
+        //DimSetEntry: Record "Dimension Set Entry";
     begin
         LdgrEntryDimension."Table ID" := TableNo;
         LdgrEntryDimension."Entry No." := EntryNo;

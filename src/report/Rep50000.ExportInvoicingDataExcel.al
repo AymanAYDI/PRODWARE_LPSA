@@ -551,8 +551,6 @@ report 50000 "Export Invoicing Data (Excel)"
                     field(TxtGFilename; TxtGFilename)
                     {
                         Caption = 'File Name';
-                        //TODO: The property 'OptionCaption' can only be set if the property 'Type' is set to 'Option'
-                        //OptionCaption = 'File Name';
                         ShowCaption = false;
                         Visible = false;
                         ApplicationArea = All;
@@ -750,7 +748,7 @@ report 50000 "Export Invoicing Data (Excel)"
 
     procedure Fct_CalcShortcutDim3(CodPDocNo: Code[20]; IntPLineNo: Integer; TxtPLineType: Text[2]): Code[20]
     var
-    //TODO:Table 'Posted Document Dimension' is missing
+        //TODO:Table 'Posted Document Dimension' is missing
         RecLPostedDocDim: Record "Posted Document Dimension";
         CodLDimValueCode: Code[20];
         IntLTableNo: Integer;

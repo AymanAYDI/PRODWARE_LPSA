@@ -1,7 +1,8 @@
 {
     "al.assemblyProbingPaths": [
         "./.netpackages",
-        "C:/Program Files/Assemblies"
+        "C:/Program Files/Assemblies",
+        "C:/Program Files/Microsoft Dynamics 365 Business Central/190/Service/Add-ins"
     ],
     "al.backgroundCodeAnalysis": true,
     "al.codeAnalyzers": [

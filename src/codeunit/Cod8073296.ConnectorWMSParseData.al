@@ -103,15 +103,13 @@ codeunit 8073296 "PWD Connector WMS Parse Data"
 
     procedure FctProcessExport(RecPConnectorMessages: Record "PWD Connector Messages")
     var
-    //TODO: Table 'TempBlob' is removed
-        RecLTempBlob: Record TempBlob temporary;
+        TempBlob: Codeunit "Temp Blob";
         RecLPartnerConnector: Record "PWD Partner Connector";
         RecLConnectorValues: Record "PWD Connector Values";
         BigTLToReturn: BigText;
-        //TODO:Codeunit 'Buffer Management' is missing
-        CduLBufferMgt: Codeunit "Buffer Management";
+        CduLBufferMgt: Codeunit "PWD Buffer Management";
         InLStream: InStream;
-        CduLFileManagement: Codeunit "File Management";
+        CduLFileManagement: Codeunit "PWD File Management";
         TxtLFile: Text[1024];
         BooLResult: Boolean;
         RecLConnectorsActivation: Record "PWD WMS Setup";
@@ -124,31 +122,31 @@ codeunit 8073296 "PWD Connector WMS Parse Data"
 
         case RecPConnectorMessages."Function" of
             'PWAGETITEM':
-                FctGetItemFilePos(RecPConnectorMessages, RecLTempBlob);
+                FctGetItemFilePos(RecPConnectorMessages, TempBlob);
             'PWAGETVENDORDER':
-                FctGetVendOrderFilePos(RecPConnectorMessages, RecLTempBlob);
+                FctGetVendOrderFilePos(RecPConnectorMessages, TempBlob);
             'PWAGETCUSTORDER':
-                FctGetCustOrderFilePos(RecPConnectorMessages, RecLTempBlob);
+                FctGetCustOrderFilePos(RecPConnectorMessages, TempBlob);
             'PWAGETADDRESS':
-                FctGetAddressFilePos(RecPConnectorMessages, RecLTempBlob);
+                FctGetAddressFilePos(RecPConnectorMessages, TempBlob);
             'PWAUNITLOG':
-                FctGetLogisticUnitsFilePos(RecPConnectorMessages, RecLTempBlob);
+                FctGetLogisticUnitsFilePos(RecPConnectorMessages, TempBlob);
             'PWAGETKITMGT':
-                FctGetKitMgtFilePos(RecPConnectorMessages, RecLTempBlob);
+                FctGetKitMgtFilePos(RecPConnectorMessages, TempBlob);
             'PWACREATECUSTSHIP':
-                FctCreateCustShipFilePos(RecPConnectorMessages, RecLTempBlob);
+                FctCreateCustShipFilePos(RecPConnectorMessages, TempBlob);
             else
                 case RecLPartnerConnector."Data Format" of
                     RecLPartnerConnector."Data Format"::Xml:
-                        CduGConnectBufMgtExport.FctCreateXml('', RecPConnectorMessages, RecLTempBlob, true);
+                        CduGConnectBufMgtExport.FctCreateXml('', RecPConnectorMessages, TempBlob, true);
                     RecLPartnerConnector."Data Format"::"with separator":
-                        CduGConnectBufMgtExport.FctCreateSeparator('', RecPConnectorMessages, RecLTempBlob);
+                        CduGConnectBufMgtExport.FctCreateSeparator('', RecPConnectorMessages, TempBlob);
                 end;
         end;
-
-        RecLTempBlob.CalcFields(Blob);
-        if RecLTempBlob.Blob.HasValue then begin
-            RecLTempBlob.Blob.CreateInStream(InLStream);
+        //TODO:'Codeunit "Temp Blob"' does not contain a definition for 'CalcFields'
+        //TempBlob.CalcFields(Blob);
+        if TempBlob.HasValue then begin
+            TempBlob.CreateInStream(InLStream);
             IntGSequenceNo := CduLBufferMgt.FctCreateBufferValues(InLStream, RecPConnectorMessages."Partner Code", '',
                                                                   RecPConnectorMessages."Function",
                                                                   RecLPartnerConnector."Data Format"::Xml,
@@ -185,7 +183,7 @@ codeunit 8073296 "PWD Connector WMS Parse Data"
     end;
 
 
-    procedure FctGetItemFilePos(RecPConnectorMes: Record "PWD Connector Messages"; var RecPTempBlob: Record TempBlob temporary)
+    procedure FctGetItemFilePos(RecPConnectorMes: Record "PWD Connector Messages"; var TempBlob: Codeunit "Temp Blob")
     var
         RecLItem: Record Item;
         RecLItemForCrossRef: Record Item;
@@ -374,12 +372,12 @@ codeunit 8073296 "PWD Connector WMS Parse Data"
 
             //Génération du blog avec le bigText mergé
             if BigTGFinal.Length <> 0 then
-                CduGConnectBufMgtExport.FctGenerateBlob(BigTGFinal, RecPTempBlob);
+                CduGConnectBufMgtExport.FctGenerateBlob(BigTGFinal, TempBlob);
         end;
     end;
 
 
-    procedure FctGetVendOrderFilePos(RecPConnectorMes: Record "PWD Connector Messages"; var RecPTempBlob: Record TempBlob temporary)
+    procedure FctGetVendOrderFilePos(RecPConnectorMes: Record "PWD Connector Messages"; var TempBlob: Codeunit "Temp Blob")
     var
         RecLPurchaseLine: Record "Purchase Line";
         RecLPurchaseHeader: Record "Purchase Header";
@@ -538,7 +536,7 @@ codeunit 8073296 "PWD Connector WMS Parse Data"
 
             //Génération du blog avec le bigText mergé
             if BigTGFinal.Length <> 0 then
-                CduGConnectBufMgtExport.FctGenerateBlob(BigTGFinal, RecPTempBlob);
+                CduGConnectBufMgtExport.FctGenerateBlob(BigTGFinal, TempBlob);
 
             RecLPurchaseLine.SetRange(RecLPurchaseLine."PWD WMS_Status");
             if RecLPurchaseLine.FindSet() then
@@ -553,7 +551,7 @@ codeunit 8073296 "PWD Connector WMS Parse Data"
     end;
 
 
-    procedure FctGetCustOrderFilePos(RecPConnectorMes: Record "PWD Connector Messages"; var RecPTempBlob: Record TempBlob temporary)
+    procedure FctGetCustOrderFilePos(RecPConnectorMes: Record "PWD Connector Messages"; var TempBlob: Codeunit "Temp Blob")
     var
         RecLSalesLine: Record "Sales Line";
         RecLSalesHeader: Record "Sales Header";
@@ -916,19 +914,19 @@ codeunit 8073296 "PWD Connector WMS Parse Data"
 
             //Génération du blog avec le bigText mergé
             if BigTGFinal2.Length <> 0 then
-                CduGConnectBufMgtExport.FctGenerateBlob(BigTGFinal2, RecPTempBlob);
+                CduGConnectBufMgtExport.FctGenerateBlob(BigTGFinal2, TempBlob);
 
         end;
 
     end;
 
 
-    procedure FctGetAddressFilePos(RecPConnectorMes: Record "PWD Connector Messages"; var RecPTempBlob: Record TempBlob temporary)
+    procedure FctGetAddressFilePos(RecPConnectorMes: Record "PWD Connector Messages"; var TempBlob: Codeunit "Temp Blob")
     begin
     end;
 
 
-    procedure FctGetLogisticUnitsFilePos(RecPConnectorMes: Record "PWD Connector Messages"; var RecPTempBlob: Record TempBlob temporary)
+    procedure FctGetLogisticUnitsFilePos(RecPConnectorMes: Record "PWD Connector Messages"; var TempBlob: Codeunit "Temp Blob")
     var
         RecLItem: Record Item;
         RecLItemUnitofMeasure: Record "Item Unit of Measure";
@@ -1007,12 +1005,12 @@ codeunit 8073296 "PWD Connector WMS Parse Data"
 
             //Génération du blog avec le bigText mergé
             if BigTGFinal.Length <> 0 then
-                CduGConnectBufMgtExport.FctGenerateBlob(BigTGFinal, RecPTempBlob);
+                CduGConnectBufMgtExport.FctGenerateBlob(BigTGFinal, TempBlob);
         end;
     end;
 
 
-    procedure FctGetKitMgtFilePos(RecPConnectorMes: Record "PWD Connector Messages"; var RecPTempBlob: Record TempBlob temporary)
+    procedure FctGetKitMgtFilePos(RecPConnectorMes: Record "PWD Connector Messages"; var TempBlob: Codeunit "Temp Blob")
     var
         RecLProdBOMLine: Record "Production BOM Line";
         RecLProdBOMHeader: Record "Production BOM Header";
@@ -1104,12 +1102,12 @@ codeunit 8073296 "PWD Connector WMS Parse Data"
 
             //Génération du blog avec le bigText mergé
             if BigTGFinal.Length <> 0 then
-                CduGConnectBufMgtExport.FctGenerateBlob(BigTGFinal, RecPTempBlob);
+                CduGConnectBufMgtExport.FctGenerateBlob(BigTGFinal, TempBlob);
         end;
     end;
 
 
-    procedure FctCreateCustShipFilePos(RecPConnectorMes: Record "PWD Connector Messages"; var RecPTempBlob: Record TempBlob temporary)
+    procedure FctCreateCustShipFilePos(RecPConnectorMes: Record "PWD Connector Messages"; var TempBlob: Codeunit "Temp Blob")
     var
         RecLCustomer: Record Customer;
         RecLShipToAddress: Record "Ship-to Address";
@@ -1251,7 +1249,7 @@ codeunit 8073296 "PWD Connector WMS Parse Data"
 
             //Génération du blog avec le bigText mergé
             if BigTGFinal.Length <> 0 then
-                CduGConnectBufMgtExport.FctGenerateBlob(BigTGFinal, RecPTempBlob);
+                CduGConnectBufMgtExport.FctGenerateBlob(BigTGFinal, TempBlob);
         end;
     end;
 
@@ -1267,7 +1265,7 @@ codeunit 8073296 "PWD Connector WMS Parse Data"
         RecLProdBomLine: Record "Production BOM Line";
     begin
         RecLProdBomLine.Reset();
-        if RecLProdBomLine.FindSet() then 
+        if RecLProdBomLine.FindSet() then
             repeat
                 if RecLItemUnitMeas.Get(RecLProdBomLine."No.", RecLProdBomLine."Unit of Measure Code") then
                     RecLProdBomLine."PWD WMS_Quantity_Per(Base)" := RecLProdBomLine.Quantity * RecLItemUnitMeas."Qty. per Unit of Measure"
@@ -1323,12 +1321,6 @@ codeunit 8073296 "PWD Connector WMS Parse Data"
                 until RecLSalesLines.Next() = 0;
         end;
     end;
-
-
-    procedure "---WMS-FE007.001---"()
-    begin
-    end;
-
 
     procedure FctUpdateReceiptLine(var RecPPurchaseLine: Record "Purchase Line"; var IntPEntryBufferNo: Integer)
     var
@@ -1431,12 +1423,6 @@ codeunit 8073296 "PWD Connector WMS Parse Data"
         end;
         //<<WMS-FE007_15.001
     end;
-
-
-    procedure "---WMS-FE009.001---"()
-    begin
-    end;
-
 
     procedure FctUpdateItemJournaLineWMS(var RecPItemJounalLine: Record "Item Journal Line"; var IntPEntryBufferNo: Integer)
     var

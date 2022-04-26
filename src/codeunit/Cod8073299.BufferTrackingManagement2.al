@@ -705,8 +705,8 @@ codeunit 8073299 "Buffer Tracking Management 2"
                       OldTrackingSpecification."Source Ref. No.",
                       OldTrackingSpecification."Qty. per Unit of Measure",
                       OldTrackingSpecification."Quantity (Base)",
-                      OldTrackingSpecification."Serial No.",
-                      OldTrackingSpecification."Lot No.");
+                      OldTrackingSpecification."Qty. to Handle (Base)",
+                      ReservEntry1);
                     CreateReservEntry.CreateEntry(OldTrackingSpecification."Item No.",
                       OldTrackingSpecification."Variant Code",
                       OldTrackingSpecification."Location Code",

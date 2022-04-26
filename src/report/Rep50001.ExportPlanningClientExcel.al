@@ -125,18 +125,14 @@ report 50001 "Export Planning Client Excel"
                         else
                             FileName := UploadedFileName;
                     TempExcelBuffer.OpenBook(FileName, SheetName);
-                    //TODO: 'Record "Excel Buffer"' does not contain a definition for 'CreateSheet'
-                    //TempExcelBuffer.CreateSheet(SheetName, '', CompanyName, UserId);
+                    TempExcelBuffer.WriteSheet('', CompanyName, UserId);
                 end else begin
                     //TODO:There is no argument given that corresponds to the required formal parameter 'FileName' of 'CreateBook(Text, Text)'
                     //TempExcelBuffer.CreateBook;
-                    //TODO: 'Record "Excel Buffer"' does not contain a definition for 'CreateSheet'
-                    //TempExcelBuffer.CreateSheet(Text002E, Text003E, CompanyName, UserId);
+                    TempExcelBuffer.WriteSheet(Text003E, CompanyName, UserId);
                 end;
-
                 Commit();
-                //TODO: 'Record "Excel Buffer"' does not contain a definition for 'GiveUserControl'
-                TempExcelBuffer.GiveUserControl;
+                TempExcelBuffer.OpenExcel;
                 Error('');
             end;
 

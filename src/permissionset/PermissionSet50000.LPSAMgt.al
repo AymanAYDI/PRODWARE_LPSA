@@ -107,8 +107,6 @@ permissionset 50000 "PWD LPSA Mgt"
          page "PWD Values form Connector" = X,
          page "PWD WMS Setup" = X,
          report "Ajout NouvelleFin De Gamme PIE" = X,
-         report "Close Purch. Orders Before..." = X,
-         report "Correc Dimensions on ACI Items" = X,
          report "Create Dedicated Item Routing" = X,
          report "Create Item Config. from Item" = X,
          report "Delete Purch. Orders Before 2" = X,
