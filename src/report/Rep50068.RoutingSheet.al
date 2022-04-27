@@ -1,7 +1,7 @@
 report 50068 "PWD Routing Sheet"
 {
     DefaultLayout = RDLC;
-    RDLCLayout = './RoutingSheet.rdlc';
+    RDLCLayout = './src/report/rdl/RoutingSheet.rdl';
     AdditionalSearchTerms = 'operations sheet,process structure sheet';
     ApplicationArea = Manufacturing;
     Caption = 'Routing Sheet';

@@ -1,4 +1,4 @@
-reportextension 50066 "PWD CopyProductionForecast" extends "Copy Production Forecast"
+reportextension 50002 "PWD CopyProductionForecast" extends "Copy Production Forecast"
 {
     requestpage
     {

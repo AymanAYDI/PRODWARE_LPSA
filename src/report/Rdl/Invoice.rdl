@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2016/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
   <AutoRefresh>0</AutoRefresh>
   <DataSources>
@@ -8,6 +8,7 @@
         <ConnectString />
       </ConnectionProperties>
       <rd:SecurityType>None</rd:SecurityType>
+      <rd:DataSourceID>d5693ab6-fcf9-4bd0-8693-5f26456a7163</rd:DataSourceID>
     </DataSource>
   </DataSources>
   <DataSets>
@@ -408,226 +409,6 @@
                       <CellContents>
                         <Rectangle Name="list1_Contents">
                           <ReportItems>
-                            <Textbox Name="BooGImpText">
-                              <CanGrow>true</CanGrow>
-                              <KeepTogether>true</KeepTogether>
-                              <Paragraphs>
-                                <Paragraph>
-                                  <TextRuns>
-                                    <TextRun>
-                                      <Value>=Sum(Fields!BooGImpText.Value)</Value>
-                                      <Style>
-                                        <FontSize>8pt</FontSize>
-                                      </Style>
-                                    </TextRun>
-                                  </TextRuns>
-                                  <Style>
-                                    <TextAlign>Right</TextAlign>
-                                  </Style>
-                                </Paragraph>
-                              </Paragraphs>
-                              <rd:DefaultName>BooGImpText</rd:DefaultName>
-                              <Top>5.07937cm</Top>
-                              <Left>7.61905cm</Left>
-                              <Width>2.53968cm</Width>
-                              <ZIndex>3</ZIndex>
-                              <Visibility>
-                                <Hidden>true</Hidden>
-                              </Visibility>
-                              <Style />
-                            </Textbox>
-                            <Textbox Name="ToutouCHannouf">
-                              <CanGrow>true</CanGrow>
-                              <KeepTogether>true</KeepTogether>
-                              <Paragraphs>
-                                <Paragraph>
-                                  <TextRuns>
-                                    <TextRun>
-                                      <Value>=True</Value>
-                                      <Style />
-                                    </TextRun>
-                                  </TextRuns>
-                                </Paragraph>
-                              </Paragraphs>
-                              <Top>5.07937cm</Top>
-                              <Left>3.1746cm</Left>
-                              <Width>1.5873cm</Width>
-                              <ZIndex>2</ZIndex>
-                              <Visibility>
-                                <Hidden>true</Hidden>
-                              </Visibility>
-                              <Style>
-                                <PaddingLeft>2pt</PaddingLeft>
-                                <PaddingRight>2pt</PaddingRight>
-                                <PaddingTop>1pt</PaddingTop>
-                                <PaddingBottom>1pt</PaddingBottom>
-                              </Style>
-                            </Textbox>
-                            <Tablix Name="table3">
-                              <TablixBody>
-                                <TablixColumns>
-                                  <TablixColumn>
-                                    <Width>0.47619cm</Width>
-                                  </TablixColumn>
-                                  <TablixColumn>
-                                    <Width>0.47619cm</Width>
-                                  </TablixColumn>
-                                  <TablixColumn>
-                                    <Width>0.47619cm</Width>
-                                  </TablixColumn>
-                                </TablixColumns>
-                                <TablixRows>
-                                  <TablixRow>
-                                    <Height>0.31746cm</Height>
-                                    <TablixCells>
-                                      <TablixCell>
-                                        <CellContents>
-                                          <Textbox Name="CustAddr">
-                                            <KeepTogether>true</KeepTogether>
-                                            <Paragraphs>
-                                              <Paragraph>
-                                                <TextRuns>
-                                                  <TextRun>
-                                                    <Value>=Fields!CustAddr_1_.Value + Chr(177) + 
-Fields!CustAddr_2_.Value + Chr(177)+ 
-Fields!CustAddr_3_.Value + Chr(177)+ 
-Fields!CustAddr_4_.Value + Chr(177)+ 
-Fields!CustAddr_5_.Value+ Chr(177)+ 
-Fields!CustAddr_6_.Value</Value>
-                                                    <Style>
-                                                      <Color>#ff0000</Color>
-                                                    </Style>
-                                                  </TextRun>
-                                                </TextRuns>
-                                              </Paragraph>
-                                            </Paragraphs>
-                                            <ZIndex>8</ZIndex>
-                                            <Visibility>
-                                              <Hidden>true</Hidden>
-                                            </Visibility>
-                                            <Style>
-                                              <VerticalAlign>Middle</VerticalAlign>
-                                              <PaddingLeft>2pt</PaddingLeft>
-                                              <PaddingRight>2pt</PaddingRight>
-                                              <PaddingTop>2pt</PaddingTop>
-                                              <PaddingBottom>2pt</PaddingBottom>
-                                            </Style>
-                                          </Textbox>
-                                        </CellContents>
-                                      </TablixCell>
-                                      <TablixCell>
-                                        <CellContents>
-                                          <Textbox Name="CompanyAddr">
-                                            <CanGrow>true</CanGrow>
-                                            <KeepTogether>true</KeepTogether>
-                                            <Paragraphs>
-                                              <Paragraph>
-                                                <TextRuns>
-                                                  <TextRun>
-                                                    <Value>=Fields!Sales_Header_No_.Value  + Chr(177) +
-Fields!Sales_Header_No_caption.Value + Chr(177) +
-Fields!Sales_Header___Sell_to_Customer_No__.Value + Chr(177) +
-Fields!Sales_Header___Sell_to_Customer_No__Caption.Value + Chr(177) + 
-Fields!Sales_Header_VAT_Registration_No_.Value + Chr(177) +
-Fields!Sales_Header_VAT_Registration_No_caption.Value + Chr(177) +
-Fields!Sales_Header_Your_Contact.Value + Chr(177) +
-Fields!Sales_Header_Your_Contact_caption.Value + Chr(177) +
-Fields!CompanyInfo_City.Value + Chr(177) +
-Fields!FORMAT__Sales_Header___Document_Date__0_4_.Value + Chr(177) +
-Fields!SalesPersonText.Value + Chr(177) +
-Fields!SalesPurchPerson_Name.Value+chr(177)+
-Fields!CompanyInfo__VAT_Registration_No__.Value+ Chr(177) +
-Fields!Sales_Header_Document_Date_.Value + Chr(177) +
-Fields!Sales_Header_Document_Date_caption.Value + Chr(177) +
-Fields!Sales_Header_Your_Ref_.Value + Chr(177) +
-Fields!Sales_Header_Your_Ref_caption.Value</Value>
-                                                    <Style>
-                                                      <Color>#ff0000</Color>
-                                                    </Style>
-                                                  </TextRun>
-                                                </TextRuns>
-                                              </Paragraph>
-                                            </Paragraphs>
-                                            <ZIndex>7</ZIndex>
-                                            <Visibility>
-                                              <Hidden>true</Hidden>
-                                            </Visibility>
-                                            <Style>
-                                              <VerticalAlign>Middle</VerticalAlign>
-                                              <PaddingLeft>2pt</PaddingLeft>
-                                              <PaddingRight>2pt</PaddingRight>
-                                              <PaddingTop>2pt</PaddingTop>
-                                              <PaddingBottom>2pt</PaddingBottom>
-                                            </Style>
-                                          </Textbox>
-                                        </CellContents>
-                                      </TablixCell>
-                                      <TablixCell>
-                                        <CellContents>
-                                          <Textbox Name="FooterInfo">
-                                            <CanGrow>true</CanGrow>
-                                            <KeepTogether>true</KeepTogether>
-                                            <Paragraphs>
-                                              <Paragraph>
-                                                <TextRuns>
-                                                  <TextRun>
-                                                    <Value>=Fields!Text011_FORMAT_Sales_Header_Payment_Terms_Code.value+chr(177)+
-Fields!CompanyInfo_Bank_Name_caption.Value + chr(177)+
-Fields!CompanyInfo_Bank_Account_No_caption.Value+chr(177)+
-Fields!CompanyInfo_Bank_Branch_No_caption.Value+chr(177)+
-Fields!CompanyInfo_SWIF__Code_caption.Value+chr(177)+
-Fields!CompanyInfo_IBAN_caption.Value+chr(177)+
-Fields!CompanyInfo_Bank_Name.Value+chr(177)+
-Fields!CompanyInfo_Bank_Account_No_.Value+chr(177)+
-Fields!CompanyInfo_Bank_Branch_No_.Value+chr(177)+
-Fields!CompanyInfo_SWIF__Code.Value+chr(177)+
-Fields!CompanyInfo_IBAN.Value + chr(177)+
-Fields!CstG_013.Value + chr(177)+
-Fields!CstG_014.Value</Value>
-                                                    <Style>
-                                                      <Color>#ff0000</Color>
-                                                    </Style>
-                                                  </TextRun>
-                                                </TextRuns>
-                                              </Paragraph>
-                                            </Paragraphs>
-                                            <Style>
-                                              <VerticalAlign>Middle</VerticalAlign>
-                                              <PaddingLeft>2pt</PaddingLeft>
-                                              <PaddingRight>2pt</PaddingRight>
-                                              <PaddingTop>2pt</PaddingTop>
-                                              <PaddingBottom>2pt</PaddingBottom>
-                                            </Style>
-                                          </Textbox>
-                                        </CellContents>
-                                      </TablixCell>
-                                    </TablixCells>
-                                  </TablixRow>
-                                </TablixRows>
-                              </TablixBody>
-                              <TablixColumnHierarchy>
-                                <TablixMembers>
-                                  <TablixMember />
-                                  <TablixMember />
-                                  <TablixMember />
-                                </TablixMembers>
-                              </TablixColumnHierarchy>
-                              <TablixRowHierarchy>
-                                <TablixMembers>
-                                  <TablixMember>
-                                    <KeepWithGroup>After</KeepWithGroup>
-                                    <KeepTogether>true</KeepTogether>
-                                  </TablixMember>
-                                </TablixMembers>
-                              </TablixRowHierarchy>
-                              <DataSetName>DataSet_Result</DataSetName>
-                              <Top>5.07937cm</Top>
-                              <Width>1.42857cm</Width>
-                              <ZIndex>1</ZIndex>
-                              <Visibility>
-                                <Hidden>true</Hidden>
-                              </Visibility>
-                            </Tablix>
                             <Tablix Name="Table_Lines">
                               <TablixBody>
                                 <TablixColumns>
@@ -888,6 +669,7 @@ Fields!CstG_014.Value</Value>
                                                     <Style />
                                                   </TextRun>
                                                 </TextRuns>
+                                                <Style />
                                               </Paragraph>
                                             </Paragraphs>
                                             <rd:DefaultName>textbox474</rd:DefaultName>
@@ -911,6 +693,7 @@ Fields!CstG_014.Value</Value>
                                                     <Style />
                                                   </TextRun>
                                                 </TextRuns>
+                                                <Style />
                                               </Paragraph>
                                             </Paragraphs>
                                             <rd:DefaultName>textbox3</rd:DefaultName>
@@ -939,6 +722,7 @@ Fields!CstG_014.Value</Value>
                                                     <Style />
                                                   </TextRun>
                                                 </TextRuns>
+                                                <Style />
                                               </Paragraph>
                                             </Paragraphs>
                                             <rd:DefaultName>textbox16</rd:DefaultName>
@@ -965,6 +749,7 @@ Fields!CstG_014.Value</Value>
                                                     </Style>
                                                   </TextRun>
                                                 </TextRuns>
+                                                <Style />
                                               </Paragraph>
                                             </Paragraphs>
                                             <rd:DefaultName>STRSUBSTNO_Text010_Sales_Header_No_Sales_Header_Document_Date</rd:DefaultName>
@@ -996,6 +781,7 @@ Fields!CstG_014.Value</Value>
                                                     <Style />
                                                   </TextRun>
                                                 </TextRuns>
+                                                <Style />
                                               </Paragraph>
                                             </Paragraphs>
                                             <rd:DefaultName>textbox476</rd:DefaultName>
@@ -1021,6 +807,7 @@ Fields!CstG_014.Value</Value>
                                                     <Style />
                                                   </TextRun>
                                                 </TextRuns>
+                                                <Style />
                                               </Paragraph>
                                             </Paragraphs>
                                             <rd:DefaultName>textbox6</rd:DefaultName>
@@ -1237,6 +1024,7 @@ Fields!CstG_014.Value</Value>
                                                     <Style />
                                                   </TextRun>
                                                 </TextRuns>
+                                                <Style />
                                               </Paragraph>
                                             </Paragraphs>
                                             <Visibility>
@@ -1264,6 +1052,7 @@ Fields!CstG_014.Value</Value>
                                                     <Style />
                                                   </TextRun>
                                                 </TextRuns>
+                                                <Style />
                                               </Paragraph>
                                             </Paragraphs>
                                             <rd:DefaultName>textbox9</rd:DefaultName>
@@ -1294,6 +1083,7 @@ Fields!CstG_014.Value</Value>
                                                     <Style />
                                                   </TextRun>
                                                 </TextRuns>
+                                                <Style />
                                               </Paragraph>
                                             </Paragraphs>
                                             <rd:DefaultName>textbox27</rd:DefaultName>
@@ -1321,6 +1111,7 @@ Fields!CstG_014.Value</Value>
                                                     </Style>
                                                   </TextRun>
                                                 </TextRuns>
+                                                <Style />
                                               </Paragraph>
                                             </Paragraphs>
                                             <Style>
@@ -1345,6 +1136,7 @@ Fields!CstG_014.Value</Value>
                                                     <Style />
                                                   </TextRun>
                                                 </TextRuns>
+                                                <Style />
                                               </Paragraph>
                                             </Paragraphs>
                                             <rd:DefaultName>textbox52</rd:DefaultName>
@@ -1370,6 +1162,7 @@ Fields!CstG_014.Value</Value>
                                                     <Style />
                                                   </TextRun>
                                                 </TextRuns>
+                                                <Style />
                                               </Paragraph>
                                             </Paragraphs>
                                             <rd:DefaultName>textbox85</rd:DefaultName>
@@ -1395,6 +1188,7 @@ Fields!CstG_014.Value</Value>
                                                     <Style />
                                                   </TextRun>
                                                 </TextRuns>
+                                                <Style />
                                               </Paragraph>
                                             </Paragraphs>
                                             <rd:DefaultName>textbox86</rd:DefaultName>
@@ -1420,6 +1214,7 @@ Fields!CstG_014.Value</Value>
                                                     <Style />
                                                   </TextRun>
                                                 </TextRuns>
+                                                <Style />
                                               </Paragraph>
                                             </Paragraphs>
                                             <rd:DefaultName>textbox54</rd:DefaultName>
@@ -1445,6 +1240,7 @@ Fields!CstG_014.Value</Value>
                                                     <Style />
                                                   </TextRun>
                                                 </TextRuns>
+                                                <Style />
                                               </Paragraph>
                                             </Paragraphs>
                                             <rd:DefaultName>textbox478</rd:DefaultName>
@@ -1470,6 +1266,7 @@ Fields!CstG_014.Value</Value>
                                                     <Style />
                                                   </TextRun>
                                                 </TextRuns>
+                                                <Style />
                                               </Paragraph>
                                             </Paragraphs>
                                             <rd:DefaultName>textbox11</rd:DefaultName>
@@ -1532,6 +1329,7 @@ Fields!CstG_014.Value</Value>
                                                     </Style>
                                                   </TextRun>
                                                 </TextRuns>
+                                                <Style />
                                               </Paragraph>
                                             </Paragraphs>
                                             <rd:DefaultName>Your_Item_Reference</rd:DefaultName>
@@ -1557,6 +1355,7 @@ Fields!CstG_014.Value</Value>
                                                     <Style />
                                                   </TextRun>
                                                 </TextRuns>
+                                                <Style />
                                               </Paragraph>
                                             </Paragraphs>
                                             <rd:DefaultName>textbox23</rd:DefaultName>
@@ -1582,6 +1381,7 @@ Fields!CstG_014.Value</Value>
                                                     <Style />
                                                   </TextRun>
                                                 </TextRuns>
+                                                <Style />
                                               </Paragraph>
                                             </Paragraphs>
                                             <rd:DefaultName>textbox99</rd:DefaultName>
@@ -1607,6 +1407,7 @@ Fields!CstG_014.Value</Value>
                                                     <Style />
                                                   </TextRun>
                                                 </TextRuns>
+                                                <Style />
                                               </Paragraph>
                                             </Paragraphs>
                                             <rd:DefaultName>textbox100</rd:DefaultName>
@@ -1632,6 +1433,7 @@ Fields!CstG_014.Value</Value>
                                                     <Style />
                                                   </TextRun>
                                                 </TextRuns>
+                                                <Style />
                                               </Paragraph>
                                             </Paragraphs>
                                             <rd:DefaultName>textbox69</rd:DefaultName>
@@ -1657,6 +1459,7 @@ Fields!CstG_014.Value</Value>
                                                     <Style />
                                                   </TextRun>
                                                 </TextRuns>
+                                                <Style />
                                               </Paragraph>
                                             </Paragraphs>
                                             <rd:DefaultName>textbox479</rd:DefaultName>
@@ -1682,6 +1485,7 @@ Fields!CstG_014.Value</Value>
                                                     <Style />
                                                   </TextRun>
                                                 </TextRuns>
+                                                <Style />
                                               </Paragraph>
                                             </Paragraphs>
                                             <rd:DefaultName>textbox17</rd:DefaultName>
@@ -1714,6 +1518,7 @@ Fields!CstG_014.Value</Value>
                                                     </Style>
                                                   </TextRun>
                                                 </TextRuns>
+                                                <Style />
                                               </Paragraph>
                                             </Paragraphs>
                                             <rd:DefaultName>textbox71</rd:DefaultName>
@@ -1741,6 +1546,7 @@ Fields!CstG_014.Value</Value>
                                                     </Style>
                                                   </TextRun>
                                                 </TextRuns>
+                                                <Style />
                                               </Paragraph>
                                             </Paragraphs>
                                             <rd:DefaultName>You_Plan_No</rd:DefaultName>
@@ -1766,6 +1572,7 @@ Fields!CstG_014.Value</Value>
                                                     <Style />
                                                   </TextRun>
                                                 </TextRuns>
+                                                <Style />
                                               </Paragraph>
                                             </Paragraphs>
                                             <rd:DefaultName>textbox80</rd:DefaultName>
@@ -1791,6 +1598,7 @@ Fields!CstG_014.Value</Value>
                                                     <Style />
                                                   </TextRun>
                                                 </TextRuns>
+                                                <Style />
                                               </Paragraph>
                                             </Paragraphs>
                                             <rd:DefaultName>textbox101</rd:DefaultName>
@@ -1816,6 +1624,7 @@ Fields!CstG_014.Value</Value>
                                                     <Style />
                                                   </TextRun>
                                                 </TextRuns>
+                                                <Style />
                                               </Paragraph>
                                             </Paragraphs>
                                             <rd:DefaultName>textbox112</rd:DefaultName>
@@ -1841,6 +1650,7 @@ Fields!CstG_014.Value</Value>
                                                     <Style />
                                                   </TextRun>
                                                 </TextRuns>
+                                                <Style />
                                               </Paragraph>
                                             </Paragraphs>
                                             <rd:DefaultName>textbox115</rd:DefaultName>
@@ -1866,6 +1676,7 @@ Fields!CstG_014.Value</Value>
                                                     <Style />
                                                   </TextRun>
                                                 </TextRuns>
+                                                <Style />
                                               </Paragraph>
                                             </Paragraphs>
                                             <rd:DefaultName>textbox116</rd:DefaultName>
@@ -1891,6 +1702,7 @@ Fields!CstG_014.Value</Value>
                                                     <Style />
                                                   </TextRun>
                                                 </TextRuns>
+                                                <Style />
                                               </Paragraph>
                                             </Paragraphs>
                                             <rd:DefaultName>textbox18</rd:DefaultName>
@@ -1923,6 +1735,7 @@ Fields!CstG_014.Value</Value>
                                                     </Style>
                                                   </TextRun>
                                                 </TextRuns>
+                                                <Style />
                                               </Paragraph>
                                             </Paragraphs>
                                             <rd:DefaultName>textbox118</rd:DefaultName>
@@ -1950,6 +1763,7 @@ Fields!CstG_014.Value</Value>
                                                     </Style>
                                                   </TextRun>
                                                 </TextRuns>
+                                                <Style />
                                               </Paragraph>
                                             </Paragraphs>
                                             <rd:DefaultName>Text014____FORMAT_TempItemLedgEntry__Lot_No___</rd:DefaultName>
@@ -1975,6 +1789,7 @@ Fields!CstG_014.Value</Value>
                                                     <Style />
                                                   </TextRun>
                                                 </TextRuns>
+                                                <Style />
                                               </Paragraph>
                                             </Paragraphs>
                                             <rd:DefaultName>textbox120</rd:DefaultName>
@@ -2000,6 +1815,7 @@ Fields!CstG_014.Value</Value>
                                                     <Style />
                                                   </TextRun>
                                                 </TextRuns>
+                                                <Style />
                                               </Paragraph>
                                             </Paragraphs>
                                             <rd:DefaultName>textbox124</rd:DefaultName>
@@ -2025,6 +1841,7 @@ Fields!CstG_014.Value</Value>
                                                     <Style />
                                                   </TextRun>
                                                 </TextRuns>
+                                                <Style />
                                               </Paragraph>
                                             </Paragraphs>
                                             <rd:DefaultName>textbox125</rd:DefaultName>
@@ -2050,6 +1867,7 @@ Fields!CstG_014.Value</Value>
                                                     <Style />
                                                   </TextRun>
                                                 </TextRuns>
+                                                <Style />
                                               </Paragraph>
                                             </Paragraphs>
                                             <rd:DefaultName>textbox126</rd:DefaultName>
@@ -2075,6 +1893,7 @@ Fields!CstG_014.Value</Value>
                                                     <Style />
                                                   </TextRun>
                                                 </TextRuns>
+                                                <Style />
                                               </Paragraph>
                                             </Paragraphs>
                                             <rd:DefaultName>textbox127</rd:DefaultName>
@@ -2100,6 +1919,7 @@ Fields!CstG_014.Value</Value>
                                                     <Style />
                                                   </TextRun>
                                                 </TextRuns>
+                                                <Style />
                                               </Paragraph>
                                             </Paragraphs>
                                             <rd:DefaultName>textbox21</rd:DefaultName>
@@ -2132,6 +1952,7 @@ Fields!CstG_014.Value</Value>
                                                     </Style>
                                                   </TextRun>
                                                 </TextRuns>
+                                                <Style />
                                               </Paragraph>
                                             </Paragraphs>
                                             <rd:DefaultName>textbox29</rd:DefaultName>
@@ -2163,6 +1984,7 @@ Fields!CstG_014.Value</Value>
                                                     </Style>
                                                   </TextRun>
                                                 </TextRuns>
+                                                <Style />
                                               </Paragraph>
                                             </Paragraphs>
                                             <rd:DefaultName>textbox35</rd:DefaultName>
@@ -2191,6 +2013,7 @@ Fields!CstG_014.Value</Value>
                                                     <Style />
                                                   </TextRun>
                                                 </TextRuns>
+                                                <Style />
                                               </Paragraph>
                                             </Paragraphs>
                                             <rd:DefaultName>textbox37</rd:DefaultName>
@@ -2219,6 +2042,7 @@ Fields!CstG_014.Value</Value>
                                                     <Style />
                                                   </TextRun>
                                                 </TextRuns>
+                                                <Style />
                                               </Paragraph>
                                             </Paragraphs>
                                             <rd:DefaultName>textbox43</rd:DefaultName>
@@ -2247,6 +2071,7 @@ Fields!CstG_014.Value</Value>
                                                     <Style />
                                                   </TextRun>
                                                 </TextRuns>
+                                                <Style />
                                               </Paragraph>
                                             </Paragraphs>
                                             <rd:DefaultName>textbox50</rd:DefaultName>
@@ -2275,6 +2100,7 @@ Fields!CstG_014.Value</Value>
                                                     <Style />
                                                   </TextRun>
                                                 </TextRuns>
+                                                <Style />
                                               </Paragraph>
                                             </Paragraphs>
                                             <rd:DefaultName>textbox51</rd:DefaultName>
@@ -2303,6 +2129,7 @@ Fields!CstG_014.Value</Value>
                                                     <Style />
                                                   </TextRun>
                                                 </TextRuns>
+                                                <Style />
                                               </Paragraph>
                                             </Paragraphs>
                                             <rd:DefaultName>textbox55</rd:DefaultName>
@@ -2328,6 +2155,7 @@ Fields!CstG_014.Value</Value>
                                                     <Style />
                                                   </TextRun>
                                                 </TextRuns>
+                                                <Style />
                                               </Paragraph>
                                             </Paragraphs>
                                             <rd:DefaultName>textbox56</rd:DefaultName>
@@ -2358,6 +2186,7 @@ Fields!CstG_014.Value</Value>
                                                     <Style />
                                                   </TextRun>
                                                 </TextRuns>
+                                                <Style />
                                               </Paragraph>
                                             </Paragraphs>
                                             <rd:DefaultName>textbox12</rd:DefaultName>
@@ -2383,6 +2212,7 @@ Fields!CstG_014.Value</Value>
                                                     <Style />
                                                   </TextRun>
                                                 </TextRuns>
+                                                <Style />
                                               </Paragraph>
                                             </Paragraphs>
                                             <rd:DefaultName>textbox15</rd:DefaultName>
@@ -2408,6 +2238,7 @@ Fields!CstG_014.Value</Value>
                                                     <Style />
                                                   </TextRun>
                                                 </TextRuns>
+                                                <Style />
                                               </Paragraph>
                                             </Paragraphs>
                                             <rd:DefaultName>textbox25</rd:DefaultName>
@@ -2433,6 +2264,7 @@ Fields!CstG_014.Value</Value>
                                                     <Style />
                                                   </TextRun>
                                                 </TextRuns>
+                                                <Style />
                                               </Paragraph>
                                             </Paragraphs>
                                             <rd:DefaultName>textbox46</rd:DefaultName>
@@ -2458,6 +2290,7 @@ Fields!CstG_014.Value</Value>
                                                     <Style />
                                                   </TextRun>
                                                 </TextRuns>
+                                                <Style />
                                               </Paragraph>
                                             </Paragraphs>
                                             <rd:DefaultName>textbox47</rd:DefaultName>
@@ -2483,6 +2316,7 @@ Fields!CstG_014.Value</Value>
                                                     <Style />
                                                   </TextRun>
                                                 </TextRuns>
+                                                <Style />
                                               </Paragraph>
                                             </Paragraphs>
                                             <rd:DefaultName>textbox33</rd:DefaultName>
@@ -2508,6 +2342,7 @@ Fields!CstG_014.Value</Value>
                                                     <Style />
                                                   </TextRun>
                                                 </TextRuns>
+                                                <Style />
                                               </Paragraph>
                                             </Paragraphs>
                                             <rd:DefaultName>textbox480</rd:DefaultName>
@@ -2536,6 +2371,7 @@ Fields!CstG_014.Value</Value>
                                                     <Style />
                                                   </TextRun>
                                                 </TextRuns>
+                                                <Style />
                                               </Paragraph>
                                             </Paragraphs>
                                             <rd:DefaultName>codebarre</rd:DefaultName>
@@ -2569,6 +2405,7 @@ Fields!CstG_014.Value</Value>
                                                     <Style />
                                                   </TextRun>
                                                 </TextRuns>
+                                                <Style />
                                               </Paragraph>
                                             </Paragraphs>
                                             <Style>
@@ -2593,6 +2430,7 @@ Fields!CstG_014.Value</Value>
                                                     <Style />
                                                   </TextRun>
                                                 </TextRuns>
+                                                <Style />
                                               </Paragraph>
                                             </Paragraphs>
                                             <Style>
@@ -2617,6 +2455,7 @@ Fields!CstG_014.Value</Value>
                                                     <Style />
                                                   </TextRun>
                                                 </TextRuns>
+                                                <Style />
                                               </Paragraph>
                                             </Paragraphs>
                                             <Style>
@@ -2641,6 +2480,7 @@ Fields!CstG_014.Value</Value>
                                                     <Style />
                                                   </TextRun>
                                                 </TextRuns>
+                                                <Style />
                                               </Paragraph>
                                             </Paragraphs>
                                             <Style>
@@ -2665,6 +2505,7 @@ Fields!CstG_014.Value</Value>
                                                     <Style />
                                                   </TextRun>
                                                 </TextRuns>
+                                                <Style />
                                               </Paragraph>
                                             </Paragraphs>
                                             <Style>
@@ -2689,6 +2530,7 @@ Fields!CstG_014.Value</Value>
                                                     <Style />
                                                   </TextRun>
                                                 </TextRuns>
+                                                <Style />
                                               </Paragraph>
                                             </Paragraphs>
                                             <Style>
@@ -2713,6 +2555,7 @@ Fields!CstG_014.Value</Value>
                                                     <Style />
                                                   </TextRun>
                                                 </TextRuns>
+                                                <Style />
                                               </Paragraph>
                                             </Paragraphs>
                                             <Style>
@@ -2737,6 +2580,7 @@ Fields!CstG_014.Value</Value>
                                                     <Style />
                                                   </TextRun>
                                                 </TextRuns>
+                                                <Style />
                                               </Paragraph>
                                             </Paragraphs>
                                             <Style>
@@ -2766,6 +2610,7 @@ Fields!CstG_014.Value</Value>
                                                     <Style />
                                                   </TextRun>
                                                 </TextRuns>
+                                                <Style />
                                               </Paragraph>
                                             </Paragraphs>
                                             <Style>
@@ -2790,6 +2635,7 @@ Fields!CstG_014.Value</Value>
                                                     <Style />
                                                   </TextRun>
                                                 </TextRuns>
+                                                <Style />
                                               </Paragraph>
                                             </Paragraphs>
                                             <Style>
@@ -2814,6 +2660,7 @@ Fields!CstG_014.Value</Value>
                                                     <Style />
                                                   </TextRun>
                                                 </TextRuns>
+                                                <Style />
                                               </Paragraph>
                                             </Paragraphs>
                                             <Style>
@@ -2838,6 +2685,7 @@ Fields!CstG_014.Value</Value>
                                                     <Style />
                                                   </TextRun>
                                                 </TextRuns>
+                                                <Style />
                                               </Paragraph>
                                             </Paragraphs>
                                             <Style>
@@ -2862,6 +2710,7 @@ Fields!CstG_014.Value</Value>
                                                     <Style />
                                                   </TextRun>
                                                 </TextRuns>
+                                                <Style />
                                               </Paragraph>
                                             </Paragraphs>
                                             <Style>
@@ -2886,6 +2735,7 @@ Fields!CstG_014.Value</Value>
                                                     <Style />
                                                   </TextRun>
                                                 </TextRuns>
+                                                <Style />
                                               </Paragraph>
                                             </Paragraphs>
                                             <Style>
@@ -2910,6 +2760,7 @@ Fields!CstG_014.Value</Value>
                                                     <Style />
                                                   </TextRun>
                                                 </TextRuns>
+                                                <Style />
                                               </Paragraph>
                                             </Paragraphs>
                                             <Style>
@@ -2934,6 +2785,7 @@ Fields!CstG_014.Value</Value>
                                                     <Style />
                                                   </TextRun>
                                                 </TextRuns>
+                                                <Style />
                                               </Paragraph>
                                             </Paragraphs>
                                             <Style>
@@ -2963,6 +2815,7 @@ Fields!CstG_014.Value</Value>
                                                     <Style />
                                                   </TextRun>
                                                 </TextRuns>
+                                                <Style />
                                               </Paragraph>
                                             </Paragraphs>
                                             <Style>
@@ -2987,6 +2840,7 @@ Fields!CstG_014.Value</Value>
                                                     <Style />
                                                   </TextRun>
                                                 </TextRuns>
+                                                <Style />
                                               </Paragraph>
                                             </Paragraphs>
                                             <Style>
@@ -3011,6 +2865,7 @@ Fields!CstG_014.Value</Value>
                                                     <Style />
                                                   </TextRun>
                                                 </TextRuns>
+                                                <Style />
                                               </Paragraph>
                                             </Paragraphs>
                                             <Style>
@@ -3035,6 +2890,7 @@ Fields!CstG_014.Value</Value>
                                                     <Style />
                                                   </TextRun>
                                                 </TextRuns>
+                                                <Style />
                                               </Paragraph>
                                             </Paragraphs>
                                             <Style>
@@ -3061,6 +2917,7 @@ Fields!CstG_014.Value</Value>
                                                     </Style>
                                                   </TextRun>
                                                 </TextRuns>
+                                                <Style />
                                               </Paragraph>
                                             </Paragraphs>
                                             <Visibility>
@@ -3090,6 +2947,7 @@ Fields!CstG_014.Value</Value>
                                                     </Style>
                                                   </TextRun>
                                                 </TextRuns>
+                                                <Style />
                                               </Paragraph>
                                             </Paragraphs>
                                             <Visibility>
@@ -3117,6 +2975,7 @@ Fields!CstG_014.Value</Value>
                                                     <Style />
                                                   </TextRun>
                                                 </TextRuns>
+                                                <Style />
                                               </Paragraph>
                                             </Paragraphs>
                                             <Style>
@@ -3141,6 +3000,7 @@ Fields!CstG_014.Value</Value>
                                                     <Style />
                                                   </TextRun>
                                                 </TextRuns>
+                                                <Style />
                                               </Paragraph>
                                             </Paragraphs>
                                             <Style>
@@ -3170,6 +3030,7 @@ Fields!CstG_014.Value</Value>
                                                     <Style />
                                                   </TextRun>
                                                 </TextRuns>
+                                                <Style />
                                               </Paragraph>
                                             </Paragraphs>
                                             <Style>
@@ -3194,6 +3055,7 @@ Fields!CstG_014.Value</Value>
                                                     <Style />
                                                   </TextRun>
                                                 </TextRuns>
+                                                <Style />
                                               </Paragraph>
                                             </Paragraphs>
                                             <Style>
@@ -3218,6 +3080,7 @@ Fields!CstG_014.Value</Value>
                                                     <Style />
                                                   </TextRun>
                                                 </TextRuns>
+                                                <Style />
                                               </Paragraph>
                                             </Paragraphs>
                                             <Style>
@@ -3242,6 +3105,7 @@ Fields!CstG_014.Value</Value>
                                                     <Style />
                                                   </TextRun>
                                                 </TextRuns>
+                                                <Style />
                                               </Paragraph>
                                             </Paragraphs>
                                             <Style>
@@ -3268,6 +3132,7 @@ Fields!CstG_014.Value</Value>
                                                     </Style>
                                                   </TextRun>
                                                 </TextRuns>
+                                                <Style />
                                               </Paragraph>
                                             </Paragraphs>
                                             <Visibility>
@@ -3297,6 +3162,7 @@ Fields!CstG_014.Value</Value>
                                                     </Style>
                                                   </TextRun>
                                                 </TextRuns>
+                                                <Style />
                                               </Paragraph>
                                             </Paragraphs>
                                             <Visibility>
@@ -3324,6 +3190,7 @@ Fields!CstG_014.Value</Value>
                                                     <Style />
                                                   </TextRun>
                                                 </TextRuns>
+                                                <Style />
                                               </Paragraph>
                                             </Paragraphs>
                                             <Style>
@@ -3348,6 +3215,7 @@ Fields!CstG_014.Value</Value>
                                                     <Style />
                                                   </TextRun>
                                                 </TextRuns>
+                                                <Style />
                                               </Paragraph>
                                             </Paragraphs>
                                             <Style>
@@ -3377,6 +3245,7 @@ Fields!CstG_014.Value</Value>
                                                     <Style />
                                                   </TextRun>
                                                 </TextRuns>
+                                                <Style />
                                               </Paragraph>
                                             </Paragraphs>
                                             <Style>
@@ -3401,6 +3270,7 @@ Fields!CstG_014.Value</Value>
                                                     <Style />
                                                   </TextRun>
                                                 </TextRuns>
+                                                <Style />
                                               </Paragraph>
                                             </Paragraphs>
                                             <Style>
@@ -3425,6 +3295,7 @@ Fields!CstG_014.Value</Value>
                                                     <Style />
                                                   </TextRun>
                                                 </TextRuns>
+                                                <Style />
                                               </Paragraph>
                                             </Paragraphs>
                                             <Style>
@@ -3449,6 +3320,7 @@ Fields!CstG_014.Value</Value>
                                                     <Style />
                                                   </TextRun>
                                                 </TextRuns>
+                                                <Style />
                                               </Paragraph>
                                             </Paragraphs>
                                             <Style>
@@ -3475,6 +3347,7 @@ Fields!CstG_014.Value</Value>
                                                     </Style>
                                                   </TextRun>
                                                 </TextRuns>
+                                                <Style />
                                               </Paragraph>
                                             </Paragraphs>
                                             <Visibility>
@@ -3504,6 +3377,7 @@ Fields!CstG_014.Value</Value>
                                                     </Style>
                                                   </TextRun>
                                                 </TextRuns>
+                                                <Style />
                                               </Paragraph>
                                             </Paragraphs>
                                             <Visibility>
@@ -3531,6 +3405,7 @@ Fields!CstG_014.Value</Value>
                                                     <Style />
                                                   </TextRun>
                                                 </TextRuns>
+                                                <Style />
                                               </Paragraph>
                                             </Paragraphs>
                                             <Style>
@@ -3555,6 +3430,7 @@ Fields!CstG_014.Value</Value>
                                                     <Style />
                                                   </TextRun>
                                                 </TextRuns>
+                                                <Style />
                                               </Paragraph>
                                             </Paragraphs>
                                             <Style>
@@ -3584,6 +3460,7 @@ Fields!CstG_014.Value</Value>
                                                     <Style />
                                                   </TextRun>
                                                 </TextRuns>
+                                                <Style />
                                               </Paragraph>
                                             </Paragraphs>
                                             <rd:DefaultName>textbox1</rd:DefaultName>
@@ -3609,6 +3486,7 @@ Fields!CstG_014.Value</Value>
                                                     <Style />
                                                   </TextRun>
                                                 </TextRuns>
+                                                <Style />
                                               </Paragraph>
                                             </Paragraphs>
                                             <rd:DefaultName>textbox8</rd:DefaultName>
@@ -3634,6 +3512,7 @@ Fields!CstG_014.Value</Value>
                                                     <Style />
                                                   </TextRun>
                                                 </TextRuns>
+                                                <Style />
                                               </Paragraph>
                                             </Paragraphs>
                                             <rd:DefaultName>textbox10</rd:DefaultName>
@@ -3655,23 +3534,27 @@ Fields!CstG_014.Value</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value>=Fields!TotalExclVATText.Value +chr(177)+
-Last(Fields!VATAmountLine_VATAmountText.Value) +chr(177)+
-Fields!AmountCaption.Value +chr(177)+
-CSTR(sum(Fields!Sales_Invoice_Line__Line_Amount__Control70.value)) +chr(177)+
-CSTR(sum(Fields!Sales_Invoice_Line__Amount_Including_VAT_.Value)-sum(Fields!Sales_Invoice_Line__Line_Amount__Control70.value)) +chr(177)+
-CSTR(sum(Fields!Sales_Invoice_Line__Amount_Including_VAT_.Value))</Value>
+                                                    <Value EvaluationMode="Constant" />
                                                     <Style>
                                                       <Color>#ff0000</Color>
                                                     </Style>
                                                   </TextRun>
                                                 </TextRuns>
+                                                <Style />
                                               </Paragraph>
                                             </Paragraphs>
                                             <Visibility>
-                                              <Hidden>true</Hidden>
+                                              <Hidden>=Code.SetData(CSTR(Fields!TotalExclVATText.Value) +chr(177)+
+CSTR(Last(Fields!VATAmountLine_VATAmountText.Value)) +chr(177)+
+CSTR(Fields!AmountCaption.Value) +chr(177)+
+CSTR(sum(Fields!Sales_Invoice_Line__Line_Amount__Control70.value)) +chr(177)+
+CSTR(sum(Fields!Sales_Invoice_Line__Amount_Including_VAT_.Value)-sum(Fields!Sales_Invoice_Line__Line_Amount__Control70.value)) +chr(177)+
+CSTR(sum(Fields!Sales_Invoice_Line__Amount_Including_VAT_.Value)),3)</Hidden>
                                             </Visibility>
                                             <Style>
+                                              <Border>
+                                                <Style>None</Style>
+                                              </Border>
                                               <VerticalAlign>Middle</VerticalAlign>
                                               <PaddingLeft>2pt</PaddingLeft>
                                               <PaddingRight>2pt</PaddingRight>
@@ -3696,6 +3579,7 @@ CSTR(sum(Fields!Sales_Invoice_Line__Amount_Including_VAT_.Value))</Value>
                                                     </Style>
                                                   </TextRun>
                                                 </TextRuns>
+                                                <Style />
                                               </Paragraph>
                                             </Paragraphs>
                                             <Visibility>
@@ -3725,6 +3609,7 @@ CSTR(sum(Fields!Sales_Invoice_Line__Amount_Including_VAT_.Value))</Value>
                                                     </Style>
                                                   </TextRun>
                                                 </TextRuns>
+                                                <Style />
                                               </Paragraph>
                                             </Paragraphs>
                                             <Visibility>
@@ -3752,6 +3637,7 @@ CSTR(sum(Fields!Sales_Invoice_Line__Amount_Including_VAT_.Value))</Value>
                                                     <Style />
                                                   </TextRun>
                                                 </TextRuns>
+                                                <Style />
                                               </Paragraph>
                                             </Paragraphs>
                                             <rd:DefaultName>textbox39</rd:DefaultName>
@@ -3777,6 +3663,7 @@ CSTR(sum(Fields!Sales_Invoice_Line__Amount_Including_VAT_.Value))</Value>
                                                     <Style />
                                                   </TextRun>
                                                 </TextRuns>
+                                                <Style />
                                               </Paragraph>
                                             </Paragraphs>
                                             <rd:DefaultName>textbox42</rd:DefaultName>
@@ -3932,9 +3819,248 @@ CSTR(sum(Fields!Sales_Invoice_Line__Amount_Including_VAT_.Value))</Value>
                               </Filters>
                               <Height>4.84444cm</Height>
                               <Width>18.85874cm</Width>
+                              <Style />
                             </Tablix>
+                            <Tablix Name="table3">
+                              <TablixBody>
+                                <TablixColumns>
+                                  <TablixColumn>
+                                    <Width>0.47619cm</Width>
+                                  </TablixColumn>
+                                  <TablixColumn>
+                                    <Width>0.47619cm</Width>
+                                  </TablixColumn>
+                                  <TablixColumn>
+                                    <Width>0.47619cm</Width>
+                                  </TablixColumn>
+                                </TablixColumns>
+                                <TablixRows>
+                                  <TablixRow>
+                                    <Height>0.31746cm</Height>
+                                    <TablixCells>
+                                      <TablixCell>
+                                        <CellContents>
+                                          <Textbox Name="CustAddr">
+                                            <KeepTogether>true</KeepTogether>
+                                            <Paragraphs>
+                                              <Paragraph>
+                                                <TextRuns>
+                                                  <TextRun>
+                                                    <Value EvaluationMode="Constant" />
+                                                    <Style>
+                                                      <Color>#ff0000</Color>
+                                                    </Style>
+                                                  </TextRun>
+                                                </TextRuns>
+                                                <Style />
+                                              </Paragraph>
+                                            </Paragraphs>
+                                            <ZIndex>8</ZIndex>
+                                            <Visibility>
+                                              <Hidden>=Code.SetData(Cstr(Fields!CustAddr_1_.Value) + Chr(177) + 
+Cstr(Fields!CustAddr_2_.Value) + Chr(177)+ 
+Cstr(Fields!CustAddr_3_.Value) + Chr(177)+ 
+Cstr(Fields!CustAddr_4_.Value) + Chr(177)+ 
+Cstr(Fields!CustAddr_5_.Value)+ Chr(177)+ 
+Cstr(Fields!CustAddr_6_.Value)+ Chr(177),1)</Hidden>
+                                            </Visibility>
+                                            <Style>
+                                              <Border>
+                                                <Style>None</Style>
+                                              </Border>
+                                              <VerticalAlign>Middle</VerticalAlign>
+                                              <PaddingLeft>2pt</PaddingLeft>
+                                              <PaddingRight>2pt</PaddingRight>
+                                              <PaddingTop>2pt</PaddingTop>
+                                              <PaddingBottom>2pt</PaddingBottom>
+                                            </Style>
+                                          </Textbox>
+                                        </CellContents>
+                                      </TablixCell>
+                                      <TablixCell>
+                                        <CellContents>
+                                          <Textbox Name="CompanyAddr">
+                                            <CanGrow>true</CanGrow>
+                                            <KeepTogether>true</KeepTogether>
+                                            <Paragraphs>
+                                              <Paragraph>
+                                                <TextRuns>
+                                                  <TextRun>
+                                                    <Value EvaluationMode="Constant" />
+                                                    <Style>
+                                                      <Color>#ff0000</Color>
+                                                    </Style>
+                                                  </TextRun>
+                                                </TextRuns>
+                                                <Style />
+                                              </Paragraph>
+                                            </Paragraphs>
+                                            <ZIndex>7</ZIndex>
+                                            <Visibility>
+                                              <Hidden>=Code.SetData(Cstr(Fields!Sales_Header_No_.Value)  + Chr(177) +
+Cstr(Fields!Sales_Header_No_caption.Value) + Chr(177) +
+Cstr(Fields!Sales_Header___Sell_to_Customer_No__.Value) + Chr(177) +
+Cstr(Fields!Sales_Header___Sell_to_Customer_No__Caption.Value) + Chr(177) + 
+Cstr(Fields!Sales_Header_VAT_Registration_No_.Value) + Chr(177) +
+Cstr(Fields!Sales_Header_VAT_Registration_No_caption.Value) + Chr(177) +
+Cstr(Fields!Sales_Header_Your_Contact.Value) + Chr(177) +
+Cstr(Fields!Sales_Header_Your_Contact_caption.Value) + Chr(177) +
+Cstr(Fields!CompanyInfo_City.Value) + Chr(177) +
+Cstr(Fields!FORMAT__Sales_Header___Document_Date__0_4_.Value) + Chr(177) +
+Cstr(Fields!SalesPersonText.Value) + Chr(177) +
+Cstr(Fields!SalesPurchPerson_Name.Value)+chr(177)+
+Cstr(Fields!CompanyInfo__VAT_Registration_No__.Value)+ Chr(177) +
+Cstr(Fields!Sales_Header_Document_Date_.Value) + Chr(177) +
+Cstr(Fields!Sales_Header_Document_Date_caption.Value) + Chr(177) +
+Cstr(Fields!Sales_Header_Your_Ref_.Value) + Chr(177) +
+Cstr(Fields!Sales_Header_Your_Ref_caption.Value),2)</Hidden>
+                                            </Visibility>
+                                            <Style>
+                                              <Border>
+                                                <Style>None</Style>
+                                              </Border>
+                                              <VerticalAlign>Middle</VerticalAlign>
+                                              <PaddingLeft>2pt</PaddingLeft>
+                                              <PaddingRight>2pt</PaddingRight>
+                                              <PaddingTop>2pt</PaddingTop>
+                                              <PaddingBottom>2pt</PaddingBottom>
+                                            </Style>
+                                          </Textbox>
+                                        </CellContents>
+                                      </TablixCell>
+                                      <TablixCell>
+                                        <CellContents>
+                                          <Textbox Name="FooterInfo">
+                                            <CanGrow>true</CanGrow>
+                                            <KeepTogether>true</KeepTogether>
+                                            <Paragraphs>
+                                              <Paragraph>
+                                                <TextRuns>
+                                                  <TextRun>
+                                                    <Value EvaluationMode="Constant" />
+                                                    <Style>
+                                                      <Color>#ff0000</Color>
+                                                    </Style>
+                                                  </TextRun>
+                                                </TextRuns>
+                                                <Style />
+                                              </Paragraph>
+                                            </Paragraphs>
+                                            <Visibility>
+                                              <Hidden>=Code.SetData(Cstr(Fields!Text011_FORMAT_Sales_Header_Payment_Terms_Code.value)+chr(177)+
+Cstr(Fields!CompanyInfo_Bank_Name_caption.value) + chr(177)+
+Cstr(Fields!CompanyInfo_Bank_Account_No_caption.value)+chr(177)+
+Cstr(Fields!CompanyInfo_Bank_Branch_No_caption.value)+chr(177)+
+Cstr(Fields!CompanyInfo_SWIF__Code_caption.value)+chr(177)+
+Cstr(Fields!CompanyInfo_IBAN_caption.value)+chr(177)+
+Cstr(Fields!CompanyInfo_Bank_Name.value)+chr(177)+
+Cstr(Fields!CompanyInfo_Bank_Account_No_.value)+chr(177)+
+Cstr(Fields!CompanyInfo_Bank_Branch_No_.value)+chr(177)+
+Cstr(Fields!CompanyInfo_SWIF__Code.value)+chr(177)+
+Cstr(Fields!CompanyInfo_IBAN.value) + chr(177)+
+Cstr(Fields!CstG_013.value) + chr(177)+
+Cstr(Fields!CstG_014.value) + chr(177),4)</Hidden>
+                                            </Visibility>
+                                            <Style>
+                                              <Border>
+                                                <Style>None</Style>
+                                              </Border>
+                                              <VerticalAlign>Middle</VerticalAlign>
+                                              <PaddingLeft>2pt</PaddingLeft>
+                                              <PaddingRight>2pt</PaddingRight>
+                                              <PaddingTop>2pt</PaddingTop>
+                                              <PaddingBottom>2pt</PaddingBottom>
+                                            </Style>
+                                          </Textbox>
+                                        </CellContents>
+                                      </TablixCell>
+                                    </TablixCells>
+                                  </TablixRow>
+                                </TablixRows>
+                              </TablixBody>
+                              <TablixColumnHierarchy>
+                                <TablixMembers>
+                                  <TablixMember />
+                                  <TablixMember />
+                                  <TablixMember />
+                                </TablixMembers>
+                              </TablixColumnHierarchy>
+                              <TablixRowHierarchy>
+                                <TablixMembers>
+                                  <TablixMember>
+                                    <KeepWithGroup>After</KeepWithGroup>
+                                    <KeepTogether>true</KeepTogether>
+                                  </TablixMember>
+                                </TablixMembers>
+                              </TablixRowHierarchy>
+                              <DataSetName>DataSet_Result</DataSetName>
+                              <Top>5.07937cm</Top>
+                              <Height>0.31746cm</Height>
+                              <Width>1.42857cm</Width>
+                              <ZIndex>1</ZIndex>
+                              <Style />
+                            </Tablix>
+                            <Textbox Name="ToutouCHannouf">
+                              <CanGrow>true</CanGrow>
+                              <KeepTogether>true</KeepTogether>
+                              <Paragraphs>
+                                <Paragraph>
+                                  <TextRuns>
+                                    <TextRun>
+                                      <Value>=True</Value>
+                                      <Style />
+                                    </TextRun>
+                                  </TextRuns>
+                                  <Style />
+                                </Paragraph>
+                              </Paragraphs>
+                              <Top>5.07937cm</Top>
+                              <Left>3.1746cm</Left>
+                              <Height>0.31746cm</Height>
+                              <Width>1.5873cm</Width>
+                              <ZIndex>2</ZIndex>
+                              <Visibility>
+                                <Hidden>true</Hidden>
+                              </Visibility>
+                              <Style>
+                                <PaddingLeft>2pt</PaddingLeft>
+                                <PaddingRight>2pt</PaddingRight>
+                                <PaddingTop>1pt</PaddingTop>
+                                <PaddingBottom>1pt</PaddingBottom>
+                              </Style>
+                            </Textbox>
+                            <Textbox Name="BooGImpText">
+                              <CanGrow>true</CanGrow>
+                              <KeepTogether>true</KeepTogether>
+                              <Paragraphs>
+                                <Paragraph>
+                                  <TextRuns>
+                                    <TextRun>
+                                      <Value>=Sum(Fields!BooGImpText.Value)</Value>
+                                      <Style>
+                                        <FontSize>8pt</FontSize>
+                                      </Style>
+                                    </TextRun>
+                                  </TextRuns>
+                                  <Style>
+                                    <TextAlign>Right</TextAlign>
+                                  </Style>
+                                </Paragraph>
+                              </Paragraphs>
+                              <rd:DefaultName>BooGImpText</rd:DefaultName>
+                              <Top>5.07937cm</Top>
+                              <Left>7.61905cm</Left>
+                              <Height>0.31746cm</Height>
+                              <Width>2.53968cm</Width>
+                              <ZIndex>3</ZIndex>
+                              <Visibility>
+                                <Hidden>true</Hidden>
+                              </Visibility>
+                              <Style />
+                            </Textbox>
                           </ReportItems>
                           <KeepTogether>true</KeepTogether>
+                          <Style />
                         </Rectangle>
                       </CellContents>
                     </TablixCell>
@@ -3957,6 +4083,7 @@ CSTR(sum(Fields!Sales_Invoice_Line__Amount_Including_VAT_.Value))</Value>
                     </GroupExpressions>
                     <PageBreak>
                       <BreakLocation>Between</BreakLocation>
+                      <ResetPageNumber>true</ResetPageNumber>
                     </PageBreak>
                   </Group>
                   <SortExpressions>
@@ -3976,12 +4103,15 @@ CSTR(sum(Fields!Sales_Invoice_Line__Amount_Including_VAT_.Value))</Value>
             <PageBreak>
               <BreakLocation>End</BreakLocation>
             </PageBreak>
+            <Height>5.39683cm</Height>
+            <Width>19.20635cm</Width>
             <Style>
               <FontSize>9pt</FontSize>
             </Style>
           </Tablix>
         </ReportItems>
         <Height>5.39683cm</Height>
+        <Style />
       </Body>
       <Width>19.20635cm</Width>
       <Page>
@@ -3992,336 +4122,199 @@ CSTR(sum(Fields!Sales_Invoice_Line__Amount_Including_VAT_.Value))</Value>
           <ReportItems>
             <Rectangle Name="rectangle1">
               <ReportItems>
-                <Image Name="image1">
-                  <Source>Embedded</Source>
-                  <Value>logo</Value>
-                  <MIMEType>image/jpeg</MIMEType>
-                  <Sizing>Fit</Sizing>
-                  <Left>6.8cm</Left>
-                  <Height>1.5cm</Height>
-                  <Width>5.1cm</Width>
-                  <ZIndex>25</ZIndex>
-                  <Visibility>
-                    <Hidden>= IIF(ReportItems!EnvoiMail.Value = False,True,False)</Hidden>
-                  </Visibility>
-                  <DataElementOutput>NoOutput</DataElementOutput>
-                  <Style />
-                </Image>
-                <Textbox Name="textbox2">
+                <Textbox Name="Sales_Header___No__Caption1">
                   <KeepTogether>true</KeepTogether>
                   <Paragraphs>
                     <Paragraph>
                       <TextRuns>
                         <TextRun>
-                          <Value>=Code.GetData(6,1)</Value>
+                          <Value>=Code.GetData(11,2)</Value>
+                          <Style>
+                            <FontSize>8pt</FontSize>
+                          </Style>
+                        </TextRun>
+                      </TextRuns>
+                      <Style />
+                    </Paragraph>
+                  </Paragraphs>
+                  <Top>7.7cm</Top>
+                  <Left>11cm</Left>
+                  <Height>0.423cm</Height>
+                  <Width>3.60317cm</Width>
+                  <Style>
+                    <VerticalAlign>Middle</VerticalAlign>
+                  </Style>
+                </Textbox>
+                <Textbox Name="Sales_Header___Shipment_Date_Caption1">
+                  <KeepTogether>true</KeepTogether>
+                  <Paragraphs>
+                    <Paragraph>
+                      <TextRuns>
+                        <TextRun>
+                          <Value>=Code.GetData(9,2)</Value>
+                          <Style>
+                            <FontSize>8pt</FontSize>
+                          </Style>
+                        </TextRun>
+                      </TextRuns>
+                      <Style />
+                    </Paragraph>
+                  </Paragraphs>
+                  <Top>7cm</Top>
+                  <Left>11cm</Left>
+                  <Height>0.423cm</Height>
+                  <Width>6.03175cm</Width>
+                  <ZIndex>1</ZIndex>
+                  <Style>
+                    <VerticalAlign>Middle</VerticalAlign>
+                  </Style>
+                </Textbox>
+                <Textbox Name="Sales_Header___No__1">
+                  <KeepTogether>true</KeepTogether>
+                  <Paragraphs>
+                    <Paragraph>
+                      <TextRuns>
+                        <TextRun>
+                          <Value>=Code.GetData(12,2)</Value>
+                          <Style>
+                            <FontSize>8pt</FontSize>
+                          </Style>
+                        </TextRun>
+                      </TextRuns>
+                      <Style>
+                        <TextAlign>Left</TextAlign>
+                      </Style>
+                    </Paragraph>
+                  </Paragraphs>
+                  <Top>7.7cm</Top>
+                  <Left>14.60317cm</Left>
+                  <Height>0.423cm</Height>
+                  <Width>3.49207cm</Width>
+                  <ZIndex>2</ZIndex>
+                  <Style>
+                    <VerticalAlign>Middle</VerticalAlign>
+                  </Style>
+                </Textbox>
+                <Textbox Name="CustAddr_5_1">
+                  <KeepTogether>true</KeepTogether>
+                  <Paragraphs>
+                    <Paragraph>
+                      <TextRuns>
+                        <TextRun>
+                          <Value>=Code.GetData(5,1)</Value>
                           <Style>
                             <FontSize>9pt</FontSize>
                             <FontWeight>Bold</FontWeight>
                           </Style>
                         </TextRun>
                       </TextRuns>
+                      <Style />
                     </Paragraph>
                   </Paragraphs>
-                  <Top>5.765cm</Top>
+                  <Top>5.342cm</Top>
                   <Left>11cm</Left>
                   <Height>0.423cm</Height>
                   <Width>6.3cm</Width>
-                  <ZIndex>24</ZIndex>
+                  <ZIndex>3</ZIndex>
                   <Style>
                     <VerticalAlign>Middle</VerticalAlign>
                   </Style>
                 </Textbox>
-                <Textbox Name="textbox245">
+                <Textbox Name="CustAddr_4_1">
                   <KeepTogether>true</KeepTogether>
                   <Paragraphs>
                     <Paragraph>
                       <TextRuns>
                         <TextRun>
-                          <Value>=Code.GetData(1,2)</Value>
-                          <Style>
-                            <FontSize>8pt</FontSize>
-                            <FontWeight>Bold</FontWeight>
-                          </Style>
-                        </TextRun>
-                      </TextRuns>
-                    </Paragraph>
-                  </Paragraphs>
-                  <Top>4.653cm</Top>
-                  <Left>3.5cm</Left>
-                  <Height>0.423cm</Height>
-                  <Width>4.2cm</Width>
-                  <ZIndex>23</ZIndex>
-                  <Style>
-                    <VerticalAlign>Middle</VerticalAlign>
-                  </Style>
-                </Textbox>
-                <Textbox Name="textbox246">
-                  <KeepTogether>true</KeepTogether>
-                  <Paragraphs>
-                    <Paragraph>
-                      <TextRuns>
-                        <TextRun>
-                          <Value>=Code.GetData(14,2)</Value>
-                          <Style>
-                            <FontSize>8pt</FontSize>
-                          </Style>
-                        </TextRun>
-                      </TextRuns>
-                    </Paragraph>
-                  </Paragraphs>
-                  <Top>5.07937cm</Top>
-                  <Left>3.5cm</Left>
-                  <Height>0.423cm</Height>
-                  <Width>4.2cm</Width>
-                  <ZIndex>22</ZIndex>
-                  <Style>
-                    <VerticalAlign>Middle</VerticalAlign>
-                  </Style>
-                </Textbox>
-                <Textbox Name="textbox247">
-                  <KeepTogether>true</KeepTogether>
-                  <Paragraphs>
-                    <Paragraph>
-                      <TextRuns>
-                        <TextRun>
-                          <Value>=Code.GetData(2,2)</Value>
-                          <Style>
-                            <FontSize>8pt</FontSize>
-                          </Style>
-                        </TextRun>
-                      </TextRuns>
-                    </Paragraph>
-                  </Paragraphs>
-                  <Top>4.653cm</Top>
-                  <Height>0.423cm</Height>
-                  <Width>3.5cm</Width>
-                  <ZIndex>21</ZIndex>
-                  <Style>
-                    <VerticalAlign>Middle</VerticalAlign>
-                  </Style>
-                </Textbox>
-                <Textbox Name="textbox248">
-                  <KeepTogether>true</KeepTogether>
-                  <Paragraphs>
-                    <Paragraph>
-                      <TextRuns>
-                        <TextRun>
-                          <Value>=Code.GetData(15,2)</Value>
-                          <Style>
-                            <FontSize>8pt</FontSize>
-                          </Style>
-                        </TextRun>
-                      </TextRuns>
-                    </Paragraph>
-                  </Paragraphs>
-                  <Top>5.07937cm</Top>
-                  <Height>0.423cm</Height>
-                  <Width>3.5cm</Width>
-                  <ZIndex>20</ZIndex>
-                  <Style>
-                    <VerticalAlign>Middle</VerticalAlign>
-                  </Style>
-                </Textbox>
-                <Textbox Name="textbox249">
-                  <KeepTogether>true</KeepTogether>
-                  <Paragraphs>
-                    <Paragraph>
-                      <TextRuns>
-                        <TextRun>
-                          <Value>=Code.GetData(3,2)</Value>
-                          <Style>
-                            <FontSize>8pt</FontSize>
-                          </Style>
-                        </TextRun>
-                      </TextRuns>
-                    </Paragraph>
-                  </Paragraphs>
-                  <Top>5.50152cm</Top>
-                  <Left>3.5cm</Left>
-                  <Height>0.423cm</Height>
-                  <Width>4.2cm</Width>
-                  <ZIndex>19</ZIndex>
-                  <Style>
-                    <VerticalAlign>Middle</VerticalAlign>
-                  </Style>
-                </Textbox>
-                <Textbox Name="textbox250">
-                  <KeepTogether>true</KeepTogether>
-                  <Paragraphs>
-                    <Paragraph>
-                      <TextRuns>
-                        <TextRun>
-                          <Value>=Code.GetData(13,2)</Value>
-                          <Style>
-                            <FontSize>8pt</FontSize>
-                          </Style>
-                        </TextRun>
-                      </TextRuns>
-                    </Paragraph>
-                  </Paragraphs>
-                  <Top>5.92451cm</Top>
-                  <Left>3.5cm</Left>
-                  <Height>0.423cm</Height>
-                  <Width>4.2cm</Width>
-                  <ZIndex>18</ZIndex>
-                  <Style>
-                    <VerticalAlign>Middle</VerticalAlign>
-                  </Style>
-                </Textbox>
-                <Textbox Name="textbox251">
-                  <KeepTogether>true</KeepTogether>
-                  <Paragraphs>
-                    <Paragraph>
-                      <TextRuns>
-                        <TextRun>
-                          <Value>=Code.GetData(16,2)</Value>
-                          <Style>
-                            <FontSize>8pt</FontSize>
-                          </Style>
-                        </TextRun>
-                      </TextRuns>
-                    </Paragraph>
-                  </Paragraphs>
-                  <Top>6.34753cm</Top>
-                  <Left>3.5cm</Left>
-                  <Height>0.423cm</Height>
-                  <Width>4.2cm</Width>
-                  <ZIndex>17</ZIndex>
-                  <Style>
-                    <VerticalAlign>Middle</VerticalAlign>
-                  </Style>
-                </Textbox>
-                <Textbox Name="textbox252">
-                  <KeepTogether>true</KeepTogether>
-                  <Paragraphs>
-                    <Paragraph>
-                      <TextRuns>
-                        <TextRun>
-                          <Value>=Code.GetData(7,2)</Value>
-                          <Style>
-                            <FontSize>8pt</FontSize>
-                          </Style>
-                        </TextRun>
-                      </TextRuns>
-                    </Paragraph>
-                  </Paragraphs>
-                  <Top>6.77052cm</Top>
-                  <Left>3.5cm</Left>
-                  <Height>0.42385cm</Height>
-                  <Width>4.2cm</Width>
-                  <ZIndex>16</ZIndex>
-                  <Style>
-                    <VerticalAlign>Middle</VerticalAlign>
-                  </Style>
-                </Textbox>
-                <Textbox Name="textbox253">
-                  <KeepTogether>true</KeepTogether>
-                  <Paragraphs>
-                    <Paragraph>
-                      <TextRuns>
-                        <TextRun>
-                          <Value>=Code.GetData(4,2)</Value>
-                          <Style>
-                            <FontSize>8pt</FontSize>
-                          </Style>
-                        </TextRun>
-                      </TextRuns>
-                    </Paragraph>
-                  </Paragraphs>
-                  <Top>5.50152cm</Top>
-                  <Height>0.423cm</Height>
-                  <Width>3.5cm</Width>
-                  <ZIndex>15</ZIndex>
-                  <Style>
-                    <VerticalAlign>Middle</VerticalAlign>
-                  </Style>
-                </Textbox>
-                <Textbox Name="textbox254">
-                  <KeepTogether>true</KeepTogether>
-                  <Paragraphs>
-                    <Paragraph>
-                      <TextRuns>
-                        <TextRun>
-                          <Value>=Code.GetData(6,2)</Value>
-                          <Style>
-                            <FontSize>8pt</FontSize>
-                          </Style>
-                        </TextRun>
-                      </TextRuns>
-                    </Paragraph>
-                  </Paragraphs>
-                  <Top>5.92451cm</Top>
-                  <Height>0.423cm</Height>
-                  <Width>3.5cm</Width>
-                  <ZIndex>14</ZIndex>
-                  <Style>
-                    <VerticalAlign>Middle</VerticalAlign>
-                  </Style>
-                </Textbox>
-                <Textbox Name="textbox255">
-                  <KeepTogether>true</KeepTogether>
-                  <Paragraphs>
-                    <Paragraph>
-                      <TextRuns>
-                        <TextRun>
-                          <Value>=Code.GetData(17,2)</Value>
-                          <Style>
-                            <FontSize>8pt</FontSize>
-                          </Style>
-                        </TextRun>
-                      </TextRuns>
-                    </Paragraph>
-                  </Paragraphs>
-                  <Top>6.34753cm</Top>
-                  <Height>0.423cm</Height>
-                  <Width>3.5cm</Width>
-                  <ZIndex>13</ZIndex>
-                  <Style>
-                    <VerticalAlign>Middle</VerticalAlign>
-                  </Style>
-                </Textbox>
-                <Textbox Name="textbox256">
-                  <KeepTogether>true</KeepTogether>
-                  <Paragraphs>
-                    <Paragraph>
-                      <TextRuns>
-                        <TextRun>
-                          <Value>=Code.GetData(8,2)</Value>
-                          <Style>
-                            <FontSize>8pt</FontSize>
-                          </Style>
-                        </TextRun>
-                      </TextRuns>
-                    </Paragraph>
-                  </Paragraphs>
-                  <Top>6.77052cm</Top>
-                  <Height>0.42385cm</Height>
-                  <Width>3.5cm</Width>
-                  <ZIndex>12</ZIndex>
-                  <Style>
-                    <VerticalAlign>Middle</VerticalAlign>
-                  </Style>
-                </Textbox>
-                <Textbox Name="textbox30">
-                  <KeepTogether>true</KeepTogether>
-                  <Paragraphs>
-                    <Paragraph>
-                      <TextRuns>
-                        <TextRun>
-                          <Value>=Code.GetData(2,1)</Value>
+                          <Value>=Code.GetData(4,1)</Value>
                           <Style>
                             <FontSize>9pt</FontSize>
                             <FontWeight>Bold</FontWeight>
                           </Style>
                         </TextRun>
                       </TextRuns>
+                      <Style />
                     </Paragraph>
                   </Paragraphs>
-                  <Top>4.073cm</Top>
+                  <Top>4.919cm</Top>
                   <Left>11cm</Left>
                   <Height>0.423cm</Height>
                   <Width>6.3cm</Width>
-                  <ZIndex>11</ZIndex>
+                  <ZIndex>4</ZIndex>
+                  <Style>
+                    <VerticalAlign>Middle</VerticalAlign>
+                  </Style>
+                </Textbox>
+                <Textbox Name="CustAddr_3_1">
+                  <KeepTogether>true</KeepTogether>
+                  <Paragraphs>
+                    <Paragraph>
+                      <TextRuns>
+                        <TextRun>
+                          <Value>=Code.GetData(3,1)</Value>
+                          <Style>
+                            <FontSize>9pt</FontSize>
+                            <FontWeight>Bold</FontWeight>
+                          </Style>
+                        </TextRun>
+                      </TextRuns>
+                      <Style />
+                    </Paragraph>
+                  </Paragraphs>
+                  <Top>4.496cm</Top>
+                  <Left>11cm</Left>
+                  <Height>0.423cm</Height>
+                  <Width>6.3cm</Width>
+                  <ZIndex>5</ZIndex>
+                  <Style>
+                    <VerticalAlign>Middle</VerticalAlign>
+                  </Style>
+                </Textbox>
+                <Textbox Name="CustAddr_1_1">
+                  <KeepTogether>true</KeepTogether>
+                  <Paragraphs>
+                    <Paragraph>
+                      <TextRuns>
+                        <TextRun>
+                          <Value>=Code.GetData(1,1)</Value>
+                          <Style>
+                            <FontSize>9pt</FontSize>
+                            <FontWeight>Bold</FontWeight>
+                          </Style>
+                        </TextRun>
+                      </TextRuns>
+                      <Style />
+                    </Paragraph>
+                  </Paragraphs>
+                  <Top>3.65cm</Top>
+                  <Left>11cm</Left>
+                  <Height>0.423cm</Height>
+                  <Width>6.3cm</Width>
+                  <ZIndex>6</ZIndex>
+                  <Style>
+                    <VerticalAlign>Middle</VerticalAlign>
+                  </Style>
+                </Textbox>
+                <Textbox Name="textbox175">
+                  <KeepTogether>true</KeepTogether>
+                  <Paragraphs>
+                    <Paragraph>
+                      <TextRuns>
+                        <TextRun>
+                          <Value>=ReportItems!textbox480.Value</Value>
+                          <Style>
+                            <FontSize>12pt</FontSize>
+                            <FontWeight>Bold</FontWeight>
+                          </Style>
+                        </TextRun>
+                      </TextRuns>
+                      <Style />
+                    </Paragraph>
+                  </Paragraphs>
+                  <Top>3.5cm</Top>
+                  <Height>0.423cm</Height>
+                  <Width>5cm</Width>
+                  <ZIndex>7</ZIndex>
                   <Style>
                     <VerticalAlign>Middle</VerticalAlign>
                   </Style>
@@ -4349,7 +4342,7 @@ CSTR(sum(Fields!Sales_Invoice_Line__Amount_Including_VAT_.Value))</Value>
                   <Left>11.11111cm</Left>
                   <Height>1cm</Height>
                   <Width>7cm</Width>
-                  <ZIndex>10</ZIndex>
+                  <ZIndex>8</ZIndex>
                   <Style>
                     <VerticalAlign>Middle</VerticalAlign>
                     <PaddingLeft>2pt</PaddingLeft>
@@ -4358,261 +4351,362 @@ CSTR(sum(Fields!Sales_Invoice_Line__Amount_Including_VAT_.Value))</Value>
                     <PaddingBottom>2pt</PaddingBottom>
                   </Style>
                 </Textbox>
-                <Textbox Name="textbox175">
+                <Textbox Name="textbox30">
                   <KeepTogether>true</KeepTogether>
                   <Paragraphs>
                     <Paragraph>
                       <TextRuns>
                         <TextRun>
-                          <Value>=ReportItems!textbox480.Value</Value>
+                          <Value>=Code.GetData(2,1)</Value>
                           <Style>
-                            <FontSize>12pt</FontSize>
+                            <FontSize>9pt</FontSize>
                             <FontWeight>Bold</FontWeight>
                           </Style>
                         </TextRun>
                       </TextRuns>
+                      <Style />
                     </Paragraph>
                   </Paragraphs>
-                  <Top>3.5cm</Top>
+                  <Top>4.073cm</Top>
+                  <Left>11cm</Left>
                   <Height>0.423cm</Height>
-                  <Width>5cm</Width>
+                  <Width>6.3cm</Width>
                   <ZIndex>9</ZIndex>
                   <Style>
                     <VerticalAlign>Middle</VerticalAlign>
                   </Style>
                 </Textbox>
-                <Textbox Name="CustAddr_1_1">
+                <Textbox Name="textbox256">
                   <KeepTogether>true</KeepTogether>
                   <Paragraphs>
                     <Paragraph>
                       <TextRuns>
                         <TextRun>
-                          <Value>=Code.GetData(1,1)</Value>
-                          <Style>
-                            <FontSize>9pt</FontSize>
-                            <FontWeight>Bold</FontWeight>
-                          </Style>
-                        </TextRun>
-                      </TextRuns>
-                    </Paragraph>
-                  </Paragraphs>
-                  <Top>3.65cm</Top>
-                  <Left>11cm</Left>
-                  <Height>0.423cm</Height>
-                  <Width>6.3cm</Width>
-                  <ZIndex>8</ZIndex>
-                  <Style>
-                    <VerticalAlign>Middle</VerticalAlign>
-                  </Style>
-                </Textbox>
-                <Textbox Name="CustAddr_3_1">
-                  <KeepTogether>true</KeepTogether>
-                  <Paragraphs>
-                    <Paragraph>
-                      <TextRuns>
-                        <TextRun>
-                          <Value>=Code.GetData(3,1)</Value>
-                          <Style>
-                            <FontSize>9pt</FontSize>
-                            <FontWeight>Bold</FontWeight>
-                          </Style>
-                        </TextRun>
-                      </TextRuns>
-                    </Paragraph>
-                  </Paragraphs>
-                  <Top>4.496cm</Top>
-                  <Left>11cm</Left>
-                  <Height>0.423cm</Height>
-                  <Width>6.3cm</Width>
-                  <ZIndex>7</ZIndex>
-                  <Style>
-                    <VerticalAlign>Middle</VerticalAlign>
-                  </Style>
-                </Textbox>
-                <Textbox Name="CustAddr_4_1">
-                  <KeepTogether>true</KeepTogether>
-                  <Paragraphs>
-                    <Paragraph>
-                      <TextRuns>
-                        <TextRun>
-                          <Value>=Code.GetData(4,1)</Value>
-                          <Style>
-                            <FontSize>9pt</FontSize>
-                            <FontWeight>Bold</FontWeight>
-                          </Style>
-                        </TextRun>
-                      </TextRuns>
-                    </Paragraph>
-                  </Paragraphs>
-                  <Top>4.919cm</Top>
-                  <Left>11cm</Left>
-                  <Height>0.423cm</Height>
-                  <Width>6.3cm</Width>
-                  <ZIndex>6</ZIndex>
-                  <Style>
-                    <VerticalAlign>Middle</VerticalAlign>
-                  </Style>
-                </Textbox>
-                <Textbox Name="CustAddr_5_1">
-                  <KeepTogether>true</KeepTogether>
-                  <Paragraphs>
-                    <Paragraph>
-                      <TextRuns>
-                        <TextRun>
-                          <Value>=Code.GetData(5,1)</Value>
-                          <Style>
-                            <FontSize>9pt</FontSize>
-                            <FontWeight>Bold</FontWeight>
-                          </Style>
-                        </TextRun>
-                      </TextRuns>
-                    </Paragraph>
-                  </Paragraphs>
-                  <Top>5.342cm</Top>
-                  <Left>11cm</Left>
-                  <Height>0.423cm</Height>
-                  <Width>6.3cm</Width>
-                  <ZIndex>5</ZIndex>
-                  <Style>
-                    <VerticalAlign>Middle</VerticalAlign>
-                  </Style>
-                </Textbox>
-                <Textbox Name="Sales_Header___No__1">
-                  <KeepTogether>true</KeepTogether>
-                  <Paragraphs>
-                    <Paragraph>
-                      <TextRuns>
-                        <TextRun>
-                          <Value>=Code.GetData(12,2)</Value>
+                          <Value>=Code.GetData(8,2)</Value>
                           <Style>
                             <FontSize>8pt</FontSize>
                           </Style>
                         </TextRun>
                       </TextRuns>
-                      <Style>
-                        <TextAlign>Left</TextAlign>
-                      </Style>
+                      <Style />
                     </Paragraph>
                   </Paragraphs>
-                  <Top>7.7cm</Top>
-                  <Left>14.60317cm</Left>
-                  <Height>0.423cm</Height>
-                  <Width>3.49207cm</Width>
-                  <ZIndex>4</ZIndex>
+                  <Top>6.77052cm</Top>
+                  <Height>0.42385cm</Height>
+                  <Width>3.5cm</Width>
+                  <ZIndex>10</ZIndex>
                   <Style>
                     <VerticalAlign>Middle</VerticalAlign>
                   </Style>
                 </Textbox>
-                <Textbox Name="Sales_Header___Shipment_Date_Caption1">
+                <Textbox Name="textbox255">
                   <KeepTogether>true</KeepTogether>
                   <Paragraphs>
                     <Paragraph>
                       <TextRuns>
                         <TextRun>
-                          <Value>=Code.GetData(9,2)</Value>
+                          <Value>=Code.GetData(17,2)</Value>
                           <Style>
                             <FontSize>8pt</FontSize>
                           </Style>
                         </TextRun>
                       </TextRuns>
+                      <Style />
                     </Paragraph>
                   </Paragraphs>
-                  <Top>7cm</Top>
-                  <Left>11cm</Left>
+                  <Top>6.34753cm</Top>
                   <Height>0.423cm</Height>
-                  <Width>6.03175cm</Width>
-                  <ZIndex>3</ZIndex>
+                  <Width>3.5cm</Width>
+                  <ZIndex>11</ZIndex>
                   <Style>
                     <VerticalAlign>Middle</VerticalAlign>
                   </Style>
                 </Textbox>
-                <Textbox Name="Sales_Header___No__Caption1">
+                <Textbox Name="textbox254">
                   <KeepTogether>true</KeepTogether>
                   <Paragraphs>
                     <Paragraph>
                       <TextRuns>
                         <TextRun>
-                          <Value>=Code.GetData(11,2)</Value>
+                          <Value>=Code.GetData(6,2)</Value>
                           <Style>
                             <FontSize>8pt</FontSize>
                           </Style>
                         </TextRun>
                       </TextRuns>
+                      <Style />
                     </Paragraph>
                   </Paragraphs>
-                  <Top>7.7cm</Top>
-                  <Left>11cm</Left>
+                  <Top>5.92451cm</Top>
                   <Height>0.423cm</Height>
-                  <Width>3.60317cm</Width>
-                  <ZIndex>2</ZIndex>
+                  <Width>3.5cm</Width>
+                  <ZIndex>12</ZIndex>
                   <Style>
                     <VerticalAlign>Middle</VerticalAlign>
                   </Style>
                 </Textbox>
-                <Textbox Name="textbox4">
+                <Textbox Name="textbox253">
                   <KeepTogether>true</KeepTogether>
                   <Paragraphs>
                     <Paragraph>
                       <TextRuns>
                         <TextRun>
-                          <Value>=code.SetData(ReportItems!CustAddr.Value,1)</Value>
+                          <Value>=Code.GetData(4,2)</Value>
                           <Style>
-                            <Color>#ff0000</Color>
+                            <FontSize>8pt</FontSize>
                           </Style>
                         </TextRun>
                       </TextRuns>
+                      <Style />
                     </Paragraph>
                   </Paragraphs>
-                  <Top>0.95238cm</Top>
-                  <Left>0.95238cm</Left>
-                  <Height>0.31746cm</Height>
-                  <Width>0.95238cm</Width>
-                  <ZIndex>1</ZIndex>
+                  <Top>5.50152cm</Top>
+                  <Height>0.423cm</Height>
+                  <Width>3.5cm</Width>
+                  <ZIndex>13</ZIndex>
+                  <Style>
+                    <VerticalAlign>Middle</VerticalAlign>
+                  </Style>
+                </Textbox>
+                <Textbox Name="textbox252">
+                  <KeepTogether>true</KeepTogether>
+                  <Paragraphs>
+                    <Paragraph>
+                      <TextRuns>
+                        <TextRun>
+                          <Value>=Code.GetData(7,2)</Value>
+                          <Style>
+                            <FontSize>8pt</FontSize>
+                          </Style>
+                        </TextRun>
+                      </TextRuns>
+                      <Style />
+                    </Paragraph>
+                  </Paragraphs>
+                  <Top>6.77052cm</Top>
+                  <Left>3.5cm</Left>
+                  <Height>0.42385cm</Height>
+                  <Width>4.2cm</Width>
+                  <ZIndex>14</ZIndex>
+                  <Style>
+                    <VerticalAlign>Middle</VerticalAlign>
+                  </Style>
+                </Textbox>
+                <Textbox Name="textbox251">
+                  <KeepTogether>true</KeepTogether>
+                  <Paragraphs>
+                    <Paragraph>
+                      <TextRuns>
+                        <TextRun>
+                          <Value>=Code.GetData(16,2)</Value>
+                          <Style>
+                            <FontSize>8pt</FontSize>
+                          </Style>
+                        </TextRun>
+                      </TextRuns>
+                      <Style />
+                    </Paragraph>
+                  </Paragraphs>
+                  <Top>6.34753cm</Top>
+                  <Left>3.5cm</Left>
+                  <Height>0.423cm</Height>
+                  <Width>4.2cm</Width>
+                  <ZIndex>15</ZIndex>
+                  <Style>
+                    <VerticalAlign>Middle</VerticalAlign>
+                  </Style>
+                </Textbox>
+                <Textbox Name="textbox250">
+                  <KeepTogether>true</KeepTogether>
+                  <Paragraphs>
+                    <Paragraph>
+                      <TextRuns>
+                        <TextRun>
+                          <Value>=Code.GetData(13,2)</Value>
+                          <Style>
+                            <FontSize>8pt</FontSize>
+                          </Style>
+                        </TextRun>
+                      </TextRuns>
+                      <Style />
+                    </Paragraph>
+                  </Paragraphs>
+                  <Top>5.92451cm</Top>
+                  <Left>3.5cm</Left>
+                  <Height>0.423cm</Height>
+                  <Width>4.2cm</Width>
+                  <ZIndex>16</ZIndex>
+                  <Style>
+                    <VerticalAlign>Middle</VerticalAlign>
+                  </Style>
+                </Textbox>
+                <Textbox Name="textbox249">
+                  <KeepTogether>true</KeepTogether>
+                  <Paragraphs>
+                    <Paragraph>
+                      <TextRuns>
+                        <TextRun>
+                          <Value>=Code.GetData(3,2)</Value>
+                          <Style>
+                            <FontSize>8pt</FontSize>
+                          </Style>
+                        </TextRun>
+                      </TextRuns>
+                      <Style />
+                    </Paragraph>
+                  </Paragraphs>
+                  <Top>5.50152cm</Top>
+                  <Left>3.5cm</Left>
+                  <Height>0.423cm</Height>
+                  <Width>4.2cm</Width>
+                  <ZIndex>17</ZIndex>
+                  <Style>
+                    <VerticalAlign>Middle</VerticalAlign>
+                  </Style>
+                </Textbox>
+                <Textbox Name="textbox248">
+                  <KeepTogether>true</KeepTogether>
+                  <Paragraphs>
+                    <Paragraph>
+                      <TextRuns>
+                        <TextRun>
+                          <Value>=Code.GetData(15,2)</Value>
+                          <Style>
+                            <FontSize>8pt</FontSize>
+                          </Style>
+                        </TextRun>
+                      </TextRuns>
+                      <Style />
+                    </Paragraph>
+                  </Paragraphs>
+                  <Top>5.07937cm</Top>
+                  <Height>0.423cm</Height>
+                  <Width>3.5cm</Width>
+                  <ZIndex>18</ZIndex>
+                  <Style>
+                    <VerticalAlign>Middle</VerticalAlign>
+                  </Style>
+                </Textbox>
+                <Textbox Name="textbox247">
+                  <KeepTogether>true</KeepTogether>
+                  <Paragraphs>
+                    <Paragraph>
+                      <TextRuns>
+                        <TextRun>
+                          <Value>=Code.GetData(2,2)</Value>
+                          <Style>
+                            <FontSize>8pt</FontSize>
+                          </Style>
+                        </TextRun>
+                      </TextRuns>
+                      <Style />
+                    </Paragraph>
+                  </Paragraphs>
+                  <Top>4.653cm</Top>
+                  <Height>0.423cm</Height>
+                  <Width>3.5cm</Width>
+                  <ZIndex>19</ZIndex>
+                  <Style>
+                    <VerticalAlign>Middle</VerticalAlign>
+                  </Style>
+                </Textbox>
+                <Textbox Name="textbox246">
+                  <KeepTogether>true</KeepTogether>
+                  <Paragraphs>
+                    <Paragraph>
+                      <TextRuns>
+                        <TextRun>
+                          <Value>=Code.GetData(14,2)</Value>
+                          <Style>
+                            <FontSize>8pt</FontSize>
+                          </Style>
+                        </TextRun>
+                      </TextRuns>
+                      <Style />
+                    </Paragraph>
+                  </Paragraphs>
+                  <Top>5.07937cm</Top>
+                  <Left>3.5cm</Left>
+                  <Height>0.423cm</Height>
+                  <Width>4.2cm</Width>
+                  <ZIndex>20</ZIndex>
+                  <Style>
+                    <VerticalAlign>Middle</VerticalAlign>
+                  </Style>
+                </Textbox>
+                <Textbox Name="textbox245">
+                  <KeepTogether>true</KeepTogether>
+                  <Paragraphs>
+                    <Paragraph>
+                      <TextRuns>
+                        <TextRun>
+                          <Value>=Code.GetData(1,2)</Value>
+                          <Style>
+                            <FontSize>8pt</FontSize>
+                            <FontWeight>Bold</FontWeight>
+                          </Style>
+                        </TextRun>
+                      </TextRuns>
+                      <Style />
+                    </Paragraph>
+                  </Paragraphs>
+                  <Top>4.653cm</Top>
+                  <Left>3.5cm</Left>
+                  <Height>0.423cm</Height>
+                  <Width>4.2cm</Width>
+                  <ZIndex>21</ZIndex>
+                  <Style>
+                    <VerticalAlign>Middle</VerticalAlign>
+                  </Style>
+                </Textbox>
+                <Textbox Name="textbox2">
+                  <KeepTogether>true</KeepTogether>
+                  <Paragraphs>
+                    <Paragraph>
+                      <TextRuns>
+                        <TextRun>
+                          <Value>=Code.GetData(6,1)</Value>
+                          <Style>
+                            <FontSize>9pt</FontSize>
+                            <FontWeight>Bold</FontWeight>
+                          </Style>
+                        </TextRun>
+                      </TextRuns>
+                      <Style />
+                    </Paragraph>
+                  </Paragraphs>
+                  <Top>5.765cm</Top>
+                  <Left>11cm</Left>
+                  <Height>0.423cm</Height>
+                  <Width>6.3cm</Width>
+                  <ZIndex>22</ZIndex>
+                  <Style>
+                    <VerticalAlign>Middle</VerticalAlign>
+                  </Style>
+                </Textbox>
+                <Image Name="image1">
+                  <Source>Embedded</Source>
+                  <Value>logo</Value>
+                  <MIMEType>image/jpeg</MIMEType>
+                  <Sizing>Fit</Sizing>
+                  <Left>6.8cm</Left>
+                  <Height>1.5cm</Height>
+                  <Width>5.1cm</Width>
+                  <ZIndex>23</ZIndex>
                   <Visibility>
-                    <Hidden>true</Hidden>
+                    <Hidden>= IIF(ReportItems!EnvoiMail.Value = False,True,False)</Hidden>
                   </Visibility>
-                  <Style>
-                    <VerticalAlign>Middle</VerticalAlign>
-                    <PaddingLeft>2pt</PaddingLeft>
-                    <PaddingRight>2pt</PaddingRight>
-                    <PaddingTop>2pt</PaddingTop>
-                    <PaddingBottom>2pt</PaddingBottom>
-                  </Style>
-                </Textbox>
-                <Textbox Name="textbox158">
-                  <KeepTogether>true</KeepTogether>
-                  <Paragraphs>
-                    <Paragraph>
-                      <TextRuns>
-                        <TextRun>
-                          <Value>=code.SetData(ReportItems!CompanyAddr.Value,2)</Value>
-                          <Style>
-                            <Color>#ff0000</Color>
-                          </Style>
-                        </TextRun>
-                      </TextRuns>
-                    </Paragraph>
-                  </Paragraphs>
-                  <Top>0.95238cm</Top>
-                  <Left>2.22222cm</Left>
-                  <Height>0.31746cm</Height>
-                  <Width>0.95238cm</Width>
-                  <Visibility>
-                    <Hidden>true</Hidden>
-                  </Visibility>
-                  <Style>
-                    <VerticalAlign>Middle</VerticalAlign>
-                    <PaddingLeft>2pt</PaddingLeft>
-                    <PaddingRight>2pt</PaddingRight>
-                    <PaddingTop>2pt</PaddingTop>
-                    <PaddingBottom>2pt</PaddingBottom>
-                  </Style>
-                </Textbox>
+                  <DataElementOutput>NoOutput</DataElementOutput>
+                  <Style />
+                </Image>
               </ReportItems>
               <DataElementOutput>ContentsOnly</DataElementOutput>
+              <Height>8.25397cm</Height>
               <Width>19.06349cm</Width>
+              <Style />
             </Rectangle>
           </ReportItems>
+          <Style />
         </PageHeader>
         <PageFooter>
           <Height>7.614cm</Height>
@@ -4621,128 +4715,347 @@ CSTR(sum(Fields!Sales_Invoice_Line__Amount_Including_VAT_.Value))</Value>
           <ReportItems>
             <Rectangle Name="rectangle3">
               <ReportItems>
-                <Textbox Name="textbox20">
+                <Textbox Name="textbox68">
                   <CanGrow>true</CanGrow>
                   <KeepTogether>true</KeepTogether>
                   <Paragraphs>
                     <Paragraph>
                       <TextRuns>
                         <TextRun>
-                          <Value>Route de France 100 A  CH - 1348 Le Brassus  Tél. ++41 (0)21 845 10 30  Fax ++41 (0)21 845 10 31</Value>
+                          <Value>=Code.GetData(2,4)</Value>
                           <Style>
                             <FontSize>8pt</FontSize>
                           </Style>
                         </TextRun>
                       </TextRuns>
-                      <Style>
-                        <TextAlign>Center</TextAlign>
-                      </Style>
+                      <Style />
                     </Paragraph>
                   </Paragraphs>
-                  <Top>6.345cm</Top>
-                  <Left>1.269cm</Left>
-                  <Height>0.32223cm</Height>
-                  <Width>16.78955cm</Width>
-                  <ZIndex>19</ZIndex>
-                  <Visibility>
-                    <Hidden>= IIF(ReportItems!EnvoiMail.Value = False,True,False)</Hidden>
-                  </Visibility>
-                  <DataElementOutput>NoOutput</DataElementOutput>
-                  <Style />
-                </Textbox>
-                <Textbox Name="textbox24">
-                  <CanGrow>true</CanGrow>
-                  <KeepTogether>true</KeepTogether>
-                  <Paragraphs>
-                    <Paragraph>
-                      <TextRuns>
-                        <TextRun>
-                          <Value>info@lapierrette.com  www.lapierrette.com</Value>
-                          <Style>
-                            <FontSize>8pt</FontSize>
-                          </Style>
-                        </TextRun>
-                      </TextRuns>
-                      <Style>
-                        <TextAlign>Center</TextAlign>
-                      </Style>
-                    </Paragraph>
-                  </Paragraphs>
-                  <Top>6.77676cm</Top>
-                  <Left>1.76377cm</Left>
-                  <Height>0.35503cm</Height>
-                  <Width>15.6cm</Width>
-                  <ZIndex>18</ZIndex>
-                  <Visibility>
-                    <Hidden>= IIF(ReportItems!EnvoiMail.Value = False,True,False)</Hidden>
-                  </Visibility>
-                  <DataElementOutput>NoOutput</DataElementOutput>
-                  <Style />
-                </Textbox>
-                <Textbox Name="textbox13">
-                  <CanGrow>true</CanGrow>
-                  <KeepTogether>true</KeepTogether>
-                  <Paragraphs>
-                    <Paragraph>
-                      <TextRuns>
-                        <TextRun>
-                          <Value>=Code.BlankZero(Code.GetData(6,3))</Value>
-                          <Style>
-                            <FontSize>8pt</FontSize>
-                            <Format>N</Format>
-                          </Style>
-                        </TextRun>
-                      </TextRuns>
-                      <Style>
-                        <TextAlign>Right</TextAlign>
-                      </Style>
-                    </Paragraph>
-                  </Paragraphs>
-                  <Top>5.07937cm</Top>
-                  <Left>3.80952cm</Left>
-                  <Height>0.6cm</Height>
+                  <Top>3.38568cm</Top>
+                  <Left>9.91587cm</Left>
+                  <Height>0.5cm</Height>
                   <Width>2.99841cm</Width>
-                  <ZIndex>17</ZIndex>
                   <Style>
-                    <TopBorder>
-                      <Color>Black</Color>
-                    </TopBorder>
-                    <BottomBorder>
-                      <Color>Black</Color>
-                    </BottomBorder>
                     <PaddingLeft>2pt</PaddingLeft>
                     <PaddingRight>2pt</PaddingRight>
                     <PaddingTop>2pt</PaddingTop>
                     <PaddingBottom>2pt</PaddingBottom>
                   </Style>
                 </Textbox>
-                <Textbox Name="textbox7">
+                <Textbox Name="textbox96">
                   <CanGrow>true</CanGrow>
                   <KeepTogether>true</KeepTogether>
                   <Paragraphs>
                     <Paragraph>
                       <TextRuns>
                         <TextRun>
-                          <Value>=Code.GetData(3,3)</Value>
+                          <Value>=Code.GetData(7,4)</Value>
                           <Style>
                             <FontSize>8pt</FontSize>
                           </Style>
                         </TextRun>
                       </TextRuns>
+                      <Style />
                     </Paragraph>
                   </Paragraphs>
-                  <Top>5.07937cm</Top>
-                  <Left>0.31746cm</Left>
-                  <Height>0.6cm</Height>
-                  <Width>3.49206cm</Width>
-                  <ZIndex>16</ZIndex>
+                  <Top>3.38568cm</Top>
+                  <Left>13.01587cm</Left>
+                  <Height>0.5cm</Height>
+                  <Width>5.58944cm</Width>
+                  <ZIndex>1</ZIndex>
                   <Style>
-                    <TopBorder>
-                      <Color>Black</Color>
-                    </TopBorder>
-                    <BottomBorder>
-                      <Color>Black</Color>
-                    </BottomBorder>
+                    <PaddingLeft>2pt</PaddingLeft>
+                    <PaddingRight>2pt</PaddingRight>
+                    <PaddingTop>2pt</PaddingTop>
+                    <PaddingBottom>2pt</PaddingBottom>
+                  </Style>
+                </Textbox>
+                <Textbox Name="textbox95">
+                  <CanGrow>true</CanGrow>
+                  <KeepTogether>true</KeepTogether>
+                  <Paragraphs>
+                    <Paragraph>
+                      <TextRuns>
+                        <TextRun>
+                          <Value>=Code.GetData(3,4)</Value>
+                          <Style>
+                            <FontSize>8pt</FontSize>
+                          </Style>
+                        </TextRun>
+                      </TextRuns>
+                      <Style />
+                    </Paragraph>
+                  </Paragraphs>
+                  <Top>3.88568cm</Top>
+                  <Left>9.91587cm</Left>
+                  <Height>0.5cm</Height>
+                  <Width>2.99841cm</Width>
+                  <ZIndex>2</ZIndex>
+                  <Style>
+                    <PaddingLeft>2pt</PaddingLeft>
+                    <PaddingRight>2pt</PaddingRight>
+                    <PaddingTop>2pt</PaddingTop>
+                    <PaddingBottom>2pt</PaddingBottom>
+                  </Style>
+                </Textbox>
+                <Textbox Name="textbox92">
+                  <CanGrow>true</CanGrow>
+                  <KeepTogether>true</KeepTogether>
+                  <Paragraphs>
+                    <Paragraph>
+                      <TextRuns>
+                        <TextRun>
+                          <Value>=Code.GetData(8,4)</Value>
+                          <Style>
+                            <FontSize>8pt</FontSize>
+                          </Style>
+                        </TextRun>
+                      </TextRuns>
+                      <Style />
+                    </Paragraph>
+                  </Paragraphs>
+                  <Top>3.88568cm</Top>
+                  <Left>13.01587cm</Left>
+                  <Height>0.5cm</Height>
+                  <Width>5.58944cm</Width>
+                  <ZIndex>3</ZIndex>
+                  <Style>
+                    <PaddingLeft>2pt</PaddingLeft>
+                    <PaddingRight>2pt</PaddingRight>
+                    <PaddingTop>2pt</PaddingTop>
+                    <PaddingBottom>2pt</PaddingBottom>
+                  </Style>
+                </Textbox>
+                <Textbox Name="textbox67">
+                  <CanGrow>true</CanGrow>
+                  <KeepTogether>true</KeepTogether>
+                  <Paragraphs>
+                    <Paragraph>
+                      <TextRuns>
+                        <TextRun>
+                          <Value>=Code.GetData(4,4)</Value>
+                          <Style>
+                            <FontSize>8pt</FontSize>
+                          </Style>
+                        </TextRun>
+                      </TextRuns>
+                      <Style />
+                    </Paragraph>
+                  </Paragraphs>
+                  <Top>4.38568cm</Top>
+                  <Left>9.91587cm</Left>
+                  <Height>0.5cm</Height>
+                  <Width>2.99841cm</Width>
+                  <ZIndex>4</ZIndex>
+                  <Style>
+                    <PaddingLeft>2pt</PaddingLeft>
+                    <PaddingRight>2pt</PaddingRight>
+                    <PaddingTop>2pt</PaddingTop>
+                    <PaddingBottom>2pt</PaddingBottom>
+                  </Style>
+                </Textbox>
+                <Textbox Name="textbox66">
+                  <CanGrow>true</CanGrow>
+                  <KeepTogether>true</KeepTogether>
+                  <Paragraphs>
+                    <Paragraph>
+                      <TextRuns>
+                        <TextRun>
+                          <Value>=Code.GetData(9,4)</Value>
+                          <Style>
+                            <FontSize>8pt</FontSize>
+                          </Style>
+                        </TextRun>
+                      </TextRuns>
+                      <Style />
+                    </Paragraph>
+                  </Paragraphs>
+                  <Top>4.38568cm</Top>
+                  <Left>13.01587cm</Left>
+                  <Height>0.5cm</Height>
+                  <Width>5.58944cm</Width>
+                  <ZIndex>5</ZIndex>
+                  <Style>
+                    <PaddingLeft>2pt</PaddingLeft>
+                    <PaddingRight>2pt</PaddingRight>
+                    <PaddingTop>2pt</PaddingTop>
+                    <PaddingBottom>2pt</PaddingBottom>
+                  </Style>
+                </Textbox>
+                <Textbox Name="textbox65">
+                  <CanGrow>true</CanGrow>
+                  <KeepTogether>true</KeepTogether>
+                  <Paragraphs>
+                    <Paragraph>
+                      <TextRuns>
+                        <TextRun>
+                          <Value>=Code.GetData(5,4)</Value>
+                          <Style>
+                            <FontSize>8pt</FontSize>
+                          </Style>
+                        </TextRun>
+                      </TextRuns>
+                      <Style />
+                    </Paragraph>
+                  </Paragraphs>
+                  <Top>4.88568cm</Top>
+                  <Left>9.91587cm</Left>
+                  <Height>0.5cm</Height>
+                  <Width>2.99841cm</Width>
+                  <ZIndex>6</ZIndex>
+                  <Style>
+                    <PaddingLeft>2pt</PaddingLeft>
+                    <PaddingRight>2pt</PaddingRight>
+                    <PaddingTop>2pt</PaddingTop>
+                    <PaddingBottom>2pt</PaddingBottom>
+                  </Style>
+                </Textbox>
+                <Textbox Name="textbox63">
+                  <CanGrow>true</CanGrow>
+                  <KeepTogether>true</KeepTogether>
+                  <Paragraphs>
+                    <Paragraph>
+                      <TextRuns>
+                        <TextRun>
+                          <Value>=Code.GetData(10,4)</Value>
+                          <Style>
+                            <FontSize>8pt</FontSize>
+                          </Style>
+                        </TextRun>
+                      </TextRuns>
+                      <Style />
+                    </Paragraph>
+                  </Paragraphs>
+                  <Top>4.88568cm</Top>
+                  <Left>13.01587cm</Left>
+                  <Height>0.5cm</Height>
+                  <Width>5.58944cm</Width>
+                  <ZIndex>7</ZIndex>
+                  <Style>
+                    <PaddingLeft>2pt</PaddingLeft>
+                    <PaddingRight>2pt</PaddingRight>
+                    <PaddingTop>2pt</PaddingTop>
+                    <PaddingBottom>2pt</PaddingBottom>
+                  </Style>
+                </Textbox>
+                <Textbox Name="textbox62">
+                  <CanGrow>true</CanGrow>
+                  <KeepTogether>true</KeepTogether>
+                  <Paragraphs>
+                    <Paragraph>
+                      <TextRuns>
+                        <TextRun>
+                          <Value>=Code.GetData(6,4)</Value>
+                          <Style>
+                            <FontSize>8pt</FontSize>
+                          </Style>
+                        </TextRun>
+                      </TextRuns>
+                      <Style />
+                    </Paragraph>
+                  </Paragraphs>
+                  <Top>5.38568cm</Top>
+                  <Left>9.91587cm</Left>
+                  <Height>0.56772cm</Height>
+                  <Width>2.99841cm</Width>
+                  <ZIndex>8</ZIndex>
+                  <Style>
+                    <PaddingLeft>2pt</PaddingLeft>
+                    <PaddingRight>2pt</PaddingRight>
+                    <PaddingTop>2pt</PaddingTop>
+                    <PaddingBottom>2pt</PaddingBottom>
+                  </Style>
+                </Textbox>
+                <Textbox Name="textbox61">
+                  <CanGrow>true</CanGrow>
+                  <KeepTogether>true</KeepTogether>
+                  <Paragraphs>
+                    <Paragraph>
+                      <TextRuns>
+                        <TextRun>
+                          <Value>=Code.GetData(11,4)</Value>
+                          <Style>
+                            <FontSize>8pt</FontSize>
+                          </Style>
+                        </TextRun>
+                      </TextRuns>
+                      <Style />
+                    </Paragraph>
+                  </Paragraphs>
+                  <Top>5.38568cm</Top>
+                  <Left>13.01587cm</Left>
+                  <Height>0.56772cm</Height>
+                  <Width>5.58944cm</Width>
+                  <ZIndex>9</ZIndex>
+                  <Style>
+                    <PaddingLeft>2pt</PaddingLeft>
+                    <PaddingRight>2pt</PaddingRight>
+                    <PaddingTop>2pt</PaddingTop>
+                    <PaddingBottom>2pt</PaddingBottom>
+                  </Style>
+                </Textbox>
+                <Line Name="line2">
+                  <Top>3.38568cm</Top>
+                  <Left>18.73016cm</Left>
+                  <Height>0cm</Height>
+                  <Width>-18.73016cm</Width>
+                  <ZIndex>10</ZIndex>
+                  <Style>
+                    <Border>
+                      <Style>Solid</Style>
+                    </Border>
+                  </Style>
+                </Line>
+                <Textbox Name="textbox60">
+                  <CanGrow>true</CanGrow>
+                  <KeepTogether>true</KeepTogether>
+                  <Paragraphs>
+                    <Paragraph>
+                      <TextRuns>
+                        <TextRun>
+                          <Value>=Code.GetData(1,4)</Value>
+                          <Style>
+                            <FontSize>8pt</FontSize>
+                          </Style>
+                        </TextRun>
+                      </TextRuns>
+                      <Style />
+                    </Paragraph>
+                  </Paragraphs>
+                  <Top>3.38568cm</Top>
+                  <Height>0.5cm</Height>
+                  <Width>8.25397cm</Width>
+                  <ZIndex>11</ZIndex>
+                  <Style>
+                    <PaddingLeft>2pt</PaddingLeft>
+                    <PaddingRight>2pt</PaddingRight>
+                    <PaddingTop>2pt</PaddingTop>
+                    <PaddingBottom>2pt</PaddingBottom>
+                  </Style>
+                </Textbox>
+                <Textbox Name="textbox19">
+                  <KeepTogether>true</KeepTogether>
+                  <Paragraphs>
+                    <Paragraph>
+                      <TextRuns>
+                        <TextRun>
+                          <Value>=Code.GetData(12,4) + VbCrLf + Code.GetData(13,4)</Value>
+                          <Style>
+                            <FontSize>6pt</FontSize>
+                          </Style>
+                        </TextRun>
+                      </TextRuns>
+                      <Style />
+                    </Paragraph>
+                  </Paragraphs>
+                  <Height>3.384cm</Height>
+                  <Width>10.998cm</Width>
+                  <ZIndex>12</ZIndex>
+                  <Visibility>
+                    <Hidden>=iif(ReportItems!BooGImpText.Value&gt;0,False,TRUE)</Hidden>
+                  </Visibility>
+                  <DataElementOutput>NoOutput</DataElementOutput>
+                  <Style>
                     <PaddingLeft>2pt</PaddingLeft>
                     <PaddingRight>2pt</PaddingRight>
                     <PaddingTop>2pt</PaddingTop>
@@ -4751,129 +5064,33 @@ CSTR(sum(Fields!Sales_Invoice_Line__Amount_Including_VAT_.Value))</Value>
                 </Textbox>
                 <Rectangle Name="rectangle2">
                   <ReportItems>
-                    <Textbox Name="textbox241">
+                    <Rectangle Name="rectangle4">
+                      <DataElementOutput>ContentsOnly</DataElementOutput>
+                      <Height>3.384cm</Height>
+                      <Width>0.31746cm</Width>
+                      <Style />
+                    </Rectangle>
+                    <Textbox Name="textbox238">
                       <CanGrow>true</CanGrow>
                       <KeepTogether>true</KeepTogether>
                       <Paragraphs>
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>=Code.GetData(3,3)</Value>
+                              <Value>=Code.GetData(1,3)</Value>
                               <Style>
                                 <FontWeight>Bold</FontWeight>
                               </Style>
                             </TextRun>
                           </TextRuns>
+                          <Style />
                         </Paragraph>
                       </Paragraphs>
-                      <Top>1.26984cm</Top>
                       <Left>0.63492cm</Left>
                       <Height>0.6cm</Height>
                       <Width>3.49206cm</Width>
-                      <ZIndex>6</ZIndex>
+                      <ZIndex>1</ZIndex>
                       <Style>
-                        <TopBorder>
-                          <Color>Black</Color>
-                          <Style>Solid</Style>
-                          <Width>1pt</Width>
-                        </TopBorder>
-                        <BottomBorder>
-                          <Color>Black</Color>
-                          <Style>Solid</Style>
-                          <Width>1pt</Width>
-                        </BottomBorder>
-                        <PaddingLeft>2pt</PaddingLeft>
-                        <PaddingRight>2pt</PaddingRight>
-                        <PaddingTop>2pt</PaddingTop>
-                        <PaddingBottom>2pt</PaddingBottom>
-                      </Style>
-                    </Textbox>
-                    <Textbox Name="textbox240">
-                      <CanGrow>true</CanGrow>
-                      <KeepTogether>true</KeepTogether>
-                      <Paragraphs>
-                        <Paragraph>
-                          <TextRuns>
-                            <TextRun>
-                              <Value>=Code.GetData(5,3)</Value>
-                              <Style>
-                                <FontWeight>Bold</FontWeight>
-                                <Format>N</Format>
-                              </Style>
-                            </TextRun>
-                          </TextRuns>
-                          <Style>
-                            <TextAlign>Right</TextAlign>
-                          </Style>
-                        </Paragraph>
-                      </Paragraphs>
-                      <Top>0.63492cm</Top>
-                      <Left>4.12698cm</Left>
-                      <Height>0.6cm</Height>
-                      <ZIndex>5</ZIndex>
-                      <Style>
-                        <PaddingLeft>2pt</PaddingLeft>
-                        <PaddingRight>2pt</PaddingRight>
-                        <PaddingTop>2pt</PaddingTop>
-                        <PaddingBottom>2pt</PaddingBottom>
-                      </Style>
-                    </Textbox>
-                    <Textbox Name="textbox239">
-                      <CanGrow>true</CanGrow>
-                      <KeepTogether>true</KeepTogether>
-                      <Paragraphs>
-                        <Paragraph>
-                          <TextRuns>
-                            <TextRun>
-                              <Value>=Code.GetData(2,3)</Value>
-                              <Style>
-                                <FontWeight>Bold</FontWeight>
-                              </Style>
-                            </TextRun>
-                          </TextRuns>
-                        </Paragraph>
-                      </Paragraphs>
-                      <Top>0.63492cm</Top>
-                      <Left>0.63492cm</Left>
-                      <Height>0.6cm</Height>
-                      <Width>3.49206cm</Width>
-                      <ZIndex>4</ZIndex>
-                      <Style>
-                        <PaddingLeft>2pt</PaddingLeft>
-                        <PaddingRight>2pt</PaddingRight>
-                        <PaddingTop>2pt</PaddingTop>
-                        <PaddingBottom>2pt</PaddingBottom>
-                      </Style>
-                    </Textbox>
-                    <Textbox Name="textbox242">
-                      <CanGrow>true</CanGrow>
-                      <KeepTogether>true</KeepTogether>
-                      <Paragraphs>
-                        <Paragraph>
-                          <TextRuns>
-                            <TextRun>
-                              <Value>=Code.BlankZero(Code.GetData(6,3))</Value>
-                              <Style>
-                                <FontWeight>Bold</FontWeight>
-                                <Format>N</Format>
-                              </Style>
-                            </TextRun>
-                          </TextRuns>
-                          <Style>
-                            <TextAlign>Right</TextAlign>
-                          </Style>
-                        </Paragraph>
-                      </Paragraphs>
-                      <Top>1.26984cm</Top>
-                      <Left>4.12698cm</Left>
-                      <Height>0.6cm</Height>
-                      <ZIndex>3</ZIndex>
-                      <Style>
-                        <TopBorder>
-                          <Color>Black</Color>
-                          <Style>Solid</Style>
-                          <Width>1pt</Width>
-                        </TopBorder>
                         <BottomBorder>
                           <Color>Black</Color>
                           <Style>Solid</Style>
@@ -4906,6 +5123,7 @@ CSTR(sum(Fields!Sales_Invoice_Line__Amount_Including_VAT_.Value))</Value>
                       </Paragraphs>
                       <Left>4.12698cm</Left>
                       <Height>0.6cm</Height>
+                      <Width>2.99841cm</Width>
                       <ZIndex>2</ZIndex>
                       <Style>
                         <BottomBorder>
@@ -4919,26 +5137,36 @@ CSTR(sum(Fields!Sales_Invoice_Line__Amount_Including_VAT_.Value))</Value>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
                     </Textbox>
-                    <Textbox Name="textbox238">
+                    <Textbox Name="textbox242">
                       <CanGrow>true</CanGrow>
                       <KeepTogether>true</KeepTogether>
                       <Paragraphs>
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>=Code.GetData(1,3)</Value>
+                              <Value>=Code.BlankZero(Code.GetData(6,3))</Value>
                               <Style>
                                 <FontWeight>Bold</FontWeight>
+                                <Format>N</Format>
                               </Style>
                             </TextRun>
                           </TextRuns>
+                          <Style>
+                            <TextAlign>Right</TextAlign>
+                          </Style>
                         </Paragraph>
                       </Paragraphs>
-                      <Left>0.63492cm</Left>
+                      <Top>1.26984cm</Top>
+                      <Left>4.12698cm</Left>
                       <Height>0.6cm</Height>
-                      <Width>3.49206cm</Width>
-                      <ZIndex>1</ZIndex>
+                      <Width>2.99841cm</Width>
+                      <ZIndex>3</ZIndex>
                       <Style>
+                        <TopBorder>
+                          <Color>Black</Color>
+                          <Style>Solid</Style>
+                          <Width>1pt</Width>
+                        </TopBorder>
                         <BottomBorder>
                           <Color>Black</Color>
                           <Style>Solid</Style>
@@ -4950,421 +5178,254 @@ CSTR(sum(Fields!Sales_Invoice_Line__Amount_Including_VAT_.Value))</Value>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
                     </Textbox>
-                    <Rectangle Name="rectangle4">
-                      <DataElementOutput>ContentsOnly</DataElementOutput>
-                      <Width>0.31746cm</Width>
-                    </Rectangle>
+                    <Textbox Name="textbox239">
+                      <CanGrow>true</CanGrow>
+                      <KeepTogether>true</KeepTogether>
+                      <Paragraphs>
+                        <Paragraph>
+                          <TextRuns>
+                            <TextRun>
+                              <Value>=Code.GetData(2,3)</Value>
+                              <Style>
+                                <FontWeight>Bold</FontWeight>
+                              </Style>
+                            </TextRun>
+                          </TextRuns>
+                          <Style />
+                        </Paragraph>
+                      </Paragraphs>
+                      <Top>0.63492cm</Top>
+                      <Left>0.63492cm</Left>
+                      <Height>0.6cm</Height>
+                      <Width>3.49206cm</Width>
+                      <ZIndex>4</ZIndex>
+                      <Style>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                    </Textbox>
+                    <Textbox Name="textbox240">
+                      <CanGrow>true</CanGrow>
+                      <KeepTogether>true</KeepTogether>
+                      <Paragraphs>
+                        <Paragraph>
+                          <TextRuns>
+                            <TextRun>
+                              <Value>=Code.GetData(5,3)</Value>
+                              <Style>
+                                <FontWeight>Bold</FontWeight>
+                                <Format>N</Format>
+                              </Style>
+                            </TextRun>
+                          </TextRuns>
+                          <Style>
+                            <TextAlign>Right</TextAlign>
+                          </Style>
+                        </Paragraph>
+                      </Paragraphs>
+                      <Top>0.63492cm</Top>
+                      <Left>4.12698cm</Left>
+                      <Height>0.6cm</Height>
+                      <Width>2.99841cm</Width>
+                      <ZIndex>5</ZIndex>
+                      <Style>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                    </Textbox>
+                    <Textbox Name="textbox241">
+                      <CanGrow>true</CanGrow>
+                      <KeepTogether>true</KeepTogether>
+                      <Paragraphs>
+                        <Paragraph>
+                          <TextRuns>
+                            <TextRun>
+                              <Value>=Code.GetData(3,3)</Value>
+                              <Style>
+                                <FontWeight>Bold</FontWeight>
+                              </Style>
+                            </TextRun>
+                          </TextRuns>
+                          <Style />
+                        </Paragraph>
+                      </Paragraphs>
+                      <Top>1.26984cm</Top>
+                      <Left>0.63492cm</Left>
+                      <Height>0.6cm</Height>
+                      <Width>3.49206cm</Width>
+                      <ZIndex>6</ZIndex>
+                      <Style>
+                        <TopBorder>
+                          <Color>Black</Color>
+                          <Style>Solid</Style>
+                          <Width>1pt</Width>
+                        </TopBorder>
+                        <BottomBorder>
+                          <Color>Black</Color>
+                          <Style>Solid</Style>
+                          <Width>1pt</Width>
+                        </BottomBorder>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                    </Textbox>
                   </ReportItems>
                   <DataElementOutput>ContentsOnly</DataElementOutput>
                   <Left>11.74603cm</Left>
                   <Height>3.384cm</Height>
                   <Width>7.12539cm</Width>
-                  <ZIndex>15</ZIndex>
+                  <ZIndex>13</ZIndex>
                   <Visibility>
                     <Hidden>=iif(ReportItems!ToutouCHannouf.Value,False,TRUE)</Hidden>
                   </Visibility>
+                  <Style />
                 </Rectangle>
-                <Textbox Name="textbox19">
+                <Textbox Name="textbox7">
+                  <CanGrow>true</CanGrow>
                   <KeepTogether>true</KeepTogether>
                   <Paragraphs>
                     <Paragraph>
                       <TextRuns>
                         <TextRun>
-                          <Value>=Code.GetData(12,4) + VbCrLf + Code.GetData(13,4)</Value>
+                          <Value>=Code.GetData(3,3)</Value>
                           <Style>
-                            <FontSize>6pt</FontSize>
+                            <FontSize>8pt</FontSize>
                           </Style>
                         </TextRun>
                       </TextRuns>
+                      <Style />
                     </Paragraph>
                   </Paragraphs>
-                  <Height>3.384cm</Height>
-                  <Width>10.998cm</Width>
+                  <Top>5.07937cm</Top>
+                  <Left>0.31746cm</Left>
+                  <Height>0.6cm</Height>
+                  <Width>3.49206cm</Width>
                   <ZIndex>14</ZIndex>
+                  <Style>
+                    <TopBorder>
+                      <Color>Black</Color>
+                    </TopBorder>
+                    <BottomBorder>
+                      <Color>Black</Color>
+                    </BottomBorder>
+                    <PaddingLeft>2pt</PaddingLeft>
+                    <PaddingRight>2pt</PaddingRight>
+                    <PaddingTop>2pt</PaddingTop>
+                    <PaddingBottom>2pt</PaddingBottom>
+                  </Style>
+                </Textbox>
+                <Textbox Name="textbox13">
+                  <CanGrow>true</CanGrow>
+                  <KeepTogether>true</KeepTogether>
+                  <Paragraphs>
+                    <Paragraph>
+                      <TextRuns>
+                        <TextRun>
+                          <Value>=Code.BlankZero(Code.GetData(6,3))</Value>
+                          <Style>
+                            <FontSize>8pt</FontSize>
+                            <Format>N</Format>
+                          </Style>
+                        </TextRun>
+                      </TextRuns>
+                      <Style>
+                        <TextAlign>Right</TextAlign>
+                      </Style>
+                    </Paragraph>
+                  </Paragraphs>
+                  <Top>5.07937cm</Top>
+                  <Left>3.80952cm</Left>
+                  <Height>0.6cm</Height>
+                  <Width>2.99841cm</Width>
+                  <ZIndex>15</ZIndex>
+                  <Style>
+                    <TopBorder>
+                      <Color>Black</Color>
+                    </TopBorder>
+                    <BottomBorder>
+                      <Color>Black</Color>
+                    </BottomBorder>
+                    <PaddingLeft>2pt</PaddingLeft>
+                    <PaddingRight>2pt</PaddingRight>
+                    <PaddingTop>2pt</PaddingTop>
+                    <PaddingBottom>2pt</PaddingBottom>
+                  </Style>
+                </Textbox>
+                <Textbox Name="textbox24">
+                  <CanGrow>true</CanGrow>
+                  <KeepTogether>true</KeepTogether>
+                  <Paragraphs>
+                    <Paragraph>
+                      <TextRuns>
+                        <TextRun>
+                          <Value>info@lapierrette.com  www.lapierrette.com</Value>
+                          <Style>
+                            <FontSize>8pt</FontSize>
+                          </Style>
+                        </TextRun>
+                      </TextRuns>
+                      <Style>
+                        <TextAlign>Center</TextAlign>
+                      </Style>
+                    </Paragraph>
+                  </Paragraphs>
+                  <Top>6.77676cm</Top>
+                  <Left>1.76377cm</Left>
+                  <Height>0.35503cm</Height>
+                  <Width>15.6cm</Width>
+                  <ZIndex>16</ZIndex>
                   <Visibility>
-                    <Hidden>=iif(ReportItems!BooGImpText.Value&gt;0,False,TRUE)</Hidden>
+                    <Hidden>= IIF(ReportItems!EnvoiMail.Value = False,True,False)</Hidden>
                   </Visibility>
                   <DataElementOutput>NoOutput</DataElementOutput>
-                  <Style>
-                    <PaddingLeft>2pt</PaddingLeft>
-                    <PaddingRight>2pt</PaddingRight>
-                    <PaddingTop>2pt</PaddingTop>
-                    <PaddingBottom>2pt</PaddingBottom>
-                  </Style>
+                  <Style />
                 </Textbox>
-                <Textbox Name="textbox5">
+                <Textbox Name="textbox20">
+                  <CanGrow>true</CanGrow>
                   <KeepTogether>true</KeepTogether>
                   <Paragraphs>
                     <Paragraph>
                       <TextRuns>
                         <TextRun>
-                          <Value>=code.SetData(ReportItems!Totaux.Value,3)</Value>
+                          <Value>Route de France 100 A  CH - 1348 Le Brassus  Tél. ++41 (0)21 845 10 30  Fax ++41 (0)21 845 10 31</Value>
                           <Style>
-                            <Color>#ff0000</Color>
+                            <FontSize>8pt</FontSize>
                           </Style>
                         </TextRun>
                       </TextRuns>
+                      <Style>
+                        <TextAlign>Center</TextAlign>
+                      </Style>
                     </Paragraph>
                   </Paragraphs>
-                  <Left>9.20635cm</Left>
-                  <Height>0.31746cm</Height>
-                  <Width>0.95238cm</Width>
-                  <ZIndex>13</ZIndex>
+                  <Top>6.345cm</Top>
+                  <Left>1.269cm</Left>
+                  <Height>0.32223cm</Height>
+                  <Width>16.78955cm</Width>
+                  <ZIndex>17</ZIndex>
                   <Visibility>
-                    <Hidden>true</Hidden>
+                    <Hidden>= IIF(ReportItems!EnvoiMail.Value = False,True,False)</Hidden>
                   </Visibility>
-                  <Style>
-                    <VerticalAlign>Middle</VerticalAlign>
-                    <PaddingLeft>2pt</PaddingLeft>
-                    <PaddingRight>2pt</PaddingRight>
-                    <PaddingTop>2pt</PaddingTop>
-                    <PaddingBottom>2pt</PaddingBottom>
-                  </Style>
-                </Textbox>
-                <Textbox Name="textbox59">
-                  <KeepTogether>true</KeepTogether>
-                  <Paragraphs>
-                    <Paragraph>
-                      <TextRuns>
-                        <TextRun>
-                          <Value>=code.SetData(ReportItems!FooterInfo.Value,4)</Value>
-                          <Style>
-                            <Color>#ff0000</Color>
-                          </Style>
-                        </TextRun>
-                      </TextRuns>
-                    </Paragraph>
-                  </Paragraphs>
-                  <Left>10.47619cm</Left>
-                  <Height>0.31746cm</Height>
-                  <Width>0.95238cm</Width>
-                  <ZIndex>12</ZIndex>
-                  <Visibility>
-                    <Hidden>true</Hidden>
-                  </Visibility>
-                  <Style>
-                    <VerticalAlign>Middle</VerticalAlign>
-                    <PaddingLeft>2pt</PaddingLeft>
-                    <PaddingRight>2pt</PaddingRight>
-                    <PaddingTop>2pt</PaddingTop>
-                    <PaddingBottom>2pt</PaddingBottom>
-                  </Style>
-                </Textbox>
-                <Textbox Name="textbox60">
-                  <CanGrow>true</CanGrow>
-                  <KeepTogether>true</KeepTogether>
-                  <Paragraphs>
-                    <Paragraph>
-                      <TextRuns>
-                        <TextRun>
-                          <Value>=Code.GetData(1,4)</Value>
-                          <Style>
-                            <FontSize>8pt</FontSize>
-                          </Style>
-                        </TextRun>
-                      </TextRuns>
-                    </Paragraph>
-                  </Paragraphs>
-                  <Top>3.38568cm</Top>
-                  <Height>0.5cm</Height>
-                  <Width>8.25397cm</Width>
-                  <ZIndex>11</ZIndex>
-                  <Style>
-                    <PaddingLeft>2pt</PaddingLeft>
-                    <PaddingRight>2pt</PaddingRight>
-                    <PaddingTop>2pt</PaddingTop>
-                    <PaddingBottom>2pt</PaddingBottom>
-                  </Style>
-                </Textbox>
-                <Line Name="line2">
-                  <Top>3.38568cm</Top>
-                  <Left>18.73016cm</Left>
-                  <Height>0cm</Height>
-                  <Width>-18.73016cm</Width>
-                  <ZIndex>10</ZIndex>
-                  <Style>
-                    <Border>
-                      <Style>Solid</Style>
-                    </Border>
-                  </Style>
-                </Line>
-                <Textbox Name="textbox61">
-                  <CanGrow>true</CanGrow>
-                  <KeepTogether>true</KeepTogether>
-                  <Paragraphs>
-                    <Paragraph>
-                      <TextRuns>
-                        <TextRun>
-                          <Value>=Code.GetData(11,4)</Value>
-                          <Style>
-                            <FontSize>8pt</FontSize>
-                          </Style>
-                        </TextRun>
-                      </TextRuns>
-                    </Paragraph>
-                  </Paragraphs>
-                  <Top>5.38568cm</Top>
-                  <Left>13.01587cm</Left>
-                  <Height>0.56772cm</Height>
-                  <Width>5.58944cm</Width>
-                  <ZIndex>9</ZIndex>
-                  <Style>
-                    <PaddingLeft>2pt</PaddingLeft>
-                    <PaddingRight>2pt</PaddingRight>
-                    <PaddingTop>2pt</PaddingTop>
-                    <PaddingBottom>2pt</PaddingBottom>
-                  </Style>
-                </Textbox>
-                <Textbox Name="textbox62">
-                  <CanGrow>true</CanGrow>
-                  <KeepTogether>true</KeepTogether>
-                  <Paragraphs>
-                    <Paragraph>
-                      <TextRuns>
-                        <TextRun>
-                          <Value>=Code.GetData(6,4)</Value>
-                          <Style>
-                            <FontSize>8pt</FontSize>
-                          </Style>
-                        </TextRun>
-                      </TextRuns>
-                    </Paragraph>
-                  </Paragraphs>
-                  <Top>5.38568cm</Top>
-                  <Left>9.91587cm</Left>
-                  <Height>0.56772cm</Height>
-                  <Width>2.99841cm</Width>
-                  <ZIndex>8</ZIndex>
-                  <Style>
-                    <PaddingLeft>2pt</PaddingLeft>
-                    <PaddingRight>2pt</PaddingRight>
-                    <PaddingTop>2pt</PaddingTop>
-                    <PaddingBottom>2pt</PaddingBottom>
-                  </Style>
-                </Textbox>
-                <Textbox Name="textbox63">
-                  <CanGrow>true</CanGrow>
-                  <KeepTogether>true</KeepTogether>
-                  <Paragraphs>
-                    <Paragraph>
-                      <TextRuns>
-                        <TextRun>
-                          <Value>=Code.GetData(10,4)</Value>
-                          <Style>
-                            <FontSize>8pt</FontSize>
-                          </Style>
-                        </TextRun>
-                      </TextRuns>
-                    </Paragraph>
-                  </Paragraphs>
-                  <Top>4.88568cm</Top>
-                  <Left>13.01587cm</Left>
-                  <Height>0.5cm</Height>
-                  <Width>5.58944cm</Width>
-                  <ZIndex>7</ZIndex>
-                  <Style>
-                    <PaddingLeft>2pt</PaddingLeft>
-                    <PaddingRight>2pt</PaddingRight>
-                    <PaddingTop>2pt</PaddingTop>
-                    <PaddingBottom>2pt</PaddingBottom>
-                  </Style>
-                </Textbox>
-                <Textbox Name="textbox65">
-                  <CanGrow>true</CanGrow>
-                  <KeepTogether>true</KeepTogether>
-                  <Paragraphs>
-                    <Paragraph>
-                      <TextRuns>
-                        <TextRun>
-                          <Value>=Code.GetData(5,4)</Value>
-                          <Style>
-                            <FontSize>8pt</FontSize>
-                          </Style>
-                        </TextRun>
-                      </TextRuns>
-                    </Paragraph>
-                  </Paragraphs>
-                  <Top>4.88568cm</Top>
-                  <Left>9.91587cm</Left>
-                  <Height>0.5cm</Height>
-                  <Width>2.99841cm</Width>
-                  <ZIndex>6</ZIndex>
-                  <Style>
-                    <PaddingLeft>2pt</PaddingLeft>
-                    <PaddingRight>2pt</PaddingRight>
-                    <PaddingTop>2pt</PaddingTop>
-                    <PaddingBottom>2pt</PaddingBottom>
-                  </Style>
-                </Textbox>
-                <Textbox Name="textbox66">
-                  <CanGrow>true</CanGrow>
-                  <KeepTogether>true</KeepTogether>
-                  <Paragraphs>
-                    <Paragraph>
-                      <TextRuns>
-                        <TextRun>
-                          <Value>=Code.GetData(9,4)</Value>
-                          <Style>
-                            <FontSize>8pt</FontSize>
-                          </Style>
-                        </TextRun>
-                      </TextRuns>
-                    </Paragraph>
-                  </Paragraphs>
-                  <Top>4.38568cm</Top>
-                  <Left>13.01587cm</Left>
-                  <Height>0.5cm</Height>
-                  <Width>5.58944cm</Width>
-                  <ZIndex>5</ZIndex>
-                  <Style>
-                    <PaddingLeft>2pt</PaddingLeft>
-                    <PaddingRight>2pt</PaddingRight>
-                    <PaddingTop>2pt</PaddingTop>
-                    <PaddingBottom>2pt</PaddingBottom>
-                  </Style>
-                </Textbox>
-                <Textbox Name="textbox67">
-                  <CanGrow>true</CanGrow>
-                  <KeepTogether>true</KeepTogether>
-                  <Paragraphs>
-                    <Paragraph>
-                      <TextRuns>
-                        <TextRun>
-                          <Value>=Code.GetData(4,4)</Value>
-                          <Style>
-                            <FontSize>8pt</FontSize>
-                          </Style>
-                        </TextRun>
-                      </TextRuns>
-                    </Paragraph>
-                  </Paragraphs>
-                  <Top>4.38568cm</Top>
-                  <Left>9.91587cm</Left>
-                  <Height>0.5cm</Height>
-                  <Width>2.99841cm</Width>
-                  <ZIndex>4</ZIndex>
-                  <Style>
-                    <PaddingLeft>2pt</PaddingLeft>
-                    <PaddingRight>2pt</PaddingRight>
-                    <PaddingTop>2pt</PaddingTop>
-                    <PaddingBottom>2pt</PaddingBottom>
-                  </Style>
-                </Textbox>
-                <Textbox Name="textbox92">
-                  <CanGrow>true</CanGrow>
-                  <KeepTogether>true</KeepTogether>
-                  <Paragraphs>
-                    <Paragraph>
-                      <TextRuns>
-                        <TextRun>
-                          <Value>=Code.GetData(8,4)</Value>
-                          <Style>
-                            <FontSize>8pt</FontSize>
-                          </Style>
-                        </TextRun>
-                      </TextRuns>
-                    </Paragraph>
-                  </Paragraphs>
-                  <Top>3.88568cm</Top>
-                  <Left>13.01587cm</Left>
-                  <Height>0.5cm</Height>
-                  <Width>5.58944cm</Width>
-                  <ZIndex>3</ZIndex>
-                  <Style>
-                    <PaddingLeft>2pt</PaddingLeft>
-                    <PaddingRight>2pt</PaddingRight>
-                    <PaddingTop>2pt</PaddingTop>
-                    <PaddingBottom>2pt</PaddingBottom>
-                  </Style>
-                </Textbox>
-                <Textbox Name="textbox95">
-                  <CanGrow>true</CanGrow>
-                  <KeepTogether>true</KeepTogether>
-                  <Paragraphs>
-                    <Paragraph>
-                      <TextRuns>
-                        <TextRun>
-                          <Value>=Code.GetData(3,4)</Value>
-                          <Style>
-                            <FontSize>8pt</FontSize>
-                          </Style>
-                        </TextRun>
-                      </TextRuns>
-                    </Paragraph>
-                  </Paragraphs>
-                  <Top>3.88568cm</Top>
-                  <Left>9.91587cm</Left>
-                  <Height>0.5cm</Height>
-                  <Width>2.99841cm</Width>
-                  <ZIndex>2</ZIndex>
-                  <Style>
-                    <PaddingLeft>2pt</PaddingLeft>
-                    <PaddingRight>2pt</PaddingRight>
-                    <PaddingTop>2pt</PaddingTop>
-                    <PaddingBottom>2pt</PaddingBottom>
-                  </Style>
-                </Textbox>
-                <Textbox Name="textbox96">
-                  <CanGrow>true</CanGrow>
-                  <KeepTogether>true</KeepTogether>
-                  <Paragraphs>
-                    <Paragraph>
-                      <TextRuns>
-                        <TextRun>
-                          <Value>=Code.GetData(7,4)</Value>
-                          <Style>
-                            <FontSize>8pt</FontSize>
-                          </Style>
-                        </TextRun>
-                      </TextRuns>
-                    </Paragraph>
-                  </Paragraphs>
-                  <Top>3.38568cm</Top>
-                  <Left>13.01587cm</Left>
-                  <Height>0.5cm</Height>
-                  <Width>5.58944cm</Width>
-                  <ZIndex>1</ZIndex>
-                  <Style>
-                    <PaddingLeft>2pt</PaddingLeft>
-                    <PaddingRight>2pt</PaddingRight>
-                    <PaddingTop>2pt</PaddingTop>
-                    <PaddingBottom>2pt</PaddingBottom>
-                  </Style>
-                </Textbox>
-                <Textbox Name="textbox68">
-                  <CanGrow>true</CanGrow>
-                  <KeepTogether>true</KeepTogether>
-                  <Paragraphs>
-                    <Paragraph>
-                      <TextRuns>
-                        <TextRun>
-                          <Value>=Code.GetData(2,4)</Value>
-                          <Style>
-                            <FontSize>8pt</FontSize>
-                          </Style>
-                        </TextRun>
-                      </TextRuns>
-                    </Paragraph>
-                  </Paragraphs>
-                  <Top>3.38568cm</Top>
-                  <Left>9.91587cm</Left>
-                  <Height>0.5cm</Height>
-                  <Width>2.99841cm</Width>
-                  <Style>
-                    <PaddingLeft>2pt</PaddingLeft>
-                    <PaddingRight>2pt</PaddingRight>
-                    <PaddingTop>2pt</PaddingTop>
-                    <PaddingBottom>2pt</PaddingBottom>
-                  </Style>
+                  <DataElementOutput>NoOutput</DataElementOutput>
+                  <Style />
                 </Textbox>
               </ReportItems>
               <DataElementOutput>ContentsOnly</DataElementOutput>
+              <Height>7.614cm</Height>
               <Width>19.18047cm</Width>
               <Visibility>
                 <Hidden>=iif(ReportItems!ToutouCHannouf.Value,False,TRUE)</Hidden>
               </Visibility>
+              <Style />
             </Rectangle>
           </ReportItems>
+          <Style />
         </PageFooter>
         <PageHeight>29.7cm</PageHeight>
         <PageWidth>21cm</PageWidth>
@@ -5373,9 +5434,16 @@ CSTR(sum(Fields!Sales_Invoice_Line__Amount_Including_VAT_.Value))</Value>
         <LeftMargin>1.5cm</LeftMargin>
         <TopMargin>1cm</TopMargin>
         <BottomMargin>1cm</BottomMargin>
+        <Style />
       </Page>
     </ReportSection>
   </ReportSections>
+  <ReportParametersLayout>
+    <GridLayoutDefinition>
+      <NumberOfColumns>4</NumberOfColumns>
+      <NumberOfRows>2</NumberOfRows>
+    </GridLayoutDefinition>
+  </ReportParametersLayout>
   <Code>Public Function BlankZero(ByVal Value As Decimal)
     if Value = 0 then
         Return ""
@@ -5552,5 +5620,6 @@ rY2zdOJMCQopldD9YK+c/wDgrr/yjE+Ov/Ym6h/6KNFFIk/kzr+zj4S/8kq8M/8AYJtf/RKUUUFSOgr8
   </EmbeddedImages>
   <Language>=User!Language</Language>
   <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
-  <rd:ReportUnitType>Invalid</rd:ReportUnitType>
+  <rd:ReportUnitType>Cm</rd:ReportUnitType>
+  <rd:ReportID>b9be8815-bc20-407f-8847-ef95d94ca5d2</rd:ReportID>
 </Report>
