@@ -32,7 +32,7 @@ xmlport 8073324 "PWD Import Conso OSYS"
                         IntGPos := StrPos(F_ProdOrderNo, RecGOSYSSetup."Separator Character");
                         if IntGPos <> 0 then begin
                             "PWD Item Jounal Line Buffer"."Prod. Order No." := CopyStr(F_ProdOrderNo, 1, IntGPos - 1);
-                            if IntGPos > ArrayLen(F_ProdOrderNo) then
+                            if IntGPos > StrLen(F_ProdOrderNo) then
                                 Evaluate("PWD Item Jounal Line Buffer"."Prod. Order Line No.", CopyStr(F_ProdOrderNo, IntGPos + 1));
                         end
                         else
@@ -47,7 +47,7 @@ xmlport 8073324 "PWD Import Conso OSYS"
                         IntGPos := StrPos(F_ItemNo, RecGOSYSSetup."Separator Character");
                         if IntGPos <> 0 then begin
                             "PWD Item Jounal Line Buffer"."Item No." := CopyStr(F_ItemNo, 1, IntGPos - 1);
-                            if IntGPos > ArrayLen(F_ItemNo) then
+                            if IntGPos > StrLen(F_ItemNo) then
                                 "PWD Item Jounal Line Buffer"."Variant Code" := CopyStr(F_ItemNo, IntGPos + 1);
                         end
                         else
@@ -108,7 +108,7 @@ xmlport 8073324 "PWD Import Conso OSYS"
         RecGConnectorValues: Record "PWD Connector Values";
         RecGOSYSSetup: Record "PWD OSYS Setup";
         RecGConnectorMessages: Record "PWD Connector Messages";
-        CduGBufferManagement: Codeunit "Buffer Management";
+        CduGBufferManagement: Codeunit "PWD Buffer Management";
         IntGPos: Integer;
 
 

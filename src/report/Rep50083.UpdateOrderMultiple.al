@@ -1,7 +1,7 @@
 report 50083 "PWD Update Order Multiple"
 {
     DefaultLayout = RDLC;
-    RDLCLayout = './src/report/rdl/UpdateOrderMultiple.rdl';
+    ProcessingOnly = true;
 
     dataset
     {

@@ -1845,6 +1845,72 @@ codeunit 50021 "PWD LPSA Functions Mgt."
         BooGDontExecuteIfImport := BooPDontExecuteIfImport;
         //<<WMS-FE05.001
     END;
+    //---CDU703---(REPORT 11511)
+    PROCEDURE SetFromConfiguration()
+    BEGIN
+        BooGFromConfig := TRUE;
+    END;
+
+    PROCEDURE CopyFromConfiguration(CodPIntemNo: Code[20]; VAR RecPNewItem: Record Item)
+    VAR
+        RecLFromItem: Record Item;
+        RecLItemConfigurator: Record "PWD Item Configurator";
+        RecLNewItemConfigurator: Record "PWD Item Configurator";
+        CstTxt50000: Label 'There is not configuration for item %1.';
+        RecLSubFamily: Record "PWD SubFamily LPSA";
+        TxtLNumber: Text[5];
+        CstTxt50001: Label '%1 must be define for source item %2.';
+        Text010: Label 'Target Item No.%1 already exists.';
+    BEGIN
+        RecLFromItem.GET(CodPIntemNo);
+
+        RecLItemConfigurator.SETCURRENTKEY("Item Code");
+        RecLItemConfigurator.SETRANGE("Item Code", CodPIntemNo);
+        IF RecLItemConfigurator.ISEMPTY THEN
+            ERROR(CstTxt50000, CodPIntemNo);
+        RecLItemConfigurator.FINDLAST;
+
+        IF RecLItemConfigurator."Subfamily Code" = '' THEN
+            ERROR(CstTxt50001, RecLItemConfigurator.FIELDCAPTION("Subfamily Code"), CodPIntemNo);
+
+        RecLNewItemConfigurator := RecLItemConfigurator;
+        RecLNewItemConfigurator."Entry No." := 0;
+        RecLNewItemConfigurator."Item Code" := '';
+        RecLNewItemConfigurator."PWD LPSA Description 1" := '';
+        RecLNewItemConfigurator."PWD LPSA Description 2" := '';
+        RecLNewItemConfigurator."PWD Quartis Description" := '';
+        RecLNewItemConfigurator.INSERT(TRUE);
+
+        // Update New "Item Code"
+        RecLSubFamily.GET(RecLNewItemConfigurator."Family Code", RecLNewItemConfigurator."Subfamily Code");
+
+        RecLNewItemConfigurator."Item Code" := RecLNewItemConfigurator."Family Code" + RecLNewItemConfigurator."Subfamily Code";
+        IF RecLNewItemConfigurator."Phantom Item" THEN BEGIN
+            RecLNewItemConfigurator."Item Code" := RecLNewItemConfigurator."Item Code" + 'F';
+            RecLSubFamily.NumberF += 1;
+            TxtLNumber := FORMAT(RecLSubFamily.NumberF);
+            RecLNewItemConfigurator."Item Code" := PADSTR(RecLNewItemConfigurator."Item Code", 8 - STRLEN(TxtLNumber), '0');
+            RecLNewItemConfigurator."Item Code" := RecLNewItemConfigurator."Item Code" + TxtLNumber;
+        END ELSE BEGIN
+            RecLSubFamily.Number += 1;
+            TxtLNumber := FORMAT(RecLSubFamily.Number);
+            RecLNewItemConfigurator."Item Code" := PADSTR(RecLNewItemConfigurator."Item Code", 8 - STRLEN(TxtLNumber), '0');
+            RecLNewItemConfigurator."Item Code" := RecLNewItemConfigurator."Item Code" + TxtLNumber;
+        END;
+
+        // Check Item Code not exist
+        IF RecPNewItem.GET(RecLNewItemConfigurator."Item Code") THEN
+            ERROR(Text010, RecLNewItemConfigurator."Item Code");
+
+        RecLNewItemConfigurator.MODIFY;
+        RecLSubFamily.MODIFY;
+
+        // Create New Item
+        RecPNewItem."No." := RecLNewItemConfigurator."Item Code";
+        //TODO: The name 'CopyGenItemInfo' does not exist in the current context
+        //IF NOT CopyGenItemInfo THEN
+        RecPNewItem.INSERT;
+    END;
 
 
     Var
@@ -1855,4 +1921,6 @@ codeunit 50021 "PWD LPSA Functions Mgt."
         ToTemplateName: Code[10];
         ToBatchName: Code[10];
         BooGDontExecuteIfImport: boolean;
+        BooGFromConfig: Boolean;
+
 }

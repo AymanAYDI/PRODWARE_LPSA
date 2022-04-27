@@ -221,7 +221,8 @@ xmlport 8073323 "PWD Export Prod Order OSYS"
 
                         trigger OnBeforePassVariable()
                         begin
-                            F_URL := "Record Link".URL1 + "Record Link".URL2 + "Record Link".URL3 + "Record Link".URL4;
+                            //TODO: Field 'URL2','URL3' et 'URL4' are removed.
+                            // F_URL := "Record Link".URL1 + "Record Link".URL2 + "Record Link".URL3 + "Record Link".URL4;
                         end;
                     }
                     textelement(F_DescriptionLink)
@@ -279,6 +280,7 @@ xmlport 8073323 "PWD Export Prod Order OSYS"
                             IntGTempField := "Prod. Order Routing Line".Type;
                             F_Type := FORMAT(IntGTempField);
                             */
+                            //TODO: 'Record "Prod. Order Routing Line"' does not contain a field 'Planned Ress. No.' and 'Planned Ress. Type'
                             if ("Prod. Order Routing Line"."Planned Ress. No." <> '') and RecGOSYSSetup.PlannerOne and FctPlannerOnePermission() then begin
                                 IntGTempField := "Prod. Order Routing Line"."Planned Ress. Type";
                                 F_Type := Format(IntGTempField);
@@ -311,6 +313,7 @@ xmlport 8073323 "PWD Export Prod Order OSYS"
                             ELSE
                               F_No := '';
                             */
+                            //TODO: 'Record "Prod. Order Routing Line"' does not contain a field 'Planned Ress. No.', 'Planned Ress. Type' 
                             if ("Prod. Order Routing Line"."Planned Ress. No." <> '') and RecGOSYSSetup.PlannerOne and FctPlannerOnePermission() then begin
                                 if "Prod. Order Routing Line"."Planned Ress. Type" = "Prod. Order Routing Line"."Planned Ress. Type"::"Machine Center" then
                                     F_No := "Prod. Order Routing Line"."Planned Ress. No."
@@ -377,7 +380,8 @@ xmlport 8073323 "PWD Export Prod Order OSYS"
 
                             trigger OnBeforePassVariable()
                             begin
-                                F_URLRouting := RecordLinkRouting.URL1 + RecordLinkRouting.URL2 + RecordLinkRouting.URL3 + RecordLinkRouting.URL4;
+                                //TODO: Field 'URL2','URL3' et 'URL4' are removed.
+                                //F_URLRouting := RecordLinkRouting.URL1 + RecordLinkRouting.URL2 + RecordLinkRouting.URL3 + RecordLinkRouting.URL4;
                             end;
                         }
                         textelement(F_DescriptionLinkRouting)
@@ -663,7 +667,7 @@ xmlport 8073323 "PWD Export Prod Order OSYS"
         RecLRecordLink: Record "Record Link";
         RecLRecordLinkRouting: Record "Record Link";
         FieldRef: FieldRef;
-        CodLConnectorOSYSParseData: Codeunit "Connector OSYS Parse Data";
+        CodLConnectorOSYSParseData: Codeunit "PWD Connector OSYS Parse Data";
         CodLNextOp: Code[1024];
         RecLProdOrderComponent2: Record "Prod. Order Component";
     begin
@@ -688,7 +692,7 @@ xmlport 8073323 "PWD Export Prod Order OSYS"
         if RecLTrackingSpecificationTemp.IsEmpty then begin
             FctProdOrderComponent(RecPProdOrderLine, RecLProdOrderComponent2);
             RecLProdOrderComponent2.SetRange("Flushing Method");
-            RecLProdOrderComponent2.SetRange("Lot Determining", true);
+            RecLProdOrderComponent2.SetRange("PWD Lot Determining", true);
             if not RecLProdOrderComponent2.IsEmpty then begin
                 RecLProdOrderComponent2.FindFirst();
                 FctProdOrderTrackingSpecCompo(RecLProdOrderComponent2, RecLTrackingSpecificationTemp);
@@ -943,7 +947,7 @@ xmlport 8073323 "PWD Export Prod Order OSYS"
                     RecPProdOrderLine.SetRange(Status, RecPProdOrderLine.Status::Released);
 
                     //>>FE_LAPRIERRETTE_GP0004.001
-                    RecPProdOrderLine.SetRange("Is Possible Item", false);
+                    RecPProdOrderLine.SetRange("PWD Is Possible Item", false);
                     //<<FE_LAPRIERRETTE_GP0004.001
 
                     //>>OSYS-Int001.002
@@ -958,7 +962,7 @@ xmlport 8073323 "PWD Export Prod Order OSYS"
                     RecPProdOrderLine.SetRange("Send to OSYS (Finished)", false);
 
                     //>>FE_LAPRIERRETTE_GP0004.001
-                    RecPProdOrderLine.SetRange("Is Possible Item", false);
+                    RecPProdOrderLine.SetRange("PWD Is Possible Item", false);
                     //<<FE_LAPRIERRETTE_GP0004.001
 
                 end;
@@ -1018,7 +1022,7 @@ xmlport 8073323 "PWD Export Prod Order OSYS"
         RecPProdOrderComponent.SetRange("Prod. Order Line No.", RecPProdOrderLine."Line No.");
         //>>TO BE COMMENTED
         //RecPProdOrderComponent.SETRANGE("Flushing Method", RecPProdOrderComponent."Flushing Method"::Manual);
-        RecPProdOrderComponent.SetRange("Lot Determining", false);
+        RecPProdOrderComponent.SetRange("PWD Lot Determining", false);
         //<<TO BE COMMENTED
     end;
 
@@ -1160,24 +1164,19 @@ xmlport 8073323 "PWD Export Prod Order OSYS"
         RecLMachineCenter.Get(RecPProdOrderRoutingLine."No.");
 
         //Est ce que mon poste de charge est une machine ?
-        if (RecLMachineCenter.Type = RecLMachineCenter.Type::Machine) then
+        if (RecLMachineCenter."PWD Type" = RecLMachineCenter."PWD Type"::Machine) then
             exit(true);
 
         //Mon poste de charge est une main d'oeuvre  =>  la ligne de gamme n'est pas exporté
         exit(false);
     end;
 
-
-    procedure "---OSYS-Int001.002---"()
-    begin
-    end;
-
-
     procedure FctPlannerOnePermission(): Boolean
     var
-        RecLPlannerOne: Record PlannerOneIntegrationRecord;
+    //TODO: Table 'PlannerOneIntegrationRecord' is missing
+    //RecLPlannerOne: Record PlannerOneIntegrationRecord;
     begin
-        exit(RecLPlannerOne.ReadPermission);
+        //exit(RecLPlannerOne.ReadPermission);
     end;
 }
 

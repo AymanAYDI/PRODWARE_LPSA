@@ -1784,13 +1784,66 @@ codeunit 50020 "PWD LPSA Events Mgt."
             ProdForecastEntry."PWD Customer No." := ToProdForecastEntry."PWD Customer No.";
         //<<LAP080615
     end;
+    //---CDU703---(REPORT 11511)
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Copy Item", 'OnBeforeCopyItem', '', false, false)]
+    local procedure CDU703_OnBeforeCopyItem_CopyItem(SourceItem: Record Item; var TargetItem: Record Item; CopyCounter: Integer)
+    begin
+        //>>TI409818: TO 22/03/2018:
+        TargetItem."Standard Cost" := 0;
+        TargetItem."Unit Cost" := 0;
+        //<<TI409818: TO 22/03/2018:
+    end;
 
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Copy Item", 'OnAfterCopyItem', '', false, false)]
+    local procedure CDU703_OnAfterCopyItem_CopyItem(var CopyItemBuffer: Record "Copy Item Buffer"; SourceItem: Record Item; var TargetItem: Record Item)
+    var
+        RecGItemConfigurator: Record "PWD Item Configurator";
+        RecGItemConfiguratorNew: Record "PWD Item Configurator";
+    begin
+        //>>FE_LAPIERRETTE_NDT01.001
+        IF BooGFromConfig THEN BEGIN
+            TargetItem.Description := '';
+            TargetItem."PWD LPSA Description 1" := '';
+            TargetItem."PWD LPSA Description 2" := '';
+            TargetItem."PWD Quartis Description" := '';
+            TargetItem.MODIFY();
+        END ELSE BEGIN
+            //<<FE_LAPIERRETTE_NDT01.001
+            //>>FE_LAPIERRETTE_ART01.001
+            RecGItemConfigurator.RESET();
+            RecGItemConfigurator.SETCURRENTKEY("Item Code");
+            RecGItemConfigurator.SETRANGE("Item Code", SourceItem."No.");
+            IF RecGItemConfigurator.FINDFIRST THEN BEGIN
+                RecGItemConfiguratorNew.INIT;
+                RecGItemConfiguratorNew.COPY(RecGItemConfigurator);
+                RecGItemConfigurator."Item Code" := TargetItem."No.";
+                RecGItemConfigurator.INSERT(TRUE);
+            END;
+            //<<FE_LAPIERRETTE_ART01.001
+            //>>FE_LAPIERRETTE_NDT01.001
+        END;
+        //<<FE_LAPIERRETTE_NDT01.001
+    end;
+    //---PAG729---(REPORT 11511)
+    [EventSubscriber(ObjectType::Page, Page::"Copy Item", 'OnAfterInitCopyItemBuffer', '', false, false)]
+    local procedure PAG729_OnAfterInitCopyItemBuffer_CopyItem(var CopyItemBuffer: Record "Copy Item Buffer")
+    begin
+        //>>FE_LAPIERRETTE_NDT01.001
+        BooGToItemVisible := NOT BooGFromConfig;
+        //<<FE_LAPIERRETTE_NDT01.001
+    end;
     var
         DontExecuteIfImport: Boolean;
         BooGFromImport: Boolean;
         CustomerFilter: Code[20];
         [InDataSet]
         "Lot DeterminingEnable": Boolean;
+        BooGFromConfig: Boolean;
+        [INDATASET]
+        BooGToItemVisible: Boolean;
+
+
+
 
 
 }
