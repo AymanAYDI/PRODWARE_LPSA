@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:oasis:names:tc:xliff:document:1.2 xliff-core-1.2-transitional.xsd">
+  <file datatype="xml" source-language="en-US" target-language="fr-CH" original="Please update this value">
+    <body>
+      <group id="body">
+        <trans-unit id="PageExtension 2252867762 - Control 1436762274 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>PlannerOne Production Scheduler</source>
+          <target>PlannerOne Production Scheduler</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">PageExtension pageextension50001 - Control PlannerOne - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="PageExtension 2252867762 - Control 726200469 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Move Times Use Calendars</source>
+          <target>Calendriers pour temps de transfert</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">PageExtension pageextension50001 - Control MoveUseCalendars - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="PageExtension 2252867762 - Control 2635197890 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Resource behavior</source>
+          <target>Comportement ressource</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">PageExtension pageextension50001 - Control ResourceBehavior - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="PageExtension 2252867762 - Control 2635197890 - Property 62802879" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Finite Capacity,Infinite Capacity,Ignored</source>
+          <target>Capacité finie,Capacité infinie,Ignorée</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">PageExtension pageextension50001 - Control ResourceBehavior - Property OptionCaption</note>
+        </trans-unit>
+        <trans-unit id="PageExtension 2252867762 - Action 2703271101 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Manufacturing cycles</source>
+          <target>Cycles de production</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">PageExtension pageextension50001 - Action Manufacturing cycles - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="PageExtension 339777911 - Action 2703271101 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Manufacturing cycles</source>
+          <target>Cycles de production</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">PageExtension pageextension50002 - Action Manufacturing cycles - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="PageExtension 977474528 - Control 1436762274 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>PlannerOne Production Scheduler</source>
+          <target>PlannerOne Production Scheduler</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">PageExtension pageextension50003 - Control PlannerOne - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="PageExtension 977474528 - Action 3581941195 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Manufacturing cycles</source>
+          <target>Cycles de production</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">PageExtension pageextension50003 - Action &lt;Action1100294002&gt; - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="PageExtension 4165957613 - Action 2703271101 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Manufacturing cycles</source>
+          <target>Cycles de production</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">PageExtension pageextension50004 - Action Manufacturing cycles - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="PageExtension 508686934 - Control 110045189 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Active Version</source>
+          <target>Version courante</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">PageExtension pageextension50005 - Control ActiveVersionCode - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="PageExtension 1446262122 - Control 4219020610 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Job Queue</source>
+          <target>Traitement différé</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">PageExtension pageextension50009 - Control Job Queue - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="PageExtension 1446262122 - Control 2082777623 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Impression</source>
+          <target>Impression</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">PageExtension pageextension50009 - Control Control1100267009 - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="PageExtension 126734238 - Change 947917552 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Target measures</source>
+          <target>Qualifications tâche standard</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">PageExtension pageextension50014 - Change Standard Task Personnel - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="PageExtension 3784004917 - Control 482266673 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Désignation de recherche</source>
+          <target>Désignation de recherche</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">PageExtension pageextension50015 - Control Désignation de recherche - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="PageExtension 2130651335 - Action 2575416618 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Select Phantom Item Substitution</source>
+          <target>Sélection article remplacant fantôme</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">PageExtension pageextension50020 - Action &lt;Action1100267001&gt; - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="PageExtension 2768347952 - NamedType 1624653502" size-unit="char" translate="yes" xml:space="preserve">
+          <source>The quality control for the Prod. Order is non conform.\Do you want to post the manufactured items in the %1 location.</source>
+          <target>Le contrôle qualité de l'OF est non conforme.\Voulez-vous valider la mise en stock des articles fabriqués dans le magasin %1.</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">PageExtension pageextension50021 - NamedType CstG00001</note>
+        </trans-unit>
+        <trans-unit id="PageExtension 2768347952 - NamedType 4006530947" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Lot non conform, do you want to post ?</source>
+          <target>Lot non conforme, voulez-vous valider ?</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">PageExtension pageextension50021 - NamedType CstG00002</note>
+        </trans-unit>
+        <trans-unit id="PageExtension 2768347952 - Method 1362447111 - NamedType 3885225987" size-unit="char" translate="yes" xml:space="preserve">
+          <source>No lines found.</source>
+          <target>Pas de lignes.</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">PageExtension pageextension50021 - Method FctCheckControlQuality - NamedType CstL00001</note>
+        </trans-unit>
+        <trans-unit id="PageExtension 2768347952 - Method 3579503188 - NamedType 3885225987" size-unit="char" translate="yes" xml:space="preserve">
+          <source>No lines found.</source>
+          <target>Pas de lignes.</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">PageExtension pageextension50021 - Method FctExistControlQuality - NamedType CstL00001</note>
+        </trans-unit>
+        <trans-unit id="PageExtension 3406044569 - Control 1436762274 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>PlannerOne Production Scheduler</source>
+          <target>PlannerOne Production Scheduler</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">PageExtension pageextension50022 - Control PlannerOne - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="PageExtension 3406044569 - Action 2564815789 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Item Card</source>
+          <target>Fiche article</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">PageExtension pageextension50022 - Action &lt;Action1100267004&gt; - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="PageExtension 3406044569 - Action 138803694 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Prod. BOM Where-Used</source>
+          <target>Cas d'emploi nomenclature</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">PageExtension pageextension50022 - Action &lt;Action1100267005&gt; - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="PageExtension 3406044569 - Action 649346216 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Etat des manquants</source>
+          <target>Etat des manquants</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">PageExtension pageextension50022 - Action Action1100267001 - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="PageExtension 4043741186 - Control 3258206857 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Phantom Item</source>
+          <target>Article fantôme</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">PageExtension pageextension50023 - Control  ExistPhantomItem - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="PageExtension 4043741186 - Control 457468294 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Scheduling Priority</source>
+          <target>Priorité d'ordonnancement</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">PageExtension pageextension50023 - Control SchedulingPriority - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="PageExtension 4043741186 - Control 1938177414 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Launch. Prod. Starting Date-Time</source>
+          <target>Date-heure de début de prod. lancement</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">PageExtension pageextension50023 - Control DatGHeureDeb - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="PageExtension 1024167124 - Control 1938177414 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Launch. Prod. Starting Date-Time</source>
+          <target>Date-heure de début de prod. lancement</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">PageExtension pageextension50025 - Control DatGHeureDeb - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="PageExtension 1661863741 - Change 25155185 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Routing Tools</source>
+          <target>Instructions Méthodes et Qualité Gamme</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">PageExtension pageextension50026 - Change Routing Tools - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="PageExtension 2299560358 - Change 3349579234 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Routing Target measures</source>
+          <target>Qualifications gamme</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">PageExtension pageextension50027 - Change Routing Personnel - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="PageExtension 1961742312 - Change 3144460829 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Planning Worksheet</source>
+          <target>Feuille planning</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">PageExtension pageextension50029 - Change Planning Worksheet - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="PageExtension 1300699397 - Control 715895260 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Search Description</source>
+          <target>Désignation de recherche</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">PageExtension pageextension50037 - Control RecGItem."Search Description" - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="PageExtension 1300699397 - Control 1708116098 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Due Date</source>
+          <target>Délai</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">PageExtension pageextension50037 - Control DatGDueDate - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="PageExtension 3213789248 - Control 1350041352 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Customer Filter</source>
+          <target>Filtre Client</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">PageExtension pageextension50038 - Control CustomerFilter - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="PageExtension 3213789248 - Control 1881986821 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Customer Name</source>
+          <target>Nom Client</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">PageExtension pageextension50038 - Control CustomerName - Property Caption</note>
+        </trans-unit>
+      </group>
+    </body>
+  </file>
+</xliff>
