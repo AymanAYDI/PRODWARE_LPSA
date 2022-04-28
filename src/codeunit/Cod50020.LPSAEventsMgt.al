@@ -1832,6 +1832,106 @@ codeunit 50020 "PWD LPSA Events Mgt."
         BooGToItemVisible := NOT BooGFromConfig;
         //<<FE_LAPIERRETTE_NDT01.001
     end;
+    //---PAG99000811---
+    [EventSubscriber(ObjectType::Page, Page::"Prod. BOM Where-Used", 'OnAfterGetRecordEvent', '', false, false)]
+    local procedure PAG99000811_OnAfterGetRecordEvent_ProdBOMWhereUsed(var Rec: Record "Where-Used Line")
+    var
+        RecGItem: Record Item;
+    begin
+        //>>TDL.LPSA.05.10.2015
+        IF NOT RecGItem.GET(Rec."Item No.") THEN
+            RecGItem.INIT();
+        //<<TDL.LPSA.05.10.2015
+    end;
+    //---PAG99000830---
+    [EventSubscriber(ObjectType::Page, Page::"Firm Planned Prod. Order Lines", 'OnAfterGetRecordEvent', '', false, false)]
+    local procedure PAG99000830_OnAfterGetRecordEvent_FirmPlannedProdOrderLines(var Rec: Record "Prod. Order Line")
+    var
+        RecLRoutingLine: Record "Prod. Order Routing Line";
+        CodLienGamme: Code[20];
+        BooLFound: Boolean;
+        DatGHeureDeb: DateTime;
+    begin
+        //>>LPSA
+        CLEAR(DatGHeureDeb);
+        CLEAR(BooLFound);
+        CLEAR(CodLienGamme);
+        RecLRoutingLine.RESET;
+        RecLRoutingLine.SETRANGE(Status, Rec.Status);
+        RecLRoutingLine.SETRANGE("Prod. Order No.", Rec."Prod. Order No.");
+        IF RecLRoutingLine.FINDSET THEN
+            REPEAT
+                IF CodLienGamme <> '' THEN BEGIN
+                    DatGHeureDeb := RecLRoutingLine."Starting Date-Time";
+                    BooLFound := FALSE;
+                END;
+                CodLienGamme := RecLRoutingLine."Routing Link Code";
+            UNTIL (RecLRoutingLine.NEXT = 0) OR BooLFound;
+        //<<LPSA
+    end;
+    //---PAG99000832---
+    [EventSubscriber(ObjectType::Page, Page::"Released Prod. Order Lines", 'OnAfterGetRecordEvent', '', false, false)]
+    local procedure PAG99000832_OnAfterGetRecordEvent_ReleasedProdOrderLines(var Rec: Record "Prod. Order Line")
+    var
+        RecLRoutingLine: Record "Prod. Order Routing Line";
+        CodLienGamme: Code[20];
+        BooLFound: Boolean;
+        DatGHeureDeb: DateTime;
+    begin
+        //>>LPSA
+        CLEAR(DatGHeureDeb);
+        CLEAR(BooLFound);
+        CLEAR(CodLienGamme);
+        RecLRoutingLine.RESET;
+        RecLRoutingLine.SETRANGE(Status, Rec.Status);
+        RecLRoutingLine.SETRANGE("Prod. Order No.", Rec."Prod. Order No.");
+        IF RecLRoutingLine.FINDSET THEN
+            REPEAT
+                IF CodLienGamme <> '' THEN BEGIN
+                    DatGHeureDeb := RecLRoutingLine."Starting Date-Time";
+                    BooLFound := FALSE;
+                END;
+                CodLienGamme := RecLRoutingLine."Routing Link Code";
+            UNTIL (RecLRoutingLine.NEXT = 0) OR BooLFound;
+        //<<LPSA
+    end;
+    //---PAG99000823---
+    [EventSubscriber(ObjectType::Page, Page::"Output Journal", 'OnBeforeActionEvent', 'Post', false, false)]
+    local procedure PAG99000823_OnAfterActionEvent_OutputJournal_Post(var Rec: Record "Item Journal Line")
+    var
+        RecLManufacturingSetup: Record "Manufacturing Setup";
+        RecLItemJnlLineCopy: Record "Item Journal Line";
+        OutputJournal: Page "Output Journal";
+        CstG00002: Label 'Lot non conform, do you want to post ?';
+    begin
+        RecLManufacturingSetup.GET;
+        RecLManufacturingSetup.TESTFIELD("PWD Mach. center - Inventory input");
+        RecLItemJnlLineCopy.COPY(Rec);
+        IF OutputJournal.FctExistControlQuality(RecLItemJnlLineCopy, RecLManufacturingSetup."PWD Mach. center - Inventory input") THEN
+            IF NOT OutputJournal.FctCheckControlQuality(RecLItemJnlLineCopy,
+                                          RecLManufacturingSetup."PWD Mach. center - Inventory input") THEN
+                IF NOT CONFIRM(CstG00002) THEN
+                    EXIT;
+    end;
+
+    [EventSubscriber(ObjectType::Page, Page::"Output Journal", 'OnBeforeActionEvent', 'Post and &Print', false, false)]
+    local procedure PAG99000823_OnAfterActionEvent_OutputJournal_PostandPrint(var Rec: Record "Item Journal Line")
+    var
+        RecLManufacturingSetup: Record "Manufacturing Setup";
+        RecLItemJnlLineCopy: Record "Item Journal Line";
+        OutputJournal: Page "Output Journal";
+        CstG00002: Label 'Lot non conform, do you want to post ?';
+    begin
+        RecLManufacturingSetup.GET;
+        RecLManufacturingSetup.TESTFIELD("PWD Mach. center - Inventory input");
+        RecLItemJnlLineCopy.COPY(Rec);
+        IF OutputJournal.FctExistControlQuality(RecLItemJnlLineCopy, RecLManufacturingSetup."PWD Mach. center - Inventory input") THEN
+            IF NOT OutputJournal.FctCheckControlQuality(RecLItemJnlLineCopy,
+                                          RecLManufacturingSetup."PWD Mach. center - Inventory input") THEN
+                IF NOT CONFIRM(CstG00002) THEN
+                    EXIT;
+    end;
+
     var
         DontExecuteIfImport: Boolean;
         BooGFromImport: Boolean;

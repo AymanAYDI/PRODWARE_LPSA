@@ -1,4 +1,4 @@
-pageextension 50011 pageextension50011 extends "Production BOM Version Lines"
+pageextension 60129 "PWD ProductionBOMVersionLines" extends "Production BOM Version Lines"
 {
     // +----------------------------------------------------------------------------------------------------------------+
     // | ProdWare                                                                                                       |
@@ -13,16 +13,15 @@ pageextension 50011 pageextension50011 extends "Production BOM Version Lines"
     // ------------------------------------------------------------------------------------------------------------------
     layout
     {
-        addafter("Control 6")
+        addafter(Description)
         {
-            field("Lot Determining"; "Lot Determining")
+            field("PWD Lot Determining"; "PWD Lot Determining")
             {
                 ApplicationArea = All;
             }
         }
     }
 
-    //Unsupported feature: Deletion (VariableCollection) on "ShowWhereUsed(PROCEDURE 2).ProdBOMWhereUsed(Variable 1003)".
 
 }
 

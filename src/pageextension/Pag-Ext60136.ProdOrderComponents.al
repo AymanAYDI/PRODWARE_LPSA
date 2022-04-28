@@ -1,4 +1,4 @@
-pageextension 50020 pageextension50020 extends "Prod. Order Components"
+pageextension 60136 "PWD ProdOrderComponents" extends "Prod. Order Components"
 {
     // +----------------------------------------------------------------------------------------------------------------+
     // | ProdWare - Pôle Expertise Edition                                                                              |
@@ -11,9 +11,9 @@ pageextension 50020 pageextension50020 extends "Prod. Order Components"
     // +----------------------------------------------------------------------------------------------------------------+
     layout
     {
-        addafter("Control 4")
+        addafter(Description)
         {
-            field("Lot Determining"; "Lot Determining")
+            field("PWD Lot Determining"; "PWD Lot Determining")
             {
                 ApplicationArea = All;
             }
@@ -22,32 +22,10 @@ pageextension 50020 pageextension50020 extends "Prod. Order Components"
     actions
     {
 
-        //Unsupported feature: Property Insertion (RunPageLink) on "Action 59".
 
-
-        //Unsupported feature: Property Insertion (RunPageLink) on "Action 30".
-
-
-        //Unsupported feature: Property Insertion (RunPageView) on "Action 75".
-
-
-        //Unsupported feature: Property Insertion (RunPageLink) on "Action 75".
-
-
-        //Unsupported feature: Property Deletion (RunFormLink) on "Action 59".
-
-
-        //Unsupported feature: Property Deletion (RunFormLink) on "Action 30".
-
-
-        //Unsupported feature: Property Deletion (RunFormView) on "Action 75".
-
-
-        //Unsupported feature: Property Deletion (RunFormLink) on "Action 75".
-
-        addafter("Action 80")
+        addafter(SelectItemSubstitution)
         {
-            action("<Action1100267001>")
+            action("PWD Action1100267001")
             {
                 Caption = 'Select Phantom Item Substitution';
                 Image = SelectItemSubstitution;

@@ -1,4 +1,4 @@
-pageextension 50026 pageextension50026 extends "Routing Tools"
+pageextension 60144 "PWD ProdOrderRoutingTools" extends "Prod. Order Routing Tools"
 {
     // +----------------------------------------------------------------------------------------------------------------+
     // | ProdWare - Pôle Expertise Edition                                                                              |
@@ -10,34 +10,27 @@ pageextension 50026 pageextension50026 extends "Routing Tools"
     //                   - Add Fields Type
     //                                Criteria
     //                                "Routing No."
-    //                                "Version Code"
     //                                "Operation No."
-    //                   - Change Page Caption
-    Caption = 'Routing Tools';
     layout
     {
-        addfirst("Control 1")
+        addbefore("No.")
         {
-            field("Routing No."; "Routing No.")
+            field("PWD Routing No."; "Routing No.")
             {
                 ApplicationArea = All;
             }
-            field("Version Code"; "Version Code")
-            {
-                ApplicationArea = All;
-            }
-            field("Operation No."; "Operation No.")
-            {
-                ApplicationArea = All;
-            }
-            field(Type; Type)
+            field("PWD Operation No."; "Operation No.")
             {
                 ApplicationArea = All;
             }
         }
-        addafter("Control 6")
+        addafter(Description)
         {
-            field(Criteria; Criteria)
+            field("PWD Type"; "PWD Type")
+            {
+                ApplicationArea = All;
+            }
+            field("PWD Criteria"; "PWD Criteria")
             {
                 ApplicationArea = All;
             }

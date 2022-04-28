@@ -21,6 +21,7 @@ pageextension 50033 pageextension50033 extends "Simulated Production Order"
             {
                 Caption = 'PlannerOne Production Scheduler';
                 SubPageLink = No.=                ApplicationArea = All;
+                ApplicationArea = All;
 FIELD(No.)    ApplicationArea = All;
 ,Status=FIELD(Status);
                 Visible = PlannerOneEnabled;
