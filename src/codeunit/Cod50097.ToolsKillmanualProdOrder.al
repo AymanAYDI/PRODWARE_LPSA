@@ -57,7 +57,7 @@ codeunit 50097 "Tools Kill manual Prod Order"
         Text009: Label 'You cannot finish line %1 on %2 %3. It has consumption or capacity posted with no output.';
         Text010: Label 'You must specify a %1 in %2 %3 %4.';
         HasGLSetup: Boolean;
-        ApplicationManagement: Codeunit ApplicationManagement; //TODO: CodeUnit 1 n'existe pas 
+        //ApplicationManagement: Codeunit ApplicationManagement; //TODO: CodeUnit 1 n'existe pas 
         Txt50000: Label 'There is a phantom item for Line no. %1';
         BooGAvoidControl: Boolean;
 
@@ -190,7 +190,7 @@ codeunit 50097 "Tools Kill manual Prod Order"
                     ToProdOrderLine."Prod. Order No." := ToProdOrder."No.";
                     ToProdOrderLine.INSERT();
                     IF NewStatus = NewStatus::Finished THEN BEGIN
-                        ToProdOrderLine."Cost is Adjusted" := FALSE; //TODO: Le champs n'existe pas dans les champs standards pour cette version
+                        //ToProdOrderLine."Cost is Adjusted" := FALSE; //TODO: Le champs n'existe pas dans les champs standards pour cette version
                         IF NewUpdateUnitCost THEN
                             UpdateProdOrderCost.UpdateUnitCostOnProdOrder(FromProdOrderLine, TRUE, TRUE);
                         ToProdOrderLine."Unit Cost (ACY)" :=
@@ -440,7 +440,7 @@ codeunit 50097 "Tools Kill manual Prod Order"
 
     local procedure TransProdOrderDocDim(FromProdOrder: Record "Production Order")
     var
-        FromProdDocDim: Record "Production Document Dimension";//TODO: Table n'est plus disponible
+        FromProdDocDim: Record "Dimension Set Entry";//TODO: Table n'est plus disponible
     begin
         WITH FromProdDocDim DO BEGIN
             SETRANGE("Table ID", DATABASE::"Production Order");
@@ -539,11 +539,11 @@ codeunit 50097 "Tools Kill manual Prod Order"
 
     procedure FlushProdOrder(ProdOrder: Record "Production Order"; NewStatus: Option Simulated,Planned,"Firm Planned",Released,Finished; PostingDate: Date)
     var
-        ProdOrderStatusManagement : codeunit "Prod. Order Status Management";
+        ProdOrderStatusManagement: codeunit "Prod. Order Status Management";
     begin
-    ProdOrderStatusManagement.FlushProdOrder(ProdOrder, NewStatus, PostingDate);
+        ProdOrderStatusManagement.FlushProdOrder(ProdOrder, NewStatus, PostingDate);
 
- end;
+    end;
 
 
     procedure CheckBeforeFinishProdOrder(ProdOrder: Record "Production Order")

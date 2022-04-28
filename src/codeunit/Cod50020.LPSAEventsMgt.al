@@ -969,7 +969,7 @@ codeunit 50020 "PWD LPSA Events Mgt."
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Planning Line Management", 'OnBeforeInsertAsmPlanningComponent', '', false, false)]
     local procedure CDU99000809_OnBeforeInsertAsmPlanningComponent_PlanningLineManagement(var ReqLine: Record "Requisition Line"; var BOMComponent: Record "BOM Component"; var PlanningComponent: Record "Planning Component")
     begin
-        PlanningComponent."PWD Lot Determining" := BOMComponent."Lot Determining";
+        PlanningComponent."PWD Lot Determining" := BOMComponent."PWD Lot Determining";
     end;
     //---CDU5063---
     [EventSubscriber(ObjectType::Codeunit, Codeunit::ArchiveManagement, 'OnBeforeRestoreSalesDocument', '', false, false)] //TODO: A verifier cette fonction(evenement utilisé avec IsHandled pour modifier le standard )
@@ -1040,18 +1040,18 @@ codeunit 50020 "PWD LPSA Events Mgt."
         //<<LPSA2.06
     end;
 
-    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Prod. Order Status Management", 'OnAfterTransProdOrder', '', false, false)]
-    local procedure CDU5407_OnAfterTransProdOrder_ProdOrderStatusManagement(var FromProdOrder: Record "Production Order"; var ToProdOrder: Record "Production Order")
-    var
-        PWDLPSAFunctionsMgt: Codeunit "PWD LPSA Functions Mgt.";
-    begin
-        // PLAW1 2.1
-        PWDLPSAFunctionsMgt.TransProdOrderRtngLineAlt(FromProdOrder);
-        // PLAW1 2.1 END  
-        //PLAW1 2.1 transport prod order links
-        PWDLPSAFunctionsMgt.TransProdOrderLink(FromProdOrder);
-        //PLAW1 2.1 END
-    end;
+    // [EventSubscriber(ObjectType::Codeunit, Codeunit::"Prod. Order Status Management", 'OnAfterTransProdOrder', '', false, false)]
+    // local procedure CDU5407_OnAfterTransProdOrder_ProdOrderStatusManagement(var FromProdOrder: Record "Production Order"; var ToProdOrder: Record "Production Order")
+    // var
+    //     PWDLPSAFunctionsMgt: Codeunit "PWD LPSA Functions Mgt.";
+    // begin
+    //     // PLAW1 2.1
+    //     PWDLPSAFunctionsMgt.TransProdOrderRtngLineAlt(FromProdOrder);
+    //     // PLAW1 2.1 END  
+    //     //PLAW1 2.1 transport prod order links
+    //     PWDLPSAFunctionsMgt.TransProdOrderLink(FromProdOrder);
+    //     //PLAW1 2.1 END
+    // end;
 
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Prod. Order Status Management", 'OnTransProdOrderLineOnAfterFromProdOrderLineFindSet', '', false, false)]
     local procedure CDU5407_OnTransProdOrderLineOnAfterFromProdOrderLineFindSet_ProdOrderStatusManagement(FromProdOrderLine: Record "Prod. Order Line"; var ToProdOrderLine: Record "Prod. Order Line"; NewStatus: Enum "Production Order Status")
@@ -1832,6 +1832,7 @@ codeunit 50020 "PWD LPSA Events Mgt."
         BooGToItemVisible := NOT BooGFromConfig;
         //<<FE_LAPIERRETTE_NDT01.001
     end;
+
     var
         DontExecuteIfImport: Boolean;
         BooGFromImport: Boolean;

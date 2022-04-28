@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2016/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
   <AutoRefresh>0</AutoRefresh>
   <DataSources>
@@ -8,6 +8,7 @@
         <ConnectString />
       </ConnectionProperties>
       <rd:SecurityType>None</rd:SecurityType>
+      <rd:DataSourceID>deb67a60-3518-41ff-970d-95e440699ade</rd:DataSourceID>
     </DataSource>
   </DataSources>
   <DataSets>
@@ -287,6 +288,7 @@
                                                     </Style>
                                                   </TextRun>
                                                 </TextRuns>
+                                                <Style />
                                               </Paragraph>
                                             </Paragraphs>
                                             <ZIndex>28</ZIndex>
@@ -390,6 +392,7 @@
                                                     </Style>
                                                   </TextRun>
                                                 </TextRuns>
+                                                <Style />
                                               </Paragraph>
                                             </Paragraphs>
                                             <ZIndex>24</ZIndex>
@@ -398,7 +401,6 @@
                                             </Visibility>
                                             <Style>
                                               <VerticalAlign>Bottom</VerticalAlign>
-                                              <PaddingTop>0cm</PaddingTop>
                                             </Style>
                                           </Textbox>
                                         </CellContents>
@@ -412,45 +414,48 @@
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value>=Fields!Title.Value +Chr(177)+
-Fields!Transfer_Shipment_Header___No__.Value+Chr(177)+
-Fields!Transfer_Shipment_Header___No__Caption.Value+Chr(177)+
-Fields!DatGDocumentDate.Value+Chr(177)+
-Fields!DatGDocumentDateCaption.Value+Chr(177)+
-Fields!CodGCustomerNo.Value+Chr(177)+
-Fields!CodGCustomerNoCaption.Value+Chr(177)+
-Fields!Customer_VATRegistrationNo.Value+Chr(177)+
-Fields!Customer_VATRegistrationNoCaption.Value+Chr(177)+
-Fields!SalesHeader_ExternalDocumentNo.Value+Chr(177)+
-Fields!SalesHeader_ExternalDocumentNoCaption.Value+Chr(177)+
-Fields!SalesHeader_SelltoContact.Value+Chr(177)+
-Fields!SalesHeader_SelltoContactCaption.Value+Chr(177)+
-Fields!TransferToAddr_1_.Value+Chr(177)+
-Fields!TransferToAddr_2_.Value+Chr(177)+
-Fields!TransferToAddr_3_.Value+Chr(177)+
-Fields!TransferToAddr_4_.Value+Chr(177)+
-Fields!TransferToAddr_5_.Value+Chr(177)+
-Fields!TransferToAddr_6_.Value+Chr(177)+
-Fields!TransferToAddr_7_.Value+Chr(177)+
-Fields!TransferToAddr_8_.Value+Chr(177)+
-Fields!RecGCompanyInfo_City.Value+Chr(177)+
-Fields!RecGSalespersonPurchaser_Name.Value+Chr(177)+
-Fields!RecGSalespersonPurchaser_NameCaption.Value</Value>
+                                                    <Value EvaluationMode="Constant" />
                                                     <Style>
                                                       <FontSize>9pt</FontSize>
                                                       <Color>Red</Color>
                                                     </Style>
                                                   </TextRun>
                                                 </TextRuns>
+                                                <Style />
                                               </Paragraph>
                                             </Paragraphs>
                                             <ZIndex>23</ZIndex>
                                             <Visibility>
-                                              <Hidden>true</Hidden>
+                                              <Hidden>=Code.SetData(Cstr(Fields!Title.Value) +Chr(177)+
+Cstr(Fields!Transfer_Shipment_Header___No__.Value)+Chr(177)+
+Cstr(Fields!Transfer_Shipment_Header___No__Caption.Value)+Chr(177)+
+Cstr(Fields!DatGDocumentDate.Value)+Chr(177)+
+Cstr(Fields!DatGDocumentDateCaption.Value)+Chr(177)+
+Cstr(Fields!CodGCustomerNo.Value)+Chr(177)+
+Cstr(Fields!CodGCustomerNoCaption.Value)+Chr(177)+
+Cstr(Fields!Customer_VATRegistrationNo.Value)+Chr(177)+
+Cstr(Fields!Customer_VATRegistrationNoCaption.Value)+Chr(177)+
+Cstr(Fields!SalesHeader_ExternalDocumentNo.Value)+Chr(177)+
+Cstr(Fields!SalesHeader_ExternalDocumentNoCaption.Value)+Chr(177)+
+Cstr(Fields!SalesHeader_SelltoContact.Value)+Chr(177)+
+Cstr(Fields!SalesHeader_SelltoContactCaption.Value)+Chr(177)+
+Cstr(Fields!TransferToAddr_1_.Value)+Chr(177)+
+Cstr(Fields!TransferToAddr_2_.Value)+Chr(177)+
+Cstr(Fields!TransferToAddr_3_.Value)+Chr(177)+
+Cstr(Fields!TransferToAddr_4_.Value)+Chr(177)+
+Cstr(Fields!TransferToAddr_5_.Value)+Chr(177)+
+Cstr(Fields!TransferToAddr_6_.Value)+Chr(177)+
+Cstr(Fields!TransferToAddr_7_.Value)+Chr(177)+
+Cstr(Fields!TransferToAddr_8_.Value)+Chr(177)+
+Cstr(Fields!RecGCompanyInfo_City.Value)+Chr(177)+
+Cstr(Fields!RecGSalespersonPurchaser_Name.Value)+Chr(177)+
+Cstr(Fields!RecGSalespersonPurchaser_NameCaption.Value)+Chr(177),1)</Hidden>
                                             </Visibility>
                                             <Style>
+                                              <Border>
+                                                <Style>None</Style>
+                                              </Border>
                                               <VerticalAlign>Bottom</VerticalAlign>
-                                              <PaddingTop>0cm</PaddingTop>
                                             </Style>
                                           </Textbox>
                                         </CellContents>
@@ -471,6 +476,7 @@ Fields!RecGSalespersonPurchaser_NameCaption.Value</Value>
                                                     </Style>
                                                   </TextRun>
                                                 </TextRuns>
+                                                <Style />
                                               </Paragraph>
                                             </Paragraphs>
                                             <ZIndex>21</ZIndex>
@@ -479,7 +485,6 @@ Fields!RecGSalespersonPurchaser_NameCaption.Value</Value>
                                             </Visibility>
                                             <Style>
                                               <VerticalAlign>Bottom</VerticalAlign>
-                                              <PaddingTop>0cm</PaddingTop>
                                             </Style>
                                           </Textbox>
                                         </CellContents>
@@ -541,6 +546,7 @@ Fields!RecGSalespersonPurchaser_NameCaption.Value</Value>
                                                     <Style />
                                                   </TextRun>
                                                 </TextRuns>
+                                                <Style />
                                               </Paragraph>
                                             </Paragraphs>
                                             <rd:DefaultName>textbox5</rd:DefaultName>
@@ -571,6 +577,7 @@ Fields!RecGSalespersonPurchaser_NameCaption.Value</Value>
                                                     <Style />
                                                   </TextRun>
                                                 </TextRuns>
+                                                <Style />
                                               </Paragraph>
                                             </Paragraphs>
                                             <rd:DefaultName>textbox4</rd:DefaultName>
@@ -596,6 +603,7 @@ Fields!RecGSalespersonPurchaser_NameCaption.Value</Value>
                                                     <Style />
                                                   </TextRun>
                                                 </TextRuns>
+                                                <Style />
                                               </Paragraph>
                                             </Paragraphs>
                                             <rd:DefaultName>textbox3</rd:DefaultName>
@@ -621,6 +629,7 @@ Fields!RecGSalespersonPurchaser_NameCaption.Value</Value>
                                                     <Style />
                                                   </TextRun>
                                                 </TextRuns>
+                                                <Style />
                                               </Paragraph>
                                             </Paragraphs>
                                             <rd:DefaultName>textbox2</rd:DefaultName>
@@ -771,6 +780,7 @@ Fields!RecGSalespersonPurchaser_NameCaption.Value</Value>
                                                     <Style />
                                                   </TextRun>
                                                 </TextRuns>
+                                                <Style />
                                               </Paragraph>
                                             </Paragraphs>
                                             <rd:DefaultName>textbox17</rd:DefaultName>
@@ -796,6 +806,7 @@ Fields!RecGSalespersonPurchaser_NameCaption.Value</Value>
                                                     <Style />
                                                   </TextRun>
                                                 </TextRuns>
+                                                <Style />
                                               </Paragraph>
                                             </Paragraphs>
                                             <rd:DefaultName>textbox18</rd:DefaultName>
@@ -821,6 +832,7 @@ Fields!RecGSalespersonPurchaser_NameCaption.Value</Value>
                                                     <Style />
                                                   </TextRun>
                                                 </TextRuns>
+                                                <Style />
                                               </Paragraph>
                                             </Paragraphs>
                                             <rd:DefaultName>textbox19</rd:DefaultName>
@@ -851,6 +863,7 @@ Fields!RecGSalespersonPurchaser_NameCaption.Value</Value>
                                                     <Style />
                                                   </TextRun>
                                                 </TextRuns>
+                                                <Style />
                                               </Paragraph>
                                             </Paragraphs>
                                             <rd:DefaultName>textbox1</rd:DefaultName>
@@ -878,6 +891,7 @@ Fields!RecGSalespersonPurchaser_NameCaption.Value</Value>
                                                     </Style>
                                                   </TextRun>
                                                 </TextRuns>
+                                                <Style />
                                               </Paragraph>
                                             </Paragraphs>
                                             <rd:DefaultName>ItemLedgerEntry_SerialNoCaption</rd:DefaultName>
@@ -905,6 +919,7 @@ Fields!RecGSalespersonPurchaser_NameCaption.Value</Value>
                                                     </Style>
                                                   </TextRun>
                                                 </TextRuns>
+                                                <Style />
                                               </Paragraph>
                                             </Paragraphs>
                                             <rd:DefaultName>ItemLedgerEntry_SerialNo</rd:DefaultName>
@@ -930,6 +945,7 @@ Fields!RecGSalespersonPurchaser_NameCaption.Value</Value>
                                                     <Style />
                                                   </TextRun>
                                                 </TextRuns>
+                                                <Style />
                                               </Paragraph>
                                             </Paragraphs>
                                             <rd:DefaultName>textbox8</rd:DefaultName>
@@ -955,6 +971,7 @@ Fields!RecGSalespersonPurchaser_NameCaption.Value</Value>
                                                     <Style />
                                                   </TextRun>
                                                 </TextRuns>
+                                                <Style />
                                               </Paragraph>
                                             </Paragraphs>
                                             <rd:DefaultName>textbox9</rd:DefaultName>
@@ -981,6 +998,7 @@ Fields!RecGSalespersonPurchaser_NameCaption.Value</Value>
                                                     </Style>
                                                   </TextRun>
                                                 </TextRuns>
+                                                <Style />
                                               </Paragraph>
                                             </Paragraphs>
                                             <rd:DefaultName>textbox50</rd:DefaultName>
@@ -1006,6 +1024,7 @@ Fields!RecGSalespersonPurchaser_NameCaption.Value</Value>
                                                     </Style>
                                                   </TextRun>
                                                 </TextRuns>
+                                                <Style />
                                               </Paragraph>
                                             </Paragraphs>
                                             <rd:DefaultName>textbox51</rd:DefaultName>
@@ -1031,6 +1050,7 @@ Fields!RecGSalespersonPurchaser_NameCaption.Value</Value>
                                                     </Style>
                                                   </TextRun>
                                                 </TextRuns>
+                                                <Style />
                                               </Paragraph>
                                             </Paragraphs>
                                             <rd:DefaultName>textbox53</rd:DefaultName>
@@ -1059,6 +1079,7 @@ Fields!RecGSalespersonPurchaser_NameCaption.Value</Value>
                                                     <Style />
                                                   </TextRun>
                                                 </TextRuns>
+                                                <Style />
                                               </Paragraph>
                                             </Paragraphs>
                                             <rd:DefaultName>textbox7</rd:DefaultName>
@@ -1086,6 +1107,7 @@ Fields!RecGSalespersonPurchaser_NameCaption.Value</Value>
                                                     </Style>
                                                   </TextRun>
                                                 </TextRuns>
+                                                <Style />
                                               </Paragraph>
                                             </Paragraphs>
                                             <rd:DefaultName>textbox10</rd:DefaultName>
@@ -1113,6 +1135,7 @@ Fields!RecGSalespersonPurchaser_NameCaption.Value</Value>
                                                     </Style>
                                                   </TextRun>
                                                 </TextRuns>
+                                                <Style />
                                               </Paragraph>
                                             </Paragraphs>
                                             <rd:DefaultName>textbox11</rd:DefaultName>
@@ -1138,6 +1161,7 @@ Fields!RecGSalespersonPurchaser_NameCaption.Value</Value>
                                                     <Style />
                                                   </TextRun>
                                                 </TextRuns>
+                                                <Style />
                                               </Paragraph>
                                             </Paragraphs>
                                             <rd:DefaultName>textbox12</rd:DefaultName>
@@ -1163,6 +1187,7 @@ Fields!RecGSalespersonPurchaser_NameCaption.Value</Value>
                                                     <Style />
                                                   </TextRun>
                                                 </TextRuns>
+                                                <Style />
                                               </Paragraph>
                                             </Paragraphs>
                                             <rd:DefaultName>textbox13</rd:DefaultName>
@@ -1188,6 +1213,7 @@ Fields!RecGSalespersonPurchaser_NameCaption.Value</Value>
                                                     <Style />
                                                   </TextRun>
                                                 </TextRuns>
+                                                <Style />
                                               </Paragraph>
                                             </Paragraphs>
                                             <rd:DefaultName>textbox14</rd:DefaultName>
@@ -1213,6 +1239,7 @@ Fields!RecGSalespersonPurchaser_NameCaption.Value</Value>
                                                     <Style />
                                                   </TextRun>
                                                 </TextRuns>
+                                                <Style />
                                               </Paragraph>
                                             </Paragraphs>
                                             <rd:DefaultName>textbox15</rd:DefaultName>
@@ -1238,6 +1265,7 @@ Fields!RecGSalespersonPurchaser_NameCaption.Value</Value>
                                                     <Style />
                                                   </TextRun>
                                                 </TextRuns>
+                                                <Style />
                                               </Paragraph>
                                             </Paragraphs>
                                             <rd:DefaultName>textbox16</rd:DefaultName>
@@ -1268,6 +1296,7 @@ Fields!RecGSalespersonPurchaser_NameCaption.Value</Value>
                                                     <Style />
                                                   </TextRun>
                                                 </TextRuns>
+                                                <Style />
                                               </Paragraph>
                                             </Paragraphs>
                                             <rd:DefaultName>textbox20</rd:DefaultName>
@@ -1295,6 +1324,7 @@ Fields!RecGSalespersonPurchaser_NameCaption.Value</Value>
                                                     </Style>
                                                   </TextRun>
                                                 </TextRuns>
+                                                <Style />
                                               </Paragraph>
                                             </Paragraphs>
                                             <Style>
@@ -1321,6 +1351,7 @@ Fields!RecGSalespersonPurchaser_NameCaption.Value</Value>
                                                     </Style>
                                                   </TextRun>
                                                 </TextRuns>
+                                                <Style />
                                               </Paragraph>
                                             </Paragraphs>
                                             <rd:DefaultName>textbox22</rd:DefaultName>
@@ -1346,6 +1377,7 @@ Fields!RecGSalespersonPurchaser_NameCaption.Value</Value>
                                                     <Style />
                                                   </TextRun>
                                                 </TextRuns>
+                                                <Style />
                                               </Paragraph>
                                             </Paragraphs>
                                             <rd:DefaultName>textbox23</rd:DefaultName>
@@ -1371,6 +1403,7 @@ Fields!RecGSalespersonPurchaser_NameCaption.Value</Value>
                                                     <Style />
                                                   </TextRun>
                                                 </TextRuns>
+                                                <Style />
                                               </Paragraph>
                                             </Paragraphs>
                                             <rd:DefaultName>textbox24</rd:DefaultName>
@@ -1396,6 +1429,7 @@ Fields!RecGSalespersonPurchaser_NameCaption.Value</Value>
                                                     <Style />
                                                   </TextRun>
                                                 </TextRuns>
+                                                <Style />
                                               </Paragraph>
                                             </Paragraphs>
                                             <rd:DefaultName>textbox25</rd:DefaultName>
@@ -1421,6 +1455,7 @@ Fields!RecGSalespersonPurchaser_NameCaption.Value</Value>
                                                     <Style />
                                                   </TextRun>
                                                 </TextRuns>
+                                                <Style />
                                               </Paragraph>
                                             </Paragraphs>
                                             <rd:DefaultName>textbox26</rd:DefaultName>
@@ -1446,6 +1481,7 @@ Fields!RecGSalespersonPurchaser_NameCaption.Value</Value>
                                                     <Style />
                                                   </TextRun>
                                                 </TextRuns>
+                                                <Style />
                                               </Paragraph>
                                             </Paragraphs>
                                             <rd:DefaultName>textbox27</rd:DefaultName>
@@ -1572,10 +1608,13 @@ Fields!RecGSalespersonPurchaser_NameCaption.Value</Value>
                                   </FilterValues>
                                 </Filter>
                               </Filters>
+                              <Height>3.17376cm</Height>
                               <Width>17.73811cm</Width>
+                              <Style />
                             </Tablix>
                           </ReportItems>
                           <KeepTogether>true</KeepTogether>
+                          <Style />
                         </Rectangle>
                       </CellContents>
                     </TablixCell>
@@ -1598,6 +1637,7 @@ Fields!RecGSalespersonPurchaser_NameCaption.Value</Value>
                     </GroupExpressions>
                     <PageBreak>
                       <BreakLocation>Between</BreakLocation>
+                      <ResetPageNumber>true</ResetPageNumber>
                     </PageBreak>
                   </Group>
                   <SortExpressions>
@@ -1618,10 +1658,14 @@ Fields!RecGSalespersonPurchaser_NameCaption.Value</Value>
             <PageBreak>
               <BreakLocation>End</BreakLocation>
             </PageBreak>
+            <Top>0cm</Top>
+            <Height>3.17376cm</Height>
             <Width>18.00511cm</Width>
+            <Style />
           </Tablix>
         </ReportItems>
         <Height>3.17376cm</Height>
+        <Style />
       </Body>
       <Width>19cm</Width>
       <Page>
@@ -1632,367 +1676,125 @@ Fields!RecGSalespersonPurchaser_NameCaption.Value</Value>
           <ReportItems>
             <Rectangle Name="rectangle1">
               <ReportItems>
-                <Textbox Name="TransferFromAddr_3_1">
+                <Textbox Name="Transfer_Shipment_Header___No__Caption1">
                   <KeepTogether>true</KeepTogether>
                   <Paragraphs>
                     <Paragraph>
                       <TextRuns>
                         <TextRun>
-                          <Value>=Code.GetData(14)</Value>
-                          <Style>
-                            <FontSize>9pt</FontSize>
-                            <FontWeight>Bold</FontWeight>
-                          </Style>
-                        </TextRun>
-                      </TextRuns>
-                    </Paragraph>
-                  </Paragraphs>
-                  <Top>3.65cm</Top>
-                  <Left>10.998cm</Left>
-                  <Height>0.423cm</Height>
-                  <Width>7.191cm</Width>
-                  <ZIndex>21</ZIndex>
-                  <Style>
-                    <VerticalAlign>Middle</VerticalAlign>
-                  </Style>
-                </Textbox>
-                <Textbox Name="textbox36">
-                  <KeepTogether>true</KeepTogether>
-                  <Paragraphs>
-                    <Paragraph>
-                      <TextRuns>
-                        <TextRun>
-                          <Value>=Code.GetData(10)</Value>
-                          <Style>
-                            <FontSize>8pt</FontSize>
-                          </Style>
-                        </TextRun>
-                      </TextRuns>
-                    </Paragraph>
-                  </Paragraphs>
-                  <Top>6.345cm</Top>
-                  <Left>3.5cm</Left>
-                  <Height>0.423cm</Height>
-                  <Width>3.384cm</Width>
-                  <ZIndex>20</ZIndex>
-                  <Style>
-                    <VerticalAlign>Middle</VerticalAlign>
-                  </Style>
-                </Textbox>
-                <Textbox Name="textbox37">
-                  <KeepTogether>true</KeepTogether>
-                  <Paragraphs>
-                    <Paragraph>
-                      <TextRuns>
-                        <TextRun>
-                          <Value>=Code.GetData(13)</Value>
-                          <Style>
-                            <FontSize>8pt</FontSize>
-                          </Style>
-                        </TextRun>
-                      </TextRuns>
-                    </Paragraph>
-                  </Paragraphs>
-                  <Top>6.768cm</Top>
-                  <Height>0.423cm</Height>
-                  <Width>3.5cm</Width>
-                  <ZIndex>19</ZIndex>
-                  <Style>
-                    <VerticalAlign>Middle</VerticalAlign>
-                  </Style>
-                </Textbox>
-                <Textbox Name="textbox38">
-                  <KeepTogether>true</KeepTogether>
-                  <Paragraphs>
-                    <Paragraph>
-                      <TextRuns>
-                        <TextRun>
-                          <Value>=Code.GetData(11)</Value>
-                          <Style>
-                            <FontSize>8pt</FontSize>
-                          </Style>
-                        </TextRun>
-                      </TextRuns>
-                    </Paragraph>
-                  </Paragraphs>
-                  <Top>6.345cm</Top>
-                  <Height>0.423cm</Height>
-                  <Width>3.5cm</Width>
-                  <ZIndex>18</ZIndex>
-                  <Style>
-                    <VerticalAlign>Middle</VerticalAlign>
-                  </Style>
-                </Textbox>
-                <Textbox Name="textbox31">
-                  <KeepTogether>true</KeepTogether>
-                  <Paragraphs>
-                    <Paragraph>
-                      <TextRuns>
-                        <TextRun>
-                          <Value>=Code.GetData(8)</Value>
-                          <Style>
-                            <FontSize>8pt</FontSize>
-                          </Style>
-                        </TextRun>
-                      </TextRuns>
-                    </Paragraph>
-                  </Paragraphs>
-                  <Top>5.922cm</Top>
-                  <Left>3.5cm</Left>
-                  <Height>0.423cm</Height>
-                  <Width>3.384cm</Width>
-                  <ZIndex>17</ZIndex>
-                  <Style>
-                    <VerticalAlign>Middle</VerticalAlign>
-                  </Style>
-                </Textbox>
-                <Textbox Name="textbox32">
-                  <KeepTogether>true</KeepTogether>
-                  <Paragraphs>
-                    <Paragraph>
-                      <TextRuns>
-                        <TextRun>
-                          <Value>=Code.GetData(6)</Value>
-                          <Style>
-                            <FontSize>8pt</FontSize>
-                          </Style>
-                        </TextRun>
-                      </TextRuns>
-                    </Paragraph>
-                  </Paragraphs>
-                  <Top>5.499cm</Top>
-                  <Left>3.5cm</Left>
-                  <Height>0.423cm</Height>
-                  <Width>3.384cm</Width>
-                  <ZIndex>16</ZIndex>
-                  <Style>
-                    <VerticalAlign>Middle</VerticalAlign>
-                  </Style>
-                </Textbox>
-                <Textbox Name="textbox33">
-                  <KeepTogether>true</KeepTogether>
-                  <Paragraphs>
-                    <Paragraph>
-                      <TextRuns>
-                        <TextRun>
-                          <Value>=Code.GetData(9)</Value>
-                          <Style>
-                            <FontSize>8pt</FontSize>
-                          </Style>
-                        </TextRun>
-                      </TextRuns>
-                    </Paragraph>
-                  </Paragraphs>
-                  <Top>5.922cm</Top>
-                  <Height>0.423cm</Height>
-                  <Width>3.5cm</Width>
-                  <ZIndex>15</ZIndex>
-                  <Style>
-                    <VerticalAlign>Middle</VerticalAlign>
-                  </Style>
-                </Textbox>
-                <Textbox Name="textbox34">
-                  <KeepTogether>true</KeepTogether>
-                  <Paragraphs>
-                    <Paragraph>
-                      <TextRuns>
-                        <TextRun>
-                          <Value>=Code.GetData(7)</Value>
-                          <Style>
-                            <FontSize>8pt</FontSize>
-                          </Style>
-                        </TextRun>
-                      </TextRuns>
-                    </Paragraph>
-                  </Paragraphs>
-                  <Top>5.499cm</Top>
-                  <Height>0.423cm</Height>
-                  <Width>3.5cm</Width>
-                  <ZIndex>14</ZIndex>
-                  <Style>
-                    <VerticalAlign>Middle</VerticalAlign>
-                  </Style>
-                </Textbox>
-                <Textbox Name="textbox29">
-                  <KeepTogether>true</KeepTogether>
-                  <Paragraphs>
-                    <Paragraph>
-                      <TextRuns>
-                        <TextRun>
-                          <Value>=Code.GetData(4)</Value>
-                          <Style>
-                            <FontSize>8pt</FontSize>
-                          </Style>
-                        </TextRun>
-                      </TextRuns>
-                    </Paragraph>
-                  </Paragraphs>
-                  <Top>5.076cm</Top>
-                  <Left>3.5cm</Left>
-                  <Height>0.423cm</Height>
-                  <Width>3.384cm</Width>
-                  <ZIndex>13</ZIndex>
-                  <Style>
-                    <VerticalAlign>Middle</VerticalAlign>
-                  </Style>
-                </Textbox>
-                <Textbox Name="textbox30">
-                  <KeepTogether>true</KeepTogether>
-                  <Paragraphs>
-                    <Paragraph>
-                      <TextRuns>
-                        <TextRun>
-                          <Value>=Code.GetData(2)</Value>
-                          <Style>
-                            <FontSize>8pt</FontSize>
-                            <FontWeight>Bold</FontWeight>
-                          </Style>
-                        </TextRun>
-                      </TextRuns>
-                    </Paragraph>
-                  </Paragraphs>
-                  <Top>4.653cm</Top>
-                  <Left>3.5cm</Left>
-                  <Height>0.423cm</Height>
-                  <Width>3.384cm</Width>
-                  <ZIndex>12</ZIndex>
-                  <Style>
-                    <VerticalAlign>Middle</VerticalAlign>
-                  </Style>
-                </Textbox>
-                <Textbox Name="textbox21">
-                  <KeepTogether>true</KeepTogether>
-                  <Paragraphs>
-                    <Paragraph>
-                      <TextRuns>
-                        <TextRun>
-                          <Value>=Code.GetData(5)</Value>
-                          <Style>
-                            <FontSize>8pt</FontSize>
-                          </Style>
-                        </TextRun>
-                      </TextRuns>
-                    </Paragraph>
-                  </Paragraphs>
-                  <Top>5.076cm</Top>
-                  <Height>0.423cm</Height>
-                  <Width>3.5cm</Width>
-                  <ZIndex>11</ZIndex>
-                  <Style>
-                    <VerticalAlign>Middle</VerticalAlign>
-                  </Style>
-                </Textbox>
-                <Textbox Name="TransferToAddr_1_1">
-                  <KeepTogether>true</KeepTogether>
-                  <Paragraphs>
-                    <Paragraph>
-                      <TextRuns>
-                        <TextRun>
-                          <Value>=Code.GetData(1)</Value>
-                          <Style>
-                            <FontSize>12pt</FontSize>
-                            <FontWeight>Bold</FontWeight>
-                          </Style>
-                        </TextRun>
-                      </TextRuns>
-                    </Paragraph>
-                  </Paragraphs>
-                  <Top>3.5cm</Top>
-                  <Height>0.423cm</Height>
-                  <Width>7.191cm</Width>
-                  <ZIndex>10</ZIndex>
-                  <Style>
-                    <VerticalAlign>Middle</VerticalAlign>
-                  </Style>
-                </Textbox>
-                <Textbox Name="TransferToAddr_2_1">
-                  <KeepTogether>true</KeepTogether>
-                  <Paragraphs>
-                    <Paragraph>
-                      <TextRuns>
-                        <TextRun>
-                          <Value>=Code.GetData(3)</Value>
-                          <Style>
-                            <FontSize>8pt</FontSize>
-                          </Style>
-                        </TextRun>
-                      </TextRuns>
-                    </Paragraph>
-                  </Paragraphs>
-                  <Top>4.653cm</Top>
-                  <Height>0.423cm</Height>
-                  <Width>3.5cm</Width>
-                  <ZIndex>9</ZIndex>
-                  <Style>
-                    <VerticalAlign>Middle</VerticalAlign>
-                  </Style>
-                </Textbox>
-                <Textbox Name="textbox35">
-                  <KeepTogether>true</KeepTogether>
-                  <Paragraphs>
-                    <Paragraph>
-                      <TextRuns>
-                        <TextRun>
-                          <Value>=Code.GetData(12)</Value>
-                          <Style>
-                            <FontSize>8pt</FontSize>
-                          </Style>
-                        </TextRun>
-                      </TextRuns>
-                    </Paragraph>
-                  </Paragraphs>
-                  <Top>6.768cm</Top>
-                  <Left>3.5cm</Left>
-                  <Height>0.423cm</Height>
-                  <Width>3.384cm</Width>
-                  <ZIndex>8</ZIndex>
-                  <Style>
-                    <VerticalAlign>Middle</VerticalAlign>
-                  </Style>
-                </Textbox>
-                <Textbox Name="TransferFromAddr_4_1">
-                  <KeepTogether>true</KeepTogether>
-                  <Paragraphs>
-                    <Paragraph>
-                      <TextRuns>
-                        <TextRun>
-                          <Value>=Code.GetData(15)</Value>
-                          <Style>
-                            <FontSize>9pt</FontSize>
-                            <FontWeight>Bold</FontWeight>
-                          </Style>
-                        </TextRun>
-                      </TextRuns>
-                    </Paragraph>
-                  </Paragraphs>
-                  <Top>4.073cm</Top>
-                  <Left>10.998cm</Left>
-                  <Height>0.423cm</Height>
-                  <Width>7.191cm</Width>
-                  <ZIndex>7</ZIndex>
-                  <Style>
-                    <VerticalAlign>Middle</VerticalAlign>
-                  </Style>
-                </Textbox>
-                <Textbox Name="FORMAT__Transfer_Shipment_Header___Posting_Date__0_4_1">
-                  <KeepTogether>true</KeepTogether>
-                  <Paragraphs>
-                    <Paragraph>
-                      <TextRuns>
-                        <TextRun>
-                          <Value>=Code.GetData(22)</Value>
+                          <Value>=Code.GetData(24,1)</Value>
                           <Style>
                             <FontSize>9pt</FontSize>
                           </Style>
                         </TextRun>
                       </TextRuns>
+                      <Style />
                     </Paragraph>
                   </Paragraphs>
-                  <Top>7cm</Top>
+                  <Top>7.7cm</Top>
                   <Left>11cm</Left>
                   <Height>0.423cm</Height>
+                  <Width>4cm</Width>
+                  <Style>
+                    <VerticalAlign>Middle</VerticalAlign>
+                  </Style>
+                </Textbox>
+                <Textbox Name="TransferFromAddr_8_1">
+                  <KeepTogether>true</KeepTogether>
+                  <Paragraphs>
+                    <Paragraph>
+                      <TextRuns>
+                        <TextRun>
+                          <Value>=Code.GetData(19,1)</Value>
+                          <Style>
+                            <FontSize>9pt</FontSize>
+                            <FontWeight>Bold</FontWeight>
+                          </Style>
+                        </TextRun>
+                      </TextRuns>
+                      <Style />
+                    </Paragraph>
+                  </Paragraphs>
+                  <Top>5.765cm</Top>
+                  <Left>10.998cm</Left>
+                  <Height>0.423cm</Height>
                   <Width>7.191cm</Width>
-                  <ZIndex>6</ZIndex>
+                  <ZIndex>1</ZIndex>
+                  <Style>
+                    <VerticalAlign>Middle</VerticalAlign>
+                  </Style>
+                </Textbox>
+                <Textbox Name="TransferFromAddr_7_1">
+                  <KeepTogether>true</KeepTogether>
+                  <Paragraphs>
+                    <Paragraph>
+                      <TextRuns>
+                        <TextRun>
+                          <Value>=Code.GetData(18,1)</Value>
+                          <Style>
+                            <FontSize>9pt</FontSize>
+                            <FontWeight>Bold</FontWeight>
+                          </Style>
+                        </TextRun>
+                      </TextRuns>
+                      <Style />
+                    </Paragraph>
+                  </Paragraphs>
+                  <Top>5.342cm</Top>
+                  <Left>10.998cm</Left>
+                  <Height>0.423cm</Height>
+                  <Width>7.191cm</Width>
+                  <ZIndex>2</ZIndex>
+                  <Style>
+                    <VerticalAlign>Middle</VerticalAlign>
+                  </Style>
+                </Textbox>
+                <Textbox Name="TransferFromAddr_6_1">
+                  <KeepTogether>true</KeepTogether>
+                  <Paragraphs>
+                    <Paragraph>
+                      <TextRuns>
+                        <TextRun>
+                          <Value>=Code.GetData(17,1)</Value>
+                          <Style>
+                            <FontSize>9pt</FontSize>
+                            <FontWeight>Bold</FontWeight>
+                          </Style>
+                        </TextRun>
+                      </TextRuns>
+                      <Style />
+                    </Paragraph>
+                  </Paragraphs>
+                  <Top>4.919cm</Top>
+                  <Left>10.998cm</Left>
+                  <Height>0.423cm</Height>
+                  <Width>7.191cm</Width>
+                  <ZIndex>3</ZIndex>
+                  <Style>
+                    <VerticalAlign>Middle</VerticalAlign>
+                  </Style>
+                </Textbox>
+                <Textbox Name="TransferFromAddr_5_1">
+                  <KeepTogether>true</KeepTogether>
+                  <Paragraphs>
+                    <Paragraph>
+                      <TextRuns>
+                        <TextRun>
+                          <Value>=Code.GetData(16,1)</Value>
+                          <Style>
+                            <FontSize>9pt</FontSize>
+                            <FontWeight>Bold</FontWeight>
+                          </Style>
+                        </TextRun>
+                      </TextRuns>
+                      <Style />
+                    </Paragraph>
+                  </Paragraphs>
+                  <Top>4.496cm</Top>
+                  <Left>10.998cm</Left>
+                  <Height>0.423cm</Height>
+                  <Width>7.191cm</Width>
+                  <ZIndex>4</ZIndex>
                   <Style>
                     <VerticalAlign>Middle</VerticalAlign>
                   </Style>
@@ -2003,7 +1805,7 @@ Fields!RecGSalespersonPurchaser_NameCaption.Value</Value>
                     <Paragraph>
                       <TextRuns>
                         <TextRun>
-                          <Value>=Code.GetData(23)</Value>
+                          <Value>=Code.GetData(23,1)</Value>
                           <Style>
                             <FontSize>9pt</FontSize>
                           </Style>
@@ -2023,154 +1825,395 @@ Fields!RecGSalespersonPurchaser_NameCaption.Value</Value>
                     <VerticalAlign>Middle</VerticalAlign>
                   </Style>
                 </Textbox>
-                <Textbox Name="TransferFromAddr_5_1">
+                <Textbox Name="FORMAT__Transfer_Shipment_Header___Posting_Date__0_4_1">
                   <KeepTogether>true</KeepTogether>
                   <Paragraphs>
                     <Paragraph>
                       <TextRuns>
                         <TextRun>
-                          <Value>=Code.GetData(16)</Value>
-                          <Style>
-                            <FontSize>9pt</FontSize>
-                            <FontWeight>Bold</FontWeight>
-                          </Style>
-                        </TextRun>
-                      </TextRuns>
-                    </Paragraph>
-                  </Paragraphs>
-                  <Top>4.496cm</Top>
-                  <Left>10.998cm</Left>
-                  <Height>0.423cm</Height>
-                  <Width>7.191cm</Width>
-                  <ZIndex>4</ZIndex>
-                  <Style>
-                    <VerticalAlign>Middle</VerticalAlign>
-                  </Style>
-                </Textbox>
-                <Textbox Name="TransferFromAddr_6_1">
-                  <KeepTogether>true</KeepTogether>
-                  <Paragraphs>
-                    <Paragraph>
-                      <TextRuns>
-                        <TextRun>
-                          <Value>=Code.GetData(17)</Value>
-                          <Style>
-                            <FontSize>9pt</FontSize>
-                            <FontWeight>Bold</FontWeight>
-                          </Style>
-                        </TextRun>
-                      </TextRuns>
-                    </Paragraph>
-                  </Paragraphs>
-                  <Top>4.919cm</Top>
-                  <Left>10.998cm</Left>
-                  <Height>0.423cm</Height>
-                  <Width>7.191cm</Width>
-                  <ZIndex>3</ZIndex>
-                  <Style>
-                    <VerticalAlign>Middle</VerticalAlign>
-                  </Style>
-                </Textbox>
-                <Textbox Name="TransferFromAddr_7_1">
-                  <KeepTogether>true</KeepTogether>
-                  <Paragraphs>
-                    <Paragraph>
-                      <TextRuns>
-                        <TextRun>
-                          <Value>=Code.GetData(18)</Value>
-                          <Style>
-                            <FontSize>9pt</FontSize>
-                            <FontWeight>Bold</FontWeight>
-                          </Style>
-                        </TextRun>
-                      </TextRuns>
-                    </Paragraph>
-                  </Paragraphs>
-                  <Top>5.342cm</Top>
-                  <Left>10.998cm</Left>
-                  <Height>0.423cm</Height>
-                  <Width>7.191cm</Width>
-                  <ZIndex>2</ZIndex>
-                  <Style>
-                    <VerticalAlign>Middle</VerticalAlign>
-                  </Style>
-                </Textbox>
-                <Textbox Name="TransferFromAddr_8_1">
-                  <KeepTogether>true</KeepTogether>
-                  <Paragraphs>
-                    <Paragraph>
-                      <TextRuns>
-                        <TextRun>
-                          <Value>=Code.GetData(19)</Value>
-                          <Style>
-                            <FontSize>9pt</FontSize>
-                            <FontWeight>Bold</FontWeight>
-                          </Style>
-                        </TextRun>
-                      </TextRuns>
-                    </Paragraph>
-                  </Paragraphs>
-                  <Top>5.765cm</Top>
-                  <Left>10.998cm</Left>
-                  <Height>0.423cm</Height>
-                  <Width>7.191cm</Width>
-                  <ZIndex>1</ZIndex>
-                  <Style>
-                    <VerticalAlign>Middle</VerticalAlign>
-                  </Style>
-                </Textbox>
-                <Textbox Name="Transfer_Shipment_Header___No__Caption1">
-                  <KeepTogether>true</KeepTogether>
-                  <Paragraphs>
-                    <Paragraph>
-                      <TextRuns>
-                        <TextRun>
-                          <Value>=Code.GetData(24)</Value>
+                          <Value>=Code.GetData(22,1)</Value>
                           <Style>
                             <FontSize>9pt</FontSize>
                           </Style>
                         </TextRun>
                       </TextRuns>
+                      <Style />
                     </Paragraph>
                   </Paragraphs>
-                  <Top>7.7cm</Top>
+                  <Top>7cm</Top>
                   <Left>11cm</Left>
                   <Height>0.423cm</Height>
-                  <Width>4cm</Width>
+                  <Width>7.191cm</Width>
+                  <ZIndex>6</ZIndex>
+                  <Style>
+                    <VerticalAlign>Middle</VerticalAlign>
+                  </Style>
+                </Textbox>
+                <Textbox Name="TransferFromAddr_4_1">
+                  <KeepTogether>true</KeepTogether>
+                  <Paragraphs>
+                    <Paragraph>
+                      <TextRuns>
+                        <TextRun>
+                          <Value>=Code.GetData(15,1)</Value>
+                          <Style>
+                            <FontSize>9pt</FontSize>
+                            <FontWeight>Bold</FontWeight>
+                          </Style>
+                        </TextRun>
+                      </TextRuns>
+                      <Style />
+                    </Paragraph>
+                  </Paragraphs>
+                  <Top>4.073cm</Top>
+                  <Left>10.998cm</Left>
+                  <Height>0.423cm</Height>
+                  <Width>7.191cm</Width>
+                  <ZIndex>7</ZIndex>
+                  <Style>
+                    <VerticalAlign>Middle</VerticalAlign>
+                  </Style>
+                </Textbox>
+                <Textbox Name="textbox35">
+                  <KeepTogether>true</KeepTogether>
+                  <Paragraphs>
+                    <Paragraph>
+                      <TextRuns>
+                        <TextRun>
+                          <Value>=Code.GetData(12,1)</Value>
+                          <Style>
+                            <FontSize>8pt</FontSize>
+                          </Style>
+                        </TextRun>
+                      </TextRuns>
+                      <Style />
+                    </Paragraph>
+                  </Paragraphs>
+                  <Top>6.768cm</Top>
+                  <Left>3.5cm</Left>
+                  <Height>0.423cm</Height>
+                  <Width>3.384cm</Width>
+                  <ZIndex>8</ZIndex>
+                  <Style>
+                    <VerticalAlign>Middle</VerticalAlign>
+                  </Style>
+                </Textbox>
+                <Textbox Name="TransferToAddr_2_1">
+                  <KeepTogether>true</KeepTogether>
+                  <Paragraphs>
+                    <Paragraph>
+                      <TextRuns>
+                        <TextRun>
+                          <Value>=Code.GetData(3,1)</Value>
+                          <Style>
+                            <FontSize>8pt</FontSize>
+                          </Style>
+                        </TextRun>
+                      </TextRuns>
+                      <Style />
+                    </Paragraph>
+                  </Paragraphs>
+                  <Top>4.653cm</Top>
+                  <Height>0.423cm</Height>
+                  <Width>3.5cm</Width>
+                  <ZIndex>9</ZIndex>
+                  <Style>
+                    <VerticalAlign>Middle</VerticalAlign>
+                  </Style>
+                </Textbox>
+                <Textbox Name="TransferToAddr_1_1">
+                  <KeepTogether>true</KeepTogether>
+                  <Paragraphs>
+                    <Paragraph>
+                      <TextRuns>
+                        <TextRun>
+                          <Value>=Code.GetData(1,1)</Value>
+                          <Style>
+                            <FontSize>12pt</FontSize>
+                            <FontWeight>Bold</FontWeight>
+                          </Style>
+                        </TextRun>
+                      </TextRuns>
+                      <Style />
+                    </Paragraph>
+                  </Paragraphs>
+                  <Top>3.5cm</Top>
+                  <Height>0.423cm</Height>
+                  <Width>7.191cm</Width>
+                  <ZIndex>10</ZIndex>
+                  <Style>
+                    <VerticalAlign>Middle</VerticalAlign>
+                  </Style>
+                </Textbox>
+                <Textbox Name="textbox21">
+                  <KeepTogether>true</KeepTogether>
+                  <Paragraphs>
+                    <Paragraph>
+                      <TextRuns>
+                        <TextRun>
+                          <Value>=Code.GetData(5,1)</Value>
+                          <Style>
+                            <FontSize>8pt</FontSize>
+                          </Style>
+                        </TextRun>
+                      </TextRuns>
+                      <Style />
+                    </Paragraph>
+                  </Paragraphs>
+                  <Top>5.11128cm</Top>
+                  <Height>0.423cm</Height>
+                  <Width>3.5cm</Width>
+                  <ZIndex>11</ZIndex>
+                  <Style>
+                    <VerticalAlign>Middle</VerticalAlign>
+                  </Style>
+                </Textbox>
+                <Textbox Name="textbox30">
+                  <KeepTogether>true</KeepTogether>
+                  <Paragraphs>
+                    <Paragraph>
+                      <TextRuns>
+                        <TextRun>
+                          <Value>=Code.GetData(2,1)</Value>
+                          <Style>
+                            <FontSize>8pt</FontSize>
+                            <FontWeight>Bold</FontWeight>
+                          </Style>
+                        </TextRun>
+                      </TextRuns>
+                      <Style />
+                    </Paragraph>
+                  </Paragraphs>
+                  <Top>4.653cm</Top>
+                  <Left>3.5cm</Left>
+                  <Height>0.423cm</Height>
+                  <Width>3.384cm</Width>
+                  <ZIndex>12</ZIndex>
+                  <Style>
+                    <VerticalAlign>Middle</VerticalAlign>
+                  </Style>
+                </Textbox>
+                <Textbox Name="textbox29">
+                  <KeepTogether>true</KeepTogether>
+                  <Paragraphs>
+                    <Paragraph>
+                      <TextRuns>
+                        <TextRun>
+                          <Value>=Code.GetData(4,1)</Value>
+                          <Style>
+                            <FontSize>8pt</FontSize>
+                          </Style>
+                        </TextRun>
+                      </TextRuns>
+                      <Style />
+                    </Paragraph>
+                  </Paragraphs>
+                  <Top>5.076cm</Top>
+                  <Left>3.5cm</Left>
+                  <Height>0.423cm</Height>
+                  <Width>3.384cm</Width>
+                  <ZIndex>13</ZIndex>
+                  <Style>
+                    <VerticalAlign>Middle</VerticalAlign>
+                  </Style>
+                </Textbox>
+                <Textbox Name="textbox34">
+                  <KeepTogether>true</KeepTogether>
+                  <Paragraphs>
+                    <Paragraph>
+                      <TextRuns>
+                        <TextRun>
+                          <Value>=Code.GetData(7,1)</Value>
+                          <Style>
+                            <FontSize>8pt</FontSize>
+                          </Style>
+                        </TextRun>
+                      </TextRuns>
+                      <Style />
+                    </Paragraph>
+                  </Paragraphs>
+                  <Top>5.499cm</Top>
+                  <Height>0.423cm</Height>
+                  <Width>3.5cm</Width>
+                  <ZIndex>14</ZIndex>
+                  <Style>
+                    <VerticalAlign>Middle</VerticalAlign>
+                  </Style>
+                </Textbox>
+                <Textbox Name="textbox33">
+                  <KeepTogether>true</KeepTogether>
+                  <Paragraphs>
+                    <Paragraph>
+                      <TextRuns>
+                        <TextRun>
+                          <Value>=Code.GetData(9,1)</Value>
+                          <Style>
+                            <FontSize>8pt</FontSize>
+                          </Style>
+                        </TextRun>
+                      </TextRuns>
+                      <Style />
+                    </Paragraph>
+                  </Paragraphs>
+                  <Top>5.922cm</Top>
+                  <Height>0.423cm</Height>
+                  <Width>3.5cm</Width>
+                  <ZIndex>15</ZIndex>
+                  <Style>
+                    <VerticalAlign>Middle</VerticalAlign>
+                  </Style>
+                </Textbox>
+                <Textbox Name="textbox32">
+                  <KeepTogether>true</KeepTogether>
+                  <Paragraphs>
+                    <Paragraph>
+                      <TextRuns>
+                        <TextRun>
+                          <Value>=Code.GetData(6,1)</Value>
+                          <Style>
+                            <FontSize>8pt</FontSize>
+                          </Style>
+                        </TextRun>
+                      </TextRuns>
+                      <Style />
+                    </Paragraph>
+                  </Paragraphs>
+                  <Top>5.499cm</Top>
+                  <Left>3.5cm</Left>
+                  <Height>0.423cm</Height>
+                  <Width>3.384cm</Width>
+                  <ZIndex>16</ZIndex>
+                  <Style>
+                    <VerticalAlign>Middle</VerticalAlign>
+                  </Style>
+                </Textbox>
+                <Textbox Name="textbox31">
+                  <KeepTogether>true</KeepTogether>
+                  <Paragraphs>
+                    <Paragraph>
+                      <TextRuns>
+                        <TextRun>
+                          <Value>=Code.GetData(8,1)</Value>
+                          <Style>
+                            <FontSize>8pt</FontSize>
+                          </Style>
+                        </TextRun>
+                      </TextRuns>
+                      <Style />
+                    </Paragraph>
+                  </Paragraphs>
+                  <Top>5.922cm</Top>
+                  <Left>3.5cm</Left>
+                  <Height>0.423cm</Height>
+                  <Width>3.384cm</Width>
+                  <ZIndex>17</ZIndex>
+                  <Style>
+                    <VerticalAlign>Middle</VerticalAlign>
+                  </Style>
+                </Textbox>
+                <Textbox Name="textbox38">
+                  <KeepTogether>true</KeepTogether>
+                  <Paragraphs>
+                    <Paragraph>
+                      <TextRuns>
+                        <TextRun>
+                          <Value>=Code.GetData(11,1)</Value>
+                          <Style>
+                            <FontSize>8pt</FontSize>
+                          </Style>
+                        </TextRun>
+                      </TextRuns>
+                      <Style />
+                    </Paragraph>
+                  </Paragraphs>
+                  <Top>6.345cm</Top>
+                  <Height>0.423cm</Height>
+                  <Width>3.5cm</Width>
+                  <ZIndex>18</ZIndex>
+                  <Style>
+                    <VerticalAlign>Middle</VerticalAlign>
+                  </Style>
+                </Textbox>
+                <Textbox Name="textbox37">
+                  <KeepTogether>true</KeepTogether>
+                  <Paragraphs>
+                    <Paragraph>
+                      <TextRuns>
+                        <TextRun>
+                          <Value>=Code.GetData(13,1)</Value>
+                          <Style>
+                            <FontSize>8pt</FontSize>
+                          </Style>
+                        </TextRun>
+                      </TextRuns>
+                      <Style />
+                    </Paragraph>
+                  </Paragraphs>
+                  <Top>6.768cm</Top>
+                  <Height>0.423cm</Height>
+                  <Width>3.5cm</Width>
+                  <ZIndex>19</ZIndex>
+                  <Style>
+                    <VerticalAlign>Middle</VerticalAlign>
+                  </Style>
+                </Textbox>
+                <Textbox Name="textbox36">
+                  <KeepTogether>true</KeepTogether>
+                  <Paragraphs>
+                    <Paragraph>
+                      <TextRuns>
+                        <TextRun>
+                          <Value>=Code.GetData(10,1)</Value>
+                          <Style>
+                            <FontSize>8pt</FontSize>
+                          </Style>
+                        </TextRun>
+                      </TextRuns>
+                      <Style />
+                    </Paragraph>
+                  </Paragraphs>
+                  <Top>6.345cm</Top>
+                  <Left>3.5cm</Left>
+                  <Height>0.423cm</Height>
+                  <Width>3.384cm</Width>
+                  <ZIndex>20</ZIndex>
+                  <Style>
+                    <VerticalAlign>Middle</VerticalAlign>
+                  </Style>
+                </Textbox>
+                <Textbox Name="TransferFromAddr_3_1">
+                  <KeepTogether>true</KeepTogether>
+                  <Paragraphs>
+                    <Paragraph>
+                      <TextRuns>
+                        <TextRun>
+                          <Value>=Code.GetData(14,1)</Value>
+                          <Style>
+                            <FontSize>9pt</FontSize>
+                            <FontWeight>Bold</FontWeight>
+                          </Style>
+                        </TextRun>
+                      </TextRuns>
+                      <Style />
+                    </Paragraph>
+                  </Paragraphs>
+                  <Top>3.65cm</Top>
+                  <Left>10.998cm</Left>
+                  <Height>0.423cm</Height>
+                  <Width>7.191cm</Width>
+                  <ZIndex>21</ZIndex>
                   <Style>
                     <VerticalAlign>Middle</VerticalAlign>
                   </Style>
                 </Textbox>
               </ReportItems>
               <DataElementOutput>ContentsOnly</DataElementOutput>
+              <Height>9cm</Height>
               <Width>18.5cm</Width>
-              <ZIndex>1</ZIndex>
-            </Rectangle>
-            <Textbox Name="textbox6">
-              <KeepTogether>true</KeepTogether>
-              <Paragraphs>
-                <Paragraph>
-                  <TextRuns>
-                    <TextRun>
-                      <Value>=Code.SetData(ReportItems!HeaderInfo.Value)</Value>
-                      <Style>
-                        <FontSize>7pt</FontSize>
-                        <Color>#ff0000</Color>
-                      </Style>
-                    </TextRun>
-                  </TextRuns>
-                </Paragraph>
-              </Paragraphs>
-              <rd:DefaultName>textbox6</rd:DefaultName>
-              <Left>18.612cm</Left>
-              <Height>0.423cm</Height>
-              <Width>0.15cm</Width>
-              <Visibility>
-                <Hidden>true</Hidden>
-              </Visibility>
               <Style />
-            </Textbox>
+            </Rectangle>
           </ReportItems>
+          <Style />
         </PageHeader>
         <PageHeight>29.7cm</PageHeight>
         <PageWidth>21cm</PageWidth>
@@ -2179,9 +2222,16 @@ Fields!RecGSalespersonPurchaser_NameCaption.Value</Value>
         <LeftMargin>1.5cm</LeftMargin>
         <TopMargin>1cm</TopMargin>
         <BottomMargin>2cm</BottomMargin>
+        <Style />
       </Page>
     </ReportSection>
   </ReportSections>
+  <ReportParametersLayout>
+    <GridLayoutDefinition>
+      <NumberOfColumns>4</NumberOfColumns>
+      <NumberOfRows>2</NumberOfRows>
+    </GridLayoutDefinition>
+  </ReportParametersLayout>
   <Code>Public Function BlankZero(ByVal Value As Decimal)
     if Value = 0 then
         Return ""
@@ -2247,5 +2297,6 @@ Public Function SetData(NewData As Object)
 End Function</Code>
   <Language>=User!Language</Language>
   <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
-  <rd:ReportUnitType>Invalid</rd:ReportUnitType>
+  <rd:ReportUnitType>Cm</rd:ReportUnitType>
+  <rd:ReportID>bb0cf9d7-b733-4dfa-bd18-7162dfefb487</rd:ReportID>
 </Report>
