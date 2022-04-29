@@ -119,7 +119,7 @@ codeunit 50100 "PWD LPSA Tracking Management"
             [DATABASE::"Item Ledger Entry",
             DATABASE::"Item Journal Line",
             DATABASE::"Job Journal Line",
-            DATABASE::"BOM Journal Line", //TODO: Table "BOM Journal Line" n'est plus disponible dans la nouvelle version
+            //DATABASE::"BOM Journal Line", //TODO: Table "BOM Journal Line" n'est plus disponible dans la nouvelle version
             DATABASE::"Requisition Line"]) or
            ((TrackingSpecification."Source Type" in [DATABASE::"Sales Line", DATABASE::"Purchase Line", DATABASE::"Service Line"]) and
             (TrackingSpecification."Source Subtype" in [0, 2, 3]))
@@ -132,7 +132,7 @@ codeunit 50100 "PWD LPSA Tracking Management"
             [DATABASE::"Item Ledger Entry",
             DATABASE::"Item Journal Line",
             DATABASE::"Job Journal Line",
-            DATABASE::"BOM Journal Line", //TODO: Table "BOM Journal Line" n'est plus disponible dans la nouvelle version
+            //DATABASE::"BOM Journal Line", //TODO: Table "BOM Journal Line" n'est plus disponible dans la nouvelle version
             DATABASE::"Requisition Line",
             DATABASE::"Transfer Line",
             DATABASE::"Prod. Order Line",
@@ -756,7 +756,7 @@ codeunit 50100 "PWD LPSA Tracking Management"
         IdenticalArray: array[2] of Boolean;
     begin
         OK := false;
-        ReservEngineMgt.SetPick(IsPick); //TODO: La procedure SetPick n'existe pas dans le codeunit "Reservation Engine Mgt."
+        //ReservEngineMgt.SetPick(IsPick); //TODO: La procedure SetPick n'existe pas dans le codeunit "Reservation Engine Mgt."
 
         if (CurrentSignFactor * NewTrackingSpecification."Qty. to Handle") < 0 then
             NewTrackingSpecification."Expiration Date" := 0D;
@@ -1654,7 +1654,7 @@ codeunit 50100 "PWD LPSA Tracking Management"
     begin
         if TempItemTrackLineReserv.FindSet() then
             repeat
-                LateBindingMgt.ReserveItemTrackingLine(TempItemTrackLineReserv, TempItemTrackLineReserv."Quantity (Base)");
+                LateBindingMgt.ReserveItemTrackingLine(TempItemTrackLineReserv, 0, TempItemTrackLineReserv."Quantity (Base)");
                 SetQtyToHandleAndInvoice(TempItemTrackLineReserv);
             until TempItemTrackLineReserv.Next() = 0;
         TempItemTrackLineReserv.DeleteAll();

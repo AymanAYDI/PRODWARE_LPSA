@@ -46,213 +46,213 @@ codeunit 8073287 "Connector Buffer Mgt Export"
         BooGError: Boolean;
 
     procedure FctCreateXml(TxtPFilters: Text[1024]; RecPSendingMessage: Record "PWD Connector Messages"; var TempBlob: Codeunit "Temp Blob"; BooLInsertXMLHeader: Boolean)
-    var
-        AutLXMLDom: Automation; //TODO: Type Automation n'existe pas dans la nouvelle version
-        AutLXMLDomElement: Automation;//TODO: Type Automation n'existe pas dans la nouvelle version
-        AutLXMLDomElement2: Automation;//TODO: Type Automation n'existe pas dans la nouvelle version
-        AutLXMLDomElement3: Automation;//TODO: Type Automation n'existe pas dans la nouvelle version
-        AutLXMLDomProcInst: Automation;//TODO: Type Automation n'existe pas dans la nouvelle version
-        AutLXMLDomNodeTxt: Automation;//TODO: Type Automation n'existe pas dans la nouvelle version
-        FldRef: FieldRef;
-        RecLRecRef: RecordRef;
-        RecLRecRef2: RecordRef;
-        RecLFieldsExportSetup: Record "PWD Fields Export Setup";
-        OusLStream: OutStream;
-        TxtLValue: Text[250];
-        ChrL10: Char;
-        ChrL13: Char;
-        RecLPartnerConnector: Record "PWD Partner Connector";
-        DatLValue: Date;
-        DecLValue: Decimal;
+    // var
+    //     AutLXMLDom: Automation; //TODO: Type Automation n'existe pas dans la nouvelle version
+    //     AutLXMLDomElement: Automation;//TODO: Type Automation n'existe pas dans la nouvelle version
+    //     AutLXMLDomElement2: Automation;//TODO: Type Automation n'existe pas dans la nouvelle version
+    //     AutLXMLDomElement3: Automation;//TODO: Type Automation n'existe pas dans la nouvelle version
+    //     AutLXMLDomProcInst: Automation;//TODO: Type Automation n'existe pas dans la nouvelle version
+    //     AutLXMLDomNodeTxt: Automation;//TODO: Type Automation n'existe pas dans la nouvelle version
+    //     FldRef: FieldRef;
+    //     RecLRecRef: RecordRef;
+    //     RecLRecRef2: RecordRef;
+    //     RecLFieldsExportSetup: Record "PWD Fields Export Setup";
+    //     OusLStream: OutStream;
+    //     TxtLValue: Text[250];
+    //     ChrL10: Char;
+    //     ChrL13: Char;
+    //     RecLPartnerConnector: Record "PWD Partner Connector";
+    //     DatLValue: Date;
+    //     DecLValue: Decimal;
     begin
-        //**********************************************************************************************************//
-        //                                  Create generic Xml in blob field                                        //
-        //**********************************************************************************************************//
+        //     //**********************************************************************************************************//
+        //     //                                  Create generic Xml in blob field                                        //
+        //     //**********************************************************************************************************//
 
-        RecLRecRef2.OPEN(RecPSendingMessage."Table ID");
+        //     RecLRecRef2.OPEN(RecPSendingMessage."Table ID");
 
-        RecLRecRef2.RESET();
-        IF TxtPFilters <> '' THEN
-            RecLRecRef2.SETVIEW(TxtPFilters);
+        //     RecLRecRef2.RESET();
+        //     IF TxtPFilters <> '' THEN
+        //         RecLRecRef2.SETVIEW(TxtPFilters);
 
-        //>>WMS-FE10.001
-        IF RecPSendingMessage."Export Option" = RecPSendingMessage."Export Option"::Partial THEN
-            FctSetExportDateFilter(RecPSendingMessage, RecLRecRef2);
-        IF RecLPartnerConnector.GET(RecPSendingMessage."Partner Code") THEN;
-        //<<WMS-FE10.001
+        //     //>>WMS-FE10.001
+        //     IF RecPSendingMessage."Export Option" = RecPSendingMessage."Export Option"::Partial THEN
+        //         FctSetExportDateFilter(RecPSendingMessage, RecLRecRef2);
+        //     IF RecLPartnerConnector.GET(RecPSendingMessage."Partner Code") THEN;
+        //     //<<WMS-FE10.001
 
-        //>>OSYS-Int001.001
-        IF RecLRecRef2.ISEMPTY THEN
-            EXIT;
-        FctInitValidateField(RecPSendingMessage."Partner Code", 0);
-        //<<OSYS-Int001.001
+        //     //>>OSYS-Int001.001
+        //     IF RecLRecRef2.ISEMPTY THEN
+        //         EXIT;
+        //     FctInitValidateField(RecPSendingMessage."Partner Code", 0);
+        //     //<<OSYS-Int001.001
 
-        CREATE(AutLXMLDom);
-        IF BooLInsertXMLHeader THEN BEGIN
-            AutLXMLDom.loadXML('<' + RecPSendingMessage."Partner Code" + '/>');
-            AutLXMLDomProcInst := AutLXMLDom.createProcessingInstruction('xml', 'version="1.0" encoding="UTF-8" standalone="no"');
-            AutLXMLDomElement := AutLXMLDom.documentElement;
-            AutLXMLDom.insertBefore(AutLXMLDomProcInst, AutLXMLDomElement);
-        END
-        ELSE BEGIN
-            AutLXMLDom.loadXML('<Parent/>');
-            AutLXMLDomElement := AutLXMLDom.documentElement;
-        END;
+        //     CREATE(AutLXMLDom);
+        //     IF BooLInsertXMLHeader THEN BEGIN
+        //         AutLXMLDom.loadXML('<' + RecPSendingMessage."Partner Code" + '/>');
+        //         AutLXMLDomProcInst := AutLXMLDom.createProcessingInstruction('xml', 'version="1.0" encoding="UTF-8" standalone="no"');
+        //         AutLXMLDomElement := AutLXMLDom.documentElement;
+        //         AutLXMLDom.insertBefore(AutLXMLDomProcInst, AutLXMLDomElement);
+        //     END
+        //     ELSE BEGIN
+        //         AutLXMLDom.loadXML('<Parent/>');
+        //         AutLXMLDomElement := AutLXMLDom.documentElement;
+        //     END;
 
 
-        IF NOT RecLRecRef2.ISEMPTY THEN BEGIN
-            RecLRecRef2.FINDFIRST();
-            REPEAT
+        //     IF NOT RecLRecRef2.ISEMPTY THEN BEGIN
+        //         RecLRecRef2.FINDFIRST();
+        //         REPEAT
 
-                //>>OSYS-Int001.001
-                RecLRecRef := RecLRecRef2.DUPLICATE();
-                IF NOT FctCheckFields(RecLRecRef) THEN BEGIN
-                    //<<OSYS-Int001.001
+        //             //>>OSYS-Int001.001
+        //             RecLRecRef := RecLRecRef2.DUPLICATE();
+        //             IF NOT FctCheckFields(RecLRecRef) THEN BEGIN
+        //                 //<<OSYS-Int001.001
 
-                    //>>WMS-FE10.001
-                    RecPSendingMessage.TESTFIELD("Xml Tag");
-                    //<<WMS-FE10.001
+        //                 //>>WMS-FE10.001
+        //                 RecPSendingMessage.TESTFIELD("Xml Tag");
+        //                 //<<WMS-FE10.001
 
-                    //>>OSYS-Int001.001
-                    //intCpt +=1;
-                    //AutLXMLDomElement2 := AutLXMLDom.createElement(RecPSendingMessage."Xml Tag" + FORMAT(intCpt));
-                    AutLXMLDomElement2 := AutLXMLDom.createElement(RecPSendingMessage."Xml Tag");
-                    //<<OSYS-Int001.001
+        //                 //>>OSYS-Int001.001
+        //                 //intCpt +=1;
+        //                 //AutLXMLDomElement2 := AutLXMLDom.createElement(RecPSendingMessage."Xml Tag" + FORMAT(intCpt));
+        //                 AutLXMLDomElement2 := AutLXMLDom.createElement(RecPSendingMessage."Xml Tag");
+        //                 //<<OSYS-Int001.001
 
-                    AutLXMLDomElement.appendChild(AutLXMLDomElement2);
-                    RecLFieldsExportSetup.RESET();
-                    RecLFieldsExportSetup.SETRANGE("Partner Code", RecPSendingMessage."Partner Code");
-                    RecLFieldsExportSetup.SETRANGE("Message Code", RecPSendingMessage.Code);
-                    RecLFieldsExportSetup.SETRANGE("Table ID", RecLRecRef.NUMBER);
+        //                 AutLXMLDomElement.appendChild(AutLXMLDomElement2);
+        //                 RecLFieldsExportSetup.RESET();
+        //                 RecLFieldsExportSetup.SETRANGE("Partner Code", RecPSendingMessage."Partner Code");
+        //                 RecLFieldsExportSetup.SETRANGE("Message Code", RecPSendingMessage.Code);
+        //                 RecLFieldsExportSetup.SETRANGE("Table ID", RecLRecRef.NUMBER);
 
-                    //>>WMS-FE10.001
-                    RecLFieldsExportSetup.SETRANGE(Direction, RecLFieldsExportSetup.Direction::Export);
-                    //<<WMS-FE10.001
+        //                 //>>WMS-FE10.001
+        //                 RecLFieldsExportSetup.SETRANGE(Direction, RecLFieldsExportSetup.Direction::Export);
+        //                 //<<WMS-FE10.001
 
-                    IF NOT RecLFieldsExportSetup.ISEMPTY THEN BEGIN
-                        RecLFieldsExportSetup.FINDSET();
-                        REPEAT
-                            RecLFieldsExportSetup.TESTFIELD("Xml Tag");
-                            AutLXMLDomElement3 := AutLXMLDom.createElement(RecLFieldsExportSetup."Xml Tag");
+        //                 IF NOT RecLFieldsExportSetup.ISEMPTY THEN BEGIN
+        //                     RecLFieldsExportSetup.FINDSET();
+        //                     REPEAT
+        //                         RecLFieldsExportSetup.TESTFIELD("Xml Tag");
+        //                         AutLXMLDomElement3 := AutLXMLDom.createElement(RecLFieldsExportSetup."Xml Tag");
 
-                            //>>WMS-FE10.001
-                            //***************************************************************************************************
-                            //Gestion des constantes
-                            //***************************************************************************************************
-                            IF (RecLFieldsExportSetup."Field Type" = RecLFieldsExportSetup."Field Type"::Constante) THEN BEGIN
-                                TxtLValue := FORMAT(RecLFieldsExportSetup."Constant Value");
-                                AutLXMLDomNodeTxt := AutLXMLDom.createTextNode(TxtLValue);
-                            END
-                            ELSE BEGIN
-                                FldRef := RecLRecRef.FIELD(RecLFieldsExportSetup."Field ID");
-                                IF RecLFieldsExportSetup."Fct For Replace" <> '' THEN BEGIN
-                                    //***************************************************************************************************
-                                    //utilisation d'une fonction de remplacement, à la place des champs paramétrés
-                                    //***************************************************************************************************
-                                    IF FORMAT(FldRef.CLASS) = 'Option' THEN
-                                        TxtLValue := FORMAT(FldRef.VALUE, 2)
-                                    ELSE
-                                        TxtLValue := FORMAT(FldRef.VALUE);
-                                    CduGConnectFieldsMgt.FctGiveOldValue(TxtLValue, RecLFieldsExportSetup."Fct For Replace", RecLRecRef);
-                                    CduGConnectFieldsMgt.RUN();
-                                    TxtLValue := CduGConnectFieldsMgt.FctReturnNewValue();
-                                    AutLXMLDomNodeTxt := AutLXMLDom.createTextNode(TxtLValue);
-                                END
-                                ELSE BEGIN
+        //                         //>>WMS-FE10.001
+        //                         //***************************************************************************************************
+        //                         //Gestion des constantes
+        //                         //***************************************************************************************************
+        //                         IF (RecLFieldsExportSetup."Field Type" = RecLFieldsExportSetup."Field Type"::Constante) THEN BEGIN
+        //                             TxtLValue := FORMAT(RecLFieldsExportSetup."Constant Value");
+        //                             AutLXMLDomNodeTxt := AutLXMLDom.createTextNode(TxtLValue);
+        //                         END
+        //                         ELSE BEGIN
+        //                             FldRef := RecLRecRef.FIELD(RecLFieldsExportSetup."Field ID");
+        //                             IF RecLFieldsExportSetup."Fct For Replace" <> '' THEN BEGIN
+        //                                 //***************************************************************************************************
+        //                                 //utilisation d'une fonction de remplacement, à la place des champs paramétrés
+        //                                 //***************************************************************************************************
+        //                                 IF FORMAT(FldRef.CLASS) = 'Option' THEN
+        //                                     TxtLValue := FORMAT(FldRef.VALUE, 2)
+        //                                 ELSE
+        //                                     TxtLValue := FORMAT(FldRef.VALUE);
+        //                                 CduGConnectFieldsMgt.FctGiveOldValue(TxtLValue, RecLFieldsExportSetup."Fct For Replace", RecLRecRef);
+        //                                 CduGConnectFieldsMgt.RUN();
+        //                                 TxtLValue := CduGConnectFieldsMgt.FctReturnNewValue();
+        //                                 AutLXMLDomNodeTxt := AutLXMLDom.createTextNode(TxtLValue);
+        //                             END
+        //                             ELSE BEGIN
 
-                                    //<<WMS-FE10.001
+        //                                 //<<WMS-FE10.001
 
-                                    FldRef := RecLRecRef.FIELD(RecLFieldsExportSetup."Field ID");
-                                    IF (FORMAT(FldRef.CLASS) = 'FlowField') THEN
-                                        FldRef.CALCFIELD();
+        //                                 FldRef := RecLRecRef.FIELD(RecLFieldsExportSetup."Field ID");
+        //                                 IF (FORMAT(FldRef.CLASS) = 'FlowField') THEN
+        //                                     FldRef.CALCFIELD();
 
-                                    CASE FORMAT(FldRef.TYPE) OF
-                                        'Boolean':
-                                            BEGIN
-                                                //>>WMS-FE10.001
-                                                RecLPartnerConnector.TESTFIELD("Default Value Bool Yes");
-                                                RecLPartnerConnector.TESTFIELD("Default Value Bool No");
-                                                IF FldRef.VALUE THEN
-                                                    AutLXMLDomNodeTxt := AutLXMLDom.createTextNode(RecLPartnerConnector."Default Value Bool Yes")
-                                                ELSE
-                                                    AutLXMLDomNodeTxt := AutLXMLDom.createTextNode(RecLPartnerConnector."Default Value Bool No");
+        //                                 CASE FORMAT(FldRef.TYPE) OF
+        //                                     'Boolean':
+        //                                         BEGIN
+        //                                             //>>WMS-FE10.001
+        //                                             RecLPartnerConnector.TESTFIELD("Default Value Bool Yes");
+        //                                             RecLPartnerConnector.TESTFIELD("Default Value Bool No");
+        //                                             IF FldRef.VALUE THEN
+        //                                                 AutLXMLDomNodeTxt := AutLXMLDom.createTextNode(RecLPartnerConnector."Default Value Bool Yes")
+        //                                             ELSE
+        //                                                 AutLXMLDomNodeTxt := AutLXMLDom.createTextNode(RecLPartnerConnector."Default Value Bool No");
 
-                                                /*OLD:
-                                                 IF FldRef.VALUE THEN
-                                                   AutLXMLDomNodeTxt  := AutLXMLDom.createTextNode('TRUE')
-                                                 ELSE
-                                                   AutLXMLDomNodeTxt  := AutLXMLDom.createTextNode('FALSE')
-                                                */
-                                                //<WMS-FE10.001
-                                            END;
+        //                                             /*OLD:
+        //                                              IF FldRef.VALUE THEN
+        //                                                AutLXMLDomNodeTxt  := AutLXMLDom.createTextNode('TRUE')
+        //                                              ELSE
+        //                                                AutLXMLDomNodeTxt  := AutLXMLDom.createTextNode('FALSE')
+        //                                             */
+        //                                             //<WMS-FE10.001
+        //                                         END;
 
-                                        'Date':
-                                            //>>WMS-FE10.001
-                                            /*OLD:
-                                            AutLXMLDomNodeTxt  := AutLXMLDom.createTextNode(FORMAT(FldRef.VALUE,0,'<day,2><month,2><year4>'));
-                                            */
-                                            BEGIN
-                                                DatLValue := FldRef.VALUE;
-                                                AutLXMLDomNodeTxt := AutLXMLDom.createTextNode(CduGFileManagement.FctFormatDate(RecLFieldsExportSetup, DatLValue)
-                               );
-                                            END;
-                                        //<<WMS-FE10.001
+        //                                     'Date':
+        //                                         //>>WMS-FE10.001
+        //                                         /*OLD:
+        //                                         AutLXMLDomNodeTxt  := AutLXMLDom.createTextNode(FORMAT(FldRef.VALUE,0,'<day,2><month,2><year4>'));
+        //                                         */
+        //                                         BEGIN
+        //                                             DatLValue := FldRef.VALUE;
+        //                                             AutLXMLDomNodeTxt := AutLXMLDom.createTextNode(CduGFileManagement.FctFormatDate(RecLFieldsExportSetup, DatLValue)
+        //                            );
+        //                                         END;
+        //                                     //<<WMS-FE10.001
 
-                                        'DateTime':
-                                            //>>WMS-FE10.001
-                                            /*OLD:
-                                            AutLXMLDomNodeTxt  := AutLXMLDom.createTextNode(FORMAT(FldRef.VALUE,0,'<day,2><month,2><year4>'));
-                                            */
-                                            BEGIN
-                                                DatLValue := FldRef.VALUE;
-                                                AutLXMLDomNodeTxt := AutLXMLDom.createTextNode(CduGFileManagement.FctFormatDate(RecLFieldsExportSetup, DatLValue)
-                               );
-                                            END;
-                                        //<<WMS-FE10.001
+        //                                     'DateTime':
+        //                                         //>>WMS-FE10.001
+        //                                         /*OLD:
+        //                                         AutLXMLDomNodeTxt  := AutLXMLDom.createTextNode(FORMAT(FldRef.VALUE,0,'<day,2><month,2><year4>'));
+        //                                         */
+        //                                         BEGIN
+        //                                             DatLValue := FldRef.VALUE;
+        //                                             AutLXMLDomNodeTxt := AutLXMLDom.createTextNode(CduGFileManagement.FctFormatDate(RecLFieldsExportSetup, DatLValue)
+        //                            );
+        //                                         END;
+        //                                     //<<WMS-FE10.001
 
-                                        'Decimal':
-                                            //>>WMS-FE10.001
-                                            /*OLD:
-                                            AutLXMLDomNodeTxt  := AutLXMLDom.createTextNode(FtcRemoveChar(TxtLValue))
-                                            */
-                                            BEGIN
-                                                DecLValue := FldRef.VALUE;
-                                                TxtLValue := FctNormalizeDecimal(CduGFileManagement.FctFormatDecimal(RecLFieldsExportSetup, DecLValue));
-                                                AutLXMLDomNodeTxt := AutLXMLDom.createTextNode(FtcRemoveChar(TxtLValue))
-                                            END;
-                                        //<<WMS-FE10.001
+        //                                     'Decimal':
+        //                                         //>>WMS-FE10.001
+        //                                         /*OLD:
+        //                                         AutLXMLDomNodeTxt  := AutLXMLDom.createTextNode(FtcRemoveChar(TxtLValue))
+        //                                         */
+        //                                         BEGIN
+        //                                             DecLValue := FldRef.VALUE;
+        //                                             TxtLValue := FctNormalizeDecimal(CduGFileManagement.FctFormatDecimal(RecLFieldsExportSetup, DecLValue));
+        //                                             AutLXMLDomNodeTxt := AutLXMLDom.createTextNode(FtcRemoveChar(TxtLValue))
+        //                                         END;
+        //                                     //<<WMS-FE10.001
 
-                                        'Integer':
-                                            BEGIN
-                                                TxtLValue := FctNormalizeDecimal(FORMAT(FldRef.VALUE));
-                                                AutLXMLDomNodeTxt := AutLXMLDom.createTextNode(FtcRemoveChar(TxtLValue))
-                                            END;
-                                        ELSE BEGIN
-                                                TxtLValue := DELCHR(FORMAT(FldRef.VALUE), '=', FORMAT(FORMAT(ChrL13)));
-                                                TxtLValue := DELCHR(TxtLValue, '=', FORMAT(FORMAT(ChrL10)));
-                                                AutLXMLDomNodeTxt := AutLXMLDom.createTextNode(TxtLValue);
-                                            END;
-                                    END;
+        //                                     'Integer':
+        //                                         BEGIN
+        //                                             TxtLValue := FctNormalizeDecimal(FORMAT(FldRef.VALUE));
+        //                                             AutLXMLDomNodeTxt := AutLXMLDom.createTextNode(FtcRemoveChar(TxtLValue))
+        //                                         END;
+        //                                     ELSE BEGIN
+        //                                             TxtLValue := DELCHR(FORMAT(FldRef.VALUE), '=', FORMAT(FORMAT(ChrL13)));
+        //                                             TxtLValue := DELCHR(TxtLValue, '=', FORMAT(FORMAT(ChrL10)));
+        //                                             AutLXMLDomNodeTxt := AutLXMLDom.createTextNode(TxtLValue);
+        //                                         END;
+        //                                 END;
 
-                                    //>>WMS-FE10.001
-                                END;
-                            END;
-                            //<<WMS-FE10.001
+        //                                 //>>WMS-FE10.001
+        //                             END;
+        //                         END;
+        //                         //<<WMS-FE10.001
 
-                            AutLXMLDomElement3.appendChild(AutLXMLDomNodeTxt);
-                            AutLXMLDomElement2.appendChild(AutLXMLDomElement3);
-                        UNTIL RecLFieldsExportSetup.NEXT() = 0;
-                    END;
+        //                         AutLXMLDomElement3.appendChild(AutLXMLDomNodeTxt);
+        //                         AutLXMLDomElement2.appendChild(AutLXMLDomElement3);
+        //                     UNTIL RecLFieldsExportSetup.NEXT() = 0;
+        //                 END;
 
-                    //>>OSYS-Int001.001
-                END;
-            //<<OSYS-Int001.001
-            UNTIL RecLRecRef2.NEXT() = 0;
-        END;
+        //                 //>>OSYS-Int001.001
+        //             END;
+        //         //<<OSYS-Int001.001
+        //         UNTIL RecLRecRef2.NEXT() = 0;
+        //     END;
 
-        RecLRecRef2.CLOSE();
-        TempBlob.CREATEOUTSTREAM(OusLStream);
-        AutLXMLDom.save(OusLStream);
+        //     RecLRecRef2.CLOSE();
+        //     TempBlob.CREATEOUTSTREAM(OusLStream);
+        //     AutLXMLDom.save(OusLStream);
 
     end;
 

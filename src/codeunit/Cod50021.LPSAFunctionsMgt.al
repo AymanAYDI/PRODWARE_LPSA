@@ -265,7 +265,7 @@ codeunit 50021 "PWD LPSA Functions Mgt."
 
         //CduLProductionJournalMgt.CreateJnlLines(RecLProdOrder,RecPProdOrderLine."Line No.");
         //ItemTrackingMgt.CopyItemTracking(RecPProdOrderLine.RowID1,ItemJnlLine.RowID1,FALSE);
-        ItemTrackingMgt.FctCopyItemTrackingSpec(RecPProdOrderLine.RowID1, ItemJnlLine.RowID1, FALSE, ItemJnlLine.Quantity);
+        FctCopyItemTrackingSpec(RecPProdOrderLine.RowID1, ItemJnlLine.RowID1, FALSE, ItemJnlLine.Quantity);
         COMMIT;
     END;
 
@@ -277,7 +277,7 @@ codeunit 50021 "PWD LPSA Functions Mgt."
         ItemTrackingMgt: Codeunit "Item Tracking Management";
     BEGIN
         //Suppression et Recr‚ation des lignes de journal avec le num‚ro de lot du composant
-        CduLProductionJournalMgt.InitJnalName(RecPItemJournalLine."Journal Template Name",
+        InitJnalName(RecPItemJournalLine."Journal Template Name",
                                               RecPItemJournalLine."Journal Batch Name");
         //CduLProductionJournalMgt.DeleteReservEntry(RecPProdOrderLine."Prod. Order No.",RecPProdOrderLine."Line No.");
         //COMMIT;
@@ -287,7 +287,7 @@ codeunit 50021 "PWD LPSA Functions Mgt."
 
         //CduLProductionJournalMgt.InsertOutputJnlLine2(RecPItemJournalLine,RecPProdOrderLine);
         //ItemTrackingMgt.CopyItemTracking(RecPProdOrderLine.RowID1,RecPItemJournalLine.RowID1,FALSE);
-        ItemTrackingMgt.FctCopyItemTrackingSpec(RecPProdOrderLine.RowID1, RecPItemJournalLine.RowID1, FALSE, RecPItemJournalLine.Quantity);
+        FctCopyItemTrackingSpec(RecPProdOrderLine.RowID1, RecPItemJournalLine.RowID1, FALSE, RecPItemJournalLine.Quantity);
         COMMIT;
     END;
 
@@ -1074,7 +1074,7 @@ codeunit 50021 "PWD LPSA Functions Mgt."
                         RecLTrackingSpec."Item No." := ItemSubPhantom."Item No.";
                         RecLTrackingSpec."Location Code" := LocationCode;
                         RecLTrackingSpec."Lot No." := RecLItemLedgEntry."Lot No.";
-                        TempItemSubPhantom."Total Available Quantity" := ItemTrackingDataCollection.LotSNAvailablePhantom(RecLTrackingSpec);
+                        //TempItemSubPhantom."Total Available Quantity" := ItemTrackingDataCollection.LotSNAvailablePhantom(RecLTrackingSpec); //TODO: C'est une fonction local dans le codeunit ItemTrackingDataCollection
                         IF TempItemSubPhantom."Total Available Quantity" <> 0 THEN BEGIN
                             IF NOT TempItemSubPhantom.INSERT THEN
                                 TempItemSubPhantom.MODIFY;
@@ -1089,7 +1089,7 @@ codeunit 50021 "PWD LPSA Functions Mgt."
                     RecLTrackingSpec.INIT;
                     RecLTrackingSpec."Item No." := ItemSubPhantom."Item No.";
                     RecLTrackingSpec."Location Code" := LocationCode;
-                    TempItemSubPhantom."Total Available Quantity" := ItemTrackingDataCollection.LotSNAvailablePhantom(RecLTrackingSpec);
+                    //TempItemSubPhantom."Total Available Quantity" := ItemTrackingDataCollection.LotSNAvailablePhantom(RecLTrackingSpec); //TODO: C'est une fonction local dans le codeunit ItemTrackingDataCollection
                     IF TempItemSubPhantom."Total Available Quantity" <> 0 THEN
                         TempItemSubPhantom.INSERT;
                 END;
@@ -1447,7 +1447,7 @@ codeunit 50021 "PWD LPSA Functions Mgt."
                     CalcRtngCostPerUnit(Type, "No.", DirUnitCost, IndirCostPct, OvhdRate, UnitCost, UnitCostCalculation);
 
                     //>>FE_LAPIERRETTE_PROD04.001
-                    IF RtngLine."Fixed-step Prod. Rate time" THEN BEGIN
+                    IF RtngLine."PWD Fixed-step Prod. Rate time" THEN BEGIN
                         FctGetTimeForCost(RtngLine.Type, RtngLine."No.", CodPItemNo, MfgItemQtyBase,
                                                           DecLSetupTime, DecLRunTime, CodLSetupTimeUnit, CodLRunTimeUnit);
                         CostTime :=

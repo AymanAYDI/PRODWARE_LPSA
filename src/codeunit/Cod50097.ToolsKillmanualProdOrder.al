@@ -57,7 +57,6 @@ codeunit 50097 "Tools Kill manual Prod Order"
         Text009: Label 'You cannot finish line %1 on %2 %3. It has consumption or capacity posted with no output.';
         Text010: Label 'You must specify a %1 in %2 %3 %4.';
         HasGLSetup: Boolean;
-        //ApplicationManagement: Codeunit ApplicationManagement; //TODO: CodeUnit 1 n'existe pas 
         Txt50000: Label 'There is a phantom item for Line no. %1';
         BooGAvoidControl: Boolean;
 
@@ -443,22 +442,22 @@ codeunit 50097 "Tools Kill manual Prod Order"
         FromProdDocDim: Record "Dimension Set Entry";//TODO: Table n'est plus disponible
     begin
         WITH FromProdDocDim DO BEGIN
-            SETRANGE("Table ID", DATABASE::"Production Order");
-            SETRANGE("Document Status", FromProdOrder.Status);
-            SETRANGE("Document No.", FromProdOrder."No.");
-            DimMgt.MoveProdDocDimToProdDocDim(
-              FromProdDocDim, DATABASE::"Production Order", ToProdOrder.Status, ToProdOrder."No.");
-            DELETEALL;
+            //     SETRANGE("Table ID", DATABASE::"Production Order");
+            //     SETRANGE("Document Status", FromProdOrder.Status);
+            //     SETRANGE("Document No.", FromProdOrder."No.");
+            //     DimMgt.MoveProdDocDimToProdDocDim(
+            //       FromProdDocDim, DATABASE::"Production Order", ToProdOrder.Status, ToProdOrder."No.");
+            //     DELETEALL;
 
-            SETRANGE("Table ID", DATABASE::"Prod. Order Line");
-            DimMgt.MoveProdDocDimToProdDocDim(
-              FromProdDocDim, DATABASE::"Prod. Order Line", ToProdOrder.Status, ToProdOrder."No.");
-            DELETEALL;
+            //     SETRANGE("Table ID", DATABASE::"Prod. Order Line");
+            //     DimMgt.MoveProdDocDimToProdDocDim(
+            //       FromProdDocDim, DATABASE::"Prod. Order Line", ToProdOrder.Status, ToProdOrder."No.");
+            //     DELETEALL;
 
-            SETRANGE("Table ID", DATABASE::"Prod. Order Component");
-            DimMgt.MoveProdDocDimToProdDocDim(
-              FromProdDocDim, DATABASE::"Prod. Order Component", ToProdOrder.Status, ToProdOrder."No.");
-            DELETEALL;
+            //     SETRANGE("Table ID", DATABASE::"Prod. Order Component");
+            //     DimMgt.MoveProdDocDimToProdDocDim(
+            //       FromProdDocDim, DATABASE::"Prod. Order Component", ToProdOrder.Status, ToProdOrder."No.");
+            //     DELETEALL;
         END;
     end;
 
