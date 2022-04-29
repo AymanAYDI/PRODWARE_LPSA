@@ -1,5 +1,134 @@
 pageextension 60125 "PWD RoutingLines" extends "Routing Lines"
 {
+    layout
+    {
+        addafter("Unit Cost per")
+        {
+            field("PWD Fixed-step Prod. Rate time"; "PWD Fixed-step Prod. Rate time")
+            {
+                ApplicationArea = All;
+            }
+            field("PWD Flushing Method"; "PWD Flushing Method")
+            {
+                ApplicationArea = All;
+            }
+        }
+        modify("Operation No.")
+        {
+            Style = Attention;
+            StyleExpr = BooGStyle;
+        }
+        modify("Previous Operation No.")
+        {
+            Style = Attention;
+            StyleExpr = BooGStyle;
+        }
+        modify("Next Operation No.")
+        {
+            Style = Attention;
+            StyleExpr = BooGStyle;
+        }
+        modify(Type)
+        {
+            Style = Attention;
+            StyleExpr = BooGStyle;
+        }
+        modify("No.")
+        {
+            Style = Attention;
+            StyleExpr = BooGStyle;
+        }
+        modify("Standard Task Code")
+        {
+            Style = Attention;
+            StyleExpr = BooGStyle;
+        }
+        modify("Routing Link Code")
+        {
+            Style = Attention;
+            StyleExpr = BooGStyle;
+        }
+        modify(Description)
+        {
+            Style = Attention;
+            StyleExpr = BooGStyle;
+        }
+        modify("Setup Time")
+        {
+            Style = Attention;
+            StyleExpr = BooGStyle;
+        }
+        modify("Setup Time Unit of Meas. Code")
+        {
+            Style = Attention;
+            StyleExpr = BooGStyle;
+        }
+        modify("Run Time")
+        {
+            Style = Attention;
+            StyleExpr = BooGStyle;
+        }
+        modify("Run Time Unit of Meas. Code")
+        {
+            Style = Attention;
+            StyleExpr = BooGStyle;
+        }
+        modify("Wait Time")
+        {
+            Style = Attention;
+            StyleExpr = BooGStyle;
+        }
+        modify("Wait Time Unit of Meas. Code")
+        {
+            Style = Attention;
+            StyleExpr = BooGStyle;
+        }
+        modify("Move Time")
+        {
+            Style = Attention;
+            StyleExpr = BooGStyle;
+        }
+        modify("Move Time Unit of Meas. Code")
+        {
+            Style = Attention;
+            StyleExpr = BooGStyle;
+        }
+        modify("Fixed Scrap Quantity")
+        {
+            Style = Attention;
+            StyleExpr = BooGStyle;
+        }
+        modify("Scrap Factor %")
+        {
+            Style = Attention;
+            StyleExpr = BooGStyle;
+        }
+        modify("Minimum Process Time")
+        {
+            Style = Attention;
+            StyleExpr = BooGStyle;
+        }
+        modify("Maximum Process Time")
+        {
+            Style = Attention;
+            StyleExpr = BooGStyle;
+        }
+        modify("Concurrent Capacities")
+        {
+            Style = Attention;
+            StyleExpr = BooGStyle;
+        }
+        modify("Send-Ahead Quantity")
+        {
+            Style = Attention;
+            StyleExpr = BooGStyle;
+        }
+        modify("Unit Cost per")
+        {
+            Style = Attention;
+            StyleExpr = BooGStyle;
+        }
+    }
     actions
     {
         modify("&Personnel")
@@ -28,4 +157,14 @@ pageextension 60125 "PWD RoutingLines" extends "Routing Lines"
             }
         }
     }
+    trigger OnAfterGetRecord()
+    BEGIN
+        BooGStyle := (Type = Type::"Machine Center");
+    END;
+
+    var
+        [INDATASET]
+        BooGStyle: Boolean;
+
+
 }

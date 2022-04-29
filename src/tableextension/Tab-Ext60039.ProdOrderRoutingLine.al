@@ -22,7 +22,7 @@ tableextension 60039 "PWD ProdOrderRoutingLine" extends "Prod. Order Routing Lin
         field(50000; "PWD Processed"; Boolean)
         {
         }
-        field(50001; "Starting Date-Time (P1)"; DateTime)
+        field(50001; "PWD Start. Date-Time (P1)"; DateTime)
         {
             Caption = 'Starting Date-Time (P1)';
 
@@ -33,7 +33,7 @@ tableextension 60039 "PWD ProdOrderRoutingLine" extends "Prod. Order Routing Lin
                 VALIDATE("Starting Time");
             end;
         }
-        field(50002; "Ending Date-Time (P1)"; DateTime)
+        field(50002; "PWD End. Date-Time (P1)"; DateTime)
         {
             Caption = 'Ending Date-Time (P1)';
 
