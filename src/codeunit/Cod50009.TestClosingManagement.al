@@ -55,7 +55,7 @@ codeunit 50009 "PWD Test Closing Management"
         RecGDimValue: Record "Dimension Value";
         RecGDefaultDim: Record "Default Dimension";
         RecGUserSetup: Record "User Setup";
-        CduG3TierMgt: Codeunit "3-Tier Automation Mgt."; //TODO: Codeunit n'existe pas dans la nouvelle version
+        FileMgt: Codeunit "File Management";
         CduGConvert: Codeunit "PWD Convert Ascii To Ansi";
         TxtGServerFileName: Text[250];
         TxtGExportFileName: Text[250];
@@ -180,7 +180,7 @@ codeunit 50009 "PWD Test Closing Management"
         //CREATE FILE IN RTC MODE.
         if IsServiceTier then begin
             TxtGServerFileName := TxtGExportFileName;
-            TxtGExportFileName := CduG3TierMgt.EnvironFileName('', 'csv');
+            TxtGExportFileName := FileMgt.ServerTempFileName('.csv');
         end;
 
         // Create export file
@@ -229,7 +229,7 @@ codeunit 50009 "PWD Test Closing Management"
         FilGToExport.Close;
 
         if IsServiceTier then begin
-            CduG3TierMgt.DownloadToFile(TxtGExportFileName, TxtGServerFileName);
+            FileMgt.DownloadToFile(TxtGExportFileName, TxtGServerFileName);
             TxtGExportFileName := TxtGServerFileName;
         end;
     end;

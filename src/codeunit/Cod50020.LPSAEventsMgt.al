@@ -245,6 +245,16 @@ codeunit 50020 "PWD LPSA Events Mgt."
     begin
         SalesLine.FctDefaultQuantityIfWMS();
     end;
+
+    [EventSubscriber(ObjectType::table, database::"Sales Line", 'OnAfterUpdateUnitPrice', '', false, false)]
+    local procedure TAB37_OnAfterUpdateUnitPrice_SalesLine(var SalesLine: Record "Sales Line"; xSalesLine: Record "Sales Line"; CalledByFieldNo: Integer; CurrFieldNo: Integer)
+    begin
+        //>>FE_LAPIERRETTE_VTE03.001
+        IF (SalesLine."pwd Fixed Price") AND (SalesLine.Quantity <> 0) THEN
+            SalesLine.VALIDATE(SalesLine."Line Amount", SalesLine."Unit Price");
+        //<<FE_LAPIERRETTE_VTE03.001
+    end;
+
     //---TAB38---
     [EventSubscriber(ObjectType::table, database::"Purchase Header", 'OnAfterCopyBuyFromVendorAddressFieldsFromVendor', '', false, false)]
     local procedure Tab38_OnAfterCopyBuyFromVendorAddressFieldsFromVendor_PurchaseHeader(var PurchaseHeader: Record "Purchase Header"; BuyFromVendor: Record Vendor)
@@ -354,9 +364,45 @@ codeunit 50020 "PWD LPSA Events Mgt."
         IF ItemJournalLine."Work Center No." = ManufSetup."PWD Mach. center - Inventory input" THEN
             ItemJournalLine.VALIDATE("Location Code", ManufSetup."PWD Non conformity Prod. Location")
         ELSE
-            //TODO: A vérifier le champ "Prod. Order No." devient "Order No." et le champ"Prod. Order Line No." devient " Order Line No."
             ItemJournalLine.VALIDATE("Location Code", ItemJournalLine.FctGetProdOrderLine(ItemJournalLine."Order No.", ItemJournalLine."Order Line No."));
     end;
+//TODO       [EventSubscriber(ObjectType::table, database::"Item Journal Line", 'OnAfterCopyFromMachineCenter', '', false, false)]
+//     local procedure TAB83_OnAfterCopyFromMachineCenter_ItemJournalLine(var ItemJournalLine: Record "Item Journal Line"; MachineCenter: Record "Machine Center")
+//     var
+//     RecLManufSetup: Record 99000765;
+//     RecLProdOrderLine: Record 5406;
+//     RecLProdOrderRoutingLine: Record 5409;
+//     begin
+//          //>>FE_LAPIERRETTE_PRO12.001
+// //{
+//         //>>FE_LAPIERRETTE_PROD03.002
+//         RecLManufSetup.GET();
+//         //On v‚rifie si le journal line est associ‚ … la derniŠre ligne de gamme pour pouvoir y associer la tra‡a
+//         RecLProdOrderRoutingLine.SETRANGE(Status, RecLProdOrderRoutingLine.Status::Released);
+//                                                                       RecLProdOrderRoutingLine.SETRANGE(RecLProdOrderRoutingLine."Prod. Order No.", "Prod. Order No.");
+//                                                                       RecLProdOrderRoutingLine.SETRANGE(RecLProdOrderRoutingLine."Routing Reference No.", "Prod. Order Line No.");
+//                                                                       RecLProdOrderRoutingLine.SETRANGE(RecLProdOrderRoutingLine."Routing No.", "Item No.");
+//                                                                       RecLProdOrderRoutingLine.SETRANGE(RecLProdOrderRoutingLine."Operation No.", "Operation No.");
+//                                                                       IF RecLProdOrderRoutingLine.FINDFIRST THEN
+//                                                                       BEGIN
+//         IF RecLProdOrderRoutingLine."Next Operation No." = '' THEN
+//             IF (MachineCenter."No." = RecLManufSetup."Mach. center - Inventory input")
+//              AND (NOT ("Conform quality control")) THEN BEGIN
+//                 VALIDATE("Location Code", RecLManufSetup."Non conformity Prod. Location");
+//                 IF RecLProdOrderLine.GET(RecLProdOrderLine.Status::Released,
+//                 "Prod. Order No.", "Prod. Order Line No.") THEN BEGIN
+//                     RecLProdOrderLine.VALIDATE("Location Code", RecLManufSetup."Non conformity Prod. Location");
+//                     RecLProdOrderLine.MODIFY(TRUE);
+//                 END;
+//             END
+//     END
+//                                                                       ELSE
+//                                                                         VALIDATE("Location Code",FctGetProdOrderLine("Prod. Order No.","Prod. Order Line No."));
+//                                                                         //<<FE_LAPIERRETTE_PROD03.002
+// }
+//                                                                       //<<FE_LAPIERRETTE_PRO12.001 
+//     end;
+
     //---TAB111---
     [EventSubscriber(ObjectType::table, database::"Sales Shipment Line", 'OnBeforeInsertInvLineFromShptLineBeforeInsertTextLine', '', false, false)]
     local procedure TAB111_OnBeforeInsertInvLineFromShptLineBeforeInsertTextLine_SalesShptLine(var SalesShptLine: Record "Sales Shipment Line"; var SalesLine: Record "Sales Line"; var NextLineNo: Integer; var Handled: Boolean; TempSalesLine: Record "Sales Line" temporary; SalesInvHeader: Record "Sales Header")
@@ -378,23 +424,6 @@ codeunit 50020 "PWD LPSA Events Mgt."
         SalesLine."PWD LPSA Description 2" := SalesShptLine."PWD LPSA Description 2";
         //<<FE_LAPIERRETTE_ART02.001
     end;
-    //---TAB204---
-    [EventSubscriber(ObjectType::table, database::"Unit of Measure", 'OnBeforeDeleteEvent', '', false, false)]
-    local procedure TAB204_OnBeforeDeleteEvent_UnitofMeasure(var Rec: Record "Unit of Measure"; RunTrigger: Boolean)
-    var
-    // ApplicationManagement: Codeunit 1; //TODO: Cette fonction utilise le codeUnit 1
-    // PlannerOneSetup: Record 8076502; //TODO: La table 8076502 n'existe pas 
-    // Text001: Label 'The time base unit for PlannerOne cannot be deleted.';
-    begin
-        // // PLAW12.0 Prevent deletion of Time Base Unit
-        // // PLAW12.2 Check LICENSE
-        // IF ApplicationManagement.CheckPlannerOneLicence THEN
-        //     IF (PlannerOneSetup.FINDFIRST() AND (PlannerOneSetup.TimeBaseUnit = Rec.Code)) THEN
-        //         ERROR(Text001);
-        // // PLAW12.0 End
-    end;
-
-
     //---TAB121---
     [EventSubscriber(ObjectType::table, database::"Purch. Rcpt. Line", 'OnBeforeInsertInvLineFromRcptLineBeforeInsertTextLine', '', false, false)]
     local procedure TAB121_OnBeforeInsertInvLineFromRcptLineBeforeInsertTextLine_PurchRcptLine(var PurchRcptLine: Record "Purch. Rcpt. Line"; var PurchLine: Record "Purchase Line"; var NextLineNo: Integer; var Handled: Boolean)
@@ -410,13 +439,6 @@ codeunit 50020 "PWD LPSA Events Mgt."
         PurchLine."PWD LPSA Description 1" := PurchRcptLine."PWD LPSA Description 1";
         PurchLine."PWD LPSA Description 2" := PurchRcptLine."PWD LPSA Description 2";
     end;
-    //---TAB246---
-    [EventSubscriber(ObjectType::table, database::"Requisition Line", 'OnAfterValidateEvent', 'Routing No.', false, false)]
-    local procedure TAB246_OnAfterValidateEvent_RequisitionLine_RoutingNo(var Rec: Record "Requisition Line"; var xRec: Record "Requisition Line"; CurrFieldNo: Integer)
-    begin
-        //TODO: champ PlanningGroup n'existe pas car a un table relation avec la table PlannerOnePlanningGroup
-        //Rec.PlanningGroup := RoutingHeader.PlanningGroup;
-    end;
     //---TAB5404---
     [EventSubscriber(ObjectType::Table, Database::"Item Unit of Measure", 'OnAfterModifyEvent', '', false, false)]
     local procedure TAB5404_OnAfterModifyEvent_ItemUnitofMeasure(var Rec: Record "Item Unit of Measure"; var xRec: Record "Item Unit of Measure"; RunTrigger: Boolean)
@@ -430,40 +452,6 @@ codeunit 50020 "PWD LPSA Events Mgt."
         OSYSSetup.FctUnitOfMeasureModify(xRec, Rec);
     end;
 
-    //---TAB205---
-    [EventSubscriber(ObjectType::table, database::"Resource Unit of Measure", 'OnBeforeDeleteEvent', '', false, false)]
-    local procedure TAB205_OnBeforeDeleteEvent_ResourceUnitOfMeasure(var Rec: Record "Resource Unit of Measure"; RunTrigger: Boolean)
-    var
-    // PlannerOneSetup: Record 8076502;  //TODO: La table 8076502 n'existe pas 
-    // Text001: Label 'Deleting this unit will remove the resource from PlannerOne. Do you confirm deletion?;'
-    // ApplicationManagement: Codeunit 1;  //TODO: Cette fonction utilise le codeUnit 1
-    begin
-        // PLAW12.0 Confirm deletion of time base unit
-        // PLAW12.2 Check LICENSE
-        // IF ApplicationManagement.CheckPlannerOneLicence THEN
-        //     IF (PlannerOneSetup.FINDFIRST() AND (PlannerOneSetup.TimeBaseUnit = Rec.Code)) THEN
-        //         IF NOT (CONFIRM(Text001)) THEN
-        //             ERROR('');
-        // PLAW12.0 End
-    end;
-
-    [EventSubscriber(ObjectType::Table, Database::"Resource Unit of Measure", 'OnAfterValidateEvent', 'Related to Base Unit of Meas.', false, false)]
-    local procedure TAB205_OnAfterValidateEvent_ResourceUnitOfMeasure_(var Rec: Record "Resource Unit of Measure"; var xRec: Record "Resource Unit of Measure"; CurrFieldNo: Integer)
-    var
-    // PlannerOneSetup: Record 8076502;  //TODO: La table 8076502 n'existe pas 
-    // ApplicationManagement: Codeunit 1;  //TODO: Cette fonction utilise le codeUnit 1
-    // Text002: Label 'If the unit %1 does not convert to the base unit, the resource will be removed from PlannerOne. Do you wish to continue?;'
-    begin
-        // PLAW12.0 Confirm convertibility of time base unit
-        // PLAW12.2 Check LICENSE
-        // IF ApplicationManagement.CheckPlannerOneLicence THEN
-        //     IF (PlannerOneSetup.FINDFIRST() AND (PlannerOneSetup.TimeBaseUnit = Rec.Code)) THEN
-        //         IF (xRec."Related to Base Unit of Meas." <> Rec."Related to Base Unit of Meas.")
-        //           AND (Rec."Related to Base Unit of Meas." = FALSE) THEN
-        //             IF NOT (CONFIRM(Text002, FALSE, Rec.Code)) THEN
-        //                 ERROR('');
-        // PLAW12.0 End
-    end;
     //---TAB5722---
     [EventSubscriber(ObjectType::Table, Database::"Item Category", 'OnAfterInsertEvent', '', false, false)]
     local procedure TAB5722_OnAfterInsertEvent_ItemCategory(var Rec: Record "Item Category"; RunTrigger: Boolean)
@@ -640,7 +628,7 @@ codeunit 50020 "PWD LPSA Events Mgt."
             exit;
         //TODO: CheckAlternate utilise la table PlannerOneProdOrdRoutLineAlt et le codeunit 1
         //Rec.CheckAlternate();
-        Rec.CalculateRoutingLine();
+        //Rec.CalculateRoutingLine();
         IF (Rec.Status = Rec.Status::Released) AND (ProdOrderLine.GET(Rec.Status, Rec."Prod. Order No.", Rec."Routing Reference No.")) THEN
             ProdOrderLine.ResendProdOrdertoQuartis();
     end;
@@ -966,10 +954,10 @@ codeunit 50020 "PWD LPSA Events Mgt."
             end;
     end;
     //---CDU99000809---
-    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Planning Line Management", 'OnBeforeInsertAsmPlanningComponent', '', false, false)]
-    local procedure CDU99000809_OnBeforeInsertAsmPlanningComponent_PlanningLineManagement(var ReqLine: Record "Requisition Line"; var BOMComponent: Record "BOM Component"; var PlanningComponent: Record "Planning Component")
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Planning Line Management", 'OnBeforeInsertPlanningComponent', '', false, false)]
+    local procedure CDU99000809_OnBeforeInsertPlanningComponent_PlanningLineManagement(var ReqLine: Record "Requisition Line"; var ProductionBOMLine: Record "Production BOM Line"; var PlanningComponent: Record "Planning Component"; LineQtyPerUOM: Decimal; ItemQtyPerUOM: Decimal)
     begin
-        PlanningComponent."PWD Lot Determining" := BOMComponent."PWD Lot Determining";
+        PlanningComponent."PWD Lot Determining" := ProductionBOMLine."PWD Lot Determining";
     end;
     //---CDU5063---
     [EventSubscriber(ObjectType::Codeunit, Codeunit::ArchiveManagement, 'OnBeforeRestoreSalesDocument', '', false, false)] //TODO: A verifier cette fonction(evenement utilisé avec IsHandled pour modifier le standard )
@@ -985,14 +973,15 @@ codeunit 50020 "PWD LPSA Events Mgt."
     local procedure CDU5406_OnBeforeOutputItemJnlLineInsert_OutputJnlExplRoute(var ItemJournalLine: Record "Item Journal Line"; LastOperation: Boolean)
     VAR
         RecLManufacturingSetup: Record "Manufacturing Setup";
+        CodLWorkCenter: Code[10];
     begin
         //>>FE_LAPIERRETTE_PROD03.001
         RecLManufacturingSetup.GET;
         //>>FE_LAPIERRETTE_PRO12.001
         //RecLManufacturingSetup.TESTFIELD("Non conformity Prod. Location");
         //<<FE_LAPIERRETTE_PRO12.001
-        RecLManufacturingSetup.TESTFIELD("PWD Mach. center - Inventory input"); //TODO: table extension "Manufacturing Setup" n'existe pas
-        //<FE_LAPIERRETTE_PROD03.001
+        RecLManufacturingSetup.TESTFIELD("PWD Mach. center - Inventory input");
+        CodLWorkCenter := RecLManufacturingSetup."PWD Mach. center - Inventory input"; //TODO: La variable CodLWorkCenter doit transferet un valeur a une fonction
     end;
     //---CDU5407---
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Prod. Order Status Management", 'OnBeforeShowStatusMessage', '', false, false)]
@@ -1094,8 +1083,8 @@ codeunit 50020 "PWD LPSA Events Mgt."
         //>>FE_LAPIERRETTE_PRO12.001
         //RecLManufacturingSetup.TESTFIELD("Non conformity Prod. Location");
         //<<FE_LAPIERRETTE_PRO12.001
-        RecLManufacturingSetup.TESTFIELD("PWD Mach. center - Inventory input"); //TODO: table extension "Manufacturing Setup" n'existe pas
-        CodLWorkCenter := RecLManufacturingSetup."PWD Mach. center - Inventory input"; //TODO: table extension "Manufacturing Setup" n'existe pas
+        RecLManufacturingSetup.TESTFIELD("PWD Mach. center - Inventory input");
+        CodLWorkCenter := RecLManufacturingSetup."PWD Mach. center - Inventory input"; //TODO: La variable CodLWorkCenter doit transferet un valeur a une fonction
                                                                                        //<FE_LAPIERRETTE_PROD03.001
 
     end;
@@ -1572,10 +1561,10 @@ codeunit 50020 "PWD LPSA Events Mgt."
             Item.SETRANGE("Date Filter", 0D, MatrixRecords[ColumnID]."Period End");
         //<<LAP181016
     end;
-
-    [EventSubscriber(ObjectType::Page, Page::"Demand Forecast Matrix", 'OnBeforeProdForecastQtyBase_OnValidate', '', false, false)]
-    local procedure PAG9245_OnBeforeProdForecastQtyBase_OnValidate_DemandForecastMatrix(var Item: Record Item; ColumnID: Integer; var IsHandled: Boolean; MatrixRecords: array[32] of Record Date; QtyType: Enum "Analysis Amount Type");
-    var
+                  
+    [Eve                  ntSubscriber(ObjectType::Page, Page::"Demand Forecast Matrix", 'OnBeforeProdForecastQtyBase_OnValidate', '', false, false)]
+    loca                  l procedure PAG9245_OnBeforeProdForecastQtyBase_OnValidate_DemandForecastMatrix(var Item: Record Item; ColumnID: Integer; var IsHandled: Boolean; MatrixRecords: array[32] of Record Date; QtyType: Enum "Analysis Amount Type");
+    var                  
         ForecastType: Enum "Demand Forecast Type";
         ProdForecastEntry: Record "Production Forecast Entry";
         ProdForecastEntry2: Record "Production Forecast Entry";
@@ -1897,7 +1886,7 @@ codeunit 50020 "PWD LPSA Events Mgt."
     end;
     //---PAG99000823---
     [EventSubscriber(ObjectType::Page, Page::"Output Journal", 'OnBeforeActionEvent', 'Post', false, false)]
-    local procedure PAG99000823_OnAfterActionEvent_OutputJournal_Post(var Rec: Record "Item Journal Line")
+    loca                   l procedure PAG99000823_OnAfterActionEvent_OutputJournal_Post(var Rec: Record "Item Journal Line")
     var
         RecLManufacturingSetup: Record "Manufacturing Setup";
         RecLItemJnlLineCopy: Record "Item Journal Line";
@@ -1915,7 +1904,7 @@ codeunit 50020 "PWD LPSA Events Mgt."
     end;
 
     [EventSubscriber(ObjectType::Page, Page::"Output Journal", 'OnBeforeActionEvent', 'Post and &Print', false, false)]
-    local procedure PAG99000823_OnAfterActionEvent_OutputJournal_PostandPrint(var Rec: Record "Item Journal Line")
+    loca                   l procedure PAG99000823_OnAfterActionEvent_OutputJournal_PostandPrint(var Rec: Record "Item Journal Line")
     var
         RecLManufacturingSetup: Record "Manufacturing Setup";
         RecLItemJnlLineCopy: Record "Item Journal Line";

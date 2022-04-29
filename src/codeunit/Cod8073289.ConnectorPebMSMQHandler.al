@@ -16,30 +16,30 @@ codeunit 8073289 "PWD Connector Peb MSMQ Handler"
 
     trigger OnRun()
     begin
-        IF NOT BooGLaunched THEN BEGIN
-            BooGLaunched := TRUE;
-            CREATE(AutGMsQBusAdp);
-            CREATE(AutGNavComComp);
-            CREATE(AutGXMLDom);
+        // IF NOT BooGLaunched THEN BEGIN
+        //     BooGLaunched := TRUE;
+        //     CREATE(AutGMsQBusAdp);//TODO: Type Automation n'existe pas dans la nouvelle version
+        //     CREATE(AutGNavComComp); //TODO: Type Automation n'existe pas dans la nouvelle version
+        //     CREATE(AutGXMLDom); //TODO: Type Automation n'existe pas dans la nouvelle version
 
-            //Init communication component for MSMQ
-            AutGMsQBusAdp.RemoveWhenCommit(TRUE);
-            AutGNavComComp.AddBusAdapter(AutGMsQBusAdp, 1);
+        //     //Init communication component for MSMQ
+        //     AutGMsQBusAdp.RemoveWhenCommit(TRUE);
+        //     AutGNavComComp.AddBusAdapter(AutGMsQBusAdp, 1);
 
-            //Init MSQM Receive and Reply
-            RecGPrtCon := Rec;
-            FctInit("Receive Queue", "Reply Queue");
-            AutGMsQBusAdp.OpenReceiveQueue("Receive Queue", 0, 0);
-            AutGMsQBusAdp.OpenReplyQueue("Reply Queue", 0, 0);
-        END;
+        //     //Init MSQM Receive and Reply
+        //     RecGPrtCon := Rec;
+        //     FctInit("Receive Queue", "Reply Queue");
+        //     AutGMsQBusAdp.OpenReceiveQueue("Receive Queue", 0, 0);
+        //     AutGMsQBusAdp.OpenReplyQueue("Reply Queue", 0, 0);
+        // END;
     end;
 
     var
-        AutGMsQBusAdp: Automation; //TODO: Type Automation n'existe pas dans la nouvelle version
-        [WithEvents]
-        AutGNavComComp: Automation;
-        AutGXMLDom: Automation;
-        AutGXMLNode: Automation;
+        // AutGMsQBusAdp: Automation; //TODO: Type Automation n'existe pas dans la nouvelle version
+        // [WithEvents]
+        // AutGNavComComp: Automation; //TODO: Type Automation n'existe pas dans la nouvelle version
+        // AutGXMLDom: Automation; //TODO: Type Automation n'existe pas dans la nouvelle version
+        // AutGXMLNode: Automation; //TODO: Type Automation n'existe pas dans la nouvelle version
         CodGRequest: Code[30];
         CodGPartnerID: Code[20];
         TxtGSendQueue: Text[250];
@@ -63,10 +63,10 @@ codeunit 8073289 "PWD Connector Peb MSMQ Handler"
         //                                  Getting   Request  function                                             //
         //**********************************************************************************************************//
 
-        CLEAR(CodGRequest);
-        AutGXMLNode := AutGXMLDom.selectSingleNode('/IDXMLSerial/NavFunctionToCall');
-        IF STRLEN(AutGXMLNode.text) > 0 THEN
-            CodGRequest := COPYSTR(AutGXMLNode.text, 1, 30);
+        // CLEAR(CodGRequest); //TODO: Type Automation n'existe pas dans la nouvelle version
+        // AutGXMLNode := AutGXMLDom.selectSingleNode('/IDXMLSerial/NavFunctionToCall');
+        // IF STRLEN(AutGXMLNode.text) > 0 THEN
+        //     CodGRequest := COPYSTR(AutGXMLNode.text, 1, 30);
     end;
 
 
@@ -76,35 +76,35 @@ codeunit 8073289 "PWD Connector Peb MSMQ Handler"
         //                                  Getting   Partner ID                                                    //
         //**********************************************************************************************************//
 
-        CLEAR(CodGPartnerID);
-        AutGXMLNode := AutGXMLDom.selectSingleNode('/IDXMLSerial/PartnerID');
-        IF STRLEN(AutGXMLNode.text) > 0 THEN
-            CodGPartnerID := COPYSTR(AutGXMLNode.text, 1, 20);
+        // CLEAR(CodGPartnerID); //TODO: Type Automation n'existe pas dans la nouvelle version
+        // AutGXMLNode := AutGXMLDom.selectSingleNode('/IDXMLSerial/PartnerID');
+        // IF STRLEN(AutGXMLNode.text) > 0 THEN
+        //     CodGPartnerID := COPYSTR(AutGXMLNode.text, 1, 20);
     end;
 
 
     procedure FctReplyErrorMSMQ(TxtPMsg: Text[250]; var OusPStream: OutStream)
-    var
-        AutLXMLDom: Automation;
-        AutLXMLDomElement: Automation;
-        AutLXMLDomElement2: Automation;
-        AutLXMLDomProcInst: Automation;
-        AutLXMLDomNodeTxt: Automation;
+    // var
+    //     AutLXMLDom: Automation; //TODO: Type Automation n'existe pas dans la nouvelle version
+    //     AutLXMLDomElement: Automation; //TODO: Type Automation n'existe pas dans la nouvelle version
+    //     AutLXMLDomElement2: Automation; //TODO: Type Automation n'existe pas dans la nouvelle version
+    //     AutLXMLDomProcInst: Automation; //TODO: Type Automation n'existe pas dans la nouvelle version
+    //     AutLXMLDomNodeTxt: Automation; //TODO: Type Automation n'existe pas dans la nouvelle version
     begin
-        //**********************************************************************************************************//
+        // **********************************************************************************************************//
         //                                  Send string message  to MSMQ                                            //
-        //**********************************************************************************************************//
+        // **********************************************************************************************************//
 
-        CREATE(AutLXMLDom);
-        AutLXMLDom.loadXML('<msgbody/>');
-        AutLXMLDomProcInst := AutLXMLDom.createProcessingInstruction('xml', 'version="1.0" encoding="UTF-8" standalone="no"');
-        AutLXMLDomElement := AutLXMLDom.documentElement;
-        AutLXMLDom.insertBefore(AutLXMLDomProcInst, AutLXMLDomElement);
-        AutLXMLDomElement2 := AutLXMLDom.createElement('error');
-        AutLXMLDomNodeTxt := AutLXMLDom.createTextNode(TxtPMsg);
-        AutLXMLDomElement2.appendChild(AutLXMLDomNodeTxt);
-        AutLXMLDomElement.appendChild(AutLXMLDomElement2);
-        AutLXMLDom.save(OusPStream);
+        // CREATE(AutLXMLDom); //TODO: Type Automation n'existe pas dans la nouvelle version
+        // AutLXMLDom.loadXML('<msgbody/>');
+        // AutLXMLDomProcInst := AutLXMLDom.createProcessingInstruction('xml', 'version="1.0" encoding="UTF-8" standalone="no"');
+        // AutLXMLDomElement := AutLXMLDom.documentElement;
+        // AutLXMLDom.insertBefore(AutLXMLDomProcInst, AutLXMLDomElement);
+        // AutLXMLDomElement2 := AutLXMLDom.createElement('error');
+        // AutLXMLDomNodeTxt := AutLXMLDom.createTextNode(TxtPMsg);
+        // AutLXMLDomElement2.appendChild(AutLXMLDomNodeTxt);
+        // AutLXMLDomElement.appendChild(AutLXMLDomElement2);
+        // AutLXMLDom.save(OusPStream);
     end;
 }
 
