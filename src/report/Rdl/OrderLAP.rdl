@@ -2032,20 +2032,7 @@ Cstr(Fields!BuyFromAddr_8_.Value) + Chr(177),1)</Hidden>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value>=Fields!STRSUBSTNO_Text004__Purchase_Header___No___.Value + Chr(177) + 
-Fields!CopyText.Value + Chr(177) +
-Fields!DateCaption.Value + Chr(177) + 
-Fields!Purchase_Header___Document_Date_.Value + Chr(177) +
-Fields!Purchase_Header___Pay_to_Vendor_No__Caption.Value + Chr(177) + 
-Fields!Purchase_Header___Pay_to_Vendor_No__.Value + Chr(177) +
-Fields!HeaderLabel_1_.Value + Chr(177) + 
-Fields!HeaderTxt_1_.Value + Chr(177) +
-Fields!HeaderLabel_2_.Value + Chr(177) + 
-Fields!HeaderTxt_2_.Value + Chr(177) +
-Fields!HeaderLabel_3_.Value + Chr(177) +
-Fields!HeaderTxt_3_.Value + Chr(177) +
-Fields!HeaderLabel_4_.Value + Chr(177) +
-Fields!HeaderTxt_4_.Value</Value>
+                                                    <Value EvaluationMode="Constant" />
                                                     <Style>
                                                       <FontSize>9pt</FontSize>
                                                       <Color>#ff0000</Color>
@@ -2057,9 +2044,25 @@ Fields!HeaderTxt_4_.Value</Value>
                                             </Paragraphs>
                                             <ZIndex>6</ZIndex>
                                             <Visibility>
-                                              <Hidden>true</Hidden>
+                                              <Hidden>=Code.SetData(Cstr(Fields!STRSUBSTNO_Text004__Purchase_Header___No___.Value) + Chr(177) + 
+Cstr(Fields!CopyText.Value) + Chr(177) +
+Cstr(Fields!DateCaption.Value) + Chr(177) + 
+Cstr(Fields!Purchase_Header___Document_Date_.Value) + Chr(177) +
+Cstr(Fields!Purchase_Header___Pay_to_Vendor_No__Caption.Value) + Chr(177) + 
+Cstr(Fields!Purchase_Header___Pay_to_Vendor_No__.Value) + Chr(177) +
+Cstr(Fields!HeaderLabel_1_.Value) + Chr(177) + 
+Cstr(Fields!HeaderTxt_1_.Value) + Chr(177) +
+Cstr(Fields!HeaderLabel_2_.Value) + Chr(177) + 
+Cstr(Fields!HeaderTxt_2_.Value) + Chr(177) +
+Cstr(Fields!HeaderLabel_3_.Value) + Chr(177) +
+Cstr(Fields!HeaderTxt_3_.Value) + Chr(177) +
+Cstr(Fields!HeaderLabel_4_.Value) + Chr(177) +
+Cstr(Fields!HeaderTxt_4_.Value) + Chr(177),3)</Hidden>
                                             </Visibility>
                                             <Style>
+                                              <Border>
+                                                <Style>None</Style>
+                                              </Border>
                                               <VerticalAlign>Middle</VerticalAlign>
                                               <PaddingLeft>2pt</PaddingLeft>
                                               <PaddingRight>2pt</PaddingRight>
@@ -2088,10 +2091,10 @@ Fields!HeaderTxt_4_.Value</Value>
                                               </Paragraph>
                                             </Paragraphs>
                                             <ZIndex>5</ZIndex>
-                                            <Visibility>
-                                              <Hidden>true</Hidden>
-                                            </Visibility>
                                             <Style>
+                                              <Border>
+                                                <Style>None</Style>
+                                              </Border>
                                               <VerticalAlign>Middle</VerticalAlign>
                                               <PaddingLeft>2pt</PaddingLeft>
                                               <PaddingRight>2pt</PaddingRight>
@@ -2289,9 +2292,6 @@ Fields!HeaderTxt_4_.Value</Value>
                               <Height>0.1cm</Height>
                               <Width>3.49206cm</Width>
                               <ZIndex>2</ZIndex>
-                              <Visibility>
-                                <Hidden>true</Hidden>
-                              </Visibility>
                               <Style />
                             </Tablix>
                             <Tablix Name="table2">
@@ -8481,99 +8481,6 @@ Fields!HeaderTxt_4_.Value</Value>
                     <VerticalAlign>Middle</VerticalAlign>
                   </Style>
                 </Textbox>
-                <Textbox Name="textbox163">
-                  <KeepTogether>true</KeepTogether>
-                  <Paragraphs>
-                    <Paragraph>
-                      <TextRuns>
-                        <TextRun>
-                          <Value>=code.SetData(ReportItems!BuyFromAddr.Value,1)</Value>
-                          <Style>
-                            <Color>#ff0000</Color>
-                          </Style>
-                        </TextRun>
-                      </TextRuns>
-                      <Style />
-                    </Paragraph>
-                  </Paragraphs>
-                  <Top>4.1746cm</Top>
-                  <Height>0.31746cm</Height>
-                  <Width>0.95238cm</Width>
-                  <ZIndex>9</ZIndex>
-                  <Visibility>
-                    <Hidden>true</Hidden>
-                  </Visibility>
-                  <Style>
-                    <VerticalAlign>Middle</VerticalAlign>
-                    <PaddingLeft>2pt</PaddingLeft>
-                    <PaddingRight>2pt</PaddingRight>
-                    <PaddingTop>2pt</PaddingTop>
-                    <PaddingBottom>2pt</PaddingBottom>
-                  </Style>
-                </Textbox>
-                <Textbox Name="textbox161">
-                  <KeepTogether>true</KeepTogether>
-                  <Paragraphs>
-                    <Paragraph>
-                      <TextRuns>
-                        <TextRun>
-                          <Value>=code.SetData(ReportItems!CompanyAddr.Value,2)</Value>
-                          <Style>
-                            <Color>#ff0000</Color>
-                          </Style>
-                        </TextRun>
-                      </TextRuns>
-                      <Style />
-                    </Paragraph>
-                  </Paragraphs>
-                  <Top>4.1746cm</Top>
-                  <Left>1.26984cm</Left>
-                  <Height>0.31746cm</Height>
-                  <Width>0.95238cm</Width>
-                  <ZIndex>10</ZIndex>
-                  <Visibility>
-                    <Hidden>true</Hidden>
-                  </Visibility>
-                  <Style>
-                    <VerticalAlign>Middle</VerticalAlign>
-                    <PaddingLeft>2pt</PaddingLeft>
-                    <PaddingRight>2pt</PaddingRight>
-                    <PaddingTop>2pt</PaddingTop>
-                    <PaddingBottom>2pt</PaddingBottom>
-                  </Style>
-                </Textbox>
-                <Textbox Name="textbox154">
-                  <CanGrow>true</CanGrow>
-                  <KeepTogether>true</KeepTogether>
-                  <Paragraphs>
-                    <Paragraph>
-                      <TextRuns>
-                        <TextRun>
-                          <Value>=code.SetData(ReportItems!CompanyInfoCaption.Value,3)</Value>
-                          <Style>
-                            <Color>#ff0000</Color>
-                          </Style>
-                        </TextRun>
-                      </TextRuns>
-                      <Style />
-                    </Paragraph>
-                  </Paragraphs>
-                  <Top>4.1746cm</Top>
-                  <Left>2.53968cm</Left>
-                  <Height>0.31746cm</Height>
-                  <Width>0.95238cm</Width>
-                  <ZIndex>11</ZIndex>
-                  <Visibility>
-                    <Hidden>true</Hidden>
-                  </Visibility>
-                  <Style>
-                    <VerticalAlign>Middle</VerticalAlign>
-                    <PaddingLeft>2pt</PaddingLeft>
-                    <PaddingRight>2pt</PaddingRight>
-                    <PaddingTop>2pt</PaddingTop>
-                    <PaddingBottom>2pt</PaddingBottom>
-                  </Style>
-                </Textbox>
                 <Textbox Name="textbox33">
                   <KeepTogether>true</KeepTogether>
                   <Paragraphs>
@@ -8594,7 +8501,7 @@ Fields!HeaderTxt_4_.Value</Value>
                   <Left>0.63492cm</Left>
                   <Height>0.423cm</Height>
                   <Width>6.34921cm</Width>
-                  <ZIndex>12</ZIndex>
+                  <ZIndex>9</ZIndex>
                   <Visibility>
                     <Hidden>=IIF(Code.GetGroupPageNumber(ReportItems!NewPage.Value,Globals!PageNumber)=1,false,true)</Hidden>
                   </Visibility>
@@ -8622,7 +8529,7 @@ Fields!HeaderTxt_4_.Value</Value>
                   <Left>0.63492cm</Left>
                   <Height>0.423cm</Height>
                   <Width>6.34921cm</Width>
-                  <ZIndex>13</ZIndex>
+                  <ZIndex>10</ZIndex>
                   <Visibility>
                     <Hidden>=IIF(Code.GetGroupPageNumber(ReportItems!NewPage.Value,Globals!PageNumber)=1,false,true)</Hidden>
                   </Visibility>
@@ -8650,7 +8557,7 @@ Fields!HeaderTxt_4_.Value</Value>
                   <Left>0.63492cm</Left>
                   <Height>0.423cm</Height>
                   <Width>4.12698cm</Width>
-                  <ZIndex>14</ZIndex>
+                  <ZIndex>11</ZIndex>
                   <Visibility>
                     <Hidden>=IIF(Code.GetGroupPageNumber(ReportItems!NewPage.Value,Globals!PageNumber)=1,false,true)</Hidden>
                   </Visibility>
@@ -8678,7 +8585,7 @@ Fields!HeaderTxt_4_.Value</Value>
                   <Left>5.07937cm</Left>
                   <Height>0.423cm</Height>
                   <Width>4.2cm</Width>
-                  <ZIndex>15</ZIndex>
+                  <ZIndex>12</ZIndex>
                   <Visibility>
                     <Hidden>=IIF(Code.GetGroupPageNumber(ReportItems!NewPage.Value,Globals!PageNumber)=1,false,true)</Hidden>
                   </Visibility>
@@ -8706,7 +8613,7 @@ Fields!HeaderTxt_4_.Value</Value>
                   <Left>0.63492cm</Left>
                   <Height>0.42301cm</Height>
                   <Width>4.12698cm</Width>
-                  <ZIndex>16</ZIndex>
+                  <ZIndex>13</ZIndex>
                   <Style>
                     <VerticalAlign>Middle</VerticalAlign>
                   </Style>
@@ -8730,7 +8637,7 @@ Fields!HeaderTxt_4_.Value</Value>
                   <Left>5.07937cm</Left>
                   <Height>0.42301cm</Height>
                   <Width>4.2cm</Width>
-                  <ZIndex>17</ZIndex>
+                  <ZIndex>14</ZIndex>
                   <Style>
                     <VerticalAlign>Middle</VerticalAlign>
                   </Style>
@@ -8754,7 +8661,7 @@ Fields!HeaderTxt_4_.Value</Value>
                   <Left>0.63492cm</Left>
                   <Height>0.423cm</Height>
                   <Width>4.12698cm</Width>
-                  <ZIndex>18</ZIndex>
+                  <ZIndex>15</ZIndex>
                   <Visibility>
                     <Hidden>=IIF(Code.GetGroupPageNumber(ReportItems!NewPage.Value,Globals!PageNumber)=1,false,true)</Hidden>
                   </Visibility>
@@ -8782,7 +8689,7 @@ Fields!HeaderTxt_4_.Value</Value>
                   <Left>5.07937cm</Left>
                   <Height>0.423cm</Height>
                   <Width>4.2cm</Width>
-                  <ZIndex>19</ZIndex>
+                  <ZIndex>16</ZIndex>
                   <Visibility>
                     <Hidden>=IIF(Code.GetGroupPageNumber(ReportItems!NewPage.Value,Globals!PageNumber)=1,false,true)</Hidden>
                   </Visibility>
@@ -8810,7 +8717,7 @@ Fields!HeaderTxt_4_.Value</Value>
                   <Left>0.63492cm</Left>
                   <Height>0.423cm</Height>
                   <Width>4.12698cm</Width>
-                  <ZIndex>20</ZIndex>
+                  <ZIndex>17</ZIndex>
                   <Visibility>
                     <Hidden>=IIF(Code.GetGroupPageNumber(ReportItems!NewPage.Value,Globals!PageNumber)=1,false,true)</Hidden>
                   </Visibility>
@@ -8838,7 +8745,7 @@ Fields!HeaderTxt_4_.Value</Value>
                   <Left>5.07937cm</Left>
                   <Height>0.423cm</Height>
                   <Width>4.2cm</Width>
-                  <ZIndex>21</ZIndex>
+                  <ZIndex>18</ZIndex>
                   <Visibility>
                     <Hidden>=IIF(Code.GetGroupPageNumber(ReportItems!NewPage.Value,Globals!PageNumber)=1,false,true)</Hidden>
                   </Visibility>
@@ -8866,7 +8773,7 @@ Fields!HeaderTxt_4_.Value</Value>
                   <Left>0.63492cm</Left>
                   <Height>0.423cm</Height>
                   <Width>4.12698cm</Width>
-                  <ZIndex>22</ZIndex>
+                  <ZIndex>19</ZIndex>
                   <Visibility>
                     <Hidden>=IIF(Code.GetGroupPageNumber(ReportItems!NewPage.Value,Globals!PageNumber)=1,false,true)</Hidden>
                   </Visibility>
@@ -8894,7 +8801,7 @@ Fields!HeaderTxt_4_.Value</Value>
                   <Left>5.07937cm</Left>
                   <Height>0.423cm</Height>
                   <Width>4.2cm</Width>
-                  <ZIndex>23</ZIndex>
+                  <ZIndex>20</ZIndex>
                   <Visibility>
                     <Hidden>=IIF(Code.GetGroupPageNumber(ReportItems!NewPage.Value,Globals!PageNumber)=1,false,true)</Hidden>
                   </Visibility>
@@ -8922,7 +8829,7 @@ Fields!HeaderTxt_4_.Value</Value>
                   <Left>0.63492cm</Left>
                   <Height>0.423cm</Height>
                   <Width>6.34921cm</Width>
-                  <ZIndex>24</ZIndex>
+                  <ZIndex>21</ZIndex>
                   <Visibility>
                     <Hidden>=IIF(Code.GetGroupPageNumber(ReportItems!NewPage.Value,Globals!PageNumber)=1,false,true)</Hidden>
                   </Visibility>
@@ -8950,7 +8857,7 @@ Fields!HeaderTxt_4_.Value</Value>
                   <Left>11.11111cm</Left>
                   <Height>0.423cm</Height>
                   <Width>6.3593cm</Width>
-                  <ZIndex>25</ZIndex>
+                  <ZIndex>22</ZIndex>
                   <Style>
                     <VerticalAlign>Middle</VerticalAlign>
                   </Style>
@@ -8974,7 +8881,7 @@ Fields!HeaderTxt_4_.Value</Value>
                   <Left>11.11111cm</Left>
                   <Height>0.42301cm</Height>
                   <Width>6.3593cm</Width>
-                  <ZIndex>26</ZIndex>
+                  <ZIndex>23</ZIndex>
                   <Style>
                     <VerticalAlign>Middle</VerticalAlign>
                   </Style>
@@ -8987,7 +8894,7 @@ Fields!HeaderTxt_4_.Value</Value>
                   <Left>6.8cm</Left>
                   <Height>1.5cm</Height>
                   <Width>5.1cm</Width>
-                  <ZIndex>27</ZIndex>
+                  <ZIndex>24</ZIndex>
                   <Style />
                 </Image>
               </ReportItems>

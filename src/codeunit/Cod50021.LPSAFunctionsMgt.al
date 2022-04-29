@@ -70,8 +70,8 @@ codeunit 50021 "PWD LPSA Functions Mgt."
         RecLPosReservEntry: Record "Reservation Entry";
         RecLProdOrderLine: Record "Prod. Order Line";
         RecLLinkedProdOrder: Record "Production Order";
-        RecLPlannerOneSetup: Record 8076502;  //TODO: Table n'existe pas
-        RecLPlannerOneUtil: Codeunit 8076503; //TODO: CodeUnit n'existe pas
+        // RecLPlannerOneSetup: Record 8076502;  //TODO: Table n'existe pas
+        // RecLPlannerOneUtil: Codeunit 8076503; //TODO: CodeUnit n'existe pas
         CduLCalcProdOrder: Codeunit 99000773;
         DecLRemQty: Decimal;
         DecLBaseRemQty: Decimal;
@@ -106,9 +106,9 @@ codeunit 50021 "PWD LPSA Functions Mgt."
           RecLProdOrderComponent."Prod. Order Line No.");
         RecLProdOrderLine.VALIDATE(Quantity, RecPProdOrderLine."Finished Quantity" / RecLProdOrderComponent."Quantity per");
         RecLProdOrderLine.MODIFY(TRUE);
-        IF NOT (RecLPlannerOneSetup.FINDFIRST
-           AND (RecLPlannerOneSetup.ProductionSchedulerEnabled AND RecLPlannerOneUtil.ProdOrderFilter(RecLProdOrderLine.Status, RecPProdOrderLine."Prod. Order No.", RecPProdOrderLine."Line No."))) THEN
-            CduLCalcProdOrder.Recalculate(RecLProdOrderLine, 1);
+        // IF NOT (RecLPlannerOneSetup.FINDFIRST //TODO: Table n'existe pas
+        //    AND (RecLPlannerOneSetup.ProductionSchedulerEnabled AND RecLPlannerOneUtil.ProdOrderFilter(RecLProdOrderLine.Status, RecPProdOrderLine."Prod. Order No.", RecPProdOrderLine."Line No."))) THEN
+        //     CduLCalcProdOrder.Recalculate(RecLProdOrderLine, 1); //TODO: Table n'existe pas
         //<<FE_PROD01.002
     END;
     //---CDU80---
@@ -697,6 +697,8 @@ codeunit 50021 "PWD LPSA Functions Mgt."
     BEGIN
         Exit(BooGAvoidControl);
     END;
+
+
     //---CDU99000792---
     PROCEDURE Fct_TransmitOrderNo(SalesLine: Record "Sales Line") BooLTransOrderNo: Boolean
     VAR

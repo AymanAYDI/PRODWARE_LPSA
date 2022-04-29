@@ -69,27 +69,16 @@ table 8073284 "PWD Connector Messages"
 
             trigger OnLookup()
             var
-                CduLCmDlgMgt: Codeunit "Common Dialog Management";//TODO: Le CodeUnit Common Dialog Management n'est plus disponible pour la nouvelle version
                 i: Integer;
                 InboxDetails: Text[250];
                 InboxDetails2: Text[250];
                 CstLTxt001: Label 'File Location for files';
+                FileName: Text;
             begin
-                IF Path = '' THEN
-                    InboxDetails := STRSUBSTNO('%1.txt', Code)
-                ELSE
-                    InboxDetails := Path + STRSUBSTNO('%1.txt', Code);
-                InboxDetails2 := CduLCmDlgMgt.OpenFile(CstLTxt001, InboxDetails, 4, '*.txt|*.txt', 1);
-                IF InboxDetails <> InboxDetails2 THEN BEGIN
-                    Path := InboxDetails2;
-                    IF STRLEN(Path) > 4 THEN BEGIN
-                        i := STRLEN(Path) - 4;
-                        WHILE (i > 1) AND (Path[i] <> '\') DO
-                            i := i - 1;
-                        IF i > 1 THEN
-                            Path := COPYSTR(Path, 1, i - 1);
-                    END;
-                END;
+                if Path = '' then
+                    FileName := StrSubstNo('%1.xml', Code)
+                else
+                    FileName := Path + StrSubstNo('\%1.xml', Code);
             end;
         }
         field(5; Blocked; Boolean)
@@ -230,27 +219,16 @@ table 8073284 "PWD Connector Messages"
 
             trigger OnLookup()
             var
-                CduLCmDlgMgt: Codeunit "Common Dialog Management"; //TODO: Le CodeUnit Common Dialog Management n'est plus disponible pour la nouvelle version
                 i: Integer;
                 InboxDetails: Text[250];
                 InboxDetails2: Text[250];
                 CstLTxt001: Label 'File Location for files';
+                FileName: Text;
             begin
-                IF "Archive Path" = '' THEN
-                    InboxDetails := STRSUBSTNO('%1.txt', Code)
-                ELSE
-                    InboxDetails := Path + STRSUBSTNO('%1.txt', Code);
-                InboxDetails2 := CduLCmDlgMgt.OpenFile(CstLTxt001, InboxDetails, 4, '*.txt|*.txt', 1);
-                IF InboxDetails <> InboxDetails2 THEN BEGIN
-                    "Archive Path" := InboxDetails2;
-                    IF STRLEN("Archive Path") > 4 THEN BEGIN
-                        i := STRLEN("Archive Path") - 4;
-                        WHILE (i > 1) AND ("Archive Path"[i] <> '\') DO
-                            i := i - 1;
-                        IF i > 1 THEN
-                            "Archive Path" := COPYSTR("Archive Path", 1, i - 1);
-                    END;
-                END;
+                if "Archive Path" = '' then
+                    FileName := StrSubstNo('%1.xml', Code)
+                else
+                    FileName := "Archive Path" + StrSubstNo('\%1.xml', Code);
             end;
         }
         field(30; "FTP Remote Path"; Text[250])
