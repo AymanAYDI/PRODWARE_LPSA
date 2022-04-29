@@ -245,6 +245,16 @@ codeunit 50020 "PWD LPSA Events Mgt."
     begin
         SalesLine.FctDefaultQuantityIfWMS();
     end;
+
+    [EventSubscriber(ObjectType::table, database::"Sales Line", 'OnAfterUpdateUnitPrice', '', false, false)]
+    local procedure TAB37_OnAfterUpdateUnitPrice_SalesLine(var SalesLine: Record "Sales Line"; xSalesLine: Record "Sales Line"; CalledByFieldNo: Integer; CurrFieldNo: Integer)
+    begin
+        //>>FE_LAPIERRETTE_VTE03.001
+        IF (SalesLine."pwd Fixed Price") AND (SalesLine.Quantity <> 0) THEN
+            SalesLine.VALIDATE(SalesLine."Line Amount", SalesLine."Unit Price");
+        //<<FE_LAPIERRETTE_VTE03.001
+    end;
+
     //---TAB38---
     [EventSubscriber(ObjectType::table, database::"Purchase Header", 'OnAfterCopyBuyFromVendorAddressFieldsFromVendor', '', false, false)]
     local procedure Tab38_OnAfterCopyBuyFromVendorAddressFieldsFromVendor_PurchaseHeader(var PurchaseHeader: Record "Purchase Header"; BuyFromVendor: Record Vendor)
@@ -357,6 +367,43 @@ codeunit 50020 "PWD LPSA Events Mgt."
             //TODO: A vérifier le champ "Prod. Order No." devient "Order No." et le champ"Prod. Order Line No." devient " Order Line No."
             ItemJournalLine.VALIDATE("Location Code", ItemJournalLine.FctGetProdOrderLine(ItemJournalLine."Order No.", ItemJournalLine."Order Line No."));
     end;
+//TODO       [EventSubscriber(ObjectType::table, database::"Item Journal Line", 'OnAfterCopyFromMachineCenter', '', false, false)]
+//     local procedure TAB83_OnAfterCopyFromMachineCenter_ItemJournalLine(var ItemJournalLine: Record "Item Journal Line"; MachineCenter: Record "Machine Center")
+//     var
+//     RecLManufSetup: Record 99000765;
+//     RecLProdOrderLine: Record 5406;
+//     RecLProdOrderRoutingLine: Record 5409;
+//     begin
+//          //>>FE_LAPIERRETTE_PRO12.001
+// //{
+//         //>>FE_LAPIERRETTE_PROD03.002
+//         RecLManufSetup.GET();
+//         //On v‚rifie si le journal line est associ‚ … la derniŠre ligne de gamme pour pouvoir y associer la tra‡a
+//         RecLProdOrderRoutingLine.SETRANGE(Status, RecLProdOrderRoutingLine.Status::Released);
+//                                                                       RecLProdOrderRoutingLine.SETRANGE(RecLProdOrderRoutingLine."Prod. Order No.", "Prod. Order No.");
+//                                                                       RecLProdOrderRoutingLine.SETRANGE(RecLProdOrderRoutingLine."Routing Reference No.", "Prod. Order Line No.");
+//                                                                       RecLProdOrderRoutingLine.SETRANGE(RecLProdOrderRoutingLine."Routing No.", "Item No.");
+//                                                                       RecLProdOrderRoutingLine.SETRANGE(RecLProdOrderRoutingLine."Operation No.", "Operation No.");
+//                                                                       IF RecLProdOrderRoutingLine.FINDFIRST THEN
+//                                                                       BEGIN
+//         IF RecLProdOrderRoutingLine."Next Operation No." = '' THEN
+//             IF (MachineCenter."No." = RecLManufSetup."Mach. center - Inventory input")
+//              AND (NOT ("Conform quality control")) THEN BEGIN
+//                 VALIDATE("Location Code", RecLManufSetup."Non conformity Prod. Location");
+//                 IF RecLProdOrderLine.GET(RecLProdOrderLine.Status::Released,
+//                 "Prod. Order No.", "Prod. Order Line No.") THEN BEGIN
+//                     RecLProdOrderLine.VALIDATE("Location Code", RecLManufSetup."Non conformity Prod. Location");
+//                     RecLProdOrderLine.MODIFY(TRUE);
+//                 END;
+//             END
+//     END
+//                                                                       ELSE
+//                                                                         VALIDATE("Location Code",FctGetProdOrderLine("Prod. Order No.","Prod. Order Line No."));
+//                                                                         //<<FE_LAPIERRETTE_PROD03.002
+// }
+//                                                                       //<<FE_LAPIERRETTE_PRO12.001 
+//     end;
+
     //---TAB111---
     [EventSubscriber(ObjectType::table, database::"Sales Shipment Line", 'OnBeforeInsertInvLineFromShptLineBeforeInsertTextLine', '', false, false)]
     local procedure TAB111_OnBeforeInsertInvLineFromShptLineBeforeInsertTextLine_SalesShptLine(var SalesShptLine: Record "Sales Shipment Line"; var SalesLine: Record "Sales Line"; var NextLineNo: Integer; var Handled: Boolean; TempSalesLine: Record "Sales Line" temporary; SalesInvHeader: Record "Sales Header")
@@ -1572,10 +1619,10 @@ codeunit 50020 "PWD LPSA Events Mgt."
             Item.SETRANGE("Date Filter", 0D, MatrixRecords[ColumnID]."Period End");
         //<<LAP181016
     end;
-
-    [EventSubscriber(ObjectType::Page, Page::"Demand Forecast Matrix", 'OnBeforeProdForecastQtyBase_OnValidate', '', false, false)]
-    local procedure PAG9245_OnBeforeProdForecastQtyBase_OnValidate_DemandForecastMatrix(var Item: Record Item; ColumnID: Integer; var IsHandled: Boolean; MatrixRecords: array[32] of Record Date; QtyType: Enum "Analysis Amount Type");
-    var
+                  
+    [Eve                  ntSubscriber(ObjectType::Page, Page::"Demand Forecast Matrix", 'OnBeforeProdForecastQtyBase_OnValidate', '', false, false)]
+    loca                  l procedure PAG9245_OnBeforeProdForecastQtyBase_OnValidate_DemandForecastMatrix(var Item: Record Item; ColumnID: Integer; var IsHandled: Boolean; MatrixRecords: array[32] of Record Date; QtyType: Enum "Analysis Amount Type");
+    var                  
         ForecastType: Enum "Demand Forecast Type";
         ProdForecastEntry: Record "Production Forecast Entry";
         ProdForecastEntry2: Record "Production Forecast Entry";
@@ -1897,7 +1944,7 @@ codeunit 50020 "PWD LPSA Events Mgt."
     end;
     //---PAG99000823---
     [EventSubscriber(ObjectType::Page, Page::"Output Journal", 'OnBeforeActionEvent', 'Post', false, false)]
-    local procedure PAG99000823_OnAfterActionEvent_OutputJournal_Post(var Rec: Record "Item Journal Line")
+    loca                   l procedure PAG99000823_OnAfterActionEvent_OutputJournal_Post(var Rec: Record "Item Journal Line")
     var
         RecLManufacturingSetup: Record "Manufacturing Setup";
         RecLItemJnlLineCopy: Record "Item Journal Line";
@@ -1915,7 +1962,7 @@ codeunit 50020 "PWD LPSA Events Mgt."
     end;
 
     [EventSubscriber(ObjectType::Page, Page::"Output Journal", 'OnBeforeActionEvent', 'Post and &Print', false, false)]
-    local procedure PAG99000823_OnAfterActionEvent_OutputJournal_PostandPrint(var Rec: Record "Item Journal Line")
+    loca                   l procedure PAG99000823_OnAfterActionEvent_OutputJournal_PostandPrint(var Rec: Record "Item Journal Line")
     var
         RecLManufacturingSetup: Record "Manufacturing Setup";
         RecLItemJnlLineCopy: Record "Item Journal Line";
