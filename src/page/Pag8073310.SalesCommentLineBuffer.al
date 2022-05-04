@@ -13,6 +13,7 @@ page 8073310 "PWD Sales Comment Line Buffer"
     Caption = 'Sales Comment Line Buffer';
     InsertAllowed = false;
     PageType = Card;
+    UsageCategory = none;
     SourceTable = "PWD Sales Comment Line Buffer";
 
     layout

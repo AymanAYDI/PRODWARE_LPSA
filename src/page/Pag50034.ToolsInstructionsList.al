@@ -12,6 +12,7 @@ page 50034 "PWD Tools Instructions List"
     Caption = 'Tools Instructions List';
     Editable = false;
     PageType = List;
+    UsageCategory = none;
     SourceTable = "PWD Tools Instructions";
 
     layout

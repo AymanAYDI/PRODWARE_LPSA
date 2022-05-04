@@ -13,6 +13,7 @@ page 50003 "PWD Family LPSA List"
 
     PageType = List;
     SourceTable = "PWD Family LPSA";
+    UsageCategory = none;
 
     layout
     {

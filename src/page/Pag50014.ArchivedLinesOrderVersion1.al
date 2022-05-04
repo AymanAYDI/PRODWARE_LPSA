@@ -13,6 +13,7 @@ page 50014 "Archived Lines Order Version 1"
     Editable = false;
     PageType = List;
     SourceTable = "Sales Line Archive";
+    UsageCategory = none;
     SourceTableView = SORTING("Document Type", "Document No.", "Doc. No. Occurrence", "Version No.", "Line No.") WHERE("Document Type" = FILTER(Order), "Version No." = FILTER(1));
 
     layout

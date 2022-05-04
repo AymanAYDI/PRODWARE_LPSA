@@ -15,6 +15,7 @@ page 8073287 "PWD Values form Connector"
     DelayedInsert = false;
     ModifyAllowed = false;
     PageType = List;
+    UsageCategory = none;
     SourceTable = "PWD Connector Values";
 
     layout

@@ -18,6 +18,7 @@ page 8073290 "PWD WMS Setup"
     DeleteAllowed = false;
     InsertAllowed = false;
     PageType = Card;
+    UsageCategory = none;
     SourceTable = "PWD WMS Setup";
 
     layout

@@ -23,6 +23,8 @@ page 50002 "PWD Item Configurator List"
     Editable = false;
     PageType = List;
     SourceTable = "PWD Item Configurator";
+    ApplicationArea = all;
+    UsageCategory = Tasks;
 
     layout
     {

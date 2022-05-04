@@ -2,6 +2,8 @@ page 50024 "PWD Capacity ledger entry list"
 {
     Editable = false;
     PageType = List;
+    ApplicationArea = all;
+    UsageCategory = History;
     SourceTable = "Capacity Ledger Entry";
 
     layout

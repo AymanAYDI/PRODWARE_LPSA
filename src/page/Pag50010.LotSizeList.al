@@ -14,6 +14,7 @@ page 50010 "PWD Lot Size List"
     Caption = 'Lot Size List';
     PageType = List;
     SourceTable = "PWD Lot Size";
+    UsageCategory = none;
 
     layout
     {

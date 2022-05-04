@@ -14,6 +14,7 @@ page 8073288 "PWD Connector Values Archive"
     Caption = 'Values From Connector Archive';
     Editable = false;
     PageType = List;
+    UsageCategory = none;
     SourceTable = "PWD Connector Values Archive";
 
     layout

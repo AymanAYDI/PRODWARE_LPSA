@@ -34,6 +34,7 @@ page 8073291 "PWD OSYS Setup"
     DeleteAllowed = false;
     InsertAllowed = false;
     PageType = Card;
+    UsageCategory = none;
     SourceTable = "PWD OSYS Setup";
 
     layout

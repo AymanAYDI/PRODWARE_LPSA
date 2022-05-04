@@ -28,6 +28,7 @@ page 50001 "PWD Item Configurator"
 
     Caption = 'Item Configurator';
     SourceTable = "PWD Item Configurator";
+    UsageCategory = none;
 
     layout
     {

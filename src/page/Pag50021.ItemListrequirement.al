@@ -38,6 +38,8 @@ page 50021 "PWD Item List requirement"
     CardPageID = "Item Card";
     Editable = false;
     PageType = List;
+    ApplicationArea = all;
+    UsageCategory = Lists;
     SourceTable = Item;
 
     layout

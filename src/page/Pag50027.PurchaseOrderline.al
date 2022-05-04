@@ -3,6 +3,8 @@ page 50027 "PWD Purchase Order line"
     Caption = 'Lignes Commandes Achat';
     Editable = false;
     PageType = List;
+    ApplicationArea = all;
+    UsageCategory = Lists;
     SourceTable = "Purchase Line";
     SourceTableView = WHERE("Document Type" = FILTER(Order));
 

@@ -14,6 +14,8 @@ page 50005 "PWD Item Configurator Setup"
     Caption = 'Item Configurator Setup';
     PageType = Card;
     SourceTable = "PWD Piece Type";
+    ApplicationArea = all;
+    UsageCategory = Administration;
 
     layout
     {

@@ -13,6 +13,7 @@ page 8073300 "PWD Sales Header Buffer"
     Caption = 'Sales Header Buffer';
     InsertAllowed = false;
     PageType = Card;
+    UsageCategory = none;
     SourceTable = "PWD Sales Header Buffer";
 
     layout

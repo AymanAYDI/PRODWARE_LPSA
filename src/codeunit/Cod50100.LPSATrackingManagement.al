@@ -756,7 +756,6 @@ codeunit 50100 "PWD LPSA Tracking Management"
         QtyToAdd: Decimal;
     begin
         OK := false;
-        //ReservEngineMgt.SetPick(IsPick); //TODO: La procedure SetPick n'existe pas dans le codeunit "Reservation Engine Mgt."
 
         if (CurrentSignFactor * NewTrackingSpecification."Qty. to Handle") < 0 then
             NewTrackingSpecification."Expiration Date" := 0D;

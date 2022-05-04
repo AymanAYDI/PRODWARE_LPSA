@@ -16,6 +16,8 @@ page 50007 "PWD Manuf. cycles Setup - List"
     Editable = false;
     PageType = List;
     SourceTable = "PWD Manufacturing cycles Setup";
+    ApplicationArea = all;
+    UsageCategory = Lists;
 
     layout
     {

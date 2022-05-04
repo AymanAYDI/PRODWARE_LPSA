@@ -12,6 +12,7 @@ page 50026 "PWD Sales Statistics List"
     Caption = 'Sales Statistics List';
     Editable = false;
     PageType = List;
+    UsageCategory = none;
     SourceTable = "Sales Line Archive";
     SourceTableView = SORTING("Document Type", "Document No.", "Doc. No. Occurrence", "Version No.", "Line No.") WHERE("Document Type" = FILTER(Order), "Version No." = FILTER(1), Type = FILTER(Item));
 

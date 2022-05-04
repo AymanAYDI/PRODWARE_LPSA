@@ -13,6 +13,8 @@ page 50000 "PWD Quartis Comment"
 
     PageType = List;
     SourceTable = "PWD Quartis Comment";
+    ApplicationArea = all;
+    UsageCategory = Administration;
 
     layout
     {

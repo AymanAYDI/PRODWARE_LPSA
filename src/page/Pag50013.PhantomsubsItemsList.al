@@ -13,6 +13,7 @@ page 50013 "PWD Phantom subs. Items List"
     Caption = 'Phantom substitution Items';
     PageType = List;
     SourceTable = "PWD Phantom substitution Items";
+    UsageCategory = none;
 
     layout
     {

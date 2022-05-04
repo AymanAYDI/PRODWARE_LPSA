@@ -12,6 +12,7 @@ page 50025 "PWD Current Product Order List"
     Caption = 'Current Product Order List';
     Editable = false;
     PageType = List;
+    UsageCategory = none;
     SourceTable = "PWD Current Product Order";
     SourceTableTemporary = true;
 

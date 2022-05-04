@@ -14,6 +14,8 @@ page 50017 "Firm Planned Prod. Order Del."
     ModifyAllowed = false;
     PageType = List;
     SourceTable = "Production Order";
+    ApplicationArea = all;
+    UsageCategory = Lists;
     SourceTableView = WHERE(Status = CONST("Firm Planned"));
 
     layout

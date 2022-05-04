@@ -12,6 +12,8 @@ page 50018 "PWD Item Configurator Details"
     Caption = 'Item Configurator Details';
     Editable = false;
     PageType = List;
+    ApplicationArea = all;
+    UsageCategory = Lists;
     SourceTable = "PWD Item Configurator";
     SourceTableView = WHERE("Item Code" = FILTER(<> ''));
 

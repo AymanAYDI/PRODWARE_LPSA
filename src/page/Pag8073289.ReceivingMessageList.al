@@ -16,6 +16,7 @@ page 8073289 "PWD Receiving Message List"
     Caption = 'Receiving Message List';
     PageType = List;
     PopulateAllFields = false;
+    UsageCategory = none;
     SourceTable = "PWD Connector Messages";
     SourceTableView = SORTING("Partner Code", Code, Direction) ORDER(Ascending) WHERE(Direction = FILTER(Import));
 

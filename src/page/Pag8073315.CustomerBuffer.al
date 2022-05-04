@@ -13,6 +13,7 @@ page 8073315 "PWD Customer Buffer"
     Caption = 'Customer Buffer';
     InsertAllowed = false;
     PageType = Card;
+    UsageCategory = none;
     SourceTable = "PWD Customer Buffer";
 
     layout

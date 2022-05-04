@@ -13,6 +13,7 @@ page 50006 "PWD Manufacturing cycles Setup"
     Caption = 'Manufacturing cycles Setup';
     PageType = Card;
     SourceTable = "PWD Manufacturing cycles Setup";
+    UsageCategory = none;
 
     layout
     {

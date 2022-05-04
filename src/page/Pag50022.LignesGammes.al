@@ -2,6 +2,8 @@ page 50022 "PWD Lignes Gammes"
 {
     Editable = false;
     PageType = List;
+    ApplicationArea = all;
+    UsageCategory = Lists;
     SourceTable = "Routing Line";
 
     layout

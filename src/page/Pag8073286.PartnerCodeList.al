@@ -22,6 +22,7 @@ page 8073286 "PWD Partner Code List"
     CardPageID = "PWD Partner Connector";
     Editable = false;
     PageType = List;
+    UsageCategory = none;
     SourceTable = "PWD Partner Connector";
 
     layout

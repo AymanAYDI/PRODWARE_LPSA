@@ -13,6 +13,7 @@ report 50000 "Export Invoicing Data (Excel)"
 
     Caption = 'Export Invoicing Data (Excel)';
     ProcessingOnly = true;
+    UsageCategory = none;
 
     dataset
     {

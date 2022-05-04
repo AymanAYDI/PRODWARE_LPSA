@@ -27,6 +27,7 @@ page 8073285 "PWD Fields Export Setup"
     Caption = 'Fields Export Setup';
     DelayedInsert = true;
     PageType = List;
+    UsageCategory = none;
     PopulateAllFields = true;
     SourceTable = "PWD Fields Export Setup";
 

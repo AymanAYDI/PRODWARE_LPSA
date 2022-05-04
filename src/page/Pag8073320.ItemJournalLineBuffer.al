@@ -29,6 +29,7 @@ page 8073320 "PWD Item Journal Line Buffer"
     Caption = 'Item Journal Line Buffer';
     InsertAllowed = false;
     PageType = Card;
+    UsageCategory = none;
     SourceTable = "PWD Item Jounal Line Buffer";
 
     layout

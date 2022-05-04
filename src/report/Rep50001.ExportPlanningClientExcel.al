@@ -1,6 +1,7 @@
 report 50001 "Export Planning Client Excel"
 {
     ProcessingOnly = true;
+    UsageCategory = none;
 
     dataset
     {

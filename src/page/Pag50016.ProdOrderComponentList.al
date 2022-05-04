@@ -3,6 +3,8 @@ page 50016 "PWD Prod. Order Component List"
     Editable = false;
     PageType = List;
     SourceTable = "Prod. Order Component";
+    ApplicationArea = all;
+    UsageCategory = Lists;
     SourceTableView = SORTING(Status, "Prod. Order No.", "Prod. Order Line No.", "Line No.") WHERE(Status = FILTER("Firm Planned" | Released));
 
     layout
