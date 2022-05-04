@@ -41,13 +41,13 @@ report 50042 "PWD Updt Item - Dimension"
                 //"Product Group Code" := CodGGroupCode;
                 Modify();
 
-                RecGProductGroup.Get(RecGItemCategory.Code, CodGGroupCode);
+                // RecGProductGroup.Get(RecGItemCategory.Code, CodGGroupCode);  //TODO: La table Product Group n'existe plus pour la nouvelle version
 
                 CduGClosingMgt.UpdateDimValue(DATABASE::"Item Category", RecGItemCategory.Code, RecGItemCategory.Description);
-                CduGClosingMgt.UpdateDimValue(DATABASE::"Product Group", RecGProductGroup.Code, RecGProductGroup.Description); //TODO: La table Product Group n'exist pas dans la nouvelle version
+                // CduGClosingMgt.UpdateDimValue(DATABASE::"Product Group", RecGProductGroup.Code, RecGProductGroup.Description); //TODO: La table Product Group n'exist pas dans la nouvelle version
 
                 CduGClosingMgt.UpdtItemDimValue(DATABASE::"Item Category", "No.", "Item Category Code");
-                CduGClosingMgt.UpdtItemDimValue(DATABASE::"Product Group", "No.", "Product Group Code");//TODO: La table Product Group n'exist pas dans la nouvelle version
+                // CduGClosingMgt.UpdtItemDimValue(DATABASE::"Product Group", "No.", "Product Group Code");//TODO: La table Product Group n'exist pas dans la nouvelle version
 
                 // Mise à jour Sales Line
                 RecLSalesLine.SetRange(Type, RecLSalesLine.Type::Item);
@@ -176,14 +176,14 @@ report 50042 "PWD Updt Item - Dimension"
                         trigger OnLookup(var Text: Text): Boolean
                         begin
 
-                            CLEAR(FrmProductGroup);
+                            // CLEAR(FrmProductGroup);   //TODO: La Page Product Group n'existe plus pour la nouvelle version
 
-                            Text := '';
-                            RecGProductGroup.SETRANGE("Item Category Code", RecGItemCategory.Code);
-                            FrmProductGroup.SETTABLEVIEW(RecGProductGroup);
-                            FrmProductGroup.LOOKUPMODE(TRUE);
-                            IF FrmProductGroup.RUNMODAL = ACTION::LookupOK THEN
-                                Text := FrmProductGroup.GetSelectionFilter;
+                            // Text := '';
+                            // RecGProductGroup.SETRANGE("Item Category Code", RecGItemCategory.Code); //TODO: La table Product Group n'existe plus pour la nouvelle version
+                            // FrmProductGroup.SETTABLEVIEW(RecGProductGroup); //TODO: La Page Product Group n'existe plus pour la nouvelle version
+                            // FrmProductGroup.LOOKUPMODE(TRUE); //TODO: La Page Product Group n'existe plus pour la nouvelle version
+                            // IF FrmProductGroup.RUNMODAL = ACTION::LookupOK THEN //TODO: La Page Product Group n'existe plus pour la nouvelle version
+                            //     Text := FrmProductGroup.GetSelectionFilter; //TODO: La Page Product Group n'existe plus pour la nouvelle version
 
                             EXIT(TRUE);
                         end;
@@ -220,9 +220,9 @@ report 50042 "PWD Updt Item - Dimension"
 
     var
         RecGItemCategory: Record "Item Category";
-        RecGProductGroup: Record "Product Group";
+        // RecGProductGroup: Record "Product Group"; //TODO: La table Product Group n'existe plus pour la nouvelle version
         CduGClosingMgt: Codeunit "PWD Closing Management";
-        FrmProductGroup: Page "Product Groups";
+        // FrmProductGroup: Page "Product Groups"; //TODO: La Oage Product Group n'existe plus pour la nouvelle version
         CodGGroupCode: Code[10];
         DiagWindows: Dialog;
         CstG0000: Label 'Mise à jour #1################ #2#################';

@@ -110,13 +110,13 @@ table 50001 "PWD Item Configurator"
                 RecLItemCat: Record "Item Category";
             begin
                 if RecLItemCat.Get("Item Category Code") then
-                    case RecLItemCat."Def. Costing Method" of    //TODO: Les champs Standard du table "Item Category" sont mofifiées
-                        RecLItemCat."Def. Costing Method"::Standard:
-                            Validate("Replenishment System", "Replenishment System"::"Prod. Order");
-                        RecLItemCat."Def. Costing Method"::Average:
+                    // case RecLItemCat."Def. Costing Method" of    //TODO: Les champs Standard du table "Item Category" sont mofifiées
+                    //     RecLItemCat."Def. Costing Method"::Standard: //TODO: Les champs Standard du table "Item Category" sont mofifiées
+                    //         Validate("Replenishment System", "Replenishment System"::"Prod. Order"); //TODO: Les champs Standard du table "Item Category" sont mofifiées
+                    //     RecLItemCat."Def. Costing Method"::Average: //TODO: Les champs Standard du table "Item Category" sont mofifiées
                             Validate("Replenishment System", "Replenishment System"::Purchase);
-                    end;
             end;
+            //end;
         }
         field(13; "Product Group Code"; Code[10])
         {

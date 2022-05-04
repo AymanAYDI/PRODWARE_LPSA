@@ -312,8 +312,9 @@ report 50037 "PWD Export Prod Order LPSA"
 
                     //Colonne T
                     //TODO: 'Record "Prod. Order Routing Line"' does not contain a definition for 'Planned Ress. No.' and 'Planned Ress. Type'
-                    if ("Prod. Order Routing Line"."Planned Ress. No." <> '') and RecGOSYSSetup.PlannerOne and FctPlannerOnePermission() then begin
-                        IntGTempField := "Prod. Order Routing Line"."Planned Ress. Type";
+                    if // ("Prod. Order Routing Line"."Planned Ress. No." <> '') and //TODO: le numero du champs est 8076501
+                    RecGOSYSSetup.PlannerOne and FctPlannerOnePermission() then begin
+                        // IntGTempField := "Prod. Order Routing Line"."Planned Ress. Type"; //TODO: le numero du champs est 8076500
                         OutStreamGlobal.WriteText(Format(IntGTempField));
                     end
                     else begin
@@ -328,11 +329,12 @@ report 50037 "PWD Export Prod Order LPSA"
 
                     //Colonne V
                     //TODO: 'Record "Prod. Order Routing Line"' does not contain a definition for 'Planned Ress. No.', 'Planned Ress. Type' and 'Planned Ress. Type'
-                    if ("Prod. Order Routing Line"."Planned Ress. No." <> '') and RecGOSYSSetup.PlannerOne and FctPlannerOnePermission() then begin
-                        if "Prod. Order Routing Line"."Planned Ress. Type" = "Prod. Order Routing Line"."Planned Ress. Type"::"Machine Center" then
-                            OutStreamGlobal.WriteText("Prod. Order Routing Line"."Planned Ress. No.")
-                        else
-                            OutStreamGlobal.WriteText('');
+                    if //("Prod. Order Routing Line"."Planned Ress. No." <> '') and //TODO: le numero du champs est 8076501
+                    RecGOSYSSetup.PlannerOne and FctPlannerOnePermission() then begin
+                        // if "Prod. Order Routing Line"."Planned Ress. Type" = "Prod. Order Routing Line"."Planned Ress. Type"::"Machine Center" then  //TODO: le numero du champs est 8076500
+                        // OutStreamGlobal.WriteText("Prod. Order Routing Line"."Planned Ress. No.")  //TODO: le numero du champs est 8076501
+                        // else
+                        OutStreamGlobal.WriteText('');
                     end
                     else
                         if "Prod. Order Routing Line".Type = "Prod. Order Routing Line".Type::"Machine Center" then
