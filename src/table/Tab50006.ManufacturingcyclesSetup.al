@@ -180,8 +180,8 @@ table 50006 "PWD Manufacturing cycles Setup"
     }
 
     var
-        RecGWorkCenter: Record "Work Center";
         RecGMachineCenter: Record "Machine Center";
+        RecGWorkCenter: Record "Work Center";
 
     procedure FctCalcQtyBase()
     var

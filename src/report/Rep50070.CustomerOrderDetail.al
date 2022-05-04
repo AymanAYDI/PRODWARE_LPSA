@@ -16,7 +16,7 @@ report 50070 "PWD Customer - Order Detail"
             column(ShipmentPeriodDate; StrSubstNo(Text000, PeriodText))
             {
             }
-            column(CompanyName; COMPANYPROPERTY.DisplayName)
+            column(CompanyName; COMPANYPROPERTY.DisplayName())
             {
             }
             column(PrintAmountsInLCY; PrintAmountsInLCY)
@@ -131,11 +131,11 @@ report 50070 "PWD Customer - Order Detail"
                     NewOrder := "Document No." <> SalesHeader."No.";
                     if NewOrder then
                         SalesHeader.Get(1, "Document No.");
-                    if "Shipment Date" <= WorkDate then
+                    if "Shipment Date" <= WorkDate() then
                         BackOrderQty := "Outstanding Quantity"
                     else
                         BackOrderQty := 0;
-                    Currency.InitRoundingPrecision;
+                    Currency.InitRoundingPrecision();
                     if "VAT Calculation Type" in ["VAT Calculation Type"::"Normal VAT", "VAT Calculation Type"::"Reverse Charge VAT"] then
                         SalesOrderAmount :=
                           Round(
@@ -152,13 +152,13 @@ report 50070 "PWD Customer - Order Detail"
                             SalesOrderAmountLCY :=
                               Round(
                                 CurrExchRate.ExchangeAmtFCYToLCY(
-                                  WorkDate, SalesHeader."Currency Code",
+                                  WorkDate(), SalesHeader."Currency Code",
                                   SalesOrderAmountLCY, SalesHeader."Currency Factor"));
                         if PrintAmountsInLCY then begin
                             "Unit Price" :=
                               Round(
                                 CurrExchRate.ExchangeAmtFCYToLCY(
-                                  WorkDate, SalesHeader."Currency Code",
+                                  WorkDate(), SalesHeader."Currency Code",
                                   "Unit Price", SalesHeader."Currency Factor"));
                             SalesOrderAmount := SalesOrderAmountLCY;
                         end;
@@ -179,7 +179,7 @@ report 50070 "PWD Customer - Order Detail"
                     //>>LAP2.12
                     IF ("Sales Line".Type <> "Sales Line".Type::Item) OR
                        (NOT RecGItem.GET("Sales Line"."No.")) THEN
-                        RecGItem.INIT;
+                        RecGItem.INIT();
                     //<<LAP2.12
                 end;
 
@@ -206,7 +206,7 @@ report 50070 "PWD Customer - Order Detail"
                     if Number = 1 then
                         OK := CurrencyTotalBuffer.Find('-')
                     else
-                        OK := CurrencyTotalBuffer.Next <> 0;
+                        OK := CurrencyTotalBuffer.Next() <> 0;
                     if not OK then
                         CurrReport.Break();
 
@@ -255,7 +255,7 @@ report 50070 "PWD Customer - Order Detail"
                 if Number = 1 then
                     OK := CurrencyTotalBuffer2.Find('-')
                 else
-                    OK := CurrencyTotalBuffer2.Next <> 0;
+                    OK := CurrencyTotalBuffer2.Next() <> 0;
                 if not OK then
                     CurrReport.Break();
             end;
@@ -314,34 +314,34 @@ report 50070 "PWD Customer - Order Detail"
     end;
 
     var
-        Text000: Label 'Shipment Date: %1';
-        Text001: Label 'Sales Order Line: %1';
+        Currency: Record Currency;
         CurrExchRate: Record "Currency Exchange Rate";
         CurrencyTotalBuffer: Record "Currency Total Buffer" temporary;
         CurrencyTotalBuffer2: Record "Currency Total Buffer" temporary;
+        RecGItem: Record Item;
         SalesHeader: Record "Sales Header";
-        Currency: Record Currency;
-        CustFilter: Text;
-        SalesLineFilter: Text;
-        SalesOrderAmount: Decimal;
-        SalesOrderAmountLCY: Decimal;
-        PrintAmountsInLCY: Boolean;
-        PeriodText: Text;
-        PrintOnlyOnePerPage: Boolean;
-        BackOrderQty: Decimal;
         NewOrder: Boolean;
         OK: Boolean;
-        Counter1: Integer;
+        PrintAmountsInLCY: Boolean;
+        PrintOnlyOnePerPage: Boolean;
         CurrencyCode2: Code[10];
+        BackOrderQty: Decimal;
+        SalesOrderAmount: Decimal;
+        SalesOrderAmountLCY: Decimal;
+        Counter1: Integer;
         PageGroupNo: Integer;
-        CustOrderDetailCaptionLbl: Label 'Customer - Order Detail';
-        PageCaptionLbl: Label 'Page';
         AllAmtAreInLCYCaptionLbl: Label 'All amounts are in LCY';
-        ShipmentDateCaptionLbl: Label 'Shipment Date';
-        QtyOnBackOrderCaptionLbl: Label 'Quantity on Back Order';
+        CustOrderDetailCaptionLbl: Label 'Customer - Order Detail';
         OutstandingOrdersCaptionLbl: Label 'Outstanding Orders';
+        PageCaptionLbl: Label 'Page';
+        QtyOnBackOrderCaptionLbl: Label 'Quantity on Back Order';
+        ShipmentDateCaptionLbl: Label 'Shipment Date';
+        Text000: Label 'Shipment Date: %1';
+        Text001: Label 'Sales Order Line: %1';
         TotalCaptionLbl: Label 'Total';
-        RecGItem: Record Item;
+        CustFilter: Text;
+        PeriodText: Text;
+        SalesLineFilter: Text;
 
     procedure InitializeRequest(ShowAmountInLCY: Boolean; NewPagePerCustomer: Boolean)
     begin

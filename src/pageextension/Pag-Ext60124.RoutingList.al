@@ -24,14 +24,14 @@ pageextension 60124 "PWD RoutingList" extends "Routing List"
                     RtngVersion.SETRANGE("Routing No.", "No.");
                     RtngVersion.SETRANGE("Version Code", ActiveVersionCode);
                     PAGE.RUNMODAL(PAGE::"Routing Version", RtngVersion);
-                    ActiveVersionCode := VersionMgt.GetRtngVersion("No.", WORKDATE, TRUE);
+                    ActiveVersionCode := VersionMgt.GetRtngVersion("No.", WORKDATE(), TRUE);
                 end;
             }
         }
     }
     trigger OnAfterGetRecord()
     begin
-        ActiveVersionCode := VersionMgt.GetRtngVersion("No.", WORKDATE, TRUE);
+        ActiveVersionCode := VersionMgt.GetRtngVersion("No.", WORKDATE(), TRUE);
     end;
 
     var

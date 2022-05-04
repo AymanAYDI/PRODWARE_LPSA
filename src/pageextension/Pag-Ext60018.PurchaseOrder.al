@@ -65,14 +65,14 @@ pageextension 60018 "PWD PurchaseOrder" extends "Purchase Order"
                     CduLConnectorWMSParseData: Codeunit "PWD Connector WMS Parse Data";
                 begin
                     //>>WMS-FE04.001
-                    RecLPurchaseLines.RESET;
+                    RecLPurchaseLines.RESET();
                     RecLPurchaseLines.SETRANGE("Document Type", "Document Type");
                     RecLPurchaseLines.SETRANGE("Document No.", "No.");
-                    IF RecLPurchaseLines.FINDSET THEN
+                    IF RecLPurchaseLines.FINDSET() THEN
                         REPEAT
                             CduLConnectorWMSParseData.FctChangePurchOrderStatus(RecLPurchaseLines);
-                            RecLPurchaseLines.MODIFY;
-                        UNTIL RecLPurchaseLines.NEXT = 0;
+                            RecLPurchaseLines.MODIFY();
+                        UNTIL RecLPurchaseLines.NEXT() = 0;
                     //<<WMS-FE04.001
                 end;
             }

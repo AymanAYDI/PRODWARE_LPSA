@@ -134,14 +134,14 @@ report 50054 "MAJ OP Gamme PIE Sans 1/2;B"
     end;
 
     var
+        CodGNewOperation: Code[20];
+        CodGOldOperation: Code[20];
         BDialog: Dialog;
         IntGCounter: Integer;
-        CodGOldOperation: Code[20];
-        CodGNewOperation: Code[20];
-        TxtGNewOperationDescription: Text[30];
         CstG001: Label 'Dans les gammes PIE (Filtrage N°:PIE*), uniquement pour les articles n''ayant pas dans leur désignation LPSA1 le caractère ''''½" ou "B'' ou les 2, voulez vous remplacer l''opération %1 par l''opération %2 avec comme désignation %3 ?';
         CstG002: Label 'Traitement annulé !';
         CstG003: Label 'Merci de saisir 2 opérations et si nécessaire la désignation.';
         CstG004: Label 'MAJ Ligne Gammes PIE (Filtrage N:PIE*), uniquement pour les articles n''ayant pas dans leur désignation LPSA1 le caractère ''''½" ou "B'' ou les 2,\\Enregistrements restants #1##############';
+        TxtGNewOperationDescription: Text[30];
 }
 

@@ -164,12 +164,11 @@ report 50016 "PWD Excel Item Last Mvt"
 
     var
         ExcelBuf: Record "Excel Buffer" temporary;
-        CstG001: Label 'N° article';
-        TxtGDateFilter: Text[100];
-        TxtGLocationFilter: Text[100];
         DatGMax: Date;
-        IntGLineNo: Integer;
+        "--- LAP2.12 ---": Integer;
         IntGColNo: Integer;
+        IntGLineNo: Integer;
+        CstG001: Label 'N° article';
         CstG002: Label 'Désignation';
         CstG003: Label 'Désignation 2';
         CstG004: Label 'Stock à date de demande';
@@ -185,8 +184,9 @@ report 50016 "PWD Excel Item Last Mvt"
         CstG014: Label 'Veuillez renseigner une date de fin';
         CstG015: Label 'Filtre magasin';
         CstG016: Label 'Entry type';
-        "--- LAP2.12 ---": Integer;
         TxtGEntryType: Text[30];
+        TxtGDateFilter: Text[100];
+        TxtGLocationFilter: Text[100];
 
     local procedure EnterCell(RowNo: Integer; ColumnNo: Integer; CellValue: Text[250]; Bold: Boolean; UnderLine: Boolean; NumberFormat: Text[30])
     begin

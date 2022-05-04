@@ -324,28 +324,28 @@ report 50035 "PWD Item Extraction"
     end;
 
     var
-        TxtGFileName: Text[1024];
-        MyFile: File;
-        TestOutStream: OutStream;
-        Bdialog: Dialog;
-        IntGCounter: Integer;
-        ASCIIChar: Char;
-        ASCIIDec: Integer;
-        ANSIChar: array[255] of Char;
-        pos: Integer;
-        i: Integer;
-        Finded: Boolean;
-        CduGVersionMgt: Codeunit VersionManagement;
-        CodGActiveVersionCode: Code[20];
         RecGMachineCenter: Record "Machine Center";
-        RecGWorkCenter: Record "Work Center";
         RecGItemConfigurator: Record "PWD Item Configurator";
+        RecGWorkCenter: Record "Work Center";
+        CduGVersionMgt: Codeunit VersionManagement;
+        Finded: Boolean;
+        ANSIChar: array[255] of Char;
+        ASCIIChar: Char;
+        CodGActiveVersionCode: Code[20];
+        Bdialog: Dialog;
+        MyFile: File;
+        ASCIIDec: Integer;
+        i: Integer;
+        IntGCounter: Integer;
+        pos: Integer;
         CstG002: Label 'N° de centre de charge';
         CstG003: Label 'Désignation centre';
         CstG004: Label 'Code Calendrier du centre';
         CstG005: Label 'N° Poste de charge';
         CstG006: Label 'Désignation poste';
         CstG010: Label 'Merci de spécifier un fichier d''export';
+        TestOutStream: OutStream;
+        TxtGFileName: Text[1024];
 
 
     procedure AsciiToAnsi(TextAscii: Text[250]) TextAnsi: Text[250]

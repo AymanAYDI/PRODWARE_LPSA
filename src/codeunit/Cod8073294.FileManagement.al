@@ -46,9 +46,9 @@ codeunit 8073294 "PWD File Management"
 
     procedure FctCopyFile(TxtPFileName: Text[100]; TxtPSourcePath: Text[250]; TxtPDestinationPath: Text[250]; CodPPartner: Code[20]; IntPBufferMessageNo: Integer; OptPFlowType: Option " ","Import Connector","Export Connector"): Boolean
     var
-        TxtLError: Text[250];
         BooLResult: Boolean;
         AutLFileManagement: dotnet "PWD FileManagement";
+        TxtLError: Text[250];
     begin
         //**********************************************************************************************************//
         //                           Use automation copy file with log management                                   //
@@ -63,9 +63,9 @@ codeunit 8073294 "PWD File Management"
 
     procedure FctDeleteFile(TxtPFileName: Text[100]; TxtPSourcePath: Text[250]; CodPPartner: Code[20]; IntPBufferMessageNo: Integer; OptPFlowType: Option " ","Import Connector","Export Connector"): Boolean
     var
-        TxtLError: Text[250];
         BooLResult: Boolean;
         AutLFileManagement: dotnet "PWD FileManagement";
+        TxtLError: Text[250];
     begin
         //**********************************************************************************************************//
         //                           Use automation Delete file with log management                                 //
@@ -80,9 +80,9 @@ codeunit 8073294 "PWD File Management"
 
     procedure FctMoveFile(TxtPFileName: Text[100]; TxtPSourcePath: Text[250]; TxtPDestinationPath: Text[250]; CodPPartner: Code[20]; IntPBufferMessageNo: Integer; OptPFlowType: Option " ","Import Connector","Export Connector"): Boolean
     var
-        TxtLError: Text[250];
         BooLResult: Boolean;
         AutLFileManagement: dotnet "PWD FileManagement";
+        TxtLError: Text[250];
     begin
         //**********************************************************************************************************//
         //                           Use automation move file with log management                                   //
@@ -97,9 +97,9 @@ codeunit 8073294 "PWD File Management"
 
     procedure FctScanDirectoryFiles(TxtPSourcePath: Text[250]; var TxtPFileFound: Text[1024]; CodPPartner: Code[20]; IntPBufferMessageNo: Integer; OptPFlowType: Option " ","Import Connector","Export Connector"): Boolean
     var
-        TxtLError: Text[250];
         BooLResult: Boolean;
         AutLFileManagement: dotnet "PWD FileManagement";
+        TxtLError: Text[250];
     begin
         //**********************************************************************************************************//
         //           Scan specific Directory and return first file name found in TxtPFileFound                      //
@@ -119,11 +119,11 @@ codeunit 8073294 "PWD File Management"
 
     procedure FctTranformFileToBlob(TxtPFile: Text[1024]; var RecPTempBlob: Codeunit "Temp Blob"; CodPPartner: Code[20]; IntPBufferMessageNo: Integer; OptPFlowType: Option " ","Import Connector","Export Connector"): Boolean
     var
-        TxtLError: Text[250];
         BooLResult: Boolean;
+        AutLFileManagement: dotnet "PWD FileManagement";
         InsLStream: InStream;
         OutLStream: OutStream;
-        AutLFileManagement: dotnet "PWD FileManagement";
+        TxtLError: Text[250];
     begin
         //**********************************************************************************************************//
         //                                  Read file in Stream                                                     //
@@ -145,9 +145,9 @@ codeunit 8073294 "PWD File Management"
 
     procedure FctbTransformBlobToFile(TxtPFile: Text[1024]; var InPStream: InStream; CodPPartner: Code[20]; IntPBufferMessageNo: Integer; OptPFlowType: Option " ","Import Connector","Export Connector"): Boolean
     var
-        TxtLError: Text[250];
         BooLResult: Boolean;
         AutLFileManagement: dotnet "PWD FileManagement";
+        TxtLError: Text[250];
     begin
         //************************************************()**********************************************************//
         //                                  Write file in Stream                                                    //
@@ -164,8 +164,8 @@ codeunit 8073294 "PWD File Management"
 
     procedure FctShowBlobAsWindow(InPStream: InStream)
     var
-        CstL000: Label 'Blob Content';
         AutLFileManagement: dotnet "PWD FileManagement";
+        CstL000: Label 'Blob Content';
     begin
         //**********************************************************************************************************//
         //                                  Show blob content                                                       //
@@ -177,10 +177,10 @@ codeunit 8073294 "PWD File Management"
 
     procedure FctMergeStream(InPStream1: InStream; InPStream2: InStream; var RecPTempBlob: Codeunit "Temp Blob"; CodPPartner: Code[20])
     var
+        AutLFileManagement: dotnet "PWD FileManagement";
         InLStreamReturn: InStream;
         OutLStream: OutStream;
         TxtLError: Text[250];
-        AutLFileManagement: dotnet "PWD FileManagement";
     begin
         //**********************************************************************************************************//
         //                                  InStream Merge                                                          //
@@ -228,10 +228,9 @@ codeunit 8073294 "PWD File Management"
                     BooLTreatmentOK := TRUE;
             END
             ELSE
-                IF STRPOS(TxtPValueToTransform, '.') <> 0 THEN BEGIN
+                IF STRPOS(TxtPValueToTransform, '.') <> 0 THEN
                     IF EVALUATE(DecLValueToReturn, CONVERTSTR(TxtPValueToTransform, '.', ',')) THEN
                         BooLTreatmentOK := TRUE;
-                END;
         END;
 
         EXIT(BooLTreatmentOK);
@@ -251,10 +250,9 @@ codeunit 8073294 "PWD File Management"
                     BooLTreatmentOK := TRUE;
             END
             ELSE
-                IF STRPOS(TxtPValueToTransform, '.') <> 0 THEN BEGIN
+                IF STRPOS(TxtPValueToTransform, '.') <> 0 THEN
                     IF EVALUATE(IntLValueToReturn, CONVERTSTR(TxtPValueToTransform, '.', ',')) THEN
                         BooLTreatmentOK := TRUE;
-                END;
         END;
 
         EXIT(BooLTreatmentOK);
@@ -329,10 +327,9 @@ codeunit 8073294 "PWD File Management"
         ELSE
             TxtLFillCharacter := ' ';
 
-        IF (RecPFieldsExp."Fill up" = RecPFieldsExp."Fill up"::Left) THEN BEGIN
+        IF (RecPFieldsExp."Fill up" = RecPFieldsExp."Fill up"::Left) THEN
             FOR I := 1 TO RecPFieldsExp."File Length" - STRLEN(TxtPValue) DO
-                TxtPValue := TxtLFillCharacter + TxtPValue;
-        END
+                TxtPValue := TxtLFillCharacter + TxtPValue
         ELSE
             TxtPValue := PADSTR(TxtPValue, RecPFieldsExp."File Length", TxtLFillCharacter);
 
@@ -358,11 +355,11 @@ codeunit 8073294 "PWD File Management"
 
     procedure FctMergeOutStream(InPStream1: InStream; OutPStream2: OutStream; RecPTempBlob: Codeunit "Temp Blob"; CodPPartner: Code[20]): Boolean
     var
-        TxtLError: Text[250];
-        InLStreamReturn: InStream;
-        OutLStream: OutStream;
         BooLResult: Boolean;
         AutLFileManagement: dotnet "PWD FileManagement";
+        InLStreamReturn: InStream;
+        OutLStream: OutStream;
+        TxtLError: Text[250];
     begin
         //**********************************************************************************************************//
         //                                  InStream Merge                                                          //
@@ -381,8 +378,8 @@ codeunit 8073294 "PWD File Management"
 
     procedure FctDeleteFiles(RecLMessage: Record 8073284; OptLFlowType: Option " ","Import Connector","Export Connector")
     var
-        TxtLFileFound: Text[1024];
         BooLNotSkip: Boolean;
+        TxtLFileFound: Text[1024];
     begin
         //**********************************************************************************************************//
         //                           Use automation Delete files with log management                                //

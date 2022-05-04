@@ -35,10 +35,10 @@ report 50061 "PWD Empty Buffer"
     trigger OnPreReport()
     begin
         if Confirm(CstG001, false) then begin
-            RecGItemJnlLineBuffer.Reset;
-            RecGItemJnlLineBuffer.DeleteAll;
-            RecGItemLedgerEntryBuffer.Reset;
-            RecGItemLedgerEntryBuffer.DeleteAll;
+            RecGItemJnlLineBuffer.Reset();
+            RecGItemJnlLineBuffer.DeleteAll();
+            RecGItemLedgerEntryBuffer.Reset();
+            RecGItemLedgerEntryBuffer.DeleteAll();
             Message(CstG002);
         end else
             Error(CstG003);

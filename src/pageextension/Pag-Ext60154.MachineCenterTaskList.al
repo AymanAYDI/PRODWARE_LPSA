@@ -1,4 +1,4 @@
-pageextension 50037 "PWD MachineCenterTaskList" extends "Machine Center Task List"
+pageextension 60154 "PWD MachineCenterTaskList" extends "Machine Center Task List"
 {
     // +----------------------------------------------------------------------------------------------------------------+
     // | ProdWare                                                                                                       |
@@ -38,14 +38,15 @@ pageextension 50037 "PWD MachineCenterTaskList" extends "Machine Center Task Lis
                 Editable = false;
                 ApplicationArea = All;
             }
-            field("Starting Date-Time (P1)"; Rec."Starting Date-Time (P1)")
-            {
-                ApplicationArea = All;
-            }
-            field("Ending Date-Time (P1)"; Rec."Ending Date-Time (P1)")
-            {
-                ApplicationArea = All;
-            }
+            //TODO:'Record "Prod. Order Routing Line"' does not contain a definition for 'Starting Date-Time (P1)' and "Ending Date-Time (P1)"
+            // field("Starting Date-Time (P1)"; Rec."Starting Date-Time (P1)")
+            // {
+            //     ApplicationArea = All;
+            // }
+            // field("Ending Date-Time (P1)"; Rec."Ending Date-Time (P1)")
+            // {
+            //     ApplicationArea = All;
+            // }
         }
         addafter("Unit Cost per")
         {

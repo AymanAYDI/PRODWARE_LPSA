@@ -32,14 +32,14 @@ pageextension 60042 "PWD PhysInventoryJournal" extends "Phys. Inventory Journal"
 
                 trigger OnAction()
                 var
-                    RecLItemJournalLine: Record 83;
                     RecLItem: Record 27;
+                    RecLItemJournalLine: Record 83;
                 begin
                     IF CONFIRM(CstG001, FALSE, "Journal Template Name", "Journal Batch Name") THEN BEGIN
-                        RecLItemJournalLine.RESET;
+                        RecLItemJournalLine.RESET();
                         RecLItemJournalLine.SETRANGE("Journal Template Name", "Journal Template Name");
                         RecLItemJournalLine.SETRANGE("Journal Batch Name", "Journal Batch Name");
-                        IF RecLItemJournalLine.FINDFIRST THEN
+                        IF RecLItemJournalLine.FINDFIRST() THEN
                             REPEAT
 
                                 RecLItemJournalLine.CreateDim(
@@ -47,7 +47,7 @@ pageextension 60042 "PWD PhysInventoryJournal" extends "Phys. Inventory Journal"
                                   DATABASE::"Salesperson/Purchaser", "Salespers./Purch. Code",
                                   DATABASE::"Work Center", "Work Center No.");
 
-                            UNTIL RecLItemJournalLine.NEXT = 0;
+                            UNTIL RecLItemJournalLine.NEXT() = 0;
                     END ELSE
                         MESSAGE(CstG004);
                 end;
@@ -59,9 +59,9 @@ pageextension 60042 "PWD PhysInventoryJournal" extends "Phys. Inventory Journal"
 
                 trigger OnAction()
                 var
+                    RecLItemLedgerEntry: Record 32;
                     RecLItemJournalLine: Record 83;
                     RecLItemJnlLineBuffer: Record 50015;
-                    RecLItemLedgerEntry: Record 32;
                     RecLItemLedgerEntryBuffer: Record 50016;
                     BooLProcess: Boolean;
                 begin
@@ -76,30 +76,30 @@ pageextension 60042 "PWD PhysInventoryJournal" extends "Phys. Inventory Journal"
                             BooLProcess := FALSE;
 
                     IF BooLProcess THEN BEGIN
-                        RecLItemJnlLineBuffer.DELETEALL;
-                        RecLItemLedgerEntryBuffer.DELETEALL;
-                        RecLItemJournalLine.RESET;
+                        RecLItemJnlLineBuffer.DELETEALL();
+                        RecLItemLedgerEntryBuffer.DELETEALL();
+                        RecLItemJournalLine.RESET();
                         RecLItemJournalLine.SETRANGE("Journal Template Name", "Journal Template Name");
                         RecLItemJournalLine.SETRANGE("Journal Batch Name", "Journal Batch Name");
-                        IF RecLItemJournalLine.FINDFIRST THEN
+                        IF RecLItemJournalLine.FINDFIRST() THEN
                             REPEAT
                                 RecLItemJnlLineBuffer.TRANSFERFIELDS(RecLItemJournalLine);
-                                RecLItemJnlLineBuffer.INSERT;
+                                RecLItemJnlLineBuffer.INSERT();
 
-                                RecLItemLedgerEntry.RESET;
+                                RecLItemLedgerEntry.RESET();
                                 RecLItemLedgerEntry.SETRANGE("Item No.", RecLItemJournalLine."Item No.");
                                 RecLItemLedgerEntry.SETRANGE("Variant Code", RecLItemJournalLine."Variant Code");
                                 RecLItemLedgerEntry.SETRANGE("Location Code", RecLItemJournalLine."Location Code");
                                 RecLItemLedgerEntry.SETRANGE(Open, TRUE);
-                                IF RecLItemLedgerEntry.FINDFIRST THEN
+                                IF RecLItemLedgerEntry.FINDFIRST() THEN
                                     REPEAT
                                         RecLItemLedgerEntry.CALCFIELDS("Cost Amount (Expected)");
                                         IF RecLItemLedgerEntry."Cost Amount (Expected)" <> 0 THEN
                                             ERROR(CstG007, RecLItemLedgerEntry."Item No.", RecLItemLedgerEntry."Document No.");
                                         RecLItemLedgerEntryBuffer.TRANSFERFIELDS(RecLItemLedgerEntry);
-                                        RecLItemLedgerEntryBuffer.INSERT;
-                                    UNTIL RecLItemLedgerEntry.NEXT = 0;
-                            UNTIL RecLItemJournalLine.NEXT = 0;
+                                        RecLItemLedgerEntryBuffer.INSERT();
+                                    UNTIL RecLItemLedgerEntry.NEXT() = 0;
+                            UNTIL RecLItemJournalLine.NEXT() = 0;
                     END ELSE
                         MESSAGE(CstG004);
                 end;
@@ -111,20 +111,20 @@ pageextension 60042 "PWD PhysInventoryJournal" extends "Phys. Inventory Journal"
 
                 trigger OnAction()
                 var
-                    RecLItemJournalLine: Record 83;
                     RecLItem: Record 27;
-                    RecLItemLedgerEntryBuffer: Record 50016;
+                    RecLItemJournalLine: Record 83;
                     RecLReservationEntry: Record 337;
-                    IntLEntryNoLast: Integer;
                     RecLItemJnlLineBuffer: Record 50015;
+                    RecLItemLedgerEntryBuffer: Record 50016;
+                    IntLEntryNoLast: Integer;
                 begin
                     IF CONFIRM(CstG003, FALSE, "Journal Template Name", "Journal Batch Name") THEN BEGIN
                         IF RecLItemJnlLineBuffer.ISEMPTY AND RecLItemLedgerEntryBuffer.ISEMPTY THEN
                             ERROR(CstG006);
-                        RecLItemJournalLine.RESET;
+                        RecLItemJournalLine.RESET();
                         RecLItemJournalLine.SETRANGE("Journal Template Name", "Journal Template Name");
                         RecLItemJournalLine.SETRANGE("Journal Batch Name", "Journal Batch Name");
-                        IF RecLItemJournalLine.FINDFIRST THEN
+                        IF RecLItemJournalLine.FINDFIRST() THEN
                             REPEAT
                                 RecLItemJournalLine.VALIDATE("Qty. (Phys. Inventory)", 0);
                                 RecLItemJournalLine.MODIFY(TRUE);
@@ -132,22 +132,22 @@ pageextension 60042 "PWD PhysInventoryJournal" extends "Phys. Inventory Journal"
                                 RecLItem.GET(RecLItemJournalLine."Item No.");
                                 IF RecLItem."Item Tracking Code" <> '' THEN BEGIN
                                     // On supprime les lignes de la T337 lié à la ligne de notre feuille
-                                    RecLReservationEntry.RESET;
+                                    RecLReservationEntry.RESET();
                                     RecLReservationEntry.SETRANGE("Source Type", 83);
                                     RecLReservationEntry.SETRANGE("Source ID", RecLItemJournalLine."Journal Template Name");
                                     RecLReservationEntry.SETRANGE("Source Batch Name", RecLItemJournalLine."Journal Batch Name");
                                     RecLReservationEntry.SETRANGE("Source Ref. No.", RecLItemJournalLine."Line No.");
-                                    RecLReservationEntry.DELETEALL;
+                                    RecLReservationEntry.DELETEALL();
 
-                                    RecLItemLedgerEntryBuffer.RESET;
+                                    RecLItemLedgerEntryBuffer.RESET();
                                     RecLItemLedgerEntryBuffer.SETRANGE("Item No.", RecLItemJournalLine."Item No.");
                                     RecLItemLedgerEntryBuffer.SETRANGE("Variant Code", RecLItemJournalLine."Variant Code");
                                     RecLItemLedgerEntryBuffer.SETRANGE("Location Code", RecLItemJournalLine."Location Code");
                                     RecLItemLedgerEntryBuffer.SETRANGE(Open, TRUE);
-                                    IF RecLItemLedgerEntryBuffer.FINDFIRST THEN
+                                    IF RecLItemLedgerEntryBuffer.FINDFIRST() THEN
                                         REPEAT
-                                            RecLReservationEntry.RESET;
-                                            RecLReservationEntry.FINDLAST;
+                                            RecLReservationEntry.RESET();
+                                            RecLReservationEntry.FINDLAST();
                                             IntLEntryNoLast := RecLReservationEntry."Entry No.";
                                             RecLReservationEntry."Entry No." := IntLEntryNoLast + 1;
                                             IF RecLItemJournalLine."Entry Type" = RecLItemJournalLine."Entry Type"::"Positive Adjmt." THEN
@@ -157,13 +157,13 @@ pageextension 60042 "PWD PhysInventoryJournal" extends "Phys. Inventory Journal"
                                             RecLReservationEntry."Item No." := RecLItemJournalLine."Item No.";
                                             RecLReservationEntry."Location Code" := RecLItemJournalLine."Location Code";
                                             RecLReservationEntry."Reservation Status" := RecLReservationEntry."Reservation Status"::Prospect;
-                                            RecLReservationEntry."Creation Date" := WORKDATE;
+                                            RecLReservationEntry."Creation Date" := WORKDATE();
                                             RecLReservationEntry."Source Type" := DATABASE::"Item Journal Line";
                                             RecLReservationEntry."Source Subtype" := RecLItemJournalLine."Entry Type";
                                             RecLReservationEntry."Source ID" := RecLItemJournalLine."Journal Template Name";
                                             RecLReservationEntry."Source Batch Name" := RecLItemJournalLine."Journal Batch Name";
                                             RecLReservationEntry."Source Ref. No." := RecLItemJournalLine."Line No.";
-                                            RecLReservationEntry."Shipment Date" := WORKDATE;
+                                            RecLReservationEntry."Shipment Date" := WORKDATE();
                                             RecLReservationEntry."Created By" := USERID;
                                             RecLReservationEntry."Qty. per Unit of Measure" := RecLItemJournalLine."Qty. per Unit of Measure";
                                             IF RecLItemJournalLine."Entry Type" = RecLItemJournalLine."Entry Type"::"Positive Adjmt." THEN
@@ -175,10 +175,10 @@ pageextension 60042 "PWD PhysInventoryJournal" extends "Phys. Inventory Journal"
                                             RecLReservationEntry."Lot No." := RecLItemLedgerEntryBuffer."Lot No.";
                                             RecLReservationEntry."Serial No." := RecLItemLedgerEntryBuffer."Serial No.";
                                             RecLReservationEntry."Item Tracking" := RecLReservationEntry."Item Tracking"::"Lot No.";
-                                            RecLReservationEntry.INSERT;
-                                        UNTIL RecLItemLedgerEntryBuffer.NEXT = 0;
+                                            RecLReservationEntry.INSERT();
+                                        UNTIL RecLItemLedgerEntryBuffer.NEXT() = 0;
                                 END;
-                            UNTIL RecLItemJournalLine.NEXT = 0;
+                            UNTIL RecLItemJournalLine.NEXT() = 0;
                     END ELSE
                         MESSAGE(CstG004);
                 end;

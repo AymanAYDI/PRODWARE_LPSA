@@ -58,9 +58,9 @@ report 50033 "PWD MAJ Methode Conso Gamme"
     }
 
     var
+        MachineCenter: Record "Machine Center";
+        WorkCenter: Record "Work Center";
         BDialog: Dialog;
         IntGCounter: Integer;
-        WorkCenter: Record "Work Center";
-        MachineCenter: Record "Machine Center";
 }
 

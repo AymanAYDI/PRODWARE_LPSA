@@ -87,20 +87,20 @@ codeunit 50005 "PWD Job Queue Calculate Plan"
     end;
 
     var
-        RecGLocation: Record Location;
         RecGItem: Record Item;
+        RecGLocation: Record Location;
         RecGManufacturingSetup: Record "Manufacturing Setup";
-        CstGTxt000: Label 'MPS or MRP must be flag on %1.';
         RecGPlanningErrorLog: Record "Planning Error Log";
         RecGReqLine: Record "Requisition Line";
         CduGCalcItemPlan: Codeunit "Calc. Item Plan - Plan Wksh.";
         BooGNetChange: Boolean;
         BooGSetAtStartPosition: Boolean;
-        IntGCounterOK: Integer;
-        TxtGErrorText: Text[1000];
-        CstGTxt001: Label 'An unidentified error occurred while planning %1 %2. Recalculate the plan with the option "Stop and Show Error".';
-        CstGTxt002: Label 'Planning Wkhs. must be define on Location.';
         DatGFromDate: Date;
         DatGToDate: Date;
+        IntGCounterOK: Integer;
+        CstGTxt000: Label 'MPS or MRP must be flag on %1.';
+        CstGTxt001: Label 'An unidentified error occurred while planning %1 %2. Recalculate the plan with the option "Stop and Show Error".';
+        CstGTxt002: Label 'Planning Wkhs. must be define on Location.';
+        TxtGErrorText: Text[1000];
 }
 

@@ -792,8 +792,8 @@ page 50027 "PWD Purchase Order line"
 
                     trigger OnAction()
                     var
-                        LpagePurchOrder: Page "Purchase Order";
                         LrecPurchOrder: Record "Purchase Header";
+                        LpagePurchOrder: Page "Purchase Order";
                     begin
                         LrecPurchOrder.RESET();
                         LrecPurchOrder.SETRANGE("Document Type", "Document Type"::Order);

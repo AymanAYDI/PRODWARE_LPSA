@@ -71,8 +71,8 @@ table 8073300 "PWD Sales Header Buffer"
 
             trigger OnValidate()
             var
-                RecLSalesLineBuffer: Record "PWD Sales Line Buffer";
                 RecLSalesCommentLineBuffer: Record "PWD Sales Comment Line Buffer";
+                RecLSalesLineBuffer: Record "PWD Sales Line Buffer";
             begin
                 RecLSalesLineBuffer.SetCurrentKey("Document Type", "Document No.");
                 RecLSalesLineBuffer.SetRange("Document Type", "Document Type");
@@ -138,9 +138,9 @@ table 8073300 "PWD Sales Header Buffer"
 
     trigger OnDelete()
     var
-        CduLBufferManagement: Codeunit "PWD Buffer Management";
-        RecLSalesLineBuffer: Record "PWD Sales Line Buffer";
         RecLSalesCommentLineBuffer: Record "PWD Sales Comment Line Buffer";
+        RecLSalesLineBuffer: Record "PWD Sales Line Buffer";
+        CduLBufferManagement: Codeunit "PWD Buffer Management";
     begin
         CduLBufferManagement.FctDeleteBufferLine(DATABASE::"PWD PEB Sales Header Buffer", "Entry No.");
         CduLBufferManagement.FctDeleteBufferLine(DATABASE::"PWD WMS Sales Header Buffer", "Entry No.");

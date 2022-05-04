@@ -762,110 +762,110 @@ report 50014 "PWD Invoice"
     end;
 
     var
-        Text000: Label 'Your contact : ';
-        Text001: Label 'Total %1';
-        Text003: Label 'COPY';
-        Text006: Label 'Total %1 Excl. VAT';
-        GLSetup: Record "General Ledger Setup";
-        ShipmentMethod: Record "Shipment Method";
-        PaymentTerms: Record "Payment Terms";
-        SalesPurchPerson: Record "Salesperson/Purchaser";
         CompanyInfo: Record "Company Information";
         CompanyInfo1: Record "Company Information";
         CompanyInfo2: Record "Company Information";
-        SalesSetup: Record "Sales & Receivables Setup";
         Cust: Record Customer;
-        VATAmountLine: Record "VAT Amount Line" temporary;
         //TODO: Table 'Posted Document Dimension' is missing
         //PostedDocDim1: Record "Posted Document Dimension";
         DimSetEntry1: Record "Dimension Set Entry";
+        GLSetup: Record "General Ledger Setup";
+        Item: Record Item;
+        ItemCrossRef: Record "Item Cross Reference";
+        ItemLedgEntry: Record "Item Ledger Entry";
+        TempItemLedgEntry: Record "Item Ledger Entry";
+        PaymentTerms: Record "Payment Terms";
         RespCenter: Record "Responsibility Center";
-        Language: Codeunit Language;
-        SalesInvCountPrinted: Codeunit "Sales Inv.-Printed";
-        FormatAddr: Codeunit "Format Address";
-        LPSAFunctionsMgt: codeunit "PWD LPSA Functions Mgt.";
-        SegManagement: Codeunit SegManagement;
+        SalesSetup: Record "Sales & Receivables Setup";
+        SalesPurchPerson: Record "Salesperson/Purchaser";
         SalesShipmentBuffer: Record "Sales Shipment Buffer" temporary;
-        PostedShipmentDate: Date;
-        CustAddr: array[8] of Text[50];
-        ShipToAddr: array[8] of Text[50];
-        CompanyAddr: array[8] of Text[50];
-        OrderNoText: Text[80];
-        SalesPersonText: Text[30];
-        VATNoText: Text[80];
-        ReferenceText: Text[80];
-        TotalText: Text[50];
-        TotalExclVATText: Text[50];
-        TotalInclVATText: Text[50];
-        MoreLines: Boolean;
-        NoOfCopies: Integer;
-        NoOfLoops: Integer;
-        CopyText: Text[30];
-        ShowShippingAddr: Boolean;
-        i: Integer;
-        FirstValueEntryNo: Integer;
-        ShowInternalInfo: Boolean;
+        ShipmentMethod: Record "Shipment Method";
+        ValueEntry: Record "Value Entry";
+        ValueEntryRelation: Record "Value Entry Relation";
+        VATAmountLine: Record "VAT Amount Line" temporary;
+        FormatAddr: Codeunit "Format Address";
+        Language: Codeunit Language;
+        LPSAFunctionsMgt: codeunit "PWD LPSA Functions Mgt.";
+        SalesInvCountPrinted: Codeunit "Sales Inv.-Printed";
+        SegManagement: Codeunit SegManagement;
+        AfficherligneComptegeneral: Boolean;
+        BooGEnvoiMail: Boolean;
+        BooGSkipSendEmail: Boolean;
         LogInteraction: Boolean;
-        OutputNo: Integer;
-        TotalSubTotal: Decimal;
+        [InDataSet]
+        LogInteractionEnable: Boolean;
+        MoreLines: Boolean;
+        ShowInternalInfo: Boolean;
+        ShowShippingAddr: Boolean;
+        CrossReferenceNo: Code[20];
+        CustName: Code[20];
+        PostedShipmentDate: Date;
+        GetTotalAmount: Decimal;
+        GetTotalAmountIncVAT: Decimal;
+        GetTotalInvDiscAmount: Decimal;
+        GetTotalLineAmount: Decimal;
         TotalAmount: Decimal;
         TotalAmountInclVAT: Decimal;
         TotalAmountVAT: Decimal;
         TotalInvoiceDiscountAmount: Decimal;
         TotalPaymentDiscountOnVAT: Decimal;
-        Item: Record Item;
-        GetTotalLineAmount: Decimal;
-        GetTotalInvDiscAmount: Decimal;
-        GetTotalAmount: Decimal;
-        GetTotalAmountIncVAT: Decimal;
-        [InDataSet]
-        LogInteractionEnable: Boolean;
-        BSContact: Text[50];
-        CustName: Code[20];
+        TotalSubTotal: Decimal;
+        FirstValueEntryNo: Integer;
+        i: Integer;
+        IntGImpText: Integer;
+        NoOfCopies: Integer;
+        NoOfLoops: Integer;
+        OutputNo: Integer;
+        CompanyInfo_Bank_Account_No_captionLbl: Label 'Bank Account';
+        CompanyInfo_Bank_Branch_No_captionLbl: Label 'Bank Code';
+        CompanyInfo_Bank_Name_captionLbl: Label 'Bank Name';
+        CompanyInfo_IBAN_captionLbl: Label 'IBAN Code';
+        CompanyInfo_SWIF__Code_captionLbl: Label 'SWIFT/BIC Code';
+        CstG012: Label '%1 VAT';
+        CstG013: Label 'Origine non préférentielle: Les marchandises auxquelles se rapporte le présent document commercial sont originaires de Suisse selon les dispositions des articles 9 à 16 de l''ordonnance du 9 avril 2008 sur l''attestation de l''origine non préférentielle des marchandises (OOr) et de l''ordonnance du DEFR du 9 avril 2008 sur l''attestation de l''origine non préférentielle des marchandises (OOr-DEFR).La marchandise a été produite par notre entreprise.L''auteur de la présente déclaration d''origine a pris connaissance du fait que l''indication inexacte de l''origine selon les art. 9 ss OOr et les art. 2 ss OOr-DEFR entraîne des mesures de droit administratif et des poursuites pénales.';
+        CstG014: Label 'Origine préférentielle: Nous attestons par la présente que les marchandises susmentionnées, sont originaires de Suisse et satisfont aux règles d''origine régissant les échanges préférentiels avec CE, AELE, SACU, AL, CA CL, CO EG, FO, HR, HK, IL, JO, JP, KR, LB, ME, MK, MA, MX, PE, RS, SG, TN, TR, UA, CN, CR, PA, GCC. Peut être complétée, selon les cas avec :Aucun cumul appliqué (no cumulation applied) / " PSR " : fabriqué en Suisse ou en Chine en utilisant des matières non originaires et remplissant les " Products Specific Rules " et autres conditions du chapitre 3 de l''accord de libre-échange avec la Chine (suffisamment ouvré).';
+        Facture_captionLbl: Label 'Invoice';
+        Inv__Discount_Amount_CaptionLbl: Label 'Discount';
+        PostedShipmentDateCaptionLbl: Label 'Posted Shipment Date';
+        Sales_Header___Sell_to_Customer_No__CaptionLbl: Label 'Customer No. :  ';
+        Sales_Header_Document_Date_captionLbl: Label 'Your Document Date: ';
+        Sales_Header_No_captionLbl: Label 'Document No. : ';
+        Sales_Header_VAT_Registration_No_captionLbl: Label 'VAT Registration No. : ';
+        Sales_Header_Your_Contact_captionLbl: Label 'Your Contact: ';
+        Sales_Header_Your_Ref_captionLbl: Label 'Your Document No. :  ';
+        Sales_Invoice_Line__Line_Discount___CaptionLbl: Label 'Disc. %';
+        Sales_Invoice_Line__No__CaptionLbl: Label 'No.';
+        Sales_Invoice_Line__Unit_of_Measure_CaptionLbl: Label 'Unit';
+        Sales_Invoice_Line_Description_Control65CaptionLbl: Label 'Description';
+        SubtotalCaptionLbl: Label 'Subtotal';
+        Text000: Label 'Your contact : ';
+        Text001: Label 'Total %1';
+        Text003: Label 'COPY';
+        Text006: Label 'Total %1 Excl. VAT';
         Text011: Label 'Payment terms   %1';
         Text012: Label 'Due Date';
         Text013: Label 'Amount';
         Text014: Label 'LPSA No.';
-        ValueEntryRelation: Record "Value Entry Relation";
-        ValueEntry: Record "Value Entry";
-        ItemLedgEntry: Record "Item Ledger Entry";
-        TempItemLedgEntry: Record "Item Ledger Entry";
         Text015: Label 'Your Item Ref.';
         Text016: Label 'You Pan No.';
-        ItemCrossRef: Record "Item Cross Reference";
-        CrossReferenceNo: Code[20];
         Text017: Label 'VAT';
         Text018: Label 'of';
-        TxTGLabelCondPay: Text[250];
-        AfficherligneComptegeneral: Boolean;
-        CstG012: Label '%1 VAT';
-        TxtGCustPlanNo_C: Text[100];
-        CstG013: Label 'Origine non préférentielle: Les marchandises auxquelles se rapporte le présent document commercial sont originaires de Suisse selon les dispositions des articles 9 à 16 de l''ordonnance du 9 avril 2008 sur l''attestation de l''origine non préférentielle des marchandises (OOr) et de l''ordonnance du DEFR du 9 avril 2008 sur l''attestation de l''origine non préférentielle des marchandises (OOr-DEFR).La marchandise a été produite par notre entreprise.L''auteur de la présente déclaration d''origine a pris connaissance du fait que l''indication inexacte de l''origine selon les art. 9 ss OOr et les art. 2 ss OOr-DEFR entraîne des mesures de droit administratif et des poursuites pénales.';
-        CstG014: Label 'Origine préférentielle: Nous attestons par la présente que les marchandises susmentionnées, sont originaires de Suisse et satisfont aux règles d''origine régissant les échanges préférentiels avec CE, AELE, SACU, AL, CA CL, CO EG, FO, HR, HK, IL, JO, JP, KR, LB, ME, MK, MA, MX, PE, RS, SG, TN, TR, UA, CN, CR, PA, GCC. Peut être complétée, selon les cas avec :Aucun cumul appliqué (no cumulation applied) / " PSR " : fabriqué en Suisse ou en Chine en utilisant des matières non originaires et remplissant les " Products Specific Rules " et autres conditions du chapitre 3 de l''accord de libre-échange avec la Chine (suffisamment ouvré).';
-        IntGImpText: Integer;
-        BooGEnvoiMail: Boolean;
-        BooGSkipSendEmail: Boolean;
-        Facture_captionLbl: Label 'Invoice';
-        Sales_Header_No_captionLbl: Label 'Document No. : ';
-        Sales_Header___Sell_to_Customer_No__CaptionLbl: Label 'Customer No. :  ';
-        Sales_Header_VAT_Registration_No_captionLbl: Label 'VAT Registration No. : ';
-        Sales_Header_Your_Contact_captionLbl: Label 'Your Contact: ';
-        Sales_Header_Your_Ref_captionLbl: Label 'Your Document No. :  ';
-        Sales_Header_Document_Date_captionLbl: Label 'Your Document Date: ';
-        Sales_Invoice_Line__No__CaptionLbl: Label 'No.';
-        Sales_Invoice_Line_Description_Control65CaptionLbl: Label 'Description';
-        Sales_Invoice_Line__Unit_of_Measure_CaptionLbl: Label 'Unit';
-        Unit_PriceCaptionLbl: Label 'Unit Price';
-        Sales_Invoice_Line__Line_Discount___CaptionLbl: Label 'Disc. %';
-        PostedShipmentDateCaptionLbl: Label 'Posted Shipment Date';
-        Inv__Discount_Amount_CaptionLbl: Label 'Discount';
-        SubtotalCaptionLbl: Label 'Subtotal';
         TotalExclVATTextLbl: Label 'Net Amount';
-        CompanyInfo_SWIF__Code_captionLbl: Label 'SWIFT/BIC Code';
-        CompanyInfo_IBAN_captionLbl: Label 'IBAN Code';
-        CompanyInfo_Bank_Branch_No_captionLbl: Label 'Bank Code';
-        CompanyInfo_Bank_Account_No_captionLbl: Label 'Bank Account';
-        CompanyInfo_Bank_Name_captionLbl: Label 'Bank Name';
+        Unit_PriceCaptionLbl: Label 'Unit Price';
+        CopyText: Text[30];
+        SalesPersonText: Text[30];
+        BSContact: Text[50];
+        CompanyAddr: array[8] of Text[50];
+        CustAddr: array[8] of Text[50];
+        ShipToAddr: array[8] of Text[50];
+        TotalExclVATText: Text[50];
+        TotalInclVATText: Text[50];
+        TotalText: Text[50];
+        OrderNoText: Text[80];
+        ReferenceText: Text[80];
+        VATNoText: Text[80];
+        TxtGCustPlanNo_C: Text[100];
+        TxTGLabelCondPay: Text[250];
 
 
     procedure SearchLot()
@@ -920,19 +920,19 @@ report 50014 "PWD Invoice"
 
     procedure SendPDFMail(var RecPSalesInvoiceHeader: Record "Sales Invoice Header")
     var
+        RepLSalesInvoice: Report "PWD Invoice";
+        CodLMail: Codeunit Mail;
         CstL001: Label 'LA PIERRETTE SA : Sales Invoice %1';
         CstL002: Label 'Next the invoice following your order %1';
         Recipient: Text[80];
-        CodLMail: Codeunit Mail;
-        Subject: Text[100];
         Body: Text[100];
+        Subject: Text[100];
         //TODO: Codeunit '3-Tier Automation Mgt.' is missing
         //CduLTierAutomationMgt: Codeunit "3-Tier Automation Mgt.";
         TxtLFileName: Text[250];
         TxtLServerFile: Text[250];
-        RepLSalesInvoice: Report "PWD Invoice";
     begin
-                //TODO: Codeunit '3-Tier Automation Mgt.' is missing
+        //TODO: Codeunit '3-Tier Automation Mgt.' is missing
         //TxtLServerFile := CduLTierAutomationMgt.ServerTempFileName('', '');
         RepLSalesInvoice.SkipSendEmail(true);
         RepLSalesInvoice.SetTableView(RecPSalesInvoiceHeader);
@@ -964,7 +964,7 @@ report 50014 "PWD Invoice"
         TxtLFileName := StrSubstNo('FACTURE N° %1.pdf', RecPSalesInvoiceHeader."No.");
         TxtLFileName := DownloadToClientFileName(TxtLServerFile, TxtLFileName);
         //Open E-Mail
-        CodLMail.NewMessage(Recipient, '','', Subject, Body, TxtLFileName, true);
+        CodLMail.NewMessage(Recipient, '', '', Subject, Body, TxtLFileName, true);
 
     end;
 
@@ -973,16 +973,16 @@ report 50014 "PWD Invoice"
     var
         TxtLClientFileName: Text[250];
         TxtLFinalClientFileName: Text[250];
-        //TODO:'Automation' is not recognized as a valid type
-        //AutLFileObjectSystem: Automation;
-                //TODO: Codeunit '3-Tier Automation Mgt.' is missing
-        //CduLTierAutomationMgt: Codeunit "3-Tier Automation Mgt.";
+    //TODO:'Automation' is not recognized as a valid type
+    //AutLFileObjectSystem: Automation;
+    //TODO: Codeunit '3-Tier Automation Mgt.' is missing
+    //CduLTierAutomationMgt: Codeunit "3-Tier Automation Mgt.";
     begin
-                //TODO: Codeunit '3-Tier Automation Mgt.' is missing
+        //TODO: Codeunit '3-Tier Automation Mgt.' is missing
         // TxtLClientFileName := CduLTierAutomationMgt.ClientTempFileName('', '');
         // TxtLFinalClientFileName := CduLTierAutomationMgt.Path(TxtLClientFileName) + TxtPFileName;
         Download(TxtPServerFile, '', '', '', TxtLClientFileName);
-                //TODO:'Automation' is not recognized as a valid type
+        //TODO:'Automation' is not recognized as a valid type
         // Create(AutLFileObjectSystem, false, true);
         // if AutLFileObjectSystem.FileExists(TxtLFinalClientFileName) then
         //     AutLFileObjectSystem.DeleteFile(TxtLFinalClientFileName, true);

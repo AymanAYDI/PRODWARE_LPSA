@@ -28,9 +28,9 @@ codeunit 8073297 "Connector Fields Management"
     end;
 
     var
-        TxtGValue: Text[250];
-        TxtGFctName: Text[100];
         RecGRecRef: RecordRef;
+        TxtGFctName: Text[100];
+        TxtGValue: Text[250];
 
 
     procedure FctGiveOldValue(TxtPOldValue: Text[250]; TxtPFctName: Text[100]; RecPRecRef: RecordRef)
@@ -61,8 +61,8 @@ codeunit 8073297 "Connector Fields Management"
 
     procedure FctSNSpecTrack()
     var
-        FldRef: FieldRef;
         RecLItemTrackingCode: Record "Item Tracking Code";
+        FldRef: FieldRef;
         BooLReturn: Boolean;
     begin
         BooLReturn := false;
@@ -77,8 +77,8 @@ codeunit 8073297 "Connector Fields Management"
 
     procedure FctManExp()
     var
-        FldRef: FieldRef;
         RecLItemTrackingCode: Record "Item Tracking Code";
+        FldRef: FieldRef;
     begin
         FldRef := RecGRecRef.Field(6500);
         if RecLItemTrackingCode.Get(FldRef.Value) then

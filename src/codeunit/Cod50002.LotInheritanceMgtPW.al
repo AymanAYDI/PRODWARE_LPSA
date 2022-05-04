@@ -18,15 +18,15 @@ codeunit 50002 "PWD Lot Inheritance Mgt.PW"
     end;
 
     var
+        gExtLocationCode: Code[10];
+        gExtVariantCode: Code[10];
+        gExtBincode: Code[20];
+        gExtItemNo: Code[20];
+        gExtSerialNo: Code[20];
         CstG001: Label 'At Component %1 (From the same Lot) different Lots are available.';
         CstG002: Label 'You cannot change the Lot Inheritance/Expiration Determination of Prod. Order Component %1, because there exists at least one Item Ledger Entry associated with it.';
         CstG003: Label 'At Component %1 (From the same Lot) different Lots are available.';
         CstG004: Label 'You must enter only one Item Tracking Line.';
-        gExtItemNo: Code[20];
-        gExtVariantCode: Code[10];
-        gExtSerialNo: Code[20];
-        gExtLocationCode: Code[10];
-        gExtBincode: Code[20];
         gctxErr0006: Label 'Source Type %1 is not supported.';
         gctxMsg0002: Label 'Lot Inheritance: It is not possible to inherit the lot of the lot determining component to the item of the related product, because posted entries exist.';
 
@@ -57,19 +57,19 @@ codeunit 50002 "PWD Lot Inheritance Mgt.PW"
 
     local procedure CheckBOMLotInheritanceOnLevel(var pioProdBOMLine: Record "Production BOM Line"; var pioNeededHits: Integer; piActualItem: Code[20]; piSearchFor: Option Determining,DetermAllSet,FromSameLotAllSet; piSet: Boolean): Boolean
     var
-        Level: Integer;
-        VersionCode: array[99] of Code[10];
-        ProdBOMLine: array[99] of Record "Production BOM Line";
-        NoList: array[99] of Code[20];
-        NoListType: array[99] of Option Item,"Production BOM";
-        StopLoop: Boolean;
-        NoNext: Boolean;
-        ItemUpperLevel: Record Item;
-        NextLevel: Integer;
         ItemComp: Record Item;
+        ItemUpperLevel: Record Item;
         ProdBOMHeader: Record "Production BOM Header";
+        ProdBOMLine: array[99] of Record "Production BOM Line";
         ProdBOMVersion: array[99] of Record "Production BOM Version";
+        NoNext: Boolean;
         SearchInVersions: array[99] of Boolean;
+        StopLoop: Boolean;
+        VersionCode: array[99] of Code[10];
+        NoList: array[99] of Code[20];
+        Level: Integer;
+        NextLevel: Integer;
+        NoListType: array[99] of Option Item,"Production BOM";
     begin
         Level := 1;
 
@@ -232,10 +232,10 @@ codeunit 50002 "PWD Lot Inheritance Mgt.PW"
 
     procedure GetLotDeterminingData(var pioItemJnlLine: Record "Item Journal Line"; var poLotDetLotCode: Code[30]; var poLotDetExpirDate: Date)
     var
-        ProdOrderComp: Record "Prod. Order Component";
+        ItemJnlLine: Record "Item Journal Line";
         ItemLedgEntry: Record "Item Ledger Entry";
         TempItemLedgEntry: Record "Item Ledger Entry" temporary;
-        ItemJnlLine: Record "Item Journal Line";
+        ProdOrderComp: Record "Prod. Order Component";
         ReservEntry: Record "Reservation Entry";
         totalQty: Decimal;
     begin
@@ -463,18 +463,18 @@ codeunit 50002 "PWD Lot Inheritance Mgt.PW"
     var
         Item: Record Item;
         OutputJnlLine: Record "Item Journal Line";
-        TrackingSpecification: Record "Tracking Specification";
-        TempTrackingSpecification: Record "Tracking Specification" temporary;
-        ReservEntry: Record "Reservation Entry";
-        ProdOrderLine: Record "Prod. Order Line";
         ProdOrderComp: Record "Prod. Order Component";
+        ProdOrderLine: Record "Prod. Order Line";
         ProdOrderRtngLine: Record "Prod. Order Routing Line";
+        ReservEntry: Record "Reservation Entry";
+        TempTrackingSpecification: Record "Tracking Specification" temporary;
+        TrackingSpecification: Record "Tracking Specification";
         cuReserveItemJnlLine: Codeunit "Item Jnl. Line-Reserve";
-        LotDetLotCode: Code[30];
-        LotDetExpirDate: Date;
+        FrmItemTrackingForm: Page "Item Tracking Lines";
         OutputFound: Boolean;
         Stop: Boolean;
-        FrmItemTrackingForm: Page "Item Tracking Lines";
+        LotDetLotCode: Code[30];
+        LotDetExpirDate: Date;
     begin
         //  locales manquantes
         // LSSetup                     Record                    Table5060454
@@ -658,9 +658,9 @@ codeunit 50002 "PWD Lot Inheritance Mgt.PW"
 
     procedure GetLotDeterminingDataPOL(var pioProdOrderLine: Record "Prod. Order Line"; var poLotDetLotCode: Code[30]; var poLotDetExpirDate: Date)
     var
-        ProdOrderComp: Record "Prod. Order Component";
         ItemLedgEntry: Record "Item Ledger Entry";
         TempItemLedgEntry: Record "Item Ledger Entry" temporary;
+        ProdOrderComp: Record "Prod. Order Component";
         ReservEntry: Record "Reservation Entry";
         totalQty: Decimal;
     begin
@@ -812,30 +812,30 @@ codeunit 50002 "PWD Lot Inheritance Mgt.PW"
     procedure CheckItemTrackingAssignment(piSourceType: Integer; piSourceSubtype: Integer; piSourceID: Code[20]; piSourceBatchName: Code[10]; piSourceProdOrderLine: Integer; piSourceRefNo: Integer; piLotNumber: Code[20]; piTradingUnitNumber: Code[20]; piLotTradingUnitNumber: Code[40]; piSerialNo: Code[20]; piShowError: Boolean): Boolean
     var
         Customer: Record Customer;
-        SalesHeader: Record "Sales Header";
-        SalesLine: Record "Sales Line";
-        ReqLine: Record "Requisition Line";
-        PurchLine: Record "Purchase Line";
         ItemJnlLine: Record "Item Journal Line";
-        ProdOrderLine: Record "Prod. Order Line";
-        ProdOrderComp: Record "Prod. Order Component";
-        PlanningComp: Record "Planning Component";
-        TransferLine: Record "Transfer Line";
-        ServiceLine: Record "Service Line";
         TestItemJnlLine: Record "Item Journal Line";
         ItemTrackingCode: Record "Item Tracking Code";
+        ItemTrackingSetup: Record "Item Tracking Setup";
+        PlanningComp: Record "Planning Component";
+        ProdOrderComp: Record "Prod. Order Component";
+        ProdOrderLine: Record "Prod. Order Line";
+        PurchLine: Record "Purchase Line";
+        ReqLine: Record "Requisition Line";
+        SalesHeader: Record "Sales Header";
+        SalesLine: Record "Sales Line";
+        ServiceLine: Record "Service Line";
+        TransferLine: Record "Transfer Line";
         cuItemTrackingMgt: Codeunit "Item Tracking Management";
-        SNRequired: Boolean;
-        SNInfoRequired: Boolean;
-        LotRequired: Boolean;
-        LotInfoRequired: Boolean;
-        PlannedDelivDate: Date;
-        ShipmentDate: Date;
         CheckDates: Boolean;
         CheckStatus: Boolean;
-        CustomerNo: Code[20];
+        LotInfoRequired: Boolean;
+        LotRequired: Boolean;
+        SNInfoRequired: Boolean;
+        SNRequired: Boolean;
         CountryCode: Code[10];
-        ItemTrackingSetup: Record "Item Tracking Setup";
+        CustomerNo: Code[20];
+        PlannedDelivDate: Date;
+        ShipmentDate: Date;
     begin
         // manque locales
         //InvPostPerm           Record     Inventory Posting Permission
@@ -1184,14 +1184,14 @@ codeunit 50002 "PWD Lot Inheritance Mgt.PW"
 
     procedure AutoCreatePOLTracking(var pioProdOrderLine: Record "Prod. Order Line")
     var
-        TrackingSpecification: Record "Tracking Specification";
-        LotDetLotCode: Code[30];
-        LotDetExpirDate: Date;
-        cuReserveProdOrderLine: Codeunit "Prod. Order Line-Reserve";
         Item: Record Item;
         TempTrackingSpecification: Record "Tracking Specification" temporary;
+        TrackingSpecification: Record "Tracking Specification";
+        cuReserveProdOrderLine: Codeunit "Prod. Order Line-Reserve";
         cuTradingUnitMgt: Codeunit "PWD Trading Unit Mgt.PW";
         frmItemTrackingForm: Page "Item Tracking Lines";
+        LotDetLotCode: Code[30];
+        LotDetExpirDate: Date;
     begin
         WITH pioProdOrderLine DO BEGIN
             Item.GET("Item No.");
@@ -1243,9 +1243,9 @@ codeunit 50002 "PWD Lot Inheritance Mgt.PW"
 
     procedure CheckItemDetermined(RecPItem: Record Item): Boolean
     var
-        NeededHits: Integer;
         RecLProdBOM: Record "Production BOM Header";
         RecLProdBOMLine: Record "Production BOM Line";
+        NeededHits: Integer;
     begin
         IF RecLProdBOM.GET(RecPItem."Production BOM No.") THEN BEGIN
             NeededHits := 0;
@@ -1270,14 +1270,14 @@ codeunit 50002 "PWD Lot Inheritance Mgt.PW"
 
     procedure AutoCreatePlanLineTracking(var pioReqLine: Record "Requisition Line")
     var
-        TrackingSpecification: Record "Tracking Specification";
-        LotDetLotCode: Code[30];
-        LotDetExpirDate: Date;
-        cuReserveReqLine: Codeunit "Req. Line-Reserve";
         Item: Record Item;
         TempTrackingSpecification: Record "Tracking Specification" temporary;
+        TrackingSpecification: Record "Tracking Specification";
         cuTradingUnitMgt: Codeunit "PWD Trading Unit Mgt.PW";
+        cuReserveReqLine: Codeunit "Req. Line-Reserve";
         FrmItemTrackingForm: Page "Item Tracking Lines";
+        LotDetLotCode: Code[30];
+        LotDetExpirDate: Date;
     begin
         WITH pioReqLine DO BEGIN
             IF (Type <> Type::Item) OR ("No." = '') THEN
@@ -1326,9 +1326,9 @@ codeunit 50002 "PWD Lot Inheritance Mgt.PW"
 
     procedure GetLotDeterminingDataPlanLine(var pioReqLine: Record "Requisition Line"; var poLotDetLotCode: Code[30]; var poLotDetExpirDate: Date)
     var
+        LotNoInfo: Record "Lot No. Information";
         PlanningComponent: Record "Planning Component";
         ReservEntry: Record "Reservation Entry";
-        LotNoInfo: Record "Lot No. Information";
     begin
         poLotDetLotCode := '';
         poLotDetExpirDate := 0D;
@@ -1391,14 +1391,14 @@ codeunit 50002 "PWD Lot Inheritance Mgt.PW"
 
     procedure AutoCreatePOLTrackingPWD(var pioProdOrderLine: Record "Prod. Order Line"; DecPQty: Decimal)
     var
-        TrackingSpecification: Record "Tracking Specification";
-        LotDetLotCode: Code[30];
-        LotDetExpirDate: Date;
-        cuReserveProdOrderLine: Codeunit "Prod. Order Line-Reserve";
         Item: Record Item;
         TempTrackingSpecification: Record "Tracking Specification" temporary;
+        TrackingSpecification: Record "Tracking Specification";
+        cuReserveProdOrderLine: Codeunit "Prod. Order Line-Reserve";
         cuTradingUnitMgt: Codeunit "PWD Trading Unit Mgt.PW";
         FrmItemTrackingForm: Page "Item Tracking Lines";
+        LotDetLotCode: Code[30];
+        LotDetExpirDate: Date;
     begin
         WITH pioProdOrderLine DO BEGIN
             Item.GET("Item No.");

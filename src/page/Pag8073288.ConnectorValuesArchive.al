@@ -94,11 +94,10 @@ page 8073288 "PWD Connector Values Archive"
                     CduLFileManagement: Codeunit "File Management";
                 begin
                     CALCFIELDS(Blob);
-                    IF Rec.Blob.HASVALUE THEN BEGIN
+                    IF Rec.Blob.HASVALUE THEN
                         Blob.CREATEINSTREAM(InsGStream);
-                        //TODO: le Codeunit "File Management" ne contient pas la definition de la procedure 'FctShowBlobAsWindow'
-                        //CduLFileManagement.FctShowBlobAsWindow(InsGStream)
-                    END;
+                    //TODO: le Codeunit "File Management" ne contient pas la definition de la procedure 'FctShowBlobAsWindow'
+                    //CduLFileManagement.FctShowBlobAsWindow(InsGStream)
                 end;
             }
         }

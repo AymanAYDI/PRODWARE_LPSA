@@ -1,4 +1,4 @@
-pageextension 50036 "PWD WorkCenterTaskList" extends "Work Center Task List"
+pageextension 60152 "PWD WorkCenterTaskList" extends "Work Center Task List"
 {
     layout
     {

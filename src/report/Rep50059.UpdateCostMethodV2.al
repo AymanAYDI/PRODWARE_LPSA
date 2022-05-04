@@ -236,10 +236,9 @@ report 50059 "PWD Update Cost Method V2"
     end;
 
     var
+        RecGItemTrackingCode: Record "Item Tracking Code";
+        RecGItemConfigurator: Record "PWD Item Configurator";
         ItemCostMgt: Codeunit ItemCostManagement;
-        OptGReplenishmentSystem: Option Purchased,Manufactured,Both;
-        OptCostMethForPurchasedItem: Option FIFO,LIFO,Specifique,Moyen,Standard;
-        OptCostMethForManufacturedItem: Option FIFO,LIFO,Specifique,Moyen,Standard;
         CstG001: Label 'Pour les articles acheté (filtrage %1), voulez vous forcer le mode évaluation de stock à %2 ?';
         CstG002: Label 'Pour les articles fabriqué (filtrage %1), voulez vous forcer le mode évaluation de stock à %2 ?';
         CstG003: Label 'Pour les articles acheté (filtrage %1), voulez vous forcer le mode évaluation de stock à %2 et pour les articles fabriqué (filtrage %3), voulez vous forcer le mode évaluation de stock à %4?';
@@ -249,9 +248,10 @@ report 50059 "PWD Update Cost Method V2"
         CstG007: Label 'Merci de saisir un filtrage article pour les articles achetés et fabriqués';
         CstG008: Label 'Attention le stock n''est pas à 0 pour au moins un des articles à traiter.\Traitement annulé !';
         CstG009: Label 'Traitement terminé !';
-        RecGItemTrackingCode: Record "Item Tracking Code";
         CstG010: Label 'L''article %1 doit être avec un code traçabilté série pour passer en mode évaluation de stock spécifique.';
-        RecGItemConfigurator: Record "PWD Item Configurator";
         CstG011: Label 'Please note that the specific costing method should only apply to items using serial numbers.';
+        OptCostMethForManufacturedItem: Option FIFO,LIFO,Specifique,Moyen,Standard;
+        OptCostMethForPurchasedItem: Option FIFO,LIFO,Specifique,Moyen,Standard;
+        OptGReplenishmentSystem: Option Purchased,Manufactured,Both;
 }
 

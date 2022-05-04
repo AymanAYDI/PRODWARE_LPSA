@@ -17,15 +17,15 @@ report 50029 "Create Item Config. from Item"
 
             trigger OnAfterGetRecord()
             var
+                RecLDefaultDimension: Record "Default Dimension";
                 RecLInventorySetup: Record "Inventory Setup";
                 RecLItemCrossReference: Record "Item Cross Reference";
                 BooLCreateItemCrossRef: Boolean;
+                CodLFilterToCompare: Code[20];
                 CodLFilter: Code[250];
+                IntLLoop: Integer;
                 IntLPipePosition: Integer;
                 IntLStringLenght: Integer;
-                CodLFilterToCompare: Code[20];
-                IntLLoop: Integer;
-                RecLDefaultDimension: Record "Default Dimension";
             begin
                 BDialog.Update(1, IntGCounter);
                 IntGCounter -= 1;
@@ -48,7 +48,7 @@ report 50029 "Create Item Config. from Item"
                 RecGItemConfigurator."Location Code" := Item."Location Code";
                 RecGItemConfigurator."Bin Code" := Item."Shelf No.";
                 RecGItemConfigurator.Validate("Item Category Code", Item."Item Category Code");
-                                //TODO:Field 'Product Group Code' is removed.
+                //TODO:Field 'Product Group Code' is removed.
                 //RecGItemConfigurator."Product Group Code" := Item."Product Group Code";
                 RecGItemConfigurator."Dimension 1 Code" := Item."Global Dimension 1 Code";
                 RecGItemConfigurator."Dimension 2 Code" := Item."Global Dimension 2 Code";
@@ -170,11 +170,11 @@ report 50029 "Create Item Config. from Item"
     }
 
     var
-        RecGItemConfigurator: Record "PWD Item Configurator";
-        CstG001: Label 'Merci de spécifier un code magasin pour le filtrage';
         RecGFamilyLPSA: Record "PWD Family LPSA";
+        RecGItemConfigurator: Record "PWD Item Configurator";
         RecGSubFamilyLPSA: Record "PWD SubFamily LPSA";
         BDialog: Dialog;
         IntGCounter: Integer;
+        CstG001: Label 'Merci de spécifier un code magasin pour le filtrage';
 }
 

@@ -152,8 +152,8 @@ page 8073300 "PWD Sales Header Buffer"
 
                     trigger OnAction()
                     var
-                        CduLBufferManagement: Codeunit "PWD Buffer Management";
                         RecLSalesHeaderBuffer: Record "PWD Sales Header Buffer";
+                        CduLBufferManagement: Codeunit "PWD Buffer Management";
                     begin
                         CurrPage.SETSELECTIONFILTER(RecLSalesHeaderBuffer);
                         CduLBufferManagement.FctPurgeSalesHeader(RecLSalesHeaderBuffer);
@@ -180,7 +180,7 @@ page 8073300 "PWD Sales Header Buffer"
                     Caption = 'Show Sales Line Buffer';
                     RunObject = Page "PWD Sales Line Buffer";
                     RunPageLink = "Document Type" = FIELD("Document Type"), "Document No." = FIELD("Document No.");
-                    RunPageView = SORTING("Document Type", "Document No.");  
+                    RunPageView = SORTING("Document Type", "Document No.");
                     ApplicationArea = All;
                 }
                 action(Action1100294039)

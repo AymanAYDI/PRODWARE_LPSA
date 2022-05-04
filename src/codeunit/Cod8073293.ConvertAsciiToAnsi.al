@@ -24,10 +24,10 @@ codeunit 8073293 "PWD Convert Ascii To Ansi"
     end;
 
     var
+        Found: Boolean;
         Translations: array[88, 2] of Char;
         i: Integer;
         pos: Integer;
-        Found: Boolean;
 
 
     procedure AsciiToAnsi(var TextAscii: Text[250]) TextAnsi: Text[250]

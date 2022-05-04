@@ -40,8 +40,8 @@ codeunit 8073320 "Connector Sabatier Parse Data"
     var
         CduGConnectBufMgtExport: Codeunit "Connector Buffer Mgt Export";
         CduGBufferManagement: Codeunit "PWD Buffer Management";
-        OptGFlowType: Option " ","Import Connector","Export Connector";
         IntGSequenceNo: Integer;
+        OptGFlowType: Option " ","Import Connector","Export Connector";
 
 
     procedure FctProcessImport(var RecPConnectorValues: Record "PWD Connector Values")
@@ -57,16 +57,16 @@ codeunit 8073320 "Connector Sabatier Parse Data"
 
     procedure FctProcessExport(RecPConnectorMessages: Record "PWD Connector Messages")
     var
-        TempBlob: Codeunit "Temp Blob";
-        RecLPartnerConnector: Record "PWD Partner Connector";
         RecLConnectorValues: Record "PWD Connector Values";
-        BigTLToReturn: BigText;
+        RecLPartnerConnector: Record "PWD Partner Connector";
         CduLBufferMgt: Codeunit "PWD Buffer Management";
-        InLStream: InStream;
         CduLFileManagement: Codeunit "PWD File Management";
-        TxtLFile: Text[1024];
-        BooLResult: Boolean;
+        TempBlob: Codeunit "Temp Blob";
+        BigTLToReturn: BigText;
         RecLRef: RecordRef;
+        BooLResult: Boolean;
+        InLStream: InStream;
+        TxtLFile: Text[1024];
     begin
         CLEAR(BigTLToReturn);
         CLEAR(IntGSequenceNo);
@@ -87,7 +87,7 @@ codeunit 8073320 "Connector Sabatier Parse Data"
         END;
         //TODO:'Codeunit "Temp Blob"' does not contain a definition for 'CALCFIELDS'
         //TempBlob.CALCFIELDS(Blob);
-        IF TempBlob.HASVALUE THEN BEGIN
+        IF TempBlob.HASVALUE() THEN BEGIN
             TempBlob.CREATEINSTREAM(InLStream);
             IntGSequenceNo := CduLBufferMgt.FctCreateBufferValues(InLStream, RecPConnectorMessages."Partner Code", '',
                                                                   RecPConnectorMessages.Code,

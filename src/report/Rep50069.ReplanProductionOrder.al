@@ -44,15 +44,15 @@ report 50069 "PWD Replan Production Order"
                             if Direction = Direction::Forward then begin
                                 "Starting Date" := "Prod. Order Line"."Starting Date";
                                 "Starting Time" := "Prod. Order Line"."Starting Time";
-                                Modify;
+                                Modify();
                             end else begin
                                 "Ending Date" := "Prod. Order Line"."Ending Date";
                                 "Ending Time" := "Prod. Order Line"."Ending Time";
-                                Modify;
+                                Modify();
                             end;
                             CalcProdOrderRtngLine.CalculateRoutingLine("Prod. Order Routing Line", Direction, true);
                         end;
-                        Modify;
+                        Modify();
                     end;
 
                     trigger OnPostDataItem()
@@ -76,24 +76,24 @@ report 50069 "PWD Replan Production Order"
 
                     trigger OnAfterGetRecord()
                     var
-                        SKU: Record "Stockkeeping Unit" temporary;
-                        StockkeepingUnit: Record "Stockkeeping Unit";
                         CompItem: Record Item;
+                        ProdOrderLine: Record "Prod. Order Line";
                         MainProdOrder: Record "Production Order";
                         ProdOrder: Record "Production Order";
-                        ProdOrderLine: Record "Prod. Order Line";
+                        SKU: Record "Stockkeeping Unit" temporary;
+                        StockkeepingUnit: Record "Stockkeeping Unit";
                         AvailabilityMgt: Codeunit "Available Management";
                         CreateProdOrderLines: Codeunit "Create Prod. Order Lines";
-                        GetPlanningParameters: Codeunit "Planning-Get Parameters";
                         InvtProfileOffsetting: Codeunit "Inventory Profile Offsetting";
-                        ReqQty: Decimal;
-                        WithInventory: Boolean;
-                        UpdateProdOrder: Boolean;
+                        GetPlanningParameters: Codeunit "Planning-Get Parameters";
                         IsHandled: Boolean;
+                        UpdateProdOrder: Boolean;
+                        WithInventory: Boolean;
+                        ReqQty: Decimal;
                     begin
                         BlockDynamicTracking(true);
                         Validate("Routing Link Code");
-                        Modify;
+                        Modify();
 
                         CalcFields("Reserved Qty. (Base)");
                         if "Reserved Qty. (Base)" = "Remaining Qty. (Base)" then
@@ -142,8 +142,8 @@ report 50069 "PWD Replan Production Order"
                             ProdOrder."Replan Ref. Status" := MainProdOrder."Replan Ref. Status";
                             ProdOrder.Insert(true);
 
-                            ProdOrder."Starting Date" := WorkDate;
-                            ProdOrder."Creation Date" := WorkDate;
+                            ProdOrder."Starting Date" := WorkDate();
+                            ProdOrder."Creation Date" := WorkDate();
                             ProdOrder."Starting Time" := MfgSetup."Normal Starting Time";
                             ProdOrder."Ending Time" := MfgSetup."Normal Ending Time";
                             ProdOrder."Due Date" := "Due Date";
@@ -164,7 +164,7 @@ report 50069 "PWD Replan Production Order"
                             ProdOrderLine.SetRange("Prod. Order No.", ProdOrder."No.");
                             ProdOrderLine.Find('-');
 
-                            Modify;
+                            Modify();
                             ProdOrderLine.Modify();
 
                             ProdOrderLine.SetRange(Status, Status);
@@ -176,7 +176,7 @@ report 50069 "PWD Replan Production Order"
                                     CalcProdOrder.Recalculate(ProdOrderLine, 1, true);
                                 until ProdOrderLine.Next() = 0;
 
-                            Modify;
+                            Modify();
                         end;
                         ReservMgt.SetReservSource("Prod. Order Component");
                         ReservMgt.AutoTrack("Remaining Qty. (Base)");
@@ -197,7 +197,7 @@ report 50069 "PWD Replan Production Order"
                         CalcProdOrder.BlockDynamicTracking(true);
                         CalcProdOrder.Recalculate("Prod. Order Line", Direction, true);
 
-                        Modify;
+                        Modify();
                     end else
                         ProdOrderRouteMgt.Calculate("Prod. Order Line");
                 end;
@@ -214,10 +214,10 @@ report 50069 "PWD Replan Production Order"
                 if "Replan Ref. No." = '' then begin
                     "Replan Ref. No." := "No.";
                     "Replan Ref. Status" := Status;
-                    Modify;
+                    Modify();
                 end;
                 if First then begin
-                    Reset;
+                    Reset();
                     SetRange("Replan Ref. No.", "Replan Ref. No.");
                     SetRange("Replan Ref. Status", "Replan Ref. Status");
                     First := false;
@@ -296,18 +296,18 @@ report 50069 "PWD Replan Production Order"
     end;
 
     var
-        Text000: Label 'Replanning Production Orders...\\';
-        Text001: Label 'Status         #1##########\';
-        Text002: Label 'No.            #2##########';
         MfgSetup: Record "Manufacturing Setup";
         CalcProdOrder: Codeunit "Calculate Prod. Order";
         CreateProdOrderLines: Codeunit "Create Prod. Order Lines";
         ReservMgt: Codeunit "Reservation Management";
         UOMMgt: Codeunit "Unit of Measure Management";
+        First: Boolean;
         Window: Dialog;
+        Text000: Label 'Replanning Production Orders...\\';
+        Text001: Label 'Status         #1##########\';
+        Text002: Label 'No.            #2##########';
         Direction: Option Forward,Backward;
         CalcMethod: Option "No Levels","One level","All levels";
-        First: Boolean;
 
     procedure InitializeRequest(NewDirection: Option; NewCalcMethod: Option)
     begin
@@ -329,10 +329,10 @@ report 50069 "PWD Replan Production Order"
 
         ProdOrderComponent.SetRange(Status, ProdOrder.Status);
         ProdOrderComponent.SetRange("Prod. Order No.", ProdOrder."No.");
-        if ProdOrderComponent.FindSet then
+        if ProdOrderComponent.FindSet() then
             repeat
                 ProdOrder.SetRange("Source No.", ProdOrderComponent."Item No.");
-                if ProdOrder.FindFirst then begin
+                if ProdOrder.FindFirst() then begin
                     if AllLevels then
                         DeleteProdOrders(ProdOrder, LowLevelCode + 1, AllLevels);
                     ProdOrder.Delete(true);

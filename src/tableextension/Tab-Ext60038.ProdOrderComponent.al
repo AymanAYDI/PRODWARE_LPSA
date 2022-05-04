@@ -35,8 +35,8 @@ tableextension 60038 "PWD ProdOrderComponent" extends "Prod. Order Component"
 
             trigger OnValidate()
             var
-                ProdOrderComp: Record "Prod. Order Component";
                 Item: Record Item;
+                ProdOrderComp: Record "Prod. Order Component";
             begin
 
                 IF "PWD Lot Determining" THEN BEGIN
@@ -95,17 +95,17 @@ tableextension 60038 "PWD ProdOrderComponent" extends "Prod. Order Component"
 
     procedure UpdateReserveItemPhantom()
     var
+        Item: Record Item;
         TempReservEntry: Record "Reservation Entry" temporary;
         RecLTrackingSpec: Record "Tracking Specification" temporary;
         RecLTrackingSpecPhantom: Record "Tracking Specification Phantom";
-        CurrentSignFactor: Decimal;
         ItemTrackingDataCollection: Codeunit "Item Tracking Data Collection";
-        ChangeType: Option Insert,Modify,FullDelete,PartDelete,ModifyAll;
-        QtyToAddAsBlank: Decimal;
-        Item: Record Item;
-        ReservEngineMgt: Codeunit "Reservation Engine Mgt.";
         ReserveProdOrderComp: Codeunit "Prod. Order Comp.-Reserve";
         LPSAFunctionsMgt: Codeunit "PWD LPSA Functions Mgt.";
+        ReservEngineMgt: Codeunit "Reservation Engine Mgt.";
+        CurrentSignFactor: Decimal;
+        QtyToAddAsBlank: Decimal;
+        ChangeType: Option Insert,Modify,FullDelete,PartDelete,ModifyAll;
     begin
         CurrentSignFactor := 1;
         Item.GET("Item No.");
@@ -162,12 +162,12 @@ tableextension 60038 "PWD ProdOrderComponent" extends "Prod. Order Component"
     local procedure RegisterChange(var OldTrackingSpecification: Record "Tracking Specification"; var NewTrackingSpecification: Record "Tracking Specification"; ChangeType: Option Insert,Modify,FullDelete,PartDelete,ModifyAll; ModifySharedFields: Boolean; CurrentSignFactor: Decimal; var TempReservEntry: Record "Reservation Entry"; QtyToAddAsBlank: Decimal) OK: Boolean
     var
         ReservEntry1: Record "Reservation Entry";
+        TempItemTrackLineReserv: Record "Tracking Specification" temporary;
         CreateReservEntry: Codeunit "Create Reserv. Entry";
+        ReservEngineMgt: Codeunit "Reservation Engine Mgt.";
         AvailabilityDate: Date;
         LostReservQty: Decimal;
-        TempItemTrackLineReserv: Record "Tracking Specification" temporary;
         CurrentEntryStatus: Option Reservation,Tracking,Surplus,Prospect;
-        ReservEngineMgt: Codeunit "Reservation Engine Mgt.";
     begin
         OK := FALSE;
         //TODO: La procedure SetPick n'existe pas dans le codeunit "Reservation Engine Mgt."
@@ -256,12 +256,12 @@ tableextension 60038 "PWD ProdOrderComponent" extends "Prod. Order Component"
     local procedure SetQtyToHandleAndInvoice(TrackingSpecification: Record "Tracking Specification"; CurrentSignFactor: Decimal; IsCorrection: Boolean) OK: Boolean
     var
         ReservEntry1: Record "Reservation Entry";
-        TotalQtyToHandle: Decimal;
-        TotalQtyToInvoice: Decimal;
+        ItemTrackingMgt: Codeunit "Item Tracking Management";
         QtyAlreadyHandledToInvoice: Decimal;
         QtyToHandleThisLine: Decimal;
         QtyToInvoiceThisLine: Decimal;
-        ItemTrackingMgt: Codeunit "Item Tracking Management";
+        TotalQtyToHandle: Decimal;
+        TotalQtyToInvoice: Decimal;
     begin
         //>>FE_LAPRIERRETTE_GP0003 : APA 16/05/2013
 
@@ -360,12 +360,12 @@ tableextension 60038 "PWD ProdOrderComponent" extends "Prod. Order Component"
     procedure CheckComponentAvailabilty() IsNotAvailable: Boolean
     var
         CompItem: Record Item;
-        RemainingQty: Decimal;
+        TempProdOrderComp: Record "Prod. Order Component" temporary;
+        TempProdOrderLine: Record "Prod. Order Line" temporary;
+        RecLProdOrder: Record "Production Order";
         NeededQty: Decimal;
         QtyOnHandAfterProd: Decimal;
-        TempProdOrderLine: Record "Prod. Order Line" temporary;
-        TempProdOrderComp: Record "Prod. Order Component" temporary;
-        RecLProdOrder: Record "Production Order";
+        RemainingQty: Decimal;
     begin
         //>>LAP.TDL.09/10/2014 :
         //>>Based on Report 99000788
@@ -569,9 +569,9 @@ tableextension 60038 "PWD ProdOrderComponent" extends "Prod. Order Component"
     END;
 
     var
+        Item: Record Item;
+        ReservEntry: Record "Reservation Entry";
         CstG001: Label '%1: Component %2 is already set to %3.';
         CstG002: Label '%1: Component %2 is already set to %3.';
-        ReservEntry: Record "Reservation Entry";
-        Item: Record Item;
 }
 

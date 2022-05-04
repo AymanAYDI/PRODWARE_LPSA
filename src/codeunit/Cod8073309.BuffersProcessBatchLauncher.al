@@ -26,7 +26,7 @@ codeunit 8073309 "Buffers Process Batch Launcher"
         Clear(RecLRef);
         RecLRef.Open(DATABASE::"PWD Receipt Line Buffer");
         CduLBuffersProcessBatch.FctInit(RecLRef);
-        if CduLBuffersProcessBatch.Run then;
+        if CduLBuffersProcessBatch.Run() then;
         RecLRef.Close();
 
         Commit();
@@ -34,7 +34,7 @@ codeunit 8073309 "Buffers Process Batch Launcher"
         Clear(RecLRef);
         RecLRef.Open(DATABASE::"PWD Customer Buffer");
         CduLBuffersProcessBatch.FctInit(RecLRef);
-        if CduLBuffersProcessBatch.Run then;
+        if CduLBuffersProcessBatch.Run() then;
         RecLRef.Close();
 
         Commit();
@@ -42,7 +42,7 @@ codeunit 8073309 "Buffers Process Batch Launcher"
         Clear(RecLRef);
         RecLRef.Open(DATABASE::"PWD Sales Header Buffer");
         CduLBuffersProcessBatch.FctInit(RecLRef);
-        if CduLBuffersProcessBatch.Run then;
+        if CduLBuffersProcessBatch.Run() then;
         RecLRef.Close();
 
         Commit();
@@ -50,7 +50,7 @@ codeunit 8073309 "Buffers Process Batch Launcher"
         Clear(RecLRef);
         RecLRef.Open(DATABASE::"PWD Item Jounal Line Buffer");
         CduLBuffersProcessBatch.FctInit(RecLRef);
-        if CduLBuffersProcessBatch.Run then;
+        if CduLBuffersProcessBatch.Run() then;
         RecLRef.Close();
 
         Commit();
@@ -58,7 +58,7 @@ codeunit 8073309 "Buffers Process Batch Launcher"
         Clear(RecLRef);
         RecLRef.Open(DATABASE::"PWD Sales Line Buffer");
         CduLBuffersProcessBatch.FctInit(RecLRef);
-        if CduLBuffersProcessBatch.Run then;
+        if CduLBuffersProcessBatch.Run() then;
         RecLRef.Close();
     end;
 }

@@ -16,9 +16,9 @@ codeunit 8073301 "PWD File Import"
     trigger OnRun()
     var
         RecLRecevingMessage: Record "PWD Connector Messages";
+        RecLConnectorValues: Record "PWD Connector Values";
         CduLConnectorErrorlog: Codeunit "PWD Connector Error log";
         CduLFileMessagesImport: Codeunit "Transform Import Files To Blob";
-        RecLConnectorValues: Record "PWD Connector Values";
     begin
         RecLRecevingMessage.Reset();
         RecLRecevingMessage.SetRange("Partner Code", Code);

@@ -61,9 +61,9 @@ table 50001 "PWD Item Configurator"
 
             trigger OnLookup()
             var
+                RecLDimensionValue: Record "Dimension Value";
                 RecLGeneralLedgerSetup: Record "General Ledger Setup";
                 PgeLDimensionValueList: Page "Dimension Value List";
-                RecLDimensionValue: Record "Dimension Value";
             begin
                 RecLGeneralLedgerSetup.Get();
                 Clear(PgeLDimensionValueList);

@@ -110,16 +110,16 @@ xmlport 8073325 "PWD Items Export OSYS"
 
     procedure FctInitXML(): Boolean
     var
-        CduLConnectorBufferMgtExport: Codeunit "Connector Buffer Mgt Export";
         RecLItem: Record Item;
         RecLItem2: Record Item;
         RecLItemVariant: Record "Item Variant";
         RecLItemVariant2: Record "Item Variant";
         RecLOSYSSetup: Record "PWD OSYS Setup";
+        CduLConnectorBufferMgtExport: Codeunit "Connector Buffer Mgt Export";
         RecordRef: RecordRef;
         RecordRef2: RecordRef;
-        IntLSequenceNo: Integer;
         BooLResult: Boolean;
+        IntLSequenceNo: Integer;
         IntLTrackingType: Integer;
     begin
         BooLResult := true;
@@ -205,8 +205,8 @@ xmlport 8073325 "PWD Items Export OSYS"
 
     local procedure FctGetItemQtyPer(CodPItemNo: Code[20]; CodPUOM: Code[10]): Decimal
     var
-        DecLQtyPer: Decimal;
         RecLItemUnitOfMeasure: Record "Item Unit of Measure";
+        DecLQtyPer: Decimal;
     begin
         if RecLItemUnitOfMeasure.Get(CodPItemNo, CodPUOM) then
             DecLQtyPer := RecLItemUnitOfMeasure."Qty. per Unit of Measure";
@@ -223,9 +223,9 @@ xmlport 8073325 "PWD Items Export OSYS"
     var
         RecLItem: Record Item;
         RecLItemTrackingCode: Record "Item Tracking Code";
-        IntLTrackingType: Integer;
-        BooLSNTracking: Boolean;
         BooLLotTracking: Boolean;
+        BooLSNTracking: Boolean;
+        IntLTrackingType: Integer;
     begin
         if RecLItem.Get(CodPItemNo) then
             if RecLItemTrackingCode.Get(RecLItem."Item Tracking Code") then begin

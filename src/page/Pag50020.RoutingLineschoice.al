@@ -207,11 +207,11 @@ page 50020 "PWD Routing Lines choice"
     procedure GetSelectionFilter(): Code[80]
     var
         RL: Record "Routing Line";
-        FirstRL: Text[20];
-        LastRL: Text[20];
+        More: Boolean;
         SelectionFilter: Code[80];
         RLCount: Integer;
-        More: Boolean;
+        FirstRL: Text[20];
+        LastRL: Text[20];
     begin
         CurrPage.SETSELECTIONFILTER(RL);
         //RL.SETCURRENTKEY("No.");

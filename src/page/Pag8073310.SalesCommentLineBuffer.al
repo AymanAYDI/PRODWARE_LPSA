@@ -124,8 +124,8 @@ page 8073310 "PWD Sales Comment Line Buffer"
 
                     trigger OnAction()
                     var
-                        CduLBufferManagement: Codeunit "PWD Buffer Management";
                         RecLSalesHeaderBuffer: Record "PWD Sales Header Buffer";
+                        CduLBufferManagement: Codeunit "PWD Buffer Management";
                     begin
                         CurrPage.SETSELECTIONFILTER(RecLSalesHeaderBuffer);
                         CduLBufferManagement.FctPurgeSalesHeader(RecLSalesHeaderBuffer);

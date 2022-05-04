@@ -20,7 +20,7 @@ report 50072 "PWD VAT - VIES Declaration XML"
             column(FORMAT_TODAY_0_4_; Format(Today, 0, 4))
             {
             }
-            column(COMPANYNAME; COMPANYPROPERTY.DisplayName)
+            column(COMPANYNAME; COMPANYPROPERTY.DisplayName())
             {
             }
             column(RepPeriodFrom; Format(RepPeriodFrom))
@@ -79,13 +79,12 @@ report 50072 "PWD VAT - VIES Declaration XML"
             begin
                 Clear(VATRegNo);
                 if "VAT Registration No." = '' then begin
-                    if Customer."No." <> "Bill-to/Pay-to No." then begin
+                    if Customer."No." <> "Bill-to/Pay-to No." then
                         if not Customer.Get("Bill-to/Pay-to No.") then
                             Clear(Customer)
                         else
                             if Customer."VAT Registration No." = '' then
                                 Error(Text014, Customer."No.", Customer.Name);
-                    end;
                     VATRegNo := Customer."VAT Registration No."
                 end else
                     VATRegNo := "VAT Registration No.";
@@ -151,7 +150,7 @@ report 50072 "PWD VAT - VIES Declaration XML"
             trigger OnAfterGetRecord()
             begin
                 if Number > 1 then
-                    tempVATEntry.Next;
+                    tempVATEntry.Next();
 
                 if Customer."No." <> tempVATEntry."Bill-to/Pay-to No." then
                     if not Customer.Get(tempVATEntry."Bill-to/Pay-to No.") then
@@ -200,8 +199,8 @@ report 50072 "PWD VAT - VIES Declaration XML"
 
             trigger OnAfterGetRecord()
             var
-                VATRegNo: Text[20];
                 Counter: Integer;
+                VATRegNo: Text[20];
             begin
                 if AmountsInReportCurrency then
                     Sum := tempVATEntry."Additional-Currency Base"
@@ -211,7 +210,7 @@ report 50072 "PWD VAT - VIES Declaration XML"
                 ColNo := GetColumnNo(tempVATEntry);
                 TotalSum[ColNo] += Sum;
 
-                if tempVATEntry.Next <> 0 then begin
+                if tempVATEntry.Next() <> 0 then begin
                     if tempVATEntry."VAT Registration No." <> VATRegNo then begin
                         for Counter := 1 to 3 do
                             if TotalSum[Counter] <> 0 then
@@ -228,16 +227,16 @@ report 50072 "PWD VAT - VIES Declaration XML"
             trigger OnPostDataItem()
             begin
                 if NoOfRecs > 0 then
-                    WriteXMLFooter;
+                    WriteXMLFooter();
             end;
 
             trigger OnPreDataItem()
             begin
                 if not tempVATEntry.Find('-') then
                     CurrReport.Break();
-                WriteXMLHeader;
+                WriteXMLHeader();
                 SetRange(Number, 1, tempVATEntry.Count);
-                WriteXMLGeneral;
+                WriteXMLGeneral();
                 Clear(TotalSum);
             end;
         }
@@ -332,14 +331,12 @@ report 50072 "PWD VAT - VIES Declaration XML"
 
         ServerFileName := FileManagement.ServerTempFileName('xml');
 
-        if Reportingtype = Reportingtype::"Normal transmission" then begin
+        if Reportingtype = Reportingtype::"Normal transmission" then
             if Reportingdate <> 0D then
                 Error(Text002);
-        end;
-        if Reportingtype = Reportingtype::"Recall of an earlier report" then begin
+        if Reportingtype = Reportingtype::"Recall of an earlier report" then
             if Reportingdate = 0D then
                 Error(Text003);
-        end;
         if NoSeries.Code = '' then
             Error(Text1160004);
 
@@ -357,6 +354,37 @@ report 50072 "PWD VAT - VIES Declaration XML"
     end;
 
     var
+        CompanyInfo: Record "Company Information";
+        Customer: Record Customer;
+        NoSeries: Record "No. Series";
+        tempVATEntry: Record "VAT Entry" temporary;
+        VATReportSetup: Record "VAT Report Setup";
+        FileManagement: Codeunit "File Management";
+        NoSeriesMgt: Codeunit NoSeriesManagement;
+        AmountsInReportCurrency: Boolean;
+        GesamtrueckDone: Boolean;
+        PaketNr: Code[9];
+        Reportingdate: Date;
+        RepPeriodFrom: Date;
+        RepPeriodTo: Date;
+        "Sum": Decimal;
+        SumPrn: Decimal;
+        TotalSum: array[3] of Decimal;
+        XMLFile: File;
+        ColNo: Integer;
+        NoOfRecs: Integer;
+        Customer_NameCaptionLbl: Label 'Customer Name';
+        FilterCaptionLbl: Label 'Filter';
+        IntegerCaptionLbl: Label 'Integer';
+        PaketNrCaptionLbl: Label 'Package No.';
+        Reportingperiod_fromCaptionLbl: Label 'Reporting period from';
+        Reportingperiod_toCaptionLbl: Label 'Reporting period to';
+        SumPrn_Control1160019CaptionLbl: Label 'Base amount EU 3-Party Trade';
+        SumPrn_EUServiceCaptionLbl: Label 'Base amount EU Service';
+        SumPrnCaptionLbl: Label 'Base amount';
+        tempVATEntry__Bill_to_Pay_to_No__CaptionLbl: Label 'Customer No.';
+        tempVATEntry__Country_Region_Code_CaptionLbl: Label 'Country Code';
+        tempVATEntry__VAT_Registration_No__CaptionLbl: Label 'UID';
         Text000: Label 'Recall of an earlier report';
         Text002: Label 'Reportingdate must be empty, if marking is "Normal transmission".';
         Text003: Label 'Reportingdate must not be empty, if marking is "recall of an earlier report".';
@@ -365,44 +393,13 @@ report 50072 "PWD VAT - VIES Declaration XML"
         Text1160006: Label 'The No. Series %1 has not 9 digits.';
         Text1160007: Label 'The No. Series should only contain numbers.';
         TextExportFileName: Label 'ZM_jjjj_Qnn.xml';
-        Customer: Record Customer;
-        CompanyInfo: Record "Company Information";
-        VATReportSetup: Record "VAT Report Setup";
-        tempVATEntry: Record "VAT Entry" temporary;
-        NoSeries: Record "No. Series";
-        NoSeriesMgt: Codeunit NoSeriesManagement;
-        FileManagement: Codeunit "File Management";
-        XMLFile: File;
-        "Filter": Text;
-        VATRegNo: Text[20];
-        ServerFileName: Text;
-        FileName: Text;
-        RepPeriodFrom: Date;
-        RepPeriodTo: Date;
-        Reportingdate: Date;
-        NoOfRecs: Integer;
-        TotalSum: array[3] of Decimal;
-        "Sum": Decimal;
-        SumPrn: Decimal;
-        Reportingtype: Option "Normal transmission","Recall of an earlier report";
-        PaketNr: Code[9];
-        AmountsInReportCurrency: Boolean;
-        GesamtrueckDone: Boolean;
-        VAT__VIES_Declaration_DiskCaptionLbl: Label 'VAT- VIES Declaration Disk';
-        Reportingperiod_fromCaptionLbl: Label 'Reporting period from';
-        Reportingperiod_toCaptionLbl: Label 'Reporting period to';
-        FilterCaptionLbl: Label 'Filter';
-        PaketNrCaptionLbl: Label 'Package No.';
-        SumPrn_EUServiceCaptionLbl: Label 'Base amount EU Service';
-        SumPrn_Control1160019CaptionLbl: Label 'Base amount EU 3-Party Trade';
-        SumPrnCaptionLbl: Label 'Base amount';
-        Customer_NameCaptionLbl: Label 'Customer Name';
-        tempVATEntry__Bill_to_Pay_to_No__CaptionLbl: Label 'Customer No.';
-        tempVATEntry__VAT_Registration_No__CaptionLbl: Label 'UID';
-        tempVATEntry__Country_Region_Code_CaptionLbl: Label 'Country Code';
-        IntegerCaptionLbl: Label 'Integer';
         TotalSumCaptionLbl: Label 'Total';
-        ColNo: Integer;
+        VAT__VIES_Declaration_DiskCaptionLbl: Label 'VAT- VIES Declaration Disk';
+        Reportingtype: Option "Normal transmission","Recall of an earlier report";
+        FileName: Text;
+        "Filter": Text;
+        ServerFileName: Text;
+        VATRegNo: Text[20];
 
     [Scope('OnPrem')]
     procedure WriteXMLHeader()
@@ -439,7 +436,7 @@ report 50072 "PWD VAT - VIES Declaration XML"
         XMLFile.Write(
           StrSubstNo('<FASTNR>%1%2</FASTNR>', CompanyInfo."Tax Office Number", DelChr(CompanyInfo."Registration No.", '=', '-/ '))
           );
-        XMLFile.Write(StrSubstNo('<KUNDENINFO>%1</KUNDENINFO>', DelChr(Format(DelChr(GetCompanyName, '<>', ' '), 20), '<>', ' ')));
+        XMLFile.Write(StrSubstNo('<KUNDENINFO>%1</KUNDENINFO>', DelChr(Format(DelChr(GetCompanyName(), '<>', ' '), 20), '<>', ' ')));
         XMLFile.Write('</ALLGEMEINE_DATEN>');
     end;
 

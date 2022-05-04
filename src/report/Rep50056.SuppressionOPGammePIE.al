@@ -112,14 +112,14 @@ report 50056 "PWD Suppression OP Gamme PIE"
     end;
 
     var
-        BDialog: Dialog;
-        IntGCounter: Integer;
+        CodGOperationToCheck: Code[20];
         CodGOperationToDel: Code[20];
         CodGStartOperation: Code[20];
+        BDialog: Dialog;
+        IntGCounter: Integer;
         CstG001: Label 'Dans les gammes PIE (Filtrage %3), voulez vous supprimer l''opération %1 si elle suit l''opération %2 ?';
         CstG002: Label 'Traitement annulé !';
         CstG003: Label 'Merci de saisir 2 opérations.';
         CstG004: Label 'MAJ Ligne Gammes PIE (Filtrage N°:PIE*),\\Enregistrements restants #1##############';
-        CodGOperationToCheck: Code[20];
 }
 

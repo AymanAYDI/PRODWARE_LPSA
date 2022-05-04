@@ -23,10 +23,10 @@ report 50082 "PWD UPDATE COST"
 
                         trigger OnAfterGetRecord()
                         var
-                            RecLRoutingLine: Record "Routing Line";
-                            RecMachine: Record "Machine Center";
-                            RecWOrk: Record "Work Center";
                             RecLItem: Record Item;
+                            RecMachine: Record "Machine Center";
+                            RecLRoutingLine: Record "Routing Line";
+                            RecWOrk: Record "Work Center";
                         begin
                             RecLItem.Get("Production Order"."Source No.");
                             if not RecLItem.Blocked then begin
@@ -123,7 +123,7 @@ report 50082 "PWD UPDATE COST"
     }
 
     var
-        IntG: Integer;
         RecGIJL: Record "Item Journal Line";
+        IntG: Integer;
 }
 

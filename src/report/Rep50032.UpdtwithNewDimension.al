@@ -527,21 +527,21 @@ report 50032 "PWD Updt with New Dimension"
 
     var
         ItemStatisticsBuffer: Record "Item Statistics Buffer";
-        DateFilter: Text[30];
         DimensionCode: Code[150];
+        Window: Dialog;
         CstTxt000: Label 'Un axe est obligatoire.';
         CstTxt001: Label 'Un filtre date est obligatoire.';
-        Window: Dialog;
         CstTxt002: Label 'Traitement tables #1#################\\';
         CstTxt003: Label 'Document             #2#################';
-        CstTxt004: Label 'Update Finished.'; 
+        CstTxt004: Label 'Update Finished.';
         CstTxt005: Label 'Mise à jour Axe #3############### de l''article #4##################\';
+        DateFilter: Text[30];
 
 
     procedure UpdtLdgrEntryDimension(TableNo: Integer; EntryNo: Integer)
     var
         LdgrEntryDimension: Record "Ledger Entry Dimension";
-        //DimSetEntry: Record "Dimension Set Entry";
+    //DimSetEntry: Record "Dimension Set Entry";
     begin
         LdgrEntryDimension."Table ID" := TableNo;
         LdgrEntryDimension."Entry No." := EntryNo;

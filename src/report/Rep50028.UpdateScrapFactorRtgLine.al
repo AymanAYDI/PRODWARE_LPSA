@@ -21,22 +21,22 @@ report 50028 "Update Scrap Factor Rtg Line"
 
             trigger OnAfterGetRecord()
             var
-                DateTime: DateTime;
-                RecLProductionOrder: Record "Production Order";
-                RecLProdOrderLine: Record "Prod. Order Line";
-                RecLProdOrderComponent: Record "Prod. Order Component";
-                RepLRefreshProdOrder: Report "Refresh Production Order";
-                ______: Integer;
-                Item: Record Item;
-                ProdOrderLine: Record "Prod. Order Line";
-                ProdOrderRtngLine: Record "Prod. Order Routing Line";
-                ProdOrderComp: Record "Prod. Order Component";
                 Family: Record Family;
+                Item: Record Item;
+                ProdOrderComp: Record "Prod. Order Component";
+                RecLProdOrderComponent: Record "Prod. Order Component";
+                ProdOrderLine: Record "Prod. Order Line";
+                RecLProdOrderLine: Record "Prod. Order Line";
+                ProdOrderRtngLine: Record "Prod. Order Routing Line";
+                RecLProductionOrder: Record "Production Order";
+                RecLRoutingHeader: Record "Routing Header";
+                RepLRefreshProdOrder: Report "Refresh Production Order";
+                CalcProdOrder: Codeunit "Calculate Prod. Order";
+                CreateProdOrderLines: Codeunit "Create Prod. Order Lines";
                 ProdOrderStatusMgt: Codeunit "Prod. Order Status Management";
                 RoutingNo: Code[20];
-                CreateProdOrderLines: Codeunit "Create Prod. Order Lines";
-                CalcProdOrder: Codeunit "Calculate Prod. Order";
-                RecLRoutingHeader: Record "Routing Header";
+                DateTime: DateTime;
+                ______: Integer;
             begin
                 Bdialog.Update(1, IntGCounter);
 
@@ -319,11 +319,11 @@ report 50028 "Update Scrap Factor Rtg Line"
             var
                 RecLProdOrderLine: Record "Prod. Order Line";
                 RecLProdOrder: Record "Production Order";
-                RepLReplanProductionOrder: Report "Replan Production Order";
                 RecLRoutingLine: Record "Routing Line";
+                RepLReplanProductionOrder: Report "Replan Production Order";
+                DecLNewQtyGet: Decimal;
                 Direction: Option Forward,Backward;
                 CalcMethod: Option "No Levels","One level","All levels";
-                DecLNewQtyGet: Decimal;
             begin
                 Bdialog.Update(1, IntGCounter);
 
@@ -436,10 +436,10 @@ report 50028 "Update Scrap Factor Rtg Line"
                             RecLRoutingLines.SetRange("Routing No.", CodGRoutingHeader);
                             PagLRoutingLines.SetTableView(RecLRoutingLines);
                             PagLRoutingLines.LookupMode(true);
-                            if not (PagLRoutingLines.RunModal = ACTION::LookupOK) then
+                            if not (PagLRoutingLines.RunModal() = ACTION::LookupOK) then
                                 exit(false)
                             else begin
-                                Text := PagLRoutingLines.GetSelectionFilter;
+                                Text := PagLRoutingLines.GetSelectionFilter();
                                 exit(true);
                             end;
                         end;
@@ -477,23 +477,23 @@ report 50028 "Update Scrap Factor Rtg Line"
     }
 
     var
-        Stat: Option New,Certified,"Under Development",Closed;
+        RecGProductionOrder: Record "Production Order";
         RecGRoutingHeader: Record "Routing Header";
-        TxtG002: Label 'Updated finished.';
         RecGRoutingVersion: Record "Routing Version";
-        CodGRoutingHeader: Code[20];
-        CodGOperationNo: Code[150];
-        CstL001: Label 'The reference routing is not ''TT_OPE_PIE'', do you want to continue ?';
-        TxtG004: Label 'Sauvegarde terminée.';
-        CodGPrevCode: Code[20];
-        TxtG005: Label 'Calcul de la quantité obtenue terminée.';
-        OptGStep: Option "Step1: Mémorisation qté composant","Step2: MAJ % perte sur Gamme","Step3: Calcul de la quantité obtenue";
-        Bdialog: Dialog;
-        IntGCounter: Integer;
-        Direction: Option Forward,Backward;
+        CalcComponents: Boolean;
         CalcLines: Boolean;
         CalcRoutings: Boolean;
-        CalcComponents: Boolean;
-        RecGProductionOrder: Record "Production Order";
+        CodGPrevCode: Code[20];
+        CodGRoutingHeader: Code[20];
+        CodGOperationNo: Code[150];
+        Bdialog: Dialog;
+        IntGCounter: Integer;
+        CstL001: Label 'The reference routing is not ''TT_OPE_PIE'', do you want to continue ?';
+        TxtG002: Label 'Updated finished.';
+        TxtG004: Label 'Sauvegarde terminée.';
+        TxtG005: Label 'Calcul de la quantité obtenue terminée.';
+        Direction: Option Forward,Backward;
+        Stat: Option New,Certified,"Under Development",Closed;
+        OptGStep: Option "Step1: Mémorisation qté composant","Step2: MAJ % perte sur Gamme","Step3: Calcul de la quantité obtenue";
 }
 

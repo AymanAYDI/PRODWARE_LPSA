@@ -36,13 +36,13 @@ pageextension 60136 "PWD ProdOrderComponents" extends "Prod. Order Components"
                 trigger OnAction()
                 begin
                     // >> FE_LAPRIERRETTE_GP0003 : APA 16/05/13
-                    CurrPage.SAVERECORD;
+                    CurrPage.SAVERECORD();
 
-                    ShowItemSubPhantom;
+                    ShowItemSubPhantom();
 
                     CurrPage.UPDATE(TRUE);
 
-                    UpdateReserveItemPhantom;
+                    UpdateReserveItemPhantom();
 
                     // << FE_LAPRIERRETTE_GP0003 : APA 16/05/13
                 end;

@@ -21,52 +21,47 @@ codeunit 8073299 "Buffer Tracking Management 2"
     end;
 
     var
-        xTempItemTrackingLine: Record "Tracking Specification" temporary;
-        TotalItemTrackingLine: Record "Tracking Specification";
-        TempItemTrackLineInsert: Record "Tracking Specification" temporary;
-        TempItemTrackLineModify: Record "Tracking Specification" temporary;
-        TempItemTrackLineDelete: Record "Tracking Specification" temporary;
-        TempItemTrackLineReserv: Record "Tracking Specification" temporary;
         Item: Record Item;
         ItemTrackingCode: Record "Item Tracking Code";
+        PurchLineNC: Record "Purchase Line";
         TempReservEntry: Record "Reservation Entry" temporary;
-        NoSeriesMgt: Codeunit NoSeriesManagement;
-        ItemTrackingMgt: Codeunit "Item Tracking Management";
-        ReservEngineMgt: Codeunit "Reservation Engine Mgt.";
+        SalesLineNC: Record "Sales Line";
+        Rec: Record "Tracking Specification" temporary;
+        TempItemTrackLineDelete: Record "Tracking Specification" temporary;
+        TempItemTrackLineInsert: Record "Tracking Specification" temporary;
+        TempItemTrackLineModify: Record "Tracking Specification" temporary;
+        TempItemTrackLineReserv: Record "Tracking Specification" temporary;
+        TotalItemTrackingLine: Record "Tracking Specification";
+        xTempItemTrackingLine: Record "Tracking Specification" temporary;
+        TransferLineNC: Record "Transfer Line";
+        WhseReceiptLineNC: Record "Warehouse Receipt Line";
+        WhseShptLineNC: Record "Warehouse Shipment Line";
         ItemTrackingDataCollection: Codeunit "Item Tracking Data Collection";
-        UndefinedQtyArray: array[3] of Decimal;
-        SourceQuantityArray: array[5] of Decimal;
-        QtyPerUOM: Decimal;
-        QtyToAddAsBlank: Decimal;
-        CurrentSignFactor: Integer;
-        LastEntryNo: Integer;
-        ColorOfQuantityArray: array[3] of Integer;
-        CurrentSourceType: Integer;
+        ItemTrackingMgt: Codeunit "Item Tracking Management";
+        NoSeriesMgt: Codeunit NoSeriesManagement;
+        ReservEngineMgt: Codeunit "Reservation Engine Mgt.";
+        BlockCommit: Boolean;
+        CalledFromSynchWhseItemTrkg: Boolean;
+        CurrentFormIsOpen: Boolean;
+        DeleteIsBlocked: Boolean;
+        Inbound: Boolean;
+        InsertIsBlocked: Boolean;
+        IsCorrection: Boolean;
+        IsPick: Boolean;
+        LotAvailabilityActive: Boolean;
+        SNAvailabilityActive: Boolean;
+        ForBinCode: Code[20];
         ExpectedReceiptDate: Date;
         ShipmentDate: Date;
-        CurrentEntryStatus: Option Reservation,Tracking,Surplus,Prospect;
-        FormRunMode: Option ,Reclass,"Combined Ship/Rcpt","Drop Shipment",Transfer;
-        InsertIsBlocked: Boolean;
-        DeleteIsBlocked: Boolean;
-        BlockCommit: Boolean;
-        IsCorrection: Boolean;
-        CurrentFormIsOpen: Boolean;
-        CalledFromSynchWhseItemTrkg: Boolean;
-        SNAvailabilityActive: Boolean;
-        LotAvailabilityActive: Boolean;
-        Inbound: Boolean;
-        CurrentSourceCaption: Text[255];
-        CurrentSourceRowID: Text[100];
-        SecondSourceRowID: Text[100];
-        ForBinCode: Code[20];
-        IsPick: Boolean;
-        WhseReceiptLineNC: Record "Warehouse Receipt Line";
-        PurchLineNC: Record "Purchase Line";
-        WhseShptLineNC: Record "Warehouse Shipment Line";
-        SalesLineNC: Record "Sales Line";
-        TransferLineNC: Record "Transfer Line";
+        QtyPerUOM: Decimal;
+        QtyToAddAsBlank: Decimal;
+        SourceQuantityArray: array[5] of Decimal;
+        UndefinedQtyArray: array[3] of Decimal;
+        ColorOfQuantityArray: array[3] of Integer;
+        CurrentSignFactor: Integer;
+        CurrentSourceType: Integer;
+        LastEntryNo: Integer;
         SourceTable: Integer;
-        DirectionNC: Option Outbound,Inbound;
         Text002: Label 'Quantity must be %1.';
         Text003: Label 'negative';
         Text004: Label 'positive';
@@ -79,7 +74,12 @@ codeunit 8073299 "Buffer Tracking Management 2"
         Text013: Label 'The string %1 contains no number and cannot be incremented.';
         Text014: Label 'The total item tracking quantity %1 exceeds the %2 quantity %3.\The changes cannot be saved to the database.';
         Text018: Label 'Saving item tracking line changes';
-        Rec: Record "Tracking Specification" temporary;
+        FormRunMode: Option ,Reclass,"Combined Ship/Rcpt","Drop Shipment",Transfer;
+        DirectionNC: Option Outbound,Inbound;
+        CurrentEntryStatus: Option Reservation,Tracking,Surplus,Prospect;
+        CurrentSourceRowID: Text[100];
+        SecondSourceRowID: Text[100];
+        CurrentSourceCaption: Text[255];
 
 
     procedure SetFormRunMode(Mode: Option ,Reclass,"Combined Ship/Rcpt","Drop Shipment")
@@ -289,8 +289,8 @@ codeunit 8073299 "Buffer Tracking Management 2"
 
     local procedure AddToGlobalRecordSet(var TempTrackingSpecification: Record "Tracking Specification" temporary)
     var
-        ExpDate: Date;
         EntriesExist: Boolean;
+        ExpDate: Date;
     begin
         TempTrackingSpecification.SETCURRENTKEY("Lot No.", "Serial No.");
         IF TempTrackingSpecification.FIND('-') THEN
@@ -415,8 +415,8 @@ codeunit 8073299 "Buffer Tracking Management 2"
     local procedure TempRecIsValid() OK: Boolean
     var
         ReservEntry: Record "Reservation Entry";
-        RecordCount: Integer;
         IdenticalArray: array[2] of Boolean;
+        RecordCount: Integer;
     begin
         OK := FALSE;
         TempReservEntry.SETCURRENTKEY("Entry No.", Positive);
@@ -495,13 +495,13 @@ codeunit 8073299 "Buffer Tracking Management 2"
 
     local procedure WriteToDatabase()
     var
+        Decrease: Boolean;
         Window: Dialog;
-        ChangeType: Option Insert,Modify,Delete;
         EntryNo: Integer;
-        NoOfLines: Integer;
         i: Integer;
         ModifyLoop: Integer;
-        Decrease: Boolean;
+        NoOfLines: Integer;
+        ChangeType: Option Insert,Modify,Delete;
     begin
         IF CurrentFormIsOpen THEN BEGIN
             TempReservEntry.LOCKTABLE();
@@ -647,10 +647,10 @@ codeunit 8073299 "Buffer Tracking Management 2"
         ReservEntry2: Record "Reservation Entry";
         CreateReservEntry: Codeunit "Create Reserv. Entry";
         ReservationMgt: Codeunit "Reservation Management";
-        AvailabilityDate: Date;
-        QtyToAdd: Decimal;
-        LostReservQty: Decimal;
         IdenticalArray: array[2] of Boolean;
+        AvailabilityDate: Date;
+        LostReservQty: Decimal;
+        QtyToAdd: Decimal;
     begin
         OK := FALSE;
         SetPick(IsPick);
@@ -856,11 +856,11 @@ codeunit 8073299 "Buffer Tracking Management 2"
     var
         ReservEntry1: Record "Reservation Entry";
         ReservationMgt: Codeunit "Reservation Management";
-        TotalQtyToHandle: Decimal;
-        TotalQtyToInvoice: Decimal;
         QtyAlreadyHandledToInvoice: Decimal;
         QtyToHandleThisLine: Decimal;
         QtyToInvoiceThisLine: Decimal;
+        TotalQtyToHandle: Decimal;
+        TotalQtyToInvoice: Decimal;
     begin
         IF IsCorrection THEN
             EXIT;
@@ -1060,10 +1060,10 @@ codeunit 8073299 "Buffer Tracking Management 2"
 
     procedure AssignSerialNo()
     var
+        EnterQuantityToCreate: Page "Enter Quantity to Create";
+        CreateLotNo: Boolean;
         QtyToCreate: Decimal;
         QtyToCreateInt: Integer;
-        CreateLotNo: Boolean;
-        EnterQuantityToCreate: Page "Enter Quantity to Create";
     begin
         IF ZeroLineExists() THEN
             Rec.DELETE();
@@ -1080,7 +1080,7 @@ codeunit 8073299 "Buffer Tracking Management 2"
         CLEAR(EnterQuantityToCreate);
         EnterQuantityToCreate.LOOKUPMODE := TRUE;
         EnterQuantityToCreate.SetFields(Rec."Item No.", Rec."Variant Code", QtyToCreate, FALSE);
-        IF EnterQuantityToCreate.RUNMODAL = ACTION::LookupOK THEN BEGIN
+        IF EnterQuantityToCreate.RUNMODAL() = ACTION::LookupOK THEN BEGIN
             EnterQuantityToCreate.GetFields(QtyToCreateInt, CreateLotNo);
             AssignSerialNoBatch(QtyToCreateInt, CreateLotNo);
         END;
@@ -1154,12 +1154,12 @@ codeunit 8073299 "Buffer Tracking Management 2"
 
     procedure CreateCustomizedSN()
     var
-        QtyToCreate: Decimal;
-        QtyToCreateInt: Integer;
-        Increment: Integer;
+        EnterCustomizedSN: Page "Enter Customized SN";
         CreateLotNo: Boolean;
         CustomizedSN: Code[20];
-        EnterCustomizedSN: Page "Enter Customized SN";
+        QtyToCreate: Decimal;
+        Increment: Integer;
+        QtyToCreateInt: Integer;
     begin
         IF ZeroLineExists() THEN
             Rec.DELETE();
@@ -1178,7 +1178,7 @@ codeunit 8073299 "Buffer Tracking Management 2"
         CLEAR(EnterCustomizedSN);
         EnterCustomizedSN.LOOKUPMODE := TRUE;
         EnterCustomizedSN.SetFields(Rec."Item No.", Rec."Variant Code", QtyToCreate, FALSE);
-        IF EnterCustomizedSN.RUNMODAL = ACTION::LookupOK THEN BEGIN
+        IF EnterCustomizedSN.RUNMODAL() = ACTION::LookupOK THEN BEGIN
             EnterCustomizedSN.GetFields(QtyToCreateInt, CreateLotNo, CustomizedSN, Increment);
             CreateCustomizedSNBatch(QtyToCreateInt, CreateLotNo, CustomizedSN, Increment);
         END;
@@ -1188,8 +1188,8 @@ codeunit 8073299 "Buffer Tracking Management 2"
 
     procedure CreateCustomizedSNBatch(QtyToCreate: Decimal; CreateLotNo: Boolean; CustomizedSN: Code[20]; Increment: Integer)
     var
-        i: Integer;
         Counter: Integer;
+        i: Integer;
     begin
         IF INCSTR(CustomizedSN) = '' THEN
             ERROR(Text013, CustomizedSN);

@@ -156,8 +156,8 @@ xmlport 8073327 "PWD Delete Prod. Order Line"
 
     var
         RecGOSYSSetup: Record "PWD OSYS Setup";
-        CodGConnectorPartner: Code[20];
         CduGConnectorBufferMgtExport: Codeunit "Connector Buffer Mgt Export";
+        CodGConnectorPartner: Code[20];
         IntGTempField: Integer;
 
 

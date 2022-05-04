@@ -143,20 +143,20 @@ report 50047 "Create Dedicated Item Routing"
     end;
 
     var
+        RecGMfgComment: Record "Manufacturing Comment Line";
         RecGRoutingHeader: Record "Routing Header";
+        RecGRoutingHeaderGeneric: Record "Routing Header";
+        RecGRtngLine: Record "Routing Line";
+        RecGRtngVersion: Record "Routing Version";
         CduGCopyRouting: Codeunit "Routing Line-Copy Lines";
-        CodGGenericRouting: Code[20];
+        BooGAddUnderscore: Boolean;
         CodGPrefixe: Code[6];
+        CodGGenericRouting: Code[20];
+        Bdialog: Dialog;
+        IntGCounter: Integer;
         CstG001: Label 'Item must be filter.';
         CstG002: Label 'Generic routing must not be empty !';
         CstG003: Label 'Prefixe must not be empty !';
-        BooGAddUnderscore: Boolean;
-        Bdialog: Dialog;
-        IntGCounter: Integer;
         CstG004: Label 'The routing %1 is already existing, do you want to replace it ?';
-        RecGRtngLine: Record "Routing Line";
-        RecGMfgComment: Record "Manufacturing Comment Line";
-        RecGRtngVersion: Record "Routing Version";
-        RecGRoutingHeaderGeneric: Record "Routing Header";
 }
 

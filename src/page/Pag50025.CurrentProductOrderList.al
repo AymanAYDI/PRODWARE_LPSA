@@ -96,10 +96,10 @@ page 50025 "PWD Current Product Order List"
     end;
 
     var
-        RecGProductionOrder: Record "Production Order";
+        RecGItem: Record Item;
         RecGProdOrderLine: Record "Prod. Order Line";
         RecGProdOrderRoutingLine: Record "Prod. Order Routing Line";
-        RecGItem: Record Item;
+        RecGProductionOrder: Record "Production Order";
         Bdialog: Dialog;
         IntGCounter: Integer;
         CstG001: Label 'List creation \Compte backwards #1######################';

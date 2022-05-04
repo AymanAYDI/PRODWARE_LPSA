@@ -709,8 +709,8 @@ page 50021 "PWD Item List requirement"
 
                     trigger OnAction()
                     var
-                        CopyItem: Report "Item Copy";
                         ReturnItem: Record Item;
+                        CopyItem: Report "Item Copy";
                     begin
                         // dach1140.begin
                         CopyItem.ItemDef(Rec);
@@ -1156,11 +1156,11 @@ page 50021 "PWD Item List requirement"
     procedure GetSelectionFilter(): Code[80]
     var
         Item: Record Item;
+        More: Boolean;
         FirstItem: Code[30];
         LastItem: Code[30];
         SelectionFilter: Code[250];
         ItemCount: Integer;
-        More: Boolean;
     begin
         CurrPage.SETSELECTIONFILTER(Item);
         ItemCount := Item.COUNT;

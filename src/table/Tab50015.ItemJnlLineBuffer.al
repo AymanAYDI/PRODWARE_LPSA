@@ -855,8 +855,8 @@ table 50015 "PWD Item Jnl Line Buffer"
 
             trigger OnValidate()
             var
-                RecLProdOrderLine: Record "Prod. Order Line";
                 RecLManufSetup: Record "Manufacturing Setup";
+                RecLProdOrderLine: Record "Prod. Order Line";
                 RecLProductionOrder: Record "Production Order";
             begin
             end;

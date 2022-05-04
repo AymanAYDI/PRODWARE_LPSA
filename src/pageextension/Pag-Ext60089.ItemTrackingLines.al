@@ -32,14 +32,14 @@ pageextension 60089 "PWD ItemTrackingLines" extends "Item Tracking Lines"
     }
 
     var
-        gNoSerialLotNo: Boolean;
-        gLotDeterminingLotCode: Code[30];
-        gLotDeterminingExpirDate: Date;
-        gNoAssignLotDetLotNo: Boolean;
         gCurrSourceSpecification: Record "Tracking Specification";
-        gCurrSourceSpecDueDate: Date;
         gCurrSourceSpecificationSet: Boolean;
         gFromTheSameLot: Boolean;
+        gNoAssignLotDetLotNo: Boolean;
+        gNoSerialLotNo: Boolean;
+        gLotDeterminingLotCode: Code[30];
+        gCurrSourceSpecDueDate: Date;
+        gLotDeterminingExpirDate: Date;
         CstGErr0001: Label 'You only can assign one Lot!';
         CstGErr0002: Label 'Lot Inheritance: You can''t assign a Lot No.,\because there is no Lot assigned to the lot determining component.';
 
@@ -48,18 +48,18 @@ pageextension 60089 "PWD ItemTrackingLines" extends "Item Tracking Lines"
 
     procedure RegisterItemTrackingLines2(piTrackingSpecification: Record "Tracking Specification"; piAvailabilityDate: Date; var pioTempTrackingSpecification: Record "Tracking Specification" temporary; piReplace: Boolean)
     var
-        Text014: label 'The total item tracking quantity %1 exceeds the %2 quantity %3.\The changes cannot be saved to the database.';
-        IsCorrection: Boolean;
-        TotalItemTrackingLine: Record "Tracking Specification";
         TempReservEntry: Record "Reservation Entry" temporary;
+        TotalItemTrackingLine: Record "Tracking Specification";
+        IsCorrection: Boolean;
+        Text014: label 'The total item tracking quantity %1 exceeds the %2 quantity %3.\The changes cannot be saved to the database.';
         FormRunMode: option " ",Reclass,"Combined Ship/Rcpt","Drop Shipment",Transfer;
     begin
         piTrackingSpecification.TESTFIELD("Source Type"); // Check if source has been set.
                                                           //IF NOT CalledFromSynchWhseItemTrkg THEN
-        pioTempTrackingSpecification.RESET;
+        pioTempTrackingSpecification.RESET();
         IsCorrection := piTrackingSpecification.Correction;
         SetSourceSpec(piTrackingSpecification, piAvailabilityDate);
-        RESET;
+        RESET();
         SETCURRENTKEY("Lot No.", "Serial No.");
 
         //Begin#803/01:A9069/2.10.01  25.02.05 TECTURA.WW
@@ -122,7 +122,7 @@ pageextension 60089 "PWD ItemTrackingLines" extends "Item Tracking Lines"
                     //End#800/01:A1000/1.50
                     // << #803/01:A30010/6.00 09.02.09 TECTURA.AM
 
-                    MODIFY;
+                    MODIFY();
                 END ELSE BEGIN
                     TRANSFERFIELDS(piTrackingSpecification);
                     "Serial No." := pioTempTrackingSpecification."Serial No.";
@@ -171,34 +171,34 @@ pageextension 60089 "PWD ItemTrackingLines" extends "Item Tracking Lines"
                     //"No. of Units" := pioTempTrackingSpecification."No. of Units";
                     //End#800/01:A1000/1.50
                     // << #803/01:A30010/6.00 09.02.09 TECTURA.AM
-                    "Entry No." := NextEntryNo;
-                    INSERT;
+                    "Entry No." := NextEntryNo();
+                    INSERT();
                 END;
-            UNTIL pioTempTrackingSpecification.NEXT = 0;
+            UNTIL pioTempTrackingSpecification.NEXT() = 0;
 
 
-        RESET;
+        RESET();
         IF FIND('-') THEN
             REPEAT
                 //Begin#803/01:A3017/2.10  17.11.04 ASTON.FB
                 pioTempTrackingSpecification.SETRANGE("Lot No.", "Lot No.");
                 pioTempTrackingSpecification.SETRANGE("Serial No.", "Serial No.");
-                IF NOT pioTempTrackingSpecification.FIND('-') THEN BEGIN
+                IF NOT pioTempTrackingSpecification.FIND('-') THEN
                     DELETE(TRUE)
-                END ELSE
+                ELSE
                     //End#803/01:A3017/2.10  17.11.04 ASTON.FB
                     CheckItemTrackingLine(Rec);
-            UNTIL NEXT = 0;
+            UNTIL NEXT() = 0;
 
         SETRANGE("Lot No.", piTrackingSpecification."Lot No.");
         SETRANGE("Serial No.", piTrackingSpecification."Serial No.");
 
-        CalculateSums;
-        IF UpdateUndefinedQty THEN
-            WriteToDatabase
+        CalculateSums();
+        IF UpdateUndefinedQty() THEN
+            WriteToDatabase()
         ELSE
             ERROR(Text014, TotalItemTrackingLine."Quantity (Base)",
-              LOWERCASE(TempReservEntry.TextCaption), SourceQuantityArray[1]);
+              LOWERCASE(TempReservEntry.TextCaption()), SourceQuantityArray[1]);
 
         IF FormRunMode = FormRunMode::Transfer THEN
             SynchronizeLinkedSources('');
@@ -234,7 +234,7 @@ pageextension 60089 "PWD ItemTrackingLines" extends "Item Tracking Lines"
         IF gNoAssignLotDetLotNo THEN BEGIN
 
             TrackingSpecification.COPY(Rec);
-            RESET;
+            RESET();
             IF NOT FIND('-') THEN BEGIN
                 COPY(TrackingSpecification);
                 EXIT(TRUE);
@@ -276,15 +276,15 @@ pageextension 60089 "PWD ItemTrackingLines" extends "Item Tracking Lines"
 
     procedure SaveData()
     var
-        TempTrackingSpecificationSaved: Record "Tracking Specification" temporary;
         ProdOrderComp: Record "Prod. Order Component";
         SavedTrackingSpec: Record "Tracking Specification";
+        TempTrackingSpecificationSaved: Record "Tracking Specification" temporary;
         TotalItemTrackingLine: Record "Tracking Specification";
-        FormRunMode: option " ",Reclass,"Combined Ship/Rcpt","Drop Shipment",Transfer;
+        xTempItemTrackingLine: Record "Tracking Specification" temporary;
         Text015: label 'Do you want to synchronize item tracking on the line with item tracking on the related drop shipment %1?';
         Text016: label 'purchase order line';
         Text017: label 'sales order line';
-        xTempItemTrackingLine: Record "Tracking Specification" temporary;
+        FormRunMode: option " ",Reclass,"Combined Ship/Rcpt","Drop Shipment",Transfer;
     begin
         //IF NOT gIngrHandling THEN
         //  EXIT;
@@ -292,8 +292,8 @@ pageextension 60089 "PWD ItemTrackingLines" extends "Item Tracking Lines"
             IF FIND('-') THEN
                 REPEAT
                     TempTrackingSpecificationSaved := Rec;
-                    TempTrackingSpecificationSaved.INSERT;
-                UNTIL NEXT = 0;
+                    TempTrackingSpecificationSaved.INSERT();
+                UNTIL NEXT() = 0;
 
             IF SourceQuantityArray[1] < TotalItemTrackingLine."Quantity (Base)" THEN BEGIN
                 ProdOrderComp.GET("Source Subtype", "Source ID", "Source Prod. Order Line", "Source Ref. No.");
@@ -312,8 +312,8 @@ pageextension 60089 "PWD ItemTrackingLines" extends "Item Tracking Lines"
                 gCurrSourceSpecification."Qty. to Handle (Base)" := ProdOrderComp."Expected Qty. (Base)";
             END;
 
-            IF UpdateUndefinedQty THEN BEGIN
-                WriteToDatabase;
+            IF UpdateUndefinedQty() THEN BEGIN
+                WriteToDatabase();
                 IF FormRunMode = FormRunMode::"Drop Shipment" THEN
                     CASE CurrentSourceType OF
                         DATABASE::"Sales Line":
@@ -322,31 +322,30 @@ pageextension 60089 "PWD ItemTrackingLines" extends "Item Tracking Lines"
                             SynchronizeLinkedSources(STRSUBSTNO(Text015, Text017));
                     END;
 
-                IF SourceQuantityArray[1] > TotalItemTrackingLine."Quantity (Base)" THEN BEGIN
+                IF SourceQuantityArray[1] > TotalItemTrackingLine."Quantity (Base)" THEN
                     ProdOrderComp.GET("Source Subtype", "Source ID", "Source Prod. Order Line", "Source Ref. No.");
-                    /*
-                          IF ProdOrderComp."Ingr. Balancing Quantity" > 0 THEN BEGIN
-                            ProdOrderComp."Ingr. Balancing Quantity" := ProdOrderComp."Ingr. Balancing Quantity" -
-                              ROUND(
-                                (SourceQuantityArray[1] - TotalItemTrackingLine."Quantity (Base)") / ProdOrderComp."Qty. per Unit of Measure",
-                                0.00001);
-                            IF ProdOrderComp."Ingr. Balancing Quantity" < 0 THEN
-                              ProdOrderComp."Ingr. Balancing Quantity" := 0;
-                            ProdOrderComp.VALIDATE("Ingr. Balancing Quantity");
-                            ProdOrderComp.MODIFY(TRUE);
-                            cuIngrMgt.POC_AdjustVariableLines(ProdOrderComp);
-                            SourceQuantityArray[1] := ProdOrderComp."Expected Qty. (Base)";
-                            SourceQuantityArray[2] := ProdOrderComp."Expected Qty. (Base)";
-                            gCurrSourceSpecification."Quantity (Base)" := ProdOrderComp."Expected Qty. (Base)";
-                            gCurrSourceSpecification."Qty. to Handle (Base)" := ProdOrderComp."Expected Qty. (Base)";
-                          END;
-                    */
-                END;
+                /*
+                      IF ProdOrderComp."Ingr. Balancing Quantity" > 0 THEN BEGIN
+                        ProdOrderComp."Ingr. Balancing Quantity" := ProdOrderComp."Ingr. Balancing Quantity" -
+                          ROUND(
+                            (SourceQuantityArray[1] - TotalItemTrackingLine."Quantity (Base)") / ProdOrderComp."Qty. per Unit of Measure",
+                            0.00001);
+                        IF ProdOrderComp."Ingr. Balancing Quantity" < 0 THEN
+                          ProdOrderComp."Ingr. Balancing Quantity" := 0;
+                        ProdOrderComp.VALIDATE("Ingr. Balancing Quantity");
+                        ProdOrderComp.MODIFY(TRUE);
+                        cuIngrMgt.POC_AdjustVariableLines(ProdOrderComp);
+                        SourceQuantityArray[1] := ProdOrderComp."Expected Qty. (Base)";
+                        SourceQuantityArray[2] := ProdOrderComp."Expected Qty. (Base)";
+                        gCurrSourceSpecification."Quantity (Base)" := ProdOrderComp."Expected Qty. (Base)";
+                        gCurrSourceSpecification."Qty. to Handle (Base)" := ProdOrderComp."Expected Qty. (Base)";
+                      END;
+                */
 
-                xTempItemTrackingLine.RESET;
-                xTempItemTrackingLine.DELETEALL;
-                RESET;
-                DELETEALL;
+                xTempItemTrackingLine.RESET();
+                xTempItemTrackingLine.DELETEALL();
+                RESET();
+                DELETEALL();
 
                 SetSourceSpec(gCurrSourceSpecification, gCurrSourceSpecDueDate);
 
@@ -357,12 +356,12 @@ pageextension 60089 "PWD ItemTrackingLines" extends "Item Tracking Lines"
                         SETRANGE("Serial No.", TempTrackingSpecificationSaved."Serial No.");
                         IF NOT FIND('-') THEN BEGIN
                             Rec := TempTrackingSpecificationSaved;
-                            "Entry No." := NextEntryNo;
-                            INSERT;
+                            "Entry No." := NextEntryNo();
+                            INSERT();
                             TempItemTrackLineInsert.TRANSFERFIELDS(Rec);
                             TempItemTrackLineInsert.INSERT();
                         END;
-                    UNTIL TempTrackingSpecificationSaved.NEXT = 0;
+                    UNTIL TempTrackingSpecificationSaved.NEXT() = 0;
                 COPY(SavedTrackingSpec);
             END;
         END;
@@ -380,8 +379,8 @@ pageextension 60089 "PWD ItemTrackingLines" extends "Item Tracking Lines"
         IF FIND('-') THEN
             REPEAT
                 pioTempTrackingSpecification := Rec;
-                pioTempTrackingSpecification.INSERT;
-            UNTIL NEXT = 0;
+                pioTempTrackingSpecification.INSERT();
+            UNTIL NEXT() = 0;
     end;
 
     procedure CheckItemTrackingLine(TrackingLine: Record "Tracking Specification")

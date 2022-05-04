@@ -1008,20 +1008,20 @@ report 50037 "PWD Export Prod Order LPSA"
     }
 
     var
-        RecGOSYSSetup: Record "PWD OSYS Setup";
         RecGItem: Record Item;
-        RecGProductionOrder: Record "Production Order";
-        RecGProdOrderRtngCommLine: Record "Prod. Order Rtng Comment Line";
-        RecGProdOrderRoutingLine: Record "Prod. Order Routing Line";
-        RecGTempBlob: Codeunit "Temp Blob";
         RecGProdOrderComponent: Record "Prod. Order Component";
-        OutStreamGlobal: OutStream;
+        RecGProdOrderRoutingLine: Record "Prod. Order Routing Line";
+        RecGProdOrderRtngCommLine: Record "Prod. Order Rtng Comment Line";
+        RecGProductionOrder: Record "Production Order";
+        RecGOSYSSetup: Record "PWD OSYS Setup";
+        CduGConvertAsciiToAnsi: Codeunit "PWD Convert Ascii To Ansi";
+        RecGTempBlob: Codeunit "Temp Blob";
+        BooGLotDetermined: Boolean;
         IntGOperation: Integer;
         IntGTempField: Integer;
-        CduGConvertAsciiToAnsi: Codeunit "PWD Convert Ascii To Ansi";
+        OutStreamGlobal: OutStream;
         TxtGRoutingNo: Text[30];
         TxtGSearchDescription: Text[50];
-        BooGLotDetermined: Boolean;
 
 
     procedure FctPlannerOnePermission(): Boolean

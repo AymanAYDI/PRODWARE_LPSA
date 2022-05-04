@@ -89,7 +89,7 @@ pageextension 60019 "PWD PurchaseOrderSubform" extends "Purchase Order Subform"
 
                 trigger OnAction()
                 begin
-                    FctSendLineToWMS;
+                    FctSendLineToWMS();
                 end;
             }
         }

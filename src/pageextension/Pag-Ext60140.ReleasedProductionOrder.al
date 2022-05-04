@@ -36,8 +36,8 @@ pageextension 60140 "PWD ReleasedProductionOrder" extends "Released Production O
                 begin
                     //>>LPSA.TDL.19112014
                     IF ("Source Type" = "Source Type"::Item) AND RecLItem.GET("Source No.") THEN BEGIN
-                        ProdBOMWhereUsed.SetItem(RecLItem, WORKDATE);
-                        ProdBOMWhereUsed.RUNMODAL;
+                        ProdBOMWhereUsed.SetItem(RecLItem, WORKDATE());
+                        ProdBOMWhereUsed.RUNMODAL();
                     END;
                     //<<LPSA.TDL.19112014
 
@@ -52,7 +52,7 @@ pageextension 60140 "PWD ReleasedProductionOrder" extends "Released Production O
                 ApplicationArea = All;
                 trigger OnAction()
                 begin
-                    ResendProdOrdertoQuartis;
+                    ResendProdOrdertoQuartis();
                 end;
             }
         }
@@ -73,7 +73,7 @@ pageextension 60140 "PWD ReleasedProductionOrder" extends "Released Production O
                 begin
                     //>>LAP2.12
                     RecLProductionOrder := Rec;
-                    RecLProductionOrder.SETRECFILTER;
+                    RecLProductionOrder.SETRECFILTER();
                     REPORT.RUN(50022, TRUE, FALSE, RecLProductionOrder);
                     //<<LAP2.12
                 end;
@@ -90,7 +90,7 @@ pageextension 60140 "PWD ReleasedProductionOrder" extends "Released Production O
                 trigger OnAction()
                 begin
                     //>>REGIE
-                    FctPrintPDF;
+                    FctPrintPDF();
                     //<<REGIE
                 end;
             }

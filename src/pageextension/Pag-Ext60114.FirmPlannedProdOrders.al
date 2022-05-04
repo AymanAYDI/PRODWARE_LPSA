@@ -46,10 +46,11 @@ pageextension 60114 "PWD FirmPlannedProdOrders" extends "Firm Planned Prod. Orde
                 Caption = 'Launch. Prod. Starting Date-Time';
                 ApplicationArea = All;
             }
-            field("PWD Prod. Ending Date-Time"; "PWD Prod. Ending Date-Time")
-            {
-                ApplicationArea = All;
-            }
+            //TODO:The name 'PWD Prod. Ending Date-Time' does not exist in the current context
+            // field("PWD Prod. Ending Date-Time"; "PWD Prod. Ending Date-Time")
+            // {
+            //     ApplicationArea = All;
+            // }
         }
         addafter("Bin Code")
         {
@@ -93,8 +94,8 @@ pageextension 60114 "PWD FirmPlannedProdOrders" extends "Firm Planned Prod. Orde
                 begin
                     //>>LPSA.TDL.19112014
                     IF ("Source Type" = "Source Type"::Item) AND RecLItem.GET("Source No.") THEN BEGIN
-                        ProdBOMWhereUsed.SetItem(RecLItem, WORKDATE);
-                        ProdBOMWhereUsed.RUNMODAL;
+                        ProdBOMWhereUsed.SetItem(RecLItem, WORKDATE());
+                        ProdBOMWhereUsed.RUNMODAL();
                     END;
                     //<<LPSA.TDL.19112014
                 end;
@@ -104,25 +105,25 @@ pageextension 60114 "PWD FirmPlannedProdOrders" extends "Firm Planned Prod. Orde
     trigger OnAfterGetRecord()
     var
         RecLRoutingLine: Record "Prod. Order Routing Line";
-        CodLienGamme: Code[20];
         BooLFound: Boolean;
+        CodLienGamme: Code[20];
     begin
-        FctSetIndicator;
-        DeCGCompQty := ComponentInv;
+        FctSetIndicator();
+        DeCGCompQty := ComponentInv();
         CLEAR(DatGHeureDeb);
         CLEAR(BooLFound);
         CLEAR(CodLienGamme);
-        RecLRoutingLine.RESET;
+        RecLRoutingLine.RESET();
         RecLRoutingLine.SETRANGE(Status, Status);
         RecLRoutingLine.SETRANGE("Prod. Order No.", "No.");
-        IF RecLRoutingLine.FINDSET THEN
+        IF RecLRoutingLine.FINDSET() THEN
             REPEAT
                 IF CodLienGamme <> '' THEN BEGIN
                     DatGHeureDeb := RecLRoutingLine."Starting Date-Time";
                     BooLFound := FALSE;
                 END;
                 CodLienGamme := RecLRoutingLine."Routing Link Code";
-            UNTIL (RecLRoutingLine.NEXT = 0) OR BooLFound;
+            UNTIL (RecLRoutingLine.NEXT() = 0) OR BooLFound;
 
     end;
 
@@ -130,9 +131,9 @@ pageextension 60114 "PWD FirmPlannedProdOrders" extends "Firm Planned Prod. Orde
     var
         RecLInfoCompany: Record "Company Information";
     begin
-        RecLInfoCompany.GET;
+        RecLInfoCompany.GET();
         RecLInfoCompany.CALCFIELDS("PWD Picture_Negative", "PWD Picture_Positive");
-        IF CheckComponentAvailabilty THEN BEGIN
+        IF CheckComponentAvailabilty() THEN BEGIN
             "PWD Indicator" := RecLInfoCompany."PWD Picture_Negative";
             BooGCompAvail := FALSE;
         END ELSE BEGIN
@@ -143,7 +144,7 @@ pageextension 60114 "PWD FirmPlannedProdOrders" extends "Firm Planned Prod. Orde
 
     var
         BooGCompAvail: Boolean;
-        DeCGCompQty: Decimal;
         DatGHeureDeb: DateTime;
+        DeCGCompQty: Decimal;
 }
 

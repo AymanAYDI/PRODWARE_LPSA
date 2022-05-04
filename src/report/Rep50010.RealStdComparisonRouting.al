@@ -296,47 +296,47 @@ report 50010 "Real Std Comparison Routing"
 
     var
         RecGCapLedEntry: Record "Capacity Ledger Entry";
-        DateFilter: Text[30];
         GLAccBudgetBuf: Record "G/L Acc. Budget Buffer";
-        DecGTimeExReal: Decimal;
-        DecGTimePrepReal: Decimal;
-        DecGTimePrep: Decimal;
-        DecGTimeEx: Decimal;
-        DecGPerte: Decimal;
-        DecGSetupTime: Decimal;
         RecGManuCycleSetup: Record "PWD Manufacturing cycles Setup";
-        DecGRunTime: Decimal;
         RecGRoutingTemp: Record "Routing Line" temporary;
         BooLExist: Boolean;
-        CodGRoutingNo: Code[20];
         CodGRoutingVer: Code[10];
+        CodGRoutingNo: Code[20];
+        DecGPerte: Decimal;
+        DecGRunTime: Decimal;
+        DecGSetupTime: Decimal;
+        DecGTimeEx: Decimal;
+        DecGTimeExReal: Decimal;
+        DecGTimePrep: Decimal;
+        DecGTimePrepReal: Decimal;
         NbOf: Integer;
-        Prod__Order___ListCaptionLbl: Label 'Real Standard Comparison Routing';
         CurrReport_PAGENOCaptionLbl: Label 'Page';
-        "PériodeCaptionLbl": Label 'Période';
         N__ArticleCaptionLbl: Label 'N° Article';
         Nb_OFCaptionLbl: Label 'Nb OF';
-        Prod__Order_Routing_Line_TypeCaptionLbl: Label 'Type';
+        "PériodeCaptionLbl": Label 'Période';
+        Prod__Order___ListCaptionLbl: Label 'Real Standard Comparison Routing';
         Prod__Order_Routing_Line__No__CaptionLbl: Label 'No.';
-        Prod__Order_Routing_Line_DescriptionCaptionLbl: Label 'Description';
-        "Temps_préparation_standardCaptionLbl": Label 'Tps Prépa Std';
-        Temps_d_execution__CaptionLbl: Label 'Tps d''exe %';
-        "Temps_de_préparation__CaptionLbl": Label 'Tps Prépa %';
-        "Temps_préparation_réelCaptionLbl": Label 'Tps Prépa réel';
-        "Quantité_rebut_réelCaptionLbl": Label 'Qté rebut réel %';
-        "Temps_d_execution_réelCaptionLbl": Label 'Tps d''exe réel';
-        Temps_d_execution_standardCaptionLbl: Label 'Tps d''exe Std';
         Prod__Order_Routing_Line__Operation_No__CaptionLbl: Label 'Operation No.';
-        SetupTimeUnitofMeasCaptionLbl: Label 'Setup Time Unit of Meas';
+        Prod__Order_Routing_Line_DescriptionCaptionLbl: Label 'Description';
+        Prod__Order_Routing_Line_TypeCaptionLbl: Label 'Type';
+        "Quantité_rebut_réelCaptionLbl": Label 'Qté rebut réel %';
         RunTimeUnitofMeasCaptionLbl: Label 'Run Time Unit of Meas';
         ScrapFactorCaptionLbl: Label 'Scrap Factor %';
+        SetupTimeUnitofMeasCaptionLbl: Label 'Setup Time Unit of Meas';
+        Temps_d_execution__CaptionLbl: Label 'Tps d''exe %';
+        "Temps_d_execution_réelCaptionLbl": Label 'Tps d''exe réel';
+        Temps_d_execution_standardCaptionLbl: Label 'Tps d''exe Std';
+        "Temps_de_préparation__CaptionLbl": Label 'Tps Prépa %';
+        "Temps_préparation_réelCaptionLbl": Label 'Tps Prépa réel';
+        "Temps_préparation_standardCaptionLbl": Label 'Tps Prépa Std';
+        DateFilter: Text[30];
 
 
     procedure GetTimePrepExReal(RecPRoutingLine: Record "Routing Line"; RecPOrderLine: Record "Prod. Order Line"; var DecPTimeExReal: Decimal; var DecPTimePrepReal: Decimal; var DecPQtyRebut: Decimal)
     var
         RecLCapLedEntry: Record "Capacity Ledger Entry";
-        Nbre: Integer;
         RecLProdOrderLine: Record "Prod. Order Line";
+        Nbre: Integer;
     begin
         Clear(DecPTimeExReal);
         Clear(DecPTimePrepReal);
@@ -370,8 +370,8 @@ report 50010 "Real Std Comparison Routing"
 
     local procedure TransferRoutingIntoRoutingTemp(RecPProdOrderLine: Record "Prod. Order Line"; var RecPRoutingTemp: Record "Routing Line")
     var
-        RecLRtngLine: Record "Routing Line";
         RecLProdOrderRtngLine: Record "Prod. Order Routing Line";
+        RecLRtngLine: Record "Routing Line";
         RecLRtngLine2: Record "Routing Line";
     begin
         if RecPProdOrderLine."Routing No." = '' then

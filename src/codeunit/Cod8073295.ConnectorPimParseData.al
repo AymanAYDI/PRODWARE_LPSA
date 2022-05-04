@@ -20,16 +20,16 @@ codeunit 8073295 "PWD Connector Pim Parse Data"
 
     trigger OnRun()
     var
-        TempBlob: Codeunit "Temp Blob";
-        RecLPartnerConnector: Record "PWD Partner Connector";
-        RecLConnectorValues: Record "PWD Connector Values";
-        BigTLToReturn: BigText;
-        CduLBufferMgt: Codeunit "PWD Buffer Management";
-        InLStream: InStream;
-        CduLFileManagement: Codeunit "PWD File Management";
-        TxtLFile: Text[1024];
-        BooLResult: Boolean;
         RecLConnectorMessages: Record "PWD Connector Messages";
+        RecLConnectorValues: Record "PWD Connector Values";
+        RecLPartnerConnector: Record "PWD Partner Connector";
+        CduLBufferMgt: Codeunit "PWD Buffer Management";
+        CduLFileManagement: Codeunit "PWD File Management";
+        TempBlob: Codeunit "Temp Blob";
+        BigTLToReturn: BigText;
+        BooLResult: Boolean;
+        InLStream: InStream;
+        TxtLFile: Text[1024];
     begin
         Clear(BigTLToReturn);
         Clear(IntGSequenceNo);
@@ -54,7 +54,7 @@ codeunit 8073295 "PWD Connector Pim Parse Data"
         end;
         //TODO: 'Codeunit "Temp Blob"' does not contain a definition for 'CalcFields'
         //TempBlob.CalcFields(Blob);
-        if TempBlob.HasValue then begin
+        if TempBlob.HasValue() then begin
             TempBlob.CreateInStream(InLStream);
             IntGSequenceNo := CduLBufferMgt.FctCreateBufferValues(InLStream, "Partner Code", '',
                                                                   RecLConnectorMessages.Code, RecLPartnerConnector."Data Format",
@@ -89,22 +89,22 @@ codeunit 8073295 "PWD Connector Pim Parse Data"
 
     var
         CduGConBufMgtExport: Codeunit "Connector Buffer Mgt Export";
-        OptGFlowType: Option " ","Import Connector","Export Connector";
         IntGSequenceNo: Integer;
+        OptGFlowType: Option " ","Import Connector","Export Connector";
 
 
     procedure FctGetCustomerWithSep(TxtPFilters: Text[1024]; RecPSendingMessage: Record "PWD Connector Messages"; var TempBlob: Codeunit "Temp Blob")
     var
+        RecLBillToCust: Record Customer;
+        RecLCustomer: Record Customer;
         RecLPartnerConnector: Record "PWD Partner Connector";
+        RecLShiptoAddress: Record "Ship-to Address";
+        BigTLBigTextToReturn: BigText;
+        RecLRef: RecordRef;
         ChrL10: Char;
         ChrL13: Char;
-        BigTLBigTextToReturn: BigText;
-        OusLStream: OutStream;
-        RecLCustomer: Record Customer;
-        RecLBillToCust: Record Customer;
-        RecLShiptoAddress: Record "Ship-to Address";
         IntLShipNber: Integer;
-        RecLRef: RecordRef;
+        OusLStream: OutStream;
     begin
         //**********************************************************************************************************//
         //                                  Create Customer file with Separator in blob field                       //
@@ -163,7 +163,7 @@ codeunit 8073295 "PWD Connector Pim Parse Data"
                     RecLShiptoAddress.Reset();
                     RecLShiptoAddress.SetRange("Customer No.", RecLCustomer."No.");
                     IntLShipNber := 1;
-                    if RecLShiptoAddress.FindFirst() then
+                    if RecLShiptoAddress.FindSet() then
                         repeat
                             BigTLBigTextToReturn.AddText(Format(RecLCustomer."No."));
                             BigTLBigTextToReturn.AddText(Format(RecLPartnerConnector.Separator));

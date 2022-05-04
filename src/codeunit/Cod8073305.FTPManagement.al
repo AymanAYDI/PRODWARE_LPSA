@@ -21,9 +21,9 @@ codeunit 8073305 "PWD FTP Management"
 
     var
 
+        BooGClientSide: Boolean;
         // AutGNavFTP: Automation; //TODO: 'Automation' is not recognized as a valid type
         BooGNewServer: Boolean;
-        BooGClientSide: Boolean;
         CstG000: Label 'Please , verify that the DLL Prodware.Dynamics.Nav.FTP is installed on your machine';
 
 

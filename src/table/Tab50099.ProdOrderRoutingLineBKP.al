@@ -158,10 +158,10 @@ table 50099 "Prod. Order Routing Line BKP"
             trigger OnValidate()
             var
                 StandardTask: Record "Standard Task";
-                StdTaskTool: Record "Standard Task Tool";
+                StdTaskComment: Record "Standard Task Description";
                 StdTaskPersonnel: Record "Standard Task Personnel";
                 StdTaskQltyMeasure: Record "Standard Task Quality Measure";
-                StdTaskComment: Record "Standard Task Description";
+                StdTaskTool: Record "Standard Task Tool";
             begin
             end;
         }

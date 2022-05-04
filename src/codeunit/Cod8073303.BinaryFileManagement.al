@@ -17,25 +17,25 @@ codeunit 8073303 "PWD Binary File Management"
     end;
 
     var
+        BooGEOF: Boolean;
+        BooGEOL: Boolean;
+        ChaGTmp: Char;
+        CodGFieldDelimiter: Code[10];
+        CodGFieldSeparator: Code[10];
+        DiaGWin: Dialog;
         FilGFile: File;
+        InsGInstream: InStream;
+        i: Integer;
+        IntGFileSize: Integer;
+        IntGLineSize: Integer;
+        IntGNbLine: Integer;
+        CstG001: Label 'Progress @@@1@@@@@@@@';
+        CstG002: Label 'Xml File is not supported.';
+        OptGFileType: Option Xml,"with separator","File Position";
+        OusGOustream: OutStream;
         TxtGChaTab: array[1500] of Text[1];
         TxtGChaTab2: array[1100] of Text[1];
-        InsGInstream: InStream;
-        OusGOustream: OutStream;
-        ChaGTmp: Char;
-        BooGEOL: Boolean;
-        BooGEOF: Boolean;
-        IntGNbLine: Integer;
-        IntGLineSize: Integer;
-        IntGFileSize: Integer;
-        i: Integer;
-        CstG001: Label 'Progress @@@1@@@@@@@@';
-        DiaGWin: Dialog;
         TxtGFileName: Text[250];
-        CodGFieldSeparator: Code[10];
-        CodGFieldDelimiter: Code[10];
-        OptGFileType: Option Xml,"with separator","File Position";
-        CstG002: Label 'Xml File is not supported.';
 
 
     procedure FctOpenFile(TxtPFileName: Text[250])
@@ -193,9 +193,9 @@ codeunit 8073303 "PWD Binary File Management"
     var
         BooLFindValue: Boolean;
         ChaLSpaceReplace: Char;
-        TxtLVal: Text[250];
         j: Integer;
         x: Integer;
+        TxtLVal: Text[250];
     begin
         TxtLVal := '';
         BooLFindValue := false;
@@ -248,9 +248,9 @@ codeunit 8073303 "PWD Binary File Management"
     var
         BooLFindValue: Boolean;
         ChaLSpaceReplace: Char;
-        TxtLVal: Text[250];
         j: Integer;
         x: Integer;
+        TxtLVal: Text[250];
     begin
         TxtLVal := '';
         BooLFindValue := false;
@@ -301,8 +301,8 @@ codeunit 8073303 "PWD Binary File Management"
 
     procedure FctReturnRetreiveFixDatas(IntPPosition: Integer; IntPLength: Integer; BooPDelSpace: Boolean): Text[250]
     var
-        TxtLVal: Text[250];
         j: Integer;
+        TxtLVal: Text[250];
     begin
         TxtLVal := '';
         for j := IntPPosition to (IntPPosition + IntPLength - 1) do
@@ -316,8 +316,8 @@ codeunit 8073303 "PWD Binary File Management"
 
     procedure FctReturnRetreiveFixDatas2(IntPPosition: Integer; IntPLength: Integer): Text[250]
     var
-        TxtLVal: Text[250];
         j: Integer;
+        TxtLVal: Text[250];
     begin
         TxtLVal := '';
         for j := IntPPosition to (IntPPosition + IntPLength - 1) do
@@ -330,9 +330,9 @@ codeunit 8073303 "PWD Binary File Management"
     var
         BooLFindValue: Boolean;
         ChaLSpaceReplace: Char;
-        TxtLVal: Text[250];
         j: Integer;
         x: Integer;
+        TxtLVal: Text[250];
     begin
         TxtLVal := '';
         BooLFindValue := false;
@@ -383,8 +383,8 @@ codeunit 8073303 "PWD Binary File Management"
 
     procedure FctCreateBufferDatas(TxtPValue: Text[250]; CodPFieldSeparator: Code[10]; CodPFieldDelimiter: Code[10]; IntPFixLength: Integer; TxtPCompChar: Text[1]; CodPSens: Text[1])
     var
-        j: Integer;
         ChaLSpaceReplace: Char;
+        j: Integer;
         TxtLComp: Text[250];
     begin
         ChaLSpaceReplace := 231;
@@ -426,10 +426,10 @@ codeunit 8073303 "PWD Binary File Management"
 
     procedure FctWriteLine(BooPLF: Boolean; BooPCR: Boolean; CodPFieldSeparator: Code[10]): Boolean
     var
-        j: Integer;
-        IntLTotalElement: Integer;
         ChaLLForCR: Char;
         ChaLSpaceReplace: Char;
+        IntLTotalElement: Integer;
+        j: Integer;
     begin
         IntLTotalElement := CompressArray(TxtGChaTab2);
         ChaLSpaceReplace := 231;
@@ -463,9 +463,9 @@ codeunit 8073303 "PWD Binary File Management"
 
     procedure FctWriteLineDirect(TxtPValue: Text[250]; CodPFieldSeparator: Code[10]; CodPFieldDelimiter: Code[10]; IntPFixLength: Integer; TxtPCompChar: Text[1]; CodPSens: Text[1]; BooPLF: Boolean; BooPCR: Boolean): Boolean
     var
-        j: Integer;
         ChaLLForCR: Char;
         ChaLSpaceReplace: Char;
+        j: Integer;
         TxtLComp: Text[250];
     begin
         ChaLSpaceReplace := 231;
@@ -554,8 +554,8 @@ codeunit 8073303 "PWD Binary File Management"
     var
         ChaLLForCR: Char;
         ChaLSpaceReplace: Char;
-        TxtLValue: Text[250];
         i: Integer;
+        TxtLValue: Text[250];
     begin
         ChaLSpaceReplace := 231;
 

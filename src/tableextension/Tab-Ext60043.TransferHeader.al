@@ -69,8 +69,8 @@ tableextension 60043 "PWD TransferHeader" extends "Transfer Header"
     procedure "FillTransfer-to info Location"()  //TODO: Lappel de la fonction n'est pas possible, il y'a pas un evenement liée
     var
         Location: Record Location;
-        TransferRoute: Record "Transfer Route";
         TransLine: Record "Transfer Line";
+        TransferRoute: Record "Transfer Route";
     begin
 
         if Location.Get("Transfer-to Code") then begin

@@ -23,7 +23,7 @@ pageextension 60139 "PWD FirmPlannedProdOrderLines" extends "Firm Planned Prod. 
     {
         addafter("Routing Version Code")
         {
-            field("PWD ExistPhantomItem"; ExistPhantomItem)
+            field("PWD ExistPhantomItem"; ExistPhantomItem())
             {
                 Caption = 'Phantom Item';
                 ApplicationArea = All;

@@ -50,9 +50,9 @@ codeunit 50001 "PWD Item Configurator"
 
     procedure FctConfigDescStone(var RecPItemConfigurator: Record "PWD Item Configurator")
     var
+        Longueur: Integer;
         TxtLDim1: Text[30];
         TxtLDim2: Text[30];
-        Longueur: Integer;
     begin
         with RecPItemConfigurator do begin
             if "Matter Stone" <> '' then
@@ -841,9 +841,9 @@ codeunit 50001 "PWD Item Configurator"
 
     procedure BuildQuartisDesc(_ItemConfig: Record "PWD Item Configurator"): Text[40]
     var
-        TxtLQuartis: Text[40];
         IntLPos1: Integer;
         IntLPos2: Integer;
+        TxtLQuartis: Text[40];
     begin
         TxtLQuartis := '';
 

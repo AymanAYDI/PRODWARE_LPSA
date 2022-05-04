@@ -19,46 +19,42 @@ codeunit 50098 "PWD RDD - Tracking Management"
     end;
 
     var
-        xTempItemTrackingLine: Record "Tracking Specification" temporary;
-        TotalItemTrackingLine: Record "Tracking Specification";
-        TempItemTrackLineInsert: Record "Tracking Specification" temporary;
-        TempItemTrackLineModify: Record "Tracking Specification" temporary;
-        TempItemTrackLineDelete: Record "Tracking Specification" temporary;
-        TempItemTrackLineReserv: Record "Tracking Specification" temporary;
         Item: Record Item;
         ItemTrackingCode: Record "Item Tracking Code";
         TempReservEntry: Record "Reservation Entry" temporary;
-        NoSeriesMgt: Codeunit NoSeriesManagement;
-        ItemTrackingMgt: Codeunit "Item Tracking Management";
-        ReservEngineMgt: Codeunit "Reservation Engine Mgt.";
+        rec: Record "Tracking Specification" temporary;
+        TempItemTrackLineDelete: Record "Tracking Specification" temporary;
+        TempItemTrackLineInsert: Record "Tracking Specification" temporary;
+        TempItemTrackLineModify: Record "Tracking Specification" temporary;
+        TempItemTrackLineReserv: Record "Tracking Specification" temporary;
+        TotalItemTrackingLine: Record "Tracking Specification";
+        xrec: Record "Tracking Specification" temporary;
+        xTempItemTrackingLine: Record "Tracking Specification" temporary;
         ItemTrackingDataCollection: Codeunit "Item Tracking Data Collection";
-        UndefinedQtyArray: array[3] of Decimal;
-        SourceQuantityArray: array[5] of Decimal;
-        QtyPerUOM: Decimal;
-        QtyToAddAsBlank: Decimal;
-        CurrentSignFactor: Integer;
-        LastEntryNo: Integer;
-        ColorOfQuantityArray: array[3] of Integer;
-        CurrentSourceType: Integer;
+        ItemTrackingMgt: Codeunit "Item Tracking Management";
+        NoSeriesMgt: Codeunit NoSeriesManagement;
+        ReservEngineMgt: Codeunit "Reservation Engine Mgt.";
+        BlockCommit: Boolean;
+        CalledFromSynchWhseItemTrkg: Boolean;
+        CurrentFormIsOpen: Boolean;
+        DeleteIsBlocked: Boolean;
+        Inbound: Boolean;
+        InsertIsBlocked: Boolean;
+        IsCorrection: Boolean;
+        LotAvailabilityActive: Boolean;
+        MoveBinContent: Boolean;
+        SNAvailabilityActive: Boolean;
+        ForBinCode: Code[20];
         ExpectedReceiptDate: Date;
         ShipmentDate: Date;
-        CurrentEntryStatus: Option Reservation,Tracking,Surplus,Prospect;
-        FormRunMode: Option ,Reclass,"Combined Ship/Rcpt","Drop Shipment",Transfer,,,,,Countermark;
-        InsertIsBlocked: Boolean;
-        DeleteIsBlocked: Boolean;
-        BlockCommit: Boolean;
-        IsCorrection: Boolean;
-        MoveBinContent: Boolean;
-        CurrentFormIsOpen: Boolean;
-        CalledFromSynchWhseItemTrkg: Boolean;
-        SNAvailabilityActive: Boolean;
-        LotAvailabilityActive: Boolean;
-        Inbound: Boolean;
-        CurrentSourceCaption: Text[255];
-        CurrentSourceRowID: Text[100];
-        SecondSourceRowID: Text[100];
-        ForBinCode: Code[20];
-        rec: Record "Tracking Specification" temporary;
+        QtyPerUOM: Decimal;
+        QtyToAddAsBlank: Decimal;
+        SourceQuantityArray: array[5] of Decimal;
+        UndefinedQtyArray: array[3] of Decimal;
+        ColorOfQuantityArray: array[3] of Integer;
+        CurrentSignFactor: Integer;
+        CurrentSourceType: Integer;
+        LastEntryNo: Integer;
         Text000: Label 'Reservation is defined for the %1.\You must cancel the existing Reservation before deleting or changing Item Tracking.';
         Text001: Label 'Reservation is defined for the %1.\You must not set %2 lower then %3.';
         Text002: Label 'Quantity must be %1.';
@@ -73,7 +69,11 @@ codeunit 50098 "PWD RDD - Tracking Management"
         Text015: Label 'Do you want to synchronize item tracking on the line with item tracking on the related drop shipment %1?';
         Text016: Label 'purchase order line';
         Text017: Label 'sales order line';
-        xrec: Record "Tracking Specification" temporary;
+        FormRunMode: Option ,Reclass,"Combined Ship/Rcpt","Drop Shipment",Transfer,,,,,Countermark;
+        CurrentEntryStatus: Option Reservation,Tracking,Surplus,Prospect;
+        CurrentSourceRowID: Text[100];
+        SecondSourceRowID: Text[100];
+        CurrentSourceCaption: Text[255];
 
 
     procedure SetFormRunMode(Mode: Option ,Reclass,"Combined Ship/Rcpt","Drop Shipment",,,,,Countermark)
@@ -291,8 +291,8 @@ codeunit 50098 "PWD RDD - Tracking Management"
 
     local procedure AddToGlobalRecordSet(var TempTrackingSpecification: Record "Tracking Specification" temporary)
     var
-        ExpDate: Date;
         EntriesExist: Boolean;
+        ExpDate: Date;
     begin
         TempTrackingSpecification.SetCurrentKey("Lot No.", "Serial No.");
         if TempTrackingSpecification.Find('-') then
@@ -417,8 +417,8 @@ codeunit 50098 "PWD RDD - Tracking Management"
     local procedure TempRecIsValid() OK: Boolean
     var
         ReservEntry: Record "Reservation Entry";
-        RecordCount: Integer;
         IdenticalArray: array[2] of Boolean;
+        RecordCount: Integer;
     begin
         OK := false;
         TempReservEntry.SetCurrentKey("Entry No.", Positive);
@@ -495,10 +495,10 @@ codeunit 50098 "PWD RDD - Tracking Management"
 
     local procedure WriteToDatabase()
     var
-        ChangeType: Option Insert,Modify,Delete;
         EntryNo: Integer;
-        NoOfLines: Integer;
         i: Integer;
+        NoOfLines: Integer;
+        ChangeType: Option Insert,Modify,Delete;
     begin
         if CurrentFormIsOpen then begin
             TempReservEntry.LockTable();
@@ -630,10 +630,10 @@ codeunit 50098 "PWD RDD - Tracking Management"
         ReservEntry2: Record "Reservation Entry";
         CreateReservEntry: Codeunit "Create Reserv. Entry";
         ReservationMgt: Codeunit "Reservation Management";
-        AvailabilityDate: Date;
-        QtyToAdd: Decimal;
-        LostReservQty: Decimal;
         IdenticalArray: array[2] of Boolean;
+        AvailabilityDate: Date;
+        LostReservQty: Decimal;
+        QtyToAdd: Decimal;
     begin
         OK := false;
 
@@ -840,11 +840,11 @@ codeunit 50098 "PWD RDD - Tracking Management"
     var
         ReservEntry1: Record "Reservation Entry";
         ReservationMgt: Codeunit "Reservation Management";
-        TotalQtyToHandle: Decimal;
-        TotalQtyToInvoice: Decimal;
         QtyAlreadyHandledToInvoice: Decimal;
         QtyToHandleThisLine: Decimal;
         QtyToInvoiceThisLine: Decimal;
+        TotalQtyToHandle: Decimal;
+        TotalQtyToInvoice: Decimal;
     begin
         if IsCorrection then
             exit;
@@ -1169,8 +1169,8 @@ codeunit 50098 "PWD RDD - Tracking Management"
 
     procedure CreateCustomizedSNBatch(QtyToCreate: Decimal; CreateLotNo: Boolean; CustomizedSN: Code[20]; Increment: Integer)
     var
-        i: Integer;
         Counter: Integer;
+        i: Integer;
     begin
         if IncStr(CustomizedSN) = '' then
             Error(Text013, CustomizedSN);

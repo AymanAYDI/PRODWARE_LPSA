@@ -149,11 +149,11 @@ page 8073284 "PWD Sending Message List"
 
     var
         [InDataSet]
-        BooGXmlTagVisible: Boolean;
-        [InDataSet]
         BooGFillCharVisible: Boolean;
         [InDataSet]
         BooGVisible: Boolean;
+        [InDataSet]
+        BooGXmlTagVisible: Boolean;
 
 
     procedure FctShowColumns()

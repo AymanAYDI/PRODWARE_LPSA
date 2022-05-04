@@ -206,22 +206,22 @@ report 50058 "PWD MAJ Tps OP Gamme PIE A/S O"
     end;
 
     var
+        BooGDescriptionWithO: Boolean;
+        BooGMoveTime: Boolean;
+        BooGSetupTime: Boolean;
+        CodGOperation: Code[20];
+        DecGMoveTime: Decimal;
+        DecGMoveTimeO: Decimal;
+        DecGSetupTime: Decimal;
+        DecGSetupTimeO: Decimal;
         BDialog: Dialog;
         IntGCounter: Integer;
-        CodGOperation: Code[20];
         CstG001: Label 'Dans les gammes PIE (Filtrage N:PIE*), voulez vous forcer pour l''opération %1 le temps de prépa à %2 pour les articles sans "O" et  le temps de prépa à %3 pour les articles avec "O"dans toutes les lignes de gamme ?';
         CstG002: Label 'Traitement annulé !';
         CstG003: Label 'Merci de saisir l''opération à modifier.';
         CstG004: Label 'MAJ Ligne Gammes PIE (Filtrage N°:PIE*),\\Enregistrements restants #1##############';
-        BooGSetupTime: Boolean;
-        BooGMoveTime: Boolean;
-        DecGSetupTime: Decimal;
-        DecGMoveTime: Decimal;
         CstG005: Label 'Dans les gammes PIE (Filtrage  N:PIE*), voulez vous forcer pour l''opération %1 le temps de transfert à %2 pour les articles sans "O" et  le temps de transfert à %3 pour les articles avec "O"dans toutes les lignes de gamme ?';
         CstG006: Label 'Dans les gammes PIE (Filtrage  N:PIE*), voulez vous forcer pour l''opération %1 le temps de prépa à %2 et le temps de transfert à %3 pour les articles sans "O" et en plus  le temps de prépa à %4  et le temps de transfert à %5 pour les articles avec "O"dans toutes les lignes de gamme ?';
-        DecGSetupTimeO: Decimal;
-        DecGMoveTimeO: Decimal;
-        BooGDescriptionWithO: Boolean;
         CstG007: Label 'Cocher et préciser la nouvelle valeur pour les temps';
         CstG008: Label 'Désignation LPSA 1 sans "O"';
         CstG009: Label 'Désignation LPSA 1 avec "O"';

@@ -63,8 +63,8 @@ pageextension 60138 "PWD FirmPlannedProdOrder" extends "Firm Planned Prod. Order
                 begin
                     //>>LPSA.TDL.19112014
                     IF ("Source Type" = "Source Type"::Item) AND RecLItem.GET("Source No.") THEN BEGIN
-                        ProdBOMWhereUsed.SetItem(RecLItem, WORKDATE);
-                        ProdBOMWhereUsed.RUNMODAL;
+                        ProdBOMWhereUsed.SetItem(RecLItem, WORKDATE());
+                        ProdBOMWhereUsed.RUNMODAL();
                     END;
                     //<<LPSA.TDL.19112014
                 end;
@@ -83,14 +83,14 @@ pageextension 60138 "PWD FirmPlannedProdOrder" extends "Firm Planned Prod. Order
 
                 trigger OnAction()
                 var
-                    RepLListMissing: Report "Prod. Order - List of missing";
                     RecLProdOrder: Record "Production Order";
+                    RepLListMissing: Report "Prod. Order - List of missing";
                 begin
                     CLEAR(RepLListMissing);
                     RecLProdOrder.SETRANGE(Status, Status);
                     RecLProdOrder.SETRANGE("No.", "No.");
                     RepLListMissing.SETTABLEVIEW(RecLProdOrder);
-                    RepLListMissing.RUNMODAL;
+                    RepLListMissing.RUNMODAL();
                 end;
             }
         }

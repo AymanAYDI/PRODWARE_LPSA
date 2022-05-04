@@ -327,18 +327,18 @@ report 50022 "PWD Tracking Card"
         RecGCompanyInformation: Record "Company Information";
         RecGItem: Record Item;
         RecGMachineCenter: Record "Machine Center";
-        TxtGID: Text[250];
+        BooGComment: Boolean;
         BooGComponent: Boolean;
         BooGRootingTool: Boolean;
-        BooGComment: Boolean;
         BooGShowBarCode: Boolean;
-        TRACKING_CARDCaptionLbl: Label 'TRACKING CARD';
+        Components_ListCaptionLbl: Label 'Components List';
         ItemCaptionLbl: Label 'Item No.';
-        Tabel___CaptionLbl: Label 'Tabel : ';
-        Production_Order_QuantityCaptionLbl: Label 'Waiting Quantity';
         Prod__Order_Component__Item_No__CaptionLbl: Label 'Code';
         Prod__Order_Component_QuantityCaptionLbl: Label 'Out Quantity';
-        Components_ListCaptionLbl: Label 'Components List';
+        Production_Order_QuantityCaptionLbl: Label 'Waiting Quantity';
+        Tabel___CaptionLbl: Label 'Tabel : ';
         Tools_ListCaptionLbl: Label 'Tools List';
+        TRACKING_CARDCaptionLbl: Label 'TRACKING CARD';
+        TxtGID: Text[250];
 }
 

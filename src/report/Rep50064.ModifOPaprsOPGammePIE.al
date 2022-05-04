@@ -139,16 +139,16 @@ report 50064 "Modif OP après OP Gamme PIE"
     end;
 
     var
+        CodGNewOperation: Code[20];
+        CodGOldOperation: Code[20];
+        CodGOperationToCheck: Code[20];
+        CodGStartOperation: Code[20];
         BDialog: Dialog;
         IntGCounter: Integer;
-        CodGStartOperation: Code[20];
         CstG001: Label 'Dans les gammes PIE (Filtrage %5), voulez vous remplacer l''opération %1 par l''opération %2 avec comme désignation %3 si elle suit l''opération %4 ?';
         CstG002: Label 'Traitement annulé !';
         CstG003: Label 'Merci de saisir les opérations.';
         CstG004: Label 'MAJ Ligne Gammes PIE (Filtrage N°:PIE*),\\Enregistrements restants #1##############';
-        CodGOperationToCheck: Code[20];
-        CodGOldOperation: Code[20];
-        CodGNewOperation: Code[20];
         TxtGNewOperationDescription: Text[30];
 }
 

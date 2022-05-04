@@ -120,7 +120,7 @@ page 50015 "Item Subst. Phantom Entries"
     end;
 
     var
-        DecGQtyRequested: Decimal;
         DecGQtyRemaining: Decimal;
+        DecGQtyRequested: Decimal;
 }
 

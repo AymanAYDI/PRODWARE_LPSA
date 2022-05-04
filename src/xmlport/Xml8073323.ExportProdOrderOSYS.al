@@ -637,13 +637,13 @@ xmlport 8073323 "PWD Export Prod Order OSYS"
 
     var
         RecGOSYSSetup: Record "PWD OSYS Setup";
-        CodGConnectorPartner: Code[20];
         CduGConnectorBufferMgtExport: Codeunit "Connector Buffer Mgt Export";
-        IntGTempField: Integer;
-        IntGTranckingSpecificationNo: Integer;
-        IntGTranckingSpecifCompoTempNo: Integer;
+        CodGConnectorPartner: Code[20];
         IntGIndent: Integer;
         IntGProdOrderStatus: Integer;
+        IntGTempField: Integer;
+        IntGTranckingSpecifCompoTempNo: Integer;
+        IntGTranckingSpecificationNo: Integer;
 
 
     procedure FctDefinePartner(var RecPConnectorMes: Record "PWD Connector Messages")
@@ -654,22 +654,22 @@ xmlport 8073323 "PWD Export Prod Order OSYS"
 
     procedure FctCheckValues(var RecPProdOrderLine: Record "Prod. Order Line"; BooPInsertValue: Boolean): Boolean
     var
-        RecordRef: RecordRef;
-        RecordRefTemp: RecordRef;
-        RecLProdOrderRoutingLine: Record "Prod. Order Routing Line";
-        RecLProdOrderRtngCommentLine: Record "Prod. Order Rtng Comment Line";
-        RecLProdOrderRoutingTool: Record "Prod. Order Routing Tool";
-        RecLProdOrderRtngPersonnel: Record "Prod. Order Routing Personnel";
         RecLProdOrderComponent: Record "Prod. Order Component";
-        BooLError: Boolean;
-        RecLTrackingSpecificationTemp: Record "Tracking Specification" temporary;
-        RecLTrackingSpecifCompoTemp: Record "Tracking Specification" temporary;
+        RecLProdOrderComponent2: Record "Prod. Order Component";
+        RecLProdOrderRoutingLine: Record "Prod. Order Routing Line";
+        RecLProdOrderRtngPersonnel: Record "Prod. Order Routing Personnel";
+        RecLProdOrderRoutingTool: Record "Prod. Order Routing Tool";
+        RecLProdOrderRtngCommentLine: Record "Prod. Order Rtng Comment Line";
         RecLRecordLink: Record "Record Link";
         RecLRecordLinkRouting: Record "Record Link";
-        FieldRef: FieldRef;
+        RecLTrackingSpecifCompoTemp: Record "Tracking Specification" temporary;
+        RecLTrackingSpecificationTemp: Record "Tracking Specification" temporary;
         CodLConnectorOSYSParseData: Codeunit "PWD Connector OSYS Parse Data";
+        RecordRef: RecordRef;
+        RecordRefTemp: RecordRef;
+        FieldRef: FieldRef;
+        BooLError: Boolean;
         CodLNextOp: Code[1024];
-        RecLProdOrderComponent2: Record "Prod. Order Component";
     begin
         BooLError := false;
 
@@ -1046,8 +1046,8 @@ xmlport 8073323 "PWD Export Prod Order OSYS"
 
     procedure FctRecordLink(RecPProdOrderLine: Record "Prod. Order Line"; var RecPRecordLink: Record "Record Link")
     var
-        RecordRef: RecordRef;
         RecLProductionOrder: Record "Production Order";
+        RecordRef: RecordRef;
     begin
         //Filtre Record Link
         RecLProductionOrder.Get(RecPProdOrderLine.Status, RecPProdOrderLine."Prod. Order No.");
@@ -1058,8 +1058,8 @@ xmlport 8073323 "PWD Export Prod Order OSYS"
 
     procedure FctRecordLinkRouting(RecPProdOrderRoutingLine: Record "Prod. Order Routing Line"; var RecPRecordLink: Record "Record Link")
     var
-        RecordRef: RecordRef;
         RecLProdOrderRoutingLine: Record "Prod. Order Routing Line";
+        RecordRef: RecordRef;
     begin
         //Filtre Routing Record Link
         RecLProdOrderRoutingLine.Get(RecPProdOrderRoutingLine.Status, RecPProdOrderRoutingLine."Prod. Order No.",
@@ -1072,8 +1072,8 @@ xmlport 8073323 "PWD Export Prod Order OSYS"
 
     procedure FctGetTrackingSpecification(RecPProdOrderLine: Record "Prod. Order Line"; var RecPTrackingSpecificationTemp: Record "Tracking Specification" temporary)
     var
-        RecLTrackingSpecificationTemp: Record "Tracking Specification" temporary;
         RecLItem: Record Item;
+        RecLTrackingSpecificationTemp: Record "Tracking Specification" temporary;
         CduLBufferTrackingManagement: Codeunit "Buffer Tracking Management 2";
     begin
         if (RecLItem.Get(RecPProdOrderLine."Item No.") and (RecLItem."Item Tracking Code" <> '')) then begin
@@ -1097,8 +1097,8 @@ xmlport 8073323 "PWD Export Prod Order OSYS"
 
     procedure FctGetTrackingSpecifComponent(RecPProdOrderComponent: Record "Prod. Order Component"; var RecPTrackingSpecificationTemp: Record "Tracking Specification" temporary)
     var
-        RecLTrackingSpecification: Record "Tracking Specification";
         RecLItem: Record Item;
+        RecLTrackingSpecification: Record "Tracking Specification";
         CduLBufferTrackingManagement: Codeunit "Buffer Tracking Management 2";
     begin
         if (RecLItem.Get(RecPProdOrderComponent."Item No.") and (RecLItem."Item Tracking Code" <> '')) then
@@ -1125,8 +1125,8 @@ xmlport 8073323 "PWD Export Prod Order OSYS"
 
     procedure FctCanExportRoutingLine(RecPProdOrderRoutingLine: Record "Prod. Order Routing Line"; var CodPNextOp: Code[1024]): Boolean
     var
-        RecLProdOrderRoutingLine2: Record "Prod. Order Routing Line";
         RecLMachineCenter: Record "Machine Center";
+        RecLProdOrderRoutingLine2: Record "Prod. Order Routing Line";
     begin
         if (RecPProdOrderRoutingLine.Type = RecPProdOrderRoutingLine.Type::"Work Center") then
             exit(false);

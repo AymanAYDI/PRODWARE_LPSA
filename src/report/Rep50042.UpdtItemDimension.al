@@ -26,13 +26,13 @@ report 50042 "PWD Updt Item - Dimension"
 
             trigger OnAfterGetRecord()
             var
-                RecLSalesLine: Record "Sales Line";
-                RecLPurchLine: Record "Purchase Line";
                 RecLItemJnlLine: Record "Item Journal Line";
-                RecLRequisitionLine: Record "Requisition Line";
-                RecLTransferLine: Record "Transfer Line";
-                RecLManufacturingCycles: Record "PWD Manufacturing cycles Setup";
+                RecLPurchLine: Record "Purchase Line";
                 RecLItemConfiguration: Record "PWD Item Configurator";
+                RecLManufacturingCycles: Record "PWD Manufacturing cycles Setup";
+                RecLRequisitionLine: Record "Requisition Line";
+                RecLSalesLine: Record "Sales Line";
+                RecLTransferLine: Record "Transfer Line";
             begin
                 DiagWindows.Update(1, DATABASE::Item);
                 DiagWindows.Update(2, "No.");
@@ -120,8 +120,8 @@ report 50042 "PWD Updt Item - Dimension"
                         DiagWindows.Update(2, RecLManufacturingCycles."No.");
 
                         RecLManufacturingCycles."Item Category Code" := Item."Item Category Code";
-                        RecLManufacturingCycles.Modify;
-                    until RecLManufacturingCycles.Next = 0;
+                        RecLManufacturingCycles.Modify();
+                    until RecLManufacturingCycles.Next() = 0;
 
 
                 //50001
@@ -134,7 +134,7 @@ report 50042 "PWD Updt Item - Dimension"
                         RecLItemConfiguration."Item Category Code" := Item."Item Category Code";
                         //RecLItemConfiguration."Product Group Code" := Item."Product Group Code";
                         RecLItemConfiguration.Modify();
-                    until RecLManufacturingCycles.Next = 0;
+                    until RecLManufacturingCycles.Next() = 0;
             end;
 
             trigger OnPostDataItem()
@@ -221,13 +221,13 @@ report 50042 "PWD Updt Item - Dimension"
     var
         RecGItemCategory: Record "Item Category";
         RecGProductGroup: Record "Product Group";
+        CduGClosingMgt: Codeunit "PWD Closing Management";
+        FrmProductGroup: Page "Product Groups";
         CodGGroupCode: Code[10];
         DiagWindows: Dialog;
         CstG0000: Label 'Mise à jour #1################ #2#################';
         CstG0001: Label 'Code catégorie et code groupe produit sont obligatoires.';
         CstG0002: Label 'Mise à jour articles terminée.';
-        CduGClosingMgt: Codeunit "PWD Closing Management";
         CstG0003: Label 'ATTENTION, PENSEZ A POSITIONNER LES FILTRES ADEQUATS DANS L''ONGLET ARTICLE. ';
-        FrmProductGroup: Page "Product Groups";
 }
 

@@ -36,7 +36,7 @@ pageextension 60076 "PWD PostedTransferShptSubform" extends "Posted Transfer Shp
 
                 trigger OnAction()
                 begin
-                    Rec.ShowLineComments;
+                    Rec.ShowLineComments();
                 end;
             }
         }

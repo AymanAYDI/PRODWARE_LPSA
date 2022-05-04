@@ -36,7 +36,7 @@ pageextension 60078 "PWD PostedTransferRcptSubform" extends "Posted Transfer Rcp
 
                 trigger OnAction()
                 begin
-                    Rec.ShowLineComments;
+                    Rec.ShowLineComments();
                 end;
             }
         }

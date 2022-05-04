@@ -246,7 +246,7 @@ report 50003 "Purchase - Return Shipment LAP"
                                     Continue := TRUE;
                                     EXIT;
                                 END;
-                            UNTIL (DimSetEntry1.NEXT = 0);
+                            UNTIL (DimSetEntry1.NEXT() = 0);
                         end;
 
                         trigger OnPreDataItem()
@@ -379,7 +379,7 @@ report 50003 "Purchase - Return Shipment LAP"
                                         Continue := TRUE;
                                         EXIT;
                                     END;
-                                UNTIL (DimSetEntry2.NEXT = 0);
+                                UNTIL (DimSetEntry2.NEXT() = 0);
                             end;
 
                             trigger OnPreDataItem()
@@ -657,46 +657,43 @@ report 50003 "Purchase - Return Shipment LAP"
     }
 
     var
-        Text000: Label 'Purchaser';
-        Text001: Label 'COPY';
-        Text002: Label 'Purchase - Return Shipment %1';
-        Text003: Label 'Page %1';
         CompanyInfo: Record "Company Information";
-        SalesPurchPerson: Record "Salesperson/Purchaser";
         //TODO: Table 'Posted Document Dimension' is missing
         // PostedDocDim1: Record "Posted Document Dimension";
         // PostedDocDim2: Record "Posted Document Dimension";
         DimSetEntry1: Record "Dimension Set Entry";
         DimSetEntry2: Record "Dimension Set Entry";
+        RecGItem: Record Item;
+        RecGItemCrossRef: Record "Item Cross Reference";
+        RecGPurchCommentLine: Record "Purch. Comment Line";
+        RecGPurchHderArch: Record "Purchase Header Archive";
         RespCenter: Record "Responsibility Center";
-        ShptCountPrinted: Codeunit "Return Shipment - Printed";
+        SalesPurchPerson: Record "Salesperson/Purchaser";
+        RecGVendor: Record Vendor;
         FormatAddr: Codeunit "Format Address";
         LPSAFunctionsMgt: Codeunit "PWD LPSA Functions Mgt.";
+        ShptCountPrinted: Codeunit "Return Shipment - Printed";
         SegManagement: Codeunit SegManagement;
-        VendAddr: array[8] of Text[50];
-        ShipToAddr: array[8] of Text[50];
-        CompanyAddr: array[8] of Text[50];
-        PurchaserText: Text[30];
-        ReferenceText: Text[80];
-        CopyText: Text[30];
-        DimText: Text[120];
-        OldDimText: Text[75];
-        NoOfCopies: Integer;
-        NoOfLoops: Integer;
-        ShowInternalInfo: Boolean;
+        BooGStopComment: Boolean;
         Continue: Boolean;
-        MoreLines: Boolean;
-        ShowCorrectionLines: Boolean;
         LogInteraction: Boolean;
-        OutputNo: Integer;
-        TypeInt: Integer;
-        PayToVendorNo: Code[20];
-        BuyFromVendorNo: Code[20];
-        PayToCaption: Text[30];
         [InDataSet]
         LogInteractionEnable: Boolean;
-        RecGVendor: Record Vendor;
-        TxtGText009: Text[30];
+        MoreLines: Boolean;
+        ShowCorrectionLines: Boolean;
+        ShowInternalInfo: Boolean;
+        BuyFromVendorNo: Code[20];
+        PayToVendorNo: Code[20];
+        NoOfCopies: Integer;
+        NoOfLoops: Integer;
+        OutputNo: Integer;
+        TypeInt: Integer;
+        CompanyInfo__Bank_Account_No__CaptionLbl: Label 'Account No.';
+        CompanyInfo__Bank_Name_CaptionLbl: Label 'Bank';
+        CompanyInfo__Fax_No__CaptionLbl: Label 'Fax No.';
+        CompanyInfo__Giro_No__CaptionLbl: Label 'Giro No.';
+        CompanyInfo__Phone_No__CaptionLbl: Label 'Phone No.';
+        CompanyInfo__VAT_Registration_No__CaptionLbl: Label 'VAT Reg. No.';
         CstGText004: Label '%1, on %2';
         CstGText005: Label 'Purchase Quote';
         CstGText006: Label 'Document No.: %1';
@@ -707,30 +704,33 @@ report 50003 "Purchase - Return Shipment LAP"
         CstGText011: Label 'Quote No.:';
         CstGText012: Label 'Your contact : %1';
         CstGText013: Label ' / ';
-        RecGItem: Record Item;
-        RecGPurchHderArch: Record "Purchase Header Archive";
-        RecGItemCrossRef: Record "Item Cross Reference";
-        TxtGCustPlanNo: Text[100];
-        TxtGCustRefNo: Text[20];
         CstGText014: Label 'Document No.: ';
         CstGText015: Label 'VAT No. :';
-        RecGPurchCommentLine: Record "Purch. Comment Line";
-        TxtGComment: Text[1024];
-        BooGStopComment: Boolean;
-        CompanyInfo__Phone_No__CaptionLbl: Label 'Phone No.';
-        CompanyInfo__Fax_No__CaptionLbl: Label 'Fax No.';
-        CompanyInfo__VAT_Registration_No__CaptionLbl: Label 'VAT Reg. No.';
-        CompanyInfo__Giro_No__CaptionLbl: Label 'Giro No.';
-        CompanyInfo__Bank_Name_CaptionLbl: Label 'Bank';
-        CompanyInfo__Bank_Account_No__CaptionLbl: Label 'Account No.';
-        Return_Shipment_Header___No__CaptionLbl: Label 'Shipment No.';
-        Return_Shipment_Header___Buy_from_Vendor_No__CaptionLbl: Label 'Vendor No.:';
         Header_DimensionsCaptionLbl: Label 'Header Dimensions';
-        Return_Shipment_Line_Description_Control42CaptionLbl: Label 'Description';
-        Return_Shipment_Line__No__CaptionLbl: Label 'Item Code';
-        RecGItem_LPSA_Plan_No_CaptionLbl: Label 'Your Plan No. = ';
-        RecGItem_Customer_Plan_No_CaptionLbl: Label 'Your Item Ref. = ';
         Line_DimensionsCaptionLbl: Label 'Line Dimensions';
         Pay_to_AddressCaptionLbl: Label 'Pay-to Address';
+        RecGItem_Customer_Plan_No_CaptionLbl: Label 'Your Item Ref. = ';
+        RecGItem_LPSA_Plan_No_CaptionLbl: Label 'Your Plan No. = ';
+        Return_Shipment_Header___Buy_from_Vendor_No__CaptionLbl: Label 'Vendor No.:';
+        Return_Shipment_Header___No__CaptionLbl: Label 'Shipment No.';
+        Return_Shipment_Line__No__CaptionLbl: Label 'Item Code';
+        Return_Shipment_Line_Description_Control42CaptionLbl: Label 'Description';
+        Text000: Label 'Purchaser';
+        Text001: Label 'COPY';
+        Text002: Label 'Purchase - Return Shipment %1';
+        Text003: Label 'Page %1';
+        TxtGCustRefNo: Text[20];
+        CopyText: Text[30];
+        PayToCaption: Text[30];
+        PurchaserText: Text[30];
+        TxtGText009: Text[30];
+        CompanyAddr: array[8] of Text[50];
+        ShipToAddr: array[8] of Text[50];
+        VendAddr: array[8] of Text[50];
+        OldDimText: Text[75];
+        ReferenceText: Text[80];
+        TxtGCustPlanNo: Text[100];
+        DimText: Text[120];
+        TxtGComment: Text[1024];
 }
 

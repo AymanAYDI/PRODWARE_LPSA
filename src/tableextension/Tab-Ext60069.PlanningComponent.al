@@ -54,10 +54,10 @@ tableextension 60069 "PWD PlanningComponent" extends "Planning Component"
 
             trigger OnValidate()
             var
+                Item: Record Item;
                 POPlanningComp: Record "Planning Component";
                 gctxCfm0001: Label 'Set %1 = %2 at all other concerned lines?';
                 gctxErr0001: Label '%1: Component %2 is already set to %3.';
-                Item: Record Item;
             begin
                 IF "PWD Lot Determining" THEN BEGIN
                     Item.GET("Item No.");
@@ -78,12 +78,11 @@ tableextension 60069 "PWD PlanningComponent" extends "Planning Component"
 
                 POPlanningComp.SETRANGE("Item No.", "Item No.");
                 POPlanningComp.SETRANGE("PWD Lot Determining", (NOT "PWD Lot Determining"));
-                IF POPlanningComp.FIND('-') THEN BEGIN
+                IF POPlanningComp.FIND('-') THEN
                     IF CONFIRM(gctxCfm0001, TRUE, POPlanningComp.FIELDCAPTION("PWD Lot Determining"), "PWD Lot Determining") THEN
                         POPlanningComp.MODIFYALL("PWD Lot Determining", "PWD Lot Determining")
                     ELSE
                         ERROR('');
-                END;
 
             end;
         }

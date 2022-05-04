@@ -296,8 +296,8 @@ pageextension 60008 "PWD ItemCard" extends "Item Card"
                 trigger OnAction()
                 VAR
                     RecLRouting: Record "Routing Header";
-                    PagLRouting: Page Routing;
                     RecLRtngVersion: Record "Routing Version";
+                    PagLRouting: Page Routing;
                 BEGIN
                     //>>LAP2.12
                     IF CodGActiveVersionCode = '' THEN BEGIN
@@ -305,7 +305,7 @@ pageextension 60008 "PWD ItemCard" extends "Item Card"
                         IF RecLRouting.GET("Routing No.") THEN BEGIN
                             RecLRouting.SETRANGE("No.", "Routing No.");
                             PagLRouting.SETTABLEVIEW(RecLRouting);
-                            PagLRouting.RUNMODAL;
+                            PagLRouting.RUNMODAL();
                         END;
                         //<<LPSA.TDL.19112014
                     END ELSE BEGIN
@@ -345,8 +345,8 @@ pageextension 60008 "PWD ItemCard" extends "Item Card"
                 PromotedCategory = Process;
                 trigger OnAction()
                 VAR
-                    PgeLItemConfigurator: Page "PWD Item Configurator";
                     RecLItemConfigurator: Record "PWD Item Configurator";
+                    PgeLItemConfigurator: Page "PWD Item Configurator";
                     CstLT001: Label 'Item %1 not created from configurator.';
                 BEGIN
                     //>>FE_LAPIERRETTE_ART01.001
@@ -370,7 +370,7 @@ pageextension 60008 "PWD ItemCard" extends "Item Card"
     trigger OnQueryClosePage(CloseAction: Action): Boolean
     begin
         //>>REGIE
-        FctCheckBeforeClose;
+        FctCheckBeforeClose();
         //<<REGIE
     end;
 
@@ -406,8 +406,8 @@ pageextension 60008 "PWD ItemCard" extends "Item Card"
 
     procedure FctCheckBeforeClose()
     var
-        RecLRoutingHeader: Record "Routing Header";
         RecLProductionBOMHeader: Record "Production BOM Header";
+        RecLRoutingHeader: Record "Routing Header";
         LPSAFunctionsMgt: Codeunit "PWD LPSA Functions Mgt.";
     //CalculateStdCost: Codeunit "Calculate Standard Cost";
     BEGIN
@@ -433,13 +433,13 @@ pageextension 60008 "PWD ItemCard" extends "Item Card"
 
 
     var
+        CduGVersionMgt: Codeunit VersionManagement;
+        BooGCalcCost: Boolean;
         [InDataSet]
         "Lot DeterminingEnable": Boolean;
-        CduGVersionMgt: Codeunit VersionManagement;
         CodGActiveVersionCode: Code[20];
         CstG001: Label 'The Item standard cost is 0, Do you want to calculate it ?';
         CstG002: Label 'The card can not be closed because The Item standard cost is 0 !';
-        BooGCalcCost: Boolean;
         CstG003: Label 'The routing, the nomenclature and / or the Lot size have been modified! \ Do you want to recalculate the standard cost of the item?';
         CstG004: Label 'The card can not be closed because The Item standard costmust be recalculate !';
 

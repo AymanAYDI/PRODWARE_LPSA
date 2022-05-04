@@ -73,14 +73,14 @@ xmlport 50001 "PWD Import STOCK"
 
                 trigger OnAfterInitRecord()
                 var
-                    RefLRecordRef: RecordRef;
-                    RecLConnectorsActivation: Record "PWD OSYS Setup";
-                    RecLProdOrderRoutingLine: Record "Prod. Order Routing Line";
-                    RecLProdOrderLine: Record "Prod. Order Line";
                     RecLMachine: Record "Machine Center";
-                    "-LAP2.06.01-": Integer;
+                    RecLProdOrderLine: Record "Prod. Order Line";
+                    RecLProdOrderRoutingLine: Record "Prod. Order Routing Line";
+                    RecLConnectorsActivation: Record "PWD OSYS Setup";
                     CduLOSYSParseData: Codeunit "PWD Connector OSYS Parse Data";
+                    RefLRecordRef: RecordRef;
                     CodLItemNo: Code[20];
+                    "-LAP2.06.01-": Integer;
                 begin
                     RefLRecordRef.GetTable("PWD Item Jounal Line Buffer");
                     CduGBufferManagement.FctNewBufferLine2(RefLRecordRef, RecGConnectorValues, 0);
@@ -96,13 +96,13 @@ xmlport 50001 "PWD Import STOCK"
 
                 trigger OnBeforeInsertRecord()
                 var
-                    RecLProdOrderRoutingLine: Record "Prod. Order Routing Line";
-                    RecLProdOrderLine: Record "Prod. Order Line";
                     RecLMachine: Record "Machine Center";
-                    "-LAP2.06.01-": Integer;
+                    RecLProdOrderLine: Record "Prod. Order Line";
+                    RecLProdOrderRoutingLine: Record "Prod. Order Routing Line";
+                    RecLConnectorsActivation: Record "PWD OSYS Setup";
                     CduLOSYSParseData: Codeunit "PWD Connector OSYS Parse Data";
                     CodLItemNo: Code[20];
-                    RecLConnectorsActivation: Record "PWD OSYS Setup";
+                    "-LAP2.06.01-": Integer;
                 begin
 
 
@@ -145,10 +145,10 @@ xmlport 50001 "PWD Import STOCK"
     end;
 
     var
-        RecGConnectorValues: Record "PWD Connector Values";
-        CduGBufferManagement: Codeunit "PWD Buffer Management";
-        OSYSSetup: Record "PWD OSYS Setup";
         RecGConnectorMessages: Record "PWD Connector Messages";
+        RecGConnectorValues: Record "PWD Connector Values";
+        OSYSSetup: Record "PWD OSYS Setup";
+        CduGBufferManagement: Codeunit "PWD Buffer Management";
 
 
     procedure FctInitXmlPort(RecPConnectorValues: Record "PWD Connector Values")

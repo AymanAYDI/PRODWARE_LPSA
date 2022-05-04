@@ -26,10 +26,10 @@ pageextension 60013 "PWD SalesInvoice" extends "Sales Invoice"
     var
         RecLComment: Record "Comment Line";
     begin
-        RecLComment.RESET;
+        RecLComment.RESET();
         RecLComment.SETRANGE("Table Name", RecLComment."Table Name"::Customer);
         RecLComment.SETFILTER("No.", '%1|%2', "Sell-to Customer No.", "Bill-to Customer No.");
-        BooGComment := RecLComment.FINDFIRST;
+        BooGComment := RecLComment.FINDFIRST();
     end;
 
     var

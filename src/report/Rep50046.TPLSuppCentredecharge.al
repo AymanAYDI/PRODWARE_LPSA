@@ -129,16 +129,16 @@ report 50046 "PWD TPL Supp Centre de charge"
     end;
 
     var
-        TxtGFile: Text[255];
-        RecGMachineCenter: Record "Machine Center";
-        RecGCalendarEntry: Record "Calendar Entry";
         RecGCalAbsentEntry: Record "Calendar Absence Entry";
+        RecGCalendarEntry: Record "Calendar Entry";
+        RecGMachineCenter: Record "Machine Center";
         RecGMfgCommentLine: Record "Manufacturing Comment Line";
         RecGPlannerOneParameters: Record PlannerOneMachineSetupParam; //TODO: Numero de Table 8076517 
+        CduGApplicationManagement: Codeunit ApplicationManagement; //TODO: CodeUnit 1 n'existe pas dans la nouvelle version
+        BDialog: Dialog;
         FilGFileToImport: File;
         InsGDataFileInstream: InStream;
         TxtGReadLine: Text[30];
-        CduGApplicationManagement: Codeunit ApplicationManagement; //TODO: CodeUnit 1 n'existe pas dans la nouvelle version
-        BDialog: Dialog;
+        TxtGFile: Text[255];
 }
 

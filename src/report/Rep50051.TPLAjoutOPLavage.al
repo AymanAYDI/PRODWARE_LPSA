@@ -91,9 +91,9 @@ report 50051 "PWD TPL Ajout OP Lavage"
     }
 
     var
+        RecGRoutingLine: Record "Routing Line";
         BDialog: Dialog;
         IntGCounter: Integer;
-        RecGRoutingLine: Record "Routing Line";
         OptGStatus: Option New,Certified,"Under Development",Closed;
 }
 

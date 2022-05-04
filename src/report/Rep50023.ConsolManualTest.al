@@ -57,11 +57,11 @@ report 50023 "PWD Consol Manual Test"
     end;
 
     var
-        OptGTreatment: Option Export,Import,Buffer,Validation;
         RecGJobQueueEntry: Record "Job Queue Entry";
+        CduGBuffersProcessBatchLaunche: Codeunit "Buffers Process Batch Launcher";
+        CduGValidationBatch: Codeunit "Connectors Validation Batch";
         CduGFileExportLauncher: Codeunit "PWD File Export Launcher";
         CduGFileImportLauncher: Codeunit "PWD File Import Launcher";
-        CduGValidationBatch: Codeunit "Connectors Validation Batch";
-        CduGBuffersProcessBatchLaunche: Codeunit "Buffers Process Batch Launcher";
+        OptGTreatment: Option Export,Import,Buffer,Validation;
 }
 

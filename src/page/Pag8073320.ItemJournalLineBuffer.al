@@ -301,8 +301,8 @@ page 8073320 "PWD Item Journal Line Buffer"
 
                     trigger OnAction()
                     var
-                        CduLBufferManagement: Codeunit "PWD Buffer Management";
                         RecLItemJounalLineBuffer: Record "PWD Item Jounal Line Buffer";
+                        CduLBufferManagement: Codeunit "PWD Buffer Management";
                     begin
                         CurrPage.SETSELECTIONFILTER(RecLItemJounalLineBuffer);
                         CduLBufferManagement.FctPurgeItemJournaLine(RecLItemJounalLineBuffer);
@@ -334,8 +334,8 @@ page 8073320 "PWD Item Journal Line Buffer"
     end;
 
     var
-        CduGBufferManagement: Codeunit "PWD Buffer Management";
         RecGWMSItemJounalLineBuffer: Record "PWD WMS Item Jnl Line Buffer";
+        CduGBufferManagement: Codeunit "PWD Buffer Management";
 
 
     procedure FctProcessSelected()

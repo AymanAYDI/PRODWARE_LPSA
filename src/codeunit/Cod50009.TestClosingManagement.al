@@ -50,30 +50,30 @@ codeunit 50009 "PWD Test Closing Management"
     end;
 
     var
-        RecGInventorySetup: Record "Inventory Setup";
-        RecGGenLdgSetup: Record "General Ledger Setup";
-        RecGDimValue: Record "Dimension Value";
         RecGDefaultDim: Record "Default Dimension";
+        RecGDimValue: Record "Dimension Value";
+        RecGGenLdgSetup: Record "General Ledger Setup";
+        RecGInventorySetup: Record "Inventory Setup";
         RecGUserSetup: Record "User Setup";
         FileMgt: Codeunit "File Management";
         CduGConvert: Codeunit "PWD Convert Ascii To Ansi";
-        TxtGServerFileName: Text[250];
-        TxtGExportFileName: Text[250];
-        FilGToExport: File;
+        BigTGExportText: BigText;
+        BooGFinishedPO: Boolean;
+        BooGInventory: Boolean;
+        BooGItem: Boolean;
+        BooGManualLaunch: Boolean;
+        BooGProdOrder: Boolean;
         ChaGCR: Char;
         ChaGLF: Char;
-        OusGOutstream: OutStream;
-        BigTGExportText: BigText;
-        BooGItem: Boolean;
-        BooGInventory: Boolean;
-        BooGProdOrder: Boolean;
-        BooGFinishedPO: Boolean;
-        DatGReferenceDate: Date;
-        CstG00000: Label 'Export #1############# #2############';
-        DiaGWindows: Dialog;
-        DatGCurrStartMonth: Date;
         DatGCurrEndMonth: Date;
-        BooGManualLaunch: Boolean;
+        DatGCurrStartMonth: Date;
+        DatGReferenceDate: Date;
+        DiaGWindows: Dialog;
+        FilGToExport: File;
+        CstG00000: Label 'Export #1############# #2############';
+        OusGOutstream: OutStream;
+        TxtGExportFileName: Text[250];
+        TxtGServerFileName: Text[250];
 
 
     procedure UpdateDimValue(FromIDTable: Integer; FromIDCode: Code[20]; FromDescription: Text[30])
@@ -156,8 +156,8 @@ codeunit 50009 "PWD Test Closing Management"
 
     procedure GetDirectory(TxtPDataSource: Text[250]): Text[250]
     var
-        IntLLength: Integer;
         IntLCharPos: Integer;
+        IntLLength: Integer;
         TxtLChar: Text[1];
     begin
         if StrLen(TxtPDataSource) = 0 then exit;
@@ -237,11 +237,11 @@ codeunit 50009 "PWD Test Closing Management"
 
     procedure ExportItem()
     var
-        CstLItem: Label 'Test_Articles_%1.csv';
-        TxtLTextFields: array[50] of Text[250];
         RecLItem: Record Item;
         RecLValueEntry: Record "Value Entry";
+        CstLItem: Label 'Test_Articles_%1.csv';
         CstLTitle: Label 'Item';
+        TxtLTextFields: array[50] of Text[250];
     begin
         if GuiAllowed then
             DiaGWindows.Update(1, CstLTitle);
@@ -368,15 +368,15 @@ codeunit 50009 "PWD Test Closing Management"
 
     procedure ExportInventory()
     var
-        CstLInventory: Label 'Test_Stocks_%1.csv';
-        TxtLTextFields: array[50] of Text[250];
-        RecLItem: Record Item;
-        RecLLocation: Record Location;
-        RecLItemLdgEntry: Record "Item Ledger Entry";
         RecLBinContent: Record "Bin Content";
-        RecLWarehouseEntry: Record "Warehouse Entry";
-        CstLTitle: Label 'Stock';
+        RecLItem: Record Item;
+        RecLItemLdgEntry: Record "Item Ledger Entry";
+        RecLLocation: Record Location;
         RecLLastSalesOrderLine: Record "Sales Line";
+        RecLWarehouseEntry: Record "Warehouse Entry";
+        CstLInventory: Label 'Test_Stocks_%1.csv';
+        CstLTitle: Label 'Stock';
+        TxtLTextFields: array[50] of Text[250];
     begin
         if GuiAllowed then
             DiaGWindows.Update(1, CstLTitle);
@@ -677,14 +677,14 @@ codeunit 50009 "PWD Test Closing Management"
 
     procedure ExportProdOrder()
     var
-        CstLCurrent: Label 'Current_%1.csv';
-        TxtLTextFields: array[50] of Text[250];
-        DatLCurrPrevEndMonth: Date;
-        RecLProductionOrder: Record "Production Order";
-        RecLProdOrderLine: Record "Prod. Order Line";
         RecLItem: Record Item;
-        CstLTitle: Label 'En-cours';
+        RecLProdOrderLine: Record "Prod. Order Line";
         RecLProdOrderRtngLine: Record "Prod. Order Routing Line";
+        RecLProductionOrder: Record "Production Order";
+        DatLCurrPrevEndMonth: Date;
+        CstLCurrent: Label 'Current_%1.csv';
+        CstLTitle: Label 'En-cours';
+        TxtLTextFields: array[50] of Text[250];
     begin
         if GuiAllowed then
             DiaGWindows.Update(1, CstLTitle);
@@ -844,13 +844,13 @@ codeunit 50009 "PWD Test Closing Management"
 
     procedure ExportFinishedPO()
     var
+        ReclCapacityLdgrEntry: Record "Capacity Ledger Entry";
+        RecLItemLdgrEntry: Record "Item Ledger Entry";
+        RecLProdOrderLine: Record "Prod. Order Line";
+        RecLProductionOrder: Record "Production Order";
         CstLFinisheProdOrder: Label 'Finished_PO_%1.csv';
         CstLTitle: Label 'OF terminé';
-        RecLProductionOrder: Record "Production Order";
-        RecLProdOrderLine: Record "Prod. Order Line";
-        RecLItemLdgrEntry: Record "Item Ledger Entry";
         TxtLTextFields: array[50] of Text[250];
-        ReclCapacityLdgrEntry: Record "Capacity Ledger Entry";
     begin
         if GuiAllowed then
             DiaGWindows.Update(1, CstLTitle);
@@ -976,15 +976,15 @@ codeunit 50009 "PWD Test Closing Management"
     procedure CalcProdOrderValue(RecPProdOrder: Record "Production Order"; DatPCurrStartMonth: Date; DatPCurrEndMonth: Date; var TxtPTextFields: array[50] of Text[250])
     var
         RecLValueEntry: Record "Value Entry";
-        DecLValueOfWIP: Decimal;
-        DecLValueOfMatConsump: Decimal;
         DecLValueOfCap: Decimal;
         DecLValueOfCapVendor: Decimal;
-        DecLValueOfOutput: Decimal;
         DecLValueOfExpOutput1: Decimal;
-        DecLValueOfInvOutput1: Decimal;
         DecLValueOfExpOutput2: Decimal;
+        DecLValueOfInvOutput1: Decimal;
+        DecLValueOfMatConsump: Decimal;
+        DecLValueOfOutput: Decimal;
         DecLValueOfRevalCostAct: Decimal;
+        DecLValueOfWIP: Decimal;
     begin
         Clear(DecLValueOfWIP);
         Clear(DecLValueOfMatConsump);

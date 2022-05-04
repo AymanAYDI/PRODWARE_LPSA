@@ -206,22 +206,22 @@ report 50045 "PWD TPL Suppression Gamme"
     end;
 
     var
-        TxtGFile: Text[255];
         RecGItem: Record Item;
+        RecGMfgComment: Record "Manufacturing Comment Line";
         RecGProdOrderRoutingLine: Record "Prod. Order Routing Line";
         RecGRoutingHeader: Record "Routing Header";
         RecGRoutingHeaderTemp: Record "Routing Header" temporary;
-        FilGFileToImport: File;
-        InsGDataFileInstream: InStream;
-        TxtGReadLine: Text[30];
+        RecGRtngLine: Record "Routing Line";
+        RecGRtngVersion: Record "Routing Version";
+        BooGDelRoutingNoOnItem: Boolean;
         BooGItemFind: Boolean;
         BooGOFFind: Boolean;
-        BooGDelRoutingNoOnItem: Boolean;
-        RecGRtngLine: Record "Routing Line";
-        RecGMfgComment: Record "Manufacturing Comment Line";
-        RecGRtngVersion: Record "Routing Version";
-        Gamme_N_CaptionLbl: Label 'Gamme N°';
+        FilGFileToImport: File;
+        InsGDataFileInstream: InStream;
         "Article_liéCaptionLbl": Label 'Article lié';
+        Gamme_N_CaptionLbl: Label 'Gamme N°';
         "OF_liéCaptionLbl": Label 'OF lié';
+        TxtGReadLine: Text[30];
+        TxtGFile: Text[255];
 }
 

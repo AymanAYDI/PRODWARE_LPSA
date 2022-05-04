@@ -154,8 +154,8 @@ tableextension 60036 "PWD ProductionOrder" extends "Production Order"
 
     PROCEDURE CheckComponentAvailabilty() IsNotAvailable: Boolean;
     VAR
-        BooLIsNotAvailable: Boolean;
         ProdOrderLine: Record "Prod. Order Line";
+        BooLIsNotAvailable: Boolean;
     BEGIN
         BooLIsNotAvailable := FALSE;
         ProdOrderLine.RESET();
@@ -171,8 +171,8 @@ tableextension 60036 "PWD ProductionOrder" extends "Production Order"
 
     PROCEDURE ComponentInv() Qty: Decimal;
     VAR
-        RecLProdOrderComponent: Record "Prod. Order Component";
         RecLItem: Record Item;
+        RecLProdOrderComponent: Record "Prod. Order Component";
         DecLInv: Decimal;
     BEGIN
         DecLInv := 0;

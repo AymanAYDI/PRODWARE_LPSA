@@ -125,7 +125,7 @@ page 8073325 "PWD Receipt Line Buffer"
 
                     trigger OnValidate()
                     begin
-                        IF RecGWMSReceiptLineBuffer.MODIFY THEN;
+                        IF RecGWMSReceiptLineBuffer.MODIFY() THEN;
                     end;
                 }
                 field("RecGWMSReceiptLineBuffer.""Reason Code Receipt Error"""; RecGWMSReceiptLineBuffer."Reason Code Receipt Error")
@@ -135,7 +135,7 @@ page 8073325 "PWD Receipt Line Buffer"
 
                     trigger OnValidate()
                     begin
-                        IF RecGWMSReceiptLineBuffer.MODIFY THEN;
+                        IF RecGWMSReceiptLineBuffer.MODIFY() THEN;
                     end;
                 }
             }
@@ -204,8 +204,8 @@ page 8073325 "PWD Receipt Line Buffer"
 
                     trigger OnAction()
                     var
-                        CduLBufferManagement: Codeunit "PWD Buffer Management";
                         RecLReceiptLineBuffer: Record "PWD Receipt Line Buffer";
+                        CduLBufferManagement: Codeunit "PWD Buffer Management";
                     begin
                         CurrPage.SETSELECTIONFILTER(RecLReceiptLineBuffer);
                         CduLBufferManagement.FctPurgeReceiptLine(RecLReceiptLineBuffer);
@@ -237,9 +237,9 @@ page 8073325 "PWD Receipt Line Buffer"
     end;
 
     var
-        CduGBufferManagement: Codeunit "PWD Buffer Management";
         RecGPEBReceiptLineBuffer: Record "PWD PEB Receipt Line Buffer";
         RecGWMSReceiptLineBuffer: Record "PWD WMS Receipt Line Buffer";
+        CduGBufferManagement: Codeunit "PWD Buffer Management";
 
 
     procedure FctGetBufferLinked()

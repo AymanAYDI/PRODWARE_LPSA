@@ -108,9 +108,9 @@ report 50018 "PWD Update Routing Line"
     }
 
     var
-        Stat: Option New,Certified,"Under Development",Closed;
         RecGRoutingHeader: Record "Routing Header";
         TxtG001: Label 'Warning, you are about to update all routings and production orders related to %1 %2 and operation no. %3.';
         TxtG002: Label 'Updated finished.';
+        Stat: Option New,Certified,"Under Development",Closed;
 }
 

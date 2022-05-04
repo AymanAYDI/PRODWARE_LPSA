@@ -69,10 +69,10 @@ pageextension 60045 "PWD InventorySetup" extends "Inventory Setup"
                         trigger OnAssistEdit()
                         var
                             CduLCommonDialogMgt: Codeunit "SMTP Test Mail";
-                            TxtLDirectoryPath: Text[250];
                             CstL50000: Label 'Open';
                             CstL50001: Label 'File';
                             CstL50002: Label 'File path too long, you should change of location.';
+                            TxtLDirectoryPath: Text[250];
                         begin
                             //>>P24578_008.001
                             CLEAR(CduLCommonDialogMgt);

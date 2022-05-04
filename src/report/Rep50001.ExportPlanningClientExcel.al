@@ -112,10 +112,10 @@ report 50001 "Export Planning Client Excel"
             trigger OnAfterGetRecord()
             var
                 Window: Dialog;
-                RecNo: Integer;
-                TotalRecNo: Integer;
-                RowNo: Integer;
                 ColumnNo: Integer;
+                RecNo: Integer;
+                RowNo: Integer;
+                TotalRecNo: Integer;
             begin
 
                 if Option = Option::"Update Workbook" then begin
@@ -126,13 +126,12 @@ report 50001 "Export Planning Client Excel"
                             FileName := UploadedFileName;
                     TempExcelBuffer.OpenBook(FileName, SheetName);
                     TempExcelBuffer.WriteSheet('', CompanyName, UserId);
-                end else begin
+                end else
                     //TODO:There is no argument given that corresponds to the required formal parameter 'FileName' of 'CreateBook(Text, Text)'
                     //TempExcelBuffer.CreateBook;
                     TempExcelBuffer.WriteSheet(Text003E, CompanyName, UserId);
-                end;
                 Commit();
-                TempExcelBuffer.OpenExcel;
+                TempExcelBuffer.OpenExcel();
                 Error('');
             end;
 
@@ -246,29 +245,27 @@ report 50001 "Export Planning Client Excel"
     end;
 
     var
-        Text000: Label 'Analyzing Data...\\';
-        Text002: Label 'Update Workbook';
-        Item: Record Item;
-        SalesHeader: Record "Sales Header";
-        ProductionForecastName: Record "Production Forecast Name";
         TempExcelBuffer: Record "Excel Buffer" temporary;
-        FileName: Text[250];
-        UploadedFileName: Text[1024];
-        SheetName: Text[250];
-        Option: Option "Create Workbook","Update Workbook";
-        Text003: Label 'The file was successfully uploaded to server';
+        Item: Record Item;
+        ProductionForecastName: Record "Production Forecast Name";
+        SalesHeader: Record "Sales Header";
         [InDataSet]
         FileNameEnable: Boolean;
+        NewOrder: Boolean;
         [InDataSet]
         SheetNameEnable: Boolean;
-        Text002E: Label 'Data';
-        Text003E: Label 'Export Planning Client Excel';
+        BackOrderQty: Decimal;
         Window: Dialog;
-        TotalRecNo: Integer;
+        i: Integer;
+        MaxRowNo: Integer;
         RecNo: Integer;
         RowNo: Integer;
-        NewOrder: Boolean;
-        BackOrderQty: Decimal;
+        TotalRecNo: Integer;
+        Text000: Label 'Analyzing Data...\\';
+        Text002: Label 'Update Workbook';
+        Text002E: Label 'Data';
+        Text003: Label 'The file was successfully uploaded to server';
+        Text003E: Label 'Export Planning Client Excel';
         Text004E: Label 'Company Name';
         Text005E: Label 'Report No.';
         Text006E: Label 'Report Name';
@@ -276,11 +273,13 @@ report 50001 "Export Planning Client Excel"
         Text008E: Label 'Date';
         Text009E: Label 'Customer Filters';
         Text010E: Label 'Sales Order Lines Filters';
-        SalesLineFiter: Text[1024];
-        ForecastEntryFiter: Text[1024];
-        MaxRowNo: Integer;
-        i: Integer;
         Text011E: Label 'Production Forecast Entry Filter ';
+        Option: Option "Create Workbook","Update Workbook";
+        FileName: Text[250];
+        SheetName: Text[250];
+        ForecastEntryFiter: Text[1024];
+        SalesLineFiter: Text[1024];
+        UploadedFileName: Text[1024];
 
 
     procedure UpdateRequestForm()

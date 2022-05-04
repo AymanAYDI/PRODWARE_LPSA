@@ -101,10 +101,10 @@ codeunit 8073291 "PWD Buffer Management"
 
     trigger OnRun()
     var
-        RecLReceiptLineBuffer: Record "PWD Receipt Line Buffer";
         RecLCustomerBuffer: Record "PWD Customer Buffer";
-        RecLSalesHeaderBuffer: Record "PWD Sales Header Buffer";
         RecLItemJournalLineBuffer: Record "PWD Item Jounal Line Buffer";
+        RecLReceiptLineBuffer: Record "PWD Receipt Line Buffer";
+        RecLSalesHeaderBuffer: Record "PWD Sales Header Buffer";
         RecLSalesLineBuffer: Record "PWD Sales Line Buffer";
     begin
         BooGHideDialog := TRUE;
@@ -140,18 +140,18 @@ codeunit 8073291 "PWD Buffer Management"
     end;
 
     var
+        RecGItemJnlLineTempBufferPost: Record "PWD Item Jounal Line Buffer" temporary;
+        CduGFileManagement: Codeunit "PWD File Management";
+        BooGCanPost: Boolean;
+        BooGHideDialog: Boolean;
         CstG001: Label 'This buffer line is skipped.';
         CstG002: Label 'Are you sure to process this line ?';
         CstG003: Label 'Are you sure to delete the selected line ?';
-        CduGFileManagement: Codeunit "File Management";
         CstG004: Label 'This action isn''t allowed for this buffer.';
         CstG005: Label 'The buffer''s field %1 isn''t the same of the actual document. ';
-        BooGHideDialog: Boolean;
         CstG006: Label 'Are you sure to process the selected lines ?';
         CstG007: Label 'Shipment is waiting on this order.';
         CstG008: Label 'Recept is waiting on this order.';
-        RecGItemJnlLineTempBufferPost: Record "PWD Item Jounal Line Buffer" temporary;
-        BooGCanPost: Boolean;
 
     procedure FctCreateBufferValues(var InsPStream: InStream; CodPPartnerCode: Code[20]; TxtPFileName: Text[250]; CodPFunction: Code[30]; OptPFilFormat: Option Xml,"with separator","File Position"; TxtPSeparator: Text[1]; OptPDirection: Option Import,Export; IntPLinkedEntryNo: Integer; CodPMEssageCode: Code[20]): Integer
     var
@@ -187,8 +187,8 @@ codeunit 8073291 "PWD Buffer Management"
 
     procedure FctArchiveBufferValues(var RecPConnectorValues: Record "PWD Connector Values"; BooPSucces: Boolean)
     var
-        RecLConnectorValuesArc: Record "PWD Connector Values Archive";
         RecLSendingMessage: Record "PWD Connector Messages";
+        RecLConnectorValuesArc: Record "PWD Connector Values Archive";
     begin
         //**********************************************************************************************************//
         //                                  Remove Connector Value buffer (Archive in optional case)                //
@@ -251,11 +251,11 @@ codeunit 8073291 "PWD Buffer Management"
 
     procedure FctNewBufferLine(IntPTable: Integer; RecPConnectorVal: Record "PWD Connector Values"; OptPStatus: Option Skip,Insert,Modify,Delete) IntRKey: Integer
     var
-        FieldRef: FieldRef;
+        RecordRef: RecordRef;
         RecordRef2: RecordRef;
+        FieldRef: FieldRef;
         FieldRef2: FieldRef;
         IntLEntryNo: Integer;
-        RecordRef: RecordRef;
     begin
         //>>WMS-FEMOT.001
         RecordRef.OPEN(IntPTable, FALSE, COMPANYNAME);
@@ -295,8 +295,8 @@ codeunit 8073291 "PWD Buffer Management"
 
     procedure FctNewBufferLine2(var RefPRecordRef: RecordRef; RecPConnectorVal: Record "PWD Connector Values"; OptPStatus: Option Skip,Insert,Modify,Delete) IntRKey: Integer
     var
-        FieldRef: FieldRef;
         RecordRef2: RecordRef;
+        FieldRef: FieldRef;
         FieldRef2: FieldRef;
         IntLEntryNo: Integer;
     begin
@@ -352,8 +352,8 @@ codeunit 8073291 "PWD Buffer Management"
 
     procedure FctDuplicateBuffer(IntPTable: Integer; RecordRef2: RecordRef) IntRKey: Integer
     var
-        FieldRef: FieldRef;
         RecordRef: RecordRef;
+        FieldRef: FieldRef;
         FieldRef2: FieldRef;
     begin
         //>>WMS-FEMOT.001
@@ -443,15 +443,15 @@ codeunit 8073291 "PWD Buffer Management"
 
     procedure FctTransformErrorToBlob(var Fieldref: FieldRef)
     var
+        RecLTempBlob: Codeunit "Temp Blob";
         OuSLOutStream: OutStream;
-        RecLTempBlob: Record TempBlob;
     begin
         //>>WMS-FE007_15.001
         Fieldref.CALCFIELD();
         RecLTempBlob.Blob := Fieldref.VALUE;
         CLEAR(RecLTempBlob.Blob);
 
-        RecLTempBlob.Blob.CREATEOUTSTREAM(OuSLOutStream);
+        RecLTempBlob.CREATEOUTSTREAM(OuSLOutStream);
         OuSLOutStream.WRITETEXT(GETLASTERRORTEXT);
         Fieldref.VALUE := RecLTempBlob.Blob;
         //<<WMS-FE007_15.001
@@ -459,9 +459,9 @@ codeunit 8073291 "PWD Buffer Management"
 
     procedure FctReadBlob(var RecordRef: RecordRef)
     var
+        CduLFileManagement: Codeunit "PWD File Management";
+        RecLTempBlob: Codeunit "Temp Blob";
         Fieldref: FieldRef;
-        RecLTempBlob: Record TempBlob;
-        CduLFileManagement: Codeunit "File Management";
         InsLStream: InStream;
     begin
         //>>WMS-FE007_15.001
@@ -469,8 +469,8 @@ codeunit 8073291 "PWD Buffer Management"
         Fieldref.CALCFIELD();
         RecLTempBlob.Blob := Fieldref.VALUE;
         RecLTempBlob.CALCFIELDS(Blob);
-        IF RecLTempBlob.Blob.HASVALUE THEN BEGIN
-            RecLTempBlob.Blob.CREATEINSTREAM(InsLStream);
+        IF RecLTempBlob.HASVALUE() THEN BEGIN
+            RecLTempBlob.CREATEINSTREAM(InsLStream);
             CduLFileManagement.FctShowBlobAsWindow(InsLStream)
         END;
         //<<WMS-FE007_15.001
@@ -479,11 +479,11 @@ codeunit 8073291 "PWD Buffer Management"
     procedure FctMultiProcessLine(var Rec: RecordRef)
     var
         RecLObject: Record "Object";
-        DiaLWin: Dialog;
-        IntLTotal: Integer;
-        IntLLine: Integer;
         FieldRef: FieldRef;
         FieldRefKey: FieldRef;
+        DiaLWin: Dialog;
+        IntLLine: Integer;
+        IntLTotal: Integer;
     begin
         //>>WMS-FE007_15.001
 
@@ -572,18 +572,18 @@ codeunit 8073291 "PWD Buffer Management"
 
     procedure FctCreateSalesOrder(var RecPSalesHeaderBuffer: Record "PWD Sales Header Buffer")
     var
+        RecLSalesCommentLineBuffer: Record "PWD Sales Comment Line Buffer";
+        RecLSalesLineBuffer: Record "PWD Sales Line Buffer";
+        RecLSalesSetup: Record "Sales & Receivables Setup";
+        RecLSalesCommentLine: Record "Sales Comment Line";
         RecLSalesHeader: Record "Sales Header";
         RecLSalesLine: Record "Sales Line";
-        RecLSalesCommentLine: Record "Sales Comment Line";
-        IntLLineNo: Integer;
-        RecLSalesLineBuffer: Record "PWD Sales Line Buffer";
-        RecLSalesCommentLineBuffer: Record "PWD Sales Comment Line Buffer";
-        RecLSalesSetup: Record "Sales & Receivables Setup";
         RecLTempVATAmountLine0: Record "VAT Amount Line" temporary;
         RecLTempVATAmountLine1: Record "VAT Amount Line" temporary;
-        RecordRefBuf: RecordRef;
-        RecordRef: RecordRef;
         CduLConnectorPebParseData: Codeunit "PWD Connector Peb Parse Data";
+        RecordRef: RecordRef;
+        RecordRefBuf: RecordRef;
+        IntLLineNo: Integer;
     begin
         //>>WMS-FEMOT.001
         RecLSalesHeader.INIT();
@@ -724,18 +724,18 @@ codeunit 8073291 "PWD Buffer Management"
 
     procedure FctUpdateSalesOrder(var RecPSalesHeaderBuffer: Record "PWD Sales Header Buffer")
     var
+        RecLSalesCommentLineBuffer: Record "PWD Sales Comment Line Buffer";
+        RecLSalesLineBuffer: Record "PWD Sales Line Buffer";
+        RecLSalesSetup: Record "Sales & Receivables Setup";
+        RecLSalesCommentLine: Record "Sales Comment Line";
         RecLSalesHeader: Record "Sales Header";
         RecLSalesLine: Record "Sales Line";
-        RecLSalesCommentLine: Record "Sales Comment Line";
-        IntLLineNo: Integer;
-        RecLSalesLineBuffer: Record "PWD Sales Line Buffer";
-        RecLSalesCommentLineBuffer: Record "PWD Sales Comment Line Buffer";
-        RecLSalesSetup: Record "Sales & Receivables Setup";
         RecLTempVATAmountLine0: Record "VAT Amount Line" temporary;
         RecLTempVATAmountLine1: Record "VAT Amount Line" temporary;
-        RecordRefBuf: RecordRef;
-        RecordRef: RecordRef;
         CduLConnectorPebParseData: Codeunit "PWD Connector Peb Parse Data";
+        RecordRef: RecordRef;
+        RecordRefBuf: RecordRef;
+        IntLLineNo: Integer;
     begin
         //>>WMS-FEMOT.001
         RecordRef.OPEN(DATABASE::"Sales Header", FALSE, COMPANYNAME);
@@ -895,8 +895,8 @@ codeunit 8073291 "PWD Buffer Management"
 
     procedure FctShowSalesOrder(var RecPSalesHeaderBuffer: Record "PWD Sales Header Buffer")
     var
-        RecordRef: RecordRef;
         RecLSalesHeader: Record "Sales Header";
+        RecordRef: RecordRef;
     begin
         //>>WMS-FEMOT.001
         RecordRef.OPEN(DATABASE::"Sales Header", FALSE, COMPANYNAME);
@@ -951,10 +951,10 @@ codeunit 8073291 "PWD Buffer Management"
 
     procedure FctCreateCustomer(var RecPCustomerBuffer: Record "PWD Customer Buffer")
     var
-        RecordRefBuf: RecordRef;
         RecLCustomer: Record Customer;
         CduLConnectorPebParseData: Codeunit "PWD Connector Peb Parse Data";
         RecordRef: RecordRef;
+        RecordRefBuf: RecordRef;
     begin
         //>>WMS-FEMOT.001
         RecLCustomer.INIT();
@@ -985,10 +985,10 @@ codeunit 8073291 "PWD Buffer Management"
 
     procedure FctUpdateCustomer(var RecPCustomerBuffer: Record "PWD Customer Buffer")
     var
-        RecordRefBuf: RecordRef;
         RecLCustomer: Record Customer;
         CduLConnectorPebParseData: Codeunit "PWD Connector Peb Parse Data";
         RecordRef: RecordRef;
+        RecordRefBuf: RecordRef;
     begin
         //>>WMS-FEMOT.001
         RecordRef.OPEN(DATABASE::Customer, FALSE, COMPANYNAME);
@@ -1034,8 +1034,8 @@ codeunit 8073291 "PWD Buffer Management"
 
     procedure FctShowCustomer(var RecPCustomerBuffer: Record "PWD Customer Buffer")
     var
-        RecordRef: RecordRef;
         RecLCustomer: Record Customer;
+        RecordRef: RecordRef;
     begin
         //>>WMS-FEMOT.001
         RecordRef.OPEN(DATABASE::Customer, FALSE, COMPANYNAME);
@@ -1093,26 +1093,26 @@ codeunit 8073291 "PWD Buffer Management"
 
     procedure FctCreateItemJournaLine(var RecPItemJounalLineBuffer: Record "PWD Item Jounal Line Buffer")
     var
-        RecordRefBuf: RecordRef;
-        RecLItemJounalLine: Record "Item Journal Line";
-        RecordRef: RecordRef;
-        IntLLineNo: Integer;
+        RecLItem: Record Item;
         RecLItemJnlBatch: Record "Item Journal Batch";
-        CduLNoSeriesMgt: Codeunit NoSeriesManagement;
-        IntLTrackingType: Integer;
-        CduLBufferTrackingManagement: Codeunit "PWD Buffer Tracking Management";
-        CduLConnectorWMSParseData: Codeunit "PWD Connector WMS Parse Data";
-        CduLConnectorOSYSParseData: Codeunit "PWD Connector OSYS Parse Data";
-        IntLSourceSubType: Integer;
-        RecLProdOrderComponent: Record "Prod. Order Component";
-        RecLProdOrderRtngLine: Record "Prod. Order Routing Line";
-        RecLProdOrderLine: Record "Prod. Order Line";
+        RecLItemJounalLine: Record "Item Journal Line";
         RecLItemJnlTemplate: Record "Item Journal Template";
+        RecLProdOrderComponent: Record "Prod. Order Component";
+        RecLProdOrderLine: Record "Prod. Order Line";
+        RecLProdOrderRoutingLine: Record "Prod. Order Routing Line";
+        RecLProdOrderRtngLine: Record "Prod. Order Routing Line";
+        CduLNoSeriesMgt: Codeunit NoSeriesManagement;
+        CduLBufferTrackingManagement: Codeunit "PWD Buffer Tracking Management";
+        CduLConnectorOSYSParseData: Codeunit "PWD Connector OSYS Parse Data";
+        CduLConnectorWMSParseData: Codeunit "PWD Connector WMS Parse Data";
+        CduLLotInheritanceMgt: Codeunit "PWD Lot Inheritance Mgt.PW";
+        RecordRef: RecordRef;
+        RecordRefBuf: RecordRef;
         CodLLotNo: Code[20];
         CodLSerialNo: Code[20];
-        RecLItem: Record Item;
-        CduLLotInheritanceMgt: Codeunit "PWD Lot Inheritance Mgt.PW";
-        RecLProdOrderRoutingLine: Record "Prod. Order Routing Line";
+        IntLLineNo: Integer;
+        IntLSourceSubType: Integer;
+        IntLTrackingType: Integer;
     begin
         //>>OSYS-Int001
         BooGCanPost := FALSE;
@@ -1432,19 +1432,19 @@ codeunit 8073291 "PWD Buffer Management"
 
     procedure FctUpdateItemJournaLine(var RecPItemJounalLineBuffer: Record "PWD Item Jounal Line Buffer")
     var
-        RecordRefBuf: RecordRef;
         RecLItemJounalLine: Record "Item Journal Line";
-        RecordRef: RecordRef;
-        IntLTrackingType: Integer;
-        CduLBufferTrackingManagement: Codeunit "PWD Buffer Tracking Management";
-        CduLConnectorWMSParseData: Codeunit "PWD Connector WMS Parse Data";
-        CduLConnectorOSYSParseData: Codeunit "PWD Connector OSYS Parse Data";
-        IntLSourceSubType: Integer;
-        CduLItemJnlLineReserve: Codeunit "Item Jnl. Line-Reserve";
-        RecLProdOrderComponent: Record "Prod. Order Component";
-        RecLProdOrderRtngLine: Record "Prod. Order Routing Line";
-        RecLProdOrderLine: Record "Prod. Order Line";
         RecLItemJnlTemplate: Record "Item Journal Template";
+        RecLProdOrderComponent: Record "Prod. Order Component";
+        RecLProdOrderLine: Record "Prod. Order Line";
+        RecLProdOrderRtngLine: Record "Prod. Order Routing Line";
+        CduLItemJnlLineReserve: Codeunit "Item Jnl. Line-Reserve";
+        CduLBufferTrackingManagement: Codeunit "PWD Buffer Tracking Management";
+        CduLConnectorOSYSParseData: Codeunit "PWD Connector OSYS Parse Data";
+        CduLConnectorWMSParseData: Codeunit "PWD Connector WMS Parse Data";
+        RecordRef: RecordRef;
+        RecordRefBuf: RecordRef;
+        IntLSourceSubType: Integer;
+        IntLTrackingType: Integer;
     begin
         //>>WMS-FEMOT.001
         RecordRef.OPEN(DATABASE::"Item Journal Line", FALSE, COMPANYNAME);
@@ -1606,10 +1606,10 @@ codeunit 8073291 "PWD Buffer Management"
 
     procedure FctDeleteItemJournaLine(var RecPItemJounalLineBuffer: Record "PWD Item Jounal Line Buffer")
     var
+        RecLItemJournalLine: Record "Item Journal Line";
+        CduLItemJnlLineReserve: Codeunit "Item Jnl. Line-Reserve";
         RecordRef: RecordRef;
         RecordRefBuf: RecordRef;
-        CduLItemJnlLineReserve: Codeunit "Item Jnl. Line-Reserve";
-        RecLItemJournalLine: Record "Item Journal Line";
     begin
         //>>WMS-FEMOT.001
         RecordRef.OPEN(DATABASE::"Item Journal Line", FALSE, COMPANYNAME);
@@ -1630,8 +1630,8 @@ codeunit 8073291 "PWD Buffer Management"
 
     procedure FctShowItemJournaLine(var RecPItemJounalLineBuffer: Record "PWD Item Jounal Line Buffer")
     var
-        RecordRef: RecordRef;
         RecLItemJounalLine: Record "Item Journal Line";
+        RecordRef: RecordRef;
     begin
         //>>WMS-FEMOT.001
         RecordRef.OPEN(DATABASE::"Item Journal Line", FALSE, COMPANYNAME);
@@ -1723,23 +1723,23 @@ codeunit 8073291 "PWD Buffer Management"
 
     procedure FctUpdateReceiptLine(var RecPReceiptLineBuffer: Record "PWD Receipt Line Buffer")
     var
+        RecLPurchHead: Record "Purchase Header";
         RecLPuchaseLine: Record "Purchase Line";
         RecLPurchLToGetINfo: Record "Purchase Line";
-        CodLLotNo: Code[20];
-        CodLSerialNo: Code[20];
-        DatLExpirationDate: Date;
-        DecLQtyReceipt: Decimal;
         CduLBufferTrackingManagement: Codeunit "PWD Buffer Tracking Management";
-        IntLTrackingType: Integer;
-        RecordRef: RecordRef;
-        RecordRefBuf: RecordRef;
-        DecLQty: Decimal;
-        IntLLineNo: Integer;
         CduLConnectorPebParseData: Codeunit "PWD Connector Peb Parse Data";
         CduLConnectorWMSParseData: Codeunit "PWD Connector WMS Parse Data";
-        CodLVariant: Code[30];
+        RecordRef: RecordRef;
+        RecordRefBuf: RecordRef;
         BooLOpen: Boolean;
-        RecLPurchHead: Record "Purchase Header";
+        CodLLotNo: Code[20];
+        CodLSerialNo: Code[20];
+        CodLVariant: Code[30];
+        DatLExpirationDate: Date;
+        DecLQty: Decimal;
+        DecLQtyReceipt: Decimal;
+        IntLLineNo: Integer;
+        IntLTrackingType: Integer;
     begin
         //>>WMS-FE007_15.001
         RecordRef.OPEN(DATABASE::"Purchase Line", FALSE, COMPANYNAME);
@@ -1866,9 +1866,9 @@ codeunit 8073291 "PWD Buffer Management"
 
     procedure FctShowReceiptLine(var RecPReceiptLineBuffer: Record "PWD Receipt Line Buffer")
     var
-        RecordRef: RecordRef;
         RecLPurchaseHeader: Record "Purchase Header";
         RecLPurchaseLine: Record "Purchase Line";
+        RecordRef: RecordRef;
     begin
         //>>WMS-FE007_15.001
         RecordRef.OPEN(DATABASE::"Purchase Line", FALSE, COMPANYNAME);
@@ -1900,8 +1900,8 @@ codeunit 8073291 "PWD Buffer Management"
     var
         RecLConnectorValues: Record "PWD Connector Values";
         RecLPartner: Record "PWD Partner Connector";
-        CduLFileManagement: Codeunit "File Management";
-        RecLTempBlob: Record TempBlob temporary;
+        CduLFileManagement: Codeunit "PWD File Management";
+        RecLTempBlob: Codeunit "Temp Blob";
         InsLstream: InStream;
         OusLstream: OutStream;
     begin
@@ -1928,10 +1928,10 @@ codeunit 8073291 "PWD Buffer Management"
         RecLConnectorValues."Communication Mode" := RecLPartner."Communication Mode";
         CduLFileManagement.FctTranformFileToBlob(TxtPFileName2,
                                                  RecLTempBlob, CodPPartnerCode, RecLConnectorValues."Entry No.", OptPDirection);
-
-        RecLTempBlob.CALCFIELDS(Blob);
-        RecLTempBlob.Blob.CREATEINSTREAM(InsLstream);
-        RecLConnectorValues.Blob.CREATEOUTSTREAM(OusLstream);
+        //TODO:'Codeunit "Temp Blob"' does not contain a definition for 'CALCFIELDS'
+        // RecLTempBlob.CALCFIELDS(Blob);
+        RecLTempBlob.CREATEINSTREAM(InsLstream);
+        RecLConnectorValues.CREATEOUTSTREAM(OusLstream);
         COPYSTREAM(OusLstream, InsLstream);
         RecLConnectorValues.INSERT();
         EXIT(RecLConnectorValues."Entry No.");
@@ -1967,23 +1967,23 @@ codeunit 8073291 "PWD Buffer Management"
 
     procedure FctUpdateShipmentLine(var RecPShipmentLineBuffer: Record "PWD Sales Line Buffer")
     var
+        RecLSalesHeader: Record "Sales Header";
         RecLSalesLine: Record "Sales Line";
-        CodLLotNo: Code[20];
-        CodLSerialNo: Code[20];
-        DatLExpirationDate: Date;
-        DecLQtyShip: Decimal;
+        RecLSalesLineToGetInf: Record "Sales Line";
         CduLBufferTrackingManagement: Codeunit "PWD Buffer Tracking Management";
-        IntLTrackingType: Integer;
-        RecordRef: RecordRef;
-        RecordRefBuf: RecordRef;
-        IntLLineNo: Integer;
         CduLConnectorPebParseData: Codeunit "PWD Connector Peb Parse Data";
         CduLConnectorWMSParseData: Codeunit "PWD Connector WMS Parse Data";
-        RecLSalesHeader: Record "Sales Header";
-        CduLReleaseSalesDocument: Codeunit "Release Sales Document";
-        RecLSalesLineToGetInf: Record "Sales Line";
-        CodLVariant: Code[30];
         PWDLPSAFunctionsMgt: codeunit "PWD LPSA Functions Mgt.";
+        CduLReleaseSalesDocument: Codeunit "Release Sales Document";
+        RecordRef: RecordRef;
+        RecordRefBuf: RecordRef;
+        CodLLotNo: Code[20];
+        CodLSerialNo: Code[20];
+        CodLVariant: Code[30];
+        DatLExpirationDate: Date;
+        DecLQtyShip: Decimal;
+        IntLLineNo: Integer;
+        IntLTrackingType: Integer;
     begin
         RecordRef.OPEN(DATABASE::"Sales Line", FALSE, COMPANYNAME);
 
@@ -2092,9 +2092,9 @@ codeunit 8073291 "PWD Buffer Management"
 
     procedure FctShowShipmentLine(var RecPShipmentLineBuffer: Record "PWD Sales Line Buffer")
     var
-        RecordRef: RecordRef;
         RecLSalesHeader: Record "Sales Header";
         RecLSalesLine: Record "Sales Line";
+        RecordRef: RecordRef;
     begin
         RecordRef.OPEN(DATABASE::"Sales Line", FALSE, COMPANYNAME);
         RecordRef.GET(RecPShipmentLineBuffer."RecordID Created");

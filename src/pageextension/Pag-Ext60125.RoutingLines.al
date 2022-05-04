@@ -149,9 +149,9 @@ pageextension 60125 "PWD RoutingLines" extends "Routing Lines"
                 begin
                     //>>TDL.LPSA.001
                     RecLRoutingLine.GET("Routing No.", "Version Code", "Operation No.");
-                    RecLRoutingLine.SETRECFILTER;
+                    RecLRoutingLine.SETRECFILTER();
                     RepUpdate.SETTABLEVIEW(RecLRoutingLine);
-                    RepUpdate.RUNMODAL;
+                    RepUpdate.RUNMODAL();
                     //<<TDL.LPSA.001
                 end;
             }

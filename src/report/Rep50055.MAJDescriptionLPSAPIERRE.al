@@ -21,8 +21,8 @@ report 50055 "MAJ Description LPSA PIERRE"
 
             trigger OnAfterGetRecord()
             var
-                CduLItemConfigurator: Codeunit "PWD Item Configurator";
                 RecLItem: Record Item;
+                CduLItemConfigurator: Codeunit "PWD Item Configurator";
             begin
                 CduLItemConfigurator.FctConfigDescStone("PWD Item Configurator");
                 "PWD Item Configurator".Modify();

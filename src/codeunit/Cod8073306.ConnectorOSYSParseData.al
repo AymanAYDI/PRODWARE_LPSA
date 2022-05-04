@@ -64,8 +64,8 @@ codeunit 8073306 "PWD Connector OSYS Parse Data"
     var
         CduGConnectBufMgtExport: Codeunit "Connector Buffer Mgt Export";
         CduGBufferManagement: Codeunit "PWD Buffer Management";
-        OptGFlowType: Option " ","Import Connector","Export Connector";
         IntGSequenceNo: Integer;
+        OptGFlowType: Option " ","Import Connector","Export Connector";
 
 
     procedure FctProcessImport(var RecPConnectorValues: Record "PWD Connector Values")
@@ -90,15 +90,15 @@ codeunit 8073306 "PWD Connector OSYS Parse Data"
 
     procedure FctProcessExport(RecPConnectorMessages: Record "PWD Connector Messages")
     var
-        TempBlob: Codeunit "Temp Blob";
-        RecLPartnerConnector: Record "PWD Partner Connector";
         RecLConnectorValues: Record "PWD Connector Values";
-        BigTLToReturn: BigText;
+        RecLPartnerConnector: Record "PWD Partner Connector";
         CduLBufferMgt: Codeunit "PWD Buffer Management";
-        InLStream: InStream;
         CduLFileManagement: Codeunit "PWD File Management";
-        TxtLFile: Text[1024];
+        TempBlob: Codeunit "Temp Blob";
+        BigTLToReturn: BigText;
         BooLResult: Boolean;
+        InLStream: InStream;
+        TxtLFile: Text[1024];
     begin
         CLEAR(BigTLToReturn);
         CLEAR(IntGSequenceNo);
@@ -136,7 +136,7 @@ codeunit 8073306 "PWD Connector OSYS Parse Data"
         END;
         //TODO:'Codeunit "Temp Blob"' does not contain a definition for 'CALCFIELDS'
         //TempBlob.CALCFIELDS(Blob);
-        IF TempBlob.HASVALUE THEN BEGIN
+        IF TempBlob.HASVALUE() THEN BEGIN
             TempBlob.CREATEINSTREAM(InLStream);
             IntGSequenceNo := CduLBufferMgt.FctCreateBufferValues(InLStream, RecPConnectorMessages."Partner Code", '',
                                                                   RecPConnectorMessages.Code,
@@ -187,7 +187,7 @@ codeunit 8073306 "PWD Connector OSYS Parse Data"
         IF XmlLItemsExport.FctInitXML() THEN BEGIN
             TempBlob.CREATEOUTSTREAM(OutLStream);
             XmlLItemsExport.SETDESTINATION(OutLStream);
-            XmlLItemsExport.EXPORT;
+            XmlLItemsExport.EXPORT();
         END;
     end;
 
@@ -202,7 +202,7 @@ codeunit 8073306 "PWD Connector OSYS Parse Data"
         IF XmlLStockExport.FctInitXML() THEN BEGIN
             TempBlob.CREATEOUTSTREAM(OutLStream);
             XmlLStockExport.SETDESTINATION(OutLStream);
-            XmlLStockExport.EXPORT;
+            XmlLStockExport.EXPORT();
         END;
     end;
 
@@ -216,7 +216,7 @@ codeunit 8073306 "PWD Connector OSYS Parse Data"
         RecPConnectorValues.Blob.CREATEINSTREAM(InsLSrtream);
         XmlLImportProdOsys.FctInitXmlPort(RecPConnectorValues);
         XmlLImportProdOsys.SETSOURCE(InsLSrtream);
-        XmlLImportProdOsys.IMPORT;
+        XmlLImportProdOsys.IMPORT();
     end;
 
 
@@ -229,7 +229,7 @@ codeunit 8073306 "PWD Connector OSYS Parse Data"
         RecPConnectorValues.Blob.CREATEINSTREAM(InsLSrtream);
         XmlLImportConsoOsys.FctInitXmlPort(RecPConnectorValues);
         XmlLImportConsoOsys.SETSOURCE(InsLSrtream);
-        XmlLImportConsoOsys.IMPORT;
+        XmlLImportConsoOsys.IMPORT();
     end;
 
 
@@ -258,7 +258,7 @@ codeunit 8073306 "PWD Connector OSYS Parse Data"
         IF XmlLExportProdOrderOSYS.FctInitXML() THEN BEGIN
             TempBlob.CREATEOUTSTREAM(OutLStream);
             XmlLExportProdOrderOSYS.SETDESTINATION(OutLStream);
-            XmlLExportProdOrderOSYS.EXPORT;
+            XmlLExportProdOrderOSYS.EXPORT();
         END;
     end;
 
@@ -274,7 +274,7 @@ codeunit 8073306 "PWD Connector OSYS Parse Data"
         IF XmlLExportProdOrderOSYS.FctInitXML() THEN BEGIN
             TempBlob.CREATEOUTSTREAM(OutLStream);
             XmlLExportProdOrderOSYS.SETDESTINATION(OutLStream);
-            XmlLExportProdOrderOSYS.EXPORT;
+            XmlLExportProdOrderOSYS.EXPORT();
         END;
     end;
 
@@ -289,19 +289,19 @@ codeunit 8073306 "PWD Connector OSYS Parse Data"
         IF XmlLExportDeleteProdOrderOSYS.FctInitXML() THEN BEGIN
             TempBlob.CREATEOUTSTREAM(OutLStream);
             XmlLExportDeleteProdOrderOSYS.SETDESTINATION(OutLStream);
-            XmlLExportDeleteProdOrderOSYS.EXPORT;
+            XmlLExportDeleteProdOrderOSYS.EXPORT();
         END;
     end;
 
 
     procedure FctUpdateItemJournaLineOSYS(var RecPItemJounalLine: Record "Item Journal Line"; var IntPEntryBufferNo: Integer)
     var
-        RecLOSYSItemJounalLineBuffer: Record "OSYS Item Jounal Line Buffer";
-        RecLItemJounalLineBuffer: Record "PWD Item Jounal Line Buffer";
-        RecLProdOrderLine: Record "Prod. Order Line";
-        RecLProdOrderComponent: Record "Prod. Order Component";
-        RecLProdOrderRtngLine: Record "Prod. Order Routing Line";
         RecLCapacityUnitofMeasure: Record "Capacity Unit of Measure";
+        RecLOSYSItemJounalLineBuffer: Record "OSYS Item Jounal Line Buffer";
+        RecLProdOrderComponent: Record "Prod. Order Component";
+        RecLProdOrderLine: Record "Prod. Order Line";
+        RecLProdOrderRtngLine: Record "Prod. Order Routing Line";
+        RecLItemJounalLineBuffer: Record "PWD Item Jounal Line Buffer";
         RecLWorkCenter: Record "Work Center";
         DecLPre: Decimal;
     begin
@@ -443,8 +443,8 @@ codeunit 8073306 "PWD Connector OSYS Parse Data"
     procedure FctConvertUnit(var RecPProdOrderRtngLine: Record "Prod. Order Routing Line")
     var
         RecLCapacityUnitofMeasure: Record "Capacity Unit of Measure";
-        DecLPre: Decimal;
         RecLWorkCenter: Record "Work Center";
+        DecLPre: Decimal;
     begin
         RecLWorkCenter.GET(RecPProdOrderRtngLine."Work Center No.");
         DecLPre := RecLWorkCenter."Calendar Rounding Precision";
@@ -484,9 +484,9 @@ codeunit 8073306 "PWD Connector OSYS Parse Data"
 
     procedure FctGetItemsPossibleXML(RecPConnectorMes: Record "PWD Connector Messages"; var TempBlob: Codeunit "Temp Blob"; CodPItemNo: Code[20])
     var
+        RecLPossibleItems: Record "PWD Possible Items";
         XmlLItemsPossibleExport: XMLport "PWD Possible Items Export";
         OutLStream: OutStream;
-        RecLPossibleItems: Record "PWD Possible Items";
     begin
         //>>FE_LAPRIERRETTE_GP0004.001
         CLEAR(XmlLItemsPossibleExport);
@@ -500,7 +500,7 @@ codeunit 8073306 "PWD Connector OSYS Parse Data"
         IF XmlLItemsPossibleExport.FctCanExportPossibleItems('', RecPConnectorMes."Export DateTime") THEN BEGIN
             TempBlob.CREATEOUTSTREAM(OutLStream);
             XmlLItemsPossibleExport.SETDESTINATION(OutLStream);
-            XmlLItemsPossibleExport.EXPORT;
+            XmlLItemsPossibleExport.EXPORT();
         END;
         //>>FE_LAPRIERRETTE_GP0004.001
     end;
@@ -509,15 +509,15 @@ codeunit 8073306 "PWD Connector OSYS Parse Data"
     procedure FctExportItemsPossibleManual(CodPItemNo: Code[20])
     var
         RecLConnectorMessages: Record "PWD Connector Messages";
-        TempBlob: Codeunit "Temp Blob";
-        RecLPartnerConnector: Record "PWD Partner Connector";
         RecLConnectorValues: Record "PWD Connector Values";
-        CduLBufferMgt: Codeunit "PWD Buffer Management";
-        InLStream: InStream;
-        CduLFileManagement: Codeunit "PWD File Management";
-        TxtLFile: Text[1024];
-        BooLResult: Boolean;
         RecLOSYS: Record "PWD OSYS Setup";
+        RecLPartnerConnector: Record "PWD Partner Connector";
+        CduLBufferMgt: Codeunit "PWD Buffer Management";
+        CduLFileManagement: Codeunit "PWD File Management";
+        TempBlob: Codeunit "Temp Blob";
+        BooLResult: Boolean;
+        InLStream: InStream;
+        TxtLFile: Text[1024];
     begin
         //>>FE_LAPRIERRETTE_GP0004.001
         CLEAR(IntGSequenceNo);
@@ -531,7 +531,7 @@ codeunit 8073306 "PWD Connector OSYS Parse Data"
         FctGetItemsPossibleXML(RecLConnectorMessages, TempBlob, CodPItemNo);
         //TODO: 'Codeunit "Temp Blob"' does not contain a definition for 'CALCFIELDS'
         //TempBlob.CALCFIELDS(Blob);
-        IF TempBlob.HASVALUE THEN BEGIN
+        IF TempBlob.HASVALUE() THEN BEGIN
             TempBlob.CREATEINSTREAM(InLStream);
             IntGSequenceNo := CduLBufferMgt.FctCreateBufferValues(InLStream, RecLConnectorMessages."Partner Code", '',
                                                                   RecLConnectorMessages.Code,
@@ -565,12 +565,12 @@ codeunit 8073306 "PWD Connector OSYS Parse Data"
 
     procedure FctInsertNewProdOrderLine(var RecPItemJounalLineBuffer: Record "PWD Item Jounal Line Buffer")
     var
-        RecLProdOrder: Record "Production Order";
-        RecLProdOrderLine: Record "Prod. Order Line";
         RecLItem: Record Item;
-        IntLNextLineNo: Integer;
+        RecLProdOrderLine: Record "Prod. Order Line";
+        RecLProdOrder: Record "Production Order";
         CduLFileManagement: Codeunit "PWD File Management";
         DecLQuamtity: Decimal;
+        IntLNextLineNo: Integer;
     begin
         //>>FE_LAPRIERRETTE_GP0004.001
         RecLItem.GET(RecPItemJounalLineBuffer."Item No.");
@@ -678,10 +678,10 @@ codeunit 8073306 "PWD Connector OSYS Parse Data"
     local procedure FctInsertConsumptionJnlLine(RecPProdOrderComp: Record "Prod. Order Component"; RecPProdOrderLine: Record "Prod. Order Line"; RecPItemJnlLine: Record "Item Journal Line"; IntPLevel: Integer)
     var
         RecLItem: Record Item;
-        CduLItemTrackingMgt: Codeunit "Item Tracking Management";
-        RecLItemJnlLine: Record "Item Journal Line";
         RecLItemJnlBatch: Record "Item Journal Batch";
+        RecLItemJnlLine: Record "Item Journal Line";
         RecLItemJnlTemplate: Record "Item Journal Template";
+        CduLItemTrackingMgt: Codeunit "Item Tracking Management";
     begin
         WITH RecPProdOrderComp DO BEGIN
             RecLItem.GET("Item No.");
@@ -722,6 +722,7 @@ codeunit 8073306 "PWD Connector OSYS Parse Data"
             CduLItemTrackingMgt.CopyItemTracking(RowID1(), RecLItemJnlLine.RowID1(), FALSE);
         END;
     end;
+
     procedure FctIsSteeItem(CodPItemNo: Code[20]): Boolean
     var
         RecLItem: Record Item;
@@ -748,7 +749,7 @@ codeunit 8073306 "PWD Connector OSYS Parse Data"
     begin
         CLEAR(RepLExportProdOrderLPSA);
         IF RepLExportProdOrderLPSA.FctInitRep() THEN BEGIN
-            RepLExportProdOrderLPSA.RUNMODAL;
+            RepLExportProdOrderLPSA.RUNMODAL();
             RepLExportProdOrderLPSA.FctGetBlob(TempBlob);
         END;
     end;
@@ -762,7 +763,7 @@ codeunit 8073306 "PWD Connector OSYS Parse Data"
         RecPConnectorValues.Blob.CREATEINSTREAM(InsLSrtream);
         XmlLImportStock.FctInitXmlPort(RecPConnectorValues);
         XmlLImportStock.SETSOURCE(InsLSrtream);
-        XmlLImportStock.IMPORT;
+        XmlLImportStock.IMPORT();
     end;
 }
 

@@ -71,10 +71,10 @@ report 50075 "Update Rtg Line Global-Step 1"
                             RecLRoutingLines.SetRange("Routing No.", CodGRoutingHeader);
                             PagLRoutingLines.SetTableView(RecLRoutingLines);
                             PagLRoutingLines.LookupMode(true);
-                            if not (PagLRoutingLines.RunModal = ACTION::LookupOK) then
+                            if not (PagLRoutingLines.RunModal() = ACTION::LookupOK) then
                                 exit(false)
                             else begin
-                                Text := PagLRoutingLines.GetSelectionFilter;
+                                Text := PagLRoutingLines.GetSelectionFilter();
                                 exit(true);
                             end;
                         end;
@@ -199,18 +199,18 @@ report 50075 "Update Rtg Line Global-Step 1"
     }
 
     var
-        BooG_Setup_Time_Unit: Boolean;
-        BooG_Run_Time_Unit: Boolean;
-        BooG_Wait_Time_Unit: Boolean;
-        BooG_Move_Time_Unit: Boolean;
-        BooG_Setup_Time: Boolean;
-        BooG_Run_Time: Boolean;
-        BooG_Wait_Time: Boolean;
-        BooG_Move_Time: Boolean;
         BooG_Concurrent_Capacities: Boolean;
+        BooG_Move_Time: Boolean;
+        BooG_Move_Time_Unit: Boolean;
+        BooG_Run_Time: Boolean;
+        BooG_Run_Time_Unit: Boolean;
         BooG_Scrap_Factor: Boolean;
-        BooG_Update_Cost_FromWC: Boolean;
+        BooG_Setup_Time: Boolean;
+        BooG_Setup_Time_Unit: Boolean;
         BooG_Update_Cost_FromMC: Boolean;
+        BooG_Update_Cost_FromWC: Boolean;
+        BooG_Wait_Time: Boolean;
+        BooG_Wait_Time_Unit: Boolean;
         CodGRoutingHeader: Code[20];
         CodGOperationNo: Code[150];
         CstL001: Label 'The reference routing is not ''TT_OPE_PIE'', do you want to continue ?';

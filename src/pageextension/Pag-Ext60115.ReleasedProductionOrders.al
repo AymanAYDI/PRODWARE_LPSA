@@ -51,10 +51,11 @@ pageextension 60115 "PWD ReleasedProductionOrders" extends "Released Production 
                 Caption = 'Prod. Starting Date-Time';
                 ApplicationArea = All;
             }
-            field("PWD Prod. Ending Date-Time"; "PWD Prod. Ending Date-Time")
-            {
-                ApplicationArea = All;
-            }
+            //TODO:The name 'PWD Prod. Ending Date-Time' does not exist in the current context
+            // field("PWD Prod. Ending Date-Time"; "PWD Prod. Ending Date-Time")
+            // {
+            //     ApplicationArea = All;
+            // }
             field("PWD Delay"; "PWD Delay")
             {
                 ApplicationArea = All;
@@ -185,8 +186,8 @@ pageextension 60115 "PWD ReleasedProductionOrders" extends "Released Production 
         ProdOrderLine: Record "Prod. Order Line";
         ProdOrderRoutingLine: Record "Prod. Order Routing Line";
         RoutingLine: Record "Prod. Order Routing Line";
-        CodLienGamme: Code[20];
         BooLFound: Boolean;
+        CodLienGamme: Code[20];
     begin
         //>>LAP.TDL.NICO
         BooGStarted := isStarted();
@@ -219,7 +220,7 @@ pageextension 60115 "PWD ReleasedProductionOrders" extends "Released Production 
                 ProdOrderRoutingLine.SETRANGE("Routing Reference No.", ProdOrderLine."Line No.");
                 ProdOrderRoutingLine.SETRANGE("Routing No.", "Routing No.");
                 ProdOrderRoutingLine.SETRANGE("Operation No.", CapcityLedger."Operation No.");
-                IF ProdOrderRoutingLine.FINDSET() THEN
+                IF ProdOrderRoutingLine.FindFirst() THEN
                     DecGImputQty := ProdOrderRoutingLine."Input Quantity";
             END;
         END;
@@ -246,13 +247,13 @@ pageextension 60115 "PWD ReleasedProductionOrders" extends "Released Production 
     procedure isStarted() Started: Boolean
     var
         Capcity: Record "Capacity Ledger Entry";
-        BooLStarted: Boolean;
         PORL: Record "Prod. Order Routing Line";
+        BooLStarted: Boolean;
     begin
         BooLStarted := FALSE;
         Capcity.SETRANGE("Order No.", "No.");
         Capcity.SETRANGE(Type, Capcity.Type::"Machine Center");
-        IF Capcity.FINDFIRST() THEN
+        IF Capcity.FINDSet() THEN
             REPEAT
                 IF PORL.GET(
                   Status,
@@ -282,12 +283,12 @@ pageextension 60115 "PWD ReleasedProductionOrders" extends "Released Production 
     end;
 
     var
-        BooGStarted: Boolean;
         BooGCompAvail: Boolean;
+        BooGStarted: Boolean;
         DateGCapacityPostingDate: Date;
-        TxtGCapacityDescription: Text[50];
-        DecGImputQty: Decimal;
-        DeCGCompQty: Decimal;
         DatGHeureDeb: DateTime;
+        DeCGCompQty: Decimal;
+        DecGImputQty: Decimal;
+        TxtGCapacityDescription: Text[50];
 }
 

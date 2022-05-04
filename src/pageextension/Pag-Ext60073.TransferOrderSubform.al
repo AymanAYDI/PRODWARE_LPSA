@@ -35,7 +35,7 @@ pageextension 60073 "PWD TransferOrderSubform" extends "Transfer Order Subform"
 
                 trigger OnAction()
                 begin
-                    Rec.ShowLineComments;
+                    Rec.ShowLineComments();
                 end;
             }
         }

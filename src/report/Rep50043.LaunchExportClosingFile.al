@@ -28,7 +28,7 @@ report 50043 "PWD Launch Export Closing File"
                 if CalcDate(RecGInventorySetup."PWD Closing Export DateFormula", Today) = Today then begin
 
                     CduGClosingManagement.SetDataExport(true, true, true, true, Today, false);
-                    CduGClosingManagement.Run;
+                    CduGClosingManagement.Run();
 
                 end;
             end;
@@ -52,7 +52,7 @@ report 50043 "PWD Launch Export Closing File"
     }
 
     var
-        CduGClosingManagement: Codeunit "PWD Closing Management";
         RecGInventorySetup: Record "Inventory Setup";
+        CduGClosingManagement: Codeunit "PWD Closing Management";
 }
 

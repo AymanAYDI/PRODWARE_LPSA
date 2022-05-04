@@ -94,8 +94,8 @@ page 8073289 "PWD Receiving Message List"
                     PromotedCategory = Process;
                     PromotedIsBig = true;
                     RunObject = Page "PWD Fields Export Setup";
-                    RunPageLink = "Partner Code"=  FIELD("Partner Code"),"Message Code"=FIELD(Code),"Table ID"=FIELD("Table ID"),Direction=FIELD(Direction);
-                  
+                    RunPageLink = "Partner Code" = FIELD("Partner Code"), "Message Code" = FIELD(Code), "Table ID" = FIELD("Table ID"), Direction = FIELD(Direction);
+
                     ApplicationArea = All;
                     ShortCutKey = 'Shift+Ctrl+F';
                 }

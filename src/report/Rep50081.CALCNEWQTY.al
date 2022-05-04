@@ -11,43 +11,43 @@ report 50081 "PWD CALC NEW QTY"
 
             trigger OnAfterGetRecord()
             var
-                RecLProdOrderInit: Record "Production Order";
-                RecLProdOrderNew: Record "Production Order";
                 RecLProdOrderComInit: Record "Prod. Order Component";
                 RecLProdOrderComNew: Record "Prod. Order Component";
-                DecLInitQty: Decimal;
-                DecLNewQty: Decimal;
-                RepUpdate: Report "Refresh Production Order";
+                RecLBOM: Record "Production BOM Header";
+                RecLProdOrderInit: Record "Production Order";
+                RecLProdOrderNew: Record "Production Order";
+                RecLOrderBY: Record "PWD New Order By";
                 RecLRoutringInit: Record "Routing Header";
                 RecLRoutringNew: Record "Routing Header";
                 RecLRoutingLineInit: Record "Routing Line";
                 RecLRoutingLineNew: Record "Routing Line";
                 RecLroutingTTE: Record "Routing Line";
+                RepUpdate: Report "Refresh Production Order";
                 CodRouting: Code[20];
-                RecLOrderBY: Record "PWD New Order By";
-                RecLBOM: Record "Production BOM Header";
+                DecLInitQty: Decimal;
+                DecLNewQty: Decimal;
             begin
                 DecLInitQty := 0;
                 DecLNewQty := 0;
                 if RecLBOM.Get("Production BOM No.") then begin
                     if RecLBOM.Status <> RecLBOM.Status::Certified then begin
-                        RecLOrderBY.Init;
+                        RecLOrderBY.Init();
                         RecLOrderBY."Item No." := "No.";
                         RecLOrderBY."Quantity Comp. Init" := 0;
                         RecLOrderBY."Quantity Comp. New" := 0;
                         RecLOrderBY."Qty Order By Init" := Item."Order Multiple";
                         RecLOrderBY."Qty Order By New" := 0;
-                        RecLOrderBY.Insert;
+                        RecLOrderBY.Insert();
                         CurrReport.Skip();
                     end;
                 end else begin
-                    RecLOrderBY.Init;
+                    RecLOrderBY.Init();
                     RecLOrderBY."Item No." := "No.";
                     RecLOrderBY."Quantity Comp. Init" := 0;
                     RecLOrderBY."Quantity Comp. New" := 0;
                     RecLOrderBY."Qty Order By Init" := Item."Order Multiple";
                     RecLOrderBY."Qty Order By New" := 0;
-                    RecLOrderBY.Insert;
+                    RecLOrderBY.Insert();
                     CurrReport.Skip();
                 end;
                 //Calcul Quantité Composant Initiale
@@ -130,7 +130,7 @@ report 50081 "PWD CALC NEW QTY"
                 Validate("Routing No.", CodRouting);
                 Modify();
 
-                RecLOrderBY.Init;
+                RecLOrderBY.Init();
                 RecLOrderBY."Item No." := "No.";
                 RecLOrderBY."Quantity Comp. Init" := DecLInitQty;
                 RecLOrderBY."Quantity Comp. New" := DecLNewQty;
@@ -139,7 +139,7 @@ report 50081 "PWD CALC NEW QTY"
                     RecLOrderBY."Qty Order By New" := Round((DecLInitQty / DecLNewQty) * Item."Order Multiple", 1)
                 else
                     RecLOrderBY."Qty Order By New" := 0;
-                RecLOrderBY.Insert;
+                RecLOrderBY.Insert();
             end;
         }
     }

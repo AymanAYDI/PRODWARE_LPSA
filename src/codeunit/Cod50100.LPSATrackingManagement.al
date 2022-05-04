@@ -24,61 +24,61 @@ codeunit 50100 "PWD LPSA Tracking Management"
     end;
 
     var
-        xTempItemTrackingLine: Record "Tracking Specification" temporary;
-        TotalItemTrackingLine: Record "Tracking Specification";
-        TempItemTrackLineInsert: Record "Tracking Specification" temporary;
-        TempItemTrackLineModify: Record "Tracking Specification" temporary;
-        TempItemTrackLineDelete: Record "Tracking Specification" temporary;
-        TempItemTrackLineReserv: Record "Tracking Specification" temporary;
         Item: Record Item;
         ItemTrackingCode: Record "Item Tracking Code";
         TempReservEntry: Record "Reservation Entry" temporary;
-        NoSeriesMgt: Codeunit NoSeriesManagement;
-        ItemTrackingMgt: Codeunit "Item Tracking Management";
-        ReservEngineMgt: Codeunit "Reservation Engine Mgt.";
+        Rec: Record "Tracking Specification" temporary;
+        TempItemTrackLineDelete: Record "Tracking Specification" temporary;
+        TempItemTrackLineInsert: Record "Tracking Specification" temporary;
+        TempItemTrackLineModify: Record "Tracking Specification" temporary;
+        TempItemTrackLineReserv: Record "Tracking Specification" temporary;
+        TotalItemTrackingLine: Record "Tracking Specification";
+        xRec: Record "Tracking Specification" temporary;
+        xTempItemTrackingLine: Record "Tracking Specification" temporary;
         ItemTrackingDataCollection: Codeunit "Item Tracking Data Collection";
-        UndefinedQtyArray: array[3] of Decimal;
-        SourceQuantityArray: array[5] of Decimal;
+        ItemTrackingMgt: Codeunit "Item Tracking Management";
+        NoSeriesMgt: Codeunit NoSeriesManagement;
+        ReservEngineMgt: Codeunit "Reservation Engine Mgt.";
+        BlockCommit: Boolean;
+        CalledFromSynchWhseItemTrkg: Boolean;
+        CurrentFormIsOpen: Boolean;
+        DeleteIsBlocked: Boolean;
+        Inbound: Boolean;
+        InsertIsBlocked: Boolean;
+        IsCorrection: Boolean;
+        IsPick: Boolean;
+        LotAvailabilityActive: Boolean;
+        SNAvailabilityActive: Boolean;
+        ForBinCode: Code[20];
+        ExpectedReceiptDate: Date;
+        ShipmentDate: Date;
         QtyPerUOM: Decimal;
         QtyToAddAsBlank: Decimal;
+        SourceQuantityArray: array[5] of Decimal;
+        UndefinedQtyArray: array[3] of Decimal;
+        ColorOfQuantityArray: array[3] of Integer;
         CurrentSignFactor: Integer;
+        CurrentSourceType: Integer;
+        LastEntryNo: Integer;
         Text000: Label 'Reservation is defined for the %1.\You must cancel the existing Reservation before deleting or changing Item Tracking.';
         Text001: Label 'Reservation is defined for the %1.\You must not set %2 lower then %3.';
         Text002: Label 'Quantity must be %1.';
         Text003: Label 'negative';
         Text004: Label 'positive';
-        LastEntryNo: Integer;
-        ColorOfQuantityArray: array[3] of Integer;
-        CurrentSourceType: Integer;
-        ExpectedReceiptDate: Date;
-        ShipmentDate: Date;
         Text005: Label 'Error when writing to database.';
         Text007: Label 'Another user has modified the item tracking data since it was retrieved from the database.\Start again.';
-        CurrentEntryStatus: Option Reservation,Tracking,Surplus,Prospect;
-        FormRunMode: Option ,Reclass,"Combined Ship/Rcpt","Drop Shipment",Transfer;
-        InsertIsBlocked: Boolean;
         Text008: Label 'The quantity to create must be an integer.';
         Text009: Label 'The quantity to create must be positive.';
         Text013: Label 'The string %1 contains no number and cannot be incremented.';
-        DeleteIsBlocked: Boolean;
         Text014: Label 'The total item tracking quantity %1 exceeds the %2 quantity %3.\The changes cannot be saved to the database.';
         Text015: Label 'Do you want to synchronize item tracking on the line with item tracking on the related drop shipment %1?';
-        BlockCommit: Boolean;
-        IsCorrection: Boolean;
-        CurrentFormIsOpen: Boolean;
-        CalledFromSynchWhseItemTrkg: Boolean;
-        SNAvailabilityActive: Boolean;
-        LotAvailabilityActive: Boolean;
-        Inbound: Boolean;
-        CurrentSourceCaption: Text[255];
-        CurrentSourceRowID: Text[100];
-        SecondSourceRowID: Text[100];
         Text016: Label 'purchase order line';
         Text017: Label 'sales order line';
-        ForBinCode: Code[20];
-        IsPick: Boolean;
-        Rec: Record "Tracking Specification" temporary;
-        xRec: Record "Tracking Specification" temporary;
+        FormRunMode: Option ,Reclass,"Combined Ship/Rcpt","Drop Shipment",Transfer;
+        CurrentEntryStatus: Option Reservation,Tracking,Surplus,Prospect;
+        CurrentSourceRowID: Text[100];
+        SecondSourceRowID: Text[100];
+        CurrentSourceCaption: Text[255];
 
 
     procedure SetFormRunMode(Mode: Option ,Reclass,"Combined Ship/Rcpt","Drop Shipment")
@@ -328,8 +328,8 @@ codeunit 50100 "PWD LPSA Tracking Management"
 
     local procedure AddToGlobalRecordSet(var TempTrackingSpecification: Record "Tracking Specification" temporary)
     var
-        ExpDate: Date;
         EntriesExist: Boolean;
+        ExpDate: Date;
     begin
         TempTrackingSpecification.SetCurrentKey("Lot No.", "Serial No.");
         if TempTrackingSpecification.Find('-') then
@@ -510,8 +510,8 @@ codeunit 50100 "PWD LPSA Tracking Management"
     local procedure TempRecIsValid() OK: Boolean
     var
         ReservEntry: Record "Reservation Entry";
-        RecordCount: Integer;
         IdenticalArray: array[2] of Boolean;
+        RecordCount: Integer;
     begin
         OK := false;
         TempReservEntry.SetCurrentKey("Entry No.", Positive);
@@ -589,12 +589,12 @@ codeunit 50100 "PWD LPSA Tracking Management"
 
     local procedure WriteToDatabase()
     var
-        ChangeType: Option Insert,Modify,Delete;
+        Decrease: Boolean;
         EntryNo: Integer;
-        NoOfLines: Integer;
         i: Integer;
         ModifyLoop: Integer;
-        Decrease: Boolean;
+        NoOfLines: Integer;
+        ChangeType: Option Insert,Modify,Delete;
     begin
         if CurrentFormIsOpen then begin
             TempReservEntry.LockTable();
@@ -750,10 +750,10 @@ codeunit 50100 "PWD LPSA Tracking Management"
         ReservEntry2: Record "Reservation Entry";
         CreateReservEntry: Codeunit "Create Reserv. Entry";
         ReservationMgt: Codeunit "Reservation Management";
-        AvailabilityDate: Date;
-        QtyToAdd: Decimal;
-        LostReservQty: Decimal;
         IdenticalArray: array[2] of Boolean;
+        AvailabilityDate: Date;
+        LostReservQty: Decimal;
+        QtyToAdd: Decimal;
     begin
         OK := false;
         //ReservEngineMgt.SetPick(IsPick); //TODO: La procedure SetPick n'existe pas dans le codeunit "Reservation Engine Mgt."
@@ -961,11 +961,11 @@ codeunit 50100 "PWD LPSA Tracking Management"
     var
         ReservEntry1: Record "Reservation Entry";
         ReservationMgt: Codeunit "Reservation Management";
-        TotalQtyToHandle: Decimal;
-        TotalQtyToInvoice: Decimal;
         QtyAlreadyHandledToInvoice: Decimal;
         QtyToHandleThisLine: Decimal;
         QtyToInvoiceThisLine: Decimal;
+        TotalQtyToHandle: Decimal;
+        TotalQtyToInvoice: Decimal;
     begin
         if IsCorrection then
             exit;
@@ -1295,8 +1295,8 @@ codeunit 50100 "PWD LPSA Tracking Management"
 
     procedure CreateCustomizedSNBatch(QtyToCreate: Decimal; CreateLotNo: Boolean; CustomizedSN: Code[20]; Increment: Integer)
     var
-        i: Integer;
         Counter: Integer;
+        i: Integer;
     begin
         if IncStr(CustomizedSN) = '' then
             Error(Text013, CustomizedSN);

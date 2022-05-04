@@ -21,7 +21,7 @@ report 50044 "PWD Launch Manual Closing File"
             trigger OnAfterGetRecord()
             begin
                 CduGClosingManagement.SetDataExport(BooGItem, BooGInventory, BooGProdOrder, BooGFinishedPO, DatGReferenceDate, true);
-                CduGClosingManagement.Run;
+                CduGClosingManagement.Run();
             end;
 
             trigger OnPostDataItem()
@@ -97,12 +97,12 @@ report 50044 "PWD Launch Manual Closing File"
     }
 
     var
-        CduGClosingManagement: Codeunit "PWD Closing Management";
         RecGInventorySetup: Record "Inventory Setup";
-        BooGItem: Boolean;
-        BooGInventory: Boolean;
-        BooGProdOrder: Boolean;
+        CduGClosingManagement: Codeunit "PWD Closing Management";
         BooGFinishedPO: Boolean;
+        BooGInventory: Boolean;
+        BooGItem: Boolean;
+        BooGProdOrder: Boolean;
         DatGReferenceDate: Date;
         CstG000: Label 'Process finished.';
 }

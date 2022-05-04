@@ -37,13 +37,13 @@ codeunit 8073287 "Connector Buffer Mgt Export"
     end;
 
     var
-        CduGFileManagement: Codeunit "PWD File Management";
         CduGConnectFieldsMgt: Codeunit "Connector Fields Management";
-        IntGNbPosition: Integer;
-        CstG001: Label 'The field %1 of the table %2 is too long to be export for this partner. Record %3 value : %4. The maximum lenght is %5.';
+        CduGFileManagement: Codeunit "PWD File Management";
+        BooGError: Boolean;
         CodGConnectorPartner: Code[20];
         IntGConnectorValue: Integer;
-        BooGError: Boolean;
+        IntGNbPosition: Integer;
+        CstG001: Label 'The field %1 of the table %2 is too long to be export for this partner. Record %3 value : %4. The maximum lenght is %5.';
 
     procedure FctCreateXml(TxtPFilters: Text[1024]; RecPSendingMessage: Record "PWD Connector Messages"; var TempBlob: Codeunit "Temp Blob"; BooLInsertXMLHeader: Boolean)
     // var
@@ -259,19 +259,19 @@ codeunit 8073287 "Connector Buffer Mgt Export"
 
     procedure FctCreateSeparator(TxtPFilters: Text[1024]; RecPSendingMessage: Record "PWD Connector Messages"; var TempBlob: Codeunit "Temp Blob")
     var
-        RecLPartnerConnector: Record "PWD Partner Connector";
         RecLFieldsExportSetup: Record "PWD Fields Export Setup";
-        FldRef: FieldRef;
+        RecLPartnerConnector: Record "PWD Partner Connector";
+        BigTLBigTextToReturn: BigText;
         RecLRecRef: RecordRef;
         RecLRecRef2: RecordRef;
+        FldRef: FieldRef;
         BooLFirstInLoop: Boolean;
         ChrL10: Char;
         ChrL13: Char;
-        TxtLValue: Text[250];
-        BigTLBigTextToReturn: BigText;
-        OusLStream: OutStream;
         DatLValue: Date;
         DecLValue: Decimal;
+        OusLStream: OutStream;
+        TxtLValue: Text[250];
     begin
         //**********************************************************************************************************//
         //                                  Create generic file with Separator in blob field                        //
@@ -463,9 +463,9 @@ codeunit 8073287 "Connector Buffer Mgt Export"
 
     procedure FtcRemoveChar(TxtPTextToModify: Text[250]): Text[250]
     var
-        TxtLModifyInProcess: Text[250];
         Chr255: Char;
         TxtLChar: Text[1];
+        TxtLModifyInProcess: Text[250];
     begin
         TxtLModifyInProcess := DELCHR(TxtPTextToModify);
         Chr255 := 255;
@@ -481,8 +481,8 @@ codeunit 8073287 "Connector Buffer Mgt Export"
 
     procedure FctNormalizeDecimal(TxtPDecimalToNormalize: Text[250]): Text[250]
     var
-        IntLI: Integer;
         ChrLChar: Char;
+        IntLI: Integer;
     begin
         FOR IntLI := 0 TO 47 DO
             IF (IntLI <> 44) AND (IntLI <> 45) AND (IntLI <> 46) THEN BEGIN
@@ -504,22 +504,22 @@ codeunit 8073287 "Connector Buffer Mgt Export"
 
     procedure FctCreateBigTextWithPosition(TxtPFilters: Text[1024]; RecPSendingMessage: Record "PWD Connector Messages"; var BigTPToReturn: BigText)
     var
-        RecLPartnerConnector: Record "PWD Partner Connector";
         RecLSendingMessage: Record "PWD Connector Messages";
-        RecLFieldsExportSetup: Record "PWD Fields Export Setup";
         RecLFieldsExportLenght: Record "PWD Fields Export Setup";
+        RecLFieldsExportSetup: Record "PWD Fields Export Setup";
+        RecLPartnerConnector: Record "PWD Partner Connector";
         RecLRecRef: RecordRef;
         RecLRecRef2: RecordRef;
         FldRef: FieldRef;
         ChrL10: Char;
         ChrL13: Char;
-        TxtLValue: Text[250];
-        IntLMaxLength: Integer;
-        IntLCurrentLenth: Integer;
-        i: Integer;
-        IntLCurrentNbPosition: Integer;
-        DecLValue: Decimal;
         DatLValue: Date;
+        DecLValue: Decimal;
+        i: Integer;
+        IntLCurrentLenth: Integer;
+        IntLCurrentNbPosition: Integer;
+        IntLMaxLength: Integer;
+        TxtLValue: Text[250];
     begin
         //**********************************************************************************************************//
         //                                  Create generic file with Define position in blob field                  //
@@ -739,11 +739,11 @@ codeunit 8073287 "Connector Buffer Mgt Export"
 
     procedure FctMergeBigText(TxtPFillCharacter: Text[1]; BigTPBigText1: BigText; BigTPBigText2: BigText; var BigTPBigResult: BigText)
     var
-        IntLMaxLength: Integer;
         i: Integer;
+        IntLMaxLength: Integer;
+        CharLToAdd: Text[1];
         CharLValueText1: Text[1];
         CharLValueText2: Text[1];
-        CharLToAdd: Text[1];
     begin
         CLEAR(BigTPBigResult);
 
@@ -891,13 +891,13 @@ codeunit 8073287 "Connector Buffer Mgt Export"
 
     procedure FctCheckFields(var RefRecord: RecordRef): Boolean
     var
-        FieldRef: FieldRef;
-        RecLPartnerConnectorFields: Record "PWD Partner Connector Fields";
         RecLField: Record "Field";
+        RecLPartnerConnectorFields: Record "PWD Partner Connector Fields";
+        FieldRef: FieldRef;
         DatLDate: Date;
+        DtiLDateTime: DateTime;
         DecLDecimal: Decimal;
         IntLInteger: Integer;
-        DtiLDateTime: DateTime;
     begin
         //>>OSYS-Int001.001
         BooGError := FALSE;
@@ -906,7 +906,7 @@ codeunit 8073287 "Connector Buffer Mgt Export"
             SETRANGE("Partner Code", CodGConnectorPartner);
             SETRANGE("Table ID", RefRecord.NUMBER);
             IF NOT ISEMPTY THEN BEGIN
-                FINDSET;
+                FINDSET();
                 REPEAT
                     FieldRef := RefRecord.FIELD("Field ID");
                     RecLField.GET("Table ID", "Field ID");
@@ -938,7 +938,7 @@ codeunit 8073287 "Connector Buffer Mgt Export"
                         ELSE
                             FieldRef.VALUE := FctValidateField("Table ID", "Field ID", FORMAT(FieldRef.VALUE), RefRecord.RECORDID);
                     END;
-                UNTIL RecLPartnerConnectorFields.NEXT = 0;
+                UNTIL RecLPartnerConnectorFields.NEXT() = 0;
             END;
         END;
 
@@ -984,16 +984,16 @@ codeunit 8073287 "Connector Buffer Mgt Export"
 
     procedure FctCreateFileWithPosition(TxtPFilters: Text[1024]; RecPSendingMessage: Record "PWD Connector Messages"; var TempBlob: Codeunit "Temp Blob")
     var
-        RecLPartnerConnector: Record "PWD Partner Connector";
         RecLFieldsExportSetup: Record "PWD Fields Export Setup";
+        RecLPartnerConnector: Record "PWD Partner Connector";
+        BigTLBigTextToReturn: BigText;
         RecLRecRef: RecordRef;
         FldRef: FieldRef;
+        BooLtest: Boolean;
         ChrL10: Char;
         ChrL13: Char;
-        TxtLValue: Text[250];
-        BigTLBigTextToReturn: BigText;
         OusLStream: OutStream;
-        BooLtest: Boolean;
+        TxtLValue: Text[250];
     begin
         //**********************************************************************************************************//
         //                                  Create generic file with Define position in blob field                  //

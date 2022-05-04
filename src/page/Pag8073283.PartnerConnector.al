@@ -153,7 +153,7 @@ page 8073283 "PWD Partner Connector"
 
     trigger OnAfterGetRecord()
     begin
-        OnAfterGetCurrRecord;
+        OnAfterGetCurrRecord();
     end;
 
     trigger OnInit()
@@ -167,7 +167,7 @@ page 8073283 "PWD Partner Connector"
 
     trigger OnNewRecord(BelowxRec: Boolean)
     begin
-        OnAfterGetCurrRecord;
+        OnAfterGetCurrRecord();
     end;
 
     var
@@ -176,9 +176,9 @@ page 8073283 "PWD Partner Connector"
         [InDataSet]
         BooGObjectIDRunVisible: Boolean;
         [InDataSet]
-        BooGReplyQueueVisible: Boolean;
-        [InDataSet]
         BooGReceiveQueueVisible: Boolean;
+        [InDataSet]
+        BooGReplyQueueVisible: Boolean;
         [InDataSet]
         BooGSeparatorVisible: Boolean;
 

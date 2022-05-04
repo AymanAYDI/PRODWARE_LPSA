@@ -271,7 +271,7 @@ report 50004 "PWD Purchase - Quote LAP"
                                     Continue := true;
                                     exit;
                                 end;
-                            until (DimSetEntry1.Next = 0);
+                            until (DimSetEntry1.Next() = 0);
                         end;
 
                         trigger OnPreDataItem()
@@ -422,7 +422,7 @@ report 50004 "PWD Purchase - Quote LAP"
                                         Continue := true;
                                         exit;
                                     end;
-                                until (DimSetEntry2.Next = 0);
+                                until (DimSetEntry2.Next() = 0);
                             end;
 
                             trigger OnPreDataItem()
@@ -729,87 +729,87 @@ report 50004 "PWD Purchase - Quote LAP"
     end;
 
     var
-        Text000: Label 'Purchaser';
-        Text001: Label 'COPY';
-        Text003: Label 'Page %1';
-        ShipmentMethod: Record "Shipment Method";
-        SalesPurchPerson: Record "Salesperson/Purchaser";
         CompanyInfo: Record "Company Information";
-        PurchLine: Record "Purchase Line" temporary;
         //TODO: Table 'Document Dimension' is missing
         // DocDim1: Record "Document Dimension";
         // DocDim2: Record "Document Dimension";
         DimSetEntry1: Record "Dimension Set Entry";
         DimSetEntry2: Record "Dimension Set Entry";
+        RecGPurchCommentLine: Record "Purch. Comment Line";
+        PurchLine: Record "Purchase Line" temporary;
+        PurchSetup: Record "Purchases & Payables Setup";
 
         RespCenter: Record "Responsibility Center";
-        Language: Codeunit Language;
-        PurchSetup: Record "Purchases & Payables Setup";
-        PurchCountPrinted: Codeunit "Purch.Header-Printed";
-        PurchPost: Codeunit "Purch.-Post";
-        SegManagement: Codeunit SegManagement;
+        SalesPurchPerson: Record "Salesperson/Purchaser";
+        ShipmentMethod: Record "Shipment Method";
+        RecGVendor: Record Vendor;
         ArchiveManagement: Codeunit ArchiveManagement;
-        VendAddr: array[8] of Text[50];
-        ShipToAddr: array[8] of Text[50];
-        CompanyAddr: array[8] of Text[50];
-        PurchaserText: Text[30];
-        VATNoText: Text[80];
-        ReferenceText: Text[80];
-        MoreLines: Boolean;
-        NoOfCopies: Integer;
-        NoOfLoops: Integer;
-        CopyText: Text[30];
         FormatAddr: Codeunit "Format Address";
-        DimText: Text[120];
-        OldDimText: Text[75];
-        ShowInternalInfo: Boolean;
-        Continue: Boolean;
+        Language: Codeunit Language;
+        PurchPost: Codeunit "Purch.-Post";
+        PurchCountPrinted: Codeunit "Purch.Header-Printed";
+        SegManagement: Codeunit SegManagement;
         ArchiveDocument: Boolean;
-        LogInteraction: Boolean;
-        OutputNo: Integer;
-        FooterLabel: array[20] of Text[30];
-        FooterTxt: array[20] of Text[120];
-        HeaderLabel: array[20] of Text[30];
-        HeaderTxt: array[20] of Text[120];
-        Text11500: Label 'Quote %1';
-        ML_PurchPerson: Label 'Purchaser';
-        ML_Reference: Label 'Reference';
-        ML_PmtTerms: Label 'Payment Terms';
-        ML_ShipCond: Label 'Shipping Conditions';
-        ML_ShipAdr: Label 'Shipping Address';
-        ML_InvAdr: Label 'Invoice Address';
-        ML_OrderAdr: Label 'Order Address';
-        ML_ShipDate: Label 'Shipping Date';
         [InDataSet]
         ArchiveDocumentEnable: Boolean;
+        BooGStopComment: Boolean;
+        Continue: Boolean;
+        LogInteraction: Boolean;
         [InDataSet]
         LogInteractionEnable: Boolean;
+        MoreLines: Boolean;
+        ShowInternalInfo: Boolean;
+        NoOfCopies: Integer;
+        NoOfLoops: Integer;
+        OutputNo: Integer;
+        CompanyInfo__Fax_No__CaptionLbl: Label 'Fax No.';
+        CompanyInfo__Phone_No__CaptionLbl: Label 'Phone No.';
+        CompanyInfo__VAT_Registration_No__CaptionLbl: Label 'VAT Reg. No.';
         CstGText004: Label '%1, on %2';
         CstGText005: Label 'Purchase Quote';
         CstGText006: Label 'Document No.: %1';
         CstGText007: Label 'No. to be mentionned in all documents.';
         CstGText008: Label 'Vendor Fax No.:';
-        RecGVendor: Record Vendor;
         CstGText009: Label 'Your Document No.:';
         CstGText010: Label 'Your reference:';
         CstGText011: Label 'Quote No.:';
         CstGText012: Label 'Your contact : %1';
-        TxtGText009: Text[30];
         CstGText013: Label ' / ';
-        RecGPurchCommentLine: Record "Purch. Comment Line";
-        TxtGComment: Text[1024];
-        BooGStopComment: Boolean;
-        CompanyInfo__Phone_No__CaptionLbl: Label 'Phone No.';
-        CompanyInfo__Fax_No__CaptionLbl: Label 'Fax No.';
-        CompanyInfo__VAT_Registration_No__CaptionLbl: Label 'VAT Reg. No.';
         DateCaptionLbl: Label 'Date';
-        Purchase_Header___Pay_to_Vendor_No__CaptionLbl: Label 'Vendor No.:';
         Header_DimensionsCaptionLbl: Label 'Header Dimensions';
+        Line_DimensionsCaptionLbl: Label 'Line Dimensions';
+        ML_InvAdr: Label 'Invoice Address';
+        ML_OrderAdr: Label 'Order Address';
+        ML_PmtTerms: Label 'Payment Terms';
+        ML_PurchPerson: Label 'Purchaser';
+        ML_Reference: Label 'Reference';
+        ML_ShipAdr: Label 'Shipping Address';
+        ML_ShipCond: Label 'Shipping Conditions';
+        ML_ShipDate: Label 'Shipping Date';
+        Purchase_Header___Pay_to_Vendor_No__CaptionLbl: Label 'Vendor No.:';
         Purchase_Line___Expected_Receipt_Date__Control55CaptionLbl: Label 'Expected Date';
-        Purchase_Line__Description_Control52CaptionLbl: Label 'Description';
         Purchase_Line___No__CaptionLbl: Label 'Our No.';
         Purchase_Line___Vendor_Item_No__CaptionLbl: Label 'Item No.';
-        Line_DimensionsCaptionLbl: Label 'Line Dimensions';
+        Purchase_Line__Description_Control52CaptionLbl: Label 'Description';
+        Text000: Label 'Purchaser';
+        Text001: Label 'COPY';
+        Text003: Label 'Page %1';
+        Text11500: Label 'Quote %1';
+        CopyText: Text[30];
+        FooterLabel: array[20] of Text[30];
+        HeaderLabel: array[20] of Text[30];
+        PurchaserText: Text[30];
+        TxtGText009: Text[30];
+        CompanyAddr: array[8] of Text[50];
+        ShipToAddr: array[8] of Text[50];
+        VendAddr: array[8] of Text[50];
+        OldDimText: Text[75];
+        ReferenceText: Text[80];
+        VATNoText: Text[80];
+        DimText: Text[120];
+        FooterTxt: array[20] of Text[120];
+        HeaderTxt: array[20] of Text[120];
+        TxtGComment: Text[1024];
 
 
     procedure PrepareHeader()

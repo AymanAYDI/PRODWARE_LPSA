@@ -115,8 +115,8 @@ report 50019 "PWD Compl. fiche suiveuse"
 
             trigger OnAfterGetRecord()
             var
-                RecLReservation: Record "Reservation Entry";
                 RecLItemLedgerEntry: Record "Item Ledger Entry";
+                RecLReservation: Record "Reservation Entry";
             begin
                 Clear(RecLItemPF);
                 Clear(RecLConfPF);
@@ -265,34 +265,34 @@ report 50019 "PWD Compl. fiche suiveuse"
 
     var
         RecLItemPF: Record Item;
-        RecLConfPF: Record "PWD Item Configurator";
         RecLItemSO: Record Item;
-        RecLConfSO: Record "PWD Item Configurator";
         RecLProdOC: Record "Prod. Order Component";
         RecLProdOL: Record "Prod. Order Line";
+        RecLConfPF: Record "PWD Item Configurator";
+        RecLConfSO: Record "PWD Item Configurator";
         CodLLotNo_component: Code[10];
         Lot1: Code[20];
-        Qty1: Decimal;
         Lot2: Code[20];
-        Qty2: Decimal;
         Lot3: Code[20];
-        Qty3: Decimal;
         Lot4: Code[20];
+        Qty1: Decimal;
+        Qty2: Decimal;
+        Qty3: Decimal;
         Qty4: Decimal;
         SumComponentQty: Decimal;
-        ConcatComponentNo: Text[100];
         "FICHE_SUIVEUSE__complément_technique_CaptionLbl": Label 'FICHE SUIVEUSE (complément technique) : ';
-        RecLItemSO__No__CaptionLbl: Label 'Art. (Semi-Ouvré) :';
-        RecLItemPF__No__CaptionLbl: Label 'Art. (Produit Fini) :';
-        RecLItemPF__LPSA_Description_1_CaptionLbl: Label 'Description :';
-        RecLItemSO__LPSA_Description_1_CaptionLbl: Label 'Description :';
-        RecLItemPF__LPSA_Description_2_CaptionLbl: Label 'Désignation LPSA2 :';
-        RecLItemSO__LPSA_Description_2_CaptionLbl: Label 'Désignation LPSA2 :';
-        Mesure_CaptionLbl: Label 'Nomin';
-        SO_CaptionLbl: Label 'Semi-ouvré';
         FORMAT_CodLLotNo_component_CaptionLbl: Label 'Label1100267032';
         LotCaptionLbl: Label 'Lot No. :';
+        Mesure_CaptionLbl: Label 'Nomin';
         Quantite_CaptionLbl: Label 'Quantité';
+        RecLItemPF__LPSA_Description_1_CaptionLbl: Label 'Description :';
+        RecLItemPF__LPSA_Description_2_CaptionLbl: Label 'Désignation LPSA2 :';
+        RecLItemPF__No__CaptionLbl: Label 'Art. (Produit Fini) :';
+        RecLItemSO__LPSA_Description_1_CaptionLbl: Label 'Description :';
+        RecLItemSO__LPSA_Description_2_CaptionLbl: Label 'Désignation LPSA2 :';
+        RecLItemSO__No__CaptionLbl: Label 'Art. (Semi-Ouvré) :';
+        SO_CaptionLbl: Label 'Semi-ouvré';
+        ConcatComponentNo: Text[100];
 
 
     procedure FctGetTolerence("Min": Decimal; "Max": Decimal): Text[30]

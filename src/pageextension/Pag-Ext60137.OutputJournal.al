@@ -44,9 +44,9 @@ pageextension 60137 "PWD OutputJournal" extends "Output Journal"
     procedure FctCheckControlQuality(RecPJnl: Record "Item Journal Line"; CodPMachineCenter: Code[20]): Boolean
     var
         RecLItemJnlLine: Record "Item Journal Line";
-        CstL00001: Label 'No lines found.';
+        //CstL00001: Label 'No lines found.';
     begin
-        RecLItemJnlLine.RESET;
+        RecLItemJnlLine.RESET();
         RecLItemJnlLine.SETRANGE("Journal Template Name", RecPJnl."Journal Template Name");
         RecLItemJnlLine.SETRANGE("Journal Batch Name", RecPJnl."Journal Batch Name");
         RecLItemJnlLine.SETRANGE("Item No.", RecPJnl."Item No.");
@@ -57,7 +57,7 @@ pageextension 60137 "PWD OutputJournal" extends "Output Journal"
         RecLItemJnlLine.SETFILTER("No.", '%1', CodPMachineCenter);
         //<FE_LAPIERRETTE_PRO12.001
 
-        IF RecLItemJnlLine.FINDLAST THEN
+        IF RecLItemJnlLine.FINDLAST() THEN
             IF NOT RecLItemJnlLine."PWD Conform quality control" THEN
                 EXIT(FALSE)
             ELSE
@@ -69,9 +69,9 @@ pageextension 60137 "PWD OutputJournal" extends "Output Journal"
     procedure FctExistControlQuality(RecPJnl: Record "Item Journal Line"; CodPMachineCenter: Code[10]): Boolean
     var
         RecLItemJnlLine: Record "Item Journal Line";
-        CstL00001: Label 'No lines found.';
+       // CstL00001: Label 'No lines found.';
     begin
-        RecLItemJnlLine.RESET;
+        RecLItemJnlLine.RESET();
         RecLItemJnlLine.SETRANGE("Journal Template Name", RecPJnl."Journal Template Name");
         RecLItemJnlLine.SETRANGE("Journal Batch Name", RecPJnl."Journal Batch Name");
         //RecLItemJnlLine.SETRANGE("Item No.",RecPJnl."Item No.");

@@ -58,8 +58,8 @@ tableextension 60011 "PWD ItemJournalLine" extends "Item Journal Line"
 
     procedure FctGetLocationCode(CodPProdOrderNo: Code[20]; IntPProdOrderLine: Integer; BooPConformQuality: Boolean): Code[10]
     var
-        ProdOrderLine: Record "Prod. Order Line";
         ManufacturingSetup: Record "Manufacturing Setup";
+        ProdOrderLine: Record "Prod. Order Line";
     begin
         IF BooPConformQuality THEN
             IF ProdOrderLine.GET(ProdOrderLine.Status::Released, CodPProdOrderNo, IntPProdOrderLine) THEN

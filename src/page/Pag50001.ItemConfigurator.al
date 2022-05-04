@@ -583,19 +583,19 @@ page 50001 "PWD Item Configurator"
                 trigger OnAction()
                 var
                     RecLDataTemplateHeader: Record "Config. Template Header";
-                    RecRef: RecordRef;
                     RecLDefaultDimension: Record "Default Dimension";
                     RecLGeneralLedgerSetup: Record "General Ledger Setup";
-                    BooLInsertItem: Boolean;
-                    "---- LAP2.12 ----": Integer;
                     RecLInventorySetup: Record "Inventory Setup";
                     RecLItemCrossReference: Record "Item Cross Reference";
+                    RecRef: RecordRef;
                     BooLCreateItemCrossRef: Boolean;
+                    BooLInsertItem: Boolean;
+                    CodLFilterToCompare: Code[20];
                     CodLFilter: Code[250];
+                    "---- LAP2.12 ----": Integer;
+                    IntLLoop: Integer;
                     IntLPipePosition: Integer;
                     IntLStringLenght: Integer;
-                    CodLFilterToCompare: Code[20];
-                    IntLLoop: Integer;
                 begin
                     TESTFIELD("Item Code");
                     RecGItemConfigurator.RESET();
@@ -784,86 +784,86 @@ page 50001 "PWD Item Configurator"
     end;
 
     var
+        RecGItem: Record Item;
+        RecGItem2: Record Item;
+        RecGItemConfigurator: Record "PWD Item Configurator";
+        RecGPieceType: Record "PWD Piece Type";
+        RecGSubFamily: Record "PWD SubFamily LPSA";
+        CduGTemplateManagement: Codeunit "Config. Template Management";
+        CdUGItemConfigurator: Codeunit "PWD Item Configurator";
+        PgeGItemCard: Page "Item Card";
         [InDataSet]
-        StoneEnable: Boolean;
+        AngleEditable: Boolean;
+        BooGNotEditable: Boolean;
+        BooGNotEditable2: Boolean;
         [InDataSet]
-        PrepEnable: Boolean;
+        DEditable: Boolean;
         [InDataSet]
-        LiftedAndEllipsesEnable: Boolean;
+        DiamEditable: Boolean;
         [InDataSet]
-        SemiFinishedEnable: Boolean;
+        DiamTolEditable: Boolean;
         [InDataSet]
-        FamilyEditable: Boolean;
-        [InDataSet]
-        SubFamilyEditable: Boolean;
-        [InDataSet]
-        PhantomEditable: Boolean;
-        [InDataSet]
-        TemplateEditable: Boolean;
-        [InDataSet]
-        HoleEditable: Boolean;
+        EpEditable: Boolean;
         [InDataSet]
         ExtDiamEditable: Boolean;
         [InDataSet]
-        ThickEditable: Boolean;
-        [InDataSet]
-        RecDiamEditable: Boolean;
-        [InDataSet]
-        HoleLengthEditable: Boolean;
+        FamilyEditable: Boolean;
         [InDataSet]
         HeightBandEditable: Boolean;
         [InDataSet]
         HeightCamberedEditable: Boolean;
         [InDataSet]
-        HHGlazedEditable: Boolean;
-        [InDataSet]
-        PiercingEditable: Boolean;
-        [InDataSet]
-        NoteEditable: Boolean;
-        [InDataSet]
-        DiamEditable: Boolean;
-        [InDataSet]
-        ThickPEditable: Boolean;
-        [InDataSet]
-        WidthEditable: Boolean;
-        [InDataSet]
         HeightEditable: Boolean;
-        [InDataSet]
-        WidthDepthEditable: Boolean;
-        [InDataSet]
-        AngleEditable: Boolean;
         [InDataSet]
         HeightTolEditable: Boolean;
         [InDataSet]
-        WidthTolEditable: Boolean;
+        HHGlazedEditable: Boolean;
+        [InDataSet]
+        HoleEditable: Boolean;
+        [InDataSet]
+        HoleLengthEditable: Boolean;
         [InDataSet]
         LgTolEditable: Boolean;
         [InDataSet]
-        DiamTolEditable: Boolean;
+        LiftedAndEllipsesEnable: Boolean;
+        [InDataSet]
+        NoteEditable: Boolean;
+        [InDataSet]
+        PhantomEditable: Boolean;
+        [InDataSet]
+        PiercingEditable: Boolean;
+        [InDataSet]
+        PrepEnable: Boolean;
         [InDataSet]
         RArcEditable: Boolean;
         [InDataSet]
         RCordeEditable: Boolean;
         [InDataSet]
-        TolHoleEditable: Boolean;
+        RecDiamEditable: Boolean;
+        [InDataSet]
+        SemiFinishedEnable: Boolean;
+        [InDataSet]
+        StoneEnable: Boolean;
+        [InDataSet]
+        SubFamilyEditable: Boolean;
+        [InDataSet]
+        TemplateEditable: Boolean;
+        [InDataSet]
+        ThickEditable: Boolean;
+        [InDataSet]
+        ThickPEditable: Boolean;
         [InDataSet]
         TolExtDiamEditable: Boolean;
         [InDataSet]
-        DEditable: Boolean;
+        TolHoleEditable: Boolean;
         [InDataSet]
-        EpEditable: Boolean;
-        BooGNotEditable: Boolean;
-        RecGPieceType: Record "PWD Piece Type";
-        RecGItem: Record Item;
-        RecGSubFamily: Record "PWD SubFamily LPSA";
-        RecGItemConfigurator: Record "PWD Item Configurator";
+        WidthDepthEditable: Boolean;
+        [InDataSet]
+        WidthEditable: Boolean;
+        [InDataSet]
+        WidthTolEditable: Boolean;
         CstGT001: Label 'Item %1 already exist.';
-        PgeGItemCard: Page "Item Card";
-        CdUGItemConfigurator: Codeunit "PWD Item Configurator";
-        CduGTemplateManagement: Codeunit "Config. Template Management";
-        RecGItem2: Record Item;
         CstGT002: Label 'Item %1 was created manually. Complete the item code to create a new item.';
-        BooGNotEditable2: Boolean;
 
 
     procedure FctEnableFields()

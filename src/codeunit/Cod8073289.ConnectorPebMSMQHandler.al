@@ -35,17 +35,8 @@ codeunit 8073289 "PWD Connector Peb MSMQ Handler"
     end;
 
     var
-        // AutGMsQBusAdp: Automation; //TODO: Type Automation n'existe pas dans la nouvelle version
-        // [WithEvents]
-        // AutGNavComComp: Automation; //TODO: Type Automation n'existe pas dans la nouvelle version
-        // AutGXMLDom: Automation; //TODO: Type Automation n'existe pas dans la nouvelle version
-        // AutGXMLNode: Automation; //TODO: Type Automation n'existe pas dans la nouvelle version
-        CodGRequest: Code[30];
-        CodGPartnerID: Code[20];
-        TxtGSendQueue: Text[250];
         TxtGReceiveQueue: Text[250];
-        RecGPrtCon: Record "PWD Partner Connector";
-        BooGLaunched: Boolean;
+        TxtGSendQueue: Text[250];
 
     procedure FctInit(TxtPSendQueue: Text[250]; TxtPReceiveQueue: Text[250])
     begin

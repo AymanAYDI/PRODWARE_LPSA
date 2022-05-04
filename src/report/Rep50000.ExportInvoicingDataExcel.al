@@ -576,7 +576,7 @@ report 50000 "Export Invoicing Data (Excel)"
     trigger OnPreReport()
     var
         //TODO: Codeunit '3-Tier Automation Mgt.' is missing
-        ThreeTierMngt: Codeunit "3-Tier Automation Mgt.";
+        //ThreeTierMngt: Codeunit "3-Tier Automation Mgt.";
         ServerFile: File;
         TempFileName: Text[1024];
     begin
@@ -626,29 +626,29 @@ report 50000 "Export Invoicing Data (Excel)"
 
     var
         RecGGenLedgerSetup: Record "General Ledger Setup";
-        CodGCurrency: Code[10];
-        DecGTvaAmount: Decimal;
-        TxtGBarCode: Text[15];
-        CodGShipNo: Code[20];
-        CodGShipNoLine: Code[20];
-        LastFieldNo: Integer;
-        TxtGOurAccountNo: Text[20];
+        Book: Automation;
         //TODO:The name 'Create' does not exist in the current context
         Excel: Automation;
-        Book: Automation;
         Sheet: Automation;
-        Compteur: Integer;
-        DatGStarting: Date;
+        CodGCurrency: Code[10];
+        CodGShipNo: Code[20];
+        CodGShipNoLine: Code[20];
         DatGEnding: Date;
-        TxtGFilename: Text[250];
-        CstGtxt001: Label 'The Starting Date  %1 must be filled,';
-        CstGtxt002: Label 'The Ending date must be filled,';
-        CstGtxt004: Label 'BL not found for lines of CR Memo No. %1. It is necessary to check manually.';
-        CstGtxt005: Label 'BL not found for lines of Invoice  No. %1. It is necessary to check manually.';
+        DatGStarting: Date;
+        DecGTvaAmount: Decimal;
+        Compteur: Integer;
+        LastFieldNo: Integer;
         CstG01: Label '''01';
         CstG11: Label '''11';
         CstG40: Label '''40';
         CstG50: Label '''50';
+        CstGtxt001: Label 'The Starting Date  %1 must be filled,';
+        CstGtxt002: Label 'The Ending date must be filled,';
+        CstGtxt004: Label 'BL not found for lines of CR Memo No. %1. It is necessary to check manually.';
+        CstGtxt005: Label 'BL not found for lines of Invoice  No. %1. It is necessary to check manually.';
+        TxtGBarCode: Text[15];
+        TxtGOurAccountNo: Text[20];
+        TxtGFilename: Text[250];
 
 
     procedure Fct_CalcAccountNo(CodPSellToCustNo: Code[20]) TxtLOurAccountNo: Text[20]
@@ -769,9 +769,9 @@ report 50000 "Export Invoicing Data (Excel)"
 
     procedure Fct_CalcShipNoHead(CodPDocNo: Code[20]; TxtPLineType: Text[2]) CodLShipNo: Code[20]
     var
+        RecLItemLedgerEntry: Record "Item Ledger Entry";
         RecLSalesCrMemoLine: Record "Sales Cr.Memo Line";
         RecLSalesInvoiceLine: Record "Sales Invoice Line";
-        RecLItemLedgerEntry: Record "Item Ledger Entry";
         BooLFound: Boolean;
     begin
         CodLShipNo := '';

@@ -522,8 +522,8 @@ report 50012 "PWD Shipment Advice"
 
     trigger OnPostReport()
     var
-        "---- NDBI ----": Integer;
         RecLSalesShipmentHeader: Record "Sales Shipment Header";
+        "---- NDBI ----": Integer;
     begin
         //>>NDBI
         if not BooGSkipSendEmail and BooGEnvoiMail then begin
@@ -534,104 +534,104 @@ report 50012 "PWD Shipment Advice"
     end;
 
     var
-        Text000: Label 'Your contact : ';
-        Text001: Label 'COPY';
-        Text002: Label 'Sales - Shipment %1';
-        Text003: Label 'Page %1';
-        SalesPurchPerson: Record "Salesperson/Purchaser";
         CompanyInfo: Record "Company Information";
         CompanyInfo1: Record "Company Information";
         CompanyInfo2: Record "Company Information";
+        Cust: Record Customer;
         //TODO: Table 'Posted Document Dimension' is missing
         // PostedDocDim1: Record "Posted Document Dimension";
         // PostedDocDim2: Record "Posted Document Dimension";
         DimSetEntry1: Record "Dimension Set Entry";
         DimSetEntry2: Record "Dimension Set Entry";
+        Item: Record Item;
+        ItemCrossRef: Record "Item Cross Reference";
+        RecGItemRelation: Record "Item Entry Relation";
+        RecGItemLedgEntry: Record "Item Ledger Entry";
+        TempItemLedgEntry: Record "Item Ledger Entry";
+        RespCenter: Record "Responsibility Center";
         SalesSetup: Record "Sales & Receivables Setup";
-        Language: Codeunit Language;
+        RecGSalesCommentLine: Record "Sales Comment Line";
+        SalesHeader: Record "Sales Header";
+        SalesInvoiceLine: Record "Sales Invoice Line";
+        SalesLine: Record "Sales Line";
+        SalesPurchPerson: Record "Salesperson/Purchaser";
         TrackingSpecBuffer: Record "Tracking Specification" temporary;
-        ShptCountPrinted: Codeunit "Sales Shpt.-Printed";
-        SegManagement: Codeunit SegManagement;
+        ValueEntryRelation: Record "Value Entry Relation";
+        ItemTrackingAppendix: Report "Item Tracking Appendix";
+        FormatAddr: Codeunit "Format Address";
         //ItemTrackingMgt: Codeunit "Item Tracking Management";
         ItemTrackingDocMgt: Codeunit "Item Tracking Doc. Management";
-        RespCenter: Record "Responsibility Center";
-        ItemTrackingAppendix: Report "Item Tracking Appendix";
-        CustAddr: array[8] of Text[50];
-        ShipToAddr: array[8] of Text[50];
-        CompanyAddr: array[8] of Text[50];
-        SalesPersonText: Text[50];
-        ReferenceText: Text[80];
-        MoreLines: Boolean;
-        NoOfCopies: Integer;
-        OutputNo: Integer;
-        NoOfLoops: Integer;
-        TrackingSpecCount: Integer;
-        Quantity_itemtracking: Integer;
-        OldRefNo: Integer;
-        OldNo: Code[20];
-        CopyText: Text[30];
-        ShowCustAddr: Boolean;
-        i: Integer;
-        FormatAddr: Codeunit "Format Address";
+        Language: Codeunit Language;
         LPSAFunctionsMgt: Codeunit "PWD LPSA Functions Mgt.";
-        DimText: Text[120];
-        OldDimText: Text[75];
-        ShowInternalInfo: Boolean;
+        ShptCountPrinted: Codeunit "Sales Shpt.-Printed";
+        SegManagement: Codeunit SegManagement;
+        BooGEnvoiMail: Boolean;
+        BooGSkipSendEmail: Boolean;
+        BooGStopComment: Boolean;
         Continue: Boolean;
         LogInteraction: Boolean;
-        ShowCorrectionLines: Boolean;
-        ShowLotSN: Boolean;
-        ShowTotal: Boolean;
-        ShowGroup: Boolean;
-        TotalQty: Decimal;
-        NewPage: Boolean;
-        Cust: Record Customer;
-        Item: Record Item;
-        GetSalesShipLineType: Integer;
         [InDataSet]
         LogInteractionEnable: Boolean;
+        MoreLines: Boolean;
+        NewPage: Boolean;
+        ShowCorrectionLines: Boolean;
+        ShowCustAddr: Boolean;
+        ShowGroup: Boolean;
+        ShowInternalInfo: Boolean;
+        ShowLotSN: Boolean;
+        ShowTotal: Boolean;
+        CrossReferenceNo: Code[20];
+        CustName: Code[20];
+        OldNo: Code[20];
+        YourDocumentNo: Code[20];
+        DocumentDate: Date;
         OrdredQty: Decimal;
         OutstandingQtytoShip: Decimal;
-        SalesLine: Record "Sales Line";
-        SalesHeader: Record "Sales Header";
-        DocumentDate: Date;
-        YourDocumentNo: Code[20];
-        CustName: Code[20];
-        BSContact: Text[50];
+        TotalQty: Decimal;
+        "---- NDBI ----": Integer;
+        "---LAP.2.03": Integer;
+        "-LAP2.02-": Integer;
+        GetSalesShipLineType: Integer;
+        i: Integer;
+        NoOfCopies: Integer;
+        NoOfLoops: Integer;
+        OldRefNo: Integer;
+        OutputNo: Integer;
+        Quantity_itemtracking: Integer;
+        TrackingSpecCount: Integer;
+        CstGTxt014: Label 'LPSA No.:';
+        Facture_captionLbl: Label 'Shipment Advice';
+        Qty_Ordred_captionLbl: Label 'Qty Ordred';
+        Qty_Shipped_captionLbl: Label 'Qty Shipped';
+        Rest_to_Ship_captionLbl: Label 'Rest to Ship';
+        Sales_Header___Sell_to_Customer_No__CaptionLbl: Label 'Customer No. : ';
+        Sales_Header_Document_Date_captionLbl: Label 'Your document Date : ';
+        Sales_Header_External_Document_No_captionLbl: Label 'Your Document No. :  ';
+        Sales_Header_No_captionLbl: Label 'Document No. : ';
+        Sales_Header_VAT_Registration_No_captionLbl: Label 'VAT Registration No. : ';
+        Sales_Header_Your_Reference_captionLbl: Label 'Your Reference : ';
+        Sales_Shipment_Line__Unit_of_Measure__Control46CaptionLbl: Label 'Unit';
+        Sales_Shipment_Line_Description_Control44CaptionLbl: Label 'Description';
+        Text000: Label 'Your contact : ';
+        Text001: Label 'COPY';
+        Text002: Label 'Sales - Shipment %1';
+        Text003: Label 'Page %1';
         Text004: Label 'Scrap : %1 %2';
         Text005: Label 'Your Item Ref.';
         Text006: Label 'You Plan No.';
-        ItemCrossRef: Record "Item Cross Reference";
-        CrossReferenceNo: Code[20];
-        TempItemLedgEntry: Record "Item Ledger Entry";
-        ValueEntryRelation: Record "Value Entry Relation";
-        SalesInvoiceLine: Record "Sales Invoice Line";
-        CstGTxt014: Label 'LPSA No.:';
-        "-LAP2.02-": Integer;
-        RecGItemRelation: Record "Item Entry Relation";
-        RecGItemLedgEntry: Record "Item Ledger Entry";
-        TxtGLotNo: Text[50];
         TxtItemNo8Car: Text[8];
-        "---LAP.2.03": Integer;
-        RecGSalesCommentLine: Record "Sales Comment Line";
-        TxtGComment: Text[1024];
-        BooGStopComment: Boolean;
+        CopyText: Text[30];
+        BSContact: Text[50];
+        CompanyAddr: array[8] of Text[50];
+        CustAddr: array[8] of Text[50];
+        SalesPersonText: Text[50];
+        ShipToAddr: array[8] of Text[50];
+        TxtGLotNo: Text[50];
+        OldDimText: Text[75];
+        ReferenceText: Text[80];
         TxtGCustPlanNo_C: Text[100];
-        "---- NDBI ----": Integer;
-        BooGEnvoiMail: Boolean;
-        BooGSkipSendEmail: Boolean;
-        Facture_captionLbl: Label 'Shipment Advice';
-        Sales_Header_No_captionLbl: Label 'Document No. : ';
-        Sales_Header_Document_Date_captionLbl: Label 'Your document Date : ';
-        Sales_Header___Sell_to_Customer_No__CaptionLbl: Label 'Customer No. : ';
-        Sales_Header_VAT_Registration_No_captionLbl: Label 'VAT Registration No. : ';
-        Sales_Header_External_Document_No_captionLbl: Label 'Your Document No. :  ';
-        Sales_Header_Your_Reference_captionLbl: Label 'Your Reference : ';
-        Sales_Shipment_Line__Unit_of_Measure__Control46CaptionLbl: Label 'Unit';
-        Qty_Ordred_captionLbl: Label 'Qty Ordred';
-        Sales_Shipment_Line_Description_Control44CaptionLbl: Label 'Description';
-        Qty_Shipped_captionLbl: Label 'Qty Shipped';
-        Rest_to_Ship_captionLbl: Label 'Rest to Ship';
+        DimText: Text[120];
+        TxtGComment: Text[1024];
 
 
     procedure FindCrossRef()
@@ -683,8 +683,8 @@ report 50012 "PWD Shipment Advice"
     procedure CalcOustandingQty(OrderNo: Code[20]; OrderLineNo: Integer) Return: Decimal
     var
         SalesShipmentLine: Record "Sales Shipment Line";
-        ScrapQt: Decimal;
         Qt: Decimal;
+        ScrapQt: Decimal;
     begin
         SalesShipmentLine.Reset();
         Qt := 0;
@@ -702,20 +702,20 @@ report 50012 "PWD Shipment Advice"
 
     procedure SendPDFMail(var RecPSalesShipmentHeader: Record "Sales Shipment Header")
     var
-        RecLContBusRel: Record "Contact Business Relation";
         RecLContact: Record Contact;
+        RecLContBusRel: Record "Contact Business Relation";
         RecLCustomer: Record Customer;
+        RepLShipmentAdvice: Report "PWD Shipment Advice";
+        CodLMail: Codeunit Mail;
         CstL001: Label 'LA PIERRETTE SA : Sales Invoice %1';
         CstL002: Label 'Next the invoice following your order %1';
         Recipient: Text[80];
-        CodLMail: Codeunit Mail;
-        Subject: Text[100];
         Body: Text[100];
+        Subject: Text[100];
         //TODO: Codeunit '3-Tier Automation Mgt.' is missing
         //CduLTierAutomationMgt: Codeunit "3-Tier Automation Mgt.";
         TxtLFileName: Text[250];
         TxtLServerFile: Text[250];
-        RepLShipmentAdvice: Report "PWD Shipment Advice";
     begin
         //TODO: Codeunit '3-Tier Automation Mgt.' is missing
         //TxtLServerFile := CduLTierAutomationMgt.ServerTempFileName('', '');

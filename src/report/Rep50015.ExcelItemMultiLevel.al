@@ -22,8 +22,8 @@ report 50015 "PWD Excel Item Multi-Level"
 
             trigger OnAfterGetRecord()
             var
-                DecLScrap: Decimal;
                 RecLItemConfig: Record "PWD Item Configurator";
+                DecLScrap: Decimal;
             begin
                 IntGLineNo += 1;
                 IntGColNo := 1;
@@ -113,12 +113,12 @@ report 50015 "PWD Excel Item Multi-Level"
     end;
 
     var
-        RecGInvtSetup: Record "Inventory Setup";
         ExcelBuf: Record "Excel Buffer" temporary;
-        CstG001: Label 'Articles';
+        RecGInvtSetup: Record "Inventory Setup";
         CduGVersionMgt: Codeunit VersionManagement;
-        IntGLineNo: Integer;
         IntGColNo: Integer;
+        IntGLineNo: Integer;
+        CstG001: Label 'Articles';
         CstG002: Label 'PF';
         CstG003: Label 'Qté max cde';
         CstG004: Label 'Conso';
@@ -193,8 +193,8 @@ report 50015 "PWD Excel Item Multi-Level"
 
     procedure GetBOMInfo(CodPBOMNo: Code[20]; IntPLevel: Integer)
     var
-        RecLBOMLine: Record "Production BOM Line";
         RecLItem: Record Item;
+        RecLBOMLine: Record "Production BOM Line";
         CodLNextBOM: Code[20];
     begin
         RecLBOMLine.Reset();
@@ -268,8 +268,8 @@ report 50015 "PWD Excel Item Multi-Level"
 
     procedure GetBOMInfoMulti(CodPBOMNo: Code[20]; IntPLevel: Integer; IntPColNo: Integer; IntPLineNo: Integer)
     var
-        RecLBOMLine: Record "Production BOM Line";
         RecLItem: Record Item;
+        RecLBOMLine: Record "Production BOM Line";
         CodLNextBOM: Code[20];
     begin
         RecLBOMLine.Reset();

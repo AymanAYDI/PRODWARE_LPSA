@@ -18,8 +18,8 @@ codeunit 8073304 "PWD FTP Messages Import/Export"
 
     trigger OnRun()
     var
-        CduLFTPMgt: Codeunit "PWD FTP Management";
         CduLFileManagement: Codeunit "PWD File Management";
+        CduLFTPMgt: Codeunit "PWD FTP Management";
     begin
         RecGPartner.Get("Partner Code");
         if not RecGPartner."FTP Active" then
@@ -57,7 +57,7 @@ codeunit 8073304 "PWD FTP Messages Import/Export"
 
     var
         RecGPartner: Record "PWD Partner Connector";
-        TxtGErrorMessage: Text[1024];
         OptGFlowType: Option " ","Import Connector","Export Connector";
+        TxtGErrorMessage: Text[1024];
 }
 

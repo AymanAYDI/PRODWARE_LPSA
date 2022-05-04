@@ -30,8 +30,8 @@ codeunit 8073286 "PWD File Export"
     trigger OnRun()
     var
         RecLSendingMessage: Record "PWD Connector Messages";
-        CduLConnectorErrorlog: Codeunit "PWD Connector Error log";
         RecLConnectiorValues: Record "PWD Connector Values";
+        CduLConnectorErrorlog: Codeunit "PWD Connector Error log";
         IntLPostion: Integer;
         TxtLPameter: Text[250];
     begin

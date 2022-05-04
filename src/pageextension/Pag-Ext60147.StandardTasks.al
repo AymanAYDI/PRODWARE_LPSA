@@ -4,7 +4,7 @@ pageextension 60147 "PWD StandardTasks" extends "Standard Tasks"
     {
         modify(Personnel)
         {
-            Caption='Target measures';
+            Caption = 'Target measures';
         }
     }
 }

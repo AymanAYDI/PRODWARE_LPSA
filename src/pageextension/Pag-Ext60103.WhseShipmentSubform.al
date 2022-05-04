@@ -12,7 +12,7 @@ pageextension 60103 "PWD WhseShipmentSubform" extends "Whse. Shipment Subform"
 
                 trigger OnAction()
                 begin
-                    DeleteResEntriesForOrderLine;
+                    DeleteResEntriesForOrderLine();
                 end;
             }
         }
@@ -20,13 +20,13 @@ pageextension 60103 "PWD WhseShipmentSubform" extends "Whse. Shipment Subform"
 
     procedure DeleteResEntriesForOrderLine()
     var
-        RecLSalesLine: Record "Sales Line";
-        cTxtL001: Label 'You can delete reservation entries only for sales order lines.';
-        cTxtL002: Label 'La ligne %1 de la commande %2 n''a pas été trouvée. La suppression n''a pas été réalisée.';
         RecLResEntry: Record "Reservation Entry";
         RecLResEntrytoDel: Record "Reservation Entry";
-        cTxtL003: Label 'Operation terminated. The deletion has been realized.';
+        RecLSalesLine: Record "Sales Line";
         i: Integer;
+        cTxtL001: Label 'You can delete reservation entries only for sales order lines.';
+        cTxtL002: Label 'La ligne %1 de la commande %2 n''a pas été trouvée. La suppression n''a pas été réalisée.';
+        cTxtL003: Label 'Operation terminated. The deletion has been realized.';
         cTxtL004: Label 'Operation terminated. No deletion has been realized.';
     begin
         IF "Source Type" <> 37 THEN
@@ -38,19 +38,19 @@ pageextension 60103 "PWD WhseShipmentSubform" extends "Whse. Shipment Subform"
 
         i := 0;
 
-        RecLResEntry.RESET;
+        RecLResEntry.RESET();
         RecLResEntry.SETRANGE("Source Type", 37);
         RecLResEntry.SETRANGE("Source ID", RecLSalesLine."Document No.");
         RecLResEntry.SETRANGE("Source Subtype", 1);
         RecLResEntry.SETRANGE("Source Ref. No.", RecLSalesLine."Line No.");
         RecLResEntry.SETRANGE(Binding, RecLResEntry.Binding::"Order-to-Order");
-        IF RecLResEntry.FINDFIRST THEN
+        IF RecLResEntry.FINDFIRST() THEN
             REPEAT
-                RecLResEntrytoDel.RESET;
+                RecLResEntrytoDel.RESET();
                 RecLResEntrytoDel.SETRANGE("Entry No.", RecLResEntry."Entry No.");
-                RecLResEntrytoDel.DELETEALL;
+                RecLResEntrytoDel.DELETEALL();
                 i += 1;
-            UNTIL RecLResEntry.NEXT = 0;
+            UNTIL RecLResEntry.NEXT() = 0;
 
         IF i <> 0 THEN
             MESSAGE(cTxtL003)

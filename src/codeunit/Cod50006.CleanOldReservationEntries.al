@@ -70,12 +70,12 @@ codeunit 50006 "Clean Old Reservation Entries"
     end;
 
     var
-        RecGItemJournalTemplate: Record "Item Journal Template";
         RecGProductionName: Record "Item Journal Batch";
         RecGItemJnlLine: Record "Item Journal Line";
-        RecGResEntry: Record "Reservation Entry";
-        RecGResEntryBis: Record "Reservation Entry";
+        RecGItemJournalTemplate: Record "Item Journal Template";
         RecGProdOrderComp: Record "Prod. Order Component";
         RecGProdOrderLine: Record "Prod. Order Line";
+        RecGResEntry: Record "Reservation Entry";
+        RecGResEntryBis: Record "Reservation Entry";
 }
 

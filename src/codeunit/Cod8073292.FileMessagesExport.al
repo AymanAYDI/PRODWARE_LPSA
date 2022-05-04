@@ -30,19 +30,19 @@ codeunit 8073292 "PWD File Messages Export"
 
     trigger OnRun()
     var
-        RecLTempBlob: Codeunit "Temp Blob";
-        RecLPartnerConnector: Record "PWD Partner Connector";
-        RecLConnectorValues: Record "PWD Connector Values";
-        BigTLToReturn: BigText;
-        CduLBufferMgt: Codeunit "PWD Buffer Management";
-        InLStream: InStream;
-        CduLFileManagement: Codeunit "PWD File Management";
-        TxtLFile: Text[1024];
-        BooLResult: Boolean;
-        CduLConnecPimParseData: Codeunit "PWD Connector Pim Parse Data";
-        RecLConnectorsActivation: Record "PWD WMS Setup";
-        RecLRef: RecordRef;
         RecLCustomer: Record Customer;
+        RecLConnectorValues: Record "PWD Connector Values";
+        RecLPartnerConnector: Record "PWD Partner Connector";
+        RecLConnectorsActivation: Record "PWD WMS Setup";
+        CduLBufferMgt: Codeunit "PWD Buffer Management";
+        CduLConnecPimParseData: Codeunit "PWD Connector Pim Parse Data";
+        CduLFileManagement: Codeunit "PWD File Management";
+        RecLTempBlob: Codeunit "Temp Blob";
+        BigTLToReturn: BigText;
+        RecLRef: RecordRef;
+        BooLResult: Boolean;
+        InLStream: InStream;
+        TxtLFile: Text[1024];
     begin
         Clear(BigTLToReturn);
         Clear(IntGSequenceNo);
@@ -115,7 +115,7 @@ codeunit 8073292 "PWD File Messages Export"
         end;
         //TODO:'Codeunit "Temp Blob"' does not contain a definition for 'CalcFields'
         //RecLTempBlob.CalcFields(Blob);
-        if RecLTempBlob.HasValue then begin
+        if RecLTempBlob.HasValue() then begin
             RecLTempBlob.CreateInStream(InLStream);
             IntGSequenceNo := CduLBufferMgt.FctCreateBufferValues(InLStream, "Partner Code", '', Code,
                                                                   RecLPartnerConnector."Data Format"::Xml,
@@ -155,9 +155,9 @@ codeunit 8073292 "PWD File Messages Export"
 
     var
         CduLConBufMgtExport: Codeunit "Connector Buffer Mgt Export";
-        OptGFlowType: Option " ","Import Connector","Export Connector";
-        IntGSequenceNo: Integer;
         CduLFTPExport: Codeunit "PWD FTP Messages Import/Export";
+        IntGSequenceNo: Integer;
+        OptGFlowType: Option " ","Import Connector","Export Connector";
 
 
     procedure FctGetTransactionNo(): Integer

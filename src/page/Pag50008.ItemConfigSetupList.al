@@ -216,13 +216,13 @@ page 50008 "PWD Item Config. Setup List"
 
     var
         [InDataSet]
-        StoneEditable: Boolean;
+        LiftedEditable: Boolean;
         [InDataSet]
         PreparageEditable: Boolean;
         [InDataSet]
-        LiftedEditable: Boolean;
-        [InDataSet]
         SFEditable: Boolean;
+        [InDataSet]
+        StoneEditable: Boolean;
 
 
     procedure FctEditableFields()

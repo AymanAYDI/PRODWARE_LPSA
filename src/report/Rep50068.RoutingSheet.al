@@ -36,7 +36,7 @@ report 50068 "PWD Routing Sheet"
                 {
                     DataItemTableView = SORTING(Number) WHERE(Number = CONST(1));
                     PrintOnlyIfDetail = true;
-                    column(CompanyName; COMPANYPROPERTY.DisplayName)
+                    column(CompanyName; COMPANYPROPERTY.DisplayName())
                     {
                     }
                     column(TodayFormatted; Format(Today))
@@ -209,13 +209,13 @@ report 50068 "PWD Routing Sheet"
 
                             trigger OnAfterGetRecord()
                             var
-                                RunTimeFactor: Decimal;
                                 CduLCalculateProdOrder: Codeunit 99000773;
+                                PWDLPSAFunctionsMgt: codeunit "PWD LPSA Functions Mgt.";
+                                CodLRunTimeUnit: Code[10];
+                                CodLSetupTimeUnit: Code[10];
                                 DecLRunTime: Decimal;
                                 DecLSetupTime: Decimal;
-                                CodLSetupTimeUnit: Code[10];
-                                CodLRunTimeUnit: Code[10];
-                                PWDLPSAFunctionsMgt: codeunit "PWD LPSA Functions Mgt.";
+                                RunTimeFactor: Decimal;
                             begin
                                 //>>FE_LAPIERRETTE_PROD04.001
                                 IF "Routing Line"."PWD Fixed-step Prod. Rate time" THEN BEGIN
@@ -239,7 +239,7 @@ report 50068 "PWD Routing Sheet"
                                         "Setup Time" * CalendarMgt.TimeFactor("Setup Time Unit of Meas. Code") / RunTimeFactor +
                                         "Wait Time" * CalendarMgt.TimeFactor("Wait Time Unit of Meas. Code") / RunTimeFactor +
                                         "Move Time" * CalendarMgt.TimeFactor("Move Time Unit of Meas. Code") / RunTimeFactor +
-                                        ProductionQuantity * "Run Time", UOMMgt.TimeRndPrecision);
+                                        ProductionQuantity * "Run Time", UOMMgt.TimeRndPrecision());
                                 end;
                             end;
 
@@ -291,7 +291,7 @@ report 50068 "PWD Routing Sheet"
                     CurrReport.Skip();
 
                 ActiveVersionCode :=
-                  VersionMgt.GetRtngVersion("Routing No.", WorkDate, true);
+                  VersionMgt.GetRtngVersion("Routing No.", WorkDate(), true);
 
                 if ActiveVersionCode <> '' then
                     ActiveVersionText := Text001
@@ -369,29 +369,29 @@ report 50068 "PWD Routing Sheet"
     end;
 
     var
-        Text000: Label 'Copy number:';
-        VersionMgt: Codeunit VersionManagement;
         CalendarMgt: Codeunit "Shop Calendar Management";
         UOMMgt: Codeunit "Unit of Measure Management";
-        NumberOfCopies: Integer;
-        CopyNo: Integer;
-        CopyText: Text[30];
-        ActiveVersionText: Text[30];
-        LoopNo: Integer;
-        ProductionQuantity: Decimal;
+        VersionMgt: Codeunit VersionManagement;
         PrintComment: Boolean;
-        PrintTool: Boolean;
         PrintPersonnel: Boolean;
         PrintQualityMeasures: Boolean;
-        TotalTime: Decimal;
+        PrintTool: Boolean;
         ActiveVersionCode: Code[20];
-        Text001: Label 'Active Version';
+        ProductionQuantity: Decimal;
+        TotalTime: Decimal;
+        CopyNo: Integer;
+        LoopNo: Integer;
+        NumberOfCopies: Integer;
         OutputNo: Integer;
         CurrReportPageNoCaptionLbl: Label 'Page';
-        RoutingSheetCaptionLbl: Label 'Routing Sheet';
-        ProductionQuantityCaptionLbl: Label 'Production Quantity';
         ItemRtngNoCaptionLbl: Label 'Routing No.';
-        TotalTimeCaptionLbl: Label 'Total Time';
+        ProductionQuantityCaptionLbl: Label 'Production Quantity';
+        RoutingSheetCaptionLbl: Label 'Routing Sheet';
         RtngLnRunTimeUOMCodeCptnLbl: Label 'Time Unit';
+        Text000: Label 'Copy number:';
+        Text001: Label 'Active Version';
+        TotalTimeCaptionLbl: Label 'Total Time';
+        ActiveVersionText: Text[30];
+        CopyText: Text[30];
 }
 

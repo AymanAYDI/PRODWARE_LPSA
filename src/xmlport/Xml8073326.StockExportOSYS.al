@@ -86,8 +86,8 @@ xmlport 8073326 "PWD Stock Export OSYS"
     }
 
     var
-        RecGMessgae: Record "PWD Connector Messages";
         RecGItem: Record Item;
+        RecGMessgae: Record "PWD Connector Messages";
 
 
     procedure FctDefinePartner(RecPMessgae: Record "PWD Connector Messages")
@@ -98,16 +98,16 @@ xmlport 8073326 "PWD Stock Export OSYS"
 
     procedure FctInitXML(): Boolean
     var
-        CduLConnectorBufferMgtExport: Codeunit "Connector Buffer Mgt Export";
-        BooLResult: Boolean;
-        RecordRef: RecordRef;
         RecLItemLedgerEntry: Record "Item Ledger Entry";
         RecLItemLedgerEntry2: Record "Item Ledger Entry";
-        IntLSequenceNo: Integer;
-        CodLLastItemNo: Code[20];
+        CduLConnectorBufferMgtExport: Codeunit "Connector Buffer Mgt Export";
+        RecordRef: RecordRef;
+        BooLResult: Boolean;
         CodLLastVariantCode: Code[10];
+        CodLLastItemNo: Code[20];
         CodLLastLotNo: Code[20];
         CodLLastSerialNo: Code[20];
+        IntLSequenceNo: Integer;
     begin
         BooLResult := true;
         IntLSequenceNo := 0;

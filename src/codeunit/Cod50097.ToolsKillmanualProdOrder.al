@@ -18,7 +18,7 @@ codeunit 50097 "Tools Kill manual Prod Order"
         RecLProductionOrder.GET(RecLProductionOrder.Status::Released, Rec."No.");
 
         ChangeStatusForm.Set(RecLProductionOrder);
-        IF ChangeStatusForm.RUNMODAL = ACTION::Yes THEN BEGIN
+        IF ChangeStatusForm.RUNMODAL() = ACTION::Yes THEN BEGIN
             ChangeStatusForm.ReturnPostingInfo(NewStatus, NewPostingDate, NewUpdateUnitCost);
             ChangeStatusOnProdOrder(RecLProductionOrder, NewStatus, NewPostingDate, NewUpdateUnitCost);
             COMMIT();
@@ -28,6 +28,25 @@ codeunit 50097 "Tools Kill manual Prod Order"
     end;
 
     var
+        GLSetup: Record "General Ledger Setup";
+        Item: Record Item;
+        ToProdOrder: Record "Production Order";
+        SourceCodeSetup: Record "Source Code Setup";
+        ACYMgt: Codeunit "Additional-Currency Management";
+        DimMgt: Codeunit DimensionManagement;
+        InvtAdjmt: Codeunit "Inventory Adjustment";
+        ReserveProdOrderComp: Codeunit "Prod. Order Comp.-Reserve";
+        ReserveProdOrderLine: Codeunit "Prod. Order Line-Reserve";
+        ReservMgt: Codeunit "Reservation Management";
+        CalendarMgt: Codeunit "Shop Calendar Management";
+        UpdateProdOrderCost: Codeunit "Update Prod. Order Cost";
+        WhseOutputProdRelease: Codeunit "Whse.-Output Prod. Release";
+        WhseProdRelease: Codeunit "Whse.-Production Release";
+        BooGAvoidControl: Boolean;
+        HasGLSetup: Boolean;
+        NewUpdateUnitCost: Boolean;
+        SourceCodeSetupRead: Boolean;
+        NewPostingDate: Date;
         Text000: Label '%2 %3  with status %1 has been changed to %5 %6 with status %4.';
         Text002: Label 'Posting Automatic consumption...\\';
         Text003: Label 'Posting lines         #1###### @2@@@@@@@@@@@@@';
@@ -35,30 +54,11 @@ codeunit 50097 "Tools Kill manual Prod Order"
         Text005: Label 'The update has been interrupted to respect the warning.';
         Text006: Label '%1 %2 has not been finished. Some consumption is still missing. Do you still want to finish the order?';
         Text007: Label 'The status of order %1 cannot be changed as it is related to planning line %2 in worksheet %3 %4.';
-        ToProdOrder: Record "Production Order";
-        SourceCodeSetup: Record "Source Code Setup";
-        Item: Record Item;
-        GLSetup: Record "General Ledger Setup";
-        DimMgt: Codeunit DimensionManagement;
-        ReserveProdOrderLine: Codeunit "Prod. Order Line-Reserve";
-        ReserveProdOrderComp: Codeunit "Prod. Order Comp.-Reserve";
-        ReservMgt: Codeunit "Reservation Management";
-        CalendarMgt: Codeunit "Shop Calendar Management";
-        UpdateProdOrderCost: Codeunit "Update Prod. Order Cost";
-        ACYMgt: Codeunit "Additional-Currency Management";
-        WhseProdRelease: Codeunit "Whse.-Production Release";
-        WhseOutputProdRelease: Codeunit "Whse.-Output Prod. Release";
-        InvtAdjmt: Codeunit "Inventory Adjustment";
-        NewStatus: Option Quote,Planned,"Firm Planned",Released,Finished;
-        NewPostingDate: Date;
-        NewUpdateUnitCost: Boolean;
-        SourceCodeSetupRead: Boolean;
         Text008: Label '%1 %2 cannot be finished as the associated subcontract order %3 has not been fully delivered.';
         Text009: Label 'You cannot finish line %1 on %2 %3. It has consumption or capacity posted with no output.';
         Text010: Label 'You must specify a %1 in %2 %3 %4.';
-        HasGLSetup: Boolean;
         Txt50000: Label 'There is a phantom item for Line no. %1';
-        BooGAvoidControl: Boolean;
+        NewStatus: Option Quote,Planned,"Firm Planned",Released,Finished;
 
 
     procedure ChangeStatusOnProdOrder(ProdOrder: Record "Production Order"; NewStatus: Option Quote,Planned,"Firm Planned",Released,Finished; NewPostingDate: Date; NewUpdateUnitCost: Boolean)
@@ -239,9 +239,9 @@ codeunit 50097 "Tools Kill manual Prod Order"
 
     local procedure TransProdOrderComp(FromProdOrder: Record "Production Order")
     var
+        Location: Record Location;
         FromProdOrderComp: Record "Prod. Order Component";
         ToProdOrderComp: Record "Prod. Order Component";
-        Location: Record Location;
     begin
         WITH FromProdOrderComp DO BEGIN
             SETRANGE(Status, FromProdOrder.Status);
@@ -424,15 +424,15 @@ codeunit 50097 "Tools Kill manual Prod Order"
         WITH FromProdOrderBOMComment DO BEGIN
             SETRANGE(Status, FromProdOrder.Status);
             SETRANGE("Prod. Order No.", FromProdOrder."No.");
-            LOCKTABLE;
-            IF FINDSET THEN BEGIN
+            LOCKTABLE();
+            IF FINDSET() THEN BEGIN
                 REPEAT
                     ToProdOrderBOMComment := FromProdOrderBOMComment;
                     ToProdOrderBOMComment.Status := ToProdOrder.Status;
                     ToProdOrderBOMComment."Prod. Order No." := ToProdOrder."No.";
-                    ToProdOrderBOMComment.INSERT;
-                UNTIL NEXT = 0;
-                DELETEALL;
+                    ToProdOrderBOMComment.INSERT();
+                UNTIL NEXT() = 0;
+                DELETEALL();
             END;
         END;
     end;
@@ -441,24 +441,23 @@ codeunit 50097 "Tools Kill manual Prod Order"
     var
         FromProdDocDim: Record "Dimension Set Entry";//TODO: Table n'est plus disponible
     begin
-        WITH FromProdDocDim DO BEGIN
-            //     SETRANGE("Table ID", DATABASE::"Production Order");
-            //     SETRANGE("Document Status", FromProdOrder.Status);
-            //     SETRANGE("Document No.", FromProdOrder."No.");
-            //     DimMgt.MoveProdDocDimToProdDocDim(
-            //       FromProdDocDim, DATABASE::"Production Order", ToProdOrder.Status, ToProdOrder."No.");
-            //     DELETEALL;
+        WITH FromProdDocDim DO
 
-            //     SETRANGE("Table ID", DATABASE::"Prod. Order Line");
-            //     DimMgt.MoveProdDocDimToProdDocDim(
-            //       FromProdDocDim, DATABASE::"Prod. Order Line", ToProdOrder.Status, ToProdOrder."No.");
-            //     DELETEALL;
-
-            //     SETRANGE("Table ID", DATABASE::"Prod. Order Component");
-            //     DimMgt.MoveProdDocDimToProdDocDim(
-            //       FromProdDocDim, DATABASE::"Prod. Order Component", ToProdOrder.Status, ToProdOrder."No.");
-            //     DELETEALL;
-        END;
+            ;
+        //     SETRANGE("Table ID", DATABASE::"Production Order");
+        //     SETRANGE("Document Status", FromProdOrder.Status);
+        //     SETRANGE("Document No.", FromProdOrder."No.");
+        //     DimMgt.MoveProdDocDimToProdDocDim(
+        //       FromProdDocDim, DATABASE::"Production Order", ToProdOrder.Status, ToProdOrder."No.");
+        //     DELETEALL;
+        //     SETRANGE("Table ID", DATABASE::"Prod. Order Line");
+        //     DimMgt.MoveProdDocDimToProdDocDim(
+        //       FromProdDocDim, DATABASE::"Prod. Order Line", ToProdOrder.Status, ToProdOrder."No.");
+        //     DELETEALL;
+        //     SETRANGE("Table ID", DATABASE::"Prod. Order Component");
+        //     DimMgt.MoveProdDocDimToProdDocDim(
+        //       FromProdDocDim, DATABASE::"Prod. Order Component", ToProdOrder.Status, ToProdOrder."No.");
+        //     DELETEALL;
     end;
 
     local procedure TransProdOrderCapNeed(FromProdOrder: Record "Production Order")
@@ -547,8 +546,8 @@ codeunit 50097 "Tools Kill manual Prod Order"
 
     procedure CheckBeforeFinishProdOrder(ProdOrder: Record "Production Order")
     var
-        ProdOrderLine: Record "Prod. Order Line";
         ProdOrderComp: Record "Prod. Order Component";
+        ProdOrderLine: Record "Prod. Order Line";
         ProdOrderRtngLine: Record "Prod. Order Routing Line";
         PurchLine: Record "Purchase Line";
         ShowWarning: Boolean;
@@ -607,8 +606,8 @@ codeunit 50097 "Tools Kill manual Prod Order"
 
     local procedure RtngWillFlushComp(ProdOrderComp: Record "Prod. Order Component"): Boolean
     var
-        ProdOrderRtngLine: Record "Prod. Order Routing Line";
         ProdOrderLine: Record "Prod. Order Line";
+        ProdOrderRtngLine: Record "Prod. Order Routing Line";
     begin
         IF ProdOrderComp."Routing Link Code" = '' THEN
             EXIT;
@@ -692,8 +691,8 @@ codeunit 50097 "Tools Kill manual Prod Order"
 
     procedure MatrOrCapConsumpExists(ProdOrderLine: Record "Prod. Order Line"): Boolean
     var
-        ItemLedgEntry: Record "Item Ledger Entry";
         CapLedgEntry: Record "Capacity Ledger Entry";
+        ItemLedgEntry: Record "Item Ledger Entry";
     begin
         ItemLedgEntry.SETCURRENTKEY("Order No.", "Order Line No.");
         ItemLedgEntry.SETRANGE("Order No.", ProdOrderLine."Prod. Order No.");
@@ -716,13 +715,13 @@ codeunit 50097 "Tools Kill manual Prod Order"
             HasGLSetup := TRUE;
             GLSetup.GET();
         END;
-        IF TempJnlLineDim.FINDSET THEN
+        IF TempJnlLineDim.FINDSET() THEN
             REPEAT
                 IF GLSetup."Shortcut Dimension 1 Code" = TempJnlLineDim."Dimension Code" THEN
                     ItemJnlLine."Shortcut Dimension 1 Code" := TempJnlLineDim."Dimension Value Code";
                 IF GLSetup."Shortcut Dimension 2 Code" = TempJnlLineDim."Dimension Code" THEN
                     ItemJnlLine."Shortcut Dimension 2 Code" := TempJnlLineDim."Dimension Value Code";
-            UNTIL TempJnlLineDim.NEXT = 0;
+            UNTIL TempJnlLineDim.NEXT() = 0;
     end;
 
 

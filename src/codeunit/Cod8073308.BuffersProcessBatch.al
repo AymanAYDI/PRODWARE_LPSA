@@ -18,9 +18,9 @@ codeunit 8073308 "PWD Buffers Process Batch"
 
     trigger OnRun()
     var
+        RecLItemJounalLineBuffer: Record "PWD Item Jounal Line Buffer";
         CduLBufferManagement: Codeunit "PWD Buffer Management";
         FieldLRef: FieldRef;
-        RecLItemJounalLineBuffer: Record "PWD Item Jounal Line Buffer";
     begin
         Clear(CduLBufferManagement);
         Clear(FieldLRef);

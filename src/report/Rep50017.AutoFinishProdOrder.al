@@ -55,9 +55,9 @@ report 50017 "PWD Auto. Finish Prod. Order"
 
     procedure FctCloseProdOrder(RecPProdOrder: Record "Production Order") TobeClosed: Boolean
     var
+        RecLIJ: Record "Item Journal Line";
         RecLProdOrderRoutingLine: Record "Prod. Order Routing Line";
         RecLIJLB: Record "PWD Item Jounal Line Buffer";
-        RecLIJ: Record "Item Journal Line";
     begin
         RecLProdOrderRoutingLine.Reset();
         RecLProdOrderRoutingLine.SetRange(Status, RecPProdOrder.Status);
@@ -151,8 +151,8 @@ report 50017 "PWD Auto. Finish Prod. Order"
 
     local procedure RtngWillFlushComp(ProdOrderComp: Record "Prod. Order Component"): Boolean
     var
-        ProdOrderRtngLine: Record "Prod. Order Routing Line";
         ProdOrderLine: Record "Prod. Order Line";
+        ProdOrderRtngLine: Record "Prod. Order Routing Line";
     begin
         if ProdOrderComp."Routing Link Code" = '' then
             exit;

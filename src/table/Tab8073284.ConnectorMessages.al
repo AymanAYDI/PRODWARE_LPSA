@@ -70,10 +70,10 @@ table 8073284 "PWD Connector Messages"
             trigger OnLookup()
             var
                 i: Integer;
-                InboxDetails: Text[250];
-                InboxDetails2: Text[250];
                 CstLTxt001: Label 'File Location for files';
                 FileName: Text;
+                InboxDetails: Text[250];
+                InboxDetails2: Text[250];
             begin
                 if Path = '' then
                     FileName := StrSubstNo('%1.xml', Code)
@@ -220,10 +220,10 @@ table 8073284 "PWD Connector Messages"
             trigger OnLookup()
             var
                 i: Integer;
-                InboxDetails: Text[250];
-                InboxDetails2: Text[250];
                 CstLTxt001: Label 'File Location for files';
                 FileName: Text;
+                InboxDetails: Text[250];
+                InboxDetails2: Text[250];
             begin
                 if "Archive Path" = '' then
                     FileName := StrSubstNo('%1.xml', Code)
@@ -325,8 +325,8 @@ table 8073284 "PWD Connector Messages"
 
     procedure FctNormalizeString(TxtPStringToNormalize: Text[30]): Text[30]
     var
-        IntLI: Integer;
         ChrLChar: Char;
+        IntLI: Integer;
     begin
         FOR IntLI := 0 TO 48 DO BEGIN
             ChrLChar := IntLI;

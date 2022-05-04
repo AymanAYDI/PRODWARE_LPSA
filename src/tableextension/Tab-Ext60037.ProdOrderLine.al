@@ -130,8 +130,8 @@ tableextension 60037 "PWD ProdOrderLine" extends "Prod. Order Line"
 
     PROCEDURE ExistPhantomItem(): Text[1];
     VAR
-        RecLProdOrderComponent: Record "Prod. Order Component";
         RecLItem: Record Item;
+        RecLProdOrderComponent: Record "Prod. Order Component";
         BooLPhantomFind: Boolean;
     BEGIN
         BooLPhantomFind := FALSE;
@@ -160,8 +160,8 @@ tableextension 60037 "PWD ProdOrderLine" extends "Prod. Order Line"
 
     PROCEDURE CheckComponentAvailabilty() IsNotAvailable: Boolean;
     VAR
-        BooLIsNotAvailable: Boolean;
         RecLProdOrderCompo: Record "Prod. Order Component";
+        BooLIsNotAvailable: Boolean;
     BEGIN
         BooLIsNotAvailable := FALSE;
         RecLProdOrderCompo.RESET();

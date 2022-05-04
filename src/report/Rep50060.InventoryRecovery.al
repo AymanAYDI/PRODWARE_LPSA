@@ -59,7 +59,7 @@ report 50060 "PWD Inventory Recovery"
         if RecGItemJnlLineBuffer.IsEmpty and RecGItemLedgerEntryBuffer.IsEmpty then
             Error(CstG005);
 
-        RecGItemJnlLineBuffer.FindFirst;
+        RecGItemJnlLineBuffer.FindFirst();
         CodGJnlTemplateName := RecGItemJnlLineBuffer."Journal Template Name";
         CodGJnlBatchName := RecGItemJnlLineBuffer."Journal Batch Name";
 
@@ -83,17 +83,17 @@ report 50060 "PWD Inventory Recovery"
                 RecGItemJnlLine.DeleteAll();
 
             IntLineNo := 10000;
-            RecGItemJnlLineBuffer.Reset;
-            if RecGItemJnlLineBuffer.FindFirst then
+            RecGItemJnlLineBuffer.Reset();
+            if RecGItemJnlLineBuffer.FindFirst() then
                 repeat
                     // pour la reprise de l'inventaire on crée une ligne par écriture article mémorisée pour chaque ligne feuille article mémorisée
                     // afin de reprendre le coût unitaire de l'écriture article
-                    RecGItemLedgerEntryBuffer.Reset;
+                    RecGItemLedgerEntryBuffer.Reset();
                     RecGItemLedgerEntryBuffer.SetRange("Item No.", RecGItemJnlLineBuffer."Item No.");
                     RecGItemLedgerEntryBuffer.SetRange("Variant Code", RecGItemJnlLineBuffer."Variant Code");
                     RecGItemLedgerEntryBuffer.SetRange("Location Code", RecGItemJnlLineBuffer."Location Code");
                     RecGItemLedgerEntryBuffer.SetRange(Open, true);
-                    if RecGItemLedgerEntryBuffer.FindFirst then
+                    if RecGItemLedgerEntryBuffer.FindFirst() then
                         repeat
                             RecGItemJnlLine.TransferFields(RecGItemJnlLineBuffer);
                             RecGItemJnlLine."Qty. (Calculated)" := 0;
@@ -157,8 +157,8 @@ report 50060 "PWD Inventory Recovery"
                                                    DATABASE::Item, RecGItemJnlLine."Item No.",
                                                    DATABASE::"Salesperson/Purchaser", RecGItemJnlLine."Salespers./Purch. Code",
                                                    DATABASE::"Work Center", RecGItemJnlLine."Work Center No.");
-                        until RecGItemLedgerEntryBuffer.Next = 0;
-                until RecGItemJnlLineBuffer.Next = 0;
+                        until RecGItemLedgerEntryBuffer.Next() = 0;
+                until RecGItemJnlLineBuffer.Next() = 0;
 
             /*
                RecGItemJnlLineBuffer.RESET;
@@ -174,18 +174,18 @@ report 50060 "PWD Inventory Recovery"
     end;
 
     var
+        RecGItemJnlLine: Record "Item Journal Line";
+        RecGItemJnlLineBuffer: Record "PWD Item Jnl Line Buffer";
+        RecGItemLedgerEntryBuffer: Record "PWD Item Ledger Entry Buffer";
+        BooGProcess: Boolean;
+        CodGJnlBatchName: Code[10];
+        CodGJnlTemplateName: Code[10];
+        CodGDocNo: Code[20];
         CstG001: Label 'Voulez-vous importer dans la feuille %1 %2, les lignes mémorisées ?';
         CstG002: Label 'Dans la feuille %1 %2, il existe des lignes, Voulez-vous qu''elles soient supprimer afin d''importer les lignes mémorisées ?';
         CstG003: Label 'Traitement annulé !';
         CstG004: Label 'Import Terminé ! Merci de valider la feuille %1 %2.';
-        CodGJnlTemplateName: Code[10];
-        CodGJnlBatchName: Code[10];
-        RecGItemJnlLine: Record "Item Journal Line";
-        RecGItemJnlLineBuffer: Record "PWD Item Jnl Line Buffer";
-        RecGItemLedgerEntryBuffer: Record "PWD Item Ledger Entry Buffer";
         CstG005: Label 'Les tables Buffer sont vides, import impossible !';
-        BooGProcess: Boolean;
-        CodGDocNo: Code[20];
         CstG006: Label 'Merci de préciser le N° de document pour la reprise d''inventaire.';
 }
 

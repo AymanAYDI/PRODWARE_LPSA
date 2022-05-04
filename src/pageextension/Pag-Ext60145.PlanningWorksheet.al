@@ -42,8 +42,8 @@ pageextension 60145 "PWD PlanningWorksheet" extends "Planning Worksheet"
                 begin
                     //>>LPSA.TDL.20102014
                     IF (Type = Type::Item) AND RecLItem.GET("No.") THEN BEGIN
-                        ProdBOMWhereUsed.SetItem(RecLItem, WORKDATE);
-                        ProdBOMWhereUsed.RUNMODAL;
+                        ProdBOMWhereUsed.SetItem(RecLItem, WORKDATE());
+                        ProdBOMWhereUsed.RUNMODAL();
                     END;
                     //<<LPSA.TDL.20102014
 
@@ -66,7 +66,7 @@ pageextension 60145 "PWD PlanningWorksheet" extends "Planning Worksheet"
                         RecLProductionForecastEntry.SETRANGE("Item No.", "No.");
                         RecLProductionForecastEntry.SETRANGE("Forecast Date", "Starting Date", "Ending Date");
                         FrmLProductionForecastEntries.SETTABLEVIEW(RecLProductionForecastEntry);
-                        FrmLProductionForecastEntries.RUNMODAL;
+                        FrmLProductionForecastEntries.RUNMODAL();
                     END;
                     //<<REGIE
                 end;

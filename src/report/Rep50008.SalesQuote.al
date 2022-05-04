@@ -189,7 +189,7 @@ report 50008 "PWD Sales Quote"
                                     Continue := true;
                                     exit;
                                 end;
-                            until (DimSetEntry1.Next = 0);
+                            until (DimSetEntry1.Next() = 0);
                         end;
 
                         trigger OnPreDataItem()
@@ -361,7 +361,7 @@ report 50008 "PWD Sales Quote"
                                         Continue := true;
                                         exit;
                                     end;
-                                until (DimSetEntry2.Next = 0);
+                                until (DimSetEntry2.Next() = 0);
                             end;
 
                             trigger OnPreDataItem()
@@ -662,7 +662,7 @@ report 50008 "PWD Sales Quote"
                 if "Sales Header".Find('-') and ToDo.WritePermission then
                     if not CurrReport.Preview and (NoOfRecords = 1) then
                         if Confirm(Text007) then
-                            "Sales Header".CreateTask;
+                            "Sales Header".CreateTask();
             end;
 
             trigger OnPreDataItem()
@@ -782,108 +782,108 @@ report 50008 "PWD Sales Quote"
     end;
 
     var
+        CompanyInfo: Record "Company Information";
+        CompanyInfo1: Record "Company Information";
+        CompanyInfo2: Record "Company Information";
+        CurrExchRate: Record "Currency Exchange Rate";
+        RecGCustomer: Record Customer;
+        //TODO: Table 'Document Dimension' is missing
+        // DocDim1: Record "Document Dimension";
+        // DocDim2: Record "Document Dimension";
+        DimSetEntry1: Record "Dimension Set Entry";
+        DimSetEntry2: Record "Dimension Set Entry";
+        GLSetup: Record "General Ledger Setup";
+        RecGGenLedSetup: Record "General Ledger Setup";
+        PaymentTerms: Record "Payment Terms";
+        SalesSetup: Record "Sales & Receivables Setup";
+        RecGSalesCommentLine: Record "Sales Comment Line";
+        SalesLine: Record "Sales Line" temporary;
+        RecGSalespersonPurchaser: Record "Salesperson/Purchaser";
+        SalesPurchPerson: Record "Salesperson/Purchaser";
+        ShipmentMethod: Record "Shipment Method";
+        VATAmountLine: Record "VAT Amount Line" temporary;
+        ArchiveManagement: Codeunit ArchiveManagement;
+        FormatAddr: Codeunit "Format Address";
+
+        Language: Codeunit Language;
+        SalesCountPrinted: Codeunit "Sales-Printed";
+        SegManagement: Codeunit SegManagement;
+        ArchiveDocument: Boolean;
+        [InDataSet]
+        ArchiveDocumentEnable: Boolean;
+        BooGStopComment: Boolean;
+        Continue: Boolean;
+        LogInteraction: Boolean;
+        [InDataSet]
+        LogInteractionEnable: Boolean;
+        MoreLines: Boolean;
+        ShowInternalInfo: Boolean;
+        CodGNoCustomer: Code[20];
+        TotalAmountInclVAT: Decimal;
+        VALVATAmountLCY: Decimal;
+        VALVATBaseLCY: Decimal;
+        VATAmount: Decimal;
+        VATBaseAmount: Decimal;
+        VATDiscountAmount: Decimal;
+        CurrGroupPageNO: Integer;
+        CurrPageFooterHiddenFlag: Integer;
+        CurrPageHeaderHiddenFlag: Integer;
+        InnerGroupPageNO: Integer;
+        NoOfCopies: Integer;
+        NoOfLoops: Integer;
+        NoOfRecords: Integer;
+        OutputNo: Integer;
+        ContinuedCaption_Control83Lbl: Label 'Continued';
+        ContinuedCaptionLbl: Label 'Continued';
+        CstG001: Label 'Sales Quote';
+        CstG002: Label '%1, on %2';
+        CstG003: Label 'Amount %1';
+        CstG004: Label 'Madam, Sir,';
+        CstG005: Label 'We would like to thank you for your request and are pleased to send you this proposal.';
+        CstG006: Label 'Validity Date : 1 Month  /  Realization Delay : To be confirmed  /  Payment Terms : 30 days';
+        CstG007: Label 'We thank you and are looking for your feedback. ';
+        CustAddr_2_CaptionLbl: Label 'Document No. :';
+        CustAddr_3_CaptionLbl: Label 'Your document Date :';
+        CustAddr_4_CaptionLbl: Label 'Customer No. :';
+        CustAddr_5_CaptionLbl: Label 'VAT Registration No. :';
+        CustAddr_6_CaptionLbl: Label 'Your Document No. :';
+        CustAddr_7_CaptionLbl: Label 'Your Reference :';
+        CustAddr_8_CaptionLbl: Label 'Your contact :';
+        Header_DimensionsCaptionLbl: Label 'Header Dimensions';
+        Line_DimensionsCaptionLbl: Label 'Line Dimensions';
+        RecGSalespersonPurchaser_NameCaptionLbl: Label 'Sincerely';
+        Sales_Header___Due_Date_CaptionLbl: Label 'Valid Date:';
+        Sales_Line___No__CaptionLbl: Label 'Item Code';
+        Sales_Line___Unit_of_Measure_CaptionLbl: Label 'Unit';
+        Sales_Line__DescriptionCaptionLbl: Label 'Description';
+        Sales_Line__QuantityCaptionLbl: Label 'Quantity';
         Text000: Label 'Salesperson';
         Text001: Label 'Total %1';
         Text002: Label 'Total %1 Incl. VAT';
         Text003: Label 'COPY';
         Text005: Label 'Page %1';
         Text006: Label 'Total %1 Excl. VAT';
-        GLSetup: Record "General Ledger Setup";
-        ShipmentMethod: Record "Shipment Method";
-        PaymentTerms: Record "Payment Terms";
-        SalesPurchPerson: Record "Salesperson/Purchaser";
-        CompanyInfo: Record "Company Information";
-        CompanyInfo1: Record "Company Information";
-        CompanyInfo2: Record "Company Information";
-        SalesSetup: Record "Sales & Receivables Setup";
-        VATAmountLine: Record "VAT Amount Line" temporary;
-        SalesLine: Record "Sales Line" temporary;
-        //TODO: Table 'Document Dimension' is missing
-        // DocDim1: Record "Document Dimension";
-        // DocDim2: Record "Document Dimension";
-        DimSetEntry1: Record "Dimension Set Entry";
-        DimSetEntry2: Record "Dimension Set Entry";
-
-        Language: Codeunit Language;
-        CurrExchRate: Record "Currency Exchange Rate";
-        SalesCountPrinted: Codeunit "Sales-Printed";
-        FormatAddr: Codeunit "Format Address";
-        SegManagement: Codeunit SegManagement;
-        ArchiveManagement: Codeunit ArchiveManagement;
-        CompanyAddr: array[8] of Text[50];
-        SalesPersonText: Text[30];
-        VATNoText: Text[80];
-        ReferenceText: Text[80];
-        TotalText: Text[50];
-        TotalExclVATText: Text[50];
-        TotalInclVATText: Text[50];
-        MoreLines: Boolean;
-        NoOfCopies: Integer;
-        NoOfLoops: Integer;
-        CopyText: Text[30];
-        DimText: Text[120];
-        OldDimText: Text[75];
-        ShowInternalInfo: Boolean;
-        Continue: Boolean;
-        ArchiveDocument: Boolean;
-        LogInteraction: Boolean;
-        VATAmount: Decimal;
-        VATBaseAmount: Decimal;
-        VATDiscountAmount: Decimal;
-        TotalAmountInclVAT: Decimal;
         Text007: Label 'Do you want to create a follow-up to-do?';
-        NoOfRecords: Integer;
-        VALVATBaseLCY: Decimal;
-        VALVATAmountLCY: Decimal;
-        VALSpecLCYHeader: Text[80];
-        VALExchRate: Text[50];
         Text008: Label 'VAT Amount Specification in ';
         Text009: Label 'Local Currency';
         Text010: Label 'Exchange rate: %1/%2';
-        OutputNo: Integer;
         Text11500: Label 'Quote %1';
-        CurrGroupPageNO: Integer;
-        CurrPageFooterHiddenFlag: Integer;
-        CurrPageHeaderHiddenFlag: Integer;
-        InnerGroupPageNO: Integer;
-        [InDataSet]
-        ArchiveDocumentEnable: Boolean;
-        [InDataSet]
-        LogInteractionEnable: Boolean;
-        CstG001: Label 'Sales Quote';
-        RecGCustomer: Record Customer;
-        RecGSalespersonPurchaser: Record "Salesperson/Purchaser";
-        CstG002: Label '%1, on %2';
-        CstG003: Label 'Amount %1';
-        RecGGenLedSetup: Record "General Ledger Setup";
-        TxTGLabelAmount: Text[50];
-        CodGNoCustomer: Code[20];
-        TxTGContact: Text[50];
-        CstG004: Label 'Madam, Sir,';
-        CstG005: Label 'We would like to thank you for your request and are pleased to send you this proposal.';
-        CstG006: Label 'Validity Date : 1 Month  /  Realization Delay : To be confirmed  /  Payment Terms : 30 days';
-        CstG007: Label 'We thank you and are looking for your feedback. ';
-        RecGSalesCommentLine: Record "Sales Comment Line";
-        TxtGComment: Text[1024];
-        BooGStopComment: Boolean;
-        CustAddr_2_CaptionLbl: Label 'Document No. :';
-        CustAddr_3_CaptionLbl: Label 'Your document Date :';
-        CustAddr_4_CaptionLbl: Label 'Customer No. :';
-        CustAddr_7_CaptionLbl: Label 'Your Reference :';
-        CustAddr_6_CaptionLbl: Label 'Your Document No. :';
-        CustAddr_5_CaptionLbl: Label 'VAT Registration No. :';
-        CustAddr_8_CaptionLbl: Label 'Your contact :';
-        Header_DimensionsCaptionLbl: Label 'Header Dimensions';
-        Sales_Line__DescriptionCaptionLbl: Label 'Description';
-        Sales_Line___No__CaptionLbl: Label 'Item Code';
-        Sales_Line__QuantityCaptionLbl: Label 'Quantity';
-        Sales_Line___Unit_of_Measure_CaptionLbl: Label 'Unit';
-        Unit_PriceCaptionLbl: Label 'Unit Price';
-        ContinuedCaptionLbl: Label 'Continued';
-        ContinuedCaption_Control83Lbl: Label 'Continued';
         To_be_returned_signed_and_dated_for_validationCaptionLbl: Label 'To be returned signed and dated for validation';
-        Sales_Header___Due_Date_CaptionLbl: Label 'Valid Date:';
-        RecGSalespersonPurchaser_NameCaptionLbl: Label 'Sincerely';
-        Line_DimensionsCaptionLbl: Label 'Line Dimensions';
+        Unit_PriceCaptionLbl: Label 'Unit Price';
+        CopyText: Text[30];
+        SalesPersonText: Text[30];
+        CompanyAddr: array[8] of Text[50];
+        TotalExclVATText: Text[50];
+        TotalInclVATText: Text[50];
+        TotalText: Text[50];
+        TxTGContact: Text[50];
+        TxTGLabelAmount: Text[50];
+        VALExchRate: Text[50];
+        OldDimText: Text[75];
+        ReferenceText: Text[80];
+        VALSpecLCYHeader: Text[80];
+        VATNoText: Text[80];
+        DimText: Text[120];
+        TxtGComment: Text[1024];
 }
 

@@ -1,4 +1,4 @@
-pageextension 50032 pageextension50032 extends "Change Status on Prod. Order"
+pageextension 60149 "PWD ChangeStatusonProdOrder" extends "Change Status on Prod. Order"
 {
     // +----------------------------------------------------------------------------------------------------------------+
     // | ProdWare                                                                                                       |

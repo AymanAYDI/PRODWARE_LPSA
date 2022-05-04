@@ -395,7 +395,7 @@ report 50020 "Prod. Order - List of missing"
                                             //RecGSalesLine.GET(RecGSalesLine."Document Type"::Order,Temp."Source ID",Temp."Source Ref. No.");
                                             if RecGSalesLine.Get(RecGSalesLine."Document Type"::Order, Temp."Source ID", Temp."Source Ref. No.") then begin
                                                 TrackingMgt.SetSalesLine(RecGSalesLine);
-                                                TxtGTracking := LPSAFunctionsMgt.FindFirsRecord;
+                                                TxtGTracking := LPSAFunctionsMgt.FindFirsRecord();
                                                 IntGNumber := StrLen(TxtGTracking);
                                             end else
                                                 TxtGTracking := 'Prévisions';
@@ -414,7 +414,7 @@ report 50020 "Prod. Order - List of missing"
                                         begin
                                             TempItemSubPhantom.SetRange("Item No.", Temp."Item No.");
                                             TempItemSubPhantom.SetRange("Lot No.", Temp."Lot No.");
-                                            TempItemSubPhantom.FindFirst;
+                                            TempItemSubPhantom.FindFirst();
                                             TempItemSubPhantom.CalcFields("Description");
                                         end;
                                     else begin
@@ -449,8 +449,8 @@ report 50020 "Prod. Order - List of missing"
 
                     trigger OnAfterGetRecord()
                     var
-                        TempProdOrderLine: Record "Prod. Order Line" temporary;
                         TempProdOrderComp: Record "Prod. Order Component" temporary;
+                        TempProdOrderLine: Record "Prod. Order Line" temporary;
                     begin
                         CompItem.Get("Prod. Order Component"."Item No.");
                         CompItem.SetRange("Variant Filter", "Variant Code");
@@ -570,9 +570,9 @@ report 50020 "Prod. Order - List of missing"
 
                         if CompItem."PWD Phantom Item" then begin
                             ItemSubPhantom.SetRange("Phantom Item No.", CompItem."No.");
-                            TempItemSubPhantom.DeleteAll;
+                            TempItemSubPhantom.DeleteAll();
 
-                            if ItemSubPhantom.FindFirst then
+                            if ItemSubPhantom.FindFirst() then
                                 repeat
                                     RecLItemLedgEntry.SetRange(Open, true);
                                     RecLItemLedgEntry.SetRange("Item No.", ItemSubPhantom."Item No.");
@@ -591,8 +591,8 @@ report 50020 "Prod. Order - List of missing"
                                             RecLTrackingSpec."Lot No." := RecLItemLedgEntry."Lot No.";
                                             TempItemSubPhantom."Total Available Quantity" := LPSAFunctionsMgt.LotSNAvailablePhantom(RecLTrackingSpec);
                                             if TempItemSubPhantom."Total Available Quantity" <> 0 then
-                                                if not TempItemSubPhantom.Insert then
-                                                    TempItemSubPhantom.Modify
+                                                if not TempItemSubPhantom.Insert() then
+                                                    TempItemSubPhantom.Modify()
                                                 else begin
                                                     IntGNbDoc += 1;
                                                     Temp.Init();
@@ -614,7 +614,7 @@ report 50020 "Prod. Order - List of missing"
                                         RecLTrackingSpec."Location Code" := "Location Code";
                                         TempItemSubPhantom."Total Available Quantity" := LPSAFunctionsMgt.LotSNAvailablePhantom(RecLTrackingSpec);
                                         if TempItemSubPhantom."Total Available Quantity" <> 0 then begin
-                                            TempItemSubPhantom.Insert;
+                                            TempItemSubPhantom.Insert();
                                             IntGNbDoc += 1;
                                             Temp.Init();
                                             Temp."Entry No." := IntGNbDoc;
@@ -623,7 +623,7 @@ report 50020 "Prod. Order - List of missing"
                                             Temp.Insert();
                                         end;
                                     end;
-                                until ItemSubPhantom.Next = 0;
+                                until ItemSubPhantom.Next() = 0;
                         end;
 
                         IntGNbPhantom := IntGNbDoc;
@@ -770,70 +770,70 @@ report 50020 "Prod. Order - List of missing"
     }
 
     var
-        Item: Record Item;
-        CompItem: Record Item;
-        RecGPurchLine: Record "Purchase Line";
-        RecGSalesLine: Record "Sales Line";
-        RecGProdOrderLine: Record "Prod. Order Line";
+        RecGCapLedgEntry: Record "Capacity Ledger Entry";
         RecGCust: Record Customer;
-        RecGvend: Record Vendor;
-        RemainingQty: Decimal;
-        NeededQty: Decimal;
-        QtyOnHandAfterProd: Decimal;
-        Temp: Record "Tracking Specification Phantom" temporary;
-        IntGNbDoc: Integer;
-        NoDoc: array[3] of Code[20];
-        NomTiers: array[3] of Text[50];
-        Date: array[3] of Date;
-        Qty: array[3] of Decimal;
-        BooGShow: Boolean;
-        CodGProdOrderNo: Code[20];
-        RecLTrackingSpec: Record "Tracking Specification";
-        ItemTrackingDataCollection: Codeunit "Item Tracking Data Collection";
+        CompItem: Record Item;
+        Item: Record Item;
         RecLItemLedgEntry: Record "Item Ledger Entry";
+        RecGProdOrderLine: Record "Prod. Order Line";
+        RecGProdForecastEntry: Record "Production Forecast Entry";
+        RecGPurchLine: Record "Purchase Line";
         ItemSubPhantom: Record "PWD Phantom substitution Items";
         TempItemSubPhantom: Record "PWD Phantom substitution Items" temporary;
-        IntGNbPhantom: Integer;
-        RecGProdForecastEntry: Record "Production Forecast Entry";
-        DateDebut: Date;
+        RecGSalesLine: Record "Sales Line";
+        RecLTrackingSpec: Record "Tracking Specification";
+        Temp: Record "Tracking Specification Phantom" temporary;
+        RecGvend: Record Vendor;
+        ItemTrackingDataCollection: Codeunit "Item Tracking Data Collection";
         TrackingMgt: Codeunit OrderTrackingManagement;
         LPSAFunctionsMgt: codeunit "PWD LPSA Functions Mgt.";
-        TxtGTracking: Text[250];
-        IntGNumber: Integer;
-        DueDate: Date;
-        RecGCapLedgEntry: Record "Capacity Ledger Entry";
-        DecGQtyNeeded: Decimal;
+        BooGShow: Boolean;
         CodGComponentNo: Code[20];
-        Shortage_ListCaptionLbl: Label 'Shortage List';
-        CurrReport_PAGENOCaptionLbl: Label 'Page';
-        Production_Order__Due_Date_CaptionLbl: Label 'Due Date';
+        CodGProdOrderNo: Code[20];
+        NoDoc: array[3] of Code[20];
+        Date: array[3] of Date;
+        DateDebut: Date;
+        DueDate: Date;
+        DecGQtyNeeded: Decimal;
+        NeededQty: Decimal;
+        Qty: array[3] of Decimal;
+        QtyOnHandAfterProd: Decimal;
+        RemainingQty: Decimal;
+        IntGNbDoc: Integer;
+        IntGNbPhantom: Integer;
+        IntGNumber: Integer;
+        Comp_NeededQtyCaptionLbl: Label 'Needed Quantity';
         CompItem__Scheduled_Need__Qty___CaptionLbl: Label 'Scheduled Need (Qty.)';
         CompItem_InventoryCaptionLbl: Label 'Inventory';
-        Prod__Order_Component__Remaining_Qty___Base__CaptionLbl: Label 'Quantité à produire';
-        Prod__Order_Component_DescriptionCaptionLbl: Label 'LPSA Description 1';
-        Prod__Order_Component__Item_No__CaptionLbl: Label 'Item No.';
-        LPSA_Description_2CaptionLbl: Label 'LPSA Description 2';
-        Prod__Order_Component__Quantity_per_CaptionLbl: Label 'Quantity per';
-        Prod__Order_Component__Unit_of_Measure_Code_CaptionLbl: Label 'Unit of Measure Code';
-        Prod__Order_Component__Prod__Order_No___Control1100267000CaptionLbl: Label 'Prod. Order No.';
-        Prod__Order_Component__PDP_CaptionLbl: Label 'Prod. Order No.';
-        Production_Order__Starting_Date_CaptionLbl: Label 'Starting Date';
         CompItem_QtyOnProdOrderCaptionLbl: Label 'Qty. on Prod. Order';
-        Comp_NeededQtyCaptionLbl: Label 'Needed Quantity';
-        DetHead_N__achatCaptionLbl: Label 'N° achat';
-        DetHead_LPSA_Description_1CaptionLbl: Label 'LPSA Description 1';
-        "DetHead_Qté_sur_cde_achatCaptionLbl": Label 'Qté / achat';
-        "DetHead_Date_réception_achatCaptionLbl": Label 'Date récept.';
-        DetHead_N__OFCaptionLbl: Label 'N° OF';
-        DetHead_Date_Fin_OFCaptionLbl: Label 'Date Fin OF';
-        "DetHead_Qté_sur_OFCaptionLbl": Label 'Qté /OF';
-        DetHead_N__Cde_venteCaptionLbl: Label 'N° Cde vente';
-        DetHead_LPSA_Description_1Caption_Lbl: Label 'LPSA Description 1';
-        "DetHead_Date_livraison_demandéeCaptionLbl": Label 'Date livr. ';
-        "DetHead_Qté_sur_cde_venteCaptionLbl": Label 'Qté / Vente';
+        CurrReport_PAGENOCaptionLbl: Label 'Page';
         DetHead_Date_Debut_OFCaptionLbl: Label 'Date Début';
         DetHead_Date_Echeance_OFCaptionLbl: Label 'Date Echéance OF';
+        DetHead_Date_Fin_OFCaptionLbl: Label 'Date Fin OF';
+        "DetHead_Date_livraison_demandéeCaptionLbl": Label 'Date livr. ';
+        "DetHead_Date_réception_achatCaptionLbl": Label 'Date récept.';
+        DetHead_LPSA_Description_1Caption_Lbl: Label 'LPSA Description 1';
+        DetHead_LPSA_Description_1CaptionLbl: Label 'LPSA Description 1';
+        DetHead_N__achatCaptionLbl: Label 'N° achat';
+        DetHead_N__Cde_venteCaptionLbl: Label 'N° Cde vente';
+        DetHead_N__OFCaptionLbl: Label 'N° OF';
+        "DetHead_Qté_sur_cde_achatCaptionLbl": Label 'Qté / achat';
+        "DetHead_Qté_sur_cde_venteCaptionLbl": Label 'Qté / Vente';
+        "DetHead_Qté_sur_OFCaptionLbl": Label 'Qté /OF';
+        LPSA_Description_2CaptionLbl: Label 'LPSA Description 2';
+        Prod__Order_Component__Item_No__CaptionLbl: Label 'Item No.';
+        Prod__Order_Component__PDP_CaptionLbl: Label 'Prod. Order No.';
+        Prod__Order_Component__Prod__Order_No___Control1100267000CaptionLbl: Label 'Prod. Order No.';
+        Prod__Order_Component__Quantity_per_CaptionLbl: Label 'Quantity per';
+        Prod__Order_Component__Remaining_Qty___Base__CaptionLbl: Label 'Quantité à produire';
+        Prod__Order_Component__Unit_of_Measure_Code_CaptionLbl: Label 'Unit of Measure Code';
+        Prod__Order_Component_DescriptionCaptionLbl: Label 'LPSA Description 1';
+        Production_Order__Due_Date_CaptionLbl: Label 'Due Date';
+        Production_Order__Starting_Date_CaptionLbl: Label 'Starting Date';
+        Shortage_ListCaptionLbl: Label 'Shortage List';
         TotalCaptionLbl: Label 'Total';
+        NomTiers: array[3] of Text[50];
+        TxtGTracking: Text[250];
 
 
     procedure CalcProdOrderLineFields(var ProdOrderLineFields: Record "Prod. Order Line")

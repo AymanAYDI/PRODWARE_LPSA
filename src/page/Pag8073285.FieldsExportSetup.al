@@ -168,15 +168,15 @@ page 8073285 "PWD Fields Export Setup"
 
     var
         [InDataSet]
-        BooGXmlTagVisible: Boolean;
+        BooGFileLengthVisible: Boolean;
         [InDataSet]
         BooGFilePositionVisible: Boolean;
         [InDataSet]
-        BooGFileLengthVisible: Boolean;
+        BooGFillCharacterVisible: Boolean;
         [InDataSet]
         BooGFillupVisible: Boolean;
         [InDataSet]
-        BooGFillCharacterVisible: Boolean;
+        BooGXmlTagVisible: Boolean;
 
 
     procedure FctShowColumns()

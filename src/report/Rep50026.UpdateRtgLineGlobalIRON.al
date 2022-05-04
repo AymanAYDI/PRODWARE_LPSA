@@ -201,10 +201,10 @@ report 50026 "Update Rtg Line Global IRON"
                             RecLRoutingLines.SetRange("Routing No.", CodGRoutingHeader);
                             PagLRoutingLines.SetTableView(RecLRoutingLines);
                             PagLRoutingLines.LookupMode(true);
-                            if not (PagLRoutingLines.RunModal = ACTION::LookupOK) then
+                            if not (PagLRoutingLines.RunModal() = ACTION::LookupOK) then
                                 exit(false)
                             else begin
-                                Text := PagLRoutingLines.GetSelectionFilter;
+                                Text := PagLRoutingLines.GetSelectionFilter();
                                 exit(true);
                             end;
                         end;
@@ -257,20 +257,20 @@ report 50026 "Update Rtg Line Global IRON"
     }
 
     var
-        Stat: Option New,Certified,"Under Development",Closed;
         RecGRoutingHeader: Record "Routing Header";
-        TxtG002: Label 'Updated finished.';
         RecGRoutingVersion: Record "Routing Version";
-        BooG_Setup_Time: Boolean;
-        BooG_Run_Time: Boolean;
-        BooG_Wait_Time: Boolean;
         BooG_Move_Time: Boolean;
+        BooG_Run_Time: Boolean;
+        BooG_Setup_Time: Boolean;
+        BooG_Wait_Time: Boolean;
+        CodGPrevCode: Code[20];
         CodGRoutingHeader: Code[20];
         CodGOperationNo: Code[150];
-        TxtG003: Label 'Pensez à calculer vos calendriers avant de lancer une mise à jour. Si l''impact des mises à jour dépasse le calendrier, un message d''erreur bloquant arrêtera le traitement.\Voulez-vous continuer ?';
-        CstL001: Label 'The reference routing is not ''TT_OPE_PIE'', do you want to continue ?';
-        CodGPrevCode: Code[20];
         Bdialog: Dialog;
         IntGCounter: Integer;
+        CstL001: Label 'The reference routing is not ''TT_OPE_PIE'', do you want to continue ?';
+        TxtG002: Label 'Updated finished.';
+        TxtG003: Label 'Pensez à calculer vos calendriers avant de lancer une mise à jour. Si l''impact des mises à jour dépasse le calendrier, un message d''erreur bloquant arrêtera le traitement.\Voulez-vous continuer ?';
+        Stat: Option New,Certified,"Under Development",Closed;
 }
 

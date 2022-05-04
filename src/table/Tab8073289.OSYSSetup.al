@@ -188,8 +188,8 @@ table 8073289 "PWD OSYS Setup"
 
     procedure FctUnitOfMeasureModify(RecPXIUOM: Record "Item Unit of Measure"; RecPIUOM: Record "Item Unit of Measure")
     var
-        RecLOSYSSetup: Record "PWD OSYS Setup";
         RecLItem: Record Item;
+        RecLOSYSSetup: Record "PWD OSYS Setup";
     begin
         RecLOSYSSetup.GET();
         IF (RecPXIUOM."Qty. per Unit of Measure" <> RecPIUOM."Qty. per Unit of Measure") AND

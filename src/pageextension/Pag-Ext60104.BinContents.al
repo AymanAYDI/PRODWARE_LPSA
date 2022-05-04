@@ -22,7 +22,7 @@ pageextension 60104 "PWD BinContents" extends "Bin Contents"
     begin
         //>>LAP2.08
         IF NOT Item.GET("Item No.") THEN
-            Item.INIT;
+            Item.INIT();
         //<<LAP2.08
     end;
 

@@ -1,11 +1,11 @@
-pageextension 50034 "PWD SimulatedProdOrderLines" extends "Simulated Prod. Order Lines"
+pageextension 60148 "PWD FinishedProdOrderLines" extends "Finished Prod. Order Lines"
 {
     // PLAW1 -----------------------------------------------------------------------------
     // PLAW1-4.0 2014-02-21 PO-4400: enable assistEdit on UserColors for web client
     // PLAW1 -----------------------------------------------------------------------------
     layout
     {
-        addafter("ShortcutDimCode[8]")
+        addafter("Shortcut Dimension 2 Code")
         {
             field("PWD Manufacturing Code"; Rec."PWD Manufacturing Code")
             {
@@ -13,10 +13,4 @@ pageextension 50034 "PWD SimulatedProdOrderLines" extends "Simulated Prod. Order
             }
         }
     }
-
-    var
-        vUserColors: Text[50];
-        ApplicationManagement: Codeunit "1";
-
 }
-

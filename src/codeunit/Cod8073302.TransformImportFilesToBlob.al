@@ -14,13 +14,13 @@ codeunit 8073302 "Transform Import Files To Blob"
 
     trigger OnRun()
     var
-        CduLFileManagement: Codeunit "PWD File Management";
-        TxtLFileFound: Text[1024];
+        RecLPartnerConnector: Record "PWD Partner Connector";
         CduLBufferMgt: Codeunit "PWD Buffer Management";
+        CduLFileManagement: Codeunit "PWD File Management";
+        BooLNotSkip: Boolean;
         IntLSequenceNo: Integer;
         TxtLFilePathName: Text[250];
-        RecLPartnerConnector: Record "PWD Partner Connector";
-        BooLNotSkip: Boolean;
+        TxtLFileFound: Text[1024];
     begin
         TestField(Path);
         TestField("Archive Path");

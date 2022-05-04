@@ -123,11 +123,11 @@ page 50026 "PWD Sales Statistics List"
     end;
 
     var
-        TxtGCustomerName: Text[50];
-        DecGOutstandingQty: Decimal;
-        DatGOrderDate: Date;
         RecGCustomer: Record Customer;
-        RecGSalesLine: Record "Sales Line";
         RecGSalesHeaderArchive: Record "Sales Header Archive";
+        RecGSalesLine: Record "Sales Line";
+        DatGOrderDate: Date;
+        DecGOutstandingQty: Decimal;
+        TxtGCustomerName: Text[50];
 }
 

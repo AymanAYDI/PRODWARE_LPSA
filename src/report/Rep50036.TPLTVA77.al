@@ -89,8 +89,8 @@ report 50036 "PWD TPL TVA 7.7"
     }
 
     var
+        RecGSalesHeader: Record "Sales Header";
         BDialog: Dialog;
         IntGCounter: Integer;
-        RecGSalesHeader: Record "Sales Header";
 }
 

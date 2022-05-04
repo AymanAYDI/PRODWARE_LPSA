@@ -146,19 +146,19 @@ report 50053 "Ajout NouvelleFin De Gamme PIE"
     end;
 
     var
+        RecGRoutingLineAdded: Record "Routing Line";
+        RecGRoutingLineToAdd: Record "Routing Line";
+        BooGStartDelete: Boolean;
+        CodGOperationNo: Code[20];
+        CodGRoutingNo: Code[20];
+        CodGRoutingToAdd: Code[20];
+        CodGStartOperation: Code[20];
         BDialog: Dialog;
         IntGCounter: Integer;
-        CodGStartOperation: Code[20];
-        CodGRoutingToAdd: Code[20];
         CstG001: Label 'Dans les gammes PIE (Filtrage %3), voulez vous remplacer toutes les opérations après l''opération %1 par les lignes de la gamme %2 ?';
         CstG002: Label 'Traitement annulé !';
         CstG003: Label 'Merci de saisir l''opérations de départ et la gamme à ajouter.';
         CstG004: Label 'MAJ Ligne Gammes PIE (Filtrage N°:PIE*),\\Enregistrements restants #1##############';
-        BooGStartDelete: Boolean;
-        CodGOperationNo: Code[20];
-        CodGRoutingNo: Code[20];
         CstG005: Label 'Attention le n° opération du poste de charge %1 ne doit pas être plus grand que le n° opération de la première ligne de la gamme à ajouter %2';
-        RecGRoutingLineToAdd: Record "Routing Line";
-        RecGRoutingLineAdded: Record "Routing Line";
 }
 

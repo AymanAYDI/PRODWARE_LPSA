@@ -172,8 +172,8 @@ page 8073315 "PWD Customer Buffer"
 
                     trigger OnAction()
                     var
-                        CduLBufferManagement: Codeunit "PWD Buffer Management";
                         RecLCustomerBuffer: Record "PWD Customer Buffer";
+                        CduLBufferManagement: Codeunit "PWD Buffer Management";
                     begin
                         CurrPage.SETSELECTIONFILTER(RecLCustomerBuffer);
                         CduLBufferManagement.FctPurgeCustomer(RecLCustomerBuffer);
@@ -205,9 +205,9 @@ page 8073315 "PWD Customer Buffer"
     end;
 
     var
-        CduGBufferManagement: Codeunit "PWD Buffer Management";
         RecGPEBCustomerBuffer: Record "PWD PEB Customer Buffer";
         RecGWMSCustomerBuffer: Record "PWD WMS Customer Buffer";
+        CduGBufferManagement: Codeunit "PWD Buffer Management";
 
 
     procedure FctGetBufferLinked()

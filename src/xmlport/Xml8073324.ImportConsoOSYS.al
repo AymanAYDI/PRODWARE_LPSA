@@ -69,8 +69,8 @@ xmlport 8073324 "PWD Import Conso OSYS"
 
                 trigger OnAfterInitRecord()
                 var
-                    RefLRecordRef: RecordRef;
                     RecLConnectorsActivation: Record "PWD OSYS Setup";
+                    RefLRecordRef: RecordRef;
                 begin
                     RefLRecordRef.GetTable("PWD Item Jounal Line Buffer");
                     CduGBufferManagement.FctNewBufferLine2(RefLRecordRef, RecGConnectorValues, 0);
@@ -105,9 +105,9 @@ xmlport 8073324 "PWD Import Conso OSYS"
     end;
 
     var
+        RecGConnectorMessages: Record "PWD Connector Messages";
         RecGConnectorValues: Record "PWD Connector Values";
         RecGOSYSSetup: Record "PWD OSYS Setup";
-        RecGConnectorMessages: Record "PWD Connector Messages";
         CduGBufferManagement: Codeunit "PWD Buffer Management";
         IntGPos: Integer;
 

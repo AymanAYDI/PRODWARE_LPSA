@@ -93,11 +93,10 @@ pageextension 60012 "PWD SalesOrder" extends "Sales Order"
                     Usage: Option "Order Confirmation","Work Order";
                 begin
                     CurrPage.SETSELECTIONFILTER(Rec);
-                    IF RecGSalesSetup.GET THEN BEGIN
+                    IF RecGSalesSetup.GET() THEN
                         RecGSalesSetup.TESTFIELD("PWD PDFDirectory");
-                    END;
                     REPORT.SAVEASPDF(50009, RecGSalesSetup."PWD PDFDirectory" + '\' + STRSUBSTNO('CONFIRM No. %1.pdf', "No."), Rec);
-                    Rec.RESET;
+                    Rec.RESET();
 
                     SLEEP(1000);
                     DocPrint.PrintSalesOrder(Rec, Usage::"Order Confirmation");
@@ -124,10 +123,10 @@ pageextension 60012 "PWD SalesOrder" extends "Sales Order"
     var
         RecLComment: Record "Comment Line";
     begin
-        RecLComment.RESET;
+        RecLComment.RESET();
         RecLComment.SETRANGE("Table Name", RecLComment."Table Name"::Customer);
         RecLComment.SETFILTER("No.", '%1|%2', "Sell-to Customer No.", "Bill-to Customer No.");
-        BooGComment := RecLComment.FINDFIRST;
+        BooGComment := RecLComment.FINDFIRST();
     end;
 
     var

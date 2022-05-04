@@ -12,7 +12,7 @@ report 50071 "PWD Inventory Purchase Orders"
         {
             PrintOnlyIfDetail = true;
             RequestFilterFields = "No.", "Search Description", "Assembly BOM", "Inventory Posting Group", "Statistics Group", "Bin Filter";
-            column(CompanyName; COMPANYPROPERTY.DisplayName)
+            column(CompanyName; COMPANYPROPERTY.DisplayName())
             {
             }
             column(ItemTableCaptItemFilter; TableCaption + ': ' + ItemFilter)
@@ -130,9 +130,9 @@ report 50071 "PWD Inventory Purchase Orders"
                         "Outstanding Amount" :=
                           Round(
                             CurrExchRate.ExchangeAmtFCYToLCY(
-                              WorkDate, PurchHeader."Currency Code",
+                              WorkDate(), PurchHeader."Currency Code",
                               "Outstanding Amount", PurchHeader."Currency Factor"));
-                    if "Expected Receipt Date" < WorkDate then
+                    if "Expected Receipt Date" < WorkDate() then
                         BackOrderQty := "Outstanding Quantity"
                     else
                         BackOrderQty := 0;
@@ -172,21 +172,21 @@ report 50071 "PWD Inventory Purchase Orders"
     end;
 
     var
-        Text000: Label 'Purchase Order Line: %1';
         CurrExchRate: Record "Currency Exchange Rate";
         PurchHeader: Record "Purchase Header";
+        BackOrderQty: Decimal;
+        BackOrderQtyCaptionLbl: Label 'Quantity on Back Order';
+        CurrReportPageNoCaptionLbl: Label 'Page';
+        InventoryPurchaseOrdersCaptionLbl: Label 'Inventory Purchase Orders';
+        PurchaseLineExpectedReceiptDateCaptionLbl: Label 'Expected Receipt Date';
+        PurchaseLineInvDiscountAmountCaptionLbl: Label 'Inv. Discount Amount';
+        PurchaseLineLineDiscountCaptionLbl: Label 'Line Disc. %';
+        PurchaseLineOutstandingAmountCaptionLbl: Label 'Amount on Order Incl. VAT';
+        PurchHeaderPaytoNameCaptionLbl: Label 'Vendor';
+        Text000: Label 'Purchase Order Line: %1';
+        TotalCaptionLbl: Label 'Total';
         ItemFilter: Text;
         PurchLineFilter: Text;
-        BackOrderQty: Decimal;
         ItemDescription: Text[100];
-        InventoryPurchaseOrdersCaptionLbl: Label 'Inventory Purchase Orders';
-        CurrReportPageNoCaptionLbl: Label 'Page';
-        PurchHeaderPaytoNameCaptionLbl: Label 'Vendor';
-        PurchaseLineExpectedReceiptDateCaptionLbl: Label 'Expected Receipt Date';
-        BackOrderQtyCaptionLbl: Label 'Quantity on Back Order';
-        PurchaseLineLineDiscountCaptionLbl: Label 'Line Disc. %';
-        PurchaseLineInvDiscountAmountCaptionLbl: Label 'Inv. Discount Amount';
-        PurchaseLineOutstandingAmountCaptionLbl: Label 'Amount on Order Incl. VAT';
-        TotalCaptionLbl: Label 'Total';
 }
 

@@ -241,8 +241,8 @@ table 8073285 "PWD Fields Export Setup"
 
     procedure FctNormalizeString(TxtPStringToNormalize: Text[30]): Text[30]
     var
-        IntLI: Integer;
         ChrLChar: Char;
+        IntLI: Integer;
     begin
         FOR IntLI := 0 TO 48 DO BEGIN
             ChrLChar := IntLI;
@@ -293,12 +293,12 @@ table 8073285 "PWD Fields Export Setup"
     procedure FctVerifyPosition(RecPFieldsExportSetup: Record "PWD Fields Export Setup")
     var
         RecLFieldsExportSetup: Record "PWD Fields Export Setup";
-        CstLBadPosition: Label 'Field %1 with position %2 has a position already reserved. ';
         RecLFieldsExportSetupOther: Record "PWD Fields Export Setup";
-        IntLCurrentPosition: Integer;
-        CstLOK: Label 'No error detetected';
-        CstLBadPosOtherPart: Label 'For information, Message Code %1 has a field defined in position %2,wich is in conflict with the current position %3. ';
         BooLVerifOK: Boolean;
+        IntLCurrentPosition: Integer;
+        CstLBadPosition: Label 'Field %1 with position %2 has a position already reserved. ';
+        CstLBadPosOtherPart: Label 'For information, Message Code %1 has a field defined in position %2,wich is in conflict with the current position %3. ';
+        CstLOK: Label 'No error detetected';
     begin
         BooLVerifOK := TRUE;
 

@@ -22,11 +22,11 @@ codeunit 8073298 "PWD Buffer Tracking Management"
     end;
 
     var
-        RecGTempItemTrackLineReserv: Record "Tracking Specification" temporary;
         RecGItem: Record Item;
-        RecGTempReservEntry: Record "Reservation Entry" temporary;
-        CduGReservEngineMgt: Codeunit "Reservation Engine Mgt.";
         RecGItemTrackingCode: Record "Item Tracking Code";
+        RecGTempReservEntry: Record "Reservation Entry" temporary;
+        RecGTempItemTrackLineReserv: Record "Tracking Specification" temporary;
+        CduGReservEngineMgt: Codeunit "Reservation Engine Mgt.";
         OptGCurrentEntryStatus: Option Reservation,Tracking,Surplus,Prospect;
 
     local procedure FctNextEntryNo(): Integer
@@ -59,9 +59,9 @@ codeunit 8073298 "PWD Buffer Tracking Management"
 
     procedure FctDeleteTrackingLines(CodPPurchOrderNo: Code[20]; IntPPurchLineNo: Integer)
     var
-        CduGItemTrackingDataCollection: Codeunit "Item Tracking Data Collection";
         RecLReservationEntry: Record "Reservation Entry";
         RecLTempItemTrackLineDelete: Record "Tracking Specification" temporary;
+        CduGItemTrackingDataCollection: Codeunit "Item Tracking Data Collection";
     begin
         RecLTempItemTrackLineDelete.Reset();
         RecLTempItemTrackLineDelete.DeleteAll();
@@ -88,10 +88,10 @@ codeunit 8073298 "PWD Buffer Tracking Management"
 
     procedure FctAssignSerialNo(IntPTableID: Integer; IntPSubTypeID: Integer; CodPSourceID: Code[20]; CodPSourceBatchName: Code[10]; IntPSourceRefNo: Integer; IntPSourceProdOrderLine: Integer; CodPLocationCode: Code[10]; CodPBinCode: Code[10]; CodPVariantCode: Code[10]; CodPItemNo: Code[20]; IntPQtyToCreate: Decimal; IntPTrackingType: Integer; CodPSerialNo: Code[20]; CodPLotNo: Code[20]; DatPExpirationDate: Date)
     var
-        RecLTempItemTrackLineInsert: Record "Tracking Specification" temporary;
-        CduGItemTrackingDataCollection: Codeunit "Item Tracking Data Collection";
         RecLPurchLine: Record "Purchase Line";
         RecLSalesLine: Record "Sales Line";
+        RecLTempItemTrackLineInsert: Record "Tracking Specification" temporary;
+        CduGItemTrackingDataCollection: Codeunit "Item Tracking Data Collection";
     begin
         //IntPTableID = ID Table
         //IntPSubTypeID = Dans le cas d'un document ayant un type le document type sinon 0
@@ -196,17 +196,17 @@ codeunit 8073298 "PWD Buffer Tracking Management"
 
     local procedure FctRegisterChange(var OldTrackingSpecification: Record "Tracking Specification"; var NewTrackingSpecification: Record "Tracking Specification"; ChangeType: Option Insert,Modify,FullDelete,PartDelete,ModifyAll; ModifySharedFields: Boolean) OK: Boolean
     var
-        ReservEntry1: Record "Reservation Entry";
-        CreateReservEntry: Codeunit "Create Reserv. Entry";
-        ReservationMgt: Codeunit "Reservation Management";
-        QtyToAdd: Decimal;
-        LostReservQty: Decimal;
-        DecLTempDec: Decimal;
         RecLPurchLine: Record "Purchase Line";
+        ReservEntry1: Record "Reservation Entry";
         RecLSalesLine: Record "Sales Line";
+        CreateReservEntry: Codeunit "Create Reserv. Entry";
         CduLItemTrackingMgt: Codeunit "Item Tracking Management";
+        ReservationMgt: Codeunit "Reservation Management";
         DatLExpectedReceiptDate: Date;
         DatLShipmentDate: Date;
+        DecLTempDec: Decimal;
+        LostReservQty: Decimal;
+        QtyToAdd: Decimal;
     begin
         RecGTempReservEntry.Reset();
         RecGTempReservEntry.DeleteAll();
@@ -380,13 +380,12 @@ codeunit 8073298 "PWD Buffer Tracking Management"
     local procedure FctSetQtyToHandleAndInvoice(TrackingSpecification: Record "Tracking Specification") OK: Boolean
     var
         ReservEntry1: Record "Reservation Entry";
-        ReservationMgt: Codeunit "Reservation Management";
-        TotalQtyToHandle: Decimal;
-        TotalQtyToInvoice: Decimal;
+        CduLItemTrackingMgt: Codeunit "Item Tracking Management";
         QtyAlreadyHandledToInvoice: Decimal;
         QtyToHandleThisLine: Decimal;
         QtyToInvoiceThisLine: Decimal;
-        CduLItemTrackingMgt: Codeunit "Item Tracking Management";
+        TotalQtyToHandle: Decimal;
+        TotalQtyToInvoice: Decimal;
     begin
         OK := false;
         TotalQtyToHandle := TrackingSpecification."Qty. to Handle (Base)";
