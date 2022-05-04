@@ -932,13 +932,11 @@ report 50009 "PWD Sales Order Confirmation"
         Recipient: Text[80];
         Body: Text[100];
         Subject: Text[100];
-        //TODO: Codeunit '3-Tier Automation Mgt.' is missing
-        //CduLTierAutomationMgt: Codeunit "3-Tier Automation Mgt.";
+        FileManagement: Codeunit "File Management";
         TxtLFileName: Text[250];
         TxtLServerFile: Text[250];
     begin
-        //TODO: Codeunit '3-Tier Automation Mgt.' is missing
-        //TxtLServerFile := CduLTierAutomationMgt.ServerTempFileName('', '');
+        TxtLServerFile := FileManagement.ServerTempFileName('');
         RepLSalesOrderConfirmation.SkipSendEmail(true);
         RepLSalesOrderConfirmation.SetTableView(RecPSalesHeader);
         RepLSalesOrderConfirmation.SaveAsPdf(TxtLServerFile);
@@ -984,14 +982,13 @@ report 50009 "PWD Sales Order Confirmation"
     var
         TxtLClientFileName: Text[250];
         TxtLFinalClientFileName: Text[250];
-    //TODO: 'Automation' is not recognized as a valid type
-    //AutLFileObjectSystem: Automation;
-    //TODO: Codeunit '3-Tier Automation Mgt.' is missing
-    //CduLTierAutomationMgt: Codeunit "3-Tier Automation Mgt.";
+        //TODO: 'Automation' is not recognized as a valid type
+        //AutLFileObjectSystem: Automation;
+        FileManagement: Codeunit "File Management";
     begin
-        //TODO: Codeunit '3-Tier Automation Mgt.' is missing
-        // TxtLClientFileName := CduLTierAutomationMgt.ClientTempFileName('', '');
-        // TxtLFinalClientFileName := CduLTierAutomationMgt.Path(TxtLClientFileName) + TxtPFileName;
+        TxtLClientFileName := FileManagement.ClientTempFileName('');
+        //TODO:'Codeunit "File Management"' does not contain a definition for 'Path'
+        //TxtLFinalClientFileName := CduLTierAutomationMgt.Path(TxtLClientFileName) + TxtPFileName;
         Download(TxtPServerFile, '', '', '', TxtLClientFileName);
         //TODO: 'Automation' is not recognized as a valid type
         // Create(AutLFileObjectSystem, false, true);

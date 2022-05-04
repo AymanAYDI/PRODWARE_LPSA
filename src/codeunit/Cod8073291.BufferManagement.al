@@ -448,12 +448,12 @@ codeunit 8073291 "PWD Buffer Management"
     begin
         //>>WMS-FE007_15.001
         Fieldref.CALCFIELD();
-        RecLTempBlob.Blob := Fieldref.VALUE;
-        CLEAR(RecLTempBlob.Blob);
+        RecLTempBlob.FromFieldRef(Fieldref);
+        CLEAR(RecLTempBlob);
 
         RecLTempBlob.CREATEOUTSTREAM(OuSLOutStream);
         OuSLOutStream.WRITETEXT(GETLASTERRORTEXT);
-        Fieldref.VALUE := RecLTempBlob.Blob;
+        Fieldref.VALUE := RecLTempBlob.HasValue();
         //<<WMS-FE007_15.001
     end;
 
@@ -467,8 +467,9 @@ codeunit 8073291 "PWD Buffer Management"
         //>>WMS-FE007_15.001
         Fieldref := RecordRef.FIELD(9);
         Fieldref.CALCFIELD();
-        RecLTempBlob.Blob := Fieldref.VALUE;
-        RecLTempBlob.CALCFIELDS(Blob);
+        RecLTempBlob.FromFieldRef(Fieldref);
+        //TODO:'Codeunit "Temp Blob"' does not contain a definition for 'CALCFIELDS'
+        //RecLTempBlob.CALCFIELDS();
         IF RecLTempBlob.HASVALUE() THEN BEGIN
             RecLTempBlob.CREATEINSTREAM(InsLStream);
             CduLFileManagement.FctShowBlobAsWindow(InsLStream)
@@ -1931,7 +1932,7 @@ codeunit 8073291 "PWD Buffer Management"
         //TODO:'Codeunit "Temp Blob"' does not contain a definition for 'CALCFIELDS'
         // RecLTempBlob.CALCFIELDS(Blob);
         RecLTempBlob.CREATEINSTREAM(InsLstream);
-        RecLConnectorValues.CREATEOUTSTREAM(OusLstream);
+        RecLConnectorValues.Blob.CREATEOUTSTREAM(OusLstream);
         COPYSTREAM(OusLstream, InsLstream);
         RecLConnectorValues.INSERT();
         EXIT(RecLConnectorValues."Entry No.");
