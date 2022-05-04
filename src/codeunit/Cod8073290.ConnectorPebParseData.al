@@ -1006,6 +1006,7 @@ codeunit 8073290 "PWD Connector Peb Parse Data"
             RecLSendingMessage.FINDFIRST();
             // CduGConnectBufMgtExport.FctCreateXml(RecLSalesShipmentHeader.GETVIEW(), RecLSendingMessage, RecLTempBlob, TRUE); //TODO: probleme Codeunit "Temp Blob" 
             //TODO:'Codeunit "Temp Blob"' does not contain a definition for 'CALCFIELDS'
+<<<<<<< HEAD
             // RecLTempBlob.CALCFIELDS(Blob); 
             // IF RecLTempBlob.HASVALUE() THEN BEGIN  //TODO: Probleme Codeunit "Temp Blob" begin
             //     RecLTempBlob.CREATEINSTREAM(InsLStream);
@@ -1017,6 +1018,19 @@ codeunit 8073290 "PWD Connector Peb Parse Data"
             // END
             // ELSE
             //     ERROR(TxtGError); //TODO: Probleme Codeunit "Temp Blob" end
+=======
+            // RecLTempBlob.CALCFIELDS(Blob);
+            IF RecLTempBlob.HASVALUE() THEN BEGIN
+                RecLTempBlob.CREATEINSTREAM(InsLStream);
+                CduGBufferManagement.FctCreateBufferValues(InsLStream, RecPConnectorVal."Partner Code", RecPConnectorVal."File Name",
+                                                          RecPConnectorVal."Function", RecPConnectorVal."File format",
+                                                          RecPConnectorVal.Separator,
+                                                          RecPConnectorVal.Direction::Export, RecPConnectorVal."Entry No.",
+                                                          RecPConnectorVal."Message Code");
+            END
+            ELSE
+                ERROR(TxtGError);
+>>>>>>> c9f4e3ad2680d0ccdc3edfec9ce4596244879c1c
         END
         ELSE
             ERROR(TxtGError);

@@ -22,9 +22,10 @@ report 50032 "PWD Updt with New Dimension"
                   TableData "Purch. Cr. Memo Line" = r,
                   TableData "Dimension Value" = ri,
                   TableData "Default Dimension" = r,
-                  TableData "Ledger Entry Dimension" = ri,
-                  TableData "Production Document Dimension" = ri,
-                  TableData "Posted Document Dimension" = ri,
+                  //TODO:Table '"Ledger Entry Dimension"', "Production Document Dimension" and "Posted Document Dimension" are missing
+                  //TableData "Ledger Entry Dimension" = ri,
+                  //TableData "Production Document Dimension" = ri,
+                  //TableData "Posted Document Dimension" = ri,
                   TableData "Production Order" = r,
                   TableData "Prod. Order Line" = r,
                   TableData "Prod. Order Component" = r,
@@ -540,56 +541,61 @@ report 50032 "PWD Updt with New Dimension"
 
     procedure UpdtLdgrEntryDimension(TableNo: Integer; EntryNo: Integer)
     var
-        LdgrEntryDimension: Record "Ledger Entry Dimension";
+    //TODO:   LdgrEntryDimension: Record "Ledger Entry Dimension";
+    //LdgrEntryDimension: Record "Ledger Entry Dimension";
     //DimSetEntry: Record "Dimension Set Entry";
     begin
-        LdgrEntryDimension."Table ID" := TableNo;
-        LdgrEntryDimension."Entry No." := EntryNo;
-        LdgrEntryDimension."Dimension Code" := "Default Dimension"."Dimension Code";
-        LdgrEntryDimension."Dimension Value Code" := "Default Dimension"."Dimension Value Code";
-        if not LdgrEntryDimension.Insert then;
+
+        // LdgrEntryDimension."Entry No." := EntryNo;
+        // LdgrEntryDimension."Dimension Code" := "Default Dimension"."Dimension Code";
+        // LdgrEntryDimension."Dimension Value Code" := "Default Dimension"."Dimension Value Code";
+        // if not LdgrEntryDimension.Insert then;
+        // if not LdgrEntryDimension.Insert then;
     end;
 
 
     procedure UpdtDocDimension(TableNo: Integer; DocType: Option; DocNo: Code[20]; DocLineNo: Integer)
     var
-        DocumentDimension: Record "Document Dimension";
+    //TODO: Table 'Document Dimension' is missing
+    // DocumentDimension: Record "Document Dimension";
     begin
-        DocumentDimension."Table ID" := TableNo;
-        DocumentDimension."Document Type" := DocType;
-        DocumentDimension."Document No." := DocNo;
-        DocumentDimension."Line No." := DocLineNo;
-        DocumentDimension."Dimension Code" := "Default Dimension"."Dimension Code";
-        DocumentDimension."Dimension Value Code" := "Default Dimension"."Dimension Value Code";
-        if not DocumentDimension.Insert then;
+        // DocumentDimension."Table ID" := TableNo;
+        // DocumentDimension."Document Type" := DocType;
+        // DocumentDimension."Document No." := DocNo;
+        // DocumentDimension."Line No." := DocLineNo;
+        // DocumentDimension."Dimension Code" := "Default Dimension"."Dimension Code";
+        // DocumentDimension."Dimension Value Code" := "Default Dimension"."Dimension Value Code";
+        // if not DocumentDimension.Insert then;
     end;
 
 
     procedure UpdtProdDocDimension(TableID: Integer; Status: Option; DocumentNo: Code[20]; LineNo: Integer; SublineNo: Integer)
     var
-        ProdDocumentDimension: Record "Production Document Dimension";
+    //TODO:Table 'Production Document Dimension' is missing
+    //ProdDocumentDimension: Record "Production Document Dimension";
     begin
-        ProdDocumentDimension."Table ID" := TableID;
-        ProdDocumentDimension."Document Status" := Status;
-        ProdDocumentDimension."Document No." := DocumentNo;
-        ProdDocumentDimension."Document Line No." := LineNo;
-        ProdDocumentDimension."Line No." := SublineNo;
-        ProdDocumentDimension."Dimension Code" := "Default Dimension"."Dimension Code";
-        ProdDocumentDimension."Dimension Value Code" := "Default Dimension"."Dimension Value Code";
-        if not ProdDocumentDimension.Insert then;
+        // ProdDocumentDimension."Table ID" := TableID;
+        // ProdDocumentDimension."Document Status" := Status;
+        // ProdDocumentDimension."Document No." := DocumentNo;
+        // ProdDocumentDimension."Document Line No." := LineNo;
+        // ProdDocumentDimension."Line No." := SublineNo;
+        // ProdDocumentDimension."Dimension Code" := "Default Dimension"."Dimension Code";
+        // ProdDocumentDimension."Dimension Value Code" := "Default Dimension"."Dimension Value Code";
+        // if not ProdDocumentDimension.Insert then;
     end;
 
 
     procedure UpdtPstdDocDimension(TableNo: Integer; DocNo: Code[20]; DocLineNo: Integer)
     var
-        PstdDocumentDimension: Record "Posted Document Dimension";
+    //TODO: table 'Production Document Dimension' is missing
+    //PstdDocumentDimension: Record "Posted Document Dimension";
     begin
-        PstdDocumentDimension."Table ID" := TableNo;
-        PstdDocumentDimension."Document No." := DocNo;
-        PstdDocumentDimension."Line No." := DocLineNo;
-        PstdDocumentDimension."Dimension Code" := "Default Dimension"."Dimension Code";
-        PstdDocumentDimension."Dimension Value Code" := "Default Dimension"."Dimension Value Code";
-        if not PstdDocumentDimension.Insert then;
+        // PstdDocumentDimension."Table ID" := TableNo;
+        // PstdDocumentDimension."Document No." := DocNo;
+        // PstdDocumentDimension."Line No." := DocLineNo;
+        // PstdDocumentDimension."Dimension Code" := "Default Dimension"."Dimension Code";
+        // PstdDocumentDimension."Dimension Value Code" := "Default Dimension"."Dimension Value Code";
+        // if not PstdDocumentDimension.Insert then;
     end;
 }
 

@@ -60,21 +60,21 @@ report 50029 "Create Item Config. from Item"
                 RecLInventorySetup.Get();
                 RecLInventorySetup.TestField("PWD Product Group Code Dim");
                 //TODO:Field 'Product Group Code' is removed.
-                if "Product Group Code" <> '' then
-                    if RecLDefaultDimension.Get(DATABASE::Item, Item."No.", RecLInventorySetup."PWD Product Group Code Dim") then begin
-                        RecLDefaultDimension."Dimension Value Code" := "Product Group Code";
-                        //RecLDefaultDimension."Dimension Value Code" := "Item Category Code"+'_'+"Product Group Code"; //TDL21072020.001
+                // if "Product Group Code" <> '' then
+                //     if RecLDefaultDimension.Get(DATABASE::Item, Item."No.", RecLInventorySetup."PWD Product Group Code Dim") then begin
+                //         RecLDefaultDimension."Dimension Value Code" := "Product Group Code";
+                //         //RecLDefaultDimension."Dimension Value Code" := "Item Category Code"+'_'+"Product Group Code"; //TDL21072020.001
 
-                        RecLDefaultDimension.Modify();
-                    end else begin
-                        RecLDefaultDimension."Table ID" := DATABASE::Item;
-                        RecLDefaultDimension."No." := Item."No.";
-                        RecLDefaultDimension."Dimension Code" := RecLInventorySetup."PWD Product Group Code Dim";
-                        //TODO:Field 'Product Group Code' is removed.
-                        //RecLDefaultDimension."Dimension Value Code" := "Product Group Code";
-                        //RecLDefaultDimension."Dimension Value Code" := "Item Category Code"+'_'+"Product Group Code"; //TDL21072020.001
-                        RecLDefaultDimension.Insert();
-                    end;
+                //         RecLDefaultDimension.Modify();
+                //     end else begin
+                //         RecLDefaultDimension."Table ID" := DATABASE::Item;
+                //         RecLDefaultDimension."No." := Item."No.";
+                //         RecLDefaultDimension."Dimension Code" := RecLInventorySetup."PWD Product Group Code Dim";
+                //         //TODO:Field 'Product Group Code' is removed.
+                //         //RecLDefaultDimension."Dimension Value Code" := "Product Group Code";
+                //         //RecLDefaultDimension."Dimension Value Code" := "Item Category Code"+'_'+"Product Group Code"; //TDL21072020.001
+                //         RecLDefaultDimension.Insert();
+                //     end;
 
                 BooLCreateItemCrossRef := false;
 

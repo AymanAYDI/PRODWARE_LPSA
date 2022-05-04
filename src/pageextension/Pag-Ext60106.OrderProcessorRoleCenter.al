@@ -7,7 +7,8 @@ pageextension 60106 "PWD OrderProcessorRoleCenter" extends "Order Processor Role
             action("PWD test export xcell")
             {
                 Caption = 'test export xcell';
-                RunObject = Report "Liste des Clients (Excel)";
+                //TODO:Report '"Liste des Clients (Excel)"' is missing
+                //RunObject = Report "Liste des Clients (Excel)";
                 ApplicationArea = All;
             }
             action("PWD Export Invoicing data")

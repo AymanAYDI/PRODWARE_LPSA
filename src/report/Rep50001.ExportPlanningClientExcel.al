@@ -290,18 +290,18 @@ report 50001 "Export Planning Client Excel"
             exit;
         end;
         if Option = Option::"Update Workbook" then begin
-            if not IsServiceTier then
-                ;
-            //TODO RequestOptionsForm.FileName.ENABLED(TRUE);
-            //TODO RequestOptionsForm.SheetName.ENABLED(TRUE);
+            if not IsServiceTier then;
+            //TODO:
+            // RequestOptionsPage.FileName.ENABLED(TRUE);
+            // RequestOptionsPage.SheetName.ENABLED(TRUE);
         end else begin
             FileName := '';
             UploadedFileName := '';
             SheetName := '';
-            if not IsServiceTier then
-                ;
-            //TODO RequestOptionsForm.FileName.ENABLED(FALSE);
-            //TODO RequestOptionsForm.SheetName.ENABLED(FALSE);
+            if not IsServiceTier then;
+            //TODO:
+            // RequestOptionsPage.FileName.ENABLED(FALSE);
+            // RequestOptionsPage.SheetName.ENABLED(FALSE);
         end;
     end;
 
@@ -309,29 +309,29 @@ report 50001 "Export Planning Client Excel"
     procedure MakeExcelInfo()
     begin
         //TODO: There is no argument given that corresponds to the required formal parameter 'CellType' of 'AddColumn(Variant, Boolean, Text, Boolean, Boolean, Boolean, Text[30], Option)'
-        TempExcelBuffer.AddColumn(Format(Text004E), false, '', true, false, false, '');
-        TempExcelBuffer.AddColumn(CompanyName, false, '', false, false, false, '');
-        TempExcelBuffer.NewRow();
-        TempExcelBuffer.AddColumn(Format(Text006E), false, '', true, false, false, '');
-        TempExcelBuffer.AddColumn(Format(Text003E), false, '', false, false, false, '');
-        TempExcelBuffer.NewRow();
-        TempExcelBuffer.AddColumn(Format(Text005E), false, '', true, false, false, '');
-        TempExcelBuffer.AddColumn(REPORT::"Export Planning Client Excel", false, '', false, false, false, '');
-        TempExcelBuffer.NewRow();
-        TempExcelBuffer.AddColumn(Format(Text007E), false, '', true, false, false, '');
-        TempExcelBuffer.AddColumn(UserId, false, '', false, false, false, '');
-        TempExcelBuffer.NewRow();
-        TempExcelBuffer.AddColumn(Format(Text008E), false, '', true, false, false, '');
-        TempExcelBuffer.AddColumn(Today, false, '', false, false, false, '');
-        TempExcelBuffer.NewRow();
-        TempExcelBuffer.AddColumn(Format(Text009E), false, '', true, false, false, '');
-        TempExcelBuffer.AddColumn(Customer.GetFilters, false, '', false, false, false, '');
-        TempExcelBuffer.NewRow();
-        TempExcelBuffer.AddColumn(Format(Text010E), false, '', true, false, false, '');
-        TempExcelBuffer.AddColumn(SalesLineFiter, false, '', false, false, false, '');
-        TempExcelBuffer.NewRow();
-        TempExcelBuffer.AddColumn(Format(Text011E), false, '', true, false, false, '');
-        TempExcelBuffer.AddColumn(ForecastEntryFiter, false, '', false, false, false, '');
+        // TempExcelBuffer.AddColumn(Format(Text004E), false, '', true, false, false, '');
+        // TempExcelBuffer.AddColumn(CompanyName, false, '', false, false, false, '');
+        // TempExcelBuffer.NewRow();
+        // TempExcelBuffer.AddColumn(Format(Text006E), false, '', true, false, false, '');
+        // TempExcelBuffer.AddColumn(Format(Text003E), false, '', false, false, false, '');
+        // TempExcelBuffer.NewRow();
+        // TempExcelBuffer.AddColumn(Format(Text005E), false, '', true, false, false, '');
+        // TempExcelBuffer.AddColumn(REPORT::"Export Planning Client Excel", false, '', false, false, false, '');
+        // TempExcelBuffer.NewRow();
+        // TempExcelBuffer.AddColumn(Format(Text007E), false, '', true, false, false, '');
+        // TempExcelBuffer.AddColumn(UserId, false, '', false, false, false, '');
+        // TempExcelBuffer.NewRow();
+        // TempExcelBuffer.AddColumn(Format(Text008E), false, '', true, false, false, '');
+        // TempExcelBuffer.AddColumn(Today, false, '', false, false, false, '');
+        // TempExcelBuffer.NewRow();
+        // TempExcelBuffer.AddColumn(Format(Text009E), false, '', true, false, false, '');
+        // TempExcelBuffer.AddColumn(Customer.GetFilters, false, '', false, false, false, '');
+        // TempExcelBuffer.NewRow();
+        // TempExcelBuffer.AddColumn(Format(Text010E), false, '', true, false, false, '');
+        // TempExcelBuffer.AddColumn(SalesLineFiter, false, '', false, false, false, '');
+        // TempExcelBuffer.NewRow();
+        // TempExcelBuffer.AddColumn(Format(Text011E), false, '', true, false, false, '');
+        // TempExcelBuffer.AddColumn(ForecastEntryFiter, false, '', false, false, false, '');
         TempExcelBuffer.ClearNewRow();
 
         RowNo := 10;
@@ -374,10 +374,9 @@ report 50001 "Export Planning Client Excel"
 
     procedure UploadFile()
     var
-        //TODO: Codeunit 'Common Dialog Management' is missing
-        CommonDialogMgt: Codeunit "Common Dialog Management";
+        FileMgt: Codeunit "File Management";
     begin
-        UploadedFileName := CommonDialogMgt.OpenFile(Text002, FileName, 2, '', 0);
+        UploadedFileName := FileMgt.UploadFileWithFilter(Text002, FileName, 'Excel', '');
         FileName := UploadedFileName;
     end;
 

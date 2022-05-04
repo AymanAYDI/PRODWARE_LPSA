@@ -29,48 +29,48 @@ report 50000 "Export Invoicing Data (Excel)"
                 begin
 
                     Compteur := Compteur + 1;
+                    //TODO:The name 'Sheet' does not exist in the current context
+                    // Sheet.Range('A' + Format(Compteur)).Value := Format(CrMemoLineNR."Posting Date", 0, '<Day,2>.<Month,2>.<Year4>');
+                    // Sheet.Range('B' + Format(Compteur)).Value := Format(CrMemoLineNR."Posting Date", 0, '<Day,2>.<Month,2>.<Year4>');
+                    // Sheet.Range('C' + Format(Compteur)).Value := 'DG';
+                    // Sheet.Range('D' + Format(Compteur)).Value := CrMemoLineNR."Document No.";
 
-                    Sheet.Range('A' + Format(Compteur)).Value := Format(CrMemoLineNR."Posting Date", 0, '<Day,2>.<Month,2>.<Year4>');
-                    Sheet.Range('B' + Format(Compteur)).Value := Format(CrMemoLineNR."Posting Date", 0, '<Day,2>.<Month,2>.<Year4>');
-                    Sheet.Range('C' + Format(Compteur)).Value := 'DG';
-                    Sheet.Range('D' + Format(Compteur)).Value := CrMemoLineNR."Document No.";
+                    // Sheet.Range('E' + Format(Compteur)).Value := CodGCurrency;
 
-                    Sheet.Range('E' + Format(Compteur)).Value := CodGCurrency;
+                    // Sheet.Range('F' + Format(Compteur)).Value := TxtGBarCode;
 
-                    Sheet.Range('F' + Format(Compteur)).Value := TxtGBarCode;
+                    // Sheet.Range('G' + Format(Compteur)).Value := '1900';
+                    // //Sheet.Range('H'+FORMAT(Compteur)).Value:= '40';
+                    // Sheet.Range('H' + Format(Compteur)).Value := CstG40;
 
-                    Sheet.Range('G' + Format(Compteur)).Value := '1900';
-                    //Sheet.Range('H'+FORMAT(Compteur)).Value:= '40';
-                    Sheet.Range('H' + Format(Compteur)).Value := CstG40;
+                    // if CrMemoLineNR.Type = CrMemoLineNR.Type::"G/L Account" then
+                    //     Sheet.Range('I' + Format(Compteur)).Value := CrMemoLineNR."No."
+                    // else
+                    //     Sheet.Range('I' + Format(Compteur)).Value := Fct_CalcAccountNoLine(CrMemoLineNR."Gen. Bus. Posting Group",
+                    //                                                                    CrMemoLineNR."Gen. Prod. Posting Group", '40');
 
-                    if CrMemoLineNR.Type = CrMemoLineNR.Type::"G/L Account" then
-                        Sheet.Range('I' + Format(Compteur)).Value := CrMemoLineNR."No."
-                    else
-                        Sheet.Range('I' + Format(Compteur)).Value := Fct_CalcAccountNoLine(CrMemoLineNR."Gen. Bus. Posting Group",
-                                                                                       CrMemoLineNR."Gen. Prod. Posting Group", '40');
+                    // Sheet.Range('J' + Format(Compteur)).Value := Format(CrMemoLineNR.Amount, 15, 2);
 
-                    Sheet.Range('J' + Format(Compteur)).Value := Format(CrMemoLineNR.Amount, 15, 2);
+                    // //DecGTvaAmount := CrMemoHeaderNR."Amount Including VAT" - CrMemoHeaderNR.Amount;
+                    // Sheet.Range('K' + Format(Compteur)).Value := '';
+                    // Sheet.Range('L' + Format(Compteur)).Value := CrMemoLineNR."VAT Bus. Posting Group";
 
-                    //DecGTvaAmount := CrMemoHeaderNR."Amount Including VAT" - CrMemoHeaderNR.Amount;
-                    Sheet.Range('K' + Format(Compteur)).Value := '';
-                    Sheet.Range('L' + Format(Compteur)).Value := CrMemoLineNR."VAT Bus. Posting Group";
+                    // //Sheet.Range('M'+FORMAT(Compteur)).Value:= CrMemoLineNR.Description;
+                    // Sheet.Range('M' + Format(Compteur)).Value := CopyStr(CrMemoLineNR."PWD LPSA Description 1", 1, 50);
 
-                    //Sheet.Range('M'+FORMAT(Compteur)).Value:= CrMemoLineNR.Description;
-                    Sheet.Range('M' + Format(Compteur)).Value := CopyStr(CrMemoLineNR."PWD LPSA Description 1", 1, 50);
+                    // Sheet.Range('N' + Format(Compteur)).Value := CrMemoLineNR."Shortcut Dimension 2 Code";
+                    // Sheet.Range('O' + Format(Compteur)).Value := 'X';
+                    // Sheet.Range('P' + Format(Compteur)).Value := Fct_CalcShortcutDim3(CrMemoLineNR."Document No.", CrMemoLineNR."Line No.", '40');
+                    // Sheet.Range('Q' + Format(Compteur)).Value := '1900';
+                    // Sheet.Range('R' + Format(Compteur)).Value := Fct_CalcAccountNo(CrMemoLineNR."Bill-to Customer No.");
+                    // Sheet.Range('S' + Format(Compteur)).Value := '72';
 
-                    Sheet.Range('N' + Format(Compteur)).Value := CrMemoLineNR."Shortcut Dimension 2 Code";
-                    Sheet.Range('O' + Format(Compteur)).Value := 'X';
-                    Sheet.Range('P' + Format(Compteur)).Value := Fct_CalcShortcutDim3(CrMemoLineNR."Document No.", CrMemoLineNR."Line No.", '40');
-                    Sheet.Range('Q' + Format(Compteur)).Value := '1900';
-                    Sheet.Range('R' + Format(Compteur)).Value := Fct_CalcAccountNo(CrMemoLineNR."Bill-to Customer No.");
-                    Sheet.Range('S' + Format(Compteur)).Value := '72';
-
-                    CodGShipNoLine := Fct_CalcShipNoLine(CrMemoLineNR."Appl.-from Item Entry");
-                    if CodGShipNoLine = '' then
-                        CodGShipNoLine := CodGShipNo
-                    else
-                        CodGShipNo := CodGShipNoLine;
-                    Sheet.Range('T' + Format(Compteur)).Value := CodGShipNoLine;
+                    // CodGShipNoLine := Fct_CalcShipNoLine(CrMemoLineNR."Appl.-from Item Entry");
+                    // if CodGShipNoLine = '' then
+                    //     CodGShipNoLine := CodGShipNo
+                    // else
+                    //     CodGShipNo := CodGShipNoLine;
+                    // Sheet.Range('T' + Format(Compteur)).Value := CodGShipNoLine;
                 end;
 
                 trigger OnPostDataItem()
@@ -83,45 +83,45 @@ report 50000 "Export Invoicing Data (Excel)"
             begin
 
                 Compteur := Compteur + 1;
+                //TODO:The name 'Sheet' does not exist in the current context
+                // Sheet.Range('A' + Format(Compteur)).Value := Format(CrMemoHeaderNR."Posting Date", 0, '<Day,2>.<Month,2>.<Year4>');
+                // Sheet.Range('B' + Format(Compteur)).Value := Format(CrMemoHeaderNR."Posting Date", 0, '<Day,2>.<Month,2>.<Year4>');
+                // Sheet.Range('C' + Format(Compteur)).Value := 'DG';
+                // Sheet.Range('D' + Format(Compteur)).Value := CrMemoHeaderNR."No.";
 
-                Sheet.Range('A' + Format(Compteur)).Value := Format(CrMemoHeaderNR."Posting Date", 0, '<Day,2>.<Month,2>.<Year4>');
-                Sheet.Range('B' + Format(Compteur)).Value := Format(CrMemoHeaderNR."Posting Date", 0, '<Day,2>.<Month,2>.<Year4>');
-                Sheet.Range('C' + Format(Compteur)).Value := 'DG';
-                Sheet.Range('D' + Format(Compteur)).Value := CrMemoHeaderNR."No.";
+                // if CrMemoHeaderNR."Currency Code" = '' then
+                //     CodGCurrency := RecGGenLedgerSetup."LCY Code"
+                // else
+                //     CodGCurrency := CrMemoHeaderNR."Currency Code";
 
-                if CrMemoHeaderNR."Currency Code" = '' then
-                    CodGCurrency := RecGGenLedgerSetup."LCY Code"
-                else
-                    CodGCurrency := CrMemoHeaderNR."Currency Code";
+                // Sheet.Range('E' + Format(Compteur)).Value := CodGCurrency;
 
-                Sheet.Range('E' + Format(Compteur)).Value := CodGCurrency;
+                // TxtGBarCode := Fct_CalcBarCode(CrMemoHeaderNR."External Document No.");
+                // Sheet.Range('F' + Format(Compteur)).Value := TxtGBarCode;
 
-                TxtGBarCode := Fct_CalcBarCode(CrMemoHeaderNR."External Document No.");
-                Sheet.Range('F' + Format(Compteur)).Value := TxtGBarCode;
+                // Sheet.Range('G' + Format(Compteur)).Value := '1900';
+                // //Sheet.Range('H'+FORMAT(Compteur)).Value:= '11';
+                // Sheet.Range('H' + Format(Compteur)).Value := CstG11;
 
-                Sheet.Range('G' + Format(Compteur)).Value := '1900';
-                //Sheet.Range('H'+FORMAT(Compteur)).Value:= '11';
-                Sheet.Range('H' + Format(Compteur)).Value := CstG11;
+                // Sheet.Range('I' + Format(Compteur)).Value := Fct_CalcAccountNo(CrMemoHeaderNR."Bill-to Customer No.");
 
-                Sheet.Range('I' + Format(Compteur)).Value := Fct_CalcAccountNo(CrMemoHeaderNR."Bill-to Customer No.");
+                // CrMemoHeaderNR.CalcFields("Amount Including VAT", Amount);
+                // Sheet.Range('J' + Format(Compteur)).Value := Format(CrMemoHeaderNR."Amount Including VAT", 15, 2);
 
-                CrMemoHeaderNR.CalcFields("Amount Including VAT", Amount);
-                Sheet.Range('J' + Format(Compteur)).Value := Format(CrMemoHeaderNR."Amount Including VAT", 15, 2);
+                // DecGTvaAmount := CrMemoHeaderNR."Amount Including VAT" - CrMemoHeaderNR.Amount;
+                // Sheet.Range('K' + Format(Compteur)).Value := Format(DecGTvaAmount, 15, 2);
+                // Sheet.Range('L' + Format(Compteur)).Value := CrMemoHeaderNR."VAT Bus. Posting Group";
 
-                DecGTvaAmount := CrMemoHeaderNR."Amount Including VAT" - CrMemoHeaderNR.Amount;
-                Sheet.Range('K' + Format(Compteur)).Value := Format(DecGTvaAmount, 15, 2);
-                Sheet.Range('L' + Format(Compteur)).Value := CrMemoHeaderNR."VAT Bus. Posting Group";
+                // Sheet.Range('M' + Format(Compteur)).Value := Fct_CalcText(CrMemoHeaderNR."No.", '11');
+                // Sheet.Range('N' + Format(Compteur)).Value := '';
+                // Sheet.Range('O' + Format(Compteur)).Value := '';
+                // Sheet.Range('P' + Format(Compteur)).Value := '';
+                // Sheet.Range('Q' + Format(Compteur)).Value := '';
+                // Sheet.Range('R' + Format(Compteur)).Value := '';
+                // Sheet.Range('S' + Format(Compteur)).Value := '';
 
-                Sheet.Range('M' + Format(Compteur)).Value := Fct_CalcText(CrMemoHeaderNR."No.", '11');
-                Sheet.Range('N' + Format(Compteur)).Value := '';
-                Sheet.Range('O' + Format(Compteur)).Value := '';
-                Sheet.Range('P' + Format(Compteur)).Value := '';
-                Sheet.Range('Q' + Format(Compteur)).Value := '';
-                Sheet.Range('R' + Format(Compteur)).Value := '';
-                Sheet.Range('S' + Format(Compteur)).Value := '';
-
-                CodGShipNo := Fct_CalcShipNoHead(CrMemoHeaderNR."No.", '11');
-                Sheet.Range('T' + Format(Compteur)).Value := CodGShipNo;
+                // CodGShipNo := Fct_CalcShipNoHead(CrMemoHeaderNR."No.", '11');
+                // Sheet.Range('T' + Format(Compteur)).Value := CodGShipNo;
             end;
 
             trigger OnPostDataItem()
@@ -135,30 +135,31 @@ report 50000 "Export Invoicing Data (Excel)"
 
                 //Sheet:=Excel.Sheets.Add;
                 //Sheet.Name:='Clients non Rolex';
-                Sheet.Range('A1').Value := 'DatePieceChar';
-                Sheet.Range('B1').Value := 'DateComptaChar';
-                Sheet.Range('C1').Value := 'TypePiece';
-                Sheet.Range('D1').Value := 'Reference';
-                Sheet.Range('E1').Value := 'Devise';
-                Sheet.Range('F1').Value := 'CodeBarre';
-                Sheet.Range('G1').Value := 'Societe';
-                Sheet.Range('H1').Value := 'CleDeCompta';
-                Sheet.Range('I1').Value := 'ClientCompte';
-                Sheet.Range('J1').Value := 'Montant';
-                Sheet.Range('K1').Value := 'ValTVA';
-                Sheet.Range('L1').Value := 'CodeTVA';
-                Sheet.Range('M1').Value := 'Text';
-                Sheet.Range('N1').Value := 'CentreProfit';
-                Sheet.Range('O1').Value := 'ObjetResultat';
-                Sheet.Range('P1').Value := 'Article';
-                Sheet.Range('Q1').Value := 'Societe2';
-                Sheet.Range('R1').Value := 'Client';
-                Sheet.Range('S1').Value := 'Activité';
-                Sheet.Range('T1').Value := 'BLlie';
+                //TODO:The name 'Sheet' does not exist in the current context
+                // Sheet.Range('A1').Value := 'DatePieceChar';
+                // Sheet.Range('B1').Value := 'DateComptaChar';
+                // Sheet.Range('C1').Value := 'TypePiece';
+                // Sheet.Range('D1').Value := 'Reference';
+                // Sheet.Range('E1').Value := 'Devise';
+                // Sheet.Range('F1').Value := 'CodeBarre';
+                // Sheet.Range('G1').Value := 'Societe';
+                // Sheet.Range('H1').Value := 'CleDeCompta';
+                // Sheet.Range('I1').Value := 'ClientCompte';
+                // Sheet.Range('J1').Value := 'Montant';
+                // Sheet.Range('K1').Value := 'ValTVA';
+                // Sheet.Range('L1').Value := 'CodeTVA';
+                // Sheet.Range('M1').Value := 'Text';
+                // Sheet.Range('N1').Value := 'CentreProfit';
+                // Sheet.Range('O1').Value := 'ObjetResultat';
+                // Sheet.Range('P1').Value := 'Article';
+                // Sheet.Range('Q1').Value := 'Societe2';
+                // Sheet.Range('R1').Value := 'Client';
+                // Sheet.Range('S1').Value := 'Activité';
+                // Sheet.Range('T1').Value := 'BLlie';
 
-                Sheet.Range('A1:T1').Font.Bold := true;
-                Sheet.Range('A1:T1').Font.ColorIndex := '2';
-                Sheet.Range('A1:T1').Interior.ColorIndex := '55';
+                // Sheet.Range('A1:T1').Font.Bold := true;
+                // Sheet.Range('A1:T1').Font.ColorIndex := '2';
+                // Sheet.Range('A1:T1').Interior.ColorIndex := '55';
 
                 Compteur := 1;
 
@@ -176,100 +177,100 @@ report 50000 "Export Invoicing Data (Excel)"
                 trigger OnAfterGetRecord()
                 begin
                     Compteur := Compteur + 1;
+                    //TODO:The name 'Sheet' does not exist in the current context
+                    // Sheet.Range('A' + Format(Compteur)).Value := Format(InvoiceLineNR."Posting Date", 0, '<Day,2>.<Month,2>.<Year4>');
+                    // Sheet.Range('B' + Format(Compteur)).Value := Format(InvoiceLineNR."Posting Date", 0, '<Day,2>.<Month,2>.<Year4>');
+                    // Sheet.Range('C' + Format(Compteur)).Value := 'DR';
+                    // Sheet.Range('D' + Format(Compteur)).Value := InvoiceLineNR."Document No.";
 
-                    Sheet.Range('A' + Format(Compteur)).Value := Format(InvoiceLineNR."Posting Date", 0, '<Day,2>.<Month,2>.<Year4>');
-                    Sheet.Range('B' + Format(Compteur)).Value := Format(InvoiceLineNR."Posting Date", 0, '<Day,2>.<Month,2>.<Year4>');
-                    Sheet.Range('C' + Format(Compteur)).Value := 'DR';
-                    Sheet.Range('D' + Format(Compteur)).Value := InvoiceLineNR."Document No.";
+                    // Sheet.Range('E' + Format(Compteur)).Value := CodGCurrency;
 
-                    Sheet.Range('E' + Format(Compteur)).Value := CodGCurrency;
+                    // Sheet.Range('F' + Format(Compteur)).Value := TxtGBarCode;
 
-                    Sheet.Range('F' + Format(Compteur)).Value := TxtGBarCode;
+                    // Sheet.Range('G' + Format(Compteur)).Value := '1900';
+                    // //Sheet.Range('H'+FORMAT(Compteur)).Value:= '50';
+                    // Sheet.Range('H' + Format(Compteur)).Value := CstG50;
 
-                    Sheet.Range('G' + Format(Compteur)).Value := '1900';
-                    //Sheet.Range('H'+FORMAT(Compteur)).Value:= '50';
-                    Sheet.Range('H' + Format(Compteur)).Value := CstG50;
+                    // if InvoiceLineNR.Type = InvoiceLineNR.Type::"G/L Account" then
+                    //     Sheet.Range('I' + Format(Compteur)).Value := InvoiceLineNR."No."
+                    // else
+                    //     Sheet.Range('I' + Format(Compteur)).Value := Fct_CalcAccountNoLine(InvoiceLineNR."Gen. Bus. Posting Group",
+                    //                                                                    InvoiceLineNR."Gen. Prod. Posting Group", '50');
 
-                    if InvoiceLineNR.Type = InvoiceLineNR.Type::"G/L Account" then
-                        Sheet.Range('I' + Format(Compteur)).Value := InvoiceLineNR."No."
-                    else
-                        Sheet.Range('I' + Format(Compteur)).Value := Fct_CalcAccountNoLine(InvoiceLineNR."Gen. Bus. Posting Group",
-                                                                                       InvoiceLineNR."Gen. Prod. Posting Group", '50');
+                    // Sheet.Range('J' + Format(Compteur)).Value := Format(InvoiceLineNR.Amount, 15, 2);
 
-                    Sheet.Range('J' + Format(Compteur)).Value := Format(InvoiceLineNR.Amount, 15, 2);
+                    // //DecGTvaAmount := CrMemoHeaderNR."Amount Including VAT" - CrMemoHeaderNR.Amount;
+                    // Sheet.Range('K' + Format(Compteur)).Value := '';
+                    // Sheet.Range('L' + Format(Compteur)).Value := InvoiceLineNR."VAT Bus. Posting Group";
 
-                    //DecGTvaAmount := CrMemoHeaderNR."Amount Including VAT" - CrMemoHeaderNR.Amount;
-                    Sheet.Range('K' + Format(Compteur)).Value := '';
-                    Sheet.Range('L' + Format(Compteur)).Value := InvoiceLineNR."VAT Bus. Posting Group";
+                    // //Sheet.Range('M'+FORMAT(Compteur)).Value:= InvoiceLineNR.Description;
+                    // Sheet.Range('M' + Format(Compteur)).Value := CopyStr(InvoiceLineNR."PWD LPSA Description 1", 1, 50);
 
-                    //Sheet.Range('M'+FORMAT(Compteur)).Value:= InvoiceLineNR.Description;
-                    Sheet.Range('M' + Format(Compteur)).Value := CopyStr(InvoiceLineNR."PWD LPSA Description 1", 1, 50);
+                    // Sheet.Range('N' + Format(Compteur)).Value := InvoiceLineNR."Shortcut Dimension 2 Code";
+                    // Sheet.Range('O' + Format(Compteur)).Value := 'X';
+                    // Sheet.Range('P' + Format(Compteur)).Value := Fct_CalcShortcutDim3(InvoiceLineNR."Document No.", InvoiceLineNR."Line No.", '50');
+                    // Sheet.Range('Q' + Format(Compteur)).Value := '1900';
+                    // Sheet.Range('R' + Format(Compteur)).Value := Fct_CalcAccountNo(InvoiceLineNR."Bill-to Customer No.");
+                    // Sheet.Range('S' + Format(Compteur)).Value := '72';
 
-                    Sheet.Range('N' + Format(Compteur)).Value := InvoiceLineNR."Shortcut Dimension 2 Code";
-                    Sheet.Range('O' + Format(Compteur)).Value := 'X';
-                    Sheet.Range('P' + Format(Compteur)).Value := Fct_CalcShortcutDim3(InvoiceLineNR."Document No.", InvoiceLineNR."Line No.", '50');
-                    Sheet.Range('Q' + Format(Compteur)).Value := '1900';
-                    Sheet.Range('R' + Format(Compteur)).Value := Fct_CalcAccountNo(InvoiceLineNR."Bill-to Customer No.");
-                    Sheet.Range('S' + Format(Compteur)).Value := '72';
-
-                    CodGShipNoLine := InvoiceLineNR."Shipment No.";
-                    if CodGShipNoLine = '' then
-                        CodGShipNoLine := Fct_CalcShipNoLine(InvoiceLineNR."Appl.-from Item Entry");
-                    if CodGShipNoLine = '' then
-                        CodGShipNoLine := CodGShipNo
-                    else
-                        CodGShipNo := CodGShipNoLine;
-                    Sheet.Range('T' + Format(Compteur)).Value := CodGShipNoLine;
+                    // CodGShipNoLine := InvoiceLineNR."Shipment No.";
+                    // if CodGShipNoLine = '' then
+                    //     CodGShipNoLine := Fct_CalcShipNoLine(InvoiceLineNR."Appl.-from Item Entry");
+                    // if CodGShipNoLine = '' then
+                    //     CodGShipNoLine := CodGShipNo
+                    // else
+                    //     CodGShipNo := CodGShipNoLine;
+                    // Sheet.Range('T' + Format(Compteur)).Value := CodGShipNoLine;
                 end;
             }
 
             trigger OnAfterGetRecord()
             begin
                 Compteur := Compteur + 1;
+                //TODO:The name 'Sheet' does not exist in the current context
+                // Sheet.Range('A' + Format(Compteur)).Value := Format(InvoiceHeaderNR."Posting Date", 0, '<Day,2>.<Month,2>.<Year4>');
+                // Sheet.Range('B' + Format(Compteur)).Value := Format(InvoiceHeaderNR."Posting Date", 0, '<Day,2>.<Month,2>.<Year4>');
+                // Sheet.Range('C' + Format(Compteur)).Value := 'DR';
+                // Sheet.Range('D' + Format(Compteur)).Value := InvoiceHeaderNR."No.";
 
-                Sheet.Range('A' + Format(Compteur)).Value := Format(InvoiceHeaderNR."Posting Date", 0, '<Day,2>.<Month,2>.<Year4>');
-                Sheet.Range('B' + Format(Compteur)).Value := Format(InvoiceHeaderNR."Posting Date", 0, '<Day,2>.<Month,2>.<Year4>');
-                Sheet.Range('C' + Format(Compteur)).Value := 'DR';
-                Sheet.Range('D' + Format(Compteur)).Value := InvoiceHeaderNR."No.";
+                // if InvoiceHeaderNR."Currency Code" = '' then
+                //     CodGCurrency := RecGGenLedgerSetup."LCY Code"
+                // else
+                //     CodGCurrency := InvoiceHeaderNR."Currency Code";
 
-                if InvoiceHeaderNR."Currency Code" = '' then
-                    CodGCurrency := RecGGenLedgerSetup."LCY Code"
-                else
-                    CodGCurrency := InvoiceHeaderNR."Currency Code";
+                // Sheet.Range('E' + Format(Compteur)).Value := CodGCurrency;
 
-                Sheet.Range('E' + Format(Compteur)).Value := CodGCurrency;
+                // TxtGBarCode := Fct_CalcBarCode(InvoiceHeaderNR."External Document No.");
+                // Sheet.Range('F' + Format(Compteur)).Value := TxtGBarCode;
 
-                TxtGBarCode := Fct_CalcBarCode(InvoiceHeaderNR."External Document No.");
-                Sheet.Range('F' + Format(Compteur)).Value := TxtGBarCode;
+                // Sheet.Range('G' + Format(Compteur)).Value := '1900';
+                // //Sheet.Range('H'+FORMAT(Compteur)).Value:= '01;
+                // Sheet.Range('H' + Format(Compteur)).Value := CstG01;
 
-                Sheet.Range('G' + Format(Compteur)).Value := '1900';
-                //Sheet.Range('H'+FORMAT(Compteur)).Value:= '01;
-                Sheet.Range('H' + Format(Compteur)).Value := CstG01;
+                // //Sheet.Range('H'+FORMAT(Compteur)).Text:= True;
 
-                //Sheet.Range('H'+FORMAT(Compteur)).Text:= True;
-
-                //Sheet.Range('A1:T1').Text := TRUE;
+                // //Sheet.Range('A1:T1').Text := TRUE;
 
 
-                Sheet.Range('I' + Format(Compteur)).Value := Fct_CalcAccountNo(InvoiceHeaderNR."Bill-to Customer No.");
+                // Sheet.Range('I' + Format(Compteur)).Value := Fct_CalcAccountNo(InvoiceHeaderNR."Bill-to Customer No.");
 
-                InvoiceHeaderNR.CalcFields("Amount Including VAT", Amount);
-                Sheet.Range('J' + Format(Compteur)).Value := Format(InvoiceHeaderNR."Amount Including VAT", 15, 2);
+                // InvoiceHeaderNR.CalcFields("Amount Including VAT", Amount);
+                // Sheet.Range('J' + Format(Compteur)).Value := Format(InvoiceHeaderNR."Amount Including VAT", 15, 2);
 
-                DecGTvaAmount := InvoiceHeaderNR."Amount Including VAT" - InvoiceHeaderNR.Amount;
-                Sheet.Range('K' + Format(Compteur)).Value := Format(DecGTvaAmount, 15, 2);
-                Sheet.Range('L' + Format(Compteur)).Value := InvoiceHeaderNR."VAT Bus. Posting Group";
+                // DecGTvaAmount := InvoiceHeaderNR."Amount Including VAT" - InvoiceHeaderNR.Amount;
+                // Sheet.Range('K' + Format(Compteur)).Value := Format(DecGTvaAmount, 15, 2);
+                // Sheet.Range('L' + Format(Compteur)).Value := InvoiceHeaderNR."VAT Bus. Posting Group";
 
-                Sheet.Range('M' + Format(Compteur)).Value := Fct_CalcText(InvoiceHeaderNR."No.", '01');
-                Sheet.Range('N' + Format(Compteur)).Value := '';
-                Sheet.Range('O' + Format(Compteur)).Value := '';
-                Sheet.Range('P' + Format(Compteur)).Value := '';
-                Sheet.Range('Q' + Format(Compteur)).Value := '';
-                Sheet.Range('R' + Format(Compteur)).Value := '';
-                Sheet.Range('S' + Format(Compteur)).Value := '';
+                // Sheet.Range('M' + Format(Compteur)).Value := Fct_CalcText(InvoiceHeaderNR."No.", '01');
+                // Sheet.Range('N' + Format(Compteur)).Value := '';
+                // Sheet.Range('O' + Format(Compteur)).Value := '';
+                // Sheet.Range('P' + Format(Compteur)).Value := '';
+                // Sheet.Range('Q' + Format(Compteur)).Value := '';
+                // Sheet.Range('R' + Format(Compteur)).Value := '';
+                // Sheet.Range('S' + Format(Compteur)).Value := '';
 
-                CodGShipNo := Fct_CalcShipNoHead(InvoiceHeaderNR."No.", '01');
-                Sheet.Range('T' + Format(Compteur)).Value := CodGShipNo;
+                // CodGShipNo := Fct_CalcShipNoHead(InvoiceHeaderNR."No.", '01');
+                // Sheet.Range('T' + Format(Compteur)).Value := CodGShipNo;
             end;
 
             trigger OnPreDataItem()
@@ -289,38 +290,38 @@ report 50000 "Export Invoicing Data (Excel)"
                 begin
 
                     Compteur := Compteur + 1;
+                    //TODO:The name 'Sheet' does not exist in the current context
+                    // Sheet.Range('A' + Format(Compteur)).Value := Format(CrMemoLineRol1."Posting Date", 0, '<Day,2>.<Month,2>.<Year4>');
+                    // Sheet.Range('B' + Format(Compteur)).Value := Format(CrMemoLineRol1."Posting Date", 0, '<Day,2>.<Month,2>.<Year4>');
+                    // Sheet.Range('C' + Format(Compteur)).Value := 'DG';
+                    // Sheet.Range('D' + Format(Compteur)).Value := CrMemoLineRol1."Document No.";
 
-                    Sheet.Range('A' + Format(Compteur)).Value := Format(CrMemoLineRol1."Posting Date", 0, '<Day,2>.<Month,2>.<Year4>');
-                    Sheet.Range('B' + Format(Compteur)).Value := Format(CrMemoLineRol1."Posting Date", 0, '<Day,2>.<Month,2>.<Year4>');
-                    Sheet.Range('C' + Format(Compteur)).Value := 'DG';
-                    Sheet.Range('D' + Format(Compteur)).Value := CrMemoLineRol1."Document No.";
+                    // Sheet.Range('E' + Format(Compteur)).Value := CodGCurrency;
 
-                    Sheet.Range('E' + Format(Compteur)).Value := CodGCurrency;
+                    // Sheet.Range('F' + Format(Compteur)).Value := TxtGBarCode;
 
-                    Sheet.Range('F' + Format(Compteur)).Value := TxtGBarCode;
+                    // Sheet.Range('G' + Format(Compteur)).Value := '1900';
+                    // //Sheet.Range('H'+FORMAT(Compteur)).Value:= '11';
+                    // Sheet.Range('H' + Format(Compteur)).Value := CstG11;
 
-                    Sheet.Range('G' + Format(Compteur)).Value := '1900';
-                    //Sheet.Range('H'+FORMAT(Compteur)).Value:= '11';
-                    Sheet.Range('H' + Format(Compteur)).Value := CstG11;
+                    // Sheet.Range('I' + Format(Compteur)).Value := TxtGOurAccountNo;
 
-                    Sheet.Range('I' + Format(Compteur)).Value := TxtGOurAccountNo;
+                    // Sheet.Range('J' + Format(Compteur)).Value := Format(CrMemoLineRol1.Amount, 15, 2);
 
-                    Sheet.Range('J' + Format(Compteur)).Value := Format(CrMemoLineRol1.Amount, 15, 2);
+                    // Sheet.Range('K' + Format(Compteur)).Value := 0;
+                    // Sheet.Range('L' + Format(Compteur)).Value := CrMemoLineRol1."VAT Bus. Posting Group";
 
-                    Sheet.Range('K' + Format(Compteur)).Value := 0;
-                    Sheet.Range('L' + Format(Compteur)).Value := CrMemoLineRol1."VAT Bus. Posting Group";
+                    // //Sheet.Range('M'+FORMAT(Compteur)).Value:= CrMemoLineRol1.Description;
+                    // Sheet.Range('M' + Format(Compteur)).Value := CopyStr(CrMemoLineRol1."PWD LPSA Description 1", 1, 50);
 
-                    //Sheet.Range('M'+FORMAT(Compteur)).Value:= CrMemoLineRol1.Description;
-                    Sheet.Range('M' + Format(Compteur)).Value := CopyStr(CrMemoLineRol1."PWD LPSA Description 1", 1, 50);
+                    // Sheet.Range('N' + Format(Compteur)).Value := '';
+                    // Sheet.Range('O' + Format(Compteur)).Value := '';
+                    // Sheet.Range('P' + Format(Compteur)).Value := '';
+                    // Sheet.Range('Q' + Format(Compteur)).Value := '';
+                    // Sheet.Range('R' + Format(Compteur)).Value := '';
+                    // Sheet.Range('S' + Format(Compteur)).Value := '';
 
-                    Sheet.Range('N' + Format(Compteur)).Value := '';
-                    Sheet.Range('O' + Format(Compteur)).Value := '';
-                    Sheet.Range('P' + Format(Compteur)).Value := '';
-                    Sheet.Range('Q' + Format(Compteur)).Value := '';
-                    Sheet.Range('R' + Format(Compteur)).Value := '';
-                    Sheet.Range('S' + Format(Compteur)).Value := '';
-
-                    Sheet.Range('T' + Format(Compteur)).Value := CodGShipNo;
+                    // Sheet.Range('T' + Format(Compteur)).Value := CodGShipNo;
                 end;
             }
             dataitem(CrMemoLineRol2; "Sales Cr.Memo Line")
@@ -332,47 +333,47 @@ report 50000 "Export Invoicing Data (Excel)"
                 begin
 
                     Compteur := Compteur + 1;
+                    //TODO:The name 'Sheet' does not exist in the current context
+                    // Sheet.Range('A' + Format(Compteur)).Value := Format(CrMemoLineRol2."Posting Date", 0, '<Day,2>.<Month,2>.<Year4>');
+                    // Sheet.Range('B' + Format(Compteur)).Value := Format(CrMemoLineRol2."Posting Date", 0, '<Day,2>.<Month,2>.<Year4>');
+                    // Sheet.Range('C' + Format(Compteur)).Value := 'DG';
+                    // Sheet.Range('D' + Format(Compteur)).Value := CrMemoLineRol2."Document No.";
 
-                    Sheet.Range('A' + Format(Compteur)).Value := Format(CrMemoLineRol2."Posting Date", 0, '<Day,2>.<Month,2>.<Year4>');
-                    Sheet.Range('B' + Format(Compteur)).Value := Format(CrMemoLineRol2."Posting Date", 0, '<Day,2>.<Month,2>.<Year4>');
-                    Sheet.Range('C' + Format(Compteur)).Value := 'DG';
-                    Sheet.Range('D' + Format(Compteur)).Value := CrMemoLineRol2."Document No.";
+                    // Sheet.Range('E' + Format(Compteur)).Value := CodGCurrency;
 
-                    Sheet.Range('E' + Format(Compteur)).Value := CodGCurrency;
+                    // Sheet.Range('F' + Format(Compteur)).Value := TxtGBarCode;
 
-                    Sheet.Range('F' + Format(Compteur)).Value := TxtGBarCode;
+                    // Sheet.Range('G' + Format(Compteur)).Value := '1900';
+                    // //Sheet.Range('H'+FORMAT(Compteur)).Value:= '40';
+                    // Sheet.Range('H' + Format(Compteur)).Value := CstG40;
 
-                    Sheet.Range('G' + Format(Compteur)).Value := '1900';
-                    //Sheet.Range('H'+FORMAT(Compteur)).Value:= '40';
-                    Sheet.Range('H' + Format(Compteur)).Value := CstG40;
+                    // if CrMemoLineRol2.Type = CrMemoLineRol2.Type::"G/L Account" then
+                    //     Sheet.Range('I' + Format(Compteur)).Value := CrMemoLineRol2."No."
+                    // else
+                    //     Sheet.Range('I' + Format(Compteur)).Value := Fct_CalcAccountNoLine(CrMemoLineRol2."Gen. Bus. Posting Group",
+                    //                                                                    CrMemoLineRol2."Gen. Prod. Posting Group", '40');
 
-                    if CrMemoLineRol2.Type = CrMemoLineRol2.Type::"G/L Account" then
-                        Sheet.Range('I' + Format(Compteur)).Value := CrMemoLineRol2."No."
-                    else
-                        Sheet.Range('I' + Format(Compteur)).Value := Fct_CalcAccountNoLine(CrMemoLineRol2."Gen. Bus. Posting Group",
-                                                                                       CrMemoLineRol2."Gen. Prod. Posting Group", '40');
+                    // Sheet.Range('J' + Format(Compteur)).Value := Format(CrMemoLineRol2.Amount, 15, 2);
 
-                    Sheet.Range('J' + Format(Compteur)).Value := Format(CrMemoLineRol2.Amount, 15, 2);
+                    // Sheet.Range('K' + Format(Compteur)).Value := 0;
+                    // Sheet.Range('L' + Format(Compteur)).Value := CrMemoLineRol2."VAT Bus. Posting Group";
 
-                    Sheet.Range('K' + Format(Compteur)).Value := 0;
-                    Sheet.Range('L' + Format(Compteur)).Value := CrMemoLineRol2."VAT Bus. Posting Group";
+                    // //Sheet.Range('M'+FORMAT(Compteur)).Value:= CrMemoLineRol2.Description;
+                    // Sheet.Range('M' + Format(Compteur)).Value := CopyStr(CrMemoLineRol2."PWD LPSA Description 1", 1, 50);
 
-                    //Sheet.Range('M'+FORMAT(Compteur)).Value:= CrMemoLineRol2.Description;
-                    Sheet.Range('M' + Format(Compteur)).Value := CopyStr(CrMemoLineRol2."PWD LPSA Description 1", 1, 50);
+                    // Sheet.Range('N' + Format(Compteur)).Value := CrMemoLineRol2."Shortcut Dimension 2 Code";
+                    // Sheet.Range('O' + Format(Compteur)).Value := 'X';
+                    // Sheet.Range('P' + Format(Compteur)).Value := Fct_CalcShortcutDim3(CrMemoLineRol2."Document No.", CrMemoLineRol2."Line No.", '40');
+                    // Sheet.Range('Q' + Format(Compteur)).Value := '1900';
+                    // Sheet.Range('R' + Format(Compteur)).Value := Fct_CalcAccountNo(CrMemoLineRol2."Bill-to Customer No.");
+                    // Sheet.Range('S' + Format(Compteur)).Value := '72';
 
-                    Sheet.Range('N' + Format(Compteur)).Value := CrMemoLineRol2."Shortcut Dimension 2 Code";
-                    Sheet.Range('O' + Format(Compteur)).Value := 'X';
-                    Sheet.Range('P' + Format(Compteur)).Value := Fct_CalcShortcutDim3(CrMemoLineRol2."Document No.", CrMemoLineRol2."Line No.", '40');
-                    Sheet.Range('Q' + Format(Compteur)).Value := '1900';
-                    Sheet.Range('R' + Format(Compteur)).Value := Fct_CalcAccountNo(CrMemoLineRol2."Bill-to Customer No.");
-                    Sheet.Range('S' + Format(Compteur)).Value := '72';
-
-                    CodGShipNoLine := Fct_CalcShipNoLine(CrMemoLineRol2."Appl.-from Item Entry");
-                    if CodGShipNoLine = '' then
-                        CodGShipNoLine := CodGShipNo
-                    else
-                        CodGShipNo := CodGShipNoLine;
-                    Sheet.Range('T' + Format(Compteur)).Value := CodGShipNoLine;
+                    // CodGShipNoLine := Fct_CalcShipNoLine(CrMemoLineRol2."Appl.-from Item Entry");
+                    // if CodGShipNoLine = '' then
+                    //     CodGShipNoLine := CodGShipNo
+                    // else
+                    //     CodGShipNo := CodGShipNoLine;
+                    // Sheet.Range('T' + Format(Compteur)).Value := CodGShipNoLine;
                 end;
             }
 
@@ -408,38 +409,38 @@ report 50000 "Export Invoicing Data (Excel)"
                 trigger OnAfterGetRecord()
                 begin
                     Compteur := Compteur + 1;
+                    //TODO:The name 'Sheet' does not exist in the current context
+                    // Sheet.Range('A' + Format(Compteur)).Value := Format(InvoiceLineRol1."Posting Date", 0, '<Day,2>.<Month,2>.<Year4>');
+                    // Sheet.Range('B' + Format(Compteur)).Value := Format(InvoiceLineRol1."Posting Date", 0, '<Day,2>.<Month,2>.<Year4>');
+                    // Sheet.Range('C' + Format(Compteur)).Value := 'DR';
+                    // Sheet.Range('D' + Format(Compteur)).Value := InvoiceLineRol1."Document No.";
 
-                    Sheet.Range('A' + Format(Compteur)).Value := Format(InvoiceLineRol1."Posting Date", 0, '<Day,2>.<Month,2>.<Year4>');
-                    Sheet.Range('B' + Format(Compteur)).Value := Format(InvoiceLineRol1."Posting Date", 0, '<Day,2>.<Month,2>.<Year4>');
-                    Sheet.Range('C' + Format(Compteur)).Value := 'DR';
-                    Sheet.Range('D' + Format(Compteur)).Value := InvoiceLineRol1."Document No.";
+                    // Sheet.Range('E' + Format(Compteur)).Value := CodGCurrency;
 
-                    Sheet.Range('E' + Format(Compteur)).Value := CodGCurrency;
+                    // Sheet.Range('F' + Format(Compteur)).Value := TxtGBarCode;
 
-                    Sheet.Range('F' + Format(Compteur)).Value := TxtGBarCode;
+                    // Sheet.Range('G' + Format(Compteur)).Value := '1900';
+                    // //Sheet.Range('H'+FORMAT(Compteur)).Value:= '01';
+                    // Sheet.Range('H' + Format(Compteur)).Value := CstG01;
 
-                    Sheet.Range('G' + Format(Compteur)).Value := '1900';
-                    //Sheet.Range('H'+FORMAT(Compteur)).Value:= '01';
-                    Sheet.Range('H' + Format(Compteur)).Value := CstG01;
+                    // Sheet.Range('I' + Format(Compteur)).Value := TxtGOurAccountNo;
 
-                    Sheet.Range('I' + Format(Compteur)).Value := TxtGOurAccountNo;
+                    // Sheet.Range('J' + Format(Compteur)).Value := Format(InvoiceLineRol1.Amount, 15, 2);
 
-                    Sheet.Range('J' + Format(Compteur)).Value := Format(InvoiceLineRol1.Amount, 15, 2);
+                    // Sheet.Range('K' + Format(Compteur)).Value := 0;
+                    // Sheet.Range('L' + Format(Compteur)).Value := InvoiceLineRol1."VAT Bus. Posting Group";
 
-                    Sheet.Range('K' + Format(Compteur)).Value := 0;
-                    Sheet.Range('L' + Format(Compteur)).Value := InvoiceLineRol1."VAT Bus. Posting Group";
+                    // //Sheet.Range('M'+FORMAT(Compteur)).Value:= InvoiceLineRol1.Description;
+                    // Sheet.Range('M' + Format(Compteur)).Value := CopyStr("PWD LPSA Description 1", 1, 50);
 
-                    //Sheet.Range('M'+FORMAT(Compteur)).Value:= InvoiceLineRol1.Description;
-                    Sheet.Range('M' + Format(Compteur)).Value := CopyStr("PWD LPSA Description 1", 1, 50);
+                    // Sheet.Range('N' + Format(Compteur)).Value := '';
+                    // Sheet.Range('O' + Format(Compteur)).Value := '';
+                    // Sheet.Range('P' + Format(Compteur)).Value := '';
+                    // Sheet.Range('Q' + Format(Compteur)).Value := '';
+                    // Sheet.Range('R' + Format(Compteur)).Value := '';
+                    // Sheet.Range('S' + Format(Compteur)).Value := '';
 
-                    Sheet.Range('N' + Format(Compteur)).Value := '';
-                    Sheet.Range('O' + Format(Compteur)).Value := '';
-                    Sheet.Range('P' + Format(Compteur)).Value := '';
-                    Sheet.Range('Q' + Format(Compteur)).Value := '';
-                    Sheet.Range('R' + Format(Compteur)).Value := '';
-                    Sheet.Range('S' + Format(Compteur)).Value := '';
-
-                    Sheet.Range('T' + Format(Compteur)).Value := CodGShipNo;
+                    // Sheet.Range('T' + Format(Compteur)).Value := CodGShipNo;
                 end;
             }
             dataitem(InvoiceLineRol2; "Sales Invoice Line")
@@ -450,49 +451,49 @@ report 50000 "Export Invoicing Data (Excel)"
                 trigger OnAfterGetRecord()
                 begin
                     Compteur := Compteur + 1;
+                    //TODO:The name 'Sheet' does not exist in the current context
+                    // Sheet.Range('A' + Format(Compteur)).Value := Format(InvoiceLineRol2."Posting Date", 0, '<Day,2>.<Month,2>.<Year4>');
+                    // Sheet.Range('B' + Format(Compteur)).Value := Format(InvoiceLineRol2."Posting Date", 0, '<Day,2>.<Month,2>.<Year4>');
+                    // Sheet.Range('C' + Format(Compteur)).Value := 'DR';
+                    // Sheet.Range('D' + Format(Compteur)).Value := InvoiceLineRol2."Document No.";
 
-                    Sheet.Range('A' + Format(Compteur)).Value := Format(InvoiceLineRol2."Posting Date", 0, '<Day,2>.<Month,2>.<Year4>');
-                    Sheet.Range('B' + Format(Compteur)).Value := Format(InvoiceLineRol2."Posting Date", 0, '<Day,2>.<Month,2>.<Year4>');
-                    Sheet.Range('C' + Format(Compteur)).Value := 'DR';
-                    Sheet.Range('D' + Format(Compteur)).Value := InvoiceLineRol2."Document No.";
+                    // Sheet.Range('E' + Format(Compteur)).Value := CodGCurrency;
 
-                    Sheet.Range('E' + Format(Compteur)).Value := CodGCurrency;
+                    // Sheet.Range('F' + Format(Compteur)).Value := TxtGBarCode;
 
-                    Sheet.Range('F' + Format(Compteur)).Value := TxtGBarCode;
+                    // Sheet.Range('G' + Format(Compteur)).Value := '1900';
+                    // Sheet.Range('H' + Format(Compteur)).Value := '50';
+                    // Sheet.Range('H' + Format(Compteur)).Value := CstG50;
 
-                    Sheet.Range('G' + Format(Compteur)).Value := '1900';
-                    Sheet.Range('H' + Format(Compteur)).Value := '50';
-                    Sheet.Range('H' + Format(Compteur)).Value := CstG50;
+                    // if InvoiceLineRol2.Type = InvoiceLineRol2.Type::"G/L Account" then
+                    //     Sheet.Range('I' + Format(Compteur)).Value := InvoiceLineRol2."No."
+                    // else
+                    //     Sheet.Range('I' + Format(Compteur)).Value := Fct_CalcAccountNoLine(InvoiceLineRol2."Gen. Bus. Posting Group",
+                    //                                                                    InvoiceLineRol2."Gen. Prod. Posting Group", '50');
 
-                    if InvoiceLineRol2.Type = InvoiceLineRol2.Type::"G/L Account" then
-                        Sheet.Range('I' + Format(Compteur)).Value := InvoiceLineRol2."No."
-                    else
-                        Sheet.Range('I' + Format(Compteur)).Value := Fct_CalcAccountNoLine(InvoiceLineRol2."Gen. Bus. Posting Group",
-                                                                                       InvoiceLineRol2."Gen. Prod. Posting Group", '50');
+                    // Sheet.Range('J' + Format(Compteur)).Value := Format(InvoiceLineRol2.Amount, 15, 2);
 
-                    Sheet.Range('J' + Format(Compteur)).Value := Format(InvoiceLineRol2.Amount, 15, 2);
+                    // Sheet.Range('K' + Format(Compteur)).Value := 0;
+                    // Sheet.Range('L' + Format(Compteur)).Value := InvoiceLineRol2."VAT Bus. Posting Group";
 
-                    Sheet.Range('K' + Format(Compteur)).Value := 0;
-                    Sheet.Range('L' + Format(Compteur)).Value := InvoiceLineRol2."VAT Bus. Posting Group";
+                    // //Sheet.Range('M'+FORMAT(Compteur)).Value:= InvoiceLineRol2.Description;
+                    // Sheet.Range('M' + Format(Compteur)).Value := CopyStr(InvoiceLineRol2."PWD LPSA Description 1", 1, 50);
 
-                    //Sheet.Range('M'+FORMAT(Compteur)).Value:= InvoiceLineRol2.Description;
-                    Sheet.Range('M' + Format(Compteur)).Value := CopyStr(InvoiceLineRol2."PWD LPSA Description 1", 1, 50);
+                    // Sheet.Range('N' + Format(Compteur)).Value := InvoiceLineRol2."Shortcut Dimension 2 Code";
+                    // Sheet.Range('O' + Format(Compteur)).Value := 'X';
+                    // Sheet.Range('P' + Format(Compteur)).Value := Fct_CalcShortcutDim3(InvoiceLineRol2."Document No.", InvoiceLineRol2."Line No.", '50');
+                    // Sheet.Range('Q' + Format(Compteur)).Value := '1900';
+                    // Sheet.Range('R' + Format(Compteur)).Value := Fct_CalcAccountNo(InvoiceLineRol2."Bill-to Customer No.");
+                    // Sheet.Range('S' + Format(Compteur)).Value := '72';
 
-                    Sheet.Range('N' + Format(Compteur)).Value := InvoiceLineRol2."Shortcut Dimension 2 Code";
-                    Sheet.Range('O' + Format(Compteur)).Value := 'X';
-                    Sheet.Range('P' + Format(Compteur)).Value := Fct_CalcShortcutDim3(InvoiceLineRol2."Document No.", InvoiceLineRol2."Line No.", '50');
-                    Sheet.Range('Q' + Format(Compteur)).Value := '1900';
-                    Sheet.Range('R' + Format(Compteur)).Value := Fct_CalcAccountNo(InvoiceLineRol2."Bill-to Customer No.");
-                    Sheet.Range('S' + Format(Compteur)).Value := '72';
-
-                    CodGShipNoLine := InvoiceLineRol2."Shipment No.";
-                    if CodGShipNoLine = '' then
-                        CodGShipNoLine := Fct_CalcShipNoLine(InvoiceLineRol2."Appl.-from Item Entry");
-                    if CodGShipNoLine = '' then
-                        CodGShipNoLine := CodGShipNo
-                    else
-                        CodGShipNo := CodGShipNoLine;
-                    Sheet.Range('T' + Format(Compteur)).Value := CodGShipNoLine;
+                    // CodGShipNoLine := InvoiceLineRol2."Shipment No.";
+                    // if CodGShipNoLine = '' then
+                    //     CodGShipNoLine := Fct_CalcShipNoLine(InvoiceLineRol2."Appl.-from Item Entry");
+                    // if CodGShipNoLine = '' then
+                    //     CodGShipNoLine := CodGShipNo
+                    // else
+                    //     CodGShipNo := CodGShipNoLine;
+                    // Sheet.Range('T' + Format(Compteur)).Value := CodGShipNoLine;
                 end;
             }
 
@@ -576,8 +577,7 @@ report 50000 "Export Invoicing Data (Excel)"
 
     trigger OnPreReport()
     var
-        //TODO: Codeunit '3-Tier Automation Mgt.' is missing
-        //ThreeTierMngt: Codeunit "3-Tier Automation Mgt.";
+        ThreeTierMngt: Codeunit "File Management";
         ServerFile: File;
         TempFileName: Text[1024];
     begin
@@ -599,10 +599,11 @@ report 50000 "Export Invoicing Data (Excel)"
 
 
         if not IsServiceTier then begin
-            Excel.Visible(true);
-            Book := Excel.Workbooks.Add;
-            Sheet := Excel.Sheets.Add;
-            Sheet.Name := 'Clients non Rolex';
+            //TODO:
+            // Excel.Visible(true);
+            // Book := Excel.Workbooks.Add;
+            // Sheet := Excel.Sheets.Add;
+            // Sheet.Name := 'Clients non Rolex';
         end else begin
             ServerFile.CreateTempFile;
             TempFileName := ServerFile.Name + '.txt';
@@ -612,11 +613,11 @@ report 50000 "Export Invoicing Data (Excel)"
             ServerFile.Close;
 
             TempFileName := ThreeTierMngt.DownloadTempFile(TempFileName);
-
-            Excel.Workbooks.OpenText(TempFileName);
-            Excel.Visible(true);
-            Sheet := Excel.ActiveSheet;
-            Sheet.Name := 'Clients non Rolex';
+            //TODO:
+            // Excel.Workbooks.OpenText(TempFileName);
+            // Excel.Visible(true);
+            // Sheet := Excel.ActiveSheet;
+            // Sheet.Name := 'Clients non Rolex';
         end;
 
 
@@ -627,10 +628,12 @@ report 50000 "Export Invoicing Data (Excel)"
 
     var
         RecGGenLedgerSetup: Record "General Ledger Setup";
-        Book: Automation;
-        //TODO:The name 'Create' does not exist in the current context
-        Excel: Automation;
-        Sheet: Automation;
+        //TODO:DotNet 'EXCEL Workbook' is missing
+        //Book: DotNet "EXCEL Workbook";
+        //TODO:DotNet 'EXCEL ApplicationClass' is missing
+        //Excel: DotNet "EXCEL ApplicationClass";
+        //TODO: DotNet 'EXCEL Worksheet' is missing
+        //Sheet: DotNet "EXCEL Worksheet";
         CodGCurrency: Code[10];
         CodGShipNo: Code[20];
         CodGShipNoLine: Code[20];
@@ -749,8 +752,9 @@ report 50000 "Export Invoicing Data (Excel)"
 
     procedure Fct_CalcShortcutDim3(CodPDocNo: Code[20]; IntPLineNo: Integer; TxtPLineType: Text[2]): Code[20]
     var
-        //TODO:Table 'Posted Document Dimension' is missing
-        RecLPostedDocDim: Record "Posted Document Dimension";
+        //TODO:a vérifier Table 'Posted Document Dimension' est remplacée par la table "Dimension Set Entry"
+        //RecLPostedDocDim: Record "Posted Document Dimension"; 
+        DimSetEntry: Record "Dimension Set Entry";
         CodLDimValueCode: Code[20];
         IntLTableNo: Integer;
     begin
@@ -761,8 +765,8 @@ report 50000 "Export Invoicing Data (Excel)"
         else
             IntLTableNo := DATABASE::"Sales Invoice Line";
 
-        if RecLPostedDocDim.Get(IntLTableNo, CodPDocNo, IntPLineNo, RecGGenLedgerSetup."Shortcut Dimension 3 Code") then
-            CodLDimValueCode := RecLPostedDocDim."Dimension Value Code";
+        if DimSetEntry.Get(IntLTableNo, CodPDocNo, IntPLineNo, RecGGenLedgerSetup."Shortcut Dimension 3 Code") then
+            CodLDimValueCode := DimSetEntry."Dimension Value Code";
 
         exit(CodLDimValueCode);
     end;
