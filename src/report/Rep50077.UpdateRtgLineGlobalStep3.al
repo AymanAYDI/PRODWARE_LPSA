@@ -3,7 +3,7 @@ report 50077 "Update Rtg Line Global-Step 3"
     Caption = 'Update routing lines';
     ProcessingOnly = true;
     UseSystemPrinter = false;
-
+UsageCategory = none;
     dataset
     {
         dataitem(POL_rest; "Prod. Order Line")

@@ -24,7 +24,7 @@ pageextension 60048 "PWD SalesLines" extends "Sales Lines"
     {
         addafter("Sell-to Customer No.")
         {
-            field("PWD Name of Sell-to Customer No."; "PWD Name of Sell-to Customer No.")
+            field("PWD Name of Sell-to Customer No."; "PWD Name of Sell-to Cust. No.")
             {
                 ApplicationArea = All;
             }
@@ -42,7 +42,7 @@ pageextension 60048 "PWD SalesLines" extends "Sales Lines"
         }
         addafter("Outstanding Quantity")
         {
-            field("PWD Cust Promised Delivery Date"; "PWD Cust Promised Delivery Date")
+            field("PWD Cust Promised Delivery Date"; "PWD Cust Promis. Delivery Date")
             {
                 Caption = 'Date livraison confirmée client';
                 Editable = false;

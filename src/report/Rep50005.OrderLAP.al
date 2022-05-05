@@ -71,6 +71,7 @@ report 50005 "PWD Order LAP"
     RDLCLayout = './src/report/rdl/OrderLAP.rdl';
 
     Caption = 'Order';
+    UsageCategory = none;
 
     dataset
     {
@@ -1549,7 +1550,7 @@ report 50005 "PWD Order LAP"
 
                 //>>LAP2.12
                 TxtGSubcontractingLegalText := '';
-                if PurchSetup."PWD Subcontracting Order Series No" = "Purchase Header"."No. Series" then
+                if PurchSetup."PWD Subcontra. Order Series No" = "Purchase Header"."No. Series" then
                     TxtGSubcontractingLegalText := PurchSetup."PWD Subcontracting Legal Text";
                 //<<LAP2.12
             end;
@@ -1677,14 +1678,12 @@ report 50005 "PWD Order LAP"
         ArchiveDocumentEnable: Boolean;
         BooGStopComment: Boolean;
         Continue: Boolean;
-        ISitem: Boolean;
         LogInteraction: Boolean;
         [InDataSet]
         LogInteractionEnable: Boolean;
         MoreLines: Boolean;
         ShowInternalInfo: Boolean;
         CodGCrossReferenceNo: Code[20];
-        PrepmtAmountInclVAT: Decimal;
         PrepmtLineAmount: Decimal;
         PrepmtTotalAmountInclVAT: Decimal;
         PrepmtVATAmount: Decimal;
@@ -1695,8 +1694,6 @@ report 50005 "PWD Order LAP"
         VATAmount: Decimal;
         VATBaseAmount: Decimal;
         VATDiscountAmount: Decimal;
-        "---- LAP2.12 ----": Integer;
-        "--- LAP2.15 ---": Integer;
         NoOfCopies: Integer;
         NoOfLoops: Integer;
         OutputNo: Integer;
@@ -1724,7 +1721,6 @@ report 50005 "PWD Order LAP"
         CstGText013: Label ' / ';
         CstGText014: Label 'Best regards.';
         CstGText015: Label 'Horaires réception : 8h-12h';
-        CstGText016: Label '                                13h30-16h.';
         DateCaptionLbl: Label 'Date';
         Direct_Unit_CostCaptionLbl: Label 'Direct Unit Cost';
         Header_DimensionsCaptionLbl: Label 'Header Dimensions';

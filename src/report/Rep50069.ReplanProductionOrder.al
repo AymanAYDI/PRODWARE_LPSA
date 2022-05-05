@@ -2,7 +2,7 @@ report 50069 "PWD Replan Production Order"
 {
     Caption = 'Replan Production Order';
     ProcessingOnly = true;
-
+    UsageCategory = none;
     dataset
     {
         dataitem("Production Order"; "Production Order")

@@ -44,7 +44,7 @@ tableextension 60015 "PWD SalesInvoiceLine" extends "Sales Invoice Line"
         {
             Caption = 'Initial Shipment Date';
         }
-        field(50008; "PWD Cust Promised Delivery Date"; Date)
+        field(50008; "PWD Cust Promised Deliv. Date"; Date)
         {
             Caption = 'Customer Promised Delivery Date';
             Description = 'TDL.LPSA';

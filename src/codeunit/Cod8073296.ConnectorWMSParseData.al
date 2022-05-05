@@ -1340,10 +1340,10 @@ codeunit 8073296 "PWD Connector WMS Parse Data"
 
         if RecLWMSReceiptLineBuffer."Qty on receipt error (Base)" <> '' then begin
             Evaluate(DecLQtyError, RecLWMSReceiptLineBuffer."Qty on receipt error (Base)");
-            RecPPurchaseLine.Validate("PWD WMS_Qty receipt error (Base)", DecLQtyError);
+            RecPPurchaseLine.Validate("PWD WMS_Qty receipt error Base", DecLQtyError);
         end;
 
-        RecPPurchaseLine.Validate("PWD WMS_Reason Code Receipt Error", RecLWMSReceiptLineBuffer."Reason Code Receipt Error");
+        RecPPurchaseLine.Validate("PWD WMS_Reason Code Rece. Err", RecLWMSReceiptLineBuffer."Reason Code Receipt Error");
         RecPPurchaseLine.Validate("PWD WMS_Status", RecPPurchaseLine."PWD WMS_Status"::Received);
 
         RecPPurchaseLine.CalcFields("PWD WMS_Item");

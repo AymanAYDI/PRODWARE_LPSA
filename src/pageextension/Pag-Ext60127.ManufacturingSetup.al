@@ -27,7 +27,7 @@ pageextension 60127 "PWD ManufacturingSetup" extends "Manufacturing Setup"
     {
         addafter("Default Dampener %")
         {
-            field("PWD Mach. center - Inventory input"; "PWD Mach. center - Inventory input")
+            field("PWD Mach. center - Inventory input"; "PWD Mach. center-Invent. input")
             {
                 ApplicationArea = All;
             }

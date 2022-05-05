@@ -41,7 +41,6 @@ pageextension 60089 "PWD ItemTrackingLines" extends "Item Tracking Lines"
         gCurrSourceSpecDueDate: Date;
         gLotDeterminingExpirDate: Date;
         CstGErr0001: Label 'You only can assign one Lot!';
-        CstGErr0002: Label 'Lot Inheritance: You can''t assign a Lot No.,\because there is no Lot assigned to the lot determining component.';
 
 
 

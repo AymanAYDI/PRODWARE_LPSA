@@ -36,7 +36,7 @@ table 50011 "PWD Phantom substitution Items"
                 IF "Lot No." <> xRec."Lot No." THEN BEGIN
                     RecLItemLedgentry.SETRANGE("Item No.", "Item No.");
                     RecLItemLedgentry.SETRANGE("Lot No.", "Lot No.");
-                    IF NOT RecLItemLedgentry.FIND('-') THEN
+                    IF RecLItemLedgentry.IsEmpty THEN
                         ERROR(Text1, "Lot No.", "Item No.");
                 END;
             end;

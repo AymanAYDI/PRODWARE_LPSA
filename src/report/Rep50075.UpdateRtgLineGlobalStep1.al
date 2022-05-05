@@ -3,7 +3,8 @@ report 50075 "Update Rtg Line Global-Step 1"
     Caption = 'Update routing lines';
     ProcessingOnly = true;
     UseSystemPrinter = false;
-
+    ApplicationArea = all;
+    UsageCategory = Tasks;
     dataset
     {
         dataitem(POL_Sauv; "Prod. Order Line")

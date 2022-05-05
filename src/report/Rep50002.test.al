@@ -2,6 +2,7 @@ report 50002 "PWD test"
 {
     ProcessingOnly = true;
     UseRequestPage = false;
+    UsageCategory = none;
 
     dataset
     {

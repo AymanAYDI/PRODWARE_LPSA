@@ -13,7 +13,7 @@ report 8073282 "PWD Delete Connector Error Log"
 
     Caption = 'Connector Error Log';
     ProcessingOnly = true;
-
+    UsageCategory = none;
     dataset
     {
         dataitem("PWD Connector Error log"; "PWD Connector Error Log")

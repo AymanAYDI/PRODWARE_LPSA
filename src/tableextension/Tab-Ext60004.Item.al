@@ -154,7 +154,7 @@ tableextension 60004 "PWD Item" extends Item
             Editable = false;
             FieldClass = FlowField;
         }
-        field(50010; "PWD Released Qty. on Prod. Order"; Decimal)
+        field(50010; "PWD Rele. Qty. on Prod. Order"; Decimal)
         {
             CalcFormula = Sum("Prod. Order Line"."Remaining Qty. (Base)" WHERE(Status = FILTER(Released),
                                                                                 "Item No." = FIELD("No."),
@@ -187,7 +187,7 @@ tableextension 60004 "PWD Item" extends Item
             Enabled = false;
             FieldClass = FlowField;
         }
-        field(50013; "PWD Firm Plan. Qty. on Prod. Order"; Decimal)
+        field(50013; "PWD Firm Plan. Qty. Prod. Ord."; Decimal)
         {
             CalcFormula = Sum("Prod. Order Line"."Remaining Qty. (Base)" WHERE(Status = FILTER("Firm Planned"),
                                                                                 "Item No." = FIELD("No."),
@@ -423,7 +423,7 @@ tableextension 60004 "PWD Item" extends Item
     begin
         ItemLedgEntry.SetCurrentKey("Item No.");
         ItemLedgEntry.SetRange("Item No.", "No.");
-        if ItemLedgEntry.Find('-') then
+        if not ItemLedgEntry.IsEmpty then
             exit(false);
 
         PurchOrderLine.SetCurrentKey("Document Type", Type, "No.");
@@ -433,7 +433,7 @@ tableextension 60004 "PWD Item" extends Item
           PurchOrderLine."Document Type"::"Return Order");
         PurchOrderLine.SetRange(Type, PurchOrderLine.Type::Item);
         PurchOrderLine.SetRange("No.", "No.");
-        if PurchOrderLine.Find('-') then
+        if not PurchOrderLine.IsEmpty then
             exit(false);
 
         exit(true);

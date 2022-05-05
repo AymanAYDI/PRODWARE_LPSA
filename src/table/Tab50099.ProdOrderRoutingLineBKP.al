@@ -156,12 +156,6 @@ table 50099 "Prod. Order Routing Line BKP"
             TableRelation = "Standard Task";
 
             trigger OnValidate()
-            var
-                StandardTask: Record "Standard Task";
-                StdTaskComment: Record "Standard Task Description";
-                StdTaskPersonnel: Record "Standard Task Personnel";
-                StdTaskQltyMeasure: Record "Standard Task Quality Measure";
-                StdTaskTool: Record "Standard Task Tool";
             begin
             end;
         }
@@ -382,7 +376,6 @@ table 50099 "Prod. Order Routing Line BKP"
             Description = 'Free field displayed in Planner One detail panel';
         }
     }
-
     keys
     {
         key(Key1; Status, "Prod. Order No.", "Routing Reference No.", "Routing No.", "Operation No.")

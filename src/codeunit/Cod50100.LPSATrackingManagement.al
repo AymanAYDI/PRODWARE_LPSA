@@ -959,7 +959,6 @@ codeunit 50100 "PWD LPSA Tracking Management"
     local procedure SetQtyToHandleAndInvoice(TrackingSpecification: Record "Tracking Specification") OK: Boolean
     var
         ReservEntry1: Record "Reservation Entry";
-        ReservationMgt: Codeunit "Reservation Management";
         QtyAlreadyHandledToInvoice: Decimal;
         QtyToHandleThisLine: Decimal;
         QtyToInvoiceThisLine: Decimal;

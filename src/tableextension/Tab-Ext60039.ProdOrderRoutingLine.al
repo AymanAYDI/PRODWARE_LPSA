@@ -51,7 +51,5 @@ tableextension 60039 "PWD ProdOrderRoutingLine" extends "Prod. Order Routing Lin
         key(Key50001; "Routing No.") { }
 
     }
-    var
-        DateChangedByPlannerOne: Boolean;
 }
 

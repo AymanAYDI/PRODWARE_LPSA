@@ -4,7 +4,7 @@ report 50072 "PWD VAT - VIES Declaration XML"
     RDLCLayout = './VATVIESDeclarationXML.rdlc';
     Caption = 'VAT - VIES Declaration XML';
     ProcessingOnly = false;
-
+UsageCategory = none;
     dataset
     {
         dataitem("VAT Entry"; "VAT Entry")

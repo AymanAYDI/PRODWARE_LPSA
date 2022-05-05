@@ -143,7 +143,6 @@ codeunit 8073290 "PWD Connector Peb Parse Data"
 
     var
         CduGConnectBufMgtExport: Codeunit "Connector Buffer Mgt Export";
-        CduGFileManagement: Codeunit "File Management";
         CduGBufferManagement: Codeunit "PWD Buffer Management";
         // AutGXMLDom: Automation; //TODO: Variable de type Automation
         CstGDecValue: Label 'La valeur décimal %1 n''est pas correcte';

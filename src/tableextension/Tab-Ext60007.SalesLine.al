@@ -97,7 +97,7 @@ tableextension 60007 "PWD SalesLine" extends "Sales Line"
         {
             Caption = 'Initial Shipment Date';
         }
-        field(50008; "PWD Cust Promised Delivery Date"; Date)
+        field(50008; "PWD Cust Promis. Delivery Date"; Date)
         {
             Caption = 'Customer Promised Delivery Date';
             Description = 'TDL.LPSA';
@@ -107,7 +107,7 @@ tableextension 60007 "PWD SalesLine" extends "Sales Line"
                 TestStatusOpen();
             end;
         }
-        field(50010; "PWD Name of Sell-to Customer No."; Text[100])
+        field(50010; "PWD Name of Sell-to Cust. No."; Text[100])
         {
             CalcFormula = Lookup(Customer.Name WHERE("No." = FIELD("Sell-to Customer No.")));
             Caption = 'Name of Sell-to Customer No.';

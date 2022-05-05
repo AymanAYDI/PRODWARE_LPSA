@@ -24,12 +24,6 @@ table 8073322 "PWD WMS Item Jnl Line Buffer"
             Caption = 'WMS Company Code';
             FieldClass = Normal;
             Numeric = true;
-
-            trigger OnValidate()
-            var
-                IntLWMSCompany: Integer;
-            begin
-            end;
         }
         field(20; "WMS Reson Code"; Text[10])
         {

@@ -11,7 +11,7 @@ report 50045 "PWD TPL Suppression Gamme"
     // ------------------------------------------------------------------------------------------------------------------
     DefaultLayout = RDLC;
     RDLCLayout = './src/report/rdl/TPLSuppressionGamme.rdl';
-
+    UsageCategory = none;
 
     dataset
     {
@@ -85,7 +85,7 @@ report 50045 "PWD TPL Suppression Gamme"
                         ShowCaption = false;
                         trigger OnLookup(var Text: Text): Boolean
                         var
-                            // CduGCommonDialogMgt: CodeUnit "Common Dialog Management";//TODO: Codeunit n'existe pas(code standard dans la version 2009)
+                        // CduGCommonDialogMgt: CodeUnit "Common Dialog Management";//TODO: Codeunit n'existe pas(code standard dans la version 2009)
                         begin
                             // TxtGFile := CduLCommonDialogMgt.OpenFile('Fichier à importer', TxtGFile, 1, 'Filter', 0); //TODO: Codeunit n'existe pas(code standard dans la version 2009)
                         end;

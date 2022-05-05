@@ -6,7 +6,6 @@ report 50068 "PWD Routing Sheet"
     ApplicationArea = Manufacturing;
     Caption = 'Routing Sheet';
     UsageCategory = ReportsAndAnalysis;
-
     dataset
     {
         dataitem(Item; Item)

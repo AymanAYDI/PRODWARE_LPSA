@@ -2,7 +2,7 @@ report 50083 "PWD Update Order Multiple"
 {
     DefaultLayout = RDLC;
     ProcessingOnly = true;
-
+UsageCategory = none;
     dataset
     {
         dataitem("New Order By"; "PWD New Order By")

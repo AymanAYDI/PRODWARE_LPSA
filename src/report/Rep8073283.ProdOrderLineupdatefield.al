@@ -12,7 +12,7 @@ report 8073283 "Prod. Order Line update field"
 
     Caption = 'Prod. Order Line update field (Osys)';
     ProcessingOnly = true;
-
+    UsageCategory = none;
     dataset
     {
         dataitem("Prod. Order Line"; "Prod. Order Line")

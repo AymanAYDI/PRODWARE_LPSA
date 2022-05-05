@@ -266,13 +266,13 @@ codeunit 50002 "PWD Lot Inheritance Mgt.PW"
                 ItemLedgEntry.SETRANGE("Entry Type", ItemLedgEntry."Entry Type"::Consumption);
                 ItemLedgEntry.SETRANGE("Item No.", ProdOrderComp."Item No.");
 
-                IF ItemLedgEntry.FIND('-') THEN
+                IF ItemLedgEntry.FindSet() THEN
                     REPEAT
                         TempItemLedgEntry := ItemLedgEntry;
                         TempItemLedgEntry.INSERT();
                     UNTIL ItemLedgEntry.NEXT() = 0;
 
-                IF TempItemLedgEntry.FIND('-') THEN BEGIN
+                IF TempItemLedgEntry.FindSet() THEN BEGIN
                     REPEAT
                         //Begin#803/01:A20071/3.00  11.05.07 TECTURA.WW
                         // ORIG:
@@ -432,7 +432,7 @@ codeunit 50002 "PWD Lot Inheritance Mgt.PW"
     var
         SourceTrkgSpec: Record "Tracking Specification";
         TempTrackingSpecification: Record "Tracking Specification" temporary;
-        cuReserveItemJnlLine: Codeunit "Item Jnl. Line-Reserve";
+        // cuReserveItemJnlLine: Codeunit "Item Jnl. Line-Reserve";
         frmItemTrkgLines: Page "Item Tracking Lines";
     begin
 
@@ -448,7 +448,7 @@ codeunit 50002 "PWD Lot Inheritance Mgt.PW"
         IF TempTrackingSpecification.COUNT > 1 THEN
             ERROR(CstG004);
 
-        IF NOT TempTrackingSpecification.FIND('-') THEN
+        IF TempTrackingSpecification.IsEmpty THEN
             EXIT;
 
         //pioItemJnlLine."Phys. Inv. Lot Number" := TempTrackingSpecification."Lot Number";
@@ -469,7 +469,6 @@ codeunit 50002 "PWD Lot Inheritance Mgt.PW"
         ReservEntry: Record "Reservation Entry";
         TempTrackingSpecification: Record "Tracking Specification" temporary;
         TrackingSpecification: Record "Tracking Specification";
-        cuReserveItemJnlLine: Codeunit "Item Jnl. Line-Reserve";
         FrmItemTrackingForm: Page "Item Tracking Lines";
         OutputFound: Boolean;
         Stop: Boolean;
@@ -536,7 +535,7 @@ codeunit 50002 "PWD Lot Inheritance Mgt.PW"
                     ProdOrderRtngLine.SETRANGE("Prod. Order No.", ProdOrderRtngLine."Prod. Order No.");
                     ProdOrderRtngLine.SETRANGE("Routing No.", ProdOrderRtngLine."Routing No.");
                     ProdOrderRtngLine.SETRANGE("Routing Reference No.", ProdOrderRtngLine."Routing Reference No.");
-                    IF NOT ProdOrderRtngLine.FIND('>') THEN BEGIN
+                    IF ProdOrderRtngLine.IsEmpty THEN BEGIN
                         Stop := TRUE;
                         OutputFound := TRUE;
                     END ELSE
@@ -828,10 +827,6 @@ codeunit 50002 "PWD Lot Inheritance Mgt.PW"
         cuItemTrackingMgt: Codeunit "Item Tracking Management";
         CheckDates: Boolean;
         CheckStatus: Boolean;
-        LotInfoRequired: Boolean;
-        LotRequired: Boolean;
-        SNInfoRequired: Boolean;
-        SNRequired: Boolean;
         CountryCode: Code[10];
         CustomerNo: Code[20];
         PlannedDelivDate: Date;
@@ -1187,7 +1182,6 @@ codeunit 50002 "PWD Lot Inheritance Mgt.PW"
         Item: Record Item;
         TempTrackingSpecification: Record "Tracking Specification" temporary;
         TrackingSpecification: Record "Tracking Specification";
-        cuReserveProdOrderLine: Codeunit "Prod. Order Line-Reserve";
         cuTradingUnitMgt: Codeunit "PWD Trading Unit Mgt.PW";
         frmItemTrackingForm: Page "Item Tracking Lines";
         LotDetLotCode: Code[30];
@@ -1250,7 +1244,7 @@ codeunit 50002 "PWD Lot Inheritance Mgt.PW"
         IF RecLProdBOM.GET(RecPItem."Production BOM No.") THEN BEGIN
             NeededHits := 0;
             RecLProdBOMLine.SETRANGE(RecLProdBOMLine."Production BOM No.", RecLProdBOM."No.");
-            IF RecLProdBOMLine.FINDFIRST() THEN
+            IF RecLProdBOMLine.FindSet() THEN
                 REPEAT
                     /*
                     IF gcuLotInheritanceMgt.CheckBOMDetermining(RecLProdBOMLine, NeededHits) THEN
@@ -1274,7 +1268,6 @@ codeunit 50002 "PWD Lot Inheritance Mgt.PW"
         TempTrackingSpecification: Record "Tracking Specification" temporary;
         TrackingSpecification: Record "Tracking Specification";
         cuTradingUnitMgt: Codeunit "PWD Trading Unit Mgt.PW";
-        cuReserveReqLine: Codeunit "Req. Line-Reserve";
         FrmItemTrackingForm: Page "Item Tracking Lines";
         LotDetLotCode: Code[30];
         LotDetExpirDate: Date;
@@ -1394,7 +1387,6 @@ codeunit 50002 "PWD Lot Inheritance Mgt.PW"
         Item: Record Item;
         TempTrackingSpecification: Record "Tracking Specification" temporary;
         TrackingSpecification: Record "Tracking Specification";
-        cuReserveProdOrderLine: Codeunit "Prod. Order Line-Reserve";
         cuTradingUnitMgt: Codeunit "PWD Trading Unit Mgt.PW";
         FrmItemTrackingForm: Page "Item Tracking Lines";
         LotDetLotCode: Code[30];

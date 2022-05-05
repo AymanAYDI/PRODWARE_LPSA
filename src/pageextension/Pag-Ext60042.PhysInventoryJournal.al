@@ -32,7 +32,6 @@ pageextension 60042 "PWD PhysInventoryJournal" extends "Phys. Inventory Journal"
 
                 trigger OnAction()
                 var
-                    RecLItem: Record 27;
                     RecLItemJournalLine: Record 83;
                 begin
                     IF CONFIRM(CstG001, FALSE, "Journal Template Name", "Journal Batch Name") THEN BEGIN
@@ -41,7 +40,6 @@ pageextension 60042 "PWD PhysInventoryJournal" extends "Phys. Inventory Journal"
                         RecLItemJournalLine.SETRANGE("Journal Batch Name", "Journal Batch Name");
                         IF RecLItemJournalLine.FINDFIRST() THEN
                             REPEAT
-
                                 RecLItemJournalLine.CreateDim(
                                   DATABASE::Item, "Item No.",
                                   DATABASE::"Salesperson/Purchaser", "Salespers./Purch. Code",
@@ -144,7 +142,7 @@ pageextension 60042 "PWD PhysInventoryJournal" extends "Phys. Inventory Journal"
                                     RecLItemLedgerEntryBuffer.SETRANGE("Variant Code", RecLItemJournalLine."Variant Code");
                                     RecLItemLedgerEntryBuffer.SETRANGE("Location Code", RecLItemJournalLine."Location Code");
                                     RecLItemLedgerEntryBuffer.SETRANGE(Open, TRUE);
-                                    IF RecLItemLedgerEntryBuffer.FINDFIRST() THEN
+                                    IF RecLItemLedgerEntryBuffer.FindSet() THEN
                                         REPEAT
                                             RecLReservationEntry.RESET();
                                             RecLReservationEntry.FINDLAST();

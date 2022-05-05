@@ -8,7 +8,7 @@ pageextension 60017 "PWD SalesOrders" extends "Sales Orders"
             {
                 ApplicationArea = All;
             }
-            field("PWD Cust Promised Delivery Date"; "PWD Cust Promised Delivery Date")
+            field("PWD Cust Promised Delivery Date"; "PWD Cust Promis. Delivery Date")
             {
                 ApplicationArea = All;
             }

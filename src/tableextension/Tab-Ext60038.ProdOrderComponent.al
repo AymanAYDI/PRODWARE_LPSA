@@ -95,12 +95,10 @@ tableextension 60038 "PWD ProdOrderComponent" extends "Prod. Order Component"
 
     procedure UpdateReserveItemPhantom()
     var
-        Item: Record Item;
         TempReservEntry: Record "Reservation Entry" temporary;
         RecLTrackingSpec: Record "Tracking Specification" temporary;
         RecLTrackingSpecPhantom: Record "Tracking Specification Phantom";
         ItemTrackingDataCollection: Codeunit "Item Tracking Data Collection";
-        ReserveProdOrderComp: Codeunit "Prod. Order Comp.-Reserve";
         LPSAFunctionsMgt: Codeunit "PWD LPSA Functions Mgt.";
         ReservEngineMgt: Codeunit "Reservation Engine Mgt.";
         CurrentSignFactor: Decimal;

@@ -15,7 +15,7 @@ report 50059 "PWD Update Cost Method V2"
 
     Caption = 'Update Cost Method';
     ProcessingOnly = true;
-
+    UsageCategory = none;
     dataset
     {
         dataitem(PurchasedItem; Item)

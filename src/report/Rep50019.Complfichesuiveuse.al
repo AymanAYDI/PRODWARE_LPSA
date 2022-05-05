@@ -11,6 +11,7 @@ report 50019 "PWD Compl. fiche suiveuse"
     //                   - Add BarCode for OF in Layout
     DefaultLayout = RDLC;
     RDLCLayout = './src/report/rdl/Complfichesuiveuse.rdl';
+    UsageCategory = none;
 
 
     dataset
@@ -204,7 +205,7 @@ report 50019 "PWD Compl. fiche suiveuse"
                         RecLItemLedgerEntry.SetRange("Entry Type", RecLItemLedgerEntry."Entry Type"::Consumption);
                         RecLItemLedgerEntry.SetRange("Document No.", "Production Order"."No.");
                         RecLItemLedgerEntry.SetFilter("Lot No.", '<>%1', '');
-                        if RecLItemLedgerEntry.FindFirst() then
+                        if RecLItemLedgerEntry.FindSet() then
                             repeat
                                 case RecLItemLedgerEntry."Lot No." of
                                     Lot1:

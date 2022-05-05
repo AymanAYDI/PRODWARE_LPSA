@@ -118,13 +118,13 @@ tableextension 60009 "PWD PurchaseLine" extends "Purchase Line"
             Editable = false;
             FieldClass = FlowField;
         }
-        field(8073286; "PWD WMS_Qty receipt error (Base)"; Decimal)
+        field(8073286; "PWD WMS_Qty receipt error Base"; Decimal)
         {
             Caption = 'WMS_Quantity on Receipt Error (Base)';
             Description = 'ProdConnect1.5';
             Editable = false;
         }
-        field(8073287; "PWD WMS_Reason Code Receipt Error"; Code[2])
+        field(8073287; "PWD WMS_Reason Code Rece. Err"; Code[2])
         {
             Caption = 'WMS_Reason Code Receipt Error';
             Description = 'ProdConnect1.5';

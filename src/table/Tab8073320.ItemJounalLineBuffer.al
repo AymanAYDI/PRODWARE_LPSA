@@ -113,12 +113,6 @@ table 8073320 "PWD Item Jounal Line Buffer"
         field(22; "Posting Date"; Text[12])
         {
             Caption = 'Posting Date';
-
-            trigger OnValidate()
-            var
-                CheckDateConflict: Codeunit "Reservation-Check Date Confl.";
-            begin
-            end;
         }
         field(23; "Entry Type"; Option)
         {
@@ -141,12 +135,6 @@ table 8073320 "PWD Item Jounal Line Buffer"
         field(27; Quantity; Text[15])
         {
             Caption = 'Quantity';
-
-            trigger OnValidate()
-            var
-                CallWhseCheck: Boolean;
-            begin
-            end;
         }
         field(28; "Source Type"; Option)
         {

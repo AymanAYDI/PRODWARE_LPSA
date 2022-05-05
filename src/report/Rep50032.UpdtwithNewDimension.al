@@ -33,6 +33,7 @@ report 50032 "PWD Updt with New Dimension"
                   TableData "Transfer Shipment Line" = r,
                   TableData "Transfer Receipt Line" = r;
     ProcessingOnly = true;
+    UsageCategory = none;
 
     dataset
     {

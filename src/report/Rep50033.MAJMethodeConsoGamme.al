@@ -1,7 +1,7 @@
 report 50033 "PWD MAJ Methode Conso Gamme"
 {
     ProcessingOnly = true;
-
+    UsageCategory = none;
     dataset
     {
         dataitem("Routing Line"; "Routing Line")

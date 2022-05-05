@@ -1142,8 +1142,7 @@ xmlport 8073323 "PWD Export Prod Order OSYS"
         RecLProdOrderRoutingLine2.SetRange("Flushing Method", RecLProdOrderRoutingLine2."Flushing Method"::Manual);
         //<<OSYS-Int001.003
 
-        if (RecLProdOrderRoutingLine2.Count < 2) then     //Ma gamme n'est pas une gamme parallèle
-        begin
+        if (RecLProdOrderRoutingLine2.Count < 2) then begin     //Ma gamme n'est pas une gamme parallèle
             CodPNextOp := '';
             exit(true);
         end

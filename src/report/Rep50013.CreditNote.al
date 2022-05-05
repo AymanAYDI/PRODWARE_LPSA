@@ -48,6 +48,7 @@ report 50013 "PWD Credit Note"
 
     Caption = 'Sales - Credit Memo';
     Permissions = TableData "Sales Shipment Buffer" = rimd;
+    UsageCategory = none;
 
     dataset
     {
@@ -719,7 +720,6 @@ report 50013 "PWD Credit Note"
 
     var
         CompanyInfo: Record "Company Information";
-        CurrExchRate: Record "Currency Exchange Rate";
         //TODO: Table 'Posted Document Dimension' is missing
         // PostedDocDim1: Record "Posted Document Dimension";
         // PostedDocDim2: Record "Posted Document Dimension";
@@ -730,7 +730,6 @@ report 50013 "PWD Credit Note"
         ItemLedgEntry: Record "Item Ledger Entry";
         TempItemLedgEntry: Record "Item Ledger Entry";
         PaymentTerms: Record "Payment Terms";
-        ReservEntry: Record "Reservation Entry";
         RespCenter: Record "Responsibility Center";
         RecGSalesCommentLine: Record "Sales Comment Line";
         SalesPurchPerson: Record "Salesperson/Purchaser";
@@ -749,7 +748,6 @@ report 50013 "PWD Credit Note"
         BooGEnvoiMail: Boolean;
         BooGSkipSendEmail: Boolean;
         BooGStopComment: Boolean;
-        Continue: Boolean;
         LogInteraction: Boolean;
         [InDataSet]
         LogInteractionEnable: Boolean;
@@ -760,21 +758,15 @@ report 50013 "PWD Credit Note"
         CustName: Code[20];
         LotNo: Code[20];
         PostedReceiptDate: Date;
-        CalculatedExchRate: Decimal;
         NNC_TotalAmount: Decimal;
         NNC_TotalAmountInclVat: Decimal;
         NNC_TotalInvDiscAmount: Decimal;
         NNC_TotalLCY: Decimal;
         NNC_TotalLineAmount: Decimal;
         NNC_VATAmount: Decimal;
-        VALVATAmountLCY: Decimal;
-        VALVATBaseLCY: Decimal;
-        "---- NDBI ----": Integer;
-        "-TI414158-": Integer;
         FirstValueEntryNo: Integer;
         i: Integer;
         IntGImpText: Integer;
-        NextEntryNo: Integer;
         NoOfCopies: Integer;
         NoOfLoops: Integer;
         OutputNo: Integer;

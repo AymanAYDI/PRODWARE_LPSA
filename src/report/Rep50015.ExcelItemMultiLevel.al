@@ -12,6 +12,8 @@ report 50015 "PWD Excel Item Multi-Level"
 
     Caption = 'Excel Item Multi-Level';
     ProcessingOnly = true;
+    ApplicationArea = all;
+    UsageCategory = Tasks;
 
     dataset
     {

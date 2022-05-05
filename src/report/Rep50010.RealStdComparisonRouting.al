@@ -13,6 +13,8 @@ report 50010 "Real Std Comparison Routing"
     RDLCLayout = './src/report/rdl/RealStdComparisonRouting.rdl';
 
     Caption = 'Real Standard Comparison Routing';
+    ApplicationArea = all;
+    UsageCategory = ReportsAndAnalysis;
 
     dataset
     {

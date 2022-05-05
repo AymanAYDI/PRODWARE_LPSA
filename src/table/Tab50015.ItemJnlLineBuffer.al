@@ -36,8 +36,6 @@ table 50015 "PWD Item Jnl Line Buffer"
             Caption = 'Posting Date';
 
             trigger OnValidate()
-            var
-                CheckDateConflict: Codeunit "Reservation-Check Date Confl.";
             begin
             end;
         }
@@ -91,11 +89,6 @@ table 50015 "PWD Item Jnl Line Buffer"
             Caption = 'Quantity';
             DecimalPlaces = 0 : 5;
 
-            trigger OnValidate()
-            var
-                CallWhseCheck: Boolean;
-            begin
-            end;
         }
         field(15; "Invoiced Quantity"; Decimal)
         {
@@ -138,12 +131,6 @@ table 50015 "PWD Item Jnl Line Buffer"
         field(29; "Applies-to Entry"; Integer)
         {
             Caption = 'Applies-to Entry';
-
-            trigger OnValidate()
-            var
-                ItemLedgEntry: Record "Item Ledger Entry";
-            begin
-            end;
         }
         field(32; "Item Shpt. Entry No."; Integer)
         {
@@ -516,12 +503,6 @@ table 50015 "PWD Item Jnl Line Buffer"
             AutoFormatType = 1;
             Caption = 'Inventory Value (Revalued)';
             MinValue = 0;
-
-            trigger OnValidate()
-            var
-                NewUnitCost: Decimal;
-            begin
-            end;
         }
         field(5804; "Variance Type"; Option)
         {
@@ -546,11 +527,6 @@ table 50015 "PWD Item Jnl Line Buffer"
             Caption = 'Applies-from Entry';
             MinValue = 0;
 
-            trigger OnValidate()
-            var
-                ItemLedgEntry: Record "Item Ledger Entry";
-            begin
-            end;
         }
         field(5808; "Invoice No."; Code[20])
         {
@@ -854,10 +830,6 @@ table 50015 "PWD Item Jnl Line Buffer"
             InitValue = true;
 
             trigger OnValidate()
-            var
-                RecLManufSetup: Record "Manufacturing Setup";
-                RecLProdOrderLine: Record "Prod. Order Line";
-                RecLProductionOrder: Record "Production Order";
             begin
             end;
         }

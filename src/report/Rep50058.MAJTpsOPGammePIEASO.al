@@ -10,7 +10,7 @@ report 50058 "PWD MAJ Tps OP Gamme PIE A/S O"
     //                   - New report
 
     ProcessingOnly = true;
-
+    UsageCategory = none;
     dataset
     {
         dataitem(Item; Item)

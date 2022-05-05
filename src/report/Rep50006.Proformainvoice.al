@@ -21,6 +21,7 @@ report 50006 "PWD Proforma invoice"
     RDLCLayout = './src/report/rdl/Proformainvoice.rdl';
 
     Caption = 'Order Confirmation';
+    UsageCategory = none;
 
     dataset
     {

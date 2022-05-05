@@ -3,7 +3,7 @@ report 50076 "Update Rtg Line Global-Step 2"
     Caption = 'Update routing lines';
     ProcessingOnly = true;
     UseSystemPrinter = false;
-
+    UsageCategory = none;
     dataset
     {
         dataitem(RL_Reference; "Routing Line")

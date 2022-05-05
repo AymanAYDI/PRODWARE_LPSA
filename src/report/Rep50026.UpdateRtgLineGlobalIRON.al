@@ -12,7 +12,7 @@ report 50026 "Update Rtg Line Global IRON"
     Caption = 'Update routing lines IRON';
     ProcessingOnly = true;
     UseSystemPrinter = false;
-
+    UsageCategory = none;
     dataset
     {
         dataitem(RL_Reference; "Routing Line")

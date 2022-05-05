@@ -44,7 +44,7 @@ pageextension 60015 "PWD SalesOrderSubform" extends "Sales Order Subform"
         }
         addafter("Promised Delivery Date")
         {
-            field("PWD Cust Promised Delivery Date"; "PWD Cust Promised Delivery Date")
+            field("PWD Cust Promised Delivery Date"; "PWD Cust Promis. Delivery Date")
             {
                 ApplicationArea = All;
             }

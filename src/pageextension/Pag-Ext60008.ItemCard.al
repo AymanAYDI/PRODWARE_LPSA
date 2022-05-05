@@ -70,11 +70,11 @@ pageextension 60008 "PWD ItemCard" extends "Item Card"
         }
         addafter("Qty. on Prod. Order")
         {
-            field("PWD Released Qty. on Prod. Order"; "PWD Released Qty. on Prod. Order")
+            field("PWD Released Qty. on Prod. Order"; "PWD Rele. Qty. on Prod. Order")
             {
                 ApplicationArea = All;
             }
-            field("PWD Firm Plan. Qty. on Prod. Order"; "PWD Firm Plan. Qty. on Prod. Order")
+            field("PWD Firm Plan. Qty. on Prod. Order"; "PWD Firm Plan. Qty. Prod. Ord.")
             {
                 ApplicationArea = All;
             }
@@ -440,7 +440,5 @@ pageextension 60008 "PWD ItemCard" extends "Item Card"
         CodGActiveVersionCode: Code[20];
         CstG001: Label 'The Item standard cost is 0, Do you want to calculate it ?';
         CstG002: Label 'The card can not be closed because The Item standard cost is 0 !';
-        CstG003: Label 'The routing, the nomenclature and / or the Lot size have been modified! \ Do you want to recalculate the standard cost of the item?';
-        CstG004: Label 'The card can not be closed because The Item standard costmust be recalculate !';
 
 }

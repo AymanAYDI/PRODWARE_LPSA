@@ -33,12 +33,10 @@ codeunit 50097 "Tools Kill manual Prod Order"
         ToProdOrder: Record "Production Order";
         SourceCodeSetup: Record "Source Code Setup";
         ACYMgt: Codeunit "Additional-Currency Management";
-        DimMgt: Codeunit DimensionManagement;
         InvtAdjmt: Codeunit "Inventory Adjustment";
         ReserveProdOrderComp: Codeunit "Prod. Order Comp.-Reserve";
         ReserveProdOrderLine: Codeunit "Prod. Order Line-Reserve";
         ReservMgt: Codeunit "Reservation Management";
-        CalendarMgt: Codeunit "Shop Calendar Management";
         UpdateProdOrderCost: Codeunit "Update Prod. Order Cost";
         WhseOutputProdRelease: Codeunit "Whse.-Output Prod. Release";
         WhseProdRelease: Codeunit "Whse.-Production Release";
@@ -48,8 +46,6 @@ codeunit 50097 "Tools Kill manual Prod Order"
         SourceCodeSetupRead: Boolean;
         NewPostingDate: Date;
         Text000: Label '%2 %3  with status %1 has been changed to %5 %6 with status %4.';
-        Text002: Label 'Posting Automatic consumption...\\';
-        Text003: Label 'Posting lines         #1###### @2@@@@@@@@@@@@@';
         Text004: Label '%1 %2 has not been finished. Some output is still missing. Do you still want to finish the order?';
         Text005: Label 'The update has been interrupted to respect the warning.';
         Text006: Label '%1 %2 has not been finished. Some consumption is still missing. Do you still want to finish the order?';

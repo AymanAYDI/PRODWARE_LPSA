@@ -24,6 +24,7 @@ report 50003 "Purchase - Return Shipment LAP"
     RDLCLayout = './src/report/rdl/PurchaseReturnShipmentLAP.rdl';
 
     Caption = 'Purchase - Return Shipment';
+    UsageCategory = none;
 
     dataset
     {
@@ -701,7 +702,6 @@ report 50003 "Purchase - Return Shipment LAP"
         CstGText008: Label 'Vendor Fax No.:';
         CstGText009: Label 'Your Document No.:';
         CstGText010: Label 'Your contact:';
-        CstGText011: Label 'Quote No.:';
         CstGText012: Label 'Your contact : %1';
         CstGText013: Label ' / ';
         CstGText014: Label 'Document No.: ';

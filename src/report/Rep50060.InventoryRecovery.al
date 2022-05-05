@@ -11,7 +11,7 @@ report 50060 "PWD Inventory Recovery"
 
     Caption = 'Inventory Recovery';
     ProcessingOnly = true;
-
+    UsageCategory = none;
     dataset
     {
     }

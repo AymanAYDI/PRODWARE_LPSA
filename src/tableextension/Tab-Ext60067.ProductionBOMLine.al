@@ -33,7 +33,6 @@ tableextension 60067 "PWD ProductionBOMLine" extends "Production BOM Line"
             var
                 Item2: Record Item;
                 LotDeterminingBOMLine: Record "Production BOM Line";
-                ProdBOMVersion: Record "Production BOM Version";
                 LotInheritanceMgt: Codeunit "PWD Lot Inheritance Mgt.PW";
                 NeededHits: Integer;
                 CstG001: label 'Item %1 at Production BOM %2, Version %3 is already Lot Determining.';

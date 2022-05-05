@@ -10,7 +10,7 @@ report 50054 "MAJ OP Gamme PIE Sans 1/2;B"
     //                   - New report
 
     ProcessingOnly = true;
-
+UsageCategory = none;
     dataset
     {
         dataitem(Item; Item)

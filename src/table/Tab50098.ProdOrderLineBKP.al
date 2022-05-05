@@ -27,8 +27,6 @@ table 50098 "PWD Prod. Order Line BKP"
             TableRelation = Item;
 
             trigger OnValidate()
-            var
-                routing: Record "Routing Header";
             begin
             end;
         }
@@ -66,19 +64,6 @@ table 50098 "PWD Prod. Order Line BKP"
         field(23; "Bin Code"; Code[20])
         {
             Caption = 'Bin Code';
-
-            trigger OnLookup()
-            var
-                WMSManagement: Codeunit "WMS Management";
-                BinCode: Code[20];
-            begin
-            end;
-
-            trigger OnValidate()
-            var
-                WMSManagement: Codeunit "WMS Management";
-            begin
-            end;
         }
         field(29; "Cost is Adjusted"; Boolean)
         {
@@ -483,86 +468,86 @@ table 50098 "PWD Prod. Order Line BKP"
     begin
     end;
 
-    procedure DeleteRelations()
-    begin
-    end;
+    // procedure DeleteRelations()
+    // begin
+    // end;
 
 
-    procedure ShowReservation()
-    begin
-    end;
+    // procedure ShowReservation()
+    // begin
+    // end;
 
 
-    procedure ShowReservationEntries(Modal: Boolean)
-    begin
-    end;
+    // procedure ShowReservationEntries(Modal: Boolean)
+    // begin
+    // end;
 
 
-    procedure ItemAvailability(AvailabilityType: Option Date,Variant,Location,Bin)
-    begin
-    end;
+    // procedure ItemAvailability(AvailabilityType: Option Date,Variant,Location,Bin)
+    // begin
+    // end;
 
 
-    procedure CheckEndingDate(ShowWarning: Boolean)
-    begin
-    end;
+    // procedure CheckEndingDate(ShowWarning: Boolean)
+    // begin
+    // end;
 
 
-    procedure BlockDynamicTracking(SetBlock: Boolean)
-    begin
-    end;
+    // procedure BlockDynamicTracking(SetBlock: Boolean)
+    // begin
+    // end;
 
 
-    procedure CreateDim(Type1: Integer; No1: Code[20])
-    begin
-    end;
+    // procedure CreateDim(Type1: Integer; No1: Code[20])
+    // begin
+    // end;
 
 
-    procedure OpenItemTrackingLines()
-    begin
-    end;
+    // procedure OpenItemTrackingLines()
+    // begin
+    // end;
 
 
-    procedure ValidateShortcutDimCode(FieldNumber: Integer; var ShortcutDimCode: Code[20])
-    begin
-    end;
+    // procedure ValidateShortcutDimCode(FieldNumber: Integer; var ShortcutDimCode: Code[20])
+    // begin
+    // end;
 
 
-    procedure LookupShortcutDimCode(FieldNumber: Integer; var ShortcutDimCode: Code[20])
-    begin
-    end;
+    // procedure LookupShortcutDimCode(FieldNumber: Integer; var ShortcutDimCode: Code[20])
+    // begin
+    // end;
 
 
-    procedure ShowShortcutDimCode(var ShortcutDimCode: array[8] of Code[20])
-    begin
-    end;
+    // procedure ShowShortcutDimCode(var ShortcutDimCode: array[8] of Code[20])
+    // begin
+    // end;
 
-    local procedure GetItem()
-    begin
-    end;
+    // local procedure GetItem()
+    // begin
+    // end;
 
-    local procedure GetSKU(): Boolean
-    begin
-    end;
-
-
-    procedure GetUpdateFromSKU()
-    begin
-    end;
+    // local procedure GetSKU(): Boolean
+    // begin
+    // end;
 
 
-    procedure UpdateDatetime()
-    begin
-    end;
+    // procedure GetUpdateFromSKU()
+    // begin
+    // end;
 
 
-    procedure ShowDimensions()
-    begin
-    end;
+    // procedure UpdateDatetime()
+    // begin
+    // end;
 
-    local procedure GetGLSetup()
-    begin
-    end;
+
+    // procedure ShowDimensions()
+    // begin
+    // end;
+
+    // local procedure GetGLSetup()
+    // begin
+    // end;
 
 
     procedure GetCurrencyCode(): Code[10]
@@ -570,71 +555,71 @@ table 50098 "PWD Prod. Order Line BKP"
     end;
 
 
-    procedure RowID1(): Text[250]
-    begin
-    end;
+    // procedure RowID1(): Text[250]
+    // begin
+    // end;
 
-    local procedure GetLocation(LocationCode: Code[10])
-    begin
-    end;
+    // local procedure GetLocation(LocationCode: Code[10])
+    // begin
+    // end;
 
-    local procedure GetDefaultBin()
-    begin
-    end;
-
-
-    procedure IsCompletelyInvoiced(): Boolean
-    begin
-    end;
+    // local procedure GetDefaultBin()
+    // begin
+    // end;
 
 
-    procedure SetStdCost(var ProdOrderLine: Record "Prod. Order Line"; MfgItem: Record Item; CurrencyFactor: Decimal)
-    begin
-    end;
+    // procedure IsCompletelyInvoiced(): Boolean
+    // begin
+    // end;
 
 
-    procedure FnshdNotInvcdExists(): Boolean
-    begin
-    end;
+    // procedure SetStdCost(var ProdOrderLine: Record "Prod. Order Line"; MfgItem: Record Item; CurrencyFactor: Decimal)
+    // begin
+    // end;
 
 
-    procedure "--OSYS-Int001.001--"()
-    begin
-    end;
+    // procedure FnshdNotInvcdExists(): Boolean
+    // begin
+    // end;
 
 
-    procedure FctCreateDeleteProdOrderLine()
-    begin
-    end;
+    // procedure "--OSYS-Int001.001--"()
+    // begin
+    // end;
 
 
-    procedure FctIsRecreateOrderLine()
-    begin
-    end;
+    // procedure FctCreateDeleteProdOrderLine()
+    // begin
+    // end;
 
 
-    procedure ItemChange(newItem: Record Item; oldItem: Record Item)
-    begin
-    end;
+    // procedure FctIsRecreateOrderLine()
+    // begin
+    // end;
 
 
-    procedure "---FE_LAPRIERRETTE_GP0003-----"()
-    begin
-    end;
+    // procedure ItemChange(newItem: Record Item; oldItem: Record Item)
+    // begin
+    // end;
 
 
-    procedure ExistPhantomItem(): Text[1]
-    begin
-    end;
+    // procedure "---FE_LAPRIERRETTE_GP0003-----"()
+    // begin
+    // end;
 
 
-    procedure "--- LPSA.TDL ---"()
-    begin
-    end;
+    // procedure ExistPhantomItem(): Text[1]
+    // begin
+    // end;
 
 
-    procedure ResendProdOrdertoQuartis()
-    begin
-    end;
+    // procedure "--- LPSA.TDL ---"()
+    // begin
+    // end;
+
+
+    // procedure ResendProdOrdertoQuartis()
+    // begin
+    // end;
 }
 

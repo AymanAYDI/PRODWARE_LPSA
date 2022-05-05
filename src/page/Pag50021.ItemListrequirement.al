@@ -97,11 +97,11 @@ page 50021 "PWD Item List requirement"
                 {
                     ApplicationArea = All;
                 }
-                field("Released Qty. on Prod. Order"; Rec."PWD Released Qty. on Prod. Order")
+                field("Released Qty. on Prod. Order"; Rec."PWD Rele. Qty. on Prod. Order")
                 {
                     ApplicationArea = All;
                 }
-                field("Firm Plan. Qty. on Prod. Order"; Rec."PWD Firm Plan. Qty. on Prod. Order")
+                field("Firm Plan. Qty. on Prod. Order"; Rec."PWD Firm Plan. Qty. Prod. Ord.")
                 {
                     ApplicationArea = All;
                 }
@@ -1150,7 +1150,6 @@ page 50021 "PWD Item List requirement"
     }
 
     var
-        TblshtgHeader: Record "Troubleshooting Header";
         CalculateStdCost: Codeunit "Calculate Standard Cost";
         Text11500: Label 'Do you want to edit the new item?';
 

@@ -154,8 +154,6 @@ table 50096 "PWD Routing Line BKP"
             TableRelation = "Standard Task";
 
             trigger OnValidate()
-            var
-                StandardTask: Record "Standard Task";
             begin
             end;
         }

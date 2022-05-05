@@ -12,7 +12,7 @@ report 50024 "PWD Update Rtg Line Global"
     Caption = 'Update routing lines';
     ProcessingOnly = true;
     UseSystemPrinter = false;
-
+    UsageCategory = none;
     dataset
     {
         dataitem(POL_Sauv; "Prod. Order Line")

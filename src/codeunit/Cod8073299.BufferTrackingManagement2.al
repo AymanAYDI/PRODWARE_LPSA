@@ -855,7 +855,6 @@ codeunit 8073299 "Buffer Tracking Management 2"
     local procedure SetQtyToHandleAndInvoice(TrackingSpecification: Record "Tracking Specification") OK: Boolean
     var
         ReservEntry1: Record "Reservation Entry";
-        ReservationMgt: Codeunit "Reservation Management";
         QtyAlreadyHandledToInvoice: Decimal;
         QtyToHandleThisLine: Decimal;
         QtyToInvoiceThisLine: Decimal;

@@ -27,7 +27,7 @@ tableextension 60014 "PWD SalesInvoiceHeader" extends "Sales Invoice Header"
             Description = 'LAP1.00';
             Editable = false;
         }
-        field(50003; "PWD Cust Promised Delivery Date"; Date)
+        field(50003; "PWD Cust Promised Deliv. Date"; Date)
         {
             Caption = 'Customer Promised Delivery Date';
             Description = 'TDL.LPSA';

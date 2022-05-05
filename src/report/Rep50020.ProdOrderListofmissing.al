@@ -19,6 +19,8 @@ report 50020 "Prod. Order - List of missing"
     RDLCLayout = './src/report/rdl/ProdOrderListofmissing.rdl';
 
     Caption = 'Prod. Order - List of missing';
+    ApplicationArea = all;
+    UsageCategory = ReportsAndAnalysis;
 
     dataset
     {
@@ -162,7 +164,7 @@ report 50020 "Prod. Order - List of missing"
                         column(Header_Production_Order___Starting_Date__; Format("Production Order"."Starting Date"))
                         {
                         }
-                        column(Header_Item_Qty_on_prod_order; Item."PWD Released Qty. on Prod. Order")
+                        column(Header_Item_Qty_on_prod_order; Item."PWD Rele. Qty. on Prod. Order")
                         {
                             //DecimalPlaces = 0 : 5;
                         }
@@ -213,7 +215,7 @@ report 50020 "Prod. Order - List of missing"
                         column(Comp_Production_Order___Start_Date_; Format("Production Order"."Starting Date"))
                         {
                         }
-                        column(Comp_CompItem_QtyOnProdOrder; CompItem."PWD Released Qty. on Prod. Order")
+                        column(Comp_CompItem_QtyOnProdOrder; CompItem."PWD Rele. Qty. on Prod. Order")
                         {
                             //DecimalPlaces = 0 : 5;
                         }
@@ -456,7 +458,7 @@ report 50020 "Prod. Order - List of missing"
                         CompItem.SetRange("Variant Filter", "Variant Code");
                         CompItem.SetRange("Location Filter", "Location Code");
                         CompItem.SetRange("Date Filter");
-                        CompItem.CalcFields("PWD Released Qty. on Prod. Order");
+                        CompItem.CalcFields("PWD Rele. Qty. on Prod. Order");
 
                         CompItem.SetRange(
                           "Date Filter", 0D, "Due Date" - 1);
@@ -724,7 +726,7 @@ report 50020 "Prod. Order - List of missing"
                         Item.Init();
                     Item.SetRange("Location Filter", "Location Code");
                     Item.SetRange("Date Filter");
-                    Item.CalcFields(Item."PWD Released Qty. on Prod. Order");
+                    Item.CalcFields(Item."PWD Rele. Qty. on Prod. Order");
                     Item.SetRange(
                       "Date Filter", 0D, "Due Date" - 1);
 

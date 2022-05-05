@@ -112,8 +112,8 @@ codeunit 50020 "PWD LPSA Events Mgt."
                     //>>TDL.LPSA.17.05.15:NBO
                     IF SalesLine."Promised Delivery Date" = 0D THEN
                         SalesLine.VALIDATE("Promised Delivery Date", SalesHeader."Requested Delivery Date");
-                    IF SalesLine."PWD Cust Promised Delivery Date" = 0D THEN
-                        SalesLine.VALIDATE("PWD Cust Promised Delivery Date", SalesHeader."Requested Delivery Date");
+                    IF SalesLine."PWD Cust Promis. Delivery Date" = 0D THEN
+                        SalesLine.VALIDATE("PWD Cust Promis. Delivery Date", SalesHeader."Requested Delivery Date");
                     IF SalesLine."PWD Initial Shipment Date" = 0D THEN BEGIN
                         SalesLine.VALIDATE("Planned Delivery Date", SalesHeader."Requested Delivery Date");
                         SalesLine.VALIDATE("Planned Shipment Date", SalesHeader."Requested Delivery Date");
@@ -122,9 +122,9 @@ codeunit 50020 "PWD LPSA Events Mgt."
                     END;
                 END;
             //>>TDL.LPSA.20.04.15
-            SalesHeader.FieldNo("PWD Cust Promised Delivery Date"):
+            SalesHeader.FieldNo("PWD Cust Promised Deliv. Date"):
                 IF SalesLine."No." <> '' THEN
-                    SalesLine.VALIDATE("PWD Cust Promised Delivery Date", SalesHeader."PWD Cust Promised Delivery Date");
+                    SalesLine.VALIDATE("PWD Cust Promis. Delivery Date", SalesHeader."PWD Cust Promised Deliv. Date");
         //<<TDL.LPSA.20.04.15
         //<<TDL.LPSA.17.05.15:NBO
         end;
@@ -361,8 +361,8 @@ codeunit 50020 "PWD LPSA Events Mgt."
     //RecLProdOrderLine: Record "Prod. Order Line";
     begin
         ManufSetup.GET();
-        IF ItemJournalLine."Work Center No." = ManufSetup."PWD Mach. center - Inventory input" THEN
-            ItemJournalLine.VALIDATE("Location Code", ManufSetup."PWD Non conformity Prod. Location")
+        IF ItemJournalLine."Work Center No." = ManufSetup."PWD Mach. center-Invent. input" THEN
+            ItemJournalLine.VALIDATE("Location Code", ManufSetup."PWD Non conformity Prod. Loca.")
         ELSE
             ItemJournalLine.VALIDATE("Location Code", ItemJournalLine.FctGetProdOrderLine(ItemJournalLine."Order No.", ItemJournalLine."Order Line No."));
     end;
@@ -574,12 +574,7 @@ codeunit 50020 "PWD LPSA Events Mgt."
     [EventSubscriber(ObjectType::table, database::"Prod. Order Line", 'OnBeforeDeleteEvent', '', false, false)]
     local procedure TAB5406_OnBeforeDeleteEvent_ProdOrderLine(var Rec: Record "Prod. Order Line"; RunTrigger: Boolean)
     var
-        CapLedgEntry: Record "Capacity Ledger Entry";
-        ItemLedgEntry: Record "Item Ledger Entry";
-        PurchLine: Record "Purchase Line";
-        CduFunctionsMgt: Codeunit "PWD LPSA Functions Mgt.";
         Text000: Label 'A %1 %2 cannot be inserted, modified, or deleted.';
-        Text99000000: Label 'You cannot delete %1 %2 because there is at least one %3 associated with it.', Comment = '%1 = Table Caption; %2 = Field Value; %3 = Table Caption';
     begin
         if not RunTrigger then
             exit;
@@ -833,8 +828,8 @@ codeunit 50020 "PWD LPSA Events Mgt."
         //>>TDL.LPSA.001 19/01/2014
         IF SalesHeader."Document Type" = SalesHeader."Document Type"::Order THEN BEGIN
             //>>TDL.LPSA.20.04.15
-            IF SalesHeader."PWD Cust Promised Delivery Date" = 0D THEN
-                SalesHeader."PWD Cust Promised Delivery Date" := SalesHeader."Shipment Date";
+            IF SalesHeader."PWD Cust Promised Deliv. Date" = 0D THEN
+                SalesHeader."PWD Cust Promised Deliv. Date" := SalesHeader."Shipment Date";
             //<<TDL.LPSA.20.04.15
             SalesLine.SETRANGE("Document Type", SalesHeader."Document Type");
             SalesLine.SETRANGE("Document No.", SalesHeader."No.");
@@ -847,8 +842,8 @@ codeunit 50020 "PWD LPSA Events Mgt."
                         SalesLine.MODIFY();
                     END;
                     //>>TDL.LPSA.20.04.15
-                    IF SalesLine."PWD Cust Promised Delivery Date" = 0D THEN BEGIN
-                        SalesLine."PWD Cust Promised Delivery Date" := SalesLine."Planned Delivery Date";
+                    IF SalesLine."PWD Cust Promis. Delivery Date" = 0D THEN BEGIN
+                        SalesLine."PWD Cust Promis. Delivery Date" := SalesLine."Planned Delivery Date";
                         SalesLine.MODIFY();
                     END;
                 //<<TDL.LPSA.20.04.15
@@ -980,8 +975,8 @@ codeunit 50020 "PWD LPSA Events Mgt."
         //>>FE_LAPIERRETTE_PRO12.001
         //RecLManufacturingSetup.TESTFIELD("Non conformity Prod. Location");
         //<<FE_LAPIERRETTE_PRO12.001
-        RecLManufacturingSetup.TESTFIELD("PWD Mach. center - Inventory input");
-        CodLWorkCenter := RecLManufacturingSetup."PWD Mach. center - Inventory input"; //TODO: La variable CodLWorkCenter doit transferet un valeur a une fonction
+        RecLManufacturingSetup.TESTFIELD("PWD Mach. center-Invent. input");
+        CodLWorkCenter := RecLManufacturingSetup."PWD Mach. center-Invent. input"; //TODO: La variable CodLWorkCenter doit transferet un valeur a une fonction
     end;
     //---CDU5407---
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Prod. Order Status Management", 'OnBeforeShowStatusMessage', '', false, false)]
@@ -1083,9 +1078,9 @@ codeunit 50020 "PWD LPSA Events Mgt."
         //>>FE_LAPIERRETTE_PRO12.001
         //RecLManufacturingSetup.TESTFIELD("Non conformity Prod. Location");
         //<<FE_LAPIERRETTE_PRO12.001
-        RecLManufacturingSetup.TESTFIELD("PWD Mach. center - Inventory input");
-        CodLWorkCenter := RecLManufacturingSetup."PWD Mach. center - Inventory input"; //TODO: La variable CodLWorkCenter doit transferet un valeur a une fonction
-                                                                                       //<FE_LAPIERRETTE_PROD03.001
+        RecLManufacturingSetup.TESTFIELD("PWD Mach. center-Invent. input");
+        CodLWorkCenter := RecLManufacturingSetup."PWD Mach. center-Invent. input"; //TODO: La variable CodLWorkCenter doit transferet un valeur a une fonction
+                                                                                   //<FE_LAPIERRETTE_PROD03.001
 
     end;
 
@@ -1169,13 +1164,11 @@ codeunit 50020 "PWD LPSA Events Mgt."
     [EventSubscriber(ObjectType::Table, Database::"Production Forecast Entry", 'OnAfterInsertEvent', '', false, false)]
     local procedure TAB99000852_OnAfterInsertEvent_ProductionForecastEntry(var Rec: Record "Production Forecast Entry"; RunTrigger: Boolean)
     var
-        CompanyCalendar: Record "Calendar Entry";
         CompanyInfo: Record "Company Information";
         TargetCustomizedCalendarChange: Record "Customized Calendar Change";
         CalendarMgmt: Codeunit "Calendar Management";
         Nonworking: Boolean;
         NewDate: Date;
-        Description: Text[50];
     begin
         if not RunTrigger then
             exit;
@@ -1399,9 +1392,9 @@ codeunit 50020 "PWD LPSA Events Mgt."
     begin
         ManufacturingSetup.GET();
         //RecLManufacturingSetup.TESTFIELD("Non conformity Prod. Location");
-        ManufacturingSetup.TESTFIELD("PWD Mach. center - Inventory input");
+        ManufacturingSetup.TESTFIELD("PWD Mach. center-Invent. input");
         ItemJnlLineCopy.COPY(Rec);
-        IF ProductionJournal.FctExistControlQuality(ItemJnlLineCopy, ManufacturingSetup."PWD Mach. center - Inventory input") THEN
+        IF ProductionJournal.FctExistControlQuality(ItemJnlLineCopy, ManufacturingSetup."PWD Mach. center-Invent. input") THEN
             IF NOT ProductionJournal.FctCheckControlQuality(ItemJnlLineCopy) THEN
                 //IF NOT CONFIRM(STRSUBSTNO(CstG00001,RecLManufacturingSetup."Non conformity Prod. Location")) THEN
                 IF NOT CONFIRM(CstG00002) THEN
@@ -1419,9 +1412,9 @@ codeunit 50020 "PWD LPSA Events Mgt."
     begin
         ManufacturingSetup.GET();
         //RecLManufacturingSetup.TESTFIELD("Non conformity Prod. Location");
-        ManufacturingSetup.TESTFIELD("PWD Mach. center - Inventory input");
+        ManufacturingSetup.TESTFIELD("PWD Mach. center-Invent. input");
         ItemJnlLineCopy.COPY(Rec);
-        IF ProductionJournal.FctExistControlQuality(ItemJnlLineCopy, ManufacturingSetup."PWD Mach. center - Inventory input") THEN
+        IF ProductionJournal.FctExistControlQuality(ItemJnlLineCopy, ManufacturingSetup."PWD Mach. center-Invent. input") THEN
             IF NOT ProductionJournal.FctCheckControlQuality(ItemJnlLineCopy) THEN
                 //IF NOT CONFIRM(STRSUBSTNO(CstG00001,RecLManufacturingSetup."Non conformity Prod. Location")) THEN
                 IF NOT CONFIRM(CstG00002) THEN
@@ -1439,7 +1432,7 @@ codeunit 50020 "PWD LPSA Events Mgt."
     var
         gCurrSourceSpecification: Record "Tracking Specification";
         gCurrSourceSpecificationSet: Boolean;
-        gCurrSourceSpecDueDate: Date;
+        // gCurrSourceSpecDueDate: Date;
     begin
         gCurrSourceSpecification := TrackingSpecification;
         //TODO: AvailabilityDate variable dans la fonction SetSourceSpec
@@ -1462,7 +1455,7 @@ codeunit 50020 "PWD LPSA Events Mgt."
     [EventSubscriber(ObjectType::Page, Page::"Item Tracking Lines", 'OnBeforeAssignLotNo', '', false, false)]
     local procedure PAG6510_OnBeforeAssignLotNo_ItemTrackingLines(var TrackingSpecification: Record "Tracking Specification"; var TempItemTrackLineInsert: Record "Tracking Specification" temporary; SourceQuantityArray: array[5] of Decimal; var IsHandled: Boolean)
     var
-        CstGErr0002: Label 'Lot Inheritance: You can''t assign a Lot No.,\because there is no Lot assigned to the lot determining component.';
+    // CstGErr0002: Label 'Lot Inheritance: You can''t assign a Lot No.,\because there is no Lot assigned to the lot determining component.';
     begin
         //TODO: gNoAssignLotDetLotNo et gLotDeterminingLotCode sont des variables globales dans la page "Item Tracking Lines"
         // IF gNoAssignLotDetLotNo AND (gLotDeterminingLotCode = '') THEN
@@ -1894,11 +1887,11 @@ codeunit 50020 "PWD LPSA Events Mgt."
         CstG00002: Label 'Lot non conform, do you want to post ?';
     begin
         RecLManufacturingSetup.GET();
-        RecLManufacturingSetup.TESTFIELD("PWD Mach. center - Inventory input");
+        RecLManufacturingSetup.TESTFIELD("PWD Mach. center-Invent. input");
         RecLItemJnlLineCopy.COPY(Rec);
-        IF OutputJournal.FctExistControlQuality(RecLItemJnlLineCopy, RecLManufacturingSetup."PWD Mach. center - Inventory input") THEN
+        IF OutputJournal.FctExistControlQuality(RecLItemJnlLineCopy, RecLManufacturingSetup."PWD Mach. center-Invent. input") THEN
             IF NOT OutputJournal.FctCheckControlQuality(RecLItemJnlLineCopy,
-                                          RecLManufacturingSetup."PWD Mach. center - Inventory input") THEN
+                                          RecLManufacturingSetup."PWD Mach. center-Invent. input") THEN
                 IF NOT CONFIRM(CstG00002) THEN
                     EXIT;
     end;
@@ -1912,11 +1905,11 @@ codeunit 50020 "PWD LPSA Events Mgt."
         CstG00002: Label 'Lot non conform, do you want to post ?';
     begin
         RecLManufacturingSetup.GET();
-        RecLManufacturingSetup.TESTFIELD("PWD Mach. center - Inventory input");
+        RecLManufacturingSetup.TESTFIELD("PWD Mach. center-Invent. input");
         RecLItemJnlLineCopy.COPY(Rec);
-        IF OutputJournal.FctExistControlQuality(RecLItemJnlLineCopy, RecLManufacturingSetup."PWD Mach. center - Inventory input") THEN
+        IF OutputJournal.FctExistControlQuality(RecLItemJnlLineCopy, RecLManufacturingSetup."PWD Mach. center-Invent. input") THEN
             IF NOT OutputJournal.FctCheckControlQuality(RecLItemJnlLineCopy,
-                                          RecLManufacturingSetup."PWD Mach. center - Inventory input") THEN
+                                          RecLManufacturingSetup."PWD Mach. center-Invent. input") THEN
                 IF NOT CONFIRM(CstG00002) THEN
                     EXIT;
     end;
