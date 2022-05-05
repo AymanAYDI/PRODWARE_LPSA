@@ -1,7 +1,7 @@
 report 50082 "PWD UPDATE COST"
 {
     ProcessingOnly = true;
-
+    UsageCategory = none;
     dataset
     {
         dataitem("Production Order"; "Production Order")

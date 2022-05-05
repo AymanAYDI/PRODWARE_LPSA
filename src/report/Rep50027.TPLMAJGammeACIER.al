@@ -10,7 +10,7 @@ report 50027 "PWD TPL MAJ Gamme ACIER"
     //                   - New report
 
     ProcessingOnly = true;
-
+    UsageCategory = none;
     dataset
     {
         dataitem("Routing Header"; "Routing Header")

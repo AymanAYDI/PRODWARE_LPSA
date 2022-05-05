@@ -48,6 +48,7 @@ report 50013 "PWD Credit Note"
 
     Caption = 'Sales - Credit Memo';
     Permissions = TableData "Sales Shipment Buffer" = rimd;
+    UsageCategory = none;
 
     dataset
     {

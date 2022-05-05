@@ -12,7 +12,7 @@ report 50028 "Update Scrap Factor Rtg Line"
     Caption = 'Update routing lines';
     ProcessingOnly = true;
     UseSystemPrinter = false;
-
+    UsageCategory = none;
     dataset
     {
         dataitem(ItemMem; Item)

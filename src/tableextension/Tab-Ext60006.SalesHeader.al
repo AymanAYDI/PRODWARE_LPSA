@@ -55,7 +55,7 @@ tableextension 60006 "PWD SalesHeader" extends "Sales Header"
             Description = 'LAP1.00';
             Editable = false;
         }
-        field(50003; "PWD Cust Promised Delivery Date"; Date)
+        field(50003; "PWD Cust Promised Deliv. Date"; Date)
         {
             Caption = 'Customer Promised Delivery Date';
             Description = 'TDL.LPSA';
@@ -64,8 +64,8 @@ tableextension 60006 "PWD SalesHeader" extends "Sales Header"
             begin
                 //>>TDL.LPSA.20.04.15
                 TESTFIELD(Status, Status::Open);
-                IF "PWD Cust Promised Delivery Date" <> xRec."PWD Cust Promised Delivery Date" THEN
-                    UpdateSalesLines(FIELDCAPTION("PWD Cust Promised Delivery Date"), CurrFieldNo <> 0);
+                IF "PWD Cust Promised Deliv. Date" <> xRec."PWD Cust Promised Deliv. Date" THEN
+                    UpdateSalesLines(FIELDCAPTION("PWD Cust Promised Deliv. Date"), CurrFieldNo <> 0);
                 //<<TDL.LPSA.20.04.15
             end;
         }

@@ -1,7 +1,7 @@
 report 50081 "PWD CALC NEW QTY"
 {
     ProcessingOnly = true;
-
+    UsageCategory = none;
     dataset
     {
         dataitem(Item; Item)

@@ -51,6 +51,7 @@ report 50012 "PWD Shipment Advice"
     RDLCLayout = './src/report/rdl/ShipmentAdvice.rdl';
 
     Caption = 'Sales - Shipment';
+    UsageCategory = none;
 
     dataset
     {
@@ -565,6 +566,7 @@ report 50012 "PWD Shipment Advice"
         BooGSkipSendEmail: Boolean;
         BooGStopComment: Boolean;
         LogInteraction: Boolean;
+        [InDataSet]
         MoreLines: Boolean;
         ShowCorrectionLines: Boolean;
         ShowCustAddr: Boolean;
@@ -613,8 +615,6 @@ report 50012 "PWD Shipment Advice"
         ReferenceText: Text[80];
         TxtGCustPlanNo_C: Text[100];
         TxtGComment: Text[1024];
-
-
     procedure FindCrossRef()
     begin
         Clear(CrossReferenceNo);
@@ -672,7 +672,7 @@ report 50012 "PWD Shipment Advice"
         ScrapQt := 0;
         SalesShipmentLine.SetRange("Order No.", OrderNo);
         SalesShipmentLine.SetRange("Order Line No.", OrderLineNo);
-        if SalesShipmentLine.FindFirst() then
+        if SalesShipmentLine.FindSet() then
             repeat
                 Qt := Qt + SalesShipmentLine.Quantity;
                 ScrapQt := ScrapQt + SalesShipmentLine."PWD Scrap Quantity";

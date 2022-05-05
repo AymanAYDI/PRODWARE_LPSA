@@ -11,7 +11,7 @@ report 50038 "PWD Inventory Valuation Excel"
 
     Caption = 'Inventory Valuation Excel';
     ProcessingOnly = true;
-
+UsageCategory = none;
     dataset
     {
         dataitem(Item; Item)

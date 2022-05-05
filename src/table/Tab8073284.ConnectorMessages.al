@@ -69,16 +69,14 @@ table 8073284 "PWD Connector Messages"
 
             trigger OnLookup()
             var
-                i: Integer;
-                CstLTxt001: Label 'File Location for files';
                 FileName: Text;
-                InboxDetails: Text[250];
-                InboxDetails2: Text[250];
+                Text000: Label '%1.xml', Comment = '%1 = Code';
+                Text001: Label '\%1.xml', Comment = '%1 = Code';
             begin
                 if Path = '' then
-                    FileName := StrSubstNo('%1.xml', Code)
+                    FileName := StrSubstNo(Text000, Code)
                 else
-                    FileName := Path + StrSubstNo('\%1.xml', Code);
+                    FileName := Path + StrSubstNo(Text001, Code);
             end;
         }
         field(5; Blocked; Boolean)
@@ -219,16 +217,14 @@ table 8073284 "PWD Connector Messages"
 
             trigger OnLookup()
             var
-                i: Integer;
-                CstLTxt001: Label 'File Location for files';
                 FileName: Text;
-                InboxDetails: Text[250];
-                InboxDetails2: Text[250];
+                Text000: Label '%1.xml', Comment = '%1 = Code';
+                Text001: Label '\%1.xml', Comment = '%1 = Code';
             begin
                 if "Archive Path" = '' then
-                    FileName := StrSubstNo('%1.xml', Code)
+                    FileName := StrSubstNo(Text000, Code)
                 else
-                    FileName := "Archive Path" + StrSubstNo('\%1.xml', Code);
+                    FileName := "Archive Path" + StrSubstNo(Text001, Code);
             end;
         }
         field(30; "FTP Remote Path"; Text[250])

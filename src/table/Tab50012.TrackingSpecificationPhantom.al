@@ -197,18 +197,6 @@ table 50012 "Tracking Specification Phantom"
         {
             Caption = 'Appl.-from Item Entry';
             MinValue = 0;
-
-            trigger OnLookup()
-            var
-                ItemLedgEntry: Record "Item Ledger Entry";
-            begin
-            end;
-
-            trigger OnValidate()
-            var
-                ItemLedgEntry: Record "Item Ledger Entry";
-            begin
-            end;
         }
         field(5817; Correction; Boolean)
         {

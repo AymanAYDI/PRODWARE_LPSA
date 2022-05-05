@@ -20,6 +20,7 @@ report 50011 "PWD Soumission"
     RDLCLayout = './src/report/rdl/Soumission.rdl';
 
     Caption = 'Soumission';
+    UsageCategory = none;
 
     dataset
     {

@@ -9,7 +9,7 @@ report 50031 "PWD Updt Dimension from Item"
 
     Caption = 'Updt Dimension from Item';
     ProcessingOnly = true;
-
+    UsageCategory = none;
     dataset
     {
         dataitem(Item; Item)

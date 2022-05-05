@@ -17,7 +17,8 @@ report 50016 "PWD Excel Item Last Mvt"
 
     Caption = 'Excel Item Last Mvt';
     ProcessingOnly = true;
-
+    ApplicationArea = all;
+    UsageCategory = ReportsAndAnalysis;
     dataset
     {
         dataitem(Item; Item)

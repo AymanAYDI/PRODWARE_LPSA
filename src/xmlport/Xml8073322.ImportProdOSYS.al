@@ -118,14 +118,10 @@ xmlport 8073322 "PWD Import Prod OSYS"
 
                 trigger OnAfterInitRecord()
                 var
-                    RecLMachine: Record "Machine Center";
-                    RecLProdOrderLine: Record "Prod. Order Line";
-                    RecLProdOrderRoutingLine: Record "Prod. Order Routing Line";
                     RecLConnectorsActivation: Record "PWD OSYS Setup";
                     CduLOSYSParseData: Codeunit "PWD Connector OSYS Parse Data";
                     RefLRecordRef: RecordRef;
                     CodLItemNo: Code[20];
-                    "-LAP2.06.01-": Integer;
                 begin
                     RefLRecordRef.GetTable("PWD Item Jounal Line Buffer");
                     CduGBufferManagement.FctNewBufferLine2(RefLRecordRef, RecGConnectorValues, 0);
@@ -172,7 +168,7 @@ xmlport 8073322 "PWD Import Prod OSYS"
                     RecLConnectorsActivation: Record "PWD OSYS Setup";
                     CduLOSYSParseData: Codeunit "PWD Connector OSYS Parse Data";
                     CodLItemNo: Code[20];
-                    "-LAP2.06.01-": Integer;
+                    //"-LAP2.06.01-": Integer;
                 begin
                     //>>OSYS-Int001.002
                     if "PWD Item Jounal Line Buffer"."No." = '' then

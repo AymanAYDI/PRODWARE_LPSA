@@ -4,6 +4,7 @@ report 50018 "PWD Update Routing Line"
     ProcessingOnly = true;
     UseRequestPage = false;
     UseSystemPrinter = false;
+    UsageCategory = none;
 
     dataset
     {

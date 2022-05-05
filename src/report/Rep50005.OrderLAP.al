@@ -71,6 +71,7 @@ report 50005 "PWD Order LAP"
     RDLCLayout = './src/report/rdl/OrderLAP.rdl';
 
     Caption = 'Order';
+    UsageCategory = none;
 
     dataset
     {
@@ -1549,7 +1550,7 @@ report 50005 "PWD Order LAP"
 
                 //>>LAP2.12
                 TxtGSubcontractingLegalText := '';
-                if PurchSetup."PWD Subcontracting Order Series No" = "Purchase Header"."No. Series" then
+                if PurchSetup."PWD Subcontra. Order Series No" = "Purchase Header"."No. Series" then
                     TxtGSubcontractingLegalText := PurchSetup."PWD Subcontracting Legal Text";
                 //<<LAP2.12
             end;

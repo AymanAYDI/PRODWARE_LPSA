@@ -726,11 +726,11 @@ page 50027 "PWD Purchase Order line"
                 {
                     ApplicationArea = All;
                 }
-                field("WMS_Qty receipt error (Base)"; Rec."PWD WMS_Qty receipt error (Base)")
+                field("WMS_Qty receipt error (Base)"; Rec."PWD WMS_Qty receipt error Base")
                 {
                     ApplicationArea = All;
                 }
-                field("WMS_Reason Code Receipt Error"; Rec."PWD WMS_Reason Code Receipt Error")
+                field("WMS_Reason Code Receipt Error"; Rec."PWD WMS_Reason Code Rece. Err")
                 {
                     ApplicationArea = All;
                 }

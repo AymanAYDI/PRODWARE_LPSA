@@ -10,7 +10,7 @@ report 50064 "Modif OP après OP Gamme PIE"
     //                   - New report
 
     ProcessingOnly = true;
-
+UsageCategory = none;
     dataset
     {
         dataitem("Routing Header"; "Routing Header")

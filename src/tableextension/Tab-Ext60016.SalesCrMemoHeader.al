@@ -24,7 +24,7 @@ tableextension 60016 "PWD SalesCrMemoHeader" extends "Sales Cr.Memo Header"
             Description = 'LAP1.00';
             Editable = false;
         }
-        field(50003; "PWD Cust Promised Delivery Date"; Date)
+        field(50003; "PWD Cust Promised Deliv. Date"; Date)
         {
             Caption = 'Customer Promised Delivery Date';
             Description = 'TDL.LPSA';

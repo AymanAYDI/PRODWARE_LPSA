@@ -11,7 +11,7 @@ report 50043 "PWD Launch Export Closing File"
     Caption = 'Launch Export Closing File';
     ProcessingOnly = true;
     UseRequestPage = false;
-
+    UsageCategory = none;
     dataset
     {
         dataitem("Integer"; "Integer")

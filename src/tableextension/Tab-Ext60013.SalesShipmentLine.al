@@ -44,7 +44,7 @@ tableextension 60013 "PWD SalesShipmentLine" extends "Sales Shipment Line"
         {
             Caption = 'Initial Shipment Date';
         }
-        field(50008; "PWD Cust Promised Delivery Date"; Date)
+        field(50008; "PWD Cust Promised Deliv. Date"; Date)
         {
             Caption = 'Customer Promised Delivery Date';
             Description = 'TDL.LPSA';

@@ -17,7 +17,7 @@ report 50042 "PWD Updt Item - Dimension"
                   TableData "Transfer Line" = rm,
                   TableData "PWD Manufacturing cycles Setup" = rm;
     ProcessingOnly = true;
-
+    UsageCategory = none;
     dataset
     {
         dataitem(Item; Item)

@@ -62,6 +62,7 @@ report 50014 "PWD Invoice"
 
     Caption = 'Sales - Invoice';
     Permissions = TableData "Sales Shipment Buffer" = rimd;
+    UsageCategory = none;
 
     dataset
     {

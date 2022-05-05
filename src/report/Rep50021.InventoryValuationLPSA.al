@@ -11,7 +11,8 @@ report 50021 "PWD Inventory Valuation - LPSA"
     // TI401536: TO 19/01/18: Replace Column "Production Order"."Source Type" by column "Value Entry"."Location Code"
     DefaultLayout = RDLC;
     RDLCLayout = './src/report/rdl/InventoryValuationLPSA.rdl';
-
+    ApplicationArea = all;
+    UsageCategory = ReportsAndAnalysis;
     Caption = 'Inventory Valuation - WIP';
 
     dataset

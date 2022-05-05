@@ -10,7 +10,7 @@ report 50053 "Ajout NouvelleFin De Gamme PIE"
     //                   - New report
 
     ProcessingOnly = true;
-
+UsageCategory = none;
     dataset
     {
         dataitem("Routing Header"; "Routing Header")

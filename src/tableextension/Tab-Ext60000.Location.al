@@ -40,7 +40,7 @@ tableextension 60000 "PWD Location" extends Location
             trigger OnLookup()
             var
                 RecLReqWkshName: Record "Requisition Wksh. Name";
-                "-- LAP2.05 --": Integer;
+            //    "-- LAP2.05 --": Integer;
             begin
                 //>>FE_LAPIERRETTE_NDT01.001
                 IF "PWD Req. Wksh. Template" <> '' THEN BEGIN

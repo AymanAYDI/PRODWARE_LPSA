@@ -40,7 +40,6 @@ pageextension 60042 "PWD PhysInventoryJournal" extends "Phys. Inventory Journal"
                         RecLItemJournalLine.SETRANGE("Journal Batch Name", Rec."Journal Batch Name");
                         IF RecLItemJournalLine.FINDFIRST() THEN
                             REPEAT
-
                                 RecLItemJournalLine.CreateDim(
                                   DATABASE::Item, Rec."Item No.",
                                   DATABASE::"Salesperson/Purchaser", Rec."Salespers./Purch. Code",
@@ -143,7 +142,7 @@ pageextension 60042 "PWD PhysInventoryJournal" extends "Phys. Inventory Journal"
                                     RecLItemLedgerEntryBuffer.SETRANGE("Variant Code", RecLItemJournalLine."Variant Code");
                                     RecLItemLedgerEntryBuffer.SETRANGE("Location Code", RecLItemJournalLine."Location Code");
                                     RecLItemLedgerEntryBuffer.SETRANGE(Open, TRUE);
-                                    IF RecLItemLedgerEntryBuffer.FINDFIRST() THEN
+                                    IF RecLItemLedgerEntryBuffer.FindSet() THEN
                                         REPEAT
                                             RecLReservationEntry.RESET();
                                             RecLReservationEntry.FINDLAST();

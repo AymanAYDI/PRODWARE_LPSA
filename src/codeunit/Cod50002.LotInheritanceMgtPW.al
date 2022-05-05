@@ -265,13 +265,13 @@ codeunit 50002 "PWD Lot Inheritance Mgt.PW"
             ItemLedgEntry.SETRANGE("Entry Type", ItemLedgEntry."Entry Type"::Consumption);
             ItemLedgEntry.SETRANGE("Item No.", ProdOrderComp."Item No.");
 
-            IF ItemLedgEntry.FIND('-') THEN
+            IF ItemLedgEntry.FindSet() THEN
                 REPEAT
                     TempItemLedgEntry := ItemLedgEntry;
                     TempItemLedgEntry.INSERT();
                 UNTIL ItemLedgEntry.NEXT() = 0;
 
-            IF TempItemLedgEntry.FIND('-') THEN BEGIN
+            IF TempItemLedgEntry.FindSet() THEN BEGIN
                 REPEAT
                     //Begin#803/01:A20071/3.00  11.05.07 TECTURA.WW
                     // ORIG:
@@ -281,9 +281,7 @@ codeunit 50002 "PWD Lot Inheritance Mgt.PW"
                     TempItemLedgEntry.SETRANGE("Lot No.", TempItemLedgEntry."Lot No.");
                     //ELSE
                     //  TempItemLedgEntry.SETRANGE("Lot Number", TempItemLedgEntry."Lot Number");
-
                     poLotDetExpirDate := TempItemLedgEntry."Expiration Date";
-
                     REPEAT
                         //Begin#803/01:A20071/3.00  11.05.07 TECTURA.WW
                         // ORIG:
@@ -430,6 +428,7 @@ codeunit 50002 "PWD Lot Inheritance Mgt.PW"
     var
         SourceTrkgSpec: Record "Tracking Specification";
         TempTrackingSpecification: Record "Tracking Specification" temporary;
+        // cuReserveItemJnlLine: Codeunit "Item Jnl. Line-Reserve";
         frmItemTrkgLines: Page "Item Tracking Lines";
     begin
 
@@ -1234,7 +1233,7 @@ codeunit 50002 "PWD Lot Inheritance Mgt.PW"
         IF RecLProdBOM.GET(RecPItem."Production BOM No.") THEN BEGIN
             NeededHits := 0;
             RecLProdBOMLine.SETRANGE(RecLProdBOMLine."Production BOM No.", RecLProdBOM."No.");
-            IF RecLProdBOMLine.FINDFIRST() THEN
+            IF RecLProdBOMLine.FindSet() THEN
                 REPEAT
                     /*
                     IF gcuLotInheritanceMgt.CheckBOMDetermining(RecLProdBOMLine, NeededHits) THEN

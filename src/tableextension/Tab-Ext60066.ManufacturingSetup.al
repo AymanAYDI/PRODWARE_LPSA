@@ -32,14 +32,14 @@ tableextension 60066 "PWD ManufacturingSetup" extends "Manufacturing Setup"
     // +----------------------------------------------------------------------------------------------------------------------------------+
     fields
     {
-        field(50000; "PWD Non conformity Prod. Location"; Code[10])
+        field(50000; "PWD Non conformity Prod. Loca."; Code[10])
         {
             Caption = 'Non conformity Prod. Location';
             Description = 'LAP1.00//LAP2.05';
             Enabled = false;
             TableRelation = Location.Code;
         }
-        field(50001; "PWD Mach. center - Inventory input"; Code[10])
+        field(50001; "PWD Mach. center-Invent. input"; Code[10])
         {
             Caption = 'Machine center - Inventory input';
             Description = 'LAP2.01';

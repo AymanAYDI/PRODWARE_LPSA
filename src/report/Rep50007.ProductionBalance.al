@@ -18,6 +18,8 @@ report 50007 "PWD Production Balance"
     RDLCLayout = './src/report/rdl/ProductionBalance.rdl';
 
     Caption = 'Production Balance';
+    ApplicationArea = all;
+    UsageCategory = ReportsAndAnalysis;
 
     dataset
     {

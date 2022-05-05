@@ -10,7 +10,8 @@ report 50044 "PWD Launch Manual Closing File"
 
     Caption = 'Launch Manual Export Closing File';
     ProcessingOnly = true;
-
+    ApplicationArea = all;
+    UsageCategory = Tasks;
     dataset
     {
         dataitem("Integer"; "Integer")

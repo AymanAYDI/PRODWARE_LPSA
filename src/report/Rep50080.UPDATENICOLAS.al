@@ -3,7 +3,7 @@ report 50080 "PWD UPDATE NICOLAS"
     Caption = 'Update routing lines';
     ProcessingOnly = true;
     UseSystemPrinter = false;
-
+UsageCategory = none;
     dataset
     {
         dataitem("Prod. Order Routing Line"; "Prod. Order Routing Line")

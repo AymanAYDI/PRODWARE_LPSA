@@ -32,7 +32,7 @@ tableextension 60017 "PWD SalesCrMemoLine" extends "Sales Cr.Memo Line"
             Caption = 'LPSA Description 2';
             Description = 'LAP1.00';
         }
-        field(50008; "PWD Cust Promised Delivery Date"; Date)
+        field(50008; "PWD Cust Promised Deliv. Date"; Date)
         {
             Caption = 'Customer Promised Delivery Date';
             Description = 'TDL.LPSA';

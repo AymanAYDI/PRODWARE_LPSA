@@ -2,7 +2,8 @@ report 50030 "PWD Clean Forecast Entries"
 {
     Caption = 'Clean Forecast Entry';
     ProcessingOnly = true;
-
+    ApplicationArea = all;
+    UsageCategory = Tasks;
     dataset
     {
         dataitem("Production Forecast Entry"; "Production Forecast Entry")

@@ -1,7 +1,9 @@
 report 50001 "Export Planning Client Excel"
 {
     ProcessingOnly = true;
-    UsageCategory = none;
+    ApplicationArea = all;
+    UsageCategory = ReportsAndAnalysis;
+
 
     dataset
     {
@@ -111,12 +113,6 @@ report 50001 "Export Planning Client Excel"
             DataItemTableView = SORTING(Number) WHERE(Number = CONST(1));
 
             trigger OnAfterGetRecord()
-            var
-                Window: Dialog;
-                ColumnNo: Integer;
-                RecNo: Integer;
-                RowNo: Integer;
-                TotalRecNo: Integer;
             begin
 
                 if Option = Option::"Update Workbook" then begin

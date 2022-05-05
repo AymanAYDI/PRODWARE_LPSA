@@ -12,10 +12,10 @@ codeunit 50021 "PWD LPSA Functions Mgt."
         IF SalesHeader."Requested Delivery Date" <> 0D THEN
             SalesLine."Shipment Date" := SalesHeader."Requested Delivery Date";
 
-        IF SalesHeader."PWD Cust Promised Delivery Date" <> 0D THEN
-            SalesLine."PWD Cust Promised Delivery Date" := SalesHeader."PWD Cust Promised Delivery Date"
+        IF SalesHeader."PWD Cust Promised Deliv. Date" <> 0D THEN
+            SalesLine."PWD Cust Promis. Delivery Date" := SalesHeader."PWD Cust Promised Deliv. Date"
         ELSE
-            SalesLine."PWD Cust Promised Delivery Date" := SalesHeader."Requested Delivery Date";
+            SalesLine."PWD Cust Promis. Delivery Date" := SalesHeader."Requested Delivery Date";
 
     end;
     //---TAB36---
@@ -770,8 +770,8 @@ codeunit 50021 "PWD LPSA Functions Mgt."
         //>>FE_LAPIERRETTE_PRO12.001
         //RecLManufacturingSetup.TESTFIELD("Non conformity Prod. Location");
         //<<FE_LAPIERRETTE_PRO12.001
-        RecLManufacturingSetup.TESTFIELD("PWD Mach. center - Inventory input");
-        CodLWorkCenter := RecLManufacturingSetup."PWD Mach. center - Inventory input";                                                                                  //<FE_LAPIERRETTE_PROD03.001
+        RecLManufacturingSetup.TESTFIELD("PWD Mach. center-Invent. input");
+        CodLWorkCenter := RecLManufacturingSetup."PWD Mach. center-Invent. input";                                                                                  //<FE_LAPIERRETTE_PROD03.001
         QtyToPost := RecPItemJnalLine."Output Quantity";
         //>>ProdOrderRtngLine
         //>>ProdOrderLine
@@ -1451,7 +1451,7 @@ codeunit 50021 "PWD LPSA Functions Mgt."
         RecLProdOrdLine.SETRANGE("Item No.", CodPitemNo);
         RecLProdOrdLine.SETRANGE(Status, 4);
         RecLProdOrdLine.SETRANGE("Ending Date", DatLBegin, DatLEnd);
-        IF RecLProdOrdLine.FINDFIRST() THEN
+        IF RecLProdOrdLine.FindSet() THEN
             REPEAT
                 IntLCount += 1;
                 DecLSum += RecLProdOrdLine.Quantity;

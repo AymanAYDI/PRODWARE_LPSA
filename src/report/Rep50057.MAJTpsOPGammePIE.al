@@ -10,7 +10,7 @@ report 50057 "PWD MAJ Tps OP Gamme PIE"
     //                   - New report
 
     ProcessingOnly = true;
-
+    UsageCategory = none;
     dataset
     {
         dataitem("Routing Header"; "Routing Header")

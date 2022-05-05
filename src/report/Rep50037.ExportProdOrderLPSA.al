@@ -11,7 +11,7 @@ report 50037 "PWD Export Prod Order LPSA"
 
     ProcessingOnly = true;
     UseRequestPage = false;
-
+    UsageCategory = none;
     dataset
     {
         dataitem("Prod. Order Line"; "Prod. Order Line")

@@ -10,7 +10,7 @@ report 50036 "PWD TPL TVA 7.7"
     // -------------------------------------------------------------------------------
 
     ProcessingOnly = true;
-
+    UsageCategory = none;
     dataset
     {
         dataitem(Customer; Customer)

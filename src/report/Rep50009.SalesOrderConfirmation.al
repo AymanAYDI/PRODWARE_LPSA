@@ -44,6 +44,7 @@ report 50009 "PWD Sales Order Confirmation"
     RDLCLayout = './src/report/rdl/SalesOrderConfirmation.rdl';
 
     Caption = 'Sales Order Confirmation';
+    UsageCategory = none;
 
     dataset
     {
@@ -473,7 +474,7 @@ report 50009 "PWD Sales Order Confirmation"
                             if "Sales Line"."PWD Scrap Quantity" + "Sales Line"."Quantity Shipped" < "Sales Line".Quantity then
                                 //>>TDL.LPSA.20.04.15
                                 //TxTGQuantity := STRSUBSTNO(CstG009,"Sales Line"."Shipment Date")
-                                TxTGQuantity := StrSubstNo(CstG009, "Sales Line"."PWD Cust Promised Delivery Date")
+                                TxTGQuantity := StrSubstNo(CstG009, "Sales Line"."PWD Cust Promis. Delivery Date")
                             //<<TDL.LPSA.20.04.15
                             else
                                 TxTGQuantity := StrSubstNo(CstG010);
@@ -605,11 +606,8 @@ report 50009 "PWD Sales Order Confirmation"
             }
 
             trigger OnAfterGetRecord()
-            var
-                "Sell-to Country": Text[50];
             begin
                 CurrReport.Language := Language.GetLanguageID("Language Code");
-
                 if RecGCustomer.Get("Sell-to Customer No.") then;
                 if RecGSalespersonPurchaser.Get("Salesperson Code") then;
                 if ("Sell-to Customer No." <> "Bill-to Customer No.") and ("Bill-to Customer No." <> '') then begin
@@ -673,16 +671,9 @@ report 50009 "PWD Sales Order Confirmation"
                 end;
             end;
 
-            trigger OnPostDataItem()
-            var
-                ToDo: Record "To-do";
-            begin
-            end;
-
             trigger OnPreDataItem()
             begin
                 NoOfRecords := Count;
-
                 // CH0004.begin
                 if IsServiceTier then begin
                     CurrPageHeaderHiddenFlag := 0;

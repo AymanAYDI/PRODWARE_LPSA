@@ -6,7 +6,8 @@ report 50017 "PWD Auto. Finish Prod. Order"
     //                New : SORTING(Status,No.) WHERE(Status=CONST(Released))
 
     ProcessingOnly = true;
-
+    ApplicationArea = all;
+    UsageCategory = Tasks;
     dataset
     {
         dataitem("Production Order"; "Production Order")

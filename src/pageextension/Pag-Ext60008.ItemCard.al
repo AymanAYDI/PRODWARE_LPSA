@@ -70,11 +70,11 @@ pageextension 60008 "PWD ItemCard" extends "Item Card"
         }
         addafter("Qty. on Prod. Order")
         {
-            field("PWD Released Qty. on Prod. Order"; Rec."PWD Released Qty. on Prod. Order")
+            field("PWD Released Qty. on Prod. Order"; "PWD Rele. Qty. on Prod. Order")
             {
                 ApplicationArea = All;
             }
-            field("PWD Firm Plan. Qty. on Prod. Order"; Rec."PWD Firm Plan. Qty. on Prod. Order")
+            field("PWD Firm Plan. Qty. on Prod. Order"; "PWD Firm Plan. Qty. Prod. Ord.")
             {
                 ApplicationArea = All;
             }

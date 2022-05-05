@@ -52,6 +52,7 @@ report 50004 "PWD Purchase - Quote LAP"
     RDLCLayout = './src/report/rdl/PurchaseQuoteLAP.rdl';
 
     Caption = 'Purchase - Quote';
+    UsageCategory = none;
 
     dataset
     {

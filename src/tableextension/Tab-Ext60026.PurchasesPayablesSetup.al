@@ -11,7 +11,7 @@ tableextension 60026 "PWD PurchasesPayablesSetup" extends "Purchases & Payables 
     //                                50001 - Subcontracting Legal Text - Text250
     fields
     {
-        field(50000; "PWD Subcontracting Order Series No"; Code[20])
+        field(50000; "PWD Subcontra. Order Series No"; Code[20])
         {
             Caption = 'Subcontracting Order Series No';
             Description = 'LAP2.12';

@@ -322,14 +322,14 @@ table 8073285 "PWD Fields Export Setup"
         RecLFieldsExportSetup.SETRANGE("Partner Code", RecPFieldsExportSetup."Partner Code");
         RecLFieldsExportSetup.SETRANGE("Function", RecPFieldsExportSetup."Function");
         RecLFieldsExportSetup.SETRANGE("Message Code", RecPFieldsExportSetup."Message Code");
-        IF RecLFieldsExportSetup.FINDFIRST() THEN
+        IF RecLFieldsExportSetup.FindSet() THEN
             REPEAT
                 RecLFieldsExportSetupOther.RESET();
                 RecLFieldsExportSetupOther.SETCURRENTKEY("File Position");
                 RecLFieldsExportSetupOther.SETRANGE("Partner Code", RecLFieldsExportSetup."Partner Code");
                 RecLFieldsExportSetupOther.SETRANGE("Function", RecLFieldsExportSetup."Function");
                 RecLFieldsExportSetupOther.SETFILTER("Message Code", '<>%1', RecLFieldsExportSetup."Message Code");
-                IF RecLFieldsExportSetupOther.FINDFIRST() THEN
+                IF RecLFieldsExportSetupOther.FindSet() THEN
                     REPEAT
                         IF ((((RecLFieldsExportSetupOther."File Position" + RecLFieldsExportSetupOther."File Length") >
                           RecLFieldsExportSetup."File Position") AND
