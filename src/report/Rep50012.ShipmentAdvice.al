@@ -523,7 +523,6 @@ report 50012 "PWD Shipment Advice"
     trigger OnPostReport()
     var
         RecLSalesShipmentHeader: Record "Sales Shipment Header";
-        "---- NDBI ----": Integer;
     begin
         //>>NDBI
         if not BooGSkipSendEmail and BooGEnvoiMail then begin
@@ -537,7 +536,6 @@ report 50012 "PWD Shipment Advice"
         CompanyInfo: Record "Company Information";
         CompanyInfo1: Record "Company Information";
         CompanyInfo2: Record "Company Information";
-        Cust: Record Customer;
         //TODO: Table 'Posted Document Dimension' is missing
         // PostedDocDim1: Record "Posted Document Dimension";
         // PostedDocDim2: Record "Posted Document Dimension";
@@ -556,8 +554,6 @@ report 50012 "PWD Shipment Advice"
         SalesLine: Record "Sales Line";
         SalesPurchPerson: Record "Salesperson/Purchaser";
         TrackingSpecBuffer: Record "Tracking Specification" temporary;
-        ValueEntryRelation: Record "Value Entry Relation";
-        ItemTrackingAppendix: Report "Item Tracking Appendix";
         FormatAddr: Codeunit "Format Address";
         //ItemTrackingMgt: Codeunit "Item Tracking Management";
         ItemTrackingDocMgt: Codeunit "Item Tracking Doc. Management";
@@ -568,36 +564,25 @@ report 50012 "PWD Shipment Advice"
         BooGEnvoiMail: Boolean;
         BooGSkipSendEmail: Boolean;
         BooGStopComment: Boolean;
-        Continue: Boolean;
         LogInteraction: Boolean;
-        [InDataSet]
-        LogInteractionEnable: Boolean;
         MoreLines: Boolean;
-        NewPage: Boolean;
         ShowCorrectionLines: Boolean;
         ShowCustAddr: Boolean;
         ShowGroup: Boolean;
         ShowInternalInfo: Boolean;
         ShowLotSN: Boolean;
-        ShowTotal: Boolean;
         CrossReferenceNo: Code[20];
         CustName: Code[20];
-        OldNo: Code[20];
         YourDocumentNo: Code[20];
         DocumentDate: Date;
         OrdredQty: Decimal;
         OutstandingQtytoShip: Decimal;
         TotalQty: Decimal;
-        "---- NDBI ----": Integer;
-        "---LAP.2.03": Integer;
-        "-LAP2.02-": Integer;
-        GetSalesShipLineType: Integer;
         i: Integer;
         NoOfCopies: Integer;
         NoOfLoops: Integer;
         OldRefNo: Integer;
         OutputNo: Integer;
-        Quantity_itemtracking: Integer;
         TrackingSpecCount: Integer;
         CstGTxt014: Label 'LPSA No.:';
         Facture_captionLbl: Label 'Shipment Advice';
@@ -614,8 +599,6 @@ report 50012 "PWD Shipment Advice"
         Sales_Shipment_Line_Description_Control44CaptionLbl: Label 'Description';
         Text000: Label 'Your contact : ';
         Text001: Label 'COPY';
-        Text002: Label 'Sales - Shipment %1';
-        Text003: Label 'Page %1';
         Text004: Label 'Scrap : %1 %2';
         Text005: Label 'Your Item Ref.';
         Text006: Label 'You Plan No.';
@@ -627,10 +610,8 @@ report 50012 "PWD Shipment Advice"
         SalesPersonText: Text[50];
         ShipToAddr: array[8] of Text[50];
         TxtGLotNo: Text[50];
-        OldDimText: Text[75];
         ReferenceText: Text[80];
         TxtGCustPlanNo_C: Text[100];
-        DimText: Text[120];
         TxtGComment: Text[1024];
 
 
@@ -702,9 +683,6 @@ report 50012 "PWD Shipment Advice"
 
     procedure SendPDFMail(var RecPSalesShipmentHeader: Record "Sales Shipment Header")
     var
-        RecLContact: Record Contact;
-        RecLContBusRel: Record "Contact Business Relation";
-        RecLCustomer: Record Customer;
         RepLShipmentAdvice: Report "PWD Shipment Advice";
         CodLMail: Codeunit Mail;
         CstL001: Label 'LA PIERRETTE SA : Sales Invoice %1';

@@ -226,7 +226,7 @@ report 50008 "PWD Sales Quote"
                         column(SalesLine_Description; "Sales Line"."PWD LPSA Description 1")
                         {
                         }
-                        column(SalesLineTypeEqualTitle; SalesLine.Type >= SalesLine.Type::Title)
+                        column(SalesLineTypeEqualTitle; SalesLine.Type.AsInteger() >= SalesLine.Type::Title.AsInteger())
                         {
                         }
                         column(Sales_Line___No__; CopyStr("Sales Line"."No.", 1, 8))

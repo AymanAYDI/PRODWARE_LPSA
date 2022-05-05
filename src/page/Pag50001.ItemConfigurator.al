@@ -296,11 +296,11 @@ page 50001 "PWD Item Configurator"
                 {
                     ApplicationArea = All;
                 }
-                field(Control1100294067; Number)
+                field(Control1100294067; Rec.Number)
                 {
                     ApplicationArea = All;
                 }
-                field(Control1100294068; Orientation)
+                field(Control1100294068; Rec.Orientation)
                 {
                     ApplicationArea = All;
                 }
@@ -314,7 +314,7 @@ page 50001 "PWD Item Configurator"
                     Editable = PiercingEditable;
                     ApplicationArea = All;
                 }
-                field(Note; Note)
+                field(Note; Rec.Note)
                 {
                     Editable = NoteEditable;
                     ApplicationArea = All;
@@ -395,7 +395,7 @@ page 50001 "PWD Item Configurator"
                 {
                     ApplicationArea = All;
                 }
-                field(Angle; Angle)
+                field(Angle; Rec.Angle)
                 {
                     Editable = AngleEditable;
                     ApplicationArea = All;
@@ -505,11 +505,11 @@ page 50001 "PWD Item Configurator"
                 {
                     ApplicationArea = All;
                 }
-                field(Control1100294105; Number)
+                field(Control1100294105; Rec.Number)
                 {
                     ApplicationArea = All;
                 }
-                field(Control1100294104; Orientation)
+                field(Control1100294104; Rec.Orientation)
                 {
                     ApplicationArea = All;
                 }
@@ -598,49 +598,49 @@ page 50001 "PWD Item Configurator"
                     IntLPipePosition: Integer;
                     IntLStringLenght: Integer;
                 begin
-                    TESTFIELD("Item Code");
+                    Rec.TESTFIELD("Item Code");
                     RecGItemConfigurator.RESET();
                     RecGItemConfigurator.SETCURRENTKEY("Item Code");
-                    RecGItemConfigurator.SETRANGE("Item Code", "Item Code");
-                    RecGItemConfigurator.SETFILTER("Entry No.", '<>%1', "Entry No.");
+                    RecGItemConfigurator.SETRANGE("Item Code", Rec."Item Code");
+                    RecGItemConfigurator.SETFILTER("Entry No.", '<>%1', Rec."Entry No.");
                     IF RecGItemConfigurator.FINDSET() THEN
-                        ERROR(CstGT001, "Item Code");
+                        ERROR(CstGT001, Rec."Item Code");
                     RecGItem.RESET();
-                    RecGItem.SETRANGE("No.", "Item Code");
+                    RecGItem.SETRANGE("No.", Rec."Item Code");
                     IF RecGItem.FINDSET(TRUE) THEN BEGIN
                         IF BooGNotEditable2 THEN
-                            ERROR(CstGT002, "Item Code");
+                            ERROR(CstGT002, Rec."Item Code");
                         FctUpdateItem();
                         BooLInsertItem := FALSE;
                         RecGItem.MODIFY(TRUE);
                     END ELSE BEGIN
                         RecGItem.INIT();
-                        RecGItem."No." := "Item Code";
+                        RecGItem."No." := Rec."Item Code";
                         BooLInsertItem := TRUE;
                         RecGItem.INSERT(TRUE);
                         COMMIT();
                         FctUpdateItem();
                         RecGItem.MODIFY(TRUE);
-                        IF "Item Template Code" <> '' THEN BEGIN
+                        IF Rec."Item Template Code" <> '' THEN BEGIN
                             COMMIT();
-                            RecGItem.GET("Item Code");
+                            RecGItem.GET(Rec."Item Code");
                             RecGItem.FILTERGROUP(2);
                             RecRef.GETTABLE(RecGItem);
-                            RecLDataTemplateHeader.GET("Item Template Code");
+                            RecLDataTemplateHeader.GET(Rec."Item Template Code");
                             CduGTemplateManagement.UpdateRecord(RecLDataTemplateHeader, RecRef);
                         END;
                     END;
 
-                    IF "Dimension 3 Code" <> '' THEN BEGIN
+                    IF Rec."Dimension 3 Code" <> '' THEN BEGIN
                         RecLGeneralLedgerSetup.GET();
-                        IF RecLDefaultDimension.GET(DATABASE::Item, "Item Code", RecLGeneralLedgerSetup."Shortcut Dimension 3 Code") THEN BEGIN
-                            RecLDefaultDimension."Dimension Value Code" := "Dimension 3 Code";
+                        IF RecLDefaultDimension.GET(DATABASE::Item, Rec."Item Code", RecLGeneralLedgerSetup."Shortcut Dimension 3 Code") THEN BEGIN
+                            RecLDefaultDimension."Dimension Value Code" := Rec."Dimension 3 Code";
                             RecLDefaultDimension.MODIFY();
                         END ELSE BEGIN
                             RecLDefaultDimension."Table ID" := DATABASE::Item;
-                            RecLDefaultDimension."No." := "Item Code";
+                            RecLDefaultDimension."No." := Rec."Item Code";
                             RecLDefaultDimension."Dimension Code" := RecLGeneralLedgerSetup."Shortcut Dimension 3 Code";
-                            RecLDefaultDimension."Dimension Value Code" := "Dimension 3 Code";
+                            RecLDefaultDimension."Dimension Value Code" := Rec."Dimension 3 Code";
                             RecLDefaultDimension.INSERT();
                         END;
                     END;
@@ -649,20 +649,20 @@ page 50001 "PWD Item Configurator"
                     RecLInventorySetup.GET();
                     RecLInventorySetup.TESTFIELD("PWD Product Group Code Dim");
 
-                    IF "Product Group Code" <> '' THEN
-                        IF RecLDefaultDimension.GET(DATABASE::Item, "Item Code", RecLInventorySetup."PWD Product Group Code Dim") THEN BEGIN
+                    IF Rec."Product Group Code" <> '' THEN
+                        IF RecLDefaultDimension.GET(DATABASE::Item, Rec."Item Code", RecLInventorySetup."PWD Product Group Code Dim") THEN BEGIN
                             //>>TDL21072020.001
                             //RecLDefaultDimension."Dimension Value Code" := "Item Category Code"+'_'+"Product Group Code";
-                            RecLDefaultDimension."Dimension Value Code" := "Product Group Code";
+                            RecLDefaultDimension."Dimension Value Code" := Rec."Product Group Code";
                             //<<TDL21072020.001
                             RecLDefaultDimension.MODIFY();
                         END ELSE BEGIN
                             RecLDefaultDimension."Table ID" := DATABASE::Item;
-                            RecLDefaultDimension."No." := "Item Code";
+                            RecLDefaultDimension."No." := Rec."Item Code";
                             RecLDefaultDimension."Dimension Code" := RecLInventorySetup."PWD Product Group Code Dim";
                             //>>TDL21072020.001
                             //RecLDefaultDimension."Dimension Value Code" := "Item Category Code"+'_'+"Product Group Code";
-                            RecLDefaultDimension."Dimension Value Code" := "Product Group Code";
+                            RecLDefaultDimension."Dimension Value Code" := Rec."Product Group Code";
                             //<<TDL21072020.001
                             RecLDefaultDimension.INSERT();
                         END;
@@ -728,8 +728,8 @@ page 50001 "PWD Item Configurator"
                     //<<LAP2.12
 
                     IF BooLInsertItem THEN BEGIN
-                        RecGSubFamily.GET("Family Code", "Subfamily Code");
-                        IF "Phantom Item" THEN
+                        RecGSubFamily.GET(Rec."Family Code", Rec."Subfamily Code");
+                        IF Rec."Phantom Item" THEN
                             RecGSubFamily.NumberF := RecGSubFamily.NumberF + 1
                         ELSE
                             RecGSubFamily.Number := RecGSubFamily.Number + 1;
@@ -740,7 +740,7 @@ page 50001 "PWD Item Configurator"
 
                     CLEAR(PgeGItemCard);
                     RecGItem.RESET();
-                    RecGItem.GET("Item Code");
+                    RecGItem.GET(Rec."Item Code");
                     PgeGItemCard.SETTABLEVIEW(RecGItem);
                     PAGE.RUNMODAL(30, RecGItem);
                 end;
@@ -873,23 +873,23 @@ page 50001 "PWD Item Configurator"
         PrepEnable := FALSE;
         LiftedAndEllipsesEnable := FALSE;
         SemiFinishedEnable := FALSE;
-        CASE "Product Type" OF
-            "Product Type"::STONE:
+        CASE Rec."Product Type" OF
+            Rec."Product Type"::STONE:
                 BEGIN
                     StoneEnable := TRUE;
                     FctEditableFieldsStone();
                 END;
-            "Product Type"::PREPARAGE:
+            Rec."Product Type"::PREPARAGE:
                 BEGIN
                     PrepEnable := TRUE;
                     FctEditableFieldsPreparage();
                 END;
-            "Product Type"::"LIFTED AND ELLIPSES":
+            Rec."Product Type"::"LIFTED AND ELLIPSES":
                 BEGIN
                     LiftedAndEllipsesEnable := TRUE;
                     FctEditableFieldsLAndE();
                 END;
-            "Product Type"::"SEMI-FINISHED":
+            Rec."Product Type"::"SEMI-FINISHED":
                 BEGIN
                     SemiFinishedEnable := TRUE;
                     FctEditableFieldsSF();
@@ -900,7 +900,7 @@ page 50001 "PWD Item Configurator"
 
     procedure FctEditableFields()
     begin
-        IF RecGItem2.GET("Item Code") THEN
+        IF RecGItem2.GET(Rec."Item Code") THEN
             BooGNotEditable := TRUE
         ELSE
             BooGNotEditable := FALSE;
@@ -927,34 +927,34 @@ page 50001 "PWD Item Configurator"
     var
         TxtLNumber: Text[5];
     begin
-        TESTFIELD("Family Code");
-        TESTFIELD("Subfamily Code");
-        RecGSubFamily.GET("Family Code", "Subfamily Code");
-        "Item Code" := "Family Code" + "Subfamily Code";
-        IF "Phantom Item" THEN BEGIN
-            "Item Code" := "Item Code" + 'F';
+        Rec.TESTFIELD("Family Code");
+        Rec.TESTFIELD("Subfamily Code");
+        RecGSubFamily.GET(Rec."Family Code", Rec."Subfamily Code");
+        Rec."Item Code" := Rec."Family Code" + Rec."Subfamily Code";
+        IF Rec."Phantom Item" THEN BEGIN
+            Rec."Item Code" := Rec."Item Code" + 'F';
             TxtLNumber := FORMAT(RecGSubFamily.NumberF + 1);
-            "Item Code" := PADSTR("Item Code", 8 - STRLEN(TxtLNumber), '0');
-            "Item Code" := "Item Code" + TxtLNumber;
+            Rec."Item Code" := PADSTR(Rec."Item Code", 8 - STRLEN(TxtLNumber), '0');
+            Rec."Item Code" := Rec."Item Code" + TxtLNumber;
         END ELSE BEGIN
             TxtLNumber := FORMAT(RecGSubFamily.Number + 1);
-            "Item Code" := PADSTR("Item Code", 8 - STRLEN(TxtLNumber), '0');
-            "Item Code" := "Item Code" + TxtLNumber;
+            Rec."Item Code" := PADSTR(Rec."Item Code", 8 - STRLEN(TxtLNumber), '0');
+            Rec."Item Code" := Rec."Item Code" + TxtLNumber;
         END;
     end;
 
 
     procedure FctConfigDes()
     begin
-        CASE "Product Type" OF
-            "Product Type"::STONE:
+        CASE Rec."Product Type" OF
+            Rec."Product Type"::STONE:
 
                 CdUGItemConfigurator.FctConfigDescStone(Rec);
-            "Product Type"::PREPARAGE:
+            Rec."Product Type"::PREPARAGE:
                 CdUGItemConfigurator.FctConfigDescPrepa(Rec);
-            "Product Type"::"LIFTED AND ELLIPSES":
+            Rec."Product Type"::"LIFTED AND ELLIPSES":
                 CdUGItemConfigurator.FctConfigDescLifted(Rec);
-            "Product Type"::"SEMI-FINISHED":
+            Rec."Product Type"::"SEMI-FINISHED":
                 CdUGItemConfigurator.FctConfigDescSemiFinish(Rec);
         END;
     end;
@@ -970,7 +970,7 @@ page 50001 "PWD Item Configurator"
         HeightBandEditable := TRUE;
         HeightCamberedEditable := TRUE;
         HHGlazedEditable := TRUE;
-        IF RecGPieceType.GET(RecGPieceType."Option Piece Type"::Stone, "Piece Type Stone") THEN BEGIN
+        IF RecGPieceType.GET(RecGPieceType."Option Piece Type"::Stone, Rec."Piece Type Stone") THEN BEGIN
             HoleEditable := RecGPieceType.Hole;
             ExtDiamEditable := RecGPieceType."Ext. Hole";
             ThickEditable := RecGPieceType.Thickness;
@@ -981,44 +981,44 @@ page 50001 "PWD Item Configurator"
             HHGlazedEditable := RecGPieceType."Height Half Glazed";
         END;
         IF NOT HoleEditable THEN BEGIN
-            Hole := 0;
-            "Hole Min." := 0;
-            "Hole Max." := 0;
+            Rec.Hole := 0;
+            Rec."Hole Min." := 0;
+            Rec."Hole Max." := 0;
         END;
         IF NOT ExtDiamEditable THEN BEGIN
-            "External Diameter" := 0;
-            "External Diameter Min." := 0;
-            "External Diameter Max." := 0;
+            Rec."External Diameter" := 0;
+            Rec."External Diameter Min." := 0;
+            Rec."External Diameter Max." := 0;
         END;
         IF NOT ThickEditable THEN BEGIN
-            Thickness := 0;
-            "Thickness Min." := 0;
-            "Thickness Max." := 0;
+            Rec.Thickness := 0;
+            Rec."Thickness Min." := 0;
+            Rec."Thickness Max." := 0;
         END;
         IF NOT RecDiamEditable THEN BEGIN
-            "Recess Diametre" := 0;
-            "Recess Diametre Min." := 0;
-            "Recess Diametre Max." := 0;
+            Rec."Recess Diametre" := 0;
+            Rec."Recess Diametre Min." := 0;
+            Rec."Recess Diametre Max." := 0;
         END;
         IF NOT HoleLengthEditable THEN BEGIN
-            "Hole Length" := 0;
-            "Hole Length Min." := 0;
-            "Hole Length Max." := 0;
+            Rec."Hole Length" := 0;
+            Rec."Hole Length Min." := 0;
+            Rec."Hole Length Max." := 0;
         END;
         IF NOT HeightBandEditable THEN BEGIN
-            "Height Band" := 0;
-            "Height Band Min." := 0;
-            "Height Band Max." := 0;
+            Rec."Height Band" := 0;
+            Rec."Height Band Min." := 0;
+            Rec."Height Band Max." := 0;
         END;
         IF NOT HeightCamberedEditable THEN BEGIN
-            "Height Cambered" := 0;
-            "Height Cambered Min." := 0;
-            "Height Cambered Max." := 0;
+            Rec."Height Cambered" := 0;
+            Rec."Height Cambered Min." := 0;
+            Rec."Height Cambered Max." := 0;
         END;
         IF NOT HHGlazedEditable THEN BEGIN
-            "Height Half Glazed" := 0;
-            "Height Half Glazed Min." := 0;
-            "Height Half Glazed Max." := 0;
+            Rec."Height Half Glazed" := 0;
+            Rec."Height Half Glazed Min." := 0;
+            Rec."Height Half Glazed Max." := 0;
         END;
     end;
 
@@ -1032,7 +1032,7 @@ page 50001 "PWD Item Configurator"
         WidthEditable := TRUE;
         HeightEditable := TRUE;
         WidthDepthEditable := TRUE;
-        IF RecGPieceType.GET(RecGPieceType."Option Piece Type"::Preparage, "Piece Type Preparage") THEN BEGIN
+        IF RecGPieceType.GET(RecGPieceType."Option Piece Type"::Preparage, Rec."Piece Type Preparage") THEN BEGIN
             PiercingEditable := RecGPieceType.Piercing;
             NoteEditable := RecGPieceType.Note;
             ThickPEditable := RecGPieceType.Thick;
@@ -1042,30 +1042,30 @@ page 50001 "PWD Item Configurator"
             WidthDepthEditable := RecGPieceType."Width / Depth";
         END;
         IF NOT PiercingEditable THEN BEGIN
-            "Piercing Min." := 0;
-            "Piercing Max." := 0;
+            Rec."Piercing Min." := 0;
+            Rec."Piercing Max." := 0;
         END;
         IF NOT NoteEditable THEN
-            Note := 0;
+            Rec.Note := 0;
         IF NOT ThickPEditable THEN BEGIN
-            "Thick Min." := 0;
-            "Thick Max." := 0;
+            Rec."Thick Min." := 0;
+            Rec."Thick Max." := 0;
         END;
         IF NOT DiamEditable THEN BEGIN
-            "Diameter Min." := 0;
-            "Diameter Max." := 0;
+            Rec."Diameter Min." := 0;
+            Rec."Diameter Max." := 0;
         END;
         IF NOT WidthEditable THEN BEGIN
-            "Width Min." := 0;
-            "Width Max." := 0;
+            Rec."Width Min." := 0;
+            Rec."Width Max." := 0;
         END;
         IF NOT HeightEditable THEN BEGIN
-            "Height Min." := 0;
-            "Height Max." := 0;
+            Rec."Height Min." := 0;
+            Rec."Height Max." := 0;
         END;
         IF NOT WidthDepthEditable THEN BEGIN
-            "Width / Depth Min." := 0;
-            "Width / Depth Max." := 0;
+            Rec."Width / Depth Min." := 0;
+            Rec."Width / Depth Max." := 0;
         END;
     end;
 
@@ -1079,7 +1079,7 @@ page 50001 "PWD Item Configurator"
         DiamTolEditable := TRUE;
         RArcEditable := TRUE;
         RCordeEditable := TRUE;
-        IF RecGPieceType.GET(RecGPieceType."Option Piece Type"::"Lifted and ellipses", "Piece Type Lifted&Ellipses") THEN BEGIN
+        IF RecGPieceType.GET(RecGPieceType."Option Piece Type"::"Lifted and ellipses", Rec."Piece Type Lifted&Ellipses") THEN BEGIN
             AngleEditable := RecGPieceType.Angle;
             HeightTolEditable := RecGPieceType."Height Tol";
             WidthTolEditable := RecGPieceType."Thick Tol";
@@ -1089,34 +1089,34 @@ page 50001 "PWD Item Configurator"
             RCordeEditable := RecGPieceType."R / Corde";
         END;
         IF NOT AngleEditable THEN BEGIN
-            Angle := 0;
-            "Angle Min." := 0;
-            "Angle Max." := 0;
+            Rec.Angle := 0;
+            Rec."Angle Min." := 0;
+            Rec."Angle Max." := 0;
         END;
         IF NOT HeightTolEditable THEN BEGIN
-            "Height Tol" := 0;
-            "Height Min. Tol" := 0;
-            "Height Max. Tol" := 0;
+            Rec."Height Tol" := 0;
+            Rec."Height Min. Tol" := 0;
+            Rec."Height Max. Tol" := 0;
         END;
         IF NOT WidthTolEditable THEN BEGIN
-            "Thick Tol" := 0;
-            "Thick Min. Tol" := 0;
-            "Thick Max. Tol" := 0;
+            Rec."Thick Tol" := 0;
+            Rec."Thick Min. Tol" := 0;
+            Rec."Thick Max. Tol" := 0;
         END;
         IF NOT LgTolEditable THEN BEGIN
-            "Lg Tol" := 0;
-            "Lg Tol Min." := 0;
-            "Lg Tol Max." := 0;
+            Rec."Lg Tol" := 0;
+            Rec."Lg Tol Min." := 0;
+            Rec."Lg Tol Max." := 0;
         END;
         IF NOT DiamTolEditable THEN BEGIN
-            "Diameter Tol" := 0;
-            "Diameter Tol Min." := 0;
-            "Diameter Tol Max." := 0;
+            Rec."Diameter Tol" := 0;
+            Rec."Diameter Tol Min." := 0;
+            Rec."Diameter Tol Max." := 0;
         END;
         IF NOT RArcEditable THEN
-            "R / Arc" := 0;
+            Rec."R / Arc" := 0;
         IF NOT RCordeEditable THEN
-            "R / Corde" := 0;
+            Rec."R / Corde" := 0;
     end;
 
 
@@ -1126,38 +1126,38 @@ page 50001 "PWD Item Configurator"
         TolExtDiamEditable := TRUE;
         DEditable := TRUE;
         EpEditable := TRUE;
-        IF RecGPieceType.GET(RecGPieceType."Option Piece Type"::"Semi-finished", "Piece Type Semi-finished") THEN BEGIN
+        IF RecGPieceType.GET(RecGPieceType."Option Piece Type"::"Semi-finished", Rec."Piece Type Semi-finished") THEN BEGIN
             TolHoleEditable := RecGPieceType."Hole Tol";
             TolExtDiamEditable := RecGPieceType."Ext. Diam. Tol";
             DEditable := RecGPieceType.D;
             EpEditable := RecGPieceType.Ep;
         END;
         IF NOT TolHoleEditable THEN BEGIN
-            "Hole Tol" := 0;
-            "Hole Tol Min." := 0;
-            "Hole Tol Max." := 0;
+            Rec."Hole Tol" := 0;
+            Rec."Hole Tol Min." := 0;
+            Rec."Hole Tol Max." := 0;
         END;
         IF NOT TolExtDiamEditable THEN BEGIN
-            "External Diameter Tol" := 0;
-            "External Diameter Tol Min." := 0;
-            "External Diameter Tol Max." := 0;
+            Rec."External Diameter Tol" := 0;
+            Rec."External Diameter Tol Min." := 0;
+            Rec."External Diameter Tol Max." := 0;
         END;
         IF NOT DEditable THEN BEGIN
-            "D Min." := 0;
-            "D Max." := 0;
+            Rec."D Min." := 0;
+            Rec."D Max." := 0;
         END;
         IF NOT EpEditable THEN BEGIN
-            "Ep Min." := 0;
-            "Ep Max." := 0;
+            Rec."Ep Min." := 0;
+            Rec."Ep Max." := 0;
         END;
     end;
 
 
     procedure FctUpdateItem()
     begin
-        RecGItem."PWD LPSA Description 1" := "PWD LPSA Description 1";
-        RecGItem."PWD LPSA Description 2" := "PWD LPSA Description 2";
-        RecGItem."PWD Quartis Description" := "PWD Quartis Description";
+        RecGItem."PWD LPSA Description 1" := Rec."PWD LPSA Description 1";
+        RecGItem."PWD LPSA Description 2" := Rec."PWD LPSA Description 2";
+        RecGItem."PWD Quartis Description" := Rec."PWD Quartis Description";
 
         //>>FE_LAPIERRETTE_ART01.003
         /*
@@ -1165,30 +1165,30 @@ page 50001 "PWD Item Configurator"
         RecGItem.VALIDATE(Description,"PWD Quartis Description");
         //<<FE_LAPIERRETTE_ART01.002
         */
-        RecGItem.VALIDATE(Description, COPYSTR("PWD LPSA Description 1", 1, 50));
-        RecGItem.VALIDATE("Description 2", COPYSTR("PWD LPSA Description 2", 1, 50));
+        RecGItem.VALIDATE(Description, COPYSTR(Rec."PWD LPSA Description 1", 1, 50));
+        RecGItem.VALIDATE("Description 2", COPYSTR(Rec."PWD LPSA Description 2", 1, 50));
         //>>LAP2.12
         IF RecGItem."Search Description" = '' THEN
             //<<LAP2.12
-            RecGItem.VALIDATE("Search Description", COPYSTR("PWD Quartis Description", 1, 30));
+            RecGItem.VALIDATE("Search Description", COPYSTR(Rec."PWD Quartis Description", 1, 30));
         ;
         //<<FE_LAPIERRETTE_ART01.003
 
-        RecGItem.VALIDATE("Location Code", "Location Code");
-        RecGItem.VALIDATE("Shelf No.", "Bin Code");
-        RecGItem.VALIDATE("Item Category Code", "Item Category Code");
-        RecGItem.VALIDATE("Product Group Code", "Product Group Code");
-        RecGItem.VALIDATE("Global Dimension 1 Code", "Dimension 1 Code");
-        RecGItem.VALIDATE("Global Dimension 2 Code", "Dimension 2 Code");
+        RecGItem.VALIDATE("Location Code", Rec."Location Code");
+        RecGItem.VALIDATE("Shelf No.", Rec."Bin Code");
+        RecGItem.VALIDATE("Item Category Code", Rec."Item Category Code");
+        //TODO
+        //RecGItem.VALIDATE("Product Group Code", Rec."Product Group Code");
+        RecGItem.VALIDATE("Global Dimension 1 Code", Rec."Dimension 1 Code");
+        RecGItem.VALIDATE("Global Dimension 2 Code", Rec."Dimension 2 Code");
 
         //>>FE_LAPRIERRETTE_GP0003
-        RecGItem.VALIDATE("Phantom Item", "Phantom Item");
+        RecGItem.VALIDATE("PWD Phantom Item", Rec."Phantom Item");
         //<<FE_LAPIERRETTE_GP0003
 
-        RecGItem.VALIDATE("Replenishment System", "Replenishment System");
+        RecGItem.VALIDATE("Replenishment System", Rec."Replenishment System");
         IF RecGItem.TestNoEntriesExist_Cost() THEN
-            RecGItem.VALIDATE("Costing Method", "Costing Method");
-
+            RecGItem.VALIDATE("Costing Method", Rec."Costing Method");
     end;
 }
 

@@ -345,31 +345,29 @@ report 50069 "PWD Replan Production Order"
         ProdOrderLine: Record "Prod. Order Line";
         ExtReservedQtyBase: Decimal;
     begin
-        with ProdOrderLine do begin
-            SetCalledFromComponent(true);
-            LockTable();
-            SetRange(Status, ProdOrder.Status);
-            SetRange("Prod. Order No.", ProdOrder."No.");
-            if Find('-') then
-                repeat
-                    if "Planning Level Code" > 0 then begin
-                        CalcFields("Reserved Qty. (Base)");
-                        if "Reserved Qty. (Base)" = 0 then
-                            Delete(true)
-                        else begin
-                            ExtReservedQtyBase := CalcQtyReservedFromExternalDemand(ProdOrderLine, DATABASE::"Prod. Order Component");
-                            Validate(
-                              Quantity,
-                              UOMMgt.CalcQtyFromBase(
-                                "Item No.", "Variant Code", "Unit of Measure Code", ExtReservedQtyBase, "Qty. per Unit of Measure"));
-                            if Quantity > 0 then
-                                Modify(true)
-                            else
-                                Delete(true);
-                        end;
+        ProdOrderLine.SetCalledFromComponent(true);
+        ProdOrderLine.LockTable();
+        ProdOrderLine.SetRange(Status, ProdOrder.Status);
+        ProdOrderLine.SetRange("Prod. Order No.", ProdOrder."No.");
+        if ProdOrderLine.Find('-') then
+            repeat
+                if ProdOrderLine."Planning Level Code" > 0 then begin
+                    ProdOrderLine.CalcFields("Reserved Qty. (Base)");
+                    if ProdOrderLine."Reserved Qty. (Base)" = 0 then
+                        ProdOrderLine.Delete(true)
+                    else begin
+                        ExtReservedQtyBase := CalcQtyReservedFromExternalDemand(ProdOrderLine, DATABASE::"Prod. Order Component");
+                        ProdOrderLine.Validate(
+                          Quantity,
+                          UOMMgt.CalcQtyFromBase(
+                            ProdOrderLine."Item No.", ProdOrderLine."Variant Code", ProdOrderLine."Unit of Measure Code", ExtReservedQtyBase, ProdOrderLine."Qty. per Unit of Measure"));
+                        if ProdOrderLine.Quantity > 0 then
+                            ProdOrderLine.Modify(true)
+                        else
+                            ProdOrderLine.Delete(true);
                     end;
-                until Next() = 0;
-        end;
+                end;
+            until ProdOrderLine.Next() = 0;
     end;
 
     local procedure CalcQtyReservedFromExternalDemand(ProdOrderLine: Record "Prod. Order Line"; SourceType: Integer) ReservedQtyBase: Decimal
@@ -379,20 +377,18 @@ report 50069 "PWD Replan Production Order"
     begin
         ReservedQtyBase := 0;
 
-        with ReservEntry do begin
-            SetCurrentKey("Source ID", "Source Ref. No.", "Source Type", "Source Subtype", "Source Batch Name");
-            SetRange("Reservation Status", "Reservation Status"::Reservation);
-            ProdOrderLine.SetReservationFilters(ReservEntry);
+        ReservEntry.SetCurrentKey("Source ID", "Source Ref. No.", "Source Type", "Source Subtype", "Source Batch Name");
+        ReservEntry.SetRange("Reservation Status", ReservEntry."Reservation Status"::Reservation);
+        ProdOrderLine.SetReservationFilters(ReservEntry);
 
-            if FindSet() then
-                repeat
-                    ReservEntryFrom.Get("Entry No.", not Positive);
-                    if (ReservEntryFrom."Source Type" <> SourceType) or (ReservEntryFrom."Source ID" <> ProdOrderLine."Prod. Order No.") or
-                       (ReservEntryFrom."Source Subtype" <> ProdOrderLine.Status.AsInteger())
-                    then
-                        ReservedQtyBase += "Quantity (Base)";
-                until Next() = 0;
-        end;
+        if ReservEntry.FindSet() then
+            repeat
+                ReservEntryFrom.Get(ReservEntry."Entry No.", not ReservEntry.Positive);
+                if (ReservEntryFrom."Source Type" <> SourceType) or (ReservEntryFrom."Source ID" <> ProdOrderLine."Prod. Order No.") or
+                   (ReservEntryFrom."Source Subtype" <> ProdOrderLine.Status.AsInteger())
+                then
+                    ReservedQtyBase += ReservEntry."Quantity (Base)";
+            until ReservEntry.Next() = 0;
     end;
 
     [IntegrationEvent(false, false)]

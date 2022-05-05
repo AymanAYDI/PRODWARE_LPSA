@@ -70,7 +70,7 @@ codeunit 50098 "PWD RDD - Tracking Management"
         Text016: Label 'purchase order line';
         Text017: Label 'sales order line';
         FormRunMode: Option ,Reclass,"Combined Ship/Rcpt","Drop Shipment",Transfer,,,,,Countermark;
-        CurrentEntryStatus: Option Reservation,Tracking,Surplus,Prospect;
+        CurrentEntryStatus: Enum "Reservation Status";
         CurrentSourceRowID: Text[100];
         SecondSourceRowID: Text[100];
         CurrentSourceCaption: Text[255];
@@ -696,7 +696,7 @@ codeunit 50098 "PWD RDD - Tracking Management"
                       OldTrackingSpecification."Location Code",
                       OldTrackingSpecification.Description,
                       ExpectedReceiptDate,
-                      ShipmentDate, 0, CurrentEntryStatus);
+                      ShipmentDate, 0, CurrentEntryStatus); 
                     CreateReservEntry.GetLastEntry(ReservEntry1);
                     if Item."Order Tracking Policy" = Item."Order Tracking Policy"::"Tracking & Action Msg." then
                         ReservEngineMgt.UpdateActionMessages(ReservEntry1);
@@ -839,7 +839,6 @@ codeunit 50098 "PWD RDD - Tracking Management"
     local procedure SetQtyToHandleAndInvoice(TrackingSpecification: Record "Tracking Specification") OK: Boolean
     var
         ReservEntry1: Record "Reservation Entry";
-        ReservationMgt: Codeunit "Reservation Management";
         QtyAlreadyHandledToInvoice: Decimal;
         QtyToHandleThisLine: Decimal;
         QtyToInvoiceThisLine: Decimal;
@@ -1358,41 +1357,39 @@ codeunit 50098 "PWD RDD - Tracking Management"
         ReservEntry: Record "Reservation Entry";
         QtyToCheck: Decimal;
     begin
-        with ReservEntry do begin
-            SetCurrentKey(
-              "Source ID", "Source Ref. No.", "Source Type", "Source Subtype",
-              "Source Batch Name", "Source Prod. Order Line", "Reservation Status");
-            SetRange("Source ID", rec."Source ID");
-            SetRange("Source Ref. No.", rec."Source Ref. No.");
-            SetRange("Source Type", rec."Source Type");
-            SetRange("Source Subtype", rec."Source Subtype");
-            SetRange("Source Batch Name", rec."Source Batch Name");
-            SetRange("Source Prod. Order Line", rec."Source Prod. Order Line");
-            SetRange("Reservation Status", "Reservation Status"::Reservation);
-            SetRange("Serial No.", xrec."Serial No.");
-            SetRange("Lot No.", xrec."Lot No.");
-            if Find('-') then
-                case Checktype of
-                    Checktype::"Rename/Delete":
-                        begin
-                            EntryIsReservation := true;
-                            case Messagetype of
-                                Messagetype::Error:
-                                    Error(Text000, TextCaption());
-                                Messagetype::Message:
-                                    ;// MESSAGE(Text000,TextCaption);
-                            end;
+        ReservEntry.SetCurrentKey(
+  "Source ID", "Source Ref. No.", "Source Type", "Source Subtype",
+  "Source Batch Name", "Source Prod. Order Line", "Reservation Status");
+        ReservEntry.SetRange("Source ID", rec."Source ID");
+        ReservEntry.SetRange("Source Ref. No.", rec."Source Ref. No.");
+        ReservEntry.SetRange("Source Type", rec."Source Type");
+        ReservEntry.SetRange("Source Subtype", rec."Source Subtype");
+        ReservEntry.SetRange("Source Batch Name", rec."Source Batch Name");
+        ReservEntry.SetRange("Source Prod. Order Line", rec."Source Prod. Order Line");
+        ReservEntry.SetRange("Reservation Status", ReservEntry."Reservation Status"::Reservation);
+        ReservEntry.SetRange("Serial No.", xrec."Serial No.");
+        ReservEntry.SetRange("Lot No.", xrec."Lot No.");
+        if ReservEntry.Find('-') then
+            case Checktype of
+                Checktype::"Rename/Delete":
+                    begin
+                        EntryIsReservation := true;
+                        case Messagetype of
+                            Messagetype::Error:
+                                Error(Text000, ReservEntry.TextCaption());
+                            Messagetype::Message:
+                                ;// MESSAGE(Text000,TextCaption);
                         end;
-                    Checktype::Quantity:
-                        begin
-                            repeat
-                                QtyToCheck := QtyToCheck + "Quantity (Base)";
-                            until Next() = 0;
-                            if Abs(rec."Quantity (Base)") < Abs(QtyToCheck) then
-                                Error(Text001, TextCaption(), FieldCaption("Quantity (Base)"), Abs(QtyToCheck));
-                        end;
-                end;
-        end;
+                    end;
+                Checktype::Quantity:
+                    begin
+                        repeat
+                            QtyToCheck := QtyToCheck + ReservEntry."Quantity (Base)";
+                        until ReservEntry.Next() = 0;
+                        if Abs(rec."Quantity (Base)") < Abs(QtyToCheck) then
+                            Error(Text001, ReservEntry.TextCaption(), ReservEntry.FieldCaption("Quantity (Base)"), Abs(QtyToCheck));
+                    end;
+            end;
     end;
 
 
@@ -1420,40 +1417,42 @@ codeunit 50098 "PWD RDD - Tracking Management"
         rec.Copy(CrntTempTrackingSpec);
     end;
 
-    local procedure UpdateExpDateColor()
-    begin
-        //IF (Rec."Buffer Status2" = Rec."Buffer Status2"::"ExpDate blocked") OR (CurrentSignFactor < 0) THEN
-        //CurrForm."Expiration Date".UPDATEFORECOLOR(8421504)
-        //ELSE
-        // CurrForm."Expiration Date".UPDATEFORECOLOR(0);
-    end;
+    // local procedure UpdateExpDateColor()
+    // begin
+    //     //IF (Rec."Buffer Status2" = Rec."Buffer Status2"::"ExpDate blocked") OR (CurrentSignFactor < 0) THEN
+    //     //CurrForm."Expiration Date".UPDATEFORECOLOR(8421504)
+    //     //ELSE
+    //     // CurrForm."Expiration Date".UPDATEFORECOLOR(0);
+    // end;
 
-    local procedure UpdateExpDateEditable()
-    begin
-        //CurrForm."Expiration Date".EDITABLE(
-        //NOT (("Buffer Status2" = "Buffer Status2"::"ExpDate blocked") OR (CurrentSignFactor < 0)));
-    end;
+    // local procedure UpdateExpDateEditable()
+    // begin
+    //     //CurrForm."Expiration Date".EDITABLE(
+    //     //NOT (("Buffer Status2" = "Buffer Status2"::"ExpDate blocked") OR (CurrentSignFactor < 0)));
+    // end;
 
 
-    procedure LookupAvailable(LookupMode: Option "Serial No.","Lot No.")
+    procedure LookupAvailable(LookupMode: Enum "Item Tracking Type")
     begin
         rec."Bin Code" := ForBinCode;
-        ItemTrackingDataCollection.LookupTrackingAvailability(rec, LookupMode);
+        ItemTrackingDataCollection.LookupTrackingAvailability(rec, LookupMode); 
         rec."Bin Code" := '';
         //CurrForm.UPDATE;
     end;
 
 
     procedure F6LookupAvailable()
+    var
+    LookupMode: Enum "Item Tracking Type";
     begin
         if SNAvailabilityActive then
-            LookupAvailable(0);
+            LookupAvailable(LookupMode::"Serial No.");
         if LotAvailabilityActive then
-            LookupAvailable(1);
+            LookupAvailable(LookupMode::"Lot No.");
     end;
 
 
-    procedure LotSnAvailable(var TrackingSpecification: Record "Tracking Specification"; LookupMode: Option "Serial No.","Lot No."): Boolean
+    procedure LotSnAvailable(var TrackingSpecification: Record "Tracking Specification"; LookupMode: Enum "Item Tracking Type"): Boolean
     begin
         exit(ItemTrackingDataCollection.TrackingAvailable(TrackingSpecification, LookupMode));
     end;

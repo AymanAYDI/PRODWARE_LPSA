@@ -23,99 +23,99 @@ page 8073325 "PWD Receipt Line Buffer"
             repeater(Control1100294000)
             {
                 ShowCaption = false;
-                field("Entry No."; "Entry No.")
+                field("Entry No."; Rec."Entry No.")
                 {
                     ApplicationArea = All;
                 }
-                field("Connector Values Entry No."; "Connector Values Entry No.")
+                field("Connector Values Entry No."; Rec."Connector Values Entry No.")
                 {
                     ApplicationArea = All;
                 }
-                field("Partner Code"; "Partner Code")
+                field("Partner Code"; Rec."Partner Code")
                 {
                     ApplicationArea = All;
                 }
-                field("Message Code"; "Message Code")
+                field("Message Code"; Rec."Message Code")
                 {
                     ApplicationArea = All;
                 }
-                field("Creation Date"; "Creation Date")
+                field("Creation Date"; Rec."Creation Date")
                 {
                     ApplicationArea = All;
                 }
-                field(Status; Status)
+                field(Status; Rec.Status)
                 {
                     ApplicationArea = All;
                 }
-                field(Processed; Processed)
+                field(Processed; Rec.Processed)
                 {
                     ApplicationArea = All;
                 }
-                field("Processed Date"; "Processed Date")
+                field("Processed Date"; Rec."Processed Date")
                 {
                     ApplicationArea = All;
                 }
-                field("Error Message"; "Error Message")
+                field("Error Message"; Rec."Error Message")
                 {
                     ApplicationArea = All;
                 }
-                field("Action"; Action)
+                field("Action"; Rec.Action)
                 {
                     ApplicationArea = All;
                 }
-                field("RecordID Created"; "RecordID Created")
+                field("RecordID Created"; Rec."RecordID Created")
                 {
                     ApplicationArea = All;
                 }
-                field("Document Type"; "Document Type")
+                field("Document Type"; Rec."Document Type")
                 {
                     ApplicationArea = All;
                 }
-                field("Document No."; "Document No.")
+                field("Document No."; Rec."Document No.")
                 {
                     ApplicationArea = All;
                 }
-                field("Document Line No."; "Document Line No.")
+                field("Document Line No."; Rec."Document Line No.")
                 {
                     ApplicationArea = All;
                 }
-                field("Location Code"; "Location Code")
+                field("Location Code"; Rec."Location Code")
                 {
                     ApplicationArea = All;
                 }
-                field(Type; Type)
+                field(Type; Rec.Type)
                 {
                     ApplicationArea = All;
                 }
-                field("No."; "No.")
+                field("No."; Rec."No.")
                 {
                     ApplicationArea = All;
                 }
-                field("Variant Code"; "Variant Code")
+                field("Variant Code"; Rec."Variant Code")
                 {
                     ApplicationArea = All;
                 }
-                field("Unit of Measure"; "Unit of Measure")
+                field("Unit of Measure"; Rec."Unit of Measure")
                 {
                     ApplicationArea = All;
                 }
-                field("Initial Quantity (Base)"; "Initial Quantity (Base)")
+                field("Initial Quantity (Base)"; Rec."Initial Quantity (Base)")
                 {
                     ApplicationArea = All;
                 }
-                field("Receipt Quantity (Base)"; "Receipt Quantity (Base)")
+                field("Receipt Quantity (Base)"; Rec."Receipt Quantity (Base)")
                 {
                     ApplicationArea = All;
                 }
-                field("Expiration Date"; "Expiration Date")
+                field("Expiration Date"; Rec."Expiration Date")
                 {
                     ApplicationArea = All;
                 }
-                field("Serial No."; "Serial No.")
+                field("Serial No."; Rec."Serial No.")
                 {
                     ApplicationArea = All;
                 }
-                field("Lot No."; "Lot No.")
+                field("Lot No."; Rec."Lot No.")
                 {
                     ApplicationArea = All;
                 }
@@ -246,8 +246,8 @@ page 8073325 "PWD Receipt Line Buffer"
     procedure FctGetBufferLinked()
     begin
         //Insérer les différents Tables liées au export Natif.
-        IF RecGPEBReceiptLineBuffer.GET("Entry No.") THEN;
-        IF RecGWMSReceiptLineBuffer.GET("Entry No.") THEN;
+        IF RecGPEBReceiptLineBuffer.GET(Rec."Entry No.") THEN;
+        IF RecGWMSReceiptLineBuffer.GET(Rec."Entry No.") THEN;
     end;
 
 

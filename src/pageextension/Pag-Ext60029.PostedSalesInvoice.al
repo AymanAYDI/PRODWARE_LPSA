@@ -17,7 +17,7 @@ pageextension 60029 "PWD PostedSalesInvoice" extends "Posted Sales Invoice"
     {
         addafter("No. Printed")
         {
-            field("PWD Rolex Bienne"; "PWD Rolex Bienne")
+            field("PWD Rolex Bienne"; Rec."PWD Rolex Bienne")
             {
                 ApplicationArea = All;
             }

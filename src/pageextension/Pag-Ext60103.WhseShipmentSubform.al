@@ -29,12 +29,12 @@ pageextension 60103 "PWD WhseShipmentSubform" extends "Whse. Shipment Subform"
         cTxtL003: Label 'Operation terminated. The deletion has been realized.';
         cTxtL004: Label 'Operation terminated. No deletion has been realized.';
     begin
-        IF "Source Type" <> 37 THEN
+        IF Rec."Source Type" <> 37 THEN
             ERROR(cTxtL001);
 
 
-        IF NOT RecLSalesLine.GET(RecLSalesLine."Document Type"::Order, "Source No.", "Source Line No.") THEN
-            ERROR(cTxtL002, "Source No.", "Source Line No.");
+        IF NOT RecLSalesLine.GET(RecLSalesLine."Document Type"::Order, Rec."Source No.", Rec."Source Line No.") THEN
+            ERROR(cTxtL002, Rec."Source No.", Rec."Source Line No.");
 
         i := 0;
 

@@ -14,14 +14,14 @@ pageextension 60011 "PWD SalesQuote" extends "Sales Quote"
     {
         addafter("Requested Delivery Date")
         {
-            field("PWD Validity Quote Date"; "PWD Validity Quote Date")
+            field("PWD Validity Quote Date"; Rec."PWD Validity Quote Date")
             {
                 ApplicationArea = All;
             }
         }
         addafter(Status)
         {
-            field("PWD External Document No."; "External Document No.")
+            field("PWD External Document No."; Rec."External Document No.")
             {
                 ApplicationArea = All;
             }

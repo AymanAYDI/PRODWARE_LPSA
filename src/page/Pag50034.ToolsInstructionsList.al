@@ -21,15 +21,15 @@ page 50034 "PWD Tools Instructions List"
         {
             repeater(Group)
             {
-                field("No."; "No.")
+                field("No."; Rec."No.")
                 {
                     ApplicationArea = All;
                 }
-                field(Description; Description)
+                field(Description; Rec.Description)
                 {
                     ApplicationArea = All;
                 }
-                field(Criteria; Criteria)
+                field(Criteria; Rec.Criteria)
                 {
                     ApplicationArea = All;
                 }

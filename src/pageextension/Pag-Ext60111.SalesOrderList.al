@@ -13,22 +13,22 @@ pageextension 60111 "PWD SalesOrderList" extends "Sales Order List"
     {
         addafter("External Document No.")
         {
-            field("PWD Order Date"; "Order Date")
+            field("PWD Order Date"; Rec."Order Date")
             {
                 ApplicationArea = All;
             }
         }
         addafter("Shipping Advice")
         {
-            field("PWD ConfirmedLPSA"; "PWD ConfirmedLPSA")
+            field("PWD ConfirmedLPSA"; Rec."PWD ConfirmedLPSA")
             {
                 ApplicationArea = All;
             }
-            field("PWD Planned"; "PWD Planned")
+            field("PWD Planned"; Rec."PWD Planned")
             {
                 ApplicationArea = All;
             }
-            field("PWD Posting No."; "Posting No.")
+            field("PWD Posting No."; Rec."Posting No.")
             {
                 ApplicationArea = All;
             }
@@ -46,8 +46,8 @@ pageextension 60111 "PWD SalesOrderList" extends "Sales Order List"
 
                 trigger OnAction()
                 begin
-                    SalesHead.SETRANGE("Document Type", "Document Type");
-                    SalesHead.SETRANGE("No.", "No.");
+                    SalesHead.SETRANGE("Document Type", Rec."Document Type");
+                    SalesHead.SETRANGE("No.", Rec."No.");
                     REPORT.RUN(REPORT::"PWD Proforma invoice", TRUE, FALSE, SalesHead);
                 end;
             }

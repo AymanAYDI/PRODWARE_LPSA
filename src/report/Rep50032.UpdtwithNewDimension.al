@@ -90,7 +90,7 @@ report 50032 "PWD Updt with New Dimension"
 
                     UpdtDocDimension(
                       DATABASE::"Sales Line",
-                      "Document Type",
+                      "Document Type".AsInteger(),
                       "Document No.",
                       "Line No.");
                 end;
@@ -174,7 +174,7 @@ report 50032 "PWD Updt with New Dimension"
 
                     UpdtDocDimension(
                       DATABASE::"Purchase Line",
-                      "Document Type",
+                      "Document Type".AsInteger(),
                       "Document No.",
                       "Line No.");
                 end;
@@ -258,7 +258,7 @@ report 50032 "PWD Updt with New Dimension"
 
                     UpdtProdDocDimension(
                       DATABASE::"Production Order",
-                      Status,
+                      Status.AsInteger(),
                       "No.",
                       0,
                       0);
@@ -280,7 +280,7 @@ report 50032 "PWD Updt with New Dimension"
 
                     UpdtProdDocDimension(
                       DATABASE::"Prod. Order Line",
-                      Status,
+                      Status.AsInteger(),
                       "Prod. Order No.",
                       "Line No.",
                       0);
@@ -302,7 +302,7 @@ report 50032 "PWD Updt with New Dimension"
 
                     UpdtProdDocDimension(
                       DATABASE::"Prod. Order Component",
-                      Status,
+                      Status.AsInteger(),
                       "Prod. Order No.",
                       "Prod. Order Line No.",
                       "Line No.");
@@ -324,7 +324,7 @@ report 50032 "PWD Updt with New Dimension"
 
                     UpdtProdDocDimension(
                       DATABASE::"Production Order",
-                      Status,
+                      Status.AsInteger(),
                       "No.",
                       0,
                       0);
@@ -347,7 +347,7 @@ report 50032 "PWD Updt with New Dimension"
 
                     UpdtProdDocDimension(
                       DATABASE::"Prod. Order Line",
-                      Status,
+                      Status.AsInteger(),
                       "Prod. Order No.",
                       "Line No.",
                       0);
@@ -375,7 +375,7 @@ report 50032 "PWD Updt with New Dimension"
                         Window.Update(2, "Prod. Order No.");
                         UpdtProdDocDimension(
                           DATABASE::"Prod. Order Component",
-                          Status,
+                          Status.AsInteger(),
                           "Prod. Order No.",
                           "Prod. Order Line No.",
                           "Line No.");

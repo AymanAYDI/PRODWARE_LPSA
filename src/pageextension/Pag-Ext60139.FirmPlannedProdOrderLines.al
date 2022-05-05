@@ -23,7 +23,7 @@ pageextension 60139 "PWD FirmPlannedProdOrderLines" extends "Firm Planned Prod. 
     {
         addafter("Routing Version Code")
         {
-            field("PWD ExistPhantomItem"; ExistPhantomItem())
+            field("PWD ExistPhantomItem"; Rec.ExistPhantomItem())
             {
                 Caption = 'Phantom Item';
                 ApplicationArea = All;
@@ -37,11 +37,11 @@ pageextension 60139 "PWD FirmPlannedProdOrderLines" extends "Firm Planned Prod. 
                 Editable = false;
                 ApplicationArea = All;
             }
-            field("PWD Manufacturing Code"; "PWD Manufacturing Code")
+            field("PWD Manufacturing Code"; Rec."PWD Manufacturing Code")
             {
                 ApplicationArea = All;
             }
-            field("PWD Planning Level Code"; "Planning Level Code")
+            field("PWD Planning Level Code"; Rec."Planning Level Code")
             {
                 ApplicationArea = All;
             }

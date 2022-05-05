@@ -38,65 +38,65 @@ page 8073285 "PWD Fields Export Setup"
             repeater(Control1100294000)
             {
                 ShowCaption = false;
-                field("Field ID"; "Field ID")
+                field("Field ID"; Rec."Field ID")
                 {
                     ApplicationArea = All;
                 }
-                field("Field Name"; "Field Name")
+                field("Field Name"; Rec."Field Name")
                 {
                     ApplicationArea = All;
                 }
-                field(Type; Type)
+                field(Type; Rec.Type)
                 {
                     Editable = false;
                     ApplicationArea = All;
                 }
-                field("Field Type"; "Field Type")
+                field("Field Type"; Rec."Field Type")
                 {
                     ApplicationArea = All;
                 }
-                field("Constant Value"; "Constant Value")
+                field("Constant Value"; Rec."Constant Value")
                 {
                     ApplicationArea = All;
                 }
-                field("Xml Tag"; "Xml Tag")
+                field("Xml Tag"; Rec."Xml Tag")
                 {
                     Visible = BooGXmlTagVisible;
                     ApplicationArea = All;
                 }
-                field("File Position"; "File Position")
+                field("File Position"; Rec."File Position")
                 {
                     Visible = BooGFilePositionVisible;
                     ApplicationArea = All;
                 }
-                field("File Length"; "File Length")
+                field("File Length"; Rec."File Length")
                 {
                     Visible = BooGFileLengthVisible;
                     ApplicationArea = All;
                 }
-                field(FormatStr; FormatStr)
+                field(FormatStr; Rec.FormatStr)
                 {
                     ApplicationArea = All;
                 }
-                field(Precision; Precision)
+                field(Precision; Rec.Precision)
                 {
                     ApplicationArea = All;
                 }
-                field("Rounding Direction"; "Rounding Direction")
+                field("Rounding Direction"; Rec."Rounding Direction")
                 {
                     ApplicationArea = All;
                 }
-                field("Fill up"; "Fill up")
+                field("Fill up"; Rec."Fill up")
                 {
                     Visible = BooGFillupVisible;
                     ApplicationArea = All;
                 }
-                field("Fill Character"; "Fill Character")
+                field("Fill Character"; Rec."Fill Character")
                 {
                     Visible = BooGFillCharacterVisible;
                     ApplicationArea = All;
                 }
-                field("Fct For Replace"; "Fct For Replace")
+                field("Fct For Replace"; Rec."Fct For Replace")
                 {
                     ApplicationArea = All;
                 }
@@ -131,7 +131,7 @@ page 8073285 "PWD Fields Export Setup"
 
                 trigger OnAction()
                 begin
-                    FctInsertAllFields();
+                    Rec.FctInsertAllFields();
                 end;
             }
             action("<Action1000000000>")
@@ -144,7 +144,7 @@ page 8073285 "PWD Fields Export Setup"
 
                 trigger OnAction()
                 begin
-                    FctVerifyPosition(Rec);
+                    Rec.FctVerifyPosition(Rec);
                 end;
             }
         }
@@ -159,7 +159,7 @@ page 8073285 "PWD Fields Export Setup"
 
     trigger OnNewRecord(BelowxRec: Boolean)
     begin
-        SetUpNewLine(xRec);
+        Rec.SetUpNewLine(xRec);
     end;
 
     trigger OnOpenPage()
@@ -191,7 +191,7 @@ page 8073285 "PWD Fields Export Setup"
         BooGFileLengthVisible := FALSE;
         BooGFillCharacterVisible := FALSE;
 
-        IF RecLPartner.GET("Partner Code") THEN
+        IF RecLPartner.GET(Rec."Partner Code") THEN
             CASE RecLPartner."Data Format" OF
                 RecLPartner."Data Format"::Xml:
                     BooGXmlTagVisible := TRUE;

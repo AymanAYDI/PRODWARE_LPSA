@@ -27,38 +27,38 @@ pageextension 60127 "PWD ManufacturingSetup" extends "Manufacturing Setup"
     {
         addafter("Default Dampener %")
         {
-            field("PWD Mach. center - Inventory input"; "PWD Mach. center - Inventory input")
+            field("PWD Mach. center - Inventory input"; Rec."PWD Mach. center - Inventory input")
             {
                 ApplicationArea = All;
             }
             group("PWD Job Queue")
             {
                 Caption = 'Job Queue';
-                field("PWD Calc. Type"; "PWD Calc. Type")
+                field("PWD Calc. Type"; Rec."PWD Calc. Type")
                 {
                     ApplicationArea = All;
                 }
-                field("PWD Starting Date Calc."; "PWD Starting Date Calc.")
+                field("PWD Starting Date Calc."; Rec."PWD Starting Date Calc.")
                 {
                     ApplicationArea = All;
                 }
-                field("PWD Ending Date Calc."; "PWD Ending Date Calc.")
+                field("PWD Ending Date Calc."; Rec."PWD Ending Date Calc.")
                 {
                     ApplicationArea = All;
                 }
-                field("PWD MPS"; "PWD MPS")
+                field("PWD MPS"; Rec."PWD MPS")
                 {
                     ApplicationArea = All;
                 }
-                field("PWD MRP"; "PWD MRP")
+                field("PWD MRP"; Rec."PWD MRP")
                 {
                     ApplicationArea = All;
                 }
-                field("PWD Use Forecast"; "PWD Use Forecast")
+                field("PWD Use Forecast"; Rec."PWD Use Forecast")
                 {
                     ApplicationArea = All;
                 }
-                field("PWD Exclude Before"; "PWD Exclude Before")
+                field("PWD Exclude Before"; Rec."PWD Exclude Before")
                 {
                     ApplicationArea = All;
                 }
@@ -66,7 +66,7 @@ pageextension 60127 "PWD ManufacturingSetup" extends "Manufacturing Setup"
             group("PWD Impression")
             {
                 Caption = 'Impression';
-                field("PWD PDF Exe Path"; "PWD PDF Exe Path")
+                field("PWD PDF Exe Path"; Rec."PWD PDF Exe Path")
                 {
                     ApplicationArea = All;
                 }

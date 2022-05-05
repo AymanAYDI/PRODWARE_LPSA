@@ -498,75 +498,70 @@ codeunit 8073291 "PWD Buffer Management"
         //>>OSYS-Int001.001
         FctInitItemJnlLineTempBuffer();
         //<<OSYS-Int001.001
+        IF NOT Rec.ISEMPTY THEN BEGIN
+            IntLTotal := Rec.COUNT;
+            IntLLine := 1;
+            //>>WMS-EBL1-003.001.001
+            IF GUIALLOWED THEN
+                //<<WMS-EBL1-003.001.001
 
-        WITH Rec DO
-            IF NOT ISEMPTY THEN BEGIN
-                IntLTotal := COUNT;
-                IntLLine := 1;
-                //>>WMS-EBL1-003.001.001
+                DiaLWin.OPEN('@@@@@@@@@@@@@@1@@@@@@@@@@@@@@');
+
+            Rec.FINDSET();
+            REPEAT
                 IF GUIALLOWED THEN
-                    //<<WMS-EBL1-003.001.001
+                    DiaLWin.UPDATE(1, ROUND(IntLLine / IntLTotal * 10000, 1));
 
-                    DiaLWin.OPEN('@@@@@@@@@@@@@@1@@@@@@@@@@@@@@');
+                RecLObject.INIT();
+                RecLObject.ID := Rec.NUMBER;
+                FieldRefKey := Rec.FIELD(1);
+                EVALUATE(RecLObject."DBM Table No.", FORMAT(FieldRefKey.VALUE));
+                COMMIT();
+                IF NOT CODEUNIT.RUN(8073291, RecLObject) THEN BEGIN
+                    FieldRef := Rec.FIELD(16);
+                    FieldRef.VALUE := COPYSTR(GETLASTERRORTEXT, 1, 250);
+                    FieldRef := Rec.FIELD(9);
+                    FctTransformErrorToBlob(FieldRef);
+                    Rec.MODIFY();
+                    CLEARLASTERROR();
+                END
 
-                FINDSET();
-                REPEAT
-                    IF GUIALLOWED THEN
-                        DiaLWin.UPDATE(1, ROUND(IntLLine / IntLTotal * 10000, 1));
+                //>>OSYS-Int001.001
+                ELSE
+                    FctInsertItemJnlLineTempBuffer(Rec);
+                //<<OSYS-Int001.001
 
-                    RecLObject.INIT();
-                    RecLObject.ID := NUMBER;
-                    FieldRefKey := FIELD(1);
-                    EVALUATE(RecLObject."DBM Table No.", FORMAT(FieldRefKey.VALUE));
-                    COMMIT();
-                    IF NOT CODEUNIT.RUN(8073291, RecLObject) THEN BEGIN
-                        FieldRef := Rec.FIELD(16);
-                        FieldRef.VALUE := COPYSTR(GETLASTERRORTEXT, 1, 250);
-                        FieldRef := Rec.FIELD(9);
-                        FctTransformErrorToBlob(FieldRef);
-                        MODIFY();
-                        CLEARLASTERROR();
-                    END
+                IntLLine += 1;
+            UNTIL Rec.NEXT() = 0;
 
-                    //>>OSYS-Int001.001
-                    ELSE
-                        FctInsertItemJnlLineTempBuffer(Rec);
-                    //<<OSYS-Int001.001
-
-                    IntLLine += 1;
-                UNTIL NEXT() = 0;
-
-                //>>WMS-EBL1-003.001.001
-                IF GUIALLOWED THEN
-                    //<<WMS-EBL1-003.001.001
-                    DiaLWin.CLOSE();
-            END;
+            //>>WMS-EBL1-003.001.001
+            IF GUIALLOWED THEN
+                //<<WMS-EBL1-003.001.001
+                DiaLWin.CLOSE();
+        END;
         //<<WMS-FE007_15.001
     end;
 
     procedure FctProcessSalesOrder(var Rec: Record "PWD Sales Header Buffer")
     begin
         //>>WMS-FEMOT.001
-        WITH Rec DO BEGIN
+        //>>WMS-EBL1-003.001.001
+        IF GUIALLOWED THEN
+            //<<WMS-EBL1-003.001.001
 
-            //>>WMS-EBL1-003.001.001
-            IF GUIALLOWED THEN
-                //<<WMS-EBL1-003.001.001
+            IF NOT BooGHideDialog THEN
+                IF NOT CONFIRM(CstG002) THEN
+                    EXIT;
 
-                IF NOT BooGHideDialog THEN
-                    IF NOT CONFIRM(CstG002) THEN
-                        EXIT;
-
-            CASE Action OF
-                Action::Skip:
-                    ERROR(CstG001);
-                Action::Insert:
-                    FctCreateSalesOrder(Rec);
-                Action::Modify:
-                    FctUpdateSalesOrder(Rec);
-                Action::Delete:
-                    FctDeleteSalesOrder(Rec);
-            END;
+        CASE Rec.Action OF
+            Rec.Action::Skip:
+                ERROR(CstG001);
+            Rec.Action::Insert:
+                FctCreateSalesOrder(Rec);
+            Rec.Action::Modify:
+                FctUpdateSalesOrder(Rec);
+            Rec.Action::Delete:
+                FctDeleteSalesOrder(Rec);
         END;
         //<<WMS-FEMOT.001
     end;
@@ -621,7 +616,7 @@ codeunit 8073291 "PWD Buffer Management"
                 FctCheckBufferLine(RecordRefBuf);
 
                 RecLSalesCommentLine.INIT();
-                RecLSalesCommentLine."Document Type" := RecPSalesHeaderBuffer."Document Type";
+                RecLSalesCommentLine."Document Type" := "Sales Comment Document Type".FromInteger(RecPSalesHeaderBuffer."Document Type");
                 RecLSalesCommentLine."No." := RecLSalesHeader."No.";
                 RecLSalesCommentLine."Line No." := IntLLineNo;
                 RecLSalesCommentLine."Document Line No." := 0;
@@ -658,7 +653,7 @@ codeunit 8073291 "PWD Buffer Management"
                 RecordRef.GETTABLE(RecLSalesLine);
                 FctUpdateBufferLineProcessed(RecordRefBuf, 1, RecordRef.RECORDID);
 
-                RecLSalesLine.Type := RecLSalesLineBuffer.Type;
+                RecLSalesLine.Type := "Sales Line Type".FromInteger(RecLSalesLineBuffer.Type);
                 RecLSalesLine.VALIDATE("No.", COPYSTR(RecLSalesLineBuffer."No.", 1, 20));
                 EVALUATE(RecLSalesLine."Unit Price", RecLSalesLineBuffer."Unit Price");
                 RecLSalesLine.VALIDATE("Unit Price");
@@ -685,7 +680,7 @@ codeunit 8073291 "PWD Buffer Management"
                         FctCheckBufferLine(RecordRefBuf);
 
                         RecLSalesCommentLine.INIT();
-                        RecLSalesCommentLine."Document Type" := RecPSalesHeaderBuffer."Document Type";
+                        RecLSalesCommentLine."Document Type" := "Sales Comment Document Type".FromInteger(RecPSalesHeaderBuffer."Document Type");
                         RecLSalesCommentLine."No." := RecLSalesLine."Document No.";
                         RecLSalesCommentLine."Line No." := IntLLineNo;
                         RecLSalesCommentLine."Document Line No." := RecLSalesLine."Line No.";
@@ -775,7 +770,7 @@ codeunit 8073291 "PWD Buffer Management"
                 RecordRef.GET(RecLSalesCommentLineBuffer."RecordID Created");
                 RecordRef.SETTABLE(RecLSalesCommentLine);
 
-                RecLSalesCommentLine."Document Type" := RecPSalesHeaderBuffer."Document Type";
+                RecLSalesCommentLine."Document Type" := "Sales Comment Document Type".FromInteger(RecPSalesHeaderBuffer."Document Type");
                 RecLSalesCommentLine."No." := RecLSalesHeader."No.";
                 RecLSalesCommentLine."Line No." := IntLLineNo;
                 RecLSalesCommentLine."Document Line No." := 0;
@@ -809,7 +804,7 @@ codeunit 8073291 "PWD Buffer Management"
                 RecordRef.SETTABLE(RecLSalesLine);
                 FctUpdateBufferLineProcessed(RecordRefBuf, 2, RecordRef.RECORDID);
 
-                RecLSalesLine.Type := RecLSalesLineBuffer.Type;
+                RecLSalesLine.Type := "Sales Line Type".FromInteger(RecLSalesLineBuffer.Type);
                 RecLSalesLine.VALIDATE("No.", COPYSTR(RecLSalesLineBuffer."No.", 1, 20));
                 EVALUATE(RecLSalesLine."Unit Price", RecLSalesLineBuffer."Unit Price");
                 RecLSalesLine.VALIDATE("Unit Price");
@@ -840,7 +835,7 @@ codeunit 8073291 "PWD Buffer Management"
                         RecordRef.GET(RecLSalesCommentLineBuffer."RecordID Created");
                         RecordRef.SETTABLE(RecLSalesCommentLine);
 
-                        RecLSalesCommentLine."Document Type" := RecPSalesHeaderBuffer."Document Type";
+                        RecLSalesCommentLine."Document Type" := "Sales Comment Document Type".FromInteger(RecPSalesHeaderBuffer."Document Type");
                         RecLSalesCommentLine."No." := RecLSalesLine."Document No.";
                         RecLSalesCommentLine."Line No." := IntLLineNo;
                         RecLSalesCommentLine."Document Line No." := RecLSalesLine."Line No.";
@@ -926,26 +921,23 @@ codeunit 8073291 "PWD Buffer Management"
     procedure FctProcessCustomer(var Rec: Record "PWD Customer Buffer")
     begin
         //>>WMS-FEMOT.001
-        WITH Rec DO BEGIN
+        //>>WMS-EBL1-003.001.001
+        IF GUIALLOWED THEN
+            //<<WMS-EBL1-003.001.001
 
-            //>>WMS-EBL1-003.001.001
-            IF GUIALLOWED THEN
-                //<<WMS-EBL1-003.001.001
+            IF NOT BooGHideDialog THEN
+                IF NOT CONFIRM(CstG002) THEN
+                    EXIT;
 
-                IF NOT BooGHideDialog THEN
-                    IF NOT CONFIRM(CstG002) THEN
-                        EXIT;
-
-            CASE Action OF
-                Action::Skip:
-                    ERROR(CstG001);
-                Action::Insert:
-                    FctCreateCustomer(Rec);
-                Action::Modify:
-                    FctUpdateCustomer(Rec);
-                Action::Delete:
-                    FctDeleteCustomer(Rec);
-            END;
+        CASE Rec.Action OF
+            Rec.Action::Skip:
+                ERROR(CstG001);
+            Rec.Action::Insert:
+                FctCreateCustomer(Rec);
+            Rec.Action::Modify:
+                FctUpdateCustomer(Rec);
+            Rec.Action::Delete:
+                FctDeleteCustomer(Rec);
         END;
         //<<WMS-FEMOT.001
     end;
@@ -1069,25 +1061,23 @@ codeunit 8073291 "PWD Buffer Management"
     procedure FctProcessItemJournaLine(var Rec: Record "PWD Item Jounal Line Buffer")
     begin
         //>>WMS-FEMOT.001
-        WITH Rec DO BEGIN
-            //>>WMS-EBL1-003.001.001
-            IF GUIALLOWED THEN
-                //<<WMS-EBL1-003.001.001
+        //>>WMS-EBL1-003.001.001
+        IF GUIALLOWED THEN
+            //<<WMS-EBL1-003.001.001
 
-                IF NOT BooGHideDialog THEN
-                    IF NOT CONFIRM(CstG002) THEN
-                        EXIT;
+            IF NOT BooGHideDialog THEN
+                IF NOT CONFIRM(CstG002) THEN
+                    EXIT;
 
-            CASE Action OF
-                Action::Skip:
-                    ERROR(CstG001);
-                Action::Insert:
-                    FctCreateItemJournaLine(Rec);
-                Action::Modify:
-                    FctUpdateItemJournaLine(Rec);
-                Action::Delete:
-                    FctDeleteItemJournaLine(Rec);
-            END;
+        CASE Rec.Action OF
+            Rec.Action::Skip:
+                ERROR(CstG001);
+            Rec.Action::Insert:
+                FctCreateItemJournaLine(Rec);
+            Rec.Action::Modify:
+                FctUpdateItemJournaLine(Rec);
+            Rec.Action::Delete:
+                FctDeleteItemJournaLine(Rec);
         END;
         //<<WMS-FEMOT.001
     end;
@@ -1183,7 +1173,7 @@ codeunit 8073291 "PWD Buffer Management"
         RecLItemJounalLine.VALIDATE("Entry Type", RecPItemJounalLineBuffer."Entry Type");
         RecLItemJounalLine.VALIDATE("Variant Code", RecPItemJounalLineBuffer."Variant Code");
         RecLItemJounalLine."Reason Code" := RecPItemJounalLineBuffer."Reason Code";
-        RecLItemJounalLine."Source Type" := RecPItemJounalLineBuffer."Source Type";
+        RecLItemJounalLine."Source Type" := "Analysis Source Type".FromInteger(RecPItemJounalLineBuffer."Source Type");
         //>>FE_LAPIERRETTE_PROD02.001
         RecLItemJounalLine."PWD Quartis Comment" := RecPItemJounalLineBuffer."Comment Code";
         //<<FE_LAPIERRETTE_PROD02.001
@@ -1476,7 +1466,7 @@ codeunit 8073291 "PWD Buffer Management"
         RecLItemJounalLine.VALIDATE(Quantity);
         RecLItemJounalLine.VALIDATE("Entry Type", RecPItemJounalLineBuffer."Entry Type");
         RecLItemJounalLine.VALIDATE("Variant Code", RecPItemJounalLineBuffer."Variant Code");
-        RecLItemJounalLine."Source Type" := RecPItemJounalLineBuffer."Source Type";
+        RecLItemJounalLine."Source Type" := "Analysis Source Type".FromInteger(RecPItemJounalLineBuffer."Source Type");
         RecLItemJounalLine."Reason Code" := RecPItemJounalLineBuffer."Reason Code";
 
         //>>FE_LAPIERRETTE_PROD02.001
@@ -1641,17 +1631,16 @@ codeunit 8073291 "PWD Buffer Management"
 
         //>>OSYS-Int001
         //OLD : FORM.RUN(FORM::"Item Journal", RecLItemJounalLine);
-        WITH RecLItemJounalLine DO
-            CASE "Entry Type" OF
-                "Entry Type"::Purchase:
-                    page.RUN(page::"Item Journal", RecLItemJounalLine);
-                "Entry Type"::"Negative Adjmt.":
-                    page.RUN(page::"Item Journal", RecLItemJounalLine);
-                "Entry Type"::Output:
-                    page.RUN(page::"Output Journal", RecLItemJounalLine);
-                "Entry Type"::Consumption:
-                    page.RUN(page::"Consumption Journal", RecLItemJounalLine);
-            END;
+        CASE RecLItemJounalLine."Entry Type" OF
+            RecLItemJounalLine."Entry Type"::Purchase:
+                page.RUN(page::"Item Journal", RecLItemJounalLine);
+            RecLItemJounalLine."Entry Type"::"Negative Adjmt.":
+                page.RUN(page::"Item Journal", RecLItemJounalLine);
+            RecLItemJounalLine."Entry Type"::Output:
+                page.RUN(page::"Output Journal", RecLItemJounalLine);
+            RecLItemJounalLine."Entry Type"::Consumption:
+                page.RUN(page::"Consumption Journal", RecLItemJounalLine);
+        END;
         //>>OSYS-Int001
 
         //<<WMS-FEMOT.001
@@ -1697,26 +1686,23 @@ codeunit 8073291 "PWD Buffer Management"
     procedure FctProcessReceiptLine(var Rec: Record "PWD Receipt Line Buffer")
     begin
         //>>WMS-FE007_15.001
-        WITH Rec DO BEGIN
+        //>>WMS-EBL1-003.001.001
+        IF GUIALLOWED THEN
+            //<<WMS-EBL1-003.001.001
 
-            //>>WMS-EBL1-003.001.001
-            IF GUIALLOWED THEN
-                //<<WMS-EBL1-003.001.001
+            IF NOT BooGHideDialog THEN
+                IF NOT CONFIRM(CstG002) THEN
+                    EXIT;
 
-                IF NOT BooGHideDialog THEN
-                    IF NOT CONFIRM(CstG002) THEN
-                        EXIT;
-
-            CASE Action OF
-                Action::Skip:
-                    ERROR(CstG001);
-                Action::Insert:
-                    ERROR(CstG004);
-                Action::Modify:
-                    FctUpdateReceiptLine(Rec);
-                Action::Delete:
-                    ERROR(CstG004);
-            END;
+        CASE Rec.Action OF
+            Rec.Action::Skip:
+                ERROR(CstG001);
+            Rec.Action::Insert:
+                ERROR(CstG004);
+            Rec.Action::Modify:
+                FctUpdateReceiptLine(Rec);
+            Rec.Action::Delete:
+                ERROR(CstG004);
         END;
         //<<WMS-FE007_15.001
     end;
@@ -1773,7 +1759,7 @@ codeunit 8073291 "PWD Buffer Management"
         //<<WMS-EBL1-003.001
 
         //>>controle
-        IF (RecPReceiptLineBuffer.Type <> RecLPuchaseLine.Type) THEN
+        IF (RecPReceiptLineBuffer.Type <> RecLPuchaseLine.Type.AsInteger()) THEN
             ERROR(CstG005, RecPReceiptLineBuffer.FIELDCAPTION(Type));
 
         IF (RecPReceiptLineBuffer."No." <> RecLPuchaseLine."No.") THEN
@@ -1813,7 +1799,7 @@ codeunit 8073291 "PWD Buffer Management"
 
         IF IntLTrackingType <> 0 THEN BEGIN
             CduLBufferTrackingManagement.FctAssignSerialNo(DATABASE::"Purchase Line",
-                                                            RecLPuchaseLine."Document Type",
+                                                            RecLPuchaseLine."Document Type".AsInteger(),
                                                             RecLPuchaseLine."Document No.",
                                                             '',
                                                             RecLPuchaseLine."Line No.",
@@ -1833,7 +1819,7 @@ codeunit 8073291 "PWD Buffer Management"
                 //<<WMS-EBL1-003.001
                 RecLPuchaseLine.VALIDATE("Qty. to Receive (Base)",
                CduLBufferTrackingManagement.FctGetCountAssignSerialNo(DATABASE::"Purchase Line",
-                                                              RecLPuchaseLine."Document Type",
+                                                              RecLPuchaseLine."Document Type".AsInteger(),
                                                               RecLPuchaseLine."Document No.",
                                                               '',
                                                               RecLPuchaseLine."Line No.",
@@ -1942,26 +1928,24 @@ codeunit 8073291 "PWD Buffer Management"
 
     procedure FctProcessShipmentLine(var Rec: Record "PWD Sales Line Buffer")
     begin
-        WITH Rec DO BEGIN
 
-            //>>WMS-EBL1-003.001.001
-            IF GUIALLOWED THEN
-                //<<WMS-EBL1-003.001.001
+        //>>WMS-EBL1-003.001.001
+        IF GUIALLOWED THEN
+            //<<WMS-EBL1-003.001.001
 
-                IF NOT BooGHideDialog THEN
-                    IF NOT CONFIRM(CstG002) THEN
-                        EXIT;
+            IF NOT BooGHideDialog THEN
+                IF NOT CONFIRM(CstG002) THEN
+                    EXIT;
 
-            CASE Action OF
-                Action::Skip:
-                    ERROR(CstG001);
-                Action::Insert:
-                    ERROR(CstG004);
-                Action::Modify:
-                    FctUpdateShipmentLine(Rec);
-                Action::Delete:
-                    ERROR(CstG004);
-            END;
+        CASE Rec.Action OF
+            Rec.Action::Skip:
+                ERROR(CstG001);
+            Rec.Action::Insert:
+                ERROR(CstG004);
+            Rec.Action::Modify:
+                FctUpdateShipmentLine(Rec);
+            Rec.Action::Delete:
+                ERROR(CstG004);
         END;
     end;
 
@@ -2015,7 +1999,7 @@ codeunit 8073291 "PWD Buffer Management"
         FctUpdateBufferLineProcessed(RecordRefBuf, 2, RecordRef.RECORDID);
 
 
-        IF (RecPShipmentLineBuffer.Type <> RecLSalesLine.Type) THEN
+        IF (RecPShipmentLineBuffer.Type <> RecLSalesLine.Type.AsInteger()) THEN
             ERROR(CstG005, RecPShipmentLineBuffer.FIELDCAPTION(Type));
 
         IF (RecPShipmentLineBuffer."No." <> RecLSalesLine."No.") THEN
@@ -2044,7 +2028,7 @@ codeunit 8073291 "PWD Buffer Management"
 
         IF IntLTrackingType <> 0 THEN BEGIN
             CduLBufferTrackingManagement.FctAssignSerialNo(DATABASE::"Sales Line",
-                                                            RecLSalesLine."Document Type",
+                                                            RecLSalesLine."Document Type".AsInteger(),
                                                             RecLSalesLine."Document No.",
                                                             '',
                                                             RecLSalesLine."Line No.",
@@ -2063,7 +2047,7 @@ codeunit 8073291 "PWD Buffer Management"
                 //<<WMS-EBL1-003.001
                 RecLSalesLine.VALIDATE("Qty. to Ship (Base)",
                CduLBufferTrackingManagement.FctGetCountAssignSerialNo(DATABASE::"Sales Line",
-                                                              RecLSalesLine."Document Type",
+                                                              RecLSalesLine."Document Type".AsInteger(),
                                                               RecLSalesLine."Document No.",
                                                               '',
                                                               RecLSalesLine."Line No.",

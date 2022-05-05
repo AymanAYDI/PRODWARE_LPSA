@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2016/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
   <AutoRefresh>0</AutoRefresh>
   <DataSources>
@@ -10,247 +10,6 @@
       <rd:SecurityType>None</rd:SecurityType>
     </DataSource>
   </DataSources>
-  <DataSets>
-    <DataSet Name="DataSet_Result">
-      <Query>
-        <DataSourceName>DataSource</DataSourceName>
-        <CommandText />
-      </Query>
-      <Fields>
-        <Field Name="Item_No_">
-          <DataField>Item_No_</DataField>
-        </Field>
-        <Field Name="COMPANYNAME">
-          <DataField>COMPANYNAME</DataField>
-        </Field>
-        <Field Name="USERID">
-          <DataField>USERID</DataField>
-        </Field>
-        <Field Name="FORMAT_TODAY_0_4_">
-          <DataField>FORMAT_TODAY_0_4_</DataField>
-        </Field>
-        <Field Name="CurrReport_PAGENO">
-          <DataField>CurrReport_PAGENO</DataField>
-        </Field>
-        <Field Name="CopyNo_1">
-          <DataField>CopyNo_1</DataField>
-        </Field>
-        <Field Name="CopyText">
-          <DataField>CopyText</DataField>
-        </Field>
-        <Field Name="Item__No__">
-          <DataField>Item__No__</DataField>
-        </Field>
-        <Field Name="Item_Description">
-          <DataField>Item_Description</DataField>
-        </Field>
-        <Field Name="ProductionQuantity">
-          <DataField>ProductionQuantity</DataField>
-        </Field>
-        <Field Name="ProductionQuantityFormat">
-          <DataField>ProductionQuantityFormat</DataField>
-        </Field>
-        <Field Name="Item__Routing_No__">
-          <DataField>Item__Routing_No__</DataField>
-        </Field>
-        <Field Name="ActiveVersionCode">
-          <DataField>ActiveVersionCode</DataField>
-        </Field>
-        <Field Name="ActiveVersionText">
-          <DataField>ActiveVersionText</DataField>
-        </Field>
-        <Field Name="OutputNo">
-          <DataField>OutputNo</DataField>
-        </Field>
-        <Field Name="CurrReport_PAGENOCaption">
-          <DataField>CurrReport_PAGENOCaption</DataField>
-        </Field>
-        <Field Name="Routing_SheetCaption">
-          <DataField>Routing_SheetCaption</DataField>
-        </Field>
-        <Field Name="Production_QuantityCaption">
-          <DataField>Production_QuantityCaption</DataField>
-        </Field>
-        <Field Name="Item__Routing_No__Caption">
-          <DataField>Item__Routing_No__Caption</DataField>
-        </Field>
-        <Field Name="Counter2_Number">
-          <DataField>Counter2_Number</DataField>
-        </Field>
-        <Field Name="Routing_Header_No_">
-          <DataField>Routing_Header_No_</DataField>
-        </Field>
-        <Field Name="Routing_Line__Operation_No__">
-          <DataField>Routing_Line__Operation_No__</DataField>
-        </Field>
-        <Field Name="Routing_Line_Type">
-          <DataField>Routing_Line_Type</DataField>
-        </Field>
-        <Field Name="Routing_Line__No__">
-          <DataField>Routing_Line__No__</DataField>
-        </Field>
-        <Field Name="Routing_Line__Send_Ahead_Quantity_">
-          <DataField>Routing_Line__Send_Ahead_Quantity_</DataField>
-        </Field>
-        <Field Name="Routing_Line__Send_Ahead_Quantity_Format">
-          <DataField>Routing_Line__Send_Ahead_Quantity_Format</DataField>
-        </Field>
-        <Field Name="Routing_Line__Setup_Time_">
-          <DataField>Routing_Line__Setup_Time_</DataField>
-        </Field>
-        <Field Name="Routing_Line__Setup_Time_Format">
-          <DataField>Routing_Line__Setup_Time_Format</DataField>
-        </Field>
-        <Field Name="Routing_Line__Run_Time_">
-          <DataField>Routing_Line__Run_Time_</DataField>
-        </Field>
-        <Field Name="Routing_Line__Run_Time_Format">
-          <DataField>Routing_Line__Run_Time_Format</DataField>
-        </Field>
-        <Field Name="Routing_Line__Move_Time_">
-          <DataField>Routing_Line__Move_Time_</DataField>
-        </Field>
-        <Field Name="Routing_Line__Move_Time_Format">
-          <DataField>Routing_Line__Move_Time_Format</DataField>
-        </Field>
-        <Field Name="TotalTime">
-          <DataField>TotalTime</DataField>
-        </Field>
-        <Field Name="TotalTimeFormat">
-          <DataField>TotalTimeFormat</DataField>
-        </Field>
-        <Field Name="Routing_Line__Run_Time_Unit_of_Meas__Code_">
-          <DataField>Routing_Line__Run_Time_Unit_of_Meas__Code_</DataField>
-        </Field>
-        <Field Name="Routing_Line__Scrap_Factor___">
-          <DataField>Routing_Line__Scrap_Factor___</DataField>
-        </Field>
-        <Field Name="Routing_Line__Scrap_Factor___Format">
-          <DataField>Routing_Line__Scrap_Factor___Format</DataField>
-        </Field>
-        <Field Name="Routing_Line__Wait_Time_">
-          <DataField>Routing_Line__Wait_Time_</DataField>
-        </Field>
-        <Field Name="Routing_Line__Wait_Time_Format">
-          <DataField>Routing_Line__Wait_Time_Format</DataField>
-        </Field>
-        <Field Name="RoutingLineDescription">
-          <DataField>RoutingLineDescription</DataField>
-        </Field>
-        <Field Name="Routing_Line__Operation_No__Caption">
-          <DataField>Routing_Line__Operation_No__Caption</DataField>
-        </Field>
-        <Field Name="Routing_Line_TypeCaption">
-          <DataField>Routing_Line_TypeCaption</DataField>
-        </Field>
-        <Field Name="Routing_Line__No__Caption">
-          <DataField>Routing_Line__No__Caption</DataField>
-        </Field>
-        <Field Name="Routing_Line__Send_Ahead_Quantity_Caption">
-          <DataField>Routing_Line__Send_Ahead_Quantity_Caption</DataField>
-        </Field>
-        <Field Name="Routing_Line__Run_Time_Caption">
-          <DataField>Routing_Line__Run_Time_Caption</DataField>
-        </Field>
-        <Field Name="Routing_Line__Move_Time_Caption">
-          <DataField>Routing_Line__Move_Time_Caption</DataField>
-        </Field>
-        <Field Name="TotalTimeCaption">
-          <DataField>TotalTimeCaption</DataField>
-        </Field>
-        <Field Name="Routing_Line__Run_Time_Unit_of_Meas__Code_Caption">
-          <DataField>Routing_Line__Run_Time_Unit_of_Meas__Code_Caption</DataField>
-        </Field>
-        <Field Name="Routing_Line__Scrap_Factor___Caption">
-          <DataField>Routing_Line__Scrap_Factor___Caption</DataField>
-        </Field>
-        <Field Name="Routing_Line__Wait_Time_Caption">
-          <DataField>Routing_Line__Wait_Time_Caption</DataField>
-        </Field>
-        <Field Name="Routing_Line__Setup_Time_Caption">
-          <DataField>Routing_Line__Setup_Time_Caption</DataField>
-        </Field>
-        <Field Name="RoutingLineDescriptionCaption">
-          <DataField>RoutingLineDescriptionCaption</DataField>
-        </Field>
-        <Field Name="Routing_Line_Routing_No_">
-          <DataField>Routing_Line_Routing_No_</DataField>
-        </Field>
-        <Field Name="Routing_Line_Version_Code">
-          <DataField>Routing_Line_Version_Code</DataField>
-        </Field>
-        <Field Name="Routing_Comment_Line_Comment">
-          <DataField>Routing_Comment_Line_Comment</DataField>
-        </Field>
-        <Field Name="Routing_Comment_Line_Routing_No_">
-          <DataField>Routing_Comment_Line_Routing_No_</DataField>
-        </Field>
-        <Field Name="Routing_Comment_Line_Version_Code">
-          <DataField>Routing_Comment_Line_Version_Code</DataField>
-        </Field>
-        <Field Name="Routing_Comment_Line_Operation_No_">
-          <DataField>Routing_Comment_Line_Operation_No_</DataField>
-        </Field>
-        <Field Name="Routing_Comment_Line_Line_No_">
-          <DataField>Routing_Comment_Line_Line_No_</DataField>
-        </Field>
-        <Field Name="Routing_Tool_Description">
-          <DataField>Routing_Tool_Description</DataField>
-        </Field>
-        <Field Name="Routing_Tool__No__">
-          <DataField>Routing_Tool__No__</DataField>
-        </Field>
-        <Field Name="Routing_Tool_Routing_No_">
-          <DataField>Routing_Tool_Routing_No_</DataField>
-        </Field>
-        <Field Name="Routing_Tool_Version_Code">
-          <DataField>Routing_Tool_Version_Code</DataField>
-        </Field>
-        <Field Name="Routing_Tool_Operation_No_">
-          <DataField>Routing_Tool_Operation_No_</DataField>
-        </Field>
-        <Field Name="Routing_Tool_Line_No_">
-          <DataField>Routing_Tool_Line_No_</DataField>
-        </Field>
-        <Field Name="Routing_Personnel_Description">
-          <DataField>Routing_Personnel_Description</DataField>
-        </Field>
-        <Field Name="Routing_Personnel__No__">
-          <DataField>Routing_Personnel__No__</DataField>
-        </Field>
-        <Field Name="Routing_Personnel_Routing_No_">
-          <DataField>Routing_Personnel_Routing_No_</DataField>
-        </Field>
-        <Field Name="Routing_Personnel_Version_Code">
-          <DataField>Routing_Personnel_Version_Code</DataField>
-        </Field>
-        <Field Name="Routing_Personnel_Operation_No_">
-          <DataField>Routing_Personnel_Operation_No_</DataField>
-        </Field>
-        <Field Name="Routing_Personnel_Line_No_">
-          <DataField>Routing_Personnel_Line_No_</DataField>
-        </Field>
-        <Field Name="Routing_Quality_Measure_Description">
-          <DataField>Routing_Quality_Measure_Description</DataField>
-        </Field>
-        <Field Name="Routing_Quality_Measure__Qlty_Measure_Code_">
-          <DataField>Routing_Quality_Measure__Qlty_Measure_Code_</DataField>
-        </Field>
-        <Field Name="Routing_Quality_Measure_Routing_No_">
-          <DataField>Routing_Quality_Measure_Routing_No_</DataField>
-        </Field>
-        <Field Name="Routing_Quality_Measure_Version_Code">
-          <DataField>Routing_Quality_Measure_Version_Code</DataField>
-        </Field>
-        <Field Name="Routing_Quality_Measure_Operation_No_">
-          <DataField>Routing_Quality_Measure_Operation_No_</DataField>
-        </Field>
-        <Field Name="Routing_Quality_Measure_Line_No_">
-          <DataField>Routing_Quality_Measure_Line_No_</DataField>
-        </Field>
-      </Fields>
-    </DataSet>
-  </DataSets>
   <ReportSections>
     <ReportSection>
       <Body>
@@ -11966,6 +11725,89 @@
       </Page>
     </ReportSection>
   </ReportSections>
+  <ReportParameters>
+    <ReportParameter Name="OperationNo_RtngLineCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>OperationNo_RtngLineCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>OperationNo_RtngLineCaption</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="Type_RtngLineCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>Type_RtngLineCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>Type_RtngLineCaption</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="No_RtngLineCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>No_RtngLineCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>No_RtngLineCaption</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="SendAheadQty_RtngLineCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>SendAheadQty_RtngLineCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>SendAheadQty_RtngLineCaption</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="SetupTime_RtngLineCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>SetupTime_RtngLineCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>SetupTime_RtngLineCaption</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="RunTime_RtngLineCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>RunTime_RtngLineCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>RunTime_RtngLineCaption</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="MoveTime_RtngLineCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>MoveTime_RtngLineCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>MoveTime_RtngLineCaption</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="ScrapFactor_RtngLineCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>ScrapFactor_RtngLineCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>ScrapFactor_RtngLineCaption</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="WaitTime_RtngLineCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>WaitTime_RtngLineCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>WaitTime_RtngLineCaption</Prompt>
+    </ReportParameter>
+  </ReportParameters>
   <Code>Public Function BlankZero(ByVal Value As Decimal)
     if Value = 0 then
         Return ""
@@ -12004,4 +11846,158 @@ End Function
   <Language>=User!Language</Language>
   <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
   <rd:ReportUnitType>Invalid</rd:ReportUnitType>
+  <DataSets>
+    <DataSet Name="DataSet_Result">
+      <Fields>
+        <Field Name="No_Item">
+          <DataField>No_Item</DataField>
+        </Field>
+        <Field Name="PrintComment">
+          <DataField>PrintComment</DataField>
+        </Field>
+        <Field Name="PrintTool">
+          <DataField>PrintTool</DataField>
+        </Field>
+        <Field Name="PrintPersonnel">
+          <DataField>PrintPersonnel</DataField>
+        </Field>
+        <Field Name="PrintQualityMeasures">
+          <DataField>PrintQualityMeasures</DataField>
+        </Field>
+        <Field Name="CompanyName">
+          <DataField>CompanyName</DataField>
+        </Field>
+        <Field Name="TodayFormatted">
+          <DataField>TodayFormatted</DataField>
+        </Field>
+        <Field Name="CopyNo1">
+          <DataField>CopyNo1</DataField>
+        </Field>
+        <Field Name="CopyText">
+          <DataField>CopyText</DataField>
+        </Field>
+        <Field Name="No01_Item">
+          <DataField>No01_Item</DataField>
+        </Field>
+        <Field Name="Desc_Item">
+          <DataField>Desc_Item</DataField>
+        </Field>
+        <Field Name="ProductionQuantity">
+          <DataField>ProductionQuantity</DataField>
+        </Field>
+        <Field Name="ProductionQuantityFormat">
+          <DataField>ProductionQuantityFormat</DataField>
+        </Field>
+        <Field Name="RtngNo_Item">
+          <DataField>RtngNo_Item</DataField>
+        </Field>
+        <Field Name="ActiveVersionCode">
+          <DataField>ActiveVersionCode</DataField>
+        </Field>
+        <Field Name="ActiveVersionText">
+          <DataField>ActiveVersionText</DataField>
+        </Field>
+        <Field Name="OutputNo">
+          <DataField>OutputNo</DataField>
+        </Field>
+        <Field Name="CurrReportPageNoCaption">
+          <DataField>CurrReportPageNoCaption</DataField>
+        </Field>
+        <Field Name="RoutingSheetCaption">
+          <DataField>RoutingSheetCaption</DataField>
+        </Field>
+        <Field Name="ProductionQuantityCaption">
+          <DataField>ProductionQuantityCaption</DataField>
+        </Field>
+        <Field Name="ItemRtngNoCaption">
+          <DataField>ItemRtngNoCaption</DataField>
+        </Field>
+        <Field Name="OperationNo_RtngLine">
+          <DataField>OperationNo_RtngLine</DataField>
+        </Field>
+        <Field Name="Type_RtngLine">
+          <DataField>Type_RtngLine</DataField>
+        </Field>
+        <Field Name="No_RtngLine">
+          <DataField>No_RtngLine</DataField>
+        </Field>
+        <Field Name="SendAheadQty_RtngLine">
+          <DataField>SendAheadQty_RtngLine</DataField>
+        </Field>
+        <Field Name="SendAheadQty_RtngLineFormat">
+          <DataField>SendAheadQty_RtngLineFormat</DataField>
+        </Field>
+        <Field Name="SetupTime_RtngLine">
+          <DataField>SetupTime_RtngLine</DataField>
+        </Field>
+        <Field Name="SetupTime_RtngLineFormat">
+          <DataField>SetupTime_RtngLineFormat</DataField>
+        </Field>
+        <Field Name="RunTime_RtngLine">
+          <DataField>RunTime_RtngLine</DataField>
+        </Field>
+        <Field Name="RunTime_RtngLineFormat">
+          <DataField>RunTime_RtngLineFormat</DataField>
+        </Field>
+        <Field Name="MoveTime_RtngLine">
+          <DataField>MoveTime_RtngLine</DataField>
+        </Field>
+        <Field Name="MoveTime_RtngLineFormat">
+          <DataField>MoveTime_RtngLineFormat</DataField>
+        </Field>
+        <Field Name="TotalTime">
+          <DataField>TotalTime</DataField>
+        </Field>
+        <Field Name="TotalTimeFormat">
+          <DataField>TotalTimeFormat</DataField>
+        </Field>
+        <Field Name="RunTimeUOMCode_RtngLine">
+          <DataField>RunTimeUOMCode_RtngLine</DataField>
+        </Field>
+        <Field Name="ScrapFactor_RtngLine">
+          <DataField>ScrapFactor_RtngLine</DataField>
+        </Field>
+        <Field Name="ScrapFactor_RtngLineFormat">
+          <DataField>ScrapFactor_RtngLineFormat</DataField>
+        </Field>
+        <Field Name="WaitTime_RtngLine">
+          <DataField>WaitTime_RtngLine</DataField>
+        </Field>
+        <Field Name="WaitTime_RtngLineFormat">
+          <DataField>WaitTime_RtngLineFormat</DataField>
+        </Field>
+        <Field Name="TotalTimeCaption">
+          <DataField>TotalTimeCaption</DataField>
+        </Field>
+        <Field Name="RtngLnRunTimeUOMCodeCptn">
+          <DataField>RtngLnRunTimeUOMCodeCptn</DataField>
+        </Field>
+        <Field Name="LineComment_RtngComment">
+          <DataField>LineComment_RtngComment</DataField>
+        </Field>
+        <Field Name="Desc_RtngTool">
+          <DataField>Desc_RtngTool</DataField>
+        </Field>
+        <Field Name="No_RtngTool">
+          <DataField>No_RtngTool</DataField>
+        </Field>
+        <Field Name="Desc_RtngPersonnel">
+          <DataField>Desc_RtngPersonnel</DataField>
+        </Field>
+        <Field Name="No_RtngPersonnel">
+          <DataField>No_RtngPersonnel</DataField>
+        </Field>
+        <Field Name="Desc_RtngQualityMeasure">
+          <DataField>Desc_RtngQualityMeasure</DataField>
+        </Field>
+        <Field Name="QMCode_RtngQltyMeasure">
+          <DataField>QMCode_RtngQltyMeasure</DataField>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DataSource</DataSourceName>
+        <CommandText />
+      </Query>
+    </DataSet>
+  </DataSets>
 </Report>

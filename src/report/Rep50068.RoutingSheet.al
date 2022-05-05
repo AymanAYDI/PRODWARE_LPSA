@@ -219,7 +219,7 @@ report 50068 "PWD Routing Sheet"
                             begin
                                 //>>FE_LAPIERRETTE_PROD04.001
                                 IF "Routing Line"."PWD Fixed-step Prod. Rate time" THEN BEGIN
-                                    PWDLPSAFunctionsMgt.FctGetTime("Routing Line".Type, "Routing Line"."No.", Item."No.",
+                                    PWDLPSAFunctionsMgt.FctGetTime("Routing Line".Type.AsInteger(), "Routing Line"."No.", Item."No.",
                                                                       ProductionQuantity,
                                                                       DecLSetupTime, DecLRunTime, CodLSetupTimeUnit, CodLRunTimeUnit);
 

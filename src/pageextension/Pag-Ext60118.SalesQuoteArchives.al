@@ -4,7 +4,7 @@ pageextension 60118 "PWD SalesQuoteArchives" extends "Sales Quote Archives"
     {
         addfirst(Control1)
         {
-            field("PWD No."; "No.")
+            field("PWD No."; Rec."No.")
             {
                 ApplicationArea = All;
             }

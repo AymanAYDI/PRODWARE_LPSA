@@ -181,7 +181,7 @@ report 50028 "Update Scrap Factor Rtg Line"
                         CurrReport.Skip();
 
                     RecLItem.SetFilter("No.", '9915*');
-                    if RecLItem.FindFirst() then
+                    if Not RecLItem.IsEmpty then
                         CurrReport.Skip();
 
                     if not ((RL_Others."Routing No." = RL_Reference."Routing No.") and
@@ -192,7 +192,7 @@ report 50028 "Update Scrap Factor Rtg Line"
                         //     CurrReport.Skip();
 
                         if RecGRoutingHeader.Status <> RecGRoutingHeader.Status::Closed then begin
-                            Stat := RecGRoutingHeader.Status;
+                            Stat := RecGRoutingHeader.Status.AsInteger();
 
                             if (Stat <> Stat::"Under Development") and (Stat <> Stat::Closed) then begin
                                 RecGRoutingHeader.Validate(Status, RecGRoutingHeader.Status::"Under Development");
@@ -247,7 +247,7 @@ report 50028 "Update Scrap Factor Rtg Line"
                         CurrReport.Skip();
 
                     RecLItem.SetFilter("No.", '9915*');
-                    if RecLItem.FindFirst() then
+                    if Not RecLItem.IsEmpty then
                         CurrReport.Skip();
 
                     if not ((RL_OthersVersion."Routing No." = RL_Reference."Routing No.") and
@@ -260,7 +260,7 @@ report 50028 "Update Scrap Factor Rtg Line"
                         //     CurrReport.Skip();
 
                         if RecGRoutingVersion.Status <> RecGRoutingHeader.Status::Closed then begin
-                            Stat := RecGRoutingVersion.Status;
+                            Stat := RecGRoutingVersion.Status.AsInteger();
 
                             if (Stat <> Stat::"Under Development") and (Stat <> Stat::Closed) then begin
                                 RecGRoutingVersion.Validate(Status, RecGRoutingVersion.Status::"Under Development");

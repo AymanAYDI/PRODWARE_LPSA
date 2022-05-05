@@ -60,7 +60,7 @@ report 50037 "PWD Export Prod Order LPSA"
                     OutStreamGlobal.WriteText(';');
 
                     //Colonne E
-                    IntGTempField := "Prod. Order Line".Status;
+                    IntGTempField := "Prod. Order Line".Status.AsInteger();
                     OutStreamGlobal.WriteText(Format(IntGTempField));
                     OutStreamGlobal.WriteText(';');
 
@@ -245,7 +245,7 @@ report 50037 "PWD Export Prod Order LPSA"
                     OutStreamGlobal.WriteText(';');
 
                     //Colonne E
-                    IntGTempField := "Prod. Order Line".Status;
+                    IntGTempField := "Prod. Order Line".Status.AsInteger();
                     OutStreamGlobal.WriteText(Format(IntGTempField));
                     OutStreamGlobal.WriteText(';');
 
@@ -318,7 +318,7 @@ report 50037 "PWD Export Prod Order LPSA"
                         OutStreamGlobal.WriteText(Format(IntGTempField));
                     end
                     else begin
-                        IntGTempField := "Prod. Order Routing Line".Type;
+                        IntGTempField := "Prod. Order Routing Line".Type.AsInteger();
                         OutStreamGlobal.WriteText(Format(IntGTempField));
                     end;
                     OutStreamGlobal.WriteText(';');
@@ -462,7 +462,7 @@ report 50037 "PWD Export Prod Order LPSA"
                         OutStreamGlobal.WriteText(';');
 
                         //Colonne E
-                        IntGTempField := "Prod. Order Line".Status;
+                        IntGTempField := "Prod. Order Line".Status.AsInteger();
                         OutStreamGlobal.WriteText(Format(IntGTempField));
                         OutStreamGlobal.WriteText(';');
 
@@ -648,7 +648,7 @@ report 50037 "PWD Export Prod Order LPSA"
                     OutStreamGlobal.WriteText(';');
 
                     //Colonne E
-                    IntGTempField := "Prod. Order Line".Status;
+                    IntGTempField := "Prod. Order Line".Status.AsInteger();
                     OutStreamGlobal.WriteText(Format(IntGTempField));
                     OutStreamGlobal.WriteText(';');
 
@@ -833,7 +833,7 @@ report 50037 "PWD Export Prod Order LPSA"
                 OutStreamGlobal.WriteText(';');
 
                 //Colonne E
-                IntGTempField := "Prod. Order Line".Status;
+                IntGTempField := "Prod. Order Line".Status.AsInteger();
                 OutStreamGlobal.WriteText(Format(IntGTempField));
                 OutStreamGlobal.WriteText(';');
 

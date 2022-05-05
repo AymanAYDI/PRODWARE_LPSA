@@ -248,136 +248,134 @@ codeunit 50002 "PWD Lot Inheritance Mgt.PW"
         poLotDetLotCode := '';
         poLotDetExpirDate := 0D;
 
-        WITH pioItemJnlLine DO BEGIN
-            ProdOrderComp.SETRANGE(Status, ProdOrderComp.Status::Released);
-            ProdOrderComp.SETRANGE("Prod. Order No.", "Order No.");
-            ProdOrderComp.SETRANGE("Prod. Order Line No.", "Order Line No.");
-            ProdOrderComp.SETRANGE("PWD Lot Determining", TRUE);
-            IF ProdOrderComp.FIND('=><') THEN BEGIN
-                //Begin#803/01:A9203/2.10.08  19.12.05 TECTURA.WW
-                ItemLedgEntry.SETCURRENTKEY(
-                  "Order No.",
-                  "Order Line No.",
-                  "Entry Type",
-                  "Prod. Order Comp. Line No.");
-                //End#803/01:A9203/2.10.08  19.12.05 TECTURA.WW
-                ItemLedgEntry.SETRANGE("Order No.", ProdOrderComp."Prod. Order No.");
-                ItemLedgEntry.SETRANGE("Order Line No.", ProdOrderComp."Prod. Order Line No.");
-                ItemLedgEntry.SETRANGE("Entry Type", ItemLedgEntry."Entry Type"::Consumption);
-                ItemLedgEntry.SETRANGE("Item No.", ProdOrderComp."Item No.");
+        ProdOrderComp.SETRANGE(Status, ProdOrderComp.Status::Released);
+        ProdOrderComp.SETRANGE("Prod. Order No.", pioItemJnlLine."Order No.");
+        ProdOrderComp.SETRANGE("Prod. Order Line No.", pioItemJnlLine."Order Line No.");
+        ProdOrderComp.SETRANGE("PWD Lot Determining", TRUE);
+        IF ProdOrderComp.FIND('=><') THEN BEGIN
+            //Begin#803/01:A9203/2.10.08  19.12.05 TECTURA.WW
+            ItemLedgEntry.SETCURRENTKEY(
+              "Order No.",
+              "Order Line No.",
+              "Entry Type",
+              "Prod. Order Comp. Line No.");
+            //End#803/01:A9203/2.10.08  19.12.05 TECTURA.WW
+            ItemLedgEntry.SETRANGE("Order No.", ProdOrderComp."Prod. Order No.");
+            ItemLedgEntry.SETRANGE("Order Line No.", ProdOrderComp."Prod. Order Line No.");
+            ItemLedgEntry.SETRANGE("Entry Type", ItemLedgEntry."Entry Type"::Consumption);
+            ItemLedgEntry.SETRANGE("Item No.", ProdOrderComp."Item No.");
 
-                IF ItemLedgEntry.FIND('-') THEN
-                    REPEAT
-                        TempItemLedgEntry := ItemLedgEntry;
-                        TempItemLedgEntry.INSERT();
-                    UNTIL ItemLedgEntry.NEXT() = 0;
+            IF ItemLedgEntry.FIND('-') THEN
+                REPEAT
+                    TempItemLedgEntry := ItemLedgEntry;
+                    TempItemLedgEntry.INSERT();
+                UNTIL ItemLedgEntry.NEXT() = 0;
 
-                IF TempItemLedgEntry.FIND('-') THEN BEGIN
+            IF TempItemLedgEntry.FIND('-') THEN BEGIN
+                REPEAT
+                    //Begin#803/01:A20071/3.00  11.05.07 TECTURA.WW
+                    // ORIG:
+                    // IF MfgSetup."Lot Trading Unit Inheritance" THEN
+                    //IF LSSetup."Lot Trading Unit Inheritance" THEN
+                    //End#803/01:A20071/3.00  11.05.07 TECTURA.WW
+                    TempItemLedgEntry.SETRANGE("Lot No.", TempItemLedgEntry."Lot No.");
+                    //ELSE
+                    //  TempItemLedgEntry.SETRANGE("Lot Number", TempItemLedgEntry."Lot Number");
+
+                    poLotDetExpirDate := TempItemLedgEntry."Expiration Date";
+
                     REPEAT
                         //Begin#803/01:A20071/3.00  11.05.07 TECTURA.WW
                         // ORIG:
                         // IF MfgSetup."Lot Trading Unit Inheritance" THEN
                         //IF LSSetup."Lot Trading Unit Inheritance" THEN
                         //End#803/01:A20071/3.00  11.05.07 TECTURA.WW
-                        TempItemLedgEntry.SETRANGE("Lot No.", TempItemLedgEntry."Lot No.");
+                        poLotDetLotCode := TempItemLedgEntry."Lot No.";
                         //ELSE
-                        //  TempItemLedgEntry.SETRANGE("Lot Number", TempItemLedgEntry."Lot Number");
+                        //  poLotDetLotCode := TempItemLedgEntry."Lot Number";
+                        IF (poLotDetExpirDate > TempItemLedgEntry."Expiration Date") AND
+                           (TempItemLedgEntry."Expiration Date" <> 0D)
+                        THEN
+                            poLotDetExpirDate := TempItemLedgEntry."Expiration Date";
+                        totalQty += TempItemLedgEntry.Quantity;
+                    UNTIL TempItemLedgEntry.NEXT() = 0;
 
-                        poLotDetExpirDate := TempItemLedgEntry."Expiration Date";
+                    IF totalQty = 0 THEN
+                        TempItemLedgEntry.DELETEALL();
+                    TempItemLedgEntry.RESET();
+                UNTIL (NOT TempItemLedgEntry.FIND('-')) OR (totalQty <> 0);
 
-                        REPEAT
-                            //Begin#803/01:A20071/3.00  11.05.07 TECTURA.WW
-                            // ORIG:
-                            // IF MfgSetup."Lot Trading Unit Inheritance" THEN
-                            //IF LSSetup."Lot Trading Unit Inheritance" THEN
-                            //End#803/01:A20071/3.00  11.05.07 TECTURA.WW
-                            poLotDetLotCode := TempItemLedgEntry."Lot No.";
-                            //ELSE
-                            //  poLotDetLotCode := TempItemLedgEntry."Lot Number";
-                            IF (poLotDetExpirDate > TempItemLedgEntry."Expiration Date") AND
-                               (TempItemLedgEntry."Expiration Date" <> 0D)
-                            THEN
-                                poLotDetExpirDate := TempItemLedgEntry."Expiration Date";
-                            totalQty += TempItemLedgEntry.Quantity;
-                        UNTIL TempItemLedgEntry.NEXT() = 0;
-
-                        IF totalQty = 0 THEN
-                            TempItemLedgEntry.DELETEALL();
-                        TempItemLedgEntry.RESET();
-                    UNTIL (NOT TempItemLedgEntry.FIND('-')) OR (totalQty <> 0);
-
-                    IF totalQty = 0 THEN BEGIN
-                        poLotDetLotCode := '';
-                        poLotDetExpirDate := 0D;
-                    END ELSE BEGIN
-                        //Begin#803/01:A20071/3.00  11.05.07 TECTURA.WW
-                        // ORIG:
-                        // IF MfgSetup."Lot Trading Unit Inheritance" THEN
-                        //IF LSSetup."Lot Trading Unit Inheritance" THEN
-                        //End#803/01:A20071/3.00  11.05.07 TECTURA.WW
-                        ItemLedgEntry.SETFILTER("Lot No.", '<>%1', poLotDetLotCode);
-                        //ELSE
-                        //  ItemLedgEntry.SETFILTER("Lot Number", '<>%1', poLotDetLotCode);
-                        IF GetItemLedgerEntryQty(ItemLedgEntry) <> 0 THEN
-                            ERROR(CstG001, ProdOrderComp."Item No.");
-                    END;
+                IF totalQty = 0 THEN BEGIN
+                    poLotDetLotCode := '';
+                    poLotDetExpirDate := 0D;
+                END ELSE BEGIN
+                    //Begin#803/01:A20071/3.00  11.05.07 TECTURA.WW
+                    // ORIG:
+                    // IF MfgSetup."Lot Trading Unit Inheritance" THEN
+                    //IF LSSetup."Lot Trading Unit Inheritance" THEN
+                    //End#803/01:A20071/3.00  11.05.07 TECTURA.WW
+                    ItemLedgEntry.SETFILTER("Lot No.", '<>%1', poLotDetLotCode);
+                    //ELSE
+                    //  ItemLedgEntry.SETFILTER("Lot Number", '<>%1', poLotDetLotCode);
+                    IF GetItemLedgerEntryQty(ItemLedgEntry) <> 0 THEN
+                        ERROR(CstG001, ProdOrderComp."Item No.");
                 END;
-
-                //Begin#803/01:A9069/2.10.01  25.02.05 TECTURA.WW
-                IF poLotDetLotCode = '' THEN BEGIN
-                    ItemJnlLine.SETRANGE("Journal Template Name", pioItemJnlLine."Journal Template Name");
-                    ItemJnlLine.SETRANGE("Journal Batch Name", pioItemJnlLine."Journal Batch Name");
-                    ItemJnlLine.SETRANGE("Entry Type", ItemJnlLine."Entry Type"::Consumption);
-                    ItemJnlLine.SETRANGE("Order No.", pioItemJnlLine."Order No.");
-                    ItemJnlLine.SETRANGE("Order Line No.", pioItemJnlLine."Order Line No.");
-                    IF ItemJnlLine.FIND('-') THEN BEGIN
-                        ReservEntry.SETCURRENTKEY(
-                            "Source Type",
-                            "Source Subtype",
-                            "Source ID",
-                            "Source Batch Name",
-                            "Source Prod. Order Line",
-                            "Source Ref. No.");
-                        ReservEntry.SETRANGE("Source Type", DATABASE::"Item Journal Line");
-                        ReservEntry.SETRANGE("Source Subtype", ItemJnlLine."Entry Type");
-                        ReservEntry.SETRANGE("Source ID", ItemJnlLine."Journal Template Name");
-                        ReservEntry.SETRANGE("Source Batch Name", ItemJnlLine."Journal Batch Name");
-                        ReservEntry.SETRANGE("Source Prod. Order Line", 0);
-                        ReservEntry.SETRANGE("Source Ref. No.", ItemJnlLine."Line No.");
-                        ReservEntry.SETFILTER("Lot No.", '<>%1', '');
-                        IF ReservEntry.FIND('><=') THEN BEGIN
-                            //IF LotNoInfo.GET(
-                            //  ItemJnlLine."Item No.",
-                            //  ItemJnlLine."Variant Code",
-                            //  ReservEntry."Lot Number",
-                            //  //Begin#803/01:A20120/3.00  14.04.07 TECTURA.WW
-                            // ORIG:
-                            // ReservEntry."Trading Unit Number")
-                            //  ReservEntry."Trading Unit Number",
-                            //  ReservEntry."Serial No.")
-                            //End#803/01:A20120/3.00  14.04.07 TECTURA.WW
-                            //THEN
-                            //  poLotDetExpirDate := LotNoInfo."Expiration Date"
-                            //ELSE
-                            poLotDetExpirDate := ReservEntry."Expiration Date";
-                            //Begin#803/01:A20071/3.00  11.05.07 TECTURA.WW
-                            // ORIG:
-                            // IF MfgSetup."Lot Trading Unit Inheritance" THEN
-                            //IF LSSetup."Lot Trading Unit Inheritance" THEN
-                            //End#803/01:A20071/3.00  11.05.07 TECTURA.WW
-                            poLotDetLotCode := ReservEntry."Lot No."
-                            //ELSE
-                            //  poLotDetLotCode := ReservEntry."Lot Number";
-                        END;
-                    END;
-                END;
-                //End#803/01:A9069/2.10.01  25.02.05 TECTURA.WW
             END;
-            //Begin#803/01:A20020/3.00  22.05.07 TECTURA.WW
-            //IF NOT ProdOrderComp."Expiration Determining" THEN
-            //  poLotDetExpirDate := 0D;
-            //End#803/01:A20020/3.00  22.05.07 TECTURA.WW
+
+            //Begin#803/01:A9069/2.10.01  25.02.05 TECTURA.WW
+            IF poLotDetLotCode = '' THEN BEGIN
+                ItemJnlLine.SETRANGE("Journal Template Name", pioItemJnlLine."Journal Template Name");
+                ItemJnlLine.SETRANGE("Journal Batch Name", pioItemJnlLine."Journal Batch Name");
+                ItemJnlLine.SETRANGE("Entry Type", ItemJnlLine."Entry Type"::Consumption);
+                ItemJnlLine.SETRANGE("Order No.", pioItemJnlLine."Order No.");
+                ItemJnlLine.SETRANGE("Order Line No.", pioItemJnlLine."Order Line No.");
+                IF ItemJnlLine.FIND('-') THEN BEGIN
+                    ReservEntry.SETCURRENTKEY(
+                        "Source Type",
+                        "Source Subtype",
+                        "Source ID",
+                        "Source Batch Name",
+                        "Source Prod. Order Line",
+                        "Source Ref. No.");
+                    ReservEntry.SETRANGE("Source Type", DATABASE::"Item Journal Line");
+                    ReservEntry.SETRANGE("Source Subtype", ItemJnlLine."Entry Type");
+                    ReservEntry.SETRANGE("Source ID", ItemJnlLine."Journal Template Name");
+                    ReservEntry.SETRANGE("Source Batch Name", ItemJnlLine."Journal Batch Name");
+                    ReservEntry.SETRANGE("Source Prod. Order Line", 0);
+                    ReservEntry.SETRANGE("Source Ref. No.", ItemJnlLine."Line No.");
+                    ReservEntry.SETFILTER("Lot No.", '<>%1', '');
+                    IF ReservEntry.FIND('><=') THEN BEGIN
+                        //IF LotNoInfo.GET(
+                        //  ItemJnlLine."Item No.",
+                        //  ItemJnlLine."Variant Code",
+                        //  ReservEntry."Lot Number",
+                        //  //Begin#803/01:A20120/3.00  14.04.07 TECTURA.WW
+                        // ORIG:
+                        // ReservEntry."Trading Unit Number")
+                        //  ReservEntry."Trading Unit Number",
+                        //  ReservEntry."Serial No.")
+                        //End#803/01:A20120/3.00  14.04.07 TECTURA.WW
+                        //THEN
+                        //  poLotDetExpirDate := LotNoInfo."Expiration Date"
+                        //ELSE
+                        poLotDetExpirDate := ReservEntry."Expiration Date";
+                        //Begin#803/01:A20071/3.00  11.05.07 TECTURA.WW
+                        // ORIG:
+                        // IF MfgSetup."Lot Trading Unit Inheritance" THEN
+                        //IF LSSetup."Lot Trading Unit Inheritance" THEN
+                        //End#803/01:A20071/3.00  11.05.07 TECTURA.WW
+                        poLotDetLotCode := ReservEntry."Lot No."
+                        //ELSE
+                        //  poLotDetLotCode := ReservEntry."Lot Number";
+                    END;
+                END;
+            END;
+            //End#803/01:A9069/2.10.01  25.02.05 TECTURA.WW
         END;
+        //Begin#803/01:A20020/3.00  22.05.07 TECTURA.WW
+        //IF NOT ProdOrderComp."Expiration Determining" THEN
+        //  poLotDetExpirDate := 0D;
+        //End#803/01:A20020/3.00  22.05.07 TECTURA.WW
     end;
 
 
@@ -432,7 +430,6 @@ codeunit 50002 "PWD Lot Inheritance Mgt.PW"
     var
         SourceTrkgSpec: Record "Tracking Specification";
         TempTrackingSpecification: Record "Tracking Specification" temporary;
-        cuReserveItemJnlLine: Codeunit "Item Jnl. Line-Reserve";
         frmItemTrkgLines: Page "Item Tracking Lines";
     begin
 
@@ -448,7 +445,7 @@ codeunit 50002 "PWD Lot Inheritance Mgt.PW"
         IF TempTrackingSpecification.COUNT > 1 THEN
             ERROR(CstG004);
 
-        IF NOT TempTrackingSpecification.FIND('-') THEN
+        IF TempTrackingSpecification.IsEmpty THEN
             EXIT;
 
         //pioItemJnlLine."Phys. Inv. Lot Number" := TempTrackingSpecification."Lot Number";
@@ -469,7 +466,6 @@ codeunit 50002 "PWD Lot Inheritance Mgt.PW"
         ReservEntry: Record "Reservation Entry";
         TempTrackingSpecification: Record "Tracking Specification" temporary;
         TrackingSpecification: Record "Tracking Specification";
-        cuReserveItemJnlLine: Codeunit "Item Jnl. Line-Reserve";
         FrmItemTrackingForm: Page "Item Tracking Lines";
         OutputFound: Boolean;
         Stop: Boolean;
@@ -536,7 +532,7 @@ codeunit 50002 "PWD Lot Inheritance Mgt.PW"
                     ProdOrderRtngLine.SETRANGE("Prod. Order No.", ProdOrderRtngLine."Prod. Order No.");
                     ProdOrderRtngLine.SETRANGE("Routing No.", ProdOrderRtngLine."Routing No.");
                     ProdOrderRtngLine.SETRANGE("Routing Reference No.", ProdOrderRtngLine."Routing Reference No.");
-                    IF NOT ProdOrderRtngLine.FIND('>') THEN BEGIN
+                    IF ProdOrderRtngLine.IsEmpty THEN BEGIN
                         Stop := TRUE;
                         OutputFound := TRUE;
                     END ELSE
@@ -672,139 +668,136 @@ codeunit 50002 "PWD Lot Inheritance Mgt.PW"
         poLotDetLotCode := '';
         poLotDetExpirDate := 0D;
 
+        ProdOrderComp.SETRANGE(Status, pioProdOrderLine.Status);
+        ProdOrderComp.SETRANGE("Prod. Order No.", pioProdOrderLine."Prod. Order No.");
+        ProdOrderComp.SETRANGE("Prod. Order Line No.", pioProdOrderLine."Line No.");
+        ProdOrderComp.SETRANGE("PWD Lot Determining", TRUE);
+        IF ProdOrderComp.FIND('=><') THEN BEGIN
+            ItemLedgEntry.SETCURRENTKEY(
+              "Order No.",
+              "Order Line No.",
+              "Entry Type",
+              "Prod. Order Comp. Line No.");
 
-        WITH pioProdOrderLine DO BEGIN
-            ProdOrderComp.SETRANGE(Status, Status);
-            ProdOrderComp.SETRANGE("Prod. Order No.", "Prod. Order No.");
-            ProdOrderComp.SETRANGE("Prod. Order Line No.", "Line No.");
-            ProdOrderComp.SETRANGE("PWD Lot Determining", TRUE);
-            IF ProdOrderComp.FIND('=><') THEN BEGIN
-                ItemLedgEntry.SETCURRENTKEY(
-                  "Order No.",
-                  "Order Line No.",
-                  "Entry Type",
-                  "Prod. Order Comp. Line No.");
+            ItemLedgEntry.SETRANGE("Order No.", ProdOrderComp."Prod. Order No.");
+            ItemLedgEntry.SETRANGE("Order Line No.", ProdOrderComp."Prod. Order Line No.");
+            ItemLedgEntry.SETRANGE("Entry Type", ItemLedgEntry."Entry Type"::Consumption);
+            ItemLedgEntry.SETRANGE("Item No.", ProdOrderComp."Item No.");
 
-                ItemLedgEntry.SETRANGE("Order No.", ProdOrderComp."Prod. Order No.");
-                ItemLedgEntry.SETRANGE("Order Line No.", ProdOrderComp."Prod. Order Line No.");
-                ItemLedgEntry.SETRANGE("Entry Type", ItemLedgEntry."Entry Type"::Consumption);
-                ItemLedgEntry.SETRANGE("Item No.", ProdOrderComp."Item No.");
+            IF ItemLedgEntry.FIND('-') THEN
+                REPEAT
+                    TempItemLedgEntry := ItemLedgEntry;
+                    TempItemLedgEntry.INSERT();
+                UNTIL ItemLedgEntry.NEXT() = 0;
 
-                IF ItemLedgEntry.FIND('-') THEN
+            IF TempItemLedgEntry.FIND('-') THEN BEGIN
+                REPEAT
+                    //Begin#803/01:A20071/3.00  11.05.07 TECTURA.WW
+                    // ORIG:
+                    // IF MfgSetup."Lot Trading Unit Inheritance" THEN
+                    //IF LSSetup."Lot Trading Unit Inheritance" THEN
+                    //End#803/01:A20071/3.00  11.05.07 TECTURA.WW
+                    //  TempItemLedgEntry.SETRANGE("Lot No.", TempItemLedgEntry."Lot No.")
+                    //ELSE
+                    //  TempItemLedgEntry.SETRANGE("Lot Number", TempItemLedgEntry."Lot Number");
+
+                    TempItemLedgEntry.SETRANGE("Lot No.", TempItemLedgEntry."Lot No.");   //pade
+
+                    poLotDetExpirDate := TempItemLedgEntry."Expiration Date";
+
                     REPEAT
-                        TempItemLedgEntry := ItemLedgEntry;
-                        TempItemLedgEntry.INSERT();
-                    UNTIL ItemLedgEntry.NEXT() = 0;
-
-                IF TempItemLedgEntry.FIND('-') THEN BEGIN
-                    REPEAT
                         //Begin#803/01:A20071/3.00  11.05.07 TECTURA.WW
                         // ORIG:
                         // IF MfgSetup."Lot Trading Unit Inheritance" THEN
                         //IF LSSetup."Lot Trading Unit Inheritance" THEN
                         //End#803/01:A20071/3.00  11.05.07 TECTURA.WW
-                        //  TempItemLedgEntry.SETRANGE("Lot No.", TempItemLedgEntry."Lot No.")
+                        //  poLotDetLotCode := TempItemLedgEntry."Lot No."
                         //ELSE
-                        //  TempItemLedgEntry.SETRANGE("Lot Number", TempItemLedgEntry."Lot Number");
+                        //  poLotDetLotCode := TempItemLedgEntry."Lot Number";
+                        poLotDetLotCode := TempItemLedgEntry."Lot No.";                      //pade
 
-                        TempItemLedgEntry.SETRANGE("Lot No.", TempItemLedgEntry."Lot No.");   //pade
+                        IF (poLotDetExpirDate > TempItemLedgEntry."Expiration Date") AND
+                           (TempItemLedgEntry."Expiration Date" <> 0D)
+                        THEN
+                            poLotDetExpirDate := TempItemLedgEntry."Expiration Date";
+                        totalQty += TempItemLedgEntry.Quantity;
+                    UNTIL TempItemLedgEntry.NEXT() = 0;
 
-                        poLotDetExpirDate := TempItemLedgEntry."Expiration Date";
+                    IF totalQty = 0 THEN
+                        TempItemLedgEntry.DELETEALL();
+                    TempItemLedgEntry.RESET();
+                UNTIL (NOT TempItemLedgEntry.FIND('-')) OR (totalQty <> 0);
 
-                        REPEAT
-                            //Begin#803/01:A20071/3.00  11.05.07 TECTURA.WW
-                            // ORIG:
-                            // IF MfgSetup."Lot Trading Unit Inheritance" THEN
-                            //IF LSSetup."Lot Trading Unit Inheritance" THEN
-                            //End#803/01:A20071/3.00  11.05.07 TECTURA.WW
-                            //  poLotDetLotCode := TempItemLedgEntry."Lot No."
-                            //ELSE
-                            //  poLotDetLotCode := TempItemLedgEntry."Lot Number";
-                            poLotDetLotCode := TempItemLedgEntry."Lot No.";                      //pade
+                IF totalQty = 0 THEN BEGIN
+                    poLotDetLotCode := '';
+                    poLotDetExpirDate := 0D;
+                END ELSE BEGIN
+                    //Begin#803/01:A20071/3.00  11.05.07 TECTURA.WW
+                    // ORIG:
+                    // IF MfgSetup."Lot Trading Unit Inheritance" THEN
+                    //IF LSSetup."Lot Trading Unit Inheritance" THEN
+                    //End#803/01:A20071/3.00  11.05.07 TECTURA.WW
+                    //  ItemLedgEntry.SETFILTER("Lot No.", '<>%1', poLotDetLotCode)
+                    //ELSE
+                    //  ItemLedgEntry.SETFILTER("Lot Number", '<>%1', poLotDetLotCode);
 
-                            IF (poLotDetExpirDate > TempItemLedgEntry."Expiration Date") AND
-                               (TempItemLedgEntry."Expiration Date" <> 0D)
-                            THEN
-                                poLotDetExpirDate := TempItemLedgEntry."Expiration Date";
-                            totalQty += TempItemLedgEntry.Quantity;
-                        UNTIL TempItemLedgEntry.NEXT() = 0;
+                    ItemLedgEntry.SETFILTER("Lot No.", '<>%1', poLotDetLotCode);             //pade
 
-                        IF totalQty = 0 THEN
-                            TempItemLedgEntry.DELETEALL();
-                        TempItemLedgEntry.RESET();
-                    UNTIL (NOT TempItemLedgEntry.FIND('-')) OR (totalQty <> 0);
-
-                    IF totalQty = 0 THEN BEGIN
-                        poLotDetLotCode := '';
-                        poLotDetExpirDate := 0D;
-                    END ELSE BEGIN
-                        //Begin#803/01:A20071/3.00  11.05.07 TECTURA.WW
-                        // ORIG:
-                        // IF MfgSetup."Lot Trading Unit Inheritance" THEN
-                        //IF LSSetup."Lot Trading Unit Inheritance" THEN
-                        //End#803/01:A20071/3.00  11.05.07 TECTURA.WW
-                        //  ItemLedgEntry.SETFILTER("Lot No.", '<>%1', poLotDetLotCode)
-                        //ELSE
-                        //  ItemLedgEntry.SETFILTER("Lot Number", '<>%1', poLotDetLotCode);
-
-                        ItemLedgEntry.SETFILTER("Lot No.", '<>%1', poLotDetLotCode);             //pade
-
-                        IF GetItemLedgerEntryQty(ItemLedgEntry) <> 0 THEN
-                            ERROR(CstG003, ProdOrderComp."Item No.");
-                    END;
+                    IF GetItemLedgerEntryQty(ItemLedgEntry) <> 0 THEN
+                        ERROR(CstG003, ProdOrderComp."Item No.");
                 END;
-
-                IF poLotDetLotCode = '' THEN BEGIN
-                    ReservEntry.SETCURRENTKEY(
-                      "Source Type",
-                      "Source Subtype",
-                      "Source ID",
-                      "Source Batch Name",
-                      "Source Prod. Order Line",
-                      "Source Ref. No.");
-
-                    ReservEntry.SETRANGE("Source Type", DATABASE::"Prod. Order Component");
-                    ReservEntry.SETRANGE("Source Subtype", pioProdOrderLine.Status);
-                    ReservEntry.SETRANGE("Source ID", pioProdOrderLine."Prod. Order No.");
-                    ReservEntry.SETRANGE("Source Batch Name", '');
-                    ReservEntry.SETRANGE("Source Prod. Order Line", pioProdOrderLine."Line No.");
-                    ReservEntry.SETRANGE("Source Ref. No.", ProdOrderComp."Line No.");
-                    ReservEntry.SETFILTER("Lot No.", '<>%1', '');
-
-                    IF ReservEntry.FIND('-') THEN
-                        //IF LotNoInfo.GET(
-                        //  ProdOrderComp."Item No.",
-                        //  ProdOrderComp."Variant Code",
-                        //  ReservEntry."Lot Number",
-                        //  //Begin#803/01:A20120/3.00  14.04.07 TECTURA.WW
-                        //  // ORIG:
-                        //  // ReservEntry."Trading Unit Number")
-                        //  ReservEntry."Trading Unit Number",
-                        //  ReservEntry."Serial No.")
-                        //  //End#803/01:A20120/3.00  14.04.07 TECTURA.WW
-
-                        //THEN BEGIN
-                        //  poLotDetExpirDate := LotNoInfo."Expiration Date";
-                        //END ELSE
-                        //  poLotDetExpirDate := ReservEntry."Expiration Date";
-                        //Begin#803/01:A20071/3.00  11.05.07 TECTURA.WW
-                        // ORIG:
-                        // IF MfgSetup."Lot Trading Unit Inheritance" THEN
-                        //IF LSSetup."Lot Trading Unit Inheritance" THEN
-                        //End#803/01:A20071/3.00  11.05.07 TECTURA.WW
-                        //  poLotDetLotCode := ReservEntry."Lot No."
-                        //ELSE
-                        //  poLotDetLotCode := ReservEntry."Lot Number";
-
-                        poLotDetLotCode := ReservEntry."Lot No.";                                  //pade
-                END;
-
-
-                //Begin#803/01:A20020/3.00  22.05.07 TECTURA.WW
-                //IF NOT ProdOrderComp."Expiration Determining" THEN
-                //  poLotDetExpirDate := 0D;
-                //End#803/01:A20020/3.00  22.05.07 TECTURA.WW
             END;
+
+            IF poLotDetLotCode = '' THEN BEGIN
+                ReservEntry.SETCURRENTKEY(
+                  "Source Type",
+                  "Source Subtype",
+                  "Source ID",
+                  "Source Batch Name",
+                  "Source Prod. Order Line",
+                  "Source Ref. No.");
+
+                ReservEntry.SETRANGE("Source Type", DATABASE::"Prod. Order Component");
+                ReservEntry.SETRANGE("Source Subtype", pioProdOrderLine.Status);
+                ReservEntry.SETRANGE("Source ID", pioProdOrderLine."Prod. Order No.");
+                ReservEntry.SETRANGE("Source Batch Name", '');
+                ReservEntry.SETRANGE("Source Prod. Order Line", pioProdOrderLine."Line No.");
+                ReservEntry.SETRANGE("Source Ref. No.", ProdOrderComp."Line No.");
+                ReservEntry.SETFILTER("Lot No.", '<>%1', '');
+
+                IF ReservEntry.FIND('-') THEN
+                    //IF LotNoInfo.GET(
+                    //  ProdOrderComp."Item No.",
+                    //  ProdOrderComp."Variant Code",
+                    //  ReservEntry."Lot Number",
+                    //  //Begin#803/01:A20120/3.00  14.04.07 TECTURA.WW
+                    //  // ORIG:
+                    //  // ReservEntry."Trading Unit Number")
+                    //  ReservEntry."Trading Unit Number",
+                    //  ReservEntry."Serial No.")
+                    //  //End#803/01:A20120/3.00  14.04.07 TECTURA.WW
+
+                    //THEN BEGIN
+                    //  poLotDetExpirDate := LotNoInfo."Expiration Date";
+                    //END ELSE
+                    //  poLotDetExpirDate := ReservEntry."Expiration Date";
+                    //Begin#803/01:A20071/3.00  11.05.07 TECTURA.WW
+                    // ORIG:
+                    // IF MfgSetup."Lot Trading Unit Inheritance" THEN
+                    //IF LSSetup."Lot Trading Unit Inheritance" THEN
+                    //End#803/01:A20071/3.00  11.05.07 TECTURA.WW
+                    //  poLotDetLotCode := ReservEntry."Lot No."
+                    //ELSE
+                    //  poLotDetLotCode := ReservEntry."Lot Number";
+
+                    poLotDetLotCode := ReservEntry."Lot No.";                                  //pade
+            END;
+
+
+            //Begin#803/01:A20020/3.00  22.05.07 TECTURA.WW
+            //IF NOT ProdOrderComp."Expiration Determining" THEN
+            //  poLotDetExpirDate := 0D;
+            //End#803/01:A20020/3.00  22.05.07 TECTURA.WW
         END;
     end;
 
@@ -828,10 +821,6 @@ codeunit 50002 "PWD Lot Inheritance Mgt.PW"
         cuItemTrackingMgt: Codeunit "Item Tracking Management";
         CheckDates: Boolean;
         CheckStatus: Boolean;
-        LotInfoRequired: Boolean;
-        LotRequired: Boolean;
-        SNInfoRequired: Boolean;
-        SNRequired: Boolean;
         CountryCode: Code[10];
         CustomerNo: Code[20];
         PlannedDelivDate: Date;
@@ -1161,24 +1150,22 @@ codeunit 50002 "PWD Lot Inheritance Mgt.PW"
     var
         ProdOrderComp: Record "Prod. Order Component";
     begin
-        WITH pioItemJnlLine DO BEGIN
-            IF pioItemJnlLine."Order No." = '' THEN
-                EXIT(FALSE);
-            IF "Order Line No." = 0 THEN
-                EXIT(FALSE);
-            IF "Prod. Order Comp. Line No." = 0 THEN
-                EXIT(FALSE);
-            IF NOT
-              ProdOrderComp.GET(
-                ProdOrderComp.Status::Released,
-                "Order No.",
-                "Order Line No.",
-                "Prod. Order Comp. Line No.")
-            THEN
-                EXIT(FALSE);
+        IF pioItemJnlLine."Order No." = '' THEN
+            EXIT(FALSE);
+        IF pioItemJnlLine."Order Line No." = 0 THEN
+            EXIT(FALSE);
+        IF pioItemJnlLine."Prod. Order Comp. Line No." = 0 THEN
+            EXIT(FALSE);
+        IF NOT
+          ProdOrderComp.GET(
+            ProdOrderComp.Status::Released,
+            pioItemJnlLine."Order No.",
+            pioItemJnlLine."Order Line No.",
+            pioItemJnlLine."Prod. Order Comp. Line No.")
+        THEN
+            EXIT(FALSE);
 
-            EXIT(ProdOrderComp."PWD From the same Lot");
-        END;
+        EXIT(ProdOrderComp."PWD From the same Lot");
     end;
 
 
@@ -1187,57 +1174,54 @@ codeunit 50002 "PWD Lot Inheritance Mgt.PW"
         Item: Record Item;
         TempTrackingSpecification: Record "Tracking Specification" temporary;
         TrackingSpecification: Record "Tracking Specification";
-        cuReserveProdOrderLine: Codeunit "Prod. Order Line-Reserve";
         cuTradingUnitMgt: Codeunit "PWD Trading Unit Mgt.PW";
         frmItemTrackingForm: Page "Item Tracking Lines";
         LotDetLotCode: Code[30];
         LotDetExpirDate: Date;
     begin
-        WITH pioProdOrderLine DO BEGIN
-            Item.GET("Item No.");
-            //IF Item."Handled in Trading Units" THEN BEGIN
-            //  MESSAGE(gctxMsg0001);
-            //  EXIT;
-            //END;
-            IF (Status <> Status::"Firm Planned") AND (Status <> Status::Released) THEN
-                EXIT;
+        Item.GET(pioProdOrderLine."Item No.");
+        //IF Item."Handled in Trading Units" THEN BEGIN
+        //  MESSAGE(gctxMsg0001);
+        //  EXIT;
+        //END;
+        IF (pioProdOrderLine.Status <> pioProdOrderLine.Status::"Firm Planned") AND (pioProdOrderLine.Status <> pioProdOrderLine.Status::Released) THEN
+            EXIT;
 
-            GetLotDeterminingDataPOL(pioProdOrderLine, LotDetLotCode, LotDetExpirDate);
+        GetLotDeterminingDataPOL(pioProdOrderLine, LotDetLotCode, LotDetExpirDate);
 
-            //cuReserveProdOrderLine.InitTrackingSpecification(pioProdOrderLine, TrackingSpecification);
-            TrackingSpecification.InitFromProdOrderLine(pioProdOrderLine);
-            frmItemTrackingForm.SetSourceSpec(TrackingSpecification, "Due Date");
-            frmItemTrackingForm.GetTrackingSpec(TempTrackingSpecification);
-            IF TempTrackingSpecification.FIND('-') THEN
-                REPEAT
-                    IF TempTrackingSpecification."Quantity Handled (Base)" <> 0 THEN BEGIN
-                        MESSAGE(gctxMsg0002);
-                        EXIT;
-                    END;
-                UNTIL TempTrackingSpecification.NEXT() = 0;
-            TempTrackingSpecification.DELETEALL();
-            TempTrackingSpecification := TrackingSpecification;
-            //Begin#803/01:A10017-7/2.20  22.06.06 TECTURA.WW
-            TempTrackingSpecification."PWD Lot Number" := cuTradingUnitMgt.GetLotNo(LotDetLotCode);
-            //End#803/01:A10017-7/2.20  22.06.06 TECTURA.WW
-            TempTrackingSpecification."PWD Trading Unit Number" := '';
-            TempTrackingSpecification."Expiration Date" := LotDetExpirDate;
-            TempTrackingSpecification."Lot No." :=
-              cuTradingUnitMgt.GetLotTradingUnitNo(
-                TempTrackingSpecification."PWD Lot Number",
-                TempTrackingSpecification."PWD Trading Unit Number");
-            TempTrackingSpecification."Quantity (Base)" := pioProdOrderLine."Remaining Qty. (Base)";
-            TempTrackingSpecification."Qty. to Handle (Base)" := pioProdOrderLine."Remaining Qty. (Base)";
-            TempTrackingSpecification."Qty. to Invoice (Base)" := pioProdOrderLine."Remaining Qty. (Base)";
-            //Begin#803/01:A20220/3.00  22.05.07 TECTURA.WW
-            //IF TempTrackingSpecification."Expiration Date" = 0D THEN
-            //cuLSStdInt.T336_InitDateValues(TempTrackingSpecification);
-            //End#803/01:A20220/3.00  22.05.07 TECTURA.WW
-            TempTrackingSpecification.INSERT();
-            CLEAR(frmItemTrackingForm);
-            frmItemTrackingForm.SetBlockCommit(TRUE);
-            frmItemTrackingForm.RegisterItemTrackingLines2(TrackingSpecification, "Due Date", TempTrackingSpecification, TRUE);
-        END;
+        //cuReserveProdOrderLine.InitTrackingSpecification(pioProdOrderLine, TrackingSpecification);
+        TrackingSpecification.InitFromProdOrderLine(pioProdOrderLine);
+        frmItemTrackingForm.SetSourceSpec(TrackingSpecification, pioProdOrderLine."Due Date");
+        frmItemTrackingForm.GetTrackingSpec(TempTrackingSpecification);
+        IF TempTrackingSpecification.FIND('-') THEN
+            REPEAT
+                IF TempTrackingSpecification."Quantity Handled (Base)" <> 0 THEN BEGIN
+                    MESSAGE(gctxMsg0002);
+                    EXIT;
+                END;
+            UNTIL TempTrackingSpecification.NEXT() = 0;
+        TempTrackingSpecification.DELETEALL();
+        TempTrackingSpecification := TrackingSpecification;
+        //Begin#803/01:A10017-7/2.20  22.06.06 TECTURA.WW
+        TempTrackingSpecification."PWD Lot Number" := cuTradingUnitMgt.GetLotNo(LotDetLotCode);
+        //End#803/01:A10017-7/2.20  22.06.06 TECTURA.WW
+        TempTrackingSpecification."PWD Trading Unit Number" := '';
+        TempTrackingSpecification."Expiration Date" := LotDetExpirDate;
+        TempTrackingSpecification."Lot No." :=
+          cuTradingUnitMgt.GetLotTradingUnitNo(
+            TempTrackingSpecification."PWD Lot Number",
+            TempTrackingSpecification."PWD Trading Unit Number");
+        TempTrackingSpecification."Quantity (Base)" := pioProdOrderLine."Remaining Qty. (Base)";
+        TempTrackingSpecification."Qty. to Handle (Base)" := pioProdOrderLine."Remaining Qty. (Base)";
+        TempTrackingSpecification."Qty. to Invoice (Base)" := pioProdOrderLine."Remaining Qty. (Base)";
+        //Begin#803/01:A20220/3.00  22.05.07 TECTURA.WW
+        //IF TempTrackingSpecification."Expiration Date" = 0D THEN
+        //cuLSStdInt.T336_InitDateValues(TempTrackingSpecification);
+        //End#803/01:A20220/3.00  22.05.07 TECTURA.WW
+        TempTrackingSpecification.INSERT();
+        CLEAR(frmItemTrackingForm);
+        frmItemTrackingForm.SetBlockCommit(TRUE);
+        frmItemTrackingForm.RegisterItemTrackingLines2(TrackingSpecification, pioProdOrderLine."Due Date", TempTrackingSpecification, TRUE);
     end;
 
 
@@ -1274,53 +1258,50 @@ codeunit 50002 "PWD Lot Inheritance Mgt.PW"
         TempTrackingSpecification: Record "Tracking Specification" temporary;
         TrackingSpecification: Record "Tracking Specification";
         cuTradingUnitMgt: Codeunit "PWD Trading Unit Mgt.PW";
-        cuReserveReqLine: Codeunit "Req. Line-Reserve";
         FrmItemTrackingForm: Page "Item Tracking Lines";
         LotDetLotCode: Code[30];
         LotDetExpirDate: Date;
     begin
-        WITH pioReqLine DO BEGIN
-            IF (Type <> Type::Item) OR ("No." = '') THEN
-                EXIT;
+        IF (pioReqLine.Type <> pioReqLine.Type::Item) OR (pioReqLine."No." = '') THEN
+            EXIT;
 
-            Item.GET("No.");
-            //IF Item."Handled in Trading Units" THEN BEGIN
-            //  MESSAGE(gctxMsg0001);
-            //  EXIT;
-            //END;
+        Item.GET(pioReqLine."No.");
+        //IF Item."Handled in Trading Units" THEN BEGIN
+        //  MESSAGE(gctxMsg0001);
+        //  EXIT;
+        //END;
 
-            GetLotDeterminingDataPlanLine(pioReqLine, LotDetLotCode, LotDetExpirDate);
+        GetLotDeterminingDataPlanLine(pioReqLine, LotDetLotCode, LotDetExpirDate);
 
-            //cuReserveReqLine.InitTrackingSpecification(pioReqLine, TrackingSpecification);
-            TrackingSpecification.InitFromReqLine(pioReqLine);
-            frmItemTrackingForm.SetSourceSpec(TrackingSpecification, "Due Date");
-            frmItemTrackingForm.GetTrackingSpec(TempTrackingSpecification);
-            IF TempTrackingSpecification.FIND('-') THEN
-                REPEAT
-                    IF TempTrackingSpecification."Quantity Handled (Base)" <> 0 THEN BEGIN
-                        MESSAGE(gctxMsg0002);
-                        EXIT;
-                    END;
-                UNTIL TempTrackingSpecification.NEXT() = 0;
-            TempTrackingSpecification.DELETEALL();
-            TempTrackingSpecification := TrackingSpecification;
-            //Begin#803/01:A10017-7/2.20  22.06.06 TECTURA.WW
-            TempTrackingSpecification."PWD Lot Number" := cuTradingUnitMgt.GetLotNo(LotDetLotCode);
-            //End#803/01:A10017-7/2.20  22.06.06 TECTURA.WW
-            TempTrackingSpecification."PWD Trading Unit Number" := '';
-            TempTrackingSpecification."Expiration Date" := LotDetExpirDate;
-            TempTrackingSpecification."Lot No." :=
-              cuTradingUnitMgt.GetLotTradingUnitNo(
-                TempTrackingSpecification."PWD Lot Number",
-                TempTrackingSpecification."PWD Trading Unit Number");
-            TempTrackingSpecification."Quantity (Base)" := pioReqLine."Remaining Qty. (Base)";
-            TempTrackingSpecification."Qty. to Handle (Base)" := pioReqLine."Remaining Qty. (Base)";
-            TempTrackingSpecification."Qty. to Invoice (Base)" := pioReqLine."Remaining Qty. (Base)";
-            TempTrackingSpecification.INSERT();
-            CLEAR(frmItemTrackingForm);
-            frmItemTrackingForm.SetBlockCommit(TRUE);
-            frmItemTrackingForm.RegisterItemTrackingLines2(TrackingSpecification, "Due Date", TempTrackingSpecification, TRUE);
-        END;
+        //cuReserveReqLine.InitTrackingSpecification(pioReqLine, TrackingSpecification);
+        TrackingSpecification.InitFromReqLine(pioReqLine);
+        frmItemTrackingForm.SetSourceSpec(TrackingSpecification, pioReqLine."Due Date");
+        frmItemTrackingForm.GetTrackingSpec(TempTrackingSpecification);
+        IF TempTrackingSpecification.FIND('-') THEN
+            REPEAT
+                IF TempTrackingSpecification."Quantity Handled (Base)" <> 0 THEN BEGIN
+                    MESSAGE(gctxMsg0002);
+                    EXIT;
+                END;
+            UNTIL TempTrackingSpecification.NEXT() = 0;
+        TempTrackingSpecification.DELETEALL();
+        TempTrackingSpecification := TrackingSpecification;
+        //Begin#803/01:A10017-7/2.20  22.06.06 TECTURA.WW
+        TempTrackingSpecification."PWD Lot Number" := cuTradingUnitMgt.GetLotNo(LotDetLotCode);
+        //End#803/01:A10017-7/2.20  22.06.06 TECTURA.WW
+        TempTrackingSpecification."PWD Trading Unit Number" := '';
+        TempTrackingSpecification."Expiration Date" := LotDetExpirDate;
+        TempTrackingSpecification."Lot No." :=
+          cuTradingUnitMgt.GetLotTradingUnitNo(
+            TempTrackingSpecification."PWD Lot Number",
+            TempTrackingSpecification."PWD Trading Unit Number");
+        TempTrackingSpecification."Quantity (Base)" := pioReqLine."Remaining Qty. (Base)";
+        TempTrackingSpecification."Qty. to Handle (Base)" := pioReqLine."Remaining Qty. (Base)";
+        TempTrackingSpecification."Qty. to Invoice (Base)" := pioReqLine."Remaining Qty. (Base)";
+        TempTrackingSpecification.INSERT();
+        CLEAR(frmItemTrackingForm);
+        frmItemTrackingForm.SetBlockCommit(TRUE);
+        frmItemTrackingForm.RegisterItemTrackingLines2(TrackingSpecification, pioReqLine."Due Date", TempTrackingSpecification, TRUE);
     end;
 
 
@@ -1333,58 +1314,56 @@ codeunit 50002 "PWD Lot Inheritance Mgt.PW"
         poLotDetLotCode := '';
         poLotDetExpirDate := 0D;
 
-        WITH pioReqLine DO BEGIN
-            PlanningComponent.SETRANGE("Worksheet Template Name", "Worksheet Template Name");
-            PlanningComponent.SETRANGE("Worksheet Batch Name", "Journal Batch Name");
-            PlanningComponent.SETRANGE("Worksheet Line No.", "Line No.");
-            PlanningComponent.SETRANGE("PWD Lot Determining", TRUE);
-            IF PlanningComponent.FIND('=><') THEN BEGIN
-                ReservEntry.SETCURRENTKEY(
-                  "Source Type",
-                  "Source Subtype",
-                  "Source ID",
-                  "Source Batch Name",
-                  "Source Prod. Order Line",
-                  "Source Ref. No.");
+        PlanningComponent.SETRANGE("Worksheet Template Name", pioReqLine."Worksheet Template Name");
+        PlanningComponent.SETRANGE("Worksheet Batch Name", pioReqLine."Journal Batch Name");
+        PlanningComponent.SETRANGE("Worksheet Line No.", pioReqLine."Line No.");
+        PlanningComponent.SETRANGE("PWD Lot Determining", TRUE);
+        IF PlanningComponent.FIND('=><') THEN BEGIN
+            ReservEntry.SETCURRENTKEY(
+              "Source Type",
+              "Source Subtype",
+              "Source ID",
+              "Source Batch Name",
+              "Source Prod. Order Line",
+              "Source Ref. No.");
 
-                ReservEntry.SETRANGE("Source Type", DATABASE::"Planning Component");
-                ReservEntry.SETRANGE("Source Subtype", 0);
-                ReservEntry.SETRANGE("Source ID", PlanningComponent."Worksheet Template Name");
-                ReservEntry.SETRANGE("Source Batch Name", PlanningComponent."Worksheet Batch Name");
-                ReservEntry.SETRANGE("Source Prod. Order Line", PlanningComponent."Worksheet Line No.");
-                ReservEntry.SETRANGE("Source Ref. No.", PlanningComponent."Line No.");
-                ReservEntry.SETFILTER("Lot No.", '<>%1', '');
-                IF ReservEntry.FIND('-') THEN BEGIN
-                    IF LotNoInfo.GET(
-                      PlanningComponent."Item No.",
-                      PlanningComponent."Variant Code",
-                      '',
-                      //Begin#803/01:A20120/3.00  14.04.07 TECTURA.WW
-                      // ORIG:
-                      // ReservEntry."Trading Unit Number")
-                      '',
-                      ReservEntry."Serial No.")
-                    //End#803/01:A20120/3.00  14.04.07 TECTURA.WW
-                    THEN
-                        //  poLotDetExpirDate := LotNoInfo."Expiration Date";
-                        //END ELSE
-                        poLotDetExpirDate := ReservEntry."Expiration Date";
-                    //Begin#803/01:A20071/3.00  11.05.07 TECTURA.WW
-                    // ORIG:
-                    // MfgSetup.GET;
-                    // IF MfgSetup."Lot Trading Unit Inheritance" THEN
-                    //LSSetup.GET;
-                    //IF LSSetup."Lot Trading Unit Inheritance" THEN
-                    //End#803/01:A20071/3.00  11.05.07 TECTURA.WW
-                    poLotDetLotCode := ReservEntry."Lot No."
-                    //ELSE
-                    // poLotDetLotCode := ReservEntry."Lot Number";
-                END;
-                //Begin#803/01:A20020/3.00  22.05.07 TECTURA.WW
-                // IF NOT PlanningComponent."Expiration Determining" THEN
-                poLotDetExpirDate := 0D;
-                //End#803/01:A20020/3.00  22.05.07 TECTURA.WW
+            ReservEntry.SETRANGE("Source Type", DATABASE::"Planning Component");
+            ReservEntry.SETRANGE("Source Subtype", 0);
+            ReservEntry.SETRANGE("Source ID", PlanningComponent."Worksheet Template Name");
+            ReservEntry.SETRANGE("Source Batch Name", PlanningComponent."Worksheet Batch Name");
+            ReservEntry.SETRANGE("Source Prod. Order Line", PlanningComponent."Worksheet Line No.");
+            ReservEntry.SETRANGE("Source Ref. No.", PlanningComponent."Line No.");
+            ReservEntry.SETFILTER("Lot No.", '<>%1', '');
+            IF ReservEntry.FIND('-') THEN BEGIN
+                IF LotNoInfo.GET(
+                  PlanningComponent."Item No.",
+                  PlanningComponent."Variant Code",
+                  '',
+                  //Begin#803/01:A20120/3.00  14.04.07 TECTURA.WW
+                  // ORIG:
+                  // ReservEntry."Trading Unit Number")
+                  '',
+                  ReservEntry."Serial No.")
+                //End#803/01:A20120/3.00  14.04.07 TECTURA.WW
+                THEN
+                    //  poLotDetExpirDate := LotNoInfo."Expiration Date";
+                    //END ELSE
+                    poLotDetExpirDate := ReservEntry."Expiration Date";
+                //Begin#803/01:A20071/3.00  11.05.07 TECTURA.WW
+                // ORIG:
+                // MfgSetup.GET;
+                // IF MfgSetup."Lot Trading Unit Inheritance" THEN
+                //LSSetup.GET;
+                //IF LSSetup."Lot Trading Unit Inheritance" THEN
+                //End#803/01:A20071/3.00  11.05.07 TECTURA.WW
+                poLotDetLotCode := ReservEntry."Lot No."
+                //ELSE
+                // poLotDetLotCode := ReservEntry."Lot Number";
             END;
+            //Begin#803/01:A20020/3.00  22.05.07 TECTURA.WW
+            // IF NOT PlanningComponent."Expiration Determining" THEN
+            poLotDetExpirDate := 0D;
+            //End#803/01:A20020/3.00  22.05.07 TECTURA.WW
         END;
     end;
 
@@ -1394,57 +1373,54 @@ codeunit 50002 "PWD Lot Inheritance Mgt.PW"
         Item: Record Item;
         TempTrackingSpecification: Record "Tracking Specification" temporary;
         TrackingSpecification: Record "Tracking Specification";
-        cuReserveProdOrderLine: Codeunit "Prod. Order Line-Reserve";
         cuTradingUnitMgt: Codeunit "PWD Trading Unit Mgt.PW";
         FrmItemTrackingForm: Page "Item Tracking Lines";
         LotDetLotCode: Code[30];
         LotDetExpirDate: Date;
     begin
-        WITH pioProdOrderLine DO BEGIN
-            Item.GET("Item No.");
-            //IF Item."Handled in Trading Units" THEN BEGIN
-            //  MESSAGE(gctxMsg0001);
-            //  EXIT;
-            //END;
-            IF (Status <> Status::"Firm Planned") AND (Status <> Status::Released) THEN
-                EXIT;
+        Item.GET(pioProdOrderLine."Item No.");
+        //IF Item."Handled in Trading Units" THEN BEGIN
+        //  MESSAGE(gctxMsg0001);
+        //  EXIT;
+        //END;
+        IF (pioProdOrderLine.Status <> pioProdOrderLine.Status::"Firm Planned") AND (pioProdOrderLine.Status <> pioProdOrderLine.Status::Released) THEN
+            EXIT;
 
-            GetLotDeterminingDataPOL(pioProdOrderLine, LotDetLotCode, LotDetExpirDate);
+        GetLotDeterminingDataPOL(pioProdOrderLine, LotDetLotCode, LotDetExpirDate);
 
-            //cuReserveProdOrderLine.InitTrackingSpecification(pioProdOrderLine, TrackingSpecification);
-            TrackingSpecification.InitFromProdOrderLine(pioProdOrderLine);
-            frmItemTrackingForm.SetSourceSpec(TrackingSpecification, "Due Date");
-            frmItemTrackingForm.GetTrackingSpec(TempTrackingSpecification);
-            IF TempTrackingSpecification.FIND('-') THEN
-                REPEAT
-                    IF TempTrackingSpecification."Quantity Handled (Base)" <> 0 THEN BEGIN
-                        MESSAGE(gctxMsg0002);
-                        EXIT;
-                    END;
-                UNTIL TempTrackingSpecification.NEXT() = 0;
-            TempTrackingSpecification.DELETEALL();
-            TempTrackingSpecification := TrackingSpecification;
-            //Begin#803/01:A10017-7/2.20  22.06.06 TECTURA.WW
-            TempTrackingSpecification."PWD Lot Number" := cuTradingUnitMgt.GetLotNo(LotDetLotCode);
-            //End#803/01:A10017-7/2.20  22.06.06 TECTURA.WW
-            TempTrackingSpecification."PWD Trading Unit Number" := '';
-            TempTrackingSpecification."Expiration Date" := LotDetExpirDate;
-            TempTrackingSpecification."Lot No." :=
-              cuTradingUnitMgt.GetLotTradingUnitNo(
-                TempTrackingSpecification."PWD Lot Number",
-                TempTrackingSpecification."PWD Trading Unit Number");
-            TempTrackingSpecification."Quantity (Base)" := DecPQty;
-            TempTrackingSpecification."Qty. to Handle (Base)" := DecPQty;
-            TempTrackingSpecification."Qty. to Invoice (Base)" := DecPQty;
-            //Begin#803/01:A20220/3.00  22.05.07 TECTURA.WW
-            //IF TempTrackingSpecification."Expiration Date" = 0D THEN
-            //cuLSStdInt.T336_InitDateValues(TempTrackingSpecification);
-            //End#803/01:A20220/3.00  22.05.07 TECTURA.WW
-            TempTrackingSpecification.INSERT();
-            CLEAR(frmItemTrackingForm);
-            frmItemTrackingForm.SetBlockCommit(TRUE);
-            frmItemTrackingForm.RegisterItemTrackingLines2(TrackingSpecification, "Due Date", TempTrackingSpecification, TRUE);
-        END;
+        //cuReserveProdOrderLine.InitTrackingSpecification(pioProdOrderLine, TrackingSpecification);
+        TrackingSpecification.InitFromProdOrderLine(pioProdOrderLine);
+        frmItemTrackingForm.SetSourceSpec(TrackingSpecification, pioProdOrderLine."Due Date");
+        frmItemTrackingForm.GetTrackingSpec(TempTrackingSpecification);
+        IF TempTrackingSpecification.FIND('-') THEN
+            REPEAT
+                IF TempTrackingSpecification."Quantity Handled (Base)" <> 0 THEN BEGIN
+                    MESSAGE(gctxMsg0002);
+                    EXIT;
+                END;
+            UNTIL TempTrackingSpecification.NEXT() = 0;
+        TempTrackingSpecification.DELETEALL();
+        TempTrackingSpecification := TrackingSpecification;
+        //Begin#803/01:A10017-7/2.20  22.06.06 TECTURA.WW
+        TempTrackingSpecification."PWD Lot Number" := cuTradingUnitMgt.GetLotNo(LotDetLotCode);
+        //End#803/01:A10017-7/2.20  22.06.06 TECTURA.WW
+        TempTrackingSpecification."PWD Trading Unit Number" := '';
+        TempTrackingSpecification."Expiration Date" := LotDetExpirDate;
+        TempTrackingSpecification."Lot No." :=
+          cuTradingUnitMgt.GetLotTradingUnitNo(
+            TempTrackingSpecification."PWD Lot Number",
+            TempTrackingSpecification."PWD Trading Unit Number");
+        TempTrackingSpecification."Quantity (Base)" := DecPQty;
+        TempTrackingSpecification."Qty. to Handle (Base)" := DecPQty;
+        TempTrackingSpecification."Qty. to Invoice (Base)" := DecPQty;
+        //Begin#803/01:A20220/3.00  22.05.07 TECTURA.WW
+        //IF TempTrackingSpecification."Expiration Date" = 0D THEN
+        //cuLSStdInt.T336_InitDateValues(TempTrackingSpecification);
+        //End#803/01:A20220/3.00  22.05.07 TECTURA.WW
+        TempTrackingSpecification.INSERT();
+        CLEAR(frmItemTrackingForm);
+        frmItemTrackingForm.SetBlockCommit(TRUE);
+        frmItemTrackingForm.RegisterItemTrackingLines2(TrackingSpecification, pioProdOrderLine."Due Date", TempTrackingSpecification, TRUE);
     end;
 }
 

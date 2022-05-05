@@ -4,11 +4,11 @@ pageextension 60125 "PWD RoutingLines" extends "Routing Lines"
     {
         addafter("Unit Cost per")
         {
-            field("PWD Fixed-step Prod. Rate time"; "PWD Fixed-step Prod. Rate time")
+            field("PWD Fixed-step Prod. Rate time"; Rec."PWD Fixed-step Prod. Rate time")
             {
                 ApplicationArea = All;
             }
-            field("PWD Flushing Method"; "PWD Flushing Method")
+            field("PWD Flushing Method"; Rec."PWD Flushing Method")
             {
                 ApplicationArea = All;
             }
@@ -148,7 +148,7 @@ pageextension 60125 "PWD RoutingLines" extends "Routing Lines"
                     RepUpdate: Report "PWD Update Routing Line";
                 begin
                     //>>TDL.LPSA.001
-                    RecLRoutingLine.GET("Routing No.", "Version Code", "Operation No.");
+                    RecLRoutingLine.GET(Rec."Routing No.", Rec."Version Code", Rec."Operation No.");
                     RecLRoutingLine.SETRECFILTER();
                     RepUpdate.SETTABLEVIEW(RecLRoutingLine);
                     RepUpdate.RUNMODAL();
@@ -159,7 +159,7 @@ pageextension 60125 "PWD RoutingLines" extends "Routing Lines"
     }
     trigger OnAfterGetRecord()
     BEGIN
-        BooGStyle := (Type = Type::"Machine Center");
+        BooGStyle := (Rec.Type = Rec.Type::"Machine Center");
     END;
 
     var

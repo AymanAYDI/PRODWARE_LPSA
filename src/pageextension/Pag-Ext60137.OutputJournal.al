@@ -26,15 +26,15 @@ pageextension 60137 "PWD OutputJournal" extends "Output Journal"
     {
         addafter("External Document No.")
         {
-            field("PWD Quartis Comment"; "PWD Quartis Comment")
+            field("PWD Quartis Comment"; Rec."PWD Quartis Comment")
             {
                 ApplicationArea = All;
             }
-            field("PWD Conform quality control"; "PWD Conform quality control")
+            field("PWD Conform quality control"; Rec."PWD Conform quality control")
             {
                 ApplicationArea = All;
             }
-            field("PWD Inventory Posting Group"; "Inventory Posting Group")
+            field("PWD Inventory Posting Group"; Rec."Inventory Posting Group")
             {
                 ApplicationArea = All;
             }
@@ -44,7 +44,7 @@ pageextension 60137 "PWD OutputJournal" extends "Output Journal"
     procedure FctCheckControlQuality(RecPJnl: Record "Item Journal Line"; CodPMachineCenter: Code[20]): Boolean
     var
         RecLItemJnlLine: Record "Item Journal Line";
-        //CstL00001: Label 'No lines found.';
+    //CstL00001: Label 'No lines found.';
     begin
         RecLItemJnlLine.RESET();
         RecLItemJnlLine.SETRANGE("Journal Template Name", RecPJnl."Journal Template Name");
@@ -69,7 +69,7 @@ pageextension 60137 "PWD OutputJournal" extends "Output Journal"
     procedure FctExistControlQuality(RecPJnl: Record "Item Journal Line"; CodPMachineCenter: Code[10]): Boolean
     var
         RecLItemJnlLine: Record "Item Journal Line";
-       // CstL00001: Label 'No lines found.';
+    // CstL00001: Label 'No lines found.';
     begin
         RecLItemJnlLine.RESET();
         RecLItemJnlLine.SETRANGE("Journal Template Name", RecPJnl."Journal Template Name");

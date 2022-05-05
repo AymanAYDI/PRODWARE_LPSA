@@ -30,7 +30,18 @@
         {
             "id":"AA0074",
             "action": "None"
+        },
+        {
+            "id":"AA0470",
+            "action": "None"
+        },
+        {
+            "id":"AA0217",
+            "action": "None",
+            "justification": "Use a text constant or label for format string in StrSubstNo."
         }
+
+
     ]
 }
 

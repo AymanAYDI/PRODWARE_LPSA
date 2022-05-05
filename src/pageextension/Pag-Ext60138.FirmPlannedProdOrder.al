@@ -25,14 +25,14 @@ pageextension 60138 "PWD FirmPlannedProdOrder" extends "Firm Planned Prod. Order
 
         addafter("Last Date Modified")
         {
-            field("PWD Source Material Vendor"; "PWD Source Material Vendor")
+            field("PWD Source Material Vendor"; Rec."PWD Source Material Vendor")
             {
                 ApplicationArea = All;
             }
         }
         addafter("Bin Code")
         {
-            field("PWD Transmitted Order No."; "PWD Transmitted Order No.")
+            field("PWD Transmitted Order No."; Rec."PWD Transmitted Order No.")
             {
                 ApplicationArea = All;
             }
@@ -62,7 +62,7 @@ pageextension 60138 "PWD FirmPlannedProdOrder" extends "Firm Planned Prod. Order
                     ProdBOMWhereUsed: Page "Prod. BOM Where-Used";
                 begin
                     //>>LPSA.TDL.19112014
-                    IF ("Source Type" = "Source Type"::Item) AND RecLItem.GET("Source No.") THEN BEGIN
+                    IF (Rec."Source Type" = Rec."Source Type"::Item) AND RecLItem.GET(Rec."Source No.") THEN BEGIN
                         ProdBOMWhereUsed.SetItem(RecLItem, WORKDATE());
                         ProdBOMWhereUsed.RUNMODAL();
                     END;
@@ -87,8 +87,8 @@ pageextension 60138 "PWD FirmPlannedProdOrder" extends "Firm Planned Prod. Order
                     RepLListMissing: Report "Prod. Order - List of missing";
                 begin
                     CLEAR(RepLListMissing);
-                    RecLProdOrder.SETRANGE(Status, Status);
-                    RecLProdOrder.SETRANGE("No.", "No.");
+                    RecLProdOrder.SETRANGE(Status, Rec.Status);
+                    RecLProdOrder.SETRANGE("No.", Rec."No.");
                     RepLListMissing.SETTABLEVIEW(RecLProdOrder);
                     RepLListMissing.RUNMODAL();
                 end;

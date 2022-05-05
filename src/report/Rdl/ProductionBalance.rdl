@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2016/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
   <AutoRefresh>0</AutoRefresh>
   <DataSources>
@@ -10,391 +10,6 @@
       <rd:SecurityType>None</rd:SecurityType>
     </DataSource>
   </DataSources>
-  <DataSets>
-    <DataSet Name="DataSet_Result">
-      <Query>
-        <DataSourceName>DataSource</DataSourceName>
-        <CommandText />
-      </Query>
-      <Fields>
-        <Field Name="Planned_Order_No">
-          <DataField>Planned_Order_No</DataField>
-        </Field>
-        <Field Name="Item_No">
-          <DataField>Item_No</DataField>
-        </Field>
-        <Field Name="Order_No">
-          <DataField>Order_No</DataField>
-        </Field>
-        <Field Name="Operation_No">
-          <DataField>Operation_No</DataField>
-        </Field>
-        <Field Name="Production_Balance_Type">
-          <DataField>Production_Balance_Type</DataField>
-        </Field>
-        <Field Name="Production_Balance__No__">
-          <DataField>Production_Balance__No__</DataField>
-        </Field>
-        <Field Name="Production_Balance_Description">
-          <DataField>Production_Balance_Description</DataField>
-        </Field>
-        <Field Name="Production_Balance_Status">
-          <DataField>Production_Balance_Status</DataField>
-        </Field>
-        <Field Name="Line_Type">
-          <DataField>Line_Type</DataField>
-        </Field>
-        <Field Name="Production_Balance__Expected_Quantity_">
-          <DataField>Production_Balance__Expected_Quantity_</DataField>
-        </Field>
-        <Field Name="Production_Balance__Expected_Quantity_Format">
-          <DataField>Production_Balance__Expected_Quantity_Format</DataField>
-        </Field>
-        <Field Name="Production_Balance_Quantity">
-          <DataField>Production_Balance_Quantity</DataField>
-        </Field>
-        <Field Name="Production_Balance_QuantityFormat">
-          <DataField>Production_Balance_QuantityFormat</DataField>
-        </Field>
-        <Field Name="Production_Balance__Unit_of_Measure_Code_">
-          <DataField>Production_Balance__Unit_of_Measure_Code_</DataField>
-        </Field>
-        <Field Name="Production_Balance__Scrap_Quantity_">
-          <DataField>Production_Balance__Scrap_Quantity_</DataField>
-        </Field>
-        <Field Name="Production_Balance__Scrap_Quantity_Format">
-          <DataField>Production_Balance__Scrap_Quantity_Format</DataField>
-        </Field>
-        <Field Name="Production_Balance__Expected_Flushing_Quantity_">
-          <DataField>Production_Balance__Expected_Flushing_Quantity_</DataField>
-        </Field>
-        <Field Name="Production_Balance__Expected_Flushing_Quantity_Format">
-          <DataField>Production_Balance__Expected_Flushing_Quantity_Format</DataField>
-        </Field>
-        <Field Name="Production_Balance__Realized_Flushing_Quantity_">
-          <DataField>Production_Balance__Realized_Flushing_Quantity_</DataField>
-        </Field>
-        <Field Name="Production_Balance__Realized_Flushing_Quantity_Format">
-          <DataField>Production_Balance__Realized_Flushing_Quantity_Format</DataField>
-        </Field>
-        <Field Name="Production_Balance__Cost_Amount__Expected__">
-          <DataField>Production_Balance__Cost_Amount__Expected__</DataField>
-        </Field>
-        <Field Name="Production_Balance__Cost_Amount__Expected__Format">
-          <DataField>Production_Balance__Cost_Amount__Expected__Format</DataField>
-        </Field>
-        <Field Name="Production_Balance__Cost_Amount__Actual__">
-          <DataField>Production_Balance__Cost_Amount__Actual__</DataField>
-        </Field>
-        <Field Name="Production_Balance__Cost_Amount__Actual__Format">
-          <DataField>Production_Balance__Cost_Amount__Actual__Format</DataField>
-        </Field>
-        <Field Name="Production_Balance__Cost_Difference_">
-          <DataField>Production_Balance__Cost_Difference_</DataField>
-        </Field>
-        <Field Name="Production_Balance__Cost_Difference_Format">
-          <DataField>Production_Balance__Cost_Difference_Format</DataField>
-        </Field>
-        <Field Name="Production_Balance__Actual_Cost_MP_">
-          <DataField>Production_Balance__Actual_Cost_MP_</DataField>
-        </Field>
-        <Field Name="Production_Balance__Actual_Cost_MP_Format">
-          <DataField>Production_Balance__Actual_Cost_MP_Format</DataField>
-        </Field>
-        <Field Name="Production_Balance__Actual_Cost_STR_">
-          <DataField>Production_Balance__Actual_Cost_STR_</DataField>
-        </Field>
-        <Field Name="Production_Balance__Actual_Cost_STR_Format">
-          <DataField>Production_Balance__Actual_Cost_STR_Format</DataField>
-        </Field>
-        <Field Name="Production_Balance__Actual_Cost_MO_">
-          <DataField>Production_Balance__Actual_Cost_MO_</DataField>
-        </Field>
-        <Field Name="Production_Balance__Actual_Cost_MO_Format">
-          <DataField>Production_Balance__Actual_Cost_MO_Format</DataField>
-        </Field>
-        <Field Name="Production_Balance_Productivity">
-          <DataField>Production_Balance_Productivity</DataField>
-        </Field>
-        <Field Name="Production_Balance_ProductivityFormat">
-          <DataField>Production_Balance_ProductivityFormat</DataField>
-        </Field>
-        <Field Name="Production_Balance_Output">
-          <DataField>Production_Balance_Output</DataField>
-        </Field>
-        <Field Name="Production_Balance_OutputFormat">
-          <DataField>Production_Balance_OutputFormat</DataField>
-        </Field>
-        <Field Name="Production_Balance__Unit_Price_">
-          <DataField>Production_Balance__Unit_Price_</DataField>
-        </Field>
-        <Field Name="Production_Balance__Unit_Price_Format">
-          <DataField>Production_Balance__Unit_Price_Format</DataField>
-        </Field>
-        <Field Name="Production_Balance__Planned_Order_Index_">
-          <DataField>Production_Balance__Planned_Order_Index_</DataField>
-        </Field>
-        <Field Name="OptGFilter">
-          <DataField>OptGFilter</DataField>
-        </Field>
-        <Field Name="IntTypeLine">
-          <DataField>IntTypeLine</DataField>
-        </Field>
-        <Field Name="RecGItem_Unit_Price">
-          <DataField>RecGItem_Unit_Price</DataField>
-        </Field>
-        <Field Name="RecGItem_Unit_PriceFormat">
-          <DataField>RecGItem_Unit_PriceFormat</DataField>
-        </Field>
-        <Field Name="OptGStatus">
-          <DataField>OptGStatus</DataField>
-        </Field>
-        <Field Name="RecGSalesHeader_Sellto_Customer_No">
-          <DataField>RecGSalesHeader_Sellto_Customer_No</DataField>
-        </Field>
-        <Field Name="RecGSalesHeader_Name">
-          <DataField>RecGSalesHeader_Name</DataField>
-        </Field>
-        <Field Name="Production_Balance__Planned_Order_Index__Control1100267071">
-          <DataField>Production_Balance__Planned_Order_Index__Control1100267071</DataField>
-        </Field>
-        <Field Name="Production_Balance__Current_Quantity_Total_">
-          <DataField>Production_Balance__Current_Quantity_Total_</DataField>
-        </Field>
-        <Field Name="Production_Balance__Current_Quantity_Total_Format">
-          <DataField>Production_Balance__Current_Quantity_Total_Format</DataField>
-        </Field>
-        <Field Name="Production_Balance__Scrap_Quantity_Total_">
-          <DataField>Production_Balance__Scrap_Quantity_Total_</DataField>
-        </Field>
-        <Field Name="Production_Balance__Scrap_Quantity_Total_Format">
-          <DataField>Production_Balance__Scrap_Quantity_Total_Format</DataField>
-        </Field>
-        <Field Name="Production_Balance__Quantity_Total_">
-          <DataField>Production_Balance__Quantity_Total_</DataField>
-        </Field>
-        <Field Name="Production_Balance__Quantity_Total_Format">
-          <DataField>Production_Balance__Quantity_Total_Format</DataField>
-        </Field>
-        <Field Name="Production_Balance__Expected_Flushing_Quantity_Tot_">
-          <DataField>Production_Balance__Expected_Flushing_Quantity_Tot_</DataField>
-        </Field>
-        <Field Name="Production_Balance__Expected_Flushing_Quantity_Tot_Format">
-          <DataField>Production_Balance__Expected_Flushing_Quantity_Tot_Format</DataField>
-        </Field>
-        <Field Name="Production_Balance__Realized_Flushing_Quantity_Tot_">
-          <DataField>Production_Balance__Realized_Flushing_Quantity_Tot_</DataField>
-        </Field>
-        <Field Name="Production_Balance__Realized_Flushing_Quantity_Tot_Format">
-          <DataField>Production_Balance__Realized_Flushing_Quantity_Tot_Format</DataField>
-        </Field>
-        <Field Name="Production_Balance__Cost_Amount__Actual__Total_">
-          <DataField>Production_Balance__Cost_Amount__Actual__Total_</DataField>
-        </Field>
-        <Field Name="Production_Balance__Cost_Amount__Actual__Total_Format">
-          <DataField>Production_Balance__Cost_Amount__Actual__Total_Format</DataField>
-        </Field>
-        <Field Name="Production_Balance__Current_Quantity_Total_Order_">
-          <DataField>Production_Balance__Current_Quantity_Total_Order_</DataField>
-        </Field>
-        <Field Name="Production_Balance__Current_Quantity_Total_Order_Format">
-          <DataField>Production_Balance__Current_Quantity_Total_Order_Format</DataField>
-        </Field>
-        <Field Name="Production_Balance__Scrap_Quantity_Total_Order_">
-          <DataField>Production_Balance__Scrap_Quantity_Total_Order_</DataField>
-        </Field>
-        <Field Name="Production_Balance__Scrap_Quantity_Total_Order_Format">
-          <DataField>Production_Balance__Scrap_Quantity_Total_Order_Format</DataField>
-        </Field>
-        <Field Name="DecGLastQuantity">
-          <DataField>DecGLastQuantity</DataField>
-        </Field>
-        <Field Name="DecGLastQuantityFormat">
-          <DataField>DecGLastQuantityFormat</DataField>
-        </Field>
-        <Field Name="DecGLastUnitPrice">
-          <DataField>DecGLastUnitPrice</DataField>
-        </Field>
-        <Field Name="DecGLastUnitPriceFormat">
-          <DataField>DecGLastUnitPriceFormat</DataField>
-        </Field>
-        <Field Name="DecGLastExpectedQty">
-          <DataField>DecGLastExpectedQty</DataField>
-        </Field>
-        <Field Name="DecGLastExpectedQtyFormat">
-          <DataField>DecGLastExpectedQtyFormat</DataField>
-        </Field>
-        <Field Name="DecGLastAmountCost">
-          <DataField>DecGLastAmountCost</DataField>
-        </Field>
-        <Field Name="DecGLastAmountCostFormat">
-          <DataField>DecGLastAmountCostFormat</DataField>
-        </Field>
-        <Field Name="Productivity_Tot">
-          <DataField>Productivity_Tot</DataField>
-        </Field>
-        <Field Name="Productivity_TotFormat">
-          <DataField>Productivity_TotFormat</DataField>
-        </Field>
-        <Field Name="Planned_Order_No_Caption">
-          <DataField>Planned_Order_No_Caption</DataField>
-        </Field>
-        <Field Name="Item_No_Caption">
-          <DataField>Item_No_Caption</DataField>
-        </Field>
-        <Field Name="Order_No_Caption">
-          <DataField>Order_No_Caption</DataField>
-        </Field>
-        <Field Name="Operation_No_Caption">
-          <DataField>Operation_No_Caption</DataField>
-        </Field>
-        <Field Name="Production_Balance_TypeCaption">
-          <DataField>Production_Balance_TypeCaption</DataField>
-        </Field>
-        <Field Name="Production_Balance__No__Caption">
-          <DataField>Production_Balance__No__Caption</DataField>
-        </Field>
-        <Field Name="Production_Balance_DescriptionCaption">
-          <DataField>Production_Balance_DescriptionCaption</DataField>
-        </Field>
-        <Field Name="Production_Balance_StatusCaption">
-          <DataField>Production_Balance_StatusCaption</DataField>
-        </Field>
-        <Field Name="Line_Type_Caption">
-          <DataField>Line_Type_Caption</DataField>
-        </Field>
-        <Field Name="Title">
-          <DataField>Title</DataField>
-        </Field>
-        <Field Name="Production_Balance__Expected_Quantity_Caption">
-          <DataField>Production_Balance__Expected_Quantity_Caption</DataField>
-        </Field>
-        <Field Name="Production_Balance_QuantityCaption">
-          <DataField>Production_Balance_QuantityCaption</DataField>
-        </Field>
-        <Field Name="Production_Balance__Unit_of_Measure_Code_Caption">
-          <DataField>Production_Balance__Unit_of_Measure_Code_Caption</DataField>
-        </Field>
-        <Field Name="Production_Balance__Scrap_Quantity_Caption">
-          <DataField>Production_Balance__Scrap_Quantity_Caption</DataField>
-        </Field>
-        <Field Name="Production_Balance__Expected_Flushing_Quantity_Caption">
-          <DataField>Production_Balance__Expected_Flushing_Quantity_Caption</DataField>
-        </Field>
-        <Field Name="Production_Balance__Realized_Flushing_Quantity_Caption">
-          <DataField>Production_Balance__Realized_Flushing_Quantity_Caption</DataField>
-        </Field>
-        <Field Name="Production_Balance__Cost_Amount__Expected__Caption">
-          <DataField>Production_Balance__Cost_Amount__Expected__Caption</DataField>
-        </Field>
-        <Field Name="Production_Balance__Cost_Amount__Actual__Caption">
-          <DataField>Production_Balance__Cost_Amount__Actual__Caption</DataField>
-        </Field>
-        <Field Name="Production_Balance__Cost_Difference_Caption">
-          <DataField>Production_Balance__Cost_Difference_Caption</DataField>
-        </Field>
-        <Field Name="Production_Balance__Actual_Cost_MP_Caption">
-          <DataField>Production_Balance__Actual_Cost_MP_Caption</DataField>
-        </Field>
-        <Field Name="Production_Balance__Actual_Cost_STR_Caption">
-          <DataField>Production_Balance__Actual_Cost_STR_Caption</DataField>
-        </Field>
-        <Field Name="Production_Balance__Actual_Cost_MO_Caption">
-          <DataField>Production_Balance__Actual_Cost_MO_Caption</DataField>
-        </Field>
-        <Field Name="Production_Balance_ProductivityCaption">
-          <DataField>Production_Balance_ProductivityCaption</DataField>
-        </Field>
-        <Field Name="Production_Balance_OutputCaption">
-          <DataField>Production_Balance_OutputCaption</DataField>
-        </Field>
-        <Field Name="Production_Balance__Unit_Price_Caption">
-          <DataField>Production_Balance__Unit_Price_Caption</DataField>
-        </Field>
-        <Field Name="Production_Balance__Planned_Order_Index_Caption">
-          <DataField>Production_Balance__Planned_Order_Index_Caption</DataField>
-        </Field>
-        <Field Name="Production_Balance__Expected_Quantity_Caption_2">
-          <DataField>Production_Balance__Expected_Quantity_Caption_2</DataField>
-        </Field>
-        <Field Name="Production_Balance_QuantityCaption_2">
-          <DataField>Production_Balance_QuantityCaption_2</DataField>
-        </Field>
-        <Field Name="Production_Balance__Expected_Flushing_Quantity_Caption_2">
-          <DataField>Production_Balance__Expected_Flushing_Quantity_Caption_2</DataField>
-        </Field>
-        <Field Name="Production_Balance__Realized_Flushing_Quantity_Caption_2">
-          <DataField>Production_Balance__Realized_Flushing_Quantity_Caption_2</DataField>
-        </Field>
-        <Field Name="Production_Balance_CurrentQuantity_Caption">
-          <DataField>Production_Balance_CurrentQuantity_Caption</DataField>
-        </Field>
-        <Field Name="RecGItem_Unit_Price__Caption">
-          <DataField>RecGItem_Unit_Price__Caption</DataField>
-        </Field>
-        <Field Name="Production_Balance__Prod_Order_Total_Caption">
-          <DataField>Production_Balance__Prod_Order_Total_Caption</DataField>
-        </Field>
-        <Field Name="Production_Balance__Prod_Order_Total_Caption2">
-          <DataField>Production_Balance__Prod_Order_Total_Caption2</DataField>
-        </Field>
-        <Field Name="Production_Balance__Current_Value_Caption">
-          <DataField>Production_Balance__Current_Value_Caption</DataField>
-        </Field>
-        <Field Name="Production_Balance__Unit_Value_Caption">
-          <DataField>Production_Balance__Unit_Value_Caption</DataField>
-        </Field>
-        <Field Name="Production_Balance__Margin_Caption">
-          <DataField>Production_Balance__Margin_Caption</DataField>
-        </Field>
-        <Field Name="OptGStatus__Caption">
-          <DataField>OptGStatus__Caption</DataField>
-        </Field>
-        <Field Name="RecGSalesHeader_Sellto_Customer_No_Caption">
-          <DataField>RecGSalesHeader_Sellto_Customer_No_Caption</DataField>
-        </Field>
-        <Field Name="RecGSalesHeader_Name_Caption">
-          <DataField>RecGSalesHeader_Name_Caption</DataField>
-        </Field>
-        <Field Name="Production_Balance__Planned_Order_Index__Control1100267071Caption">
-          <DataField>Production_Balance__Planned_Order_Index__Control1100267071Caption</DataField>
-        </Field>
-        <Field Name="Pourcent">
-          <DataField>Pourcent</DataField>
-        </Field>
-        <Field Name="Production_Balance__Current_Quantity_Total_Caption">
-          <DataField>Production_Balance__Current_Quantity_Total_Caption</DataField>
-        </Field>
-        <Field Name="Production_Balance__Scrap_Quantity_Total_Caption">
-          <DataField>Production_Balance__Scrap_Quantity_Total_Caption</DataField>
-        </Field>
-        <Field Name="Production_Balance__Quantity_Total_Caption">
-          <DataField>Production_Balance__Quantity_Total_Caption</DataField>
-        </Field>
-        <Field Name="Production_Balance__Expected_Flushing_Quantity_Tot_Caption">
-          <DataField>Production_Balance__Expected_Flushing_Quantity_Tot_Caption</DataField>
-        </Field>
-        <Field Name="Production_Balance__Realized_Flushing_Quantity_Tot_Caption">
-          <DataField>Production_Balance__Realized_Flushing_Quantity_Tot_Caption</DataField>
-        </Field>
-        <Field Name="Production_Balance__Cost_Amount__Actual__Total_Caption">
-          <DataField>Production_Balance__Cost_Amount__Actual__Total_Caption</DataField>
-        </Field>
-        <Field Name="Production_Balance__Current_Quantity_Total_Order_Caption">
-          <DataField>Production_Balance__Current_Quantity_Total_Order_Caption</DataField>
-        </Field>
-        <Field Name="Production_Balance__Scrap_Quantity_Total_Order_Caption">
-          <DataField>Production_Balance__Scrap_Quantity_Total_Order_Caption</DataField>
-        </Field>
-        <Field Name="Production_Balance_User_ID">
-          <DataField>Production_Balance_User_ID</DataField>
-        </Field>
-        <Field Name="Production_Balance_Entry_No_">
-          <DataField>Production_Balance_Entry_No_</DataField>
-        </Field>
-      </Fields>
-    </DataSet>
-  </DataSets>
   <ReportSections>
     <ReportSection>
       <Body>
@@ -7506,4 +7121,389 @@ End Function
   <Language>fr-CH</Language>
   <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
   <rd:ReportUnitType>Invalid</rd:ReportUnitType>
+  <DataSets>
+    <DataSet Name="DataSet_Result">
+      <Fields>
+        <Field Name="Planned_Order_No">
+          <DataField>Planned_Order_No</DataField>
+        </Field>
+        <Field Name="Item_No">
+          <DataField>Item_No</DataField>
+        </Field>
+        <Field Name="Order_No">
+          <DataField>Order_No</DataField>
+        </Field>
+        <Field Name="Operation_No">
+          <DataField>Operation_No</DataField>
+        </Field>
+        <Field Name="Production_Balance_Type">
+          <DataField>Production_Balance_Type</DataField>
+        </Field>
+        <Field Name="Production_Balance__No__">
+          <DataField>Production_Balance__No__</DataField>
+        </Field>
+        <Field Name="Production_Balance_Description">
+          <DataField>Production_Balance_Description</DataField>
+        </Field>
+        <Field Name="Production_Balance_Status">
+          <DataField>Production_Balance_Status</DataField>
+        </Field>
+        <Field Name="Line_Type">
+          <DataField>Line_Type</DataField>
+        </Field>
+        <Field Name="Production_Balance__Expected_Quantity_">
+          <DataField>Production_Balance__Expected_Quantity_</DataField>
+        </Field>
+        <Field Name="Production_Balance__Expected_Quantity_Format">
+          <DataField>Production_Balance__Expected_Quantity_Format</DataField>
+        </Field>
+        <Field Name="Production_Balance_Quantity">
+          <DataField>Production_Balance_Quantity</DataField>
+        </Field>
+        <Field Name="Production_Balance_QuantityFormat">
+          <DataField>Production_Balance_QuantityFormat</DataField>
+        </Field>
+        <Field Name="Production_Balance__Unit_of_Measure_Code_">
+          <DataField>Production_Balance__Unit_of_Measure_Code_</DataField>
+        </Field>
+        <Field Name="Production_Balance__Scrap_Quantity_">
+          <DataField>Production_Balance__Scrap_Quantity_</DataField>
+        </Field>
+        <Field Name="Production_Balance__Scrap_Quantity_Format">
+          <DataField>Production_Balance__Scrap_Quantity_Format</DataField>
+        </Field>
+        <Field Name="Production_Balance__Expected_Flushing_Quantity_">
+          <DataField>Production_Balance__Expected_Flushing_Quantity_</DataField>
+        </Field>
+        <Field Name="Production_Balance__Expected_Flushing_Quantity_Format">
+          <DataField>Production_Balance__Expected_Flushing_Quantity_Format</DataField>
+        </Field>
+        <Field Name="Production_Balance__Realized_Flushing_Quantity_">
+          <DataField>Production_Balance__Realized_Flushing_Quantity_</DataField>
+        </Field>
+        <Field Name="Production_Balance__Realized_Flushing_Quantity_Format">
+          <DataField>Production_Balance__Realized_Flushing_Quantity_Format</DataField>
+        </Field>
+        <Field Name="Production_Balance__Cost_Amount__Expected__">
+          <DataField>Production_Balance__Cost_Amount__Expected__</DataField>
+        </Field>
+        <Field Name="Production_Balance__Cost_Amount__Expected__Format">
+          <DataField>Production_Balance__Cost_Amount__Expected__Format</DataField>
+        </Field>
+        <Field Name="Production_Balance__Cost_Amount__Actual__">
+          <DataField>Production_Balance__Cost_Amount__Actual__</DataField>
+        </Field>
+        <Field Name="Production_Balance__Cost_Amount__Actual__Format">
+          <DataField>Production_Balance__Cost_Amount__Actual__Format</DataField>
+        </Field>
+        <Field Name="Production_Balance__Cost_Difference_">
+          <DataField>Production_Balance__Cost_Difference_</DataField>
+        </Field>
+        <Field Name="Production_Balance__Cost_Difference_Format">
+          <DataField>Production_Balance__Cost_Difference_Format</DataField>
+        </Field>
+        <Field Name="Production_Balance__Actual_Cost_MP_">
+          <DataField>Production_Balance__Actual_Cost_MP_</DataField>
+        </Field>
+        <Field Name="Production_Balance__Actual_Cost_MP_Format">
+          <DataField>Production_Balance__Actual_Cost_MP_Format</DataField>
+        </Field>
+        <Field Name="Production_Balance__Actual_Cost_STR_">
+          <DataField>Production_Balance__Actual_Cost_STR_</DataField>
+        </Field>
+        <Field Name="Production_Balance__Actual_Cost_STR_Format">
+          <DataField>Production_Balance__Actual_Cost_STR_Format</DataField>
+        </Field>
+        <Field Name="Production_Balance__Actual_Cost_MO_">
+          <DataField>Production_Balance__Actual_Cost_MO_</DataField>
+        </Field>
+        <Field Name="Production_Balance__Actual_Cost_MO_Format">
+          <DataField>Production_Balance__Actual_Cost_MO_Format</DataField>
+        </Field>
+        <Field Name="Production_Balance_Productivity">
+          <DataField>Production_Balance_Productivity</DataField>
+        </Field>
+        <Field Name="Production_Balance_ProductivityFormat">
+          <DataField>Production_Balance_ProductivityFormat</DataField>
+        </Field>
+        <Field Name="Production_Balance_Output">
+          <DataField>Production_Balance_Output</DataField>
+        </Field>
+        <Field Name="Production_Balance_OutputFormat">
+          <DataField>Production_Balance_OutputFormat</DataField>
+        </Field>
+        <Field Name="Production_Balance__Unit_Price_">
+          <DataField>Production_Balance__Unit_Price_</DataField>
+        </Field>
+        <Field Name="Production_Balance__Unit_Price_Format">
+          <DataField>Production_Balance__Unit_Price_Format</DataField>
+        </Field>
+        <Field Name="Production_Balance__Planned_Order_Index_">
+          <DataField>Production_Balance__Planned_Order_Index_</DataField>
+        </Field>
+        <Field Name="OptGFilter">
+          <DataField>OptGFilter</DataField>
+        </Field>
+        <Field Name="IntTypeLine">
+          <DataField>IntTypeLine</DataField>
+        </Field>
+        <Field Name="RecGItem_Unit_Price">
+          <DataField>RecGItem_Unit_Price</DataField>
+        </Field>
+        <Field Name="RecGItem_Unit_PriceFormat">
+          <DataField>RecGItem_Unit_PriceFormat</DataField>
+        </Field>
+        <Field Name="OptGStatus">
+          <DataField>OptGStatus</DataField>
+        </Field>
+        <Field Name="RecGSalesHeader_Sellto_Customer_No">
+          <DataField>RecGSalesHeader_Sellto_Customer_No</DataField>
+        </Field>
+        <Field Name="RecGSalesHeader_Name">
+          <DataField>RecGSalesHeader_Name</DataField>
+        </Field>
+        <Field Name="Production_Balance__Planned_Order_Index__Control1100267071">
+          <DataField>Production_Balance__Planned_Order_Index__Control1100267071</DataField>
+        </Field>
+        <Field Name="Production_Balance__Current_Quantity_Total_">
+          <DataField>Production_Balance__Current_Quantity_Total_</DataField>
+        </Field>
+        <Field Name="Production_Balance__Current_Quantity_Total_Format">
+          <DataField>Production_Balance__Current_Quantity_Total_Format</DataField>
+        </Field>
+        <Field Name="Production_Balance__Scrap_Quantity_Total_">
+          <DataField>Production_Balance__Scrap_Quantity_Total_</DataField>
+        </Field>
+        <Field Name="Production_Balance__Scrap_Quantity_Total_Format">
+          <DataField>Production_Balance__Scrap_Quantity_Total_Format</DataField>
+        </Field>
+        <Field Name="Production_Balance__Quantity_Total_">
+          <DataField>Production_Balance__Quantity_Total_</DataField>
+        </Field>
+        <Field Name="Production_Balance__Quantity_Total_Format">
+          <DataField>Production_Balance__Quantity_Total_Format</DataField>
+        </Field>
+        <Field Name="Production_Balance__Expected_Flushing_Quantity_Tot_">
+          <DataField>Production_Balance__Expected_Flushing_Quantity_Tot_</DataField>
+        </Field>
+        <Field Name="Production_Balance__Expected_Flushing_Quantity_Tot_Format">
+          <DataField>Production_Balance__Expected_Flushing_Quantity_Tot_Format</DataField>
+        </Field>
+        <Field Name="Production_Balance__Realized_Flushing_Quantity_Tot_">
+          <DataField>Production_Balance__Realized_Flushing_Quantity_Tot_</DataField>
+        </Field>
+        <Field Name="Production_Balance__Realized_Flushing_Quantity_Tot_Format">
+          <DataField>Production_Balance__Realized_Flushing_Quantity_Tot_Format</DataField>
+        </Field>
+        <Field Name="Production_Balance__Cost_Amount__Actual__Total_">
+          <DataField>Production_Balance__Cost_Amount__Actual__Total_</DataField>
+        </Field>
+        <Field Name="Production_Balance__Cost_Amount__Actual__Total_Format">
+          <DataField>Production_Balance__Cost_Amount__Actual__Total_Format</DataField>
+        </Field>
+        <Field Name="Production_Balance__Current_Quantity_Total_Order_">
+          <DataField>Production_Balance__Current_Quantity_Total_Order_</DataField>
+        </Field>
+        <Field Name="Production_Balance__Current_Quantity_Total_Order_Format">
+          <DataField>Production_Balance__Current_Quantity_Total_Order_Format</DataField>
+        </Field>
+        <Field Name="Production_Balance__Scrap_Quantity_Total_Order_">
+          <DataField>Production_Balance__Scrap_Quantity_Total_Order_</DataField>
+        </Field>
+        <Field Name="Production_Balance__Scrap_Quantity_Total_Order_Format">
+          <DataField>Production_Balance__Scrap_Quantity_Total_Order_Format</DataField>
+        </Field>
+        <Field Name="DecGLastQuantity">
+          <DataField>DecGLastQuantity</DataField>
+        </Field>
+        <Field Name="DecGLastQuantityFormat">
+          <DataField>DecGLastQuantityFormat</DataField>
+        </Field>
+        <Field Name="DecGLastUnitPrice">
+          <DataField>DecGLastUnitPrice</DataField>
+        </Field>
+        <Field Name="DecGLastUnitPriceFormat">
+          <DataField>DecGLastUnitPriceFormat</DataField>
+        </Field>
+        <Field Name="DecGLastExpectedQty">
+          <DataField>DecGLastExpectedQty</DataField>
+        </Field>
+        <Field Name="DecGLastExpectedQtyFormat">
+          <DataField>DecGLastExpectedQtyFormat</DataField>
+        </Field>
+        <Field Name="DecGLastAmountCost">
+          <DataField>DecGLastAmountCost</DataField>
+        </Field>
+        <Field Name="DecGLastAmountCostFormat">
+          <DataField>DecGLastAmountCostFormat</DataField>
+        </Field>
+        <Field Name="Productivity_Tot">
+          <DataField>Productivity_Tot</DataField>
+        </Field>
+        <Field Name="Productivity_TotFormat">
+          <DataField>Productivity_TotFormat</DataField>
+        </Field>
+        <Field Name="Planned_Order_No_Caption">
+          <DataField>Planned_Order_No_Caption</DataField>
+        </Field>
+        <Field Name="Item_No_Caption">
+          <DataField>Item_No_Caption</DataField>
+        </Field>
+        <Field Name="Order_No_Caption">
+          <DataField>Order_No_Caption</DataField>
+        </Field>
+        <Field Name="Operation_No_Caption">
+          <DataField>Operation_No_Caption</DataField>
+        </Field>
+        <Field Name="Production_Balance_TypeCaption">
+          <DataField>Production_Balance_TypeCaption</DataField>
+        </Field>
+        <Field Name="Production_Balance__No__Caption">
+          <DataField>Production_Balance__No__Caption</DataField>
+        </Field>
+        <Field Name="Production_Balance_DescriptionCaption">
+          <DataField>Production_Balance_DescriptionCaption</DataField>
+        </Field>
+        <Field Name="Production_Balance_StatusCaption">
+          <DataField>Production_Balance_StatusCaption</DataField>
+        </Field>
+        <Field Name="Line_Type_Caption">
+          <DataField>Line_Type_Caption</DataField>
+        </Field>
+        <Field Name="Title">
+          <DataField>Title</DataField>
+        </Field>
+        <Field Name="Production_Balance__Expected_Quantity_Caption">
+          <DataField>Production_Balance__Expected_Quantity_Caption</DataField>
+        </Field>
+        <Field Name="Production_Balance_QuantityCaption">
+          <DataField>Production_Balance_QuantityCaption</DataField>
+        </Field>
+        <Field Name="Production_Balance__Unit_of_Measure_Code_Caption">
+          <DataField>Production_Balance__Unit_of_Measure_Code_Caption</DataField>
+        </Field>
+        <Field Name="Production_Balance__Scrap_Quantity_Caption">
+          <DataField>Production_Balance__Scrap_Quantity_Caption</DataField>
+        </Field>
+        <Field Name="Production_Balance__Expected_Flushing_Quantity_Caption">
+          <DataField>Production_Balance__Expected_Flushing_Quantity_Caption</DataField>
+        </Field>
+        <Field Name="Production_Balance__Realized_Flushing_Quantity_Caption">
+          <DataField>Production_Balance__Realized_Flushing_Quantity_Caption</DataField>
+        </Field>
+        <Field Name="Production_Balance__Cost_Amount__Expected__Caption">
+          <DataField>Production_Balance__Cost_Amount__Expected__Caption</DataField>
+        </Field>
+        <Field Name="Production_Balance__Cost_Amount__Actual__Caption">
+          <DataField>Production_Balance__Cost_Amount__Actual__Caption</DataField>
+        </Field>
+        <Field Name="Production_Balance__Cost_Difference_Caption">
+          <DataField>Production_Balance__Cost_Difference_Caption</DataField>
+        </Field>
+        <Field Name="Production_Balance__Actual_Cost_MP_Caption">
+          <DataField>Production_Balance__Actual_Cost_MP_Caption</DataField>
+        </Field>
+        <Field Name="Production_Balance__Actual_Cost_STR_Caption">
+          <DataField>Production_Balance__Actual_Cost_STR_Caption</DataField>
+        </Field>
+        <Field Name="Production_Balance__Actual_Cost_MO_Caption">
+          <DataField>Production_Balance__Actual_Cost_MO_Caption</DataField>
+        </Field>
+        <Field Name="Production_Balance_ProductivityCaption">
+          <DataField>Production_Balance_ProductivityCaption</DataField>
+        </Field>
+        <Field Name="Production_Balance_OutputCaption">
+          <DataField>Production_Balance_OutputCaption</DataField>
+        </Field>
+        <Field Name="Production_Balance__Unit_Price_Caption">
+          <DataField>Production_Balance__Unit_Price_Caption</DataField>
+        </Field>
+        <Field Name="Production_Balance__Planned_Order_Index_Caption">
+          <DataField>Production_Balance__Planned_Order_Index_Caption</DataField>
+        </Field>
+        <Field Name="Production_Balance__Expected_Quantity_Caption_2">
+          <DataField>Production_Balance__Expected_Quantity_Caption_2</DataField>
+        </Field>
+        <Field Name="Production_Balance_QuantityCaption_2">
+          <DataField>Production_Balance_QuantityCaption_2</DataField>
+        </Field>
+        <Field Name="Production_Balance__Expected_Flushing_Quantity_Caption_2">
+          <DataField>Production_Balance__Expected_Flushing_Quantity_Caption_2</DataField>
+        </Field>
+        <Field Name="Production_Balance__Realized_Flushing_Quantity_Caption_2">
+          <DataField>Production_Balance__Realized_Flushing_Quantity_Caption_2</DataField>
+        </Field>
+        <Field Name="Production_Balance_CurrentQuantity_Caption">
+          <DataField>Production_Balance_CurrentQuantity_Caption</DataField>
+        </Field>
+        <Field Name="RecGItem_Unit_Price__Caption">
+          <DataField>RecGItem_Unit_Price__Caption</DataField>
+        </Field>
+        <Field Name="Production_Balance__Prod_Order_Total_Caption">
+          <DataField>Production_Balance__Prod_Order_Total_Caption</DataField>
+        </Field>
+        <Field Name="Production_Balance__Prod_Order_Total_Caption2">
+          <DataField>Production_Balance__Prod_Order_Total_Caption2</DataField>
+        </Field>
+        <Field Name="Production_Balance__Current_Value_Caption">
+          <DataField>Production_Balance__Current_Value_Caption</DataField>
+        </Field>
+        <Field Name="Production_Balance__Unit_Value_Caption">
+          <DataField>Production_Balance__Unit_Value_Caption</DataField>
+        </Field>
+        <Field Name="Production_Balance__Margin_Caption">
+          <DataField>Production_Balance__Margin_Caption</DataField>
+        </Field>
+        <Field Name="OptGStatus__Caption">
+          <DataField>OptGStatus__Caption</DataField>
+        </Field>
+        <Field Name="RecGSalesHeader_Sellto_Customer_No_Caption">
+          <DataField>RecGSalesHeader_Sellto_Customer_No_Caption</DataField>
+        </Field>
+        <Field Name="RecGSalesHeader_Name_Caption">
+          <DataField>RecGSalesHeader_Name_Caption</DataField>
+        </Field>
+        <Field Name="Production_Balance__Planned_Order_Index__Control1100267071Caption">
+          <DataField>Production_Balance__Planned_Order_Index__Control1100267071Caption</DataField>
+        </Field>
+        <Field Name="Pourcent">
+          <DataField>Pourcent</DataField>
+        </Field>
+        <Field Name="Production_Balance__Current_Quantity_Total_Caption">
+          <DataField>Production_Balance__Current_Quantity_Total_Caption</DataField>
+        </Field>
+        <Field Name="Production_Balance__Scrap_Quantity_Total_Caption">
+          <DataField>Production_Balance__Scrap_Quantity_Total_Caption</DataField>
+        </Field>
+        <Field Name="Production_Balance__Quantity_Total_Caption">
+          <DataField>Production_Balance__Quantity_Total_Caption</DataField>
+        </Field>
+        <Field Name="Production_Balance__Expected_Flushing_Quantity_Tot_Caption">
+          <DataField>Production_Balance__Expected_Flushing_Quantity_Tot_Caption</DataField>
+        </Field>
+        <Field Name="Production_Balance__Realized_Flushing_Quantity_Tot_Caption">
+          <DataField>Production_Balance__Realized_Flushing_Quantity_Tot_Caption</DataField>
+        </Field>
+        <Field Name="Production_Balance__Cost_Amount__Actual__Total_Caption">
+          <DataField>Production_Balance__Cost_Amount__Actual__Total_Caption</DataField>
+        </Field>
+        <Field Name="Production_Balance__Current_Quantity_Total_Order_Caption">
+          <DataField>Production_Balance__Current_Quantity_Total_Order_Caption</DataField>
+        </Field>
+        <Field Name="Production_Balance__Scrap_Quantity_Total_Order_Caption">
+          <DataField>Production_Balance__Scrap_Quantity_Total_Order_Caption</DataField>
+        </Field>
+        <Field Name="Production_Balance_User_ID">
+          <DataField>Production_Balance_User_ID</DataField>
+        </Field>
+        <Field Name="Production_Balance_Entry_No_">
+          <DataField>Production_Balance_Entry_No_</DataField>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DataSource</DataSourceName>
+        <CommandText />
+      </Query>
+    </DataSet>
+  </DataSets>
 </Report>

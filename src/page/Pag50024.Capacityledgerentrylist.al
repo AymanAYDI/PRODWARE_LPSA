@@ -20,7 +20,7 @@ page 50024 "PWD Capacity ledger entry list"
                 {
                     ApplicationArea = All;
                 }
-                field(Type; Type)
+                field(Type; Rec.Type)
                 {
                     ApplicationArea = All;
                 }
@@ -28,7 +28,7 @@ page 50024 "PWD Capacity ledger entry list"
                 {
                     ApplicationArea = All;
                 }
-                field(Description; Description)
+                field(Description; Rec.Description)
                 {
                     ApplicationArea = All;
                 }
@@ -40,7 +40,7 @@ page 50024 "PWD Capacity ledger entry list"
                 {
                     ApplicationArea = All;
                 }
-                field(Quantity; Quantity)
+                field(Quantity; Rec.Quantity)
                 {
                     ApplicationArea = All;
                 }

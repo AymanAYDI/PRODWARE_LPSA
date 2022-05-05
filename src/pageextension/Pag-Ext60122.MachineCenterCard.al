@@ -39,26 +39,26 @@ pageextension 60122 "PWD MachineCenterCard" extends "Machine Center Card"
     {
         addafter("Last Date Modified")
         {
-            field("PWD Type"; "PWD Type")
+            field("PWD Type"; Rec."PWD Type")
             {
                 ApplicationArea = All;
             }
-            field("PWD To Exclure In Tracking Card"; "PWD To Excl. In Tracking Card")
+            field("PWD To Exclure In Tracking Card"; Rec."PWD To Excl. In Tracking Card")
             {
                 ApplicationArea = All;
             }
         }
         addafter("Queue Time Unit of Meas. Code")
         {
-            field("PWD Planning"; "PWD Planning")
+            field("PWD Planning"; Rec."PWD Planning")
             {
                 ApplicationArea = All;
             }
-            field("PWD Planning Status Name"; "PWD Planning Status Name")
+            field("PWD Planning Status Name"; Rec."PWD Planning Status Name")
             {
                 ApplicationArea = All;
             }
-            field("PWD Planning Order No."; "PWD Planning Order No.")
+            field("PWD Planning Order No."; Rec."PWD Planning Order No.")
             {
                 ApplicationArea = All;
             }

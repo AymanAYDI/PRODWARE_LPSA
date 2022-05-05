@@ -23,71 +23,71 @@ page 8073310 "PWD Sales Comment Line Buffer"
             repeater(Control1100294000)
             {
                 ShowCaption = false;
-                field("Entry No."; "Entry No.")
+                field("Entry No."; Rec."Entry No.")
                 {
                     ApplicationArea = All;
                 }
-                field("Connector Values Entry No."; "Connector Values Entry No.")
+                field("Connector Values Entry No."; Rec."Connector Values Entry No.")
                 {
                     ApplicationArea = All;
                 }
-                field("Partner Code"; "Partner Code")
+                field("Partner Code"; Rec."Partner Code")
                 {
                     ApplicationArea = All;
                 }
-                field("Message Code"; "Message Code")
+                field("Message Code"; Rec."Message Code")
                 {
                     ApplicationArea = All;
                 }
-                field("Creation Date"; "Creation Date")
+                field("Creation Date"; Rec."Creation Date")
                 {
                     ApplicationArea = All;
                 }
-                field(Status; Status)
+                field(Status; Rec.Status)
                 {
                     ApplicationArea = All;
                 }
-                field(Processed; Processed)
+                field(Processed; Rec.Processed)
                 {
                     ApplicationArea = All;
                 }
-                field("Processed Date"; "Processed Date")
+                field("Processed Date"; Rec."Processed Date")
                 {
                     ApplicationArea = All;
                 }
-                field("Error Message"; "Error Message")
+                field("Error Message"; Rec."Error Message")
                 {
                     ApplicationArea = All;
                 }
-                field("Action"; Action)
+                field("Action"; Rec.Action)
                 {
                     ApplicationArea = All;
                 }
-                field("RecordID Created"; "RecordID Created")
+                field("RecordID Created"; Rec."RecordID Created")
                 {
                     ApplicationArea = All;
                 }
-                field("Document Type"; "Document Type")
+                field("Document Type"; Rec."Document Type")
                 {
                     ApplicationArea = All;
                 }
-                field("Document No."; "Document No.")
+                field("Document No."; Rec."Document No.")
                 {
                     ApplicationArea = All;
                 }
-                field("Document Line No."; "Document Line No.")
+                field("Document Line No."; Rec."Document Line No.")
                 {
                     ApplicationArea = All;
                 }
-                field("Date"; Date)
+                field("Date"; Rec.Date)
                 {
                     ApplicationArea = All;
                 }
-                field("Code"; Code)
+                field("Code"; Rec.Code)
                 {
                     ApplicationArea = All;
                 }
-                field(Comment; Comment)
+                field(Comment; Rec.Comment)
                 {
                     ApplicationArea = All;
                 }
@@ -152,8 +152,8 @@ page 8073310 "PWD Sales Comment Line Buffer"
     procedure FctGetBufferLinked()
     begin
         //Insérer les différents tables liées aux imports Natif.
-        IF RecGPEBSalesCommentLineBuffer.GET("Entry No.") THEN;
-        IF RecGWMSSalesCommentLineBuffer.GET("Entry No.") THEN;
+        IF RecGPEBSalesCommentLineBuffer.GET(Rec."Entry No.") THEN;
+        IF RecGWMSSalesCommentLineBuffer.GET(Rec."Entry No.") THEN;
     end;
 }
 

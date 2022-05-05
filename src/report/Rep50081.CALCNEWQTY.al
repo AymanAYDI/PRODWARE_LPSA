@@ -16,7 +16,7 @@ report 50081 "PWD CALC NEW QTY"
                 RecLBOM: Record "Production BOM Header";
                 RecLProdOrderInit: Record "Production Order";
                 RecLProdOrderNew: Record "Production Order";
-                RecLOrderBY: Record "PWD New Order By";
+                //RecLOrderBY: Record "PWD New Order By";
                 RecLRoutringInit: Record "Routing Header";
                 RecLRoutringNew: Record "Routing Header";
                 RecLRoutingLineInit: Record "Routing Line";
@@ -29,27 +29,27 @@ report 50081 "PWD CALC NEW QTY"
             begin
                 DecLInitQty := 0;
                 DecLNewQty := 0;
-                if RecLBOM.Get("Production BOM No.") then begin
-                    if RecLBOM.Status <> RecLBOM.Status::Certified then begin
-                        RecLOrderBY.Init();
-                        RecLOrderBY."Item No." := "No.";
-                        RecLOrderBY."Quantity Comp. Init" := 0;
-                        RecLOrderBY."Quantity Comp. New" := 0;
-                        RecLOrderBY."Qty Order By Init" := Item."Order Multiple";
-                        RecLOrderBY."Qty Order By New" := 0;
-                        RecLOrderBY.Insert();
-                        CurrReport.Skip();
-                    end;
-                end else begin
-                    RecLOrderBY.Init();
-                    RecLOrderBY."Item No." := "No.";
-                    RecLOrderBY."Quantity Comp. Init" := 0;
-                    RecLOrderBY."Quantity Comp. New" := 0;
-                    RecLOrderBY."Qty Order By Init" := Item."Order Multiple";
-                    RecLOrderBY."Qty Order By New" := 0;
-                    RecLOrderBY.Insert();
-                    CurrReport.Skip();
-                end;
+                // if RecLBOM.Get("Production BOM No.") then begin
+                //     if RecLBOM.Status <> RecLBOM.Status::Certified then begin
+                //         RecLOrderBY.Init();
+                //         RecLOrderBY."Item No." := "No.";
+                //         RecLOrderBY."Quantity Comp. Init" := 0;
+                //         RecLOrderBY."Quantity Comp. New" := 0;
+                //         RecLOrderBY."Qty Order By Init" := Item."Order Multiple";
+                //         RecLOrderBY."Qty Order By New" := 0;
+                //         RecLOrderBY.Insert();
+                //         CurrReport.Skip();
+                //     end;
+                // end else begin
+                //     RecLOrderBY.Init();
+                //     RecLOrderBY."Item No." := "No.";
+                //     RecLOrderBY."Quantity Comp. Init" := 0;
+                //     RecLOrderBY."Quantity Comp. New" := 0;
+                //     RecLOrderBY."Qty Order By Init" := Item."Order Multiple";
+                //     RecLOrderBY."Qty Order By New" := 0;
+                //     RecLOrderBY.Insert();
+                //     CurrReport.Skip();
+                // end;
                 //Calcul Quantité Composant Initiale
                 if RecLProdOrderInit.Get(RecLProdOrderInit.Status::Simulated, 'INIT') then
                     RecLProdOrderInit.Delete(true);
@@ -130,16 +130,16 @@ report 50081 "PWD CALC NEW QTY"
                 Validate("Routing No.", CodRouting);
                 Modify();
 
-                RecLOrderBY.Init();
-                RecLOrderBY."Item No." := "No.";
-                RecLOrderBY."Quantity Comp. Init" := DecLInitQty;
-                RecLOrderBY."Quantity Comp. New" := DecLNewQty;
-                RecLOrderBY."Qty Order By Init" := Item."Order Multiple";
-                if DecLNewQty <> 0 then
-                    RecLOrderBY."Qty Order By New" := Round((DecLInitQty / DecLNewQty) * Item."Order Multiple", 1)
-                else
-                    RecLOrderBY."Qty Order By New" := 0;
-                RecLOrderBY.Insert();
+                // RecLOrderBY.Init();
+                // RecLOrderBY."Item No." := "No.";
+                // RecLOrderBY."Quantity Comp. Init" := DecLInitQty;
+                // RecLOrderBY."Quantity Comp. New" := DecLNewQty;
+                // RecLOrderBY."Qty Order By Init" := Item."Order Multiple";
+                // if DecLNewQty <> 0 then
+                //     RecLOrderBY."Qty Order By New" := Round((DecLInitQty / DecLNewQty) * Item."Order Multiple", 1)
+                // else
+                //     RecLOrderBY."Qty Order By New" := 0;
+                // RecLOrderBY.Insert();
             end;
         }
     }

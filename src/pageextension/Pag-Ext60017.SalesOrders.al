@@ -4,11 +4,11 @@ pageextension 60017 "PWD SalesOrders" extends "Sales Orders"
     {
         addafter("No.")
         {
-            field("PWD Requested Delivery Date"; "Requested Delivery Date")
+            field("PWD Requested Delivery Date"; Rec."Requested Delivery Date")
             {
                 ApplicationArea = All;
             }
-            field("PWD Cust Promised Delivery Date"; "PWD Cust Promised Delivery Date")
+            field("PWD Cust Promised Delivery Date"; Rec."PWD Cust Promised Delivery Date")
             {
                 ApplicationArea = All;
             }

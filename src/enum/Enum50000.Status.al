@@ -1,4 +1,4 @@
-enum 50000 "PWD Status"
+enum 50000 "PWD WMS_Status"
 {
     Extensible = true;
 

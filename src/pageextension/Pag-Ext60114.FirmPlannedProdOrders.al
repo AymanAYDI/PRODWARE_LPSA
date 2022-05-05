@@ -20,7 +20,7 @@ pageextension 60114 "PWD FirmPlannedProdOrders" extends "Firm Planned Prod. Orde
     {
         addafter(Description)
         {
-            field("PWD Indicator"; "PWD Indicator")
+            field("PWD Indicator"; Rec."PWD Indicator")
             {
                 ApplicationArea = All;
             }
@@ -37,7 +37,7 @@ pageextension 60114 "PWD FirmPlannedProdOrders" extends "Firm Planned Prod. Orde
         }
         addafter("Search Description")
         {
-            field("PWD Delay"; "PWD Delay")
+            field("PWD Delay"; Rec."PWD Delay")
             {
                 ApplicationArea = All;
             }
@@ -54,19 +54,19 @@ pageextension 60114 "PWD FirmPlannedProdOrders" extends "Firm Planned Prod. Orde
         }
         addafter("Bin Code")
         {
-            field("PWD Order Multiple"; "PWD Order Multiple")
+            field("PWD Order Multiple"; Rec."PWD Order Multiple")
             {
                 ApplicationArea = All;
             }
-            field("PWD Component Quantity"; "PWD Component Quantity")
+            field("PWD Component Quantity"; Rec."PWD Component Quantity")
             {
                 ApplicationArea = All;
             }
-            field("PWD Source Material Vendor"; "PWD Source Material Vendor")
+            field("PWD Source Material Vendor"; Rec."PWD Source Material Vendor")
             {
                 ApplicationArea = All;
             }
-            field("PWD Component No."; "PWD Component No.")
+            field("PWD Component No."; Rec."PWD Component No.")
             {
                 ApplicationArea = All;
             }
@@ -93,7 +93,7 @@ pageextension 60114 "PWD FirmPlannedProdOrders" extends "Firm Planned Prod. Orde
                     ProdBOMWhereUsed: Page "Prod. BOM Where-Used";
                 begin
                     //>>LPSA.TDL.19112014
-                    IF ("Source Type" = "Source Type"::Item) AND RecLItem.GET("Source No.") THEN BEGIN
+                    IF (Rec."Source Type" = Rec."Source Type"::Item) AND RecLItem.GET(Rec."Source No.") THEN BEGIN
                         ProdBOMWhereUsed.SetItem(RecLItem, WORKDATE());
                         ProdBOMWhereUsed.RUNMODAL();
                     END;
@@ -109,13 +109,13 @@ pageextension 60114 "PWD FirmPlannedProdOrders" extends "Firm Planned Prod. Orde
         CodLienGamme: Code[20];
     begin
         FctSetIndicator();
-        DeCGCompQty := ComponentInv();
+        DeCGCompQty := Rec.ComponentInv();
         CLEAR(DatGHeureDeb);
         CLEAR(BooLFound);
         CLEAR(CodLienGamme);
         RecLRoutingLine.RESET();
-        RecLRoutingLine.SETRANGE(Status, Status);
-        RecLRoutingLine.SETRANGE("Prod. Order No.", "No.");
+        RecLRoutingLine.SETRANGE(Status, Rec.Status);
+        RecLRoutingLine.SETRANGE("Prod. Order No.", Rec."No.");
         IF RecLRoutingLine.FINDSET() THEN
             REPEAT
                 IF CodLienGamme <> '' THEN BEGIN
@@ -133,11 +133,11 @@ pageextension 60114 "PWD FirmPlannedProdOrders" extends "Firm Planned Prod. Orde
     begin
         RecLInfoCompany.GET();
         RecLInfoCompany.CALCFIELDS("PWD Picture_Negative", "PWD Picture_Positive");
-        IF CheckComponentAvailabilty() THEN BEGIN
-            "PWD Indicator" := RecLInfoCompany."PWD Picture_Negative";
+        IF Rec.CheckComponentAvailabilty() THEN BEGIN
+            Rec."PWD Indicator" := RecLInfoCompany."PWD Picture_Negative";
             BooGCompAvail := FALSE;
         END ELSE BEGIN
-            "PWD Indicator" := RecLInfoCompany."PWD Picture_Positive";
+            Rec."PWD Indicator" := RecLInfoCompany."PWD Picture_Positive";
             BooGCompAvail := TRUE;
         END;
     end;

@@ -76,7 +76,7 @@ codeunit 8073299 "Buffer Tracking Management 2"
         Text018: Label 'Saving item tracking line changes';
         FormRunMode: Option ,Reclass,"Combined Ship/Rcpt","Drop Shipment",Transfer;
         DirectionNC: Option Outbound,Inbound;
-        CurrentEntryStatus: Option Reservation,Tracking,Surplus,Prospect;
+        CurrentEntryStatus: Enum "Reservation Status";
         CurrentSourceRowID: Text[100];
         SecondSourceRowID: Text[100];
         CurrentSourceCaption: Text[255];
@@ -855,7 +855,6 @@ codeunit 8073299 "Buffer Tracking Management 2"
     local procedure SetQtyToHandleAndInvoice(TrackingSpecification: Record "Tracking Specification") OK: Boolean
     var
         ReservEntry1: Record "Reservation Entry";
-        ReservationMgt: Codeunit "Reservation Management";
         QtyAlreadyHandledToInvoice: Decimal;
         QtyToHandleThisLine: Decimal;
         QtyToInvoiceThisLine: Decimal;
@@ -1388,7 +1387,7 @@ codeunit 8073299 "Buffer Tracking Management 2"
     end;
 
 
-    procedure LookupAvailable(LookupMode: Option "Serial No.","Lot No.")
+    procedure LookupAvailable(LookupMode: Enum "Item Tracking Type")
     VAR
         LPSAFunctionsMgt: Codeunit "PWD LPSA Functions Mgt.";
     begin
@@ -1399,15 +1398,17 @@ codeunit 8073299 "Buffer Tracking Management 2"
 
 
     procedure F6LookupAvailable()
+    var
+        LookupMode: Enum "Item Tracking Type";
     begin
         IF SNAvailabilityActive THEN
-            LookupAvailable(0);
+            LookupAvailable(LookupMode::"Serial No.");
         IF LotAvailabilityActive THEN
-            LookupAvailable(1);
+            LookupAvailable(LookupMode::"Lot No.");
     end;
 
 
-    procedure LotSnAvailable(var TrackingSpecification: Record "Tracking Specification"; LookupMode: Option "Serial No.","Lot No."): Boolean
+    procedure LotSnAvailable(var TrackingSpecification: Record "Tracking Specification"; LookupMode: Enum "Item Tracking Type"): Boolean
     VAR
         LPSAFunctionsMgt: Codeunit "PWD LPSA Functions Mgt.";
     begin
@@ -1605,25 +1606,23 @@ codeunit 8073299 "Buffer Tracking Management 2"
     begin
         RecPTrackingSpecification.INIT();
         RecPTrackingSpecification."Source Type" := DATABASE::"Prod. Order Line";
-        WITH RecPProdOrderLine DO BEGIN
-            RecPTrackingSpecification."Item No." := "Item No.";
-            RecPTrackingSpecification."Location Code" := "Location Code";
-            RecPTrackingSpecification.Description := Description;
-            RecPTrackingSpecification."Variant Code" := "Variant Code";
-            RecPTrackingSpecification."Source Subtype" := Status;
-            RecPTrackingSpecification."Source ID" := "Prod. Order No.";
-            RecPTrackingSpecification."Source Batch Name" := '';
-            RecPTrackingSpecification."Source Prod. Order Line" := "Line No.";
-            RecPTrackingSpecification."Source Ref. No." := 0;
-            RecPTrackingSpecification."Quantity (Base)" := "Quantity (Base)";
-            RecPTrackingSpecification."Qty. to Handle" := "Remaining Quantity";
-            RecPTrackingSpecification."Qty. to Handle (Base)" := "Remaining Qty. (Base)";
-            RecPTrackingSpecification."Qty. to Invoice" := "Remaining Quantity";
-            RecPTrackingSpecification."Qty. to Invoice (Base)" := "Remaining Qty. (Base)";
-            RecPTrackingSpecification."Quantity Handled (Base)" := "Finished Qty. (Base)";
-            RecPTrackingSpecification."Quantity Invoiced (Base)" := "Finished Qty. (Base)";
-            RecPTrackingSpecification."Qty. per Unit of Measure" := "Qty. per Unit of Measure";
-        END;
+        RecPTrackingSpecification."Item No." := RecPProdOrderLine."Item No.";
+        RecPTrackingSpecification."Location Code" := RecPProdOrderLine."Location Code";
+        RecPTrackingSpecification.Description := RecPProdOrderLine.Description;
+        RecPTrackingSpecification."Variant Code" := RecPProdOrderLine."Variant Code";
+        RecPTrackingSpecification."Source Subtype" := RecPProdOrderLine.Status.AsInteger();
+        RecPTrackingSpecification."Source ID" := RecPProdOrderLine."Prod. Order No.";
+        RecPTrackingSpecification."Source Batch Name" := '';
+        RecPTrackingSpecification."Source Prod. Order Line" := RecPProdOrderLine."Line No.";
+        RecPTrackingSpecification."Source Ref. No." := 0;
+        RecPTrackingSpecification."Quantity (Base)" := RecPProdOrderLine."Quantity (Base)";
+        RecPTrackingSpecification."Qty. to Handle" := RecPProdOrderLine."Remaining Quantity";
+        RecPTrackingSpecification."Qty. to Handle (Base)" := RecPProdOrderLine."Remaining Qty. (Base)";
+        RecPTrackingSpecification."Qty. to Invoice" := RecPProdOrderLine."Remaining Quantity";
+        RecPTrackingSpecification."Qty. to Invoice (Base)" := RecPProdOrderLine."Remaining Qty. (Base)";
+        RecPTrackingSpecification."Quantity Handled (Base)" := RecPProdOrderLine."Finished Qty. (Base)";
+        RecPTrackingSpecification."Quantity Invoiced (Base)" := RecPProdOrderLine."Finished Qty. (Base)";
+        RecPTrackingSpecification."Qty. per Unit of Measure" := RecPProdOrderLine."Qty. per Unit of Measure";
     end;
 
 
@@ -1631,23 +1630,21 @@ codeunit 8073299 "Buffer Tracking Management 2"
     begin
         RecPTrackingSpecification.INIT();
         RecPTrackingSpecification."Source Type" := DATABASE::"Prod. Order Component";
-        WITH RecPProdOrderComponent DO BEGIN
-            RecPTrackingSpecification."Item No." := "Item No.";
-            RecPTrackingSpecification."Location Code" := "Location Code";
-            RecPTrackingSpecification.Description := Description;
-            RecPTrackingSpecification."Variant Code" := "Variant Code";
-            RecPTrackingSpecification."Source Subtype" := Status;
-            RecPTrackingSpecification."Source ID" := "Prod. Order No.";
-            RecPTrackingSpecification."Source Batch Name" := '';
-            RecPTrackingSpecification."Source Prod. Order Line" := "Prod. Order Line No.";
-            RecPTrackingSpecification."Source Ref. No." := "Line No.";
-            RecPTrackingSpecification."Quantity (Base)" := "Quantity (Base)";
-            RecPTrackingSpecification."Qty. to Handle" := "Remaining Quantity";
-            RecPTrackingSpecification."Qty. to Handle (Base)" := "Remaining Qty. (Base)";
-            RecPTrackingSpecification."Qty. to Invoice" := "Remaining Quantity";
-            RecPTrackingSpecification."Qty. to Invoice (Base)" := "Remaining Qty. (Base)";
-            RecPTrackingSpecification."Qty. per Unit of Measure" := "Qty. per Unit of Measure";
-        END;
+        RecPTrackingSpecification."Item No." := RecPProdOrderComponent."Item No.";
+        RecPTrackingSpecification."Location Code" := RecPProdOrderComponent."Location Code";
+        RecPTrackingSpecification.Description := RecPProdOrderComponent.Description;
+        RecPTrackingSpecification."Variant Code" := RecPProdOrderComponent."Variant Code";
+        RecPTrackingSpecification."Source Subtype" := RecPProdOrderComponent.Status.AsInteger();
+        RecPTrackingSpecification."Source ID" := RecPProdOrderComponent."Prod. Order No.";
+        RecPTrackingSpecification."Source Batch Name" := '';
+        RecPTrackingSpecification."Source Prod. Order Line" := RecPProdOrderComponent."Prod. Order Line No.";
+        RecPTrackingSpecification."Source Ref. No." := RecPProdOrderComponent."Line No.";
+        RecPTrackingSpecification."Quantity (Base)" := RecPProdOrderComponent."Quantity (Base)";
+        RecPTrackingSpecification."Qty. to Handle" := RecPProdOrderComponent."Remaining Quantity";
+        RecPTrackingSpecification."Qty. to Handle (Base)" := RecPProdOrderComponent."Remaining Qty. (Base)";
+        RecPTrackingSpecification."Qty. to Invoice" := RecPProdOrderComponent."Remaining Quantity";
+        RecPTrackingSpecification."Qty. to Invoice (Base)" := RecPProdOrderComponent."Remaining Qty. (Base)";
+        RecPTrackingSpecification."Qty. per Unit of Measure" := RecPProdOrderComponent."Qty. per Unit of Measure";
     end;
 }
 

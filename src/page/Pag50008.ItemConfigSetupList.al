@@ -232,14 +232,14 @@ page 50008 "PWD Item Config. Setup List"
         PreparageEditable := FALSE;
         LiftedEditable := FALSE;
         SFEditable := FALSE;
-        CASE "Option Piece Type" OF
-            "Option Piece Type"::Stone:
+        CASE Rec."Option Piece Type" OF
+            Rec."Option Piece Type"::Stone:
                 StoneEditable := TRUE;
-            "Option Piece Type"::Preparage:
+            Rec."Option Piece Type"::Preparage:
                 PreparageEditable := TRUE;
-            "Option Piece Type"::"Lifted and ellipses":
+            Rec."Option Piece Type"::"Lifted and ellipses":
                 LiftedEditable := TRUE;
-            "Option Piece Type"::"Semi-finished":
+            Rec."Option Piece Type"::"Semi-finished":
                 SFEditable := TRUE;
         END;
     end;

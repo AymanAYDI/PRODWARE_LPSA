@@ -14,7 +14,7 @@ pageextension 60133 "PWD PlannedProductionOrder" extends "Planned Production Ord
 
         addafter("Last Date Modified")
         {
-            field("PWD Source Material Vendor"; "PWD Source Material Vendor")
+            field("PWD Source Material Vendor"; Rec."PWD Source Material Vendor")
             {
                 ApplicationArea = All;
             }

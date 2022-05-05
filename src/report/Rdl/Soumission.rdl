@@ -11,181 +11,6 @@
       <rd:DataSourceID>deb67a60-3518-41ff-970d-95e440699ade</rd:DataSourceID>
     </DataSource>
   </DataSources>
-  <DataSets>
-    <DataSet Name="DataSet_Result">
-      <Query>
-        <DataSourceName>DataSource</DataSourceName>
-        <CommandText />
-      </Query>
-      <Fields>
-        <Field Name="Transfer_Shipment_Header_No_">
-          <DataField>Transfer_Shipment_Header_No_</DataField>
-        </Field>
-        <Field Name="STRSUBSTNO_Text002_FORMAT_CurrReport_PAGENO__">
-          <DataField>STRSUBSTNO_Text002_FORMAT_CurrReport_PAGENO__</DataField>
-        </Field>
-        <Field Name="TransferToAddr_1_">
-          <DataField>TransferToAddr_1_</DataField>
-        </Field>
-        <Field Name="TransferToAddr_2_">
-          <DataField>TransferToAddr_2_</DataField>
-        </Field>
-        <Field Name="TransferToAddr_3_">
-          <DataField>TransferToAddr_3_</DataField>
-        </Field>
-        <Field Name="TransferToAddr_4_">
-          <DataField>TransferToAddr_4_</DataField>
-        </Field>
-        <Field Name="TransferToAddr_5_">
-          <DataField>TransferToAddr_5_</DataField>
-        </Field>
-        <Field Name="TransferToAddr_6_">
-          <DataField>TransferToAddr_6_</DataField>
-        </Field>
-        <Field Name="TransferToAddr_7_">
-          <DataField>TransferToAddr_7_</DataField>
-        </Field>
-        <Field Name="TransferToAddr_8_">
-          <DataField>TransferToAddr_8_</DataField>
-        </Field>
-        <Field Name="PageCaption">
-          <DataField>PageCaption</DataField>
-        </Field>
-        <Field Name="OutputNo">
-          <DataField>OutputNo</DataField>
-        </Field>
-        <Field Name="Title">
-          <DataField>Title</DataField>
-        </Field>
-        <Field Name="Transfer_Shipment_Header___No__">
-          <DataField>Transfer_Shipment_Header___No__</DataField>
-        </Field>
-        <Field Name="DatGDocumentDate">
-          <DataField>DatGDocumentDate</DataField>
-        </Field>
-        <Field Name="CodGCustomerNo">
-          <DataField>CodGCustomerNo</DataField>
-        </Field>
-        <Field Name="RecGCompanyInfo_City">
-          <DataField>RecGCompanyInfo_City</DataField>
-        </Field>
-        <Field Name="Customer_VATRegistrationNo">
-          <DataField>Customer_VATRegistrationNo</DataField>
-        </Field>
-        <Field Name="SalesHeader_ExternalDocumentNo">
-          <DataField>SalesHeader_ExternalDocumentNo</DataField>
-        </Field>
-        <Field Name="SalesHeader_SelltoContact">
-          <DataField>SalesHeader_SelltoContact</DataField>
-        </Field>
-        <Field Name="RecGSalespersonPurchaser_Name">
-          <DataField>RecGSalespersonPurchaser_Name</DataField>
-        </Field>
-        <Field Name="Transfer_Shipment_Header___No__Caption">
-          <DataField>Transfer_Shipment_Header___No__Caption</DataField>
-        </Field>
-        <Field Name="DatGDocumentDateCaption">
-          <DataField>DatGDocumentDateCaption</DataField>
-        </Field>
-        <Field Name="CodGCustomerNoCaption">
-          <DataField>CodGCustomerNoCaption</DataField>
-        </Field>
-        <Field Name="Customer_VATRegistrationNoCaption">
-          <DataField>Customer_VATRegistrationNoCaption</DataField>
-        </Field>
-        <Field Name="SalesHeader_ExternalDocumentNoCaption">
-          <DataField>SalesHeader_ExternalDocumentNoCaption</DataField>
-        </Field>
-        <Field Name="SalesHeader_SelltoContactCaption">
-          <DataField>SalesHeader_SelltoContactCaption</DataField>
-        </Field>
-        <Field Name="RecGSalespersonPurchaser_NameCaption">
-          <DataField>RecGSalespersonPurchaser_NameCaption</DataField>
-        </Field>
-        <Field Name="PageLoop_Number">
-          <DataField>PageLoop_Number</DataField>
-        </Field>
-        <Field Name="NoOfCopies">
-          <DataField>NoOfCopies</DataField>
-        </Field>
-        <Field Name="Transfer_Shipment_Header___Sales_Order_No_">
-          <DataField>Transfer_Shipment_Header___Sales_Order_No_</DataField>
-        </Field>
-        <Field Name="OrderNo">
-          <DataField>OrderNo</DataField>
-        </Field>
-        <Field Name="Transfer_Shipment_Line__Item_No__">
-          <DataField>Transfer_Shipment_Line__Item_No__</DataField>
-        </Field>
-        <Field Name="Transfer_Shipment_Line_Description">
-          <DataField>Transfer_Shipment_Line_Description</DataField>
-        </Field>
-        <Field Name="Transfer_Shipment_Line_Quantity">
-          <DataField>Transfer_Shipment_Line_Quantity</DataField>
-        </Field>
-        <Field Name="Transfer_Shipment_Line_QuantityFormat">
-          <DataField>Transfer_Shipment_Line_QuantityFormat</DataField>
-        </Field>
-        <Field Name="Transfer_Shipment_Line__Unit_of_Measure_">
-          <DataField>Transfer_Shipment_Line__Unit_of_Measure_</DataField>
-        </Field>
-        <Field Name="Transfer_Shipment_Line__Transfer_Shipment_Line___Line_No__">
-          <DataField>Transfer_Shipment_Line__Transfer_Shipment_Line___Line_No__</DataField>
-        </Field>
-        <Field Name="Transfer_Shipment_Line__Unit_of_Measure_Caption">
-          <DataField>Transfer_Shipment_Line__Unit_of_Measure_Caption</DataField>
-        </Field>
-        <Field Name="Transfer_Shipment_Line_QuantityCaption">
-          <DataField>Transfer_Shipment_Line_QuantityCaption</DataField>
-        </Field>
-        <Field Name="Transfer_Shipment_Line_DescriptionCaption">
-          <DataField>Transfer_Shipment_Line_DescriptionCaption</DataField>
-        </Field>
-        <Field Name="Transfer_Shipment_Line__Item_No__Caption">
-          <DataField>Transfer_Shipment_Line__Item_No__Caption</DataField>
-        </Field>
-        <Field Name="Transfer_Shipment_Line_Document_No_">
-          <DataField>Transfer_Shipment_Line_Document_No_</DataField>
-        </Field>
-        <Field Name="Transfer_Shipment_Line_Item_No_">
-          <DataField>Transfer_Shipment_Line_Item_No_</DataField>
-        </Field>
-        <Field Name="Transfer_Shipment_Line_Transfer_from_Code">
-          <DataField>Transfer_Shipment_Line_Transfer_from_Code</DataField>
-        </Field>
-        <Field Name="ItemLedgerEntry_SerialNo">
-          <DataField>ItemLedgerEntry_SerialNo</DataField>
-        </Field>
-        <Field Name="CodGYourItemRef">
-          <DataField>CodGYourItemRef</DataField>
-        </Field>
-        <Field Name="CodGYourPlanNo">
-          <DataField>CodGYourPlanNo</DataField>
-        </Field>
-        <Field Name="ItemLedgerEntry_SerialNoCaption">
-          <DataField>ItemLedgerEntry_SerialNoCaption</DataField>
-        </Field>
-        <Field Name="CodGYourItemRefCaption">
-          <DataField>CodGYourItemRefCaption</DataField>
-        </Field>
-        <Field Name="CodGYourPlanNoCaption">
-          <DataField>CodGYourPlanNoCaption</DataField>
-        </Field>
-        <Field Name="Item_Ledger_Entry_Entry_No_">
-          <DataField>Item_Ledger_Entry_Entry_No_</DataField>
-        </Field>
-        <Field Name="Item_Ledger_Entry_Document_No_">
-          <DataField>Item_Ledger_Entry_Document_No_</DataField>
-        </Field>
-        <Field Name="Item_Ledger_Entry_Item_No_">
-          <DataField>Item_Ledger_Entry_Item_No_</DataField>
-        </Field>
-        <Field Name="Item_Ledger_Entry_Location_Code">
-          <DataField>Item_Ledger_Entry_Location_Code</DataField>
-        </Field>
-      </Fields>
-    </DataSet>
-  </DataSets>
   <ReportSections>
     <ReportSection>
       <Body>
@@ -2226,12 +2051,6 @@ Cstr(Fields!RecGSalespersonPurchaser_NameCaption.Value)+Chr(177),1)</Hidden>
       </Page>
     </ReportSection>
   </ReportSections>
-  <ReportParametersLayout>
-    <GridLayoutDefinition>
-      <NumberOfColumns>4</NumberOfColumns>
-      <NumberOfRows>2</NumberOfRows>
-    </GridLayoutDefinition>
-  </ReportParametersLayout>
   <Code>Public Function BlankZero(ByVal Value As Decimal)
     if Value = 0 then
         Return ""
@@ -2299,4 +2118,179 @@ End Function</Code>
   <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
   <rd:ReportUnitType>Cm</rd:ReportUnitType>
   <rd:ReportID>bb0cf9d7-b733-4dfa-bd18-7162dfefb487</rd:ReportID>
+  <DataSets>
+    <DataSet Name="DataSet_Result">
+      <Fields>
+        <Field Name="Transfer_Shipment_Header_No_">
+          <DataField>Transfer_Shipment_Header_No_</DataField>
+        </Field>
+        <Field Name="STRSUBSTNO_Text002_FORMAT_CurrReport_PAGENO__">
+          <DataField>STRSUBSTNO_Text002_FORMAT_CurrReport_PAGENO__</DataField>
+        </Field>
+        <Field Name="TransferToAddr_1_">
+          <DataField>TransferToAddr_1_</DataField>
+        </Field>
+        <Field Name="TransferToAddr_2_">
+          <DataField>TransferToAddr_2_</DataField>
+        </Field>
+        <Field Name="TransferToAddr_3_">
+          <DataField>TransferToAddr_3_</DataField>
+        </Field>
+        <Field Name="TransferToAddr_4_">
+          <DataField>TransferToAddr_4_</DataField>
+        </Field>
+        <Field Name="TransferToAddr_5_">
+          <DataField>TransferToAddr_5_</DataField>
+        </Field>
+        <Field Name="TransferToAddr_6_">
+          <DataField>TransferToAddr_6_</DataField>
+        </Field>
+        <Field Name="TransferToAddr_7_">
+          <DataField>TransferToAddr_7_</DataField>
+        </Field>
+        <Field Name="TransferToAddr_8_">
+          <DataField>TransferToAddr_8_</DataField>
+        </Field>
+        <Field Name="PageCaption">
+          <DataField>PageCaption</DataField>
+        </Field>
+        <Field Name="OutputNo">
+          <DataField>OutputNo</DataField>
+        </Field>
+        <Field Name="Title">
+          <DataField>Title</DataField>
+        </Field>
+        <Field Name="Transfer_Shipment_Header___No__">
+          <DataField>Transfer_Shipment_Header___No__</DataField>
+        </Field>
+        <Field Name="DatGDocumentDate">
+          <DataField>DatGDocumentDate</DataField>
+        </Field>
+        <Field Name="CodGCustomerNo">
+          <DataField>CodGCustomerNo</DataField>
+        </Field>
+        <Field Name="RecGCompanyInfo_City">
+          <DataField>RecGCompanyInfo_City</DataField>
+        </Field>
+        <Field Name="Customer_VATRegistrationNo">
+          <DataField>Customer_VATRegistrationNo</DataField>
+        </Field>
+        <Field Name="SalesHeader_ExternalDocumentNo">
+          <DataField>SalesHeader_ExternalDocumentNo</DataField>
+        </Field>
+        <Field Name="SalesHeader_SelltoContact">
+          <DataField>SalesHeader_SelltoContact</DataField>
+        </Field>
+        <Field Name="RecGSalespersonPurchaser_Name">
+          <DataField>RecGSalespersonPurchaser_Name</DataField>
+        </Field>
+        <Field Name="Transfer_Shipment_Header___No__Caption">
+          <DataField>Transfer_Shipment_Header___No__Caption</DataField>
+        </Field>
+        <Field Name="DatGDocumentDateCaption">
+          <DataField>DatGDocumentDateCaption</DataField>
+        </Field>
+        <Field Name="CodGCustomerNoCaption">
+          <DataField>CodGCustomerNoCaption</DataField>
+        </Field>
+        <Field Name="Customer_VATRegistrationNoCaption">
+          <DataField>Customer_VATRegistrationNoCaption</DataField>
+        </Field>
+        <Field Name="SalesHeader_ExternalDocumentNoCaption">
+          <DataField>SalesHeader_ExternalDocumentNoCaption</DataField>
+        </Field>
+        <Field Name="SalesHeader_SelltoContactCaption">
+          <DataField>SalesHeader_SelltoContactCaption</DataField>
+        </Field>
+        <Field Name="RecGSalespersonPurchaser_NameCaption">
+          <DataField>RecGSalespersonPurchaser_NameCaption</DataField>
+        </Field>
+        <Field Name="PageLoop_Number">
+          <DataField>PageLoop_Number</DataField>
+        </Field>
+        <Field Name="NoOfCopies">
+          <DataField>NoOfCopies</DataField>
+        </Field>
+        <Field Name="Transfer_Shipment_Header___Sales_Order_No_">
+          <DataField>Transfer_Shipment_Header___Sales_Order_No_</DataField>
+        </Field>
+        <Field Name="OrderNo">
+          <DataField>OrderNo</DataField>
+        </Field>
+        <Field Name="Transfer_Shipment_Line__Item_No__">
+          <DataField>Transfer_Shipment_Line__Item_No__</DataField>
+        </Field>
+        <Field Name="Transfer_Shipment_Line_Description">
+          <DataField>Transfer_Shipment_Line_Description</DataField>
+        </Field>
+        <Field Name="Transfer_Shipment_Line_Quantity">
+          <DataField>Transfer_Shipment_Line_Quantity</DataField>
+        </Field>
+        <Field Name="Transfer_Shipment_Line_QuantityFormat">
+          <DataField>Transfer_Shipment_Line_QuantityFormat</DataField>
+        </Field>
+        <Field Name="Transfer_Shipment_Line__Unit_of_Measure_">
+          <DataField>Transfer_Shipment_Line__Unit_of_Measure_</DataField>
+        </Field>
+        <Field Name="Transfer_Shipment_Line__Transfer_Shipment_Line___Line_No__">
+          <DataField>Transfer_Shipment_Line__Transfer_Shipment_Line___Line_No__</DataField>
+        </Field>
+        <Field Name="Transfer_Shipment_Line__Unit_of_Measure_Caption">
+          <DataField>Transfer_Shipment_Line__Unit_of_Measure_Caption</DataField>
+        </Field>
+        <Field Name="Transfer_Shipment_Line_QuantityCaption">
+          <DataField>Transfer_Shipment_Line_QuantityCaption</DataField>
+        </Field>
+        <Field Name="Transfer_Shipment_Line_DescriptionCaption">
+          <DataField>Transfer_Shipment_Line_DescriptionCaption</DataField>
+        </Field>
+        <Field Name="Transfer_Shipment_Line__Item_No__Caption">
+          <DataField>Transfer_Shipment_Line__Item_No__Caption</DataField>
+        </Field>
+        <Field Name="Transfer_Shipment_Line_Document_No_">
+          <DataField>Transfer_Shipment_Line_Document_No_</DataField>
+        </Field>
+        <Field Name="Transfer_Shipment_Line_Item_No_">
+          <DataField>Transfer_Shipment_Line_Item_No_</DataField>
+        </Field>
+        <Field Name="Transfer_Shipment_Line_Transfer_from_Code">
+          <DataField>Transfer_Shipment_Line_Transfer_from_Code</DataField>
+        </Field>
+        <Field Name="ItemLedgerEntry_SerialNo">
+          <DataField>ItemLedgerEntry_SerialNo</DataField>
+        </Field>
+        <Field Name="CodGYourItemRef">
+          <DataField>CodGYourItemRef</DataField>
+        </Field>
+        <Field Name="CodGYourPlanNo">
+          <DataField>CodGYourPlanNo</DataField>
+        </Field>
+        <Field Name="ItemLedgerEntry_SerialNoCaption">
+          <DataField>ItemLedgerEntry_SerialNoCaption</DataField>
+        </Field>
+        <Field Name="CodGYourItemRefCaption">
+          <DataField>CodGYourItemRefCaption</DataField>
+        </Field>
+        <Field Name="CodGYourPlanNoCaption">
+          <DataField>CodGYourPlanNoCaption</DataField>
+        </Field>
+        <Field Name="Item_Ledger_Entry_Entry_No_">
+          <DataField>Item_Ledger_Entry_Entry_No_</DataField>
+        </Field>
+        <Field Name="Item_Ledger_Entry_Document_No_">
+          <DataField>Item_Ledger_Entry_Document_No_</DataField>
+        </Field>
+        <Field Name="Item_Ledger_Entry_Item_No_">
+          <DataField>Item_Ledger_Entry_Item_No_</DataField>
+        </Field>
+        <Field Name="Item_Ledger_Entry_Location_Code">
+          <DataField>Item_Ledger_Entry_Location_Code</DataField>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DataSource</DataSourceName>
+        <CommandText />
+      </Query>
+    </DataSet>
+  </DataSets>
 </Report>

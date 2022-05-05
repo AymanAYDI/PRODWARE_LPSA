@@ -103,7 +103,7 @@ tableextension 60043 "PWD TransferHeader" extends "Transfer Header"
               "Shipping Agent Service Code");
             TransLine.LockTable();
             TransLine.SetRange("Document No.", "No.");
-            if TransLine.FindSet() then;
+            if Not TransLine.IsEmpty then;
             Modify();
         end;
     end;

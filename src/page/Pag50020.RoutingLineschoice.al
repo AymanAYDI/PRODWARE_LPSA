@@ -42,7 +42,7 @@ page 50020 "PWD Routing Lines choice"
                     Visible = false;
                     ApplicationArea = All;
                 }
-                field(Type; Type)
+                field(Type; Rec.Type)
                 {
                     Style = StandardAccent;
                     StyleExpr = BooGStyle;
@@ -68,7 +68,7 @@ page 50020 "PWD Routing Lines choice"
                     Visible = false;
                     ApplicationArea = All;
                 }
-                field(Description; Description)
+                field(Description; Rec.Description)
                 {
                     Style = StandardAccent;
                     StyleExpr = BooGStyle;

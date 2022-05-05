@@ -84,7 +84,7 @@ report 50078 "PWD Update Check Lines"
 
                 RecLRoutingLineOF.SetRange("Run Time");
                 RecLRoutingLineOF.SetFilter("Move Time", '<>%1', "Move Time");
-                if not RecLRoutingLineOF.FindFirst() then
+                if RecLRoutingLineOF.IsEmpty then
                     BooLOK := true
                 else
                     BooLOK := false;

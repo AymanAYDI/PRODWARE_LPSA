@@ -13,11 +13,11 @@ pageextension 60091 "PWD SalesReturnOrderSubform" extends "Sales Return Order Su
     {
         addafter(Description)
         {
-            field("PWD LPSA Description 1"; "PWD LPSA Description 1")
+            field("PWD LPSA Description 1"; Rec."PWD LPSA Description 1")
             {
                 ApplicationArea = All;
             }
-            field("PWD LPSA Description 2"; "PWD LPSA Description 2")
+            field("PWD LPSA Description 2"; Rec."PWD LPSA Description 2")
             {
                 ApplicationArea = All;
             }

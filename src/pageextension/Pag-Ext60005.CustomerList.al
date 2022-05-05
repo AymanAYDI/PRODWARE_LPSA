@@ -4,31 +4,31 @@ pageextension 60005 "PWD CustomerList" extends "Customer List"
     {
         addafter(Name)
         {
-            field("PWD Name 2"; "Name 2")
+            field("PWD Name 2"; Rec."Name 2")
             {
                 ApplicationArea = All;
             }
-            field("PWD Address"; Address)
+            field("PWD Address"; Rec.Address)
             {
                 ApplicationArea = All;
             }
-            field("PWD Address 2"; "Address 2")
+            field("PWD Address 2"; Rec."Address 2")
             {
                 ApplicationArea = All;
             }
-            field("PWD City"; City)
+            field("PWD City"; Rec.City)
             {
                 ApplicationArea = All;
             }
-            field("PWD Post Code"; "Post Code")
+            field("PWD Post Code"; Rec."Post Code")
             {
                 ApplicationArea = All;
             }
-            field("PWD Country/Region Code"; "Country/Region Code")
+            field("PWD Country/Region Code"; Rec."Country/Region Code")
             {
                 ApplicationArea = All;
             }
-            field("PWD E-Mail"; "E-Mail")
+            field("PWD E-Mail"; Rec."E-Mail")
             {
                 ApplicationArea = All;
             }

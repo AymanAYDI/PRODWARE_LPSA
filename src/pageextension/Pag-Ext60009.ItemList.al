@@ -4,12 +4,12 @@ pageextension 60009 "PWD ItemList" extends "Item List"
     {
         addafter(Description)
         {
-            field("PWD LPSA Description 1"; "PWD LPSA Description 1")
+            field("PWD LPSA Description 1"; Rec."PWD LPSA Description 1")
             {
                 ApplicationArea = All;
 
             }
-            field("PWD LPSA Description 2"; "PWD LPSA Description 2")
+            field("PWD LPSA Description 2"; Rec."PWD LPSA Description 2")
             {
                 ApplicationArea = All;
 
@@ -27,17 +27,17 @@ pageextension 60009 "PWD ItemList" extends "Item List"
                     RecLRtngVersion: Record "Routing Version";
                 begin
                     //>>LAP2.12
-                    RecLRtngVersion.SETRANGE("Routing No.", "Routing No.");
+                    RecLRtngVersion.SETRANGE("Routing No.", Rec."Routing No.");
                     RecLRtngVersion.SETRANGE("Version Code", CodGActiveVersionCode);
                     Page.RUNMODAL(Page::"Routing Version", RecLRtngVersion);
-                    CodGActiveVersionCode := CduGVersionMgt.GetRtngVersion("Routing No.", WORKDATE(), TRUE);
+                    CodGActiveVersionCode := CduGVersionMgt.GetRtngVersion(Rec."Routing No.", WORKDATE(), TRUE);
                     //<<LAP2.12
                 end;
             }
         }
         addafter("Base Unit of Measure")
         {
-            field("PWD Location Code"; "Location Code")
+            field("PWD Location Code"; Rec."Location Code")
             {
                 ApplicationArea = All;
 
@@ -45,7 +45,7 @@ pageextension 60009 "PWD ItemList" extends "Item List"
         }
         addafter("Unit Price")
         {
-            field("PWD Reordering Policy"; "Reordering Policy")
+            field("PWD Reordering Policy"; Rec."Reordering Policy")
             {
                 ApplicationArea = All;
 
@@ -53,12 +53,12 @@ pageextension 60009 "PWD ItemList" extends "Item List"
         }
         addafter("Indirect Cost %")
         {
-            field("PWD Minimum Order Quantity"; "Minimum Order Quantity")
+            field("PWD Minimum Order Quantity"; Rec."Minimum Order Quantity")
             {
                 ApplicationArea = All;
 
             }
-            field("PWD Maximum Order Quantity"; "Maximum Order Quantity")
+            field("PWD Maximum Order Quantity"; Rec."Maximum Order Quantity")
             {
                 ApplicationArea = All;
 
@@ -67,101 +67,101 @@ pageextension 60009 "PWD ItemList" extends "Item List"
         }
         addafter(Blocked)
         {
-            field("PWD Phantom Item"; "PWD Phantom Item")
+            field("PWD Phantom Item"; Rec."PWD Phantom Item")
             {
                 ApplicationArea = All;
             }
         }
         addafter("Item Tracking Code")
         {
-            field("PWD Customer Plan No."; "PWD Customer Plan No.")
+            field("PWD Customer Plan No."; Rec."PWD Customer Plan No.")
             {
                 ApplicationArea = All;
 
             }
-            field("PWD Customer Plan Description"; "PWD Customer Plan Description")
-            {
-                ApplicationArea = All;
-
-            }
-
-            field("PWD LPSA Plan No."; "PWD LPSA Plan No.")
-            {
-                ApplicationArea = All;
-
-            }
-            field("PWD Inventory"; Inventory)
-            {
-                ApplicationArea = All;
-
-            }
-            field("PWD Barcode"; "PWD Barcode")
-            {
-                ApplicationArea = All;
-
-            }
-            field("PWD Phantom Item2"; "PWD Phantom Item")
+            field("PWD Customer Plan Description"; Rec."PWD Customer Plan Description")
             {
                 ApplicationArea = All;
 
             }
 
-            field("PWD Order Multiple"; "Order Multiple")
+            field("PWD LPSA Plan No."; Rec."PWD LPSA Plan No.")
             {
                 ApplicationArea = All;
 
             }
-            field("PWD Safety Stock Quantity"; "Safety Stock Quantity")
+            field("PWD Inventory"; Rec.Inventory)
             {
                 ApplicationArea = All;
 
             }
-            field("PWD Lot Size"; "Lot Size")
+            field("PWD Barcode"; Rec."PWD Barcode")
             {
                 ApplicationArea = All;
 
             }
-            field("PWD Configurator Exists"; "PWD Configurator Exists")
+            field("PWD Phantom Item2"; Rec."PWD Phantom Item")
+            {
+                ApplicationArea = All;
+
+            }
+
+            field("PWD Order Multiple"; Rec."Order Multiple")
+            {
+                ApplicationArea = All;
+
+            }
+            field("PWD Safety Stock Quantity"; Rec."Safety Stock Quantity")
+            {
+                ApplicationArea = All;
+
+            }
+            field("PWD Lot Size"; Rec."Lot Size")
+            {
+                ApplicationArea = All;
+
+            }
+            field("PWD Configurator Exists"; Rec."PWD Configurator Exists")
             {
                 editable = false;
                 ApplicationArea = All;
             }
-            field("PWD Plate Number"; "PWD Plate Number")
+            field("PWD Plate Number"; Rec."PWD Plate Number")
             {
                 ApplicationArea = All;
 
             }
-            field("PWD Part Number By Plate"; "PWD Part Number By Plate")
+            field("PWD Part Number By Plate"; Rec."PWD Part Number By Plate")
             {
                 ApplicationArea = All;
 
             }
-            field("PWD Reorder Point"; "Reorder Point")
+            field("PWD Reorder Point"; Rec."Reorder Point")
             {
                 ApplicationArea = All;
 
             }
-            field("PWD Reorder Quantity"; "Reorder Quantity")
+            field("PWD Reorder Quantity"; Rec."Reorder Quantity")
             {
                 ApplicationArea = All;
 
             }
-            field("PWD Global Dimension 1 Code"; "Global Dimension 1 Code")
+            field("PWD Global Dimension 1 Code"; Rec."Global Dimension 1 Code")
             {
                 ApplicationArea = All;
 
             }
-            field("PWD Global Dimension 2 Code"; "Global Dimension 2 Code")
+            field("PWD Global Dimension 2 Code"; Rec."Global Dimension 2 Code")
             {
                 ApplicationArea = All;
 
             }
-            field("PWD Reserve"; Reserve)
+            field("PWD Reserve"; Rec.Reserve)
             {
                 ApplicationArea = All;
 
             }
-            field("PWD Safety Lead Time"; "Safety Lead Time")
+            field("PWD Safety Lead Time"; Rec."Safety Lead Time")
             {
                 ApplicationArea = All;
 
@@ -201,7 +201,7 @@ pageextension 60009 "PWD ItemList" extends "Item List"
                 BEGIN
                     //>>FE_LAPRIERRETTE_GP0004.001
                     CLEAR(CduLConnectorOSYSParseData);
-                    CduLConnectorOSYSParseData.FctExportItemsPossibleManual("No.");
+                    CduLConnectorOSYSParseData.FctExportItemsPossibleManual(Rec."No.");
                     //<<FE_LAPRIERRETTE_GP0004.001
                 END;
 
@@ -222,7 +222,7 @@ pageextension 60009 "PWD ItemList" extends "Item List"
     trigger OnAfterGetRecord()
     begin
         //>>LAP2.12
-        CodGActiveVersionCode := CduGVersionMgt.GetRtngVersion("Routing No.", WORKDATE(), TRUE);
+        CodGActiveVersionCode := CduGVersionMgt.GetRtngVersion(Rec."Routing No.", WORKDATE(), TRUE);
         //<<LAP2.12   
     end;
 

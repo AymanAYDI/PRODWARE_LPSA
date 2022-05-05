@@ -4,7 +4,7 @@ pageextension 60014 "PWD SalesCreditMemo" extends "Sales Credit Memo"
     {
         addafter("External Document No.")
         {
-            field("PWD Your Reference"; "Your Reference")
+            field("PWD Your Reference"; Rec."Your Reference")
             {
                 ApplicationArea = All;
             }

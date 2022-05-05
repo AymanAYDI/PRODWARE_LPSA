@@ -4,7 +4,7 @@ pageextension 60066 "PWD FixedAssetCard" extends "Fixed Asset Card"
     {
         addafter(Description)
         {
-            field("PWD Description 2"; "Description 2")
+            field("PWD Description 2"; Rec."Description 2")
             {
                 ApplicationArea = All;
             }

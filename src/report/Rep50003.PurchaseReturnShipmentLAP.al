@@ -435,7 +435,7 @@ report 50003 "Purchase - Return Shipment LAP"
                             // PostedDocDim2.SETRANGE("Line No.", "Return Shipment Line"."Line No.");
 
                             IF ISSERVICETIER THEN
-                                TypeInt := "Return Shipment Line".Type;
+                             TypeInt := "Return Shipment Line".Type.AsInteger();
                         end;
 
                         trigger OnPreDataItem()
@@ -701,7 +701,6 @@ report 50003 "Purchase - Return Shipment LAP"
         CstGText008: Label 'Vendor Fax No.:';
         CstGText009: Label 'Your Document No.:';
         CstGText010: Label 'Your contact:';
-        CstGText011: Label 'Quote No.:';
         CstGText012: Label 'Your contact : %1';
         CstGText013: Label ' / ';
         CstGText014: Label 'Document No.: ';

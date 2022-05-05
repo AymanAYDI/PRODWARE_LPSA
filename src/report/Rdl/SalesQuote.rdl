@@ -11,268 +11,6 @@
       <rd:DataSourceID>54e75c12-62a4-48f3-9bf5-78c6032108fc</rd:DataSourceID>
     </DataSource>
   </DataSources>
-  <DataSets>
-    <DataSet Name="DataSet_Result">
-      <Query>
-        <DataSourceName>DataSource</DataSourceName>
-        <CommandText />
-      </Query>
-      <Fields>
-        <Field Name="Sales_Header_Document_Type">
-          <DataField>Sales_Header_Document_Type</DataField>
-        </Field>
-        <Field Name="Sales_Header_No_">
-          <DataField>Sales_Header_No_</DataField>
-        </Field>
-        <Field Name="CustAddr_1_">
-          <DataField>CustAddr_1_</DataField>
-        </Field>
-        <Field Name="CompanyAddr_1_">
-          <DataField>CompanyAddr_1_</DataField>
-        </Field>
-        <Field Name="CustAddr_2_">
-          <DataField>CustAddr_2_</DataField>
-        </Field>
-        <Field Name="CompanyAddr_2_">
-          <DataField>CompanyAddr_2_</DataField>
-        </Field>
-        <Field Name="CustAddr_3_">
-          <DataField>CustAddr_3_</DataField>
-        </Field>
-        <Field Name="CompanyAddr_3_">
-          <DataField>CompanyAddr_3_</DataField>
-        </Field>
-        <Field Name="CustAddr_4_">
-          <DataField>CustAddr_4_</DataField>
-        </Field>
-        <Field Name="CompanyAddr_4_">
-          <DataField>CompanyAddr_4_</DataField>
-        </Field>
-        <Field Name="CustAddr_5_">
-          <DataField>CustAddr_5_</DataField>
-        </Field>
-        <Field Name="CustAddr_6_">
-          <DataField>CustAddr_6_</DataField>
-        </Field>
-        <Field Name="CustAddr_7_">
-          <DataField>CustAddr_7_</DataField>
-        </Field>
-        <Field Name="CustAddr_8_">
-          <DataField>CustAddr_8_</DataField>
-        </Field>
-        <Field Name="CompanyAddr_5_">
-          <DataField>CompanyAddr_5_</DataField>
-        </Field>
-        <Field Name="CompanyAddr_6_">
-          <DataField>CompanyAddr_6_</DataField>
-        </Field>
-        <Field Name="Sales_Header___Document_Date_">
-          <DataField>Sales_Header___Document_Date_</DataField>
-        </Field>
-        <Field Name="CopyText">
-          <DataField>CopyText</DataField>
-        </Field>
-        <Field Name="STRSUBSTNO_Text11500__Sales_Header___No___">
-          <DataField>STRSUBSTNO_Text11500__Sales_Header___No___</DataField>
-        </Field>
-        <Field Name="PageCaption">
-          <DataField>PageCaption</DataField>
-        </Field>
-        <Field Name="OutputNo">
-          <DataField>OutputNo</DataField>
-        </Field>
-        <Field Name="PricesInclVAT_YesNo">
-          <DataField>PricesInclVAT_YesNo</DataField>
-        </Field>
-        <Field Name="Text_MadameMonsieur">
-          <DataField>Text_MadameMonsieur</DataField>
-        </Field>
-        <Field Name="Text_Intro">
-          <DataField>Text_Intro</DataField>
-        </Field>
-        <Field Name="CopyText_Control1150145">
-          <DataField>CopyText_Control1150145</DataField>
-        </Field>
-        <Field Name="STRSUBSTNO_Text005_FORMAT_CurrReport_PAGENO__">
-          <DataField>STRSUBSTNO_Text005_FORMAT_CurrReport_PAGENO__</DataField>
-        </Field>
-        <Field Name="CurrGroupPageNO">
-          <DataField>CurrGroupPageNO</DataField>
-        </Field>
-        <Field Name="CurrPageFooterHiddenFlag">
-          <DataField>CurrPageFooterHiddenFlag</DataField>
-        </Field>
-        <Field Name="CurrPageHeaderHiddenFlag">
-          <DataField>CurrPageHeaderHiddenFlag</DataField>
-        </Field>
-        <Field Name="InnerGroupPageNO">
-          <DataField>InnerGroupPageNO</DataField>
-        </Field>
-        <Field Name="CustAddr_2_Caption">
-          <DataField>CustAddr_2_Caption</DataField>
-        </Field>
-        <Field Name="CustAddr_3_Caption">
-          <DataField>CustAddr_3_Caption</DataField>
-        </Field>
-        <Field Name="CustAddr_4_Caption">
-          <DataField>CustAddr_4_Caption</DataField>
-        </Field>
-        <Field Name="CustAddr_7_Caption">
-          <DataField>CustAddr_7_Caption</DataField>
-        </Field>
-        <Field Name="CustAddr_6_Caption">
-          <DataField>CustAddr_6_Caption</DataField>
-        </Field>
-        <Field Name="CustAddr_5_Caption">
-          <DataField>CustAddr_5_Caption</DataField>
-        </Field>
-        <Field Name="CustAddr_8_Caption">
-          <DataField>CustAddr_8_Caption</DataField>
-        </Field>
-        <Field Name="PageLoop_Number">
-          <DataField>PageLoop_Number</DataField>
-        </Field>
-        <Field Name="DimText">
-          <DataField>DimText</DataField>
-        </Field>
-        <Field Name="DimText_Control80">
-          <DataField>DimText_Control80</DataField>
-        </Field>
-        <Field Name="Header_DimensionsCaption">
-          <DataField>Header_DimensionsCaption</DataField>
-        </Field>
-        <Field Name="DimensionLoop1_Number">
-          <DataField>DimensionLoop1_Number</DataField>
-        </Field>
-        <Field Name="Sales_Header___Prices_Including_VAT_">
-          <DataField>Sales_Header___Prices_Including_VAT_</DataField>
-        </Field>
-        <Field Name="AmountCaption">
-          <DataField>AmountCaption</DataField>
-        </Field>
-        <Field Name="SalesLine__Line_Amount_">
-          <DataField>SalesLine__Line_Amount_</DataField>
-        </Field>
-        <Field Name="SalesLine__Line_Amount_Format">
-          <DataField>SalesLine__Line_Amount_Format</DataField>
-        </Field>
-        <Field Name="SalesLine_Description">
-          <DataField>SalesLine_Description</DataField>
-        </Field>
-        <Field Name="SalesLineTypeEqualTitle">
-          <DataField>SalesLineTypeEqualTitle</DataField>
-        </Field>
-        <Field Name="Sales_Line___No__">
-          <DataField>Sales_Line___No__</DataField>
-        </Field>
-        <Field Name="Sales_Line__Description">
-          <DataField>Sales_Line__Description</DataField>
-        </Field>
-        <Field Name="Sales_Line__Quantity">
-          <DataField>Sales_Line__Quantity</DataField>
-        </Field>
-        <Field Name="Sales_Line__QuantityFormat">
-          <DataField>Sales_Line__QuantityFormat</DataField>
-        </Field>
-        <Field Name="Sales_Line___Unit_of_Measure_">
-          <DataField>Sales_Line___Unit_of_Measure_</DataField>
-        </Field>
-        <Field Name="Sales_Line___Line_Amount_">
-          <DataField>Sales_Line___Line_Amount_</DataField>
-        </Field>
-        <Field Name="Sales_Line___Line_Amount_Format">
-          <DataField>Sales_Line___Line_Amount_Format</DataField>
-        </Field>
-        <Field Name="Sales_Line___Unit_Price_">
-          <DataField>Sales_Line___Unit_Price_</DataField>
-        </Field>
-        <Field Name="Sales_Line___Unit_Price_Format">
-          <DataField>Sales_Line___Unit_Price_Format</DataField>
-        </Field>
-        <Field Name="SalesLineType">
-          <DataField>SalesLineType</DataField>
-        </Field>
-        <Field Name="SalesLineNo">
-          <DataField>SalesLineNo</DataField>
-        </Field>
-        <Field Name="AllowInvoiceDis_YesNo">
-          <DataField>AllowInvoiceDis_YesNo</DataField>
-        </Field>
-        <Field Name="Comment_Line">
-          <DataField>Comment_Line</DataField>
-        </Field>
-        <Field Name="Sales_Line__Description_Control1150111">
-          <DataField>Sales_Line__Description_Control1150111</DataField>
-        </Field>
-        <Field Name="SalesLine__Subtotal_Net_">
-          <DataField>SalesLine__Subtotal_Net_</DataField>
-        </Field>
-        <Field Name="SalesLine__Subtotal_Net_Format">
-          <DataField>SalesLine__Subtotal_Net_Format</DataField>
-        </Field>
-        <Field Name="SalesLine__Line_Amount__Control84">
-          <DataField>SalesLine__Line_Amount__Control84</DataField>
-        </Field>
-        <Field Name="SalesLine__Line_Amount__Control84Format">
-          <DataField>SalesLine__Line_Amount__Control84Format</DataField>
-        </Field>
-        <Field Name="Sales_Header___Due_Date_">
-          <DataField>Sales_Header___Due_Date_</DataField>
-        </Field>
-        <Field Name="RecGSalespersonPurchaser_Name">
-          <DataField>RecGSalespersonPurchaser_Name</DataField>
-        </Field>
-        <Field Name="Text_Fin1">
-          <DataField>Text_Fin1</DataField>
-        </Field>
-        <Field Name="Text_Fin2">
-          <DataField>Text_Fin2</DataField>
-        </Field>
-        <Field Name="Sales_Line__DescriptionCaption">
-          <DataField>Sales_Line__DescriptionCaption</DataField>
-        </Field>
-        <Field Name="Sales_Line___No__Caption">
-          <DataField>Sales_Line___No__Caption</DataField>
-        </Field>
-        <Field Name="Sales_Line__QuantityCaption">
-          <DataField>Sales_Line__QuantityCaption</DataField>
-        </Field>
-        <Field Name="Sales_Line___Unit_of_Measure_Caption">
-          <DataField>Sales_Line___Unit_of_Measure_Caption</DataField>
-        </Field>
-        <Field Name="Unit_PriceCaption">
-          <DataField>Unit_PriceCaption</DataField>
-        </Field>
-        <Field Name="ContinuedCaption">
-          <DataField>ContinuedCaption</DataField>
-        </Field>
-        <Field Name="ContinuedCaption_Control83">
-          <DataField>ContinuedCaption_Control83</DataField>
-        </Field>
-        <Field Name="To_be_returned_signed_and_dated_for_validationCaption">
-          <DataField>To_be_returned_signed_and_dated_for_validationCaption</DataField>
-        </Field>
-        <Field Name="Sales_Header___Due_Date_Caption">
-          <DataField>Sales_Header___Due_Date_Caption</DataField>
-        </Field>
-        <Field Name="RecGSalespersonPurchaser_NameCaption">
-          <DataField>RecGSalespersonPurchaser_NameCaption</DataField>
-        </Field>
-        <Field Name="RoundLoop_Number">
-          <DataField>RoundLoop_Number</DataField>
-        </Field>
-        <Field Name="DimText_Control81">
-          <DataField>DimText_Control81</DataField>
-        </Field>
-        <Field Name="Line_DimensionsCaption">
-          <DataField>Line_DimensionsCaption</DataField>
-        </Field>
-        <Field Name="DimensionLoop2_Number">
-          <DataField>DimensionLoop2_Number</DataField>
-        </Field>
-      </Fields>
-    </DataSet>
-  </DataSets>
   <ReportSections>
     <ReportSection>
       <Body>
@@ -3237,12 +2975,6 @@
       </Page>
     </ReportSection>
   </ReportSections>
-  <ReportParametersLayout>
-    <GridLayoutDefinition>
-      <NumberOfColumns>4</NumberOfColumns>
-      <NumberOfRows>2</NumberOfRows>
-    </GridLayoutDefinition>
-  </ReportParametersLayout>
   <Code>Public Function BlankZero(ByVal Value As Decimal)
     if Value = 0 then
         Return ""
@@ -3383,4 +3115,266 @@ End Function</Code>
   <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
   <rd:ReportUnitType>Cm</rd:ReportUnitType>
   <rd:ReportID>57f4c1a5-cbd5-4584-a4b7-b612a989da37</rd:ReportID>
+  <DataSets>
+    <DataSet Name="DataSet_Result">
+      <Fields>
+        <Field Name="Sales_Header_Document_Type">
+          <DataField>Sales_Header_Document_Type</DataField>
+        </Field>
+        <Field Name="Sales_Header_No_">
+          <DataField>Sales_Header_No_</DataField>
+        </Field>
+        <Field Name="CustAddr_1_">
+          <DataField>CustAddr_1_</DataField>
+        </Field>
+        <Field Name="CompanyAddr_1_">
+          <DataField>CompanyAddr_1_</DataField>
+        </Field>
+        <Field Name="CustAddr_2_">
+          <DataField>CustAddr_2_</DataField>
+        </Field>
+        <Field Name="CompanyAddr_2_">
+          <DataField>CompanyAddr_2_</DataField>
+        </Field>
+        <Field Name="CustAddr_3_">
+          <DataField>CustAddr_3_</DataField>
+        </Field>
+        <Field Name="CompanyAddr_3_">
+          <DataField>CompanyAddr_3_</DataField>
+        </Field>
+        <Field Name="CustAddr_4_">
+          <DataField>CustAddr_4_</DataField>
+        </Field>
+        <Field Name="CompanyAddr_4_">
+          <DataField>CompanyAddr_4_</DataField>
+        </Field>
+        <Field Name="CustAddr_5_">
+          <DataField>CustAddr_5_</DataField>
+        </Field>
+        <Field Name="CustAddr_6_">
+          <DataField>CustAddr_6_</DataField>
+        </Field>
+        <Field Name="CustAddr_7_">
+          <DataField>CustAddr_7_</DataField>
+        </Field>
+        <Field Name="CustAddr_8_">
+          <DataField>CustAddr_8_</DataField>
+        </Field>
+        <Field Name="CompanyAddr_5_">
+          <DataField>CompanyAddr_5_</DataField>
+        </Field>
+        <Field Name="CompanyAddr_6_">
+          <DataField>CompanyAddr_6_</DataField>
+        </Field>
+        <Field Name="Sales_Header___Document_Date_">
+          <DataField>Sales_Header___Document_Date_</DataField>
+        </Field>
+        <Field Name="CopyText">
+          <DataField>CopyText</DataField>
+        </Field>
+        <Field Name="STRSUBSTNO_Text11500__Sales_Header___No___">
+          <DataField>STRSUBSTNO_Text11500__Sales_Header___No___</DataField>
+        </Field>
+        <Field Name="PageCaption">
+          <DataField>PageCaption</DataField>
+        </Field>
+        <Field Name="OutputNo">
+          <DataField>OutputNo</DataField>
+        </Field>
+        <Field Name="PricesInclVAT_YesNo">
+          <DataField>PricesInclVAT_YesNo</DataField>
+        </Field>
+        <Field Name="Text_MadameMonsieur">
+          <DataField>Text_MadameMonsieur</DataField>
+        </Field>
+        <Field Name="Text_Intro">
+          <DataField>Text_Intro</DataField>
+        </Field>
+        <Field Name="CopyText_Control1150145">
+          <DataField>CopyText_Control1150145</DataField>
+        </Field>
+        <Field Name="STRSUBSTNO_Text005_FORMAT_CurrReport_PAGENO__">
+          <DataField>STRSUBSTNO_Text005_FORMAT_CurrReport_PAGENO__</DataField>
+        </Field>
+        <Field Name="CurrGroupPageNO">
+          <DataField>CurrGroupPageNO</DataField>
+        </Field>
+        <Field Name="CurrPageFooterHiddenFlag">
+          <DataField>CurrPageFooterHiddenFlag</DataField>
+        </Field>
+        <Field Name="CurrPageHeaderHiddenFlag">
+          <DataField>CurrPageHeaderHiddenFlag</DataField>
+        </Field>
+        <Field Name="InnerGroupPageNO">
+          <DataField>InnerGroupPageNO</DataField>
+        </Field>
+        <Field Name="CustAddr_2_Caption">
+          <DataField>CustAddr_2_Caption</DataField>
+        </Field>
+        <Field Name="CustAddr_3_Caption">
+          <DataField>CustAddr_3_Caption</DataField>
+        </Field>
+        <Field Name="CustAddr_4_Caption">
+          <DataField>CustAddr_4_Caption</DataField>
+        </Field>
+        <Field Name="CustAddr_7_Caption">
+          <DataField>CustAddr_7_Caption</DataField>
+        </Field>
+        <Field Name="CustAddr_6_Caption">
+          <DataField>CustAddr_6_Caption</DataField>
+        </Field>
+        <Field Name="CustAddr_5_Caption">
+          <DataField>CustAddr_5_Caption</DataField>
+        </Field>
+        <Field Name="CustAddr_8_Caption">
+          <DataField>CustAddr_8_Caption</DataField>
+        </Field>
+        <Field Name="PageLoop_Number">
+          <DataField>PageLoop_Number</DataField>
+        </Field>
+        <Field Name="DimText">
+          <DataField>DimText</DataField>
+        </Field>
+        <Field Name="DimText_Control80">
+          <DataField>DimText_Control80</DataField>
+        </Field>
+        <Field Name="Header_DimensionsCaption">
+          <DataField>Header_DimensionsCaption</DataField>
+        </Field>
+        <Field Name="DimensionLoop1_Number">
+          <DataField>DimensionLoop1_Number</DataField>
+        </Field>
+        <Field Name="Sales_Header___Prices_Including_VAT_">
+          <DataField>Sales_Header___Prices_Including_VAT_</DataField>
+        </Field>
+        <Field Name="AmountCaption">
+          <DataField>AmountCaption</DataField>
+        </Field>
+        <Field Name="SalesLine__Line_Amount_">
+          <DataField>SalesLine__Line_Amount_</DataField>
+        </Field>
+        <Field Name="SalesLine__Line_Amount_Format">
+          <DataField>SalesLine__Line_Amount_Format</DataField>
+        </Field>
+        <Field Name="SalesLine_Description">
+          <DataField>SalesLine_Description</DataField>
+        </Field>
+        <Field Name="SalesLineTypeEqualTitle">
+          <DataField>SalesLineTypeEqualTitle</DataField>
+        </Field>
+        <Field Name="Sales_Line___No__">
+          <DataField>Sales_Line___No__</DataField>
+        </Field>
+        <Field Name="Sales_Line__Description">
+          <DataField>Sales_Line__Description</DataField>
+        </Field>
+        <Field Name="Sales_Line__Quantity">
+          <DataField>Sales_Line__Quantity</DataField>
+        </Field>
+        <Field Name="Sales_Line__QuantityFormat">
+          <DataField>Sales_Line__QuantityFormat</DataField>
+        </Field>
+        <Field Name="Sales_Line___Unit_of_Measure_">
+          <DataField>Sales_Line___Unit_of_Measure_</DataField>
+        </Field>
+        <Field Name="Sales_Line___Line_Amount_">
+          <DataField>Sales_Line___Line_Amount_</DataField>
+        </Field>
+        <Field Name="Sales_Line___Line_Amount_Format">
+          <DataField>Sales_Line___Line_Amount_Format</DataField>
+        </Field>
+        <Field Name="Sales_Line___Unit_Price_">
+          <DataField>Sales_Line___Unit_Price_</DataField>
+        </Field>
+        <Field Name="Sales_Line___Unit_Price_Format">
+          <DataField>Sales_Line___Unit_Price_Format</DataField>
+        </Field>
+        <Field Name="SalesLineType">
+          <DataField>SalesLineType</DataField>
+        </Field>
+        <Field Name="SalesLineNo">
+          <DataField>SalesLineNo</DataField>
+        </Field>
+        <Field Name="AllowInvoiceDis_YesNo">
+          <DataField>AllowInvoiceDis_YesNo</DataField>
+        </Field>
+        <Field Name="Comment_Line">
+          <DataField>Comment_Line</DataField>
+        </Field>
+        <Field Name="Sales_Line__Description_Control1150111">
+          <DataField>Sales_Line__Description_Control1150111</DataField>
+        </Field>
+        <Field Name="SalesLine__Subtotal_Net_">
+          <DataField>SalesLine__Subtotal_Net_</DataField>
+        </Field>
+        <Field Name="SalesLine__Subtotal_Net_Format">
+          <DataField>SalesLine__Subtotal_Net_Format</DataField>
+        </Field>
+        <Field Name="SalesLine__Line_Amount__Control84">
+          <DataField>SalesLine__Line_Amount__Control84</DataField>
+        </Field>
+        <Field Name="SalesLine__Line_Amount__Control84Format">
+          <DataField>SalesLine__Line_Amount__Control84Format</DataField>
+        </Field>
+        <Field Name="Sales_Header___Due_Date_">
+          <DataField>Sales_Header___Due_Date_</DataField>
+        </Field>
+        <Field Name="RecGSalespersonPurchaser_Name">
+          <DataField>RecGSalespersonPurchaser_Name</DataField>
+        </Field>
+        <Field Name="Text_Fin1">
+          <DataField>Text_Fin1</DataField>
+        </Field>
+        <Field Name="Text_Fin2">
+          <DataField>Text_Fin2</DataField>
+        </Field>
+        <Field Name="Sales_Line__DescriptionCaption">
+          <DataField>Sales_Line__DescriptionCaption</DataField>
+        </Field>
+        <Field Name="Sales_Line___No__Caption">
+          <DataField>Sales_Line___No__Caption</DataField>
+        </Field>
+        <Field Name="Sales_Line__QuantityCaption">
+          <DataField>Sales_Line__QuantityCaption</DataField>
+        </Field>
+        <Field Name="Sales_Line___Unit_of_Measure_Caption">
+          <DataField>Sales_Line___Unit_of_Measure_Caption</DataField>
+        </Field>
+        <Field Name="Unit_PriceCaption">
+          <DataField>Unit_PriceCaption</DataField>
+        </Field>
+        <Field Name="ContinuedCaption">
+          <DataField>ContinuedCaption</DataField>
+        </Field>
+        <Field Name="ContinuedCaption_Control83">
+          <DataField>ContinuedCaption_Control83</DataField>
+        </Field>
+        <Field Name="To_be_returned_signed_and_dated_for_validationCaption">
+          <DataField>To_be_returned_signed_and_dated_for_validationCaption</DataField>
+        </Field>
+        <Field Name="Sales_Header___Due_Date_Caption">
+          <DataField>Sales_Header___Due_Date_Caption</DataField>
+        </Field>
+        <Field Name="RecGSalespersonPurchaser_NameCaption">
+          <DataField>RecGSalespersonPurchaser_NameCaption</DataField>
+        </Field>
+        <Field Name="RoundLoop_Number">
+          <DataField>RoundLoop_Number</DataField>
+        </Field>
+        <Field Name="DimText_Control81">
+          <DataField>DimText_Control81</DataField>
+        </Field>
+        <Field Name="Line_DimensionsCaption">
+          <DataField>Line_DimensionsCaption</DataField>
+        </Field>
+        <Field Name="DimensionLoop2_Number">
+          <DataField>DimensionLoop2_Number</DataField>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DataSource</DataSourceName>
+        <CommandText />
+      </Query>
+    </DataSet>
+  </DataSets>
 </Report>

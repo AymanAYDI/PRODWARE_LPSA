@@ -37,64 +37,64 @@ page 8073284 "PWD Sending Message List"
             repeater(Control1100294000)
             {
                 ShowCaption = false;
-                field("Code"; Code)
+                field("Code"; Rec.Code)
                 {
                     ApplicationArea = All;
                 }
-                field("Table ID"; "Table ID")
+                field("Table ID"; Rec."Table ID")
                 {
                     ApplicationArea = All;
                 }
-                field("Table Name"; "Table Name")
+                field("Table Name"; Rec."Table Name")
                 {
                     ApplicationArea = All;
                 }
-                field("Xml Tag"; "Xml Tag")
+                field("Xml Tag"; Rec."Xml Tag")
                 {
                     Visible = BooGXmlTagVisible;
                     ApplicationArea = All;
                 }
-                field(Function; "Function")
+                field(Function; Rec."Function")
                 {
                     ApplicationArea = All;
                 }
-                field(Description; Description)
+                field(Description; Rec.Description)
                 {
                     ApplicationArea = All;
                 }
-                field(Path; Path)
+                field(Path; Rec.Path)
                 {
                     ApplicationArea = All;
                 }
-                field("Fill Character"; "Fill Character")
+                field("Fill Character"; Rec."Fill Character")
                 {
                     Visible = BooGFillCharVisible;
                     ApplicationArea = All;
                 }
-                field("Field ID"; "Field ID")
+                field("Field ID"; Rec."Field ID")
                 {
                     Visible = BooGVisible;
                     ApplicationArea = All;
                 }
-                field("Field Name"; "Field Name")
+                field("Field Name"; Rec."Field Name")
                 {
                     Visible = BooGVisible;
                     ApplicationArea = All;
                 }
-                field("Export Option"; "Export Option")
+                field("Export Option"; Rec."Export Option")
                 {
                     Visible = BooGVisible;
                     ApplicationArea = All;
                 }
-                field("Master Table"; "Master Table")
+                field("Master Table"; Rec."Master Table")
                 {
                     ApplicationArea = All;
                 }
-                field("Archive Message"; "Archive Message")
+                field("Archive Message"; Rec."Archive Message")
                 {
                     ApplicationArea = All;
                 }
-                field(Blocked; Blocked)
+                field(Blocked; Rec.Blocked)
                 {
                     ApplicationArea = All;
                 }
@@ -164,7 +164,7 @@ page 8073284 "PWD Sending Message List"
         //>>WMS-FE10.001
         BooGFillCharVisible := FALSE;
         BooGXmlTagVisible := TRUE;
-        IF RecLPartner.GET("Partner Code") THEN
+        IF RecLPartner.GET(Rec."Partner Code") THEN
             CASE RecLPartner."Data Format" OF
                 RecLPartner."Data Format"::Xml:
                     BooGXmlTagVisible := TRUE;
@@ -176,8 +176,8 @@ page 8073284 "PWD Sending Message List"
                 RecLPartner."Data Format"::"with separator":
                     BooGXmlTagVisible := FALSE;
             END;
-        IF FINDFIRST() THEN;
-        BooGVisible := (Direction = Direction::Export) AND (RecLPartner."Communication Mode" = RecLPartner."Communication Mode"::File);
+        IF Rec.FINDFIRST() THEN;
+        BooGVisible := (Rec.Direction = Rec.Direction::Export) AND (RecLPartner."Communication Mode" = RecLPartner."Communication Mode"::File);
         //<<WMS-FE10.001
     end;
 }

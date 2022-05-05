@@ -574,12 +574,7 @@ codeunit 50020 "PWD LPSA Events Mgt."
     [EventSubscriber(ObjectType::table, database::"Prod. Order Line", 'OnBeforeDeleteEvent', '', false, false)]
     local procedure TAB5406_OnBeforeDeleteEvent_ProdOrderLine(var Rec: Record "Prod. Order Line"; RunTrigger: Boolean)
     var
-        CapLedgEntry: Record "Capacity Ledger Entry";
-        ItemLedgEntry: Record "Item Ledger Entry";
-        PurchLine: Record "Purchase Line";
-        CduFunctionsMgt: Codeunit "PWD LPSA Functions Mgt.";
         Text000: Label 'A %1 %2 cannot be inserted, modified, or deleted.';
-        Text99000000: Label 'You cannot delete %1 %2 because there is at least one %3 associated with it.', Comment = '%1 = Table Caption; %2 = Field Value; %3 = Table Caption';
     begin
         if not RunTrigger then
             exit;
@@ -1126,13 +1121,13 @@ codeunit 50020 "PWD LPSA Events Mgt."
     begin
         //>>LAP2.12
         CASE Rec."PWD Type" OF
-            "PWD Type"::Method, "PWD Type"::Quality, "PWD Type"::Plan, "PWD Type"::Zone, "PWD Type"::"Targeted dimension":
+            "PWD Type"::Method.AsInteger(), "PWD Type"::Quality.AsInteger(), "PWD Type"::Plan.AsInteger(), "PWD Type"::Zone.AsInteger(), "PWD Type"::"Targeted dimension".AsInteger():
                 BEGIN
                     RecLToolsInstructions.GET(Rec."PWD Type", Rec."No.");
                     Rec.Description := RecLToolsInstructions.Description;
                     Rec."PWD Criteria" := RecLToolsInstructions.Criteria;
                 END;
-            "PWD Type"::Item:
+            "PWD Type"::Item.AsInteger():
                 BEGIN
                     RecLItem.GET(Rec."No.");
                     Rec.Description := COPYSTR(RecLItem."PWD LPSA Description 1", 1, 50);
@@ -1169,13 +1164,11 @@ codeunit 50020 "PWD LPSA Events Mgt."
     [EventSubscriber(ObjectType::Table, Database::"Production Forecast Entry", 'OnAfterInsertEvent', '', false, false)]
     local procedure TAB99000852_OnAfterInsertEvent_ProductionForecastEntry(var Rec: Record "Production Forecast Entry"; RunTrigger: Boolean)
     var
-        CompanyCalendar: Record "Calendar Entry";
         CompanyInfo: Record "Company Information";
         TargetCustomizedCalendarChange: Record "Customized Calendar Change";
         CalendarMgmt: Codeunit "Calendar Management";
         Nonworking: Boolean;
         NewDate: Date;
-        Description: Text[50];
     begin
         if not RunTrigger then
             exit;
@@ -1255,13 +1248,13 @@ codeunit 50020 "PWD LPSA Events Mgt."
     [EventSubscriber(ObjectType::Table, Database::"Routing Line", 'OnAfterWorkCenterTransferFields', '', false, false)]
     local procedure TAB99000764_OnAfterWorkCenterTransferFields_RoutingLine(var RoutingLine: Record "Routing Line"; WorkCenter: Record "Work Center")
     begin
-        RoutingLine."PWD Flushing Method" := WorkCenter."Flushing Method";
+        RoutingLine."PWD Flushing Method" := WorkCenter."Flushing Method".AsInteger();
     end;
 
     [EventSubscriber(ObjectType::Table, Database::"Routing Line", 'OnAfterMachineCtrTransferFields', '', false, false)]
     local procedure TAB99000764_OnAfterMachineCtrTransferFields_RoutingLine(var RoutingLine: Record "Routing Line"; WorkCenter: Record "Work Center"; MachineCenter: Record "Machine Center")
     begin
-        RoutingLine."PWD Flushing Method" := MachineCenter."Flushing Method";
+        RoutingLine."PWD Flushing Method" := MachineCenter."Flushing Method".AsInteger();
     end;
     //---PAG50---
     [EventSubscriber(ObjectType::Page, Page::"Purchase Order", 'OnAfterActionEvent', '&Print', false, false)]
@@ -1439,7 +1432,6 @@ codeunit 50020 "PWD LPSA Events Mgt."
     var
         gCurrSourceSpecification: Record "Tracking Specification";
         gCurrSourceSpecificationSet: Boolean;
-        gCurrSourceSpecDueDate: Date;
     begin
         gCurrSourceSpecification := TrackingSpecification;
         //TODO: AvailabilityDate variable dans la fonction SetSourceSpec
@@ -1461,8 +1453,6 @@ codeunit 50020 "PWD LPSA Events Mgt."
 
     [EventSubscriber(ObjectType::Page, Page::"Item Tracking Lines", 'OnBeforeAssignLotNo', '', false, false)]
     local procedure PAG6510_OnBeforeAssignLotNo_ItemTrackingLines(var TrackingSpecification: Record "Tracking Specification"; var TempItemTrackLineInsert: Record "Tracking Specification" temporary; SourceQuantityArray: array[5] of Decimal; var IsHandled: Boolean)
-    var
-        CstGErr0002: Label 'Lot Inheritance: You can''t assign a Lot No.,\because there is no Lot assigned to the lot determining component.';
     begin
         //TODO: gNoAssignLotDetLotNo et gLotDeterminingLotCode sont des variables globales dans la page "Item Tracking Lines"
         // IF gNoAssignLotDetLotNo AND (gLotDeterminingLotCode = '') THEN
@@ -1471,10 +1461,6 @@ codeunit 50020 "PWD LPSA Events Mgt."
 
     [EventSubscriber(ObjectType::Page, Page::"Item Tracking Lines", 'OnBeforeAssignNewLotNo', '', false, false)]
     local procedure PAG6510_OnBeforeAssignNewLotNo_ItemTrackingLines(var TrackingSpecification: Record "Tracking Specification"; var IsHandled: Boolean; var SourceTrackingSpecification: Record "Tracking Specification")
-    var
-        Item: Record Item;
-        NoSeriesMgt: Codeunit NoSeriesManagement;
-        cuLSAvailMgt: Codeunit "PWD Lot Inheritance Mgt.PW";
     begin
         //TODO: gLotDeterminingLotCode est une variables globale dans la page "Item Tracking Lines"
         // Item.Get(TrackingSpecification."Item No.");

@@ -483,7 +483,7 @@ page 50021 "PWD Item List requirement"
 
                         trigger OnAction()
                         begin
-                            CalculateStdCost.CalcItem("No.", TRUE);
+                            CalculateStdCost.CalcItem(Rec."No.", TRUE);
                         end;
                     }
                 }
@@ -510,7 +510,7 @@ page 50021 "PWD Item List requirement"
 
                         trigger OnAction()
                         begin
-                            CalculateStdCost.CalcItem("No.", FALSE);
+                            CalculateStdCost.CalcItem(Rec."No.", FALSE);
                         end;
                     }
                 }
@@ -688,7 +688,7 @@ page 50021 "PWD Item List requirement"
                     var
                         Item: Record Item;
                     begin
-                        Item.SETRANGE("No.", "No.");
+                        Item.SETRANGE("No.", Rec."No.");
                         REPORT.RUNMODAL(REPORT::"Create Stockkeeping Unit", TRUE, FALSE, Item);
                     end;
                 }
@@ -1150,7 +1150,6 @@ page 50021 "PWD Item List requirement"
     }
 
     var
-        TblshtgHeader: Record "Troubleshooting Header";
         CalculateStdCost: Codeunit "Calculate Standard Cost";
         Text11500: Label 'Do you want to edit the new item?';
 

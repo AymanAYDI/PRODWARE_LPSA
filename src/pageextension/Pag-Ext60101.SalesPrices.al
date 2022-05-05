@@ -17,14 +17,14 @@ pageextension 60101 "PWD SalesPrices" extends "Sales Prices"
     {
         addafter("Item No.")
         {
-            field("PWD Search Description"; "PWD Search Description")
+            field("PWD Search Description"; Rec."PWD Search Description")
             {
                 ApplicationArea = All;
             }
         }
         addafter("VAT Bus. Posting Gr. (Price)")
         {
-            field("PWD Fixed Price"; "PWD Fixed Price")
+            field("PWD Fixed Price"; Rec."PWD Fixed Price")
             {
                 ApplicationArea = All;
             }

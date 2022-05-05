@@ -10,7 +10,7 @@ pageextension 60037 "PWD PostedPurchaseReceipts" extends "Posted Purchase Receip
     {
         addafter("Order Address Code")
         {
-            field("N° de Commande"; "Order No.")
+            field("N° de Commande"; Rec."Order No.")
             {
                 Caption = 'N° de Commande';
                 ApplicationArea = All;

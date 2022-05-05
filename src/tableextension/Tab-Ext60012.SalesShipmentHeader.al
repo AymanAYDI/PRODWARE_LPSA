@@ -26,12 +26,10 @@ tableextension 60012 "PWD SalesShipmentHeader" extends "Sales Shipment Header"
         {
             Caption = 'Order No. From Partner';
         }
-        field(8073283; "PWD WMS_Status"; Option)
+        field(8073283; "PWD WMS_Status"; Enum "PWD WMS_Status")
         {
             Caption = 'WMS_Status';
             Description = 'ProdConnect1.5';
-            OptionCaption = ' ,Send,Shipped';
-            OptionMembers = " ",Send,Received;
         }
     }
 }

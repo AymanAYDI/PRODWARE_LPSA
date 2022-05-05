@@ -16,7 +16,7 @@ pageextension 60031 "PWD PostedSalesCreditMemo" extends "Posted Sales Credit Mem
     {
         addafter("No. Printed")
         {
-            field("PWD Rolex Bienne"; "PWD Rolex Bienne")
+            field("PWD Rolex Bienne"; Rec."PWD Rolex Bienne")
             {
                 ApplicationArea = All;
             }

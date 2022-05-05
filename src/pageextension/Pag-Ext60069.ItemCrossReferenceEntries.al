@@ -17,26 +17,26 @@ pageextension 60069 "PWD ItemCrossReferenceEntries" extends "Item Cross Referenc
     {
         addafter("Cross-Reference Type No.")
         {
-            field("PWD Customer Name"; "PWD Customer Name")
+            field("PWD Customer Name"; Rec."PWD Customer Name")
             {
                 ApplicationArea = All;
             }
         }
         addafter("Discontinue Bar Code")
         {
-            field("PWD Item No."; "Item No.")
+            field("PWD Item No."; Rec."Item No.")
             {
                 ApplicationArea = All;
             }
-            field("PWD Item Search Description"; "PWD Item Search Description")
+            field("PWD Item Search Description"; Rec."PWD Item Search Description")
             {
                 ApplicationArea = All;
             }
-            field("PWD Customer Plan No."; "PWD Customer Plan No.")
+            field("PWD Customer Plan No."; Rec."PWD Customer Plan No.")
             {
                 ApplicationArea = All;
             }
-            field("PWD Customer Plan Description"; "PWD Customer Plan Description")
+            field("PWD Customer Plan Description"; Rec."PWD Customer Plan Description")
             {
                 ApplicationArea = All;
             }

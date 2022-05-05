@@ -4,7 +4,7 @@ pageextension 60057 "PWD ContactList" extends "Contact List"
     {
         addafter("Search Name")
         {
-            field("PWD Job Title"; "Job Title")
+            field("PWD Job Title"; Rec."Job Title")
             {
                 ApplicationArea = All;
             }

@@ -1053,12 +1053,11 @@ codeunit 50004 "PWD Closing Management"
     var
         ILE: Record "Item Ledger Entry";
     begin
-        with RecPValueEntry do
-            if ("Entry Type" = "Entry Type"::Revaluation) and ("Item Ledger Entry Type" = "Item Ledger Entry Type"::Consumption) then begin
-                ILE.Get("Item Ledger Entry No.");
-                if ILE.Positive then
-                    exit(false)
-            end;
+        if (RecPValueEntry."Entry Type" = RecPValueEntry."Entry Type"::Revaluation) and (RecPValueEntry."Item Ledger Entry Type" = RecPValueEntry."Item Ledger Entry Type"::Consumption) then begin
+            ILE.Get(RecPValueEntry."Item Ledger Entry No.");
+            if ILE.Positive then
+                exit(false)
+        end;
 
         exit(true);
     end;
@@ -1066,13 +1065,11 @@ codeunit 50004 "PWD Closing Management"
 
     procedure IsNotWIP(RecPValueEntry: Record "Value Entry"): Boolean
     begin
-        with RecPValueEntry do begin
-            if "Item Ledger Entry Type" = "Item Ledger Entry Type"::Output then
-                exit(not ("Entry Type" in ["Entry Type"::"Direct Cost",
-                                           "Entry Type"::Revaluation]));
+        if RecPValueEntry."Item Ledger Entry Type" = RecPValueEntry."Item Ledger Entry Type"::Output then
+            exit(not (RecPValueEntry."Entry Type" in [RecPValueEntry."Entry Type"::"Direct Cost",
+                                       RecPValueEntry."Entry Type"::Revaluation]));
 
-            exit("Expected Cost");
-        end;
+        exit(RecPValueEntry."Expected Cost");
     end;
 
 

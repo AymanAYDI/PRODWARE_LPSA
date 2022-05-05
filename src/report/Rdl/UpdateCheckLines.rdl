@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2016/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
   <AutoRefresh>0</AutoRefresh>
   <DataSources>
@@ -10,73 +10,6 @@
       <rd:SecurityType>None</rd:SecurityType>
     </DataSource>
   </DataSources>
-  <DataSets>
-    <DataSet Name="DataSet_Result">
-      <Query>
-        <DataSourceName>DataSource</DataSourceName>
-        <CommandText />
-      </Query>
-      <Fields>
-        <Field Name="Routing_Line_Description">
-          <DataField>Routing_Line_Description</DataField>
-        </Field>
-        <Field Name="Routing_Line__Work_Center_Group_Code_">
-          <DataField>Routing_Line__Work_Center_Group_Code_</DataField>
-        </Field>
-        <Field Name="Routing_Line__Work_Center_No__">
-          <DataField>Routing_Line__Work_Center_No__</DataField>
-        </Field>
-        <Field Name="Routing_Line__No__">
-          <DataField>Routing_Line__No__</DataField>
-        </Field>
-        <Field Name="Routing_Line_Type">
-          <DataField>Routing_Line_Type</DataField>
-        </Field>
-        <Field Name="Routing_Line__Previous_Operation_No__">
-          <DataField>Routing_Line__Previous_Operation_No__</DataField>
-        </Field>
-        <Field Name="Routing_Line__Next_Operation_No__">
-          <DataField>Routing_Line__Next_Operation_No__</DataField>
-        </Field>
-        <Field Name="Routing_Line__Operation_No__">
-          <DataField>Routing_Line__Operation_No__</DataField>
-        </Field>
-        <Field Name="Routing_Line__Routing_No__">
-          <DataField>Routing_Line__Routing_No__</DataField>
-        </Field>
-        <Field Name="Routing_Line_DescriptionCaption">
-          <DataField>Routing_Line_DescriptionCaption</DataField>
-        </Field>
-        <Field Name="Routing_Line__Work_Center_Group_Code_Caption">
-          <DataField>Routing_Line__Work_Center_Group_Code_Caption</DataField>
-        </Field>
-        <Field Name="Routing_Line__Work_Center_No__Caption">
-          <DataField>Routing_Line__Work_Center_No__Caption</DataField>
-        </Field>
-        <Field Name="Routing_Line__No__Caption">
-          <DataField>Routing_Line__No__Caption</DataField>
-        </Field>
-        <Field Name="Routing_Line_TypeCaption">
-          <DataField>Routing_Line_TypeCaption</DataField>
-        </Field>
-        <Field Name="Routing_Line__Previous_Operation_No__Caption">
-          <DataField>Routing_Line__Previous_Operation_No__Caption</DataField>
-        </Field>
-        <Field Name="Routing_Line__Next_Operation_No__Caption">
-          <DataField>Routing_Line__Next_Operation_No__Caption</DataField>
-        </Field>
-        <Field Name="Routing_Line__Operation_No__Caption">
-          <DataField>Routing_Line__Operation_No__Caption</DataField>
-        </Field>
-        <Field Name="Routing_Line__Routing_No__Caption">
-          <DataField>Routing_Line__Routing_No__Caption</DataField>
-        </Field>
-        <Field Name="Routing_Line_Version_Code">
-          <DataField>Routing_Line_Version_Code</DataField>
-        </Field>
-      </Fields>
-    </DataSet>
-  </DataSets>
   <ReportSections>
     <ReportSection>
       <Body>
@@ -771,4 +704,71 @@ End Function
   <Language>=User!Language</Language>
   <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
   <rd:ReportUnitType>Invalid</rd:ReportUnitType>
+  <DataSets>
+    <DataSet Name="DataSet_Result">
+      <Fields>
+        <Field Name="Routing_Line_Description">
+          <DataField>Routing_Line_Description</DataField>
+        </Field>
+        <Field Name="Routing_Line__Work_Center_Group_Code_">
+          <DataField>Routing_Line__Work_Center_Group_Code_</DataField>
+        </Field>
+        <Field Name="Routing_Line__Work_Center_No__">
+          <DataField>Routing_Line__Work_Center_No__</DataField>
+        </Field>
+        <Field Name="Routing_Line__No__">
+          <DataField>Routing_Line__No__</DataField>
+        </Field>
+        <Field Name="Routing_Line_Type">
+          <DataField>Routing_Line_Type</DataField>
+        </Field>
+        <Field Name="Routing_Line__Previous_Operation_No__">
+          <DataField>Routing_Line__Previous_Operation_No__</DataField>
+        </Field>
+        <Field Name="Routing_Line__Next_Operation_No__">
+          <DataField>Routing_Line__Next_Operation_No__</DataField>
+        </Field>
+        <Field Name="Routing_Line__Operation_No__">
+          <DataField>Routing_Line__Operation_No__</DataField>
+        </Field>
+        <Field Name="Routing_Line__Routing_No__">
+          <DataField>Routing_Line__Routing_No__</DataField>
+        </Field>
+        <Field Name="Routing_Line_DescriptionCaption">
+          <DataField>Routing_Line_DescriptionCaption</DataField>
+        </Field>
+        <Field Name="Routing_Line__Work_Center_Group_Code_Caption">
+          <DataField>Routing_Line__Work_Center_Group_Code_Caption</DataField>
+        </Field>
+        <Field Name="Routing_Line__Work_Center_No__Caption">
+          <DataField>Routing_Line__Work_Center_No__Caption</DataField>
+        </Field>
+        <Field Name="Routing_Line__No__Caption">
+          <DataField>Routing_Line__No__Caption</DataField>
+        </Field>
+        <Field Name="Routing_Line_TypeCaption">
+          <DataField>Routing_Line_TypeCaption</DataField>
+        </Field>
+        <Field Name="Routing_Line__Previous_Operation_No__Caption">
+          <DataField>Routing_Line__Previous_Operation_No__Caption</DataField>
+        </Field>
+        <Field Name="Routing_Line__Next_Operation_No__Caption">
+          <DataField>Routing_Line__Next_Operation_No__Caption</DataField>
+        </Field>
+        <Field Name="Routing_Line__Operation_No__Caption">
+          <DataField>Routing_Line__Operation_No__Caption</DataField>
+        </Field>
+        <Field Name="Routing_Line__Routing_No__Caption">
+          <DataField>Routing_Line__Routing_No__Caption</DataField>
+        </Field>
+        <Field Name="Routing_Line_Version_Code">
+          <DataField>Routing_Line_Version_Code</DataField>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DataSource</DataSourceName>
+        <CommandText />
+      </Query>
+    </DataSet>
+  </DataSets>
 </Report>

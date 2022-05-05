@@ -15,7 +15,7 @@ pageextension 60088 "PWD AvailItemTrackingLines" extends "Avail. - Item Tracking
     {
         addafter("Lot No.")
         {
-            field("PWD NC"; "PWD NC")
+            field("PWD NC"; Rec."PWD NC")
             {
                 ApplicationArea = All;
             }

@@ -539,7 +539,7 @@ report 50007 "PWD Production Balance"
                 RecGProductionBalance.Type := RecGProductionBalance.Type::Item;
                 RecGProductionBalance."No." := RecGProdOrderComponent."Item No.";
                 RecGProductionBalance.Description := RecGProdOrderComponent.Description;
-                RecGProductionBalance.Status := RecGProdOrderComponent.Status;
+                RecGProductionBalance.Status := RecGProdOrderComponent.Status.AsInteger();
                 RecGProductionBalance."Expected Quantity" := RecGProdOrderComponent."Expected Quantity";
                 FctFindItemLedgerEntry();
                 RecGProductionBalance.Quantity := -RecGItemLedgerEntry.Quantity;
@@ -575,10 +575,10 @@ report 50007 "PWD Production Balance"
                 RecGProductionBalance."Planned Order No." := RecGProdOrderRoutingLine."Prod. Order No.";
                 RecGProductionBalance."Line Type" := RecGProductionBalance."Line Type"::Operation;
                 RecGProductionBalance."Operation No." := RecGProdOrderRoutingLine."Operation No.";
-                RecGProductionBalance.Type := RecGProdOrderRoutingLine.Type;
+                RecGProductionBalance.Type := RecGProdOrderRoutingLine.Type.AsInteger();
                 RecGProductionBalance."No." := RecGProdOrderRoutingLine."No.";
                 RecGProductionBalance.Description := RecGProdOrderRoutingLine.Description;
-                RecGProductionBalance.Status := RecGProdOrderRoutingLine.Status;
+                RecGProductionBalance.Status := RecGProdOrderRoutingLine.Status.AsInteger();
                 FctFindProdOrderLine();
                 RecGProductionBalance."Expected Quantity" := RecGProdOrderLine.Quantity;
                 FctFindCapacityLedgerEntry();
@@ -732,7 +732,7 @@ report 50007 "PWD Production Balance"
                     RecGProductionBalance."Planned Order No." := RecGProdOrderRoutingLine."Prod. Order No.";
                     RecGProductionBalance."Line Type" := RecGProductionBalance."Line Type"::Operation;
                     RecGProductionBalance."Operation No." := RecGProdOrderRoutingLine."Operation No.";
-                    RecGProductionBalance.Type := RecGProdOrderRoutingLine.Type;
+                    RecGProductionBalance.Type := RecGProdOrderRoutingLine.Type.AsInteger();
                     RecGProductionBalance."No." := RecGProdOrderRoutingLine."No.";
                     RecGProductionBalance.Description := RecGProdOrderRoutingLine.Description;
                     RecGProductionBalance.Status := RecGProductionBalance.Status::" ";
@@ -931,7 +931,7 @@ report 50007 "PWD Production Balance"
                             RecGProductionBalance."Item No." := RecLTempProdOrderLine."Item No.";
                             RecGProductionBalance."Line Type" := RecGProductionBalance."Line Type"::Operation;
                             RecGProductionBalance."Operation No." := RecGProdOrderRoutingLine."Operation No.";
-                            RecGProductionBalance.Type := RecGProdOrderRoutingLine.Type;
+                            RecGProductionBalance.Type := RecGProdOrderRoutingLine.Type.AsInteger();
                             RecGProductionBalance."No." := RecGProdOrderRoutingLine."No.";
                             RecGProductionBalance.Description := RecGProdOrderRoutingLine.Description;
                             RecGProductionBalance.Status := RecGProductionBalance.Status::" ";

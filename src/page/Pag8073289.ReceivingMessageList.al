@@ -27,39 +27,39 @@ page 8073289 "PWD Receiving Message List"
             repeater(Control1100294000)
             {
                 ShowCaption = false;
-                field("Code"; Code)
+                field("Code"; Rec.Code)
                 {
                     ApplicationArea = All;
                 }
-                field(Function; "Function")
+                field(Function; Rec."Function")
                 {
                     ApplicationArea = All;
                 }
-                field(Description; Description)
+                field(Description; Rec.Description)
                 {
                     ApplicationArea = All;
                 }
-                field(Path; Path)
+                field(Path; Rec.Path)
                 {
                     ApplicationArea = All;
                 }
-                field("Archive Path"; "Archive Path")
+                field("Archive Path"; Rec."Archive Path")
                 {
                     ApplicationArea = All;
                 }
-                field("Auto-Post Document"; "Auto-Post Document")
+                field("Auto-Post Document"; Rec."Auto-Post Document")
                 {
                     ApplicationArea = All;
                 }
-                field("Archive Message"; "Archive Message")
+                field("Archive Message"; Rec."Archive Message")
                 {
                     ApplicationArea = All;
                 }
-                field(Blocked; Blocked)
+                field(Blocked; Rec.Blocked)
                 {
                     ApplicationArea = All;
                 }
-                field(Control1100267000; "Auto-Post Document")
+                field(Control1100267000; Rec."Auto-Post Document")
                 {
                     ApplicationArea = All;
                 }

@@ -14,11 +14,11 @@ pageextension 60081 "pageextension50075" extends "Posted Transfer Shipment Lines
     {
         addafter(Description)
         {
-            field("PWD LPSA Description 1"; "PWD LPSA Description 1")
+            field("PWD LPSA Description 1"; Rec."PWD LPSA Description 1")
             {
                 ApplicationArea = All;
             }
-            field("PWD LPSA Description 2"; "PWD LPSA Description 2")
+            field("PWD LPSA Description 2"; Rec."PWD LPSA Description 2")
             {
                 ApplicationArea = All;
             }

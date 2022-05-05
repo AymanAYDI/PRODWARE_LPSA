@@ -719,7 +719,6 @@ report 50013 "PWD Credit Note"
 
     var
         CompanyInfo: Record "Company Information";
-        CurrExchRate: Record "Currency Exchange Rate";
         //TODO: Table 'Posted Document Dimension' is missing
         // PostedDocDim1: Record "Posted Document Dimension";
         // PostedDocDim2: Record "Posted Document Dimension";
@@ -730,7 +729,6 @@ report 50013 "PWD Credit Note"
         ItemLedgEntry: Record "Item Ledger Entry";
         TempItemLedgEntry: Record "Item Ledger Entry";
         PaymentTerms: Record "Payment Terms";
-        ReservEntry: Record "Reservation Entry";
         RespCenter: Record "Responsibility Center";
         RecGSalesCommentLine: Record "Sales Comment Line";
         SalesPurchPerson: Record "Salesperson/Purchaser";
@@ -749,32 +747,22 @@ report 50013 "PWD Credit Note"
         BooGEnvoiMail: Boolean;
         BooGSkipSendEmail: Boolean;
         BooGStopComment: Boolean;
-        Continue: Boolean;
         LogInteraction: Boolean;
-        [InDataSet]
-        LogInteractionEnable: Boolean;
         MoreLines: Boolean;
         ShowInternalInfo: Boolean;
         ShowShippingAddr: Boolean;
         CrossReferenceNo: Code[20];
         CustName: Code[20];
-        LotNo: Code[20];
         PostedReceiptDate: Date;
-        CalculatedExchRate: Decimal;
         NNC_TotalAmount: Decimal;
         NNC_TotalAmountInclVat: Decimal;
         NNC_TotalInvDiscAmount: Decimal;
         NNC_TotalLCY: Decimal;
         NNC_TotalLineAmount: Decimal;
         NNC_VATAmount: Decimal;
-        VALVATAmountLCY: Decimal;
-        VALVATBaseLCY: Decimal;
-        "---- NDBI ----": Integer;
-        "-TI414158-": Integer;
         FirstValueEntryNo: Integer;
         i: Integer;
         IntGImpText: Integer;
-        NextEntryNo: Integer;
         NoOfCopies: Integer;
         NoOfLoops: Integer;
         OutputNo: Integer;
@@ -786,7 +774,6 @@ report 50013 "PWD Credit Note"
         CompanyInfo_SWIF__Code_captionLbl: Label 'SWIFT/BIC Code';
         CstG011: Label '%1% VAT';
         CstG012: Label 'Origine non préférentielle: Les marchandises auxquelles se rapporte le présent document commercial sont originaires de Suisse selon les dispositions des articles 9 à 16 de l''ordonnance du 9 avril 2008 sur l''attestation de l''origine non préférentielle des marchandises (OOr) et de l''ordonnance du DEFR du 9 avril 2008 sur l''attestation de l''origine non préférentielle des marchandises (OOr-DEFR).La marchandise a été produite par notre entreprise.L''auteur de la présente déclaration d''origine a pris connaissance du fait que l''indication inexacte de l''origine selon les art. 9 ss OOr et les art. 2 ss OOr-DEFR entraîne des mesures de droit administratif et des poursuites pénales.';
-        CstG012ex: Label 'L''auteur de la présente déclaration d''origine a pris connaissance du fait que l''indication inexacte de lorigine selon les art. 9 ss. OOr et les art. 2 ss. OOr-DFE entraîne des mesures de droit administratif et des poursuites pénales. Suffisamment ouvré en Suisse selon laccord de libre-échange Suisse-CE.';
         CstG013: Label 'Net Amount';
         CstG014: Label 'Origine préférentielle: Nous attestons par la présente que les marchandises susmentionnées, sont originaires de Suisse et satisfont aux règles d''origine régissant les échanges préférentiels avec CE, AELE, SACU, AL, CA CL, CO EG, FO, HR, HK, IL, JO, JP, KR, LB, ME, MK, MA, MX, PE, RS, SG, TN, TR, UA, CN, CR, PA, GCC. Peut être complétée, selon les cas avec :Aucun cumul appliqué (no cumulation applied) / " PSR " : fabriqué en Suisse ou en Chine en utilisant des matières non originaires et remplissant les " Products Specific Rules " et autres conditions du chapitre 3 de l''accord de libre-échange avec la Chine (suffisamment ouvré).';
         Facture_captionLbl: Label 'Credit Note';
@@ -809,13 +796,7 @@ report 50013 "PWD Credit Note"
         Text002: Label 'Total %1 Incl. VAT';
         Text003: Label '(Applies to %1 %2)';
         Text004: Label 'COPY';
-        Text005: Label 'Sales - Credit Memo %1';
-        Text006: Label 'Page %1';
         Text007: Label 'Total %1 Excl. VAT';
-        Text008: Label 'VAT Amount Specification in ';
-        Text009: Label 'Local Currency';
-        Text010: Label 'Exchange rate: %1/%2';
-        Text011: Label 'Sales - Prepmt. Credit Memo %1';
         Text012: Label 'Due Date';
         Text013: Label 'Montant %1';
         Text014: Label 'LPSA No.';
@@ -836,14 +817,10 @@ report 50013 "PWD Credit Note"
         TotalExclVATText: Text[50];
         TotalInclVATText: Text[50];
         TotalText: Text[50];
-        VALExchRate: Text[50];
-        OldDimText: Text[75];
         ReferenceText: Text[80];
         ReturnOrderNoText: Text[80];
-        VALSpecLCYHeader: Text[80];
         VATNoText: Text[80];
         TxtGCustPlanNo_C: Text[100];
-        DimText: Text[120];
         TxTGLabelCondPay: Text[250];
         TxtGComment: Text[1024];
 
@@ -894,9 +871,6 @@ report 50013 "PWD Credit Note"
 
     procedure SendPDFMail(var RecPSalesCrMHeader: Record "Sales Cr.Memo Header")
     var
-        RecLContact: Record Contact;
-        RecLContBusRel: Record "Contact Business Relation";
-        RecLCustomer: Record Customer;
         RepLCreditNote: Report "PWD Credit Note";
         CodLMail: Codeunit Mail;
         CstL001: Label 'LA PIERRETTE SA : Sales Invoice %1';

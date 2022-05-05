@@ -27,7 +27,7 @@ page 50016 "PWD Prod. Order Component List"
                 {
                     ApplicationArea = All;
                 }
-                field(Status; Status)
+                field(Status; Rec.Status)
                 {
                     ApplicationArea = All;
                 }

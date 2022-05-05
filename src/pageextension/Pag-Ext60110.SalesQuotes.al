@@ -5,27 +5,27 @@ pageextension 60110 "PWD SalesQuotes" extends "Sales Quotes"
     {
         addafter(Status)
         {
-            field("PWD Validity Quote Date"; "PWD Validity Quote Date")
+            field("PWD Validity Quote Date"; Rec."PWD Validity Quote Date")
             {
                 ApplicationArea = All;
             }
-            field("PWD Sell-to Address"; "Sell-to Address")
+            field("PWD Sell-to Address"; Rec."Sell-to Address")
             {
                 ApplicationArea = All;
             }
-            field("PWD Sell-to Address 2"; "Sell-to Address 2")
+            field("PWD Sell-to Address 2"; Rec."Sell-to Address 2")
             {
                 ApplicationArea = All;
             }
-            field("PWD Sell-to Post Code"; "Sell-to Post Code")
+            field("PWD Sell-to Post Code"; Rec."Sell-to Post Code")
             {
                 ApplicationArea = All;
             }
-            field("PWD Sell-to City"; "Sell-to City")
+            field("PWD Sell-to City"; Rec."Sell-to City")
             {
                 ApplicationArea = All;
             }
-            field("PWD Sell-to Contact"; "Sell-to Contact")
+            field("PWD Sell-to Contact"; Rec."Sell-to Contact")
             {
                 ApplicationArea = All;
             }

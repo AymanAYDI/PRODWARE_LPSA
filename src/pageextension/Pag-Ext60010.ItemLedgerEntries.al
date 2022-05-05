@@ -15,33 +15,33 @@ pageextension 60010 "PWD ItemLedgerEntries" extends "Item Ledger Entries"
     {
         addafter("Lot No.")
         {
-            field("PWD NC"; "PWD NC")
+            field("PWD NC"; Rec."PWD NC")
             {
                 ApplicationArea = All;
             }
         }
         addafter("Job No.")
         {
-            field("Désignation LPSA1"; "PWD Designation LPSA1")
+            field("Désignation LPSA1"; Rec."PWD Designation LPSA1")
             {
                 ApplicationArea = All;
             }
-            field("PWD Nom Client"; "PWD Nom Client")
+            field("PWD Nom Client"; Rec."PWD Nom Client")
             {
                 ApplicationArea = All;
             }
-            field("PWD Nom Fournisseur"; "PWD Nom Fournisseur")
+            field("PWD Nom Fournisseur"; Rec."PWD Nom Fournisseur")
             {
                 ApplicationArea = All;
             }
         }
         addafter("Job Task No.")
         {
-            field("PWD External Document No."; "External Document No.")
+            field("PWD External Document No."; Rec."External Document No.")
             {
                 ApplicationArea = All;
             }
-            field("PWD Cross-Reference No."; "Cross-Reference No.")
+            field("PWD Cross-Reference No."; Rec."Cross-Reference No.")
             {
                 ApplicationArea = All;
             }

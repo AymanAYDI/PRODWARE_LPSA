@@ -4,7 +4,7 @@ pageextension 60124 "PWD RoutingList" extends "Routing List"
     {
         addafter(Description)
         {
-            field("PWD Search Description"; "Search Description")
+            field("PWD Search Description"; Rec."Search Description")
             {
                 ApplicationArea = All;
             }
@@ -21,17 +21,17 @@ pageextension 60124 "PWD RoutingList" extends "Routing List"
                 var
                     RtngVersion: Record "Routing Version";
                 begin
-                    RtngVersion.SETRANGE("Routing No.", "No.");
+                    RtngVersion.SETRANGE("Routing No.", Rec."No.");
                     RtngVersion.SETRANGE("Version Code", ActiveVersionCode);
                     PAGE.RUNMODAL(PAGE::"Routing Version", RtngVersion);
-                    ActiveVersionCode := VersionMgt.GetRtngVersion("No.", WORKDATE(), TRUE);
+                    ActiveVersionCode := VersionMgt.GetRtngVersion(Rec."No.", WORKDATE(), TRUE);
                 end;
             }
         }
     }
     trigger OnAfterGetRecord()
     begin
-        ActiveVersionCode := VersionMgt.GetRtngVersion("No.", WORKDATE(), TRUE);
+        ActiveVersionCode := VersionMgt.GetRtngVersion(Rec."No.", WORKDATE(), TRUE);
     end;
 
     var

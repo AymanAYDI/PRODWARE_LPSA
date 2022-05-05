@@ -636,16 +636,10 @@ report 50000 "Export Invoicing Data (Excel)"
         //Sheet: DotNet "EXCEL Worksheet";
         CodGCurrency: Code[10];
         CodGShipNo: Code[20];
-        CodGShipNoLine: Code[20];
         DatGEnding: Date;
         DatGStarting: Date;
-        DecGTvaAmount: Decimal;
         Compteur: Integer;
         LastFieldNo: Integer;
-        CstG01: Label '''01';
-        CstG11: Label '''11';
-        CstG40: Label '''40';
-        CstG50: Label '''50';
         CstGtxt001: Label 'The Starting Date  %1 must be filled,';
         CstGtxt002: Label 'The Ending date must be filled,';
         CstGtxt004: Label 'BL not found for lines of CR Memo No. %1. It is necessary to check manually.';

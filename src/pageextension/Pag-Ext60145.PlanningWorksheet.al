@@ -6,7 +6,7 @@ pageextension 60145 "PWD PlanningWorksheet" extends "Planning Worksheet"
     {
         addafter("Location Code")
         {
-            field("PWD Vendor Item No."; "Vendor Item No.")
+            field("PWD Vendor Item No."; Rec."Vendor Item No.")
             {
                 ApplicationArea = All;
 
@@ -14,7 +14,7 @@ pageextension 60145 "PWD PlanningWorksheet" extends "Planning Worksheet"
         }
         addafter(Quantity)
         {
-            field("PWD Order Multiple"; "PWD Order Multiple")
+            field("PWD Order Multiple"; Rec."PWD Order Multiple")
             {
                 ApplicationArea = All;
             }
@@ -41,7 +41,7 @@ pageextension 60145 "PWD PlanningWorksheet" extends "Planning Worksheet"
                     ProdBOMWhereUsed: Page "Prod. BOM Where-Used";
                 begin
                     //>>LPSA.TDL.20102014
-                    IF (Type = Type::Item) AND RecLItem.GET("No.") THEN BEGIN
+                    IF (Rec.Type = Rec.Type::Item) AND RecLItem.GET(Rec."No.") THEN BEGIN
                         ProdBOMWhereUsed.SetItem(RecLItem, WORKDATE());
                         ProdBOMWhereUsed.RUNMODAL();
                     END;
@@ -62,9 +62,9 @@ pageextension 60145 "PWD PlanningWorksheet" extends "Planning Worksheet"
                     FrmLProductionForecastEntries: Page "Demand Forecast Entries";
                 begin
                     //>>REGIE
-                    IF Type = Type::Item THEN BEGIN
-                        RecLProductionForecastEntry.SETRANGE("Item No.", "No.");
-                        RecLProductionForecastEntry.SETRANGE("Forecast Date", "Starting Date", "Ending Date");
+                    IF Rec.Type = Rec.Type::Item THEN BEGIN
+                        RecLProductionForecastEntry.SETRANGE("Item No.", Rec."No.");
+                        RecLProductionForecastEntry.SETRANGE("Forecast Date", Rec."Starting Date", Rec."Ending Date");
                         FrmLProductionForecastEntries.SETTABLEVIEW(RecLProductionForecastEntry);
                         FrmLProductionForecastEntries.RUNMODAL();
                     END;
@@ -80,7 +80,7 @@ pageextension 60145 "PWD PlanningWorksheet" extends "Planning Worksheet"
                 trigger OnAction()
                 begin
                     // >> FE_LAPRIERRETTE_GP0003 : APA 16/05/13
-                    MODIFYALL("Accept Action Message", TRUE);
+                    Rec.MODIFYALL("Accept Action Message", TRUE);
                     // << FE_LAPRIERRETTE_GP0003 : APA 16/05/13  
                 end;
             }
@@ -90,7 +90,7 @@ pageextension 60145 "PWD PlanningWorksheet" extends "Planning Worksheet"
                 trigger OnAction()
                 begin
                     // >> FE_LAPRIERRETTE_GP0003 : APA 16/05/13
-                    MODIFYALL("Accept Action Message", FALSE);
+                    Rec.MODIFYALL("Accept Action Message", FALSE);
                     // << FE_LAPRIERRETTE_GP0003 : APA 16/05/13
 
                 end;

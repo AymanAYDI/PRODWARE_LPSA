@@ -100,7 +100,6 @@ tableextension 60038 "PWD ProdOrderComponent" extends "Prod. Order Component"
         RecLTrackingSpec: Record "Tracking Specification" temporary;
         RecLTrackingSpecPhantom: Record "Tracking Specification Phantom";
         ItemTrackingDataCollection: Codeunit "Item Tracking Data Collection";
-        ReserveProdOrderComp: Codeunit "Prod. Order Comp.-Reserve";
         LPSAFunctionsMgt: Codeunit "PWD LPSA Functions Mgt.";
         ReservEngineMgt: Codeunit "Reservation Engine Mgt.";
         CurrentSignFactor: Decimal;
@@ -167,7 +166,7 @@ tableextension 60038 "PWD ProdOrderComponent" extends "Prod. Order Component"
         ReservEngineMgt: Codeunit "Reservation Engine Mgt.";
         AvailabilityDate: Date;
         LostReservQty: Decimal;
-        CurrentEntryStatus: Option Reservation,Tracking,Surplus,Prospect;
+        CurrentEntryStatus: Enum "Reservation Status";
     begin
         OK := FALSE;
         //TODO: La procedure SetPick n'existe pas dans le codeunit "Reservation Engine Mgt."
@@ -419,7 +418,7 @@ tableextension 60038 "PWD ProdOrderComponent" extends "Prod. Order Component"
         TempProdOrderLine.SETCURRENTKEY(
           "Item No.", "Variant Code", "Location Code", Status, "Ending Date");
 
-        TempProdOrderLine.SETRANGE(Status, TempProdOrderLine.Status::Planned, Status - 1);
+        TempProdOrderLine.SETRANGE(Status, TempProdOrderLine.Status::Planned, Status.AsInteger() - 1);
         TempProdOrderLine.SETRANGE("Item No.", "Item No.");
         TempProdOrderLine.SETRANGE("Variant Code", "Variant Code");
         TempProdOrderLine.SETRANGE("Location Code", "Location Code");
@@ -444,7 +443,7 @@ tableextension 60038 "PWD ProdOrderComponent" extends "Prod. Order Component"
         TempProdOrderComp.SETCURRENTKEY(
           "Item No.", "Variant Code", "Location Code", Status, "Due Date");
 
-        TempProdOrderComp.SETRANGE(Status, TempProdOrderComp.Status::Planned, Status - 1);
+        TempProdOrderComp.SETRANGE(Status, TempProdOrderComp.Status::Planned, Status.AsInteger() - 1);
         TempProdOrderComp.SETRANGE("Item No.", "Item No.");
         TempProdOrderComp.SETRANGE("Variant Code", "Variant Code");
         TempProdOrderComp.SETRANGE("Location Code", "Location Code");

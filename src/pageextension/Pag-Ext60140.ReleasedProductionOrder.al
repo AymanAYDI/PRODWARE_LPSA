@@ -4,11 +4,11 @@ pageextension 60140 "PWD ReleasedProductionOrder" extends "Released Production O
     {
         addafter("Last Date Modified")
         {
-            field("PWD Consumption Date"; "PWD Consumption Date")
+            field("PWD Consumption Date"; Rec."PWD Consumption Date")
             {
                 ApplicationArea = All;
             }
-            field("PWD Source Material Vendor"; "PWD Source Material Vendor")
+            field("PWD Source Material Vendor"; Rec."PWD Source Material Vendor")
             {
                 ApplicationArea = All;
             }
@@ -35,7 +35,7 @@ pageextension 60140 "PWD ReleasedProductionOrder" extends "Released Production O
                     ProdBOMWhereUsed: Page "Prod. BOM Where-Used";
                 begin
                     //>>LPSA.TDL.19112014
-                    IF ("Source Type" = "Source Type"::Item) AND RecLItem.GET("Source No.") THEN BEGIN
+                    IF (Rec."Source Type" = Rec."Source Type"::Item) AND RecLItem.GET(Rec."Source No.") THEN BEGIN
                         ProdBOMWhereUsed.SetItem(RecLItem, WORKDATE());
                         ProdBOMWhereUsed.RUNMODAL();
                     END;
@@ -52,7 +52,7 @@ pageextension 60140 "PWD ReleasedProductionOrder" extends "Released Production O
                 ApplicationArea = All;
                 trigger OnAction()
                 begin
-                    ResendProdOrdertoQuartis();
+                    Rec.ResendProdOrdertoQuartis();
                 end;
             }
         }
@@ -90,7 +90,7 @@ pageextension 60140 "PWD ReleasedProductionOrder" extends "Released Production O
                 trigger OnAction()
                 begin
                     //>>REGIE
-                    FctPrintPDF();
+                    Rec.FctPrintPDF();
                     //<<REGIE
                 end;
             }

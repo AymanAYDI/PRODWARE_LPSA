@@ -16,11 +16,11 @@ pageextension 60044 "PWD PurchasesPayablesSetup" extends "Purchases & Payables S
             group("PWD Sous-Traitance")
             {
                 Caption = 'Sous-Traitance';
-                field("PWD Subcontracting Order Series No"; "PWD Subcontracting Order Series No")
+                field("PWD Subcontracting Order Series No"; Rec."PWD Subcontracting Order Series No")
                 {
                     ApplicationArea = All;
                 }
-                field("PWD Subcontracting Legal Text"; "PWD Subcontracting Legal Text")
+                field("PWD Subcontracting Legal Text"; Rec."PWD Subcontracting Legal Text")
                 {
                     ApplicationArea = All;
                 }

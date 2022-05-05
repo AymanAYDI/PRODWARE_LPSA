@@ -13,11 +13,11 @@ pageextension 60058 "PWD SalesOrderArchive" extends "Sales Order Archive"
     {
         addafter(Status)
         {
-            field("PWD Confirmed"; "PWD Confirmed")
+            field("PWD Confirmed"; Rec."PWD Confirmed")
             {
                 ApplicationArea = All;
             }
-            field("PWD Planned"; "PWD Planned")
+            field("PWD Planned"; Rec."PWD Planned")
             {
                 ApplicationArea = All;
             }

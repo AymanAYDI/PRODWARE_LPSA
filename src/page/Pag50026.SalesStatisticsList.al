@@ -53,7 +53,7 @@ page 50026 "PWD Sales Statistics List"
                 {
                     ApplicationArea = All;
                 }
-                field(Quantity; Quantity)
+                field(Quantity; Rec.Quantity)
                 {
                     ApplicationArea = All;
                 }

@@ -13,26 +13,26 @@ pageextension 60112 "PWD PurchaseOrderList" extends "Purchase Order List"
     {
         addafter("Shipment Method Code")
         {
-            field("PWD Promised Receipt Date"; "Promised Receipt Date")
+            field("PWD Promised Receipt Date"; Rec."Promised Receipt Date")
             {
                 ApplicationArea = All;
             }
-            field("PWD Order Date"; "Order Date")
+            field("PWD Order Date"; Rec."Order Date")
             {
                 ApplicationArea = All;
             }
         }
         addafter("Requested Receipt Date")
         {
-            field("PWD Expected Receipt Date"; "Expected Receipt Date")
+            field("PWD Expected Receipt Date"; Rec."Expected Receipt Date")
             {
                 ApplicationArea = All;
             }
-            field("PWD Printed"; "PWD Printed")
+            field("PWD Printed"; Rec."PWD Printed")
             {
                 ApplicationArea = All;
             }
-            field("PWD Intranet Order No."; "PWD Intranet Order No.")
+            field("PWD Intranet Order No."; Rec."PWD Intranet Order No.")
             {
                 ApplicationArea = All;
             }

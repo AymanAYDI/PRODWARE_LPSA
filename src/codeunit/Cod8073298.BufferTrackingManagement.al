@@ -27,7 +27,7 @@ codeunit 8073298 "PWD Buffer Tracking Management"
         RecGTempReservEntry: Record "Reservation Entry" temporary;
         RecGTempItemTrackLineReserv: Record "Tracking Specification" temporary;
         CduGReservEngineMgt: Codeunit "Reservation Engine Mgt.";
-        OptGCurrentEntryStatus: Option Reservation,Tracking,Surplus,Prospect;
+        OptGCurrentEntryStatus: Enum "Reservation Status";
 
     local procedure FctNextEntryNo(): Integer
     var
@@ -45,15 +45,13 @@ codeunit 8073298 "PWD Buffer Tracking Management"
     var
         RecLPurchLine: Record "Purchase Line";
     begin
-        with RecLPurchLine do begin
-            Reset();
-            SetRange("Document Type", "Document Type"::Order);
-            SetRange("Document No.", CodPPurchOrderNo);
-            if FindLast() then
-                exit("Line No." + 10000)
-            else
-                exit(10000);
-        end;
+        RecLPurchLine.Reset();
+        RecLPurchLine.SetRange("Document Type", RecLPurchLine."Document Type"::Order);
+        RecLPurchLine.SetRange("Document No.", CodPPurchOrderNo);
+        if RecLPurchLine.FindLast() then
+            exit(RecLPurchLine."Line No." + 10000)
+        else
+            exit(10000);
     end;
 
 

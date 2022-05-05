@@ -10,11 +10,11 @@ pageextension 60038 "PWD PostedPurchaseInvoices" extends "Posted Purchase Invoic
     {
         addafter("Buy-from Vendor Name")
         {
-            field("PWD Vendor Invoice No."; "Vendor Invoice No.")
+            field("PWD Vendor Invoice No."; Rec."Vendor Invoice No.")
             {
                 ApplicationArea = All;
             }
-            field("PWD Order No."; "Order No.")
+            field("PWD Order No."; Rec."Order No.")
             {
                 Caption = 'N° commande';
                 ApplicationArea = All;

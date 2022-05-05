@@ -15,7 +15,7 @@ pageextension 60087 "PWD ItemTrackingSummary" extends "Item Tracking Summary"
     {
         addafter("Lot No.")
         {
-            field("PWD NC"; "PWD NC")
+            field("PWD NC"; Rec."PWD NC")
             {
                 ApplicationArea = All;
             }

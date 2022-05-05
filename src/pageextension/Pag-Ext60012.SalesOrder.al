@@ -24,33 +24,33 @@ pageextension 60012 "PWD SalesOrder" extends "Sales Order"
     {
         addafter("Sell-to Customer Name")
         {
-            field("PWD Sell-to Customer Name 2"; "Sell-to Customer Name 2")
+            field("PWD Sell-to Customer Name 2"; Rec."Sell-to Customer Name 2")
             {
                 ApplicationArea = All;
             }
         }
         addafter("Promised Delivery Date")
         {
-            field("PWD Cust Promised Delivery Date"; "PWD Cust Promised Delivery Date")
+            field("PWD Cust Promised Delivery Date"; Rec."PWD Cust Promised Delivery Date")
             {
                 ApplicationArea = All;
             }
         }
         addafter(Status)
         {
-            field("PWD ConfirmedLPSA"; "PWD ConfirmedLPSA")
+            field("PWD ConfirmedLPSA"; Rec."PWD ConfirmedLPSA")
             {
                 ApplicationArea = All;
             }
-            field("PWD Print confirmation Date"; "PWD Print confirmation Date")
+            field("PWD Print confirmation Date"; Rec."PWD Print confirmation Date")
             {
                 ApplicationArea = All;
             }
-            field("PWD Planned"; "PWD Planned")
+            field("PWD Planned"; Rec."PWD Planned")
             {
                 ApplicationArea = All;
             }
-            field("PWD Rolex Bienne"; "PWD Rolex Bienne")
+            field("PWD Rolex Bienne"; Rec."PWD Rolex Bienne")
             {
                 ApplicationArea = All;
             }
@@ -63,14 +63,14 @@ pageextension 60012 "PWD SalesOrder" extends "Sales Order"
         }
         addafter("Bill-to Name")
         {
-            field("PWD Bill-to Name 2"; "Bill-to Name 2")
+            field("PWD Bill-to Name 2"; Rec."Bill-to Name 2")
             {
                 ApplicationArea = All;
             }
         }
         addafter("Ship-to Name")
         {
-            field("PWD Ship-to Name 2"; "Ship-to Name 2")
+            field("PWD Ship-to Name 2"; Rec."Ship-to Name 2")
             {
                 ApplicationArea = All;
             }
@@ -95,7 +95,7 @@ pageextension 60012 "PWD SalesOrder" extends "Sales Order"
                     CurrPage.SETSELECTIONFILTER(Rec);
                     IF RecGSalesSetup.GET() THEN
                         RecGSalesSetup.TESTFIELD("PWD PDFDirectory");
-                    REPORT.SAVEASPDF(50009, RecGSalesSetup."PWD PDFDirectory" + '\' + STRSUBSTNO('CONFIRM No. %1.pdf', "No."), Rec);
+                    REPORT.SAVEASPDF(50009, RecGSalesSetup."PWD PDFDirectory" + '\' + STRSUBSTNO('CONFIRM No. %1.pdf', Rec."No."), Rec);
                     Rec.RESET();
 
                     SLEEP(1000);
@@ -112,8 +112,8 @@ pageextension 60012 "PWD SalesOrder" extends "Sales Order"
                 var
                     SalesHead: Record "Sales Header";
                 begin
-                    SalesHead.SETRANGE("Document Type", "Document Type");
-                    SalesHead.SETRANGE("No.", "No.");
+                    SalesHead.SETRANGE("Document Type", Rec."Document Type");
+                    SalesHead.SETRANGE("No.", Rec."No.");
                     REPORT.RUN(REPORT::"PWD Proforma invoice", TRUE, FALSE, SalesHead);
                 end;
             }
@@ -125,8 +125,8 @@ pageextension 60012 "PWD SalesOrder" extends "Sales Order"
     begin
         RecLComment.RESET();
         RecLComment.SETRANGE("Table Name", RecLComment."Table Name"::Customer);
-        RecLComment.SETFILTER("No.", '%1|%2', "Sell-to Customer No.", "Bill-to Customer No.");
-        BooGComment := RecLComment.FINDFIRST();
+        RecLComment.SETFILTER("No.", '%1|%2', Rec."Sell-to Customer No.", Rec."Bill-to Customer No.");
+        BooGComment := Not RecLComment.IsEmpty;
     end;
 
     var

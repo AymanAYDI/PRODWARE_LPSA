@@ -24,7 +24,7 @@ pageextension 60089 "PWD ItemTrackingLines" extends "Item Tracking Lines"
     {
         addafter("Lot No.")
         {
-            field("PWD NC"; "PWD NC")
+            field("PWD NC"; Rec."PWD NC")
             {
                 ApplicationArea = All;
             }
@@ -41,7 +41,6 @@ pageextension 60089 "PWD ItemTrackingLines" extends "Item Tracking Lines"
         gCurrSourceSpecDueDate: Date;
         gLotDeterminingExpirDate: Date;
         CstGErr0001: Label 'You only can assign one Lot!';
-        CstGErr0002: Label 'Lot Inheritance: You can''t assign a Lot No.,\because there is no Lot assigned to the lot determining component.';
 
 
 
@@ -59,35 +58,35 @@ pageextension 60089 "PWD ItemTrackingLines" extends "Item Tracking Lines"
         pioTempTrackingSpecification.RESET();
         IsCorrection := piTrackingSpecification.Correction;
         SetSourceSpec(piTrackingSpecification, piAvailabilityDate);
-        RESET();
-        SETCURRENTKEY("Lot No.", "Serial No.");
+        Rec.RESET();
+        Rec.SETCURRENTKEY("Lot No.", "Serial No.");
 
         //Begin#803/01:A9069/2.10.01  25.02.05 TECTURA.WW
         IF pioTempTrackingSpecification.FIND('-') THEN
             //End#803/01:A9069/2.10.01  25.02.05 TECTURA.WW
             REPEAT
-                SETRANGE("Lot No.", pioTempTrackingSpecification."Lot No.");
-                SETRANGE("Serial No.", pioTempTrackingSpecification."Serial No.");
-                IF FIND('-') THEN BEGIN
+                Rec.SETRANGE("Lot No.", pioTempTrackingSpecification."Lot No.");
+                Rec.SETRANGE("Serial No.", pioTempTrackingSpecification."Serial No.");
+                IF Rec.FIND('-') THEN BEGIN
                     IF piReplace THEN BEGIN
-                        "Quantity (Base)" := pioTempTrackingSpecification."Quantity (Base)";
-                        "Qty. to Handle (Base)" := pioTempTrackingSpecification."Qty. to Handle (Base)";
-                        "Qty. to Invoice (Base)" := pioTempTrackingSpecification."Qty. to Invoice (Base)";
+                        Rec."Quantity (Base)" := pioTempTrackingSpecification."Quantity (Base)";
+                        Rec."Qty. to Handle (Base)" := pioTempTrackingSpecification."Qty. to Handle (Base)";
+                        Rec."Qty. to Invoice (Base)" := pioTempTrackingSpecification."Qty. to Invoice (Base)";
                     END ELSE
                         IF IsCorrection THEN BEGIN
-                            "Quantity (Base)" :=
-                              "Quantity (Base)" + pioTempTrackingSpecification."Quantity (Base)";
-                            "Qty. to Handle (Base)" :=
-                            "Qty. to Handle (Base)" + pioTempTrackingSpecification."Qty. to Handle (Base)";
-                            "Qty. to Invoice (Base)" :=
-                              "Qty. to Invoice (Base)" + pioTempTrackingSpecification."Qty. to Invoice (Base)";
+                            Rec."Quantity (Base)" :=
+                              Rec."Quantity (Base)" + pioTempTrackingSpecification."Quantity (Base)";
+                            Rec."Qty. to Handle (Base)" :=
+                            Rec."Qty. to Handle (Base)" + pioTempTrackingSpecification."Qty. to Handle (Base)";
+                            Rec."Qty. to Invoice (Base)" :=
+                              Rec."Qty. to Invoice (Base)" + pioTempTrackingSpecification."Qty. to Invoice (Base)";
                         END ELSE
-                            VALIDATE("Quantity (Base)",
-                              "Quantity (Base)" + pioTempTrackingSpecification."Quantity (Base)");
+                            Rec.VALIDATE("Quantity (Base)",
+                              Rec."Quantity (Base)" + pioTempTrackingSpecification."Quantity (Base)");
 
                     //Begin#803/01:A1006/1.50
-                    "New Serial No." := pioTempTrackingSpecification."New Serial No.";
-                    "New Lot No." := pioTempTrackingSpecification."New Lot No.";
+                    Rec."New Serial No." := pioTempTrackingSpecification."New Serial No.";
+                    Rec."New Lot No." := pioTempTrackingSpecification."New Lot No.";
                     //End#803/01:A1006/1.50
                     //Begin#803/01:A3013-1/2.10  01.09.04 ASTON.WW
                     //gcuTradingUnitMgt.SplitLotTradingUnitNo(                       // pade
@@ -98,8 +97,8 @@ pageextension 60089 "PWD ItemTrackingLines" extends "Item Tracking Lines"
 
                     //Begin#803/01:A10118/2.20.01  07.08.06 TECTURA.WW
                     IF piReplace THEN BEGIN
-                        "Warranty Date" := pioTempTrackingSpecification."Warranty Date";
-                        "Expiration Date" := pioTempTrackingSpecification."Expiration Date";
+                        Rec."Warranty Date" := pioTempTrackingSpecification."Warranty Date";
+                        Rec."Expiration Date" := pioTempTrackingSpecification."Expiration Date";
                         //"External Lot No." := pioTempTrackingSpecification."External Lot No.";
                         //"Quarantine Date" := pioTempTrackingSpecification."Quarantine Date";
                         //"Retest Date" := pioTempTrackingSpecification."Retest Date";
@@ -110,7 +109,7 @@ pageextension 60089 "PWD ItemTrackingLines" extends "Item Tracking Lines"
                         //End#803/01:A20005/3.00  12.04.07 TECTURA.WW
 
                         //Begin#803/01:A20005/3.00  17.04.07 TECTURA.WW
-                        "New Expiration Date" := pioTempTrackingSpecification."New Expiration Date";
+                        Rec."New Expiration Date" := pioTempTrackingSpecification."New Expiration Date";
                         //End#803/01:A20005/3.00  17.04.07 TECTURA.WW
                         //"Entry Date" := pioTempTrackingSpecification."Entry Date";
                     END;
@@ -122,23 +121,23 @@ pageextension 60089 "PWD ItemTrackingLines" extends "Item Tracking Lines"
                     //End#800/01:A1000/1.50
                     // << #803/01:A30010/6.00 09.02.09 TECTURA.AM
 
-                    MODIFY();
+                    Rec.MODIFY();
                 END ELSE BEGIN
-                    TRANSFERFIELDS(piTrackingSpecification);
-                    "Serial No." := pioTempTrackingSpecification."Serial No.";
-                    "Lot No." := pioTempTrackingSpecification."Lot No.";
+                    Rec.TRANSFERFIELDS(piTrackingSpecification);
+                    Rec."Serial No." := pioTempTrackingSpecification."Serial No.";
+                    Rec."Lot No." := pioTempTrackingSpecification."Lot No.";
                     //Begin#803/01:A3013-1/2.10  01.09.04 ASTON.WW
                     //gcuTradingUnitMgt.SplitLotTradingUnitNo(
                     //  "Lot No.",
                     //  "Lot Number",
                     //  "Trading Unit Number");
                     //End#803/01:A3013-1/2.10  01.09.04 ASTON.WW
-                    "Warranty Date" := pioTempTrackingSpecification."Warranty Date";
-                    "Expiration Date" := pioTempTrackingSpecification."Expiration Date";
-                    VALIDATE("Quantity (Base)", pioTempTrackingSpecification."Quantity (Base)");
+                    Rec."Warranty Date" := pioTempTrackingSpecification."Warranty Date";
+                    Rec."Expiration Date" := pioTempTrackingSpecification."Expiration Date";
+                    Rec.VALIDATE("Quantity (Base)", pioTempTrackingSpecification."Quantity (Base)");
                     //Begin#803/01:A1006/1.50
-                    "New Serial No." := pioTempTrackingSpecification."New Serial No.";
-                    "New Lot No." := pioTempTrackingSpecification."New Lot No.";
+                    Rec."New Serial No." := pioTempTrackingSpecification."New Serial No.";
+                    Rec."New Lot No." := pioTempTrackingSpecification."New Lot No.";
                     //End#803/01:A1006/1.50
 
                     //Begin#803/01:A3013-1/2.10  01.09.04 ASTON.WW
@@ -158,7 +157,7 @@ pageextension 60089 "PWD ItemTrackingLines" extends "Item Tracking Lines"
                     // Substatus := pioTempTrackingSpecification.Substatus;
                     //End#803/01:A20005/3.00  12.04.07 TECTURA.WW
                     //Begin#803/01:A20005/3.00  17.04.07 TECTURA.WW
-                    "New Expiration Date" := pioTempTrackingSpecification."New Expiration Date";
+                    Rec."New Expiration Date" := pioTempTrackingSpecification."New Expiration Date";
                     //End#803/01:A20005/3.00  17.04.07 TECTURA.WW
                     //End#803/01:A1006/1.50
 
@@ -171,27 +170,27 @@ pageextension 60089 "PWD ItemTrackingLines" extends "Item Tracking Lines"
                     //"No. of Units" := pioTempTrackingSpecification."No. of Units";
                     //End#800/01:A1000/1.50
                     // << #803/01:A30010/6.00 09.02.09 TECTURA.AM
-                    "Entry No." := NextEntryNo();
-                    INSERT();
+                    Rec."Entry No." := NextEntryNo();
+                    Rec.INSERT();
                 END;
             UNTIL pioTempTrackingSpecification.NEXT() = 0;
 
 
-        RESET();
-        IF FIND('-') THEN
+        Rec.RESET();
+        IF Rec.FIND('-') THEN
             REPEAT
                 //Begin#803/01:A3017/2.10  17.11.04 ASTON.FB
-                pioTempTrackingSpecification.SETRANGE("Lot No.", "Lot No.");
-                pioTempTrackingSpecification.SETRANGE("Serial No.", "Serial No.");
+                pioTempTrackingSpecification.SETRANGE("Lot No.", Rec."Lot No.");
+                pioTempTrackingSpecification.SETRANGE("Serial No.", Rec."Serial No.");
                 IF NOT pioTempTrackingSpecification.FIND('-') THEN
-                    DELETE(TRUE)
+                    Rec.DELETE(TRUE)
                 ELSE
                     //End#803/01:A3017/2.10  17.11.04 ASTON.FB
                     CheckItemTrackingLine(Rec);
-            UNTIL NEXT() = 0;
+            UNTIL Rec.NEXT() = 0;
 
-        SETRANGE("Lot No.", piTrackingSpecification."Lot No.");
-        SETRANGE("Serial No.", piTrackingSpecification."Serial No.");
+        Rec.SETRANGE("Lot No.", piTrackingSpecification."Lot No.");
+        Rec.SETRANGE("Serial No.", piTrackingSpecification."Serial No.");
 
         CalculateSums();
         IF UpdateUndefinedQty() THEN
@@ -234,9 +233,9 @@ pageextension 60089 "PWD ItemTrackingLines" extends "Item Tracking Lines"
         IF gNoAssignLotDetLotNo THEN BEGIN
 
             TrackingSpecification.COPY(Rec);
-            RESET();
-            IF NOT FIND('-') THEN BEGIN
-                COPY(TrackingSpecification);
+            Rec.RESET();
+            IF NOT Rec.FIND('-') THEN BEGIN
+                Rec.COPY(TrackingSpecification);
                 EXIT(TRUE);
             END;
 
@@ -250,7 +249,7 @@ pageextension 60089 "PWD ItemTrackingLines" extends "Item Tracking Lines"
             //  SETFILTER("Lot Number", '<>%1', TrackingSpecification."Lot Number")
             //ELSE
             //  SETFILTER("Lot No.", '<>%1', TrackingSpecification."Lot No.");
-            SETFILTER("Lot No.", '<>%1', TrackingSpecification."Lot No.");
+            Rec.SETFILTER("Lot No.", '<>%1', TrackingSpecification."Lot No.");
 
             /*
               IF NOT FIND('=><') THEN BEGIN
@@ -261,7 +260,7 @@ pageextension 60089 "PWD ItemTrackingLines" extends "Item Tracking Lines"
               END;
             */
 
-            COPY(TrackingSpecification);
+            Rec.COPY(TrackingSpecification);
             IF piForceError THEN
                 ERROR(CstGErr0001)
             ELSE BEGIN
@@ -289,14 +288,14 @@ pageextension 60089 "PWD ItemTrackingLines" extends "Item Tracking Lines"
         //IF NOT gIngrHandling THEN
         //  EXIT;
         IF gCurrSourceSpecificationSet THEN BEGIN
-            IF FIND('-') THEN
+            IF Rec.FIND('-') THEN
                 REPEAT
                     TempTrackingSpecificationSaved := Rec;
                     TempTrackingSpecificationSaved.INSERT();
-                UNTIL NEXT() = 0;
+                UNTIL Rec.NEXT() = 0;
 
             IF SourceQuantityArray[1] < TotalItemTrackingLine."Quantity (Base)" THEN BEGIN
-                ProdOrderComp.GET("Source Subtype", "Source ID", "Source Prod. Order Line", "Source Ref. No.");
+                ProdOrderComp.GET(Rec."Source Subtype", Rec."Source ID", Rec."Source Prod. Order Line", Rec."Source Ref. No.");
                 ProdOrderComp.BlockDynamicTracking(TRUE);
                 //    ProdOrderComp.VALIDATE("Ingr. Balancing Quantity",
                 //      ProdOrderComp."Ingr. Balancing Quantity" +
@@ -323,7 +322,7 @@ pageextension 60089 "PWD ItemTrackingLines" extends "Item Tracking Lines"
                     END;
 
                 IF SourceQuantityArray[1] > TotalItemTrackingLine."Quantity (Base)" THEN
-                    ProdOrderComp.GET("Source Subtype", "Source ID", "Source Prod. Order Line", "Source Ref. No.");
+                    ProdOrderComp.GET(Rec."Source Subtype", Rec."Source ID", Rec."Source Prod. Order Line", Rec."Source Ref. No.");
                 /*
                       IF ProdOrderComp."Ingr. Balancing Quantity" > 0 THEN BEGIN
                         ProdOrderComp."Ingr. Balancing Quantity" := ProdOrderComp."Ingr. Balancing Quantity" -
@@ -344,25 +343,25 @@ pageextension 60089 "PWD ItemTrackingLines" extends "Item Tracking Lines"
 
                 xTempItemTrackingLine.RESET();
                 xTempItemTrackingLine.DELETEALL();
-                RESET();
-                DELETEALL();
+                Rec.RESET();
+                Rec.DELETEALL();
 
                 SetSourceSpec(gCurrSourceSpecification, gCurrSourceSpecDueDate);
 
                 SavedTrackingSpec.COPY(Rec);
                 IF TempTrackingSpecificationSaved.FIND('-') THEN
                     REPEAT
-                        SETRANGE("Lot No.", TempTrackingSpecificationSaved."Lot No.");
-                        SETRANGE("Serial No.", TempTrackingSpecificationSaved."Serial No.");
-                        IF NOT FIND('-') THEN BEGIN
+                        Rec.SETRANGE("Lot No.", TempTrackingSpecificationSaved."Lot No.");
+                        Rec.SETRANGE("Serial No.", TempTrackingSpecificationSaved."Serial No.");
+                        IF NOT Rec.FIND('-') THEN BEGIN
                             Rec := TempTrackingSpecificationSaved;
-                            "Entry No." := NextEntryNo();
-                            INSERT();
+                            Rec."Entry No." := NextEntryNo();
+                            Rec.INSERT();
                             TempItemTrackLineInsert.TRANSFERFIELDS(Rec);
                             TempItemTrackLineInsert.INSERT();
                         END;
                     UNTIL TempTrackingSpecificationSaved.NEXT() = 0;
-                COPY(SavedTrackingSpec);
+                Rec.COPY(SavedTrackingSpec);
             END;
         END;
 
@@ -376,11 +375,11 @@ pageextension 60089 "PWD ItemTrackingLines" extends "Item Tracking Lines"
     procedure GetTempTrkgSpec(var pioTempTrackingSpecification: Record "Tracking Specification" temporary)
     begin
         // #NAV20100:A1000 20.04.07 TECTURA.SE
-        IF FIND('-') THEN
+        IF Rec.FIND('-') THEN
             REPEAT
                 pioTempTrackingSpecification := Rec;
                 pioTempTrackingSpecification.INSERT();
-            UNTIL NEXT() = 0;
+            UNTIL Rec.NEXT() = 0;
     end;
 
     procedure CheckItemTrackingLine(TrackingLine: Record "Tracking Specification")

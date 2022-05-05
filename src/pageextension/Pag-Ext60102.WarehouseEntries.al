@@ -15,7 +15,7 @@ pageextension 60102 "PWD WarehouseEntries" extends "Warehouse Entries"
     {
         addafter("Lot No.")
         {
-            field("PWD NC"; "PWD NC")
+            field("PWD NC"; Rec."PWD NC")
             {
                 ApplicationArea = All;
             }

@@ -15,7 +15,7 @@ pageextension 60071 "PWD ItemCategories" extends "Item Categories"
     {
         addlast(Control1)
         {
-            field("PWD Transmitted Order No."; "PWD Transmitted Order No.")
+            field("PWD Transmitted Order No."; Rec."PWD Transmitted Order No.")
             {
                 ApplicationArea = All;
             }

@@ -20,11 +20,11 @@ pageextension 60045 "PWD InventorySetup" extends "Inventory Setup"
         {
             group("PWD Control1100267002")
             {
-                field("PWD Item Category Dimension"; "PWD Item Category Dimension")
+                field("PWD Item Category Dimension"; Rec."PWD Item Category Dimension")
                 {
                     ApplicationArea = All;
                 }
-                field("PWD Product Group Dimension"; "PWD Product Group Dimension")
+                field("PWD Product Group Dimension"; Rec."PWD Product Group Dimension")
                 {
                     ApplicationArea = All;
                 }
@@ -35,34 +35,34 @@ pageextension 60045 "PWD InventorySetup" extends "Inventory Setup"
             group("PWD Specific")
             {
                 Caption = 'Specific';
-                field("PWD Item Filter Level 1"; "PWD Item Filter Level 1")
+                field("PWD Item Filter Level 1"; Rec."PWD Item Filter Level 1")
                 {
                     ApplicationArea = All;
                 }
-                field("PWD Item Filter Level 2"; "PWD Item Filter Level 2")
+                field("PWD Item Filter Level 2"; Rec."PWD Item Filter Level 2")
                 {
                     ApplicationArea = All;
                 }
-                field("PWD Item Filter Level 3"; "PWD Item Filter Level 3")
+                field("PWD Item Filter Level 3"; Rec."PWD Item Filter Level 3")
                 {
                     ApplicationArea = All;
                 }
-                field("PWD Item Filter Level 4"; "PWD Item Filter Level 4")
+                field("PWD Item Filter Level 4"; Rec."PWD Item Filter Level 4")
                 {
                     ApplicationArea = All;
                 }
                 group("PWD Export Closing File")
                 {
                     Caption = 'Export Closing File';
-                    field("PWD Closing Export DateFormula"; "PWD Closing Export DateFormula")
+                    field("PWD Closing Export DateFormula"; Rec."PWD Closing Export DateFormula")
                     {
                         ApplicationArea = All;
                     }
-                    field("PWD Period for Inventory Cover"; "PWD Period for Inventory Cover")
+                    field("PWD Period for Inventory Cover"; Rec."PWD Period for Inventory Cover")
                     {
                         ApplicationArea = All;
                     }
-                    field("PWD Path for Closing Export"; "PWD Path for Closing Export")
+                    field("PWD Path for Closing Export"; Rec."PWD Path for Closing Export")
                     {
                         ApplicationArea = All;
 
@@ -79,18 +79,18 @@ pageextension 60045 "PWD InventorySetup" extends "Inventory Setup"
                             CLEAR(TxtLDirectoryPath);
                             //TODO: Codeunit "SMTP Test Mail" does not contain a definition for 'OpenFile'
                             //TxtLDirectoryPath := CduLCommonDialogMgt.OpenFile(CstL50000, "PWD Path for Closing Export" + CstL50001, 1, '', 2);
-                            IF STRLEN(TxtLDirectoryPath) > MAXSTRLEN("PWD Path for Closing Export") THEN
+                            IF STRLEN(TxtLDirectoryPath) > MAXSTRLEN(Rec."PWD Path for Closing Export") THEN
                                 ERROR(CstL50002)
                             ELSE
-                                VALIDATE("PWD Path for Closing Export", TxtLDirectoryPath);
+                                Rec.VALIDATE("PWD Path for Closing Export", TxtLDirectoryPath);
                             //<<P24578_008.001
                         end;
                     }
-                    field("PWD Closing Sendor E-Mail"; "PWD Closing Sendor E-Mail")
+                    field("PWD Closing Sendor E-Mail"; Rec."PWD Closing Sendor E-Mail")
                     {
                         ApplicationArea = All;
                     }
-                    field("PWD Recipient User ID"; "PWD Recipient User ID")
+                    field("PWD Recipient User ID"; Rec."PWD Recipient User ID")
                     {
                         ApplicationArea = All;
                     }
@@ -99,19 +99,19 @@ pageextension 60045 "PWD InventorySetup" extends "Inventory Setup"
             group("PWD Item Configurator")
             {
                 Caption = 'Item Configurator';
-                field("PWD Product Group Code  Dimension"; "PWD Product Group Code Dim")
+                field("PWD Product Group Code  Dimension"; Rec."PWD Product Group Code Dim")
                 {
                     ApplicationArea = All;
                 }
-                field("PWD LPSA Customer No."; "PWD LPSA Customer No.")
+                field("PWD LPSA Customer No."; Rec."PWD LPSA Customer No.")
                 {
                     ApplicationArea = All;
                 }
-                field("PWD STRATEGY Customer No."; "PWD STRATEGY Customer No.")
+                field("PWD STRATEGY Customer No."; Rec."PWD STRATEGY Customer No.")
                 {
                     ApplicationArea = All;
                 }
-                field("PWD Item Filter For Extern Ref"; "PWD Item Filter For Extern Ref")
+                field("PWD Item Filter For Extern Ref"; Rec."PWD Item Filter For Extern Ref")
                 {
                     ApplicationArea = All;
                 }

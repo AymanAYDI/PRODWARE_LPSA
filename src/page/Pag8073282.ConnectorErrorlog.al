@@ -25,39 +25,39 @@ page 8073282 "PWD Connector Error log"
         {
             repeater(Group)
             {
-                field("Entry No."; "Entry No.")
+                field("Entry No."; Rec."Entry No.")
                 {
                     ApplicationArea = All;
                 }
-                field("Date"; Date)
+                field("Date"; Rec.Date)
                 {
                     ApplicationArea = All;
                 }
-                field(Hour; Hour)
+                field(Hour; Rec.Hour)
                 {
                     ApplicationArea = All;
                 }
-                field(ErrorType; ErrorType)
+                field(ErrorType; Rec.ErrorType)
                 {
                     ApplicationArea = All;
                 }
-                field("Connector Partner"; "Connector Partner")
+                field("Connector Partner"; Rec."Connector Partner")
                 {
                     ApplicationArea = All;
                 }
-                field("Flow Type"; "Flow Type")
+                field("Flow Type"; Rec."Flow Type")
                 {
                     ApplicationArea = All;
                 }
-                field("Buffer Message No."; "Buffer Message No.")
+                field("Buffer Message No."; Rec."Buffer Message No.")
                 {
                     ApplicationArea = All;
                 }
-                field("Message"; Message)
+                field("Message"; Rec.Message)
                 {
                     ApplicationArea = All;
                 }
-                field("User ID"; "User ID")
+                field("User ID"; Rec."User ID")
                 {
                     ApplicationArea = All;
                 }

@@ -23,19 +23,19 @@ pageextension 60123 "PWD MachineCenterList" extends "Machine Center List"
     {
         addafter("Flushing Method")
         {
-            field("PWD Planning"; "PWD Planning")
+            field("PWD Planning"; Rec."PWD Planning")
             {
                 ApplicationArea = All;
             }
-            field("PWD Planning Status Name"; "PWD Planning Status Name")
+            field("PWD Planning Status Name"; Rec."PWD Planning Status Name")
             {
                 ApplicationArea = All;
             }
-            field("PWD Planning Order No."; "PWD Planning Order No.")
+            field("PWD Planning Order No."; Rec."PWD Planning Order No.")
             {
                 ApplicationArea = All;
             }
-            field("PWD To Exclure In Tracking Card"; "PWD To Excl. In Tracking Card")
+            field("PWD To Exclure In Tracking Card"; Rec."PWD To Excl. In Tracking Card")
             {
                 ApplicationArea = All;
             }

@@ -25,7 +25,7 @@ report 50051 "PWD TPL Ajout OP Lavage"
                 BDialog.Update(1, IntGCounter);
                 IntGCounter -= 1;
 
-                OptGStatus := "Routing Header".Status;
+                OptGStatus := "Routing Header".Status.AsInteger();
 
                 if OptGStatus = OptGStatus::Closed then
                     CurrReport.Skip();

@@ -26,12 +26,10 @@ tableextension 60070 "PWD ProductionForecastEntry" extends "Production Forecast 
             Editable = false;
             FieldClass = FlowField;
         }
-        field(50002; "PWD Forecast Origin"; Option)
+        field(50002; "PWD Forecast Origin"; Enum "PWD Forecast Origin")
         {
             Caption = 'Forecast Origin';
             Description = 'REGIE';
-            OptionCaption = ' ,Customer Order,Customer Forecast,LPSA Forecast,Simulation';
-            OptionMembers = " ","Customer Order","Customer Forecast","LPSA Forecast",Simulation;
         }
     }
     keys

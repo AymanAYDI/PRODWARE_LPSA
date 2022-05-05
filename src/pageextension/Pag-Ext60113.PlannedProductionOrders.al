@@ -12,7 +12,7 @@ pageextension 60113 "PWD PlannedProductionOrders" extends "Planned Production Or
     {
         addafter("Bin Code")
         {
-            field("PWD Source Material Vendor"; "PWD Source Material Vendor")
+            field("PWD Source Material Vendor"; Rec."PWD Source Material Vendor")
             {
                 ApplicationArea = All;
             }

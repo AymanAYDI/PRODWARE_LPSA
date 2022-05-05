@@ -21,7 +21,7 @@ report 50018 "PWD Update Routing Line"
                       (RL_Others."Version Code" = RL_Reference."Version Code")) then begin
                         RecGRoutingHeader.Get(RL_Others."Routing No.");
                         if RecGRoutingHeader.Status <> RecGRoutingHeader.Status::Closed then begin
-                            Stat := RecGRoutingHeader.Status;
+                            Stat := RecGRoutingHeader.Status.AsInteger();
 
                             if (Stat <> Stat::"Under Development") and (Stat <> Stat::Closed) then begin
                                 RecGRoutingHeader.Validate(Status, RecGRoutingHeader.Status::"Under Development");

@@ -7,7 +7,7 @@ pageextension 60107 "PWD PurchaseAgentActivities" extends "Purchase Agent Activi
             cuegroup("PWD Purchase Orders - Authorize for Payment")
             {
                 Caption = 'Purchase Orders - Authorize for Payment';
-                field("PWD To be approuved"; "PWD To be approuved")
+                field("PWD To be approuved"; Rec."PWD To be approuved")
                 {
                     DrillDownPageID = "Approval Request Entries";
                     ApplicationArea = All;

@@ -468,7 +468,7 @@ report 50014 "PWD Invoice"
                                 //<<TDL.LPSA.09022015
                             end;
 
-                            if ("Sales Invoice Line".Type = 0) then
+                            if ("Sales Invoice Line".Type.AsInteger() = 0) then
                                 AfficherligneComptegeneral := true
                             else
                                 AfficherligneComptegeneral := false;

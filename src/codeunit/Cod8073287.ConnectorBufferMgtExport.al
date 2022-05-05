@@ -850,32 +850,31 @@ codeunit 8073287 "Connector Buffer Mgt Export"
         CduLConnectorErrorlog: Codeunit "PWD Connector Error log";
     begin
         //>>OSYS-Int001.001
-        WITH RecLPartnerConnectorFields DO
-            IF GET(CodGConnectorPartner, IntPTableID, IntPFieldID) THEN BEGIN
-                //Gestion des erreurs de longueur max
-                IF (STRLEN(TxtPValue) > "Max Lenght") THEN
-                    CASE "Max Lenght Error" OF
+        IF RecLPartnerConnectorFields.GET(CodGConnectorPartner, IntPTableID, IntPFieldID) THEN BEGIN
+            //Gestion des erreurs de longueur max
+            IF (STRLEN(TxtPValue) > RecLPartnerConnectorFields."Max Lenght") THEN
+                CASE RecLPartnerConnectorFields."Max Lenght Error" OF
 
-                        "Max Lenght Error"::Error:
-                            BEGIN
-                                CduLConnectorErrorlog.InsertLogEntry(2, 2, CodGConnectorPartner,
-                                                        STRSUBSTNO(CstG001, IntPFieldID, IntPTableID,
-                                                        FORMAT(RecPRecordID),
-                                                        TxtPValue, "Max Lenght")
-                                                        , IntGConnectorValue);
-                                BooGError := TRUE;
-                                EXIT('');
-                            END;
+                    RecLPartnerConnectorFields."Max Lenght Error"::Error:
+                        BEGIN
+                            CduLConnectorErrorlog.InsertLogEntry(2, 2, CodGConnectorPartner,
+                                                    STRSUBSTNO(CstG001, IntPFieldID, IntPTableID,
+                                                    FORMAT(RecPRecordID),
+                                                    TxtPValue, RecLPartnerConnectorFields."Max Lenght")
+                                                    , IntGConnectorValue);
+                            BooGError := TRUE;
+                            EXIT('');
+                        END;
 
-                        "Max Lenght Error"::Truncate:
+                    RecLPartnerConnectorFields."Max Lenght Error"::Truncate:
 
-                            EXIT(COPYSTR(TxtPValue, 1, "Max Lenght"));
-                    END
-                ELSE
-                    EXIT(TxtPValue);
-
-            END ELSE
+                        EXIT(COPYSTR(TxtPValue, 1, RecLPartnerConnectorFields."Max Lenght"));
+                END
+            ELSE
                 EXIT(TxtPValue);
+
+        END ELSE
+            EXIT(TxtPValue);
         //<<OSYS-Int001.001
     end;
 
@@ -902,44 +901,42 @@ codeunit 8073287 "Connector Buffer Mgt Export"
         //>>OSYS-Int001.001
         BooGError := FALSE;
 
-        WITH RecLPartnerConnectorFields DO BEGIN
-            SETRANGE("Partner Code", CodGConnectorPartner);
-            SETRANGE("Table ID", RefRecord.NUMBER);
-            IF NOT ISEMPTY THEN BEGIN
-                FINDSET();
-                REPEAT
-                    FieldRef := RefRecord.FIELD("Field ID");
-                    RecLField.GET("Table ID", "Field ID");
-                    CASE RecLField.Type OF
-                        RecLField.Type::Date:
-                            BEGIN
-                                EVALUATE(DatLDate, FctValidateField("Table ID", "Field ID", FORMAT(FieldRef.VALUE), RefRecord.RECORDID));
-                                FieldRef.VALUE := DatLDate;
-                            END;
+        RecLPartnerConnectorFields.SETRANGE("Partner Code", CodGConnectorPartner);
+        RecLPartnerConnectorFields.SETRANGE("Table ID", RefRecord.NUMBER);
+        IF NOT RecLPartnerConnectorFields.ISEMPTY THEN BEGIN
+            RecLPartnerConnectorFields.FINDSET();
+            REPEAT
+                FieldRef := RefRecord.FIELD(RecLPartnerConnectorFields."Field ID");
+                RecLField.GET(RecLPartnerConnectorFields."Table ID", RecLPartnerConnectorFields."Field ID");
+                CASE RecLField.Type OF
+                    RecLField.Type::Date:
+                        BEGIN
+                            EVALUATE(DatLDate, FctValidateField(RecLPartnerConnectorFields."Table ID", RecLPartnerConnectorFields."Field ID", FORMAT(FieldRef.VALUE), RefRecord.RECORDID));
+                            FieldRef.VALUE := DatLDate;
+                        END;
 
-                        RecLField.Type::Decimal:
-                            BEGIN
-                                EVALUATE(DecLDecimal, FctValidateField("Table ID", "Field ID", FORMAT(FieldRef.VALUE), RefRecord.RECORDID));
-                                FieldRef.VALUE := DecLDecimal;
-                            END;
+                    RecLField.Type::Decimal:
+                        BEGIN
+                            EVALUATE(DecLDecimal, FctValidateField(RecLPartnerConnectorFields."Table ID", RecLPartnerConnectorFields."Field ID", FORMAT(FieldRef.VALUE), RefRecord.RECORDID));
+                            FieldRef.VALUE := DecLDecimal;
+                        END;
 
-                        RecLField.Type::Integer, RecLField.Type::Option:
-                            BEGIN
-                                EVALUATE(IntLInteger, FctValidateField("Table ID", "Field ID", FORMAT(FieldRef.VALUE), RefRecord.RECORDID));
-                                FieldRef.VALUE := IntLInteger;
-                            END;
+                    RecLField.Type::Integer, RecLField.Type::Option:
+                        BEGIN
+                            EVALUATE(IntLInteger, FctValidateField(RecLPartnerConnectorFields."Table ID", RecLPartnerConnectorFields."Field ID", FORMAT(FieldRef.VALUE), RefRecord.RECORDID));
+                            FieldRef.VALUE := IntLInteger;
+                        END;
 
-                        RecLField.Type::DateTime:
-                            BEGIN
-                                EVALUATE(DtiLDateTime, FctValidateField("Table ID", "Field ID", FORMAT(FieldRef.VALUE), RefRecord.RECORDID));
-                                FieldRef.VALUE := DtiLDateTime;
-                            END;
+                    RecLField.Type::DateTime:
+                        BEGIN
+                            EVALUATE(DtiLDateTime, FctValidateField(RecLPartnerConnectorFields."Table ID", RecLPartnerConnectorFields."Field ID", FORMAT(FieldRef.VALUE), RefRecord.RECORDID));
+                            FieldRef.VALUE := DtiLDateTime;
+                        END;
 
-                        ELSE
-                            FieldRef.VALUE := FctValidateField("Table ID", "Field ID", FORMAT(FieldRef.VALUE), RefRecord.RECORDID);
-                    END;
-                UNTIL RecLPartnerConnectorFields.NEXT() = 0;
-            END;
+                    ELSE
+                        FieldRef.VALUE := FctValidateField(RecLPartnerConnectorFields."Table ID", RecLPartnerConnectorFields."Field ID", FORMAT(FieldRef.VALUE), RefRecord.RECORDID);
+                END;
+            UNTIL RecLPartnerConnectorFields.NEXT() = 0;
         END;
 
         EXIT(BooGError);

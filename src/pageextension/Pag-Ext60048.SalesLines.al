@@ -24,43 +24,43 @@ pageextension 60048 "PWD SalesLines" extends "Sales Lines"
     {
         addafter("Sell-to Customer No.")
         {
-            field("PWD Name of Sell-to Customer No."; "PWD Name of Sell-to Customer No.")
+            field("PWD Name of Sell-to Customer No."; Rec."PWD Name of Sell-to Customer No.")
             {
                 ApplicationArea = All;
             }
         }
         addafter(Quantity)
         {
-            field("PWD Unit Price"; "Unit Price")
+            field("PWD Unit Price"; Rec."Unit Price")
             {
                 ApplicationArea = All;
             }
-            field("Unit Cost (LCY)"; "Unit Cost (LCY)")
+            field("Unit Cost (LCY)"; Rec."Unit Cost (LCY)")
             {
                 ApplicationArea = All;
             }
         }
         addafter("Outstanding Quantity")
         {
-            field("PWD Cust Promised Delivery Date"; "PWD Cust Promised Delivery Date")
+            field("PWD Cust Promised Delivery Date"; Rec."PWD Cust Promised Delivery Date")
             {
                 Caption = 'Date livraison confirmée client';
                 Editable = false;
                 ApplicationArea = All;
             }
-            field("PWD Planned Delivery Date"; "Planned Delivery Date")
+            field("PWD Planned Delivery Date"; Rec."Planned Delivery Date")
             {
                 ApplicationArea = All;
             }
-            field("PWD Order Date"; "PWD Order Date")
+            field("PWD Order Date"; Rec."PWD Order Date")
             {
                 ApplicationArea = All;
             }
-            field("PWD Scrap Quantity"; "PWD Scrap Quantity")
+            field("PWD Scrap Quantity"; Rec."PWD Scrap Quantity")
             {
                 ApplicationArea = All;
             }
-            field("PWD Planned Delivery Date2"; "Planned Delivery Date")
+            field("PWD Planned Delivery Date2"; Rec."Planned Delivery Date")
             {
                 ApplicationArea = All;
             }

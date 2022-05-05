@@ -411,7 +411,7 @@ report 50006 "PWD Proforma invoice"
 
 
                             //
-                            if SalesLine.Type = 0 then
+                            if SalesLine.Type = SalesLine.Type::" " then
                                 LigneVide := true
                             else
                                 LigneVide := false;

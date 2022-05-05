@@ -12,7 +12,7 @@ pageextension 60072 "PWD TransferOrder" extends "Transfer Order"
     {
         addafter(Status)
         {
-            field("PWD Sales Order No."; "PWD Sales Order No.")
+            field("PWD Sales Order No."; Rec."PWD Sales Order No.")
             {
                 ApplicationArea = All;
             }

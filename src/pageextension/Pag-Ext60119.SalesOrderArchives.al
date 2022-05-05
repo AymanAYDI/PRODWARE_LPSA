@@ -4,7 +4,7 @@ pageextension 60119 "PWD SalesOrderArchives" extends "Sales Order Archives"
     {
         addafter("Version No.")
         {
-            field("PWD No."; "No.")
+            field("PWD No."; Rec."No.")
             {
                 Editable = false;
                 ApplicationArea = All;
@@ -12,14 +12,14 @@ pageextension 60119 "PWD SalesOrderArchives" extends "Sales Order Archives"
         }
         addafter("Time Archived")
         {
-            field("PWD Amount"; Amount)
+            field("PWD Amount"; Rec.Amount)
             {
                 ApplicationArea = All;
             }
         }
         addafter("Due Date")
         {
-            field("PWD Order Date"; "Order Date")
+            field("PWD Order Date"; Rec."Order Date")
             {
                 ApplicationArea = All;
             }

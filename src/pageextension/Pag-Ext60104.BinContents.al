@@ -21,7 +21,7 @@ pageextension 60104 "PWD BinContents" extends "Bin Contents"
     trigger OnAfterGetCurrRecord()
     begin
         //>>LAP2.08
-        IF NOT Item.GET("Item No.") THEN
+        IF NOT Item.GET(Rec."Item No.") THEN
             Item.INIT();
         //<<LAP2.08
     end;

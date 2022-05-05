@@ -7,7 +7,7 @@ pageextension 60134 "PWD ProductionOrderList" extends "Production Order List"
     {
         addafter("Search Description")
         {
-            field("PWD Consumption Date"; "PWD Consumption Date")
+            field("PWD Consumption Date"; Rec."PWD Consumption Date")
             {
                 ApplicationArea = All;
             }

@@ -207,7 +207,7 @@ page 50018 "PWD Item Configurator Details"
                 {
                     ApplicationArea = All;
                 }
-                field(Note; Note)
+                field(Note; Rec.Note)
                 {
                     ApplicationArea = All;
                 }

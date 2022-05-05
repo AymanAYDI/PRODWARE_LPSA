@@ -7,7 +7,7 @@ pageextension 60064 "PWD ProdOrderLineList" extends "Prod. Order Line List"
     {
         addafter("Cost Amount")
         {
-            field("PWD Manufacturing Code"; "PWD Manufacturing Code")
+            field("PWD Manufacturing Code"; Rec."PWD Manufacturing Code")
             {
                 ApplicationArea = All;
             }

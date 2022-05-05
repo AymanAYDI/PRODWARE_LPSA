@@ -24,7 +24,7 @@ page 50023 "Purchase Order Archive Lines"
             repeater(Control1)
             {
                 ShowCaption = false;
-                field(Type; Type)
+                field(Type; Rec.Type)
                 {
                     ApplicationArea = All;
                 }

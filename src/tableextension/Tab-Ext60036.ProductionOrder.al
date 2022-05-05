@@ -122,12 +122,10 @@ tableextension 60036 "PWD ProductionOrder" extends "Production Order"
             Caption = 'Component Quantity';
             Editable = false;
         }
-        field(50020; "PWD Source Material Vendor"; Option)
+        field(50020; "PWD Source Material Vendor"; Enum "PWD Source Material Vendor")
         {
             Caption = 'Source Material Vendor';
             Description = 'LAP2.12';
-            OptionCaption = ' ,DJEVA,RSA,MIXTE';
-            OptionMembers = " ",DJEVA,RSA,MIXTE;
         }
     }
     keys

@@ -13,11 +13,11 @@ pageextension 60053 "PWD PostedPurchaseReceiptLines" extends "Posted Purchase Re
     {
         addafter(Description)
         {
-            field("PWD LPSA Description 1"; "PWD LPSA Description 1")
+            field("PWD LPSA Description 1"; Rec."PWD LPSA Description 1")
             {
                 ApplicationArea = All;
             }
-            field("PWD LPSA Description 2"; "PWD LPSA Description 2")
+            field("PWD LPSA Description 2"; Rec."PWD LPSA Description 2")
             {
                 ApplicationArea = All;
             }

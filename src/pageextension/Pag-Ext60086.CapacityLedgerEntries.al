@@ -14,7 +14,7 @@ pageextension 60086 "PWD CapacityLedgerEntries" extends "Capacity Ledger Entries
     {
         addafter("Entry No.")
         {
-            field("PWD Quartis Comment"; "PWD Quartis Comment")
+            field("PWD Quartis Comment"; Rec."PWD Quartis Comment")
             {
                 ApplicationArea = All;
             }

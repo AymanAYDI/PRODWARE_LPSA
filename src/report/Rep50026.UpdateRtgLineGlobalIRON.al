@@ -40,7 +40,7 @@ report 50026 "Update Rtg Line Global IRON"
                                (RL_Others."Operation No." = RL_Reference."Operation No.")) then begin
                             RecGRoutingHeader.Get(RL_Others."Routing No.");
                             if RecGRoutingHeader.Status <> RecGRoutingHeader.Status::Closed then begin
-                                Stat := RecGRoutingHeader.Status;
+                                Stat := RecGRoutingHeader.Status.AsInteger();
 
                                 if (Stat <> Stat::"Under Development") and (Stat <> Stat::Closed) then begin
                                     RecGRoutingHeader.Validate(Status, RecGRoutingHeader.Status::"Under Development");
@@ -99,7 +99,7 @@ report 50026 "Update Rtg Line Global IRON"
                                (RL_OthersVersion."Operation No." = RL_Reference."Operation No.")) then begin
                             RecGRoutingVersion.Get(RL_OthersVersion."Routing No.", RL_OthersVersion."Version Code");
                             if RecGRoutingVersion.Status <> RecGRoutingHeader.Status::Closed then begin
-                                Stat := RecGRoutingVersion.Status;
+                                Stat := RecGRoutingVersion.Status.AsInteger();
 
                                 if (Stat <> Stat::"Under Development") and (Stat <> Stat::Closed) then begin
                                     RecGRoutingVersion.Validate(Status, RecGRoutingVersion.Status::"Under Development");

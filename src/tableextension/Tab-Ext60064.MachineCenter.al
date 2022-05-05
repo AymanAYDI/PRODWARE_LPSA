@@ -50,12 +50,10 @@ tableextension 60064 "PWD MachineCenter" extends "Machine Center"
             Caption = 'To Exclure In Tracking Card';
             Description = 'LAP2.12';
         }
-        field(8073282; "PWD Type"; Option)
+        field(8073282; "PWD Type"; Enum "PWD MachineCenter Type")
         {
             Caption = 'Type';
             Description = 'ProdConnect1.6';
-            OptionCaption = 'Machine,Labor';
-            OptionMembers = Machine,Manpower;
         }
     }
 }

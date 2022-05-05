@@ -46,7 +46,7 @@ page 50025 "PWD Current Product Order List"
                 {
                     ApplicationArea = All;
                 }
-                field(Quantity; Quantity)
+                field(Quantity; Rec.Quantity)
                 {
                     ApplicationArea = All;
                 }
@@ -80,16 +80,16 @@ page 50025 "PWD Current Product Order List"
                         RecGProdOrderRoutingLine.SETRANGE("Routing No.", RecGProdOrderLine."Routing No.");
                         RecGProdOrderRoutingLine.SETRANGE("Routing Status", RecGProdOrderRoutingLine."Routing Status"::Finished);
                         IF RecGProdOrderRoutingLine.FINDLAST() THEN BEGIN
-                            Status := RecGProductionOrder.Status;
-                            "PO No." := RecGProductionOrder."No.";
-                            "Item No." := RecGProductionOrder."Source No.";
-                            "Last Ended Operation" := RecGProdOrderRoutingLine."No.";
-                            "Center Description" := RecGProdOrderRoutingLine.Description;
-                            Quantity := RecGProdOrderRoutingLine."Input Quantity";
+                            Rec.Status := RecGProductionOrder.Status.AsInteger();
+                            Rec."PO No." := RecGProductionOrder."No.";
+                            Rec."Item No." := RecGProductionOrder."Source No.";
+                            Rec."Last Ended Operation" := RecGProdOrderRoutingLine."No.";
+                            Rec."Center Description" := RecGProdOrderRoutingLine.Description;
+                            Rec.Quantity := RecGProdOrderRoutingLine."Input Quantity";
                             RecGItem.GET(RecGProductionOrder."Source No.");
-                            "Description LPSA1" := RecGItem."PWD LPSA Description 1";
-                            "Description LPSA2" := RecGItem."PWD LPSA Description 2";
-                            INSERT();
+                            Rec."Description LPSA1" := RecGItem."PWD LPSA Description 1";
+                            Rec."Description LPSA2" := RecGItem."PWD LPSA Description 2";
+                            Rec.INSERT();
                         END;
                     UNTIL RecGProdOrderLine.NEXT() = 0;
             UNTIL RecGProductionOrder.NEXT() = 0;

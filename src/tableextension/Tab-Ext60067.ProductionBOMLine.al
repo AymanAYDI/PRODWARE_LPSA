@@ -70,14 +70,12 @@ tableextension 60067 "PWD ProductionBOMLine" extends "Production BOM Line"
             Description = 'ProdConnect1.5';
             FieldClass = FlowField;
         }
-        field(8073284; "PWD WMS_Status"; Option)
+        field(8073284; "PWD WMS_Status"; Enum "BOM Status")
         {
             CalcFormula = Lookup("Production BOM Header".Status WHERE("No." = FIELD("Production BOM No."),
                                                                        "Version Nos." = FIELD("Version Code")));
             Caption = 'Status';
             FieldClass = FlowField;
-            OptionCaption = 'New,Certified,Under Development,Closed';
-            OptionMembers = New,Certified,"Under Development",Closed;
         }
 
     }

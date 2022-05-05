@@ -24,39 +24,39 @@ page 8073288 "PWD Connector Values Archive"
             repeater(Control1120000)
             {
                 ShowCaption = false;
-                field("Entry No."; "Entry No.")
+                field("Entry No."; Rec."Entry No.")
                 {
                     ApplicationArea = All;
                 }
-                field("Partner Code"; "Partner Code")
+                field("Partner Code"; Rec."Partner Code")
                 {
                     ApplicationArea = All;
                 }
-                field("Communication Mode"; "Communication Mode")
+                field("Communication Mode"; Rec."Communication Mode")
                 {
                     ApplicationArea = All;
                 }
-                field("File Name"; "File Name")
+                field("File Name"; Rec."File Name")
                 {
                     ApplicationArea = All;
                 }
-                field("Message Code"; "Message Code")
+                field("Message Code"; Rec."Message Code")
                 {
                     ApplicationArea = All;
                 }
-                field(Function; "Function")
+                field(Function; Rec."Function")
                 {
                     ApplicationArea = All;
                 }
-                field(Succes; Succes)
+                field(Succes; Rec.Succes)
                 {
                     ApplicationArea = All;
                 }
-                field(Direction; Direction)
+                field(Direction; Rec.Direction)
                 {
                     ApplicationArea = All;
                 }
-                field("File format"; "File format")
+                field("File format"; Rec."File format")
                 {
                     ApplicationArea = All;
                 }
@@ -94,7 +94,7 @@ page 8073288 "PWD Connector Values Archive"
                 var
                     CduLFileManagement: Codeunit "File Management";
                 begin
-                    CALCFIELDS(Blob);
+                    Rec.CALCFIELDS(Blob);
                     IF Rec.Blob.HASVALUE THEN
                         Blob.CREATEINSTREAM(InsGStream);
                     //TODO: le Codeunit "File Management" ne contient pas la definition de la procedure 'FctShowBlobAsWindow'

@@ -26,44 +26,44 @@ pageextension 60015 "PWD SalesOrderSubform" extends "Sales Order Subform"
     {
         addafter(Description)
         {
-            field("PWD LPSA Description 1"; "PWD LPSA Description 1")
+            field("PWD LPSA Description 1"; Rec."PWD LPSA Description 1")
             {
                 ApplicationArea = All;
             }
-            field("PWD LPSA Description 2"; "PWD LPSA Description 2")
+            field("PWD LPSA Description 2"; Rec."PWD LPSA Description 2")
             {
                 ApplicationArea = All;
             }
         }
         addafter(Quantity)
         {
-            field("PWD Scrap Quantity"; "PWD Scrap Quantity")
+            field("PWD Scrap Quantity"; Rec."PWD Scrap Quantity")
             {
                 ApplicationArea = All;
             }
         }
         addafter("Promised Delivery Date")
         {
-            field("PWD Cust Promised Delivery Date"; "PWD Cust Promised Delivery Date")
+            field("PWD Cust Promised Delivery Date"; Rec."PWD Cust Promised Delivery Date")
             {
                 ApplicationArea = All;
             }
         }
         addafter("Shipment Date")
         {
-            field("PWD Initial Shipment Date"; "PWD Initial Shipment Date")
+            field("PWD Initial Shipment Date"; Rec."PWD Initial Shipment Date")
             {
                 ApplicationArea = All;
             }
         }
         addafter("Appl.-to Item Entry")
         {
-            field("PWD WMS_Status"; "PWD WMS_Status")
+            field("PWD WMS_Status"; Rec."PWD WMS_Status")
             {
                 Visible = false;
                 ApplicationArea = All;
             }
-            field("PWD WMS_Item"; "PWD WMS_Item")
+            field("PWD WMS_Item"; Rec."PWD WMS_Item")
             {
                 Visible = false;
                 ApplicationArea = All;

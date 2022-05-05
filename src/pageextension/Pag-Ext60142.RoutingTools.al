@@ -18,26 +18,26 @@ pageextension 60142 "PWD RoutingTools" extends "Routing Tools"
     {
         addbefore("No.")
         {
-            field("PWD Routing No."; "Routing No.")
+            field("PWD Routing No."; Rec."Routing No.")
             {
                 ApplicationArea = All;
             }
-            field("PWD Version Code"; "Version Code")
+            field("PWD Version Code"; Rec."Version Code")
             {
                 ApplicationArea = All;
             }
-            field("PWD Operation No."; "Operation No.")
+            field("PWD Operation No."; Rec."Operation No.")
             {
                 ApplicationArea = All;
             }
-            field("PWD Type"; "PWD Type")
+            field("PWD Type"; Rec."PWD Type")
             {
                 ApplicationArea = All;
             }
         }
         addafter(Description)
         {
-            field("PWD Criteria"; "PWD Criteria")
+            field("PWD Criteria"; Rec."PWD Criteria")
             {
                 ApplicationArea = All;
             }

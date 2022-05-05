@@ -22,7 +22,7 @@ report 50017 "PWD Auto. Finish Prod. Order"
                     if not BooGAlterCons then begin
                         LPSAFunctionsMgt.SetNoFinishCOntrol(true);
                         CduProdOrderStatusMgt.ChangeStatusOnProdOrder("Production Order",
-                          "Production Order".Status::Finished,
+                          "Production Order".Status::Finished.AsInteger(),
                           WorkDate(),
                           true);
                     end;
@@ -66,7 +66,7 @@ report 50017 "PWD Auto. Finish Prod. Order"
         RecLProdOrderRoutingLine.SetRange("No.", 'M99999');
         if RecLProdOrderRoutingLine.FindFirst() then begin
             RecLProdOrderRoutingLine.SetRange("Routing Status", RecLProdOrderRoutingLine."Routing Status"::Finished);
-            if RecLProdOrderRoutingLine.FindFirst() then
+            if Not RecLProdOrderRoutingLine.IsEmpty then
                 exit(true)
             else begin
                 //>>TMP - Vérification dans le log QUARTIS
@@ -75,7 +75,7 @@ report 50017 "PWD Auto. Finish Prod. Order"
                 RecLIJLB.SetRange(Type, RecLIJLB.Type::"Machine Center");
                 RecLIJLB.SetRange("No.", 'M99999');
                 RecLIJLB.SetRange(Finished, true);
-                if RecLIJLB.FindFirst() then begin
+                if Not RecLIJLB.IsEmpty then begin
                     RecLIJ.SetRange("Order No.", RecPProdOrder."No.");
                     if RecLIJ.IsEmpty then
                         exit(true)
@@ -96,15 +96,13 @@ report 50017 "PWD Auto. Finish Prod. Order"
         ProdOrderComp: Record "Prod. Order Component";
         PurchLine: Record "Purchase Line";
     begin
-        with PurchLine do begin
-            SetCurrentKey("Document Type", Type, "Prod. Order No.", "Prod. Order Line No.", "Routing No.", "Operation No.");
-            SetRange("Document Type", "Document Type"::Order);
-            SetRange(Type, Type::Item);
-            SetRange("Prod. Order No.", ProdOrder."No.");
-            SetFilter("Outstanding Quantity", '<>%1', 0);
-            if FindFirst() then
-                exit(false);
-        end;
+        PurchLine.SetCurrentKey("Document Type", Type, "Prod. Order No.", "Prod. Order Line No.", "Routing No.", "Operation No.");
+        PurchLine.SetRange("Document Type", PurchLine."Document Type"::Order);
+        PurchLine.SetRange(Type, PurchLine.Type::Item);
+        PurchLine.SetRange("Prod. Order No.", ProdOrder."No.");
+        PurchLine.SetFilter("Outstanding Quantity", '<>%1', 0);
+        if not PurchLine.IsEmpty then
+            exit(false);
 
         /*
         //It is normal that some output are missing, so the control is not done
@@ -128,23 +126,20 @@ report 50017 "PWD Auto. Finish Prod. Order"
           END;
         END;
         */
-
-        with ProdOrderComp do begin
-            SetRange(Status, ProdOrder.Status);
-            SetRange("Prod. Order No.", ProdOrder."No.");
-            SetFilter("Remaining Quantity", '<>0');
-            if FindSet() then
-                repeat
-                    if (("Flushing Method" <> "Flushing Method"::Backward) and
-                        ("Flushing Method" <> "Flushing Method"::"Pick + Backward") and
-                        ("Routing Link Code" = '')) or
-                       (("Routing Link Code" <> '') and not RtngWillFlushComp(ProdOrderComp))
-                    then begin
-                        exit(true);
-                        AlterCons := true;
-                    end;
-                until Next() = 0;
-        end;
+        ProdOrderComp.SetRange(Status, ProdOrder.Status);
+        ProdOrderComp.SetRange("Prod. Order No.", ProdOrder."No.");
+        ProdOrderComp.SetFilter("Remaining Quantity", '<>0');
+        if ProdOrderComp.FindSet() then
+            repeat
+                if ((ProdOrderComp."Flushing Method" <> ProdOrderComp."Flushing Method"::Backward) and
+                    (ProdOrderComp."Flushing Method" <> ProdOrderComp."Flushing Method"::"Pick + Backward") and
+                    (ProdOrderComp."Routing Link Code" = '')) or
+                   ((ProdOrderComp."Routing Link Code" <> '') and not RtngWillFlushComp(ProdOrderComp))
+                then begin
+                    exit(true);
+                    AlterCons := true;
+                end;
+            until ProdOrderComp.Next() = 0;
         exit(true);
 
     end;
@@ -157,19 +152,16 @@ report 50017 "PWD Auto. Finish Prod. Order"
         if ProdOrderComp."Routing Link Code" = '' then
             exit;
 
-        with ProdOrderComp do
-            ProdOrderLine.Get(Status, "Prod. Order No.", "Prod. Order Line No.");
+        ProdOrderLine.Get(ProdOrderComp.Status, ProdOrderComp."Prod. Order No.", ProdOrderComp."Prod. Order Line No.");
 
-        with ProdOrderRtngLine do begin
-            SetCurrentKey("Prod. Order No.", Status, "Flushing Method");
-            SetRange("Flushing Method", "Flushing Method"::Backward);
-            SetRange(Status, Status::Released);
-            SetRange("Prod. Order No.", ProdOrderComp."Prod. Order No.");
-            SetRange("Routing Link Code", ProdOrderComp."Routing Link Code");
-            SetRange("Routing No.", ProdOrderLine."Routing No.");
-            SetRange("Routing Reference No.", ProdOrderLine."Routing Reference No.");
-            exit(FindFirst());
-        end;
+        ProdOrderRtngLine.SetCurrentKey("Prod. Order No.", Status, "Flushing Method");
+        ProdOrderRtngLine.SetRange("Flushing Method", ProdOrderRtngLine."Flushing Method"::Backward);
+        ProdOrderRtngLine.SetRange(Status, ProdOrderRtngLine.Status::Released);
+        ProdOrderRtngLine.SetRange("Prod. Order No.", ProdOrderComp."Prod. Order No.");
+        ProdOrderRtngLine.SetRange("Routing Link Code", ProdOrderComp."Routing Link Code");
+        ProdOrderRtngLine.SetRange("Routing No.", ProdOrderLine."Routing No.");
+        ProdOrderRtngLine.SetRange("Routing Reference No.", ProdOrderLine."Routing Reference No.");
+        exit(Not ProdOrderRtngLine.IsEmpty);
     end;
 
 

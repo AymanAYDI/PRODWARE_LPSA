@@ -23,67 +23,67 @@ page 8073300 "PWD Sales Header Buffer"
             repeater(Control1100294000)
             {
                 ShowCaption = false;
-                field("Entry No."; "Entry No.")
+                field("Entry No."; Rec."Entry No.")
                 {
                     ApplicationArea = All;
                 }
-                field("Connector Values Entry No."; "Connector Values Entry No.")
+                field("Connector Values Entry No."; Rec."Connector Values Entry No.")
                 {
                     ApplicationArea = All;
                 }
-                field("Partner Code"; "Partner Code")
+                field("Partner Code"; Rec."Partner Code")
                 {
                     ApplicationArea = All;
                 }
-                field("Message Code"; "Message Code")
+                field("Message Code"; Rec."Message Code")
                 {
                     ApplicationArea = All;
                 }
-                field("Creation Date"; "Creation Date")
+                field("Creation Date"; Rec."Creation Date")
                 {
                     ApplicationArea = All;
                 }
-                field(Status; Status)
+                field(Status; Rec.Status)
                 {
                     ApplicationArea = All;
                 }
-                field(Processed; Processed)
+                field(Processed; Rec.Processed)
                 {
                     ApplicationArea = All;
                 }
-                field("Processed Date"; "Processed Date")
+                field("Processed Date"; Rec."Processed Date")
                 {
                     ApplicationArea = All;
                 }
-                field("Error Message"; "Error Message")
+                field("Error Message"; Rec."Error Message")
                 {
                     ApplicationArea = All;
                 }
-                field("Action"; Action)
+                field("Action"; Rec.Action)
                 {
                     ApplicationArea = All;
                 }
-                field("RecordID Created"; "RecordID Created")
+                field("RecordID Created"; Rec."RecordID Created")
                 {
                     ApplicationArea = All;
                 }
-                field("Document Type"; "Document Type")
+                field("Document Type"; Rec."Document Type")
                 {
                     ApplicationArea = All;
                 }
-                field("Document No."; "Document No.")
+                field("Document No."; Rec."Document No.")
                 {
                     ApplicationArea = All;
                 }
-                field("Sell-to Customer No."; "Sell-to Customer No.")
+                field("Sell-to Customer No."; Rec."Sell-to Customer No.")
                 {
                     ApplicationArea = All;
                 }
-                field("External Document No."; "External Document No.")
+                field("External Document No."; Rec."External Document No.")
                 {
                     ApplicationArea = All;
                 }
-                field("Posting Date"; "Posting Date")
+                field("Posting Date"; Rec."Posting Date")
                 {
                     ApplicationArea = All;
                 }
@@ -210,8 +210,8 @@ page 8073300 "PWD Sales Header Buffer"
     procedure FctGetBufferLinked()
     begin
         //Insérer les différents Tables liées au export Natif.
-        IF RecGPEBSalesHeaderBuffer.GET("Entry No.") THEN;
-        IF RecGWMSSalesHeaderBuffer.GET("Entry No.") THEN;
+        IF RecGPEBSalesHeaderBuffer.GET(Rec."Entry No.") THEN;
+        IF RecGWMSSalesHeaderBuffer.GET(Rec."Entry No.") THEN;
     end;
 
 

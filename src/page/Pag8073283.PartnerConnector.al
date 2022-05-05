@@ -30,79 +30,79 @@ page 8073283 "PWD Partner Connector"
             group("Général")
             {
                 Caption = 'Général';
-                field("Code"; Code)
+                field("Code"; Rec.Code)
                 {
                     ApplicationArea = All;
                 }
-                field(Name; Name)
+                field(Name; Rec.Name)
                 {
                     ApplicationArea = All;
                 }
-                field("Communication Mode"; "Communication Mode")
-                {
-                    ApplicationArea = All;
-
-                    trigger OnValidate()
-                    begin
-                        BooGSeparatorVisible := "Data Format" = "Data Format"::"with separator";
-                        BooGReceiveQueueVisible := "Communication Mode" = "Communication Mode"::MSMQ;
-                        BooGReplyQueueVisible := "Communication Mode" = "Communication Mode"::MSMQ;
-                        BooGObjectIDRunVisible := "Communication Mode" = "Communication Mode"::MSMQ;
-                        BooGFunctionsCodeUnitIDVisible := "Communication Mode" = "Communication Mode"::MSMQ;
-                    end;
-                }
-                field("Data Format"; "Data Format")
+                field("Communication Mode"; Rec."Communication Mode")
                 {
                     ApplicationArea = All;
 
                     trigger OnValidate()
                     begin
-                        BooGSeparatorVisible := "Data Format" = "Data Format"::"with separator";
+                        BooGSeparatorVisible := Rec."Data Format" = Rec."Data Format"::"with separator";
+                        BooGReceiveQueueVisible := Rec."Communication Mode" = Rec."Communication Mode"::MSMQ;
+                        BooGReplyQueueVisible := Rec."Communication Mode" = Rec."Communication Mode"::MSMQ;
+                        BooGObjectIDRunVisible := Rec."Communication Mode" = Rec."Communication Mode"::MSMQ;
+                        BooGFunctionsCodeUnitIDVisible := Rec."Communication Mode" = Rec."Communication Mode"::MSMQ;
                     end;
                 }
-                field(Blocked; Blocked)
+                field("Data Format"; Rec."Data Format")
+                {
+                    ApplicationArea = All;
+
+                    trigger OnValidate()
+                    begin
+                        BooGSeparatorVisible := Rec."Data Format" = Rec."Data Format"::"with separator";
+                    end;
+                }
+                field(Blocked; Rec.Blocked)
                 {
                     ApplicationArea = All;
                 }
-                field("Receive Queue"; "Receive Queue")
+                field("Receive Queue"; Rec."Receive Queue")
                 {
                     Visible = BooGReceiveQueueVisible;
                     ApplicationArea = All;
                 }
-                field("Reply Queue"; "Reply Queue")
+                field("Reply Queue"; Rec."Reply Queue")
                 {
                     Visible = BooGReplyQueueVisible;
                     ApplicationArea = All;
                 }
-                field("Object ID to Run"; "Object ID to Run")
+                field("Object ID to Run"; Rec."Object ID to Run")
                 {
                     Visible = BooGObjectIDRunVisible;
                     ApplicationArea = All;
                 }
-                field("Object Name to Run"; "Object Name to Run")
+                field("Object Name to Run"; Rec."Object Name to Run")
                 {
                     Visible = BooGObjectIDRunVisible;
                     ApplicationArea = All;
                 }
-                field("Functions CodeUnit ID"; "Functions CodeUnit ID")
+                field("Functions CodeUnit ID"; Rec."Functions CodeUnit ID")
                 {
                     Visible = BooGFunctionsCodeUnitIDVisible;
                     ApplicationArea = All;
                 }
-                field("Functions CodeUnit Name"; "Functions CodeUnit Name")
+                field("Functions CodeUnit Name"; Rec."Functions CodeUnit Name")
                 {
                     Visible = BooGFunctionsCodeUnitIDVisible;
                     ApplicationArea = All;
                 }
-                field("Default Value Bool Yes"; "Default Value Bool Yes")
+                field("Default Value Bool Yes"; Rec."Default Value Bool Yes")
                 {
                     ApplicationArea = All;
                 }
-                field("Default Value Bool No"; "Default Value Bool No")
+                field("Default Value Bool No"; Rec."Default Value Bool No")
                 {
                     ApplicationArea = All;
                 }
-                field(Separator; Separator)
+                field(Separator; Rec.Separator)
                 {
                     Visible = BooGSeparatorVisible;
                     ApplicationArea = All;
@@ -186,11 +186,11 @@ page 8073283 "PWD Partner Connector"
     local procedure OnAfterGetCurrRecord()
     begin
         xRec := Rec;
-        BooGSeparatorVisible := "Data Format" = "Data Format"::"with separator";
-        BooGReceiveQueueVisible := "Communication Mode" = "Communication Mode"::MSMQ;
-        BooGReplyQueueVisible := "Communication Mode" = "Communication Mode"::MSMQ;
-        BooGObjectIDRunVisible := "Communication Mode" = "Communication Mode"::MSMQ;
-        BooGFunctionsCodeUnitIDVisible := "Communication Mode" = "Communication Mode"::MSMQ;
+        BooGSeparatorVisible := Rec."Data Format" = Rec."Data Format"::"with separator";
+        BooGReceiveQueueVisible := Rec."Communication Mode" = Rec."Communication Mode"::MSMQ;
+        BooGReplyQueueVisible := Rec."Communication Mode" = Rec."Communication Mode"::MSMQ;
+        BooGObjectIDRunVisible := Rec."Communication Mode" = Rec."Communication Mode"::MSMQ;
+        BooGFunctionsCodeUnitIDVisible := Rec."Communication Mode" = Rec."Communication Mode"::MSMQ;
     end;
 }
 

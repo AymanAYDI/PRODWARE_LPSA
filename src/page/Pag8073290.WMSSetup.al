@@ -29,35 +29,35 @@ page 8073290 "PWD WMS Setup"
             {
                 Caption = 'General';
                 ShowCaption = false;
-                field(WMS; WMS)
+                field(WMS; Rec.WMS)
                 {
                     ApplicationArea = All;
                 }
-                field("Location Mandatory"; "Location Mandatory")
+                field("Location Mandatory"; Rec."Location Mandatory")
                 {
                     ApplicationArea = All;
                 }
-                field("WMS Company Code"; "WMS Company Code")
+                field("WMS Company Code"; Rec."WMS Company Code")
                 {
                     ApplicationArea = All;
                 }
-                field("WMS Delivery"; "WMS Delivery")
+                field("WMS Delivery"; Rec."WMS Delivery")
                 {
                     ApplicationArea = All;
                 }
-                field("WMS Shipment"; "WMS Shipment")
+                field("WMS Shipment"; Rec."WMS Shipment")
                 {
                     ApplicationArea = All;
                 }
-                field("Journal Template Name"; "Journal Template Name")
+                field("Journal Template Name"; Rec."Journal Template Name")
                 {
                     ApplicationArea = All;
                 }
-                field("Journal Batch Name"; "Journal Batch Name")
+                field("Journal Batch Name"; Rec."Journal Batch Name")
                 {
                     ApplicationArea = All;
                 }
-                field("Partner Code"; "Partner Code")
+                field("Partner Code"; Rec."Partner Code")
                 {
                     ApplicationArea = All;
                 }
@@ -86,15 +86,15 @@ page 8073290 "PWD WMS Setup"
     var
         RecLInventorySetup: Record "Inventory Setup";
     begin
-        RESET();
-        IF NOT GET() THEN BEGIN
-            INIT();
-            INSERT();
+        Rec.RESET();
+        IF NOT Rec.GET() THEN BEGIN
+            Rec.INIT();
+            Rec.INSERT();
         END;
 
         RecLInventorySetup.GET();
-        "Location Mandatory" := RecLInventorySetup."Location Mandatory";
-        MODIFY();
+        Rec."Location Mandatory" := RecLInventorySetup."Location Mandatory";
+        Rec.MODIFY();
     end;
 }
 

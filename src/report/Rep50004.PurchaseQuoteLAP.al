@@ -817,23 +817,20 @@ report 50004 "PWD Purchase - Quote LAP"
         Clear(HeaderLabel);
         Clear(HeaderTxt);
 
-        with "Purchase Header" do begin
-            FormatAddr.PurchHeaderBuyFrom(VendAddr, "Purchase Header");
+        FormatAddr.PurchHeaderBuyFrom(VendAddr, "Purchase Header");
 
-            if SalesPurchPerson.Get("Purchaser Code") then begin
-                HeaderLabel[2] := ML_PurchPerson;
-                HeaderTxt[2] := SalesPurchPerson.Name;
-            end;
-
-            if "Your Reference" <> '' then begin
-                HeaderLabel[3] := ML_Reference;
-                HeaderTxt[3] := "Your Reference";
-            end;
-
-            CompressArray(HeaderLabel);
-            CompressArray(HeaderTxt);
-
+        if SalesPurchPerson.Get("Purchase Header"."Purchaser Code") then begin
+            HeaderLabel[2] := ML_PurchPerson;
+            HeaderTxt[2] := SalesPurchPerson.Name;
         end;
+
+        if "Purchase Header"."Your Reference" <> '' then begin
+            HeaderLabel[3] := ML_Reference;
+            HeaderTxt[3] := "Purchase Header"."Your Reference";
+        end;
+
+        CompressArray(HeaderLabel);
+        CompressArray(HeaderTxt);
     end;
 
 
@@ -845,47 +842,45 @@ report 50004 "PWD Purchase - Quote LAP"
         Clear(FooterLabel);
         Clear(FooterTxt);
 
-        with "Purchase Header" do begin
-            if PmtMethod.Get("Payment Terms Code") then begin
-                FooterLabel[1] := ML_PmtTerms;
-                // CH0002.begin
-                PmtMethod.TranslateDescription(PmtMethod, "Language Code");
-                // CH0002.end
-                FooterTxt[1] := PmtMethod.Description;
-            end;
-
-            // Shipping Conditions
-            if ShipMethod.Get("Shipment Method Code") then begin
-                FooterLabel[2] := ML_ShipCond;
-                // CH0002.begin
-                ShipMethod.TranslateDescription(ShipMethod, "Language Code");
-                // CH0002.begin
-                FooterTxt[2] := ShipMethod.Description;
-            end;
-
-            // Shipping Address
-            if "Ship-to Code" <> '' then begin
-                FooterLabel[3] := ML_ShipAdr;
-                FooterTxt[3] := "Ship-to Name" + ' ' + "Ship-to City";
-            end;
-
-            // Invoice and Order Address
-            if "Buy-from Vendor No." <> "Pay-to Vendor No." then begin
-                FooterLabel[4] := ML_InvAdr;
-                FooterTxt[4] := "Pay-to Name" + ', ' + "Pay-to City";
-                FooterLabel[5] := ML_OrderAdr;
-                FooterTxt[5] := "Buy-from Vendor Name" + ', ' + "Buy-from City";
-            end;
-
-            // Shipping Date if <> Document Date
-            if not ("Expected Receipt Date" in ["Document Date", 0D]) then begin
-                FooterLabel[6] := ML_ShipDate;
-                FooterTxt[6] := Format("Expected Receipt Date", 0, 4);
-            end;
-
-            CompressArray(FooterLabel);
-            CompressArray(FooterTxt);
+        if PmtMethod.Get("Purchase Header"."Payment Terms Code") then begin
+            FooterLabel[1] := ML_PmtTerms;
+            // CH0002.begin
+            PmtMethod.TranslateDescription(PmtMethod, "Purchase Header"."Language Code");
+            // CH0002.end
+            FooterTxt[1] := PmtMethod.Description;
         end;
+
+        // Shipping Conditions
+        if ShipMethod.Get("Purchase Header"."Shipment Method Code") then begin
+            FooterLabel[2] := ML_ShipCond;
+            // CH0002.begin
+            ShipMethod.TranslateDescription(ShipMethod, "Purchase Header"."Language Code");
+            // CH0002.begin
+            FooterTxt[2] := ShipMethod.Description;
+        end;
+
+        // Shipping Address
+        if "Purchase Header"."Ship-to Code" <> '' then begin
+            FooterLabel[3] := ML_ShipAdr;
+            FooterTxt[3] := "Purchase Header"."Ship-to Name" + ' ' + "Purchase Header"."Ship-to City";
+        end;
+
+        // Invoice and Order Address
+        if "Purchase Header"."Buy-from Vendor No." <> "Purchase Header"."Pay-to Vendor No." then begin
+            FooterLabel[4] := ML_InvAdr;
+            FooterTxt[4] := "Purchase Header"."Pay-to Name" + ', ' + "Purchase Header"."Pay-to City";
+            FooterLabel[5] := ML_OrderAdr;
+            FooterTxt[5] := "Purchase Header"."Buy-from Vendor Name" + ', ' + "Purchase Header"."Buy-from City";
+        end;
+
+        // Shipping Date if <> Document Date
+        if not ("Purchase Header"."Expected Receipt Date" in ["Purchase Header"."Document Date", 0D]) then begin
+            FooterLabel[6] := ML_ShipDate;
+            FooterTxt[6] := Format("Purchase Header"."Expected Receipt Date", 0, 4);
+        end;
+
+        CompressArray(FooterLabel);
+        CompressArray(FooterTxt);
     end;
 }
 

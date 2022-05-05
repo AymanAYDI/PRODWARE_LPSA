@@ -39,155 +39,155 @@ page 8073320 "PWD Item Journal Line Buffer"
             repeater(Control1100294000)
             {
                 ShowCaption = false;
-                field("Entry No."; "Entry No.")
+                field("Entry No."; Rec."Entry No.")
                 {
                     ApplicationArea = All;
                 }
-                field("Connector Values Entry No."; "Connector Values Entry No.")
+                field("Connector Values Entry No."; Rec."Connector Values Entry No.")
                 {
                     ApplicationArea = All;
                 }
-                field("Partner Code"; "Partner Code")
+                field("Partner Code"; Rec."Partner Code")
                 {
                     ApplicationArea = All;
                 }
-                field("Message Code"; "Message Code")
+                field("Message Code"; Rec."Message Code")
                 {
                     ApplicationArea = All;
                 }
-                field(Status; Status)
+                field(Status; Rec.Status)
                 {
                     ApplicationArea = All;
                 }
-                field(Processed; Processed)
+                field(Processed; Rec.Processed)
                 {
                     ApplicationArea = All;
                 }
-                field("Processed Date"; "Processed Date")
+                field("Processed Date"; Rec."Processed Date")
                 {
                     ApplicationArea = All;
                 }
-                field("Error Message"; "Error Message")
+                field("Error Message"; Rec."Error Message")
                 {
                     ApplicationArea = All;
                 }
-                field("Action"; Action)
+                field("Action"; Rec.Action)
                 {
                     ApplicationArea = All;
                 }
-                field("RecordID Created"; "RecordID Created")
+                field("RecordID Created"; Rec."RecordID Created")
                 {
                     ApplicationArea = All;
                 }
-                field("Creation Date"; "Creation Date")
+                field("Creation Date"; Rec."Creation Date")
                 {
                     ApplicationArea = All;
                 }
-                field("Journal Template Name"; "Journal Template Name")
+                field("Journal Template Name"; Rec."Journal Template Name")
                 {
                     ApplicationArea = All;
                 }
-                field("Item No."; "Item No.")
+                field("Item No."; Rec."Item No.")
                 {
                     ApplicationArea = All;
                 }
-                field("Posting Date"; "Posting Date")
+                field("Posting Date"; Rec."Posting Date")
                 {
                     ApplicationArea = All;
                 }
-                field("Entry Type"; "Entry Type")
+                field("Entry Type"; Rec."Entry Type")
                 {
                     ApplicationArea = All;
                 }
-                field("Document No."; "Document No.")
+                field("Document No."; Rec."Document No.")
                 {
                     ApplicationArea = All;
                 }
-                field(Description; Description)
+                field(Description; Rec.Description)
                 {
                     ApplicationArea = All;
                 }
-                field("Location Code"; "Location Code")
+                field("Location Code"; Rec."Location Code")
                 {
                     ApplicationArea = All;
                 }
-                field(Quantity; Quantity)
+                field(Quantity; Rec.Quantity)
                 {
                     ApplicationArea = All;
                 }
-                field("Source Type"; "Source Type")
+                field("Source Type"; Rec."Source Type")
                 {
                     ApplicationArea = All;
                 }
-                field("Journal Batch Name"; "Journal Batch Name")
+                field("Journal Batch Name"; Rec."Journal Batch Name")
                 {
                     ApplicationArea = All;
                 }
-                field("Reason Code"; "Reason Code")
+                field("Reason Code"; Rec."Reason Code")
                 {
                     ApplicationArea = All;
                 }
-                field("Unit of Measure Code"; "Unit of Measure Code")
+                field("Unit of Measure Code"; Rec."Unit of Measure Code")
                 {
                     ApplicationArea = All;
                 }
-                field("Expiration Date"; "Expiration Date")
+                field("Expiration Date"; Rec."Expiration Date")
                 {
                     ApplicationArea = All;
                 }
-                field("Serial No."; "Serial No.")
+                field("Serial No."; Rec."Serial No.")
                 {
                     ApplicationArea = All;
                 }
-                field("Lot No."; "Lot No.")
+                field("Lot No."; Rec."Lot No.")
                 {
                     ApplicationArea = All;
                 }
-                field("Auto-Post Document"; "Auto-Post Document")
+                field("Auto-Post Document"; Rec."Auto-Post Document")
                 {
                     ApplicationArea = All;
                 }
-                field("Operation No."; "Operation No.")
+                field("Operation No."; Rec."Operation No.")
                 {
                     ApplicationArea = All;
                 }
-                field(Type; Type)
+                field(Type; Rec.Type)
                 {
                     ApplicationArea = All;
                 }
-                field("No."; "No.")
+                field("No."; Rec."No.")
                 {
                     ApplicationArea = All;
                 }
-                field("Setup Time"; "Setup Time")
+                field("Setup Time"; Rec."Setup Time")
                 {
                     ApplicationArea = All;
                 }
-                field("Run Time"; "Run Time")
+                field("Run Time"; Rec."Run Time")
                 {
                     ApplicationArea = All;
                 }
-                field("Output Quantity"; "Output Quantity")
+                field("Output Quantity"; Rec."Output Quantity")
                 {
                     ApplicationArea = All;
                 }
-                field("Scrap Quantity"; "Scrap Quantity")
+                field("Scrap Quantity"; Rec."Scrap Quantity")
                 {
                     ApplicationArea = All;
                 }
-                field("Scrap Code"; "Scrap Code")
+                field("Scrap Code"; Rec."Scrap Code")
                 {
                     ApplicationArea = All;
                 }
-                field("Prod. Order No."; "Prod. Order No.")
+                field("Prod. Order No."; Rec."Prod. Order No.")
                 {
                     ApplicationArea = All;
                 }
-                field(Finished; Finished)
+                field(Finished; Rec.Finished)
                 {
                     ApplicationArea = All;
                 }
-                field("Prod. Order Line No."; "Prod. Order Line No.")
+                field("Prod. Order Line No."; Rec."Prod. Order Line No.")
                 {
                     ApplicationArea = All;
                 }
@@ -211,19 +211,19 @@ page 8073320 "PWD Item Journal Line Buffer"
                         IF RecGWMSItemJounalLineBuffer.MODIFY() THEN;
                     end;
                 }
-                field("Conform quality control"; "Conform quality control")
+                field("Conform quality control"; Rec."Conform quality control")
                 {
                     ApplicationArea = All;
                 }
-                field("Shortcut Dimension 1 Code"; "Shortcut Dimension 1 Code")
+                field("Shortcut Dimension 1 Code"; Rec."Shortcut Dimension 1 Code")
                 {
                     ApplicationArea = All;
                 }
-                field("New Location Code"; "New Location Code")
+                field("New Location Code"; Rec."New Location Code")
                 {
                     ApplicationArea = All;
                 }
-                field("Bin Code"; "Bin Code")
+                field("Bin Code"; Rec."Bin Code")
                 {
                     ApplicationArea = All;
                 }
@@ -267,8 +267,8 @@ page 8073320 "PWD Item Journal Line Buffer"
                         CduLBufferManagement.FctProcessItemJournaLine(Rec);
 
                         //>>OSYS-Int001.001
-                        IF ("Auto-Post Document") AND CduLBufferManagement.FctCanPost() THEN
-                            CduLBufferManagement.FctValidateItemJournaLine("Journal Template Name", "Journal Batch Name");
+                        IF (Rec."Auto-Post Document") AND CduLBufferManagement.FctCanPost() THEN
+                            CduLBufferManagement.FctValidateItemJournaLine(Rec."Journal Template Name", Rec."Journal Batch Name");
                         //<<OSYS-Int001.001
                     end;
                 }
@@ -361,7 +361,7 @@ page 8073320 "PWD Item Journal Line Buffer"
     procedure FctGetBufferLinked()
     begin
         //Insérer les différents Tables liées au export Natif.
-        IF RecGWMSItemJounalLineBuffer.GET("Entry No.") THEN;
+        IF RecGWMSItemJounalLineBuffer.GET(Rec."Entry No.") THEN;
     end;
 
 

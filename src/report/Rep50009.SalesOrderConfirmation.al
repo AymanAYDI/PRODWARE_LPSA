@@ -261,7 +261,7 @@ report 50009 "PWD Sales Order Confirmation"
                         column(SalesLine_Description; "Sales Line"."PWD LPSA Description 1")
                         {
                         }
-                        column(SalesLineTypeEqualTitle; SalesLine.Type >= SalesLine.Type::Title)
+                        column(SalesLineTypeEqualTitle; SalesLine.Type.AsInteger() >= SalesLine.Type::Title.AsInteger())
                         {
                         }
                         column(NNC_SalesLineLineAmt; NNC_SalesLineLineAmt)
@@ -479,7 +479,7 @@ report 50009 "PWD Sales Order Confirmation"
                                 TxTGQuantity := StrSubstNo(CstG010);
 
 
-                            if (SalesLine.Type = 0) then
+                            if (SalesLine.Type.AsInteger() = 0) then
                                 Vide := true
                             else
                                 Vide := false;
@@ -504,7 +504,7 @@ report 50009 "PWD Sales Order Confirmation"
                                 ISitem := true
                             else
                                 ISitem := false;
-                            if (SalesLine.Type <> SalesLine.Type::Item) and (SalesLine.Type = 0) then
+                            if (SalesLine.Type <> SalesLine.Type::Item) and (SalesLine.Type.AsInteger() = 0) then
                                 Comptegenral := true
                             else
                                 Comptegenral := false;
@@ -804,7 +804,6 @@ report 50009 "PWD Sales Order Confirmation"
         RecGSalespersonPurchaser: Record "Salesperson/Purchaser";
         VATAmountLine: Record "VAT Amount Line" temporary;
         ArchiveManagement: Codeunit ArchiveManagement;
-        FormatAddr: Codeunit "Format Address";
         Language: Codeunit Language;
         LPSAFunctionsMgt: codeunit "PWD LPSA Functions Mgt.";
         SalesCountPrinted: Codeunit "Sales-Printed";

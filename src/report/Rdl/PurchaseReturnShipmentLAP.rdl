@@ -11,337 +11,6 @@
       <rd:DataSourceID>d62e1c04-c35f-43c1-ac38-b86f75323dfe</rd:DataSourceID>
     </DataSource>
   </DataSources>
-  <DataSets>
-    <DataSet Name="DataSet_Result">
-      <Query>
-        <DataSourceName>DataSource</DataSourceName>
-        <CommandText />
-      </Query>
-      <Fields>
-        <Field Name="Return_Shipment_Header_No_">
-          <DataField>Return_Shipment_Header_No_</DataField>
-        </Field>
-        <Field Name="STRSUBSTNO_Text002_CopyText_">
-          <DataField>STRSUBSTNO_Text002_CopyText_</DataField>
-        </Field>
-        <Field Name="STRSUBSTNO_Text003_FORMAT_CurrReport_PAGENO__">
-          <DataField>STRSUBSTNO_Text003_FORMAT_CurrReport_PAGENO__</DataField>
-        </Field>
-        <Field Name="CompanyAddr_1_">
-          <DataField>CompanyAddr_1_</DataField>
-        </Field>
-        <Field Name="CompanyAddr_2_">
-          <DataField>CompanyAddr_2_</DataField>
-        </Field>
-        <Field Name="CompanyAddr_3_">
-          <DataField>CompanyAddr_3_</DataField>
-        </Field>
-        <Field Name="CompanyAddr_4_">
-          <DataField>CompanyAddr_4_</DataField>
-        </Field>
-        <Field Name="CompanyInfo__Phone_No__">
-          <DataField>CompanyInfo__Phone_No__</DataField>
-        </Field>
-        <Field Name="CompanyInfo__Fax_No__">
-          <DataField>CompanyInfo__Fax_No__</DataField>
-        </Field>
-        <Field Name="CompanyInfo__VAT_Registration_No__">
-          <DataField>CompanyInfo__VAT_Registration_No__</DataField>
-        </Field>
-        <Field Name="CompanyInfo__Giro_No__">
-          <DataField>CompanyInfo__Giro_No__</DataField>
-        </Field>
-        <Field Name="CompanyInfo__Bank_Name_">
-          <DataField>CompanyInfo__Bank_Name_</DataField>
-        </Field>
-        <Field Name="CompanyInfo__Bank_Account_No__">
-          <DataField>CompanyInfo__Bank_Account_No__</DataField>
-        </Field>
-        <Field Name="FORMAT__Return_Shipment_Header___Document_Date__0_4_">
-          <DataField>FORMAT__Return_Shipment_Header___Document_Date__0_4_</DataField>
-        </Field>
-        <Field Name="PurchaserText">
-          <DataField>PurchaserText</DataField>
-        </Field>
-        <Field Name="SalesPurchPerson_Name">
-          <DataField>SalesPurchPerson_Name</DataField>
-        </Field>
-        <Field Name="Return_Shipment_Header___No__">
-          <DataField>Return_Shipment_Header___No__</DataField>
-        </Field>
-        <Field Name="ReferenceText">
-          <DataField>ReferenceText</DataField>
-        </Field>
-        <Field Name="Return_Shipment_Header___Your_Reference_">
-          <DataField>Return_Shipment_Header___Your_Reference_</DataField>
-        </Field>
-        <Field Name="CompanyAddr_5_">
-          <DataField>CompanyAddr_5_</DataField>
-        </Field>
-        <Field Name="CompanyAddr_6_">
-          <DataField>CompanyAddr_6_</DataField>
-        </Field>
-        <Field Name="Return_Shipment_Header___Buy_from_Vendor_No__">
-          <DataField>Return_Shipment_Header___Buy_from_Vendor_No__</DataField>
-        </Field>
-        <Field Name="ShipToAddr_1_">
-          <DataField>ShipToAddr_1_</DataField>
-        </Field>
-        <Field Name="ShipToAddr_2_">
-          <DataField>ShipToAddr_2_</DataField>
-        </Field>
-        <Field Name="ShipToAddr_3_">
-          <DataField>ShipToAddr_3_</DataField>
-        </Field>
-        <Field Name="ShipToAddr_4_">
-          <DataField>ShipToAddr_4_</DataField>
-        </Field>
-        <Field Name="ShipToAddr_5_">
-          <DataField>ShipToAddr_5_</DataField>
-        </Field>
-        <Field Name="ShipToAddr_6_">
-          <DataField>ShipToAddr_6_</DataField>
-        </Field>
-        <Field Name="ShipToAddr_7_">
-          <DataField>ShipToAddr_7_</DataField>
-        </Field>
-        <Field Name="ShipToAddr_8_">
-          <DataField>ShipToAddr_8_</DataField>
-        </Field>
-        <Field Name="PageCaption">
-          <DataField>PageCaption</DataField>
-        </Field>
-        <Field Name="OutputNo">
-          <DataField>OutputNo</DataField>
-        </Field>
-        <Field Name="Text007">
-          <DataField>Text007</DataField>
-        </Field>
-        <Field Name="Text005">
-          <DataField>Text005</DataField>
-        </Field>
-        <Field Name="STRSUBSTNO_Text006__Return_Shipment_Header___No___">
-          <DataField>STRSUBSTNO_Text006__Return_Shipment_Header___No___</DataField>
-        </Field>
-        <Field Name="STRSUBSTNO_Text004">
-          <DataField>STRSUBSTNO_Text004</DataField>
-        </Field>
-        <Field Name="Text010">
-          <DataField>Text010</DataField>
-        </Field>
-        <Field Name="Return_Shipment_Header_Buy_From_Contact">
-          <DataField>Return_Shipment_Header_Buy_From_Contact</DataField>
-        </Field>
-        <Field Name="Text008">
-          <DataField>Text008</DataField>
-        </Field>
-        <Field Name="RecGVendor_Fax_No">
-          <DataField>RecGVendor_Fax_No</DataField>
-        </Field>
-        <Field Name="STRSUBSTNO_Text012__SalesPurch_Person_Name">
-          <DataField>STRSUBSTNO_Text012__SalesPurch_Person_Name</DataField>
-        </Field>
-        <Field Name="Text009">
-          <DataField>Text009</DataField>
-        </Field>
-        <Field Name="RecGPurchHderArch_Vendor_Order_No">
-          <DataField>RecGPurchHderArch_Vendor_Order_No</DataField>
-        </Field>
-        <Field Name="CstGText014">
-          <DataField>CstGText014</DataField>
-        </Field>
-        <Field Name="CstGText015">
-          <DataField>CstGText015</DataField>
-        </Field>
-        <Field Name="Return_Shipment_Header__VAT_Registration">
-          <DataField>Return_Shipment_Header__VAT_Registration</DataField>
-        </Field>
-        <Field Name="CompanyInfo__Phone_No__Caption">
-          <DataField>CompanyInfo__Phone_No__Caption</DataField>
-        </Field>
-        <Field Name="CompanyInfo__Fax_No__Caption">
-          <DataField>CompanyInfo__Fax_No__Caption</DataField>
-        </Field>
-        <Field Name="CompanyInfo__VAT_Registration_No__Caption">
-          <DataField>CompanyInfo__VAT_Registration_No__Caption</DataField>
-        </Field>
-        <Field Name="CompanyInfo__Giro_No__Caption">
-          <DataField>CompanyInfo__Giro_No__Caption</DataField>
-        </Field>
-        <Field Name="CompanyInfo__Bank_Name_Caption">
-          <DataField>CompanyInfo__Bank_Name_Caption</DataField>
-        </Field>
-        <Field Name="CompanyInfo__Bank_Account_No__Caption">
-          <DataField>CompanyInfo__Bank_Account_No__Caption</DataField>
-        </Field>
-        <Field Name="Return_Shipment_Header___No__Caption">
-          <DataField>Return_Shipment_Header___No__Caption</DataField>
-        </Field>
-        <Field Name="Return_Shipment_Header___Buy_from_Vendor_No__Caption">
-          <DataField>Return_Shipment_Header___Buy_from_Vendor_No__Caption</DataField>
-        </Field>
-        <Field Name="PageLoop_Number">
-          <DataField>PageLoop_Number</DataField>
-        </Field>
-        <Field Name="DimText">
-          <DataField>DimText</DataField>
-        </Field>
-        <Field Name="DimensionLoop1_Number">
-          <DataField>DimensionLoop1_Number</DataField>
-        </Field>
-        <Field Name="DimText_Control47">
-          <DataField>DimText_Control47</DataField>
-        </Field>
-        <Field Name="Header_DimensionsCaption">
-          <DataField>Header_DimensionsCaption</DataField>
-        </Field>
-        <Field Name="TypeInt">
-          <DataField>TypeInt</DataField>
-        </Field>
-        <Field Name="ShowInternalInfo">
-          <DataField>ShowInternalInfo</DataField>
-        </Field>
-        <Field Name="Return_Shipment_Line_Description">
-          <DataField>Return_Shipment_Line_Description</DataField>
-        </Field>
-        <Field Name="Return_Shipment_Line__Unit_of_Measure_">
-          <DataField>Return_Shipment_Line__Unit_of_Measure_</DataField>
-        </Field>
-        <Field Name="Return_Shipment_Line_Quantity">
-          <DataField>Return_Shipment_Line_Quantity</DataField>
-        </Field>
-        <Field Name="Return_Shipment_Line_QuantityFormat">
-          <DataField>Return_Shipment_Line_QuantityFormat</DataField>
-        </Field>
-        <Field Name="Return_Shipment_Line_Description_Control38">
-          <DataField>Return_Shipment_Line_Description_Control38</DataField>
-        </Field>
-        <Field Name="Return_Shipment_Line__No__">
-          <DataField>Return_Shipment_Line__No__</DataField>
-        </Field>
-        <Field Name="Return_Shipment_Line_Description_Control42">
-          <DataField>Return_Shipment_Line_Description_Control42</DataField>
-        </Field>
-        <Field Name="Return_Shipment_Line_Quantity_Control43">
-          <DataField>Return_Shipment_Line_Quantity_Control43</DataField>
-        </Field>
-        <Field Name="Return_Shipment_Line_Quantity_Control43Format">
-          <DataField>Return_Shipment_Line_Quantity_Control43Format</DataField>
-        </Field>
-        <Field Name="Return_Shipment_Line__Unit_of_Measure__Control44">
-          <DataField>Return_Shipment_Line__Unit_of_Measure__Control44</DataField>
-        </Field>
-        <Field Name="Return_Shipment_Line_Line_No">
-          <DataField>Return_Shipment_Line_Line_No</DataField>
-        </Field>
-        <Field Name="Return_Shipment_Line_Line_NoFormat">
-          <DataField>Return_Shipment_Line_Line_NoFormat</DataField>
-        </Field>
-        <Field Name="CstGText013">
-          <DataField>CstGText013</DataField>
-        </Field>
-        <Field Name="Return_Shipment_Line___LPSA_Description_1_">
-          <DataField>Return_Shipment_Line___LPSA_Description_1_</DataField>
-        </Field>
-        <Field Name="RecGItem_LPSA_Plan_No">
-          <DataField>RecGItem_LPSA_Plan_No</DataField>
-        </Field>
-        <Field Name="RecGItem_Customer_Plan_No">
-          <DataField>RecGItem_Customer_Plan_No</DataField>
-        </Field>
-        <Field Name="Return_Shipment_Line__Unit_of_Measure__Code">
-          <DataField>Return_Shipment_Line__Unit_of_Measure__Code</DataField>
-        </Field>
-        <Field Name="Comment_Line">
-          <DataField>Comment_Line</DataField>
-        </Field>
-        <Field Name="Return_Shipment_Line__Unit_of_Measure__Control44Caption">
-          <DataField>Return_Shipment_Line__Unit_of_Measure__Control44Caption</DataField>
-        </Field>
-        <Field Name="Return_Shipment_Line_Quantity_Control43Caption">
-          <DataField>Return_Shipment_Line_Quantity_Control43Caption</DataField>
-        </Field>
-        <Field Name="Return_Shipment_Line_Description_Control42Caption">
-          <DataField>Return_Shipment_Line_Description_Control42Caption</DataField>
-        </Field>
-        <Field Name="Return_Shipment_Line__No__Caption">
-          <DataField>Return_Shipment_Line__No__Caption</DataField>
-        </Field>
-        <Field Name="RecGItem_LPSA_Plan_No_Caption">
-          <DataField>RecGItem_LPSA_Plan_No_Caption</DataField>
-        </Field>
-        <Field Name="RecGItem_Customer_Plan_No_Caption">
-          <DataField>RecGItem_Customer_Plan_No_Caption</DataField>
-        </Field>
-        <Field Name="Return_Shipment_Line_Document_No_">
-          <DataField>Return_Shipment_Line_Document_No_</DataField>
-        </Field>
-        <Field Name="Return_Shipment_Line_Line_No_">
-          <DataField>Return_Shipment_Line_Line_No_</DataField>
-        </Field>
-        <Field Name="DimText_Control65">
-          <DataField>DimText_Control65</DataField>
-        </Field>
-        <Field Name="DimensionLoop2_Number">
-          <DataField>DimensionLoop2_Number</DataField>
-        </Field>
-        <Field Name="DimText_Control67">
-          <DataField>DimText_Control67</DataField>
-        </Field>
-        <Field Name="Line_DimensionsCaption">
-          <DataField>Line_DimensionsCaption</DataField>
-        </Field>
-        <Field Name="Return_Shipment_Header___Pay_to_Vendor_No__">
-          <DataField>Return_Shipment_Header___Pay_to_Vendor_No__</DataField>
-        </Field>
-        <Field Name="Return_Shipment_Header___Pay_to_Vendor_No__Caption">
-          <DataField>Return_Shipment_Header___Pay_to_Vendor_No__Caption</DataField>
-        </Field>
-        <Field Name="Total_Number">
-          <DataField>Total_Number</DataField>
-        </Field>
-        <Field Name="VendAddr_1_">
-          <DataField>VendAddr_1_</DataField>
-        </Field>
-        <Field Name="VendAddr_2_">
-          <DataField>VendAddr_2_</DataField>
-        </Field>
-        <Field Name="VendAddr_3_">
-          <DataField>VendAddr_3_</DataField>
-        </Field>
-        <Field Name="VendAddr_4_">
-          <DataField>VendAddr_4_</DataField>
-        </Field>
-        <Field Name="VendAddr_5_">
-          <DataField>VendAddr_5_</DataField>
-        </Field>
-        <Field Name="VendAddr_6_">
-          <DataField>VendAddr_6_</DataField>
-        </Field>
-        <Field Name="VendAddr_7_">
-          <DataField>VendAddr_7_</DataField>
-        </Field>
-        <Field Name="VendAddr_8_">
-          <DataField>VendAddr_8_</DataField>
-        </Field>
-        <Field Name="PayToVendorNo">
-          <DataField>PayToVendorNo</DataField>
-        </Field>
-        <Field Name="BuyFromVendorNo">
-          <DataField>BuyFromVendorNo</DataField>
-        </Field>
-        <Field Name="PayToVendorNo_Control75">
-          <DataField>PayToVendorNo_Control75</DataField>
-        </Field>
-        <Field Name="Pay_to_AddressCaption">
-          <DataField>Pay_to_AddressCaption</DataField>
-        </Field>
-        <Field Name="Total2_Number">
-          <DataField>Total2_Number</DataField>
-        </Field>
-      </Fields>
-    </DataSet>
-  </DataSets>
   <ReportSections>
     <ReportSection>
       <Body>
@@ -3945,12 +3614,6 @@ Cstr(Fields!ShipToAddr_7_.Value) + Chr(177) + Cstr(Fields!ShipToAddr_8_.Value) +
       </Page>
     </ReportSection>
   </ReportSections>
-  <ReportParametersLayout>
-    <GridLayoutDefinition>
-      <NumberOfColumns>4</NumberOfColumns>
-      <NumberOfRows>2</NumberOfRows>
-    </GridLayoutDefinition>
-  </ReportParametersLayout>
   <Code>Public Function BlankZero(ByVal Value As Decimal)
     if Value = 0 then
         Return ""
@@ -4038,4 +3701,335 @@ End Function</Code>
   <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
   <rd:ReportUnitType>Cm</rd:ReportUnitType>
   <rd:ReportID>303400e4-e4c6-4d78-8588-8c26b1dcda73</rd:ReportID>
+  <DataSets>
+    <DataSet Name="DataSet_Result">
+      <Fields>
+        <Field Name="Return_Shipment_Header_No_">
+          <DataField>Return_Shipment_Header_No_</DataField>
+        </Field>
+        <Field Name="STRSUBSTNO_Text002_CopyText_">
+          <DataField>STRSUBSTNO_Text002_CopyText_</DataField>
+        </Field>
+        <Field Name="STRSUBSTNO_Text003_FORMAT_CurrReport_PAGENO__">
+          <DataField>STRSUBSTNO_Text003_FORMAT_CurrReport_PAGENO__</DataField>
+        </Field>
+        <Field Name="CompanyAddr_1_">
+          <DataField>CompanyAddr_1_</DataField>
+        </Field>
+        <Field Name="CompanyAddr_2_">
+          <DataField>CompanyAddr_2_</DataField>
+        </Field>
+        <Field Name="CompanyAddr_3_">
+          <DataField>CompanyAddr_3_</DataField>
+        </Field>
+        <Field Name="CompanyAddr_4_">
+          <DataField>CompanyAddr_4_</DataField>
+        </Field>
+        <Field Name="CompanyInfo__Phone_No__">
+          <DataField>CompanyInfo__Phone_No__</DataField>
+        </Field>
+        <Field Name="CompanyInfo__Fax_No__">
+          <DataField>CompanyInfo__Fax_No__</DataField>
+        </Field>
+        <Field Name="CompanyInfo__VAT_Registration_No__">
+          <DataField>CompanyInfo__VAT_Registration_No__</DataField>
+        </Field>
+        <Field Name="CompanyInfo__Giro_No__">
+          <DataField>CompanyInfo__Giro_No__</DataField>
+        </Field>
+        <Field Name="CompanyInfo__Bank_Name_">
+          <DataField>CompanyInfo__Bank_Name_</DataField>
+        </Field>
+        <Field Name="CompanyInfo__Bank_Account_No__">
+          <DataField>CompanyInfo__Bank_Account_No__</DataField>
+        </Field>
+        <Field Name="FORMAT__Return_Shipment_Header___Document_Date__0_4_">
+          <DataField>FORMAT__Return_Shipment_Header___Document_Date__0_4_</DataField>
+        </Field>
+        <Field Name="PurchaserText">
+          <DataField>PurchaserText</DataField>
+        </Field>
+        <Field Name="SalesPurchPerson_Name">
+          <DataField>SalesPurchPerson_Name</DataField>
+        </Field>
+        <Field Name="Return_Shipment_Header___No__">
+          <DataField>Return_Shipment_Header___No__</DataField>
+        </Field>
+        <Field Name="ReferenceText">
+          <DataField>ReferenceText</DataField>
+        </Field>
+        <Field Name="Return_Shipment_Header___Your_Reference_">
+          <DataField>Return_Shipment_Header___Your_Reference_</DataField>
+        </Field>
+        <Field Name="CompanyAddr_5_">
+          <DataField>CompanyAddr_5_</DataField>
+        </Field>
+        <Field Name="CompanyAddr_6_">
+          <DataField>CompanyAddr_6_</DataField>
+        </Field>
+        <Field Name="Return_Shipment_Header___Buy_from_Vendor_No__">
+          <DataField>Return_Shipment_Header___Buy_from_Vendor_No__</DataField>
+        </Field>
+        <Field Name="ShipToAddr_1_">
+          <DataField>ShipToAddr_1_</DataField>
+        </Field>
+        <Field Name="ShipToAddr_2_">
+          <DataField>ShipToAddr_2_</DataField>
+        </Field>
+        <Field Name="ShipToAddr_3_">
+          <DataField>ShipToAddr_3_</DataField>
+        </Field>
+        <Field Name="ShipToAddr_4_">
+          <DataField>ShipToAddr_4_</DataField>
+        </Field>
+        <Field Name="ShipToAddr_5_">
+          <DataField>ShipToAddr_5_</DataField>
+        </Field>
+        <Field Name="ShipToAddr_6_">
+          <DataField>ShipToAddr_6_</DataField>
+        </Field>
+        <Field Name="ShipToAddr_7_">
+          <DataField>ShipToAddr_7_</DataField>
+        </Field>
+        <Field Name="ShipToAddr_8_">
+          <DataField>ShipToAddr_8_</DataField>
+        </Field>
+        <Field Name="PageCaption">
+          <DataField>PageCaption</DataField>
+        </Field>
+        <Field Name="OutputNo">
+          <DataField>OutputNo</DataField>
+        </Field>
+        <Field Name="Text007">
+          <DataField>Text007</DataField>
+        </Field>
+        <Field Name="Text005">
+          <DataField>Text005</DataField>
+        </Field>
+        <Field Name="STRSUBSTNO_Text006__Return_Shipment_Header___No___">
+          <DataField>STRSUBSTNO_Text006__Return_Shipment_Header___No___</DataField>
+        </Field>
+        <Field Name="STRSUBSTNO_Text004">
+          <DataField>STRSUBSTNO_Text004</DataField>
+        </Field>
+        <Field Name="Text010">
+          <DataField>Text010</DataField>
+        </Field>
+        <Field Name="Return_Shipment_Header_Buy_From_Contact">
+          <DataField>Return_Shipment_Header_Buy_From_Contact</DataField>
+        </Field>
+        <Field Name="Text008">
+          <DataField>Text008</DataField>
+        </Field>
+        <Field Name="RecGVendor_Fax_No">
+          <DataField>RecGVendor_Fax_No</DataField>
+        </Field>
+        <Field Name="STRSUBSTNO_Text012__SalesPurch_Person_Name">
+          <DataField>STRSUBSTNO_Text012__SalesPurch_Person_Name</DataField>
+        </Field>
+        <Field Name="Text009">
+          <DataField>Text009</DataField>
+        </Field>
+        <Field Name="RecGPurchHderArch_Vendor_Order_No">
+          <DataField>RecGPurchHderArch_Vendor_Order_No</DataField>
+        </Field>
+        <Field Name="CstGText014">
+          <DataField>CstGText014</DataField>
+        </Field>
+        <Field Name="CstGText015">
+          <DataField>CstGText015</DataField>
+        </Field>
+        <Field Name="Return_Shipment_Header__VAT_Registration">
+          <DataField>Return_Shipment_Header__VAT_Registration</DataField>
+        </Field>
+        <Field Name="CompanyInfo__Phone_No__Caption">
+          <DataField>CompanyInfo__Phone_No__Caption</DataField>
+        </Field>
+        <Field Name="CompanyInfo__Fax_No__Caption">
+          <DataField>CompanyInfo__Fax_No__Caption</DataField>
+        </Field>
+        <Field Name="CompanyInfo__VAT_Registration_No__Caption">
+          <DataField>CompanyInfo__VAT_Registration_No__Caption</DataField>
+        </Field>
+        <Field Name="CompanyInfo__Giro_No__Caption">
+          <DataField>CompanyInfo__Giro_No__Caption</DataField>
+        </Field>
+        <Field Name="CompanyInfo__Bank_Name_Caption">
+          <DataField>CompanyInfo__Bank_Name_Caption</DataField>
+        </Field>
+        <Field Name="CompanyInfo__Bank_Account_No__Caption">
+          <DataField>CompanyInfo__Bank_Account_No__Caption</DataField>
+        </Field>
+        <Field Name="Return_Shipment_Header___No__Caption">
+          <DataField>Return_Shipment_Header___No__Caption</DataField>
+        </Field>
+        <Field Name="Return_Shipment_Header___Buy_from_Vendor_No__Caption">
+          <DataField>Return_Shipment_Header___Buy_from_Vendor_No__Caption</DataField>
+        </Field>
+        <Field Name="PageLoop_Number">
+          <DataField>PageLoop_Number</DataField>
+        </Field>
+        <Field Name="DimText">
+          <DataField>DimText</DataField>
+        </Field>
+        <Field Name="DimensionLoop1_Number">
+          <DataField>DimensionLoop1_Number</DataField>
+        </Field>
+        <Field Name="DimText_Control47">
+          <DataField>DimText_Control47</DataField>
+        </Field>
+        <Field Name="Header_DimensionsCaption">
+          <DataField>Header_DimensionsCaption</DataField>
+        </Field>
+        <Field Name="TypeInt">
+          <DataField>TypeInt</DataField>
+        </Field>
+        <Field Name="ShowInternalInfo">
+          <DataField>ShowInternalInfo</DataField>
+        </Field>
+        <Field Name="Return_Shipment_Line_Description">
+          <DataField>Return_Shipment_Line_Description</DataField>
+        </Field>
+        <Field Name="Return_Shipment_Line__Unit_of_Measure_">
+          <DataField>Return_Shipment_Line__Unit_of_Measure_</DataField>
+        </Field>
+        <Field Name="Return_Shipment_Line_Quantity">
+          <DataField>Return_Shipment_Line_Quantity</DataField>
+        </Field>
+        <Field Name="Return_Shipment_Line_QuantityFormat">
+          <DataField>Return_Shipment_Line_QuantityFormat</DataField>
+        </Field>
+        <Field Name="Return_Shipment_Line_Description_Control38">
+          <DataField>Return_Shipment_Line_Description_Control38</DataField>
+        </Field>
+        <Field Name="Return_Shipment_Line__No__">
+          <DataField>Return_Shipment_Line__No__</DataField>
+        </Field>
+        <Field Name="Return_Shipment_Line_Description_Control42">
+          <DataField>Return_Shipment_Line_Description_Control42</DataField>
+        </Field>
+        <Field Name="Return_Shipment_Line_Quantity_Control43">
+          <DataField>Return_Shipment_Line_Quantity_Control43</DataField>
+        </Field>
+        <Field Name="Return_Shipment_Line_Quantity_Control43Format">
+          <DataField>Return_Shipment_Line_Quantity_Control43Format</DataField>
+        </Field>
+        <Field Name="Return_Shipment_Line__Unit_of_Measure__Control44">
+          <DataField>Return_Shipment_Line__Unit_of_Measure__Control44</DataField>
+        </Field>
+        <Field Name="Return_Shipment_Line_Line_No">
+          <DataField>Return_Shipment_Line_Line_No</DataField>
+        </Field>
+        <Field Name="Return_Shipment_Line_Line_NoFormat">
+          <DataField>Return_Shipment_Line_Line_NoFormat</DataField>
+        </Field>
+        <Field Name="CstGText013">
+          <DataField>CstGText013</DataField>
+        </Field>
+        <Field Name="Return_Shipment_Line___LPSA_Description_1_">
+          <DataField>Return_Shipment_Line___LPSA_Description_1_</DataField>
+        </Field>
+        <Field Name="RecGItem_LPSA_Plan_No">
+          <DataField>RecGItem_LPSA_Plan_No</DataField>
+        </Field>
+        <Field Name="RecGItem_Customer_Plan_No">
+          <DataField>RecGItem_Customer_Plan_No</DataField>
+        </Field>
+        <Field Name="Return_Shipment_Line__Unit_of_Measure__Code">
+          <DataField>Return_Shipment_Line__Unit_of_Measure__Code</DataField>
+        </Field>
+        <Field Name="Comment_Line">
+          <DataField>Comment_Line</DataField>
+        </Field>
+        <Field Name="Return_Shipment_Line__Unit_of_Measure__Control44Caption">
+          <DataField>Return_Shipment_Line__Unit_of_Measure__Control44Caption</DataField>
+        </Field>
+        <Field Name="Return_Shipment_Line_Quantity_Control43Caption">
+          <DataField>Return_Shipment_Line_Quantity_Control43Caption</DataField>
+        </Field>
+        <Field Name="Return_Shipment_Line_Description_Control42Caption">
+          <DataField>Return_Shipment_Line_Description_Control42Caption</DataField>
+        </Field>
+        <Field Name="Return_Shipment_Line__No__Caption">
+          <DataField>Return_Shipment_Line__No__Caption</DataField>
+        </Field>
+        <Field Name="RecGItem_LPSA_Plan_No_Caption">
+          <DataField>RecGItem_LPSA_Plan_No_Caption</DataField>
+        </Field>
+        <Field Name="RecGItem_Customer_Plan_No_Caption">
+          <DataField>RecGItem_Customer_Plan_No_Caption</DataField>
+        </Field>
+        <Field Name="Return_Shipment_Line_Document_No_">
+          <DataField>Return_Shipment_Line_Document_No_</DataField>
+        </Field>
+        <Field Name="Return_Shipment_Line_Line_No_">
+          <DataField>Return_Shipment_Line_Line_No_</DataField>
+        </Field>
+        <Field Name="DimText_Control65">
+          <DataField>DimText_Control65</DataField>
+        </Field>
+        <Field Name="DimensionLoop2_Number">
+          <DataField>DimensionLoop2_Number</DataField>
+        </Field>
+        <Field Name="DimText_Control67">
+          <DataField>DimText_Control67</DataField>
+        </Field>
+        <Field Name="Line_DimensionsCaption">
+          <DataField>Line_DimensionsCaption</DataField>
+        </Field>
+        <Field Name="Return_Shipment_Header___Pay_to_Vendor_No__">
+          <DataField>Return_Shipment_Header___Pay_to_Vendor_No__</DataField>
+        </Field>
+        <Field Name="Return_Shipment_Header___Pay_to_Vendor_No__Caption">
+          <DataField>Return_Shipment_Header___Pay_to_Vendor_No__Caption</DataField>
+        </Field>
+        <Field Name="Total_Number">
+          <DataField>Total_Number</DataField>
+        </Field>
+        <Field Name="VendAddr_1_">
+          <DataField>VendAddr_1_</DataField>
+        </Field>
+        <Field Name="VendAddr_2_">
+          <DataField>VendAddr_2_</DataField>
+        </Field>
+        <Field Name="VendAddr_3_">
+          <DataField>VendAddr_3_</DataField>
+        </Field>
+        <Field Name="VendAddr_4_">
+          <DataField>VendAddr_4_</DataField>
+        </Field>
+        <Field Name="VendAddr_5_">
+          <DataField>VendAddr_5_</DataField>
+        </Field>
+        <Field Name="VendAddr_6_">
+          <DataField>VendAddr_6_</DataField>
+        </Field>
+        <Field Name="VendAddr_7_">
+          <DataField>VendAddr_7_</DataField>
+        </Field>
+        <Field Name="VendAddr_8_">
+          <DataField>VendAddr_8_</DataField>
+        </Field>
+        <Field Name="PayToVendorNo">
+          <DataField>PayToVendorNo</DataField>
+        </Field>
+        <Field Name="BuyFromVendorNo">
+          <DataField>BuyFromVendorNo</DataField>
+        </Field>
+        <Field Name="PayToVendorNo_Control75">
+          <DataField>PayToVendorNo_Control75</DataField>
+        </Field>
+        <Field Name="Pay_to_AddressCaption">
+          <DataField>Pay_to_AddressCaption</DataField>
+        </Field>
+        <Field Name="Total2_Number">
+          <DataField>Total2_Number</DataField>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DataSource</DataSourceName>
+        <CommandText />
+      </Query>
+    </DataSet>
+  </DataSets>
 </Report>

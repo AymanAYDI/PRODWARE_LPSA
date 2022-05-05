@@ -30,7 +30,7 @@ page 50027 "PWD Purchase Order line"
                 {
                     ApplicationArea = All;
                 }
-                field(Type; Type)
+                field(Type; Rec.Type)
                 {
                     ApplicationArea = All;
                 }
@@ -50,7 +50,7 @@ page 50027 "PWD Purchase Order line"
                 {
                     ApplicationArea = All;
                 }
-                field(Description; Description)
+                field(Description; Rec.Description)
                 {
                     ApplicationArea = All;
                 }
@@ -62,7 +62,7 @@ page 50027 "PWD Purchase Order line"
                 {
                     ApplicationArea = All;
                 }
-                field(Quantity; Quantity)
+                field(Quantity; Rec.Quantity)
                 {
                     ApplicationArea = All;
                 }
@@ -98,7 +98,7 @@ page 50027 "PWD Purchase Order line"
                 {
                     ApplicationArea = All;
                 }
-                field(Amount; Amount)
+                field(Amount; Rec.Amount)
                 {
                     ApplicationArea = All;
                 }
@@ -234,7 +234,7 @@ page 50027 "PWD Purchase Order line"
                 {
                     ApplicationArea = All;
                 }
-                field("Area"; Area)
+                field("Area"; Rec.Area)
                 {
                     ApplicationArea = All;
                 }
@@ -582,7 +582,7 @@ page 50027 "PWD Purchase Order line"
                 {
                     ApplicationArea = All;
                 }
-                field(Nonstock; Nonstock)
+                field(Nonstock; Rec.Nonstock)
                 {
                     ApplicationArea = All;
                 }
@@ -746,7 +746,7 @@ page 50027 "PWD Purchase Order line"
                 {
                     ApplicationArea = All;
                 }
-                field(Finished; Finished)
+                field(Finished; Rec.Finished)
                 {
                     ApplicationArea = All;
                 }
@@ -798,10 +798,10 @@ page 50027 "PWD Purchase Order line"
                         LpagePurchOrder: Page "Purchase Order";
                     begin
                         LrecPurchOrder.RESET();
-                        LrecPurchOrder.SETRANGE("Document Type", "Document Type"::Order);
-                        LrecPurchOrder.SETRANGE("No.", "Document No.");
+                        LrecPurchOrder.SETRANGE("Document Type", Rec."Document Type"::Order);
+                        LrecPurchOrder.SETRANGE("No.", Rec."Document No.");
                         IF NOT LrecPurchOrder.FINDFIRST() THEN
-                            ERROR('La commande achat N° %1 est introuvable .', "Document No.")
+                            ERROR('La commande achat N° %1 est introuvable .', Rec."Document No.")
                         ELSE BEGIN
                             LpagePurchOrder.SETTABLEVIEW(LrecPurchOrder);
                             LpagePurchOrder.RUN();

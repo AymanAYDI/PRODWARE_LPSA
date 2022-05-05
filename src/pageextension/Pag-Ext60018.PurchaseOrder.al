@@ -29,21 +29,21 @@ pageextension 60018 "PWD PurchaseOrder" extends "Purchase Order"
     {
         addafter("Posting Date")
         {
-            field("PWD Order Min. Amount"; "PWD Order Min. Amount")
+            field("PWD Order Min. Amount"; Rec."PWD Order Min. Amount")
             {
                 ApplicationArea = All;
             }
         }
         addafter("Quote No.")
         {
-            field("PWD Intranet Order No."; "PWD Intranet Order No.")
+            field("PWD Intranet Order No."; Rec."PWD Intranet Order No.")
             {
                 ApplicationArea = All;
             }
         }
         addafter(Status)
         {
-            field("PWD Printedt"; "PWD Printed")
+            field("PWD Printedt"; Rec."PWD Printed")
             {
                 ApplicationArea = All;
             }
@@ -66,8 +66,8 @@ pageextension 60018 "PWD PurchaseOrder" extends "Purchase Order"
                 begin
                     //>>WMS-FE04.001
                     RecLPurchaseLines.RESET();
-                    RecLPurchaseLines.SETRANGE("Document Type", "Document Type");
-                    RecLPurchaseLines.SETRANGE("Document No.", "No.");
+                    RecLPurchaseLines.SETRANGE("Document Type", Rec."Document Type");
+                    RecLPurchaseLines.SETRANGE("Document No.", Rec."No.");
                     IF RecLPurchaseLines.FINDSET() THEN
                         REPEAT
                             CduLConnectorWMSParseData.FctChangePurchOrderStatus(RecLPurchaseLines);

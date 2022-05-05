@@ -20,15 +20,15 @@ pageextension 60068 "PWD LocationCard" extends "Location Card"
     {
         addafter("Use As In-Transit")
         {
-            field("PWD WMS_Location"; "PWD WMS_Location")
+            field("PWD WMS_Location"; Rec."PWD WMS_Location")
             {
                 ApplicationArea = All;
             }
-            field("PWD Req. Wksh. Template"; "PWD Req. Wksh. Template")
+            field("PWD Req. Wksh. Template"; Rec."PWD Req. Wksh. Template")
             {
                 ApplicationArea = All;
             }
-            field("PWD Req. Wksh. Name"; "PWD Req. Wksh. Name")
+            field("PWD Req. Wksh. Name"; Rec."PWD Req. Wksh. Name")
             {
                 ApplicationArea = All;
             }

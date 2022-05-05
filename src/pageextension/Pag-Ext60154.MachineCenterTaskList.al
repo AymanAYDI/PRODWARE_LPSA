@@ -70,7 +70,6 @@ pageextension 60154 "PWD MachineCenterTaskList" extends "Machine Center Task Lis
 
     var
         RecGItem: Record Item;
-        RecGProdLine: Record "Prod. Order Line";
         DatGDueDate: Date;
 
 

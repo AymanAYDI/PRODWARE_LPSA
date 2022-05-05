@@ -4,7 +4,7 @@ pageextension 60117 "PWD PurchaseOrderArchives" extends "Purchase Order Archives
     {
         addfirst(Control1)
         {
-            field("PWD No."; "No.")
+            field("PWD No."; Rec."No.")
             {
                 ApplicationArea = All;
             }

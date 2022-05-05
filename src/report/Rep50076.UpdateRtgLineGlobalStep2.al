@@ -29,7 +29,7 @@ report 50076 "Update Rtg Line Global-Step 2"
                         if not (RL_Others."Routing No." = RL_Reference."Routing No.") then begin
                             RecGRoutingHeader.Get(RL_Others."Routing No.");
                             if RecGRoutingHeader.Status <> RecGRoutingHeader.Status::Closed then begin
-                                Stat := RecGRoutingHeader.Status;
+                                Stat := RecGRoutingHeader.Status.AsInteger();
 
                                 if (Stat <> Stat::"Under Development") and (Stat <> Stat::Closed) then begin
                                     RecGRoutingHeader.Validate(Status, RecGRoutingHeader.Status::"Under Development");

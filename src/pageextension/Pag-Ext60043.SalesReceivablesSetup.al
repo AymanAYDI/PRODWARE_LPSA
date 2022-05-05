@@ -20,7 +20,7 @@ pageextension 60043 "PWD SalesReceivablesSetup" extends "Sales & Receivables Set
 
         addafter("Apply Inv. Round. Amt. To VAT")
         {
-            field("PWD PDFDirectory"; "PWD PDFDirectory")
+            field("PWD PDFDirectory"; Rec."PWD PDFDirectory")
             {
                 ApplicationArea = All;
             }

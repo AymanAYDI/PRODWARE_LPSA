@@ -123,7 +123,7 @@ tableextension 60007 "PWD SalesLine" extends "Sales Line"
             Editable = false;
             FieldClass = FlowField;
         }
-        field(8073282; "PWD WMS_Status"; Enum "PWD Status")
+        field(8073282; "PWD WMS_Status"; Enum "PWD WMS_Status")
         {
             Caption = 'WMS_Status';
             Description = 'ProdConnect1.5';

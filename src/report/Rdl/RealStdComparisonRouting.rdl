@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2016/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
   <AutoRefresh>0</AutoRefresh>
   <DataSources>
@@ -10,193 +10,6 @@
       <rd:SecurityType>None</rd:SecurityType>
     </DataSource>
   </DataSources>
-  <DataSets>
-    <DataSet Name="DataSet_Result">
-      <Query>
-        <DataSourceName>DataSource</DataSourceName>
-        <CommandText />
-      </Query>
-      <Fields>
-        <Field Name="FORMAT_TODAY_0_4_">
-          <DataField>FORMAT_TODAY_0_4_</DataField>
-        </Field>
-        <Field Name="COMPANYNAME">
-          <DataField>COMPANYNAME</DataField>
-        </Field>
-        <Field Name="CurrReport_PAGENO">
-          <DataField>CurrReport_PAGENO</DataField>
-        </Field>
-        <Field Name="USERID">
-          <DataField>USERID</DataField>
-        </Field>
-        <Field Name="DateFilter">
-          <DataField>DateFilter</DataField>
-        </Field>
-        <Field Name="Item__No__">
-          <DataField>Item__No__</DataField>
-        </Field>
-        <Field Name="Item_Description">
-          <DataField>Item_Description</DataField>
-        </Field>
-        <Field Name="Prod__Order___ListCaption">
-          <DataField>Prod__Order___ListCaption</DataField>
-        </Field>
-        <Field Name="CurrReport_PAGENOCaption">
-          <DataField>CurrReport_PAGENOCaption</DataField>
-        </Field>
-        <Field Name="PériodeCaption">
-          <DataField>PériodeCaption</DataField>
-        </Field>
-        <Field Name="N__ArticleCaption">
-          <DataField>N__ArticleCaption</DataField>
-        </Field>
-        <Field Name="Item_DescriptionCaption">
-          <DataField>Item_DescriptionCaption</DataField>
-        </Field>
-        <Field Name="Prod__Order_Line__Routing_No__">
-          <DataField>Prod__Order_Line__Routing_No__</DataField>
-        </Field>
-        <Field Name="NbOf">
-          <DataField>NbOf</DataField>
-        </Field>
-        <Field Name="Prod__Order_Line__Routing_Version_Code_">
-          <DataField>Prod__Order_Line__Routing_Version_Code_</DataField>
-        </Field>
-        <Field Name="Prod__Order_Line__Routing_No__Caption">
-          <DataField>Prod__Order_Line__Routing_No__Caption</DataField>
-        </Field>
-        <Field Name="Nb_OFCaption">
-          <DataField>Nb_OFCaption</DataField>
-        </Field>
-        <Field Name="Prod__Order_Line__Routing_Version_Code_Caption">
-          <DataField>Prod__Order_Line__Routing_Version_Code_Caption</DataField>
-        </Field>
-        <Field Name="Prod__Order_Routing_Line_TypeCaption">
-          <DataField>Prod__Order_Routing_Line_TypeCaption</DataField>
-        </Field>
-        <Field Name="Prod__Order_Routing_Line__No__Caption">
-          <DataField>Prod__Order_Routing_Line__No__Caption</DataField>
-        </Field>
-        <Field Name="Prod__Order_Routing_Line_DescriptionCaption">
-          <DataField>Prod__Order_Routing_Line_DescriptionCaption</DataField>
-        </Field>
-        <Field Name="Temps_préparation_standardCaption">
-          <DataField>Temps_préparation_standardCaption</DataField>
-        </Field>
-        <Field Name="Temps_d_execution__Caption">
-          <DataField>Temps_d_execution__Caption</DataField>
-        </Field>
-        <Field Name="Temps_de_préparation__Caption">
-          <DataField>Temps_de_préparation__Caption</DataField>
-        </Field>
-        <Field Name="Temps_préparation_réelCaption">
-          <DataField>Temps_préparation_réelCaption</DataField>
-        </Field>
-        <Field Name="Quantité_rebut_réelCaption">
-          <DataField>Quantité_rebut_réelCaption</DataField>
-        </Field>
-        <Field Name="Temps_d_execution_réelCaption">
-          <DataField>Temps_d_execution_réelCaption</DataField>
-        </Field>
-        <Field Name="Temps_d_execution_standardCaption">
-          <DataField>Temps_d_execution_standardCaption</DataField>
-        </Field>
-        <Field Name="Prod__Order_Routing_Line__Operation_No__Caption">
-          <DataField>Prod__Order_Routing_Line__Operation_No__Caption</DataField>
-        </Field>
-        <Field Name="SetupTimeUnitofMeasCaption">
-          <DataField>SetupTimeUnitofMeasCaption</DataField>
-        </Field>
-        <Field Name="RunTimeUnitofMeasCaption">
-          <DataField>RunTimeUnitofMeasCaption</DataField>
-        </Field>
-        <Field Name="ScrapFactorCaption">
-          <DataField>ScrapFactorCaption</DataField>
-        </Field>
-        <Field Name="Prod__Order_Line_Status">
-          <DataField>Prod__Order_Line_Status</DataField>
-        </Field>
-        <Field Name="Prod__Order_Line_Prod__Order_No_">
-          <DataField>Prod__Order_Line_Prod__Order_No_</DataField>
-        </Field>
-        <Field Name="Prod__Order_Line_Line_No_">
-          <DataField>Prod__Order_Line_Line_No_</DataField>
-        </Field>
-        <Field Name="Prod__Order_Line_Item_No_">
-          <DataField>Prod__Order_Line_Item_No_</DataField>
-        </Field>
-        <Field Name="Prod__Order_Routing_Line__Operation_No__">
-          <DataField>Prod__Order_Routing_Line__Operation_No__</DataField>
-        </Field>
-        <Field Name="Prod__Order_Routing_Line_Type">
-          <DataField>Prod__Order_Routing_Line_Type</DataField>
-        </Field>
-        <Field Name="Prod__Order_Routing_Line__No__">
-          <DataField>Prod__Order_Routing_Line__No__</DataField>
-        </Field>
-        <Field Name="Prod__Order_Routing_Line_Description">
-          <DataField>Prod__Order_Routing_Line_Description</DataField>
-        </Field>
-        <Field Name="GTimePrepReal">
-          <DataField>GTimePrepReal</DataField>
-        </Field>
-        <Field Name="GTimePrepRealFormat">
-          <DataField>GTimePrepRealFormat</DataField>
-        </Field>
-        <Field Name="GTimePrep">
-          <DataField>GTimePrep</DataField>
-        </Field>
-        <Field Name="GTimePrepFormat">
-          <DataField>GTimePrepFormat</DataField>
-        </Field>
-        <Field Name="GTimeEx">
-          <DataField>GTimeEx</DataField>
-        </Field>
-        <Field Name="GTimeExFormat">
-          <DataField>GTimeExFormat</DataField>
-        </Field>
-        <Field Name="GTimeExReal">
-          <DataField>GTimeExReal</DataField>
-        </Field>
-        <Field Name="GTimeExRealFormat">
-          <DataField>GTimeExRealFormat</DataField>
-        </Field>
-        <Field Name="GPerte">
-          <DataField>GPerte</DataField>
-        </Field>
-        <Field Name="GPerteFormat">
-          <DataField>GPerteFormat</DataField>
-        </Field>
-        <Field Name="Prod__Order_Routing_Line__Setup_Time_">
-          <DataField>Prod__Order_Routing_Line__Setup_Time_</DataField>
-        </Field>
-        <Field Name="Prod__Order_Routing_Line__Setup_Time_Format">
-          <DataField>Prod__Order_Routing_Line__Setup_Time_Format</DataField>
-        </Field>
-        <Field Name="Prod__Order_Routing_Line__Run_Time_">
-          <DataField>Prod__Order_Routing_Line__Run_Time_</DataField>
-        </Field>
-        <Field Name="Prod__Order_Routing_Line__Run_Time_Format">
-          <DataField>Prod__Order_Routing_Line__Run_Time_Format</DataField>
-        </Field>
-        <Field Name="SetupTimeUnitofMeasCode">
-          <DataField>SetupTimeUnitofMeasCode</DataField>
-        </Field>
-        <Field Name="RunTimeUnitofMeasCode">
-          <DataField>RunTimeUnitofMeasCode</DataField>
-        </Field>
-        <Field Name="ScrapFactorValue">
-          <DataField>ScrapFactorValue</DataField>
-        </Field>
-        <Field Name="ScrapFactorValueFormat">
-          <DataField>ScrapFactorValueFormat</DataField>
-        </Field>
-        <Field Name="RoutingTemp_Number">
-          <DataField>RoutingTemp_Number</DataField>
-        </Field>
-      </Fields>
-    </DataSet>
-  </DataSets>
   <ReportSections>
     <ReportSection>
       <Body>
@@ -3331,4 +3144,191 @@ End Function
   <Language>=User!Language</Language>
   <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
   <rd:ReportUnitType>Invalid</rd:ReportUnitType>
+  <DataSets>
+    <DataSet Name="DataSet_Result">
+      <Fields>
+        <Field Name="FORMAT_TODAY_0_4_">
+          <DataField>FORMAT_TODAY_0_4_</DataField>
+        </Field>
+        <Field Name="COMPANYNAME">
+          <DataField>COMPANYNAME</DataField>
+        </Field>
+        <Field Name="CurrReport_PAGENO">
+          <DataField>CurrReport_PAGENO</DataField>
+        </Field>
+        <Field Name="USERID">
+          <DataField>USERID</DataField>
+        </Field>
+        <Field Name="DateFilter">
+          <DataField>DateFilter</DataField>
+        </Field>
+        <Field Name="Item__No__">
+          <DataField>Item__No__</DataField>
+        </Field>
+        <Field Name="Item_Description">
+          <DataField>Item_Description</DataField>
+        </Field>
+        <Field Name="Prod__Order___ListCaption">
+          <DataField>Prod__Order___ListCaption</DataField>
+        </Field>
+        <Field Name="CurrReport_PAGENOCaption">
+          <DataField>CurrReport_PAGENOCaption</DataField>
+        </Field>
+        <Field Name="PériodeCaption">
+          <DataField>PériodeCaption</DataField>
+        </Field>
+        <Field Name="N__ArticleCaption">
+          <DataField>N__ArticleCaption</DataField>
+        </Field>
+        <Field Name="Item_DescriptionCaption">
+          <DataField>Item_DescriptionCaption</DataField>
+        </Field>
+        <Field Name="Prod__Order_Line__Routing_No__">
+          <DataField>Prod__Order_Line__Routing_No__</DataField>
+        </Field>
+        <Field Name="NbOf">
+          <DataField>NbOf</DataField>
+        </Field>
+        <Field Name="Prod__Order_Line__Routing_Version_Code_">
+          <DataField>Prod__Order_Line__Routing_Version_Code_</DataField>
+        </Field>
+        <Field Name="Prod__Order_Line__Routing_No__Caption">
+          <DataField>Prod__Order_Line__Routing_No__Caption</DataField>
+        </Field>
+        <Field Name="Nb_OFCaption">
+          <DataField>Nb_OFCaption</DataField>
+        </Field>
+        <Field Name="Prod__Order_Line__Routing_Version_Code_Caption">
+          <DataField>Prod__Order_Line__Routing_Version_Code_Caption</DataField>
+        </Field>
+        <Field Name="Prod__Order_Routing_Line_TypeCaption">
+          <DataField>Prod__Order_Routing_Line_TypeCaption</DataField>
+        </Field>
+        <Field Name="Prod__Order_Routing_Line__No__Caption">
+          <DataField>Prod__Order_Routing_Line__No__Caption</DataField>
+        </Field>
+        <Field Name="Prod__Order_Routing_Line_DescriptionCaption">
+          <DataField>Prod__Order_Routing_Line_DescriptionCaption</DataField>
+        </Field>
+        <Field Name="Temps_préparation_standardCaption">
+          <DataField>Temps_préparation_standardCaption</DataField>
+        </Field>
+        <Field Name="Temps_d_execution__Caption">
+          <DataField>Temps_d_execution__Caption</DataField>
+        </Field>
+        <Field Name="Temps_de_préparation__Caption">
+          <DataField>Temps_de_préparation__Caption</DataField>
+        </Field>
+        <Field Name="Temps_préparation_réelCaption">
+          <DataField>Temps_préparation_réelCaption</DataField>
+        </Field>
+        <Field Name="Quantité_rebut_réelCaption">
+          <DataField>Quantité_rebut_réelCaption</DataField>
+        </Field>
+        <Field Name="Temps_d_execution_réelCaption">
+          <DataField>Temps_d_execution_réelCaption</DataField>
+        </Field>
+        <Field Name="Temps_d_execution_standardCaption">
+          <DataField>Temps_d_execution_standardCaption</DataField>
+        </Field>
+        <Field Name="Prod__Order_Routing_Line__Operation_No__Caption">
+          <DataField>Prod__Order_Routing_Line__Operation_No__Caption</DataField>
+        </Field>
+        <Field Name="SetupTimeUnitofMeasCaption">
+          <DataField>SetupTimeUnitofMeasCaption</DataField>
+        </Field>
+        <Field Name="RunTimeUnitofMeasCaption">
+          <DataField>RunTimeUnitofMeasCaption</DataField>
+        </Field>
+        <Field Name="ScrapFactorCaption">
+          <DataField>ScrapFactorCaption</DataField>
+        </Field>
+        <Field Name="Prod__Order_Line_Status">
+          <DataField>Prod__Order_Line_Status</DataField>
+        </Field>
+        <Field Name="Prod__Order_Line_Prod__Order_No_">
+          <DataField>Prod__Order_Line_Prod__Order_No_</DataField>
+        </Field>
+        <Field Name="Prod__Order_Line_Line_No_">
+          <DataField>Prod__Order_Line_Line_No_</DataField>
+        </Field>
+        <Field Name="Prod__Order_Line_Item_No_">
+          <DataField>Prod__Order_Line_Item_No_</DataField>
+        </Field>
+        <Field Name="Prod__Order_Routing_Line__Operation_No__">
+          <DataField>Prod__Order_Routing_Line__Operation_No__</DataField>
+        </Field>
+        <Field Name="Prod__Order_Routing_Line_Type">
+          <DataField>Prod__Order_Routing_Line_Type</DataField>
+        </Field>
+        <Field Name="Prod__Order_Routing_Line__No__">
+          <DataField>Prod__Order_Routing_Line__No__</DataField>
+        </Field>
+        <Field Name="Prod__Order_Routing_Line_Description">
+          <DataField>Prod__Order_Routing_Line_Description</DataField>
+        </Field>
+        <Field Name="GTimePrepReal">
+          <DataField>GTimePrepReal</DataField>
+        </Field>
+        <Field Name="GTimePrepRealFormat">
+          <DataField>GTimePrepRealFormat</DataField>
+        </Field>
+        <Field Name="GTimePrep">
+          <DataField>GTimePrep</DataField>
+        </Field>
+        <Field Name="GTimePrepFormat">
+          <DataField>GTimePrepFormat</DataField>
+        </Field>
+        <Field Name="GTimeEx">
+          <DataField>GTimeEx</DataField>
+        </Field>
+        <Field Name="GTimeExFormat">
+          <DataField>GTimeExFormat</DataField>
+        </Field>
+        <Field Name="GTimeExReal">
+          <DataField>GTimeExReal</DataField>
+        </Field>
+        <Field Name="GTimeExRealFormat">
+          <DataField>GTimeExRealFormat</DataField>
+        </Field>
+        <Field Name="GPerte">
+          <DataField>GPerte</DataField>
+        </Field>
+        <Field Name="GPerteFormat">
+          <DataField>GPerteFormat</DataField>
+        </Field>
+        <Field Name="Prod__Order_Routing_Line__Setup_Time_">
+          <DataField>Prod__Order_Routing_Line__Setup_Time_</DataField>
+        </Field>
+        <Field Name="Prod__Order_Routing_Line__Setup_Time_Format">
+          <DataField>Prod__Order_Routing_Line__Setup_Time_Format</DataField>
+        </Field>
+        <Field Name="Prod__Order_Routing_Line__Run_Time_">
+          <DataField>Prod__Order_Routing_Line__Run_Time_</DataField>
+        </Field>
+        <Field Name="Prod__Order_Routing_Line__Run_Time_Format">
+          <DataField>Prod__Order_Routing_Line__Run_Time_Format</DataField>
+        </Field>
+        <Field Name="SetupTimeUnitofMeasCode">
+          <DataField>SetupTimeUnitofMeasCode</DataField>
+        </Field>
+        <Field Name="RunTimeUnitofMeasCode">
+          <DataField>RunTimeUnitofMeasCode</DataField>
+        </Field>
+        <Field Name="ScrapFactorValue">
+          <DataField>ScrapFactorValue</DataField>
+        </Field>
+        <Field Name="ScrapFactorValueFormat">
+          <DataField>ScrapFactorValueFormat</DataField>
+        </Field>
+        <Field Name="RoutingTemp_Number">
+          <DataField>RoutingTemp_Number</DataField>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DataSource</DataSourceName>
+        <CommandText />
+      </Query>
+    </DataSet>
+  </DataSets>
 </Report>

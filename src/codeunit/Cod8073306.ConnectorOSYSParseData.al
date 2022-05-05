@@ -316,116 +316,113 @@ codeunit 8073306 "PWD Connector OSYS Parse Data"
 
         IF RecLOSYSItemJounalLineBuffer.GET(IntPEntryBufferNo) THEN;
 
-        WITH RecPItemJounalLine DO
+        CASE RecPItemJounalLine."Entry Type" OF
+            RecPItemJounalLine."Entry Type"::Output:
+                BEGIN
 
-
-            CASE "Entry Type" OF
-                "Entry Type"::Output:
-                    BEGIN
-
-                        IF RecLProdOrderLine.GET(RecLProdOrderLine.Status::Released, RecPItemJounalLine."Order No.",
-                                                  RecPItemJounalLine."Order Line No.") THEN
-                            ;
-
-
-                        IF RecLProdOrderRtngLine.GET(RecLProdOrderLine.Status, RecLProdOrderLine."Prod. Order No.", "Routing Reference No.",
-                                                     "Routing No.", "Operation No.") THEN BEGIN
-                            RecLWorkCenter.GET(RecLProdOrderRtngLine."Work Center No.");
-                            DecLPre := RecLWorkCenter."Calendar Rounding Precision";
-
-                            RecLCapacityUnitofMeasure.GET(RecLProdOrderRtngLine."Setup Time Unit of Meas. Code");
-                            CASE RecLCapacityUnitofMeasure.Type OF
-                                RecLCapacityUnitofMeasure.Type::"100/Hour":
-                                    "Setup Time" := ROUND(RecLItemJounalLineBuffer."Setup Time" / 36, DecLPre)
-;
-                                RecLCapacityUnitofMeasure.Type::Minutes:
-                                    "Setup Time" := ROUND(RecLItemJounalLineBuffer."Setup Time" / 60, DecLPre)
-;
-                                RecLCapacityUnitofMeasure.Type::Hours:
-                                    "Setup Time" := ROUND(RecLItemJounalLineBuffer."Setup Time" / 3600, DecLPre)
-;
-                                RecLCapacityUnitofMeasure.Type::Days:
-                                    "Setup Time" := ROUND(RecLItemJounalLineBuffer."Setup Time" / 86400, DecLPre)
-;
-                            END;
-                            RecLCapacityUnitofMeasure.GET(RecLProdOrderRtngLine."Run Time Unit of Meas. Code");
-                            CASE RecLCapacityUnitofMeasure.Type OF
-                                RecLCapacityUnitofMeasure.Type::"100/Hour":
-                                    "Run Time" := ROUND(RecLItemJounalLineBuffer."Run Time" / 36, DecLPre)
-;
-                                RecLCapacityUnitofMeasure.Type::Minutes:
-                                    "Run Time" := ROUND(RecLItemJounalLineBuffer."Run Time" / 60, DecLPre)
-;
-                                RecLCapacityUnitofMeasure.Type::Hours:
-                                    "Run Time" := ROUND(RecLItemJounalLineBuffer."Run Time" / 3600, DecLPre)
-;
-                                RecLCapacityUnitofMeasure.Type::Days:
-                                    "Run Time" := ROUND(RecLItemJounalLineBuffer."Run Time" / 86400, DecLPre)
-;
-                            END;
-
-                            /*
-                            IF RecLProdOrderRtngLine."Next Operation No." <> '' THEN
-                              IF RecLOSYSItemJounalLineBuffer."Next Operation No." <> RecLProdOrderRtngLine."Next Operation No." THEN
-                                ERROR(STRSUBSTNO(CstGNextOp,RecLOSYSItemJounalLineBuffer."Next Operation No.",RecLProdOrderLine."Prod. Order No.",
-                                                "Operation No."));
-
-                            */
-
-                            //>>FE_LAPRIERRETTE_GP0004.001
-                            RecLProdOrderComponent.RESET();
-                            RecLProdOrderComponent.SETCURRENTKEY(Status, "Prod. Order No.", "Routing Link Code");
-                            RecLProdOrderComponent.SETRANGE(Status, RecLProdOrderLine.Status);
-                            RecLProdOrderComponent.SETRANGE("Prod. Order No.", RecLProdOrderLine."Prod. Order No.");
-                            RecLProdOrderComponent.SETRANGE("Routing Link Code", RecLProdOrderRtngLine."Routing Link Code");
-                            RecLProdOrderComponent.SETRANGE("Prod. Order Line No.", RecLProdOrderLine."Line No.");
-                            RecLProdOrderComponent.SETFILTER("Item No.", '<>%1', '');
-                            IF NOT RecLProdOrderComponent.ISEMPTY THEN BEGIN
-                                RecLProdOrderComponent.FINDSET();
-                                REPEAT
-                                    // Create Consumption Item Journal-line
-                                    FctInsertConsumptionJnlLine(RecLProdOrderComponent, RecLProdOrderLine, RecPItemJounalLine, 1);
-                                UNTIL RecLProdOrderComponent.NEXT() = 0;
-                            END;
-                            //<<FE_LAPRIERRETTE_GP0004.001
-                        END;
-                        //>>LPSA 14/12/2015
-                        IF RecPItemJounalLine.Finished THEN BEGIN
-                            VALIDATE("Setup Time", RecLProdOrderRtngLine."Setup Time");
-                            VALIDATE("Run Time", RecLProdOrderRtngLine."Run Time" * RecLProdOrderRtngLine."Input Quantity");
-                            IF ("Run Time" = 0) AND ("Setup Time" = 0) AND (RecPItemJounalLine."Output Quantity" = 0) AND
-                              (RecPItemJounalLine."Scrap Quantity" = 0) THEN
-                                VALIDATE("Run Time", 0.01);
-                        END;
-                        //<<LPSA 14/12/2015
-                        VALIDATE("Setup Time");
-                        VALIDATE("Run Time");
-
-                    END;
-
-                "Entry Type"::Consumption:
-
-
-                    //gestion des gammes line link
                     IF RecLProdOrderLine.GET(RecLProdOrderLine.Status::Released, RecPItemJounalLine."Order No.",
                                               RecPItemJounalLine."Order Line No.") THEN
-                        IF RecLProdOrderRtngLine.GET(RecLProdOrderLine.Status, RecLProdOrderLine."Prod. Order No.", RecLProdOrderLine."Line No.",
-                                                     RecLProdOrderLine."Routing No.", RecLItemJounalLineBuffer."Operation No.") THEN BEGIN
-                            RecLProdOrderComponent.RESET();
-                            RecLProdOrderComponent.SETRANGE(Status, RecLProdOrderLine.Status);
-                            RecLProdOrderComponent.SETRANGE("Prod. Order No.", RecLProdOrderLine."Prod. Order No.");
-                            RecLProdOrderComponent.SETRANGE("Prod. Order Line No.", RecLProdOrderLine."Line No.");
-                            RecLProdOrderComponent.SETRANGE("Item No.", RecPItemJounalLine."Item No.");
-                            RecLProdOrderComponent.SETRANGE("Variant Code", RecPItemJounalLine."Variant Code");
-                            RecLProdOrderComponent.SETRANGE("Routing Link Code", RecLProdOrderRtngLine."Routing Link Code");
-                            IF NOT RecLProdOrderComponent.ISEMPTY THEN BEGIN
-                                RecLProdOrderComponent.FINDFIRST();
-                                VALIDATE("Location Code", RecLProdOrderComponent."Location Code");
-                                VALIDATE("Bin Code", RecLProdOrderComponent."Bin Code");
-                                VALIDATE("Prod. Order Comp. Line No.", RecLProdOrderComponent."Line No.");
-                            END;
+                        ;
+
+
+                    IF RecLProdOrderRtngLine.GET(RecLProdOrderLine.Status, RecLProdOrderLine."Prod. Order No.", RecPItemJounalLine."Routing Reference No.",
+                                                 RecPItemJounalLine."Routing No.", RecPItemJounalLine."Operation No.") THEN BEGIN
+                        RecLWorkCenter.GET(RecLProdOrderRtngLine."Work Center No.");
+                        DecLPre := RecLWorkCenter."Calendar Rounding Precision";
+
+                        RecLCapacityUnitofMeasure.GET(RecLProdOrderRtngLine."Setup Time Unit of Meas. Code");
+                        CASE RecLCapacityUnitofMeasure.Type OF
+                            RecLCapacityUnitofMeasure.Type::"100/Hour":
+                                RecPItemJounalLine."Setup Time" := ROUND(RecLItemJounalLineBuffer."Setup Time" / 36, DecLPre)
+;
+                            RecLCapacityUnitofMeasure.Type::Minutes:
+                                RecPItemJounalLine."Setup Time" := ROUND(RecLItemJounalLineBuffer."Setup Time" / 60, DecLPre)
+;
+                            RecLCapacityUnitofMeasure.Type::Hours:
+                                RecPItemJounalLine."Setup Time" := ROUND(RecLItemJounalLineBuffer."Setup Time" / 3600, DecLPre)
+;
+                            RecLCapacityUnitofMeasure.Type::Days:
+                                RecPItemJounalLine."Setup Time" := ROUND(RecLItemJounalLineBuffer."Setup Time" / 86400, DecLPre)
+;
                         END;
-            END;
+                        RecLCapacityUnitofMeasure.GET(RecLProdOrderRtngLine."Run Time Unit of Meas. Code");
+                        CASE RecLCapacityUnitofMeasure.Type OF
+                            RecLCapacityUnitofMeasure.Type::"100/Hour":
+                                RecPItemJounalLine."Run Time" := ROUND(RecLItemJounalLineBuffer."Run Time" / 36, DecLPre)
+;
+                            RecLCapacityUnitofMeasure.Type::Minutes:
+                                RecPItemJounalLine."Run Time" := ROUND(RecLItemJounalLineBuffer."Run Time" / 60, DecLPre)
+;
+                            RecLCapacityUnitofMeasure.Type::Hours:
+                                RecPItemJounalLine."Run Time" := ROUND(RecLItemJounalLineBuffer."Run Time" / 3600, DecLPre)
+;
+                            RecLCapacityUnitofMeasure.Type::Days:
+                                RecPItemJounalLine."Run Time" := ROUND(RecLItemJounalLineBuffer."Run Time" / 86400, DecLPre)
+;
+                        END;
+
+                        /*
+                        IF RecLProdOrderRtngLine."Next Operation No." <> '' THEN
+                          IF RecLOSYSItemJounalLineBuffer."Next Operation No." <> RecLProdOrderRtngLine."Next Operation No." THEN
+                            ERROR(STRSUBSTNO(CstGNextOp,RecLOSYSItemJounalLineBuffer."Next Operation No.",RecLProdOrderLine."Prod. Order No.",
+                                            "Operation No."));
+
+                        */
+
+                        //>>FE_LAPRIERRETTE_GP0004.001
+                        RecLProdOrderComponent.RESET();
+                        RecLProdOrderComponent.SETCURRENTKEY(Status, "Prod. Order No.", "Routing Link Code");
+                        RecLProdOrderComponent.SETRANGE(Status, RecLProdOrderLine.Status);
+                        RecLProdOrderComponent.SETRANGE("Prod. Order No.", RecLProdOrderLine."Prod. Order No.");
+                        RecLProdOrderComponent.SETRANGE("Routing Link Code", RecLProdOrderRtngLine."Routing Link Code");
+                        RecLProdOrderComponent.SETRANGE("Prod. Order Line No.", RecLProdOrderLine."Line No.");
+                        RecLProdOrderComponent.SETFILTER("Item No.", '<>%1', '');
+                        IF NOT RecLProdOrderComponent.ISEMPTY THEN BEGIN
+                            RecLProdOrderComponent.FINDSET();
+                            REPEAT
+                                // Create Consumption Item Journal-line
+                                FctInsertConsumptionJnlLine(RecLProdOrderComponent, RecLProdOrderLine, RecPItemJounalLine, 1);
+                            UNTIL RecLProdOrderComponent.NEXT() = 0;
+                        END;
+                        //<<FE_LAPRIERRETTE_GP0004.001
+                    END;
+                    //>>LPSA 14/12/2015
+                    IF RecPItemJounalLine.Finished THEN BEGIN
+                        RecPItemJounalLine.VALIDATE("Setup Time", RecLProdOrderRtngLine."Setup Time");
+                        RecPItemJounalLine.VALIDATE("Run Time", RecLProdOrderRtngLine."Run Time" * RecLProdOrderRtngLine."Input Quantity");
+                        IF (RecPItemJounalLine."Run Time" = 0) AND (RecPItemJounalLine."Setup Time" = 0) AND (RecPItemJounalLine."Output Quantity" = 0) AND
+                          (RecPItemJounalLine."Scrap Quantity" = 0) THEN
+                            RecPItemJounalLine.VALIDATE("Run Time", 0.01);
+                    END;
+                    //<<LPSA 14/12/2015
+                    RecPItemJounalLine.VALIDATE("Setup Time");
+                    RecPItemJounalLine.VALIDATE("Run Time");
+
+                END;
+
+            RecPItemJounalLine."Entry Type"::Consumption:
+
+
+                //gestion des gammes line link
+                IF RecLProdOrderLine.GET(RecLProdOrderLine.Status::Released, RecPItemJounalLine."Order No.",
+                                          RecPItemJounalLine."Order Line No.") THEN
+                    IF RecLProdOrderRtngLine.GET(RecLProdOrderLine.Status, RecLProdOrderLine."Prod. Order No.", RecLProdOrderLine."Line No.",
+                                                 RecLProdOrderLine."Routing No.", RecLItemJounalLineBuffer."Operation No.") THEN BEGIN
+                        RecLProdOrderComponent.RESET();
+                        RecLProdOrderComponent.SETRANGE(Status, RecLProdOrderLine.Status);
+                        RecLProdOrderComponent.SETRANGE("Prod. Order No.", RecLProdOrderLine."Prod. Order No.");
+                        RecLProdOrderComponent.SETRANGE("Prod. Order Line No.", RecLProdOrderLine."Line No.");
+                        RecLProdOrderComponent.SETRANGE("Item No.", RecPItemJounalLine."Item No.");
+                        RecLProdOrderComponent.SETRANGE("Variant Code", RecPItemJounalLine."Variant Code");
+                        RecLProdOrderComponent.SETRANGE("Routing Link Code", RecLProdOrderRtngLine."Routing Link Code");
+                        IF NOT RecLProdOrderComponent.ISEMPTY THEN BEGIN
+                            RecLProdOrderComponent.FINDFIRST();
+                            RecPItemJounalLine.VALIDATE("Location Code", RecLProdOrderComponent."Location Code");
+                            RecPItemJounalLine.VALIDATE("Bin Code", RecLProdOrderComponent."Bin Code");
+                            RecPItemJounalLine.VALIDATE("Prod. Order Comp. Line No.", RecLProdOrderComponent."Line No.");
+                        END;
+                    END;
+        END;
 
     end;
 
@@ -449,30 +446,28 @@ codeunit 8073306 "PWD Connector OSYS Parse Data"
         RecLWorkCenter.GET(RecPProdOrderRtngLine."Work Center No.");
         DecLPre := RecLWorkCenter."Calendar Rounding Precision";
 
-        WITH RecPProdOrderRtngLine DO BEGIN
-            RecLCapacityUnitofMeasure.GET("Setup Time Unit of Meas. Code");
-            CASE RecLCapacityUnitofMeasure.Type OF
-                RecLCapacityUnitofMeasure.Type::"100/Hour":
-                    "Setup Time" := ROUND("Setup Time" * 36, DecLPre);
-                RecLCapacityUnitofMeasure.Type::Minutes:
-                    "Setup Time" := ROUND("Setup Time" * 60, DecLPre);
-                RecLCapacityUnitofMeasure.Type::Hours:
-                    "Setup Time" := ROUND("Setup Time" * 3600, DecLPre);
-                RecLCapacityUnitofMeasure.Type::Days:
-                    "Setup Time" := ROUND("Setup Time" * 86400, DecLPre);
-            END;
+        RecLCapacityUnitofMeasure.GET(RecPProdOrderRtngLine."Setup Time Unit of Meas. Code");
+        CASE RecLCapacityUnitofMeasure.Type OF
+            RecLCapacityUnitofMeasure.Type::"100/Hour":
+                RecPProdOrderRtngLine."Setup Time" := ROUND(RecPProdOrderRtngLine."Setup Time" * 36, DecLPre);
+            RecLCapacityUnitofMeasure.Type::Minutes:
+                RecPProdOrderRtngLine."Setup Time" := ROUND(RecPProdOrderRtngLine."Setup Time" * 60, DecLPre);
+            RecLCapacityUnitofMeasure.Type::Hours:
+                RecPProdOrderRtngLine."Setup Time" := ROUND(RecPProdOrderRtngLine."Setup Time" * 3600, DecLPre);
+            RecLCapacityUnitofMeasure.Type::Days:
+                RecPProdOrderRtngLine."Setup Time" := ROUND(RecPProdOrderRtngLine."Setup Time" * 86400, DecLPre);
+        END;
 
-            RecLCapacityUnitofMeasure.GET("Run Time Unit of Meas. Code");
-            CASE RecLCapacityUnitofMeasure.Type OF
-                RecLCapacityUnitofMeasure.Type::"100/Hour":
-                    "Run Time" := ROUND("Run Time" * 36, DecLPre);
-                RecLCapacityUnitofMeasure.Type::Minutes:
-                    "Run Time" := ROUND("Run Time" * 60, DecLPre);
-                RecLCapacityUnitofMeasure.Type::Hours:
-                    "Run Time" := ROUND("Run Time" * 3600, DecLPre);
-                RecLCapacityUnitofMeasure.Type::Days:
-                    "Run Time" := ROUND("Run Time" * 86400, DecLPre);
-            END;
+        RecLCapacityUnitofMeasure.GET(RecPProdOrderRtngLine."Run Time Unit of Meas. Code");
+        CASE RecLCapacityUnitofMeasure.Type OF
+            RecLCapacityUnitofMeasure.Type::"100/Hour":
+                RecPProdOrderRtngLine."Run Time" := ROUND(RecPProdOrderRtngLine."Run Time" * 36, DecLPre);
+            RecLCapacityUnitofMeasure.Type::Minutes:
+                RecPProdOrderRtngLine."Run Time" := ROUND(RecPProdOrderRtngLine."Run Time" * 60, DecLPre);
+            RecLCapacityUnitofMeasure.Type::Hours:
+                RecPProdOrderRtngLine."Run Time" := ROUND(RecPProdOrderRtngLine."Run Time" * 3600, DecLPre);
+            RecLCapacityUnitofMeasure.Type::Days:
+                RecPProdOrderRtngLine."Run Time" := ROUND(RecPProdOrderRtngLine."Run Time" * 86400, DecLPre);
         END;
     end;
 
@@ -683,44 +678,42 @@ codeunit 8073306 "PWD Connector OSYS Parse Data"
         RecLItemJnlTemplate: Record "Item Journal Template";
         CduLItemTrackingMgt: Codeunit "Item Tracking Management";
     begin
-        WITH RecPProdOrderComp DO BEGIN
-            RecLItem.GET("Item No.");
-            RecLItem.TESTFIELD(Blocked, FALSE);
-            IF "Flushing Method" = "Flushing Method"::Manual THEN
-                EXIT;
+        RecLItem.GET(RecPProdOrderComp."Item No.");
+        RecLItem.TESTFIELD(Blocked, FALSE);
+        IF RecPProdOrderComp."Flushing Method" = RecPProdOrderComp."Flushing Method"::Manual THEN
+            EXIT;
 
-            IF RecLItem."Item Tracking Code" = '' THEN
-                EXIT;
+        IF RecLItem."Item Tracking Code" = '' THEN
+            EXIT;
 
-            RecLItemJnlTemplate.GET(RecPItemJnlLine."Journal Template Name");
-            RecLItemJnlBatch.GET(RecPItemJnlLine."Journal Template Name", RecPItemJnlLine."Journal Batch Name");
+        RecLItemJnlTemplate.GET(RecPItemJnlLine."Journal Template Name");
+        RecLItemJnlBatch.GET(RecPItemJnlLine."Journal Template Name", RecPItemJnlLine."Journal Batch Name");
 
-            RecLItemJnlLine.INIT();
-            RecLItemJnlLine."Journal Template Name" := RecPItemJnlLine."Journal Template Name";
-            RecLItemJnlLine."Journal Batch Name" := RecPItemJnlLine."Journal Batch Name";
-            RecLItemJnlLine."Line No." := RecPItemJnlLine."Line No." + 10000;
-            RecLItemJnlLine.VALIDATE("Posting Date", RecPItemJnlLine."Posting Date");
-            RecLItemJnlLine.VALIDATE("Entry Type", RecLItemJnlLine."Entry Type"::Consumption);
-            RecLItemJnlLine.VALIDATE("Order No.", "Prod. Order No.");
-            RecLItemJnlLine.VALIDATE("Source No.", RecPProdOrderLine."Item No.");
-            RecLItemJnlLine.VALIDATE("Item No.", "Item No.");
-            RecLItemJnlLine.VALIDATE("Unit of Measure Code", "Unit of Measure Code");
-            RecLItemJnlLine.Description := Description;
-            RecLItemJnlLine.VALIDATE(Quantity, 0);
-            RecLItemJnlLine.VALIDATE("Location Code", "Location Code");
-            IF "Bin Code" <> '' THEN
-                RecLItemJnlLine.VALIDATE("Bin Code", "Bin Code");
-            RecLItemJnlLine."Variant Code" := "Variant Code";
-            RecLItemJnlLine.VALIDATE("Order Line No.", "Prod. Order Line No.");
-            RecLItemJnlLine.VALIDATE("Prod. Order Comp. Line No.", "Line No.");
+        RecLItemJnlLine.INIT();
+        RecLItemJnlLine."Journal Template Name" := RecPItemJnlLine."Journal Template Name";
+        RecLItemJnlLine."Journal Batch Name" := RecPItemJnlLine."Journal Batch Name";
+        RecLItemJnlLine."Line No." := RecPItemJnlLine."Line No." + 10000;
+        RecLItemJnlLine.VALIDATE("Posting Date", RecPItemJnlLine."Posting Date");
+        RecLItemJnlLine.VALIDATE("Entry Type", RecLItemJnlLine."Entry Type"::Consumption);
+        RecLItemJnlLine.VALIDATE("Order No.", RecPProdOrderComp."Prod. Order No.");
+        RecLItemJnlLine.VALIDATE("Source No.", RecPProdOrderLine."Item No.");
+        RecLItemJnlLine.VALIDATE("Item No.", RecPProdOrderComp."Item No.");
+        RecLItemJnlLine.VALIDATE("Unit of Measure Code", RecPProdOrderComp."Unit of Measure Code");
+        RecLItemJnlLine.Description := RecPProdOrderComp.Description;
+        RecLItemJnlLine.VALIDATE(Quantity, 0);
+        RecLItemJnlLine.VALIDATE("Location Code", RecPProdOrderComp."Location Code");
+        IF RecPProdOrderComp."Bin Code" <> '' THEN
+            RecLItemJnlLine.VALIDATE("Bin Code", RecPProdOrderComp."Bin Code");
+        RecLItemJnlLine."Variant Code" := RecPProdOrderComp."Variant Code";
+        RecLItemJnlLine.VALIDATE("Order Line No.", RecPProdOrderComp."Prod. Order Line No.");
+        RecLItemJnlLine.VALIDATE("Prod. Order Comp. Line No.", RecPProdOrderComp."Line No.");
 
-            RecLItemJnlLine.Level := IntPLevel;
-            RecLItemJnlLine."Flushing Method" := "Flushing Method";
-            RecLItemJnlLine."Source Code" := RecLItemJnlTemplate."Source Code";
-            RecLItemJnlLine."Reason Code" := RecLItemJnlBatch."Reason Code";
-            RecLItemJnlLine."Posting No. Series" := RecLItemJnlBatch."Posting No. Series";
-            CduLItemTrackingMgt.CopyItemTracking(RowID1(), RecLItemJnlLine.RowID1(), FALSE);
-        END;
+        RecLItemJnlLine.Level := IntPLevel;
+        RecLItemJnlLine."Flushing Method" := RecPProdOrderComp."Flushing Method";
+        RecLItemJnlLine."Source Code" := RecLItemJnlTemplate."Source Code";
+        RecLItemJnlLine."Reason Code" := RecLItemJnlBatch."Reason Code";
+        RecLItemJnlLine."Posting No. Series" := RecLItemJnlBatch."Posting No. Series";
+        CduLItemTrackingMgt.CopyItemTracking(RecPProdOrderComp.RowID1(), RecLItemJnlLine.RowID1(), FALSE);
     end;
 
     procedure FctIsSteeItem(CodPItemNo: Code[20]): Boolean

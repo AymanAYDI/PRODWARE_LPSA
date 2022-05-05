@@ -15,22 +15,22 @@ pageextension 60144 "PWD ProdOrderRoutingTools" extends "Prod. Order Routing Too
     {
         addbefore("No.")
         {
-            field("PWD Routing No."; "Routing No.")
+            field("PWD Routing No."; Rec."Routing No.")
             {
                 ApplicationArea = All;
             }
-            field("PWD Operation No."; "Operation No.")
+            field("PWD Operation No."; Rec."Operation No.")
             {
                 ApplicationArea = All;
             }
         }
         addafter(Description)
         {
-            field("PWD Type"; "PWD Type")
+            field("PWD Type"; Rec."PWD Type")
             {
                 ApplicationArea = All;
             }
-            field("PWD Criteria"; "PWD Criteria")
+            field("PWD Criteria"; Rec."PWD Criteria")
             {
                 ApplicationArea = All;
             }

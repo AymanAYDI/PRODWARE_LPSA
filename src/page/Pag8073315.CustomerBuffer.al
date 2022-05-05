@@ -23,87 +23,87 @@ page 8073315 "PWD Customer Buffer"
             repeater(Control1100294000)
             {
                 ShowCaption = false;
-                field("Entry No."; "Entry No.")
+                field("Entry No."; Rec."Entry No.")
                 {
                     ApplicationArea = All;
                 }
-                field("Connector Values Entry No."; "Connector Values Entry No.")
+                field("Connector Values Entry No."; Rec."Connector Values Entry No.")
                 {
                     ApplicationArea = All;
                 }
-                field("Partner Code"; "Partner Code")
+                field("Partner Code"; Rec."Partner Code")
                 {
                     ApplicationArea = All;
                 }
-                field("Message Code"; "Message Code")
+                field("Message Code"; Rec."Message Code")
                 {
                     ApplicationArea = All;
                 }
-                field("Creation Date"; "Creation Date")
+                field("Creation Date"; Rec."Creation Date")
                 {
                     ApplicationArea = All;
                 }
-                field(Status; Status)
+                field(Status; Rec.Status)
                 {
                     ApplicationArea = All;
                 }
-                field(Processed; Processed)
+                field(Processed; Rec.Processed)
                 {
                     ApplicationArea = All;
                 }
-                field("Processed Date"; "Processed Date")
+                field("Processed Date"; Rec."Processed Date")
                 {
                     ApplicationArea = All;
                 }
-                field("Error Message"; "Error Message")
+                field("Error Message"; Rec."Error Message")
                 {
                     ApplicationArea = All;
                 }
-                field("Action"; Action)
+                field("Action"; Rec.Action)
                 {
                     ApplicationArea = All;
                 }
-                field("RecordID Created"; "RecordID Created")
+                field("RecordID Created"; Rec."RecordID Created")
                 {
                     ApplicationArea = All;
                 }
-                field("No."; "No.")
+                field("No."; Rec."No.")
                 {
                     ApplicationArea = All;
                 }
-                field(Name; Name)
+                field(Name; Rec.Name)
                 {
                     ApplicationArea = All;
                 }
-                field("Name 2"; "Name 2")
+                field("Name 2"; Rec."Name 2")
                 {
                     ApplicationArea = All;
                 }
-                field(Address; Address)
+                field(Address; Rec.Address)
                 {
                     ApplicationArea = All;
                 }
-                field("Address 2"; "Address 2")
+                field("Address 2"; Rec."Address 2")
                 {
                     ApplicationArea = All;
                 }
-                field("Post Code"; "Post Code")
+                field("Post Code"; Rec."Post Code")
                 {
                     ApplicationArea = All;
                 }
-                field(City; City)
+                field(City; Rec.City)
                 {
                     ApplicationArea = All;
                 }
-                field("Country/Region Code"; "Country/Region Code")
+                field("Country/Region Code"; Rec."Country/Region Code")
                 {
                     ApplicationArea = All;
                 }
-                field("E-Mail"; "E-Mail")
+                field("E-Mail"; Rec."E-Mail")
                 {
                     ApplicationArea = All;
                 }
-                field("Phone No."; "Phone No.")
+                field("Phone No."; Rec."Phone No.")
                 {
                     ApplicationArea = All;
                 }
@@ -214,8 +214,8 @@ page 8073315 "PWD Customer Buffer"
     procedure FctGetBufferLinked()
     begin
         //Insérer les différents Tables liées au export Natif.
-        IF RecGPEBCustomerBuffer.GET("Entry No.") THEN;
-        IF RecGWMSCustomerBuffer.GET("Entry No.") THEN;
+        IF RecGPEBCustomerBuffer.GET(Rec."Entry No.") THEN;
+        IF RecGWMSCustomerBuffer.GET(Rec."Entry No.") THEN;
     end;
 
 

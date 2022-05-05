@@ -75,7 +75,7 @@ codeunit 50100 "PWD LPSA Tracking Management"
         Text016: Label 'purchase order line';
         Text017: Label 'sales order line';
         FormRunMode: Option ,Reclass,"Combined Ship/Rcpt","Drop Shipment",Transfer;
-        CurrentEntryStatus: Option Reservation,Tracking,Surplus,Prospect;
+        CurrentEntryStatus: Enum "Reservation Status";
         CurrentSourceRowID: Text[100];
         SecondSourceRowID: Text[100];
         CurrentSourceCaption: Text[255];
@@ -959,7 +959,6 @@ codeunit 50100 "PWD LPSA Tracking Management"
     local procedure SetQtyToHandleAndInvoice(TrackingSpecification: Record "Tracking Specification") OK: Boolean
     var
         ReservEntry1: Record "Reservation Entry";
-        ReservationMgt: Codeunit "Reservation Management";
         QtyAlreadyHandledToInvoice: Decimal;
         QtyToHandleThisLine: Decimal;
         QtyToInvoiceThisLine: Decimal;
@@ -1479,42 +1478,40 @@ codeunit 50100 "PWD LPSA Tracking Management"
         ReservEntry: Record "Reservation Entry";
         QtyToCheck: Decimal;
     begin
-        with ReservEntry do begin
-            SetCurrentKey(
-              "Source ID", "Source Ref. No.", "Source Type", "Source Subtype",
-              "Source Batch Name", "Source Prod. Order Line", "Reservation Status");
-            SetRange("Source ID", Rec."Source ID");
-            SetRange("Source Ref. No.", Rec."Source Ref. No.");
-            SetRange("Source Type", Rec."Source Type");
-            SetRange("Source Subtype", Rec."Source Subtype");
-            SetRange("Source Batch Name", Rec."Source Batch Name");
-            SetRange("Source Prod. Order Line", Rec."Source Prod. Order Line");
-            SetRange("Reservation Status", "Reservation Status"::Reservation);
-            SetRange("Serial No.", xRec."Serial No.");
-            SetRange("Lot No.", xRec."Lot No.");
-            if Find('-') then
-                case Checktype of
-                    Checktype::"Rename/Delete":
-                        begin
-                            EntryIsReservation := true;
-                            case Messagetype of
-                                Messagetype::Error:
-                                    Error(Text000, TextCaption());
-                            //>>MIG-2009-001
-                            //Messagetype::Message: MESSAGE(Text000,TextCaption);
-                            //<<MIG-2009-001
-                            end;
+        ReservEntry.SetCurrentKey(
+  "Source ID", "Source Ref. No.", "Source Type", "Source Subtype",
+  "Source Batch Name", "Source Prod. Order Line", "Reservation Status");
+        ReservEntry.SetRange("Source ID", Rec."Source ID");
+        ReservEntry.SetRange("Source Ref. No.", Rec."Source Ref. No.");
+        ReservEntry.SetRange("Source Type", Rec."Source Type");
+        ReservEntry.SetRange("Source Subtype", Rec."Source Subtype");
+        ReservEntry.SetRange("Source Batch Name", Rec."Source Batch Name");
+        ReservEntry.SetRange("Source Prod. Order Line", Rec."Source Prod. Order Line");
+        ReservEntry.SetRange("Reservation Status", ReservEntry."Reservation Status"::Reservation);
+        ReservEntry.SetRange("Serial No.", xRec."Serial No.");
+        ReservEntry.SetRange("Lot No.", xRec."Lot No.");
+        if ReservEntry.Find('-') then
+            case Checktype of
+                Checktype::"Rename/Delete":
+                    begin
+                        EntryIsReservation := true;
+                        case Messagetype of
+                            Messagetype::Error:
+                                Error(Text000, ReservEntry.TextCaption());
+                        //>>MIG-2009-001
+                        //Messagetype::Message: MESSAGE(Text000,TextCaption);
+                        //<<MIG-2009-001
                         end;
-                    Checktype::Quantity:
-                        begin
-                            repeat
-                                QtyToCheck := QtyToCheck + "Quantity (Base)";
-                            until Next() = 0;
-                            if Abs(Rec."Quantity (Base)") < Abs(QtyToCheck) then
-                                Error(Text001, TextCaption(), FieldCaption("Quantity (Base)"), Abs(QtyToCheck));
-                        end;
-                end;
-        end;
+                    end;
+                Checktype::Quantity:
+                    begin
+                        repeat
+                            QtyToCheck := QtyToCheck + ReservEntry."Quantity (Base)";
+                        until ReservEntry.Next() = 0;
+                        if Abs(Rec."Quantity (Base)") < Abs(QtyToCheck) then
+                            Error(Text001, ReservEntry.TextCaption(), ReservEntry.FieldCaption("Quantity (Base)"), Abs(QtyToCheck));
+                    end;
+            end;
     end;
 
 
@@ -1542,32 +1539,32 @@ codeunit 50100 "PWD LPSA Tracking Management"
         Rec.Copy(CrntTempTrackingSpec);
     end;
 
-    local procedure UpdateExpDateColor()
-    begin
-        //>>MIG-2009-001
-        /*
-        IF (Rec."Buffer Status2" = Rec."Buffer Status2"::"ExpDate blocked") OR (CurrentSignFactor < 0) THEN
-          CurrForm."Expiration Date".UPDATEFORECOLOR(8421504)
-        ELSE
-          CurrForm."Expiration Date".UPDATEFORECOLOR(0);
-        */
-        //<<MIG-2009-001
+    // local procedure UpdateExpDateColor()
+    // begin
+    //     //>>MIG-2009-001
+    //     /*
+    //     IF (Rec."Buffer Status2" = Rec."Buffer Status2"::"ExpDate blocked") OR (CurrentSignFactor < 0) THEN
+    //       CurrForm."Expiration Date".UPDATEFORECOLOR(8421504)
+    //     ELSE
+    //       CurrForm."Expiration Date".UPDATEFORECOLOR(0);
+    //     */
+    //     //<<MIG-2009-001
 
-    end;
+    // end;
 
-    local procedure UpdateExpDateEditable()
-    begin
-        //>>MIG-2009-001
-        /*
-        CurrForm."Expiration Date".EDITABLE(
-          NOT (("Buffer Status2" = "Buffer Status2"::"ExpDate blocked") OR (CurrentSignFactor < 0)));
-        */
-        //<<MIG-2009-001
+    // local procedure UpdateExpDateEditable()
+    // begin
+    //     //>>MIG-2009-001
+    //     /*
+    //     CurrForm."Expiration Date".EDITABLE(
+    //       NOT (("Buffer Status2" = "Buffer Status2"::"ExpDate blocked") OR (CurrentSignFactor < 0)));
+    //     */
+    //     //<<MIG-2009-001
 
-    end;
+    // end;
 
 
-    procedure LookupAvailable(LookupMode: Option "Serial No.","Lot No.")
+    procedure LookupAvailable(LookupMode: Enum "Item Tracking Type")
     begin
         Rec."Bin Code" := ForBinCode;
         ItemTrackingDataCollection.LookupTrackingAvailability(Rec, LookupMode);
@@ -1579,15 +1576,17 @@ codeunit 50100 "PWD LPSA Tracking Management"
 
 
     procedure F6LookupAvailable()
+    var
+        LookupMode: Enum "Item Tracking Type";
     begin
         if SNAvailabilityActive then
-            LookupAvailable(0);
+            LookupAvailable(LookupMode::"Serial No.");
         if LotAvailabilityActive then
-            LookupAvailable(1);
+            LookupAvailable(LookupMode::"Lot No.");
     end;
 
 
-    procedure LotSnAvailable(var TrackingSpecification: Record "Tracking Specification"; LookupMode: Option "Serial No.","Lot No."): Boolean
+    procedure LotSnAvailable(var TrackingSpecification: Record "Tracking Specification"; LookupMode: Enum "Item Tracking Type"): Boolean
     begin
         exit(ItemTrackingDataCollection.TrackingAvailable(TrackingSpecification, LookupMode));
     end;

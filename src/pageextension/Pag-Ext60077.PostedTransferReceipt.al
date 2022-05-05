@@ -12,7 +12,7 @@ pageextension 60077 "PWD PostedTransferReceipt" extends "Posted Transfer Receipt
     {
         addafter("Shortcut Dimension 2 Code")
         {
-            field("PWD Sales Order No."; "PWD Sales Order No.")
+            field("PWD Sales Order No."; Rec."PWD Sales Order No.")
             {
                 ApplicationArea = All;
             }

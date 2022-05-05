@@ -15,7 +15,7 @@ pageextension 60128 "PWD ProductionBOMLines" extends "Production BOM Lines"
     {
         addafter(Description)
         {
-            field("PWD Lot Determining"; "PWD Lot Determining")
+            field("PWD Lot Determining"; Rec."PWD Lot Determining")
             {
                 ApplicationArea = All;
             }

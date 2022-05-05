@@ -15,15 +15,15 @@ pageextension 60063 "PWD ItemUnitsofMeasure" extends "Item Units of Measure"
     {
         addafter(Weight)
         {
-            field("PWD WMS_Type"; "PWD WMS_Type")
+            field("PWD WMS_Type"; Rec."PWD WMS_Type")
             {
                 ApplicationArea = All;
             }
-            field("PWD WMS_Stackable"; "PWD WMS_Stackable")
+            field("PWD WMS_Stackable"; Rec."PWD WMS_Stackable")
             {
                 ApplicationArea = All;
             }
-            field("PWD WMS_Log_unit_lower"; "PWD WMS_Log_unit_lower")
+            field("PWD WMS_Log_unit_lower"; Rec."PWD WMS_Log_unit_lower")
             {
                 ApplicationArea = All;
             }

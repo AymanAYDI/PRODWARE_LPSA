@@ -143,10 +143,7 @@ codeunit 8073290 "PWD Connector Peb Parse Data"
 
     var
         CduGConnectBufMgtExport: Codeunit "Connector Buffer Mgt Export";
-        CduGFileManagement: Codeunit "File Management";
         CduGBufferManagement: Codeunit "PWD Buffer Management";
-        // AutGXMLDom: Automation; //TODO: Variable de type Automation
-        CstGDecValue: Label 'La valeur décimal %1 n''est pas correcte';
         TxtGError: Label 'Data not available';
         TxtGFields: array[100] of Text[50];
         TxtGData: array[100] of Text[250];
@@ -179,12 +176,6 @@ codeunit 8073290 "PWD Connector Peb Parse Data"
 
 
     procedure FctParseFilters()
-    var
-        // AutLXMLNodeFileds: Automation;  //TODO: Variable de type Automation
-        // AutLXMLNodeFiledsList: Automation;  //TODO: Variable de type Automation
-        // AutLXMLNodeFilters: Automation;  //TODO: Variable de type Automation
-        // AutLXMLNodeFiltersList: Automation;  //TODO: Variable de type Automation
-        IntLIndex: Integer;
     begin
         //**********************************************************************************************************//
         //                                 Parse Request filters                                                    //
@@ -250,7 +241,7 @@ codeunit 8073290 "PWD Connector Peb Parse Data"
         RecLSendingMessage: Record "PWD Connector Messages";
         RecLSalesPrice: Record "Sales Price";
         RecLSalesPrice2: Record "Sales Price";
-        // RecLTempBlob: Codeunit "Temp Blob"; //TODO: probleme Codeunit "Temp Blob" 
+        RecLTempBlob: Codeunit "Temp Blob";
         RecLRef: RecordRef;
         BooLTreatmentOK: Boolean;
         DecLQty: Decimal;
@@ -323,18 +314,18 @@ codeunit 8073290 "PWD Connector Peb Parse Data"
                 END;
                 //<<WMS-FEMOT.001
 
-                // CduGConnectBufMgtExport.FctCreateXml(RecLSalesPrice2.GETVIEW(), RecLSendingMessage, RecLTempBlob, TRUE); //TODO: probleme Codeunit "Temp Blob"
+                CduGConnectBufMgtExport.FctCreateXml(RecLSalesPrice2.GETVIEW(), RecLSendingMessage, RecLTempBlob, TRUE);
                 //TODO: 'Codeunit "Temp Blob"' does not contain a definition for 'CALCFIELDS'
                 //RecLTempBlob.CALCFIELDS(Blob);
-                // IF RecLTempBlob.HASVALUE() THEN BEGIN //TODO: probleme Codeunit "Temp Blob" begin
-                //     RecLTempBlob.CREATEINSTREAM(InsLStream);
-                //     CduGBufferManagement.FctCreateBufferValues(InsLStream, RecPConnectorVal."Partner Code", RecPConnectorVal."File Name",
-                //                                                RecPConnectorVal."Function", RecPConnectorVal."File format",
-                //                                                RecPConnectorVal.Separator,
-                //                                                RecPConnectorVal.Direction::Export, RecPConnectorVal."Entry No.",
-                //                                                RecPConnectorVal."Message Code");
-                //     BooLTreatmentOK := TRUE;
-                // END;  //TODO: probleme Codeunit "Temp Blob" end
+                IF RecLTempBlob.HASVALUE() THEN BEGIN
+                    RecLTempBlob.CREATEINSTREAM(InsLStream);
+                    CduGBufferManagement.FctCreateBufferValues(InsLStream, RecPConnectorVal."Partner Code", RecPConnectorVal."File Name",
+                                                               RecPConnectorVal."Function", RecPConnectorVal."File format",
+                                                               RecPConnectorVal.Separator,
+                                                               RecPConnectorVal.Direction::Export, RecPConnectorVal."Entry No.",
+                                                               RecPConnectorVal."Message Code");
+                    BooLTreatmentOK := TRUE;
+                END;
             END;
         END;
         IF NOT BooLTreatmentOK THEN
@@ -575,7 +566,6 @@ codeunit 8073290 "PWD Connector Peb Parse Data"
         RecLSalesSetup: Record "Sales & Receivables Setup";
         RecLSalesCommentLine: Record "Sales Comment Line";
         RecLSalesHeader: Record "Sales Header";
-        RecLSalesHeader2: Record "Sales Header";
         RecLSalesLine: Record "Sales Line";
         RecLTempVATAmountLine0: Record "VAT Amount Line" temporary;
         RecLTempVATAmountLine1: Record "VAT Amount Line" temporary;
@@ -598,7 +588,6 @@ codeunit 8073290 "PWD Connector Peb Parse Data"
         IntLMonth: Integer;
         IntLQtty: Integer;
         IntLYear: Integer;
-        CstLOrderExist: Label 'Cette commande existe déjà';
         OusLStream: OutStream;
         TxtLCommentHeaderPartial: Text[80];
         TxtLCommentlinePartial: Text[80];
@@ -825,10 +814,10 @@ codeunit 8073290 "PWD Connector Peb Parse Data"
     procedure FctGetOrderXml(RecPConnectorVal: Record "PWD Connector Values")
     var
         RecLSalesHeader: Record "Sales Header";
-        //  CduLStreamMgt: Codeunit "PWD File Management"; //TODO: probleme Codeunit "PWD File Management" 
-        // RecLTempBlob: Codeunit "Temp Blob"; //TODO: Probleme Codeunit "Temp Blob"
-        // RecLTempBlob1: Codeunit "Temp Blob"; //TODO: Probleme Codeunit "Temp Blob"
-        // RecLTempBlob2: Codeunit "Temp Blob"; //TODO: Probleme Codeunit "Temp Blob"
+        CduLStreamMgt: Codeunit "PWD File Management";
+        RecLTempBlob: Codeunit "Temp Blob";
+        RecLTempBlob1: Codeunit "Temp Blob";
+        RecLTempBlob2: Codeunit "Temp Blob";
         InsLStream: InStream;
         InsLStream1: InStream;
         InsLStream2: InStream;
@@ -851,46 +840,46 @@ codeunit 8073290 "PWD Connector Peb Parse Data"
 
         //>>FE_ProdConnect.002
         IF NOT RecLSalesHeader.GET(RecLSalesHeader."Document Type"::Order, TxtGData[1]) THEN BEGIN
-            // FctGetHeaderArchiveXml(RecPConnectorVal, TxtGData[1], RecLTempBlob1);  //TODO: probleme Codeunit "Temp Blob"
+            FctGetHeaderArchiveXml(RecPConnectorVal, TxtGData[1], RecLTempBlob1);
             //TODO:'Codeunit "Temp Blob"' does not contain a definition for 'CALCFIELDS'
             //RecLTempBlob1.CALCFIELDS(Blob);
-            // RecLTempBlob1.CREATEINSTREAM(InsLStream1);  //TODO: probleme Codeunit "Temp Blob"
+            RecLTempBlob1.CREATEINSTREAM(InsLStream1);
 
-            // FctGetLineArchiveXml(RecPConnectorVal, TxtGData[1], RecLTempBlob2);  //TODO: probleme Codeunit "Temp Blob"
+            FctGetLineArchiveXml(RecPConnectorVal, TxtGData[1], RecLTempBlob2);
             //TODO:'Codeunit "Temp Blob"' does not contain a definition for 'CALCFIELDS'
             //RecLTempBlob2.CALCFIELDS(Blob);
-            // RecLTempBlob2.CREATEINSTREAM(InsLStream2);  //TODO: probleme Codeunit "Temp Blob"
+            RecLTempBlob2.CREATEINSTREAM(InsLStream2);
         END
         ELSE BEGIN
             //<<FE_ProdConnect.002
 
-            // FctGetHeaderOrderXml(RecPConnectorVal, TxtGData[1], RecLTempBlob1);  //TODO: probleme Codeunit "Temp Blob"
+            FctGetHeaderOrderXml(RecPConnectorVal, TxtGData[1], RecLTempBlob1);
             //TODO:'Codeunit "Temp Blob"' does not contain a definition for 'CALCFIELDS'
             //RecLTempBlob1.CALCFIELDS(Blob);
-            // RecLTempBlob1.CREATEINSTREAM(InsLStream1);   //TODO: probleme Codeunit "Temp Blob"
+            RecLTempBlob1.CREATEINSTREAM(InsLStream1);
 
-            // FctGetLineOrderXml(RecPConnectorVal, TxtGData[1], RecLTempBlob2);  //TODO: probleme Codeunit "Temp Blob"
+            FctGetLineOrderXml(RecPConnectorVal, TxtGData[1], RecLTempBlob2);
             //TODO:'Codeunit "Temp Blob"' does not contain a definition for 'CALCFIELDS'
             //RecLTempBlob2.CALCFIELDS(Blob);
-            // RecLTempBlob2.CREATEINSTREAM(InsLStream2);  //TODO: probleme Codeunit "Temp Blob"
+            RecLTempBlob2.CREATEINSTREAM(InsLStream2);
 
             //>>FE_ProdConnect.002
         END;
         //<<FE_ProdConnect.002
 
-        // CduLStreamMgt.FctMergeStream(InsLStream1, InsLStream2, RecLTempBlob, RecPConnectorVal."Partner Code");  //TODO: probleme Codeunit "Temp Blob"
+        CduLStreamMgt.FctMergeStream(InsLStream1, InsLStream2, RecLTempBlob, RecPConnectorVal."Partner Code");
         //TODO:'Codeunit "Temp Blob"' does not contain a definition for 'CALCFIELDS'
         //RecLTempBlob.CALCFIELDS(Blob);
-        // IF RecLTempBlob.HASVALUE() THEN BEGIN  //TODO: probleme Codeunit "Temp Blob" begin
-        //     RecLTempBlob.CREATEINSTREAM(InsLStream);
-        //     CduGBufferManagement.FctCreateBufferValues(InsLStream, RecPConnectorVal."Partner Code", RecPConnectorVal."File Name",
-        //                                               RecPConnectorVal."Function", RecPConnectorVal."File format",
-        //                                               RecPConnectorVal.Separator,
-        //                                               RecPConnectorVal.Direction::Export, RecPConnectorVal."Entry No.",
-        //                                               RecPConnectorVal."Message Code")
-        // END
-        // ELSE
-        //     ERROR(TxtGError);  //TODO: probleme Codeunit "Temp Blob" end
+        IF RecLTempBlob.HASVALUE() THEN BEGIN
+            RecLTempBlob.CREATEINSTREAM(InsLStream);
+            CduGBufferManagement.FctCreateBufferValues(InsLStream, RecPConnectorVal."Partner Code", RecPConnectorVal."File Name",
+                                                      RecPConnectorVal."Function", RecPConnectorVal."File format",
+                                                      RecPConnectorVal.Separator,
+                                                      RecPConnectorVal.Direction::Export, RecPConnectorVal."Entry No.",
+                                                      RecPConnectorVal."Message Code")
+        END
+        ELSE
+            ERROR(TxtGError);
     end;
 
 
@@ -1004,9 +993,9 @@ codeunit 8073290 "PWD Connector Peb Parse Data"
             RecLSendingMessage.SETRANGE("Partner Code", RecPConnectorVal."Partner Code");
             RecLSendingMessage.SETRANGE("Function", RecPConnectorVal."Function");
             RecLSendingMessage.FINDFIRST();
-            // CduGConnectBufMgtExport.FctCreateXml(RecLSalesShipmentHeader.GETVIEW(), RecLSendingMessage, RecLTempBlob, TRUE); //TODO: probleme Codeunit "Temp Blob" 
+            CduGConnectBufMgtExport.FctCreateXml(RecLSalesShipmentHeader.GETVIEW(), RecLSendingMessage, RecLTempBlob, TRUE);
             //TODO:'Codeunit "Temp Blob"' does not contain a definition for 'CALCFIELDS'
-            // RecLTempBlob.CALCFIELDS(Blob);
+            //RecLTempBlob.CALCFIELDS(Blob);
             IF RecLTempBlob.HASVALUE() THEN BEGIN
                 RecLTempBlob.CREATEINSTREAM(InsLStream);
                 CduGBufferManagement.FctCreateBufferValues(InsLStream, RecPConnectorVal."Partner Code", RecPConnectorVal."File Name",
@@ -1038,7 +1027,7 @@ codeunit 8073290 "PWD Connector Peb Parse Data"
         RecLCustomer: Record Customer;
         RecLCustomer2: Record Customer;
         RecLSendingMessage: Record "PWD Connector Messages";
-        // RecLTempBlob: Codeunit "Temp Blob"; //TODO: probleme Codeunit "Temp Blob" 
+        RecLTempBlob: Codeunit "Temp Blob";
         InsLStream: InStream;
         StrLStreamOut: OutStream;
     begin
@@ -1086,19 +1075,19 @@ codeunit 8073290 "PWD Connector Peb Parse Data"
         RecLCustomer2.RESET();
         RecLCustomer2.SETRANGE("No.", RecLCustomer."No.");
         IF RecLCustomer2.FINDFIRST() THEN BEGIN
-            // CduGConnectBufMgtExport.FctCreateXml(RecLCustomer2.GETVIEW(), RecLSendingMessage, RecLTempBlob, TRUE); //TODO: probleme Codeunit "Temp Blob" 
+            CduGConnectBufMgtExport.FctCreateXml(RecLCustomer2.GETVIEW(), RecLSendingMessage, RecLTempBlob, TRUE);
             //TODO:'Codeunit "Temp Blob"' does not contain a definition for 'CALCFIELDS'
             //RecLTempBlob.CALCFIELDS(Blob);
-            // IF RecLTempBlob.HASVALUE() THEN BEGIN  //TODO: probleme Codeunit "Temp Blob" 
-            //     RecLTempBlob.CREATEINSTREAM(InsLStream);
-            //     CduGBufferManagement.FctCreateBufferValues(InsLStream, RecPConnectorVal."Partner Code", RecPConnectorVal."File Name",
-            //                                               RecPConnectorVal."Function", RecPConnectorVal."File format",
-            //                                               RecPConnectorVal.Separator,
-            //                                               RecPConnectorVal.Direction::Export, RecPConnectorVal."Entry No.",
-            //                                               RecPConnectorVal."Message Code");
-            // END
-            // ELSE
-            ERROR(TxtGError);
+            IF RecLTempBlob.HASVALUE() THEN BEGIN
+                RecLTempBlob.CREATEINSTREAM(InsLStream);
+                CduGBufferManagement.FctCreateBufferValues(InsLStream, RecPConnectorVal."Partner Code", RecPConnectorVal."File Name",
+                                                          RecPConnectorVal."Function", RecPConnectorVal."File format",
+                                                          RecPConnectorVal.Separator,
+                                                          RecPConnectorVal.Direction::Export, RecPConnectorVal."Entry No.",
+                                                          RecPConnectorVal."Message Code");
+            END
+            ELSE
+                ERROR(TxtGError);
         END
         ELSE
             ERROR(TxtGError);
@@ -1135,10 +1124,10 @@ codeunit 8073290 "PWD Connector Peb Parse Data"
         RecLSendingMessage: Record "PWD Connector Messages";
         RecLSalesHeader: Record "Sales Header";
         RecLSalesHeaderArchive: Record "Sales Header Archive";
-        // CduLStreamMgt: Codeunit "PWD File Management"; //TODO: probleme Codeunit "PWD File Management";
-        // RecLTempBlob: Codeunit "Temp Blob"; //TODO: probleme Codeunit "Temp Blob" 
-        // RecLTempBlob1: Codeunit "Temp Blob"; //TODO: probleme Codeunit "Temp Blob" 
-        // RecLTempBlob2: Codeunit "Temp Blob"; //TODO: probleme Codeunit "Temp Blob" 
+        CduLStreamMgt: Codeunit "PWD File Management";
+        RecLTempBlob: Codeunit "Temp Blob";
+        RecLTempBlob1: Codeunit "Temp Blob";
+        RecLTempBlob2: Codeunit "Temp Blob";
         DatLDate1: Date;
         DatLDate2: Date;
         InsLStream: InStream;
@@ -1198,30 +1187,27 @@ codeunit 8073290 "PWD Connector Peb Parse Data"
             RecLSalesHeader.SETRANGE("Order Date", DatLDate1, DatLDate2);
 
         //>>FE_ProdConnect.002
-        /*OLD :
-            IF RecLSalesHeader.FINDFIRST THEN
-            BEGIN
-              RecLSendingMessage.RESET;
-              RecLSendingMessage.SETRANGE("Partner Code",RecPConnectorVal."Partner Code");
-              RecLSendingMessage.SETRANGE("Function",RecPConnectorVal."Function");
-              RecLSendingMessage.FINDFIRST;
-              CduGConnectBufMgtExport.FctCreateXml(RecLSalesHeader.GETVIEW,RecLSendingMessage,RecLTempBlob,TRUE);
-              RecLTempBlob.CALCFIELDS(Blob);
-              IF RecLTempBlob.Blob.HASVALUE THEN
-              BEGIN
-                RecLTempBlob.Blob.CREATEINSTREAM(InsLStream);
-                CduGBufferManagement.FctCreateBufferValues(InsLStream,RecPConnectorVal."Partner Code",RecPConnectorVal."File Name",
-                                                          RecPConnectorVal."Function",RecPConnectorVal."File format",
-                                                          RecPConnectorVal.Separator,
-                                                          RecPConnectorVal.Direction::Export,RecPConnectorVal."Entry No.",
-                                                          RecPConnectorVal."Message Code");
-              END
-              ELSE
-                ERROR(TxtGError);
-            END
-            ELSE
-              ERROR(TxtGError);
-        */
+        // OLD :
+        //     IF RecLSalesHeader.FINDFIRST THEN BEGIN
+        //     RecLSendingMessage.RESET;
+        //     RecLSendingMessage.SETRANGE("Partner Code", RecPConnectorVal."Partner Code");
+        //     RecLSendingMessage.SETRANGE("Function", RecPConnectorVal."Function");
+        //     RecLSendingMessage.FINDFIRST;
+        //     CduGConnectBufMgtExport.FctCreateXml(RecLSalesHeader.GETVIEW, RecLSendingMessage, RecLTempBlob, TRUE);
+        //     RecLTempBlob.CALCFIELDS(Blob);
+        //     IF RecLTempBlob.HASVALUE THEN BEGIN
+        //         RecLTempBlob.CREATEINSTREAM(InsLStream);
+        //         CduGBufferManagement.FctCreateBufferValues(InsLStream, RecPConnectorVal."Partner Code", RecPConnectorVal."File Name",
+        //                                                   RecPConnectorVal."Function", RecPConnectorVal."File format",
+        //                                                   RecPConnectorVal.Separator,
+        //                                                   RecPConnectorVal.Direction::Export, RecPConnectorVal."Entry No.",
+        //                                                   RecPConnectorVal."Message Code");
+        //     END
+        //     ELSE
+        //         ERROR(TxtGError);
+        // END
+        // ELSE
+        //     ERROR(TxtGError);
 
         RecLSalesHeaderArchive.RESET();
         RecLSalesHeaderArchive.SETRANGE("Document Type", RecLSalesHeaderArchive."Document Type"::Order);
@@ -1235,10 +1221,10 @@ codeunit 8073290 "PWD Connector Peb Parse Data"
             RecLSendingMessage.SETRANGE("Function", RecPConnectorVal."Function");
             RecLSendingMessage.SETRANGE("Table ID", DATABASE::"Sales Header");
             RecLSendingMessage.FINDFIRST();
-            // CduGConnectBufMgtExport.FctCreateXml(RecLSalesHeader.GETVIEW(), RecLSendingMessage, RecLTempBlob1, TRUE); //TODO: probleme Codeunit "Temp Blob" 
+            CduGConnectBufMgtExport.FctCreateXml(RecLSalesHeader.GETVIEW(), RecLSendingMessage, RecLTempBlob1, TRUE);
             //TODO:'Codeunit "Temp Blob"' does not contain a definition for 'CALCFIELDS'
             //RecLTempBlob1.CALCFIELDS(Blob);
-            // RecLTempBlob1.CREATEINSTREAM(InsLStream1); //TODO: probleme Codeunit "Temp Blob" 
+            RecLTempBlob1.CREATEINSTREAM(InsLStream1);
         END;
 
         IF NOT RecLSalesHeaderArchive.ISEMPTY THEN BEGIN
@@ -1247,40 +1233,40 @@ codeunit 8073290 "PWD Connector Peb Parse Data"
             RecLSendingMessage.SETRANGE("Function", RecPConnectorVal."Function");
             RecLSendingMessage.SETRANGE("Table ID", DATABASE::"Sales Header Archive");
             RecLSendingMessage.FINDFIRST();
-            // CduGConnectBufMgtExport.FctCreateXml(RecLSalesHeaderArchive.GETVIEW(), RecLSendingMessage, RecLTempBlob2, FALSE); //TODO: probleme Codeunit "Temp Blob" 
+            CduGConnectBufMgtExport.FctCreateXml(RecLSalesHeaderArchive.GETVIEW(), RecLSendingMessage, RecLTempBlob2, FALSE);
             //TODO:'Codeunit "Temp Blob"' does not contain a definition for 'CALCFIELDS'
             //RecLTempBlob2.CALCFIELDS(Blob);
-            // RecLTempBlob2.CREATEINSTREAM(InsLStream2); //TODO: probleme Codeunit "Temp Blob" 
+            RecLTempBlob2.CREATEINSTREAM(InsLStream2);
         END;
 
 
-        // IF (NOT RecLTempBlob1.HASVALUE()) AND (NOT RecLTempBlob2.HASVALUE()) THEN //TODO: probleme Codeunit "Temp Blob" 
-        //     ERROR(TxtGError);//TODO: probleme Codeunit "Temp Blob" 
+        IF (NOT RecLTempBlob1.HASVALUE()) AND (NOT RecLTempBlob2.HASVALUE()) THEN
+            ERROR(TxtGError);
 
-        // IF (RecLTempBlob1.HASVALUE()) AND (RecLTempBlob2.HASVALUE()) THEN BEGIN  //TODO: probleme Codeunit "Temp Blob"  begin
-        //     CduLStreamMgt.FctMergeStream(InsLStream1, InsLStream2, RecLTempBlob, RecPConnectorVal."Partner Code");
-        //     //TODO: 'Codeunit "Temp Blob"' does not contain a definition for 'CALCFIELDS'
-        //     //RecLTempBlob.CALCFIELDS(Blob);
-        //     RecLTempBlob.CREATEINSTREAM(InsLStream);
-        //     CduGBufferManagement.FctCreateBufferValues(InsLStream, RecPConnectorVal."Partner Code", RecPConnectorVal."File Name",
-        //                                                RecPConnectorVal."Function", RecPConnectorVal."File format",
-        //                                                RecPConnectorVal.Separator,
-        //                                                RecPConnectorVal.Direction::Export, RecPConnectorVal."Entry No.",
-        //                                                RecPConnectorVal."Message Code");
-        // END
-        // ELSE
-        //     IF (RecLTempBlob1.HASVALUE()) THEN
-        //         CduGBufferManagement.FctCreateBufferValues(InsLStream1, RecPConnectorVal."Partner Code", RecPConnectorVal."File Name",
-        //                                                    RecPConnectorVal."Function", RecPConnectorVal."File format",
-        //                                                    RecPConnectorVal.Separator,
-        //                                                    RecPConnectorVal.Direction::Export, RecPConnectorVal."Entry No.",
-        //                                                    RecPConnectorVal."Message Code")
-        //     ELSE
-        //         CduGBufferManagement.FctCreateBufferValues(InsLStream2, RecPConnectorVal."Partner Code", RecPConnectorVal."File Name",
-        //                                                    RecPConnectorVal."Function", RecPConnectorVal."File format",
-        //                                                    RecPConnectorVal.Separator,
-        //                                                    RecPConnectorVal.Direction::Export, RecPConnectorVal."Entry No.",
-        //                                                    RecPConnectorVal."Message Code"); //TODO: probleme Codeunit "Temp Blob"  end
+        IF (RecLTempBlob1.HASVALUE()) AND (RecLTempBlob2.HASVALUE()) THEN BEGIN
+            CduLStreamMgt.FctMergeStream(InsLStream1, InsLStream2, RecLTempBlob, RecPConnectorVal."Partner Code");
+            //TODO: 'Codeunit "Temp Blob"' does not contain a definition for 'CALCFIELDS'
+            //RecLTempBlob.CALCFIELDS(Blob);
+            RecLTempBlob.CREATEINSTREAM(InsLStream);
+            CduGBufferManagement.FctCreateBufferValues(InsLStream, RecPConnectorVal."Partner Code", RecPConnectorVal."File Name",
+                                                       RecPConnectorVal."Function", RecPConnectorVal."File format",
+                                                       RecPConnectorVal.Separator,
+                                                       RecPConnectorVal.Direction::Export, RecPConnectorVal."Entry No.",
+                                                       RecPConnectorVal."Message Code");
+        END
+        ELSE
+            IF (RecLTempBlob1.HASVALUE()) THEN
+                CduGBufferManagement.FctCreateBufferValues(InsLStream1, RecPConnectorVal."Partner Code", RecPConnectorVal."File Name",
+                                                           RecPConnectorVal."Function", RecPConnectorVal."File format",
+                                                           RecPConnectorVal.Separator,
+                                                           RecPConnectorVal.Direction::Export, RecPConnectorVal."Entry No.",
+                                                           RecPConnectorVal."Message Code")
+            ELSE
+                CduGBufferManagement.FctCreateBufferValues(InsLStream2, RecPConnectorVal."Partner Code", RecPConnectorVal."File Name",
+                                                           RecPConnectorVal."Function", RecPConnectorVal."File format",
+                                                           RecPConnectorVal.Separator,
+                                                           RecPConnectorVal.Direction::Export, RecPConnectorVal."Entry No.",
+                                                           RecPConnectorVal."Message Code");
         //<<FE_ProdConnect.002
 
     end;
@@ -1298,14 +1284,9 @@ codeunit 8073290 "PWD Connector Peb Parse Data"
     procedure FctAddOrder(var RecPConnectorVal: Record "PWD Connector Values")
     var
         RecLSendingMessage: Record "PWD Connector Messages";
-        RecLPEBSalesCommentLineBuffer: Record "PWD PEB Sales Comm Line Buffer";
-        RecLPEBSalesHeaderBuffer: Record "PWD PEB Sales Header Buffer";
-        RecLPEBSalesLineBuffer: Record "PWD PEB Sales Line Buffer";
-        RecLSalesCommentLineBuffer: Record "PWD Sales Comment Line Buffer";
         RecLSalesHeaderBuffer: Record "PWD Sales Header Buffer";
-        RecLSalesLineBuffer: Record "PWD Sales Line Buffer";
         RecLSalesHeader: Record "Sales Header";
-        // RecLTempBlob: Codeunit "Temp Blob"; //TODO: probleme Codeunit "Temp Blob"
+        RecLTempBlob: Codeunit "Temp Blob";
         RecordRef: RecordRef;
         // AutLXMLNode: Automation;  //TODO:probleme type automation
         // AutLXMLNodeList: Automation;  //TODO:probleme type automation
@@ -1317,20 +1298,7 @@ codeunit 8073290 "PWD Connector Peb Parse Data"
         CodLOrderNo: Code[20];
         DatLStartingDate: Date;
         InsLStream: InStream;
-        i: Integer;
-        IntLDay: Integer;
-        IntLMonth: Integer;
-        IntLYear: Integer;
-        CstLOrderExist: Label 'Cette commande existe déjà';
         OusLStream: OutStream;
-        TxtLItemPrice: Text[15];
-        TxtLLineAmount: Text[15];
-        TxtLQtty: Text[15];
-        TxtLItemNo: Text[30];
-        TxtLCommentHeaderPartial: Text[80];
-        TxtLCommentlinePartial: Text[80];
-        TxtLCommentHeader: Text[1024];
-        TxtLCommentline: Text[1024];
     begin
         //>>WMS-FEMOT.001
 
@@ -1524,19 +1492,19 @@ codeunit 8073290 "PWD Connector Peb Parse Data"
             RecLSendingMessage.SETRANGE("Partner Code", RecPConnectorVal."Partner Code");
             RecLSendingMessage.SETRANGE("Function", RecPConnectorVal."Function");
             RecLSendingMessage.FINDFIRST();
-            // CduGConnectBufMgtExport.FctCreateXml(RecLSalesHeader.GETVIEW(), RecLSendingMessage, RecLTempBlob, TRUE); //TODO: probleme Codeunit "Temp Blob"
+            CduGConnectBufMgtExport.FctCreateXml(RecLSalesHeader.GETVIEW(), RecLSendingMessage, RecLTempBlob, TRUE);
             //TODO:'Codeunit "Temp Blob"' does not contain a definition for 'CALCFIELDS'
             //RecLTempBlob.CALCFIELDS(Blob);
-            // IF RecLTempBlob.HASVALUE() THEN BEGIN  //TODO: probleme Codeunit "Temp Blob" begin
-            //     RecLTempBlob.CREATEINSTREAM(InsLStream);
-            //     CduGBufferManagement.FctCreateBufferValues(InsLStream, RecPConnectorVal."Partner Code", RecPConnectorVal."File Name",
-            //                                                RecPConnectorVal."Function", RecPConnectorVal."File format",
-            //                                                RecPConnectorVal.Separator,
-            //                                                RecPConnectorVal.Direction::Export, RecPConnectorVal."Entry No.",
-            //                                                RecPConnectorVal."Message Code")
-            // END
-            // ELSE
-            //     ERROR(TxtGError); //TODO: probleme Codeunit "Temp Blob" end
+            IF RecLTempBlob.HASVALUE() THEN BEGIN
+                RecLTempBlob.CREATEINSTREAM(InsLStream);
+                CduGBufferManagement.FctCreateBufferValues(InsLStream, RecPConnectorVal."Partner Code", RecPConnectorVal."File Name",
+                                                           RecPConnectorVal."Function", RecPConnectorVal."File format",
+                                                           RecPConnectorVal.Separator,
+                                                           RecPConnectorVal.Direction::Export, RecPConnectorVal."Entry No.",
+                                                           RecPConnectorVal."Message Code")
+            END
+            ELSE
+                ERROR(TxtGError);
         END;
         //<<WMS-FEMOT.001
     end;
@@ -1583,7 +1551,7 @@ codeunit 8073290 "PWD Connector Peb Parse Data"
         RecLSendingMessage: Record "PWD Connector Messages";
         RecLCustomerBuffer: Record "PWD Customer Buffer";
         RecLPEBCustomerBuffer: Record "PWD PEB Customer Buffer";
-        // RecLTempBlob: Codeunit "Temp Blob"; //TODO: probleme Codeunit "Temp Blob"
+        RecLTempBlob: Codeunit "Temp Blob";
         RecordRef: RecordRef;
         InsLStream: InStream;
         StrLStreamOut: OutStream;
@@ -1646,19 +1614,19 @@ codeunit 8073290 "PWD Connector Peb Parse Data"
             RecLCustomer.SETRECFILTER();
 
             IF RecLCustomer.FINDFIRST() THEN BEGIN
-                // CduGConnectBufMgtExport.FctCreateXml(RecLCustomer.GETVIEW(), RecLSendingMessage, RecLTempBlob, TRUE); //TODO: probleme Codeunit "Temp Blob"
+                CduGConnectBufMgtExport.FctCreateXml(RecLCustomer.GETVIEW(), RecLSendingMessage, RecLTempBlob, TRUE);
                 //TODO:'Codeunit "Temp Blob"' does not contain a definition for 'CALCFIELDS'
                 //RecLTempBlob.CALCFIELDS(Blob);
-                // IF RecLTempBlob.HASVALUE() THEN BEGIN //TODO: probleme Codeunit "Temp Blob" begin
-                //     RecLTempBlob.CREATEINSTREAM(InsLStream);
-                //     CduGBufferManagement.FctCreateBufferValues(InsLStream, RecPConnectorVal."Partner Code", RecPConnectorVal."File Name",
-                //                                               RecPConnectorVal."Function", RecPConnectorVal."File format",
-                //                                               RecPConnectorVal.Separator,
-                //                                               RecPConnectorVal.Direction::Export, RecPConnectorVal."Entry No.",
-                //                                               RecPConnectorVal."Message Code");
-                // END
-                // ELSE
-                //     ERROR(TxtGError); //TODO: probleme Codeunit "Temp Blob" end
+                IF RecLTempBlob.HASVALUE() THEN BEGIN
+                    RecLTempBlob.CREATEINSTREAM(InsLStream);
+                    CduGBufferManagement.FctCreateBufferValues(InsLStream, RecPConnectorVal."Partner Code", RecPConnectorVal."File Name",
+                                                              RecPConnectorVal."Function", RecPConnectorVal."File format",
+                                                              RecPConnectorVal.Separator,
+                                                              RecPConnectorVal.Direction::Export, RecPConnectorVal."Entry No.",
+                                                              RecPConnectorVal."Message Code");
+                END
+                ELSE
+                    ERROR(TxtGError);
             END
             ELSE
                 ERROR(TxtGError);
@@ -1702,76 +1670,76 @@ codeunit 8073290 "PWD Connector Peb Parse Data"
         //<<WMS-FE008_15.001
     end;
 
-    // procedure FctGetHeaderArchiveXml(RecPConnectorVal: Record "PWD Connector Values"; TxtPValue: Text[250]; var RecLTempBlob: Codeunit "Temp Blob") //TODO: probleme Codeunit "Temp Blob" begin
-    // var
-    //     RecLSendingMessage: Record "PWD Connector Messages";
-    //     RecLSalesHeaderArchive: Record "Sales Header Archive";
-    // begin
-    //     //**********************************************************************************************************//
-    //     //                                           Return Invoice Header                                          //
-    //     //                                                                                                          //
-    //     // Parameters:                                                                                              //
-    //     // RecPconnectorValue: buffer Table                                                                         //
-    //     // TxtPValue: Order No.                                                                                     //
-    //     // RecLTempBlob: Blob used temporary                                                                        //
-    //     //**********************************************************************************************************//
+    procedure FctGetHeaderArchiveXml(RecPConnectorVal: Record "PWD Connector Values"; TxtPValue: Text[250]; var RecLTempBlob: Codeunit "Temp Blob")
+    var
+        RecLSendingMessage: Record "PWD Connector Messages";
+        RecLSalesHeaderArchive: Record "Sales Header Archive";
+    begin
+        //**********************************************************************************************************//
+        //                                           Return Invoice Header                                          //
+        //                                                                                                          //
+        // Parameters:                                                                                              //
+        // RecPconnectorValue: buffer Table                                                                         //
+        // TxtPValue: Order No.                                                                                     //
+        // RecLTempBlob: Blob used temporary                                                                        //
+        //**********************************************************************************************************//
 
-    //     //>>FE_ProdConnect.002
-    //     RecLSalesHeaderArchive.SETCURRENTKEY("Document Type", "No.", "Doc. No. Occurrence", "Version No.");
-    //     RecLSalesHeaderArchive.SETRANGE("Document Type", RecLSalesHeaderArchive."Document Type"::Order);
-    //     RecLSalesHeaderArchive.SETRANGE("No.", TxtPValue);
-    //     IF NOT RecLSalesHeaderArchive.ISEMPTY THEN BEGIN
-    //         RecLSalesHeaderArchive.FINDLAST();
-    //         RecLSalesHeaderArchive.SETRANGE("Doc. No. Occurrence", RecLSalesHeaderArchive."Doc. No. Occurrence");
-    //         RecLSalesHeaderArchive.SETRANGE("Version No.", RecLSalesHeaderArchive."Version No.");
-    //         RecLSendingMessage.RESET();
-    //         RecLSendingMessage.SETRANGE("Partner Code", RecPConnectorVal."Partner Code");
-    //         RecLSendingMessage.SETRANGE("Function", RecPConnectorVal."Function");
-    //         RecLSendingMessage.SETRANGE("Table ID", DATABASE::"Sales Header Archive");
-    //         RecLSendingMessage.FINDFIRST();
-    //         CduGConnectBufMgtExport.FctCreateXml(RecLSalesHeaderArchive.GETVIEW(), RecLSendingMessage, RecLTempBlob, TRUE);
-    //     END
-    //     ELSE
-    //         ERROR(TxtGError);  //TODO: probleme Codeunit "Temp Blob" end
-    //     //<<FE_ProdConnect.002
-    // end;
+        //>>FE_ProdConnect.002
+        RecLSalesHeaderArchive.SETCURRENTKEY("Document Type", "No.", "Doc. No. Occurrence", "Version No.");
+        RecLSalesHeaderArchive.SETRANGE("Document Type", RecLSalesHeaderArchive."Document Type"::Order);
+        RecLSalesHeaderArchive.SETRANGE("No.", TxtPValue);
+        IF NOT RecLSalesHeaderArchive.ISEMPTY THEN BEGIN
+            RecLSalesHeaderArchive.FINDLAST();
+            RecLSalesHeaderArchive.SETRANGE("Doc. No. Occurrence", RecLSalesHeaderArchive."Doc. No. Occurrence");
+            RecLSalesHeaderArchive.SETRANGE("Version No.", RecLSalesHeaderArchive."Version No.");
+            RecLSendingMessage.RESET();
+            RecLSendingMessage.SETRANGE("Partner Code", RecPConnectorVal."Partner Code");
+            RecLSendingMessage.SETRANGE("Function", RecPConnectorVal."Function");
+            RecLSendingMessage.SETRANGE("Table ID", DATABASE::"Sales Header Archive");
+            RecLSendingMessage.FINDFIRST();
+            CduGConnectBufMgtExport.FctCreateXml(RecLSalesHeaderArchive.GETVIEW(), RecLSendingMessage, RecLTempBlob, TRUE);
+        END
+        ELSE
+            ERROR(TxtGError);
+        //<<FE_ProdConnect.002
+    end;
 
 
-    // procedure FctGetLineArchiveXml(RecPConnectorVal: Record "PWD Connector Values"; TxtPValue: Text[250]; var RecLTempBlob: Codeunit "Temp Blob") //TODO: probleme Codeunit "Temp Blob" begin
-    // var
-    //     RecLSendingMessage: Record "PWD Connector Messages";
-    //     RecLSalesHeaderArchive: Record "Sales Header Archive";
-    //     RecLSalesLineArchive: Record "Sales Line Archive";
-    // begin
-    //     //**********************************************************************************************************//
-    //     //                                           Return Invoice Lines                                           //
-    //     //                                                                                                          //
-    //     // Parameters:                                                                                              //
-    //     // RecPconnectorValue: buffer Table                                                                         //
-    //     // TxtPValue: Order No.                                                                                     //
-    //     // RecLTempBlob: Blob used temporary                                                                        //
-    //     //**********************************************************************************************************//
+    procedure FctGetLineArchiveXml(RecPConnectorVal: Record "PWD Connector Values"; TxtPValue: Text[250]; var RecLTempBlob: Codeunit "Temp Blob")
+    var
+        RecLSendingMessage: Record "PWD Connector Messages";
+        RecLSalesHeaderArchive: Record "Sales Header Archive";
+        RecLSalesLineArchive: Record "Sales Line Archive";
+    begin
+        //**********************************************************************************************************//
+        //                                           Return Invoice Lines                                           //
+        //                                                                                                          //
+        // Parameters:                                                                                              //
+        // RecPconnectorValue: buffer Table                                                                         //
+        // TxtPValue: Order No.                                                                                     //
+        // RecLTempBlob: Blob used temporary                                                                        //
+        //**********************************************************************************************************//
 
-    //     //>>FE_ProdConnect.002
-    //     RecLSalesHeaderArchive.SETCURRENTKEY("Document Type", "No.", "Doc. No. Occurrence", "Version No.");
-    //     RecLSalesHeaderArchive.SETRANGE("Document Type", RecLSalesHeaderArchive."Document Type"::Order);
-    //     RecLSalesHeaderArchive.SETRANGE("No.", TxtPValue);
-    //     IF NOT RecLSalesHeaderArchive.ISEMPTY THEN BEGIN
-    //         RecLSalesHeaderArchive.FINDLAST();
-    //         RecLSalesLineArchive.SETRANGE("Document Type", RecLSalesLineArchive."Document Type"::Order);
-    //         RecLSalesLineArchive.SETRANGE("Document No.", RecLSalesHeaderArchive."No.");
-    //         RecLSalesLineArchive.SETRANGE("Doc. No. Occurrence", RecLSalesHeaderArchive."Doc. No. Occurrence");
-    //         RecLSalesLineArchive.SETRANGE("Version No.", RecLSalesHeaderArchive."Version No.");
-    //         IF NOT RecLSalesLineArchive.ISEMPTY THEN BEGIN
-    //             RecLSendingMessage.RESET();
-    //             RecLSendingMessage.SETRANGE("Partner Code", RecPConnectorVal."Partner Code");
-    //             RecLSendingMessage.SETRANGE("Function", RecPConnectorVal."Function");
-    //             RecLSendingMessage.SETRANGE("Table ID", DATABASE::"Sales Line Archive");
-    //             RecLSendingMessage.FINDFIRST();
-    //             CduGConnectBufMgtExport.FctCreateXml(RecLSalesLineArchive.GETVIEW(), RecLSendingMessage, RecLTempBlob, FALSE);
-    //         END;
-    //     END; 
-    //<<FE_ProdConnect.002
-    // end; //TODO: probleme Codeunit "Temp Blob" end
+        //>>FE_ProdConnect.002
+        RecLSalesHeaderArchive.SETCURRENTKEY("Document Type", "No.", "Doc. No. Occurrence", "Version No.");
+        RecLSalesHeaderArchive.SETRANGE("Document Type", RecLSalesHeaderArchive."Document Type"::Order);
+        RecLSalesHeaderArchive.SETRANGE("No.", TxtPValue);
+        IF NOT RecLSalesHeaderArchive.ISEMPTY THEN BEGIN
+            RecLSalesHeaderArchive.FINDLAST();
+            RecLSalesLineArchive.SETRANGE("Document Type", RecLSalesLineArchive."Document Type"::Order);
+            RecLSalesLineArchive.SETRANGE("Document No.", RecLSalesHeaderArchive."No.");
+            RecLSalesLineArchive.SETRANGE("Doc. No. Occurrence", RecLSalesHeaderArchive."Doc. No. Occurrence");
+            RecLSalesLineArchive.SETRANGE("Version No.", RecLSalesHeaderArchive."Version No.");
+            IF NOT RecLSalesLineArchive.ISEMPTY THEN BEGIN
+                RecLSendingMessage.RESET();
+                RecLSendingMessage.SETRANGE("Partner Code", RecPConnectorVal."Partner Code");
+                RecLSendingMessage.SETRANGE("Function", RecPConnectorVal."Function");
+                RecLSendingMessage.SETRANGE("Table ID", DATABASE::"Sales Line Archive");
+                RecLSendingMessage.FINDFIRST();
+                CduGConnectBufMgtExport.FctCreateXml(RecLSalesLineArchive.GETVIEW(), RecLSendingMessage, RecLTempBlob, FALSE);
+            END;
+        END;
+        //<<FE_ProdConnect.002
+    end;
 }
 

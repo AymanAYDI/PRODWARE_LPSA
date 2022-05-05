@@ -45,13 +45,11 @@ tableextension 60066 "PWD ManufacturingSetup" extends "Manufacturing Setup"
             Description = 'LAP2.01';
             TableRelation = "Machine Center"."No.";
         }
-        field(50002; "PWD Calc. Type"; Option)
+        field(50002; "PWD Calc. Type"; Enum "PWD Calc. Type")
         {
             Caption = 'Calculation Type';
             Description = 'LAP2.05';
             InitValue = "Net Change";
-            OptionCaption = 'Net Change,Regenerative';
-            OptionMembers = "Net Change",Regenerative;
         }
         field(50003; "PWD Starting Date Calc."; DateFormula)
         {

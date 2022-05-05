@@ -15,15 +15,15 @@ pageextension 60049 "PWD PurchaseLines" extends "Purchase Lines"
     {
         addafter("Amt. Rcd. Not Invoiced (LCY)")
         {
-            field("PWD Requested Receipt Date"; "Requested Receipt Date")
+            field("PWD Requested Receipt Date"; Rec."Requested Receipt Date")
             {
                 ApplicationArea = All;
             }
-            field("PWD Promised Receipt Date"; "Promised Receipt Date")
+            field("PWD Promised Receipt Date"; Rec."Promised Receipt Date")
             {
                 ApplicationArea = All;
             }
-            field("PWD Order Date"; "Order Date")
+            field("PWD Order Date"; Rec."Order Date")
             {
                 ApplicationArea = All;
             }

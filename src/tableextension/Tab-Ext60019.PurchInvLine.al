@@ -29,7 +29,7 @@ tableextension 60019 "PWD PurchInvLine" extends "Purch. Inv. Line"
             Caption = 'LPSA Description 2';
             Description = 'LAP1.00';
         }
-        field(8073282; "PWD WMS_Status"; enum "PWD Status")
+        field(8073282; "PWD WMS_Status"; enum "PWD WMS_Status")
         {
             Caption = 'WMS_Status';
             Description = 'ProdConnect1.5';

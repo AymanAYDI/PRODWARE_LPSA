@@ -134,7 +134,7 @@ report 50060 "PWD Inventory Recovery"
                                 RecLReservationEntry."Reservation Status" := RecLReservationEntry."Reservation Status"::Prospect;
                                 RecLReservationEntry."Creation Date" := WorkDate();
                                 RecLReservationEntry."Source Type" := DATABASE::"Item Journal Line";
-                                RecLReservationEntry."Source Subtype" := RecGItemJnlLine."Entry Type";
+                                RecLReservationEntry."Source Subtype" := RecGItemJnlLine."Entry Type".AsInteger();
                                 RecLReservationEntry."Source ID" := RecGItemJnlLine."Journal Template Name";
                                 RecLReservationEntry."Source Batch Name" := RecGItemJnlLine."Journal Batch Name";
                                 RecLReservationEntry."Source Ref. No." := RecGItemJnlLine."Line No.";

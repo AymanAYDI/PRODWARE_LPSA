@@ -12,14 +12,14 @@ pageextension 60116 "PWD FinishedProductionOrders" extends "Finished Production 
     {
         addfirst(Control1)
         {
-            field("PWD Source Material Vendor"; "PWD Source Material Vendor")
+            field("PWD Source Material Vendor"; Rec."PWD Source Material Vendor")
             {
                 ApplicationArea = All;
             }
         }
         addafter("Bin Code")
         {
-            field("PWD Consumption Date"; "PWD Consumption Date")
+            field("PWD Consumption Date"; Rec."PWD Consumption Date")
             {
                 ApplicationArea = All;
             }

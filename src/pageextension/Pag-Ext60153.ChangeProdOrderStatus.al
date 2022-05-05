@@ -5,7 +5,7 @@ pageextension 60153 "PWD ChangeProdOrderStatus" extends "Change Production Order
     {
         addbefore("No.")
         {
-            field("PWD Selection"; "PWD Selection")
+            field("PWD Selection"; Rec."PWD Selection")
             {
                 ApplicationArea = All;
             }

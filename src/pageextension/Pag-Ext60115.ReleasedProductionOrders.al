@@ -25,7 +25,7 @@ pageextension 60115 "PWD ReleasedProductionOrders" extends "Released Production 
     {
         addafter(Description)
         {
-            field("PWD Indicator"; "PWD Indicator")
+            field("PWD Indicator"; Rec."PWD Indicator")
             {
                 ApplicationArea = All;
             }
@@ -39,7 +39,7 @@ pageextension 60115 "PWD ReleasedProductionOrders" extends "Released Production 
                 Caption = 'Components Inv. Qty.';
                 ApplicationArea = All;
             }
-            field("PWD Source Material Vendor"; "PWD Source Material Vendor")
+            field("PWD Source Material Vendor"; Rec."PWD Source Material Vendor")
             {
                 ApplicationArea = All;
             }
@@ -56,7 +56,7 @@ pageextension 60115 "PWD ReleasedProductionOrders" extends "Released Production 
             // {
             //     ApplicationArea = All;
             // }
-            field("PWD Delay"; "PWD Delay")
+            field("PWD Delay"; Rec."PWD Delay")
             {
                 ApplicationArea = All;
             }
@@ -68,15 +68,15 @@ pageextension 60115 "PWD ReleasedProductionOrders" extends "Released Production 
         }
         addafter("Bin Code")
         {
-            field("PWD Order Multiple"; "PWD Order Multiple")
+            field("PWD Order Multiple"; Rec."PWD Order Multiple")
             {
                 ApplicationArea = All;
             }
-            field("PWD Component Quantity"; "PWD Component Quantity")
+            field("PWD Component Quantity"; Rec."PWD Component Quantity")
             {
                 ApplicationArea = All;
             }
-            field("PWD Consumption Date"; "PWD Consumption Date")
+            field("PWD Consumption Date"; Rec."PWD Consumption Date")
             {
                 ApplicationArea = All;
             }
@@ -117,7 +117,7 @@ pageextension 60115 "PWD ReleasedProductionOrders" extends "Released Production 
                     Item: Record Item;
                     ProdBOMWhereUsed: Page "Prod. BOM Where-Used";
                 begin
-                    IF ("Source Type" = "Source Type"::Item) AND Item.GET("Source No.") THEN BEGIN
+                    IF (Rec."Source Type" = Rec."Source Type"::Item) AND Item.GET(Rec."Source No.") THEN BEGIN
                         ProdBOMWhereUsed.SetItem(Item, WORKDATE());
                         ProdBOMWhereUsed.RUNMODAL();
                     END;
@@ -133,7 +133,7 @@ pageextension 60115 "PWD ReleasedProductionOrders" extends "Released Production 
 
                 trigger OnAction()
                 begin
-                    ResendProdOrdertoQuartis();
+                    Rec.ResendProdOrdertoQuartis();
                 end;
             }
             group("<Action12>")
@@ -195,7 +195,7 @@ pageextension 60115 "PWD ReleasedProductionOrders" extends "Released Production 
         //<<LAP.TDL.NICO
 
         //>>LAP.TDL.NICO 23 06 2015
-        DeCGCompQty := ComponentInv();
+        DeCGCompQty := Rec.ComponentInv();
         //<<LAP.TDL.NICO 23 06 2015
 
         //>>LAP090615
@@ -204,21 +204,21 @@ pageextension 60115 "PWD ReleasedProductionOrders" extends "Released Production 
         CLEAR(DecGImputQty);
 
         CapcityLedger.RESET();
-        CapcityLedger.SETRANGE("Order No.", "No.");
+        CapcityLedger.SETRANGE("Order No.", Rec."No.");
         IF CapcityLedger.FINDLAST() THEN BEGIN
             DateGCapacityPostingDate := CapcityLedger."Posting Date";
             TxtGCapacityDescription := CapcityLedger.Description;
 
             ProdOrderLine.RESET();
-            ProdOrderLine.SETRANGE(Status, Status);
-            ProdOrderLine.SETRANGE("Prod. Order No.", "No.");
+            ProdOrderLine.SETRANGE(Status, Rec.Status);
+            ProdOrderLine.SETRANGE("Prod. Order No.", Rec."No.");
             IF ProdOrderLine.FINDFIRST() THEN BEGIN
                 ProdOrderRoutingLine.RESET();
-                ProdOrderRoutingLine.SETRANGE(Status, Status);
-                ProdOrderRoutingLine.SETRANGE("Prod. Order No.", "No.");
+                ProdOrderRoutingLine.SETRANGE(Status, Rec.Status);
+                ProdOrderRoutingLine.SETRANGE("Prod. Order No.", Rec."No.");
                 //First Line
                 ProdOrderRoutingLine.SETRANGE("Routing Reference No.", ProdOrderLine."Line No.");
-                ProdOrderRoutingLine.SETRANGE("Routing No.", "Routing No.");
+                ProdOrderRoutingLine.SETRANGE("Routing No.", Rec."Routing No.");
                 ProdOrderRoutingLine.SETRANGE("Operation No.", CapcityLedger."Operation No.");
                 IF ProdOrderRoutingLine.FindFirst() THEN
                     DecGImputQty := ProdOrderRoutingLine."Input Quantity";
@@ -230,8 +230,8 @@ pageextension 60115 "PWD ReleasedProductionOrders" extends "Released Production 
         CLEAR(BooLFound);
         CLEAR(CodLienGamme);
         RoutingLine.RESET();
-        RoutingLine.SETRANGE(Status, Status);
-        RoutingLine.SETRANGE("Prod. Order No.", "No.");
+        RoutingLine.SETRANGE(Status, Rec.Status);
+        RoutingLine.SETRANGE("Prod. Order No.", Rec."No.");
         IF RoutingLine.FINDSET() THEN
             REPEAT
                 IF CodLienGamme <> '' THEN BEGIN
@@ -251,12 +251,12 @@ pageextension 60115 "PWD ReleasedProductionOrders" extends "Released Production 
         BooLStarted: Boolean;
     begin
         BooLStarted := FALSE;
-        Capcity.SETRANGE("Order No.", "No.");
+        Capcity.SETRANGE("Order No.", Rec."No.");
         Capcity.SETRANGE(Type, Capcity.Type::"Machine Center");
         IF Capcity.FINDSet() THEN
             REPEAT
                 IF PORL.GET(
-                  Status,
+                  Rec.Status,
                   Capcity."Order No.",
                   Capcity."Order Line No.",
                   Capcity."Routing No.",
@@ -273,11 +273,11 @@ pageextension 60115 "PWD ReleasedProductionOrders" extends "Released Production 
     begin
         InfoCompany.GET();
         InfoCompany.CALCFIELDS("PWD Picture_Negative", "PWD Picture_Positive");
-        IF CheckComponentAvailabilty() THEN BEGIN
-            "PWD Indicator" := InfoCompany."PWD Picture_Negative";
+        IF Rec.CheckComponentAvailabilty() THEN BEGIN
+            Rec."PWD Indicator" := InfoCompany."PWD Picture_Negative";
             BooGCompAvail := FALSE;
         END ELSE BEGIN
-            "PWD Indicator" := InfoCompany."PWD Picture_Positive";
+            Rec."PWD Indicator" := InfoCompany."PWD Picture_Positive";
             BooGCompAvail := TRUE;
         END;
     end;

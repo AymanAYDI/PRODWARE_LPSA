@@ -15,7 +15,7 @@ pageextension 60006 "PWD VendorCard" extends "Vendor Card"
     {
         addafter("Primary Contact No.")
         {
-            field("PWD Order Min. Amount"; "PWD Order Min. Amount")
+            field("PWD Order Min. Amount"; Rec."PWD Order Min. Amount")
             {
                 ApplicationArea = All;
             }

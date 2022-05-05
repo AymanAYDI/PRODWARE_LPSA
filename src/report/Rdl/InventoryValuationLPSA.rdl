@@ -11,229 +11,6 @@
       <rd:DataSourceID>469c07d4-d0af-4374-be6d-25df4ea1c2ef</rd:DataSourceID>
     </DataSource>
   </DataSources>
-  <DataSets>
-    <DataSet Name="DataSet_Result">
-      <Query>
-        <DataSourceName>DataSource</DataSourceName>
-        <CommandText />
-      </Query>
-      <Fields>
-        <Field Name="COMPANYNAME">
-          <DataField>COMPANYNAME</DataField>
-        </Field>
-        <Field Name="FORMAT_TODAY_0_4_">
-          <DataField>FORMAT_TODAY_0_4_</DataField>
-        </Field>
-        <Field Name="USERID">
-          <DataField>USERID</DataField>
-        </Field>
-        <Field Name="CurrReport_PAGENO">
-          <DataField>CurrReport_PAGENO</DataField>
-        </Field>
-        <Field Name="STRSUBSTNO___1___2___Production_Order__TABLECAPTION_ProdOrderFilter_">
-          <DataField>STRSUBSTNO___1___2___Production_Order__TABLECAPTION_ProdOrderFilter_</DataField>
-        </Field>
-        <Field Name="ProdOrderFilter">
-          <DataField>ProdOrderFilter</DataField>
-        </Field>
-        <Field Name="STRSUBSTNO_Text005_StartDateText_">
-          <DataField>STRSUBSTNO_Text005_StartDateText_</DataField>
-        </Field>
-        <Field Name="STRSUBSTNO_Text005_FORMAT_EndDate__">
-          <DataField>STRSUBSTNO_Text005_FORMAT_EndDate__</DataField>
-        </Field>
-        <Field Name="Value_Entry___Cost_Posted_to_G_L_">
-          <DataField>Value_Entry___Cost_Posted_to_G_L_</DataField>
-        </Field>
-        <Field Name="Value_Entry___Cost_Posted_to_G_L_Format">
-          <DataField>Value_Entry___Cost_Posted_to_G_L_Format</DataField>
-        </Field>
-        <Field Name="ValueOfWIP___ValueOfMatConsump___ValueOfCap___ValueOfOutput">
-          <DataField>ValueOfWIP___ValueOfMatConsump___ValueOfCap___ValueOfOutput</DataField>
-        </Field>
-        <Field Name="ValueOfWIP___ValueOfMatConsump___ValueOfCap___ValueOfOutputFormat">
-          <DataField>ValueOfWIP___ValueOfMatConsump___ValueOfCap___ValueOfOutputFormat</DataField>
-        </Field>
-        <Field Name="ValueOfOutput">
-          <DataField>ValueOfOutput</DataField>
-        </Field>
-        <Field Name="ValueOfOutputFormat">
-          <DataField>ValueOfOutputFormat</DataField>
-        </Field>
-        <Field Name="ValueOfCap">
-          <DataField>ValueOfCap</DataField>
-        </Field>
-        <Field Name="ValueOfCapFormat">
-          <DataField>ValueOfCapFormat</DataField>
-        </Field>
-        <Field Name="ValueOfMatConsump">
-          <DataField>ValueOfMatConsump</DataField>
-        </Field>
-        <Field Name="ValueOfMatConsumpFormat">
-          <DataField>ValueOfMatConsumpFormat</DataField>
-        </Field>
-        <Field Name="ValueOfWIP">
-          <DataField>ValueOfWIP</DataField>
-        </Field>
-        <Field Name="ValueOfWIPFormat">
-          <DataField>ValueOfWIPFormat</DataField>
-        </Field>
-        <Field Name="Production_Order__Production_Order___Source_No__">
-          <DataField>Production_Order__Production_Order___Source_No__</DataField>
-        </Field>
-        <Field Name="Location_Code">
-          <DataField>Location_Code</DataField>
-        </Field>
-        <Field Name="Production_Order__Production_Order__Description">
-          <DataField>Production_Order__Production_Order__Description</DataField>
-        </Field>
-        <Field Name="Production_Order__Production_Order___No__">
-          <DataField>Production_Order__Production_Order___No__</DataField>
-        </Field>
-        <Field Name="Production_Order__Production_Order__Status">
-          <DataField>Production_Order__Production_Order__Status</DataField>
-        </Field>
-        <Field Name="LastOutput">
-          <DataField>LastOutput</DataField>
-        </Field>
-        <Field Name="LastOutputFormat">
-          <DataField>LastOutputFormat</DataField>
-        </Field>
-        <Field Name="AtLastDate">
-          <DataField>AtLastDate</DataField>
-        </Field>
-        <Field Name="AtLastDateFormat">
-          <DataField>AtLastDateFormat</DataField>
-        </Field>
-        <Field Name="LastWIP">
-          <DataField>LastWIP</DataField>
-        </Field>
-        <Field Name="LastWIPFormat">
-          <DataField>LastWIPFormat</DataField>
-        </Field>
-        <Field Name="TotalValueOfCostPstdToGL_value">
-          <DataField>TotalValueOfCostPstdToGL_value</DataField>
-        </Field>
-        <Field Name="TotalValueOfCostPstdToGL_valueFormat">
-          <DataField>TotalValueOfCostPstdToGL_valueFormat</DataField>
-        </Field>
-        <Field Name="TotalValueOfOutput_value">
-          <DataField>TotalValueOfOutput_value</DataField>
-        </Field>
-        <Field Name="TotalValueOfOutput_valueFormat">
-          <DataField>TotalValueOfOutput_valueFormat</DataField>
-        </Field>
-        <Field Name="TotalValueOfCap_value">
-          <DataField>TotalValueOfCap_value</DataField>
-        </Field>
-        <Field Name="TotalValueOfCap_valueFormat">
-          <DataField>TotalValueOfCap_valueFormat</DataField>
-        </Field>
-        <Field Name="TotalValueOfMatConsump_value">
-          <DataField>TotalValueOfMatConsump_value</DataField>
-        </Field>
-        <Field Name="TotalValueOfMatConsump_valueFormat">
-          <DataField>TotalValueOfMatConsump_valueFormat</DataField>
-        </Field>
-        <Field Name="TotalValueOfWIP_value">
-          <DataField>TotalValueOfWIP_value</DataField>
-        </Field>
-        <Field Name="TotalValueOfWIP_valueFormat">
-          <DataField>TotalValueOfWIP_valueFormat</DataField>
-        </Field>
-        <Field Name="TotalLastOutput_value">
-          <DataField>TotalLastOutput_value</DataField>
-        </Field>
-        <Field Name="TotalLastOutput_valueFormat">
-          <DataField>TotalLastOutput_valueFormat</DataField>
-        </Field>
-        <Field Name="TotalAtLastDate_value">
-          <DataField>TotalAtLastDate_value</DataField>
-        </Field>
-        <Field Name="TotalAtLastDate_valueFormat">
-          <DataField>TotalAtLastDate_valueFormat</DataField>
-        </Field>
-        <Field Name="TotalLastWIP_value">
-          <DataField>TotalLastWIP_value</DataField>
-        </Field>
-        <Field Name="TotalLastWIP_valueFormat">
-          <DataField>TotalLastWIP_valueFormat</DataField>
-        </Field>
-        <Field Name="ValueOfWIP___ValueOfMatConsump___ValueOfCap___ValueOfOutput_Control121">
-          <DataField>ValueOfWIP___ValueOfMatConsump___ValueOfCap___ValueOfOutput_Control121</DataField>
-        </Field>
-        <Field Name="ValueOfWIP___ValueOfMatConsump___ValueOfCap___ValueOfOutput_Control121Format">
-          <DataField>ValueOfWIP___ValueOfMatConsump___ValueOfCap___ValueOfOutput_Control121Format</DataField>
-        </Field>
-        <Field Name="ValueOfOutput_Control122">
-          <DataField>ValueOfOutput_Control122</DataField>
-        </Field>
-        <Field Name="ValueOfOutput_Control122Format">
-          <DataField>ValueOfOutput_Control122Format</DataField>
-        </Field>
-        <Field Name="ValueOfCap_Control123">
-          <DataField>ValueOfCap_Control123</DataField>
-        </Field>
-        <Field Name="ValueOfCap_Control123Format">
-          <DataField>ValueOfCap_Control123Format</DataField>
-        </Field>
-        <Field Name="ValueOfWIP_Control124">
-          <DataField>ValueOfWIP_Control124</DataField>
-        </Field>
-        <Field Name="ValueOfWIP_Control124Format">
-          <DataField>ValueOfWIP_Control124Format</DataField>
-        </Field>
-        <Field Name="Value_Entry___Cost_Posted_to_G_L__Control126">
-          <DataField>Value_Entry___Cost_Posted_to_G_L__Control126</DataField>
-        </Field>
-        <Field Name="Value_Entry___Cost_Posted_to_G_L__Control126Format">
-          <DataField>Value_Entry___Cost_Posted_to_G_L__Control126Format</DataField>
-        </Field>
-        <Field Name="ValueOfMatConsump_Control14">
-          <DataField>ValueOfMatConsump_Control14</DataField>
-        </Field>
-        <Field Name="ValueOfMatConsump_Control14Format">
-          <DataField>ValueOfMatConsump_Control14Format</DataField>
-        </Field>
-        <Field Name="Inventory_Valuation___WIPCaption">
-          <DataField>Inventory_Valuation___WIPCaption</DataField>
-        </Field>
-        <Field Name="CurrReport_PAGENOCaption">
-          <DataField>CurrReport_PAGENOCaption</DataField>
-        </Field>
-        <Field Name="ValueOfCapCaption">
-          <DataField>ValueOfCapCaption</DataField>
-        </Field>
-        <Field Name="ValueOfOutputCaption">
-          <DataField>ValueOfOutputCaption</DataField>
-        </Field>
-        <Field Name="Value_Entry___Cost_Posted_to_G_L_Caption">
-          <DataField>Value_Entry___Cost_Posted_to_G_L_Caption</DataField>
-        </Field>
-        <Field Name="ValueOfMatConsumpCaption">
-          <DataField>ValueOfMatConsumpCaption</DataField>
-        </Field>
-        <Field Name="Production_Order__Production_Order___No__Caption">
-          <DataField>Production_Order__Production_Order___No__Caption</DataField>
-        </Field>
-        <Field Name="Production_Order__Production_Order__StatusCaption">
-          <DataField>Production_Order__Production_Order__StatusCaption</DataField>
-        </Field>
-        <Field Name="Production_Order__Production_Order__DescriptionCaption">
-          <DataField>Production_Order__Production_Order__DescriptionCaption</DataField>
-        </Field>
-        <Field Name="Location_Code_Caption">
-          <DataField>Location_Code_Caption</DataField>
-        </Field>
-        <Field Name="Production_Order__Production_Order___Source_No__Caption">
-          <DataField>Production_Order__Production_Order___Source_No__Caption</DataField>
-        </Field>
-        <Field Name="TotalCaption">
-          <DataField>TotalCaption</DataField>
-        </Field>
-      </Fields>
-    </DataSet>
-  </DataSets>
   <ReportSections>
     <ReportSection>
       <Body>
@@ -2048,12 +1825,6 @@
       </Page>
     </ReportSection>
   </ReportSections>
-  <ReportParametersLayout>
-    <GridLayoutDefinition>
-      <NumberOfColumns>4</NumberOfColumns>
-      <NumberOfRows>2</NumberOfRows>
-    </GridLayoutDefinition>
-  </ReportParametersLayout>
   <Code>Public Function BlankZero(ByVal Value As Decimal)
     if Value = 0 then
         Return ""
@@ -2120,4 +1891,227 @@ End Function
   <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
   <rd:ReportUnitType>Cm</rd:ReportUnitType>
   <rd:ReportID>ecc0249e-c21a-43b1-8383-f05914053b25</rd:ReportID>
+  <DataSets>
+    <DataSet Name="DataSet_Result">
+      <Fields>
+        <Field Name="COMPANYNAME">
+          <DataField>COMPANYNAME</DataField>
+        </Field>
+        <Field Name="FORMAT_TODAY_0_4_">
+          <DataField>FORMAT_TODAY_0_4_</DataField>
+        </Field>
+        <Field Name="USERID">
+          <DataField>USERID</DataField>
+        </Field>
+        <Field Name="CurrReport_PAGENO">
+          <DataField>CurrReport_PAGENO</DataField>
+        </Field>
+        <Field Name="STRSUBSTNO___1___2___Production_Order__TABLECAPTION_ProdOrderFilter_">
+          <DataField>STRSUBSTNO___1___2___Production_Order__TABLECAPTION_ProdOrderFilter_</DataField>
+        </Field>
+        <Field Name="ProdOrderFilter">
+          <DataField>ProdOrderFilter</DataField>
+        </Field>
+        <Field Name="STRSUBSTNO_Text005_StartDateText_">
+          <DataField>STRSUBSTNO_Text005_StartDateText_</DataField>
+        </Field>
+        <Field Name="STRSUBSTNO_Text005_FORMAT_EndDate__">
+          <DataField>STRSUBSTNO_Text005_FORMAT_EndDate__</DataField>
+        </Field>
+        <Field Name="Value_Entry___Cost_Posted_to_G_L_">
+          <DataField>Value_Entry___Cost_Posted_to_G_L_</DataField>
+        </Field>
+        <Field Name="Value_Entry___Cost_Posted_to_G_L_Format">
+          <DataField>Value_Entry___Cost_Posted_to_G_L_Format</DataField>
+        </Field>
+        <Field Name="ValueOfWIP___ValueOfMatConsump___ValueOfCap___ValueOfOutput">
+          <DataField>ValueOfWIP___ValueOfMatConsump___ValueOfCap___ValueOfOutput</DataField>
+        </Field>
+        <Field Name="ValueOfWIP___ValueOfMatConsump___ValueOfCap___ValueOfOutputFormat">
+          <DataField>ValueOfWIP___ValueOfMatConsump___ValueOfCap___ValueOfOutputFormat</DataField>
+        </Field>
+        <Field Name="ValueOfOutput">
+          <DataField>ValueOfOutput</DataField>
+        </Field>
+        <Field Name="ValueOfOutputFormat">
+          <DataField>ValueOfOutputFormat</DataField>
+        </Field>
+        <Field Name="ValueOfCap">
+          <DataField>ValueOfCap</DataField>
+        </Field>
+        <Field Name="ValueOfCapFormat">
+          <DataField>ValueOfCapFormat</DataField>
+        </Field>
+        <Field Name="ValueOfMatConsump">
+          <DataField>ValueOfMatConsump</DataField>
+        </Field>
+        <Field Name="ValueOfMatConsumpFormat">
+          <DataField>ValueOfMatConsumpFormat</DataField>
+        </Field>
+        <Field Name="ValueOfWIP">
+          <DataField>ValueOfWIP</DataField>
+        </Field>
+        <Field Name="ValueOfWIPFormat">
+          <DataField>ValueOfWIPFormat</DataField>
+        </Field>
+        <Field Name="Production_Order__Production_Order___Source_No__">
+          <DataField>Production_Order__Production_Order___Source_No__</DataField>
+        </Field>
+        <Field Name="Location_Code">
+          <DataField>Location_Code</DataField>
+        </Field>
+        <Field Name="Production_Order__Production_Order__Description">
+          <DataField>Production_Order__Production_Order__Description</DataField>
+        </Field>
+        <Field Name="Production_Order__Production_Order___No__">
+          <DataField>Production_Order__Production_Order___No__</DataField>
+        </Field>
+        <Field Name="Production_Order__Production_Order__Status">
+          <DataField>Production_Order__Production_Order__Status</DataField>
+        </Field>
+        <Field Name="LastOutput">
+          <DataField>LastOutput</DataField>
+        </Field>
+        <Field Name="LastOutputFormat">
+          <DataField>LastOutputFormat</DataField>
+        </Field>
+        <Field Name="AtLastDate">
+          <DataField>AtLastDate</DataField>
+        </Field>
+        <Field Name="AtLastDateFormat">
+          <DataField>AtLastDateFormat</DataField>
+        </Field>
+        <Field Name="LastWIP">
+          <DataField>LastWIP</DataField>
+        </Field>
+        <Field Name="LastWIPFormat">
+          <DataField>LastWIPFormat</DataField>
+        </Field>
+        <Field Name="TotalValueOfCostPstdToGL_value">
+          <DataField>TotalValueOfCostPstdToGL_value</DataField>
+        </Field>
+        <Field Name="TotalValueOfCostPstdToGL_valueFormat">
+          <DataField>TotalValueOfCostPstdToGL_valueFormat</DataField>
+        </Field>
+        <Field Name="TotalValueOfOutput_value">
+          <DataField>TotalValueOfOutput_value</DataField>
+        </Field>
+        <Field Name="TotalValueOfOutput_valueFormat">
+          <DataField>TotalValueOfOutput_valueFormat</DataField>
+        </Field>
+        <Field Name="TotalValueOfCap_value">
+          <DataField>TotalValueOfCap_value</DataField>
+        </Field>
+        <Field Name="TotalValueOfCap_valueFormat">
+          <DataField>TotalValueOfCap_valueFormat</DataField>
+        </Field>
+        <Field Name="TotalValueOfMatConsump_value">
+          <DataField>TotalValueOfMatConsump_value</DataField>
+        </Field>
+        <Field Name="TotalValueOfMatConsump_valueFormat">
+          <DataField>TotalValueOfMatConsump_valueFormat</DataField>
+        </Field>
+        <Field Name="TotalValueOfWIP_value">
+          <DataField>TotalValueOfWIP_value</DataField>
+        </Field>
+        <Field Name="TotalValueOfWIP_valueFormat">
+          <DataField>TotalValueOfWIP_valueFormat</DataField>
+        </Field>
+        <Field Name="TotalLastOutput_value">
+          <DataField>TotalLastOutput_value</DataField>
+        </Field>
+        <Field Name="TotalLastOutput_valueFormat">
+          <DataField>TotalLastOutput_valueFormat</DataField>
+        </Field>
+        <Field Name="TotalAtLastDate_value">
+          <DataField>TotalAtLastDate_value</DataField>
+        </Field>
+        <Field Name="TotalAtLastDate_valueFormat">
+          <DataField>TotalAtLastDate_valueFormat</DataField>
+        </Field>
+        <Field Name="TotalLastWIP_value">
+          <DataField>TotalLastWIP_value</DataField>
+        </Field>
+        <Field Name="TotalLastWIP_valueFormat">
+          <DataField>TotalLastWIP_valueFormat</DataField>
+        </Field>
+        <Field Name="ValueOfWIP___ValueOfMatConsump___ValueOfCap___ValueOfOutput_Control121">
+          <DataField>ValueOfWIP___ValueOfMatConsump___ValueOfCap___ValueOfOutput_Control121</DataField>
+        </Field>
+        <Field Name="ValueOfWIP___ValueOfMatConsump___ValueOfCap___ValueOfOutput_Control121Format">
+          <DataField>ValueOfWIP___ValueOfMatConsump___ValueOfCap___ValueOfOutput_Control121Format</DataField>
+        </Field>
+        <Field Name="ValueOfOutput_Control122">
+          <DataField>ValueOfOutput_Control122</DataField>
+        </Field>
+        <Field Name="ValueOfOutput_Control122Format">
+          <DataField>ValueOfOutput_Control122Format</DataField>
+        </Field>
+        <Field Name="ValueOfCap_Control123">
+          <DataField>ValueOfCap_Control123</DataField>
+        </Field>
+        <Field Name="ValueOfCap_Control123Format">
+          <DataField>ValueOfCap_Control123Format</DataField>
+        </Field>
+        <Field Name="ValueOfWIP_Control124">
+          <DataField>ValueOfWIP_Control124</DataField>
+        </Field>
+        <Field Name="ValueOfWIP_Control124Format">
+          <DataField>ValueOfWIP_Control124Format</DataField>
+        </Field>
+        <Field Name="Value_Entry___Cost_Posted_to_G_L__Control126">
+          <DataField>Value_Entry___Cost_Posted_to_G_L__Control126</DataField>
+        </Field>
+        <Field Name="Value_Entry___Cost_Posted_to_G_L__Control126Format">
+          <DataField>Value_Entry___Cost_Posted_to_G_L__Control126Format</DataField>
+        </Field>
+        <Field Name="ValueOfMatConsump_Control14">
+          <DataField>ValueOfMatConsump_Control14</DataField>
+        </Field>
+        <Field Name="ValueOfMatConsump_Control14Format">
+          <DataField>ValueOfMatConsump_Control14Format</DataField>
+        </Field>
+        <Field Name="Inventory_Valuation___WIPCaption">
+          <DataField>Inventory_Valuation___WIPCaption</DataField>
+        </Field>
+        <Field Name="CurrReport_PAGENOCaption">
+          <DataField>CurrReport_PAGENOCaption</DataField>
+        </Field>
+        <Field Name="ValueOfCapCaption">
+          <DataField>ValueOfCapCaption</DataField>
+        </Field>
+        <Field Name="ValueOfOutputCaption">
+          <DataField>ValueOfOutputCaption</DataField>
+        </Field>
+        <Field Name="Value_Entry___Cost_Posted_to_G_L_Caption">
+          <DataField>Value_Entry___Cost_Posted_to_G_L_Caption</DataField>
+        </Field>
+        <Field Name="ValueOfMatConsumpCaption">
+          <DataField>ValueOfMatConsumpCaption</DataField>
+        </Field>
+        <Field Name="Production_Order__Production_Order___No__Caption">
+          <DataField>Production_Order__Production_Order___No__Caption</DataField>
+        </Field>
+        <Field Name="Production_Order__Production_Order__StatusCaption">
+          <DataField>Production_Order__Production_Order__StatusCaption</DataField>
+        </Field>
+        <Field Name="Production_Order__Production_Order__DescriptionCaption">
+          <DataField>Production_Order__Production_Order__DescriptionCaption</DataField>
+        </Field>
+        <Field Name="Location_Code_Caption">
+          <DataField>Location_Code_Caption</DataField>
+        </Field>
+        <Field Name="Production_Order__Production_Order___Source_No__Caption">
+          <DataField>Production_Order__Production_Order___Source_No__Caption</DataField>
+        </Field>
+        <Field Name="TotalCaption">
+          <DataField>TotalCaption</DataField>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DataSource</DataSourceName>
+        <CommandText />
+      </Query>
+    </DataSet>
+  </DataSets>
 </Report>

@@ -91,7 +91,7 @@ xmlport 8073323 "PWD Export Prod Order OSYS"
 
                     trigger OnBeforePassVariable()
                     begin
-                        IntGTempField := "Prod. Order Line".Status;
+                        IntGTempField := "Prod. Order Line".Status.AsInteger();
                         F_Status := Format(IntGTempField);
                     end;
                 }
@@ -940,7 +940,7 @@ xmlport 8073323 "PWD Export Prod Order OSYS"
     begin
         //Filtre Ligne Projet
         case IntGProdOrderStatus of
-            RecPProdOrderLine.Status::Released:
+            RecPProdOrderLine.Status::Released.AsInteger():
                 begin
                     RecPProdOrderLine.SetCurrentKey(Status, "Send to OSYS (Released)");
                     RecPProdOrderLine.SetRange(Status, RecPProdOrderLine.Status::Released);
@@ -954,7 +954,7 @@ xmlport 8073323 "PWD Export Prod Order OSYS"
                         //<<OSYS-Int001.002
                         RecPProdOrderLine.SetRange("Send to OSYS (Released)", false);
                 end;
-            RecPProdOrderLine.Status::Finished:
+            RecPProdOrderLine.Status::Finished.AsInteger():
                 begin
                     RecPProdOrderLine.SetCurrentKey(Status, "Send to OSYS (Finished)");
                     RecPProdOrderLine.SetRange(Status, RecPProdOrderLine.Status::Finished);

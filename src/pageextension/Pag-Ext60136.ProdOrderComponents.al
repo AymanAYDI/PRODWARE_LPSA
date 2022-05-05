@@ -13,7 +13,7 @@ pageextension 60136 "PWD ProdOrderComponents" extends "Prod. Order Components"
     {
         addafter(Description)
         {
-            field("PWD Lot Determining"; "PWD Lot Determining")
+            field("PWD Lot Determining"; Rec."PWD Lot Determining")
             {
                 ApplicationArea = All;
             }
@@ -38,11 +38,11 @@ pageextension 60136 "PWD ProdOrderComponents" extends "Prod. Order Components"
                     // >> FE_LAPRIERRETTE_GP0003 : APA 16/05/13
                     CurrPage.SAVERECORD();
 
-                    ShowItemSubPhantom();
+                    Rec.ShowItemSubPhantom();
 
                     CurrPage.UPDATE(TRUE);
 
-                    UpdateReserveItemPhantom();
+                    Rec.UpdateReserveItemPhantom();
 
                     // << FE_LAPRIERRETTE_GP0003 : APA 16/05/13
                 end;

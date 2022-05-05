@@ -423,7 +423,7 @@ tableextension 60004 "PWD Item" extends Item
     begin
         ItemLedgEntry.SetCurrentKey("Item No.");
         ItemLedgEntry.SetRange("Item No.", "No.");
-        if ItemLedgEntry.Find('-') then
+        if Not ItemLedgEntry.IsEmpty then
             exit(false);
 
         PurchOrderLine.SetCurrentKey("Document Type", Type, "No.");

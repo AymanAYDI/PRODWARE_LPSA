@@ -4,15 +4,15 @@ pageextension 60080 "PWD PostedTransferShipments" extends "Posted Transfer Shipm
     {
         addafter("Receipt Date")
         {
-            field("PWD Transfer-to Name"; "Transfer-to Name")
+            field("PWD Transfer-to Name"; Rec."Transfer-to Name")
             {
                 ApplicationArea = All;
             }
-            field("PWD Transfer Order No."; "Transfer Order No.")
+            field("PWD Transfer Order No."; Rec."Transfer Order No.")
             {
                 ApplicationArea = All;
             }
-            field("PWD Sales Order No."; "PWD Sales Order No.")
+            field("PWD Sales Order No."; Rec."PWD Sales Order No.")
             {
                 ApplicationArea = All;
             }

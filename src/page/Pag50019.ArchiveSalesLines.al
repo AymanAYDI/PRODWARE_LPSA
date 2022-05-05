@@ -36,7 +36,7 @@ page 50019 "PWD Archive Sales Lines"
                 {
                     ApplicationArea = All;
                 }
-                field(Type; Type)
+                field(Type; Rec.Type)
                 {
                     ApplicationArea = All;
                 }
@@ -60,7 +60,7 @@ page 50019 "PWD Archive Sales Lines"
                 {
                     ApplicationArea = All;
                 }
-                field(Description; Description)
+                field(Description; Rec.Description)
                 {
                     ApplicationArea = All;
                 }
@@ -72,7 +72,7 @@ page 50019 "PWD Archive Sales Lines"
                 {
                     ApplicationArea = All;
                 }
-                field(Quantity; Quantity)
+                field(Quantity; Rec.Quantity)
                 {
                     ApplicationArea = All;
                 }

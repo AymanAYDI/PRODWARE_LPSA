@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2016/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
   <AutoRefresh>0</AutoRefresh>
   <DataSources>
@@ -10,400 +10,6 @@
       <rd:SecurityType>None</rd:SecurityType>
     </DataSource>
   </DataSources>
-  <DataSets>
-    <DataSet Name="DataSet_Result">
-      <Query>
-        <DataSourceName>DataSource</DataSourceName>
-        <CommandText />
-      </Query>
-      <Fields>
-        <Field Name="FORMAT_TODAY_0_4_">
-          <DataField>FORMAT_TODAY_0_4_</DataField>
-        </Field>
-        <Field Name="COMPANYNAME">
-          <DataField>COMPANYNAME</DataField>
-        </Field>
-        <Field Name="CurrReport_PAGENO">
-          <DataField>CurrReport_PAGENO</DataField>
-        </Field>
-        <Field Name="USERID">
-          <DataField>USERID</DataField>
-        </Field>
-        <Field Name="STRSUBSTNO___1___2__Item_TABLECAPTION_ItemFilter_">
-          <DataField>STRSUBSTNO___1___2__Item_TABLECAPTION_ItemFilter_</DataField>
-        </Field>
-        <Field Name="STRSUBSTNO_Text005_StartDateText_">
-          <DataField>STRSUBSTNO_Text005_StartDateText_</DataField>
-        </Field>
-        <Field Name="EmptyString">
-          <DataField>EmptyString</DataField>
-        </Field>
-        <Field Name="EmptyString_Control46">
-          <DataField>EmptyString_Control46</DataField>
-        </Field>
-        <Field Name="EmptyString_Control47">
-          <DataField>EmptyString_Control47</DataField>
-        </Field>
-        <Field Name="STRSUBSTNO_Text005_FORMAT_EndDate__">
-          <DataField>STRSUBSTNO_Text005_FORMAT_EndDate__</DataField>
-        </Field>
-        <Field Name="EmptyString_Control57">
-          <DataField>EmptyString_Control57</DataField>
-        </Field>
-        <Field Name="StartDate">
-          <DataField>StartDate</DataField>
-        </Field>
-        <Field Name="EndDate">
-          <DataField>EndDate</DataField>
-        </Field>
-        <Field Name="ShowExpected">
-          <DataField>ShowExpected</DataField>
-        </Field>
-        <Field Name="ItemFilter">
-          <DataField>ItemFilter</DataField>
-        </Field>
-        <Field Name="STRSUBSTNO_Text006__Inventory_Posting_Group__">
-          <DataField>STRSUBSTNO_Text006__Inventory_Posting_Group__</DataField>
-        </Field>
-        <Field Name="STRSUBSTNO_Text007__Inventory_Posting_Group__">
-          <DataField>STRSUBSTNO_Text007__Inventory_Posting_Group__</DataField>
-        </Field>
-        <Field Name="ValueOfInvoicedQty">
-          <DataField>ValueOfInvoicedQty</DataField>
-        </Field>
-        <Field Name="ValueOfInvoicedQtyFormat">
-          <DataField>ValueOfInvoicedQtyFormat</DataField>
-        </Field>
-        <Field Name="ValueOfInvIncreases">
-          <DataField>ValueOfInvIncreases</DataField>
-        </Field>
-        <Field Name="ValueOfInvIncreasesFormat">
-          <DataField>ValueOfInvIncreasesFormat</DataField>
-        </Field>
-        <Field Name="CostOfInvDecreases">
-          <DataField>CostOfInvDecreases</DataField>
-        </Field>
-        <Field Name="CostOfInvDecreasesFormat">
-          <DataField>CostOfInvDecreasesFormat</DataField>
-        </Field>
-        <Field Name="Value_Entry___Cost_Amount__Actual__">
-          <DataField>Value_Entry___Cost_Amount__Actual__</DataField>
-        </Field>
-        <Field Name="Value_Entry___Cost_Amount__Actual__Format">
-          <DataField>Value_Entry___Cost_Amount__Actual__Format</DataField>
-        </Field>
-        <Field Name="InvCostPostedToGL">
-          <DataField>InvCostPostedToGL</DataField>
-        </Field>
-        <Field Name="InvCostPostedToGLFormat">
-          <DataField>InvCostPostedToGLFormat</DataField>
-        </Field>
-        <Field Name="STRSUBSTNO_Text008__Inventory_Posting_Group__">
-          <DataField>STRSUBSTNO_Text008__Inventory_Posting_Group__</DataField>
-        </Field>
-        <Field Name="ValueOfQtyOnHand">
-          <DataField>ValueOfQtyOnHand</DataField>
-        </Field>
-        <Field Name="ValueOfQtyOnHandFormat">
-          <DataField>ValueOfQtyOnHandFormat</DataField>
-        </Field>
-        <Field Name="ValueOfRcdIncreases">
-          <DataField>ValueOfRcdIncreases</DataField>
-        </Field>
-        <Field Name="ValueOfRcdIncreasesFormat">
-          <DataField>ValueOfRcdIncreasesFormat</DataField>
-        </Field>
-        <Field Name="CostOfShipDecreases">
-          <DataField>CostOfShipDecreases</DataField>
-        </Field>
-        <Field Name="CostOfShipDecreasesFormat">
-          <DataField>CostOfShipDecreasesFormat</DataField>
-        </Field>
-        <Field Name="ValueOfQtyOnHand___ValueOfRcdIncreases___CostOfShipDecreases">
-          <DataField>ValueOfQtyOnHand___ValueOfRcdIncreases___CostOfShipDecreases</DataField>
-        </Field>
-        <Field Name="ValueOfQtyOnHand___ValueOfRcdIncreases___CostOfShipDecreasesFormat">
-          <DataField>ValueOfQtyOnHand___ValueOfRcdIncreases___CostOfShipDecreasesFormat</DataField>
-        </Field>
-        <Field Name="CostPostedToGL">
-          <DataField>CostPostedToGL</DataField>
-        </Field>
-        <Field Name="CostPostedToGLFormat">
-          <DataField>CostPostedToGLFormat</DataField>
-        </Field>
-        <Field Name="ExpCostPostedToGL">
-          <DataField>ExpCostPostedToGL</DataField>
-        </Field>
-        <Field Name="ExpCostPostedToGLFormat">
-          <DataField>ExpCostPostedToGLFormat</DataField>
-        </Field>
-        <Field Name="STRSUBSTNO_Text009__Inventory_Posting_Group__">
-          <DataField>STRSUBSTNO_Text009__Inventory_Posting_Group__</DataField>
-        </Field>
-        <Field Name="Value_Entry___Cost_Amount__Actual___Control80">
-          <DataField>Value_Entry___Cost_Amount__Actual___Control80</DataField>
-        </Field>
-        <Field Name="Value_Entry___Cost_Amount__Actual___Control80Format">
-          <DataField>Value_Entry___Cost_Amount__Actual___Control80Format</DataField>
-        </Field>
-        <Field Name="CostOfInvDecreases_Control82">
-          <DataField>CostOfInvDecreases_Control82</DataField>
-        </Field>
-        <Field Name="CostOfInvDecreases_Control82Format">
-          <DataField>CostOfInvDecreases_Control82Format</DataField>
-        </Field>
-        <Field Name="ValueOfInvIncreases_Control83">
-          <DataField>ValueOfInvIncreases_Control83</DataField>
-        </Field>
-        <Field Name="ValueOfInvIncreases_Control83Format">
-          <DataField>ValueOfInvIncreases_Control83Format</DataField>
-        </Field>
-        <Field Name="ValueOfInvoicedQty_Control84">
-          <DataField>ValueOfInvoicedQty_Control84</DataField>
-        </Field>
-        <Field Name="ValueOfInvoicedQty_Control84Format">
-          <DataField>ValueOfInvoicedQty_Control84Format</DataField>
-        </Field>
-        <Field Name="InvCostPostedToGL_Control18">
-          <DataField>InvCostPostedToGL_Control18</DataField>
-        </Field>
-        <Field Name="InvCostPostedToGL_Control18Format">
-          <DataField>InvCostPostedToGL_Control18Format</DataField>
-        </Field>
-        <Field Name="ValueOfQtyOnHand_Control25">
-          <DataField>ValueOfQtyOnHand_Control25</DataField>
-        </Field>
-        <Field Name="ValueOfQtyOnHand_Control25Format">
-          <DataField>ValueOfQtyOnHand_Control25Format</DataField>
-        </Field>
-        <Field Name="ValueOfRcdIncreases_Control26">
-          <DataField>ValueOfRcdIncreases_Control26</DataField>
-        </Field>
-        <Field Name="ValueOfRcdIncreases_Control26Format">
-          <DataField>ValueOfRcdIncreases_Control26Format</DataField>
-        </Field>
-        <Field Name="CostOfShipDecreases_Control27">
-          <DataField>CostOfShipDecreases_Control27</DataField>
-        </Field>
-        <Field Name="CostOfShipDecreases_Control27Format">
-          <DataField>CostOfShipDecreases_Control27Format</DataField>
-        </Field>
-        <Field Name="ValueOfQtyOnHand___ValueOfRcdIncreases___CostOfShipDecreases_Control48">
-          <DataField>ValueOfQtyOnHand___ValueOfRcdIncreases___CostOfShipDecreases_Control48</DataField>
-        </Field>
-        <Field Name="ValueOfQtyOnHand___ValueOfRcdIncreases___CostOfShipDecreases_Control48Format">
-          <DataField>ValueOfQtyOnHand___ValueOfRcdIncreases___CostOfShipDecreases_Control48Format</DataField>
-        </Field>
-        <Field Name="CostPostedToGL_Control19">
-          <DataField>CostPostedToGL_Control19</DataField>
-        </Field>
-        <Field Name="CostPostedToGL_Control19Format">
-          <DataField>CostPostedToGL_Control19Format</DataField>
-        </Field>
-        <Field Name="ExpCostPostedToGL_Control51">
-          <DataField>ExpCostPostedToGL_Control51</DataField>
-        </Field>
-        <Field Name="ExpCostPostedToGL_Control51Format">
-          <DataField>ExpCostPostedToGL_Control51Format</DataField>
-        </Field>
-        <Field Name="Inventory_ValuationCaption">
-          <DataField>Inventory_ValuationCaption</DataField>
-        </Field>
-        <Field Name="CurrReport_PAGENOCaption">
-          <DataField>CurrReport_PAGENOCaption</DataField>
-        </Field>
-        <Field Name="This_report_includes_entries_that_have_been_posted_with_expected_costs_Caption">
-          <DataField>This_report_includes_entries_that_have_been_posted_with_expected_costs_Caption</DataField>
-        </Field>
-        <Field Name="Value_Entry__Item_No__Caption">
-          <DataField>Value_Entry__Item_No__Caption</DataField>
-        </Field>
-        <Field Name="Item_DescriptionCaption">
-          <DataField>Item_DescriptionCaption</DataField>
-        </Field>
-        <Field Name="Location_Code_Caption">
-          <DataField>Location_Code_Caption</DataField>
-        </Field>
-        <Field Name="Item__Base_Unit_of_Measure_Caption">
-          <DataField>Item__Base_Unit_of_Measure_Caption</DataField>
-        </Field>
-        <Field Name="InvIncreasesCaption">
-          <DataField>InvIncreasesCaption</DataField>
-        </Field>
-        <Field Name="InvDecreasesCaption">
-          <DataField>InvDecreasesCaption</DataField>
-        </Field>
-        <Field Name="QuantityCaption">
-          <DataField>QuantityCaption</DataField>
-        </Field>
-        <Field Name="ValueCaption">
-          <DataField>ValueCaption</DataField>
-        </Field>
-        <Field Name="ValueCaption_Control28">
-          <DataField>ValueCaption_Control28</DataField>
-        </Field>
-        <Field Name="QuantityCaption_Control31">
-          <DataField>QuantityCaption_Control31</DataField>
-        </Field>
-        <Field Name="ValueCaption_Control32">
-          <DataField>ValueCaption_Control32</DataField>
-        </Field>
-        <Field Name="QuantityCaption_Control40">
-          <DataField>QuantityCaption_Control40</DataField>
-        </Field>
-        <Field Name="InvCostPostedToGL_Control53Caption">
-          <DataField>InvCostPostedToGL_Control53Caption</DataField>
-        </Field>
-        <Field Name="ValueCaption_Control56">
-          <DataField>ValueCaption_Control56</DataField>
-        </Field>
-        <Field Name="QuantityCaption_Control58">
-          <DataField>QuantityCaption_Control58</DataField>
-        </Field>
-        <Field Name="TotalCaption">
-          <DataField>TotalCaption</DataField>
-        </Field>
-        <Field Name="Expected_Cost_Included_TotalCaption">
-          <DataField>Expected_Cost_Included_TotalCaption</DataField>
-        </Field>
-        <Field Name="Expected_Cost_TotalCaption">
-          <DataField>Expected_Cost_TotalCaption</DataField>
-        </Field>
-        <Field Name="Item_No_">
-          <DataField>Item_No_</DataField>
-        </Field>
-        <Field Name="Item_Inventory_Posting_Group">
-          <DataField>Item_Inventory_Posting_Group</DataField>
-        </Field>
-        <Field Name="InvCostPostedToGL_Control53">
-          <DataField>InvCostPostedToGL_Control53</DataField>
-        </Field>
-        <Field Name="InvCostPostedToGL_Control53Format">
-          <DataField>InvCostPostedToGL_Control53Format</DataField>
-        </Field>
-        <Field Name="Value_Entry__Value_Entry___Cost_Amount__Actual__">
-          <DataField>Value_Entry__Value_Entry___Cost_Amount__Actual__</DataField>
-        </Field>
-        <Field Name="Value_Entry__Value_Entry___Cost_Amount__Actual__Format">
-          <DataField>Value_Entry__Value_Entry___Cost_Amount__Actual__Format</DataField>
-        </Field>
-        <Field Name="Value_Entry__Invoiced_Quantity_">
-          <DataField>Value_Entry__Invoiced_Quantity_</DataField>
-        </Field>
-        <Field Name="Value_Entry__Invoiced_Quantity_Format">
-          <DataField>Value_Entry__Invoiced_Quantity_Format</DataField>
-        </Field>
-        <Field Name="CostOfInvDecreases_Control21">
-          <DataField>CostOfInvDecreases_Control21</DataField>
-        </Field>
-        <Field Name="CostOfInvDecreases_Control21Format">
-          <DataField>CostOfInvDecreases_Control21Format</DataField>
-        </Field>
-        <Field Name="InvDecreases">
-          <DataField>InvDecreases</DataField>
-        </Field>
-        <Field Name="InvDecreasesFormat">
-          <DataField>InvDecreasesFormat</DataField>
-        </Field>
-        <Field Name="ValueOfInvIncreases_Control16">
-          <DataField>ValueOfInvIncreases_Control16</DataField>
-        </Field>
-        <Field Name="ValueOfInvIncreases_Control16Format">
-          <DataField>ValueOfInvIncreases_Control16Format</DataField>
-        </Field>
-        <Field Name="InvIncreases">
-          <DataField>InvIncreases</DataField>
-        </Field>
-        <Field Name="InvIncreasesFormat">
-          <DataField>InvIncreasesFormat</DataField>
-        </Field>
-        <Field Name="ValueOfInvoicedQty_Control15">
-          <DataField>ValueOfInvoicedQty_Control15</DataField>
-        </Field>
-        <Field Name="ValueOfInvoicedQty_Control15Format">
-          <DataField>ValueOfInvoicedQty_Control15Format</DataField>
-        </Field>
-        <Field Name="InvoicedQty">
-          <DataField>InvoicedQty</DataField>
-        </Field>
-        <Field Name="InvoicedQtyFormat">
-          <DataField>InvoicedQtyFormat</DataField>
-        </Field>
-        <Field Name="Item__Base_Unit_of_Measure_">
-          <DataField>Item__Base_Unit_of_Measure_</DataField>
-        </Field>
-        <Field Name="Location_Code">
-          <DataField>Location_Code</DataField>
-        </Field>
-        <Field Name="Item_Description">
-          <DataField>Item_Description</DataField>
-        </Field>
-        <Field Name="Value_Entry__Item_No__">
-          <DataField>Value_Entry__Item_No__</DataField>
-        </Field>
-        <Field Name="QtyOnHand">
-          <DataField>QtyOnHand</DataField>
-        </Field>
-        <Field Name="QtyOnHandFormat">
-          <DataField>QtyOnHandFormat</DataField>
-        </Field>
-        <Field Name="ValueOfQtyOnHand_Control50">
-          <DataField>ValueOfQtyOnHand_Control50</DataField>
-        </Field>
-        <Field Name="ValueOfQtyOnHand_Control50Format">
-          <DataField>ValueOfQtyOnHand_Control50Format</DataField>
-        </Field>
-        <Field Name="RcdIncreases">
-          <DataField>RcdIncreases</DataField>
-        </Field>
-        <Field Name="RcdIncreasesFormat">
-          <DataField>RcdIncreasesFormat</DataField>
-        </Field>
-        <Field Name="ValueOfRcdIncreases_Control45">
-          <DataField>ValueOfRcdIncreases_Control45</DataField>
-        </Field>
-        <Field Name="ValueOfRcdIncreases_Control45Format">
-          <DataField>ValueOfRcdIncreases_Control45Format</DataField>
-        </Field>
-        <Field Name="ShipDecreases">
-          <DataField>ShipDecreases</DataField>
-        </Field>
-        <Field Name="ShipDecreasesFormat">
-          <DataField>ShipDecreasesFormat</DataField>
-        </Field>
-        <Field Name="CostOfShipDecreases_Control44">
-          <DataField>CostOfShipDecreases_Control44</DataField>
-        </Field>
-        <Field Name="CostOfShipDecreases_Control44Format">
-          <DataField>CostOfShipDecreases_Control44Format</DataField>
-        </Field>
-        <Field Name="Value_Entry__Item_Ledger_Entry_Quantity_">
-          <DataField>Value_Entry__Item_Ledger_Entry_Quantity_</DataField>
-        </Field>
-        <Field Name="Value_Entry__Item_Ledger_Entry_Quantity_Format">
-          <DataField>Value_Entry__Item_Ledger_Entry_Quantity_Format</DataField>
-        </Field>
-        <Field Name="ValueOfQtyOnHand___ValueOfRcdIncreases___CostOfShipDecreases_Control43">
-          <DataField>ValueOfQtyOnHand___ValueOfRcdIncreases___CostOfShipDecreases_Control43</DataField>
-        </Field>
-        <Field Name="ValueOfQtyOnHand___ValueOfRcdIncreases___CostOfShipDecreases_Control43Format">
-          <DataField>ValueOfQtyOnHand___ValueOfRcdIncreases___CostOfShipDecreases_Control43Format</DataField>
-        </Field>
-        <Field Name="CostPostedToGL_Control17">
-          <DataField>CostPostedToGL_Control17</DataField>
-        </Field>
-        <Field Name="CostPostedToGL_Control17Format">
-          <DataField>CostPostedToGL_Control17Format</DataField>
-        </Field>
-        <Field Name="Expected_Cost_IncludedCaption">
-          <DataField>Expected_Cost_IncludedCaption</DataField>
-        </Field>
-        <Field Name="Value_Entry_Entry_No_">
-          <DataField>Value_Entry_Entry_No_</DataField>
-        </Field>
-      </Fields>
-    </DataSet>
-  </DataSets>
   <ReportSections>
     <ReportSection>
       <Body>
@@ -6462,6 +6068,26 @@
       </Page>
     </ReportSection>
   </ReportSections>
+  <ReportParameters>
+    <ReportParameter Name="Inventory_Posting_Group_NameCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>Inventory_Posting_Group_NameCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>Inventory_Posting_Group_NameCaption</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="Expected_CostCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>Expected_CostCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>Expected_CostCaption</Prompt>
+    </ReportParameter>
+  </ReportParameters>
   <Code>Public Function BlankZero(ByVal Value As Decimal)
     if Value = 0 then
         Return ""
@@ -6500,4 +6126,215 @@ End Function
   <Language>=User!Language</Language>
   <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
   <rd:ReportUnitType>Invalid</rd:ReportUnitType>
+  <DataSets>
+    <DataSet Name="DataSet_Result">
+      <Fields>
+        <Field Name="BoM_Text">
+          <DataField>BoM_Text</DataField>
+        </Field>
+        <Field Name="COMPANYNAME">
+          <DataField>COMPANYNAME</DataField>
+        </Field>
+        <Field Name="STRSUBSTNO___1___2__Item_TABLECAPTION_ItemFilter_">
+          <DataField>STRSUBSTNO___1___2__Item_TABLECAPTION_ItemFilter_</DataField>
+        </Field>
+        <Field Name="STRSUBSTNO_Text005_StartDateText_">
+          <DataField>STRSUBSTNO_Text005_StartDateText_</DataField>
+        </Field>
+        <Field Name="STRSUBSTNO_Text005_FORMAT_EndDate__">
+          <DataField>STRSUBSTNO_Text005_FORMAT_EndDate__</DataField>
+        </Field>
+        <Field Name="ShowExpected">
+          <DataField>ShowExpected</DataField>
+        </Field>
+        <Field Name="ItemFilter">
+          <DataField>ItemFilter</DataField>
+        </Field>
+        <Field Name="Inventory_ValuationCaption">
+          <DataField>Inventory_ValuationCaption</DataField>
+        </Field>
+        <Field Name="CurrReport_PAGENOCaption">
+          <DataField>CurrReport_PAGENOCaption</DataField>
+        </Field>
+        <Field Name="This_report_includes_entries_that_have_been_posted_with_expected_costs_Caption">
+          <DataField>This_report_includes_entries_that_have_been_posted_with_expected_costs_Caption</DataField>
+        </Field>
+        <Field Name="ItemNoCaption">
+          <DataField>ItemNoCaption</DataField>
+        </Field>
+        <Field Name="ItemDescriptionCaption">
+          <DataField>ItemDescriptionCaption</DataField>
+        </Field>
+        <Field Name="IncreaseInvoicedQtyCaption">
+          <DataField>IncreaseInvoicedQtyCaption</DataField>
+        </Field>
+        <Field Name="DecreaseInvoicedQtyCaption">
+          <DataField>DecreaseInvoicedQtyCaption</DataField>
+        </Field>
+        <Field Name="QuantityCaption">
+          <DataField>QuantityCaption</DataField>
+        </Field>
+        <Field Name="ValueCaption">
+          <DataField>ValueCaption</DataField>
+        </Field>
+        <Field Name="QuantityCaption_Control31">
+          <DataField>QuantityCaption_Control31</DataField>
+        </Field>
+        <Field Name="QuantityCaption_Control40">
+          <DataField>QuantityCaption_Control40</DataField>
+        </Field>
+        <Field Name="InvCostPostedToGL_Control53Caption">
+          <DataField>InvCostPostedToGL_Control53Caption</DataField>
+        </Field>
+        <Field Name="QuantityCaption_Control58">
+          <DataField>QuantityCaption_Control58</DataField>
+        </Field>
+        <Field Name="TotalCaption">
+          <DataField>TotalCaption</DataField>
+        </Field>
+        <Field Name="Expected_Cost_IncludedCaption">
+          <DataField>Expected_Cost_IncludedCaption</DataField>
+        </Field>
+        <Field Name="Expected_Cost_Included_TotalCaption">
+          <DataField>Expected_Cost_Included_TotalCaption</DataField>
+        </Field>
+        <Field Name="Expected_Cost_TotalCaption">
+          <DataField>Expected_Cost_TotalCaption</DataField>
+        </Field>
+        <Field Name="GetUrlForReportDrilldown">
+          <DataField>GetUrlForReportDrilldown</DataField>
+        </Field>
+        <Field Name="ItemNo">
+          <DataField>ItemNo</DataField>
+        </Field>
+        <Field Name="ItemDescription">
+          <DataField>ItemDescription</DataField>
+        </Field>
+        <Field Name="ItemBaseUnitofMeasure">
+          <DataField>ItemBaseUnitofMeasure</DataField>
+        </Field>
+        <Field Name="Item_Inventory_Posting_Group">
+          <DataField>Item_Inventory_Posting_Group</DataField>
+        </Field>
+        <Field Name="StartingInvoicedValue">
+          <DataField>StartingInvoicedValue</DataField>
+        </Field>
+        <Field Name="StartingInvoicedValueFormat">
+          <DataField>StartingInvoicedValueFormat</DataField>
+        </Field>
+        <Field Name="StartingInvoicedQty">
+          <DataField>StartingInvoicedQty</DataField>
+        </Field>
+        <Field Name="StartingInvoicedQtyFormat">
+          <DataField>StartingInvoicedQtyFormat</DataField>
+        </Field>
+        <Field Name="StartingExpectedValue">
+          <DataField>StartingExpectedValue</DataField>
+        </Field>
+        <Field Name="StartingExpectedValueFormat">
+          <DataField>StartingExpectedValueFormat</DataField>
+        </Field>
+        <Field Name="StartingExpectedQty">
+          <DataField>StartingExpectedQty</DataField>
+        </Field>
+        <Field Name="StartingExpectedQtyFormat">
+          <DataField>StartingExpectedQtyFormat</DataField>
+        </Field>
+        <Field Name="IncreaseInvoicedValue">
+          <DataField>IncreaseInvoicedValue</DataField>
+        </Field>
+        <Field Name="IncreaseInvoicedValueFormat">
+          <DataField>IncreaseInvoicedValueFormat</DataField>
+        </Field>
+        <Field Name="IncreaseInvoicedQty">
+          <DataField>IncreaseInvoicedQty</DataField>
+        </Field>
+        <Field Name="IncreaseInvoicedQtyFormat">
+          <DataField>IncreaseInvoicedQtyFormat</DataField>
+        </Field>
+        <Field Name="IncreaseExpectedValue">
+          <DataField>IncreaseExpectedValue</DataField>
+        </Field>
+        <Field Name="IncreaseExpectedValueFormat">
+          <DataField>IncreaseExpectedValueFormat</DataField>
+        </Field>
+        <Field Name="IncreaseExpectedQty">
+          <DataField>IncreaseExpectedQty</DataField>
+        </Field>
+        <Field Name="IncreaseExpectedQtyFormat">
+          <DataField>IncreaseExpectedQtyFormat</DataField>
+        </Field>
+        <Field Name="DecreaseInvoicedValue">
+          <DataField>DecreaseInvoicedValue</DataField>
+        </Field>
+        <Field Name="DecreaseInvoicedValueFormat">
+          <DataField>DecreaseInvoicedValueFormat</DataField>
+        </Field>
+        <Field Name="DecreaseInvoicedQty">
+          <DataField>DecreaseInvoicedQty</DataField>
+        </Field>
+        <Field Name="DecreaseInvoicedQtyFormat">
+          <DataField>DecreaseInvoicedQtyFormat</DataField>
+        </Field>
+        <Field Name="DecreaseExpectedValue">
+          <DataField>DecreaseExpectedValue</DataField>
+        </Field>
+        <Field Name="DecreaseExpectedValueFormat">
+          <DataField>DecreaseExpectedValueFormat</DataField>
+        </Field>
+        <Field Name="DecreaseExpectedQty">
+          <DataField>DecreaseExpectedQty</DataField>
+        </Field>
+        <Field Name="DecreaseExpectedQtyFormat">
+          <DataField>DecreaseExpectedQtyFormat</DataField>
+        </Field>
+        <Field Name="EndingInvoicedValue">
+          <DataField>EndingInvoicedValue</DataField>
+        </Field>
+        <Field Name="EndingInvoicedValueFormat">
+          <DataField>EndingInvoicedValueFormat</DataField>
+        </Field>
+        <Field Name="EndingInvoicedQty">
+          <DataField>EndingInvoicedQty</DataField>
+        </Field>
+        <Field Name="EndingInvoicedQtyFormat">
+          <DataField>EndingInvoicedQtyFormat</DataField>
+        </Field>
+        <Field Name="EndingExpectedValue">
+          <DataField>EndingExpectedValue</DataField>
+        </Field>
+        <Field Name="EndingExpectedValueFormat">
+          <DataField>EndingExpectedValueFormat</DataField>
+        </Field>
+        <Field Name="EndingExpectedQty">
+          <DataField>EndingExpectedQty</DataField>
+        </Field>
+        <Field Name="EndingExpectedQtyFormat">
+          <DataField>EndingExpectedQtyFormat</DataField>
+        </Field>
+        <Field Name="CostPostedToGL">
+          <DataField>CostPostedToGL</DataField>
+        </Field>
+        <Field Name="CostPostedToGLFormat">
+          <DataField>CostPostedToGLFormat</DataField>
+        </Field>
+        <Field Name="InvCostPostedToGL">
+          <DataField>InvCostPostedToGL</DataField>
+        </Field>
+        <Field Name="InvCostPostedToGLFormat">
+          <DataField>InvCostPostedToGLFormat</DataField>
+        </Field>
+        <Field Name="ExpCostPostedToGL">
+          <DataField>ExpCostPostedToGL</DataField>
+        </Field>
+        <Field Name="ExpCostPostedToGLFormat">
+          <DataField>ExpCostPostedToGLFormat</DataField>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DataSource</DataSourceName>
+        <CommandText />
+      </Query>
+    </DataSet>
+  </DataSets>
 </Report>

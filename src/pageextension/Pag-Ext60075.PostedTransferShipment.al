@@ -12,7 +12,7 @@ pageextension 60075 "PWD PostedTransferShipment" extends "Posted Transfer Shipme
     {
         addafter("Shortcut Dimension 2 Code")
         {
-            field("PWD Sales Order No."; "PWD Sales Order No.")
+            field("PWD Sales Order No."; Rec."PWD Sales Order No.")
             {
                 ApplicationArea = All;
             }

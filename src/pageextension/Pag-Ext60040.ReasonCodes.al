@@ -13,7 +13,7 @@ pageextension 60040 "PWD ReasonCodes" extends "Reason Codes"
     {
         addafter(Description)
         {
-            field("PWD WMS Code"; "PWD WMS Code")
+            field("PWD WMS Code"; Rec."PWD WMS Code")
             {
                 ApplicationArea = All;
             }

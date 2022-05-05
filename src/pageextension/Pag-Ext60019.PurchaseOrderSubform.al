@@ -31,40 +31,40 @@ pageextension 60019 "PWD PurchaseOrderSubform" extends "Purchase Order Subform"
     {
         addafter("No.")
         {
-            field("PWD Gen. Prod. Posting Group"; "Gen. Prod. Posting Group")
+            field("PWD Gen. Prod. Posting Group"; Rec."Gen. Prod. Posting Group")
             {
                 Editable = true;
                 ApplicationArea = All;
             }
-            field("PWD Gen. Account No."; "PWD Gen. Account No.")
+            field("PWD Gen. Account No."; Rec."PWD Gen. Account No.")
             {
                 ApplicationArea = All;
             }
         }
         addafter("Description")
         {
-            field("PWD LPSA Description 1"; "PWD LPSA Description 1")
+            field("PWD LPSA Description 1"; Rec."PWD LPSA Description 1")
             {
                 ApplicationArea = All;
             }
-            field("PWD LPSA Description 2"; "PWD LPSA Description 2")
+            field("PWD LPSA Description 2"; Rec."PWD LPSA Description 2")
             {
                 ApplicationArea = All;
             }
         }
         addafter("Appl.-to Item Entry")
         {
-            field("PWD Unit Volume"; "Unit Volume")
+            field("PWD Unit Volume"; Rec."Unit Volume")
             {
                 Caption = 'Unit Volume';
                 ApplicationArea = All;
             }
-            field("PWD WMS_Status"; "PWD WMS_Status")
+            field("PWD WMS_Status"; Rec."PWD WMS_Status")
             {
                 Visible = false;
                 ApplicationArea = All;
             }
-            field("PWD WMS_Item"; "PWD WMS_Item")
+            field("PWD WMS_Item"; Rec."PWD WMS_Item")
             {
                 Visible = false;
                 ApplicationArea = All;
@@ -72,7 +72,7 @@ pageextension 60019 "PWD PurchaseOrderSubform" extends "Purchase Order Subform"
         }
         addafter(ShortcutDimCode8)
         {
-            field("PWD Budgeted"; "PWD Budgeted")
+            field("PWD Budgeted"; Rec."PWD Budgeted")
             {
                 ApplicationArea = All;
             }

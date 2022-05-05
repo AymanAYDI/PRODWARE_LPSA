@@ -29,7 +29,7 @@ report 50059 "PWD Update Cost Method V2"
                 if PurchasedItem."Replenishment System" <> PurchasedItem."Replenishment System"::Purchase then
                     CurrReport.Skip();
 
-                if OptCostMethForPurchasedItem = "Costing Method"::Specific then begin
+                if OptCostMethForPurchasedItem.AsInteger() = "Costing Method"::Specific.AsInteger() then begin
                     PurchasedItem.TestField("Item Tracking Code");
 
                     RecGItemTrackingCode.Get(PurchasedItem."Item Tracking Code");
@@ -77,7 +77,7 @@ report 50059 "PWD Update Cost Method V2"
                 if ManufacturedItem."Replenishment System" <> ManufacturedItem."Replenishment System"::"Prod. Order" then
                     CurrReport.Skip();
 
-                if OptCostMethForManufacturedItem = "Costing Method"::Specific then begin
+                if OptCostMethForManufacturedItem.AsInteger() = "Costing Method"::Specific.AsInteger() then begin
                     ManufacturedItem.TestField("Item Tracking Code");
 
                     RecGItemTrackingCode.Get(ManufacturedItem."Item Tracking Code");
@@ -250,8 +250,8 @@ report 50059 "PWD Update Cost Method V2"
         CstG009: Label 'Traitement terminé !';
         CstG010: Label 'L''article %1 doit être avec un code traçabilté série pour passer en mode évaluation de stock spécifique.';
         CstG011: Label 'Please note that the specific costing method should only apply to items using serial numbers.';
-        OptCostMethForManufacturedItem: Option FIFO,LIFO,Specifique,Moyen,Standard;
-        OptCostMethForPurchasedItem: Option FIFO,LIFO,Specifique,Moyen,Standard;
+        OptCostMethForManufacturedItem: Enum "Costing Method";
+        OptCostMethForPurchasedItem: Enum "Costing Method";
         OptGReplenishmentSystem: Option Purchased,Manufactured,Both;
 }
 

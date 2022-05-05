@@ -7,7 +7,7 @@ pageextension 60041 "PWD ShiptoAddress" extends "Ship-to Address"
     {
         addafter(Name)
         {
-            field("PWD Name 2"; "Name 2")
+            field("PWD Name 2"; Rec."Name 2")
             {
                 ApplicationArea = All;
             }

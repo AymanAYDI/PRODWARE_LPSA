@@ -516,52 +516,51 @@ report 50021 "PWD Inventory Valuation - LPSA"
 
     procedure ValueEntryOnPostDataItem(ValueEntry: Record "Value Entry")
     begin
-        with ValueEntry do
-            if IsServiceTier then begin
-                //>>TI316306
-                /*
-                IF NcValueOfExpOutPut2 = 0 THEN BEGIN // if prod. order is invoiced
-                  NcValueOfOutput := NcValueOfOutput - NcValueOfRevalCostAct; // take out revalued differnce
-                  NcValueOfCostPstdToGL := NcValueOfCostPstdToGL - NcValueOfRevalCostPstd; // take out Cost posted to G/L
-                END;
+        if IsServiceTier then begin
+            //>>TI316306
+            /*
+            IF NcValueOfExpOutPut2 = 0 THEN BEGIN // if prod. order is invoiced
+              NcValueOfOutput := NcValueOfOutput - NcValueOfRevalCostAct; // take out revalued differnce
+              NcValueOfCostPstdToGL := NcValueOfCostPstdToGL - NcValueOfRevalCostPstd; // take out Cost posted to G/L
+            END;
 
-                IF NcValueOfWIP + NcValueOfMatConsump + NcValueOfCap <> -NcValueOfOutput THEN BEGIN
-                  NcValueOfWIP := NcValueOfWIP - NcValueOfInvOutput1 + NcValueOfExpOutPut1;
-                  IF NcValueOfExpOutPut2 <> 0 THEN // prod. order is un-invoiced, so Actual Output = 0
-                    NcValueOfOutput := NcValueOfExpOutPut2;
-                END;
-                */
+            IF NcValueOfWIP + NcValueOfMatConsump + NcValueOfCap <> -NcValueOfOutput THEN BEGIN
+              NcValueOfWIP := NcValueOfWIP - NcValueOfInvOutput1 + NcValueOfExpOutPut1;
+              IF NcValueOfExpOutPut2 <> 0 THEN // prod. order is un-invoiced, so Actual Output = 0
+                NcValueOfOutput := NcValueOfExpOutPut2;
+            END;
+            */
 
-                if (NcValueOfExpOutPut2 + NcValueOfExpOutPut1) = 0 then begin // if prod. order is invoiced
-                    NcValueOfOutput := NcValueOfOutput - NcValueOfRevalCostAct; // take out revalued differnce
-                    NcValueOfCostPstdToGL := NcValueOfCostPstdToGL - NcValueOfRevalCostPstd; // take out Cost posted to G/L
-                end;
+            if (NcValueOfExpOutPut2 + NcValueOfExpOutPut1) = 0 then begin // if prod. order is invoiced
+                NcValueOfOutput := NcValueOfOutput - NcValueOfRevalCostAct; // take out revalued differnce
+                NcValueOfCostPstdToGL := NcValueOfCostPstdToGL - NcValueOfRevalCostPstd; // take out Cost posted to G/L
+            end;
 
-                /*IF NcValueOfWIP + NcValueOfMatConsump + NcValueOfCap <> -NcValueOfOutput THEN BEGIN
-                  NcValueOfWIP := NcValueOfWIP - NcValueOfInvOutput1 + NcValueOfExpOutPut1;
-                  IF NcValueOfExpOutPut2 <> 0 THEN // prod. order is un-invoiced, so Actual Output = 0
-                    NcValueOfOutput := NcValueOfExpOutPut2;
-                END;*/
-                //<<TI316306
-            end else
-                //>>TI316306
-                /*
-                IF ValueOfExpOutput2 = 0 THEN BEGIN // if prod. order is invoiced
-                  ValueOfOutput := ValueOfOutput - ValueOfRevalCostAct; // take out revalued differnce
-                  ValueOfCostPstdToGL := ValueOfCostPstdToGL - ValueOfRevalCostPstd; // take out Cost posted to G/L
-                END;
+            /*IF NcValueOfWIP + NcValueOfMatConsump + NcValueOfCap <> -NcValueOfOutput THEN BEGIN
+              NcValueOfWIP := NcValueOfWIP - NcValueOfInvOutput1 + NcValueOfExpOutPut1;
+              IF NcValueOfExpOutPut2 <> 0 THEN // prod. order is un-invoiced, so Actual Output = 0
+                NcValueOfOutput := NcValueOfExpOutPut2;
+            END;*/
+            //<<TI316306
+        end else
+            //>>TI316306
+            /*
+            IF ValueOfExpOutput2 = 0 THEN BEGIN // if prod. order is invoiced
+              ValueOfOutput := ValueOfOutput - ValueOfRevalCostAct; // take out revalued differnce
+              ValueOfCostPstdToGL := ValueOfCostPstdToGL - ValueOfRevalCostPstd; // take out Cost posted to G/L
+            END;
 
-                IF ValueOfWIP + ValueOfMatConsump + ValueOfCap <> -ValueOfOutput THEN BEGIN
-                  ValueOfWIP := ValueOfWIP - ValueOfInvOutput1 + ValueOfExpOutput1;
-                  IF ValueOfExpOutput2 <> 0 THEN // prod. order is un-invoiced, so Actual Output = 0
-                    ValueOfOutput := ValueOfExpOutput2;
-                END;
-                */
+            IF ValueOfWIP + ValueOfMatConsump + ValueOfCap <> -ValueOfOutput THEN BEGIN
+              ValueOfWIP := ValueOfWIP - ValueOfInvOutput1 + ValueOfExpOutput1;
+              IF ValueOfExpOutput2 <> 0 THEN // prod. order is un-invoiced, so Actual Output = 0
+                ValueOfOutput := ValueOfExpOutput2;
+            END;
+            */
 
-                if (ValueOfExpOutput2 + ValueOfExpOutput1) = 0 then begin // if prod. order is invoiced
-                    ValueOfOutput := ValueOfOutput - ValueOfRevalCostAct; // take out revalued differnce
-                    ValueOfCostPstdToGL := ValueOfCostPstdToGL - ValueOfRevalCostPstd; // take out Cost posted to G/L
-                end;
+            if (ValueOfExpOutput2 + ValueOfExpOutput1) = 0 then begin // if prod. order is invoiced
+                ValueOfOutput := ValueOfOutput - ValueOfRevalCostAct; // take out revalued differnce
+                ValueOfCostPstdToGL := ValueOfCostPstdToGL - ValueOfRevalCostPstd; // take out Cost posted to G/L
+            end;
         /*IF ValueOfWIP + ValueOfMatConsump + ValueOfCap <> -ValueOfOutput THEN BEGIN
           ValueOfWIP := ValueOfWIP - ValueOfInvOutput1 + ValueOfExpOutput1;
           IF ValueOfExpOutput2 <> 0 THEN // prod. order is un-invoiced, so Actual Output = 0
@@ -583,14 +582,11 @@ report 50021 "PWD Inventory Valuation - LPSA"
           ELSE
             EXIT("Expected Cost");
         */
+        if "Value Entry"."Item Ledger Entry Type" = "Value Entry"."Item Ledger Entry Type"::Output then
+            exit(not ("Value Entry"."Entry Type" in ["Value Entry"."Entry Type"::"Direct Cost",
+                                       "Value Entry"."Entry Type"::Revaluation]));
 
-        with "Value Entry" do begin
-            if "Item Ledger Entry Type" = "Item Ledger Entry Type"::Output then
-                exit(not ("Entry Type" in ["Entry Type"::"Direct Cost",
-                                           "Entry Type"::Revaluation]));
-
-            exit("Expected Cost");
-        end;
+        exit("Value Entry"."Expected Cost");
 
         //<<TI316306
 
@@ -613,13 +609,11 @@ report 50021 "PWD Inventory Valuation - LPSA"
         END;
         EXIT(TRUE);
         */
-
-        with ValueEntry do
-            if ("Entry Type" = "Entry Type"::Revaluation) and ("Item Ledger Entry Type" = "Item Ledger Entry Type"::Consumption) then begin
-                ILE.Get("Item Ledger Entry No.");
-                if ILE.Positive then
-                    exit(false)
-            end;
+        if (ValueEntry."Entry Type" = ValueEntry."Entry Type"::Revaluation) and (ValueEntry."Item Ledger Entry Type" = ValueEntry."Item Ledger Entry Type"::Consumption) then begin
+            ILE.Get(ValueEntry."Item Ledger Entry No.");
+            if ILE.Positive then
+                exit(false)
+        end;
 
         exit(true);
         //<<TI316306
@@ -642,12 +636,10 @@ report 50021 "PWD Inventory Valuation - LPSA"
         ValueEntry: Record "Value Entry";
     begin
         //>>TI316306
-        with ValueEntry do begin
-            //SETRANGE("Order Type","Order Type"::Production);
-            SetRange("Order No.", ProductionOrder."No.");
-            SetRange("Posting Date", StartDate, EndDate);
-            exit(not IsEmpty);
-        end;
+        //SETRANGE("Order Type","Order Type"::Production);
+        ValueEntry.SetRange("Order No.", ProductionOrder."No.");
+        ValueEntry.SetRange("Posting Date", StartDate, EndDate);
+        exit(not ValueEntry.IsEmpty);
         //<<TI316306
     end;
 }

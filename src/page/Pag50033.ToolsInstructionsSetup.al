@@ -22,19 +22,19 @@ page 50033 "PWD Tools Instructions Setup"
         {
             repeater(Group)
             {
-                field(Type; Type)
+                field(Type; Rec.Type)
                 {
                     ApplicationArea = All;
                 }
-                field("No."; "No.")
+                field("No."; Rec."No.")
                 {
                     ApplicationArea = All;
                 }
-                field(Description; Description)
+                field(Description; Rec.Description)
                 {
                     ApplicationArea = All;
                 }
-                field(Criteria; Criteria)
+                field(Criteria; Rec.Criteria)
                 {
                     ApplicationArea = All;
                 }

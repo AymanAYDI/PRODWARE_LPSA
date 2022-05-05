@@ -52,7 +52,7 @@ page 50017 "Firm Planned Prod. Order Del."
                 {
                     ApplicationArea = All;
                 }
-                field(Quantity; Quantity)
+                field(Quantity; Rec.Quantity)
                 {
                     ApplicationArea = All;
                 }

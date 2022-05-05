@@ -7,7 +7,7 @@ pageextension 60013 "PWD SalesInvoice" extends "Sales Invoice"
     {
         addafter("External Document No.")
         {
-            field("PWD Your Reference"; "Your Reference")
+            field("PWD Your Reference"; Rec."Your Reference")
             {
                 ApplicationArea = All;
             }
@@ -28,8 +28,8 @@ pageextension 60013 "PWD SalesInvoice" extends "Sales Invoice"
     begin
         RecLComment.RESET();
         RecLComment.SETRANGE("Table Name", RecLComment."Table Name"::Customer);
-        RecLComment.SETFILTER("No.", '%1|%2', "Sell-to Customer No.", "Bill-to Customer No.");
-        BooGComment := RecLComment.FINDFIRST();
+        RecLComment.SETFILTER("No.", '%1|%2', Rec."Sell-to Customer No.", Rec."Bill-to Customer No.");
+        BooGComment := Not RecLComment.IsEmpty;
     end;
 
     var

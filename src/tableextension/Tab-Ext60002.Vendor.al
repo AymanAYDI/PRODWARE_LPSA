@@ -21,7 +21,6 @@ tableextension 60002 "PWD Vendor" extends Vendor
             trigger OnValidate()
             var
                 RecLPurchaseHeader: Record "Purchase Header";
-                RecLPurchaseLine: Record "Purchase Line";
                 CstL0001: Label 'There are Purchase order for Vendor %1, do you want to update %2 in these pruchases ?';
             begin
                 //>>FE_LAPIERRETTE_ACH03.001

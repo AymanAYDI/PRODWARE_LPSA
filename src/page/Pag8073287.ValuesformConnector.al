@@ -25,35 +25,35 @@ page 8073287 "PWD Values form Connector"
             repeater(Control1120000)
             {
                 ShowCaption = false;
-                field("Entry No."; "Entry No.")
+                field("Entry No."; Rec."Entry No.")
                 {
                     ApplicationArea = All;
                 }
-                field("Partner Code"; "Partner Code")
+                field("Partner Code"; Rec."Partner Code")
                 {
                     ApplicationArea = All;
                 }
-                field("File Name"; "File Name")
+                field("File Name"; Rec."File Name")
                 {
                     ApplicationArea = All;
                 }
-                field(Function; "Function")
+                field(Function; Rec."Function")
                 {
                     ApplicationArea = All;
                 }
-                field(Direction; Direction)
+                field(Direction; Rec.Direction)
                 {
                     ApplicationArea = All;
                 }
-                field("File format"; "File format")
+                field("File format"; Rec."File format")
                 {
                     ApplicationArea = All;
                 }
-                field(Separator; Separator)
+                field(Separator; Rec.Separator)
                 {
                     ApplicationArea = All;
                 }
-                field("Blob"; Blob)
+                field("Blob"; Rec.Blob)
                 {
                     ApplicationArea = All;
                 }
@@ -91,7 +91,7 @@ page 8073287 "PWD Values form Connector"
                 var
                     CduLFileManagement: Codeunit "File Management";
                 begin
-                    CALCFIELDS(Blob);
+                    Rec.CALCFIELDS(Blob);
                     IF Rec.Blob.HASVALUE THEN
                         Blob.CREATEINSTREAM(InsGStream);
                     //TODO: le Codeunit "File Management" ne contient pas la definition de la procedure 'FctShowBlobAsWindow'

@@ -14,15 +14,15 @@ pageextension 60141 "PWD ReleasedProdOrderLines" extends "Released Prod. Order L
                 Caption = 'Launch. Prod. Starting Date-Time';
                 ApplicationArea = All;
             }
-            field("Send to OSYS (Released)"; "Send to OSYS (Released)")
+            field("Send to OSYS (Released)"; Rec."Send to OSYS (Released)")
             {
                 ApplicationArea = All;
             }
-            field("PWD Manufacturing Code"; "PWD Manufacturing Code")
+            field("PWD Manufacturing Code"; Rec."PWD Manufacturing Code")
             {
                 ApplicationArea = All;
             }
-            field("PWD Inventory Posting Group"; "Inventory Posting Group")
+            field("PWD Inventory Posting Group"; Rec."Inventory Posting Group")
             {
                 ApplicationArea = All;
             }

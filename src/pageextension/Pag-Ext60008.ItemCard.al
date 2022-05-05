@@ -4,22 +4,22 @@ pageextension 60008 "PWD ItemCard" extends "Item Card"
     {
         addafter(Description)
         {
-            field("PWD Description 2"; "Description 2")
+            field("PWD Description 2"; Rec."Description 2")
             {
                 ApplicationArea = All;
 
             }
-            field("PWD LPSA Description 1"; "PWD LPSA Description 1")
+            field("PWD LPSA Description 1"; Rec."PWD LPSA Description 1")
             {
                 ApplicationArea = All;
 
             }
-            field("PWD LPSA Description 2"; "PWD LPSA Description 2")
+            field("PWD LPSA Description 2"; Rec."PWD LPSA Description 2")
             {
                 ApplicationArea = All;
 
             }
-            field("PWD Quartis Description"; "PWD Quartis Description")
+            field("PWD Quartis Description"; Rec."PWD Quartis Description")
             {
                 ApplicationArea = All;
 
@@ -27,22 +27,22 @@ pageextension 60008 "PWD ItemCard" extends "Item Card"
         }
         addafter("Last Date Modified")
         {
-            field("PWD Customer Plan No."; "PWD Customer Plan No.")
+            field("PWD Customer Plan No."; Rec."PWD Customer Plan No.")
             {
                 ApplicationArea = All;
 
             }
-            field("PWD Customer Plan Description"; "PWD Customer Plan Description")
+            field("PWD Customer Plan Description"; Rec."PWD Customer Plan Description")
             {
                 ApplicationArea = All;
 
             }
-            field("PWD LPSA Plan No."; "PWD LPSA Plan No.")
+            field("PWD LPSA Plan No."; Rec."PWD LPSA Plan No.")
             {
                 ApplicationArea = All;
 
             }
-            field("PWD Barcode"; "PWD Barcode")
+            field("PWD Barcode"; Rec."PWD Barcode")
             {
                 ApplicationArea = All;
 
@@ -50,12 +50,12 @@ pageextension 60008 "PWD ItemCard" extends "Item Card"
         }
         addafter(Inventory)
         {
-            field("PWD Principal Inventory"; "PWD Principal Inventory")
+            field("PWD Principal Inventory"; Rec."PWD Principal Inventory")
             {
                 ApplicationArea = All;
 
             }
-            field("PWD Inventory2"; "PWD Inventory 2")
+            field("PWD Inventory2"; Rec."PWD Inventory 2")
             {
                 ApplicationArea = All;
 
@@ -63,30 +63,30 @@ pageextension 60008 "PWD ItemCard" extends "Item Card"
         }
         addafter("Qty. on Purch. Order")
         {
-            field("PWD Arch. Purchase Order Qty."; "PWD Arch. Purchase Order Qty.")
+            field("PWD Arch. Purchase Order Qty."; Rec."PWD Arch. Purchase Order Qty.")
             {
                 ApplicationArea = All;
             }
         }
         addafter("Qty. on Prod. Order")
         {
-            field("PWD Released Qty. on Prod. Order"; "PWD Released Qty. on Prod. Order")
+            field("PWD Released Qty. on Prod. Order"; Rec."PWD Released Qty. on Prod. Order")
             {
                 ApplicationArea = All;
             }
-            field("PWD Firm Plan. Qty. on Prod. Order"; "PWD Firm Plan. Qty. on Prod. Order")
+            field("PWD Firm Plan. Qty. on Prod. Order"; Rec."PWD Firm Plan. Qty. on Prod. Order")
             {
                 ApplicationArea = All;
             }
         }
         addafter("Qty. on Sales Order")
         {
-            field("PWD Arch. Sales Order Qty."; "PWD Arch. Sales Order Qty.")
+            field("PWD Arch. Sales Order Qty."; Rec."PWD Arch. Sales Order Qty.")
             {
                 ApplicationArea = All;
 
             }
-            field("PWD Forecast Qty."; "PWD Forecast Qty.")
+            field("PWD Forecast Qty."; Rec."PWD Forecast Qty.")
             {
                 ApplicationArea = All;
 
@@ -94,14 +94,14 @@ pageextension 60008 "PWD ItemCard" extends "Item Card"
         }
         addlast(InventoryGrp)
         {
-            field("PWD Phantom Item"; "PWD Phantom Item")
+            field("PWD Phantom Item"; Rec."PWD Phantom Item")
             {
                 ApplicationArea = All;
             }
         }
         addafter("Price/Profit Calculation")
         {
-            field("PWD Inventory Value Zero"; "Inventory Value Zero")
+            field("PWD Inventory Value Zero"; Rec."Inventory Value Zero")
             {
                 ApplicationArea = All;
 
@@ -109,17 +109,17 @@ pageextension 60008 "PWD ItemCard" extends "Item Card"
         }
         addafter("Sales Blocked")
         {
-            field("PWD Last Unit Cost Calc. Date"; "Last Unit Cost Calc. Date")
+            field("PWD Last Unit Cost Calc. Date"; Rec."Last Unit Cost Calc. Date")
             {
                 ApplicationArea = All;
 
             }
-            field("PWD Rolled-up Material Cost"; "Rolled-up Material Cost")
+            field("PWD Rolled-up Material Cost"; Rec."Rolled-up Material Cost")
             {
                 ApplicationArea = All;
 
             }
-            field("PWD Rolled-up Capacity Cost"; "Rolled-up Capacity Cost")
+            field("PWD Rolled-up Capacity Cost"; Rec."Rolled-up Capacity Cost")
             {
                 ApplicationArea = All;
 
@@ -127,7 +127,7 @@ pageextension 60008 "PWD ItemCard" extends "Item Card"
         }
         addafter("Lead Time Calculation")
         {
-            field("PWD Location Code"; "Location Code")
+            field("PWD Location Code"; Rec."Location Code")
             {
                 ApplicationArea = All;
 
@@ -145,17 +145,17 @@ pageextension 60008 "PWD ItemCard" extends "Item Card"
                     RecLRtngVersion: Record "Routing Version";
                 begin
                     //>>LAP2.12
-                    RecLRtngVersion.SETRANGE("Routing No.", "Routing No.");
+                    RecLRtngVersion.SETRANGE("Routing No.", Rec."Routing No.");
                     RecLRtngVersion.SETRANGE("Version Code", CodGActiveVersionCode);
                     Page.RUNMODAL(Page::"Routing Version", RecLRtngVersion);
-                    CodGActiveVersionCode := CduGVersionMgt.GetRtngVersion("Routing No.", WORKDATE(), TRUE);
+                    CodGActiveVersionCode := CduGVersionMgt.GetRtngVersion(Rec."Routing No.", WORKDATE(), TRUE);
                     //<<LAP2.12
                 END;
             }
         }
         addafter("Production BOM No.")
         {
-            field("PWD Manufacturing Code"; "PWD Manufacturing Code")
+            field("PWD Manufacturing Code"; Rec."PWD Manufacturing Code")
             {
                 ApplicationArea = All;
             }
@@ -163,18 +163,18 @@ pageextension 60008 "PWD ItemCard" extends "Item Card"
         }
         addafter("Order Multiple")
         {
-            field("PWD Plate Number"; "PWD Plate Number")
+            field("PWD Plate Number"; Rec."PWD Plate Number")
             {
                 ApplicationArea = All;
             }
-            field("PWD Part Number By Plate"; "PWD Part Number By Plate")
+            field("PWD Part Number By Plate"; Rec."PWD Part Number By Plate")
             {
                 ApplicationArea = All;
             }
         }
         addafter("Expiration Calculation")
         {
-            field("PWD Lot Determining"; "PWD Lot Determining")
+            field("PWD Lot Determining"; Rec."PWD Lot Determining")
             {
                 ApplicationArea = All;
                 Enabled = "Lot DeterminingEnable";
@@ -185,35 +185,35 @@ pageextension 60008 "PWD ItemCard" extends "Item Card"
         {
             group("PWD WMS")
             {
-                field("PWD WMS_Product Type"; "PWD WMS_Product Type")
+                field("PWD WMS_Product Type"; Rec."PWD WMS_Product Type")
                 {
                     ApplicationArea = All;
                 }
-                field("PWD WMS_Permanent item"; "PWD WMS_Permanent item")
+                field("PWD WMS_Permanent item"; Rec."PWD WMS_Permanent item")
                 {
                     ApplicationArea = All;
                 }
-                field("PWD WMS_Freezing sensitive"; "PWD WMS_Freezing sensitive")
+                field("PWD WMS_Freezing sensitive"; Rec."PWD WMS_Freezing sensitive")
                 {
                     ApplicationArea = All;
                 }
-                field("PWD WMS_Heat sensitive"; "PWD WMS_Heat sensitive")
+                field("PWD WMS_Heat sensitive"; Rec."PWD WMS_Heat sensitive")
                 {
                     ApplicationArea = All;
                 }
-                field("PWD WMS_Dangerous item"; "PWD WMS_Dangerous item")
+                field("PWD WMS_Dangerous item"; Rec."PWD WMS_Dangerous item")
                 {
                     ApplicationArea = All;
                 }
-                field("PWD WMS_Fragile item"; "PWD WMS_Fragile item")
+                field("PWD WMS_Fragile item"; Rec."PWD WMS_Fragile item")
                 {
                     ApplicationArea = All;
                 }
-                field("PWD WMS_Mandatory SSCC No"; "PWD WMS_Mandatory SSCC No")
+                field("PWD WMS_Mandatory SSCC No"; Rec."PWD WMS_Mandatory SSCC No")
                 {
                     ApplicationArea = All;
                 }
-                field("PWD WMS_Item"; "PWD WMS_Item")
+                field("PWD WMS_Item"; Rec."PWD WMS_Item")
                 {
                     ApplicationArea = All;
                 }
@@ -271,7 +271,7 @@ pageextension 60008 "PWD ItemCard" extends "Item Card"
                 BEGIN
                     //>>FE_LAPRIERRETTE_GP0004.001
                     CLEAR(CduLConnectorOSYSParseData);
-                    CduLConnectorOSYSParseData.FctExportItemsPossibleManual("No.");
+                    CduLConnectorOSYSParseData.FctExportItemsPossibleManual(Rec."No.");
                     //<<FE_LAPRIERRETTE_GP0004.001
                 END;
 
@@ -302,14 +302,14 @@ pageextension 60008 "PWD ItemCard" extends "Item Card"
                     //>>LAP2.12
                     IF CodGActiveVersionCode = '' THEN BEGIN
                         //>>LPSA.TDL.19112014
-                        IF RecLRouting.GET("Routing No.") THEN BEGIN
-                            RecLRouting.SETRANGE("No.", "Routing No.");
+                        IF RecLRouting.GET(Rec."Routing No.") THEN BEGIN
+                            RecLRouting.SETRANGE("No.", Rec."Routing No.");
                             PagLRouting.SETTABLEVIEW(RecLRouting);
                             PagLRouting.RUNMODAL();
                         END;
                         //<<LPSA.TDL.19112014
                     END ELSE BEGIN
-                        RecLRtngVersion.SETRANGE("Routing No.", "Routing No.");
+                        RecLRtngVersion.SETRANGE("Routing No.", Rec."Routing No.");
                         RecLRtngVersion.SETRANGE("Version Code", CodGActiveVersionCode);
                         Page.RUNMODAL(Page::"Routing Version", RecLRtngVersion);
                     END;
@@ -326,8 +326,8 @@ pageextension 60008 "PWD ItemCard" extends "Item Card"
                     PagLProductionBOM: Page "Production BOM";
                 BEGIN
                     //>>LPSA.TDL.19112014
-                    IF RecLProductionBOM.GET("Production BOM No.") THEN BEGIN
-                        RecLProductionBOM.SETRANGE("No.", "Production BOM No.");
+                    IF RecLProductionBOM.GET(Rec."Production BOM No.") THEN BEGIN
+                        RecLProductionBOM.SETRANGE("No.", Rec."Production BOM No.");
                         PagLProductionBOM.SETTABLEVIEW(RecLProductionBOM);
                         PagLProductionBOM.RUNMODAL();
                     END;
@@ -352,7 +352,7 @@ pageextension 60008 "PWD ItemCard" extends "Item Card"
                     //>>FE_LAPIERRETTE_ART01.001
                     RecLItemConfigurator.RESET();
                     RecLItemConfigurator.SETCURRENTKEY("Item Code");
-                    RecLItemConfigurator.SETRANGE("Item Code", "No.");
+                    RecLItemConfigurator.SETRANGE("Item Code", Rec."No.");
                     IF RecLItemConfigurator.FINDFIRST() THEN BEGIN
                         CLEAR(PgeLItemConfigurator);
                         PgeLItemConfigurator.SETTABLEVIEW(RecLItemConfigurator);
@@ -361,7 +361,7 @@ pageextension 60008 "PWD ItemCard" extends "Item Card"
                         PgeLItemConfigurator.RUNMODAL();
                         //PgeLItemConfigurator.RUN;
                     END ELSE
-                        MESSAGE(CstLT001, "No.");
+                        MESSAGE(CstLT001, Rec."No.");
                     //<<FE_LAPIERRETTE_ART01.001
                 END;
             }
@@ -381,16 +381,16 @@ pageextension 60008 "PWD ItemCard" extends "Item Card"
         //<<FE_LAPIERRETTE_PROD01.001: TO 13/12/2011
 
         //>>LAP2.12
-        CodGActiveVersionCode := CduGVersionMgt.GetRtngVersion("Routing No.", WORKDATE(), TRUE);
+        CodGActiveVersionCode := CduGVersionMgt.GetRtngVersion(Rec."Routing No.", WORKDATE(), TRUE);
         //<<LAP2.12
 
         //>>TDL260619.001
         //>>TDL131119
         //SETFILTER("Location Filter",'%1',"Location Code");
-        SETFILTER("PWD Other Location Filter", '<>%1', "Location Code");
-        SETFILTER("PWD Principal Location Filter", '%1', "Location Code");
+        Rec.SETFILTER("PWD Other Location Filter", '<>%1', Rec."Location Code");
+        Rec.SETFILTER("PWD Principal Location Filter", '%1', Rec."Location Code");
 
-        CALCFIELDS("PWD Principal Inventory", "PWD Inventory 2");
+        Rec.CALCFIELDS("PWD Principal Inventory", "PWD Inventory 2");
     end;
 
     procedure Fct_EnableLotDeterm()
@@ -399,7 +399,7 @@ pageextension 60008 "PWD ItemCard" extends "Item Card"
     BEGIN
         "Lot DeterminingEnable" := FALSE;
 
-        IF ItemCategory.GET("Item Category Code") THEN
+        IF ItemCategory.GET(Rec."Item Category Code") THEN
             IF ItemCategory."PWD Transmitted Order No." THEN
                 "Lot DeterminingEnable" := TRUE;
     END;
@@ -411,16 +411,16 @@ pageextension 60008 "PWD ItemCard" extends "Item Card"
         LPSAFunctionsMgt: Codeunit "PWD LPSA Functions Mgt.";
     //CalculateStdCost: Codeunit "Calculate Standard Cost";
     BEGIN
-        IF ("Replenishment System" = "Replenishment System"::"Prod. Order") AND
-           ("Costing Method" = "Costing Method"::Standard) AND
-           ("Lot Size" <> 0) AND
-           (RecLRoutingHeader.GET("Routing No.")) AND
-           (RecLProductionBOMHeader.GET("Production BOM No.")) AND
+        IF (Rec."Replenishment System" = Rec."Replenishment System"::"Prod. Order") AND
+           (Rec."Costing Method" = Rec."Costing Method"::Standard) AND
+           (Rec."Lot Size" <> 0) AND
+           (RecLRoutingHeader.GET(Rec."Routing No.")) AND
+           (RecLProductionBOMHeader.GET(Rec."Production BOM No.")) AND
            (RecLRoutingHeader.Status = RecLRoutingHeader.Status::Certified) AND
            (RecLProductionBOMHeader.Status = RecLProductionBOMHeader.Status::Certified) AND
            //   ("Standard Cost" = 0) AND
            //   (NOT BooGCalcCost) THEN
-           ("Standard Cost" = 0) THEN
+           (Rec."Standard Cost" = 0) THEN
             IF CONFIRM(CstG001, TRUE) THEN BEGIN
                 CLEAR(LPSAFunctionsMgt);
                 //>>TDL290719.001
@@ -434,13 +434,10 @@ pageextension 60008 "PWD ItemCard" extends "Item Card"
 
     var
         CduGVersionMgt: Codeunit VersionManagement;
-        BooGCalcCost: Boolean;
         [InDataSet]
         "Lot DeterminingEnable": Boolean;
         CodGActiveVersionCode: Code[20];
         CstG001: Label 'The Item standard cost is 0, Do you want to calculate it ?';
         CstG002: Label 'The card can not be closed because The Item standard cost is 0 !';
-        CstG003: Label 'The routing, the nomenclature and / or the Lot size have been modified! \ Do you want to recalculate the standard cost of the item?';
-        CstG004: Label 'The card can not be closed because The Item standard costmust be recalculate !';
 
 }

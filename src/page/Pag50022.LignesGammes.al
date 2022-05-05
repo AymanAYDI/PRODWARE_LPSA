@@ -28,7 +28,7 @@ page 50022 "PWD Lignes Gammes"
                 {
                     ApplicationArea = All;
                 }
-                field(Type; Type)
+                field(Type; Rec.Type)
                 {
                     ApplicationArea = All;
                 }
@@ -40,7 +40,7 @@ page 50022 "PWD Lignes Gammes"
                 {
                     ApplicationArea = All;
                 }
-                field(Description; Description)
+                field(Description; Rec.Description)
                 {
                     ApplicationArea = All;
                 }

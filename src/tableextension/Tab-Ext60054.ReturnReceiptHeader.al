@@ -21,12 +21,10 @@ tableextension 60054 "PWD ReturnReceiptHeader" extends "Return Receipt Header"
         {
             Caption = 'Order No. From Partner';
         }
-        field(8073283; "PWD WMS_Status"; Option)
+        field(8073283; "PWD WMS_Status"; Enum "PWD WMS_Status")
         {
             Caption = 'WMS_Status';
             Description = 'ProdConnect1.5';
-            OptionCaption = ' ,Send,Shipped';
-            OptionMembers = " ",Send,Received;
         }
     }
 }

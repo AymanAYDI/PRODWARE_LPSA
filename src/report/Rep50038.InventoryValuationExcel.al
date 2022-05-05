@@ -377,14 +377,9 @@ report 50038 "PWD Inventory Valuation Excel"
         CstG002: Label 'Output (LCY)';
         CstG003: Label 'Quantity';
         CstG004: Label 'Value';
-        CstG005: Label 'Cost Posted to G/L';
         CstG006: Label 'Inventory Valuationn for lines inclusive planned costs';
         CstG007: Label 'Evaluation du stock format CSV\Article restants       #1##########\Article N°             #2##########\Ecritures restantes    #3##########\';
         Text005: Label 'As of %1';
-        Text006: Label 'Inventory Posting Group: %1';
-        Text007: Label 'Inventory Posting Group Total: %1';
-        Text008: Label 'Expected Cost Included Total: %1';
-        Text009: Label 'Expected Cost Total: %1';
         StartDateText: Text[10];
         ItemFilter: Text[250];
 
@@ -399,31 +394,28 @@ report 50038 "PWD Inventory Valuation Excel"
 
     procedure GetSign(): Boolean
     begin
-        with "Value Entry" do
-            case "Item Ledger Entry Type" of
-                "Item Ledger Entry Type"::Purchase,
-              "Item Ledger Entry Type"::"Positive Adjmt.",
-              "Item Ledger Entry Type"::Output:
-                    exit(true);
-                "Item Ledger Entry Type"::Transfer:
+        case "Value Entry"."Item Ledger Entry Type" of
+            "Value Entry"."Item Ledger Entry Type"::Purchase,
+  "Value Entry"."Item Ledger Entry Type"::"Positive Adjmt.",
+  "Value Entry"."Item Ledger Entry Type"::Output:
+                exit(true);
+            "Value Entry"."Item Ledger Entry Type"::Transfer:
 
-                    if "Valued Quantity" < 0 then
-                        exit(false)
-                    else
-                        exit(GetOutboundItemEntry("Item Ledger Entry No."));
-                else
+                if "Value Entry"."Valued Quantity" < 0 then
                     exit(false)
-            end;
+                else
+                    exit(GetOutboundItemEntry("Value Entry"."Item Ledger Entry No."));
+            else
+                exit(false)
+        end;
     end;
 
 
     procedure SetAmount(var CostAmtExp: Decimal; var CostAmtActual: Decimal; var InvQty: Decimal; Sign: Integer)
     begin
-        with "Value Entry" do begin
-            CostAmtExp := "Cost Amount (Expected)" * Sign;
-            CostAmtActual := "Cost Amount (Actual)" * Sign;
-            InvQty := "Invoiced Quantity" * Sign;
-        end;
+        CostAmtExp := "Value Entry"."Cost Amount (Expected)" * Sign;
+        CostAmtActual := "Value Entry"."Cost Amount (Actual)" * Sign;
+        InvQty := "Value Entry"."Invoiced Quantity" * Sign;
     end;
 
     local procedure GetOutboundItemEntry(ItemLedgerEntryNo: Integer): Boolean
@@ -442,7 +434,7 @@ report 50038 "PWD Inventory Valuation Excel"
         ItemLedgEntry.SetFilter("Global Dimension 1 Code", Item.GetFilter("Global Dimension 1 Filter"));
         ItemLedgEntry.SetFilter("Global Dimension 2 Code", Item.GetFilter("Global Dimension 2 Filter"));
         ItemLedgEntry."Entry No." := ItemApplnEntry."Outbound Item Entry No.";
-        exit(not ItemLedgEntry.Find());
+        exit(ItemLedgEntry.IsEmpty);
     end;
 
 

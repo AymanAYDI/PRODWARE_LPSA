@@ -44,63 +44,63 @@ page 8073291 "PWD OSYS Setup"
             group("Général")
             {
                 Caption = 'General';
-                field(OSYS; OSYS)
+                field(OSYS; Rec.OSYS)
                 {
                     ApplicationArea = All;
                 }
-                field("Journal Templ Name Prod"; "Journal Templ Name Prod")
+                field("Journal Templ Name Prod"; Rec."Journal Templ Name Prod")
                 {
                     ApplicationArea = All;
                 }
-                field("Journal Batch Name Prod"; "Journal Batch Name Prod")
+                field("Journal Batch Name Prod"; Rec."Journal Batch Name Prod")
                 {
                     ApplicationArea = All;
                 }
-                field("Journal Templ Name Prod 1"; "Journal Templ Name Prod 1")
+                field("Journal Templ Name Prod 1"; Rec."Journal Templ Name Prod 1")
                 {
                     ApplicationArea = All;
                 }
-                field("Journal Batch Name Prod 1"; "Journal Batch Name Prod 1")
+                field("Journal Batch Name Prod 1"; Rec."Journal Batch Name Prod 1")
                 {
                     ApplicationArea = All;
                 }
-                field("Journal Templ Name Stock MVT"; "Journal Templ Name Stock MVT")
+                field("Journal Templ Name Stock MVT"; Rec."Journal Templ Name Stock MVT")
                 {
                     ApplicationArea = All;
                 }
-                field("Journal Batch Name Stock MVT"; "Journal Batch Name Stock MVT")
+                field("Journal Batch Name Stock MVT"; Rec."Journal Batch Name Stock MVT")
                 {
                     ApplicationArea = All;
                 }
-                field("Journal Templ Name Stock TRF"; "Journal Templ Name Stock TRF")
+                field("Journal Templ Name Stock TRF"; Rec."Journal Templ Name Stock TRF")
                 {
                     ApplicationArea = All;
                 }
-                field("Journal Batch Name Stock TRF"; "Journal Batch Name Stock TRF")
+                field("Journal Batch Name Stock TRF"; Rec."Journal Batch Name Stock TRF")
                 {
                     ApplicationArea = All;
                 }
-                field("Packaging Unit"; "Packaging Unit")
+                field("Packaging Unit"; Rec."Packaging Unit")
                 {
                     ApplicationArea = All;
                 }
-                field("Pallet  Unit"; "Pallet  Unit")
+                field("Pallet  Unit"; Rec."Pallet  Unit")
                 {
                     ApplicationArea = All;
                 }
-                field("Separator Character"; "Separator Character")
+                field("Separator Character"; Rec."Separator Character")
                 {
                     ApplicationArea = All;
                 }
-                field("Partner Code"; "Partner Code")
+                field("Partner Code"; Rec."Partner Code")
                 {
                     ApplicationArea = All;
                 }
-                field("Possible Items Message"; "Possible Items Message")
+                field("Possible Items Message"; Rec."Possible Items Message")
                 {
                     ApplicationArea = All;
                 }
-                field(PlannerOne; PlannerOne)
+                field(PlannerOne; Rec.PlannerOne)
                 {
                     ApplicationArea = All;
                 }
@@ -127,10 +127,10 @@ page 8073291 "PWD OSYS Setup"
 
     trigger OnOpenPage()
     begin
-        RESET();
-        IF NOT GET() THEN BEGIN
-            INIT();
-            INSERT();
+        Rec.RESET();
+        IF NOT Rec.GET() THEN BEGIN
+            Rec.INIT();
+            Rec.INSERT();
         END;
     end;
 }

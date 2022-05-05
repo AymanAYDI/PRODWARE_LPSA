@@ -20,21 +20,21 @@ pageextension 60004 "PWD CustomerCard" extends "Customer Card"
     {
         addafter(Name)
         {
-            field("PWD Name 2"; "Name 2")
+            field("PWD Name 2"; Rec."Name 2")
             {
                 ApplicationArea = All;
             }
         }
         addafter("VAT Bus. Posting Group")
         {
-            field("PWD Rolex Bienne"; "PWD Rolex Bienne")
+            field("PWD Rolex Bienne"; Rec."PWD Rolex Bienne")
             {
                 ApplicationArea = All;
             }
         }
         addafter(Invoicing)
         {
-            field("PWD Our Account No."; "Our Account No.")
+            field("PWD Our Account No."; Rec."Our Account No.")
             {
                 ApplicationArea = All;
             }
