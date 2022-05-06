@@ -4,7 +4,7 @@ report 50072 "PWD VAT - VIES Declaration XML"
     RDLCLayout = './VATVIESDeclarationXML.rdlc';
     Caption = 'VAT - VIES Declaration XML';
     ProcessingOnly = false;
-UsageCategory = none;
+    UsageCategory = none;
     dataset
     {
         dataitem("VAT Entry"; "VAT Entry")
@@ -256,33 +256,33 @@ UsageCategory = none;
                     group("Statement Period")
                     {
                         Caption = 'Statement Period';
-                        field(RepPeriodFrom; RepPeriodFrom)
+                        field(RepPeriodFromF; RepPeriodFrom)
                         {
                             ApplicationArea = Basic, Suite;
                             Caption = 'Starting Date';
                             ToolTip = 'Specifies the date from which the report or batch job processes information.';
                         }
-                        field(RepPeriodTo; RepPeriodTo)
+                        field(RepPeriodToF; RepPeriodTo)
                         {
                             ApplicationArea = Basic, Suite;
                             Caption = 'Ending Date';
                             ToolTip = 'Specifies the last date that the report includes data for.';
                         }
                     }
-                    field(ReportingDate; Reportingdate)
+                    field(ReportingDateF; Reportingdate)
                     {
                         ApplicationArea = Basic, Suite;
                         Caption = 'Reporting Date';
                         ToolTip = 'Specifies the date when the VAT-VIES declaration is created.';
                     }
-                    field(ReportingType; Reportingtype)
+                    field(ReportingTypeF; Reportingtype)
                     {
                         ApplicationArea = Basic, Suite;
                         Caption = 'Reporting Type';
                         OptionCaption = 'Normal transmission,Recall of an earlier report';
                         ToolTip = 'Specifies what is exported. Select Normal transmission to export a full VAT-VIES declaration, or select Recall of an earlier report.';
                     }
-                    field(NoSeries; NoSeries.Code)
+                    field(NoSeriesF; NoSeries.Code)
                     {
                         ApplicationArea = Basic, Suite;
                         Caption = 'No. Series';
@@ -290,7 +290,7 @@ UsageCategory = none;
                         TableRelation = "No. Series";
                         ToolTip = 'Specifies the code for the number series that was used to assign numbers.';
                     }
-                    field(AmountsInReportCurrency; AmountsInReportCurrency)
+                    field(AmountsInReportCurrencyF; AmountsInReportCurrency)
                     {
                         ApplicationArea = Basic, Suite;
                         Caption = 'Show Amounts in Add. Reporting Currency';
@@ -469,7 +469,7 @@ UsageCategory = none;
     begin
         XMLFile.Write('</ERKLAERUNG>');
         XMLFile.Write('</ERKLAERUNGS_UEBERMITTLUNG>');
-        XMLFile.Close;
+        XMLFile.Close();
     end;
 
     [Scope('OnPrem')]

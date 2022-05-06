@@ -10,7 +10,7 @@ report 50053 "Ajout NouvelleFin De Gamme PIE"
     //                   - New report
 
     ProcessingOnly = true;
-UsageCategory = none;
+    UsageCategory = none;
     dataset
     {
         dataitem("Routing Header"; "Routing Header")
@@ -111,14 +111,14 @@ UsageCategory = none;
                 {
                     Caption = 'Action';
                     ShowCaption = false;
-                    field(CodGStartOperation; CodGStartOperation)
+                    field(CodGStartOperationF; CodGStartOperation)
                     {
                         Caption = 'Remplacer toutes les lignes de gammes après l''opératio';
                         ShowCaption = false;
                         TableRelation = "Machine Center";
                         ApplicationArea = All;
                     }
-                    field(CodGRoutingToAdd; CodGRoutingToAdd)
+                    field(CodGRoutingToAddF; CodGRoutingToAdd)
                     {
                         Caption = 'Par les lignes de la gamme';
                         ShowCaption = false;

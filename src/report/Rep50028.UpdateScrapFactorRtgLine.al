@@ -21,22 +21,14 @@ report 50028 "Update Scrap Factor Rtg Line"
 
             trigger OnAfterGetRecord()
             var
-                Family: Record Family;
                 Item: Record Item;
-                ProdOrderComp: Record "Prod. Order Component";
                 RecLProdOrderComponent: Record "Prod. Order Component";
                 ProdOrderLine: Record "Prod. Order Line";
                 RecLProdOrderLine: Record "Prod. Order Line";
-                ProdOrderRtngLine: Record "Prod. Order Routing Line";
                 RecLProductionOrder: Record "Production Order";
                 RecLRoutingHeader: Record "Routing Header";
-                RepLRefreshProdOrder: Report "Refresh Production Order";
-                CalcProdOrder: Codeunit "Calculate Prod. Order";
                 CreateProdOrderLines: Codeunit "Create Prod. Order Lines";
-                ProdOrderStatusMgt: Codeunit "Prod. Order Status Management";
                 RoutingNo: Code[20];
-                DateTime: DateTime;
-                ______: Integer;
             begin
                 Bdialog.Update(1, IntGCounter);
 
@@ -317,13 +309,8 @@ report 50028 "Update Scrap Factor Rtg Line"
 
             trigger OnAfterGetRecord()
             var
-                RecLProdOrderLine: Record "Prod. Order Line";
-                RecLProdOrder: Record "Production Order";
                 RecLRoutingLine: Record "Routing Line";
-                RepLReplanProductionOrder: Report "Replan Production Order";
                 DecLNewQtyGet: Decimal;
-                Direction: Option Forward,Backward;
-                CalcMethod: Option "No Levels","One level","All levels";
             begin
                 Bdialog.Update(1, IntGCounter);
 
@@ -403,7 +390,7 @@ report 50028 "Update Scrap Factor Rtg Line"
                 {
                     Caption = 'Reference';
                     ShowCaption = false;
-                    field(CodGRoutingHeader; CodGRoutingHeader)
+                    field(CodGRoutingHeaderF; CodGRoutingHeader)
                     {
                         Caption = 'Reference Routing No.';
                         ShowCaption = false;
@@ -421,7 +408,7 @@ report 50028 "Update Scrap Factor Rtg Line"
                                     CodGRoutingHeader := 'TT_OPE_PIE';
                         end;
                     }
-                    field(CodGOperationNo; CodGOperationNo)
+                    field(CodGOperationNoF; CodGOperationNo)
                     {
                         Caption = 'Operation No.';
                         //OptionCaption = 'Operations No.';
@@ -452,7 +439,7 @@ report 50028 "Update Scrap Factor Rtg Line"
                     group(Control1100267001)
                     {
                         Caption = 'Ce traitement concerne les gammes qui ont groupe de planification = PIE et qui sont associées à des articles ne commencant pas par 9911,9912 ou 9915';
-                        field(OptGStep; OptGStep)
+                        field(OptGStepF; OptGStep)
                         {
                             Caption = 'Etape';
                             ApplicationArea = All;

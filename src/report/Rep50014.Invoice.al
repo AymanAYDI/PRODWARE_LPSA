@@ -693,7 +693,7 @@ report 50014 "PWD Invoice"
                 group(Options)
                 {
                     Caption = 'Options';
-                    field(NoOfCopies; NoOfCopies)
+                    field(NoOfCopiesF; NoOfCopies)
                     {
                         Caption = 'No. of Copies';
                         ApplicationArea = All;

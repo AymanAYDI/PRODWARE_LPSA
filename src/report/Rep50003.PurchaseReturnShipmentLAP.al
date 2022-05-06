@@ -436,7 +436,7 @@ report 50003 "Purchase - Return Shipment LAP"
                             // PostedDocDim2.SETRANGE("Line No.", "Return Shipment Line"."Line No.");
 
                             IF ISSERVICETIER THEN
-                             TypeInt := "Return Shipment Line".Type.AsInteger();
+                                TypeInt := "Return Shipment Line".Type.AsInteger();
                         end;
 
                         trigger OnPreDataItem()
@@ -581,7 +581,7 @@ report 50003 "Purchase - Return Shipment LAP"
                 LPSAFunctionsMgt.PurchShptBuyFromFixedAddr(ShipToAddr, "Return Shipment Header");
                 //<<TI128158
                 FormatAddr.PurchShptPayTo(VendAddr, "Return Shipment Header");
-                IF LogInteraction THEN
+                IF GLogInteraction THEN
                     IF NOT CurrReport.PREVIEW THEN
                         SegManagement.LogDocument(
                           21, "No.", 0, 0, DATABASE::Vendor, "Buy-from Vendor No.", "Purchaser Code", '', "Posting Description", '');
@@ -609,25 +609,25 @@ report 50003 "Purchase - Return Shipment LAP"
                 {
                     Caption = 'Options';
                     ShowCaption = false;
-                    field(NoOfCopies; NoOfCopies)
+                    field(NoOfCopiesF; NoOfCopies)
                     {
                         Caption = 'No. of Copies';
                         ShowCaption = false;
                         ApplicationArea = All;
                     }
-                    field(ShowInternalInfo; ShowInternalInfo)
+                    field(ShowInternalInfoF; ShowInternalInfo)
                     {
                         Caption = 'Show Internal Information';
                         ShowCaption = false;
                         ApplicationArea = All;
                     }
-                    field(ShowCorrectionLines; ShowCorrectionLines)
+                    field(ShowCorrectionLinesF; ShowCorrectionLines)
                     {
                         Caption = 'Show Correction Lines';
                         ShowCaption = false;
                         ApplicationArea = All;
                     }
-                    field(LogInteraction; LogInteraction)
+                    field(LogInteractionF; GLogInteraction)
                     {
                         Caption = 'Log Interaction';
                         Enabled = LogInteractionEnable;
@@ -648,8 +648,8 @@ report 50003 "Purchase - Return Shipment LAP"
 
         trigger OnOpenPage()
         begin
-            LogInteraction := SegManagement.FindInteractTmplCode(21) <> '';
-            LogInteractionEnable := LogInteraction;
+            GLogInteraction := SegManagement.FindInteractTmplCode(21) <> '';
+            LogInteractionEnable := GLogInteraction;
         end;
     }
 
@@ -677,7 +677,7 @@ report 50003 "Purchase - Return Shipment LAP"
         SegManagement: Codeunit SegManagement;
         BooGStopComment: Boolean;
         Continue: Boolean;
-        LogInteraction: Boolean;
+        GLogInteraction: Boolean;
         [InDataSet]
         LogInteractionEnable: Boolean;
         MoreLines: Boolean;

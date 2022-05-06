@@ -208,7 +208,6 @@ report 50068 "PWD Routing Sheet"
 
                             trigger OnAfterGetRecord()
                             var
-                                CduLCalculateProdOrder: Codeunit 99000773;
                                 PWDLPSAFunctionsMgt: codeunit "PWD LPSA Functions Mgt.";
                                 CodLRunTimeUnit: Code[10];
                                 CodLSetupTimeUnit: Code[10];
@@ -310,7 +309,7 @@ report 50068 "PWD Routing Sheet"
                 group(Options)
                 {
                     Caption = 'Options';
-                    field(ProductionQuantity; ProductionQuantity)
+                    field(ProductionQuantityF; ProductionQuantity)
                     {
                         ApplicationArea = Manufacturing;
                         Caption = 'Production Quantity';
@@ -318,31 +317,31 @@ report 50068 "PWD Routing Sheet"
                         MinValue = 0;
                         ToolTip = 'Specifies the quantity of items to manufacture for which you want the program to calculate the total time of the routing.';
                     }
-                    field(PrintComment; PrintComment)
+                    field(PrintCommentF; PrintComment)
                     {
                         ApplicationArea = Manufacturing;
                         Caption = 'Comment';
                         ToolTip = 'Specifies whether to include comments that provide additional information about the operation. For example, comments might mention special conditions for completing the operation.';
                     }
-                    field(PrintTool; PrintTool)
+                    field(PrintToolF; PrintTool)
                     {
                         ApplicationArea = Manufacturing;
                         Caption = 'Tools';
                         ToolTip = 'Specifies whether to include the tools that are required to complete the operation.';
                     }
-                    field(PrintPersonnel; PrintPersonnel)
+                    field(PrintPersonnelF; PrintPersonnel)
                     {
                         ApplicationArea = Manufacturing;
                         Caption = 'Personnel';
                         ToolTip = 'Specifies whether to include the people to involve in the operation. For example, this is useful if the operation requires special knowledge or training.';
                     }
-                    field(PrintQualityMeasures; PrintQualityMeasures)
+                    field(PrintQualityMeasuresF; PrintQualityMeasures)
                     {
                         ApplicationArea = Manufacturing;
                         Caption = 'Quality Measures';
                         ToolTip = 'Specifies whether to include quality measures for the operation. For example, this is useful for quality control purposes.';
                     }
-                    field(NumberOfCopies; NumberOfCopies)
+                    field(NumberOfCopiesF; NumberOfCopies)
                     {
                         ApplicationArea = Manufacturing;
                         Caption = 'No. of Copies';

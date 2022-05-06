@@ -634,12 +634,6 @@ table 50015 "PWD Item Jnl Line Buffer"
         {
             Caption = 'Concurrent Capacity';
             DecimalPlaces = 0 : 5;
-
-            trigger OnValidate()
-            var
-                TotalTime: Integer;
-            begin
-            end;
         }
         field(5851; "Setup Time (Base)"; Decimal)
         {

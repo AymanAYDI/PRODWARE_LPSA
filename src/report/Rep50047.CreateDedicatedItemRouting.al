@@ -94,14 +94,14 @@ report 50047 "Create Dedicated Item Routing"
         {
             area(content)
             {
-                field(CodGGenericRouting; CodGGenericRouting)
+                field(CodGGenericRoutingF; CodGGenericRouting)
                 {
                     Caption = 'Generic routing';
                     ShowCaption = false;
                     TableRelation = "Routing Header";
                     ApplicationArea = All;
                 }
-                field(CodGPrefixe; CodGPrefixe)
+                field(CodGPrefixeF; CodGPrefixe)
                 {
                     Caption = 'Prefixe';
                     ShowCaption = false;

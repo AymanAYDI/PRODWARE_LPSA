@@ -59,7 +59,7 @@ report 50046 "PWD TPL Supp Centre de charge"
                 {
                     Caption = 'Import';
                     ShowCaption = false;
-                    field(TxtGFile; TxtGFile)
+                    field(TxtGFileF; TxtGFile)
                     {
                         Caption = 'Fichier à importer';
                         ShowCaption = false;

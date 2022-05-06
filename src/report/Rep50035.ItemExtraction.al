@@ -307,7 +307,7 @@ report 50035 "PWD Item Extraction"
 
     trigger OnPostReport()
     begin
-        MyFile.Close;
+        MyFile.Close();
         Message('Traitement terminé');
     end;
 

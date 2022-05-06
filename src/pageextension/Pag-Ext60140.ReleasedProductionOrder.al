@@ -24,10 +24,12 @@ pageextension 60140 "PWD ReleasedProductionOrder" extends "Released Production O
                 RunObject = Page "Item Card";
                 RunPageLink = "No." = FIELD("Source No.");
                 ApplicationArea = All;
+                Image= Item;
             }
             action("PWD Action1100267005")
             {
                 caption = 'Prod. BOM Where-Used';
+                Image= ExchProdBOMItem;
                 ApplicationArea = All;
                 trigger OnAction()
                 var
@@ -50,6 +52,7 @@ pageextension 60140 "PWD ReleasedProductionOrder" extends "Released Production O
             {
                 Caption = 'Resend to QUARTIS';
                 ApplicationArea = All;
+                Image= SendTo;
                 trigger OnAction()
                 begin
                     Rec.ResendProdOrdertoQuartis();

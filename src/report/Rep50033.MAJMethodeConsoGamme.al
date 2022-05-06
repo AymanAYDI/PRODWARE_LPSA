@@ -15,13 +15,13 @@ report 50033 "PWD MAJ Methode Conso Gamme"
                     Type::"Work Center":
                         begin
                             WorkCenter.Get("No.");
-                            "PWD Flushing Method" := WorkCenter."Flushing Method".AsInteger();
+                            "PWD Flushing Method" := WorkCenter."Flushing Method";
                             Modify();
                         end;
                     Type::"Machine Center":
                         begin
                             MachineCenter.Get("No.");
-                            "PWD Flushing Method" := MachineCenter."Flushing Method".AsInteger();
+                            "PWD Flushing Method" := MachineCenter."Flushing Method";
                             Modify();
                         end;
                 end;

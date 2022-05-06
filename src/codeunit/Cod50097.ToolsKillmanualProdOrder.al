@@ -291,6 +291,7 @@ codeunit 50097 "Tools Kill manual Prod Order"
             FromProdOrderRtngTool.DELETEALL();
         END;
     end;
+
     local procedure TransProdOrderRtngPersnl(FromProdOrder: Record "Production Order")
     var
         FromProdOrderRtngPersonnel: Record "Prod. Order Routing Personnel";

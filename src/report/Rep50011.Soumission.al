@@ -308,7 +308,7 @@ report 50011 "PWD Soumission"
                 {
                     Caption = 'Options';
                     ShowCaption = false;
-                    field(NoOfCopies; NoOfCopies)
+                    field(NoOfCopiesF; NoOfCopies)
                     {
                         Caption = 'No. of Copies';
                         ShowCaption = false;

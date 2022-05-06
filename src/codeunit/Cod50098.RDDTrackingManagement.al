@@ -696,7 +696,7 @@ codeunit 50098 "PWD RDD - Tracking Management"
                       OldTrackingSpecification."Location Code",
                       OldTrackingSpecification.Description,
                       ExpectedReceiptDate,
-                      ShipmentDate, 0, CurrentEntryStatus); 
+                      ShipmentDate, 0, CurrentEntryStatus);
                     CreateReservEntry.GetLastEntry(ReservEntry1);
                     if Item."Order Tracking Policy" = Item."Order Tracking Policy"::"Tracking & Action Msg." then
                         ReservEngineMgt.UpdateActionMessages(ReservEntry1);
@@ -1435,7 +1435,7 @@ codeunit 50098 "PWD RDD - Tracking Management"
     procedure LookupAvailable(LookupMode: Enum "Item Tracking Type")
     begin
         rec."Bin Code" := ForBinCode;
-        ItemTrackingDataCollection.LookupTrackingAvailability(rec, LookupMode); 
+        ItemTrackingDataCollection.LookupTrackingAvailability(rec, LookupMode);
         rec."Bin Code" := '';
         //CurrForm.UPDATE;
     end;
@@ -1443,7 +1443,7 @@ codeunit 50098 "PWD RDD - Tracking Management"
 
     procedure F6LookupAvailable()
     var
-    LookupMode: Enum "Item Tracking Type";
+        LookupMode: Enum "Item Tracking Type";
     begin
         if SNAvailabilityActive then
             LookupAvailable(LookupMode::"Serial No.");

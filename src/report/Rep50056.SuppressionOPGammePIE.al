@@ -10,7 +10,7 @@ report 50056 "PWD Suppression OP Gamme PIE"
     //                   - New report
 
     ProcessingOnly = true;
-UsageCategory = none;
+    UsageCategory = none;
     dataset
     {
         dataitem("Routing Header"; "Routing Header")
@@ -23,7 +23,6 @@ UsageCategory = none;
 
                 trigger OnAfterGetRecord()
                 var
-                    RecLMachineCenter: Record "Machine Center";
                     RecLRoutingLine: Record "Routing Line";
                 begin
                     if (CodGOperationToCheck = CodGStartOperation) and ("Routing Line"."No." = CodGOperationToDel) then begin
@@ -77,14 +76,14 @@ UsageCategory = none;
                 {
                     Caption = 'Action';
                     ShowCaption = false;
-                    field(CodGOperationToDel; CodGOperationToDel)
+                    field(CodGOperationToDelF; CodGOperationToDel)
                     {
                         Caption = 'Opération à supprimer';
                         ShowCaption = false;
                         TableRelation = "Machine Center";
                         ApplicationArea = All;
                     }
-                    field(CodGStartOperation; CodGStartOperation)
+                    field(CodGStartOperationF; CodGStartOperation)
                     {
                         Caption = 'Quand elle suit l''opération';
                         ShowCaption = false;

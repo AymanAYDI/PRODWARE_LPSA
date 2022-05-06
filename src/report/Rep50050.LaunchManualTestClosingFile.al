@@ -50,30 +50,30 @@ report 50050 "Launch Manual TestClosing File"
                 {
                     Caption = 'Options';
                     ShowCaption = false;
-                    field(BooGItem; BooGItem)
+                    field(BooGItemF; BooGItem)
                     {
                         Caption = 'Item Export';
                         ShowCaption = false;
                         ApplicationArea = All;
                     }
-                    field(BooGInventory; BooGInventory)
+                    field(BooGInventoryF; BooGInventory)
                     {
                         Caption = 'Inventory Export';
                         ShowCaption = false;
                         ApplicationArea = All;
                     }
-                    field(BooGProdOrder; BooGProdOrder)
+                    field(BooGProdOrderF; BooGProdOrder)
                     {
                         Caption = 'Export En-cours';
                         ApplicationArea = All;
                     }
-                    field(BooGFinishedPO; BooGFinishedPO)
+                    field(BooGFinishedPOF; BooGFinishedPO)
                     {
                         Caption = 'Finished PO Export (month)';
                         ShowCaption = false;
                         ApplicationArea = All;
                     }
-                    field(DatGReferenceDate; DatGReferenceDate)
+                    field(DatGReferenceDateF; DatGReferenceDate)
                     {
                         Caption = 'Date pivot';
                         ApplicationArea = All;

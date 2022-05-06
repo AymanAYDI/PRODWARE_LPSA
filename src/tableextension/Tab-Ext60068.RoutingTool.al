@@ -16,7 +16,7 @@ tableextension 60068 "PWD RoutingTool" extends "Routing Tool"
 
     fields
     {
-        field(50000; "PWD Type"; Enum "PWD Type") 
+        field(50000; "PWD Type"; Enum "PWD Type")
         {
             Caption = 'Type';
             Description = 'LAP2.12';

@@ -521,13 +521,13 @@ codeunit 8073303 "PWD Binary File Management"
         if GuiAllowed then
             DiaGWin.Close();
 
-        FilGFile.Close;
+        FilGFile.Close();
     end;
 
 
     procedure FctCloseWriteFile()
     begin
-        FilGFile.Close;
+        FilGFile.Close();
     end;
 
 

@@ -12,7 +12,7 @@ page 8073310 "PWD Sales Comment Line Buffer"
 
     Caption = 'Sales Comment Line Buffer';
     InsertAllowed = false;
-    PageType = Card;
+    PageType = List;
     UsageCategory = none;
     SourceTable = "PWD Sales Comment Line Buffer";
 
@@ -122,7 +122,7 @@ page 8073310 "PWD Sales Comment Line Buffer"
                 {
                     Caption = 'Purge selected';
                     ApplicationArea = All;
-
+                    Image= ShowSelected;
                     trigger OnAction()
                     var
                         RecLSalesHeaderBuffer: Record "PWD Sales Header Buffer";

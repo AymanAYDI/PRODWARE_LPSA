@@ -28,7 +28,7 @@ page 8073320 "PWD Item Journal Line Buffer"
 
     Caption = 'Item Journal Line Buffer';
     InsertAllowed = false;
-    PageType = Card;
+    PageType = List;
     UsageCategory = none;
     SourceTable = "PWD Item Jounal Line Buffer";
 
@@ -255,6 +255,7 @@ page 8073320 "PWD Item Journal Line Buffer"
                 {
                     Caption = 'Process action';
                     ApplicationArea = All;
+                    Image= Process;
 
                     trigger OnAction()
                     var
@@ -276,6 +277,7 @@ page 8073320 "PWD Item Journal Line Buffer"
                 {
                     Caption = 'Process selected actions';
                     ApplicationArea = All;
+                    Image= Process;
 
                     trigger OnAction()
                     begin
@@ -286,7 +288,7 @@ page 8073320 "PWD Item Journal Line Buffer"
                 {
                     Caption = 'Show Error Message';
                     ApplicationArea = All;
-
+                    Image= PrevErrorMessage;
                     trigger OnAction()
                     begin
                         FctShowErrorMessage();
@@ -299,7 +301,7 @@ page 8073320 "PWD Item Journal Line Buffer"
                 {
                     Caption = 'Purge selected';
                     ApplicationArea = All;
-
+                    Image= ShowSelected;
                     trigger OnAction()
                     var
                         RecLItemJounalLineBuffer: Record "PWD Item Jounal Line Buffer";

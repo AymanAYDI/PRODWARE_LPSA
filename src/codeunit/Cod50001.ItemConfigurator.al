@@ -486,10 +486,8 @@ codeunit 50001 "PWD Item Configurator"
                     end;
                 end
                 else begin
-                    if (RecPItemConfigurator."Thick Tol" <> 0) then
-                    //20200615 ANF inversion designation POLI4FACES 5211
-
-                    begin
+                    if (RecPItemConfigurator."Thick Tol" <> 0) then begin
+                        //20200615 ANF inversion designation POLI4FACES 5211                    
                         //IF "Thick Min. Tol" = -"Thick Max. Tol" THEN
                         //  "PWD LPSA Description 1" := "PWD LPSA Description 1" + 'xL' + FORMAT("Thick Tol") + '(+/-' + FORMAT("Thick Max. Tol") + ')'
                         //ELSE

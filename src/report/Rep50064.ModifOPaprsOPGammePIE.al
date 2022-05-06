@@ -10,7 +10,7 @@ report 50064 "Modif OP après OP Gamme PIE"
     //                   - New report
 
     ProcessingOnly = true;
-UsageCategory = none;
+    UsageCategory = none;
     dataset
     {
         dataitem("Routing Header"; "Routing Header")
@@ -24,7 +24,6 @@ UsageCategory = none;
                 trigger OnAfterGetRecord()
                 var
                     RecLMachineCenter: Record "Machine Center";
-                    RecLRoutingLine: Record "Routing Line";
                     RecLWorkCenter: Record "Work Center";
                 begin
                     if (CodGOperationToCheck = CodGStartOperation) and ("Routing Line"."No." = CodGOldOperation) then begin
@@ -82,14 +81,14 @@ UsageCategory = none;
                 {
                     Caption = 'Remplace';
                     ShowCaption = false;
-                    field(CodGOldOperation; CodGOldOperation)
+                    field(CodGOldOperationF; CodGOldOperation)
                     {
                         Caption = 'Remplacer';
                         ShowCaption = false;
                         TableRelation = "Machine Center";
                         ApplicationArea = All;
                     }
-                    field(CodGNewOperation; CodGNewOperation)
+                    field(CodGNewOperationF; CodGNewOperation)
                     {
                         Caption = 'Par';
                         ShowCaption = false;
@@ -104,13 +103,13 @@ UsageCategory = none;
                             TxtGNewOperationDescription := RecLMachineCenter.Name;
                         end;
                     }
-                    field(TxtGNewOperationDescription; TxtGNewOperationDescription)
+                    field(TxtGNewOperationDescriptionF; TxtGNewOperationDescription)
                     {
                         Caption = '';
                         ShowCaption = false;
                         ApplicationArea = All;
                     }
-                    field(CodGStartOperation; CodGStartOperation)
+                    field(CodGStartOperationF; CodGStartOperation)
                     {
                         Caption = 'Quand elle suit l''opération';
                         ShowCaption = false;

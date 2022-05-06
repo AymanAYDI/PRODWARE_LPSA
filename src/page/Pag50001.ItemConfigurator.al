@@ -593,7 +593,6 @@ page 50001 "PWD Item Configurator"
                     BooLInsertItem: Boolean;
                     CodLFilterToCompare: Code[20];
                     CodLFilter: Code[250];
-                    "---- LAP2.12 ----": Integer;
                     IntLLoop: Integer;
                     IntLPipePosition: Integer;
                     IntLStringLenght: Integer;
@@ -751,7 +750,7 @@ page 50001 "PWD Item Configurator"
                 Promoted = true;
                 PromotedCategory = Process;
                 ApplicationArea = All;
-
+                Image = Setup;
                 trigger OnAction()
                 begin
                     IF FamilyEditable THEN

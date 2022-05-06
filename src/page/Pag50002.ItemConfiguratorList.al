@@ -85,14 +85,15 @@ page 50002 "PWD Item Configurator List"
                     Promoted = true;
                     PromotedIsBig = true;
                     ApplicationArea = All;
+                    Image= CopyItem;
 
                     trigger OnAction()
                     var
                         RecLItemConfigurator: Record "PWD Item Configurator";
                     begin
                         //>>FE_LAPIERRETTE_NDT01.001
-                        LPSAFunctionsMgt.SetFromConfiguration;
-                        RepGCopyItem.RUNMODAL;
+                        LPSAFunctionsMgt.SetFromConfiguration();
+                        RepGCopyItem.RUNMODAL();
 
                         // Open Configuration Card
                         IF RepGCopyItem.ItemReturn(RecGNewItem) THEN BEGIN

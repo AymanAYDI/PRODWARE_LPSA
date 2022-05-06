@@ -12,7 +12,7 @@ page 8073300 "PWD Sales Header Buffer"
 
     Caption = 'Sales Header Buffer';
     InsertAllowed = false;
-    PageType = Card;
+    PageType = List;
     UsageCategory = none;
     SourceTable = "PWD Sales Header Buffer";
 
@@ -137,7 +137,7 @@ page 8073300 "PWD Sales Header Buffer"
                 {
                     Caption = 'Show Error Message';
                     ApplicationArea = All;
-
+                    Image= PrevErrorMessage;
                     trigger OnAction()
                     begin
                         FctShowErrorMessage();
@@ -150,7 +150,7 @@ page 8073300 "PWD Sales Header Buffer"
                 {
                     Caption = 'Purge selected';
                     ApplicationArea = All;
-
+                    Image= ShowSelected;
                     trigger OnAction()
                     var
                         RecLSalesHeaderBuffer: Record "PWD Sales Header Buffer";
@@ -191,6 +191,7 @@ page 8073300 "PWD Sales Header Buffer"
                     RunPageLink = "Document Type" = FIELD("Document Type"), "Document No." = FIELD("Document No.");
                     RunPageView = SORTING("Document Type", "Document No.", "Document Line No.");
                     ApplicationArea = All;
+                    Image= Comment;
                 }
             }
         }

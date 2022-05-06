@@ -32,12 +32,10 @@ tableextension 60034 "PWD PurchaseLineArchive" extends "Purchase Line Archive"
             Caption = 'LPSA Description 2';
             Description = 'LAP1.00';
         }
-        field(8073282; "PWD WMS_Status"; Option)
+        field(8073282; "PWD WMS_Status"; Enum "PWD WMS_Status")
         {
             Caption = 'WMS_Status';
             Description = 'ProdConnect1.5';
-            OptionCaption = ' ,Send,Received';
-            OptionMembers = " ",Send,Received;
         }
     }
     keys

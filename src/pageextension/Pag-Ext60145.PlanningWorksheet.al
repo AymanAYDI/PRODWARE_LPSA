@@ -30,10 +30,12 @@ pageextension 60145 "PWD PlanningWorksheet" extends "Planning Worksheet"
                 RunObject = Page "Item Card";
                 RunPageLink = "No." = FIELD("No.");
                 ApplicationArea = All;
+                Image= Item;
             }
             action("PWD ProdBOMWhereUsed")
             {
                 caption = 'Prod. BOM Where-Used';
+                Image= ExchProdBOMItem;
                 ApplicationArea = All;
                 trigger OnAction()
                 var

@@ -12,7 +12,7 @@ page 8073305 "PWD Sales Line Buffer"
 
     Caption = 'Sales Line Buffer';
     InsertAllowed = false;
-    PageType = Card;
+    PageType = List;
     UsageCategory = none;
     //TODO: Table "Sales Line Buffer" is missing
     SourceTable = "PWD Sales Line Buffer";

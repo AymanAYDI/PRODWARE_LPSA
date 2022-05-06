@@ -10,7 +10,7 @@ report 50054 "MAJ OP Gamme PIE Sans 1/2;B"
     //                   - New report
 
     ProcessingOnly = true;
-UsageCategory = none;
+    UsageCategory = none;
     dataset
     {
         dataitem(Item; Item)
@@ -84,14 +84,14 @@ UsageCategory = none;
                 {
                     Caption = 'Action';
                     ShowCaption = false;
-                    field(CodGOldOperation; CodGOldOperation)
+                    field(CodGOldOperationF; CodGOldOperation)
                     {
                         Caption = 'Remplacer';
                         ShowCaption = false;
                         TableRelation = "Machine Center";
                         ApplicationArea = All;
                     }
-                    field(CodGNewOperation; CodGNewOperation)
+                    field(CodGNewOperationF; CodGNewOperation)
                     {
                         Caption = 'Par';
                         ShowCaption = false;
@@ -106,7 +106,7 @@ UsageCategory = none;
                             TxtGNewOperationDescription := RecLMachineCenter.Name;
                         end;
                     }
-                    field(TxtGNewOperationDescription; TxtGNewOperationDescription)
+                    field(TxtGNewOperationDescriptionF; TxtGNewOperationDescription)
                     {
                         Caption = '';
                         ShowCaption = false;

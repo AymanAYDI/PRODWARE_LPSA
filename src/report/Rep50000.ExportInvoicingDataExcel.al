@@ -531,7 +531,7 @@ report 50000 "Export Invoicing Data (Excel)"
                 group(options)
                 {
                     Caption = 'options';
-                    field(DatGStarting; DatGStarting)
+                    field(DatStartingF; DatGStarting)
                     {
                         Caption = 'Starting Date';
                         ShowCaption = false;
@@ -545,13 +545,13 @@ report 50000 "Export Invoicing Data (Excel)"
                             DatGEnding := CalcDate('<CM>', DatGStarting);
                         end;
                     }
-                    field(DatGEnding; DatGEnding)
+                    field(DatEndingF; DatGEnding)
                     {
                         Caption = 'EndingDate';
                         ShowCaption = false;
                         ApplicationArea = All;
                     }
-                    field(TxtGFilename; TxtGFilename)
+                    field(TxtFilenameF; TxtGFilename)
                     {
                         Caption = 'File Name';
                         ShowCaption = false;
@@ -606,12 +606,12 @@ report 50000 "Export Invoicing Data (Excel)"
             // Sheet := Excel.Sheets.Add;
             // Sheet.Name := 'Clients non Rolex';
         end else begin
-            ServerFile.CreateTempFile;
+            ServerFile.CreateTempFile();
             TempFileName := ServerFile.Name + '.txt';
-            ServerFile.Close;
+            ServerFile.Close();
             ServerFile.Create(TempFileName);
             ServerFile.TextMode := true;
-            ServerFile.Close;
+            ServerFile.Close();
 
             TempFileName := ThreeTierMngt.DownloadTempFile(TempFileName);
             //TODO:

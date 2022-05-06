@@ -12,7 +12,7 @@ page 8073325 "PWD Receipt Line Buffer"
 
     Caption = 'Receipt Line Buffer';
     InsertAllowed = false;
-    PageType = Card;
+    PageType = List;
     UsageCategory = none;
     SourceTable = "PWD Receipt Line Buffer";
 
@@ -167,7 +167,7 @@ page 8073325 "PWD Receipt Line Buffer"
                 {
                     Caption = 'Process action';
                     ApplicationArea = All;
-
+                    Image= Process;
                     trigger OnAction()
                     var
                         CduLBufferManagement: Codeunit "PWD Buffer Management";
@@ -179,7 +179,7 @@ page 8073325 "PWD Receipt Line Buffer"
                 {
                     Caption = 'Process selected actions';
                     ApplicationArea = All;
-
+                    Image= Process;
                     trigger OnAction()
                     begin
                         FctProcessSelected();
@@ -189,7 +189,7 @@ page 8073325 "PWD Receipt Line Buffer"
                 {
                     Caption = 'Show Error Message';
                     ApplicationArea = All;
-
+                    Image= PrevErrorMessage;
                     trigger OnAction()
                     begin
                         FctShowErrorMessage();
@@ -202,7 +202,7 @@ page 8073325 "PWD Receipt Line Buffer"
                 {
                     Caption = 'Purge selected';
                     ApplicationArea = All;
-
+                    Image= ShowSelected;
                     trigger OnAction()
                     var
                         RecLReceiptLineBuffer: Record "PWD Receipt Line Buffer";

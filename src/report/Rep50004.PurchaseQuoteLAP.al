@@ -298,7 +298,7 @@ report 50004 "PWD Purchase - Quote LAP"
                         column(ShowInternalInfo; ShowInternalInfo)
                         {
                         }
-                        column(ArchiveDocument; ArchiveDocument)
+                        column(GArchiveDocument; GArchiveDocument)
                         {
                         }
                         column(LogInteraction; LogInteraction)
@@ -629,7 +629,7 @@ report 50004 "PWD Purchase - Quote LAP"
                 FormatAddr.PurchHeaderShipTo(ShipToAddr, "Purchase Header");
 
                 if not CurrReport.Preview then begin
-                    if ArchiveDocument then
+                    if GArchiveDocument then
                         ArchiveManagement.StorePurchDocument("Purchase Header", LogInteraction);
 
                     if LogInteraction then begin
@@ -655,30 +655,30 @@ report 50004 "PWD Purchase - Quote LAP"
                 {
                     Caption = 'Options';
                     ShowCaption = false;
-                    field(NoOfCopies; NoOfCopies)
+                    field(NoOfCopiesF; NoOfCopies)
                     {
                         Caption = 'No. of Copies';
                         ShowCaption = false;
                         ApplicationArea = All;
                     }
-                    field(ShowInternalInfo; ShowInternalInfo)
+                    field(ShowInternalInfoF; ShowInternalInfo)
                     {
                         Caption = 'Show Internal Information';
                         ShowCaption = false;
                         ApplicationArea = All;
                     }
-                    field(ArchiveDocument; ArchiveDocument)
+                    field(ArchiveDocumentF; GArchiveDocument)
                     {
                         Caption = 'Archive Document';
                         ApplicationArea = All;
 
                         trigger OnValidate()
                         begin
-                            if not ArchiveDocument then
+                            if not GArchiveDocument then
                                 LogInteraction := false;
                         end;
                     }
-                    field(LogInteraction; LogInteraction)
+                    field(LogInteractionF; LogInteraction)
                     {
                         Caption = 'Log Interaction';
                         Enabled = LogInteractionEnable;
@@ -687,7 +687,7 @@ report 50004 "PWD Purchase - Quote LAP"
                         trigger OnValidate()
                         begin
                             if LogInteraction then
-                                ArchiveDocument := ArchiveDocumentEnable;
+                                GArchiveDocument := ArchiveDocumentEnable;
                         end;
                     }
                 }
@@ -706,12 +706,12 @@ report 50004 "PWD Purchase - Quote LAP"
         trigger OnOpenPage()
         begin
             // dach0001.begin
-            // ArchiveDocument := PurchSetup."Archive Quotes and Orders";
+            // GArchiveDocument := PurchSetup."Archive Quotes and Orders";
             case PurchSetup."Archiving Purchase Quote" of
                 PurchSetup."Archiving Purchase Quote"::Never:
-                    ArchiveDocument := false;
+                    GArchiveDocument := false;
                 PurchSetup."Archiving Purchase Quote"::Always:
-                    ArchiveDocument := true;
+                    GArchiveDocument := true;
             end;
             // dach0001.end
             LogInteraction := SegManagement.FindInteractTmplCode(11) <> '';
@@ -750,7 +750,7 @@ report 50004 "PWD Purchase - Quote LAP"
         PurchPost: Codeunit "Purch.-Post";
         PurchCountPrinted: Codeunit "Purch.Header-Printed";
         SegManagement: Codeunit SegManagement;
-        ArchiveDocument: Boolean;
+        GArchiveDocument: Boolean;
         [InDataSet]
         ArchiveDocumentEnable: Boolean;
         BooGStopComment: Boolean;

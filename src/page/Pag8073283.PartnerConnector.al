@@ -139,6 +139,7 @@ page 8073283 "PWD Partner Connector"
                     RunPageLink = "Partner Code" = FIELD(Code);
                     ApplicationArea = All;
                     ShortCutKey = 'Shift+Ctrl+M';
+                    Image= SendMail;
                 }
                 action(Action1100294012)
                 {
@@ -147,6 +148,7 @@ page 8073283 "PWD Partner Connector"
                     RunObject = Page "PWD Receiving Message List";
                     RunPageLink = "Partner Code" = FIELD(Code);
                     ApplicationArea = All;
+                    Image= SendMail;
                 }
             }
         }

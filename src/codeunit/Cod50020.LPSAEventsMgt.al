@@ -1121,13 +1121,13 @@ codeunit 50020 "PWD LPSA Events Mgt."
     begin
         //>>LAP2.12
         CASE Rec."PWD Type" OF
-            "PWD Type"::Method.AsInteger(), "PWD Type"::Quality.AsInteger(), "PWD Type"::Plan.AsInteger(), "PWD Type"::Zone.AsInteger(), "PWD Type"::"Targeted dimension".AsInteger():
+            "PWD Type"::Method, "PWD Type"::Quality, "PWD Type"::Plan, "PWD Type"::Zone, "PWD Type"::"Targeted dimension":
                 BEGIN
                     RecLToolsInstructions.GET(Rec."PWD Type", Rec."No.");
                     Rec.Description := RecLToolsInstructions.Description;
                     Rec."PWD Criteria" := RecLToolsInstructions.Criteria;
                 END;
-            "PWD Type"::Item.AsInteger():
+            "PWD Type"::Item:
                 BEGIN
                     RecLItem.GET(Rec."No.");
                     Rec.Description := COPYSTR(RecLItem."PWD LPSA Description 1", 1, 50);
@@ -1248,13 +1248,13 @@ codeunit 50020 "PWD LPSA Events Mgt."
     [EventSubscriber(ObjectType::Table, Database::"Routing Line", 'OnAfterWorkCenterTransferFields', '', false, false)]
     local procedure TAB99000764_OnAfterWorkCenterTransferFields_RoutingLine(var RoutingLine: Record "Routing Line"; WorkCenter: Record "Work Center")
     begin
-        RoutingLine."PWD Flushing Method" := WorkCenter."Flushing Method".AsInteger();
+        RoutingLine."PWD Flushing Method" := WorkCenter."Flushing Method";
     end;
 
     [EventSubscriber(ObjectType::Table, Database::"Routing Line", 'OnAfterMachineCtrTransferFields', '', false, false)]
     local procedure TAB99000764_OnAfterMachineCtrTransferFields_RoutingLine(var RoutingLine: Record "Routing Line"; WorkCenter: Record "Work Center"; MachineCenter: Record "Machine Center")
     begin
-        RoutingLine."PWD Flushing Method" := MachineCenter."Flushing Method".AsInteger();
+        RoutingLine."PWD Flushing Method" := MachineCenter."Flushing Method";
     end;
     //---PAG50---
     [EventSubscriber(ObjectType::Page, Page::"Purchase Order", 'OnAfterActionEvent', '&Print', false, false)]

@@ -135,14 +135,14 @@ report 50057 "PWD MAJ Tps OP Gamme PIE"
                 {
                     Caption = 'Action';
                     ShowCaption = false;
-                    field(CodGOperation; CodGOperation)
+                    field(CodGOperationF; CodGOperation)
                     {
                         Caption = 'Pour l''opération';
                         ShowCaption = false;
                         TableRelation = "Machine Center";
                         ApplicationArea = All;
                     }
-                    field(CstG011; CstG011)
+                    field(CstG011F; CstG011)
                     {
                         ApplicationArea = All;
                         ShowCaption = false;
@@ -151,13 +151,13 @@ report 50057 "PWD MAJ Tps OP Gamme PIE"
                 }
                 group(Control1000000001)
                 {
-                    field(BooGSetupTime; BooGSetupTime)
+                    field(BooGSetupTimeF; BooGSetupTime)
                     {
                         Caption = 'prépa';
                         ShowCaption = false;
                         ApplicationArea = All;
                     }
-                    field(DecGSetupTime; DecGSetupTime)
+                    field(DecGSetupTimeF; DecGSetupTime)
                     {
                         Caption = '';
                         ShowCaption = false;
@@ -167,13 +167,13 @@ report 50057 "PWD MAJ Tps OP Gamme PIE"
                 }
                 group(Control1000000002)
                 {
-                    field(BooGRunTime; BooGRunTime)
+                    field(BooGRunTimeF; BooGRunTime)
                     {
                         Caption = 'exe';
                         ShowCaption = false;
                         ApplicationArea = All;
                     }
-                    field(DecGRunTime; DecGRunTime)
+                    field(DecGRunTimeF; DecGRunTime)
                     {
                         Caption = '';
                         ShowCaption = false;
@@ -183,13 +183,13 @@ report 50057 "PWD MAJ Tps OP Gamme PIE"
                 }
                 group(Control1000000003)
                 {
-                    field(BooGMoveTime; BooGMoveTime)
+                    field(BooGMoveTimeF; BooGMoveTime)
                     {
                         Caption = 'Transfert';
                         ShowCaption = false;
                         ApplicationArea = All;
                     }
-                    field(DecGMoveTime; DecGMoveTime)
+                    field(DecGMoveTimeF; DecGMoveTime)
                     {
                         Caption = '';
                         ShowCaption = false;

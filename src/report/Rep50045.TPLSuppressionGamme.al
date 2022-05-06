@@ -72,13 +72,13 @@ report 50045 "PWD TPL Suppression Gamme"
                 {
                     Caption = 'Action';
                     ShowCaption = false;
-                    field(TxtGFile; TxtGFile)
+                    field(TxtGFileF; TxtGFile)
                     {
                         Caption = 'Fichier à importe';
                         ShowCaption = false;
                         ApplicationArea = All;
                     }
-                    field(BooGDelRoutingNoOnItem; BooGDelRoutingNoOnItem)
+                    field(BooGDelRoutingNoOnItemF; BooGDelRoutingNoOnItem)
                     {
                         Caption = 'Supprimer le N° gamme sur la fiche article lié';
                         ApplicationArea = All;

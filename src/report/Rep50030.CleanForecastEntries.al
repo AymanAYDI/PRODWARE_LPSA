@@ -18,12 +18,6 @@ report 50030 "PWD Clean Forecast Entries"
                 else
                     Delete();
             end;
-
-            trigger OnPostDataItem()
-            var
-                "99000851": Record "Production Forecast Name";
-            begin
-            end;
         }
     }
 

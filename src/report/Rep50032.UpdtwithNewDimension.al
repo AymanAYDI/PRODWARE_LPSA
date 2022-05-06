@@ -487,13 +487,13 @@ report 50032 "PWD Updt with New Dimension"
                 group(Options)
                 {
                     Caption = 'Options';
-                    field(DimensionCode; DimensionCode)
+                    field(DimensionCodeF; DimensionCode)
                     {
                         Caption = 'Axe';
                         TableRelation = Dimension;
                         ApplicationArea = All;
                     }
-                    field(DateFilter; DateFilter)
+                    field(DateFilterF; DateFilter)
                     {
                         Caption = 'Date Filter';
                         ApplicationArea = All;

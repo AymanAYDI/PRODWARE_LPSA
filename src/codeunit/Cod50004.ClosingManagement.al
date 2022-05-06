@@ -238,7 +238,7 @@ codeunit 50004 "PWD Closing Management"
 
     procedure EndMessage()
     begin
-        FilGToExport.Close;
+        FilGToExport.Close();
         if IsServiceTier then begin
             FileMgt.DownloadToFile(TxtGExportFileName, TxtGServerFileName);
             TxtGExportFileName := TxtGServerFileName;

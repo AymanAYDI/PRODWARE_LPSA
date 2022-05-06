@@ -12,7 +12,7 @@ page 8073315 "PWD Customer Buffer"
 
     Caption = 'Customer Buffer';
     InsertAllowed = false;
-    PageType = Card;
+    PageType = List;
     UsageCategory = none;
     SourceTable = "PWD Customer Buffer";
 
@@ -157,7 +157,7 @@ page 8073315 "PWD Customer Buffer"
                 {
                     Caption = 'Show Error Message';
                     ApplicationArea = All;
-
+                    Image= PrevErrorMessage;
                     trigger OnAction()
                     begin
                         FctShowErrorMessage();
@@ -170,7 +170,7 @@ page 8073315 "PWD Customer Buffer"
                 {
                     Caption = 'Purge selected';
                     ApplicationArea = All;
-
+                    Image= ShowSelected;
                     trigger OnAction()
                     var
                         RecLCustomerBuffer: Record "PWD Customer Buffer";

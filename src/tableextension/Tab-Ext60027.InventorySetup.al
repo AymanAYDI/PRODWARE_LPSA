@@ -80,7 +80,7 @@ tableextension 60027 "PWD InventorySetup" extends "Inventory Setup"
             trigger OnValidate()
             var
                 CduLClosingMgt: Codeunit "PWD Closing Management";
-                //"-LAP2.19-": Integer;
+            //"-LAP2.19-": Integer;
             begin
                 //>>P24578_008.001
                 "PWD Path for Closing Export" := CduLClosingMgt.GetDirectory("PWD Path for Closing Export");

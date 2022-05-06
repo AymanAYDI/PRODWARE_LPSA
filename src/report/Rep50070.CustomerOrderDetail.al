@@ -278,13 +278,13 @@ report 50070 "PWD Customer - Order Detail"
                 group(Options)
                 {
                     Caption = 'Options';
-                    field(ShowAmountsInLCY; PrintAmountsInLCY)
+                    field(ShowAmountsInLCYF; PrintAmountsInLCY)
                     {
                         ApplicationArea = Basic, Suite;
                         Caption = 'Show Amounts in LCY';
                         ToolTip = 'Specifies if the reported amounts are shown in the local currency.';
                     }
-                    field(NewPagePerCustomer; PrintOnlyOnePerPage)
+                    field(NewPagePerCustomerF; PrintOnlyOnePerPage)
                     {
                         ApplicationArea = Basic, Suite;
                         Caption = 'New Page per Customer';

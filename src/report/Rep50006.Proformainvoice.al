@@ -713,7 +713,7 @@ report 50006 "PWD Proforma invoice"
                 group(Options)
                 {
                     Caption = 'Options';
-                    field(NoOfCopies; NoOfCopies)
+                    field(NoOfCopiesF; NoOfCopies)
                     {
                         Caption = 'No. of Copies';
                         ApplicationArea = All;

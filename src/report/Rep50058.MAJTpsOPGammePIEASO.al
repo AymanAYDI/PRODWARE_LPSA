@@ -120,66 +120,66 @@ report 50058 "PWD MAJ Tps OP Gamme PIE A/S O"
                 {
                     Caption = 'Action';
                     ShowCaption = false;
-                    field(CodGOperation; CodGOperation)
+                    field(CodGOperationF; CodGOperation)
                     {
                         Caption = 'Pour l''opération';
                         ShowCaption = false;
                         TableRelation = "Machine Center";
                         ApplicationArea = All;
                     }
-                    field(CstG007; CstG007)
+                    field(CstG007F; CstG007)
                     {
                         ApplicationArea = All;
                         ShowCaption = false;
                         Editable = false;
                     }
-                    field(BooGSetupTime; BooGSetupTime)
+                    field(BooGSetupTimeF; BooGSetupTime)
                     {
                         Caption = 'prépa';
                         ShowCaption = false;
                         ApplicationArea = All;
                     }
-                    field(BooGMoveTime; BooGMoveTime)
+                    field(BooGMoveTimeF; BooGMoveTime)
                     {
                         Caption = 'transfert';
                         ShowCaption = false;
                         ApplicationArea = All;
 
                     }
-                    field(CstG008; CstG008)
+                    field(CstG008F; CstG008)
                     {
                         ApplicationArea = All;
                         ShowCaption = false;
                         Editable = false;
                     }
-                    field(DecGSetupTime; DecGSetupTime)
+                    field(DecGSetupTimeF; DecGSetupTime)
                     {
                         Caption = 'prépa';
                         ShowCaption = false;
                         ApplicationArea = All;
                         Editable = BooGSetupTime;
                     }
-                    field(DecGMoveTime; DecGMoveTime)
+                    field(DecGMoveTimeF; DecGMoveTime)
                     {
                         Caption = 'transfert';
                         ShowCaption = false;
                         ApplicationArea = All;
                         Editable = BooGMoveTime;
                     }
-                    field(CstG009; CstG009)
+                    field(CstG009F; CstG009)
                     {
                         ApplicationArea = All;
                         ShowCaption = false;
                         Editable = false;
                     }
-                    field(DecGSetupTimeO; DecGSetupTimeO)
+                    field(DecGSetupTimeOF; DecGSetupTimeO)
                     {
                         Caption = 'prépa';
                         ShowCaption = false;
                         ApplicationArea = All;
                         Editable = BooGSetupTime;
                     }
-                    field(DecGMoveTimeO; DecGMoveTimeO)
+                    field(DecGMoveTimeOF; DecGMoveTimeO)
                     {
                         Caption = 'transfert';
                         ShowCaption = false;

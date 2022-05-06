@@ -417,13 +417,13 @@ report 50021 "PWD Inventory Valuation - LPSA"
                 {
                     Caption = 'Options';
                     ShowCaption = false;
-                    field(StartDate; StartDate)
+                    field(StartDateF; StartDate)
                     {
                         Caption = 'Starting Date';
                         ShowCaption = false;
                         ApplicationArea = All;
                     }
-                    field(EndDate; EndDate)
+                    field(EndDateF; EndDate)
                     {
                         Caption = 'Ending Date';
                         ShowCaption = false;

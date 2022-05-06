@@ -1137,9 +1137,8 @@ codeunit 8073291 "PWD Buffer Management"
         RecLItemJounalLine."Posting Date" := TODAY;
         //>>LPSA. 14/12/2015
 
-        IF RecLItemJnlBatch."No. Series" <> '' THEN
-        //>>FE_LAPRIERRETTE_GP0004.001
-        BEGIN
+        IF RecLItemJnlBatch."No. Series" <> '' THEN BEGIN
+            //>>FE_LAPRIERRETTE_GP0004.001
             //RecLItemJounalLine."Document No.":=CduLNoSeriesMgt.TryGetNextNo(RecLItemJnlBatch."No. Series",RecLItemJounalLine."Posting Date"
             CduLNoSeriesMgt.GetNextNo1(RecLItemJnlBatch."No. Series", RecLItemJounalLine."Posting Date");
             CduLNoSeriesMgt.GetNextNo(RecLItemJnlBatch."No. Series", RecLItemJounalLine."Posting Date", FALSE);

@@ -160,15 +160,14 @@ report 50042 "PWD Updt Item - Dimension"
                 {
                     Caption = 'Options';
                     ShowCaption = false;
-                    field(RecGItemCategory;
-                    RecGItemCategory.Code)
+                    field(RecGItemCategoryF; RecGItemCategory.Code)
                     {
                         Caption = 'Nouveau code catégorie';
                         ShowCaption = false;
                         ApplicationArea = All;
                         TableRelation = "Item Category";
                     }
-                    field(CodGGroupCode; CodGGroupCode)
+                    field(CodGGroupCodeF; CodGGroupCode)
                     {
                         Caption = 'Nouveau code catégorie';
                         ShowCaption = false;
@@ -188,7 +187,7 @@ report 50042 "PWD Updt Item - Dimension"
                             EXIT(TRUE);
                         end;
                     }
-                    field(CstG0003; CstG0003)
+                    field(CstG0003F; CstG0003)
                     {
                         ShowCaption = false;
                         ApplicationArea = All;

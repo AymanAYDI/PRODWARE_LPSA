@@ -1,6 +1,6 @@
-reportextension 50000 PWD extends "Whse. - Receipt"
+reportextension 50000 "PWD WhseReceipt" extends "Whse. - Receipt"
 {
-    RDLCLayout = './src/reportrxtension/Rdl/WhseReceipt.rdlc';
+    RDLCLayout = './src/reportrxtension/Rdl/WhseReceipt.rdl';
     dataset
     {
     }

@@ -127,14 +127,14 @@ report 50059 "PWD Update Cost Method V2"
                 {
                     Caption = 'Item type';
                     ShowCaption = false;
-                    field(OptGReplenishmentSystem; OptGReplenishmentSystem)
+                    field(OptGReplenishmentSystemF; OptGReplenishmentSystem)
                     {
                         Caption = 'Item type';
                         OptionCaption = 'Purchase,Prod. Order, Purchase and Prod. Order';
                         ShowCaption = false;
                         ApplicationArea = All;
                     }
-                    field(OptCostMethForPurchasedItem; OptCostMethForPurchasedItem)
+                    field(OptCostMethForPurchasedItemF; OptCostMethForPurchasedItem)
                     {
                         Caption = 'Costing method to be forced for purchased items';
                         OptionCaption = 'FIFO,LIFO,Specific,Average,Standard';
@@ -142,7 +142,7 @@ report 50059 "PWD Update Cost Method V2"
                         ApplicationArea = All;
                         Editable = (OptGReplenishmentSystem = OptGReplenishmentSystem::Purchased) OR (OptGReplenishmentSystem = OptGReplenishmentSystem::Both);
                     }
-                    field(OptCostMethForManufacturedItem; OptCostMethForManufacturedItem)
+                    field(OptCostMethForManufacturedItemF; OptCostMethForManufacturedItem)
                     {
                         Caption = 'Costing method to be forced for manufactured items';
                         OptionCaption = 'FIFO,LIFO,Specific,Average,Standard';
@@ -150,7 +150,7 @@ report 50059 "PWD Update Cost Method V2"
                         ApplicationArea = All;
                         Editable = (OptGReplenishmentSystem = OptGReplenishmentSystem::Manufactured) OR (OptGReplenishmentSystem = OptGReplenishmentSystem::Both);
                     }
-                    field(CstG011; CstG011)
+                    field(CstG011F; CstG011)
                     {
                         ApplicationArea = All;
                         ShowCaption = false;

@@ -1569,19 +1569,19 @@ report 50005 "PWD Order LAP"
                 {
                     Caption = 'Options';
                     ShowCaption = false;
-                    field(NoOfCopies; NoOfCopies)
+                    field(NoOfCopiesF; NoOfCopies)
                     {
                         Caption = 'No. of Copies';
                         ShowCaption = false;
                         ApplicationArea = All;
                     }
-                    field(ShowInternalInfo; ShowInternalInfo)
+                    field(ShowInternalInfoF; ShowInternalInfo)
                     {
                         Caption = 'Show Internal Information';
                         ShowCaption = false;
                         ApplicationArea = All;
                     }
-                    field(ArchiveDocument; ArchiveDocument)
+                    field(ArchiveDocumentF; ArchiveDocument)
                     {
                         Caption = 'Archive Document';
                         ApplicationArea = All;
@@ -1592,7 +1592,7 @@ report 50005 "PWD Order LAP"
                                 LogInteraction := false;
                         end;
                     }
-                    field(LogInteraction; LogInteraction)
+                    field(LogInteractionF; LogInteraction)
                     {
                         Caption = 'Log Interaction';
                         Enabled = LogInteractionEnable;

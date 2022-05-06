@@ -87,12 +87,10 @@ tableextension 60009 "PWD PurchaseLine" extends "Purchase Line"
             Caption = 'Budgeted';
             Description = 'TDL.LPSA';
         }
-        field(8073282; "PWD WMS_Status"; Option)   
+        field(8073282; "PWD WMS_Status"; Enum "PWD WMS_Status")
         {
             Caption = 'WMS_Status';
             Description = 'ProdConnect1.5';
-            OptionCaption = ' ,Send,Received';
-            OptionMembers = " ",Send,Received;
         }
         field(8073283; "PWD WMS_Status_Header"; Enum "Purchase Document Status")
         {

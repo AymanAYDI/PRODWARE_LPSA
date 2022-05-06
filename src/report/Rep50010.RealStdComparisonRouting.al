@@ -263,7 +263,7 @@ report 50010 "Real Std Comparison Routing"
                 group("Option")
                 {
                     Caption = 'Option';
-                    field(DateFilter; DateFilter)
+                    field(DateFilterF; DateFilter)
                     {
                         Caption = 'Filtre Date';
                         ApplicationArea = All;

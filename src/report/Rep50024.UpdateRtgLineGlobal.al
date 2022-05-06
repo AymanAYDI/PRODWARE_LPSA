@@ -33,8 +33,6 @@ report 50024 "PWD Update Rtg Line Global"
             }
 
             trigger OnAfterGetRecord()
-            var
-                DateTime: DateTime;
             begin
                 Bdialog.Update(1, IntGCounter);
 
@@ -349,7 +347,7 @@ report 50024 "PWD Update Rtg Line Global"
                 {
                     Caption = 'Reference';
                     ShowCaption = false;
-                    field(CodGRoutingHeader; CodGRoutingHeader)
+                    field(CodGRoutingHeaderF; CodGRoutingHeader)
                     {
                         Caption = 'Reference Routing No.';
                         ShowCaption = false;
@@ -367,7 +365,7 @@ report 50024 "PWD Update Rtg Line Global"
                                     CodGRoutingHeader := 'TT_OPE_PIE';
                         end;
                     }
-                    field(CodGOperationNo; CodGOperationNo)
+                    field(CodGOperationNoF; CodGOperationNo)
                     {
                         Caption = 'Operation No.';
                         //OptionCaption = 'Operations No.';
@@ -395,37 +393,37 @@ report 50024 "PWD Update Rtg Line Global"
                 {
                     Caption = 'Options';
                     ShowCaption = false;
-                    field("BooG_Setup_Time"; BooG_Setup_Time)
+                    field("BooG_Setup_TimeF"; BooG_Setup_Time)
                     {
                         Caption = 'Setup Time';
                         ShowCaption = false;
                         ApplicationArea = All;
                     }
-                    field("BooG_Run_Time"; BooG_Run_Time)
+                    field("BooG_Run_TimeF"; BooG_Run_Time)
                     {
                         Caption = 'Run Time';
                         ShowCaption = false;
                         ApplicationArea = All;
                     }
-                    field("BooG_Wait_Time"; BooG_Wait_Time)
+                    field("BooG_Wait_TimeF"; BooG_Wait_Time)
                     {
                         Caption = 'Wait Time';
                         ShowCaption = false;
                         ApplicationArea = All;
                     }
-                    field("BooG_Move_Time"; BooG_Move_Time)
+                    field("BooG_Move_TimeF"; BooG_Move_Time)
                     {
                         Caption = 'Move Time';
                         ShowCaption = false;
                         ApplicationArea = All;
                     }
-                    field("BooG_Update_Cost_FromWC"; BooG_Update_Cost_FromWC)
+                    field("BooG_Update_Cost_FromWCF"; BooG_Update_Cost_FromWC)
                     {
                         Caption = 'Update Unit Cost from Work Center';
                         ShowCaption = false;
                         ApplicationArea = All;
                     }
-                    field("BooG_Update_Cost_FromMC"; BooG_Update_Cost_FromMC)
+                    field("BooG_Update_Cost_FromMCF"; BooG_Update_Cost_FromMC)
                     {
                         Caption = 'Update Unit Cost from Machine Center';
                         ShowCaption = false;
@@ -434,7 +432,7 @@ report 50024 "PWD Update Rtg Line Global"
                     group("Les OF sont filtrés par défaut avec Statut = Lancé et Groupe de planification <> ACIERS")
                     {
                         Caption = 'Les OF sont filtrés par défaut avec Statut = Lancé et Groupe de planification <> ACIERS';
-                        field(OptGStep; OptGStep)
+                        field(OptGStepF; OptGStep)
                         {
                             Caption = 'Etape';
                             ApplicationArea = All;

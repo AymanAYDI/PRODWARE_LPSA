@@ -168,7 +168,7 @@ report 50026 "Update Rtg Line Global IRON"
                 {
                     Caption = 'Reference';
                     ShowCaption = false;
-                    field(CodGRoutingHeader; CodGRoutingHeader)
+                    field(CodGRoutingHeaderF; CodGRoutingHeader)
                     {
                         Caption = 'Reference Routing No.';
                         ShowCaption = false;
@@ -186,7 +186,7 @@ report 50026 "Update Rtg Line Global IRON"
                                     CodGRoutingHeader := 'ACIER_TTES_OPE';
                         end;
                     }
-                    field(CodGOperationNo; CodGOperationNo)
+                    field(CodGOperationNoF; CodGOperationNo)
                     {
                         Caption = 'Operation No.';
                         //OptionCaption = 'Operations No.';
@@ -214,25 +214,25 @@ report 50026 "Update Rtg Line Global IRON"
                 {
                     Caption = 'Options';
                     ShowCaption = false;
-                    field("BooG_Setup_Time"; BooG_Setup_Time)
+                    field("BooG_Setup_TimeF"; BooG_Setup_Time)
                     {
                         Caption = 'Setup Time';
                         ShowCaption = false;
                         ApplicationArea = All;
                     }
-                    field("BooG_Run_Time"; BooG_Run_Time)
+                    field("BooG_Run_TimeF"; BooG_Run_Time)
                     {
                         Caption = 'Run Time';
                         ShowCaption = false;
                         ApplicationArea = All;
                     }
-                    field("BooG_Wait_Time"; BooG_Wait_Time)
+                    field("BooG_Wait_TimeF"; BooG_Wait_Time)
                     {
                         Caption = 'Wait Time';
                         ShowCaption = false;
                         ApplicationArea = All;
                     }
-                    field("BooG_Move_Time"; BooG_Move_Time)
+                    field("BooG_Move_TimeF"; BooG_Move_Time)
                     {
                         Caption = 'Move Time';
                         ShowCaption = false;

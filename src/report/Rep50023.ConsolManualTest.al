@@ -24,7 +24,7 @@ report 50023 "PWD Consol Manual Test"
                     ShowCaption = false;
                     ApplicationArea = All;
                 }
-                field(OptGTreatment; OptGTreatment)
+                field(OptGTreatmentF; OptGTreatment)
                 {
                     Caption = 'Traitement à lancer';
                     ApplicationArea = All;

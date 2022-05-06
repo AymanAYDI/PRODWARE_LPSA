@@ -1,7 +1,7 @@
 enum 50007 "PWD Forecast Origin"
 {
     Extensible = true;
-    
+
     value(0; " ")
     {
         Caption = ' ';

@@ -16,7 +16,7 @@ report 50022 "PWD Tracking Card"
     // +----------------------------------------------------------------------------------------------------------------+
     DefaultLayout = RDLC;
     RDLCLayout = './src/report/rdl/TrackingCard.rdl';
-UsageCategory = none;
+    UsageCategory = none;
     Caption = 'Tracking Card';
 
     dataset
@@ -292,8 +292,6 @@ UsageCategory = none;
             }
 
             trigger OnAfterGetRecord()
-            var
-                RecLLocation: Record Location;
             begin
                 if not RecGItem.Get("Production Order"."Source No.") then RecGItem.Init();
                 if "Production Order"."Source Type" <> "Production Order"."Source Type"::Item then RecGItem.Init();

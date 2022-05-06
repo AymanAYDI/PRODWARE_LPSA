@@ -11,7 +11,7 @@ report 50038 "PWD Inventory Valuation Excel"
 
     Caption = 'Inventory Valuation Excel';
     ProcessingOnly = true;
-UsageCategory = none;
+    UsageCategory = none;
     dataset
     {
         dataitem(Item; Item)
@@ -263,25 +263,25 @@ UsageCategory = none;
                 {
                     Caption = 'Options';
                     ShowCaption = false;
-                    field(StartDate; StartDate)
+                    field(StartDateF; StartDate)
                     {
                         Caption = 'Starting Date';
                         ShowCaption = false;
                         ApplicationArea = All;
                     }
-                    field(EndDate; EndDate)
+                    field(EndDateF; EndDate)
                     {
                         Caption = 'Ending Date';
                         ShowCaption = false;
                         ApplicationArea = All;
                     }
-                    field(ShowExpected; ShowExpected)
+                    field(ShowExpectedF; ShowExpected)
                     {
                         Caption = 'Include Expected Cost';
                         ShowCaption = false;
                         ApplicationArea = All;
                     }
-                    field(BooGExportExcel; BooGExportExcel)
+                    field(BooGExportExcelF; BooGExportExcel)
                     {
                         Caption = 'Excel (CSV) Export';
                         Editable = false;

@@ -267,7 +267,7 @@ report 50048 "PWD PO Routing Line Extraction"
                 {
                     Caption = 'Export';
                     ShowCaption = false;
-                    field(TxtGFileName; TxtGFileName)
+                    field(TxtGFileNameF; TxtGFileName)
                     {
                         Caption = 'Fichier à exporter';
                         ShowCaption = false;
@@ -296,7 +296,7 @@ report 50048 "PWD PO Routing Line Extraction"
 
     trigger OnPostReport()
     begin
-        MyFile.Close;
+        MyFile.Close();
         Message('Traitement terminé');
     end;
 

@@ -9,7 +9,7 @@ pageextension 60103 "PWD WhseShipmentSubform" extends "Whse. Shipment Subform"
             {
                 Caption = 'Delete reservations.';
                 ApplicationArea = All;
-
+                Image= Delete;
                 trigger OnAction()
                 begin
                     DeleteResEntriesForOrderLine();

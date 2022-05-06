@@ -176,6 +176,7 @@ page 50021 "PWD Item List requirement"
                     RunPageLink = "Item No." = FIELD("No.");
                     RunPageView = SORTING("Item No.");
                     ApplicationArea = All;
+                    Image = NonStockItem;
                 }
                 group(Action84)
                 {
@@ -261,6 +262,7 @@ page 50021 "PWD Item List requirement"
                         RunObject = Page "Item Entry Statistics";
                         RunPageLink = "No." = FIELD("No."), "Date Filter" = FIELD("Date Filter"), "Global Dimension 1 Filter" = FIELD("Global Dimension 1 Filter"), "Global Dimension 2 Filter" = FIELD("Global Dimension 2 Filter"), "Location Filter" = FIELD("Location Filter"), "Drop Shipment Filter" = FIELD("Drop Shipment Filter"), "Variant Filter" = FIELD("Variant Filter");
                         ApplicationArea = All;
+                        Image = EntryStatistics;
                     }
                     action(Action22)
                     {
@@ -268,6 +270,7 @@ page 50021 "PWD Item List requirement"
                         RunObject = Page "Item Turnover";
                         RunPageLink = "No." = FIELD("No."), "Global Dimension 1 Filter" = FIELD("Global Dimension 1 Filter"), "Global Dimension 2 Filter" = FIELD("Global Dimension 2 Filter"), "Location Filter" = FIELD("Location Filter"), "Drop Shipment Filter" = FIELD("Drop Shipment Filter"), "Variant Filter" = FIELD("Variant Filter");
                         ApplicationArea = All;
+                        Image = Turnover;
                     }
                 }
                 action(Action73)
@@ -293,6 +296,7 @@ page 50021 "PWD Item List requirement"
                         RunObject = Page "Item Availability by Periods";
                         RunPageLink = "No." = FIELD("No."), "Global Dimension 1 Filter" = FIELD("Global Dimension 1 Filter"), "Global Dimension 2 Filter" = FIELD("Global Dimension 2 Filter"), "Location Filter" = FIELD("Location Filter"), "Drop Shipment Filter" = FIELD("Drop Shipment Filter"), "Variant Filter" = FIELD("Variant Filter");
                         ApplicationArea = All;
+                        Image = Period;
                     }
                     action(Action80)
                     {
@@ -300,6 +304,7 @@ page 50021 "PWD Item List requirement"
                         RunObject = Page "Item Availability by Variant";
                         RunPageLink = "No." = FIELD("No."), "Global Dimension 1 Filter" = FIELD("Global Dimension 1 Filter"), "Global Dimension 2 Filter" = FIELD("Global Dimension 2 Filter"), "Location Filter" = FIELD("Location Filter"), "Drop Shipment Filter" = FIELD("Drop Shipment Filter"), "Variant Filter" = FIELD("Variant Filter");
                         ApplicationArea = All;
+                        Image = ItemAvailability;
                     }
                     action(Action78)
                     {
@@ -307,6 +312,7 @@ page 50021 "PWD Item List requirement"
                         RunObject = Page "Item Availability by Location";
                         RunPageLink = "No." = FIELD("No."), "Global Dimension 1 Filter" = FIELD("Global Dimension 1 Filter"), "Global Dimension 2 Filter" = FIELD("Global Dimension 2 Filter"), "Location Filter" = FIELD("Location Filter"), "Drop Shipment Filter" = FIELD("Drop Shipment Filter"), "Variant Filter" = FIELD("Variant Filter");
                         ApplicationArea = All;
+                        Image = ItemAvailbyLoc;
                     }
                 }
                 action(Action116)
@@ -336,12 +342,13 @@ page 50021 "PWD Item List requirement"
                         RunPageLink = "Table ID" = CONST(27), "No." = FIELD("No.");
                         ShortCutKey = 'Shift+Ctrl+D';
                         ApplicationArea = All;
+                        Image = Dimensions;
                     }
                     action(Action93)
                     {
                         Caption = 'Dimensions-&Multiple';
                         ApplicationArea = All;
-
+                        Image = Dimensions;
                         trigger OnAction()
                         var
                             Item: Record Item;
@@ -361,6 +368,7 @@ page 50021 "PWD Item List requirement"
                     RunObject = Page "Item Picture";
                     RunPageLink = "No." = FIELD("No."), "Date Filter" = FIELD("Date Filter"), "Global Dimension 1 Filter" = FIELD("Global Dimension 1 Filter"), "Global Dimension 2 Filter" = FIELD("Global Dimension 2 Filter"), "Location Filter" = FIELD("Location Filter"), "Drop Shipment Filter" = FIELD("Drop Shipment Filter"), "Variant Filter" = FIELD("Variant Filter");
                     ApplicationArea = All;
+                    Image = Picture;
                 }
                 separator(Action24)
                 {
@@ -371,6 +379,7 @@ page 50021 "PWD Item List requirement"
                     RunObject = Page "Item Units of Measure";
                     RunPageLink = "Item No." = FIELD("No.");
                     ApplicationArea = All;
+                    Image = UnitsofMeasure;
                 }
                 action(Action30)
                 {
@@ -378,6 +387,7 @@ page 50021 "PWD Item List requirement"
                     RunObject = Page "Item Variants";
                     RunPageLink = "Item No." = FIELD("No.");
                     ApplicationArea = All;
+                    Image = ItemVariant;
                 }
                 action(Action82)
                 {
@@ -385,6 +395,7 @@ page 50021 "PWD Item List requirement"
                     RunObject = Page "Item Cross Reference Entries";
                     RunPageLink = "Item No." = FIELD("No.");
                     ApplicationArea = All;
+                    Image = ContactReference;
                 }
                 action(Action500)
                 {
@@ -392,12 +403,14 @@ page 50021 "PWD Item List requirement"
                     RunObject = Page "Item Substitution Entry";
                     RunPageLink = Type = CONST(Item), "No." = FIELD("No.");
                     ApplicationArea = All;
+                    Image = ItemSubstitution;
                 }
                 action(Action76)
                 {
                     Caption = 'Nonstoc&k Items';
                     RunObject = Page "Catalog Item List";
                     ApplicationArea = All;
+                    Image = NonStockItem;
                 }
                 action("<Action1100267006>")
                 {
@@ -446,6 +459,7 @@ page 50021 "PWD Item List requirement"
                     RunObject = Page "Item Translations";
                     RunPageLink = "Item No." = FIELD("No."), "Variant Code" = CONST();
                     ApplicationArea = All;
+                    Image = Translations;
                 }
                 action(Action28)
                 {
@@ -454,6 +468,7 @@ page 50021 "PWD Item List requirement"
                     RunPageLink = "Table Name" = CONST(Item), "No." = FIELD("No.");
                     RunPageView = SORTING("Table Name", "No.", "Language Code", "All Language Codes", "Starting Date", "Ending Date");
                     ApplicationArea = All;
+                    Image = Text;
                 }
                 separator(Action31)
                 {
@@ -467,6 +482,7 @@ page 50021 "PWD Item List requirement"
                         RunObject = Page "Assembly BOM";
                         RunPageLink = "Parent Item No." = FIELD("No.");
                         ApplicationArea = All;
+                        Image = AssemblyBOM;
                     }
                     action(Action49)
                     {
@@ -475,12 +491,13 @@ page 50021 "PWD Item List requirement"
                         RunPageLink = Type = CONST(Item), "No." = FIELD("No.");
                         RunPageView = SORTING(Type, "No.");
                         ApplicationArea = All;
+                        Image = "Where-Used";
                     }
                     action(Action50)
                     {
                         Caption = 'Calc. Stan&dard Cost';
                         ApplicationArea = All;
-
+                        Image = CalculateCost;
                         trigger OnAction()
                         begin
                             CalculateStdCost.CalcItem(Rec."No.", TRUE);
@@ -494,7 +511,7 @@ page 50021 "PWD Item List requirement"
                     {
                         Caption = 'Where-Used';
                         ApplicationArea = All;
-
+                        Image = "Where-Used";
                         trigger OnAction()
                         var
                             ProdBOMWhereUsed: Page "Prod. BOM Where-Used";
@@ -507,7 +524,7 @@ page 50021 "PWD Item List requirement"
                     {
                         Caption = 'Calc. Stan&dard Cost';
                         ApplicationArea = All;
-
+                        Image = CalculateCost;
                         trigger OnAction()
                         begin
                             CalculateStdCost.CalcItem(Rec."No.", FALSE);
@@ -525,6 +542,7 @@ page 50021 "PWD Item List requirement"
                     RunPageLink = "Item No." = FIELD("No.");
                     RunPageView = SORTING("Item No.");
                     ApplicationArea = All;
+                    Image = ServiceItem;
                 }
                 action(Action105)
                 {
@@ -532,6 +550,7 @@ page 50021 "PWD Item List requirement"
                     RunObject = Page "Troubleshooting Setup";
                     RunPageLink = Type = CONST(Item), "No." = FIELD("No.");
                     ApplicationArea = All;
+                    Image = Setup;
                 }
                 group(Action107)
                 {
@@ -542,12 +561,13 @@ page 50021 "PWD Item List requirement"
                         RunObject = Page "Resource Skills";
                         RunPageLink = Type = CONST(Item), "No." = FIELD("No.");
                         ApplicationArea = All;
+                        Image = ResourceSkills;
                     }
                     action(Action109)
                     {
                         Caption = 'Skilled R&esources';
                         ApplicationArea = All;
-
+                        Image = ResourceSkills;
                         trigger OnAction()
                         var
                             ResourceSkill: Record "Resource Skill";
@@ -569,6 +589,7 @@ page 50021 "PWD Item List requirement"
                     RunPageLink = "Item No." = FIELD("No.");
                     RunPageView = SORTING("Item No.", "Variant Code", "Unit of Measure Code");
                     ApplicationArea = All;
+                    Image = ItemInvoice;
                 }
             }
             group(Action33)
@@ -590,6 +611,7 @@ page 50021 "PWD Item List requirement"
                     RunPageLink = Type = CONST(Item), Code = FIELD("No.");
                     RunPageView = SORTING(Type, Code);
                     ApplicationArea = All;
+                    Image = SalesLineDisc;
                 }
                 action(Action124)
                 {
@@ -597,6 +619,7 @@ page 50021 "PWD Item List requirement"
                     RunObject = Page "Sales Prepayment Percentages";
                     RunPageLink = "Item No." = FIELD("No.");
                     ApplicationArea = All;
+                    Image = PrepaymentPercentages;
                 }
                 action(Action37)
                 {
@@ -614,6 +637,7 @@ page 50021 "PWD Item List requirement"
                     RunPageLink = Type = CONST(Item), "No." = FIELD("No.");
                     RunPageView = SORTING("Document Type", Type, "No.");
                     ApplicationArea = All;
+                    Image = ReturnOrder;
                 }
             }
             group(Action38)
@@ -626,6 +650,7 @@ page 50021 "PWD Item List requirement"
                     RunPageLink = "Item No." = FIELD("No.");
                     RunPageView = SORTING("Item No.");
                     ApplicationArea = All;
+                    Image = VendorPaymentJournal;
                 }
                 action(Action39)
                 {
@@ -643,6 +668,7 @@ page 50021 "PWD Item List requirement"
                     RunPageLink = "Item No." = FIELD("No.");
                     RunPageView = SORTING("Item No.");
                     ApplicationArea = All;
+                    Image = SalesLineDisc;
                 }
                 action(Action125)
                 {
@@ -650,6 +676,7 @@ page 50021 "PWD Item List requirement"
                     RunObject = Page "Purchase Prepmt. Percentages";
                     RunPageLink = "Item No." = FIELD("No.");
                     ApplicationArea = All;
+                    Image = PrepaymentPercentages;
                 }
                 separator(Action117)
                 {
@@ -683,7 +710,7 @@ page 50021 "PWD Item List requirement"
                 {
                     Caption = '&Create Stockkeeping Unit';
                     ApplicationArea = All;
-
+                    Image = CreateBins;
                     trigger OnAction()
                     var
                         Item: Record Item;
@@ -696,6 +723,7 @@ page 50021 "PWD Item List requirement"
                 {
                     Caption = 'C&alculate Counting Period';
                     ApplicationArea = All;
+                    Image = CalculateCalendar;
 
                     trigger OnAction()
                     var
@@ -708,7 +736,7 @@ page 50021 "PWD Item List requirement"
                 {
                     Caption = 'C&opy Item';
                     ApplicationArea = All;
-
+                    Image = CopyItem;
                     trigger OnAction()
                     var
                         ReturnItem: Record Item;
@@ -815,6 +843,7 @@ page 50021 "PWD Item List requirement"
                 //PromotedCategory = "Report";
                 RunObject = Report "Inventory - List";
                 ApplicationArea = All;
+                Image = List;
             }
             action(Action1907629906)
             {
@@ -824,6 +853,7 @@ page 50021 "PWD Item List requirement"
                 //PromotedCategory = "Report";
                 RunObject = Report "Item Register - Quantity";
                 ApplicationArea = All;
+                Image = ItemRegisters;
             }
             action(Action1904068306)
             {
@@ -833,6 +863,7 @@ page 50021 "PWD Item List requirement"
                 //PromotedCategory = "Report";
                 RunObject = Report "Inventory - Transaction Detail";
                 ApplicationArea = All;
+                Image = Transactions;
             }
             action(Action1901091106)
             {
@@ -841,6 +872,7 @@ page 50021 "PWD Item List requirement"
                 PromotedCategory = "Report";
                 RunObject = Report "Inventory Availability";
                 ApplicationArea = All;
+                Image = Inventory;
             }
             action(Action1901254106)
             {
@@ -850,6 +882,8 @@ page 50021 "PWD Item List requirement"
                 //PromotedCategory = "Report";
                 RunObject = Report Status;
                 ApplicationArea = All;
+                Image = Status;
+
             }
             action(Action1900649906)
             {
@@ -859,6 +893,7 @@ page 50021 "PWD Item List requirement"
                 //PromotedCategory = "Report";
                 RunObject = Report "Inventory Value (Help Report)";
                 ApplicationArea = All;
+                Image = List;
             }
             action(Action1906212206)
             {
@@ -868,6 +903,7 @@ page 50021 "PWD Item List requirement"
                 //PromotedCategory = "Report";
                 RunObject = Report "Inventory - Availability Plan";
                 ApplicationArea = All;
+                Image = Inventory;
             }
             action(Action1905771206)
             {
@@ -878,11 +914,13 @@ page 50021 "PWD Item List requirement"
                 //TODO: Report "SR Item Sales Lines" n'existe pas
                 //RunObject = Report "SR Item Sales Lines";
                 ApplicationArea = All;
+                Image = Item;
             }
             action(Action1906265806)
             {
                 Caption = 'Item Purchase Lines';
                 Promoted = false;
+                Image = Purchase;
                 //The property 'PromotedCategory' can only be set if the property 'Promoted' is set to 'true'
                 //PromotedCategory = "Report";
                 //TODO: Report "SR Item Purchase Lines" n'existe pas
@@ -896,11 +934,13 @@ page 50021 "PWD Item List requirement"
                 PromotedCategory = "Report";
                 RunObject = Report "Inventory - Top 10 List";
                 ApplicationArea = All;
+                Image= List;
             }
             action(Action1901981306)
             {
                 Caption = 'Item Statistic Period Comparison';
                 Promoted = false;
+                Image= Statistics;
                 //The property 'PromotedCategory' can only be set if the property 'Promoted' is set to 'true'
                 //PromotedCategory = "Report";
                 //TODO: Report "SR Item Stat. Period Comp." n'existe pas
@@ -915,6 +955,7 @@ page 50021 "PWD Item List requirement"
                 //PromotedCategory = "Report";
                 RunObject = Report "Inventory - Sales Statistics";
                 ApplicationArea = All;
+                Image= Statistics;
             }
             action(Action1904034006)
             {
@@ -924,6 +965,7 @@ page 50021 "PWD Item List requirement"
                 //PromotedCategory = "Report";
                 RunObject = Report "Inventory - Customer Sales";
                 ApplicationArea = All;
+                Image= Sales;
             }
             action(Action1906231806)
             {
@@ -933,6 +975,7 @@ page 50021 "PWD Item List requirement"
                 //PromotedCategory = "Report";
                 RunObject = Report "Inventory - Vendor Purchases";
                 ApplicationArea = All;
+                Image= Purchase;
             }
             action(Action1905572506)
             {
@@ -942,6 +985,7 @@ page 50021 "PWD Item List requirement"
                 //TODO: Report "SR Price List" n'existe pas
                 //RunObject = Report "SR Price List";
                 ApplicationArea = All;
+                Image= Price;
             }
             action(Action1900128906)
             {
@@ -950,6 +994,7 @@ page 50021 "PWD Item List requirement"
                 PromotedCategory = "Report";
                 RunObject = Report "Inventory Cost and Price List";
                 ApplicationArea = All;
+                Image= List;
             }
             action(Action1906101206)
             {
@@ -958,6 +1003,7 @@ page 50021 "PWD Item List requirement"
                 PromotedCategory = "Report";
                 RunObject = Report "Inventory - Reorders";
                 ApplicationArea = All;
+                Image= Inventory;
             }
             action(Action1900210306)
             {
@@ -966,6 +1012,7 @@ page 50021 "PWD Item List requirement"
                 PromotedCategory = "Report";
                 RunObject = Report "Inventory - Sales Back Orders";
                 ApplicationArea = All;
+                Image= Inventory;
             }
             action(Action1900430206)
             {
@@ -984,6 +1031,7 @@ page 50021 "PWD Item List requirement"
                 //PromotedCategory = "Report";
                 RunObject = Report "Inventory - Cost Variance";
                 ApplicationArea = All;
+                Image= Costs;
             }
             action(Action1907644006)
             {
@@ -993,6 +1041,7 @@ page 50021 "PWD Item List requirement"
                 //PromotedCategory = "Report";
                 RunObject = Report "Phys. Inventory List";
                 ApplicationArea = All;
+                Image=PhysicalInventory;
             }
             action(Action1906316306)
             {
@@ -1010,6 +1059,7 @@ page 50021 "PWD Item List requirement"
                 //PromotedCategory = "Report";
                 RunObject = Report "Catalog Item Sales";
                 ApplicationArea = All;
+                Image= NonStockItem;
             }
             action(Action1905753506)
             {
@@ -1019,6 +1069,7 @@ page 50021 "PWD Item List requirement"
                 //PromotedCategory = "Report";
                 RunObject = Report "Item Substitutions";
                 ApplicationArea = All;
+                Image= ItemSubstitution;
             }
             action(Action1904299906)
             {
@@ -1046,6 +1097,7 @@ page 50021 "PWD Item List requirement"
                 //PromotedCategory = "Report";
                 RunObject = Report "Item Register - Value";
                 ApplicationArea = All;
+                Image= Register;
             }
             action(Action1900461506)
             {
@@ -1055,6 +1107,7 @@ page 50021 "PWD Item List requirement"
                 //PromotedCategory = "Report";
                 RunObject = Report "Item Charges - Specification";
                 ApplicationArea = All;
+                Image= Item;
             }
             action(Action1900111206)
             {

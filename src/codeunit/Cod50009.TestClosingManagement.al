@@ -226,7 +226,7 @@ codeunit 50009 "PWD Test Closing Management"
 
     procedure EndMessage()
     begin
-        FilGToExport.Close;
+        FilGToExport.Close();
 
         if IsServiceTier then begin
             FileMgt.DownloadToFile(TxtGExportFileName, TxtGServerFileName);

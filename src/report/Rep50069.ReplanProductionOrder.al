@@ -253,14 +253,14 @@ report 50069 "PWD Replan Production Order"
                 group(Options)
                 {
                     Caption = 'Options';
-                    field(Direction; Direction)
+                    field(DirectionF; Direction)
                     {
                         ApplicationArea = Manufacturing;
                         Caption = 'Scheduling Direction';
                         OptionCaption = 'Forward,Back';
                         ToolTip = 'Specifies if you want the scheduling to be replanned forward or backward.';
                     }
-                    field(CalcMethod; CalcMethod)
+                    field(CalcMethodF; CalcMethod)
                     {
                         ApplicationArea = Manufacturing;
                         Caption = 'Plan';

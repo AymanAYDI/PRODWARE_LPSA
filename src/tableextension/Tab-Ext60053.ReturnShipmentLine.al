@@ -30,12 +30,10 @@ tableextension 60053 "PWD ReturnShipmentLine" extends "Return Shipment Line"
             Caption = 'LPSA Description 2';
             Description = 'LAP1.00';
         }
-        field(8073282; "PWD WMS_Status"; Option)
+        field(8073282; "PWD WMS_Status"; Enum "PWD WMS_Status")
         {
             Caption = 'WMS_Status';
             Description = 'ProdConnect1.5';
-            OptionCaption = ' ,Send,Received';
-            OptionMembers = " ",Send,Received;
         }
     }
 }

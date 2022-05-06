@@ -35,7 +35,7 @@ report 50049 "PWD Import Stock Test"
                     ShowCaption = false;
                     ApplicationArea = All;
                 }
-                field(OptGTreatment; OptGTreatment)
+                field(OptGTreatmentF; OptGTreatment)
                 {
                     Caption = 'Traitement à lancer';
                     ApplicationArea = All;

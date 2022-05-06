@@ -302,7 +302,7 @@ page 50023 "Purchase Order Archive Lines"
                 {
                     Caption = 'Document &LineTracking';
                     ApplicationArea = All;
-
+                    Image= Documents;
                     trigger OnAction()
                     begin
                         // dach0001.begin

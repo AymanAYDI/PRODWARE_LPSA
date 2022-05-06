@@ -120,11 +120,11 @@ report 50001 "Export Planning Client Excel"
                         if UploadedFileName = '' then
                             UploadFile()
                         else
-                            FileName := UploadedFileName;
-                    TempExcelBuffer.OpenBook(FileName, SheetName);
+                            GFileName := UploadedFileName;
+                    TempExcelBuffer.OpenBook(GFileName, SheetName);
                     TempExcelBuffer.WriteSheet('', CompanyName, UserId);
                 end else
-                    //TODO:There is no argument given that corresponds to the required formal parameter 'FileName' of 'CreateBook(Text, Text)'
+                    //TODO:There is no argument given that corresponds to the required formal parameter 'GFileName' of 'CreateBook(Text, Text)'
                     //TempExcelBuffer.CreateBook;
                     TempExcelBuffer.WriteSheet(Text003E, CompanyName, UserId);
                 Commit();
@@ -165,7 +165,7 @@ report 50001 "Export Planning Client Excel"
                 {
                     Caption = 'Options';
                     ShowCaption = false;
-                    field("Option"; Option)
+                    field(OptionF; Option)
                     {
                         Caption = 'Option';
                         OptionCaption = 'Create Workbook,Update Workbook';
@@ -177,7 +177,7 @@ report 50001 "Export Planning Client Excel"
                             UpdateRequestForm();
                         end;
                     }
-                    field(FileName; FileName)
+                    field(FileName; GFileName)
                     {
                         Caption = 'Workbook File Name';
                         Enabled = FileNameEnable;
@@ -187,7 +187,7 @@ report 50001 "Export Planning Client Excel"
                         begin
                             UploadFile();
                             if IsServiceTier and (UploadedFileName <> '') then
-                                FileName := Text003;
+                                GFileName := Text003;
                         end;
 
                         trigger OnValidate()
@@ -195,7 +195,7 @@ report 50001 "Export Planning Client Excel"
                             FileNameOnAfterValidate();
                         end;
                     }
-                    field(SheetName; SheetName)
+                    field(SheetNameF; SheetName)
                     {
                         Caption = 'Worksheet Name';
                         Enabled = SheetNameEnable;
@@ -208,7 +208,7 @@ report 50001 "Export Planning Client Excel"
                             if IsServiceTier then
                                 SheetName := ExcelBuf.SelectSheetsName(UploadedFileName)
                             else
-                                SheetName := ExcelBuf.SelectSheetsName(FileName);
+                                SheetName := ExcelBuf.SelectSheetsName(GFileName);
                         end;
                     }
                 }
@@ -263,7 +263,7 @@ report 50001 "Export Planning Client Excel"
         Text003: Label 'The file was successfully uploaded to server';
         Text003E: Label 'Export Planning Client Excel';
         Option: Option "Create Workbook","Update Workbook";
-        FileName: Text[250];
+        GFileName: Text[250];
         SheetName: Text[250];
         ForecastEntryFiter: Text[1024];
         SalesLineFiter: Text[1024];
@@ -279,15 +279,15 @@ report 50001 "Export Planning Client Excel"
         if Option = Option::"Update Workbook" then begin
             if not IsServiceTier then;
             //TODO:
-            // RequestOptionsPage.FileName.ENABLED(TRUE);
+            // RequestOptionsPage.GFileName.ENABLED(TRUE);
             // RequestOptionsPage.SheetName.ENABLED(TRUE);
         end else begin
-            FileName := '';
+            GFileName := '';
             UploadedFileName := '';
             SheetName := '';
             if not IsServiceTier then;
             //TODO:
-            // RequestOptionsPage.FileName.ENABLED(FALSE);
+            // RequestOptionsPage.GFileName.ENABLED(FALSE);
             // RequestOptionsPage.SheetName.ENABLED(FALSE);
         end;
     end;
@@ -363,15 +363,15 @@ report 50001 "Export Planning Client Excel"
     var
         FileMgt: Codeunit "File Management";
     begin
-        UploadedFileName := FileMgt.UploadFileWithFilter(Text002, FileName, 'Excel', '');
-        FileName := UploadedFileName;
+        UploadedFileName := FileMgt.UploadFileWithFilter(Text002, GFileName, 'Excel', '');
+        GFileName := UploadedFileName;
     end;
 
     local procedure FileNameOnAfterValidate()
     begin
         UploadFile();
         if IsServiceTier and (UploadedFileName <> '') then
-            FileName := Text003;
+            GFileName := Text003;
     end;
 
     local procedure PageUpdateRequestForm()
@@ -382,7 +382,7 @@ report 50001 "Export Planning Client Excel"
                 SheetNameEnable := true;
             end;
         end else begin
-            FileName := '';
+            GFileName := '';
             UploadedFileName := '';
             SheetName := '';
             if IsServiceTier then begin
@@ -398,9 +398,9 @@ report 50001 "Export Planning Client Excel"
             if UploadedFileName = '' then
                 UploadFile()
             else
-                FileName := UploadedFileName;
+                GFileName := UploadedFileName;
 
-        TempExcelBuffer.OpenBook(FileName, SheetName);
+        TempExcelBuffer.OpenBook(GFileName, SheetName);
         TempExcelBuffer.ReadSheet();
     end;
 }

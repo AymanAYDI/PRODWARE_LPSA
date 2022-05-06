@@ -470,7 +470,7 @@ report 50012 "PWD Shipment Advice"
                 group(Options)
                 {
                     Caption = 'Options';
-                    field(NoOfCopies; NoOfCopies)
+                    field(NoOfCopiesF; NoOfCopies)
                     {
                         Caption = 'No. of Copies';
                         ApplicationArea = All;
@@ -615,6 +615,7 @@ report 50012 "PWD Shipment Advice"
         ReferenceText: Text[80];
         TxtGCustPlanNo_C: Text[100];
         TxtGComment: Text[1024];
+
     procedure FindCrossRef()
     begin
         Clear(CrossReferenceNo);

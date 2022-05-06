@@ -368,7 +368,7 @@ report 50007 "PWD Production Balance"
         {
             area(content)
             {
-                field(OptGFilter; OptGFilter)
+                field(OptGFilterF; OptGFilter)
                 {
                     Caption = 'Grouping';
                     OptionCaption = 'Production Order,Item,Order';
@@ -386,7 +386,7 @@ report 50007 "PWD Production Balance"
                             OptGDateEditable := true;
                     end;
                 }
-                field(CodGList; CodGList)
+                field(CodGListF; CodGList)
                 {
                     Caption = 'Selection';
                     ShowCaption = false;
@@ -425,7 +425,7 @@ report 50007 "PWD Production Balance"
                         end;
                     end;
                 }
-                field(OptGStatus; OptGStatus)
+                field(OptGStatusF; OptGStatus)
                 {
                     Caption = 'Status';
                     Editable = OptGStatusEditable;
@@ -433,14 +433,14 @@ report 50007 "PWD Production Balance"
                     ShowCaption = false;
                     ApplicationArea = All;
                 }
-                field(DatGBeginDate; DatGBeginDate)
+                field(DatGBeginDateF; DatGBeginDate)
                 {
                     Caption = 'Begin Date';
                     Editable = OptGDateEditable;
                     ShowCaption = false;
                     ApplicationArea = All;
                 }
-                field(DatGEndDate; DatGEndDate)
+                field(DatGEndDateF; DatGEndDate)
                 {
                     Caption = 'End Date';
                     Editable = OptGDateEditable;

@@ -669,7 +669,7 @@ report 50013 "PWD Credit Note"
                 group(Options)
                 {
                     Caption = 'Options';
-                    field(NoOfCopies; NoOfCopies)
+                    field(NoOfCopiesF; NoOfCopies)
                     {
                         Caption = 'No. of Copies';
                         ApplicationArea = All;

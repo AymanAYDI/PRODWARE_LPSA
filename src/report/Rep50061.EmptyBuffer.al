@@ -11,7 +11,7 @@ report 50061 "PWD Empty Buffer"
 
     Caption = 'Empty Buffer';
     ProcessingOnly = true;
-UsageCategory = none;
+    UsageCategory = none;
     dataset
     {
     }

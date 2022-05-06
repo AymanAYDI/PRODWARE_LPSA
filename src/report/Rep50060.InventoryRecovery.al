@@ -27,7 +27,7 @@ report 50060 "PWD Inventory Recovery"
                 {
                     Caption = 'Inventory';
                     ShowCaption = false;
-                    field(CodGDocNo; CodGDocNo)
+                    field(CodGDocNoF; CodGDocNo)
                     {
                         Caption = 'Document No for Inventory Recovery';
                         ShowCaption = false;

@@ -1,7 +1,7 @@
 enum 50003 "PWD WMS_Status_Header"
 {
     Extensible = true;
-    
+
     value(0; Open)
     {
         Caption = 'Open';

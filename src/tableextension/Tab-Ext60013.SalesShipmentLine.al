@@ -49,7 +49,7 @@ tableextension 60013 "PWD SalesShipmentLine" extends "Sales Shipment Line"
             Caption = 'Customer Promised Delivery Date';
             Description = 'TDL.LPSA';
         }
-        field(8073283; "PWD WMS_Status_Header"; Enum "PWD WMS_Status_Header") 
+        field(8073283; "PWD WMS_Status_Header"; Enum "PWD WMS_Status_Header")
         {
             Caption = 'Status';
             Description = 'ProdConnect1.5';

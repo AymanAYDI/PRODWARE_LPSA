@@ -74,9 +74,8 @@ report 50016 "PWD Excel Item Last Mvt"
                 if RecLItemLedgEntry.FindLast() then begin
                     EnterCell(IntGLineNo, IntGColNo, Format(RecLItemLedgEntry."Posting Date"), false, false, '');
                     IntGColNo += 1;
-                    if DatLMax < RecLItemLedgEntry."Posting Date" then
-                    //>>LAP2.12
-                    begin
+                    if DatLMax < RecLItemLedgEntry."Posting Date" then begin
+                        //>>LAP2.12
                         //<<LAP2.12
                         DatLMax := RecLItemLedgEntry."Posting Date";
                         //>>LAP2.12
@@ -97,9 +96,8 @@ report 50016 "PWD Excel Item Last Mvt"
                 if RecLItemLedgEntry.FindLast() then begin
                     EnterCell(IntGLineNo, IntGColNo, Format(RecLItemLedgEntry."Posting Date"), false, false, '');
                     IntGColNo += 1;
-                    if DatLMax < RecLItemLedgEntry."Posting Date" then
-                    //>>LAP2.12
-                    begin
+                    if DatLMax < RecLItemLedgEntry."Posting Date" then begin
+                        //>>LAP2.12
                         //<<LAP2.12
                         DatLMax := RecLItemLedgEntry."Posting Date";
                         //>>LAP2.12

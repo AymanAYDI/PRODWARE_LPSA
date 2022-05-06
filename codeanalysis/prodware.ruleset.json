@@ -40,8 +40,6 @@
             "action": "None",
             "justification": "Use a text constant or label for format string in StrSubstNo."
         }
-
-
     ]
 }
 

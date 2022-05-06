@@ -73,14 +73,14 @@ report 50052 "PWD TPL MAJ OP Gamme PIE"
                 {
                     Caption = 'Action';
                     ShowCaption = false;
-                    field(CodGOldOperation; CodGOldOperation)
+                    field(CodGOldOperationF; CodGOldOperation)
                     {
                         Caption = 'Remplacer';
                         ShowCaption = false;
                         TableRelation = "Machine Center";
                         ApplicationArea = All;
                     }
-                    field(CodGNewOperation; CodGNewOperation)
+                    field(CodGNewOperationF; CodGNewOperation)
                     {
                         Caption = 'Par';
                         ShowCaption = false;
@@ -95,7 +95,7 @@ report 50052 "PWD TPL MAJ OP Gamme PIE"
                             TxtGNewOperationDescription := RecLMachineCenter.Name;
                         end;
                     }
-                    field(TxtGNewOperationDescription; TxtGNewOperationDescription)
+                    field(TxtGNewOperationDescriptionF; TxtGNewOperationDescription)
                     {
                         Caption = '';
                         ShowCaption = false;
