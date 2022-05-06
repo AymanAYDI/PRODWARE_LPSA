@@ -301,7 +301,7 @@ report 50010 "Real Std Comparison Routing"
         GLAccBudgetBuf: Record "G/L Acc. Budget Buffer";
         RecGManuCycleSetup: Record "PWD Manufacturing cycles Setup";
         RecGRoutingTemp: Record "Routing Line" temporary;
-        BooLExist: Boolean;
+        // BooLExist: Boolean;
         CodGRoutingVer: Code[10];
         CodGRoutingNo: Code[20];
         DecGPerte: Decimal;
@@ -349,7 +349,7 @@ report 50010 "Real Std Comparison Routing"
         RecLCapLedEntry.SetRange("Operation No.", RecPRoutingLine."Operation No.");
         RecLCapLedEntry.SetRange("Routing No.", RecPRoutingLine."Routing No.");
         Nbre := 0;
-        if RecLCapLedEntry.FindFirst() then
+        if RecLCapLedEntry.FindSet() then
             repeat
                 RecLProdOrderLine.Reset();
                 RecLProdOrderLine.SetRange(Status, RecLProdOrderLine.Status::Finished);
@@ -392,13 +392,13 @@ report 50010 "Real Std Comparison Routing"
             CodGRoutingVer := RecPProdOrderLine."Routing Version Code";
         end;
 
-        BooLExist := false;
+        // BooLExist := false;
         RecLProdOrderRtngLine.Reset();
         RecLProdOrderRtngLine.SetRange(Status, RecPProdOrderLine.Status);
         RecLProdOrderRtngLine.SetRange("Prod. Order No.", RecPProdOrderLine."Prod. Order No.");
         RecLProdOrderRtngLine.SetRange("Routing Reference No.", RecPProdOrderLine."Routing Reference No.");
         RecLProdOrderRtngLine.SetRange("Routing No.", RecPProdOrderLine."Routing No.");
-        if RecLProdOrderRtngLine.FindFirst() then
+        if RecLProdOrderRtngLine.FindSet() then
             repeat
                 if not RecLRtngLine2.Get(RecLProdOrderRtngLine."Routing No.", RecPProdOrderLine."Routing Version Code",
                                             RecLProdOrderRtngLine."Operation No.") then begin

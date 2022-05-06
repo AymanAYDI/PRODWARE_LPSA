@@ -78,9 +78,9 @@ report 50028 "Update Scrap Factor Rtg Line"
                 RecGProductionOrder.Get(RecLProductionOrder.Status::Simulated, 'OF_TEMPO_FOR_TPL');
 
                 Direction := Direction::Backward;
-                CalcLines := true;
-                CalcRoutings := true;
-                CalcComponents := true;
+                // CalcLines := true;
+                // CalcRoutings := true;
+                // CalcComponents := true;
 
                 Item.Get(RecGProductionOrder."Source No.");
                 RoutingNo := Item."Routing No.";
@@ -346,7 +346,7 @@ report 50028 "Update Scrap Factor Rtg Line"
                 RecLRoutingLine.SetRange("Routing No.", ItemMAJ."Routing No.");
                 RecLRoutingLine.SetRange("Version Code", '');
                 RecLRoutingLine.SetFilter("Scrap Factor %", '<>%1', 0);
-                if RecLRoutingLine.FindFirst() then
+                if RecLRoutingLine.FindSet() then
                     repeat
                         DecLNewQtyGet := DecLNewQtyGet / (1 + RecLRoutingLine."Scrap Factor %" / 100);
                     until RecLRoutingLine.Next() = 0;
@@ -467,9 +467,9 @@ report 50028 "Update Scrap Factor Rtg Line"
         RecGProductionOrder: Record "Production Order";
         RecGRoutingHeader: Record "Routing Header";
         RecGRoutingVersion: Record "Routing Version";
-        CalcComponents: Boolean;
-        CalcLines: Boolean;
-        CalcRoutings: Boolean;
+        // CalcComponents: Boolean;
+        // CalcLines: Boolean;
+        // CalcRoutings: Boolean;
         CodGPrevCode: Code[20];
         CodGRoutingHeader: Code[20];
         CodGOperationNo: Code[150];

@@ -23,10 +23,10 @@ report 50001 "Export Planning Client Excel"
                     if NewOrder then
                         SalesHeader.Get("Document Type", "Document No.");
 
-                    if "Shipment Date" <= WorkDate() then
-                        BackOrderQty := "Outstanding Quantity"
-                    else
-                        BackOrderQty := 0;
+                    // if "Shipment Date" <= WorkDate() then
+                    //     BackOrderQty := "Outstanding Quantity"
+                    // else
+                    //     BackOrderQty := 0;
 
                     RowNo += 1;
 
@@ -55,8 +55,8 @@ report 50001 "Export Planning Client Excel"
                   Text000 +
                   '@1@@@@@@@@@@@@@@@@@@@@@\');
                 Window.Update(1, 0);
-                TotalRecNo := Customer.CountApprox;
-                RecNo := 0;
+                // TotalRecNo := Customer.CountApprox;
+                // RecNo := 0;
 
                 TempExcelBuffer.DeleteAll();
                 Clear(TempExcelBuffer);
@@ -251,13 +251,13 @@ report 50001 "Export Planning Client Excel"
         NewOrder: Boolean;
         [InDataSet]
         SheetNameEnable: Boolean;
-        BackOrderQty: Decimal;
+        // BackOrderQty: Decimal;
         Window: Dialog;
         i: Integer;
         MaxRowNo: Integer;
-        RecNo: Integer;
+        // RecNo: Integer;
         RowNo: Integer;
-        TotalRecNo: Integer;
+        // TotalRecNo: Integer;
         Text000: Label 'Analyzing Data...\\';
         Text002: Label 'Update Workbook';
         Text003: Label 'The file was successfully uploaded to server';

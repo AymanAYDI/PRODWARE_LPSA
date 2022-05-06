@@ -424,19 +424,18 @@ report 50013 "PWD Credit Note"
                                 UNTIL (RecGSalesCommentLine.NEXT() = 0) OR (BooGStopComment);
                         end;
 
-                        trigger OnPostDataItem()
-                        begin
-
-                            TrackingSpecCount := ItemTrackingDocMgt.RetrieveDocumentItemTracking(TrackingSpecBuffer, "Sales Cr.Memo Header"."No.",
-                              DATABASE::"Sales Shipment Header", 0);
-                        end;
+                        // trigger OnPostDataItem()
+                        // begin
+                        //     TrackingSpecCount := ItemTrackingDocMgt.RetrieveDocumentItemTracking(TrackingSpecBuffer, "Sales Cr.Memo Header"."No.",
+                        //       DATABASE::"Sales Shipment Header", 0);
+                        // end;
 
                         trigger OnPreDataItem()
                         begin
                             VATAmountLine.DELETEALL();
                             SalesShipmentBuffer.RESET();
                             SalesShipmentBuffer.DELETEALL();
-                            FirstValueEntryNo := 0;
+                            // FirstValueEntryNo := 0;
                             MoreLines := FIND('+');
                             WHILE MoreLines AND (Description = '') AND ("No." = '') AND (Quantity = 0) AND (Amount = 0) DO
                                 MoreLines := NEXT(-1) <> 0;
@@ -636,10 +635,10 @@ report 50013 "PWD Credit Note"
                     AppliedToText := STRSUBSTNO(Text003, "Applies-to Doc. Type", "Applies-to Doc. No.");
 
                 FormatAddr.SalesCrMemoShipTo(ShipToAddr, CustAddr, "Sales Cr.Memo Header");
-                ShowShippingAddr := "Sell-to Customer No." <> "Bill-to Customer No.";
-                FOR i := 1 TO ARRAYLEN(ShipToAddr) DO
-                    IF ShipToAddr[i] <> CustAddr[i] THEN
-                        ShowShippingAddr := TRUE;
+                // ShowShippingAddr := "Sell-to Customer No." <> "Bill-to Customer No.";
+                // FOR i := 1 TO ARRAYLEN(ShipToAddr) DO
+                //     IF ShipToAddr[i] <> CustAddr[i] THEN
+                //         ShowShippingAddr := TRUE;
 
                 IF LogInteraction THEN
                     IF NOT CurrReport.PREVIEW THEN
@@ -751,7 +750,7 @@ report 50013 "PWD Credit Note"
         LogInteraction: Boolean;
         MoreLines: Boolean;
         ShowInternalInfo: Boolean;
-        ShowShippingAddr: Boolean;
+        // ShowShippingAddr: Boolean;
         CrossReferenceNo: Code[20];
         CustName: Code[20];
         PostedReceiptDate: Date;
@@ -761,13 +760,13 @@ report 50013 "PWD Credit Note"
         NNC_TotalLCY: Decimal;
         NNC_TotalLineAmount: Decimal;
         NNC_VATAmount: Decimal;
-        FirstValueEntryNo: Integer;
+        // FirstValueEntryNo: Integer;
         i: Integer;
         IntGImpText: Integer;
         NoOfCopies: Integer;
         NoOfLoops: Integer;
         OutputNo: Integer;
-        TrackingSpecCount: Integer;
+        // TrackingSpecCount: Integer;
         CompanyInfo_Bank_Account_No_captionLbl: Label 'Bank Account';
         CompanyInfo_Bank_Branch_No_captionLbl: Label 'Bank Code';
         CompanyInfo_Bank_Name_captionLbl: Label 'Bank Name';

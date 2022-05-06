@@ -308,7 +308,7 @@ table 8073285 "PWD Fields Export Setup"
         RecLFieldsExportSetup.SETRANGE("Function", RecPFieldsExportSetup."Function");
         RecLFieldsExportSetup.SETRANGE("Message Code", RecPFieldsExportSetup."Message Code");
         IntLCurrentPosition := 0;
-        IF RecLFieldsExportSetup.FINDFIRST() THEN
+        IF RecLFieldsExportSetup.FindSet() THEN
             REPEAT
                 IF RecLFieldsExportSetup."File Position" <= IntLCurrentPosition THEN
                     ERROR(STRSUBSTNO(CstLBadPosition, RecLFieldsExportSetup."Field ID", RecLFieldsExportSetup."File Position"))
