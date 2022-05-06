@@ -301,7 +301,7 @@ codeunit 50002 "PWD Lot Inheritance Mgt.PW"
                     IF totalQty = 0 THEN
                         TempItemLedgEntry.DELETEALL();
                     TempItemLedgEntry.RESET();
-                UNTIL (NOT TempItemLedgEntry.FIND('-')) OR (totalQty <> 0);
+                UNTIL (TempItemLedgEntry.IsEmpty) OR (totalQty <> 0);
 
                 IF totalQty = 0 THEN BEGIN
                     poLotDetLotCode := '';
@@ -725,7 +725,7 @@ codeunit 50002 "PWD Lot Inheritance Mgt.PW"
                     IF totalQty = 0 THEN
                         TempItemLedgEntry.DELETEALL();
                     TempItemLedgEntry.RESET();
-                UNTIL (NOT TempItemLedgEntry.FIND('-')) OR (totalQty <> 0);
+                UNTIL (TempItemLedgEntry.IsEmpty) OR (totalQty <> 0);
 
                 IF totalQty = 0 THEN BEGIN
                     poLotDetLotCode := '';
@@ -818,12 +818,12 @@ codeunit 50002 "PWD Lot Inheritance Mgt.PW"
         ServiceLine: Record "Service Line";
         TransferLine: Record "Transfer Line";
         cuItemTrackingMgt: Codeunit "Item Tracking Management";
-        CheckDates: Boolean;
-        CheckStatus: Boolean;
-        CountryCode: Code[10];
-        CustomerNo: Code[20];
-        PlannedDelivDate: Date;
-        ShipmentDate: Date;
+    // CheckDates: Boolean;
+    // CheckStatus: Boolean;
+    // CountryCode: Code[10];
+    // CustomerNo: Code[20];
+    // PlannedDelivDate: Date;
+    // ShipmentDate: Date;
     begin
         // manque locales
         //InvPostPerm           Record     Inventory Posting Permission
@@ -868,18 +868,18 @@ codeunit 50002 "PWD Lot Inheritance Mgt.PW"
                     TestItemJnlLine."Location Code" := SalesLine."Location Code";
                     TestItemJnlLine."Bin Code" := SalesLine."Bin Code";
                     TestItemJnlLine."Phys. Inventory" := FALSE;
-                    IF SalesLine.SignedXX(SalesLine.Quantity) < 0 THEN BEGIN
-                        PlannedDelivDate := SalesLine."Planned Delivery Date";
-                        ShipmentDate := SalesLine."Shipment Date";
-                        CheckDates := TRUE;
-                    END;
+                    // IF SalesLine.SignedXX(SalesLine.Quantity) < 0 THEN BEGIN
+                    //     PlannedDelivDate := SalesLine."Planned Delivery Date";
+                    //     ShipmentDate := SalesLine."Shipment Date";
+                    //     CheckDates := TRUE;
+                    // END;
                     IF NOT Customer.GET(SalesLine."Sell-to Customer No.") THEN
                         CLEAR(Customer);
                     SalesHeader.GET(SalesLine."Document Type", SalesLine."Document No.");
-                    CustomerNo := SalesLine."Sell-to Customer No.";
+                    // CustomerNo := SalesLine."Sell-to Customer No.";
                     //CustomerGroupCode := Customer."Customer Group Code";
-                    CountryCode := SalesHeader."Ship-to Country/Region Code";
-                    CheckStatus := TRUE;
+                    // CountryCode := SalesHeader."Ship-to Country/Region Code";
+                    // CheckStatus := TRUE;
                 END;
             DATABASE::"Requisition Line":
                 BEGIN
@@ -977,11 +977,11 @@ codeunit 50002 "PWD Lot Inheritance Mgt.PW"
                     TestItemJnlLine."Bin Code" := ProdOrderComp."Bin Code";
                     TestItemJnlLine."Phys. Inventory" := FALSE;
                     TestItemJnlLine."Last Item Ledger Entry No." := 0;
-                    IF ProdOrderComp."Expected Quantity" > 0 THEN BEGIN
-                        PlannedDelivDate := ProdOrderComp."Due Date";
-                        ShipmentDate := ProdOrderComp."Due Date";
-                        CheckDates := TRUE;
-                    END;
+                    // IF ProdOrderComp."Expected Quantity" > 0 THEN BEGIN
+                    //     PlannedDelivDate := ProdOrderComp."Due Date";
+                    //     ShipmentDate := ProdOrderComp."Due Date";
+                    //     CheckDates := TRUE;
+                    // END;
                 END;
             /*
                 DATABASE::"Inventory Overview":
@@ -1010,11 +1010,11 @@ codeunit 50002 "PWD Lot Inheritance Mgt.PW"
                     TestItemJnlLine."Bin Code" := PlanningComp."Bin Code";
                     TestItemJnlLine."Phys. Inventory" := FALSE;
                     TestItemJnlLine."Last Item Ledger Entry No." := 0;
-                    IF PlanningComp."Expected Quantity" > 0 THEN BEGIN
-                        PlannedDelivDate := PlanningComp."Due Date";
-                        ShipmentDate := PlanningComp."Due Date";
-                        CheckDates := TRUE;
-                    END;
+                    // IF PlanningComp."Expected Quantity" > 0 THEN BEGIN
+                    //     PlannedDelivDate := PlanningComp."Due Date";
+                    //     ShipmentDate := PlanningComp."Due Date";
+                    //     CheckDates := TRUE;
+                    // END;
                 END;
             DATABASE::"Transfer Line":
                 BEGIN
@@ -1029,12 +1029,12 @@ codeunit 50002 "PWD Lot Inheritance Mgt.PW"
                     TestItemJnlLine."Last Item Ledger Entry No." := 0;
                     TestItemJnlLine."Item No." := TransferLine."Item No.";
                     TestItemJnlLine."Variant Code" := TransferLine."Variant Code";
-                    IF TransferLine.Quantity > 0 THEN BEGIN
-                        PlannedDelivDate := TransferLine."Shipment Date";
-                        ShipmentDate := TransferLine."Shipment Date";
-                        CheckDates := TRUE;
-                    END;
-                    CheckStatus := FALSE;
+                    // IF TransferLine.Quantity > 0 THEN BEGIN
+                    //     PlannedDelivDate := TransferLine."Shipment Date";
+                    //     ShipmentDate := TransferLine."Shipment Date";
+                    //     CheckDates := TRUE;
+                    // END;
+                    // CheckStatus := FALSE;
                 END;
             DATABASE::"Service Line":
                 BEGIN
@@ -1054,11 +1054,11 @@ codeunit 50002 "PWD Lot Inheritance Mgt.PW"
                     TestItemJnlLine."Bin Code" := ServiceLine."Bin Code";
                     TestItemJnlLine."Phys. Inventory" := FALSE;
                     TestItemJnlLine."Last Item Ledger Entry No." := 0;
-                    IF ServiceLine.Quantity > 0 THEN BEGIN
-                        PlannedDelivDate := ServiceLine."Posting Date";
-                        ShipmentDate := ServiceLine."Posting Date";
-                        CheckDates := TRUE;
-                    END;
+                    // IF ServiceLine.Quantity > 0 THEN BEGIN
+                    //     PlannedDelivDate := ServiceLine."Posting Date";
+                    //     ShipmentDate := ServiceLine."Posting Date";
+                    //     CheckDates := TRUE;
+                    // END;
                 END;
             ELSE
                 ERROR(gctxErr0006, piSourceType);
@@ -1231,7 +1231,7 @@ codeunit 50002 "PWD Lot Inheritance Mgt.PW"
         NeededHits: Integer;
     begin
         IF RecLProdBOM.GET(RecPItem."Production BOM No.") THEN BEGIN
-            NeededHits := 0;
+            // NeededHits := 0;
             RecLProdBOMLine.SETRANGE(RecLProdBOMLine."Production BOM No.", RecLProdBOM."No.");
             IF RecLProdBOMLine.FindSet() THEN
                 REPEAT

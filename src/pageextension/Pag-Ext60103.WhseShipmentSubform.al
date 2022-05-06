@@ -44,7 +44,7 @@ pageextension 60103 "PWD WhseShipmentSubform" extends "Whse. Shipment Subform"
         RecLResEntry.SETRANGE("Source Subtype", 1);
         RecLResEntry.SETRANGE("Source Ref. No.", RecLSalesLine."Line No.");
         RecLResEntry.SETRANGE(Binding, RecLResEntry.Binding::"Order-to-Order");
-        IF RecLResEntry.FINDFIRST() THEN
+        IF RecLResEntry.FindSet() THEN
             REPEAT
                 RecLResEntrytoDel.RESET();
                 RecLResEntrytoDel.SETRANGE("Entry No.", RecLResEntry."Entry No.");

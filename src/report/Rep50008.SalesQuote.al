@@ -531,10 +531,10 @@ report 50008 "PWD Sales Quote"
                     SalesLine.CalcVATAmountLines(0, "Sales Header", SalesLine, VATAmountLine);
                     SalesLine.UpdateVATOnLines(0, "Sales Header", SalesLine, VATAmountLine);
                     VATAmount := VATAmountLine.GetTotalVATAmount();
-                    VATBaseAmount := VATAmountLine.GetTotalVATBase();
-                    VATDiscountAmount :=
-                      VATAmountLine.GetTotalVATDiscount("Sales Header"."Currency Code", "Sales Header"."Prices Including VAT");
-                    TotalAmountInclVAT := VATAmountLine.GetTotalAmountInclVAT();
+                    // VATBaseAmount := VATAmountLine.GetTotalVATBase();
+                    // VATDiscountAmount :=
+                    //   VATAmountLine.GetTotalVATDiscount("Sales Header"."Currency Code", "Sales Header"."Prices Including VAT");
+                    // TotalAmountInclVAT := VATAmountLine.GetTotalAmountInclVAT();
 
                     if Number > 1 then begin
                         CopyText := Text003;
@@ -818,12 +818,12 @@ report 50008 "PWD Sales Quote"
         MoreLines: Boolean;
         ShowInternalInfo: Boolean;
         CodGNoCustomer: Code[20];
-        TotalAmountInclVAT: Decimal;
+        // TotalAmountInclVAT: Decimal;
         VALVATAmountLCY: Decimal;
         VALVATBaseLCY: Decimal;
         VATAmount: Decimal;
-        VATBaseAmount: Decimal;
-        VATDiscountAmount: Decimal;
+        // VATBaseAmount: Decimal;
+        // VATDiscountAmount: Decimal;
         CurrGroupPageNO: Integer;
         CurrPageFooterHiddenFlag: Integer;
         CurrPageHeaderHiddenFlag: Integer;

@@ -550,10 +550,10 @@ report 50020 "Prod. Order - List of missing"
                         //  TempProdOrderComp."Remaining Qty. (Base)" -
                         //  TempProdOrderComp."Reserved Qty. (Base)";
 
-                        QtyOnHandAfterProd :=
-                          CompItem.Inventory -
-                          TempProdOrderComp."Remaining Qty. (Base)" +
-                          TempProdOrderComp."Reserved Qty. (Base)";
+                        // QtyOnHandAfterProd :=
+                        //   CompItem.Inventory -
+                        //   TempProdOrderComp."Remaining Qty. (Base)" +
+                        //   TempProdOrderComp."Reserved Qty. (Base)";
 
                         NeededQty :=
                           CompItem."Released Scheduled Need (Qty.)" +
@@ -798,7 +798,7 @@ report 50020 "Prod. Order - List of missing"
         DecGQtyNeeded: Decimal;
         NeededQty: Decimal;
         Qty: array[3] of Decimal;
-        QtyOnHandAfterProd: Decimal;
+        // QtyOnHandAfterProd: Decimal;
         RemainingQty: Decimal;
         IntGNbDoc: Integer;
         IntGNbPhantom: Integer;

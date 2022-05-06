@@ -25,10 +25,10 @@ report 50081 "PWD CALC NEW QTY"
                 RepUpdate: Report "Refresh Production Order";
                 CodRouting: Code[20];
                 DecLInitQty: Decimal;
-                DecLNewQty: Decimal;
+                // DecLNewQty: Decimal;
             begin
                 DecLInitQty := 0;
-                DecLNewQty := 0;
+                // DecLNewQty := 0;
                 // if RecLBOM.Get("Production BOM No.") then begin
                 //     if RecLBOM.Status <> RecLBOM.Status::Certified then begin
                 //         RecLOrderBY.Init();
@@ -124,8 +124,8 @@ report 50081 "PWD CALC NEW QTY"
                 RepUpdate.SetTableView(RecLProdOrderNew);
                 RepUpdate.UseRequestPage(false);
                 RepUpdate.RunModal();
-                if RecLProdOrderComNew.Get(RecLProdOrderNew.Status, RecLProdOrderNew."No.", 10000, 10000) then
-                    DecLNewQty := RecLProdOrderComNew."Expected Quantity";
+                // if RecLProdOrderComNew.Get(RecLProdOrderNew.Status, RecLProdOrderNew."No.", 10000, 10000) then
+                //     DecLNewQty := RecLProdOrderComNew."Expected Quantity";
 
                 Validate("Routing No.", CodRouting);
                 Modify();

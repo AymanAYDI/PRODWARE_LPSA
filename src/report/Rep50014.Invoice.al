@@ -453,7 +453,7 @@ report 50014 "PWD Invoice"
                                 TotalAmount += Amount;
                                 TotalAmountVAT += "Amount Including VAT" - Amount;
                                 TotalAmountInclVAT += "Amount Including VAT";
-                                TotalPaymentDiscountOnVAT += -("Line Amount" - "Inv. Discount Amount" - "Amount Including VAT");
+                                // TotalPaymentDiscountOnVAT += -("Line Amount" - "Inv. Discount Amount" - "Amount Including VAT");
                             end;
                             SearchLot();
 
@@ -480,7 +480,7 @@ report 50014 "PWD Invoice"
                             VATAmountLine.DeleteAll();
                             SalesShipmentBuffer.Reset();
                             SalesShipmentBuffer.DeleteAll();
-                            FirstValueEntryNo := 0;
+                            // FirstValueEntryNo := 0;
                             MoreLines := Find('+');
                             while MoreLines and (Description = '') and ("No." = '') and (Quantity = 0) and (Amount = 0) do
                                 MoreLines := Next(-1) <> 0;
@@ -564,7 +564,7 @@ report 50014 "PWD Invoice"
                         TotalAmount := 0;
                         TotalAmountVAT := 0;
                         TotalAmountInclVAT := 0;
-                        TotalPaymentDiscountOnVAT := 0;
+                        // TotalPaymentDiscountOnVAT := 0;
                     end
                 end;
 
@@ -663,10 +663,10 @@ report 50014 "PWD Invoice"
                     ShipmentMethod.TranslateDescription(ShipmentMethod, "Language Code");
                 end;
                 FormatAddr.SalesInvShipTo(ShipToAddr, CustAddr, "Sales Invoice Header");
-                ShowShippingAddr := "Sell-to Customer No." <> "Bill-to Customer No.";
-                for i := 1 to ArrayLen(ShipToAddr) do
-                    if ShipToAddr[i] <> CustAddr[i] then
-                        ShowShippingAddr := true;
+                // ShowShippingAddr := "Sell-to Customer No." <> "Bill-to Customer No.";
+                // for i := 1 to ArrayLen(ShipToAddr) do
+                //     if ShipToAddr[i] <> CustAddr[i] then
+                //         ShowShippingAddr := true;
 
                 if LogInteraction then
                     if not CurrReport.Preview then
@@ -711,10 +711,10 @@ report 50014 "PWD Invoice"
         {
         }
 
-        trigger OnInit()
-        begin
-            LogInteractionEnable := true;
-        end;
+        // trigger OnInit()
+        // begin
+        //     LogInteractionEnable := true;
+        // end;
     }
 
     labels
@@ -794,10 +794,10 @@ report 50014 "PWD Invoice"
         BooGSkipSendEmail: Boolean;
         LogInteraction: Boolean;
         [InDataSet]
-        LogInteractionEnable: Boolean;
+        // LogInteractionEnable: Boolean;
         MoreLines: Boolean;
         ShowInternalInfo: Boolean;
-        ShowShippingAddr: Boolean;
+        // ShowShippingAddr: Boolean;
         CrossReferenceNo: Code[20];
         CustName: Code[20];
         PostedShipmentDate: Date;
@@ -809,9 +809,9 @@ report 50014 "PWD Invoice"
         TotalAmountInclVAT: Decimal;
         TotalAmountVAT: Decimal;
         TotalInvoiceDiscountAmount: Decimal;
-        TotalPaymentDiscountOnVAT: Decimal;
+        // TotalPaymentDiscountOnVAT: Decimal;
         TotalSubTotal: Decimal;
-        FirstValueEntryNo: Integer;
+        // FirstValueEntryNo: Integer;
         i: Integer;
         IntGImpText: Integer;
         NoOfCopies: Integer;

@@ -177,7 +177,7 @@ tableextension 60036 "PWD ProductionOrder" extends "Production Order"
         RecLProdOrderComponent.RESET();
         RecLProdOrderComponent.SETRANGE(Status, Status);
         RecLProdOrderComponent.SETRANGE("Prod. Order No.", "No.");
-        IF RecLProdOrderComponent.FINDFIRST() THEN
+        IF RecLProdOrderComponent.FindSet() THEN
             REPEAT
                 RecLItem.GET(RecLProdOrderComponent."Item No.");
                 RecLItem.SETFILTER("Location Filter", '=%1', RecLProdOrderComponent."Location Code");

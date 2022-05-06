@@ -332,13 +332,13 @@ report 50012 "PWD Shipment Advice"
                                 until (RecGSalesCommentLine.Next() = 0) or (BooGStopComment);
                         end;
 
-                        trigger OnPostDataItem()
-                        begin
-                            // Item Tracking:
-                            if ShowLotSN then
-                                TrackingSpecCount := ItemTrackingDocMgt.RetrieveDocumentItemTracking(TrackingSpecBuffer, "Sales Shipment Header"."No.",
-                                  DATABASE::"Sales Shipment Header", 0);
-                        end;
+                        // trigger OnPostDataItem()
+                        // begin
+                        //     // Item Tracking:
+                        //     if ShowLotSN then
+                        //         TrackingSpecCount := ItemTrackingDocMgt.RetrieveDocumentItemTracking(TrackingSpecBuffer, "Sales Shipment Header"."No.",
+                        //           DATABASE::"Sales Shipment Header", 0);
+                        // end;
 
                         trigger OnPreDataItem()
                         begin
@@ -372,17 +372,17 @@ report 50012 "PWD Shipment Advice"
                     begin
                         SalesHeader.SetRange("Document Type", SalesLine."Document Type"::Order);
                         SalesHeader.SetRange("No.", "Sales Shipment Header"."Order No.");
-                        if SalesHeader.FindFirst() then begin
-                            DocumentDate := SalesHeader."Document Date";
-                            YourDocumentNo := SalesHeader."External Document No.";
-                        end;
+                        // if SalesHeader.FindFirst() then begin
+                        //     DocumentDate := SalesHeader."Document Date";
+                        //     YourDocumentNo := SalesHeader."External Document No.";
+                        // end;
 
                         // Item Tracking:
-                        if ShowLotSN then begin
-                            TrackingSpecCount := 0;
-                            OldRefNo := 0;
-                            ShowGroup := false;
-                        end;
+                        // if ShowLotSN then begin
+                        //     // TrackingSpecCount := 0;
+                        //     OldRefNo := 0;
+                        //     // ShowGroup := false;
+                        // end;
                     end;
                 }
 
@@ -394,7 +394,7 @@ report 50012 "PWD Shipment Advice"
                             OutputNo += 1;
                     end;
                     CurrReport.PageNo := 1;
-                    TotalQty := 0;           // Item Tracking
+                    // TotalQty := 0;           // Item Tracking
                 end;
 
                 trigger OnPostDataItem()
@@ -445,10 +445,10 @@ report 50012 "PWD Shipment Advice"
 
                 FormatAddr.SalesShptBillTo(CustAddr, ShipToAddr, "Sales Shipment Header");
 
-                ShowCustAddr := "Bill-to Customer No." <> "Sell-to Customer No.";
-                for i := 1 to ArrayLen(CustAddr) do
-                    if CustAddr[i] <> ShipToAddr[i] then
-                        ShowCustAddr := true;
+                // ShowCustAddr := "Bill-to Customer No." <> "Sell-to Customer No.";
+                // for i := 1 to ArrayLen(CustAddr) do
+                //     if CustAddr[i] <> ShipToAddr[i] then
+                //         ShowCustAddr := true;
 
                 if LogInteraction then
                     if not CurrReport.Preview then
@@ -569,23 +569,23 @@ report 50012 "PWD Shipment Advice"
         [InDataSet]
         MoreLines: Boolean;
         ShowCorrectionLines: Boolean;
-        ShowCustAddr: Boolean;
-        ShowGroup: Boolean;
+        // ShowCustAddr: Boolean;
+        // ShowGroup: Boolean;
         ShowInternalInfo: Boolean;
         ShowLotSN: Boolean;
         CrossReferenceNo: Code[20];
         CustName: Code[20];
-        YourDocumentNo: Code[20];
-        DocumentDate: Date;
+        // YourDocumentNo: Code[20];
+        // DocumentDate: Date;
         OrdredQty: Decimal;
         OutstandingQtytoShip: Decimal;
-        TotalQty: Decimal;
+        // TotalQty: Decimal;
         i: Integer;
         NoOfCopies: Integer;
         NoOfLoops: Integer;
-        OldRefNo: Integer;
+        // OldRefNo: Integer;
         OutputNo: Integer;
-        TrackingSpecCount: Integer;
+        // TrackingSpecCount: Integer;
         CstGTxt014: Label 'LPSA No.:';
         Facture_captionLbl: Label 'Shipment Advice';
         Qty_Ordred_captionLbl: Label 'Qty Ordred';
@@ -615,6 +615,7 @@ report 50012 "PWD Shipment Advice"
         ReferenceText: Text[80];
         TxtGCustPlanNo_C: Text[100];
         TxtGComment: Text[1024];
+
     procedure FindCrossRef()
     begin
         Clear(CrossReferenceNo);

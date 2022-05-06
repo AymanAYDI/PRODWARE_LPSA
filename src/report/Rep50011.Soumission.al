@@ -283,11 +283,11 @@ report 50011 "PWD Soumission"
 
 
                 if RecGSalesHeader.Get(RecGSalesHeader."Document Type"::Order, "PWD Sales Order No.") then begin
-                    CodGDocumentNo := RecGSalesHeader."No.";
+                    // CodGDocumentNo := RecGSalesHeader."No.";
                     OrderDate := RecGSalesHeader."Document Date";
                     CodGCustomerNo := RecGSalesHeader."Sell-to Customer No.";
-                    CodFVATRegNo := RecGSalesHeader."VAT Registration No.";
-                    CodGExtDocumentNo := RecGSalesHeader."External Document No.";
+                    // CodFVATRegNo := RecGSalesHeader."VAT Registration No.";
+                    // CodGExtDocumentNo := RecGSalesHeader."External Document No.";
                     TxtGSellToContact := RecGSalesHeader."Sell-to Contact No.";
                     if RecGCustomer.Get(RecGSalesHeader."Sell-to Customer No.") then;
                     if RecGSalespersonPurchaser.Get(RecGSalesHeader."Salesperson Code") then;
@@ -343,10 +343,10 @@ report 50011 "PWD Soumission"
         FormatAddr: Codeunit "Format Address";
         LPSAFunctionsMgt: codeunit "PWD LPSA Functions Mgt.";
         MoreLines: Boolean;
-        CodFVATRegNo: Code[20];
+        // CodFVATRegNo: Code[20];
         CodGCustomerNo: Code[20];
-        CodGDocumentNo: Code[20];
-        CodGExtDocumentNo: Code[20];
+        // CodGDocumentNo: Code[20];
+        // CodGExtDocumentNo: Code[20];
         CodGYourItemRef: Code[20];
         CodGYourPlanNo: Code[100];
         OrderDate: Date;

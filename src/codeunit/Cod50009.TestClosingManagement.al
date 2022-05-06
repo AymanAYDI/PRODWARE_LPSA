@@ -229,7 +229,8 @@ codeunit 50009 "PWD Test Closing Management"
         FilGToExport.Close;
 
         if IsServiceTier then begin
-            FileMgt.DownloadToFile(TxtGExportFileName, TxtGServerFileName);
+            // FileMgt.DownloadToFile(TxtGExportFileName, TxtGServerFileName);
+            FileMgt.DownloadHandler(TxtGExportFileName, '', '', '', TxtGServerFileName);
             TxtGExportFileName := TxtGServerFileName;
         end;
     end;
@@ -980,7 +981,7 @@ codeunit 50009 "PWD Test Closing Management"
         DecLValueOfCapVendor: Decimal;
         DecLValueOfExpOutput1: Decimal;
         DecLValueOfExpOutput2: Decimal;
-        DecLValueOfInvOutput1: Decimal;
+        // DecLValueOfInvOutput1: Decimal;
         DecLValueOfMatConsump: Decimal;
         DecLValueOfOutput: Decimal;
         DecLValueOfRevalCostAct: Decimal;
@@ -1004,7 +1005,7 @@ codeunit 50009 "PWD Test Closing Management"
                             DecLValueOfWIP += -RecLValueEntry."Cost Amount (Actual)";
                         if RecLValueEntry."Item Ledger Entry Type" = RecLValueEntry."Item Ledger Entry Type"::Output then begin
                             DecLValueOfExpOutput1 := -RecLValueEntry."Cost Amount (Expected)";
-                            DecLValueOfInvOutput1 := -RecLValueEntry."Cost Amount (Actual)";
+                            // DecLValueOfInvOutput1 := -RecLValueEntry."Cost Amount (Actual)";
                             DecLValueOfWIP += -RecLValueEntry."Cost Amount (Expected)" - RecLValueEntry."Cost Amount (Actual)";
                         end;
 

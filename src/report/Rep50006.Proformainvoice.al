@@ -561,9 +561,9 @@ report 50006 "PWD Proforma invoice"
 
                     SalesPostPrepmt.UpdateVATOnLines("Sales Header", PrepmtSalesLine, PrepmtVATAmountLine, 0);
                     SalesPostPrepmt.BuildInvLineBuffer("Sales Header", PrepmtSalesLine, 0, PrepmtInvBuf);
-                    PrepmtVATAmount := PrepmtVATAmountLine.GetTotalVATAmount();
-                    PrepmtVATBaseAmount := PrepmtVATAmountLine.GetTotalVATBase();
-                    PrepmtTotalAmountInclVAT := PrepmtVATAmountLine.GetTotalAmountInclVAT();
+                    // PrepmtVATAmount := PrepmtVATAmountLine.GetTotalVATAmount();
+                    // PrepmtVATBaseAmount := PrepmtVATAmountLine.GetTotalVATBase();
+                    // PrepmtTotalAmountInclVAT := PrepmtVATAmountLine.GetTotalAmountInclVAT();
 
                     if Number > 1 then begin
                         CopyText := Text003;
@@ -675,10 +675,10 @@ report 50006 "PWD Proforma invoice"
                     Clear(Cust);
 
                 FormatAddr.SalesHeaderShipTo(ShipToAddr, CustAddr, "Sales Header");
-                ShowShippingAddr := "Sell-to Customer No." <> "Bill-to Customer No.";
-                for i := 1 to ArrayLen(ShipToAddr) do
-                    if ShipToAddr[i] <> CustAddr[i] then
-                        ShowShippingAddr := true;
+                // ShowShippingAddr := "Sell-to Customer No." <> "Bill-to Customer No.";
+                // for i := 1 to ArrayLen(ShipToAddr) do
+                //     if ShipToAddr[i] <> CustAddr[i] then
+                //         ShowShippingAddr := true;
 
                 if not CurrReport.Preview then begin
                     if ArchiveDocument then
@@ -813,7 +813,7 @@ report 50006 "PWD Proforma invoice"
         LogInteraction: Boolean;
         MoreLines: Boolean;
         ShowInternalInfo: Boolean;
-        ShowShippingAddr: Boolean;
+        // ShowShippingAddr: Boolean;
         TypeItem: Boolean;
         CustName: Code[20];
         LotNo: Code[20];
@@ -829,9 +829,9 @@ report 50006 "PWD Proforma invoice"
         NNC_TotalLCY: Decimal;
         NNC_VATAmt: Decimal;
         NNC_VatAmt2: Decimal;
-        PrepmtTotalAmountInclVAT: Decimal;
-        PrepmtVATAmount: Decimal;
-        PrepmtVATBaseAmount: Decimal;
+        // PrepmtTotalAmountInclVAT: Decimal;
+        // PrepmtVATAmount: Decimal;
+        // PrepmtVATBaseAmount: Decimal;
         TotalAmountInclVAT: Decimal;
         VATAmount: Decimal;
         VATBaseAmount: Decimal;

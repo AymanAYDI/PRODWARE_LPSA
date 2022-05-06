@@ -37,8 +37,8 @@ codeunit 50098 "PWD RDD - Tracking Management"
         BlockCommit: Boolean;
         CalledFromSynchWhseItemTrkg: Boolean;
         CurrentFormIsOpen: Boolean;
-        DeleteIsBlocked: Boolean;
-        Inbound: Boolean;
+        // DeleteIsBlocked: Boolean;
+        // Inbound: Boolean;
         InsertIsBlocked: Boolean;
         IsCorrection: Boolean;
         LotAvailabilityActive: Boolean;
@@ -122,9 +122,10 @@ codeunit 50098 "PWD RDD - Tracking Management"
         then
             //SetControls(Controls::Quantity,FALSE);
             //CurrForm."Qty. to Handle (Base)".EDITABLE(FALSE);
-            DeleteIsBlocked := true;
 
-        ReservEntry."Source Type" := TrackingSpecification."Source Type";
+            // DeleteIsBlocked := true;
+
+            ReservEntry."Source Type" := TrackingSpecification."Source Type";
         ReservEntry."Source Subtype" := TrackingSpecification."Source Subtype";
         CurrentSignFactor := CreateReservEntry.SignFactor(ReservEntry);
         CurrentSourceCaption := ReservEntry.TextCaption();
@@ -165,7 +166,7 @@ codeunit 50098 "PWD RDD - Tracking Management"
             ReservEntry.SetRange("Source Subtype", 1);
             ReservEntry.SetRange("Source Prod. Order Line", TrackingSpecification."Source Ref. No.");
             ReservEntry.SetRange("Source Ref. No.");
-            DeleteIsBlocked := true;
+            // DeleteIsBlocked := true;
             //SetControls(Controls::Quantity,FALSE);
         end;
 
@@ -291,6 +292,7 @@ codeunit 50098 "PWD RDD - Tracking Management"
 
     local procedure AddToGlobalRecordSet(var TempTrackingSpecification: Record "Tracking Specification" temporary)
     var
+        ItemTrackingSetup: Record "Item Tracking Setup";
         EntriesExist: Boolean;
         ExpDate: Date;
     begin
@@ -313,9 +315,11 @@ codeunit 50098 "PWD RDD - Tracking Management"
                   rec.CalcQty(rec."Qty. to Invoice (Base)");
                 rec."Entry No." := NextEntryNo();
 
+                ItemTrackingSetup."Serial No." := rec."Serial No.";
+                ItemTrackingSetup."Lot No." := rec."Lot No.";
                 ExpDate := ItemTrackingMgt.ExistingExpirationDate(
                   rec."Item No.", rec."Variant Code",
-                  rec."Lot No.", rec."Serial No.", false, EntriesExist);
+                  ItemTrackingSetup, false, EntriesExist);
 
                 if ExpDate <> 0D then begin
                     rec."Expiration Date" := ExpDate;
@@ -497,7 +501,7 @@ codeunit 50098 "PWD RDD - Tracking Management"
     var
         EntryNo: Integer;
         i: Integer;
-        NoOfLines: Integer;
+        // NoOfLines: Integer;
         ChangeType: Option Insert,Modify,Delete;
     begin
         if CurrentFormIsOpen then begin
@@ -513,7 +517,7 @@ codeunit 50098 "PWD RDD - Tracking Management"
             rec.Reset();
             rec.DeleteAll();
 
-            NoOfLines := TempItemTrackLineInsert.Count + TempItemTrackLineModify.Count + TempItemTrackLineDelete.Count;
+            // NoOfLines := TempItemTrackLineInsert.Count + TempItemTrackLineModify.Count + TempItemTrackLineDelete.Count;
             if TempItemTrackLineDelete.Find('-') then begin
                 repeat
                     i := i + 1;
@@ -631,7 +635,7 @@ codeunit 50098 "PWD RDD - Tracking Management"
         CreateReservEntry: Codeunit "Create Reserv. Entry";
         ReservationMgt: Codeunit "Reservation Management";
         IdenticalArray: array[2] of Boolean;
-        AvailabilityDate: Date;
+        // AvailabilityDate: Date;
         LostReservQty: Decimal;
         QtyToAdd: Decimal;
     begin
@@ -696,7 +700,7 @@ codeunit 50098 "PWD RDD - Tracking Management"
                       OldTrackingSpecification."Location Code",
                       OldTrackingSpecification.Description,
                       ExpectedReceiptDate,
-                      ShipmentDate, 0, CurrentEntryStatus); 
+                      ShipmentDate, 0, CurrentEntryStatus);
                     CreateReservEntry.GetLastEntry(ReservEntry1);
                     if Item."Order Tracking Policy" = Item."Order Tracking Policy"::"Tracking & Action Msg." then
                         ReservEngineMgt.UpdateActionMessages(ReservEntry1);
@@ -709,10 +713,10 @@ codeunit 50098 "PWD RDD - Tracking Management"
                         ModifyFieldsWithinFilter(ReservEntry1, NewTrackingSpecification);
                     end;
 
-                    if CurrentSignFactor < 0 then
-                        AvailabilityDate := ShipmentDate
-                    else
-                        AvailabilityDate := ExpectedReceiptDate;
+                    // if CurrentSignFactor < 0 then
+                    //     AvailabilityDate := ShipmentDate
+                    // else
+                    //     AvailabilityDate := ExpectedReceiptDate;
                     OK := true;
                 end;
             ChangeType::Modify:
@@ -1044,7 +1048,7 @@ codeunit 50098 "PWD RDD - Tracking Management"
     procedure AssignSerialNo()
     var
         QtyToCreate: Decimal;
-        QtyToCreateInt: Integer;
+    // QtyToCreateInt: Integer;
     begin
         if ZeroLineExists() then
             rec.Delete();
@@ -1056,7 +1060,7 @@ codeunit 50098 "PWD RDD - Tracking Management"
         if QtyToCreate mod 1 <> 0 then
             Error(Text008);
 
-        QtyToCreateInt := QtyToCreate;
+        // QtyToCreateInt := QtyToCreate;
         /*
         CLEAR(EnterQuantityToCreate);
         EnterQuantityToCreate.LOOKUPMODE := TRUE;
@@ -1137,7 +1141,7 @@ codeunit 50098 "PWD RDD - Tracking Management"
     procedure CreateCustomizedSN()
     var
         QtyToCreate: Decimal;
-        QtyToCreateInt: Integer;
+    // QtyToCreateInt: Integer;
     begin
         if ZeroLineExists() then
             rec.Delete();
@@ -1151,7 +1155,7 @@ codeunit 50098 "PWD RDD - Tracking Management"
         if QtyToCreate mod 1 <> 0 then
             Error(Text008);
 
-        QtyToCreateInt := QtyToCreate;
+        // QtyToCreateInt := QtyToCreate;
         /*
         CLEAR(EnterCustomizedSN);
         EnterCustomizedSN.LOOKUPMODE := TRUE;
@@ -1435,7 +1439,7 @@ codeunit 50098 "PWD RDD - Tracking Management"
     procedure LookupAvailable(LookupMode: Enum "Item Tracking Type")
     begin
         rec."Bin Code" := ForBinCode;
-        ItemTrackingDataCollection.LookupTrackingAvailability(rec, LookupMode); 
+        ItemTrackingDataCollection.LookupTrackingAvailability(rec, LookupMode);
         rec."Bin Code" := '';
         //CurrForm.UPDATE;
     end;
@@ -1443,7 +1447,7 @@ codeunit 50098 "PWD RDD - Tracking Management"
 
     procedure F6LookupAvailable()
     var
-    LookupMode: Enum "Item Tracking Type";
+        LookupMode: Enum "Item Tracking Type";
     begin
         if SNAvailabilityActive then
             LookupAvailable(LookupMode::"Serial No.");
@@ -1523,10 +1527,10 @@ codeunit 50098 "PWD RDD - Tracking Management"
     end;
 
 
-    procedure SetInbound(NewInbound: Boolean)
-    begin
-        Inbound := NewInbound;
-    end;
+    // procedure SetInbound(NewInbound: Boolean)
+    // begin
+    //     Inbound := NewInbound;
+    // end;
 
 
     procedure InsertLine(CodPLotNo: array[999] of Code[20]; DecLQty: Decimal; RecLTrackingSpec: Record "Tracking Specification"): Boolean

@@ -570,10 +570,10 @@ report 50009 "PWD Sales Order Confirmation"
                     SalesLine.CalcVATAmountLines(0, "Sales Header", SalesLine, VATAmountLine);
                     SalesLine.UpdateVATOnLines(0, "Sales Header", SalesLine, VATAmountLine);
                     VATAmount := VATAmountLine.GetTotalVATAmount();
-                    VATBaseAmount := VATAmountLine.GetTotalVATBase();
-                    VATDiscountAmount :=
-                      VATAmountLine.GetTotalVATDiscount("Sales Header"."Currency Code", "Sales Header"."Prices Including VAT");
-                    TotalAmountInclVAT := VATAmountLine.GetTotalAmountInclVAT();
+                    // VATBaseAmount := VATAmountLine.GetTotalVATBase();
+                    // VATDiscountAmount :=
+                    //   VATAmountLine.GetTotalVATDiscount("Sales Header"."Currency Code", "Sales Header"."Prices Including VAT");
+                    // TotalAmountInclVAT := VATAmountLine.GetTotalAmountInclVAT();
 
                     if Number > 1 then begin
                         CopyText := Text003;
@@ -673,7 +673,7 @@ report 50009 "PWD Sales Order Confirmation"
 
             trigger OnPreDataItem()
             begin
-                NoOfRecords := Count;
+                // NoOfRecords := Count;
                 // CH0004.begin
                 if IsServiceTier then begin
                     CurrPageHeaderHiddenFlag := 0;
@@ -819,17 +819,17 @@ report 50009 "PWD Sales Order Confirmation"
         NNC_SalesLineLineAmt: Decimal;
         NNC_TotalLCY: Decimal;
         NNC_VATAmt: Decimal;
-        TotalAmountInclVAT: Decimal;
+        // TotalAmountInclVAT: Decimal;
         VATAmount: Decimal;
-        VATBaseAmount: Decimal;
-        VATDiscountAmount: Decimal;
+        // VATBaseAmount: Decimal;
+        // VATDiscountAmount: Decimal;
         CurrGroupPageNO: Integer;
         CurrPageFooterHiddenFlag: Integer;
         CurrPageHeaderHiddenFlag: Integer;
         InnerGroupPageNO: Integer;
         NoOfCopies: Integer;
         NoOfLoops: Integer;
-        NoOfRecords: Integer;
+        // NoOfRecords: Integer;
         OutputNo: Integer;
         CompanyInfo__Bank_Account_No__CaptionLbl: Label 'Bank Account';
         CompanyInfo__Bank_Branch_No__CaptionLbl: Label 'Bank Code';

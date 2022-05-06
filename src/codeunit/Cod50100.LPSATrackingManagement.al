@@ -42,7 +42,7 @@ codeunit 50100 "PWD LPSA Tracking Management"
         BlockCommit: Boolean;
         CalledFromSynchWhseItemTrkg: Boolean;
         CurrentFormIsOpen: Boolean;
-        DeleteIsBlocked: Boolean;
+        // DeleteIsBlocked: Boolean;
         Inbound: Boolean;
         InsertIsBlocked: Boolean;
         IsCorrection: Boolean;
@@ -156,13 +156,13 @@ codeunit 50100 "PWD LPSA Tracking Management"
           TrackingSpecification."Source Ref. No.",
           TrackingSpecification."Location Code",
           TrackingSpecification."Item No.")
-        then begin
+        then
             SetControls(Controls::Quantity, false);
-            //>>MIG-2009-001
-            //CurrForm."Qty. to Handle (Base)".EDITABLE(TRUE);
-            //<<MIG-2009-001
-            DeleteIsBlocked := true;
-        end;
+        //>>MIG-2009-001
+        //CurrForm."Qty. to Handle (Base)".EDITABLE(TRUE);
+        //<<MIG-2009-001
+        // DeleteIsBlocked := true;
+        // end;
 
         ReservEntry."Source Type" := TrackingSpecification."Source Type";
         ReservEntry."Source Subtype" := TrackingSpecification."Source Subtype";
@@ -205,7 +205,7 @@ codeunit 50100 "PWD LPSA Tracking Management"
             ReservEntry.SetRange("Source Subtype", 1);
             ReservEntry.SetRange("Source Prod. Order Line", TrackingSpecification."Source Ref. No.");
             ReservEntry.SetRange("Source Ref. No.");
-            DeleteIsBlocked := true;
+            // DeleteIsBlocked := true;
             SetControls(Controls::Quantity, false);
         end;
 
@@ -328,6 +328,7 @@ codeunit 50100 "PWD LPSA Tracking Management"
 
     local procedure AddToGlobalRecordSet(var TempTrackingSpecification: Record "Tracking Specification" temporary)
     var
+        ItemTrackingSetup: Record "Item Tracking Setup";
         EntriesExist: Boolean;
         ExpDate: Date;
     begin
@@ -350,9 +351,11 @@ codeunit 50100 "PWD LPSA Tracking Management"
                   Rec.CalcQty(Rec."Qty. to Invoice (Base)");
                 Rec."Entry No." := NextEntryNo();
 
+                ItemTrackingSetup."Serial No." := Rec."Serial No.";
+                ItemTrackingSetup."Lot No." := Rec."Lot No.";
                 ExpDate := ItemTrackingMgt.ExistingExpirationDate(
                   Rec."Item No.", Rec."Variant Code",
-                  Rec."Lot No.", Rec."Serial No.", false, EntriesExist);
+                  ItemTrackingSetup, false, EntriesExist);
 
                 if ExpDate <> 0D then begin
                     Rec."Expiration Date" := ExpDate;
@@ -593,7 +596,7 @@ codeunit 50100 "PWD LPSA Tracking Management"
         EntryNo: Integer;
         i: Integer;
         ModifyLoop: Integer;
-        NoOfLines: Integer;
+        // NoOfLines: Integer;
         ChangeType: Option Insert,Modify,Delete;
     begin
         if CurrentFormIsOpen then begin
@@ -613,7 +616,7 @@ codeunit 50100 "PWD LPSA Tracking Management"
             //Window.OPEN('#1############# @2@@@@@@@@@@@@@@@@@@@@@');
             //Window.UPDATE(1,Text018);
             //<<MIG-2009-001
-            NoOfLines := TempItemTrackLineInsert.Count + TempItemTrackLineModify.Count + TempItemTrackLineDelete.Count;
+            // NoOfLines := TempItemTrackLineInsert.Count + TempItemTrackLineModify.Count + TempItemTrackLineDelete.Count;
             if TempItemTrackLineDelete.Find('-') then begin
                 repeat
                     i := i + 1;
@@ -751,7 +754,7 @@ codeunit 50100 "PWD LPSA Tracking Management"
         CreateReservEntry: Codeunit "Create Reserv. Entry";
         ReservationMgt: Codeunit "Reservation Management";
         IdenticalArray: array[2] of Boolean;
-        AvailabilityDate: Date;
+        // AvailabilityDate: Date;
         LostReservQty: Decimal;
         QtyToAdd: Decimal;
     begin
@@ -829,10 +832,10 @@ codeunit 50100 "PWD LPSA Tracking Management"
                         ModifyFieldsWithinFilter(ReservEntry1, NewTrackingSpecification);
                     end;
 
-                    if CurrentSignFactor < 0 then
-                        AvailabilityDate := ShipmentDate
-                    else
-                        AvailabilityDate := ExpectedReceiptDate;
+                    // if CurrentSignFactor < 0 then
+                    //     AvailabilityDate := ShipmentDate
+                    // else
+                    //     AvailabilityDate := ExpectedReceiptDate;
                     OK := true;
                 end;
             ChangeType::Modify:
@@ -1164,7 +1167,7 @@ codeunit 50100 "PWD LPSA Tracking Management"
     procedure AssignSerialNo()
     var
         QtyToCreate: Decimal;
-        QtyToCreateInt: Integer;
+    // QtyToCreateInt: Integer;
     begin
         if ZeroLineExists() then
             Rec.Delete();
@@ -1176,7 +1179,7 @@ codeunit 50100 "PWD LPSA Tracking Management"
         if QtyToCreate mod 1 <> 0 then
             Error(Text008);
 
-        QtyToCreateInt := QtyToCreate;
+        // QtyToCreateInt := QtyToCreate;
         //>>MIG-2009-001
         /*
         CLEAR(EnterQuantityToCreate);
@@ -1260,7 +1263,7 @@ codeunit 50100 "PWD LPSA Tracking Management"
     procedure CreateCustomizedSN()
     var
         QtyToCreate: Decimal;
-        QtyToCreateInt: Integer;
+    // QtyToCreateInt: Integer;
     begin
         if ZeroLineExists() then
             Rec.Delete();
@@ -1274,7 +1277,7 @@ codeunit 50100 "PWD LPSA Tracking Management"
         if QtyToCreate mod 1 <> 0 then
             Error(Text008);
 
-        QtyToCreateInt := QtyToCreate;
+        // QtyToCreateInt := QtyToCreate;
         //>>MIG-2009-001
         /*
         CLEAR(EnterCustomizedSN);

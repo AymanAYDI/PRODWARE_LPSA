@@ -42,7 +42,7 @@ codeunit 8073303 "PWD Binary File Management"
     begin
         FilGFile.TextMode(false);
         FilGFile.Open(TxtPFileName);
-        IntGNbLine := 0;
+        // IntGNbLine := 0;
         i := 1;
         FilGFile.CreateInStream(InsGInstream);
         BooGEOF := false;
@@ -194,14 +194,14 @@ codeunit 8073303 "PWD Binary File Management"
         BooLFindValue: Boolean;
         ChaLSpaceReplace: Char;
         j: Integer;
-        x: Integer;
+        // x: Integer;
         TxtLVal: Text[250];
     begin
         TxtLVal := '';
         BooLFindValue := false;
         ChaLSpaceReplace := 231; //Replace Space in string value for involve compressarray to remove space in string
         j := 1;
-        x := 1;
+        // x := 1;
         IntPValueIndex -= 1;
 
         repeat
@@ -249,14 +249,14 @@ codeunit 8073303 "PWD Binary File Management"
         BooLFindValue: Boolean;
         ChaLSpaceReplace: Char;
         j: Integer;
-        x: Integer;
+        // x: Integer;
         TxtLVal: Text[250];
     begin
         TxtLVal := '';
         BooLFindValue := false;
         ChaLSpaceReplace := 231; //Replace Space in string value for involve compressarray to remove space in string
         j := 1;
-        x := 1;
+        // x := 1;
         IntPValueIndex -= 1;
 
         repeat
@@ -331,14 +331,14 @@ codeunit 8073303 "PWD Binary File Management"
         BooLFindValue: Boolean;
         ChaLSpaceReplace: Char;
         j: Integer;
-        x: Integer;
+        // x: Integer;
         TxtLVal: Text[250];
     begin
         TxtLVal := '';
         BooLFindValue := false;
         ChaLSpaceReplace := 231; //Replace Space in string value for involve compressarray to remove space in string
         j := 1;
-        x := 1;
+        // x := 1;
         IntPValueIndex -= 1;
 
         repeat
@@ -464,11 +464,11 @@ codeunit 8073303 "PWD Binary File Management"
     procedure FctWriteLineDirect(TxtPValue: Text[250]; CodPFieldSeparator: Code[10]; CodPFieldDelimiter: Code[10]; IntPFixLength: Integer; TxtPCompChar: Text[1]; CodPSens: Text[1]; BooPLF: Boolean; BooPCR: Boolean): Boolean
     var
         ChaLLForCR: Char;
-        ChaLSpaceReplace: Char;
+        // ChaLSpaceReplace: Char;
         j: Integer;
         TxtLComp: Text[250];
     begin
-        ChaLSpaceReplace := 231;
+        // ChaLSpaceReplace := 231;
 
         if IntPFixLength > 0 then begin
             TxtLComp := '';
@@ -553,11 +553,11 @@ codeunit 8073303 "PWD Binary File Management"
     procedure FctModifyLineDirect(TxtPValue: Text[250]; CodPFieldSeparator: Code[10]; CodPFieldDelimiter: Code[10]; IntPBegin: Integer; IntPFixLength: Integer; TxtPCompChar: Text[1]; CodPSens: Text[1]; BooPLF: Boolean; BooPCR: Boolean): Boolean
     var
         ChaLLForCR: Char;
-        ChaLSpaceReplace: Char;
+        // ChaLSpaceReplace: Char;
         i: Integer;
         TxtLValue: Text[250];
     begin
-        ChaLSpaceReplace := 231;
+        // ChaLSpaceReplace := 231;
 
         if IntPBegin > 0 then begin
             TxtLValue := CopyStr(FctReturnRetreiveVarDatas(1, CodPFieldSeparator, CodPFieldDelimiter), 1, IntPBegin - 1);

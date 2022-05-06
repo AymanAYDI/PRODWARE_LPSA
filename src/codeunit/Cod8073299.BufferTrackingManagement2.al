@@ -34,7 +34,7 @@ codeunit 8073299 "Buffer Tracking Management 2"
         TotalItemTrackingLine: Record "Tracking Specification";
         xTempItemTrackingLine: Record "Tracking Specification" temporary;
         TransferLineNC: Record "Transfer Line";
-        WhseReceiptLineNC: Record "Warehouse Receipt Line";
+        // WhseReceiptLineNC: Record "Warehouse Receipt Line";
         WhseShptLineNC: Record "Warehouse Shipment Line";
         ItemTrackingDataCollection: Codeunit "Item Tracking Data Collection";
         ItemTrackingMgt: Codeunit "Item Tracking Management";
@@ -43,7 +43,7 @@ codeunit 8073299 "Buffer Tracking Management 2"
         BlockCommit: Boolean;
         CalledFromSynchWhseItemTrkg: Boolean;
         CurrentFormIsOpen: Boolean;
-        DeleteIsBlocked: Boolean;
+        // DeleteIsBlocked: Boolean;
         Inbound: Boolean;
         InsertIsBlocked: Boolean;
         IsCorrection: Boolean;
@@ -131,14 +131,15 @@ codeunit 8073299 "Buffer Tracking Management 2"
           TrackingSpecification."Location Code",
           TrackingSpecification."Item No.")
         THEN
-            DeleteIsBlocked := TRUE;
+            ;
+        // DeleteIsBlocked := TRUE;
 
 
         ReservEntry."Source Type" := TrackingSpecification."Source Type";
         ReservEntry."Source Subtype" := TrackingSpecification."Source Subtype";
         CurrentSignFactor := CreateReservEntry.SignFactor(ReservEntry);
         CurrentSourceCaption := ReservEntry.TextCaption();
-        CurrentSourceType := ReservEntry."Source Type";
+        // CurrentSourceType := ReservEntry."Source Type";
 
         IF CurrentSignFactor < 0 THEN BEGIN
             ExpectedReceiptDate := 0D;
@@ -175,7 +176,7 @@ codeunit 8073299 "Buffer Tracking Management 2"
             ReservEntry.SETRANGE("Source Subtype", 1);
             ReservEntry.SETRANGE("Source Prod. Order Line", TrackingSpecification."Source Ref. No.");
             ReservEntry.SETRANGE("Source Ref. No.");
-            DeleteIsBlocked := TRUE;
+            // DeleteIsBlocked := TRUE;
         END;
 
         AddReservEntriesToTempRecSet(ReservEntry, TempTrackingSpecification, FALSE, 0);
@@ -648,7 +649,7 @@ codeunit 8073299 "Buffer Tracking Management 2"
         CreateReservEntry: Codeunit "Create Reserv. Entry";
         ReservationMgt: Codeunit "Reservation Management";
         IdenticalArray: array[2] of Boolean;
-        AvailabilityDate: Date;
+        // AvailabilityDate: Date;
         LostReservQty: Decimal;
         QtyToAdd: Decimal;
     begin
@@ -725,10 +726,10 @@ codeunit 8073299 "Buffer Tracking Management 2"
                         ModifyFieldsWithinFilter(ReservEntry1, NewTrackingSpecification);
                     END;
 
-                    IF CurrentSignFactor < 0 THEN
-                        AvailabilityDate := ShipmentDate
-                    ELSE
-                        AvailabilityDate := ExpectedReceiptDate;
+                    // IF CurrentSignFactor < 0 THEN
+                    //     AvailabilityDate := ShipmentDate
+                    // ELSE
+                    //     AvailabilityDate := ExpectedReceiptDate;
                     OK := TRUE;
                 END;
             ChangeType::Modify:
@@ -1492,11 +1493,11 @@ codeunit 8073299 "Buffer Tracking Management 2"
     end;
 
 
-    procedure SetWhseReceiptLine(FromWhseReceiptLine: Record "Warehouse Receipt Line")
-    begin
-        WhseReceiptLineNC := FromWhseReceiptLine;
-        SourceTable := DATABASE::"Warehouse Receipt Line";
-    end;
+    // procedure SetWhseReceiptLine(FromWhseReceiptLine: Record "Warehouse Receipt Line")
+    // begin
+    //     WhseReceiptLineNC := FromWhseReceiptLine;
+    //     SourceTable := DATABASE::"Warehouse Receipt Line";
+    // end;
 
 
     procedure SetPurchLine(FromPurchLine: Record "Purchase Line")

@@ -62,9 +62,9 @@ codeunit 50005 "PWD Job Queue Calculate Plan"
                         end;
 
                         CduGCalcItemPlan.SetResiliencyOn();
-                        if CduGCalcItemPlan.Run(RecGItem) then
-                            IntGCounterOK += 1
-                        else
+                        if Not CduGCalcItemPlan.Run(RecGItem) then
+                            // IntGCounterOK += 1
+                            //else
                             if not CduGCalcItemPlan.GetResiliencyError(RecGPlanningErrorLog) then begin
                                 TxtGErrorText := CopyStr(GetLastErrorText, 1, MaxStrLen(TxtGErrorText));
                                 if TxtGErrorText = '' then
@@ -97,7 +97,7 @@ codeunit 50005 "PWD Job Queue Calculate Plan"
         BooGSetAtStartPosition: Boolean;
         DatGFromDate: Date;
         DatGToDate: Date;
-        IntGCounterOK: Integer;
+        // IntGCounterOK: Integer;
         CstGTxt000: Label 'MPS or MRP must be flag on %1.';
         CstGTxt001: Label 'An unidentified error occurred while planning %1 %2. Recalculate the plan with the option "Stop and Show Error".';
         CstGTxt002: Label 'Planning Wkhs. must be define on Location.';

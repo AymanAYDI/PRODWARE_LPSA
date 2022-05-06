@@ -204,7 +204,7 @@ codeunit 8073298 "PWD Buffer Tracking Management"
         DatLShipmentDate: Date;
         DecLTempDec: Decimal;
         LostReservQty: Decimal;
-        QtyToAdd: Decimal;
+        // QtyToAdd: Decimal;
     begin
         RecGTempReservEntry.Reset();
         RecGTempReservEntry.DeleteAll();
@@ -317,10 +317,10 @@ codeunit 8073298 "PWD Buffer Tracking Management"
                         OldTrackingSpecification."Lot No." := '';
                         OldTrackingSpecification."Warranty Date" := 0D;
                         OldTrackingSpecification."Expiration Date" := 0D;
-                        QtyToAdd := CduGReservEngineMgt.AddItemTrackingToTempRecSet(
-                                     RecGTempReservEntry, OldTrackingSpecification,
-                                     OldTrackingSpecification."Quantity (Base)", DecLTempDec,
-                                     RecGItemTrackingCode);
+                        // QtyToAdd := CduGReservEngineMgt.AddItemTrackingToTempRecSet(
+                        //              RecGTempReservEntry, OldTrackingSpecification,
+                        //              OldTrackingSpecification."Quantity (Base)", DecLTempDec,
+                        //              RecGItemTrackingCode);
                         RecGTempReservEntry.SetRange("Serial No.");
                         RecGTempReservEntry.SetRange("Lot No.");
                         ReservationMgt.DeleteReservEntries(true, 0, ReservEntry1)

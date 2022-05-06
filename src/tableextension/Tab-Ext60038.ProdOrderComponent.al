@@ -163,7 +163,7 @@ tableextension 60038 "PWD ProdOrderComponent" extends "Prod. Order Component"
         TempItemTrackLineReserv: Record "Tracking Specification" temporary;
         CreateReservEntry: Codeunit "Create Reserv. Entry";
         ReservEngineMgt: Codeunit "Reservation Engine Mgt.";
-        AvailabilityDate: Date;
+        // AvailabilityDate: Date;
         LostReservQty: Decimal;
         CurrentEntryStatus: Enum "Reservation Status";
     begin
@@ -241,10 +241,10 @@ tableextension 60038 "PWD ProdOrderComponent" extends "Prod. Order Component"
                         ModifyFieldsWithinFilter(ReservEntry1, NewTrackingSpecification);
                     END;
 
-                    IF CurrentSignFactor < 0 THEN
-                        AvailabilityDate := "Due Date"
-                    ELSE
-                        AvailabilityDate := "Due Date";
+                    // IF CurrentSignFactor < 0 THEN
+                    //     AvailabilityDate := "Due Date"
+                    // ELSE
+                    //     AvailabilityDate := "Due Date";
                     OK := TRUE;
                 END;
         END;
@@ -363,7 +363,7 @@ tableextension 60038 "PWD ProdOrderComponent" extends "Prod. Order Component"
         RecLProdOrder: Record "Production Order";
         NeededQty: Decimal;
         QtyOnHandAfterProd: Decimal;
-        RemainingQty: Decimal;
+    // RemainingQty: Decimal;
     begin
         //>>LAP.TDL.09/10/2014 :
         //>>Based on Report 99000788
@@ -479,9 +479,9 @@ tableextension 60038 "PWD ProdOrderComponent" extends "Prod. Order Component"
           TempProdOrderComp."Remaining Qty. (Base)" -
           TempProdOrderComp."Reserved Qty. (Base)";
 
-        RemainingQty :=
-          TempProdOrderComp."Remaining Qty. (Base)" -
-          TempProdOrderComp."Reserved Qty. (Base)";
+        // RemainingQty :=
+        //   TempProdOrderComp."Remaining Qty. (Base)" -
+        //   TempProdOrderComp."Reserved Qty. (Base)";
 
         QtyOnHandAfterProd :=
           CompItem.Inventory -

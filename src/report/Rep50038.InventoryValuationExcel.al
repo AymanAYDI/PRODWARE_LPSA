@@ -11,7 +11,7 @@ report 50038 "PWD Inventory Valuation Excel"
 
     Caption = 'Inventory Valuation Excel';
     ProcessingOnly = true;
-UsageCategory = none;
+    UsageCategory = none;
     dataset
     {
         dataitem(Item; Item)
@@ -206,7 +206,7 @@ UsageCategory = none;
             trigger OnAfterGetRecord()
             begin
                 CalcFields("Assembly BOM");
-                InvandShipDiffer := false;
+                // InvandShipDiffer := false;
                 //>>LAP2.12
                 if BooGExportExcel then begin
                     IntGCounter -= 1;
@@ -333,7 +333,7 @@ UsageCategory = none;
     var
         ExcelBuf: Record "Excel Buffer" temporary;
         BooGExportExcel: Boolean;
-        InvandShipDiffer: Boolean;
+        // InvandShipDiffer: Boolean;
         IsPositive: Boolean;
         ShowExpected: Boolean;
         EndDate: Date;
@@ -425,7 +425,7 @@ UsageCategory = none;
     begin
         ItemApplnEntry.SetCurrentKey("Item Ledger Entry No.");
         ItemApplnEntry.SetRange("Item Ledger Entry No.", ItemLedgerEntryNo);
-        if not ItemApplnEntry.Find('-') then
+        if ItemApplnEntry.IsEmpty then
             exit(true);
 
         ItemLedgEntry.SetRange("Item No.", Item."No.");

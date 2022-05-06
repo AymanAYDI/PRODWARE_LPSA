@@ -724,7 +724,7 @@ codeunit 50021 "PWD LPSA Functions Mgt."
             //TODO: InsertItemLedgTrackEntry procedure local dans le codeunit OrderTrackingManagement
             //InsertItemLedgTrackEntry(1, ItemLedgEntry2, ItemLedgEntry2."Remaining Quantity", ItemLedgEntry2);
             UNTIL ItemLedgEntry2.NEXT() = 0;
-        TrackingExists := TrackingEntry.FIND('-');
+        TrackingExists := not TrackingEntry.IsEmpty;
         IF TrackingExists THEN
             EXIT(FORMAT(-TrackingEntry.Quantity) + ' - ' + TrackingEntry."Supplied by")
         ELSE
@@ -1095,7 +1095,7 @@ codeunit 50021 "PWD LPSA Functions Mgt."
             ReservEntry2 := ReservEntry;
             ReservEntry2.SetPointerFilter();
             ReservEntry2.SETRANGE("Reservation Status", ReservEntry2."Reservation Status"::Reservation);
-            IF ReservEntry2.FIND('-') THEN
+            IF ReservEntry2.FindSet() THEN
                 REPEAT
                     ReservEngineMgt.CancelReservation(ReservEntry2);  //TODO J'ai modifié la foncion CloseReservEntry2 par CancelReservation(la foncion CloseReservEntry2 n'existe pas dans la nouvelle version)
                 UNTIL ReservEntry2.NEXT() = 0;
