@@ -80,6 +80,7 @@ page 8073286 "PWD Partner Code List"
                 {
                     Caption = 'Import Export Connector SetUp';
                     Promoted = true;
+                    PromotedOnly= true;
                     PromotedIsBig = true;
                     ApplicationArea = All;
                     Image= ImportExport;

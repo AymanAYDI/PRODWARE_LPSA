@@ -599,13 +599,13 @@ report 50000 "Export Invoicing Data (Excel)"
         //Create(Excel, true, true);
 
 
-        if not IsServiceTier then begin
+       //if not IsServiceTier then begin
             //TODO:
             // Excel.Visible(true);
             // Book := Excel.Workbooks.Add;
             // Sheet := Excel.Sheets.Add;
             // Sheet.Name := 'Clients non Rolex';
-        end else begin
+        //end else begin
             ServerFile.CreateTempFile();
             TempFileName := ServerFile.Name + '.txt';
             ServerFile.Close();
@@ -619,7 +619,7 @@ report 50000 "Export Invoicing Data (Excel)"
             // Excel.Visible(true);
             // Sheet := Excel.ActiveSheet;
             // Sheet.Name := 'Clients non Rolex';
-        end;
+        //end;
 
 
         //CREATE(Excel);

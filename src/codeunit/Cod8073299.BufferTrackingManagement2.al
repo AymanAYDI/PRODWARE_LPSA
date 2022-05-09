@@ -1009,7 +1009,7 @@ codeunit 8073299 "Buffer Tracking Management 2"
             ProdOrderRoutingLine.SETRANGE(Status, TrackingSpecification."Source Subtype");
             ProdOrderRoutingLine.SETRANGE("Prod. Order No.", TrackingSpecification."Source ID");
             ProdOrderRoutingLine.SETRANGE("Routing Reference No.", TrackingSpecification."Source Prod. Order Line");
-            IF ProdOrderRoutingLine.FIND('+') THEN
+            IF ProdOrderRoutingLine.FindLast() THEN
                 BackwardFlushing :=
                   ProdOrderRoutingLine."Flushing Method" = ProdOrderRoutingLine."Flushing Method"::Backward;
         END;

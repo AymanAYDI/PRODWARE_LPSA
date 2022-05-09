@@ -1594,9 +1594,9 @@ codeunit 50020 "PWD LPSA Events Mgt."
         IF Item.GETFILTER("PWD Customer Filter") = '' THEN BEGIN
             ProdForecastEntry2.COPYFILTERS(ProdForecastEntry);
             ProdForecastEntry2.SETRANGE("PWD Customer No.");
-            IF ProdForecastEntry2.FIND('-') THEN BEGIN
+            IF ProdForecastEntry2.FindFirst() THEN BEGIN
                 CustomerNo := ProdForecastEntry2."PWD Customer No.";
-                ProdForecastEntry2.FIND('+');
+                ProdForecastEntry2.FindLast();
                 IF ProdForecastEntry2."PWD Customer No." <> CustomerNo THEN
                     ERROR(Text005);
             END;

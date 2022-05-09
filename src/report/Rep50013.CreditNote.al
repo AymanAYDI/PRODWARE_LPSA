@@ -362,13 +362,11 @@ report 50013 "PWD Credit Note"
 
                         trigger OnAfterGetRecord()
                         begin
-                            IF ISSERVICETIER THEN BEGIN
                                 NNC_TotalLineAmount += "Line Amount";
                                 NNC_TotalAmountInclVat += "Amount Including VAT";
                                 NNC_TotalInvDiscAmount += "Inv. Discount Amount";
                                 NNC_TotalLCY := NNC_TotalLineAmount - NNC_TotalInvDiscAmount;
                                 NNC_TotalAmount += Amount;
-                            END;
 
                             SalesShipmentBuffer.DELETEALL();
                             PostedReceiptDate := 0D;
@@ -442,7 +440,7 @@ report 50013 "PWD Credit Note"
                             IF NOT MoreLines THEN
                                 CurrReport.BREAK();
                             SETRANGE("Line No.", 0, "Line No.");
-                            CurrReport.CREATETOTALS(Amount, "Amount Including VAT", "Inv. Discount Amount", VATAmountLine."VAT Base");
+                            // CurrReport.CREATETOTALS(Amount, "Amount Including VAT", "Inv. Discount Amount", VATAmountLine."VAT Base");
                         end;
                     }
                     dataitem(VATAcounter; "Integer")
@@ -487,9 +485,9 @@ report 50013 "PWD Credit Note"
                             IF VATAmountLine.GetTotalVATAmount() = 0 THEN
                                 CurrReport.BREAK();
                             SETRANGE(Number, 1, VATAmountLine.COUNT);
-                            CurrReport.CREATETOTALS(
-                              VATAmountLine."Line Amount", VATAmountLine."Inv. Disc. Base Amount",
-                              VATAmountLine."Invoice Discount Amount", VATAmountLine."VAT Base", VATAmountLine."VAT Amount");
+                            // CurrReport.CREATETOTALS(
+                            //   VATAmountLine."Line Amount", VATAmountLine."Inv. Disc. Base Amount",
+                            //   VATAmountLine."Invoice Discount Amount", VATAmountLine."VAT Base", VATAmountLine."VAT Amount");
 
                             NNC_VATAmount := VATAmountLine.GetTotalVATAmount();
 
@@ -542,20 +540,17 @@ report 50013 "PWD Credit Note"
 
                     IF Number > 1 THEN BEGIN
                         CopyText := Text004;
-                        IF ISSERVICETIER THEN
                             OutputNo += 1;
                     END;
 
-                    CurrReport.PAGENO := 1;
+                    // CurrReport.PAGENO := 1;
 
-                    IF ISSERVICETIER THEN BEGIN
                         NNC_TotalLineAmount := 0;
                         NNC_TotalAmountInclVat := 0;
                         NNC_TotalInvDiscAmount := 0;
                         NNC_TotalAmount := 0;
                         NNC_TotalLCY := 0;
                         NNC_VATAmount := 0;
-                    END;
                 end;
 
                 trigger OnPostDataItem()
@@ -569,7 +564,6 @@ report 50013 "PWD Credit Note"
                     NoOfLoops := ABS(NoOfCopies) + 1;
                     CopyText := '';
                     SETRANGE(Number, 1, NoOfLoops);
-                    IF ISSERVICETIER THEN
                         OutputNo := 1;
                 end;
             }

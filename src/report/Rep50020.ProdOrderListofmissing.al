@@ -441,7 +441,7 @@ report 50020 "Prod. Order - List of missing"
                         begin
                             SetRange(Number, 1, IntGNbDoc + 1);
 
-                            CurrReport.CreateTotals(Qty);
+                            // CurrReport.CreateTotals(Qty);
 
                             //>>TDL.LPSA.002
                             RecGCapLedgEntry.SetCurrentKey("Order No.");

@@ -32,6 +32,7 @@ pageextension 60120 "PWD WorkCenterCard" extends "Work Center Card"
                 RunObject = Page "PWD Manuf. cycles Setup - List";
                 RunPageLink = Type = CONST("Work Center"), "No." = FIELD("No.");
                 ApplicationArea = all;
+                Image= Capacities;
             }
         }
     }

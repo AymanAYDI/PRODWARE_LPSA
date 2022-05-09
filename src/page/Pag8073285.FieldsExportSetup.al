@@ -126,6 +126,7 @@ page 8073285 "PWD Fields Export Setup"
                 Caption = 'Insert All';
                 Image = Trace;
                 Promoted = true;
+                PromotedOnly= true;
                 PromotedCategory = Process;
                 ApplicationArea = All;
 
@@ -139,6 +140,7 @@ page 8073285 "PWD Fields Export Setup"
                 Caption = 'Check All Position';
                 Image = Trace;
                 Promoted = true;
+                PromotedOnly= true;
                 PromotedCategory = Process;
                 ApplicationArea = All;
 

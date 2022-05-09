@@ -182,7 +182,6 @@ report 50021 "PWD Inventory Valuation - LPSA"
 
                 trigger OnAfterGetRecord()
                 begin
-                    if IsServiceTier then begin
                         CountRecord := CountRecord + 1;
                         LastOutput := 0;
                         AtLastDate := 0;
@@ -209,9 +208,8 @@ report 50021 "PWD Inventory Valuation - LPSA"
                             NcValueOfRevalCostPstd := 0;
                             NcValueOfCostPstdToGL := 0;
                         end;
-                    end;
 
-                    if not IsServiceTier then
+                    // if not IsServiceTier then
                         if IsNotWIP() then
                             CurrReport.Skip();
 
@@ -273,7 +271,6 @@ report 50021 "PWD Inventory Valuation - LPSA"
                         end else
                             ValueOfCostPstdToGL := "Cost Posted to G/L" + "Expected Cost Posted to G/L";
 
-                        if IsServiceTier then begin
                             NcValueOfWIP := NcValueOfWIP + ValueOfWIP;
                             NcValueOfOutput := NcValueOfOutput + ValueOfOutput;
                             NcValueOfMatConsump := NcValueOfMatConsump + ValueOfMatConsump;
@@ -311,7 +308,6 @@ report 50021 "PWD Inventory Valuation - LPSA"
                                 NcValueOfRevalCostPstd := 0;
                                 NcValueOfCostPstdToGL := 0;
                             end;
-                        end;
                     end;
 
                     //>>TI316306
@@ -353,16 +349,15 @@ report 50021 "PWD Inventory Valuation - LPSA"
                     if EndDate <> 0D then
                         SetRange("Posting Date", 0D, EndDate);
 
-                    CurrReport.CreateTotals(
-                      ValueOfWIP, ValueOfMatConsump, ValueOfCap, ValueOfOutput, "Cost Amount (Actual)", ValueOfCostPstdToGL,
-                      ValueOfExpOutput1, ValueOfInvOutput1, ValueOfExpOutput2);
+                    // CurrReport.CreateTotals(
+                    //   ValueOfWIP, ValueOfMatConsump, ValueOfCap, ValueOfOutput, "Cost Amount (Actual)", ValueOfCostPstdToGL,
+                    //   ValueOfExpOutput1, ValueOfInvOutput1, ValueOfExpOutput2);
 
                     ValueOfRevalCostAct := 0;
                     ValueOfRevalCostPstd := 0;
                     LengthRecord := 0;
                     CountRecord := 0;
 
-                    if IsServiceTier then
                         if "Value Entry".Find('-') then
                             repeat
                                 LengthRecord := LengthRecord + 1;
@@ -398,9 +393,9 @@ report 50021 "PWD Inventory Valuation - LPSA"
                 //  ValueOfWIP,ValueOfMatConsump,ValueOfCap,ValueOfOutput,
                 //  "Value Entry"."Cost Amount (Actual)",ValueOfCostPstdToGL);
 
-                CurrReport.CreateTotals(
-                  ValueOfWIP, ValueOfMatConsump, ValueOfCap, ValueOfOutput,
-                  "Value Entry"."Cost Amount (Actual)", DecGInputQty);
+                // CurrReport.CreateTotals(
+                //   ValueOfWIP, ValueOfMatConsump, ValueOfCap, ValueOfOutput,
+                //   "Value Entry"."Cost Amount (Actual)", DecGInputQty);
             end;
         }
     }

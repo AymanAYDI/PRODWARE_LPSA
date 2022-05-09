@@ -115,7 +115,7 @@ codeunit 50100 "PWD LPSA Tracking Management"
         else
             CurrentEntryStatus := CurrentEntryStatus::Prospect;
 
-        if (TrackingSpecification."Source Type" in
+        if (TrackingSpecification."Source Type" in 
             [DATABASE::"Item Ledger Entry",
             DATABASE::"Item Journal Line",
             DATABASE::"Job Journal Line",
@@ -1115,7 +1115,7 @@ codeunit 50100 "PWD LPSA Tracking Management"
             ProdOrderRoutingLine.SetRange(Status, TrackingSpecification."Source Subtype");
             ProdOrderRoutingLine.SetRange("Prod. Order No.", TrackingSpecification."Source ID");
             ProdOrderRoutingLine.SetRange("Routing Reference No.", TrackingSpecification."Source Prod. Order Line");
-            if ProdOrderRoutingLine.Find('+') then
+            if ProdOrderRoutingLine.FindLast() then
                 BackwardFlushing :=
                   ProdOrderRoutingLine."Flushing Method" = ProdOrderRoutingLine."Flushing Method"::Backward;
         end;
@@ -1476,48 +1476,46 @@ codeunit 50100 "PWD LPSA Tracking Management"
         WriteToDatabase();
     end;
 
-    local procedure CheckEntryIsReservation(Checktype: Option "Rename/Delete",Quantity; Messagetype: Option Error,Message) EntryIsReservation: Boolean
-    var
-        ReservEntry: Record "Reservation Entry";
-        QtyToCheck: Decimal;
-    begin
-        ReservEntry.SetCurrentKey(
-  "Source ID", "Source Ref. No.", "Source Type", "Source Subtype",
-  "Source Batch Name", "Source Prod. Order Line", "Reservation Status");
-        ReservEntry.SetRange("Source ID", Rec."Source ID");
-        ReservEntry.SetRange("Source Ref. No.", Rec."Source Ref. No.");
-        ReservEntry.SetRange("Source Type", Rec."Source Type");
-        ReservEntry.SetRange("Source Subtype", Rec."Source Subtype");
-        ReservEntry.SetRange("Source Batch Name", Rec."Source Batch Name");
-        ReservEntry.SetRange("Source Prod. Order Line", Rec."Source Prod. Order Line");
-        ReservEntry.SetRange("Reservation Status", ReservEntry."Reservation Status"::Reservation);
-        ReservEntry.SetRange("Serial No.", xRec."Serial No.");
-        ReservEntry.SetRange("Lot No.", xRec."Lot No.");
-        if ReservEntry.Find('-') then
-            case Checktype of
-                Checktype::"Rename/Delete":
-                    begin
-                        EntryIsReservation := true;
-                        case Messagetype of
-                            Messagetype::Error:
-                                Error(Text000, ReservEntry.TextCaption());
-                        //>>MIG-2009-001
-                        //Messagetype::Message: MESSAGE(Text000,TextCaption);
-                        //<<MIG-2009-001
-                        end;
-                    end;
-                Checktype::Quantity:
-                    begin
-                        repeat
-                            QtyToCheck := QtyToCheck + ReservEntry."Quantity (Base)";
-                        until ReservEntry.Next() = 0;
-                        if Abs(Rec."Quantity (Base)") < Abs(QtyToCheck) then
-                            Error(Text001, ReservEntry.TextCaption(), ReservEntry.FieldCaption("Quantity (Base)"), Abs(QtyToCheck));
-                    end;
-            end;
-    end;
-
-
+    //     local procedure CheckEntryIsReservation(Checktype: Option "Rename/Delete",Quantity; Messagetype: Option Error,Message) EntryIsReservation: Boolean
+    //     var
+    //         ReservEntry: Record "Reservation Entry";
+    //         QtyToCheck: Decimal;
+    //     begin
+    //         ReservEntry.SetCurrentKey(
+    //   "Source ID", "Source Ref. No.", "Source Type", "Source Subtype",
+    //   "Source Batch Name", "Source Prod. Order Line", "Reservation Status");
+    //         ReservEntry.SetRange("Source ID", Rec."Source ID");
+    //         ReservEntry.SetRange("Source Ref. No.", Rec."Source Ref. No.");
+    //         ReservEntry.SetRange("Source Type", Rec."Source Type");
+    //         ReservEntry.SetRange("Source Subtype", Rec."Source Subtype");
+    //         ReservEntry.SetRange("Source Batch Name", Rec."Source Batch Name");
+    //         ReservEntry.SetRange("Source Prod. Order Line", Rec."Source Prod. Order Line");
+    //         ReservEntry.SetRange("Reservation Status", ReservEntry."Reservation Status"::Reservation);
+    //         ReservEntry.SetRange("Serial No.", xRec."Serial No.");
+    //         ReservEntry.SetRange("Lot No.", xRec."Lot No.");
+    //         if ReservEntry.Find('-') then
+    //             case Checktype of
+    //                 Checktype::"Rename/Delete":
+    //                     begin
+    //                         EntryIsReservation := true;
+    //                         case Messagetype of
+    //                             Messagetype::Error:
+    //                                 Error(Text000, ReservEntry.TextCaption());
+    //                         //>>MIG-2009-001
+    //                         //Messagetype::Message: MESSAGE(Text000,TextCaption);
+    //                         //<<MIG-2009-001
+    //                         end;
+    //                     end;
+    //                 Checktype::Quantity:
+    //                     begin
+    //                         repeat
+    //                             QtyToCheck := QtyToCheck + ReservEntry."Quantity (Base)";
+    //                         until ReservEntry.Next() = 0;
+    //                         if Abs(Rec."Quantity (Base)") < Abs(QtyToCheck) then
+    //                             Error(Text001, ReservEntry.TextCaption(), ReservEntry.FieldCaption("Quantity (Base)"), Abs(QtyToCheck));
+    //                     end;
+    //             end;
+    //     end;
     procedure SetCalledFromSynchWhseItemTrkg(CalledFromSynchWhseItemTrkg2: Boolean)
     begin
         CalledFromSynchWhseItemTrkg := CalledFromSynchWhseItemTrkg2;

@@ -141,6 +141,7 @@ pageextension 60125 "PWD RoutingLines" extends "Routing Lines"
             action("PWD Updateroutingsandprodorders")
             {
                 Caption = 'Update routings and prod. orders.';
+                Image= UpdateDescription;
                 ApplicationArea = All;
                 trigger OnAction()
                 var

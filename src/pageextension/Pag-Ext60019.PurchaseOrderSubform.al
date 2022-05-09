@@ -86,7 +86,7 @@ pageextension 60019 "PWD PurchaseOrderSubform" extends "Purchase Order Subform"
             {
                 Caption = 'Send Line To WMS';
                 ApplicationArea = All;
-
+                Image= SendTo;
                 trigger OnAction()
                 begin
                     FctSendLineToWMS();

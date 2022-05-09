@@ -496,12 +496,6 @@ codeunit 8073287 "Connector Buffer Mgt Export"
         EXIT(TxtPDecimalToNormalize)
     end;
 
-
-    procedure "---ProdConnect1.5---"()
-    begin
-    end;
-
-
     procedure FctCreateBigTextWithPosition(TxtPFilters: Text[1024]; RecPSendingMessage: Record "PWD Connector Messages"; var BigTPToReturn: BigText)
     var
         RecLSendingMessage: Record "PWD Connector Messages";

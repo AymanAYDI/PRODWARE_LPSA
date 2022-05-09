@@ -92,6 +92,7 @@ page 8073289 "PWD Receiving Message List"
                     Caption = 'Paramètres champs';
                     Image = Import;
                     Promoted = true;
+                    PromotedOnly= true;
                     PromotedCategory = Process;
                     PromotedIsBig = true;
                     RunObject = Page "PWD Fields Export Setup";

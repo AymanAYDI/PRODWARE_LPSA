@@ -447,14 +447,12 @@ report 50014 "PWD Invoice"
                                 IntGImpText := 1;
                             //<<TI397445
 
-                            if IsServiceTier then begin
                                 TotalSubTotal += "Line Amount";
                                 TotalInvoiceDiscountAmount -= "Inv. Discount Amount";
                                 TotalAmount += Amount;
                                 TotalAmountVAT += "Amount Including VAT" - Amount;
                                 TotalAmountInclVAT += "Amount Including VAT";
                                 // TotalPaymentDiscountOnVAT += -("Line Amount" - "Inv. Discount Amount" - "Amount Including VAT");
-                            end;
                             SearchLot();
 
                             //>>TDL.LPSA.09022015
@@ -487,14 +485,12 @@ report 50014 "PWD Invoice"
                             if not MoreLines then
                                 CurrReport.Break();
                             SetRange("Line No.", 0, "Line No.");
-                            CurrReport.CreateTotals("Line Amount", Amount, "Amount Including VAT", "Inv. Discount Amount", VATAmountLine."VAT Base");
+                            // CurrReport.CreateTotals("Line Amount", Amount, "Amount Including VAT", "Inv. Discount Amount", VATAmountLine."VAT Base");
 
-                            if IsServiceTier then begin
                                 GetTotalLineAmount := 0;
                                 GetTotalInvDiscAmount := 0;
                                 GetTotalAmount := 0;
                                 GetTotalAmountIncVAT := 0;
-                            end;
                         end;
                     }
                     dataitem(VATCounter; "Integer")
@@ -530,9 +526,9 @@ report 50014 "PWD Invoice"
                             if VATAmountLine.GetTotalVATAmount() = 0 then
                                 CurrReport.Break();
                             SetRange(Number, 1, VATAmountLine.Count);
-                            CurrReport.CreateTotals(
-                              VATAmountLine."Line Amount", VATAmountLine."Inv. Disc. Base Amount",
-                              VATAmountLine."Invoice Discount Amount", VATAmountLine."VAT Base", VATAmountLine."VAT Amount");
+                            // CurrReport.CreateTotals(
+                            //   VATAmountLine."Line Amount", VATAmountLine."Inv. Disc. Base Amount",
+                            //   VATAmountLine."Invoice Discount Amount", VATAmountLine."VAT Base", VATAmountLine."VAT Amount");
                         end;
                     }
 
@@ -553,19 +549,16 @@ report 50014 "PWD Invoice"
                 begin
                     if Number > 1 then begin
                         CopyText := Text003;
-                        if IsServiceTier then
                             OutputNo += 1;
                     end;
-                    CurrReport.PageNo := 1;
+                    // CurrReport.PageNo := 1;
 
-                    if IsServiceTier then begin
                         TotalSubTotal := 0;
                         TotalInvoiceDiscountAmount := 0;
                         TotalAmount := 0;
                         TotalAmountVAT := 0;
                         TotalAmountInclVAT := 0;
                         // TotalPaymentDiscountOnVAT := 0;
-                    end
                 end;
 
                 trigger OnPostDataItem()
@@ -587,7 +580,6 @@ report 50014 "PWD Invoice"
 
                     CopyText := '';
                     SetRange(Number, 1, NoOfLoops);
-                    if IsServiceTier then
                         OutputNo := 1;
                 end;
             }

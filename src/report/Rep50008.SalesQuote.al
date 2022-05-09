@@ -15,7 +15,7 @@ report 50008 "PWD Sales Quote"
     // 
     // ------------------------------------------------------------------------------------------------------------------
     DefaultLayout = RDLC;
-    RDLCLayout = './src/report/rdl/SalesQuote.rdl';
+    RDLCLayout = './src/report/rdl/SalesQuote.rdl'; 
 
     Caption = 'Sales Quote';
     UsageCategory = none;
@@ -387,8 +387,7 @@ report 50008 "PWD Sales Quote"
                                 if not ("Sales Line".Type = "Sales Line".Type::"New Page") then begin
                                     CurrPageHeaderHiddenFlag := 0;
                                     CurrReport.Break();
-                                end else
-                                    if IsServiceTier then begin
+                                end else begin
                                         CurrGroupPageNO += 1;
                                         InnerGroupPageNO += 1;
                                         CurrPageHeaderHiddenFlag := 1;
@@ -431,7 +430,6 @@ report 50008 "PWD Sales Quote"
 
 
                             // CH0004.begin
-                            if IsServiceTier then
                                 if ("Sales Line".Type = "Sales Line".Type::"New Page") then
                                     CurrPageFooterHiddenFlag := 1
                                 else
@@ -456,7 +454,7 @@ report 50008 "PWD Sales Quote"
                                 CurrReport.Break();
                             SalesLine.SetRange("Line No.", 0, SalesLine."Line No.");
                             SetRange(Number, 1, SalesLine.Count);
-                            CurrReport.CreateTotals(SalesLine."Line Amount", SalesLine."Inv. Discount Amount");
+                            // CurrReport.CreateTotals(SalesLine."Line Amount", SalesLine."Inv. Discount Amount");
                         end;
                     }
                     dataitem(VATCounter; "Integer")
@@ -473,9 +471,9 @@ report 50008 "PWD Sales Quote"
                             if VATAmount = 0 then
                                 CurrReport.Break();
                             SetRange(Number, 1, VATAmountLine.Count);
-                            CurrReport.CreateTotals(
-                              VATAmountLine."Line Amount", VATAmountLine."Inv. Disc. Base Amount",
-                              VATAmountLine."Invoice Discount Amount", VATAmountLine."VAT Base", VATAmountLine."VAT Amount");
+                            // CurrReport.CreateTotals(
+                            //   VATAmountLine."Line Amount", VATAmountLine."Inv. Disc. Base Amount",
+                            //   VATAmountLine."Invoice Discount Amount", VATAmountLine."VAT Base", VATAmountLine."VAT Amount");
                         end;
                     }
                     dataitem(VATCounterLCY; "Integer")
@@ -502,7 +500,7 @@ report 50008 "PWD Sales Quote"
                                 CurrReport.Break();
 
                             SetRange(Number, 1, VATAmountLine.Count);
-                            CurrReport.CreateTotals(VALVATBaseLCY, VALVATAmountLCY);
+                            // CurrReport.CreateTotals(VALVATBaseLCY, VALVATAmountLCY);
 
                             if GLSetup."LCY Code" = '' then
                                 VALSpecLCYHeader := Text008 + Text009
@@ -538,10 +536,9 @@ report 50008 "PWD Sales Quote"
 
                     if Number > 1 then begin
                         CopyText := Text003;
-                        if IsServiceTier then
                             OutputNo += 1;
                     end;
-                    CurrReport.PageNo := 1;
+                    // CurrReport.PageNo := 1;
                 end;
 
                 trigger OnPostDataItem()
@@ -555,7 +552,6 @@ report 50008 "PWD Sales Quote"
                     NoOfLoops := Abs(NoOfCopies) + 1;
                     CopyText := '';
                     SetRange(Number, 1, NoOfLoops);
-                    if IsServiceTier then
                         OutputNo := 1;
                 end;
             }
@@ -669,12 +665,10 @@ report 50008 "PWD Sales Quote"
                 NoOfRecords := Count;
 
                 // CH0004.begin
-                if IsServiceTier then begin
                     CurrPageHeaderHiddenFlag := 0;
                     CurrPageFooterHiddenFlag := 0;
                     CurrGroupPageNO := 0;
                     InnerGroupPageNO := 1;
-                end;
                 // CH0004.end
             end;
         }

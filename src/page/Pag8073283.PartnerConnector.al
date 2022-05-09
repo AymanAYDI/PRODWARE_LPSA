@@ -135,6 +135,7 @@ page 8073283 "PWD Partner Connector"
                 {
                     Caption = 'Sending Message List';
                     Promoted = true;
+                    PromotedOnly= true;
                     RunObject = Page "PWD Sending Message List";
                     RunPageLink = "Partner Code" = FIELD(Code);
                     ApplicationArea = All;

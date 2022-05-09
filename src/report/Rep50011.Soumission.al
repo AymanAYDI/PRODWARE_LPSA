@@ -253,10 +253,9 @@ report 50011 "PWD Soumission"
                 begin
                     if Number > 1 then begin
                         CopyText := Text000;
-                        if IsServiceTier then
                             OutputNo += 1;
                     end;
-                    CurrReport.PageNo := 1;
+                    // CurrReport.PageNo := 1;
                 end;
 
                 trigger OnPreDataItem()
@@ -264,7 +263,6 @@ report 50011 "PWD Soumission"
                     NoOfLoops := 1 + Abs(NoOfCopies);
                     CopyText := '';
                     SetRange(Number, 1, NoOfLoops);
-                    if IsServiceTier then
                         OutputNo := 1;
                 end;
             }

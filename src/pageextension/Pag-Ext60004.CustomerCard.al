@@ -53,6 +53,7 @@ pageextension 60004 "PWD CustomerCard" extends "Customer Card"
                               WHERE("Document Type" = FILTER(Quote));
                 RunPageLink = "Sell-to Customer No." = FIELD("No.");
                 ApplicationArea = All;
+                Image= AllLines;
             }
         }
     }

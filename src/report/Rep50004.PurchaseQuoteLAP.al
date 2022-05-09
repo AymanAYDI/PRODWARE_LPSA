@@ -549,10 +549,9 @@ report 50004 "PWD Purchase - Quote LAP"
 
                     if Number > 1 then begin
                         CopyText := Text001;
-                        if IsServiceTier then
                             OutputNo += 1;
                     end;
-                    CurrReport.PageNo := 1;
+                    // CurrReport.PageNo := 1;
                 end;
 
                 trigger OnPostDataItem()
@@ -567,7 +566,6 @@ report 50004 "PWD Purchase - Quote LAP"
                     CopyText := '';
                     SetRange(Number, 1, NoOfLoops);
 
-                    if IsServiceTier then
                         OutputNo := 1;
                 end;
             }

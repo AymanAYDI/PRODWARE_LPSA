@@ -116,7 +116,6 @@ report 50001 "Export Planning Client Excel"
             begin
 
                 if Option = Option::"Update Workbook" then begin
-                    if IsServiceTier then
                         if UploadedFileName = '' then
                             UploadFile()
                         else
@@ -186,7 +185,7 @@ report 50001 "Export Planning Client Excel"
                         trigger OnAssistEdit()
                         begin
                             UploadFile();
-                            if IsServiceTier and (UploadedFileName <> '') then
+                            if UploadedFileName <> '' then
                                 GFileName := Text003;
                         end;
 
@@ -205,10 +204,10 @@ report 50001 "Export Planning Client Excel"
                         var
                             ExcelBuf: Record "Excel Buffer";
                         begin
-                            if IsServiceTier then
-                                SheetName := ExcelBuf.SelectSheetsName(UploadedFileName)
-                            else
-                                SheetName := ExcelBuf.SelectSheetsName(GFileName);
+                            // if IsServiceTier then
+                                SheetName := ExcelBuf.SelectSheetsName(UploadedFileName);
+                            // else
+                            //     SheetName := ExcelBuf.SelectSheetsName(GFileName);
                         end;
                     }
                 }
@@ -336,13 +335,13 @@ report 50001 "Export Planning Client Excel"
         EnterCell(RowNo, 11, Item.FieldCaption(Inventory), true, false, true, '@');
     end;
 
-    local procedure EnterFilterInCell(RowNo: Integer; "Filter": Text[250]; FieldName: Text[100])
-    begin
-        if Filter <> '' then begin
-            EnterCell(RowNo, 1, FieldName, false, false, false, '@');
-            EnterCell(RowNo, 2, Filter, false, false, false, '@');
-        end;
-    end;
+    // local procedure EnterFilterInCell(RowNo: Integer; "Filter": Text[250]; FieldName: Text[100])
+    // begin
+    //     if Filter <> '' then begin
+    //         EnterCell(RowNo, 1, FieldName, false, false, false, '@');
+    //         EnterCell(RowNo, 2, Filter, false, false, false, '@');
+    //     end;
+    // end;
 
     local procedure EnterCell(RowNo: Integer; ColumnNo: Integer; CellValue: Text[250]; Bold: Boolean; Italic: Boolean; UnderLine: Boolean; NumFormat: Text[30])
     begin
@@ -370,31 +369,26 @@ report 50001 "Export Planning Client Excel"
     local procedure FileNameOnAfterValidate()
     begin
         UploadFile();
-        if IsServiceTier and (UploadedFileName <> '') then
+        if UploadedFileName <> '' then
             GFileName := Text003;
     end;
 
     local procedure PageUpdateRequestForm()
     begin
         if Option = Option::"Update Workbook" then begin
-            if IsServiceTier then begin
                 FileNameEnable := true;
                 SheetNameEnable := true;
-            end;
         end else begin
             GFileName := '';
             UploadedFileName := '';
             SheetName := '';
-            if IsServiceTier then begin
                 FileNameEnable := false;
                 SheetNameEnable := false;
-            end;
         end;
     end;
 
     local procedure ReadExcelSheet()
     begin
-        if IsServiceTier then
             if UploadedFileName = '' then
                 UploadFile()
             else

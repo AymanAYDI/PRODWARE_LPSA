@@ -29,7 +29,7 @@ pageextension 60042 "PWD PhysInventoryJournal" extends "Phys. Inventory Journal"
             {
                 Caption = 'Transfer Dimensions from the item';
                 ApplicationArea = All;
-
+                Image= Dimensions;
                 trigger OnAction()
                 var
                     RecLItemJournalLine: Record "Item Journal Line";
@@ -54,7 +54,7 @@ pageextension 60042 "PWD PhysInventoryJournal" extends "Phys. Inventory Journal"
             {
                 Caption = 'Copy journal to buffer';
                 ApplicationArea = All;
-
+                Image= Copy;
                 trigger OnAction()
                 var
                     RecLItemLedgerEntry: Record "Item Ledger Entry";
@@ -106,7 +106,7 @@ pageextension 60042 "PWD PhysInventoryJournal" extends "Phys. Inventory Journal"
             {
                 Caption = 'Reset Qty. (Phys. Inventory)';
                 ApplicationArea = All;
-
+                Image= PhysicalInventory;
                 trigger OnAction()
                 var
                     RecLItem: Record Item;

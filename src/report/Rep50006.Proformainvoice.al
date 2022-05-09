@@ -379,23 +379,21 @@ report 50006 "PWD Proforma invoice"
                             if (SalesLine.Type = SalesLine.Type::"G/L Account") and (not ShowInternalInfo) then
                                 "Sales Line"."No." := '';
 
-                            if IsServiceTier then begin
-                                NNC_SalesLineLineAmt += SalesLine."Line Amount";
-                                NNC_SalesLineInvDiscAmt += SalesLine."Inv. Discount Amount";
+                            NNC_SalesLineLineAmt += SalesLine."Line Amount";
+                            NNC_SalesLineInvDiscAmt += SalesLine."Inv. Discount Amount";
 
-                                NNC_TotalLCY := NNC_SalesLineLineAmt - NNC_SalesLineInvDiscAmt;
+                            NNC_TotalLCY := NNC_SalesLineLineAmt - NNC_SalesLineInvDiscAmt;
 
-                                NNC_TotalExclVAT := NNC_TotalLCY;
-                                NNC_VATAmt := VATAmount;
-                                NNC_TotalInclVAT := NNC_TotalLCY - NNC_VATAmt;
+                            NNC_TotalExclVAT := NNC_TotalLCY;
+                            NNC_VATAmt := VATAmount;
+                            NNC_TotalInclVAT := NNC_TotalLCY - NNC_VATAmt;
 
-                                NNC_PmtDiscOnVAT := -VATDiscountAmount;
+                            NNC_PmtDiscOnVAT := -VATDiscountAmount;
 
-                                NNC_TotalInclVAT2 := TotalAmountInclVAT;
+                            NNC_TotalInclVAT2 := TotalAmountInclVAT;
 
-                                NNC_VatAmt2 := VATAmount;
-                                NNC_TotalExclVAT2 := VATBaseAmount;
-                            end;
+                            NNC_VatAmt2 := VATAmount;
+                            NNC_TotalExclVAT2 := VATBaseAmount;
 
                             LotNo := '';
                             ReservEntry.SetRange("Item No.", "Sales Line"."No.");
@@ -457,7 +455,7 @@ report 50006 "PWD Proforma invoice"
                                 CurrReport.Break();
                             SalesLine.SetRange("Line No.", 0, SalesLine."Line No.");
                             SetRange(Number, 1, SalesLine.Count);
-                            CurrReport.CreateTotals(SalesLine."Line Amount", SalesLine."Inv. Discount Amount", VATAmountLine."VAT Base");
+                            // CurrReport.CreateTotals(SalesLine."Line Amount", SalesLine."Inv. Discount Amount", VATAmountLine."VAT Base"); 
                         end;
                     }
                     dataitem(VATCounter; "Integer")
@@ -494,9 +492,9 @@ report 50006 "PWD Proforma invoice"
                             if VATAmount = 0 then
                                 CurrReport.Break();
                             SetRange(Number, 1, VATAmountLine.Count);
-                            CurrReport.CreateTotals(
-                              VATAmountLine."Line Amount", VATAmountLine."Inv. Disc. Base Amount",
-                              VATAmountLine."Invoice Discount Amount", VATAmountLine."VAT Base", VATAmountLine."VAT Amount");
+                            // CurrReport.CreateTotals(
+                            //   VATAmountLine."Line Amount", VATAmountLine."Inv. Disc. Base Amount",
+                            //   VATAmountLine."Invoice Discount Amount", VATAmountLine."VAT Base", VATAmountLine."VAT Amount");
                         end;
                     }
 
@@ -567,23 +565,20 @@ report 50006 "PWD Proforma invoice"
 
                     if Number > 1 then begin
                         CopyText := Text003;
-                        if IsServiceTier then
-                            OutputNo += 1;
+                        OutputNo += 1;
                     end;
-                    CurrReport.PageNo := 1;
+                    // CurrReport.PageNo := 1;
 
-                    if IsServiceTier then begin
-                        NNC_TotalLCY := 0;
-                        NNC_TotalExclVAT := 0;
-                        NNC_VATAmt := 0;
-                        NNC_TotalInclVAT := 0;
-                        NNC_PmtDiscOnVAT := 0;
-                        NNC_TotalInclVAT2 := 0;
-                        NNC_VatAmt2 := 0;
-                        NNC_TotalExclVAT2 := 0;
-                        NNC_SalesLineLineAmt := 0;
-                        NNC_SalesLineInvDiscAmt := 0;
-                    end;
+                    NNC_TotalLCY := 0;
+                    NNC_TotalExclVAT := 0;
+                    NNC_VATAmt := 0;
+                    NNC_TotalInclVAT := 0;
+                    NNC_PmtDiscOnVAT := 0;
+                    NNC_TotalInclVAT2 := 0;
+                    NNC_VatAmt2 := 0;
+                    NNC_TotalExclVAT2 := 0;
+                    NNC_SalesLineLineAmt := 0;
+                    NNC_SalesLineInvDiscAmt := 0;
                 end;
 
                 trigger OnPostDataItem()
@@ -597,8 +592,7 @@ report 50006 "PWD Proforma invoice"
                     NoOfLoops := Abs(NoOfCopies) + 1;
                     CopyText := '';
                     SetRange(Number, 1, NoOfLoops);
-                    if IsServiceTier then
-                        OutputNo := 1;
+                    OutputNo := 1;
                 end;
             }
 

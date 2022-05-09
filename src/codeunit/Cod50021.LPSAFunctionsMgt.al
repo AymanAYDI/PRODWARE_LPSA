@@ -485,11 +485,17 @@ codeunit 50021 "PWD LPSA Functions Mgt."
     END;
     //---CDU99000835---
     PROCEDURE SetgFromTheSameLot(piSet: Boolean)
+    var
+        gFromTheSameLot: Boolean;
     BEGIN
         gFromTheSameLot := piSet;
     END;
 
     PROCEDURE SetgLotDeterminingData(piSetLotCode: Code[30]; piSetExpirDate: Date): Code[20]
+    var
+        gFromTheSameLot: Boolean;
+        gLotDeterminingLotCode: Code[30];
+        gLotDeterminingExpirDate: Date;
     BEGIN
         gLotDeterminingLotCode := piSetLotCode;
         gLotDeterminingExpirDate := piSetExpirDate;
@@ -1090,7 +1096,7 @@ codeunit 50021 "PWD LPSA Functions Mgt."
         ReservEntry.SETRANGE("Shipment Date", ProdOrderComp."Due Date");
         //UnitOfMeasureCode := ProdOrderComp."Unit of Measure Code";
 
-        IF ReservEntry.FINDSET() THEN BEGIN
+        IF ReservEntry.FindFirst() THEN BEGIN
             CLEAR(ReservEntry2);
             ReservEntry2 := ReservEntry;
             ReservEntry2.SetPointerFilter();
@@ -1771,7 +1777,9 @@ codeunit 50021 "PWD LPSA Functions Mgt."
             EXIT(TRUE);
     END;
     //---CDU414---
-    PROCEDURE FctIsImport(BooPDontExecuteIfImport: Boolean);
+    PROCEDURE FctIsImport(BooPDontExecuteIfImport: Boolean)
+    var
+        BooGDontExecuteIfImport: boolean;
     BEGIN
         //>>WMS-FE05.001
         BooGDontExecuteIfImport := BooPDontExecuteIfImport;
@@ -1779,6 +1787,8 @@ codeunit 50021 "PWD LPSA Functions Mgt."
     END;
     //---CDU703---(REPORT 11511)
     PROCEDURE SetFromConfiguration()
+    var
+        BooGFromConfig: Boolean;
     BEGIN
         BooGFromConfig := TRUE;
     END;
@@ -1847,12 +1857,7 @@ codeunit 50021 "PWD LPSA Functions Mgt."
 
     Var
         BooGAvoidControl: Boolean;
-        BooGDontExecuteIfImport: boolean;
-        BooGFromConfig: Boolean;
-        gFromTheSameLot: Boolean;
         ToBatchName: Code[10];
         ToTemplateName: Code[10];
-        gLotDeterminingLotCode: Code[30];
-        gLotDeterminingExpirDate: Date;
 
 }

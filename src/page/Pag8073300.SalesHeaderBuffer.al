@@ -115,7 +115,7 @@ page 8073300 "PWD Sales Header Buffer"
                 {
                     Caption = 'Process action';
                     ApplicationArea = All;
-
+                    Image= Process;
                     trigger OnAction()
                     var
                         CduLBufferManagement: Codeunit "PWD Buffer Management";
@@ -127,6 +127,7 @@ page 8073300 "PWD Sales Header Buffer"
                 {
                     Caption = 'Process selected actions';
                     ApplicationArea = All;
+                    Image=Process;
 
                     trigger OnAction()
                     begin
@@ -183,6 +184,7 @@ page 8073300 "PWD Sales Header Buffer"
                     RunPageLink = "Document Type" = FIELD("Document Type"), "Document No." = FIELD("Document No.");
                     RunPageView = SORTING("Document Type", "Document No.");
                     ApplicationArea = All;
+                    Image= Sales;
                 }
                 action(Action1100294039)
                 {

@@ -577,6 +577,7 @@ page 50001 "PWD Item Configurator"
                 Image = ApplyTemplate;
                 InFooterBar = true;
                 Promoted = true;
+                PromotedOnly= true;
                 PromotedCategory = Process;
                 PromotedIsBig = true;
                 ApplicationArea = All;

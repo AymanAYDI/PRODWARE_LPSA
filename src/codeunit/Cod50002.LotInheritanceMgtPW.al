@@ -327,7 +327,7 @@ codeunit 50002 "PWD Lot Inheritance Mgt.PW"
                 ItemJnlLine.SETRANGE("Entry Type", ItemJnlLine."Entry Type"::Consumption);
                 ItemJnlLine.SETRANGE("Order No.", pioItemJnlLine."Order No.");
                 ItemJnlLine.SETRANGE("Order Line No.", pioItemJnlLine."Order Line No.");
-                IF ItemJnlLine.FIND('-') THEN BEGIN
+                IF ItemJnlLine.FindFirst() THEN BEGIN
                     ReservEntry.SETCURRENTKEY(
                         "Source Type",
                         "Source Subtype",
@@ -419,7 +419,7 @@ codeunit 50002 "PWD Lot Inheritance Mgt.PW"
         ProdOrderComp.SETRANGE("Prod. Order Line No.", pioProdOrderComp."Prod. Order Line No.");
         ProdOrderComp.SETRANGE("Item No.", pioProdOrderComp."Item No.");
 
-        IF ProdOrderComp.FIND('-') THEN
+        IF ProdOrderComp.FindFirst() THEN
             pioProdOrderComp."PWD Lot Determining" := ProdOrderComp."PWD Lot Determining";
     end;
 
@@ -504,7 +504,7 @@ codeunit 50002 "PWD Lot Inheritance Mgt.PW"
         ProdOrderRtngLine.SETRANGE("Routing Reference No.", ProdOrderLine."Routing Reference No.");
         ProdOrderRtngLine.SETRANGE("Routing No.", ProdOrderLine."Routing No.");
 
-        IF NOT ProdOrderRtngLine.FIND('-') THEN BEGIN
+        IF NOT ProdOrderRtngLine.FindFirst() THEN BEGIN
             OutputJnlLine.SETRANGE("Journal Template Name", piItemJnlLine."Journal Template Name");
             OutputJnlLine.SETRANGE("Journal Batch Name", piItemJnlLine."Journal Batch Name");
             OutputJnlLine.SETRANGE("Entry Type", OutputJnlLine."Entry Type"::Output);
@@ -518,7 +518,7 @@ codeunit 50002 "PWD Lot Inheritance Mgt.PW"
             OutputJnlLine.SETRANGE("Entry Type", OutputJnlLine."Entry Type"::Output);
             OutputJnlLine.SETRANGE("Order No.", piItemJnlLine."Order No.");
             OutputJnlLine.SETRANGE("Order Line No.", piItemJnlLine."Order Line No.");
-            IF OutputJnlLine.FIND('-') THEN
+            IF OutputJnlLine.Find() THEN
                 REPEAT
                     ProdOrderRtngLine.GET(
                       ProdOrderRtngLine.Status::Released,
@@ -764,7 +764,7 @@ codeunit 50002 "PWD Lot Inheritance Mgt.PW"
                 ReservEntry.SETRANGE("Source Ref. No.", ProdOrderComp."Line No.");
                 ReservEntry.SETFILTER("Lot No.", '<>%1', '');
 
-                IF ReservEntry.FIND('-') THEN
+                IF ReservEntry.FindFirst() THEN
                     //IF LotNoInfo.GET(
                     //  ProdOrderComp."Item No.",
                     //  ProdOrderComp."Variant Code",
@@ -1333,7 +1333,7 @@ codeunit 50002 "PWD Lot Inheritance Mgt.PW"
             ReservEntry.SETRANGE("Source Prod. Order Line", PlanningComponent."Worksheet Line No.");
             ReservEntry.SETRANGE("Source Ref. No.", PlanningComponent."Line No.");
             ReservEntry.SETFILTER("Lot No.", '<>%1', '');
-            IF ReservEntry.FIND('-') THEN BEGIN
+            IF ReservEntry.FindFirst() THEN BEGIN
                 IF LotNoInfo.GET(
                   PlanningComponent."Item No.",
                   PlanningComponent."Variant Code",

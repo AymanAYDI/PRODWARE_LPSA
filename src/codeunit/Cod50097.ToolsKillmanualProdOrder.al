@@ -167,6 +167,7 @@ codeunit 50097 "Tools Kill manual Prod Order"
     var
         FromProdOrderLine: Record "Prod. Order Line";
         ToProdOrderLine: Record "Prod. Order Line";
+        InvtAdjmtEntryOrder: Record "Inventory Adjmt. Entry (Order)";
     begin
         FromProdOrderLine.SETRANGE(Status, FromProdOrder.Status);
         FromProdOrderLine.SETRANGE("Prod. Order No.", FromProdOrder."No.");
@@ -182,7 +183,14 @@ codeunit 50097 "Tools Kill manual Prod Order"
                 ToProdOrderLine."Prod. Order No." := ToProdOrder."No.";
                 ToProdOrderLine.INSERT();
                 IF NewStatus = NewStatus::Finished THEN BEGIN
-                    //ToProdOrderLine."Cost is Adjusted" := FALSE; //TODO: Le champs n'existe pas dans les champs standards pour cette version
+                    if InvtAdjmtEntryOrder.Get(InvtAdjmtEntryOrder."Order Type"::Production, ToProdOrderLine."Prod. Order No.", ToProdOrderLine."Line No.") then begin
+                        InvtAdjmtEntryOrder."Routing No." := ToProdOrderLine."Routing No.";
+                        InvtAdjmtEntryOrder.Modify();
+                    end else
+                        InvtAdjmtEntryOrder.SetProdOrderLine(FromProdOrderLine);
+                    InvtAdjmtEntryOrder."Cost is Adjusted" := false;
+                    InvtAdjmtEntryOrder."Is Finished" := true;
+                    InvtAdjmtEntryOrder.Modify();
                     IF NewUpdateUnitCost THEN
                         UpdateProdOrderCost.UpdateUnitCostOnProdOrder(FromProdOrderLine, TRUE, TRUE);
                     ToProdOrderLine."Unit Cost (ACY)" :=
@@ -389,11 +397,12 @@ codeunit 50097 "Tools Kill manual Prod Order"
     end;
 
     local procedure TransProdOrderDocDim(FromProdOrder: Record "Production Order")
-
+    var
+    // FromProdDocDim : Record "Production Document Dimension";
     begin
-
         ;
         //TODO:
+        // WITH FromProdDocDim DO BEGIN
         //     SETRANGE("Table ID", DATABASE::"Production Order");
         //     SETRANGE("Document Status", FromProdOrder.Status);
         //     SETRANGE("Document No.", FromProdOrder."No.");
@@ -408,6 +417,7 @@ codeunit 50097 "Tools Kill manual Prod Order"
         //     DimMgt.MoveProdDocDimToProdDocDim(
         //       FromProdDocDim, DATABASE::"Prod. Order Component", ToProdOrder.Status, ToProdOrder."No.");
         //     DELETEALL;
+        // end;
     end;
 
     local procedure TransProdOrderCapNeed(FromProdOrder: Record "Production Order")
@@ -519,12 +529,12 @@ codeunit 50097 "Tools Kill manual Prod Order"
         EXIT(Not ProdOrderRtngLine.IsEmpty);
     end;
 
-    local procedure GetSourceCodeSetup()
-    begin
-        IF NOT SourceCodeSetupRead THEN
-            SourceCodeSetup.GET();
-        SourceCodeSetupRead := TRUE;
-    end;
+    // local procedure GetSourceCodeSetup()
+    // begin
+    //     IF NOT SourceCodeSetupRead THEN
+    //         SourceCodeSetup.GET();
+    //     SourceCodeSetupRead := TRUE;
+    // end;
 
 
     procedure ErrorIfInPlanningWksh(var ProdOrder: Record "Production Order")

@@ -390,10 +390,9 @@ report 50012 "PWD Shipment Advice"
                 begin
                     if Number > 1 then begin
                         CopyText := Text001;
-                        if IsServiceTier then
                             OutputNo += 1;
                     end;
-                    CurrReport.PageNo := 1;
+                    // CurrReport.PageNo := 1;
                     // TotalQty := 0;           // Item Tracking
                 end;
 
@@ -408,7 +407,6 @@ report 50012 "PWD Shipment Advice"
                     NoOfLoops := 1 + Abs(NoOfCopies);
                     CopyText := '';
                     SetRange(Number, 1, NoOfLoops);
-                    if IsServiceTier then
                         OutputNo := 1;
                 end;
             }

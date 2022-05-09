@@ -435,7 +435,6 @@ report 50003 "Purchase - Return Shipment LAP"
                             // PostedDocDim2.SETRANGE("Document No.", "Return Shipment Line"."Document No.");
                             // PostedDocDim2.SETRANGE("Line No.", "Return Shipment Line"."Line No.");
 
-                            IF ISSERVICETIER THEN
                                 TypeInt := "Return Shipment Line".Type.AsInteger();
                         end;
 
@@ -464,11 +463,9 @@ report 50003 "Purchase - Return Shipment LAP"
 
                         trigger OnAfterGetRecord()
                         begin
-                            IF ISSERVICETIER THEN BEGIN
                                 PayToVendorNo := "Return Shipment Header"."Pay-to Vendor No.";
                                 BuyFromVendorNo := "Return Shipment Header"."Buy-from Vendor No.";
                                 PayToCaption := "Return Shipment Header".FIELDCAPTION("Pay-to Vendor No.");
-                            END;
                         end;
 
                         trigger OnPreDataItem()
@@ -526,10 +523,9 @@ report 50003 "Purchase - Return Shipment LAP"
                 begin
                     IF Number > 1 THEN BEGIN
                         CopyText := Text001;
-                        IF ISSERVICETIER THEN
                             OutputNo += 1;
                     END;
-                    CurrReport.PAGENO := 1;
+                    // CurrReport.PAGENO := 1;
                 end;
 
                 trigger OnPostDataItem()
@@ -543,7 +539,6 @@ report 50003 "Purchase - Return Shipment LAP"
                     NoOfLoops := ABS(NoOfCopies) + 1;
                     CopyText := '';
                     SETRANGE(Number, 1, NoOfLoops);
-                    IF ISSERVICETIER THEN
                         OutputNo := 1;
                 end;
             }

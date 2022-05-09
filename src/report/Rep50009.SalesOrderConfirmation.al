@@ -447,7 +447,6 @@ report 50009 "PWD Sales Order Confirmation"
                             if (SalesLine.Type = SalesLine.Type::"G/L Account") and (not ShowInternalInfo) then
                                 "Sales Line"."No." := '';
 
-                            if IsServiceTier then begin
                                 if ("Sales Line".Type = "Sales Line".Type::"New Page") then
                                     CurrPageFooterHiddenFlag := 1
                                 else
@@ -456,7 +455,6 @@ report 50009 "PWD Sales Order Confirmation"
                                 NNC_SalesLineInvDiscAmt += SalesLine."Inv. Discount Amount";
                                 NNC_TotalLCY := NNC_SalesLineLineAmt - NNC_SalesLineInvDiscAmt;
                                 NNC_VATAmt := VATAmount;
-                            end;
 
                             //>>TDL.LPSA.09022015
                             TxtGCustPlanNo := '';
@@ -528,7 +526,7 @@ report 50009 "PWD Sales Order Confirmation"
                                 CurrReport.Break();
                             SalesLine.SetRange("Line No.", 0, SalesLine."Line No.");
                             SetRange(Number, 1, SalesLine.Count);
-                            CurrReport.CreateTotals(SalesLine."Line Amount", SalesLine."Inv. Discount Amount");
+                            // CurrReport.CreateTotals(SalesLine."Line Amount", SalesLine."Inv. Discount Amount");
                         end;
                     }
                     dataitem(VATCounter; "Integer")
@@ -551,9 +549,9 @@ report 50009 "PWD Sales Order Confirmation"
                             if VATAmount = 0 then
                                 CurrReport.Break();
                             SetRange(Number, 1, VATAmountLine.Count);
-                            CurrReport.CreateTotals(
-                              VATAmountLine."Line Amount", VATAmountLine."Inv. Disc. Base Amount",
-                              VATAmountLine."Invoice Discount Amount", VATAmountLine."VAT Base", VATAmountLine."VAT Amount");
+                            // CurrReport.CreateTotals(
+                            //   VATAmountLine."Line Amount", VATAmountLine."Inv. Disc. Base Amount",
+                            //   VATAmountLine."Invoice Discount Amount", VATAmountLine."VAT Base", VATAmountLine."VAT Amount");
                         end;
                     }
                 }
@@ -577,16 +575,13 @@ report 50009 "PWD Sales Order Confirmation"
 
                     if Number > 1 then begin
                         CopyText := Text003;
-                        if IsServiceTier then
                             OutputNo += 1;
                     end;
-                    CurrReport.PageNo := 1;
-                    if IsServiceTier then begin
+                    // CurrReport.PageNo := 1;
                         NNC_TotalLCY := 0;
                         NNC_VATAmt := 0;
                         NNC_SalesLineLineAmt := 0;
                         NNC_SalesLineInvDiscAmt := 0;
-                    end;
                 end;
 
                 trigger OnPostDataItem()
@@ -600,7 +595,6 @@ report 50009 "PWD Sales Order Confirmation"
                     NoOfLoops := Abs(NoOfCopies) + 1;
                     CopyText := '';
                     SetRange(Number, 1, NoOfLoops);
-                    if IsServiceTier then
                         OutputNo := 1;
                 end;
             }
@@ -675,12 +669,10 @@ report 50009 "PWD Sales Order Confirmation"
             begin
                 // NoOfRecords := Count;
                 // CH0004.begin
-                if IsServiceTier then begin
                     CurrPageHeaderHiddenFlag := 0;
                     CurrPageFooterHiddenFlag := 0;
                     CurrGroupPageNO := 0;
                     InnerGroupPageNO := 1;
-                end;
                 // CH0004.end
             end;
         }

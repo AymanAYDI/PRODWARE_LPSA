@@ -22,7 +22,7 @@ pageextension 60121 "PWD WorkCenterList" extends "Work Center List"
                 RunObject = Page "PWD Manuf. cycles Setup - List";
                 RunPageLink = Type = CONST("Work Center"), "No." = FIELD("No.");
                 ApplicationArea = All;
-
+                Image= Capacities;
             }
         }
     }

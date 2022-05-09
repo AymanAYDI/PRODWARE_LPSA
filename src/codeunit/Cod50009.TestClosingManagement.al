@@ -178,10 +178,8 @@ codeunit 50009 "PWD Test Closing Management"
                                 Format(CurrentDateTime, 0, '<day,2><month,2><year4><Hours24,2><Filler Character,0><Minutes,2><Seconds,2>'));
 
         //CREATE FILE IN RTC MODE.
-        if IsServiceTier then begin
-            TxtGServerFileName := TxtGExportFileName;
-            TxtGExportFileName := FileMgt.ServerTempFileName('.csv');
-        end;
+        TxtGServerFileName := TxtGExportFileName;
+        TxtGExportFileName := FileMgt.ServerTempFileName('.csv');
 
         // Create export file
         FilGToExport.TextMode(true);
@@ -227,12 +225,9 @@ codeunit 50009 "PWD Test Closing Management"
     procedure EndMessage()
     begin
         FilGToExport.Close();
-
-        if IsServiceTier then begin
-            // FileMgt.DownloadToFile(TxtGExportFileName, TxtGServerFileName);
-            FileMgt.DownloadHandler(TxtGExportFileName, '', '', '', TxtGServerFileName);
-            TxtGExportFileName := TxtGServerFileName;
-        end;
+        // FileMgt.DownloadToFile(TxtGExportFileName, TxtGServerFileName);
+        FileMgt.DownloadHandler(TxtGExportFileName, '', '', '', TxtGServerFileName);
+        TxtGExportFileName := TxtGServerFileName;
     end;
 
 

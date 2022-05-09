@@ -260,9 +260,9 @@ report 50005 "PWD Order LAP"
                     column(Text015; CstGText015)
                     {
                     }
-                    column(STRSUBSTNO_Text005_FORMAT_CurrReport_PAGENO__; StrSubstNo(Text005, Format(CurrReport.PageNo())))
-                    {
-                    }
+                    // column(STRSUBSTNO_Text005_FORMAT_CurrReport_PAGENO__; StrSubstNo(Text005, Format(CurrReport.PageNo())))
+                    // {
+                    // }
                     column(CopyText_Control1150106; CopyText)
                     {
                     }
@@ -668,8 +668,7 @@ report 50005 "PWD Order LAP"
                             end;
                             //<<LAP2.15
 
-                            if IsServiceTier then
-                                AllowInvDisctxt := Format("Purchase Line"."Allow Invoice Disc.");
+                            AllowInvDisctxt := Format("Purchase Line"."Allow Invoice Disc.");
                         end;
 
                         trigger OnPostDataItem()
@@ -688,7 +687,7 @@ report 50005 "PWD Order LAP"
                                 CurrReport.Break();
                             PurchLine.SetRange("Line No.", 0, PurchLine."Line No.");
                             SetRange(Number, 1, PurchLine.Count);
-                            CurrReport.CreateTotals(PurchLine."Line Amount", PurchLine."Inv. Discount Amount");
+                            //CurrReport.CreateTotals(PurchLine."Line Amount", PurchLine."Inv. Discount Amount");
                         end;
                     }
                     dataitem(VATCounter; "Integer")
@@ -848,9 +847,9 @@ report 50005 "PWD Order LAP"
                             if VATAmount = 0 then
                                 CurrReport.Break();
                             SetRange(Number, 1, VATAmountLine.Count);
-                            CurrReport.CreateTotals(
-                              VATAmountLine."Line Amount", VATAmountLine."Inv. Disc. Base Amount",
-                              VATAmountLine."Invoice Discount Amount", VATAmountLine."VAT Base", VATAmountLine."VAT Amount");
+                            // CurrReport.CreateTotals(
+                            //   VATAmountLine."Line Amount", VATAmountLine."Inv. Disc. Base Amount",
+                            //   VATAmountLine."Invoice Discount Amount", VATAmountLine."VAT Base", VATAmountLine."VAT Amount");
                         end;
                     }
                     dataitem(VATCounterLCY; "Integer")
@@ -946,7 +945,7 @@ report 50005 "PWD Order LAP"
                                 CurrReport.Break();
 
                             SetRange(Number, 1, VATAmountLine.Count);
-                            CurrReport.CreateTotals(VALVATBaseLCY, VALVATAmountLCY);
+                            // CurrReport.CreateTotals(VALVATBaseLCY, VALVATAmountLCY);
 
                             if GLSetup."LCY Code" = '' then
                                 VALSpecLCYHeader := Text007 + Text008
@@ -1225,11 +1224,11 @@ report 50005 "PWD Order LAP"
 
                         trigger OnPreDataItem()
                         begin
-                            CurrReport.CreateTotals(
-                              PrepmtInvBuf.Amount, PrepmtInvBuf."Amount Incl. VAT",
-                              PrepmtVATAmountLine."Line Amount", PrepmtVATAmountLine."VAT Base",
-                              PrepmtVATAmountLine."VAT Amount",
-                              PrepmtLineAmount);
+                            // CurrReport.CreateTotals(
+                            //   PrepmtInvBuf.Amount, PrepmtInvBuf."Amount Incl. VAT",
+                            //   PrepmtVATAmountLine."Line Amount", PrepmtVATAmountLine."VAT Base",
+                            //   PrepmtVATAmountLine."VAT Amount",
+                            //   PrepmtLineAmount);
                         end;
                     }
                     dataitem(PrepmtVATCounter; "Integer")
@@ -1424,10 +1423,7 @@ report 50005 "PWD Order LAP"
 
                     if Number > 1 then
                         CopyText := Text003;
-                    CurrReport.PageNo := 1;
-
-                    if IsServiceTier then
-                        OutputNo := OutputNo + 1;
+                    OutputNo := OutputNo + 1;
                 end;
 
                 trigger OnPostDataItem()
@@ -1442,8 +1438,7 @@ report 50005 "PWD Order LAP"
                     CopyText := '';
                     SetRange(Number, 1, NoOfLoops);
 
-                    if IsServiceTier then
-                        OutputNo := 0;
+                    OutputNo := 0;
                 end;
             }
 
@@ -1544,9 +1539,7 @@ report 50005 "PWD Order LAP"
                     end;
                 end;
 
-                if IsServiceTier then
-                    PricesInclVATtxt := Format("Purchase Header"."Prices Including VAT");
-
+                PricesInclVATtxt := Format("Purchase Header"."Prices Including VAT");
 
                 //>>LAP2.12
                 TxtGSubcontractingLegalText := '';

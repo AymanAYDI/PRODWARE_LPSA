@@ -135,6 +135,7 @@ page 8073315 "PWD Customer Buffer"
                 {
                     Caption = 'Process action';
                     ApplicationArea = All;
+                    Image= Process;
 
                     trigger OnAction()
                     var
@@ -147,7 +148,7 @@ page 8073315 "PWD Customer Buffer"
                 {
                     Caption = 'Process selected actions';
                     ApplicationArea = All;
-
+                    Image= Process;
                     trigger OnAction()
                     begin
                         FctProcessSelected();

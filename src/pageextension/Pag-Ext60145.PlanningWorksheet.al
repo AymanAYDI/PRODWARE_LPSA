@@ -79,6 +79,7 @@ pageextension 60145 "PWD PlanningWorksheet" extends "Planning Worksheet"
             action("PWD Action1100267001")
             {
                 ApplicationArea = All;
+                Image= Action;
                 trigger OnAction()
                 begin
                     // >> FE_LAPRIERRETTE_GP0003 : APA 16/05/13
@@ -89,6 +90,7 @@ pageextension 60145 "PWD PlanningWorksheet" extends "Planning Worksheet"
             action("PWD ToutDecocher")
             {
                 ApplicationArea = All;
+                Image= Action;
                 trigger OnAction()
                 begin
                     // >> FE_LAPRIERRETTE_GP0003 : APA 16/05/13

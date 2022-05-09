@@ -321,7 +321,6 @@ report 50007 "PWD Production Balance"
 
             trigger OnAfterGetRecord()
             begin
-                if IsServiceTier then
                     IntTypeLine := "Production Balance"."Line Type";
 
                 if ((OptGFilter = OptGFilter::Order) and ("Production Balance"."Order No." <> '')) then

@@ -83,6 +83,7 @@ page 8073287 "PWD Values form Connector"
                 Caption = 'Show Message';
                 Image = ViewPage;
                 Promoted = true;
+                PromotedOnly= true;
                 PromotedCategory = Process;
                 PromotedIsBig = true;
                 ApplicationArea = All;

@@ -83,6 +83,7 @@ page 50002 "PWD Item Configurator List"
                 {
                     Caption = 'Copy from Item';
                     Promoted = true;
+                    PromotedOnly=true;
                     PromotedIsBig = true;
                     ApplicationArea = All;
                     Image= CopyItem;

@@ -173,12 +173,12 @@ report 50038 "PWD Inventory Valuation Excel"
                     if EndDate <> 0D then
                         SetRange("Posting Date", 0D, EndDate);
 
-                    CurrReport.CreateTotals(QtyOnHand, RcdIncreases, ShipDecreases, "Item Ledger Entry Quantity", InvoicedQty, InvIncreases,
-                      InvDecreases, "Value Entry"."Invoiced Quantity");
-                    CurrReport.CreateTotals(
-                      ValueOfQtyOnHand, ValueOfRcdIncreases, CostOfShipDecreases, CostPostedToGL, ExpCostPostedToGL,
-                      ValueOfInvoicedQty, ValueOfInvIncreases, CostOfInvDecreases, "Value Entry"."Cost Amount (Actual)",
-                      InvCostPostedToGL);
+                    // CurrReport.CreateTotals(QtyOnHand, RcdIncreases, ShipDecreases, "Item Ledger Entry Quantity", InvoicedQty, InvIncreases,
+                    //   InvDecreases, "Value Entry"."Invoiced Quantity");
+                    // CurrReport.CreateTotals(
+                    //   ValueOfQtyOnHand, ValueOfRcdIncreases, CostOfShipDecreases, CostPostedToGL, ExpCostPostedToGL,
+                    //   ValueOfInvoicedQty, ValueOfInvIncreases, CostOfInvDecreases, "Value Entry"."Cost Amount (Actual)",
+                    //   InvCostPostedToGL);
 
                     //>>LAP2.12
                     if BooGExportExcel then begin
@@ -233,18 +233,18 @@ report 50038 "PWD Inventory Valuation Excel"
 
             trigger OnPreDataItem()
             begin
-                CurrReport.CreateTotals(QtyOnHand, RcdIncreases, ShipDecreases, "Value Entry"."Item Ledger Entry Quantity");
-                CurrReport.CreateTotals(InvoicedQty, InvIncreases, InvDecreases);
-                CurrReport.CreateTotals(
-                  ValueOfQtyOnHand, ValueOfRcdIncreases, CostOfShipDecreases, CostPostedToGL, ExpCostPostedToGL);
-                CurrReport.CreateTotals(
-                  ValueOfInvoicedQty, ValueOfInvIncreases, CostOfInvDecreases,
-                  "Value Entry"."Cost Amount (Actual)", InvCostPostedToGL);
+                // CurrReport.CreateTotals(QtyOnHand, RcdIncreases, ShipDecreases, "Value Entry"."Item Ledger Entry Quantity");
+                // CurrReport.CreateTotals(InvoicedQty, InvIncreases, InvDecreases);
+                // CurrReport.CreateTotals(
+                //   ValueOfQtyOnHand, ValueOfRcdIncreases, CostOfShipDecreases, CostPostedToGL, ExpCostPostedToGL);
+                // CurrReport.CreateTotals(
+                //   ValueOfInvoicedQty, ValueOfInvIncreases, CostOfInvDecreases,
+                //   "Value Entry"."Cost Amount (Actual)", InvCostPostedToGL);
 
                 //>>LAP2.12
                 if BooGExportExcel then begin
                     IntGCounter := Item.Count;
-                    Bdialog.Open(CstG007);
+                    Bdialog.Open(CstG007); 
                 end;
                 //<<LAP2.12
             end;

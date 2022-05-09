@@ -52,6 +52,7 @@ pageextension 60123 "PWD MachineCenterList" extends "Machine Center List"
                 RunObject = Page "PWD Manuf. cycles Setup - List";
                 RunPageLink = Type = CONST("Machine Center"), "No." = FIELD("No.");
                 ApplicationArea = All;
+                Image= Capacities;
             }
         }
     }
