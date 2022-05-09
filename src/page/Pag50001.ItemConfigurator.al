@@ -587,7 +587,7 @@ page 50001 "PWD Item Configurator"
                     RecLDefaultDimension: Record "Default Dimension";
                     RecLGeneralLedgerSetup: Record "General Ledger Setup";
                     RecLInventorySetup: Record "Inventory Setup";
-                    RecLItemCrossReference: Record "Item Cross Reference";
+                    RecLItemCrossReference: Record "Item Reference";
                     RecRef: RecordRef;
                     BooLCreateItemCrossRef: Boolean;
                     BooLInsertItem: Boolean;
@@ -698,29 +698,29 @@ page 50001 "PWD Item Configurator"
                             IF NOT RecLItemCrossReference.GET(RecGItem."No.",
                                                               '',
                                                               RecGItem."Base Unit of Measure",
-                                                              RecLItemCrossReference."Cross-Reference Type"::Customer,
+                                                              RecLItemCrossReference."Reference Type"::Customer,
                                                               RecLInventorySetup."PWD STRATEGY Customer No.",
                                                               'NC') THEN BEGIN
                                 RecLItemCrossReference.INIT();
                                 RecLItemCrossReference.VALIDATE("Item No.", RecGItem."No.");
                                 RecLItemCrossReference.VALIDATE("Unit of Measure", RecGItem."Base Unit of Measure");
-                                RecLItemCrossReference.VALIDATE("Cross-Reference Type", RecLItemCrossReference."Cross-Reference Type"::Customer);
-                                RecLItemCrossReference.VALIDATE("Cross-Reference Type No.", RecLInventorySetup."PWD STRATEGY Customer No.");
-                                RecLItemCrossReference.VALIDATE("Cross-Reference No.", 'NC');
+                                RecLItemCrossReference.VALIDATE("Reference Type", RecLItemCrossReference."Reference Type"::Customer);
+                                RecLItemCrossReference.VALIDATE("Reference Type No.", RecLInventorySetup."PWD STRATEGY Customer No.");
+                                RecLItemCrossReference.VALIDATE("Reference No.", 'NC');
                                 RecLItemCrossReference.INSERT();
                             END;
                         IF NOT RecLItemCrossReference.GET(RecGItem."No.",
                                                           '',
                                                           RecGItem."Base Unit of Measure",
-                                                          RecLItemCrossReference."Cross-Reference Type"::Customer,
+                                                          RecLItemCrossReference."Reference Type"::Customer,
                                                           RecLInventorySetup."PWD LPSA Customer No.",
                                                           'NC') THEN BEGIN
                             RecLItemCrossReference.INIT();
                             RecLItemCrossReference.VALIDATE("Item No.", RecGItem."No.");
                             RecLItemCrossReference.VALIDATE("Unit of Measure", RecGItem."Base Unit of Measure");
-                            RecLItemCrossReference.VALIDATE("Cross-Reference Type", RecLItemCrossReference."Cross-Reference Type"::Customer);
-                            RecLItemCrossReference.VALIDATE("Cross-Reference Type No.", RecLInventorySetup."PWD LPSA Customer No.");
-                            RecLItemCrossReference.VALIDATE("Cross-Reference No.", 'NC');
+                            RecLItemCrossReference.VALIDATE("Reference Type", RecLItemCrossReference."Reference Type"::Customer);
+                            RecLItemCrossReference.VALIDATE("Reference Type No.", RecLInventorySetup."PWD LPSA Customer No.");
+                            RecLItemCrossReference.VALIDATE("Reference No.", 'NC');
                             RecLItemCrossReference.INSERT();
                         END;
                     END;

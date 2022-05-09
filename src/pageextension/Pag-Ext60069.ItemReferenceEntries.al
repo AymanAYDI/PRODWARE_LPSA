@@ -1,4 +1,4 @@
-pageextension 60069 "PWD ItemCrossReferenceEntries" extends "Item Cross Reference Entries"
+pageextension 60069 "PWD ItemReferenceEntries" extends "Item Reference Entries"
 {
     // +----------------------------------------------------------------------------------------------------------------+
     // | ProdWare - Pôle Expertise Edition                                                                              |
@@ -15,7 +15,7 @@ pageextension 60069 "PWD ItemCrossReferenceEntries" extends "Item Cross Referenc
     // +----------------------------------------------------------------------------------------------------------------+
     layout
     {
-        addafter("Cross-Reference Type No.")
+        addafter("Reference Type No.")
         {
             field("PWD Customer Name"; Rec."PWD Customer Name")
             {

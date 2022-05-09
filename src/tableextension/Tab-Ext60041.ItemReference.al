@@ -1,4 +1,4 @@
-tableextension 60041 "PWD ItemCrossReference" extends "Item Cross Reference"
+tableextension 60041 "PWD ItemReference" extends "Item Reference"
 {
     // +----------------------------------------------------------------------------------------------------------------+
     // | ProdWare - Pôle Expertise Edition                                                                              |
@@ -35,7 +35,7 @@ tableextension 60041 "PWD ItemCrossReference" extends "Item Cross Reference"
         }
         field(50002; "PWD Customer Name"; Text[100])
         {
-            CalcFormula = Lookup(Customer.Name WHERE("No." = FIELD("Cross-Reference Type No.")));
+            CalcFormula = Lookup(Customer.Name WHERE("No." = FIELD("Reference Type No.")));
             Caption = 'Client';
             FieldClass = FlowField;
         }

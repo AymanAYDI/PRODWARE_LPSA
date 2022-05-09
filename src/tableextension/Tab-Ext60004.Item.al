@@ -227,9 +227,9 @@ tableextension 60004 "PWD Item" extends Item
         }
         field(50016; "PWD ToForecast"; Boolean)
         {
-            CalcFormula = Exist("Item Cross Reference" WHERE("Item No." = FIELD("No."),
-                                                              "Cross-Reference Type" = CONST(Customer),
-                                                              "Cross-Reference Type No." = FIELD("PWD Customer Filter")));
+            CalcFormula = Exist("Item Reference" WHERE("Item No." = FIELD("No."),
+                                                              "Reference Type" = CONST(Customer),
+                                                              "Reference Type No." = FIELD("PWD Customer Filter")));
             Caption = 'To Forecast';
             Description = 'LAP080615';
             Editable = false;

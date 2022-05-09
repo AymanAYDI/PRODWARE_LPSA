@@ -401,10 +401,10 @@ report 50003 "Purchase - Return Shipment LAP"
                             RecGItemCrossRef.SETRANGE("Item No.", RecGItem."No.");
                             RecGItemCrossRef.SETRANGE("Variant Code", "Variant Code");
                             RecGItemCrossRef.SETRANGE("Unit of Measure", "Unit of Measure Code");
-                            RecGItemCrossRef.SETRANGE("Cross-Reference Type", RecGItemCrossRef."Cross-Reference Type"::Customer);
-                            RecGItemCrossRef.SETRANGE("Cross-Reference Type No.", "Return Shipment Header"."Sell-to Customer No.");
+                            RecGItemCrossRef.SETRANGE("Reference Type", RecGItemCrossRef."Reference Type"::Customer);
+                            RecGItemCrossRef.SETRANGE("Reference Type No.", "Return Shipment Header"."Sell-to Customer No.");
                             IF RecGItemCrossRef.FINDFIRST() THEN
-                                TxtGCustRefNo := RecGItemCrossRef."Cross-Reference No.";
+                                TxtGCustRefNo := RecGItemCrossRef."Reference No.";
                             TxtGCustPlanNo := RecGItemCrossRef."PWD Customer Plan No.";
 
                             IF TxtGCustPlanNo = '' THEN
@@ -665,7 +665,7 @@ report 50003 "Purchase - Return Shipment LAP"
         DimSetEntry1: Record "Dimension Set Entry";
         DimSetEntry2: Record "Dimension Set Entry";
         RecGItem: Record Item;
-        RecGItemCrossRef: Record "Item Cross Reference";
+        RecGItemCrossRef: Record "Item Reference";
         RecGPurchCommentLine: Record "Purch. Comment Line";
         RecGPurchHderArch: Record "Purchase Header Archive";
         RespCenter: Record "Responsibility Center";

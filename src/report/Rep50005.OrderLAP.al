@@ -1621,7 +1621,7 @@ report 50005 "PWD Order LAP"
         begin
             // dach0001.begin
             // ArchiveDocument := PurchSetup."Archive Quotes and Orders";
-            ArchiveDocument := PurchSetup."Arch. Orders and Ret. Orders";
+            ArchiveDocument := PurchSetup."Archive Blanket Orders";
             // dach0001.end
             LogInteraction := SegManagement.FindInteractTmplCode(13) <> '';
 
@@ -1651,7 +1651,7 @@ report 50005 "PWD Order LAP"
         PrepmtDimSetEntry: Record "Dimension Set Entry";
         GLSetup: Record "General Ledger Setup";
         RecGItem: Record Item;
-        RecGItemCrossRef: Record "Item Cross Reference";
+        RecGItemCrossRef: Record "Item Reference";
         PaymentTerms: Record "Payment Terms";
         PrepmtPaymentTerms: Record "Payment Terms";
 
@@ -1903,10 +1903,10 @@ report 50005 "PWD Order LAP"
         RecGItemCrossRef.SetRange("Item No.", "Purchase Line"."No.");
         RecGItemCrossRef.SetRange("Variant Code", "Purchase Line"."Variant Code");
         RecGItemCrossRef.SetRange("Unit of Measure", "Purchase Line"."Unit of Measure Code");
-        RecGItemCrossRef.SetRange("Cross-Reference Type", RecGItemCrossRef."Cross-Reference Type"::Vendor);
-        RecGItemCrossRef.SetRange("Cross-Reference Type No.", "Purchase Header"."Buy-from Vendor No.");
+        RecGItemCrossRef.SetRange("Reference Type", RecGItemCrossRef."Reference Type"::Vendor);
+        RecGItemCrossRef.SetRange("Reference Type No.", "Purchase Header"."Buy-from Vendor No.");
         if RecGItemCrossRef.FindFirst() then begin
-            CodGCrossReferenceNo := RecGItemCrossRef."Cross-Reference No.";
+            CodGCrossReferenceNo := RecGItemCrossRef."Reference No.";
             //>>TI404560
             DescrCrossRef := RecGItemCrossRef.Description;
             //<<TI404560

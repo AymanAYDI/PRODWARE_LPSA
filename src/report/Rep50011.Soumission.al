@@ -217,11 +217,11 @@ report 50011 "PWD Soumission"
                                     RecGItemCrossReference.SetRange("Item No.", "Transfer Shipment Line"."Item No.");
                                     RecGItemCrossReference.SetRange("Variant Code", "Transfer Shipment Line"."Variant Code");
                                     RecGItemCrossReference.SetRange("Unit of Measure", "Transfer Shipment Line"."Unit of Measure Code");
-                                    RecGItemCrossReference.SetRange("Cross-Reference Type", RecGItemCrossReference."Cross-Reference Type"::Customer);
-                                    RecGItemCrossReference.SetRange("Cross-Reference Type No.", RecGSalesHeader."Sell-to Customer No.");
+                                    RecGItemCrossReference.SetRange("Reference Type", RecGItemCrossReference."Reference Type"::Customer);
+                                    RecGItemCrossReference.SetRange("Reference Type No.", RecGSalesHeader."Sell-to Customer No.");
 
                                     if RecGItemCrossReference.FindFirst() then begin
-                                        CodGYourItemRef := RecGItemCrossReference."Cross-Reference No.";
+                                        CodGYourItemRef := RecGItemCrossReference."Reference No.";
                                         //>>TDL.LPSA.09022015
                                         CodGYourPlanNo := RecGItemCrossReference."PWD Customer Plan No.";
                                         //<<TDL.LPSA.09022015
@@ -336,7 +336,7 @@ report 50011 "PWD Soumission"
         RecGCompanyInfo: Record "Company Information";
         RecGCustomer: Record Customer;
         RecGItem: Record Item;
-        RecGItemCrossReference: Record "Item Cross Reference";
+        RecGItemCrossReference: Record "Item Reference";
         RecGSalesHeader: Record "Sales Header";
         RecGSalespersonPurchaser: Record "Salesperson/Purchaser";
         ShipmentMethod: Record "Shipment Method";

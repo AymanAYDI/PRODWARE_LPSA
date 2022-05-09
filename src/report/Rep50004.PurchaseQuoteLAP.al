@@ -707,10 +707,10 @@ report 50004 "PWD Purchase - Quote LAP"
         begin
             // dach0001.begin
             // GArchiveDocument := PurchSetup."Archive Quotes and Orders";
-            case PurchSetup."Archiving Purchase Quote" of
-                PurchSetup."Archiving Purchase Quote"::Never:
+            case PurchSetup."Archive Quotes" of
+                PurchSetup."Archive Quotes"::Never:
                     GArchiveDocument := false;
-                PurchSetup."Archiving Purchase Quote"::Always:
+                PurchSetup."Archive Quotes"::Always:
                     GArchiveDocument := true;
             end;
             // dach0001.end

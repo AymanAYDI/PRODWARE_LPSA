@@ -631,10 +631,10 @@ codeunit 8073306 "PWD Connector OSYS Parse Data"
             RecLProdOrderLine.VALIDATE("Location Code");
         RecLProdOrderLine."Scrap %" := RecLItem."Scrap %";
         RecLProdOrderLine."Due Date" := RecLProdOrder."Due Date";
-        RecLProdOrderLine."Starting Date" := RecLProdOrder."Starting Date";
-        RecLProdOrderLine."Starting Time" := RecLProdOrder."Starting Time";
-        RecLProdOrderLine."Ending Date" := RecLProdOrder."Ending Date";
-        RecLProdOrderLine."Ending Time" := RecLProdOrder."Ending Time";
+        RecLProdOrderLine."Starting Date" := DT2Date(RecLProdOrder."Starting Date-Time");
+        RecLProdOrderLine."Starting Time" := DT2Time(RecLProdOrder."Starting Date-Time");
+        RecLProdOrderLine."Ending Date" := DT2Date(RecLProdOrder."Ending Date-Time");
+        RecLProdOrderLine."Ending Time" := DT2Time(RecLProdOrder."Ending Date-Time");
         RecLProdOrderLine."Planning Level Code" := 0;
         RecLProdOrderLine."Inventory Posting Group" := RecLItem."Inventory Posting Group";
         RecLProdOrderLine.UpdateDatetime();

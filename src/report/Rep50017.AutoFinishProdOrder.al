@@ -22,10 +22,12 @@ report 50017 "PWD Auto. Finish Prod. Order"
                     DeleteReqLine("Production Order");
                     if not BooGAlterCons then begin
                         LPSAFunctionsMgt.SetNoFinishCOntrol(true);
-                        CduProdOrderStatusMgt.ChangeStatusOnProdOrder("Production Order",
-                          "Production Order".Status::Finished.AsInteger(),
-                          WorkDate(),
-                          true);
+                        // CduProdOrderStatusMgt.ChangeStatusOnProdOrder("Production Order",
+                        //   "Production Order".Status::Finished.AsInteger(),
+                        //   WorkDate(),
+                        //   true);
+                        CduProdOrderStatusMgt.ChangeProdOrderStatus("Production Order", "Production Order Status".FromInteger("Production Order".Status::Finished.AsInteger())
+                          , WorkDate(), true);
                     end;
                 end;
             end;

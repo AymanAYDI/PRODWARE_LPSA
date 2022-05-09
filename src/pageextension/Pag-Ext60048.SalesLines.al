@@ -64,7 +64,7 @@ pageextension 60048 "PWD SalesLines" extends "Sales Lines"
             {
                 ApplicationArea = All;
             }
-            field("PWD Cross-Reference No."; xRec."Cross-Reference No.")
+            field("PWD Cross-Reference No."; xRec."Item Reference No.")
             {
                 ApplicationArea = All;
             }

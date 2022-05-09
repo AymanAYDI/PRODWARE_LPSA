@@ -40,7 +40,7 @@ report 50001 "Export Planning Client Excel"
                     EnterCell(RowNo, 3, Customer.Name, false, false, false, '@');
                     EnterCell(RowNo, 4, SalesHeader."External Document No.", false, false, false, '@');
                     EnterCell(RowNo, 5, "No.", false, false, false, '@');
-                    EnterCell(RowNo, 6, "Cross-Reference No.", false, false, false, '@');
+                    EnterCell(RowNo, 6, "Item Reference No.", false, false, false, '@');
                     EnterCell(RowNo, 7, "PWD LPSA Description 1" + "PWD LPSA Description 2", false, false, false, '@');
                     EnterCell(RowNo, 8, Format("Shipment Date"), false, false, false, '@');
                     EnterCell(RowNo, 9, Format(Quantity), false, false, false, '');
@@ -328,7 +328,7 @@ report 50001 "Export Planning Client Excel"
         EnterCell(RowNo, 3, Customer.FieldCaption(Name), true, false, true, '@');
         EnterCell(RowNo, 4, SalesHeader.FieldCaption("External Document No."), true, false, true, '@');
         EnterCell(RowNo, 5, "Sales Line".FieldCaption("No."), true, false, true, '@');
-        EnterCell(RowNo, 6, "Sales Line".FieldCaption("Cross-Reference No."), true, false, true, '@');
+        EnterCell(RowNo, 6, "Sales Line".FieldCaption("Item Reference No."), true, false, true, '@');
         EnterCell(RowNo, 7, "Sales Line".FieldCaption(Description), true, false, true, '@');
         EnterCell(RowNo, 8, "Sales Line".FieldCaption("Shipment Date"), true, false, true, '@');
         EnterCell(RowNo, 9, "Sales Line".FieldCaption(Quantity), true, false, true, '');

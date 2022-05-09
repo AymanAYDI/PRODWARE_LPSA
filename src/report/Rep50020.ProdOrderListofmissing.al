@@ -161,7 +161,7 @@ report 50020 "Prod. Order - List of missing"
                         column(BooGShow; BooGShow)
                         {
                         }
-                        column(Header_Production_Order___Starting_Date__; Format("Production Order"."Starting Date"))
+                        column(Header_Production_Order___Starting_Date__; Format("Production Order"."Starting Date-Time"))
                         {
                         }
                         column(Header_Item_Qty_on_prod_order; Item."PWD Rele. Qty. on Prod. Order")
@@ -195,7 +195,7 @@ report 50020 "Prod. Order - List of missing"
                         column(Comp_Prod__Order_Component___Unit_of_Measure_Code_; "Prod. Order Component"."Unit of Measure Code")
                         {
                         }
-                        column(Comp_Production_Order___Due_Date_; Format("Production Order"."Ending Date"))
+                        column(Comp_Production_Order___Due_Date_; Format("Production Order"."Ending Date-Time"))
                         {
                         }
                         column(Comp_Prod__Order_Line___MPS_Order__; Format("Prod. Order Line"."MPS Order"))
@@ -212,7 +212,7 @@ report 50020 "Prod. Order - List of missing"
                         {
                             //DecimalPlaces = 0 : 5;
                         }
-                        column(Comp_Production_Order___Start_Date_; Format("Production Order"."Starting Date"))
+                        column(Comp_Production_Order___Start_Date_; Format("Production Order"."Starting Date-Time"))
                         {
                         }
                         column(Comp_CompItem_QtyOnProdOrder; CompItem."PWD Rele. Qty. on Prod. Order")

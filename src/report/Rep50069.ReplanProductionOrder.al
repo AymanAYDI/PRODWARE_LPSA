@@ -142,12 +142,10 @@ report 50069 "PWD Replan Production Order"
                             ProdOrder."Replan Ref. Status" := MainProdOrder."Replan Ref. Status";
                             ProdOrder.Insert(true);
 
-                            ProdOrder."Starting Date" := WorkDate();
+                            ProdOrder."Starting Date-Time" := CreateDateTime(WorkDate(), MfgSetup."Normal Starting Time");
                             ProdOrder."Creation Date" := WorkDate();
-                            ProdOrder."Starting Time" := MfgSetup."Normal Starting Time";
-                            ProdOrder."Ending Time" := MfgSetup."Normal Ending Time";
+                            ProdOrder."Ending Date-Time" := CreateDateTime("Due Date", MfgSetup."Normal Ending Time");
                             ProdOrder."Due Date" := "Due Date";
-                            ProdOrder."Ending Date" := "Due Date";
                             ProdOrder."Low-Level Code" := MainProdOrder."Low-Level Code" + 1;
                             ProdOrder."Source Type" := ProdOrder."Source Type"::Item;
                             ProdOrder.Validate("Source No.", "Item No.");

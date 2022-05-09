@@ -85,7 +85,7 @@ page 50002 "PWD Item Configurator List"
                     Promoted = true;
                     PromotedIsBig = true;
                     ApplicationArea = All;
-                    Image= CopyItem;
+                    Image = CopyItem;
 
                     trigger OnAction()
                     var
@@ -96,14 +96,15 @@ page 50002 "PWD Item Configurator List"
                         RepGCopyItem.RUNMODAL();
 
                         // Open Configuration Card
-                        IF RepGCopyItem.ItemReturn(RecGNewItem) THEN BEGIN
-                            // Open Card
-                            RecLItemConfigurator.SETCURRENTKEY("Item Code");
-                            RecLItemConfigurator.SETRANGE("Item Code", RecGNewItem."No.");
-                            RecLItemConfigurator.FINDLAST();
-                            PagGItemConfigurator.SETRECORD(RecLItemConfigurator);
-                            PagGItemConfigurator.RUN();
-                        END;
+                        CODEUNIT.Run(CODEUNIT::"Copy Item", RecGNewItem);
+                        //IF RepGCopyItem.ItemReturn(RecGNewItem) THEN BEGIN
+                        // Open Card
+                        RecLItemConfigurator.SETCURRENTKEY("Item Code");
+                        RecLItemConfigurator.SETRANGE("Item Code", RecGNewItem."No.");
+                        RecLItemConfigurator.FINDLAST();
+                        PagGItemConfigurator.SETRECORD(RecLItemConfigurator);
+                        PagGItemConfigurator.RUN();
+                        //END;
                         //<<FE_LAPIERRETTE_NDT01.001
                     end;
                 }
@@ -113,7 +114,7 @@ page 50002 "PWD Item Configurator List"
 
     var
         RecGNewItem: Record Item;
-        RepGCopyItem: Report "Item Copy";
+        RepGCopyItem: Page "Copy Item";
         LPSAFunctionsMgt: codeunit "PWD LPSA Functions Mgt.";
         PagGItemConfigurator: Page "PWD Item Configurator";
 }

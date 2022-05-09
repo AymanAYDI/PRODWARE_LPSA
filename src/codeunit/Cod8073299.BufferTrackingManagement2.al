@@ -290,6 +290,7 @@ codeunit 8073299 "Buffer Tracking Management 2"
 
     local procedure AddToGlobalRecordSet(var TempTrackingSpecification: Record "Tracking Specification" temporary)
     var
+        ItemTrackingSetup: Record "Item Tracking Setup";
         EntriesExist: Boolean;
         ExpDate: Date;
     begin
@@ -311,10 +312,11 @@ codeunit 8073299 "Buffer Tracking Management 2"
                 Rec."Qty. to Invoice" :=
                   Rec.CalcQty(Rec."Qty. to Invoice (Base)");
                 Rec."Entry No." := NextEntryNo();
-
+                ItemTrackingSetup."Serial No." := Rec."Serial No.";
+                ItemTrackingSetup."Lot No." := Rec."Lot No.";
                 ExpDate := ItemTrackingMgt.ExistingExpirationDate(
                   Rec."Item No.", Rec."Variant Code",
-                  Rec."Lot No.", Rec."Serial No.", FALSE, EntriesExist);
+                  ItemTrackingSetup, FALSE, EntriesExist);
 
                 IF ExpDate <> 0D THEN BEGIN
                     Rec."Expiration Date" := ExpDate;
@@ -689,8 +691,7 @@ codeunit 8073299 "Buffer Tracking Management 2"
                         EXIT(TRUE);
 
                     IF FormRunMode = FormRunMode::Reclass THEN BEGIN
-                        CreateReservEntry.SetNewSerialLotNo(
-                          OldTrackingSpecification."New Serial No.", OldTrackingSpecification."New Lot No.");
+                        CreateReservEntry.SetNewTrackingFromNewTrackingSpecification(OldTrackingSpecification);
                         CreateReservEntry.SetNewExpirationDate(OldTrackingSpecification."New Expiration Date");
                     END;
                     CreateReservEntry.SetDates(
@@ -1062,6 +1063,7 @@ codeunit 8073299 "Buffer Tracking Management 2"
     var
         EnterQuantityToCreate: Page "Enter Quantity to Create";
         CreateLotNo: Boolean;
+        CreateSNInfo: Boolean;
         QtyToCreate: Decimal;
         QtyToCreateInt: Integer;
     begin
@@ -1079,9 +1081,9 @@ codeunit 8073299 "Buffer Tracking Management 2"
 
         CLEAR(EnterQuantityToCreate);
         EnterQuantityToCreate.LOOKUPMODE := TRUE;
-        EnterQuantityToCreate.SetFields(Rec."Item No.", Rec."Variant Code", QtyToCreate, FALSE);
+        EnterQuantityToCreate.SetFields(Rec."Item No.", Rec."Variant Code", QtyToCreate, FALSE, FALSE);
         IF EnterQuantityToCreate.RUNMODAL() = ACTION::LookupOK THEN BEGIN
-            EnterQuantityToCreate.GetFields(QtyToCreateInt, CreateLotNo);
+            EnterQuantityToCreate.GetFields(QtyToCreateInt, CreateLotNo, CreateSNInfo);
             AssignSerialNoBatch(QtyToCreateInt, CreateLotNo);
         END;
     end;
@@ -1156,6 +1158,7 @@ codeunit 8073299 "Buffer Tracking Management 2"
     var
         EnterCustomizedSN: Page "Enter Customized SN";
         CreateLotNo: Boolean;
+        CreateSNInfo: Boolean;
         CustomizedSN: Code[20];
         QtyToCreate: Decimal;
         Increment: Integer;
@@ -1177,9 +1180,9 @@ codeunit 8073299 "Buffer Tracking Management 2"
 
         CLEAR(EnterCustomizedSN);
         EnterCustomizedSN.LOOKUPMODE := TRUE;
-        EnterCustomizedSN.SetFields(Rec."Item No.", Rec."Variant Code", QtyToCreate, FALSE);
+        EnterCustomizedSN.SetFields(Rec."Item No.", Rec."Variant Code", QtyToCreate, FALSE, FALSE);
         IF EnterCustomizedSN.RUNMODAL() = ACTION::LookupOK THEN BEGIN
-            EnterCustomizedSN.GetFields(QtyToCreateInt, CreateLotNo, CustomizedSN, Increment);
+            EnterCustomizedSN.GetFields(QtyToCreateInt, CreateLotNo, CustomizedSN, Increment, CreateSNInfo);
             CreateCustomizedSNBatch(QtyToCreateInt, CreateLotNo, CustomizedSN, Increment);
         END;
         CalculateSums();
