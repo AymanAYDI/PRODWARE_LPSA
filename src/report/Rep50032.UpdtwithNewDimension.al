@@ -335,7 +335,7 @@ report 50032 "PWD Updt with New Dimension"
                 begin
                     Window.Update(1, TableCaption);
                     SetRange("Source No.", "Default Dimension"."No.");
-                    SetFilter("Ending Date", DateFilter);
+                    SetFilter("Ending Date-Time", DateFilter);
                 end;
             }
             dataitem("Finished PO Line"; "Prod. Order Line")
@@ -371,7 +371,7 @@ report 50032 "PWD Updt with New Dimension"
                 begin
                     ProdHeader.SetRange(Status, Status);
                     ProdHeader.SetRange("No.", "Prod. Order No.");
-                    ProdHeader.SetFilter("Ending Date", DateFilter);
+                    ProdHeader.SetFilter("Ending Date-Time", DateFilter);
                     if not ProdHeader.IsEmpty then begin
                         Window.Update(2, "Prod. Order No.");
                         UpdtProdDocDimension(

@@ -562,19 +562,19 @@ page 50027 "PWD Purchase Order line"
                 {
                     ApplicationArea = All;
                 }
-                field("Cross-Reference No."; Rec."Cross-Reference No.")
+                field("Cross-Reference No."; Rec."Item Reference No.")
                 {
                     ApplicationArea = All;
                 }
-                field("Unit of Measure (Cross Ref.)"; Rec."Unit of Measure (Cross Ref.)")
+                field("Unit of Measure (Cross Ref.)"; Rec."Item Reference Unit of Measure")
                 {
                     ApplicationArea = All;
                 }
-                field("Cross-Reference Type"; Rec."Cross-Reference Type")
+                field("Cross-Reference Type"; Rec."Item Reference Type")
                 {
                     ApplicationArea = All;
                 }
-                field("Cross-Reference Type No."; Rec."Cross-Reference Type No.")
+                field("Cross-Reference Type No."; Rec."Item Reference Type No.")
                 {
                     ApplicationArea = All;
                 }

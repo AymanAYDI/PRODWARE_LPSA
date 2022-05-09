@@ -541,7 +541,7 @@ report 50012 "PWD Shipment Advice"
         DimSetEntry1: Record "Dimension Set Entry";
         DimSetEntry2: Record "Dimension Set Entry";
         Item: Record Item;
-        ItemCrossRef: Record "Item Cross Reference";
+        ItemCrossRef: Record "Item Reference";
         RecGItemRelation: Record "Item Entry Relation";
         RecGItemLedgEntry: Record "Item Ledger Entry";
         TempItemLedgEntry: Record "Item Ledger Entry";
@@ -620,24 +620,24 @@ report 50012 "PWD Shipment Advice"
         ItemCrossRef.SetRange("Item No.", "Sales Shipment Line"."No.");
         ItemCrossRef.SetRange("Variant Code", "Sales Shipment Line"."Variant Code");
         ItemCrossRef.SetRange("Unit of Measure", "Sales Shipment Line"."Unit of Measure Code");
-        ItemCrossRef.SetRange("Cross-Reference Type", ItemCrossRef."Cross-Reference Type"::Customer);
-        ItemCrossRef.SetRange("Cross-Reference Type No.", "Sales Shipment Header"."Sell-to Customer No.");
+        ItemCrossRef.SetRange("Reference Type", ItemCrossRef."Reference Type"::Customer);
+        ItemCrossRef.SetRange("Reference Type No.", "Sales Shipment Header"."Sell-to Customer No.");
         if ItemCrossRef.FindFirst() then begin
-            CrossReferenceNo := ItemCrossRef."Cross-Reference No.";
+            CrossReferenceNo := ItemCrossRef."Reference No.";
             //>>TDL.LPSA.09022015
             TxtGCustPlanNo_C := ItemCrossRef."PWD Customer Plan No.";
             //<<TDL.LPSA.09022015
         end;
 
         //>>NDBI
-        if "Sales Shipment Line"."Cross-Reference No." <> '' then begin
-            CrossReferenceNo := "Sales Shipment Line"."Cross-Reference No.";
+        if "Sales Shipment Line"."Item Reference No." <> '' then begin
+            CrossReferenceNo := "Sales Shipment Line"."Item Reference No.";
             if ItemCrossRef.Get("Sales Shipment Line"."No.",
                                 "Sales Shipment Line"."Variant Code",
                                 "Sales Shipment Line"."Unit of Measure Code",
-                                ItemCrossRef."Cross-Reference Type"::Customer,
+                                ItemCrossRef."Reference Type"::Customer,
                                 "Sales Shipment Header"."Sell-to Customer No.",
-                                "Sales Shipment Line"."Cross-Reference No.") then
+                                "Sales Shipment Line"."Item Reference No.") then
                 TxtGCustPlanNo_C := ItemCrossRef."PWD Customer Plan No.";
         end;
         //<<NDBI

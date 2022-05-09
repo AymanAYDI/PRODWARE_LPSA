@@ -1,4 +1,4 @@
-pageextension 60070 "PWD CrossReferenceList" extends "Cross Reference List"
+pageextension 60070 "PWD ItemReferenceList" extends "Item Reference List"
 {
     layout
     {

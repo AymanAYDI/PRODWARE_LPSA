@@ -392,7 +392,7 @@ page 50021 "PWD Item List requirement"
                 action(Action82)
                 {
                     Caption = 'Cross Re&ferences';
-                    RunObject = Page "Item Cross Reference Entries";
+                    RunObject = Page "Item Reference Entries";
                     RunPageLink = "Item No." = FIELD("No.");
                     ApplicationArea = All;
                     Image = ContactReference;
@@ -738,17 +738,20 @@ page 50021 "PWD Item List requirement"
                     ApplicationArea = All;
                     Image = CopyItem;
                     trigger OnAction()
-                    var
-                        ReturnItem: Record Item;
-                        CopyItem: Report "Item Copy";
+                    // var
+                    //     ReturnItem: Record Item;
+                    //     CopyItem: Report "Item Copy";
+                    // begin
+                    //     // dach1140.begin
+                    //     CopyItem.ItemDef(Rec);
+                    //     CopyItem.RUNMODAL();
+                    //     IF CopyItem.ItemReturn(ReturnItem) THEN
+                    //         IF CONFIRM(Text11500, TRUE) THEN
+                    //             Rec := ReturnItem;
+                    //     // dach1140.end
+                    // end;
                     begin
-                        // dach1140.begin
-                        CopyItem.ItemDef(Rec);
-                        CopyItem.RUNMODAL();
-                        IF CopyItem.ItemReturn(ReturnItem) THEN
-                            IF CONFIRM(Text11500, TRUE) THEN
-                                Rec := ReturnItem;
-                        // dach1140.end
+                        CODEUNIT.Run(CODEUNIT::"Copy Item", Rec)
                     end;
                 }
             }
@@ -1233,6 +1236,7 @@ page 50021 "PWD Item List requirement"
         CurrPage.SETSELECTIONFILTER(Item);
         ItemCount := Item.COUNT;
         IF ItemCount > 0 THEN BEGIN
+            SelectionFilter := '';
             Item.FIND('-');
             WHILE ItemCount > 0 DO BEGIN
                 ItemCount := ItemCount - 1;

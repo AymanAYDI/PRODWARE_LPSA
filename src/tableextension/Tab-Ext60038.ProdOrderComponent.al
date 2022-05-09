@@ -385,15 +385,15 @@ tableextension 60038 "PWD ProdOrderComponent" extends "Prod. Order Component"
         CompItem.CALCFIELDS(
           Inventory, "Reserved Qty. on Inventory",
           "Scheduled Receipt (Qty.)", "Reserved Qty. on Prod. Order",
-          "Scheduled Need (Qty.)", "Res. Qty. on Prod. Order Comp.");
+          "Qty. on Component Lines", "Res. Qty. on Prod. Order Comp.");
         CompItem.Inventory :=
           CompItem.Inventory -
           CompItem."Reserved Qty. on Inventory";
         CompItem."Scheduled Receipt (Qty.)" :=
           CompItem."Scheduled Receipt (Qty.)" -
           CompItem."Reserved Qty. on Prod. Order";
-        CompItem."Scheduled Need (Qty.)" :=
-          CompItem."Scheduled Need (Qty.)" -
+        CompItem."Qty. on Component Lines" :=
+          CompItem."Qty. on Component Lines" -
           CompItem."Res. Qty. on Prod. Order Comp.";
 
         //>>LAP2.07
@@ -450,32 +450,32 @@ tableextension 60038 "PWD ProdOrderComponent" extends "Prod. Order Component"
         //TempProdOrderComp.SETRANGE("Due Date","Due Date");
         //<<LAP2.07
         CalcProdOrderCompFields(TempProdOrderComp);
-        CompItem."Scheduled Need (Qty.)" :=
-          CompItem."Scheduled Need (Qty.)" +
+        CompItem."Qty. on Component Lines" :=
+          CompItem."Qty. on Component Lines" +
           TempProdOrderComp."Remaining Qty. (Base)" -
           TempProdOrderComp."Reserved Qty. (Base)";
 
         TempProdOrderComp.SETRANGE(Status, Status);
         TempProdOrderComp.SETFILTER("Prod. Order No.", '<%1', "Prod. Order No.");
         CalcProdOrderCompFields(TempProdOrderComp);
-        CompItem."Scheduled Need (Qty.)" :=
-          CompItem."Scheduled Need (Qty.)" +
+        CompItem."Qty. on Component Lines" :=
+          CompItem."Qty. on Component Lines" +
           TempProdOrderComp."Remaining Qty. (Base)" -
           TempProdOrderComp."Reserved Qty. (Base)";
 
         TempProdOrderComp.SETRANGE("Prod. Order No.", "Prod. Order No.");
         TempProdOrderComp.SETRANGE("Prod. Order Line No.", 0, "Prod. Order Line No." - 1);
         CalcProdOrderCompFields(TempProdOrderComp);
-        CompItem."Scheduled Need (Qty.)" :=
-          CompItem."Scheduled Need (Qty.)" +
+        CompItem."Qty. on Component Lines" :=
+          CompItem."Qty. on Component Lines" +
           TempProdOrderComp."Remaining Qty. (Base)" -
           TempProdOrderComp."Reserved Qty. (Base)";
 
         TempProdOrderComp.SETRANGE("Prod. Order Line No.", "Prod. Order Line No.");
         TempProdOrderComp.SETRANGE("Line No.", 0, "Line No.");
         CalcProdOrderCompFields(TempProdOrderComp);
-        CompItem."Scheduled Need (Qty.)" :=
-          CompItem."Scheduled Need (Qty.)" +
+        CompItem."Qty. on Component Lines" :=
+          CompItem."Qty. on Component Lines" +
           TempProdOrderComp."Remaining Qty. (Base)" -
           TempProdOrderComp."Reserved Qty. (Base)";
 
@@ -489,7 +489,7 @@ tableextension 60038 "PWD ProdOrderComponent" extends "Prod. Order Component"
           TempProdOrderComp."Reserved Qty. (Base)";
 
         NeededQty :=
-          CompItem."Scheduled Need (Qty.)" +
+          CompItem."Qty. on Component Lines" +
           CompItem."Qty. on Sales Order" -
           CompItem."Qty. on Purch. Order" -
           CompItem."Scheduled Receipt (Qty.)" -

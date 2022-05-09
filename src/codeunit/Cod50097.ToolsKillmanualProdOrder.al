@@ -126,10 +126,8 @@ codeunit 50097 "Tools Kill manual Prod Order"
 
 
         ToProdOrder.INSERT(TRUE);
-        ToProdOrder."Starting Time" := FromProdOrder."Starting Time";
-        ToProdOrder."Starting Date" := FromProdOrder."Starting Date";
-        ToProdOrder."Ending Time" := FromProdOrder."Ending Time";
-        ToProdOrder."Ending Date" := FromProdOrder."Ending Date";
+        ToProdOrder."Starting Date-Time" := FromProdOrder."Starting Date-Time";
+        ToProdOrder."Ending Date-Time" := FromProdOrder."Ending Date-Time";
         ToProdOrder."Due Date" := FromProdOrder."Due Date";
         ToProdOrder.VALIDATE("Shortcut Dimension 1 Code", '');
         ToProdOrder.VALIDATE("Shortcut Dimension 2 Code", '');

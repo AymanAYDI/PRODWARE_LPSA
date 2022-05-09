@@ -719,7 +719,7 @@ report 50013 "PWD Credit Note"
         DimSetEntry1: Record "Dimension Set Entry";
         GLSetup: Record "General Ledger Setup";
         Item: Record Item;
-        ItemCrossRef: Record "Item Cross Reference";
+        ItemCrossRef: Record "Item Reference";
         ItemLedgEntry: Record "Item Ledger Entry";
         TempItemLedgEntry: Record "Item Ledger Entry";
         PaymentTerms: Record "Payment Terms";
@@ -840,24 +840,24 @@ report 50013 "PWD Credit Note"
         ItemCrossRef.SETRANGE("Item No.", "Sales Cr.Memo Line"."No.");
         ItemCrossRef.SETRANGE("Variant Code", "Sales Cr.Memo Line"."Variant Code");
         ItemCrossRef.SETRANGE("Unit of Measure", "Sales Cr.Memo Line"."Unit of Measure Code");
-        ItemCrossRef.SETRANGE("Cross-Reference Type", ItemCrossRef."Cross-Reference Type"::Customer);
-        ItemCrossRef.SETRANGE("Cross-Reference Type No.", "Sales Cr.Memo Header"."Sell-to Customer No.");
+        ItemCrossRef.SETRANGE("Reference Type", ItemCrossRef."Reference Type"::Customer);
+        ItemCrossRef.SETRANGE("Reference Type No.", "Sales Cr.Memo Header"."Sell-to Customer No.");
         IF ItemCrossRef.FINDFIRST() THEN BEGIN
-            CrossReferenceNo := ItemCrossRef."Cross-Reference No.";
+            CrossReferenceNo := ItemCrossRef."Reference No.";
             //>>TDL.LPSA.09022015
             TxtGCustPlanNo_C := ItemCrossRef."PWD Customer Plan No.";
             //>>TDL.LPSA.09022015
         END;
 
         //>>NDBI
-        IF "Sales Cr.Memo Line"."Cross-Reference No." <> '' THEN BEGIN
-            CrossReferenceNo := "Sales Cr.Memo Line"."Cross-Reference No.";
+        IF "Sales Cr.Memo Line"."Item Reference No." <> '' THEN BEGIN
+            CrossReferenceNo := "Sales Cr.Memo Line"."Item Reference No.";
             IF ItemCrossRef.GET("Sales Cr.Memo Line"."No.",
                                 "Sales Cr.Memo Line"."Variant Code",
                                 "Sales Cr.Memo Line"."Unit of Measure Code",
-                                ItemCrossRef."Cross-Reference Type"::Customer,
+                                ItemCrossRef."Reference Type"::Customer,
                                 "Sales Cr.Memo Header"."Sell-to Customer No.",
-                                "Sales Cr.Memo Line"."Cross-Reference No.") THEN
+                                "Sales Cr.Memo Line"."Item Reference No.") THEN
                 TxtGCustPlanNo_C := ItemCrossRef."PWD Customer Plan No.";
         END;
         //<<NDBI

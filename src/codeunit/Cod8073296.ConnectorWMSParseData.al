@@ -187,7 +187,7 @@ codeunit 8073296 "PWD Connector WMS Parse Data"
     var
         RecLItem: Record Item;
         RecLItemForCrossRef: Record Item;
-        RecLItemCrossReference: Record "Item Cross Reference";
+        RecLItemCrossReference: Record "Item Reference";
         RecLItemUnitofMeasure: Record "Item Unit of Measure";
         RecLLocation: Record Location;
         RecLVendor: Record Vendor;
@@ -227,15 +227,15 @@ codeunit 8073296 "PWD Connector WMS Parse Data"
                                     repeat
                                         RecLItemCrossReference.SetRange("Item No.", RecLItemForCrossRef."No.");
                                         RecLItemCrossReference.SetRange("Unit of Measure", RecLItemForCrossRef."Base Unit of Measure");
-                                        RecLItemCrossReference.SetRange("Cross-Reference Type", RecLItemCrossReference."Cross-Reference Type"::Vendor);
-                                        RecLItemCrossReference.SetRange("Cross-Reference Type No.", RecLItemForCrossRef."Vendor No.");
+                                        RecLItemCrossReference.SetRange("Reference Type", RecLItemCrossReference."Reference Type"::Vendor);
+                                        RecLItemCrossReference.SetRange("Reference Type No.", RecLItemForCrossRef."Vendor No.");
                                         if not RecLItemCrossReference.FindFirst() then begin
                                             RecLItemCrossReference.Init();
                                             RecLItemCrossReference."Item No." := RecLItemForCrossRef."No.";
                                             RecLItemCrossReference."Unit of Measure" := RecLItemForCrossRef."Base Unit of Measure";
-                                            RecLItemCrossReference."Cross-Reference Type" := RecLItemCrossReference."Cross-Reference Type"::Vendor;
-                                            RecLItemCrossReference."Cross-Reference Type No." := RecLItemForCrossRef."Vendor No.";
-                                            RecLItemCrossReference."Cross-Reference No." := RecLItemForCrossRef."Vendor Item No.";
+                                            RecLItemCrossReference."Reference Type" := RecLItemCrossReference."Reference Type"::Vendor;
+                                            RecLItemCrossReference."Reference Type No." := RecLItemForCrossRef."Vendor No.";
+                                            RecLItemCrossReference."Reference No." := RecLItemForCrossRef."Vendor Item No.";
                                             RecLItemCrossReference.Insert();
                                         end;
                                     until RecLItemForCrossRef.Next() = 0;
@@ -299,9 +299,9 @@ codeunit 8073296 "PWD Connector WMS Parse Data"
                                         Clear(BigTGOneLine);
                                         RecLItemCrossReference.SetRange("Item No.", RecLItem."No.");
                                         RecLItemCrossReference.SetRange("Unit of Measure", RecLItem."Base Unit of Measure");
-                                        RecLItemCrossReference.SetRange("Cross-Reference Type", RecLItemCrossReference."Cross-Reference Type"::Vendor);
-                                        RecLItemCrossReference.SetRange("Cross-Reference Type No.", RecLItem."Vendor No.");
-                                        RecLItemCrossReference.SetRange("Cross-Reference No.", RecLItem."Vendor Item No.");
+                                        RecLItemCrossReference.SetRange("Reference Type", RecLItemCrossReference."Reference Type"::Vendor);
+                                        RecLItemCrossReference.SetRange("Reference Type No.", RecLItem."Vendor No.");
+                                        RecLItemCrossReference.SetRange("Reference No.", RecLItem."Vendor Item No.");
                                         CduGConnectBufMgtExport.FctCreateBigTextWithPosition(RecLItemCrossReference.GetView(), RecGAllConnectorMes, BigTGOneLine);
                                         CduGConnectBufMgtExport.FctConcatBigText(BigTGOneLine, BigTGEqualNbLineMainTable);
                                     until RecLItem.Next() = 0;
@@ -316,8 +316,8 @@ codeunit 8073296 "PWD Connector WMS Parse Data"
                                         Clear(BigTGOneLine);
                                         RecLItemCrossReference.SetRange("Item No.", RecLItem."No.");
                                         RecLItemCrossReference.SetRange("Unit of Measure", RecLItem."Base Unit of Measure");
-                                        RecLItemCrossReference.SetRange("Cross-Reference Type", RecLItemCrossReference."Cross-Reference Type"::Vendor);
-                                        RecLItemCrossReference.SetRange("Cross-Reference Type No.", RecLItem."Vendor No.");
+                                        RecLItemCrossReference.SetRange("Reference Type", RecLItemCrossReference."Reference Type"::Vendor);
+                                        RecLItemCrossReference.SetRange("Reference Type No.", RecLItem."Vendor No.");
                                         CduGConnectBufMgtExport.FctCreateBigTextWithPosition(RecLItemCrossReference.GetView(), RecGAllConnectorMes, BigTGOneLine);
                                         CduGConnectBufMgtExport.FctConcatBigText(BigTGOneLine, BigTGEqualNbLineMainTable);
                                     until RecLItem.Next() = 0;

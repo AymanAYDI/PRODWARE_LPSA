@@ -19,7 +19,7 @@ report 50029 "Create Item Config. from Item"
             var
                 RecLDefaultDimension: Record "Default Dimension";
                 RecLInventorySetup: Record "Inventory Setup";
-                RecLItemCrossReference: Record "Item Cross Reference";
+                RecLItemCrossReference: Record "Item Reference";
                 BooLCreateItemCrossRef: Boolean;
                 CodLFilterToCompare: Code[20];
                 CodLFilter: Code[250];
@@ -108,29 +108,29 @@ report 50029 "Create Item Config. from Item"
                         if not RecLItemCrossReference.Get(Item."No.",
                                                           '',
                                                           Item."Base Unit of Measure",
-                                                          RecLItemCrossReference."Cross-Reference Type"::Customer,
+                                                          RecLItemCrossReference."Reference Type"::Customer,
                                                           RecLInventorySetup."PWD STRATEGY Customer No.",
                                                           'NC') then begin
                             RecLItemCrossReference.Init();
                             RecLItemCrossReference.Validate("Item No.", Item."No.");
                             RecLItemCrossReference.Validate("Unit of Measure", Item."Base Unit of Measure");
-                            RecLItemCrossReference.Validate("Cross-Reference Type", RecLItemCrossReference."Cross-Reference Type"::Customer);
-                            RecLItemCrossReference.Validate("Cross-Reference Type No.", RecLInventorySetup."PWD STRATEGY Customer No.");
-                            RecLItemCrossReference.Validate("Cross-Reference No.", 'NC');
+                            RecLItemCrossReference.Validate("Reference Type", RecLItemCrossReference."Reference Type"::Customer);
+                            RecLItemCrossReference.Validate("Reference Type No.", RecLInventorySetup."PWD STRATEGY Customer No.");
+                            RecLItemCrossReference.Validate("Reference No.", 'NC');
                             RecLItemCrossReference.Insert();
                         end;
                     if not RecLItemCrossReference.Get(Item."No.",
                                                       '',
                                                       Item."Base Unit of Measure",
-                                                      RecLItemCrossReference."Cross-Reference Type"::Customer,
+                                                      RecLItemCrossReference."Reference Type"::Customer,
                                                       RecLInventorySetup."PWD LPSA Customer No.",
                                                       'NC') then begin
                         RecLItemCrossReference.Init();
                         RecLItemCrossReference.Validate("Item No.", Item."No.");
                         RecLItemCrossReference.Validate("Unit of Measure", Item."Base Unit of Measure");
-                        RecLItemCrossReference.Validate("Cross-Reference Type", RecLItemCrossReference."Cross-Reference Type"::Customer);
-                        RecLItemCrossReference.Validate("Cross-Reference Type No.", RecLInventorySetup."PWD LPSA Customer No.");
-                        RecLItemCrossReference.Validate("Cross-Reference No.", 'NC');
+                        RecLItemCrossReference.Validate("Reference Type", RecLItemCrossReference."Reference Type"::Customer);
+                        RecLItemCrossReference.Validate("Reference Type No.", RecLInventorySetup."PWD LPSA Customer No.");
+                        RecLItemCrossReference.Validate("Reference No.", 'NC');
                         RecLItemCrossReference.Insert();
                     end;
                 end;

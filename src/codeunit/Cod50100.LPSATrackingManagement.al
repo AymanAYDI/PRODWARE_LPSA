@@ -793,8 +793,7 @@ codeunit 50100 "PWD LPSA Tracking Management"
                         exit(true);
 
                     if FormRunMode = FormRunMode::Reclass then begin
-                        CreateReservEntry.SetNewSerialLotNo(
-                          OldTrackingSpecification."New Serial No.", OldTrackingSpecification."New Lot No.");
+                        CreateReservEntry.SetNewTrackingFromNewTrackingSpecification(OldTrackingSpecification);
                         CreateReservEntry.SetNewExpirationDate(OldTrackingSpecification."New Expiration Date");
                     end;
                     CreateReservEntry.SetDates(

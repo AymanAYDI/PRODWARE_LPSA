@@ -41,7 +41,7 @@ pageextension 60010 "PWD ItemLedgerEntries" extends "Item Ledger Entries"
             {
                 ApplicationArea = All;
             }
-            field("PWD Cross-Reference No."; Rec."Cross-Reference No.")
+            field("PWD Cross-Reference No."; Rec."Item Reference No.")
             {
                 ApplicationArea = All;
             }

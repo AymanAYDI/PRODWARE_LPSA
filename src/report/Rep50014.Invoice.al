@@ -764,7 +764,7 @@ report 50014 "PWD Invoice"
         DimSetEntry1: Record "Dimension Set Entry";
         GLSetup: Record "General Ledger Setup";
         Item: Record Item;
-        ItemCrossRef: Record "Item Cross Reference";
+        ItemCrossRef: Record "Item Reference";
         ItemLedgEntry: Record "Item Ledger Entry";
         TempItemLedgEntry: Record "Item Ledger Entry";
         PaymentTerms: Record "Payment Terms";
@@ -882,24 +882,24 @@ report 50014 "PWD Invoice"
         ItemCrossRef.SetRange("Item No.", "Sales Invoice Line"."No.");
         ItemCrossRef.SetRange("Variant Code", "Sales Invoice Line"."Variant Code");
         ItemCrossRef.SetRange("Unit of Measure", "Sales Invoice Line"."Unit of Measure Code");
-        ItemCrossRef.SetRange("Cross-Reference Type", ItemCrossRef."Cross-Reference Type"::Customer);
-        ItemCrossRef.SetRange("Cross-Reference Type No.", "Sales Invoice Header"."Sell-to Customer No.");
+        ItemCrossRef.SetRange("Reference Type", ItemCrossRef."Reference Type"::Customer);
+        ItemCrossRef.SetRange("Reference Type No.", "Sales Invoice Header"."Sell-to Customer No.");
         if ItemCrossRef.FindFirst() then begin
-            CrossReferenceNo := ItemCrossRef."Cross-Reference No.";
+            CrossReferenceNo := ItemCrossRef."Reference No.";
             //>>TDL.LPSA.09022015
             TxtGCustPlanNo_C := ItemCrossRef."PWD Customer Plan No.";
             //<<TDL.LPSA.09022015
         end;
 
         //>>NDBI
-        if "Sales Invoice Line"."Cross-Reference No." <> '' then begin
-            CrossReferenceNo := "Sales Invoice Line"."Cross-Reference No.";
+        if "Sales Invoice Line"."Item Reference No." <> '' then begin
+            CrossReferenceNo := "Sales Invoice Line"."Item Reference No.";
             if ItemCrossRef.Get("Sales Invoice Line"."No.",
                                 "Sales Invoice Line"."Variant Code",
                                 "Sales Invoice Line"."Unit of Measure Code",
-                                ItemCrossRef."Cross-Reference Type"::Customer,
+                                ItemCrossRef."Reference Type"::Customer,
                                 "Sales Invoice Header"."Sell-to Customer No.",
-                                "Sales Invoice Line"."Cross-Reference No.") then
+                                "Sales Invoice Line"."Item Reference No.") then
                 TxtGCustPlanNo_C := ItemCrossRef."PWD Customer Plan No.";
         end;
         //<<NDBI

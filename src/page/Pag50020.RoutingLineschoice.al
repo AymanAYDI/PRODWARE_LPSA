@@ -218,6 +218,7 @@ page 50020 "PWD Routing Lines choice"
         //RL.SETCURRENTKEY("No.");
         RLCount := RL.COUNT;
         IF RLCount > 0 THEN BEGIN
+            SelectionFilter := '';
             RL.FIND('-');
             WHILE RLCount > 0 DO BEGIN
                 RLCount := RLCount - 1;

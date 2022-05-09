@@ -36,7 +36,7 @@ page 50023 "Purchase Order Archive Lines"
                 {
                     ApplicationArea = All;
                 }
-                field("Cross-Reference No."; Rec."Cross-Reference No.")
+                field("Cross-Reference No."; Rec."Item Reference No.")
                 {
                     Visible = false;
                     ApplicationArea = All;
