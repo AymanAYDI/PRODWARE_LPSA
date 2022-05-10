@@ -17,7 +17,7 @@ report 50029 "Create Item Config. from Item"
 
             trigger OnAfterGetRecord()
             var
-                RecLDefaultDimension: Record "Default Dimension";
+                // RecLDefaultDimension: Record "Default Dimension";
                 RecLInventorySetup: Record "Inventory Setup";
                 RecLItemCrossReference: Record "Item Reference";
                 BooLCreateItemCrossRef: Boolean;

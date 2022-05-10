@@ -447,12 +447,12 @@ report 50014 "PWD Invoice"
                                 IntGImpText := 1;
                             //<<TI397445
 
-                                TotalSubTotal += "Line Amount";
-                                TotalInvoiceDiscountAmount -= "Inv. Discount Amount";
-                                TotalAmount += Amount;
-                                TotalAmountVAT += "Amount Including VAT" - Amount;
-                                TotalAmountInclVAT += "Amount Including VAT";
-                                // TotalPaymentDiscountOnVAT += -("Line Amount" - "Inv. Discount Amount" - "Amount Including VAT");
+                            TotalSubTotal += "Line Amount";
+                            TotalInvoiceDiscountAmount -= "Inv. Discount Amount";
+                            TotalAmount += Amount;
+                            TotalAmountVAT += "Amount Including VAT" - Amount;
+                            TotalAmountInclVAT += "Amount Including VAT";
+                            // TotalPaymentDiscountOnVAT += -("Line Amount" - "Inv. Discount Amount" - "Amount Including VAT");
                             SearchLot();
 
                             //>>TDL.LPSA.09022015
@@ -487,10 +487,10 @@ report 50014 "PWD Invoice"
                             SetRange("Line No.", 0, "Line No.");
                             // CurrReport.CreateTotals("Line Amount", Amount, "Amount Including VAT", "Inv. Discount Amount", VATAmountLine."VAT Base");
 
-                                GetTotalLineAmount := 0;
-                                GetTotalInvDiscAmount := 0;
-                                GetTotalAmount := 0;
-                                GetTotalAmountIncVAT := 0;
+                            GetTotalLineAmount := 0;
+                            GetTotalInvDiscAmount := 0;
+                            GetTotalAmount := 0;
+                            GetTotalAmountIncVAT := 0;
                         end;
                     }
                     dataitem(VATCounter; "Integer")
@@ -549,16 +549,16 @@ report 50014 "PWD Invoice"
                 begin
                     if Number > 1 then begin
                         CopyText := Text003;
-                            OutputNo += 1;
+                        OutputNo += 1;
                     end;
                     // CurrReport.PageNo := 1;
 
-                        TotalSubTotal := 0;
-                        TotalInvoiceDiscountAmount := 0;
-                        TotalAmount := 0;
-                        TotalAmountVAT := 0;
-                        TotalAmountInclVAT := 0;
-                        // TotalPaymentDiscountOnVAT := 0;
+                    TotalSubTotal := 0;
+                    TotalInvoiceDiscountAmount := 0;
+                    TotalAmount := 0;
+                    TotalAmountVAT := 0;
+                    TotalAmountInclVAT := 0;
+                    // TotalPaymentDiscountOnVAT := 0;
                 end;
 
                 trigger OnPostDataItem()
@@ -580,7 +580,7 @@ report 50014 "PWD Invoice"
 
                     CopyText := '';
                     SetRange(Number, 1, NoOfLoops);
-                        OutputNo := 1;
+                    OutputNo := 1;
                 end;
             }
 
@@ -804,7 +804,7 @@ report 50014 "PWD Invoice"
         // TotalPaymentDiscountOnVAT: Decimal;
         TotalSubTotal: Decimal;
         // FirstValueEntryNo: Integer;
-        i: Integer;
+        // i: Integer;
         IntGImpText: Integer;
         NoOfCopies: Integer;
         NoOfLoops: Integer;

@@ -103,6 +103,7 @@ table 50011 "PWD Phantom substitution Items"
         {
             Clustered = true;
         }
+
     }
 
     fieldgroups

@@ -133,11 +133,13 @@ tableextension 60009 "PWD PurchaseLine" extends "Purchase Line"
 
     PROCEDURE FctFromImport(BooPFromImport: Boolean);
     var
+        "PWDLPSASet/GetFunctions": Codeunit "PWD LPSA Set/Get Functions.";
         BooGFromImport: Boolean;
     BEGIN
         //>>WMS-FE05.001
         BooGFromImport := BooPFromImport;
         //<<WMS-FE05.001
+        "PWDLPSASet/GetFunctions".SetFctFromImport(BooGFromImport);
     END;
 
     PROCEDURE FctDefaultQuantityIfWMS();

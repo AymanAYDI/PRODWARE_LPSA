@@ -33,7 +33,7 @@ codeunit 50100 "PWD LPSA Tracking Management"
         TempItemTrackLineModify: Record "Tracking Specification" temporary;
         TempItemTrackLineReserv: Record "Tracking Specification" temporary;
         TotalItemTrackingLine: Record "Tracking Specification";
-        xRec: Record "Tracking Specification" temporary;
+        // xRec: Record "Tracking Specification" temporary;
         xTempItemTrackingLine: Record "Tracking Specification" temporary;
         ItemTrackingDataCollection: Codeunit "Item Tracking Data Collection";
         ItemTrackingMgt: Codeunit "Item Tracking Management";
@@ -60,8 +60,8 @@ codeunit 50100 "PWD LPSA Tracking Management"
         CurrentSignFactor: Integer;
         CurrentSourceType: Integer;
         LastEntryNo: Integer;
-        Text000: Label 'Reservation is defined for the %1.\You must cancel the existing Reservation before deleting or changing Item Tracking.';
-        Text001: Label 'Reservation is defined for the %1.\You must not set %2 lower then %3.';
+        // Text000: Label 'Reservation is defined for the %1.\You must cancel the existing Reservation before deleting or changing Item Tracking.';
+        // Text001: Label 'Reservation is defined for the %1.\You must not set %2 lower then %3.';
         Text002: Label 'Quantity must be %1.';
         Text003: Label 'negative';
         Text004: Label 'positive';
@@ -96,7 +96,7 @@ codeunit 50100 "PWD LPSA Tracking Management"
         TempTrackingSpecification: Record "Tracking Specification" temporary;
         TempTrackingSpecification2: Record "Tracking Specification" temporary;
         CreateReservEntry: Codeunit "Create Reserv. Entry";
-        Controls: Option Handle,Invoice,Quantity,Reclass,LotSN;
+    // Controls: Option Handle,Invoice,Quantity,Reclass,LotSN;
     begin
         GetItem(TrackingSpecification."Item No.");
         ForBinCode := TrackingSpecification."Bin Code";
@@ -115,49 +115,49 @@ codeunit 50100 "PWD LPSA Tracking Management"
         else
             CurrentEntryStatus := CurrentEntryStatus::Prospect;
 
-        if (TrackingSpecification."Source Type" in 
-            [DATABASE::"Item Ledger Entry",
-            DATABASE::"Item Journal Line",
-            DATABASE::"Job Journal Line",
-            //DATABASE::"BOM Journal Line", //TODO: Table "BOM Journal Line" n'est plus disponible dans la nouvelle version
-            DATABASE::"Requisition Line"]) or
-           ((TrackingSpecification."Source Type" in [DATABASE::"Sales Line", DATABASE::"Purchase Line", DATABASE::"Service Line"]) and
-            (TrackingSpecification."Source Subtype" in [0, 2, 3]))
-        then
-            SetControls(Controls::Handle, false)
-        else
-            SetControls(Controls::Handle, true);
+        // if (TrackingSpecification."Source Type" in
+        //     [DATABASE::"Item Ledger Entry",
+        //     DATABASE::"Item Journal Line",
+        //     DATABASE::"Job Journal Line",
+        //     DATABASE::"BOM Journal Line", 
+        //     DATABASE::"Requisition Line"]) or
+        //    ((TrackingSpecification."Source Type" in [DATABASE::"Sales Line", DATABASE::"Purchase Line", DATABASE::"Service Line"]) and
+        //     (TrackingSpecification."Source Subtype" in [0, 2, 3]))
+        // then
+        //     SetControls(Controls::Handle, false)
+        // else
+        //     SetControls(Controls::Handle, true);
 
-        if (TrackingSpecification."Source Type" in
-            [DATABASE::"Item Ledger Entry",
-            DATABASE::"Item Journal Line",
-            DATABASE::"Job Journal Line",
-            //DATABASE::"BOM Journal Line", //TODO: Table "BOM Journal Line" n'est plus disponible dans la nouvelle version
-            DATABASE::"Requisition Line",
-            DATABASE::"Transfer Line",
-            DATABASE::"Prod. Order Line",
-            DATABASE::"Prod. Order Component"]) or
-           ((TrackingSpecification."Source Type" in [DATABASE::"Sales Line", DATABASE::"Purchase Line", DATABASE::"Service Line"]) and
-            (TrackingSpecification."Source Subtype" in [0, 2, 3, 4]))
-        then
-            SetControls(Controls::Invoice, false)
-        else
-            SetControls(Controls::Invoice, true);
+        // if (TrackingSpecification."Source Type" in
+        //     [DATABASE::"Item Ledger Entry",
+        //     DATABASE::"Item Journal Line",
+        //     DATABASE::"Job Journal Line",
+        //     DATABASE::"BOM Journal Line", //TODO: Table "BOM Journal Line" n'est plus disponible dans la nouvelle version
+        //     DATABASE::"Requisition Line",
+        //     DATABASE::"Transfer Line",
+        //     DATABASE::"Prod. Order Line",
+        //     DATABASE::"Prod. Order Component"]) or
+        //    ((TrackingSpecification."Source Type" in [DATABASE::"Sales Line", DATABASE::"Purchase Line", DATABASE::"Service Line"]) and
+        //     (TrackingSpecification."Source Subtype" in [0, 2, 3, 4]))
+        // then
+        //     SetControls(Controls::Invoice, false)
+        // else
+        //     SetControls(Controls::Invoice, true);
 
-        SetControls(Controls::Reclass, FormRunMode = FormRunMode::Reclass);
+        // SetControls(Controls::Reclass, FormRunMode = FormRunMode::Reclass);
 
-        if FormRunMode = FormRunMode::"Combined Ship/Rcpt" then
-            SetControls(Controls::LotSN, false);
-        if ItemTrackingMgt.ItemTrkgIsManagedByWhse(
-          TrackingSpecification."Source Type",
-          TrackingSpecification."Source Subtype",
-          TrackingSpecification."Source ID",
-          TrackingSpecification."Source Prod. Order Line",
-          TrackingSpecification."Source Ref. No.",
-          TrackingSpecification."Location Code",
-          TrackingSpecification."Item No.")
-        then
-            SetControls(Controls::Quantity, false);
+        // if FormRunMode = FormRunMode::"Combined Ship/Rcpt" then
+        //     SetControls(Controls::LotSN, false);
+        // if ItemTrackingMgt.ItemTrkgIsManagedByWhse(
+        //   TrackingSpecification."Source Type",
+        //   TrackingSpecification."Source Subtype",
+        //   TrackingSpecification."Source ID",
+        //   TrackingSpecification."Source Prod. Order Line",
+        //   TrackingSpecification."Source Ref. No.",
+        //   TrackingSpecification."Location Code",
+        //   TrackingSpecification."Item No.")
+        // then
+        //     SetControls(Controls::Quantity, false);
         //>>MIG-2009-001
         //CurrForm."Qty. to Handle (Base)".EDITABLE(TRUE);
         //<<MIG-2009-001
@@ -206,7 +206,7 @@ codeunit 50100 "PWD LPSA Tracking Management"
             ReservEntry.SetRange("Source Prod. Order Line", TrackingSpecification."Source Ref. No.");
             ReservEntry.SetRange("Source Ref. No.");
             // DeleteIsBlocked := true;
-            SetControls(Controls::Quantity, false);
+            // SetControls(Controls::Quantity, false);
         end;
 
         AddReservEntriesToTempRecSet(ReservEntry, TempTrackingSpecification, false, 0);
@@ -276,15 +276,15 @@ codeunit 50100 "PWD LPSA Tracking Management"
 
 
     procedure SetSecondSourceQuantity(var SecondSourceQuantityArray: array[3] of Decimal)
-    var
-        Controls: Option Handle,Invoice;
+    // var
+    //     Controls: Option Handle,Invoice;
     begin
         case SecondSourceQuantityArray[1] of
             DATABASE::"Warehouse Receipt Line", DATABASE::"Warehouse Shipment Line":
                 begin
                     SourceQuantityArray[2] := SecondSourceQuantityArray[2]; // "Qty. to Handle (Base)"
                     SourceQuantityArray[3] := SecondSourceQuantityArray[3]; // "Qty. to Invoice (Base)"
-                    SetControls(Controls::Invoice, false);
+                    // SetControls(Controls::Invoice, false);
                 end;
             else
                 exit;
@@ -373,61 +373,61 @@ codeunit 50100 "PWD LPSA Tracking Management"
             until TempTrackingSpecification.Next() = 0;
     end;
 
-    local procedure SetControls(Controls: Option Handle,Invoice,Quantity,Reclass,LotSN; SetAccess: Boolean)
-    begin
-        //>>MIG-2009-001
-        /*
-        CASE Controls OF
-          Controls::Handle:
-            BEGIN
-              CurrForm.Handle0.VISIBLE(SetAccess);
-              CurrForm.Handle1.VISIBLE(SetAccess);
-              CurrForm.Handle2.VISIBLE(SetAccess);
-              CurrForm.Handle3.VISIBLE(SetAccess);
-              CurrForm."Qty. to Handle (Base)".VISIBLE(SetAccess);
-              CurrForm."Qty. to Handle (Base)".EDITABLE(SetAccess);
-            END;
-          Controls::Invoice:
-            BEGIN
-              CurrForm.Invoice0.VISIBLE(SetAccess);
-              CurrForm.Invoice1.VISIBLE(SetAccess);
-              CurrForm.Invoice2.VISIBLE(SetAccess);
-              CurrForm.Invoice3.VISIBLE(SetAccess);
-              CurrForm."Qty. to Invoice (Base)".VISIBLE(SetAccess);
-              CurrForm."Qty. to Invoice (Base)".EDITABLE(SetAccess);
-            END;
-          Controls::Quantity:
-            BEGIN
-              CurrForm."Quantity (Base)".EDITABLE(SetAccess);
-              CurrForm."Serial No.".EDITABLE(SetAccess);
-              CurrForm."Lot No.".EDITABLE(SetAccess);
-              CurrForm.Description.EDITABLE(SetAccess);
-              InsertIsBlocked := TRUE;
-            END;
-          Controls::Reclass:
-            BEGIN
-              CurrForm."New Serial No.".VISIBLE(SetAccess);
-              CurrForm."New Serial No.".EDITABLE(SetAccess);
-              CurrForm."New Lot No.".VISIBLE(SetAccess);
-              CurrForm."New Lot No.".EDITABLE(SetAccess);
-              CurrForm."New Expiration Date".VISIBLE(SetAccess);
-              CurrForm."New Expiration Date".EDITABLE(SetAccess);
-              CurrForm.ButtonLineReclass.VISIBLE(SetAccess);
-              CurrForm.ButtonLine.VISIBLE(NOT SetAccess);
-            END;
-          Controls::LotSN:
-            BEGIN
-              CurrForm."Serial No.".EDITABLE(SetAccess);
-              CurrForm."Lot No.".EDITABLE(SetAccess);
-              CurrForm."Expiration Date".EDITABLE(SetAccess);
-              CurrForm."Warranty Date".EDITABLE(SetAccess);
-              InsertIsBlocked := SetAccess;
-            END;
-        END;
-        */
-        //<<MIG-2009-001
+    // local procedure SetControls(Controls: Option Handle,Invoice,Quantity,Reclass,LotSN; SetAccess: Boolean)
+    // begin
+    //     //>>MIG-2009-001
+    //     /*
+    //     CASE Controls OF
+    //       Controls::Handle:
+    //         BEGIN
+    //           CurrForm.Handle0.VISIBLE(SetAccess);
+    //           CurrForm.Handle1.VISIBLE(SetAccess);
+    //           CurrForm.Handle2.VISIBLE(SetAccess);
+    //           CurrForm.Handle3.VISIBLE(SetAccess);
+    //           CurrForm."Qty. to Handle (Base)".VISIBLE(SetAccess);
+    //           CurrForm."Qty. to Handle (Base)".EDITABLE(SetAccess);
+    //         END;
+    //       Controls::Invoice:
+    //         BEGIN
+    //           CurrForm.Invoice0.VISIBLE(SetAccess);
+    //           CurrForm.Invoice1.VISIBLE(SetAccess);
+    //           CurrForm.Invoice2.VISIBLE(SetAccess);
+    //           CurrForm.Invoice3.VISIBLE(SetAccess);
+    //           CurrForm."Qty. to Invoice (Base)".VISIBLE(SetAccess);
+    //           CurrForm."Qty. to Invoice (Base)".EDITABLE(SetAccess);
+    //         END;
+    //       Controls::Quantity:
+    //         BEGIN
+    //           CurrForm."Quantity (Base)".EDITABLE(SetAccess);
+    //           CurrForm."Serial No.".EDITABLE(SetAccess);
+    //           CurrForm."Lot No.".EDITABLE(SetAccess);
+    //           CurrForm.Description.EDITABLE(SetAccess);
+    //           InsertIsBlocked := TRUE;
+    //         END;
+    //       Controls::Reclass:
+    //         BEGIN
+    //           CurrForm."New Serial No.".VISIBLE(SetAccess);
+    //           CurrForm."New Serial No.".EDITABLE(SetAccess);
+    //           CurrForm."New Lot No.".VISIBLE(SetAccess);
+    //           CurrForm."New Lot No.".EDITABLE(SetAccess);
+    //           CurrForm."New Expiration Date".VISIBLE(SetAccess);
+    //           CurrForm."New Expiration Date".EDITABLE(SetAccess);
+    //           CurrForm.ButtonLineReclass.VISIBLE(SetAccess);
+    //           CurrForm.ButtonLine.VISIBLE(NOT SetAccess);
+    //         END;
+    //       Controls::LotSN:
+    //         BEGIN
+    //           CurrForm."Serial No.".EDITABLE(SetAccess);
+    //           CurrForm."Lot No.".EDITABLE(SetAccess);
+    //           CurrForm."Expiration Date".EDITABLE(SetAccess);
+    //           CurrForm."Warranty Date".EDITABLE(SetAccess);
+    //           InsertIsBlocked := SetAccess;
+    //         END;
+    //     END;
+    //     */
+    //     //<<MIG-2009-001
 
-    end;
+    // end;
 
     local procedure GetItem(ItemNo: Code[20])
     begin
@@ -933,13 +933,13 @@ codeunit 50100 "PWD LPSA Tracking Management"
 
     local procedure UpdateOrderTracking()
     var
-        TempReservEntry: Record "Reservation Entry" temporary;
+        TempReservEntry2: Record "Reservation Entry" temporary;
     begin
-        if not ReservEngineMgt.CollectAffectedSurplusEntries(TempReservEntry) then
+        if not ReservEngineMgt.CollectAffectedSurplusEntries(TempReservEntry2) then
             exit;
         if Item."Order Tracking Policy" = Item."Order Tracking Policy"::None then
             exit;
-        ReservEngineMgt.UpdateOrderTracking(TempReservEntry);
+        ReservEngineMgt.UpdateOrderTracking(TempReservEntry2);
     end;
 
 

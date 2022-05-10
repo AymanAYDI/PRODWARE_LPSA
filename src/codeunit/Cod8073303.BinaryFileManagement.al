@@ -554,14 +554,14 @@ codeunit 8073303 "PWD Binary File Management"
     var
         ChaLLForCR: Char;
         // ChaLSpaceReplace: Char;
-        i: Integer;
+        ii: Integer;
         TxtLValue: Text[250];
     begin
         // ChaLSpaceReplace := 231;
 
         if IntPBegin > 0 then begin
             TxtLValue := CopyStr(FctReturnRetreiveVarDatas(1, CodPFieldSeparator, CodPFieldDelimiter), 1, IntPBegin - 1);
-            for i := 1 to IntPFixLength do
+            for ii := 1 to IntPFixLength do
                 TxtLValue += TxtPValue;
         end;
         TxtPValue := TxtLValue;

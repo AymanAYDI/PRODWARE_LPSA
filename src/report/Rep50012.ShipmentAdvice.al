@@ -552,10 +552,10 @@ report 50012 "PWD Shipment Advice"
         SalesInvoiceLine: Record "Sales Invoice Line";
         SalesLine: Record "Sales Line";
         SalesPurchPerson: Record "Salesperson/Purchaser";
-        TrackingSpecBuffer: Record "Tracking Specification" temporary;
+        // TrackingSpecBuffer: Record "Tracking Specification" temporary;
         FormatAddr: Codeunit "Format Address";
         //ItemTrackingMgt: Codeunit "Item Tracking Management";
-        ItemTrackingDocMgt: Codeunit "Item Tracking Doc. Management";
+        // ItemTrackingDocMgt: Codeunit "Item Tracking Doc. Management";
         Language: Codeunit Language;
         LPSAFunctionsMgt: Codeunit "PWD LPSA Functions Mgt.";
         ShptCountPrinted: Codeunit "Sales Shpt.-Printed";
@@ -578,7 +578,7 @@ report 50012 "PWD Shipment Advice"
         OrdredQty: Decimal;
         OutstandingQtytoShip: Decimal;
         // TotalQty: Decimal;
-        i: Integer;
+        // i: Integer;
         NoOfCopies: Integer;
         NoOfLoops: Integer;
         // OldRefNo: Integer;

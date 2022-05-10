@@ -59,7 +59,7 @@ codeunit 8073299 "Buffer Tracking Management 2"
         UndefinedQtyArray: array[3] of Decimal;
         ColorOfQuantityArray: array[3] of Integer;
         CurrentSignFactor: Integer;
-        CurrentSourceType: Integer;
+        // CurrentSourceType: Integer;
         LastEntryNo: Integer;
         SourceTable: Integer;
         Text002: Label 'Quantity must be %1.';
@@ -829,13 +829,13 @@ codeunit 8073299 "Buffer Tracking Management 2"
 
     local procedure UpdateOrderTracking()
     var
-        TempReservEntry: Record "Reservation Entry" temporary;
+        TempReservEntry2: Record "Reservation Entry" temporary;
     begin
-        IF NOT ReservEngineMgt.CollectAffectedSurplusEntries(TempReservEntry) THEN
+        IF NOT ReservEngineMgt.CollectAffectedSurplusEntries(TempReservEntry2) THEN
             EXIT;
         IF Item."Order Tracking Policy" = Item."Order Tracking Policy"::None THEN
             EXIT;
-        ReservEngineMgt.UpdateOrderTracking(TempReservEntry);
+        ReservEngineMgt.UpdateOrderTracking(TempReservEntry2);
     end;
 
 

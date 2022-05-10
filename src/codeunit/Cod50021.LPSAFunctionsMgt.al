@@ -739,16 +739,16 @@ codeunit 50021 "PWD LPSA Functions Mgt."
     END;
 
     //---CDU5510---
-    PROCEDURE DeleteReservEntryFromOF(CodPProdOrderNo: Code[20]; IntPActualLineNo: Integer);
-    VAR
-        MfgSetup: Record "Manufacturing Setup";
-        OroductionJournalMGT: Codeunit "Production Journal Mgt";
-    BEGIN
-        MfgSetup.GET();
-        OroductionJournalMGT.SetTemplateAndBatchName();
-        OroductionJournalMGT.InitSetupValues();
-        OroductionJournalMGT.DeleteJnlLines(ToTemplateName, ToBatchName, CodPProdOrderNo, IntPActualLineNo);
-    END;
+    // PROCEDURE DeleteReservEntryFromOF(CodPProdOrderNo: Code[20]; IntPActualLineNo: Integer);
+    // VAR
+    //     MfgSetup: Record "Manufacturing Setup";
+    //     OroductionJournalMGT: Codeunit "Production Journal Mgt";
+    // BEGIN
+    //     MfgSetup.GET();
+    //     OroductionJournalMGT.SetTemplateAndBatchName();
+    //     OroductionJournalMGT.InitSetupValues();
+    //     OroductionJournalMGT.DeleteJnlLines(ToTemplateName, ToBatchName, CodPProdOrderNo, IntPActualLineNo);
+    // END;
 
     PROCEDURE InitJnalName(CodPToTemplateName: Code[10]; CodPToBatchName: Code[10]);
     BEGIN
@@ -756,88 +756,88 @@ codeunit 50021 "PWD LPSA Functions Mgt."
         ToBatchName := CodPToBatchName;         //TODO: A verifier le variable, c'est un variable globale dans le CodeUnite "Production Journal Mgt"  
     END;
 
-    PROCEDURE InsertOutputJnlLine2(RecPItemJnalLine: Record 83; RecPProdOrderLine: Record 5406);
-    VAR
-        ItemJnlBatch: Record "Item Journal Batch";
-        ItemJnlLine: Record "Item Journal Line";
-        ItemJnlTemplate: Record "Item Journal Template";
-        RecLManufacturingSetup: Record "Manufacturing Setup";
-        ItemTrackingMgt: Codeunit "Item Tracking Management";
-        CodLWorkCenter: Code[10];
-        PostingDate: Date;
-        QtyToPost: Decimal;
-        NextLineNo: Integer;
-    BEGIN
-        PostingDate := WORKDATE(); //TODO: A verifier ce ligne parceque le codeunite 5510 utiliste l'insertion de WORKDATE dans le variable PostingDate
-                                   //===Copy of Function InsertOutputJnlLine to work on Manufacturing Sheet=======================================
+    // PROCEDURE InsertOutputJnlLine2(RecPItemJnalLine: Record 83; RecPProdOrderLine: Record 5406);
+    // VAR
+    //     ItemJnlBatch: Record "Item Journal Batch";
+    //     ItemJnlLine: Record "Item Journal Line";
+    //     ItemJnlTemplate: Record "Item Journal Template";
+    //     RecLManufacturingSetup: Record "Manufacturing Setup";
+    //     ItemTrackingMgt: Codeunit "Item Tracking Management";
+    //     CodLWorkCenter: Code[10];
+    //     PostingDate: Date;
+    //     QtyToPost: Decimal;
+    //     NextLineNo: Integer;
+    // BEGIN
+    //     PostingDate := WORKDATE(); //TODO: A verifier ce ligne parceque le codeunite 5510 utiliste l'insertion de WORKDATE dans le variable PostingDate
+    //                                //===Copy of Function InsertOutputJnlLine to work on Manufacturing Sheet=======================================
 
-        //>>FE_LAPIERRETTE_PROD03.001
-        RecLManufacturingSetup.GET();
-        //>>FE_LAPIERRETTE_PRO12.001
-        //RecLManufacturingSetup.TESTFIELD("Non conformity Prod. Location");
-        //<<FE_LAPIERRETTE_PRO12.001
-        RecLManufacturingSetup.TESTFIELD("PWD Mach. center-Invent. input");
-        CodLWorkCenter := RecLManufacturingSetup."PWD Mach. center-Invent. input";                                                                                  //<FE_LAPIERRETTE_PROD03.001
-        QtyToPost := RecPItemJnalLine."Output Quantity";
-        //>>ProdOrderRtngLine
-        //>>ProdOrderLine
-        ItemJnlLine.INIT();
-        ItemJnlLine."Journal Template Name" := ToTemplateName;
-        ItemJnlLine."Journal Batch Name" := ToBatchName;
-        ItemJnlLine."Line No." := NextLineNo;
-        ItemJnlLine."PWD Conform quality control" := RecPItemJnalLine."PWD Conform quality control";
-        ItemJnlLine.VALIDATE("Posting Date", PostingDate);
-        ItemJnlLine.VALIDATE("Entry Type", ItemJnlLine."Entry Type"::Output);
-        ItemJnlLine.VALIDATE("Order Type", "ItemJnlLine"."Order Type"::Production);
-        ItemJnlLine.VALIDATE("Order No.", RecPItemJnalLine."Order No.");
-        ItemJnlLine.VALIDATE("Order Line No.", RecPItemJnalLine."Order Line No.");
-        ItemJnlLine.VALIDATE("Item No.", RecPItemJnalLine."Item No.");
-        ItemJnlLine.VALIDATE("Variant Code", RecPItemJnalLine."Variant Code");
-        ItemJnlLine.VALIDATE("Location Code", RecPItemJnalLine."Location Code");
-        IF RecPItemJnalLine."Bin Code" <> '' THEN
-            ItemJnlLine.VALIDATE("Bin Code", RecPItemJnalLine."Bin Code");
-        ItemJnlLine.VALIDATE("Routing No.", RecPItemJnalLine."Routing No.");
-        ItemJnlLine.VALIDATE("Routing Reference No.", RecPItemJnalLine."Routing Reference No.");
-        IF RecPItemJnalLine."Order No." <> '' THEN
-            ItemJnlLine.VALIDATE("Operation No.", RecPItemJnalLine."Operation No.");
-        ItemJnlLine.VALIDATE("Unit of Measure Code", RecPItemJnalLine."Unit of Measure Code");
-        ItemJnlLine.VALIDATE("Setup Time", 0);
-        ItemJnlLine.VALIDATE("Run Time", 0);
-        IF (RecPItemJnalLine."Location Code" <> '') THEN
-            ItemJnlLine.CheckWhse(RecPItemJnalLine."Location Code", QtyToPost);
-        ItemJnlLine.VALIDATE("Output Quantity", QtyToPost);
-        //IF ProdOrderRtngLine."Routing Status" = ProdOrderRtngLine."Routing Status"::Finished THEN
-        ItemJnlLine.Finished := TRUE;
-        ItemJnlLine."Flushing Method" := RecPItemJnalLine."Flushing Method";
-        //
-        ItemJnlTemplate.SetRange("Page ID", PAGE::"Production Journal");
-        ItemJnlTemplate.SetRange(Recurring, false);
-        ItemJnlTemplate.SetRange(Type, ItemJnlTemplate.Type::"Prod. Order");
-        if ItemJnlTemplate.FindFirst() then
-            //
-            ItemJnlLine."Source Code" := ItemJnlTemplate."Source Code";
-        //
-        if ItemJnlBatch.Get(ToTemplateName, ToBatchName) then begin
-            //
-            ItemJnlLine."Reason Code" := ItemJnlBatch."Reason Code";
-            ItemJnlLine."Posting No. Series" := ItemJnlBatch."Posting No. Series";
-        End;
-        ItemJnlLine.INSERT();
-        //IF ProdOrderRtngLine."Next Operation No." = '' THEN // Last or no Routing Line
-        ItemTrackingMgt.CopyItemTracking(RecPProdOrderLine.RowID1(), ItemJnlLine.RowID1(), FALSE);
-        //ItemTrackingMgt.CopyItemTracking(RecPProdOrderLine.RowID1,ItemJnlLine.RowID1,FALSE);
-        NextLineNo += 10000;
-    END;
+    //     //>>FE_LAPIERRETTE_PROD03.001
+    //     RecLManufacturingSetup.GET();
+    //     //>>FE_LAPIERRETTE_PRO12.001
+    //     //RecLManufacturingSetup.TESTFIELD("Non conformity Prod. Location");
+    //     //<<FE_LAPIERRETTE_PRO12.001
+    //     RecLManufacturingSetup.TESTFIELD("PWD Mach. center-Invent. input");
+    //     CodLWorkCenter := RecLManufacturingSetup."PWD Mach. center-Invent. input";                                                                                  //<FE_LAPIERRETTE_PROD03.001
+    //     QtyToPost := RecPItemJnalLine."Output Quantity";
+    //     //>>ProdOrderRtngLine
+    //     //>>ProdOrderLine
+    //     ItemJnlLine.INIT();
+    //     ItemJnlLine."Journal Template Name" := ToTemplateName;
+    //     ItemJnlLine."Journal Batch Name" := ToBatchName;
+    //     ItemJnlLine."Line No." := NextLineNo;
+    //     ItemJnlLine."PWD Conform quality control" := RecPItemJnalLine."PWD Conform quality control";
+    //     ItemJnlLine.VALIDATE("Posting Date", PostingDate);
+    //     ItemJnlLine.VALIDATE("Entry Type", ItemJnlLine."Entry Type"::Output);
+    //     ItemJnlLine.VALIDATE("Order Type", "ItemJnlLine"."Order Type"::Production);
+    //     ItemJnlLine.VALIDATE("Order No.", RecPItemJnalLine."Order No.");
+    //     ItemJnlLine.VALIDATE("Order Line No.", RecPItemJnalLine."Order Line No.");
+    //     ItemJnlLine.VALIDATE("Item No.", RecPItemJnalLine."Item No.");
+    //     ItemJnlLine.VALIDATE("Variant Code", RecPItemJnalLine."Variant Code");
+    //     ItemJnlLine.VALIDATE("Location Code", RecPItemJnalLine."Location Code");
+    //     IF RecPItemJnalLine."Bin Code" <> '' THEN
+    //         ItemJnlLine.VALIDATE("Bin Code", RecPItemJnalLine."Bin Code");
+    //     ItemJnlLine.VALIDATE("Routing No.", RecPItemJnalLine."Routing No.");
+    //     ItemJnlLine.VALIDATE("Routing Reference No.", RecPItemJnalLine."Routing Reference No.");
+    //     IF RecPItemJnalLine."Order No." <> '' THEN
+    //         ItemJnlLine.VALIDATE("Operation No.", RecPItemJnalLine."Operation No.");
+    //     ItemJnlLine.VALIDATE("Unit of Measure Code", RecPItemJnalLine."Unit of Measure Code");
+    //     ItemJnlLine.VALIDATE("Setup Time", 0);
+    //     ItemJnlLine.VALIDATE("Run Time", 0);
+    //     IF (RecPItemJnalLine."Location Code" <> '') THEN
+    //         ItemJnlLine.CheckWhse(RecPItemJnalLine."Location Code", QtyToPost);
+    //     ItemJnlLine.VALIDATE("Output Quantity", QtyToPost);
+    //     //IF ProdOrderRtngLine."Routing Status" = ProdOrderRtngLine."Routing Status"::Finished THEN
+    //     ItemJnlLine.Finished := TRUE;
+    //     ItemJnlLine."Flushing Method" := RecPItemJnalLine."Flushing Method";
+    //     //
+    //     ItemJnlTemplate.SetRange("Page ID", PAGE::"Production Journal");
+    //     ItemJnlTemplate.SetRange(Recurring, false);
+    //     ItemJnlTemplate.SetRange(Type, ItemJnlTemplate.Type::"Prod. Order");
+    //     if ItemJnlTemplate.FindFirst() then
+    //         //
+    //         ItemJnlLine."Source Code" := ItemJnlTemplate."Source Code";
+    //     //
+    //     if ItemJnlBatch.Get(ToTemplateName, ToBatchName) then begin
+    //         //
+    //         ItemJnlLine."Reason Code" := ItemJnlBatch."Reason Code";
+    //         ItemJnlLine."Posting No. Series" := ItemJnlBatch."Posting No. Series";
+    //     End;
+    //     ItemJnlLine.INSERT();
+    //     //IF ProdOrderRtngLine."Next Operation No." = '' THEN // Last or no Routing Line
+    //     ItemTrackingMgt.CopyItemTracking(RecPProdOrderLine.RowID1(), ItemJnlLine.RowID1(), FALSE);
+    //     //ItemTrackingMgt.CopyItemTracking(RecPProdOrderLine.RowID1,ItemJnlLine.RowID1,FALSE);
+    //     NextLineNo += 10000;
+    // END;
 
-    PROCEDURE DeleteReservEntry(CodPProdOrderNo: Code[20]; IntPActualLineNo: Integer);
-    VAR
-        MfgSetup: Record "Manufacturing Setup";
-        ProductionJournalMgt: Codeunit "Production Journal Mgt";
-    BEGIN
-        MfgSetup.GET();
-        ProductionJournalMgt.InitSetupValues();
-        ProductionJournalMgt.DeleteJnlLines(ToTemplateName, ToBatchName, CodPProdOrderNo, IntPActualLineNo);
-    END;
+    // PROCEDURE DeleteReservEntry(CodPProdOrderNo: Code[20]; IntPActualLineNo: Integer);
+    // VAR
+    //     MfgSetup: Record "Manufacturing Setup";
+    //     ProductionJournalMgt: Codeunit "Production Journal Mgt";
+    // BEGIN
+    //     MfgSetup.GET();
+    //     ProductionJournalMgt.InitSetupValues();
+    //     ProductionJournalMgt.DeleteJnlLines(ToTemplateName, ToBatchName, CodPProdOrderNo, IntPActualLineNo);
+    // END;
     //---CDU5701---
     PROCEDURE GetCompSubstPhantom(VAR ProdOrderComp: Record 5407): Code[10];
     Var
@@ -919,8 +919,8 @@ codeunit 50021 "PWD LPSA Functions Mgt."
             TempProdOrderComp.VALIDATE("Expected Quantity", DecLQty * (1 + TempProdOrderComp."Scrap %" / 100));
 
         IF ProdOrderComp."Qty. per Unit of Measure" <> 1 THEN
-            IF ItemUnitOfMeasure.GET(PhantomItem."Item No.", ProdOrderComp."Unit of Measure Code") AND //TODO: j'ai changer le Item.NO par PhantomItem."Item No."
-               (ItemUnitOfMeasure."Qty. per Unit of Measure" = ProdOrderComp."Qty. per Unit of Measure") THEN
+            //TODO: j'ai changer le Item.NO par PhantomItem."Item No."
+            IF ItemUnitOfMeasure.GET(PhantomItem."Item No.", ProdOrderComp."Unit of Measure Code") AND (ItemUnitOfMeasure."Qty. per Unit of Measure" = ProdOrderComp."Qty. per Unit of Measure") THEN
                 TempProdOrderComp.VALIDATE("Unit of Measure Code", ProdOrderComp."Unit of Measure Code")
             ELSE
                 SaveQty := ROUND(ProdOrderComp."Quantity per" * ProdOrderComp."Qty. per Unit of Measure", 0.00001);

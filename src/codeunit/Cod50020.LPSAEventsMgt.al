@@ -267,16 +267,18 @@ codeunit 50020 "PWD LPSA Events Mgt."
     //---TAB39---
     [EventSubscriber(ObjectType::table, database::"Purchase Line", 'OnBeforeModifyEvent', '', false, false)]
     local procedure TAB39_OnBeforeModifyEvent_PurchaseLine(var Rec: Record "Purchase Line"; var xRec: Record "Purchase Line"; RunTrigger: Boolean)
+    var
+        "PWDLPSASet/GetFunctions": Codeunit "PWD LPSA Set/Get Functions.";
     begin
         if not RunTrigger then
             exit;
         if Rec.IsTemporary then
             exit;
         //>>WMS-EBL1-003.001
-        IF NOT BooGFromImport THEN
+        IF NOT "PWDLPSASet/GetFunctions".GetFctFromImport() THEN
             //<<WMS-EBL1-003.001
             //>>WMS-FE04.001
-            xRec.TESTFIELD("PWD WMS_Status", Rec."PWD WMS_Status"::" "); //TODO: Probleme au niveau de chargement de notre variable(BooGFromImport) et l'appel de la fonction(la fonction est déclare dans l'extention de la table)
+            xRec.TESTFIELD("PWD WMS_Status", Rec."PWD WMS_Status"::" ");
         //<<WMS-FE04.001
     end;
 
@@ -976,7 +978,7 @@ codeunit 50020 "PWD LPSA Events Mgt."
         //RecLManufacturingSetup.TESTFIELD("Non conformity Prod. Location");
         //<<FE_LAPIERRETTE_PRO12.001
         RecLManufacturingSetup.TESTFIELD("PWD Mach. center-Invent. input");
-        CodLWorkCenter := RecLManufacturingSetup."PWD Mach. center-Invent. input"; //TODO: La variable CodLWorkCenter doit transferet un valeur a une fonction
+        //CodLWorkCenter := RecLManufacturingSetup."PWD Mach. center-Invent. input"; 
     end;
     //---CDU5407---
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Prod. Order Status Management", 'OnBeforeShowStatusMessage', '', false, false)]
@@ -1079,9 +1081,8 @@ codeunit 50020 "PWD LPSA Events Mgt."
         //RecLManufacturingSetup.TESTFIELD("Non conformity Prod. Location");
         //<<FE_LAPIERRETTE_PRO12.001
         RecLManufacturingSetup.TESTFIELD("PWD Mach. center-Invent. input");
-        CodLWorkCenter := RecLManufacturingSetup."PWD Mach. center-Invent. input"; //TODO: La variable CodLWorkCenter doit transferet un valeur a une fonction
+        //CodLWorkCenter := RecLManufacturingSetup."PWD Mach. center-Invent. input"; 
                                                                                    //<FE_LAPIERRETTE_PROD03.001
-
     end;
 
     //---CDU5704---

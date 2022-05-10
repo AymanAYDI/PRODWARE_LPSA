@@ -19,5 +19,12 @@ tableextension 60029 "PWD ReservationEntry" extends "Reservation Entry"
             Editable = false;
         }
     }
+    keys
+    {
+        key(Key50000; "Source ID", "Source Ref. No." , "Source Type", "Source Subtype", "Source Batch Name", "Source Prod. Order Line", "Reservation Status")
+        {
+            SumIndexFields = Quantity;
+        }
+    }
 }
 

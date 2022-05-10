@@ -362,11 +362,11 @@ report 50013 "PWD Credit Note"
 
                         trigger OnAfterGetRecord()
                         begin
-                                NNC_TotalLineAmount += "Line Amount";
-                                NNC_TotalAmountInclVat += "Amount Including VAT";
-                                NNC_TotalInvDiscAmount += "Inv. Discount Amount";
-                                NNC_TotalLCY := NNC_TotalLineAmount - NNC_TotalInvDiscAmount;
-                                NNC_TotalAmount += Amount;
+                            NNC_TotalLineAmount += "Line Amount";
+                            NNC_TotalAmountInclVat += "Amount Including VAT";
+                            NNC_TotalInvDiscAmount += "Inv. Discount Amount";
+                            NNC_TotalLCY := NNC_TotalLineAmount - NNC_TotalInvDiscAmount;
+                            NNC_TotalAmount += Amount;
 
                             SalesShipmentBuffer.DELETEALL();
                             PostedReceiptDate := 0D;
@@ -540,17 +540,17 @@ report 50013 "PWD Credit Note"
 
                     IF Number > 1 THEN BEGIN
                         CopyText := Text004;
-                            OutputNo += 1;
+                        OutputNo += 1;
                     END;
 
                     // CurrReport.PAGENO := 1;
 
-                        NNC_TotalLineAmount := 0;
-                        NNC_TotalAmountInclVat := 0;
-                        NNC_TotalInvDiscAmount := 0;
-                        NNC_TotalAmount := 0;
-                        NNC_TotalLCY := 0;
-                        NNC_VATAmount := 0;
+                    NNC_TotalLineAmount := 0;
+                    NNC_TotalAmountInclVat := 0;
+                    NNC_TotalInvDiscAmount := 0;
+                    NNC_TotalAmount := 0;
+                    NNC_TotalLCY := 0;
+                    NNC_VATAmount := 0;
                 end;
 
                 trigger OnPostDataItem()
@@ -564,7 +564,7 @@ report 50013 "PWD Credit Note"
                     NoOfLoops := ABS(NoOfCopies) + 1;
                     CopyText := '';
                     SETRANGE(Number, 1, NoOfLoops);
-                        OutputNo := 1;
+                    OutputNo := 1;
                 end;
             }
 
@@ -727,13 +727,13 @@ report 50013 "PWD Credit Note"
         RecGSalesCommentLine: Record "Sales Comment Line";
         SalesPurchPerson: Record "Salesperson/Purchaser";
         SalesShipmentBuffer: Record "Sales Shipment Buffer" temporary;
-        TrackingSpecBuffer: Record "Tracking Specification" temporary;
+        // TrackingSpecBuffer: Record "Tracking Specification" temporary;
         ValueEntry: Record "Value Entry";
         ValueEntryRelation: Record "Value Entry Relation";
         VATAmountLine: Record "VAT Amount Line" temporary;
         FormatAddr: Codeunit "Format Address";
         // ItemTrackingMgt: Codeunit "Item Tracking Management";
-        ItemTrackingDocMgt: Codeunit "Item Tracking Doc. Management";
+        // ItemTrackingDocMgt: Codeunit "Item Tracking Doc. Management";
         Language: Codeunit Language;
         LPSAFunctionsMgt: codeunit "PWD LPSA Functions Mgt.";
         SalesCrMemoCountPrinted: Codeunit "Sales Cr. Memo-Printed";
@@ -755,7 +755,7 @@ report 50013 "PWD Credit Note"
         NNC_TotalLineAmount: Decimal;
         NNC_VATAmount: Decimal;
         // FirstValueEntryNo: Integer;
-        i: Integer;
+        // i: Integer;
         IntGImpText: Integer;
         NoOfCopies: Integer;
         NoOfLoops: Integer;

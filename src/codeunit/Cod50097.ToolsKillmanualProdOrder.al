@@ -31,7 +31,7 @@ codeunit 50097 "Tools Kill manual Prod Order"
         GLSetup: Record "General Ledger Setup";
         Item: Record Item;
         ToProdOrder: Record "Production Order";
-        SourceCodeSetup: Record "Source Code Setup";
+        // SourceCodeSetup: Record "Source Code Setup";
         ACYMgt: Codeunit "Additional-Currency Management";
         InvtAdjmt: Codeunit "Inventory Adjustment";
         ReserveProdOrderComp: Codeunit "Prod. Order Comp.-Reserve";
@@ -43,7 +43,7 @@ codeunit 50097 "Tools Kill manual Prod Order"
         BooGAvoidControl: Boolean;
         HasGLSetup: Boolean;
         NewUpdateUnitCost: Boolean;
-        SourceCodeSetupRead: Boolean;
+        // SourceCodeSetupRead: Boolean;
         NewPostingDate: Date;
         Text000: Label '%2 %3  with status %1 has been changed to %5 %6 with status %4.';
         Text004: Label '%1 %2 has not been finished. Some output is still missing. Do you still want to finish the order?';

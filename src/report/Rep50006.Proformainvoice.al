@@ -830,7 +830,7 @@ report 50006 "PWD Proforma invoice"
         VATAmount: Decimal;
         VATBaseAmount: Decimal;
         VATDiscountAmount: Decimal;
-        i: Integer;
+        // i: Integer;
         NoOfCopies: Integer;
         NoOfLoops: Integer;
         OutputNo: Integer;

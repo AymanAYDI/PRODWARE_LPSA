@@ -1756,7 +1756,7 @@ report 50005 "PWD Order LAP"
         Text002: Label 'Total %1 Incl. VAT';
         Text003: Label 'COPY';
         Text004: Label 'Order %1';
-        Text005: Label 'Page %1';
+        // Text005: Label 'Page %1';
         Text006: Label 'Total %1 Excl. VAT';
         Text007: Label 'VAT Amount Specification in ';
         Text008: Label 'Local Currency';

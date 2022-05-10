@@ -28,7 +28,7 @@ codeunit 50098 "PWD RDD - Tracking Management"
         TempItemTrackLineModify: Record "Tracking Specification" temporary;
         TempItemTrackLineReserv: Record "Tracking Specification" temporary;
         TotalItemTrackingLine: Record "Tracking Specification";
-        xrec: Record "Tracking Specification" temporary;
+        // xrec: Record "Tracking Specification" temporary;
         xTempItemTrackingLine: Record "Tracking Specification" temporary;
         ItemTrackingDataCollection: Codeunit "Item Tracking Data Collection";
         ItemTrackingMgt: Codeunit "Item Tracking Management";
@@ -55,8 +55,8 @@ codeunit 50098 "PWD RDD - Tracking Management"
         CurrentSignFactor: Integer;
         CurrentSourceType: Integer;
         LastEntryNo: Integer;
-        Text000: Label 'Reservation is defined for the %1.\You must cancel the existing Reservation before deleting or changing Item Tracking.';
-        Text001: Label 'Reservation is defined for the %1.\You must not set %2 lower then %3.';
+        // Text000: Label 'Reservation is defined for the %1.\You must cancel the existing Reservation before deleting or changing Item Tracking.';
+        // Text001: Label 'Reservation is defined for the %1.\You must not set %2 lower then %3.';
         Text002: Label 'Quantity must be %1.';
         Text003: Label 'negative';
         Text004: Label 'positive';
@@ -814,13 +814,13 @@ codeunit 50098 "PWD RDD - Tracking Management"
 
     local procedure UpdateOrderTracking()
     var
-        TempReservEntry: Record "Reservation Entry" temporary;
+        TempReservEntry2: Record "Reservation Entry" temporary;
     begin
-        if not ReservEngineMgt.CollectAffectedSurplusEntries(TempReservEntry) then
+        if not ReservEngineMgt.CollectAffectedSurplusEntries(TempReservEntry2) then
             exit;
         if Item."Order Tracking Policy" = Item."Order Tracking Policy"::None then
             exit;
-        ReservEngineMgt.UpdateOrderTracking(TempReservEntry);
+        ReservEngineMgt.UpdateOrderTracking(TempReservEntry2);
     end;
 
 
@@ -1355,45 +1355,45 @@ codeunit 50098 "PWD RDD - Tracking Management"
         WriteToDatabase();
     end;
 
-//     local procedure CheckEntryIsReservation(Checktype: Option "Rename/Delete",Quantity; Messagetype: Option Error,Message) EntryIsReservation: Boolean
-//     var
-//         ReservEntry: Record "Reservation Entry";
-//         QtyToCheck: Decimal;
-//     begin
-//         ReservEntry.SetCurrentKey(
-//   "Source ID", "Source Ref. No.", "Source Type", "Source Subtype",
-//   "Source Batch Name", "Source Prod. Order Line", "Reservation Status");
-//         ReservEntry.SetRange("Source ID", rec."Source ID");
-//         ReservEntry.SetRange("Source Ref. No.", rec."Source Ref. No.");
-//         ReservEntry.SetRange("Source Type", rec."Source Type");
-//         ReservEntry.SetRange("Source Subtype", rec."Source Subtype");
-//         ReservEntry.SetRange("Source Batch Name", rec."Source Batch Name");
-//         ReservEntry.SetRange("Source Prod. Order Line", rec."Source Prod. Order Line");
-//         ReservEntry.SetRange("Reservation Status", ReservEntry."Reservation Status"::Reservation);
-//         ReservEntry.SetRange("Serial No.", xrec."Serial No.");
-//         ReservEntry.SetRange("Lot No.", xrec."Lot No.");
-//         if ReservEntry.Find('-') then
-//             case Checktype of
-//                 Checktype::"Rename/Delete":
-//                     begin
-//                         EntryIsReservation := true;
-//                         case Messagetype of
-//                             Messagetype::Error:
-//                                 Error(Text000, ReservEntry.TextCaption());
-//                             Messagetype::Message:
-//                                 ;// MESSAGE(Text000,TextCaption);
-//                         end;
-//                     end;
-//                 Checktype::Quantity:
-//                     begin
-//                         repeat
-//                             QtyToCheck := QtyToCheck + ReservEntry."Quantity (Base)";
-//                         until ReservEntry.Next() = 0;
-//                         if Abs(rec."Quantity (Base)") < Abs(QtyToCheck) then
-//                             Error(Text001, ReservEntry.TextCaption(), ReservEntry.FieldCaption("Quantity (Base)"), Abs(QtyToCheck));
-//                     end;
-//             end;
-//     end;
+    //     local procedure CheckEntryIsReservation(Checktype: Option "Rename/Delete",Quantity; Messagetype: Option Error,Message) EntryIsReservation: Boolean
+    //     var
+    //         ReservEntry: Record "Reservation Entry";
+    //         QtyToCheck: Decimal;
+    //     begin
+    //         ReservEntry.SetCurrentKey(
+    //   "Source ID", "Source Ref. No.", "Source Type", "Source Subtype",
+    //   "Source Batch Name", "Source Prod. Order Line", "Reservation Status");
+    //         ReservEntry.SetRange("Source ID", rec."Source ID");
+    //         ReservEntry.SetRange("Source Ref. No.", rec."Source Ref. No.");
+    //         ReservEntry.SetRange("Source Type", rec."Source Type");
+    //         ReservEntry.SetRange("Source Subtype", rec."Source Subtype");
+    //         ReservEntry.SetRange("Source Batch Name", rec."Source Batch Name");
+    //         ReservEntry.SetRange("Source Prod. Order Line", rec."Source Prod. Order Line");
+    //         ReservEntry.SetRange("Reservation Status", ReservEntry."Reservation Status"::Reservation);
+    //         ReservEntry.SetRange("Serial No.", xrec."Serial No.");
+    //         ReservEntry.SetRange("Lot No.", xrec."Lot No.");
+    //         if ReservEntry.Find('-') then
+    //             case Checktype of
+    //                 Checktype::"Rename/Delete":
+    //                     begin
+    //                         EntryIsReservation := true;
+    //                         case Messagetype of
+    //                             Messagetype::Error:
+    //                                 Error(Text000, ReservEntry.TextCaption());
+    //                             Messagetype::Message:
+    //                                 ;// MESSAGE(Text000,TextCaption);
+    //                         end;
+    //                     end;
+    //                 Checktype::Quantity:
+    //                     begin
+    //                         repeat
+    //                             QtyToCheck := QtyToCheck + ReservEntry."Quantity (Base)";
+    //                         until ReservEntry.Next() = 0;
+    //                         if Abs(rec."Quantity (Base)") < Abs(QtyToCheck) then
+    //                             Error(Text001, ReservEntry.TextCaption(), ReservEntry.FieldCaption("Quantity (Base)"), Abs(QtyToCheck));
+    //                     end;
+    //             end;
+    //     end;
 
 
     procedure SetCalledFromSynchWhseItemTrkg(CalledFromSynchWhseItemTrkg2: Boolean)

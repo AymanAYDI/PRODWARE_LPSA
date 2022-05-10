@@ -12,8 +12,8 @@ report 50081 "PWD CALC NEW QTY"
             trigger OnAfterGetRecord()
             var
                 RecLProdOrderComInit: Record "Prod. Order Component";
-                RecLProdOrderComNew: Record "Prod. Order Component";
-                RecLBOM: Record "Production BOM Header";
+                // RecLProdOrderComNew: Record "Prod. Order Component";
+                // RecLBOM: Record "Production BOM Header";
                 RecLProdOrderInit: Record "Production Order";
                 RecLProdOrderNew: Record "Production Order";
                 //RecLOrderBY: Record "PWD New Order By";
@@ -25,7 +25,7 @@ report 50081 "PWD CALC NEW QTY"
                 RepUpdate: Report "Refresh Production Order";
                 CodRouting: Code[20];
                 DecLInitQty: Decimal;
-                // DecLNewQty: Decimal;
+            // DecLNewQty: Decimal;
             begin
                 DecLInitQty := 0;
                 // DecLNewQty := 0;
