@@ -874,15 +874,15 @@ codeunit 50021 "PWD LPSA Functions Mgt."
         DecLxQty: Decimal;
         SaveQty: Decimal;
         IntLastEntryNo: Integer;
-        Text50000: Label 'Vous ne pouvez pas s‚lectionner des articles diff‚rents. Veuillez s‚lectionner le mˆme article, pour des nø lot diff‚rents';
-        Text50001: Label 'Confirmez-vous la diff‚rence de quantit‚ de %1 au lieu de %2?';
+        Text50000: Label 'Vous ne pouvez pas sélectionner des articles différents. Veuillez sélectionner le même article, pour des n° lot différents';
+        Text50001: Label 'Confirmez-vous la différence de quantité de %1 au lieu de %2?';
     BEGIN
         // >> FE_LAPRIERRETTE_GP0003 : APA 16/05/13
         TempProdOrderComp := ProdOrderComp;
         // Mise … jour des informations composants
         PhantomItem.SETFILTER("Quantity Requested", '<>0');
         IF NOT PhantomItem.FINDFIRST() THEN
-            ERROR('Aucun article s‚lectionn‚');
+            ERROR('Aucun article sélectionné');
         //Contr“le qu'un seul article est s‚lectionn‚ et de la quantit‚ totale choisie
         SubstItemNo := PhantomItem."Item No.";
         BooLOneItem := TRUE;

@@ -5429,12 +5429,12 @@
           <note from="Xliff Generator" annotates="general" priority="3">Codeunit PWD LPSA Functions Mgt. - Method RestoreSalesLineComments - NamedType Text004</note>
         </trans-unit>
         <trans-unit id="Codeunit 378233800 - Method 3835590433 - NamedType 652464844" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Vous ne pouvez pas s‚lectionner des articles diff‚rents. Veuillez s‚lectionner le mˆme article, pour des nø lot diff‚rents</source>
+          <source>Vous ne pouvez pas sélectionner des articles différents. Veuillez sélectionner le même article, pour des n° lot différents</source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Codeunit PWD LPSA Functions Mgt. - Method UpdateComponentPhantom - NamedType Text50000</note>
         </trans-unit>
         <trans-unit id="Codeunit 378233800 - Method 3835590433 - NamedType 14768227" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Confirmez-vous la diff‚rence de quantit‚ de %1 au lieu de %2?</source>
+          <source>Confirmez-vous la différence de quantité de %1 au lieu de %2?</source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Codeunit PWD LPSA Functions Mgt. - Method UpdateComponentPhantom - NamedType Text50001</note>
         </trans-unit>

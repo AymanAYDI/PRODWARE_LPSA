@@ -12,14 +12,14 @@ enum 50001 "PWD WMS_Type"
     }
     value(2; Carton)
     {
-        Caption = 'Carton';
+        Caption = 'Cardboard';
     }
     value(3; Couche)
     {
-        Caption = 'Couche';
+        Caption = 'Layer';
     }
     value(4; Palette)
     {
-        Caption = 'Palette';
+        Caption = 'Pallet';
     }
 }

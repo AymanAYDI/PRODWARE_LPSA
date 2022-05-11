@@ -1082,7 +1082,7 @@ codeunit 50020 "PWD LPSA Events Mgt."
         //<<FE_LAPIERRETTE_PRO12.001
         RecLManufacturingSetup.TESTFIELD("PWD Mach. center-Invent. input");
         //CodLWorkCenter := RecLManufacturingSetup."PWD Mach. center-Invent. input"; 
-                                                                                   //<FE_LAPIERRETTE_PROD03.001
+        //<FE_LAPIERRETTE_PROD03.001
     end;
 
     //---CDU5704---
@@ -1458,7 +1458,7 @@ codeunit 50020 "PWD LPSA Events Mgt."
     var
     // CstGErr0002: Label 'Lot Inheritance: You can''t assign a Lot No.,\because there is no Lot assigned to the lot determining component.';
     begin
-        //TODO: gNoAssignLotDetLotNo et gLotDeterminingLotCode sont des variables globales dans la page "Item Tracking Lines"
+        // TODO: gNoAssignLotDetLotNo et gLotDeterminingLotCode sont des variables globales dans la page "Item Tracking Lines"
         // IF gNoAssignLotDetLotNo AND (gLotDeterminingLotCode = '') THEN
         //     ERROR(CstGErr0002);
     end;
@@ -1728,9 +1728,9 @@ codeunit 50020 "PWD LPSA Events Mgt."
         //>>FE_LAPIERRETTE_PROD01.001: TO 13/12/2011
         ItemCard.Fct_EnableLotDeterm();
         //<<FE_LAPIERRETTE_PROD01.001: TO 13/12/2011
-        //---CDU3010801---
     end;
 
+    //---CDU3010801---
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"QuoteMgt", 'OnBeforeReCalc', '', false, false)]
     local procedure CDU3010801_OnBeforeReCalc_QuoteMgt(var SalesHeader: Record "Sales Header"; ShowMessage: Boolean; var IsHandled: Boolean)
     var
