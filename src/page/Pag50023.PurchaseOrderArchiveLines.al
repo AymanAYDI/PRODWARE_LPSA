@@ -302,7 +302,7 @@ page 50023 "Purchase Order Archive Lines"
                 {
                     Caption = 'Document &LineTracking';
                     ApplicationArea = All;
-                    Image= Documents;
+                    Image = Documents;
                     trigger OnAction()
                     begin
                         // dach0001.begin
@@ -344,12 +344,11 @@ page 50023 "Purchase Order Archive Lines"
 
     procedure ShowDocumentLineTracking()
     var
-    //TODO: Page 'Document Lines Tracking' n'existe pas
-    //DocumentLineTracking: Page "Document Lines Tracking";
+        DocumentLineTracking: Page "Document Line Tracking";
     begin
-        // CLEAR(DocumentLineTracking);
-        // DocumentLineTracking.SetDoc(1, Rec."Document No.", Rec."Line No.", Rec."Blanket Order No.", Rec."Blanket Order Line No.", '', 0);
-        // DocumentLineTracking.RUNMODAL;
+        CLEAR(DocumentLineTracking);
+        DocumentLineTracking.SetDoc(1, Rec."Document No.", Rec."Line No.", Rec."Blanket Order No.", Rec."Blanket Order Line No.", '', 0);
+        DocumentLineTracking.RUNMODAL;
     end;
 }
 

@@ -69,6 +69,7 @@ codeunit 50021 "PWD LPSA Functions Mgt."
         RecLProdOrderLine: Record "Prod. Order Line";
         RecLNegReservEntry: Record "Reservation Entry";
         RecLPosReservEntry: Record "Reservation Entry";
+        CduLCalcProdOrder: Codeunit "Calculate Prod. Order";
     BEGIN
         //>>FE_PROD01.002
         IF CodPLotNo = '' THEN
@@ -99,9 +100,9 @@ codeunit 50021 "PWD LPSA Functions Mgt."
           RecLProdOrderComponent."Prod. Order Line No.");
         RecLProdOrderLine.VALIDATE(Quantity, RecPProdOrderLine."Finished Quantity" / RecLProdOrderComponent."Quantity per");
         RecLProdOrderLine.MODIFY(TRUE);
-        // IF NOT (RecLPlannerOneSetup.FINDFIRST //TODO: Table n'existe pas
+        // IF NOT (RecLPlannerOneSetup.FINDFIRST 
         //    AND (RecLPlannerOneSetup.ProductionSchedulerEnabled AND RecLPlannerOneUtil.ProdOrderFilter(RecLProdOrderLine.Status, RecPProdOrderLine."Prod. Order No.", RecPProdOrderLine."Line No."))) THEN
-        //     CduLCalcProdOrder.Recalculate(RecLProdOrderLine, 1); //TODO: Table n'existe pas
+        CduLCalcProdOrder.Recalculate(RecLProdOrderLine, 1, true);
         //<<FE_PROD01.002
     END;
     //---CDU80---

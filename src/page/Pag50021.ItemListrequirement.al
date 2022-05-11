@@ -229,10 +229,9 @@ page 50021 "PWD Item List requirement"
 
                         trigger OnAction()
                         var
-                            ItemTrackingMgt: Codeunit "Item Tracking Management";
+                            ItemTrackingDocMgt: Codeunit "Item Tracking Doc. Management";
                         begin
-                            //TODO: procedure CallItemTrackingEntryForm n'existe pas dans le codeunit "Item Tracking Management"
-                            // ItemTrackingMgt.CallItemTrackingEntryForm(3, '', Rec."No.", '', '', '', '');
+                            ItemTrackingDocMgt.ShowItemTrackingForEntity(1, "No.", '', '', '');
                         end;
                     }
                 }
@@ -355,8 +354,6 @@ page 50021 "PWD Item List requirement"
                             DefaultDimMultiple: Page "Default Dimensions-Multiple";
                         begin
                             CurrPage.SETSELECTIONFILTER(Item);
-                            //TODO: a vérifier: SetMultiItem est remplacer par SetMultiRecord dans la nouvelle version 
-                            //DefaultDimMultiple.SetMultiItem(Item);
                             DefaultDimMultiple.SetMultiRecord(Item, Item.FieldNo("No."));
                             DefaultDimMultiple.RUNMODAL();
                         end;
@@ -910,25 +907,24 @@ page 50021 "PWD Item List requirement"
             }
             action(Action1905771206)
             {
-                Caption = 'Item Sales Lines';
+                ApplicationArea = Planning;
+                Caption = 'Inventory Order Details';
+                Image = "Report";
                 Promoted = false;
                 //The property 'PromotedCategory' can only be set if the property 'Promoted' is set to 'true'
                 //PromotedCategory = "Report";
-                //TODO: Report "SR Item Sales Lines" n'existe pas
-                //RunObject = Report "SR Item Sales Lines";
-                ApplicationArea = All;
-                Image = Item;
+                RunObject = Report "Inventory Order Details";
+                ToolTip = 'View a list of the orders that have not yet been shipped or received and the items in the orders. It shows the order number, customer''s name, shipment date, order quantity, quantity on back order, outstanding quantity and unit price, as well as possible discount percentage and amount. The quantity on back order and outstanding quantity and amount are totaled for each item. The list can be used to find out whether there are currently shipment problems or any can be expected.';
             }
             action(Action1906265806)
             {
-                Caption = 'Item Purchase Lines';
-                Promoted = false;
-                Image = Purchase;
-                //The property 'PromotedCategory' can only be set if the property 'Promoted' is set to 'true'
-                //PromotedCategory = "Report";
-                //TODO: Report "SR Item Purchase Lines" n'existe pas
-                //RunObject = Report "SR Item Purchase Lines";
-                ApplicationArea = All;
+                ApplicationArea = Planning;
+                Caption = 'Inventory Purchase Orders';
+                Image = "Report";
+                Promoted = true;
+                PromotedCategory = "Report";
+                RunObject = Report "Inventory Purchase Orders";
+                ToolTip = 'View a list of items on order from vendors. It also shows the expected receipt date and the quantity and amount on back orders. The report can be used, for example, to see when items should be received and whether a reminder of a back order should be issued.';
             }
             action(Action1907930606)
             {
@@ -939,17 +935,16 @@ page 50021 "PWD Item List requirement"
                 ApplicationArea = All;
                 Image = List;
             }
-            action(Action1901981306)
-            {
-                Caption = 'Item Statistic Period Comparison';
-                Promoted = false;
-                Image = Statistics;
-                //The property 'PromotedCategory' can only be set if the property 'Promoted' is set to 'true'
-                //PromotedCategory = "Report";
-                //TODO: Report "SR Item Stat. Period Comp." n'existe pas
-                //RunObject = Report "SR Item Stat. Period Comp.";
-                ApplicationArea = All;
-            }
+            // action(Action1901981306)
+            // {
+            //     Caption = 'Item Statistic Period Comparison';
+            //     Promoted = false;
+            //     Image = Statistics;
+            //     //The property 'PromotedCategory' can only be set if the property 'Promoted' is set to 'true'
+            //     //PromotedCategory = "Report";
+            //     //RunObject = Report "SR Item Stat. Period Comp.";
+            //     ApplicationArea = All;
+            // }
             action(Action1900762706)
             {
                 Caption = 'Inventory - Sales Statistics';
@@ -985,8 +980,7 @@ page 50021 "PWD Item List requirement"
                 Caption = 'Price List';
                 Promoted = true;
                 PromotedCategory = "Report";
-                //TODO: Report "SR Price List" n'existe pas
-                //RunObject = Report "SR Price List";
+                RunObject = Report "Item Price List";
                 ApplicationArea = All;
                 Image = Price;
             }
@@ -1124,7 +1118,7 @@ page 50021 "PWD Item List requirement"
                 //PromotedCategory = "Report";
                 RunObject = Report "Item Age Composition - Qty.";
                 ApplicationArea = All;
-                Image= Item;
+                Image = Item;
             }
             action(Action1903496006)
             {
@@ -1154,7 +1148,7 @@ page 50021 "PWD Item List requirement"
                 //PromotedCategory = "Report";
                 RunObject = Report "Cost Shares Breakdown";
                 ApplicationArea = All;
-                Image= Costs;
+                Image = Costs;
             }
             action(Action1901374406)
             {
@@ -1164,7 +1158,7 @@ page 50021 "PWD Item List requirement"
                 //PromotedCategory = "Report";
                 RunObject = Report "Detailed Calculation";
                 ApplicationArea = All;
-                Image= Calculate;
+                Image = Calculate;
             }
             action(Action1900812706)
             {
@@ -1174,7 +1168,7 @@ page 50021 "PWD Item List requirement"
                 //PromotedCategory = "Report";
                 RunObject = Report "Rolled-up Cost Shares";
                 ApplicationArea = All;
-                Image= Costs;
+                Image = Costs;
             }
             action(Action1901316306)
             {
@@ -1184,7 +1178,7 @@ page 50021 "PWD Item List requirement"
                 //PromotedCategory = "Report";
                 RunObject = Report "Single-level Cost Shares";
                 ApplicationArea = All;
-                Image= Costs;
+                Image = Costs;
             }
             action(Action1902353206)
             {
@@ -1194,7 +1188,7 @@ page 50021 "PWD Item List requirement"
                 //PromotedCategory = "Report";
                 RunObject = Report "Where-Used (Top Level)";
                 ApplicationArea = All;
-                Image= "Where-Used";
+                Image = "Where-Used";
             }
             action(Action1907778006)
             {
@@ -1204,7 +1198,7 @@ page 50021 "PWD Item List requirement"
                 //PromotedCategory = "Report";
                 RunObject = Report "Quantity Explosion of BOM";
                 ApplicationArea = All;
-                Image= ExplodeBOM;
+                Image = ExplodeBOM;
             }
             action(Action1907846806)
             {
@@ -1214,7 +1208,7 @@ page 50021 "PWD Item List requirement"
                 //PromotedCategory = "Report";
                 RunObject = Report "Compare List";
                 ApplicationArea = All;
-                Image= List;
+                Image = List;
             }
         }
     }

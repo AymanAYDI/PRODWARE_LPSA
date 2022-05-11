@@ -577,7 +577,7 @@ page 50001 "PWD Item Configurator"
                 Image = ApplyTemplate;
                 InFooterBar = true;
                 Promoted = true;
-                PromotedOnly= true;
+                PromotedOnly = true;
                 PromotedCategory = Process;
                 PromotedIsBig = true;
                 ApplicationArea = All;
@@ -1177,8 +1177,6 @@ page 50001 "PWD Item Configurator"
         RecGItem.VALIDATE("Location Code", Rec."Location Code");
         RecGItem.VALIDATE("Shelf No.", Rec."Bin Code");
         RecGItem.VALIDATE("Item Category Code", Rec."Item Category Code");
-        //TODO
-        //RecGItem.VALIDATE("Product Group Code", Rec."Product Group Code");
         RecGItem.VALIDATE("Global Dimension 1 Code", Rec."Dimension 1 Code");
         RecGItem.VALIDATE("Global Dimension 2 Code", Rec."Dimension 2 Code");
 

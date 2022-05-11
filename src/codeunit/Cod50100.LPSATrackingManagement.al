@@ -49,17 +49,25 @@ codeunit 50100 "PWD LPSA Tracking Management"
         IsPick: Boolean;
         LotAvailabilityActive: Boolean;
         SNAvailabilityActive: Boolean;
+        // QtyToHandleBaseEditable: Boolean;
+        // ItemTrackingManagedByWhse: Boolean;
+        // FunctionsDemandVisible: Boolean;
+        // FunctionsSupplyVisible: Boolean;
         ForBinCode: Code[20];
         ExpectedReceiptDate: Date;
         ShipmentDate: Date;
         QtyPerUOM: Decimal;
         QtyToAddAsBlank: Decimal;
+        QtyRoundingPerBase: Decimal;
         SourceQuantityArray: array[5] of Decimal;
         UndefinedQtyArray: array[3] of Decimal;
         ColorOfQuantityArray: array[3] of Integer;
         CurrentSignFactor: Integer;
         CurrentSourceType: Integer;
         LastEntryNo: Integer;
+        // SecondSourceID: Integer;
+        IsAssembleToOrder: Boolean;
+        ExcludePostedEntries: Boolean;
         // Text000: Label 'Reservation is defined for the %1.\You must cancel the existing Reservation before deleting or changing Item Tracking.';
         // Text001: Label 'Reservation is defined for the %1.\You must not set %2 lower then %3.';
         Text002: Label 'Quantity must be %1.';
@@ -75,6 +83,7 @@ codeunit 50100 "PWD LPSA Tracking Management"
         Text016: Label 'purchase order line';
         Text017: Label 'sales order line';
         FormRunMode: Option ,Reclass,"Combined Ship/Rcpt","Drop Shipment",Transfer;
+        CurrentRunMode: Enum "Item Tracking Run Mode";
         CurrentEntryStatus: Enum "Reservation Status";
         CurrentSourceRowID: Text[100];
         SecondSourceRowID: Text[100];
@@ -91,13 +100,197 @@ codeunit 50100 "PWD LPSA Tracking Management"
 
 
     procedure SetSource(TrackingSpecification: Record "Tracking Specification"; AvailabilityDate: Date)
+    // var
+    //     ReservEntry: Record "Reservation Entry";
+    //     TempTrackingSpecification: Record "Tracking Specification" temporary;
+    //     TempTrackingSpecification2: Record "Tracking Specification" temporary;
+    //     CreateReservEntry: Codeunit "Create Reserv. Entry";
+    // // Controls: Option Handle,Invoice,Quantity,Reclass,LotSN;
+    // begin
+    //     GetItem(TrackingSpecification."Item No.");
+    //     ForBinCode := TrackingSpecification."Bin Code";
+    //     SetFilters(TrackingSpecification);
+    //     TempTrackingSpecification.DeleteAll();
+    //     TempItemTrackLineInsert.DeleteAll();
+    //     TempItemTrackLineModify.DeleteAll();
+    //     TempItemTrackLineDelete.DeleteAll();
+
+    //     TempReservEntry.DeleteAll();
+    //     LastEntryNo := 0;
+    //     if ItemTrackingMgt.IsOrderNetworkEntity(TrackingSpecification."Source Type",
+    //          TrackingSpecification."Source Subtype") and not (FormRunMode = FormRunMode::"Drop Shipment")
+    //     then
+    //         CurrentEntryStatus := CurrentEntryStatus::Surplus
+    //     else
+    //         CurrentEntryStatus := CurrentEntryStatus::Prospect;
+
+    //     // if (TrackingSpecification."Source Type" in
+    //     //     [DATABASE::"Item Ledger Entry",
+    //     //     DATABASE::"Item Journal Line",
+    //     //     DATABASE::"Job Journal Line",
+    //     //     DATABASE::"BOM Journal Line", 
+    //     //     DATABASE::"Requisition Line"]) or
+    //     //    ((TrackingSpecification."Source Type" in [DATABASE::"Sales Line", DATABASE::"Purchase Line", DATABASE::"Service Line"]) and
+    //     //     (TrackingSpecification."Source Subtype" in [0, 2, 3]))
+    //     // then
+    //     //     SetControls(Controls::Handle, false)
+    //     // else
+    //     //     SetControls(Controls::Handle, true);
+
+    //     // if (TrackingSpecification."Source Type" in
+    //     //     [DATABASE::"Item Ledger Entry",
+    //     //     DATABASE::"Item Journal Line",
+    //     //     DATABASE::"Job Journal Line",
+    //     //     DATABASE::"BOM Journal Line", 
+    //     //     DATABASE::"Requisition Line",
+    //     //     DATABASE::"Transfer Line",
+    //     //     DATABASE::"Prod. Order Line",
+    //     //     DATABASE::"Prod. Order Component"]) or
+    //     //    ((TrackingSpecification."Source Type" in [DATABASE::"Sales Line", DATABASE::"Purchase Line", DATABASE::"Service Line"]) and
+    //     //     (TrackingSpecification."Source Subtype" in [0, 2, 3, 4]))
+    //     // then
+    //     //     SetControls(Controls::Invoice, false)
+    //     // else
+    //     //     SetControls(Controls::Invoice, true);
+
+    //     // SetControls(Controls::Reclass, FormRunMode = FormRunMode::Reclass);
+
+    //     // if FormRunMode = FormRunMode::"Combined Ship/Rcpt" then
+    //     //     SetControls(Controls::LotSN, false);
+    //     // if ItemTrackingMgt.ItemTrkgIsManagedByWhse(
+    //     //   TrackingSpecification."Source Type",
+    //     //   TrackingSpecification."Source Subtype",
+    //     //   TrackingSpecification."Source ID",
+    //     //   TrackingSpecification."Source Prod. Order Line",
+    //     //   TrackingSpecification."Source Ref. No.",
+    //     //   TrackingSpecification."Location Code",
+    //     //   TrackingSpecification."Item No.")
+    //     // then
+    //     //     SetControls(Controls::Quantity, false);
+    //     //>>MIG-2009-001
+    //     //CurrForm."Qty. to Handle (Base)".EDITABLE(TRUE);
+    //     //<<MIG-2009-001
+    //     // DeleteIsBlocked := true;
+    //     // end;
+
+    //     ReservEntry."Source Type" := TrackingSpecification."Source Type";
+    //     ReservEntry."Source Subtype" := TrackingSpecification."Source Subtype";
+    //     CurrentSignFactor := CreateReservEntry.SignFactor(ReservEntry);
+    //     CurrentSourceCaption := ReservEntry.TextCaption();
+    //     CurrentSourceType := ReservEntry."Source Type";
+
+    //     if CurrentSignFactor < 0 then begin
+    //         ExpectedReceiptDate := 0D;
+    //         ShipmentDate := AvailabilityDate;
+    //     end else begin
+    //         ExpectedReceiptDate := AvailabilityDate;
+    //         ShipmentDate := 0D;
+    //     end;
+
+    //     SourceQuantityArray[1] := TrackingSpecification."Quantity (Base)";
+    //     SourceQuantityArray[2] := TrackingSpecification."Qty. to Handle (Base)";
+    //     SourceQuantityArray[3] := TrackingSpecification."Qty. to Invoice (Base)";
+    //     SourceQuantityArray[4] := TrackingSpecification."Quantity Handled (Base)";
+    //     SourceQuantityArray[5] := TrackingSpecification."Quantity Invoiced (Base)";
+    //     QtyPerUOM := TrackingSpecification."Qty. per Unit of Measure";
+
+    //     ReservEntry.SetCurrentKey(
+    //       "Source ID", "Source Ref. No.", "Source Type", "Source Subtype",
+    //       "Source Batch Name", "Source Prod. Order Line", "Reservation Status");
+
+    //     ReservEntry.SetRange("Source ID", TrackingSpecification."Source ID");
+    //     ReservEntry.SetRange("Source Ref. No.", TrackingSpecification."Source Ref. No.");
+    //     ReservEntry.SetRange("Source Type", TrackingSpecification."Source Type");
+    //     ReservEntry.SetRange("Source Subtype", TrackingSpecification."Source Subtype");
+    //     ReservEntry.SetRange("Source Batch Name", TrackingSpecification."Source Batch Name");
+    //     ReservEntry.SetRange("Source Prod. Order Line", TrackingSpecification."Source Prod. Order Line");
+
+    //     // Transfer Receipt gets special treatment:
+    //     if (TrackingSpecification."Source Type" = DATABASE::"Transfer Line") and
+    //        (FormRunMode <> FormRunMode::Transfer) and
+    //        (TrackingSpecification."Source Subtype" = 1) then begin
+    //         ReservEntry.SetRange("Source Subtype", 0);
+    //         AddReservEntriesToTempRecSet(ReservEntry, TempTrackingSpecification2, true, 8421504);
+    //         ReservEntry.SetRange("Source Subtype", 1);
+    //         ReservEntry.SetRange("Source Prod. Order Line", TrackingSpecification."Source Ref. No.");
+    //         ReservEntry.SetRange("Source Ref. No.");
+    //         // DeleteIsBlocked := true;
+    //         // SetControls(Controls::Quantity, false);
+    //     end;
+
+    //     AddReservEntriesToTempRecSet(ReservEntry, TempTrackingSpecification, false, 0);
+
+    //     TempReservEntry.CopyFilters(ReservEntry);
+
+    //     TrackingSpecification.SetCurrentKey(
+    //       "Source ID", "Source Type", "Source Subtype",
+    //       "Source Batch Name", "Source Prod. Order Line", "Source Ref. No.");
+
+    //     TrackingSpecification.SetRange("Source ID", TrackingSpecification."Source ID");
+    //     TrackingSpecification.SetRange("Source Type", TrackingSpecification."Source Type");
+    //     TrackingSpecification.SetRange("Source Subtype", TrackingSpecification."Source Subtype");
+    //     TrackingSpecification.SetRange("Source Batch Name", TrackingSpecification."Source Batch Name");
+    //     TrackingSpecification.SetRange("Source Prod. Order Line", TrackingSpecification."Source Prod. Order Line");
+    //     TrackingSpecification.SetRange("Source Ref. No.", TrackingSpecification."Source Ref. No.");
+
+    //     if TrackingSpecification.FindSet() then
+    //         repeat
+    //             TempTrackingSpecification := TrackingSpecification;
+    //             TempTrackingSpecification.Insert();
+    //         until TrackingSpecification.Next() = 0;
+
+    //     // Data regarding posted quantities on transfers is collected from Item Ledger Entries:
+    //     if TrackingSpecification."Source Type" = DATABASE::"Transfer Line" then
+    //         CollectPostedTransferEntries(TrackingSpecification, TempTrackingSpecification);
+
+    //     // Data regarding posted output quantities on prod.orders is collected from Item Ledger Entries:
+    //     if TrackingSpecification."Source Type" = DATABASE::"Prod. Order Line" then
+    //         if TrackingSpecification."Source Subtype" = 3 then
+    //             CollectPostedOutputEntries(TrackingSpecification, TempTrackingSpecification);
+
+    //     // If run for Drop Shipment a RowID is prepared for synchronisation:
+    //     if FormRunMode = FormRunMode::"Drop Shipment" then
+    //         CurrentSourceRowID := ItemTrackingMgt.ComposeRowID(TrackingSpecification."Source Type",
+    //           TrackingSpecification."Source Subtype", TrackingSpecification."Source ID",
+    //           TrackingSpecification."Source Batch Name", TrackingSpecification."Source Prod. Order Line",
+    //           TrackingSpecification."Source Ref. No.");
+
+    //     // Synchronization of outbound transfer order:
+    //     if (TrackingSpecification."Source Type" = DATABASE::"Transfer Line") and
+    //        (TrackingSpecification."Source Subtype" = 0) then begin
+    //         BlockCommit := true;
+    //         CurrentSourceRowID := ItemTrackingMgt.ComposeRowID(TrackingSpecification."Source Type",
+    //           TrackingSpecification."Source Subtype", TrackingSpecification."Source ID",
+    //           TrackingSpecification."Source Batch Name", TrackingSpecification."Source Prod. Order Line",
+    //           TrackingSpecification."Source Ref. No.");
+    //         SecondSourceRowID := ItemTrackingMgt.ComposeRowID(TrackingSpecification."Source Type",
+    //           1, TrackingSpecification."Source ID",
+    //           TrackingSpecification."Source Batch Name", TrackingSpecification."Source Prod. Order Line",
+    //           TrackingSpecification."Source Ref. No.");
+    //         FormRunMode := FormRunMode::Transfer;
+    //     end;
+
+    //     AddToGlobalRecordSet(TempTrackingSpecification);
+    //     AddToGlobalRecordSet(TempTrackingSpecification2);
+    //     CalculateSums();
+
+    //     ItemTrackingDataCollection.SetCurrentBinAndItemTrkgCode(ForBinCode, ItemTrackingCode);
+    //     ItemTrackingDataCollection.RetrieveLookupData(Rec, false);
+
+    //     //>>MIG-2009-001
+    //     //CurrForm.FunctionsDemand.VISIBLE(CurrentSignFactor * SourceQuantityArray[1] < 0);
+    //     //CurrForm.FunctionsSupply.VISIBLE(NOT CurrForm.FunctionsDemand.VISIBLE);
+    //     //<<MIG-2009-001
+
     var
         ReservEntry: Record "Reservation Entry";
         TempTrackingSpecification: Record "Tracking Specification" temporary;
         TempTrackingSpecification2: Record "Tracking Specification" temporary;
+        SourceTrackingSpecification: Record "Tracking Specification";
         CreateReservEntry: Codeunit "Create Reserv. Entry";
-    // Controls: Option Handle,Invoice,Quantity,Reclass,LotSN;
+        CurrentEntryStatusOption: Option;
     begin
+        SourceTrackingSpecification := TrackingSpecification;
         GetItem(TrackingSpecification."Item No.");
         ForBinCode := TrackingSpecification."Bin Code";
         SetFilters(TrackingSpecification);
@@ -109,63 +302,33 @@ codeunit 50100 "PWD LPSA Tracking Management"
         TempReservEntry.DeleteAll();
         LastEntryNo := 0;
         if ItemTrackingMgt.IsOrderNetworkEntity(TrackingSpecification."Source Type",
-             TrackingSpecification."Source Subtype") and not (FormRunMode = FormRunMode::"Drop Shipment")
+             TrackingSpecification."Source Subtype") and not (CurrentRunMode = CurrentRunMode::"Drop Shipment")
         then
             CurrentEntryStatus := CurrentEntryStatus::Surplus
         else
             CurrentEntryStatus := CurrentEntryStatus::Prospect;
 
-        // if (TrackingSpecification."Source Type" in
-        //     [DATABASE::"Item Ledger Entry",
-        //     DATABASE::"Item Journal Line",
-        //     DATABASE::"Job Journal Line",
-        //     DATABASE::"BOM Journal Line", 
-        //     DATABASE::"Requisition Line"]) or
-        //    ((TrackingSpecification."Source Type" in [DATABASE::"Sales Line", DATABASE::"Purchase Line", DATABASE::"Service Line"]) and
-        //     (TrackingSpecification."Source Subtype" in [0, 2, 3]))
-        // then
-        //     SetControls(Controls::Handle, false)
-        // else
-        //     SetControls(Controls::Handle, true);
+        if (TrackingSpecification."Source Type" = DATABASE::"Transfer Line") and (CurrentRunMode = CurrentRunMode::Reclass) then
+            CurrentEntryStatus := CurrentEntryStatus::Prospect;
 
-        // if (TrackingSpecification."Source Type" in
-        //     [DATABASE::"Item Ledger Entry",
-        //     DATABASE::"Item Journal Line",
-        //     DATABASE::"Job Journal Line",
-        //     DATABASE::"BOM Journal Line", //TODO: Table "BOM Journal Line" n'est plus disponible dans la nouvelle version
-        //     DATABASE::"Requisition Line",
-        //     DATABASE::"Transfer Line",
-        //     DATABASE::"Prod. Order Line",
-        //     DATABASE::"Prod. Order Component"]) or
-        //    ((TrackingSpecification."Source Type" in [DATABASE::"Sales Line", DATABASE::"Purchase Line", DATABASE::"Service Line"]) and
-        //     (TrackingSpecification."Source Subtype" in [0, 2, 3, 4]))
-        // then
-        //     SetControls(Controls::Invoice, false)
-        // else
-        //     SetControls(Controls::Invoice, true);
+        CurrentEntryStatusOption := CurrentEntryStatus.AsInteger();
+        CurrentEntryStatus := "Reservation Status".FromInteger(CurrentEntryStatusOption);
 
-        // SetControls(Controls::Reclass, FormRunMode = FormRunMode::Reclass);
+        // Set controls for Qty to handle:
+        // SetPageControls("Item Tracking Lines Controls"::Handle, GetHandleSource(TrackingSpecification));
+        // Set controls for Qty to Invoice:
+        // SetPageControls("Item Tracking Lines Controls"::Invoice, GetInvoiceSource(TrackingSpecification));
 
-        // if FormRunMode = FormRunMode::"Combined Ship/Rcpt" then
-        //     SetControls(Controls::LotSN, false);
-        // if ItemTrackingMgt.ItemTrkgIsManagedByWhse(
-        //   TrackingSpecification."Source Type",
-        //   TrackingSpecification."Source Subtype",
-        //   TrackingSpecification."Source ID",
-        //   TrackingSpecification."Source Prod. Order Line",
-        //   TrackingSpecification."Source Ref. No.",
-        //   TrackingSpecification."Location Code",
-        //   TrackingSpecification."Item No.")
-        // then
-        //     SetControls(Controls::Quantity, false);
-        //>>MIG-2009-001
-        //CurrForm."Qty. to Handle (Base)".EDITABLE(TRUE);
-        //<<MIG-2009-001
-        // DeleteIsBlocked := true;
-        // end;
+        // SetPageControls("Item Tracking Lines Controls"::Reclass, CurrentRunMode = CurrentRunMode::Reclass);
+
+        // if CurrentRunMode = CurrentRunMode::"Combined Ship/Rcpt" then
+        //     SetPageControls("Item Tracking Lines Controls"::Tracking, false);
+
+        // SetWarehouseControls(TrackingSpecification);
 
         ReservEntry."Source Type" := TrackingSpecification."Source Type";
         ReservEntry."Source Subtype" := TrackingSpecification."Source Subtype";
+        ReservEntry."Source ID" := TrackingSpecification."Source ID";
         CurrentSignFactor := CreateReservEntry.SignFactor(ReservEntry);
         CurrentSourceCaption := ReservEntry.TextCaption();
         CurrentSourceType := ReservEntry."Source Type";
@@ -178,51 +341,28 @@ codeunit 50100 "PWD LPSA Tracking Management"
             ShipmentDate := 0D;
         end;
 
-        SourceQuantityArray[1] := TrackingSpecification."Quantity (Base)";
-        SourceQuantityArray[2] := TrackingSpecification."Qty. to Handle (Base)";
-        SourceQuantityArray[3] := TrackingSpecification."Qty. to Invoice (Base)";
-        SourceQuantityArray[4] := TrackingSpecification."Quantity Handled (Base)";
-        SourceQuantityArray[5] := TrackingSpecification."Quantity Invoiced (Base)";
+        FillSourceQuantityArray(TrackingSpecification);
         QtyPerUOM := TrackingSpecification."Qty. per Unit of Measure";
+        QtyRoundingPerBase := TrackingSpecification."Qty. Rounding Precision (Base)";
 
-        ReservEntry.SetCurrentKey(
-          "Source ID", "Source Ref. No.", "Source Type", "Source Subtype",
-          "Source Batch Name", "Source Prod. Order Line", "Reservation Status");
-
-        ReservEntry.SetRange("Source ID", TrackingSpecification."Source ID");
-        ReservEntry.SetRange("Source Ref. No.", TrackingSpecification."Source Ref. No.");
-        ReservEntry.SetRange("Source Type", TrackingSpecification."Source Type");
-        ReservEntry.SetRange("Source Subtype", TrackingSpecification."Source Subtype");
-        ReservEntry.SetRange("Source Batch Name", TrackingSpecification."Source Batch Name");
-        ReservEntry.SetRange("Source Prod. Order Line", TrackingSpecification."Source Prod. Order Line");
-
+        ReservEntry.SetSourceFilter(
+          TrackingSpecification."Source Type", TrackingSpecification."Source Subtype",
+          TrackingSpecification."Source ID", TrackingSpecification."Source Ref. No.", true);
+        ReservEntry.SetSourceFilter(
+          TrackingSpecification."Source Batch Name", TrackingSpecification."Source Prod. Order Line");
+        ReservEntry.SetRange("Untracked Surplus", false);
         // Transfer Receipt gets special treatment:
-        if (TrackingSpecification."Source Type" = DATABASE::"Transfer Line") and
-           (FormRunMode <> FormRunMode::Transfer) and
-           (TrackingSpecification."Source Subtype" = 1) then begin
-            ReservEntry.SetRange("Source Subtype", 0);
-            AddReservEntriesToTempRecSet(ReservEntry, TempTrackingSpecification2, true, 8421504);
-            ReservEntry.SetRange("Source Subtype", 1);
-            ReservEntry.SetRange("Source Prod. Order Line", TrackingSpecification."Source Ref. No.");
-            ReservEntry.SetRange("Source Ref. No.");
-            // DeleteIsBlocked := true;
-            // SetControls(Controls::Quantity, false);
-        end;
+        SetSourceSpecForTransferReceipt(TrackingSpecification, ReservEntry, TempTrackingSpecification2);
 
-        AddReservEntriesToTempRecSet(ReservEntry, TempTrackingSpecification, false, 0);
+        AddReservEntriesToTempRecSet(ReservEntry, TempTrackingSpecification, false, 0, QtyRoundingPerBase);
 
         TempReservEntry.CopyFilters(ReservEntry);
 
-        TrackingSpecification.SetCurrentKey(
-          "Source ID", "Source Type", "Source Subtype",
-          "Source Batch Name", "Source Prod. Order Line", "Source Ref. No.");
-
-        TrackingSpecification.SetRange("Source ID", TrackingSpecification."Source ID");
-        TrackingSpecification.SetRange("Source Type", TrackingSpecification."Source Type");
-        TrackingSpecification.SetRange("Source Subtype", TrackingSpecification."Source Subtype");
-        TrackingSpecification.SetRange("Source Batch Name", TrackingSpecification."Source Batch Name");
-        TrackingSpecification.SetRange("Source Prod. Order Line", TrackingSpecification."Source Prod. Order Line");
-        TrackingSpecification.SetRange("Source Ref. No.", TrackingSpecification."Source Ref. No.");
+        TrackingSpecification.SetSourceFilter(
+          TrackingSpecification."Source Type", TrackingSpecification."Source Subtype",
+          TrackingSpecification."Source ID", TrackingSpecification."Source Ref. No.", true);
+        TrackingSpecification.SetSourceFilter(
+          TrackingSpecification."Source Batch Name", TrackingSpecification."Source Prod. Order Line");
 
         if TrackingSpecification.FindSet() then
             repeat
@@ -234,31 +374,39 @@ codeunit 50100 "PWD LPSA Tracking Management"
         if TrackingSpecification."Source Type" = DATABASE::"Transfer Line" then
             CollectPostedTransferEntries(TrackingSpecification, TempTrackingSpecification);
 
+        // Data regarding posted quantities on assembly orders is collected from Item Ledger Entries:
+        if not ExcludePostedEntries then
+            if (TrackingSpecification."Source Type" = DATABASE::"Assembly Line") or
+               (TrackingSpecification."Source Type" = DATABASE::"Assembly Header")
+            then
+                CollectPostedAssemblyEntries(TrackingSpecification, TempTrackingSpecification);
+
         // Data regarding posted output quantities on prod.orders is collected from Item Ledger Entries:
         if TrackingSpecification."Source Type" = DATABASE::"Prod. Order Line" then
             if TrackingSpecification."Source Subtype" = 3 then
                 CollectPostedOutputEntries(TrackingSpecification, TempTrackingSpecification);
 
         // If run for Drop Shipment a RowID is prepared for synchronisation:
-        if FormRunMode = FormRunMode::"Drop Shipment" then
+        if CurrentRunMode = CurrentRunMode::"Drop Shipment" then
             CurrentSourceRowID := ItemTrackingMgt.ComposeRowID(TrackingSpecification."Source Type",
-              TrackingSpecification."Source Subtype", TrackingSpecification."Source ID",
-              TrackingSpecification."Source Batch Name", TrackingSpecification."Source Prod. Order Line",
-              TrackingSpecification."Source Ref. No.");
+                TrackingSpecification."Source Subtype", TrackingSpecification."Source ID",
+                TrackingSpecification."Source Batch Name", TrackingSpecification."Source Prod. Order Line",
+                TrackingSpecification."Source Ref. No.");
 
         // Synchronization of outbound transfer order:
         if (TrackingSpecification."Source Type" = DATABASE::"Transfer Line") and
-           (TrackingSpecification."Source Subtype" = 0) then begin
+           (TrackingSpecification."Source Subtype" = 0)
+        then begin
             BlockCommit := true;
             CurrentSourceRowID := ItemTrackingMgt.ComposeRowID(TrackingSpecification."Source Type",
-              TrackingSpecification."Source Subtype", TrackingSpecification."Source ID",
-              TrackingSpecification."Source Batch Name", TrackingSpecification."Source Prod. Order Line",
-              TrackingSpecification."Source Ref. No.");
+                TrackingSpecification."Source Subtype", TrackingSpecification."Source ID",
+                TrackingSpecification."Source Batch Name", TrackingSpecification."Source Prod. Order Line",
+                TrackingSpecification."Source Ref. No.");
             SecondSourceRowID := ItemTrackingMgt.ComposeRowID(TrackingSpecification."Source Type",
-              1, TrackingSpecification."Source ID",
-              TrackingSpecification."Source Batch Name", TrackingSpecification."Source Prod. Order Line",
-              TrackingSpecification."Source Ref. No.");
-            FormRunMode := FormRunMode::Transfer;
+                1, TrackingSpecification."Source ID",
+                TrackingSpecification."Source Batch Name", TrackingSpecification."Source Prod. Order Line",
+                TrackingSpecification."Source Ref. No.");
+            CurrentRunMode := CurrentRunMode::Transfer;
         end;
 
         AddToGlobalRecordSet(TempTrackingSpecification);
@@ -267,13 +415,7 @@ codeunit 50100 "PWD LPSA Tracking Management"
 
         ItemTrackingDataCollection.SetCurrentBinAndItemTrkgCode(ForBinCode, ItemTrackingCode);
         ItemTrackingDataCollection.RetrieveLookupData(Rec, false);
-
-        //>>MIG-2009-001
-        //CurrForm.FunctionsDemand.VISIBLE(CurrentSignFactor * SourceQuantityArray[1] < 0);
-        //CurrForm.FunctionsSupply.VISIBLE(NOT CurrForm.FunctionsDemand.VISIBLE);
-        //<<MIG-2009-001
     end;
-
 
     procedure SetSecondSourceQuantity(var SecondSourceQuantityArray: array[3] of Decimal)
     // var
@@ -298,33 +440,33 @@ codeunit 50100 "PWD LPSA Tracking Management"
         SecondSourceRowID := RowID;
     end;
 
-    local procedure AddReservEntriesToTempRecSet(var ReservEntry: Record "Reservation Entry"; var TempTrackingSpecification: Record "Tracking Specification" temporary; SwapSign: Boolean; Color: Integer)
-    begin
-        if ReservEntry.FindSet() then
-            repeat
-                if Color = 0 then begin
-                    TempReservEntry := ReservEntry;
-                    TempReservEntry.Insert();
-                end;
-                if (ReservEntry."Lot No." <> '') or (ReservEntry."Serial No." <> '') then begin
-                    TempTrackingSpecification.TransferFields(ReservEntry);
-                    // Ensure uniqueness of Entry No. by making it negative:
-                    TempTrackingSpecification."Entry No." *= -1;
-                    if SwapSign then
-                        TempTrackingSpecification."Quantity (Base)" *= -1;
-                    if Color <> 0 then begin
-                        TempTrackingSpecification."Quantity Handled (Base)" :=
-                          TempTrackingSpecification."Quantity (Base)";
-                        TempTrackingSpecification."Quantity Invoiced (Base)" :=
-                          TempTrackingSpecification."Quantity (Base)";
-                        TempTrackingSpecification."Qty. to Handle (Base)" := 0;
-                        TempTrackingSpecification."Qty. to Invoice (Base)" := 0;
-                    end;
-                    TempTrackingSpecification."Buffer Status" := Color;
-                    TempTrackingSpecification.Insert();
-                end;
-            until ReservEntry.Next() = 0;
-    end;
+    // local procedure AddReservEntriesToTempRecSet(var ReservEntry: Record "Reservation Entry"; var TempTrackingSpecification: Record "Tracking Specification" temporary; SwapSign: Boolean; Color: Integer)
+    // begin
+    //     if ReservEntry.FindSet() then
+    //         repeat
+    //             if Color = 0 then begin
+    //                 TempReservEntry := ReservEntry;
+    //                 TempReservEntry.Insert();
+    //             end;
+    //             if (ReservEntry."Lot No." <> '') or (ReservEntry."Serial No." <> '') then begin
+    //                 TempTrackingSpecification.TransferFields(ReservEntry);
+    //                 // Ensure uniqueness of Entry No. by making it negative:
+    //                 TempTrackingSpecification."Entry No." *= -1;
+    //                 if SwapSign then
+    //                     TempTrackingSpecification."Quantity (Base)" *= -1;
+    //                 if Color <> 0 then begin
+    //                     TempTrackingSpecification."Quantity Handled (Base)" :=
+    //                       TempTrackingSpecification."Quantity (Base)";
+    //                     TempTrackingSpecification."Quantity Invoiced (Base)" :=
+    //                       TempTrackingSpecification."Quantity (Base)";
+    //                     TempTrackingSpecification."Qty. to Handle (Base)" := 0;
+    //                     TempTrackingSpecification."Qty. to Invoice (Base)" := 0;
+    //                 end;
+    //                 TempTrackingSpecification."Buffer Status" := Color;
+    //                 TempTrackingSpecification.Insert();
+    //             end;
+    //         until ReservEntry.Next() = 0;
+    // end;
 
     local procedure AddToGlobalRecordSet(var TempTrackingSpecification: Record "Tracking Specification" temporary)
     var
@@ -428,6 +570,114 @@ codeunit 50100 "PWD LPSA Tracking Management"
     //     //<<MIG-2009-001
 
     // end;
+    local procedure FillSourceQuantityArray(TrackingSpecification: Record "Tracking Specification")
+    begin
+        SourceQuantityArray[1] := TrackingSpecification."Quantity (Base)";
+        SourceQuantityArray[2] := TrackingSpecification."Qty. to Handle (Base)";
+        SourceQuantityArray[3] := TrackingSpecification."Qty. to Invoice (Base)";
+        SourceQuantityArray[4] := TrackingSpecification."Quantity Handled (Base)";
+        SourceQuantityArray[5] := TrackingSpecification."Quantity Invoiced (Base)";
+    end;
+
+    local procedure SetSourceSpecForTransferReceipt(TrackingSpecification: Record "Tracking Specification"; var ReservEntry: Record "Reservation Entry"; var TempTrackingSpecification2: Record "Tracking Specification" temporary)
+    begin
+        if (TrackingSpecification."Source Type" = DATABASE::"Transfer Line") and
+           (CurrentRunMode <> CurrentRunMode::Transfer) and
+           (TrackingSpecification."Source Subtype" = 1)
+        then begin
+            ReservEntry.SetRange("Source Subtype", 0);
+            AddReservEntriesToTempRecSet(ReservEntry, TempTrackingSpecification2, true, 8421504, 0);
+            ReservEntry.SetRange("Source Subtype", 1);
+            ReservEntry.SetRange("Source Prod. Order Line", TrackingSpecification."Source Ref. No.");
+            ReservEntry.SetRange("Source Ref. No.");
+            // DeleteIsBlocked := true;
+            //SetPageControls("Item Tracking Lines Controls"::Quantity, false);
+        end;
+    end;
+
+    procedure AddReservEntriesToTempRecSet(var ReservEntry: Record "Reservation Entry"; var TempTrackingSpecification: Record "Tracking Specification" temporary; SwapSign: Boolean; Color: Integer; SrcQtyRoundingPrecision: Decimal)
+    var
+        FromReservEntry: Record "Reservation Entry";
+        AddTracking: Boolean;
+    begin
+        if ReservEntry.FindSet() then
+            repeat
+                if Color = 0 then begin
+                    TempReservEntry := ReservEntry;
+                    TempReservEntry.Insert();
+                end;
+                if ReservEntry.TrackingExists() then begin
+                    AddTracking := true;
+                    //if SecondSourceID = DATABASE::"Warehouse Shipment Line" then
+                    if FromReservEntry.Get(ReservEntry."Entry No.", not ReservEntry.Positive) then
+                        AddTracking := (FromReservEntry."Source Type" = DATABASE::"Assembly Header") = IsAssembleToOrder
+                    else
+                        AddTracking := not IsAssembleToOrder;
+
+                    if AddTracking then begin
+                        TempTrackingSpecification.TransferFields(ReservEntry);
+                        TempTrackingSpecification."Qty. Rounding Precision (Base)" := SrcQtyRoundingPrecision;
+                        // Ensure uniqueness of Entry No. by making it negative:
+                        TempTrackingSpecification."Entry No." *= -1;
+                        if SwapSign then
+                            TempTrackingSpecification."Quantity (Base)" *= -1;
+                        if Color <> 0 then begin
+                            TempTrackingSpecification."Quantity Handled (Base)" := TempTrackingSpecification."Quantity (Base)";
+                            TempTrackingSpecification."Quantity Invoiced (Base)" := TempTrackingSpecification."Quantity (Base)";
+                            TempTrackingSpecification."Qty. to Handle (Base)" := 0;
+                            TempTrackingSpecification."Qty. to Invoice (Base)" := 0;
+                        end;
+                        TempTrackingSpecification."Buffer Status" := Color;
+                        TempTrackingSpecification.Insert();
+                    end;
+                end;
+            until ReservEntry.Next() = 0;
+    end;
+
+    local procedure CollectPostedAssemblyEntries(TrackingSpecification: Record "Tracking Specification"; var TempTrackingSpecification: Record "Tracking Specification" temporary)
+    var
+        ItemEntryRelation: Record "Item Entry Relation";
+        ItemLedgerEntry: Record "Item Ledger Entry";
+        CurrentQtyBase: Decimal;
+        MaxQtyBase: Decimal;
+    begin
+        // Used for collecting information about posted Assembly Lines from the created Item Ledger Entries.
+        if (TrackingSpecification."Source Type" <> DATABASE::"Assembly Line") and
+           (TrackingSpecification."Source Type" <> DATABASE::"Assembly Header")
+        then
+            exit;
+
+        TempTrackingSpecification.CalcSums("Quantity (Base)");
+        CurrentQtyBase := TempTrackingSpecification."Quantity (Base)";
+        MaxQtyBase := CurrentSignFactor * SourceQuantityArray[1];
+
+        ItemEntryRelation.SetCurrentKey("Order No.", "Order Line No.");
+        ItemEntryRelation.SetRange("Order No.", TrackingSpecification."Source ID");
+        ItemEntryRelation.SetRange("Order Line No.", TrackingSpecification."Source Ref. No.");
+        if TrackingSpecification."Source Type" = DATABASE::"Assembly Line" then
+            ItemEntryRelation.SetRange("Source Type", DATABASE::"Posted Assembly Line")
+        else
+            ItemEntryRelation.SetRange("Source Type", DATABASE::"Posted Assembly Header");
+
+        if ItemEntryRelation.Find('-') then
+            repeat
+                ItemLedgerEntry.Get(ItemEntryRelation."Item Entry No.");
+                TempTrackingSpecification := TrackingSpecification;
+                TempTrackingSpecification."Entry No." := ItemLedgerEntry."Entry No.";
+                TempTrackingSpecification."Item No." := ItemLedgerEntry."Item No.";
+                TempTrackingSpecification.CopyTrackingFromItemLedgEntry(ItemLedgerEntry);
+                TempTrackingSpecification."Quantity (Base)" := ItemLedgerEntry.Quantity;
+                TempTrackingSpecification."Quantity Handled (Base)" := ItemLedgerEntry.Quantity;
+                TempTrackingSpecification."Quantity Invoiced (Base)" := ItemLedgerEntry.Quantity;
+                TempTrackingSpecification."Qty. per Unit of Measure" := ItemLedgerEntry."Qty. per Unit of Measure";
+                TempTrackingSpecification.InitQtyToShip();
+
+                if Abs(TempTrackingSpecification."Quantity (Base)") > Abs(MaxQtyBase - CurrentQtyBase) then
+                    TempTrackingSpecification."Quantity (Base)" := MaxQtyBase - CurrentQtyBase;
+                CurrentQtyBase += TempTrackingSpecification."Quantity (Base)";
+                TempTrackingSpecification.Insert();
+            until ItemEntryRelation.Next() = 0;
+    end;
 
     local procedure GetItem(ItemNo: Code[20])
     begin
