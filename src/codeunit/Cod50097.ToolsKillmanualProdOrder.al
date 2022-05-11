@@ -123,16 +123,22 @@ codeunit 50097 "Tools Kill manual Prod Order"
                 ToProdOrder."No." := '';
         END;
         //<<FE_LAPIERRETTE_PROD01.001: TO 13/12/2011
-
-
-        ToProdOrder.INSERT(TRUE);
+        // ToProdOrder.INSERT(TRUE);
+        // ToProdOrder."Starting Date-Time" := FromProdOrder."Starting Date-Time";
+        // ToProdOrder."Ending Date-Time" := FromProdOrder."Ending Date-Time";
+        // ToProdOrder."Due Date" := FromProdOrder."Due Date";
+        // ToProdOrder.VALIDATE("Shortcut Dimension 1 Code", '');
+        // ToProdOrder.VALIDATE("Shortcut Dimension 2 Code", '');
+        // ToProdOrder."Shortcut Dimension 1 Code" := FromProdOrder."Shortcut Dimension 1 Code";
+        // ToProdOrder."Shortcut Dimension 2 Code" := FromProdOrder."Shortcut Dimension 2 Code";
+        ToProdOrder.Insert(true);
         ToProdOrder."Starting Date-Time" := FromProdOrder."Starting Date-Time";
         ToProdOrder."Ending Date-Time" := FromProdOrder."Ending Date-Time";
+        ToProdOrder.UpdateDatetime();
         ToProdOrder."Due Date" := FromProdOrder."Due Date";
-        ToProdOrder.VALIDATE("Shortcut Dimension 1 Code", '');
-        ToProdOrder.VALIDATE("Shortcut Dimension 2 Code", '');
         ToProdOrder."Shortcut Dimension 1 Code" := FromProdOrder."Shortcut Dimension 1 Code";
         ToProdOrder."Shortcut Dimension 2 Code" := FromProdOrder."Shortcut Dimension 2 Code";
+        ToProdOrder."Dimension Set ID" := FromProdOrder."Dimension Set ID";
 
         //>>LPSA2.06
         ToProdOrder."PWD Selection" := FALSE;
@@ -152,7 +158,7 @@ codeunit 50097 "Tools Kill manual Prod Order"
         TransProdOrderCmtLine(FromProdOrder);
         TransProdOrderRtngCmtLn(FromProdOrder);
         TransProdOrderBOMCmtLine(FromProdOrder);
-        TransProdOrderDocDim(FromProdOrder);
+        // TransProdOrderDocDim(FromProdOrder);
         TransProdOrderCapNeed(FromProdOrder);
         //PLAW1 2.1 transport prod order links
         // TransProdOrderLink(FromProdOrder);
@@ -394,29 +400,27 @@ codeunit 50097 "Tools Kill manual Prod Order"
         END;
     end;
 
-    local procedure TransProdOrderDocDim(FromProdOrder: Record "Production Order")
-    var
+    // local procedure TransProdOrderDocDim(FromProdOrder: Record "Production Order")
+    // var
     // FromProdDocDim : Record "Production Document Dimension";
-    begin
-        ;
-        //TODO:
-        // WITH FromProdDocDim DO BEGIN
-        //     SETRANGE("Table ID", DATABASE::"Production Order");
-        //     SETRANGE("Document Status", FromProdOrder.Status);
-        //     SETRANGE("Document No.", FromProdOrder."No.");
-        //     DimMgt.MoveProdDocDimToProdDocDim(
-        //       FromProdDocDim, DATABASE::"Production Order", ToProdOrder.Status, ToProdOrder."No.");
-        //     DELETEALL;
-        //     SETRANGE("Table ID", DATABASE::"Prod. Order Line");
-        //     DimMgt.MoveProdDocDimToProdDocDim(
-        //       FromProdDocDim, DATABASE::"Prod. Order Line", ToProdOrder.Status, ToProdOrder."No.");
-        //     DELETEALL;
-        //     SETRANGE("Table ID", DATABASE::"Prod. Order Component");
-        //     DimMgt.MoveProdDocDimToProdDocDim(
-        //       FromProdDocDim, DATABASE::"Prod. Order Component", ToProdOrder.Status, ToProdOrder."No.");
-        //     DELETEALL;
-        // end;
-    end;
+    // begin
+    // WITH FromProdDocDim DO BEGIN
+    //     SETRANGE("Table ID", DATABASE::"Production Order");
+    //     SETRANGE("Document Status", FromProdOrder.Status);
+    //     SETRANGE("Document No.", FromProdOrder."No.");
+    //     DimMgt.MoveProdDocDimToProdDocDim(
+    //       FromProdDocDim, DATABASE::"Production Order", ToProdOrder.Status, ToProdOrder."No.");
+    //     DELETEALL;
+    //     SETRANGE("Table ID", DATABASE::"Prod. Order Line");
+    //     DimMgt.MoveProdDocDimToProdDocDim(
+    //       FromProdDocDim, DATABASE::"Prod. Order Line", ToProdOrder.Status, ToProdOrder."No.");
+    //     DELETEALL;
+    //     SETRANGE("Table ID", DATABASE::"Prod. Order Component");
+    //     DimMgt.MoveProdDocDimToProdDocDim(
+    //       FromProdDocDim, DATABASE::"Prod. Order Component", ToProdOrder.Status, ToProdOrder."No.");
+    //     DELETEALL;
+    // end;
+    // end;
 
     local procedure TransProdOrderCapNeed(FromProdOrder: Record "Production Order")
     var

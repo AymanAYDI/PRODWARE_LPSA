@@ -19,6 +19,11 @@ pageextension 60048 "PWD SalesLines" extends "Sales Lines"
 
     // TODO:SourceTableView
     //SourceTableView=SORTING("Document Type",Type,"No.","Cust Promised Delivery Date");
+trigger OnOpenPage()
+begin
+SetCurrentKey("Document Type",Type,"No.","Cust Promised Delivery Date");
+Ascending(true);
+end;
 
     layout
     {

@@ -170,17 +170,12 @@ page 50020 "PWD Routing Lines choice"
                     StyleExpr = BooGStyle;
                     ApplicationArea = All;
                 }
-                //TODO: l'extension de la table "Routing Line" n'existe pas qui contient les 2 champs "Next Operation Link Type","Fixed-step Prod. Rate time"
-                // field("Next Operation Link Type"; Rec."Next Operation Link Type")
-                // {
-                //     ApplicationArea = All;
-                // }
-                // field("Fixed-step Prod. Rate time"; Rec."Fixed-step Prod. Rate time")
-                // {
-                //     Style = StandardAccent;
-                //     StyleExpr = BooGStyle;
-                //     ApplicationArea = All;
-                // }
+                field("Fixed-step Prod. Rate time"; Rec."PWD Fixed-step Prod. Rate time")
+                {
+                    Style = StandardAccent;
+                    StyleExpr = BooGStyle;
+                    ApplicationArea = All;
+                }
             }
         }
     }
