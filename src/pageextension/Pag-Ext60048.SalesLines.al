@@ -17,14 +17,6 @@ pageextension 60048 "PWD SalesLines" extends "Sales Lines"
     // //>>MODIF HL
     // TI317966 DO.GEPO 08/03/2016 : add field Order Date
 
-    // TODO:SourceTableView
-    //SourceTableView=SORTING("Document Type",Type,"No.","Cust Promised Delivery Date");
-trigger OnOpenPage()
-begin
-SetCurrentKey("Document Type",Type,"No.","Cust Promised Delivery Date");
-Ascending(true);
-end;
-
     layout
     {
         addafter("Sell-to Customer No.")
@@ -75,5 +67,10 @@ end;
             }
         }
     }
+    trigger OnOpenPage()
+    begin
+        SetCurrentKey("Document Type", Type, "No.", "PWD Cust Promis. Delivery Date");
+        Ascending(true);
+    end;
 }
 

@@ -11467,9 +11467,6 @@ BAQEBAQEBAQEVVVVwMDA////////////////////////////////////////////////////////////
         <Field Name="Text015">
           <DataField>Text015</DataField>
         </Field>
-        <Field Name="STRSUBSTNO_Text005_FORMAT_CurrReport_PAGENO__">
-          <DataField>STRSUBSTNO_Text005_FORMAT_CurrReport_PAGENO__</DataField>
-        </Field>
         <Field Name="CopyText_Control1150106">
           <DataField>CopyText_Control1150106</DataField>
         </Field>
