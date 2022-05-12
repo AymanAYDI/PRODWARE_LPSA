@@ -255,6 +255,11 @@ codeunit 50020 "PWD LPSA Events Mgt."
         //<<FE_LAPIERRETTE_VTE03.001
     end;
 
+    [EventSubscriber(ObjectType::table, database::"Sales Line", 'OnValidateNoOnBeforeCalcShipmentDateForLocation', '', false, false)]
+    local procedure TAB37_OnValidateNoOnBeforeCalcShipmentDateForLocation_SalesLine(var IsHandled: Boolean; var SalesLine: Record "Sales Line")
+    begin
+        IsHandled := true;
+    end;
     //---TAB38---
     [EventSubscriber(ObjectType::table, database::"Purchase Header", 'OnAfterCopyBuyFromVendorAddressFieldsFromVendor', '', false, false)]
     local procedure Tab38_OnAfterCopyBuyFromVendorAddressFieldsFromVendor_PurchaseHeader(var PurchaseHeader: Record "Purchase Header"; BuyFromVendor: Record Vendor)

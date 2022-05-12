@@ -186,7 +186,7 @@ xmlport 8073325 "PWD Items Export OSYS"
                                 "G/L Entry".Description := RecLItemVariant2.Description;
                                 "G/L Entry"."Global Dimension 1 Code" := RecLItem2."Item Tracking Code";
                                 "G/L Entry"."Global Dimension 2 Code" := RecLItem2."Item Category Code";
-                                //TODO: Field 'Product Group Code' is removed
+                                //TODO: Field 'Product Group Code' is removed 
                                 //"G/L Entry"."Bal. Account No." := RecLItem2."Product Group Code";
                                 "G/L Entry".Amount := FctGetItemQtyPer(RecLItem."No.", RecLOSYSSetup."Packaging Unit");
                                 "G/L Entry".Quantity := FctGetItemQtyPer(RecLItem."No.", RecLOSYSSetup."Pallet  Unit");

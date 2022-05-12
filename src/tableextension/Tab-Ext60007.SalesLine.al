@@ -1,11 +1,11 @@
 tableextension 60007 "PWD SalesLine" extends "Sales Line"
 {
-    //TODO: 1- Suppression des instructions standard dans la table Sales Line, 2- modification dans la procedure UpdateUnitPrice, 3- modification dans la procedure CheckItemAvailable
+    //TODO: 1- Suppression des instructions standard dans la table Sales Line, 2- la 1ér modification dans la procedure UpdateUnitPrice, 3- modification dans la procedure CheckItemAvailable
     // +----------------------------------------------------------------------------------------------------------------+
     // | ProdWare                                                                                                       |
     // | www.prodware.fr                                                                                                |
     // +----------------------------------------------------------------------------------------------------------------+
-    // 
+    //  
     // //>>ProdConnect1.5
     // WMS-FE05.001:GR  01/07/2011   Connector integration
     //                              - Add fields:  "WMS_Status", "WMS_Item", "WMS_Location", "WMS_Status_Header", "WMS_Cust_Bloked"
@@ -165,10 +165,10 @@ tableextension 60007 "PWD SalesLine" extends "Sales Line"
         {
         }
         //TODO: clé contient champ standard
-        // key(Key50001; "Document Type", "Sell-to Customer No.", "PWD Cust Promised Delivery Date")
+        // key(Key50001; "Document Type", "Sell-to Customer No.", "PWD Cust Promis. Delivery Date")
         // {
         // }
-        // key(Key50002; "Document Type", Type, "No.", "PWD Cust Promised Delivery Date")
+        // key(Key50002; "Document Type", Type, "No.", "PWD Cust Promis. Delivery Date")
         // {
         //     SumIndexFields = "Outstanding Qty. (Base)";
         // }

@@ -5438,16 +5438,6 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Codeunit PWD LPSA Functions Mgt. - Method UpdateComponentPhantom - NamedType Text50001</note>
         </trans-unit>
-        <trans-unit id="Codeunit 3490447731 - NamedType 2476940767" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Reservation is defined for the %1.\You must cancel the existing Reservation before deleting or changing Item Tracking.</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Codeunit PWD LPSA Tracking Management - NamedType Text000</note>
-        </trans-unit>
-        <trans-unit id="Codeunit 3490447731 - NamedType 3114637384" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Reservation is defined for the %1.\You must not set %2 lower then %3.</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Codeunit PWD LPSA Tracking Management - NamedType Text001</note>
-        </trans-unit>
         <trans-unit id="Codeunit 3490447731 - NamedType 3752334001" size-unit="char" translate="yes" xml:space="preserve">
           <source>Quantity must be %1.</source>
           <note from="Developer" annotates="general" priority="2"></note>
@@ -5507,16 +5497,6 @@
           <source>sales order line</source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Codeunit PWD LPSA Tracking Management - NamedType Text017</note>
-        </trans-unit>
-        <trans-unit id="Codeunit 51242148 - NamedType 2476940767" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Reservation is defined for the %1.\You must cancel the existing Reservation before deleting or changing Item Tracking.</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Codeunit PWD RDD - Tracking Management - NamedType Text000</note>
-        </trans-unit>
-        <trans-unit id="Codeunit 51242148 - NamedType 3114637384" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Reservation is defined for the %1.\You must not set %2 lower then %3.</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Codeunit PWD RDD - Tracking Management - NamedType Text001</note>
         </trans-unit>
         <trans-unit id="Codeunit 51242148 - NamedType 3752334001" size-unit="char" translate="yes" xml:space="preserve">
           <source>Quantity must be %1.</source>
@@ -6458,11 +6438,6 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Page PWD Item List requirement - Action Action1901374406 - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Page 1064686525 - Action 1028377454 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Item Statistic Period Comparison</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page PWD Item List requirement - Action Action1901981306 - Property Caption</note>
-        </trans-unit>
         <trans-unit id="Page 1064686525 - Action 3729706159 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Where Used (Top Level)</source>
           <note from="Developer" annotates="general" priority="2"></note>
@@ -6503,8 +6478,13 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Page PWD Item List requirement - Action Action1905753506 - Property Caption</note>
         </trans-unit>
+        <trans-unit id="Page 1064686525 - Action 2358600938 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>View a list of the orders that have not yet been shipped or received and the items in the orders. It shows the order number, customer's name, shipment date, order quantity, quantity on back order, outstanding quantity and unit price, as well as possible discount percentage and amount. The quantity on back order and outstanding quantity and amount are totaled for each item. The list can be used to find out whether there are currently shipment problems or any can be expected.</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page PWD Item List requirement - Action Action1905771206 - Property ToolTip</note>
+        </trans-unit>
         <trans-unit id="Page 1064686525 - Action 2358600938 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Item Sales Lines</source>
+          <source>Inventory Order Details</source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Page PWD Item List requirement - Action Action1905771206 - Property Caption</note>
         </trans-unit>
@@ -6528,8 +6508,13 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Page PWD Item List requirement - Action Action1906231806 - Property Caption</note>
         </trans-unit>
+        <trans-unit id="Page 1064686525 - Action 2406461841 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>View a list of items on order from vendors. It also shows the expected receipt date and the quantity and amount on back orders. The report can be used, for example, to see when items should be received and whether a reminder of a back order should be issued.</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page PWD Item List requirement - Action Action1906265806 - Property ToolTip</note>
+        </trans-unit>
         <trans-unit id="Page 1064686525 - Action 2406461841 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Item Purchase Lines</source>
+          <source>Inventory Purchase Orders</source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Page PWD Item List requirement - Action Action1906265806 - Property Caption</note>
         </trans-unit>
@@ -9192,11 +9177,6 @@
           <source>Order %1</source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Report PWD Order LAP - NamedType Text004</note>
-        </trans-unit>
-        <trans-unit id="Report 3220346388 - NamedType 1370456556" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Page %1</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Report PWD Order LAP - NamedType Text005</note>
         </trans-unit>
         <trans-unit id="Report 3220346388 - NamedType 2008153173" size-unit="char" translate="yes" xml:space="preserve">
           <source>Total %1 Excl. VAT</source>
@@ -13178,31 +13158,6 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">TableExtension PWD ItemCategory - Field PWD Transmitted Order No. - Property Caption</note>
         </trans-unit>
-        <trans-unit id="TableExtension 1868461685 - Field 3295389276 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 971560972">
-          <source>Client</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">TableExtension PWD ItemCrossReference - Field PWD Customer Name - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="TableExtension 1868461685 - Field 408025422 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 971560972">
-          <source>Customer Plan Description</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">TableExtension PWD ItemCrossReference - Field PWD Customer Plan Description - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="TableExtension 1868461685 - Field 2317250229 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 971560972">
-          <source>Customer Plan No.</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">TableExtension PWD ItemCrossReference - Field PWD Customer Plan No. - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="TableExtension 1868461685 - Field 1855370277 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 971560972">
-          <source>PWD EAN13</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">TableExtension PWD ItemCrossReference - Field PWD EAN13 - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="TableExtension 1868461685 - Field 3614043434 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 971560972">
-          <source>Item Search Description</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">TableExtension PWD ItemCrossReference - Field PWD Item Search Description - Property Caption</note>
-        </trans-unit>
         <trans-unit id="TableExtension 796314491 - Field 3257687023 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 346005766">
           <source>Conform quality control</source>
           <note from="Developer" annotates="general" priority="2"></note>
@@ -13237,6 +13192,31 @@
           <source>PWD Nom Fournisseur</source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">TableExtension PWD ItemLedgerEntry - Field PWD Nom Fournisseur - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="TableExtension 1841878791 - Field 3295389276 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 1067425594">
+          <source>Client</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">TableExtension PWD ItemReference - Field PWD Customer Name - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="TableExtension 1841878791 - Field 408025422 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 1067425594">
+          <source>Customer Plan Description</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">TableExtension PWD ItemReference - Field PWD Customer Plan Description - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="TableExtension 1841878791 - Field 2317250229 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 1067425594">
+          <source>Customer Plan No.</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">TableExtension PWD ItemReference - Field PWD Customer Plan No. - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="TableExtension 1841878791 - Field 1855370277 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 1067425594">
+          <source>PWD EAN13</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">TableExtension PWD ItemReference - Field PWD EAN13 - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="TableExtension 1841878791 - Field 3614043434 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 1067425594">
+          <source>Item Search Description</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">TableExtension PWD ItemReference - Field PWD Item Search Description - Property Caption</note>
         </trans-unit>
         <trans-unit id="TableExtension 264301891 - Field 3803974532 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 1568817742">
           <source>WMS_Item</source>
@@ -14469,17 +14449,17 @@
           <note from="Xliff Generator" annotates="general" priority="3">Enum PWD WMS_Type - EnumValue  - Property Caption</note>
         </trans-unit>
         <trans-unit id="Enum 2393877935 - EnumValue 1321055271 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Carton</source>
+          <source>Cardboard</source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Enum PWD WMS_Type - EnumValue Carton - Property Caption</note>
         </trans-unit>
         <trans-unit id="Enum 2393877935 - EnumValue 1730558441 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Couche</source>
+          <source>Layer</source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Enum PWD WMS_Type - EnumValue Couche - Property Caption</note>
         </trans-unit>
         <trans-unit id="Enum 2393877935 - EnumValue 3785650055 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Palette</source>
+          <source>Pallet</source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Enum PWD WMS_Type - EnumValue Palette - Property Caption</note>
         </trans-unit>

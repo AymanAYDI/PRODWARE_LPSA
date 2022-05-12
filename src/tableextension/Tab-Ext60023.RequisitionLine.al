@@ -64,7 +64,6 @@ tableextension 60023 "PWD RequisitionLine" extends "Requisition Line"
         key(Key50001; "Worksheet Template Name", "Journal Batch Name", "Starting Date", "No.", "Location Code")
         {
         }
-
     }
 }
 

@@ -280,16 +280,9 @@ xmlport 8073323 "PWD Export Prod Order OSYS"
                             IntGTempField := "Prod. Order Routing Line".Type;
                             F_Type := FORMAT(IntGTempField);
                             */
-                            //TODO: 'Record "Prod. Order Routing Line"' does not contain a field 'Planned Ress. No.' and 'Planned Ress. Type'
-                            // if ("Prod. Order Routing Line"."Planned Ress. No." <> '') and RecGOSYSSetup.PlannerOne and FctPlannerOnePermission() then begin
-                            //     IntGTempField := "Prod. Order Routing Line"."Planned Ress. Type";
-                            //     F_Type := Format(IntGTempField);
-                            // end
-                            // else begin
-                            //     IntGTempField := "Prod. Order Routing Line".Type;
-                            //     F_Type := Format(IntGTempField);
-                            // end;
-                            // //>>OSYS-Int001.002
+                            IntGTempField := "Prod. Order Routing Line".Type.AsInteger();
+                            F_Type := Format(IntGTempField);
+                            //>>OSYS-Int001.002
 
                         end;
                     }
@@ -313,19 +306,11 @@ xmlport 8073323 "PWD Export Prod Order OSYS"
                             ELSE
                               F_No := '';
                             */
-                            //TODO: 'Record "Prod. Order Routing Line"' does not contain a field 'Planned Ress. No.', 'Planned Ress. Type' 
-                            //     if ("Prod. Order Routing Line"."Planned Ress. No." <> '') and RecGOSYSSetup.PlannerOne and FctPlannerOnePermission() then begin
-                            //         if "Prod. Order Routing Line"."Planned Ress. Type" = "Prod. Order Routing Line"."Planned Ress. Type"::"Machine Center" then
-                            //             F_No := "Prod. Order Routing Line"."Planned Ress. No."
-                            //         else
-                            //             F_No := '';
-                            //     end
-                            //     else
-                            //         if "Prod. Order Routing Line".Type = "Prod. Order Routing Line".Type::"Machine Center" then
-                            //             F_No := "Prod. Order Routing Line"."No."
-                            //         else
-                            //             F_No := '';
-                            //     //>>OSYS-Int001.002
+                            if "Prod. Order Routing Line".Type = "Prod. Order Routing Line".Type::"Machine Center" then
+                                F_No := "Prod. Order Routing Line"."No."
+                            else
+                                F_No := '';
+                            //>>OSYS-Int001.002
                         end;
                     }
                     textelement(F_StartingDateTime)
@@ -1167,14 +1152,6 @@ xmlport 8073323 "PWD Export Prod Order OSYS"
 
         //Mon poste de charge est une main d'oeuvre  =>  la ligne de gamme n'est pas exporté
         exit(false);
-    end;
-
-    procedure FctPlannerOnePermission(): Boolean
-    var
-    //TODO: Table 'PlannerOneIntegrationRecord' is missing
-    //RecLPlannerOne: Record PlannerOneIntegrationRecord;
-    begin
-        //exit(RecLPlannerOne.ReadPermission);
     end;
 }
 

@@ -4800,8 +4800,8 @@ End Function
         <Field Name="ShowInternalInfo">
           <DataField>ShowInternalInfo</DataField>
         </Field>
-        <Field Name="ArchiveDocument">
-          <DataField>ArchiveDocument</DataField>
+        <Field Name="GArchiveDocument">
+          <DataField>GArchiveDocument</DataField>
         </Field>
         <Field Name="LogInteraction">
           <DataField>LogInteraction</DataField>
