@@ -75,5 +75,10 @@ pageextension 60048 "PWD SalesLines" extends "Sales Lines"
             }
         }
     }
+    trigger OnOpenPage()
+    begin
+        SetCurrentKey("Document Type", Type, "No.", "PWD Cust Promis. Delivery Date");
+        Ascending(true);
+    end;
 }
 
