@@ -1,7 +1,6 @@
 tableextension 60023 "PWD RequisitionLine" extends "Requisition Line"
 {
-    //TODO: 1- ajout d'un champ PlanningGroup qui a un tablerelation avec la table PlannerOnePlanningGroup,
-    // 2- a verifier : modify la propriété InitValue a false pour le champ "Planning Flexibility"
+    //TODO: 1- a verifier : modify la propriété InitValue a false pour le champ "Planning Flexibility"
     // +----------------------------------------------------------------------------------------------------------------+
     // | ProdWare                                                                                                       |
     // | www.prodware.fr                                                                                                |

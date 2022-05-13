@@ -884,18 +884,16 @@ report 50006 "PWD Proforma invoice"
     var
         RepLProformaInvoice: Report "PWD Proforma invoice";
         CodLMail: Codeunit Mail;
+        FileMgt: Codeunit "File Management";
         CstL001: Label 'LA PIERRETTE SA : Sales Invoice %1';
         CstL002: Label 'Next the invoice following your order %1';
         Recipient: Text[80];
         Body: Text[100];
         Subject: Text[100];
-        //TODO: Codeunit '3-Tier Automation Mgt.' is missing
-        //CduLTierAutomationMgt: Codeunit "3-Tier Automation Mgt.";
         TxtLFileName: Text[250];
         TxtLServerFile: Text[250];
     begin
-        //TODO: Codeunit '3-Tier Automation Mgt.' is missing
-        //TxtLServerFile := CduLTierAutomationMgt.ServerTempFileName('', '');
+        TxtLServerFile := FileMgt.ServerTempFileName('');
         RepLProformaInvoice.SkipSendEmail(true);
         RepLProformaInvoice.SetTableView(RecPSalesHeader);
         RepLProformaInvoice.SaveAsPdf(TxtLServerFile);
@@ -933,15 +931,13 @@ report 50006 "PWD Proforma invoice"
 
     procedure DownloadToClientFileName(TxtPServerFile: Text[250]; TxtPFileName: Text[250]): Text[250]
     var
+        FileMgt: Codeunit "File Management";
         TxtLClientFileName: Text[250];
         TxtLFinalClientFileName: Text[250];
     //TODO: 'Automation' is not recognized as a valid type
     //AutLFileObjectSystem: Automation;
-    //TODO: Codeunit '3-Tier Automation Mgt.' is missing
-    // CduLTierAutomationMgt: Codeunit "3-Tier Automation Mgt.";
     begin
-        //TODO: Codeunit '3-Tier Automation Mgt.' is missing
-        //TxtLClientFileName := CduLTierAutomationMgt.ClientTempFileName('', '');
+        TxtLClientFileName := FileMgt.ClientTempFileName('');
         //TxtLFinalClientFileName := CduLTierAutomationMgt.Path(TxtLClientFileName) + TxtPFileName;
         Download(TxtPServerFile, '', '', '', TxtLClientFileName);
         // Create(AutLFileObjectSystem, false, true);

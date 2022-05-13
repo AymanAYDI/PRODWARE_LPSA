@@ -116,16 +116,18 @@ report 50001 "Export Planning Client Excel"
             begin
 
                 if Option = Option::"Update Workbook" then begin
-                        if UploadedFileName = '' then
-                            UploadFile()
-                        else
-                            GFileName := UploadedFileName;
-                    TempExcelBuffer.OpenBook(GFileName, SheetName);
+                    if UploadedFileName = '' then
+                        UploadFile()
+                    else
+                        GFileName := UploadedFileName;
+                    TempExcelBuffer.UpdateBookExcel(GFileName, SheetName, false);
                     TempExcelBuffer.WriteSheet('', CompanyName, UserId);
-                end else
-                    //TODO:There is no argument given that corresponds to the required formal parameter 'GFileName' of 'CreateBook(Text, Text)'
-                    //TempExcelBuffer.CreateBook;
+                    TempExcelBuffer.CloseBook;
+                end else begin
+                    TempExcelBuffer.CreateBook(GFileName, Text002E);
                     TempExcelBuffer.WriteSheet(Text003E, CompanyName, UserId);
+                    TempExcelBuffer.CloseBook;
+                end;
                 Commit();
                 TempExcelBuffer.OpenExcel();
                 Error('');
@@ -205,7 +207,7 @@ report 50001 "Export Planning Client Excel"
                             ExcelBuf: Record "Excel Buffer";
                         begin
                             // if IsServiceTier then
-                                SheetName := ExcelBuf.SelectSheetsName(UploadedFileName);
+                            SheetName := ExcelBuf.SelectSheetsName(UploadedFileName);
                             // else
                             //     SheetName := ExcelBuf.SelectSheetsName(GFileName);
                         end;
@@ -260,6 +262,7 @@ report 50001 "Export Planning Client Excel"
         Text000: Label 'Analyzing Data...\\';
         Text002: Label 'Update Workbook';
         Text003: Label 'The file was successfully uploaded to server';
+        Text002E: Label 'Data';
         Text003E: Label 'Export Planning Client Excel';
         Option: Option "Create Workbook","Update Workbook";
         GFileName: Text[250];
@@ -376,23 +379,23 @@ report 50001 "Export Planning Client Excel"
     local procedure PageUpdateRequestForm()
     begin
         if Option = Option::"Update Workbook" then begin
-                FileNameEnable := true;
-                SheetNameEnable := true;
+            FileNameEnable := true;
+            SheetNameEnable := true;
         end else begin
             GFileName := '';
             UploadedFileName := '';
             SheetName := '';
-                FileNameEnable := false;
-                SheetNameEnable := false;
+            FileNameEnable := false;
+            SheetNameEnable := false;
         end;
     end;
 
     local procedure ReadExcelSheet()
     begin
-            if UploadedFileName = '' then
-                UploadFile()
-            else
-                GFileName := UploadedFileName;
+        if UploadedFileName = '' then
+            UploadFile()
+        else
+            GFileName := UploadedFileName;
 
         TempExcelBuffer.OpenBook(GFileName, SheetName);
         TempExcelBuffer.ReadSheet();

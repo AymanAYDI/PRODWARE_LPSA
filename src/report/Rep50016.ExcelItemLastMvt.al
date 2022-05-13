@@ -122,11 +122,12 @@ report 50016 "PWD Excel Item Last Mvt"
             end;
 
             trigger OnPostDataItem()
+            Var
+                ServerFileName: Text;
             begin
-                //TODO: There is no argument given that corresponds to the required formal parameter 'FileName' of 'CreateBook(Text, Text)'
-                //ExcelBuf.CreateBook;
+                ExcelBuf.CreateBook(ServerFileName, CstG012);
                 ExcelBuf.WriteSheet(CstG012, CompanyName, UserId);
-                ExcelBuf.OpenExcel();
+                ExcelBuf.CloseBook();
             end;
 
             trigger OnPreDataItem()
