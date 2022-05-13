@@ -867,18 +867,16 @@ report 50013 "PWD Credit Note"
     var
         RepLCreditNote: Report "PWD Credit Note";
         CodLMail: Codeunit Mail;
+        FileMgt: Codeunit "File Management";
         CstL001: Label 'LA PIERRETTE SA : Sales Invoice %1';
         CstL002: Label 'Next the invoice following your order %1';
         Recipient: Text[80];
         Body: Text[100];
         Subject: Text[100];
-        //TODO: Codeunit '3-Tier Automation Mgt.' is missing
-        //CduLTierAutomationMgt: Codeunit "3-Tier Automation Mgt.";
         TxtLFileName: Text[250];
         TxtLServerFile: Text[250];
     begin
-        //TODO: Codeunit '3-Tier Automation Mgt.' is missing
-        //TxtLServerFile := CduLTierAutomationMgt.ServerTempFileName('', '');
+        TxtLServerFile := FileMgt.ServerTempFileName('');
         RepLCreditNote.SkipSendEmail(TRUE);
         RepLCreditNote.SETTABLEVIEW(RecPSalesCrMHeader);
         RepLCreditNote.SAVEASPDF(TxtLServerFile);

@@ -373,43 +373,6 @@ codeunit 50020 "PWD LPSA Events Mgt."
         ELSE
             ItemJournalLine.VALIDATE("Location Code", ItemJournalLine.FctGetProdOrderLine(ItemJournalLine."Order No.", ItemJournalLine."Order Line No."));
     end;
-    //TODO       [EventSubscriber(ObjectType::table, database::"Item Journal Line", 'OnAfterCopyFromMachineCenter', '', false, false)]
-    //     local procedure TAB83_OnAfterCopyFromMachineCenter_ItemJournalLine(var ItemJournalLine: Record "Item Journal Line"; MachineCenter: Record "Machine Center")
-    //     var
-    //     RecLManufSetup: Record 99000765;
-    //     RecLProdOrderLine: Record 5406;
-    //     RecLProdOrderRoutingLine: Record 5409;
-    //     begin
-    //          //>>FE_LAPIERRETTE_PRO12.001
-    // //{
-    //         //>>FE_LAPIERRETTE_PROD03.002
-    //         RecLManufSetup.GET();
-    //         //On v‚rifie si le journal line est associ‚ … la derniŠre ligne de gamme pour pouvoir y associer la tra‡a
-    //         RecLProdOrderRoutingLine.SETRANGE(Status, RecLProdOrderRoutingLine.Status::Released);
-    //                                                                       RecLProdOrderRoutingLine.SETRANGE(RecLProdOrderRoutingLine."Prod. Order No.", "Prod. Order No.");
-    //                                                                       RecLProdOrderRoutingLine.SETRANGE(RecLProdOrderRoutingLine."Routing Reference No.", "Prod. Order Line No.");
-    //                                                                       RecLProdOrderRoutingLine.SETRANGE(RecLProdOrderRoutingLine."Routing No.", "Item No.");
-    //                                                                       RecLProdOrderRoutingLine.SETRANGE(RecLProdOrderRoutingLine."Operation No.", "Operation No.");
-    //                                                                       IF RecLProdOrderRoutingLine.FINDFIRST THEN
-    //                                                                       BEGIN
-    //         IF RecLProdOrderRoutingLine."Next Operation No." = '' THEN
-    //             IF (MachineCenter."No." = RecLManufSetup."Mach. center - Inventory input")
-    //              AND (NOT ("Conform quality control")) THEN BEGIN
-    //                 VALIDATE("Location Code", RecLManufSetup."Non conformity Prod. Location");
-    //                 IF RecLProdOrderLine.GET(RecLProdOrderLine.Status::Released,
-    //                 "Prod. Order No.", "Prod. Order Line No.") THEN BEGIN
-    //                     RecLProdOrderLine.VALIDATE("Location Code", RecLManufSetup."Non conformity Prod. Location");
-    //                     RecLProdOrderLine.MODIFY(TRUE);
-    //                 END;
-    //             END
-    //     END
-    //                                                                       ELSE
-    //                                                                         VALIDATE("Location Code",FctGetProdOrderLine("Prod. Order No.","Prod. Order Line No."));
-    //                                                                         //<<FE_LAPIERRETTE_PROD03.002
-    // }
-    //                                                                       //<<FE_LAPIERRETTE_PRO12.001 
-    //     end;
-
     //---TAB111---
     [EventSubscriber(ObjectType::table, database::"Sales Shipment Line", 'OnBeforeInsertInvLineFromShptLineBeforeInsertTextLine', '', false, false)]
     local procedure TAB111_OnBeforeInsertInvLineFromShptLineBeforeInsertTextLine_SalesShptLine(var SalesShptLine: Record "Sales Shipment Line"; var SalesLine: Record "Sales Line"; var NextLineNo: Integer; var Handled: Boolean; TempSalesLine: Record "Sales Line" temporary; SalesInvHeader: Record "Sales Header")

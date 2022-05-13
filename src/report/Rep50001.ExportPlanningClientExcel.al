@@ -120,12 +120,14 @@ report 50001 "Export Planning Client Excel"
                         UploadFile()
                     else
                         GFileName := UploadedFileName;
-                    TempExcelBuffer.OpenBook(GFileName, SheetName);
+                    TempExcelBuffer.UpdateBookExcel(GFileName, SheetName, false);
                     TempExcelBuffer.WriteSheet('', CompanyName, UserId);
-                end else
-                    //TODO:There is no argument given that corresponds to the required formal parameter 'GFileName' of 'CreateBook(Text, Text)'
-                    //TempExcelBuffer.CreateBook;
+                    TempExcelBuffer.CloseBook;
+                end else begin
+                    TempExcelBuffer.CreateBook(GFileName, Text002E);
                     TempExcelBuffer.WriteSheet(Text003E, CompanyName, UserId);
+                    TempExcelBuffer.CloseBook;
+                end;
                 Commit();
                 TempExcelBuffer.OpenExcel();
                 Error('');
@@ -257,6 +259,7 @@ report 50001 "Export Planning Client Excel"
         Text000: Label 'Analyzing Data...\\';
         Text002: Label 'Update Workbook';
         Text003: Label 'The file was successfully uploaded to server';
+        Text002E: Label 'Data';
         Text003E: Label 'Export Planning Client Excel';
         Option: Option "Create Workbook","Update Workbook";
         GFileName: Text[250];
