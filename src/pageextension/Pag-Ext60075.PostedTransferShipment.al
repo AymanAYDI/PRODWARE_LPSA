@@ -35,7 +35,6 @@ pageextension 60075 "PWD PostedTransferShipment" extends "Posted Transfer Shipme
                 RunObject = Page "Inventory Comment Sheet";
                 RunPageLink = "Document Type" = CONST("Posted Transfer Shipment"),
                                   "No." = FIELD("No."), "PWD Document Line No." = CONST(0);
-                ToolTip = 'View or add comments for the record.';
             }
         }
     }

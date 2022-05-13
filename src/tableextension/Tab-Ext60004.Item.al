@@ -269,6 +269,19 @@ tableextension 60004 "PWD Item" extends Item
             Description = 'LAP2.12';
             FieldClass = FlowField;
         }
+        field(50021; "PWD Product Group Code"; Code[10])
+        {
+            Caption = 'Product Group Code';
+            TableRelation = "PWD Product Group".Code WHERE("Item Category Code" = FIELD("Item Category Code"));
+            trigger OnValidate()
+            var
+                CduGClosingMgt: Codeunit 50004;
+            begin
+                //>>P24578_008.001
+                CduGClosingMgt.UpdtItemDimValue(DATABASE::"PWD Product Group", "No.", "PWD Product Group Code");
+                //<<P24578_008.001  
+            end;
+        }
         field(50030; "PWD Component Initial Qty"; Decimal)
         {
             Caption = 'Qté composant initiale';

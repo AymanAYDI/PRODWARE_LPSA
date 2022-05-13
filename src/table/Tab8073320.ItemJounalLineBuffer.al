@@ -64,12 +64,10 @@ table 8073320 "PWD Item Jounal Line Buffer"
             Editable = false;
             TableRelation = "PWD Connector Messages".Code;
         }
-        field(13; Status; Option)
+        field(13; Status; Enum "PWD Status Buffer")
         {
             Caption = 'Status';
             Editable = false;
-            OptionCaption = ' ,Inserted,Modified,Deleted';
-            OptionMembers = " ",Inserted,Modified,Deleted;
         }
         field(14; Processed; Boolean)
         {

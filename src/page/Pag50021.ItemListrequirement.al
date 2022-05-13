@@ -907,24 +907,22 @@ page 50021 "PWD Item List requirement"
             }
             action(Action1905771206)
             {
-                ApplicationArea = Planning;
+                ApplicationArea = All;
                 Caption = 'Inventory Order Details';
                 Image = "Report";
                 Promoted = false;
                 //The property 'PromotedCategory' can only be set if the property 'Promoted' is set to 'true'
                 //PromotedCategory = "Report";
                 RunObject = Report "Inventory Order Details";
-                ToolTip = 'View a list of the orders that have not yet been shipped or received and the items in the orders. It shows the order number, customer''s name, shipment date, order quantity, quantity on back order, outstanding quantity and unit price, as well as possible discount percentage and amount. The quantity on back order and outstanding quantity and amount are totaled for each item. The list can be used to find out whether there are currently shipment problems or any can be expected.';
             }
             action(Action1906265806)
             {
-                ApplicationArea = Planning;
+                ApplicationArea = All;
                 Caption = 'Inventory Purchase Orders';
                 Image = "Report";
                 Promoted = true;
                 PromotedCategory = "Report";
                 RunObject = Report "Inventory Purchase Orders";
-                ToolTip = 'View a list of items on order from vendors. It also shows the expected receipt date and the quantity and amount on back orders. The report can be used, for example, to see when items should be received and whether a reminder of a back order should be issued.';
             }
             action(Action1907930606)
             {

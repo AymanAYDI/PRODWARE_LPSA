@@ -36,7 +36,6 @@ pageextension 60072 "PWD TransferOrder" extends "Transfer Order"
                 RunObject = Page "Inventory Comment Sheet";
                 RunPageLink = "Document Type" = CONST("Transfer Order"),
                                   "No." = FIELD("No."), "PWD Document Line No." = CONST(0);
-                ToolTip = 'View or add comments for the record.';
             }
         }
     }

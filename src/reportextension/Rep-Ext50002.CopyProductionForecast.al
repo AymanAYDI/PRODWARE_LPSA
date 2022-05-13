@@ -9,9 +9,8 @@ reportextension 50002 "PWD CopyProductionForecast" extends "Copy Production Fore
 
                 field(CustomerNo; ToProdForecastEntry."PWD Customer No.")
                 {
-                    ApplicationArea = Planning;
+                    ApplicationArea = All;
                     Caption = 'Customer No';
-                    ToolTip = 'Specifies a Customer No for the demand forecast to which you are copying entries.';
                 }
             }
         }

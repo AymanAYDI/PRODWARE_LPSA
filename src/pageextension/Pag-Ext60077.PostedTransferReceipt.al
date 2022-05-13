@@ -35,7 +35,6 @@ pageextension 60077 "PWD PostedTransferReceipt" extends "Posted Transfer Receipt
                 RunObject = Page "Inventory Comment Sheet";
                 RunPageLink = "Document Type" = CONST("Posted Transfer Receipt"),
                                   "No." = FIELD("No."), "PWD Document Line No." = CONST(0);
-                ToolTip = 'View or add comments for the record.';
 
             }
         }

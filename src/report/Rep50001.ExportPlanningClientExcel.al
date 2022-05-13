@@ -116,10 +116,10 @@ report 50001 "Export Planning Client Excel"
             begin
 
                 if Option = Option::"Update Workbook" then begin
-                        if UploadedFileName = '' then
-                            UploadFile()
-                        else
-                            GFileName := UploadedFileName;
+                    if UploadedFileName = '' then
+                        UploadFile()
+                    else
+                        GFileName := UploadedFileName;
                     TempExcelBuffer.OpenBook(GFileName, SheetName);
                     TempExcelBuffer.WriteSheet('', CompanyName, UserId);
                 end else
@@ -204,10 +204,7 @@ report 50001 "Export Planning Client Excel"
                         var
                             ExcelBuf: Record "Excel Buffer";
                         begin
-                            // if IsServiceTier then
-                                SheetName := ExcelBuf.SelectSheetsName(UploadedFileName);
-                            // else
-                            //     SheetName := ExcelBuf.SelectSheetsName(GFileName);
+                            SheetName := ExcelBuf.SelectSheetsName(UploadedFileName);
                         end;
                     }
                 }
@@ -271,24 +268,8 @@ report 50001 "Export Planning Client Excel"
 
     procedure UpdateRequestForm()
     begin
-        if IsServiceTier then begin
-            PageUpdateRequestForm();
-            exit;
-        end;
-        if Option = Option::"Update Workbook" then begin
-            if not IsServiceTier then;
-            //TODO:
-            // RequestOptionsPage.GFileName.ENABLED(TRUE);
-            // RequestOptionsPage.SheetName.ENABLED(TRUE);
-        end else begin
-            GFileName := '';
-            UploadedFileName := '';
-            SheetName := '';
-            if not IsServiceTier then;
-            //TODO:
-            // RequestOptionsPage.GFileName.ENABLED(FALSE);
-            // RequestOptionsPage.SheetName.ENABLED(FALSE);
-        end;
+        PageUpdateRequestForm();
+        exit;
     end;
 
 
@@ -304,7 +285,7 @@ report 50001 "Export Planning Client Excel"
         // TempExcelBuffer.AddColumn(Format(Text005E), false, '', true, false, false, '');
         // TempExcelBuffer.AddColumn(REPORT::"Export Planning Client Excel", false, '', false, false, false, '');
         // TempExcelBuffer.NewRow();
-        // TempExcelBuffer.AddColumn(Format(Text007E), false, '', true, false, false, '');
+        // TempExcelBuffer.AddColumn(Format(Text007E), false, '', true, false, false, ''); 
         // TempExcelBuffer.AddColumn(UserId, false, '', false, false, false, '');
         // TempExcelBuffer.NewRow();
         // TempExcelBuffer.AddColumn(Format(Text008E), false, '', true, false, false, '');
@@ -376,23 +357,23 @@ report 50001 "Export Planning Client Excel"
     local procedure PageUpdateRequestForm()
     begin
         if Option = Option::"Update Workbook" then begin
-                FileNameEnable := true;
-                SheetNameEnable := true;
+            FileNameEnable := true;
+            SheetNameEnable := true;
         end else begin
             GFileName := '';
             UploadedFileName := '';
             SheetName := '';
-                FileNameEnable := false;
-                SheetNameEnable := false;
+            FileNameEnable := false;
+            SheetNameEnable := false;
         end;
     end;
 
     local procedure ReadExcelSheet()
     begin
-            if UploadedFileName = '' then
-                UploadFile()
-            else
-                GFileName := UploadedFileName;
+        if UploadedFileName = '' then
+            UploadFile()
+        else
+            GFileName := UploadedFileName;
 
         TempExcelBuffer.OpenBook(GFileName, SheetName);
         TempExcelBuffer.ReadSheet();
