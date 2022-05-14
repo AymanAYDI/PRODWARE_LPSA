@@ -232,7 +232,7 @@ table 50016 "PWD Item Ledger Entry Buffer"
         field(5707; "Product Group Code"; Code[10])
         {
             Caption = 'Product Group Code';
-            TableRelation = "Product Group".Code WHERE("Item Category Code" = FIELD("Item Category Code"));
+            TableRelation = "PWD Product Group".Code WHERE("Item Category Code" = FIELD("Item Category Code"));
         }
         field(5740; "Transfer Order No."; Code[20])
         {

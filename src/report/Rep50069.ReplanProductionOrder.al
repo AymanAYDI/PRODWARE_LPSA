@@ -253,17 +253,15 @@ report 50069 "PWD Replan Production Order"
                     Caption = 'Options';
                     field(DirectionF; Direction)
                     {
-                        ApplicationArea = Manufacturing;
+                        ApplicationArea = All;
                         Caption = 'Scheduling Direction';
                         OptionCaption = 'Forward,Back';
-                        ToolTip = 'Specifies if you want the scheduling to be replanned forward or backward.';
                     }
                     field(CalcMethodF; CalcMethod)
                     {
-                        ApplicationArea = Manufacturing;
+                        ApplicationArea = All;
                         Caption = 'Plan';
                         OptionCaption = 'No Levels,One Level,All Levels';
-                        ToolTip = 'Specifies whether the planning is to take place over one or all levels of the production BOM.';
                         Editable = false;
                     }
                 }

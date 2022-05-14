@@ -6478,11 +6478,6 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Page PWD Item List requirement - Action Action1905753506 - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Page 1064686525 - Action 2358600938 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
-          <source>View a list of the orders that have not yet been shipped or received and the items in the orders. It shows the order number, customer's name, shipment date, order quantity, quantity on back order, outstanding quantity and unit price, as well as possible discount percentage and amount. The quantity on back order and outstanding quantity and amount are totaled for each item. The list can be used to find out whether there are currently shipment problems or any can be expected.</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page PWD Item List requirement - Action Action1905771206 - Property ToolTip</note>
-        </trans-unit>
         <trans-unit id="Page 1064686525 - Action 2358600938 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Inventory Order Details</source>
           <note from="Developer" annotates="general" priority="2"></note>
@@ -6507,11 +6502,6 @@
           <source>Inventory - Vendor Purchases</source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Page PWD Item List requirement - Action Action1906231806 - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Page 1064686525 - Action 2406461841 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
-          <source>View a list of items on order from vendors. It also shows the expected receipt date and the quantity and amount on back orders. The report can be used, for example, to see when items should be received and whether a reminder of a back order should be issued.</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page PWD Item List requirement - Action Action1906265806 - Property ToolTip</note>
         </trans-unit>
         <trans-unit id="Page 1064686525 - Action 2406461841 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Inventory Purchase Orders</source>
@@ -7893,20 +7883,10 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Report PWD Customer - Order Detail - Control Options - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Report 2810203791 - Control 2091143190 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Specifies if each customer's information is printed on a new page if you have chosen two or more customers to be included in the report.</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Report PWD Customer - Order Detail - Control NewPagePerCustomerF - Property ToolTip</note>
-        </trans-unit>
         <trans-unit id="Report 2810203791 - Control 2091143190 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>New Page per Customer</source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Report PWD Customer - Order Detail - Control NewPagePerCustomerF - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Report 2810203791 - Control 1676189749 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Specifies if the reported amounts are shown in the local currency.</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Report PWD Customer - Order Detail - Control ShowAmountsInLCYF - Property ToolTip</note>
         </trans-unit>
         <trans-unit id="Report 2810203791 - Control 1676189749 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Show Amounts in LCY</source>
@@ -9973,11 +9953,6 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Report PWD Replan Production Order - Control Options - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Report 2464213478 - Control 25702880 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Specifies whether the planning is to take place over one or all levels of the production BOM.</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Report PWD Replan Production Order - Control CalcMethodF - Property ToolTip</note>
-        </trans-unit>
         <trans-unit id="Report 2464213478 - Control 25702880 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Plan</source>
           <note from="Developer" annotates="general" priority="2"></note>
@@ -9987,11 +9962,6 @@
           <source>No Levels,One Level,All Levels</source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Report PWD Replan Production Order - Control CalcMethodF - Property OptionCaption</note>
-        </trans-unit>
-        <trans-unit id="Report 2464213478 - Control 280605293 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Specifies if you want the scheduling to be replanned forward or backward.</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Report PWD Replan Production Order - Control DirectionF - Property ToolTip</note>
         </trans-unit>
         <trans-unit id="Report 2464213478 - Control 280605293 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Scheduling Direction</source>
@@ -10058,60 +10028,30 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Report PWD Routing Sheet - Control Options - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Report 1688759508 - Control 629128873 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Specifies how many copies of the document to print.</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Report PWD Routing Sheet - Control NumberOfCopiesF - Property ToolTip</note>
-        </trans-unit>
         <trans-unit id="Report 1688759508 - Control 629128873 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>No. of Copies</source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Report PWD Routing Sheet - Control NumberOfCopiesF - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Report 1688759508 - Control 2363823040 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Specifies whether to include comments that provide additional information about the operation. For example, comments might mention special conditions for completing the operation.</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Report PWD Routing Sheet - Control PrintCommentF - Property ToolTip</note>
         </trans-unit>
         <trans-unit id="Report 1688759508 - Control 2363823040 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Comment</source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Report PWD Routing Sheet - Control PrintCommentF - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Report 1688759508 - Control 2600543399 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Specifies whether to include the people to involve in the operation. For example, this is useful if the operation requires special knowledge or training.</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Report PWD Routing Sheet - Control PrintPersonnelF - Property ToolTip</note>
-        </trans-unit>
         <trans-unit id="Report 1688759508 - Control 2600543399 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Personnel</source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Report PWD Routing Sheet - Control PrintPersonnelF - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Report 1688759508 - Control 3125323755 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Specifies whether to include quality measures for the operation. For example, this is useful for quality control purposes.</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Report PWD Routing Sheet - Control PrintQualityMeasuresF - Property ToolTip</note>
         </trans-unit>
         <trans-unit id="Report 1688759508 - Control 3125323755 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Quality Measures</source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Report PWD Routing Sheet - Control PrintQualityMeasuresF - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Report 1688759508 - Control 3279142049 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Specifies whether to include the tools that are required to complete the operation.</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Report PWD Routing Sheet - Control PrintToolF - Property ToolTip</note>
-        </trans-unit>
         <trans-unit id="Report 1688759508 - Control 3279142049 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Tools</source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Report PWD Routing Sheet - Control PrintToolF - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Report 1688759508 - Control 258290762 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Specifies the quantity of items to manufacture for which you want the program to calculate the total time of the routing.</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Report PWD Routing Sheet - Control ProductionQuantityF - Property ToolTip</note>
         </trans-unit>
         <trans-unit id="Report 1688759508 - Control 258290762 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Production Quantity</source>
@@ -11593,40 +11533,20 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Report PWD VAT - VIES Declaration XML - Control Options - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Report 3957671655 - Control 761458465 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Specifies if you want report amounts to be shown in the additional reporting currency.</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Report PWD VAT - VIES Declaration XML - Control AmountsInReportCurrencyF - Property ToolTip</note>
-        </trans-unit>
         <trans-unit id="Report 3957671655 - Control 761458465 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Show Amounts in Add. Reporting Currency</source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Report PWD VAT - VIES Declaration XML - Control AmountsInReportCurrencyF - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Report 3957671655 - Control 1732444560 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Specifies the code for the number series that was used to assign numbers.</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Report PWD VAT - VIES Declaration XML - Control NoSeriesF - Property ToolTip</note>
         </trans-unit>
         <trans-unit id="Report 3957671655 - Control 1732444560 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>No. Series</source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Report PWD VAT - VIES Declaration XML - Control NoSeriesF - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Report 3957671655 - Control 330899096 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Specifies the date when the VAT-VIES declaration is created.</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Report PWD VAT - VIES Declaration XML - Control ReportingDateF - Property ToolTip</note>
-        </trans-unit>
         <trans-unit id="Report 3957671655 - Control 330899096 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Reporting Date</source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Report PWD VAT - VIES Declaration XML - Control ReportingDateF - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Report 3957671655 - Control 3644391572 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Specifies what is exported. Select Normal transmission to export a full VAT-VIES declaration, or select Recall of an earlier report.</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Report PWD VAT - VIES Declaration XML - Control ReportingTypeF - Property ToolTip</note>
         </trans-unit>
         <trans-unit id="Report 3957671655 - Control 3644391572 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Reporting Type</source>
@@ -11643,20 +11563,10 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Report PWD VAT - VIES Declaration XML - Control Statement Period - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Report 3957671655 - Control 458153998 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Specifies the date from which the report or batch job processes information.</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Report PWD VAT - VIES Declaration XML - Control RepPeriodFromF - Property ToolTip</note>
-        </trans-unit>
         <trans-unit id="Report 3957671655 - Control 458153998 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Starting Date</source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Report PWD VAT - VIES Declaration XML - Control RepPeriodFromF - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Report 3957671655 - Control 4172288665 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Specifies the last date that the report includes data for.</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Report PWD VAT - VIES Declaration XML - Control RepPeriodToF - Property ToolTip</note>
         </trans-unit>
         <trans-unit id="Report 3957671655 - Control 4172288665 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Ending Date</source>
@@ -12558,20 +12468,10 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">PageExtension PWD PostedTransferRcptSubform - Action PWD Action1100267002 - Property Caption</note>
         </trans-unit>
-        <trans-unit id="PageExtension 3837376583 - Action 2874510719 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 2714855698">
-          <source>View or add comments for the record.</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">PageExtension PWD PostedTransferReceipt - Action PWD Co&amp;mments - Property ToolTip</note>
-        </trans-unit>
         <trans-unit id="PageExtension 3837376583 - Action 2874510719 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 2714855698">
           <source>Co&amp;mments</source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">PageExtension PWD PostedTransferReceipt - Action PWD Co&amp;mments - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="PageExtension 25895691 - Action 2874510719 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 4201932270">
-          <source>View or add comments for the record.</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">PageExtension PWD PostedTransferShipment - Action PWD Co&amp;mments - Property ToolTip</note>
         </trans-unit>
         <trans-unit id="PageExtension 25895691 - Action 2874510719 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 4201932270">
           <source>Co&amp;mments</source>
@@ -12792,11 +12692,6 @@
           <source>Target measures</source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">PageExtension PWD StandardTasks - Change Personnel - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="PageExtension 2861666938 - Action 2874510719 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 66664215">
-          <source>View or add comments for the record.</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">PageExtension PWD TransferOrder - Action PWD Co&amp;mments - Property ToolTip</note>
         </trans-unit>
         <trans-unit id="PageExtension 2861666938 - Action 2874510719 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 66664215">
           <source>Co&amp;mments</source>
@@ -14467,11 +14362,6 @@
           <source>UVC</source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Enum PWD WMS_Type - EnumValue UVC - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="ReportExtension 3452308282 - Control 3689535207 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Report 3768361735">
-          <source>Specifies a Customer No for the demand forecast to which you are copying entries.</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">ReportExtension PWD CopyProductionForecast - Control CustomerNo - Property ToolTip</note>
         </trans-unit>
         <trans-unit id="ReportExtension 3452308282 - Control 3689535207 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Report 3768361735">
           <source>Customer No</source>

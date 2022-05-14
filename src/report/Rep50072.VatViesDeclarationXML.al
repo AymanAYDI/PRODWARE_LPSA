@@ -258,44 +258,38 @@ report 50072 "PWD VAT - VIES Declaration XML"
                         Caption = 'Statement Period';
                         field(RepPeriodFromF; RepPeriodFrom)
                         {
-                            ApplicationArea = Basic, Suite;
+                            ApplicationArea = All;
                             Caption = 'Starting Date';
-                            ToolTip = 'Specifies the date from which the report or batch job processes information.';
                         }
                         field(RepPeriodToF; RepPeriodTo)
                         {
-                            ApplicationArea = Basic, Suite;
+                            ApplicationArea = All;
                             Caption = 'Ending Date';
-                            ToolTip = 'Specifies the last date that the report includes data for.';
                         }
                     }
                     field(ReportingDateF; Reportingdate)
                     {
-                        ApplicationArea = Basic, Suite;
+                        ApplicationArea = All;
                         Caption = 'Reporting Date';
-                        ToolTip = 'Specifies the date when the VAT-VIES declaration is created.';
                     }
                     field(ReportingTypeF; Reportingtype)
                     {
-                        ApplicationArea = Basic, Suite;
+                        ApplicationArea = All;
                         Caption = 'Reporting Type';
                         OptionCaption = 'Normal transmission,Recall of an earlier report';
-                        ToolTip = 'Specifies what is exported. Select Normal transmission to export a full VAT-VIES declaration, or select Recall of an earlier report.';
                     }
                     field(NoSeriesF; NoSeries.Code)
                     {
-                        ApplicationArea = Basic, Suite;
+                        ApplicationArea = All;
                         Caption = 'No. Series';
                         Lookup = true;
                         TableRelation = "No. Series";
-                        ToolTip = 'Specifies the code for the number series that was used to assign numbers.';
                     }
                     field(AmountsInReportCurrencyF; AmountsInReportCurrency)
                     {
-                        ApplicationArea = Basic, Suite;
+                        ApplicationArea = All;
                         Caption = 'Show Amounts in Add. Reporting Currency';
                         MultiLine = true;
-                        ToolTip = 'Specifies if you want report amounts to be shown in the additional reporting currency.';
                     }
                 }
             }

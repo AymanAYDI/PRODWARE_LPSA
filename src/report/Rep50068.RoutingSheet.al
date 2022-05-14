@@ -3,7 +3,7 @@ report 50068 "PWD Routing Sheet"
     DefaultLayout = RDLC;
     RDLCLayout = './src/report/rdl/RoutingSheet.rdl';
     AdditionalSearchTerms = 'operations sheet,process structure sheet';
-    ApplicationArea = Manufacturing;
+    ApplicationArea = All;
     Caption = 'Routing Sheet';
     UsageCategory = ReportsAndAnalysis;
     dataset
@@ -311,42 +311,36 @@ report 50068 "PWD Routing Sheet"
                     Caption = 'Options';
                     field(ProductionQuantityF; ProductionQuantity)
                     {
-                        ApplicationArea = Manufacturing;
+                        ApplicationArea = All;
                         Caption = 'Production Quantity';
                         DecimalPlaces = 0 : 5;
                         MinValue = 0;
-                        ToolTip = 'Specifies the quantity of items to manufacture for which you want the program to calculate the total time of the routing.';
                     }
                     field(PrintCommentF; PrintComment)
                     {
-                        ApplicationArea = Manufacturing;
+                        ApplicationArea = All;
                         Caption = 'Comment';
-                        ToolTip = 'Specifies whether to include comments that provide additional information about the operation. For example, comments might mention special conditions for completing the operation.';
                     }
                     field(PrintToolF; PrintTool)
                     {
-                        ApplicationArea = Manufacturing;
+                        ApplicationArea = All;
                         Caption = 'Tools';
-                        ToolTip = 'Specifies whether to include the tools that are required to complete the operation.';
                     }
                     field(PrintPersonnelF; PrintPersonnel)
                     {
-                        ApplicationArea = Manufacturing;
+                        ApplicationArea = All;
                         Caption = 'Personnel';
-                        ToolTip = 'Specifies whether to include the people to involve in the operation. For example, this is useful if the operation requires special knowledge or training.';
                     }
                     field(PrintQualityMeasuresF; PrintQualityMeasures)
                     {
-                        ApplicationArea = Manufacturing;
+                        ApplicationArea = All;
                         Caption = 'Quality Measures';
-                        ToolTip = 'Specifies whether to include quality measures for the operation. For example, this is useful for quality control purposes.';
                     }
                     field(NumberOfCopiesF; NumberOfCopies)
                     {
-                        ApplicationArea = Manufacturing;
+                        ApplicationArea = All;
                         Caption = 'No. of Copies';
                         MinValue = 0;
-                        ToolTip = 'Specifies how many copies of the document to print.';
                     }
                 }
             }

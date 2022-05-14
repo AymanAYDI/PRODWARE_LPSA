@@ -182,36 +182,35 @@ report 50021 "PWD Inventory Valuation - LPSA"
 
                 trigger OnAfterGetRecord()
                 begin
-                        CountRecord := CountRecord + 1;
-                        LastOutput := 0;
-                        AtLastDate := 0;
-                        LastWIP := 0;
+                    CountRecord := CountRecord + 1;
+                    LastOutput := 0;
+                    AtLastDate := 0;
+                    LastWIP := 0;
 
-                        if (CountRecord = LengthRecord) and IsNotWIP() then begin
-                            ValueEntryOnPostDataItem("Value Entry");
+                    if (CountRecord = LengthRecord) and IsNotWIP() then begin
+                        ValueEntryOnPostDataItem("Value Entry");
 
-                            AtLastDate := NcValueOfWIP + NcValueOfMatConsump + NcValueOfCap + NcValueOfOutput;
-                            LastOutput := NcValueOfOutput;
-                            LastWIP := NcValueOfWIP;
-                            //>>TI316306
-                            ValueOfCostPstdToGL := NcValueOfCostPstdToGL;
-                            //<<TI316306
+                        AtLastDate := NcValueOfWIP + NcValueOfMatConsump + NcValueOfCap + NcValueOfOutput;
+                        LastOutput := NcValueOfOutput;
+                        LastWIP := NcValueOfWIP;
+                        //>>TI316306
+                        ValueOfCostPstdToGL := NcValueOfCostPstdToGL;
+                        //<<TI316306
 
-                            NcValueOfWIP := 0;
-                            NcValueOfOutput := 0;
-                            NcValueOfMatConsump := 0;
-                            NcValueOfCap := 0;
-                            NcValueOfInvOutput1 := 0;
-                            NcValueOfExpOutPut1 := 0;
-                            NcValueOfExpOutPut2 := 0;
-                            NcValueOfRevalCostAct := 0;
-                            NcValueOfRevalCostPstd := 0;
-                            NcValueOfCostPstdToGL := 0;
-                        end;
+                        NcValueOfWIP := 0;
+                        NcValueOfOutput := 0;
+                        NcValueOfMatConsump := 0;
+                        NcValueOfCap := 0;
+                        NcValueOfInvOutput1 := 0;
+                        NcValueOfExpOutPut1 := 0;
+                        NcValueOfExpOutPut2 := 0;
+                        NcValueOfRevalCostAct := 0;
+                        NcValueOfRevalCostPstd := 0;
+                        NcValueOfCostPstdToGL := 0;
+                    end;
 
-                    // if not IsServiceTier then
-                        if IsNotWIP() then
-                            CurrReport.Skip();
+                    if IsNotWIP() then
+                        CurrReport.Skip();
 
                     if not IsNotWIP() then begin
                         ValueOfWIP := 0;
@@ -271,43 +270,43 @@ report 50021 "PWD Inventory Valuation - LPSA"
                         end else
                             ValueOfCostPstdToGL := "Cost Posted to G/L" + "Expected Cost Posted to G/L";
 
-                            NcValueOfWIP := NcValueOfWIP + ValueOfWIP;
-                            NcValueOfOutput := NcValueOfOutput + ValueOfOutput;
-                            NcValueOfMatConsump := NcValueOfMatConsump + ValueOfMatConsump;
-                            NcValueOfCap := NcValueOfCap + ValueOfCap;
-                            NcValueOfInvOutput1 := NcValueOfInvOutput1 + ValueOfInvOutput1;
-                            NcValueOfExpOutPut1 := NcValueOfExpOutPut1 + ValueOfExpOutput1;
-                            NcValueOfExpOutPut2 := NcValueOfExpOutPut2 + ValueOfExpOutput2;
+                        NcValueOfWIP := NcValueOfWIP + ValueOfWIP;
+                        NcValueOfOutput := NcValueOfOutput + ValueOfOutput;
+                        NcValueOfMatConsump := NcValueOfMatConsump + ValueOfMatConsump;
+                        NcValueOfCap := NcValueOfCap + ValueOfCap;
+                        NcValueOfInvOutput1 := NcValueOfInvOutput1 + ValueOfInvOutput1;
+                        NcValueOfExpOutPut1 := NcValueOfExpOutPut1 + ValueOfExpOutput1;
+                        NcValueOfExpOutPut2 := NcValueOfExpOutPut2 + ValueOfExpOutput2;
+                        //>>TI316306
+                        //NcValueOfRevalCostAct := NcValueOfRevalCostAct + ValueOfRevalCostAct;
+                        //NcValueOfRevalCostPstd := NcValueOfRevalCostPstd + ValueOfRevalCostPstd;
+                        NcValueOfRevalCostAct := ValueOfRevalCostAct;
+                        NcValueOfRevalCostPstd := ValueOfRevalCostPstd;
+                        //<<TI316306
+                        NcValueOfCostPstdToGL := NcValueOfCostPstdToGL + ValueOfCostPstdToGL;
+                        ValueOfCostPstdToGL := 0;
+
+                        if CountRecord = LengthRecord then begin
+                            ValueEntryOnPostDataItem("Value Entry");
                             //>>TI316306
-                            //NcValueOfRevalCostAct := NcValueOfRevalCostAct + ValueOfRevalCostAct;
-                            //NcValueOfRevalCostPstd := NcValueOfRevalCostPstd + ValueOfRevalCostPstd;
-                            NcValueOfRevalCostAct := ValueOfRevalCostAct;
-                            NcValueOfRevalCostPstd := ValueOfRevalCostPstd;
+                            ValueOfCostPstdToGL := NcValueOfCostPstdToGL;
                             //<<TI316306
-                            NcValueOfCostPstdToGL := NcValueOfCostPstdToGL + ValueOfCostPstdToGL;
-                            ValueOfCostPstdToGL := 0;
 
-                            if CountRecord = LengthRecord then begin
-                                ValueEntryOnPostDataItem("Value Entry");
-                                //>>TI316306
-                                ValueOfCostPstdToGL := NcValueOfCostPstdToGL;
-                                //<<TI316306
+                            AtLastDate := NcValueOfWIP + NcValueOfMatConsump + NcValueOfCap + NcValueOfOutput;
+                            LastOutput := NcValueOfOutput;
+                            LastWIP := NcValueOfWIP;
 
-                                AtLastDate := NcValueOfWIP + NcValueOfMatConsump + NcValueOfCap + NcValueOfOutput;
-                                LastOutput := NcValueOfOutput;
-                                LastWIP := NcValueOfWIP;
-
-                                NcValueOfWIP := 0;
-                                NcValueOfOutput := 0;
-                                NcValueOfMatConsump := 0;
-                                NcValueOfCap := 0;
-                                NcValueOfInvOutput1 := 0;
-                                NcValueOfExpOutPut1 := 0;
-                                NcValueOfExpOutPut2 := 0;
-                                NcValueOfRevalCostAct := 0;
-                                NcValueOfRevalCostPstd := 0;
-                                NcValueOfCostPstdToGL := 0;
-                            end;
+                            NcValueOfWIP := 0;
+                            NcValueOfOutput := 0;
+                            NcValueOfMatConsump := 0;
+                            NcValueOfCap := 0;
+                            NcValueOfInvOutput1 := 0;
+                            NcValueOfExpOutPut1 := 0;
+                            NcValueOfExpOutPut2 := 0;
+                            NcValueOfRevalCostAct := 0;
+                            NcValueOfRevalCostPstd := 0;
+                            NcValueOfCostPstdToGL := 0;
+                        end;
                     end;
 
                     //>>TI316306
@@ -358,10 +357,10 @@ report 50021 "PWD Inventory Valuation - LPSA"
                     LengthRecord := 0;
                     CountRecord := 0;
 
-                        if "Value Entry".Find('-') then
-                            repeat
-                                LengthRecord := LengthRecord + 1;
-                            until "Value Entry".Next() = 0;
+                    if "Value Entry".Find('-') then
+                        repeat
+                            LengthRecord := LengthRecord + 1;
+                        until "Value Entry".Next() = 0;
                 end;
             }
 
@@ -509,51 +508,35 @@ report 50021 "PWD Inventory Valuation - LPSA"
 
     procedure ValueEntryOnPostDataItem(ValueEntry: Record "Value Entry")
     begin
-        if IsServiceTier then begin
-            //>>TI316306
-            /*
-            IF NcValueOfExpOutPut2 = 0 THEN BEGIN // if prod. order is invoiced
-              NcValueOfOutput := NcValueOfOutput - NcValueOfRevalCostAct; // take out revalued differnce
-              NcValueOfCostPstdToGL := NcValueOfCostPstdToGL - NcValueOfRevalCostPstd; // take out Cost posted to G/L
-            END;
+        //>>TI316306
+        /*
+        IF NcValueOfExpOutPut2 = 0 THEN BEGIN // if prod. order is invoiced
+          NcValueOfOutput := NcValueOfOutput - NcValueOfRevalCostAct; // take out revalued differnce
+          NcValueOfCostPstdToGL := NcValueOfCostPstdToGL - NcValueOfRevalCostPstd; // take out Cost posted to G/L
+        END;
 
-            IF NcValueOfWIP + NcValueOfMatConsump + NcValueOfCap <> -NcValueOfOutput THEN BEGIN
-              NcValueOfWIP := NcValueOfWIP - NcValueOfInvOutput1 + NcValueOfExpOutPut1;
-              IF NcValueOfExpOutPut2 <> 0 THEN // prod. order is un-invoiced, so Actual Output = 0
-                NcValueOfOutput := NcValueOfExpOutPut2;
-            END;
-            */
+        IF NcValueOfWIP + NcValueOfMatConsump + NcValueOfCap <> -NcValueOfOutput THEN BEGIN
+          NcValueOfWIP := NcValueOfWIP - NcValueOfInvOutput1 + NcValueOfExpOutPut1;
+          IF NcValueOfExpOutPut2 <> 0 THEN // prod. order is un-invoiced, so Actual Output = 0
+            NcValueOfOutput := NcValueOfExpOutPut2;
+        END;
+        */
 
-            if (NcValueOfExpOutPut2 + NcValueOfExpOutPut1) = 0 then begin // if prod. order is invoiced
-                NcValueOfOutput := NcValueOfOutput - NcValueOfRevalCostAct; // take out revalued differnce
-                NcValueOfCostPstdToGL := NcValueOfCostPstdToGL - NcValueOfRevalCostPstd; // take out Cost posted to G/L
-            end;
+        if (NcValueOfExpOutPut2 + NcValueOfExpOutPut1) = 0 then begin // if prod. order is invoiced
+            NcValueOfOutput := NcValueOfOutput - NcValueOfRevalCostAct; // take out revalued differnce
+            NcValueOfCostPstdToGL := NcValueOfCostPstdToGL - NcValueOfRevalCostPstd; // take out Cost posted to G/L
+        end;
 
-            /*IF NcValueOfWIP + NcValueOfMatConsump + NcValueOfCap <> -NcValueOfOutput THEN BEGIN
-              NcValueOfWIP := NcValueOfWIP - NcValueOfInvOutput1 + NcValueOfExpOutPut1;
-              IF NcValueOfExpOutPut2 <> 0 THEN // prod. order is un-invoiced, so Actual Output = 0
-                NcValueOfOutput := NcValueOfExpOutPut2;
-            END;*/
-            //<<TI316306
-        end else
-            //>>TI316306
-            /*
-            IF ValueOfExpOutput2 = 0 THEN BEGIN // if prod. order is invoiced
-              ValueOfOutput := ValueOfOutput - ValueOfRevalCostAct; // take out revalued differnce
-              ValueOfCostPstdToGL := ValueOfCostPstdToGL - ValueOfRevalCostPstd; // take out Cost posted to G/L
-            END;
-
-            IF ValueOfWIP + ValueOfMatConsump + ValueOfCap <> -ValueOfOutput THEN BEGIN
-              ValueOfWIP := ValueOfWIP - ValueOfInvOutput1 + ValueOfExpOutput1;
-              IF ValueOfExpOutput2 <> 0 THEN // prod. order is un-invoiced, so Actual Output = 0
-                ValueOfOutput := ValueOfExpOutput2;
-            END;
-            */
-
-            if (ValueOfExpOutput2 + ValueOfExpOutput1) = 0 then begin // if prod. order is invoiced
-                ValueOfOutput := ValueOfOutput - ValueOfRevalCostAct; // take out revalued differnce
-                ValueOfCostPstdToGL := ValueOfCostPstdToGL - ValueOfRevalCostPstd; // take out Cost posted to G/L
-            end;
+        /*IF NcValueOfWIP + NcValueOfMatConsump + NcValueOfCap <> -NcValueOfOutput THEN BEGIN
+          NcValueOfWIP := NcValueOfWIP - NcValueOfInvOutput1 + NcValueOfExpOutPut1;
+          IF NcValueOfExpOutPut2 <> 0 THEN // prod. order is un-invoiced, so Actual Output = 0
+            NcValueOfOutput := NcValueOfExpOutPut2;
+        END;*/
+        //<<TI316306
+        if (ValueOfExpOutput2 + ValueOfExpOutput1) = 0 then begin // if prod. order is invoiced
+            ValueOfOutput := ValueOfOutput - ValueOfRevalCostAct; // take out revalued differnce
+            ValueOfCostPstdToGL := ValueOfCostPstdToGL - ValueOfRevalCostPstd; // take out Cost posted to G/L
+        end;
         /*IF ValueOfWIP + ValueOfMatConsump + ValueOfCap <> -ValueOfOutput THEN BEGIN
           ValueOfWIP := ValueOfWIP - ValueOfInvOutput1 + ValueOfExpOutput1;
           IF ValueOfExpOutput2 <> 0 THEN // prod. order is un-invoiced, so Actual Output = 0

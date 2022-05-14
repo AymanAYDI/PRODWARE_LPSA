@@ -411,16 +411,15 @@ report 50000 "Export Invoicing Data (Excel)"
                 begin
                     Compteur := Compteur + 1;
                     //TODO:The name 'Sheet' does not exist in the current context
-                    // Sheet.Range('A' + Format(Compteur)).Value := Format(InvoiceLineRol1."Posting Date", 0, '<Day,2>.<Month,2>.<Year4>');
+                    //Sheet.Range('A' + Format(Compteur)).Value := Format(InvoiceLineRol1."Posting Date", 0, '<Day,2>.<Month,2>.<Year4>');
                     // Sheet.Range('B' + Format(Compteur)).Value := Format(InvoiceLineRol1."Posting Date", 0, '<Day,2>.<Month,2>.<Year4>');
                     // Sheet.Range('C' + Format(Compteur)).Value := 'DR';
                     // Sheet.Range('D' + Format(Compteur)).Value := InvoiceLineRol1."Document No.";
 
-                    // Sheet.Range('E' + Format(Compteur)).Value := CodGCurrency;
+                    //Sheet.Range('E' + Format(Compteur)).Value := CodGCurrency;
 
                     // Sheet.Range('F' + Format(Compteur)).Value := TxtGBarCode;
-
-                    // Sheet.Range('G' + Format(Compteur)).Value := '1900';
+                    //Sheet.Range('G' + Format(Compteur)).Value := '1900';
                     // //Sheet.Range('H'+FORMAT(Compteur)).Value:= '01';
                     // Sheet.Range('H' + Format(Compteur)).Value := CstG01;
 
@@ -598,27 +597,18 @@ report 50000 "Export Invoicing Data (Excel)"
         //TODO: The name 'Create' does not exist in the current context
         //Create(Excel, true, true);
 
+        ServerFile.CreateTempFile();
+        TempFileName := ServerFile.Name + '.txt';
+        ServerFile.Close();
+        ServerFile.Create(TempFileName);
+        ServerFile.TextMode := true;
+        ServerFile.Close();
 
-       //if not IsServiceTier then begin
-            //TODO:
-            // Excel.Visible(true);
-            // Book := Excel.Workbooks.Add;
-            // Sheet := Excel.Sheets.Add;
-            // Sheet.Name := 'Clients non Rolex';
-        //end else begin
-            ServerFile.CreateTempFile();
-            TempFileName := ServerFile.Name + '.txt';
-            ServerFile.Close();
-            ServerFile.Create(TempFileName);
-            ServerFile.TextMode := true;
-            ServerFile.Close();
-
-            TempFileName := ThreeTierMngt.DownloadTempFile(TempFileName);
-            //TODO:
-            // Excel.Workbooks.OpenText(TempFileName);
-            // Excel.Visible(true);
-            // Sheet := Excel.ActiveSheet;
-            // Sheet.Name := 'Clients non Rolex';
+        TempFileName := ThreeTierMngt.DownloadTempFile(TempFileName);
+        Excel.Workbooks.OpenText(TempFileName);
+        Excel.Visible(true);
+        Sheet := Excel.ActiveSheet;
+        Sheet.Name := 'Clients non Rolex';
         //end;
 
 
@@ -629,12 +619,9 @@ report 50000 "Export Invoicing Data (Excel)"
 
     var
         RecGGenLedgerSetup: Record "General Ledger Setup";
-        //TODO:DotNet 'EXCEL Workbook' is missing
-        //Book: DotNet "EXCEL Workbook";
-        //TODO:DotNet 'EXCEL ApplicationClass' is missing
-        //Excel: DotNet "EXCEL ApplicationClass";
-        //TODO: DotNet 'EXCEL Worksheet' is missing
-        //Sheet: DotNet "EXCEL Worksheet";
+        Book: DotNet "EXCEL Workbook";
+        Excel: DotNet "EXCEL ApplicationClass";
+        Sheet: DotNet "EXCEL Worksheet";
         CodGCurrency: Code[10];
         CodGShipNo: Code[20];
         DatGEnding: Date;

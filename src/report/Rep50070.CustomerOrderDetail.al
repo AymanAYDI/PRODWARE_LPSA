@@ -2,7 +2,7 @@ report 50070 "PWD Customer - Order Detail"
 {
     DefaultLayout = RDLC;
     RDLCLayout = './src/report/rdl/CustomerOrderDetail.rdl';
-    ApplicationArea = Basic, Suite;
+    ApplicationArea = All;
     Caption = 'Customer - Order Detail';
     PreviewMode = PrintLayout;
     UsageCategory = ReportsAndAnalysis;
@@ -280,15 +280,13 @@ report 50070 "PWD Customer - Order Detail"
                     Caption = 'Options';
                     field(ShowAmountsInLCYF; PrintAmountsInLCY)
                     {
-                        ApplicationArea = Basic, Suite;
+                        ApplicationArea = All;
                         Caption = 'Show Amounts in LCY';
-                        ToolTip = 'Specifies if the reported amounts are shown in the local currency.';
                     }
                     field(NewPagePerCustomerF; PrintOnlyOnePerPage)
                     {
-                        ApplicationArea = Basic, Suite;
+                        ApplicationArea = All;
                         Caption = 'New Page per Customer';
-                        ToolTip = 'Specifies if each customer''s information is printed on a new page if you have chosen two or more customers to be included in the report.';
                     }
                 }
             }
