@@ -468,8 +468,6 @@ codeunit 8073291 "PWD Buffer Management"
         Fieldref := RecordRef.FIELD(9);
         Fieldref.CALCFIELD();
         RecLTempBlob.FromFieldRef(Fieldref);
-        //TODO:'Codeunit "Temp Blob"' does not contain a definition for 'CALCFIELDS'
-        //RecLTempBlob.CALCFIELDS();
         IF RecLTempBlob.HASVALUE() THEN BEGIN
             RecLTempBlob.CREATEINSTREAM(InsLStream);
             CduLFileManagement.FctShowBlobAsWindow(InsLStream)
@@ -1914,8 +1912,6 @@ codeunit 8073291 "PWD Buffer Management"
         RecLConnectorValues."Communication Mode" := RecLPartner."Communication Mode";
         CduLFileManagement.FctTranformFileToBlob(TxtPFileName2,
                                                  RecLTempBlob, CodPPartnerCode, RecLConnectorValues."Entry No.", OptPDirection);
-        //TODO:'Codeunit "Temp Blob"' does not contain a definition for 'CALCFIELDS'
-        // RecLTempBlob.CALCFIELDS(Blob);
         RecLTempBlob.CREATEINSTREAM(InsLstream);
         RecLConnectorValues.Blob.CREATEOUTSTREAM(OusLstream);
         COPYSTREAM(OusLstream, InsLstream);

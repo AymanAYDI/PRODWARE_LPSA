@@ -52,8 +52,6 @@ codeunit 8073295 "PWD Connector Pim Parse Data"
                 end;
 
         end;
-        //TODO: 'Codeunit "Temp Blob"' does not contain a definition for 'CalcFields'
-        //TempBlob.CalcFields(Blob);
         if TempBlob.HasValue() then begin
             TempBlob.CreateInStream(InLStream);
             IntGSequenceNo := CduLBufferMgt.FctCreateBufferValues(InLStream, "Partner Code", '',

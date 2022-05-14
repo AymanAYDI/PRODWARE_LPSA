@@ -143,8 +143,6 @@ codeunit 8073296 "PWD Connector WMS Parse Data"
                         CduGConnectBufMgtExport.FctCreateSeparator('', RecPConnectorMessages, TempBlob);
                 end;
         end;
-        //TODO:'Codeunit "Temp Blob"' does not contain a definition for 'CalcFields'
-        //TempBlob.CalcFields(Blob);
         if TempBlob.HasValue() then begin
             TempBlob.CreateInStream(InLStream);
             IntGSequenceNo := CduLBufferMgt.FctCreateBufferValues(InLStream, RecPConnectorMessages."Partner Code", '',

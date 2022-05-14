@@ -113,8 +113,6 @@ codeunit 8073292 "PWD File Messages Export"
                 end;
 
         end;
-        //TODO:'Codeunit "Temp Blob"' does not contain a definition for 'CalcFields'
-        //RecLTempBlob.CalcFields(Blob);
         if RecLTempBlob.HasValue() then begin
             RecLTempBlob.CreateInStream(InLStream);
             IntGSequenceNo := CduLBufferMgt.FctCreateBufferValues(InLStream, "Partner Code", '', Code,

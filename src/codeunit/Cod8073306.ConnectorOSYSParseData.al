@@ -134,8 +134,6 @@ codeunit 8073306 "PWD Connector OSYS Parse Data"
                         CduGConnectBufMgtExport.FctCreateSeparator('', RecPConnectorMessages, TempBlob);
                 END;
         END;
-        //TODO:'Codeunit "Temp Blob"' does not contain a definition for 'CALCFIELDS'
-        //TempBlob.CALCFIELDS(Blob);
         IF TempBlob.HASVALUE() THEN BEGIN
             TempBlob.CREATEINSTREAM(InLStream);
             IntGSequenceNo := CduLBufferMgt.FctCreateBufferValues(InLStream, RecPConnectorMessages."Partner Code", '',
@@ -524,8 +522,6 @@ codeunit 8073306 "PWD Connector OSYS Parse Data"
         RecLConnectorMessages.TESTFIELD(Path);
         RecLPartnerConnector.GET(RecLConnectorMessages."Partner Code");
         FctGetItemsPossibleXML(RecLConnectorMessages, TempBlob, CodPItemNo);
-        //TODO: 'Codeunit "Temp Blob"' does not contain a definition for 'CALCFIELDS'
-        //TempBlob.CALCFIELDS(Blob);
         IF TempBlob.HASVALUE() THEN BEGIN
             TempBlob.CREATEINSTREAM(InLStream);
             IntGSequenceNo := CduLBufferMgt.FctCreateBufferValues(InLStream, RecLConnectorMessages."Partner Code", '',

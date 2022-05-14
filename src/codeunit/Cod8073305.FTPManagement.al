@@ -20,86 +20,69 @@ codeunit 8073305 "PWD FTP Management"
     end;
 
     var
-
-        BooGClientSide: Boolean;
-        // AutGNavFTP: Automation; //TODO: 'Automation' is not recognized as a valid type
-        BooGNewServer: Boolean;
-
+        AutGNavFTP: DotNet "PWD CFtp";
 
     procedure Fct_InitFTPMembers(TxtHostNameIP: Text[80]; IntPortNo: Integer; TxtLogin: Text[80]; TxtPassword: Text[30]; BooBinaryMode: Boolean; BooPassiveMode: Boolean; TxtLocalPath: Text[1024]; TxtRemotePath: Text[1024])
     begin
-        // IF NOT CREATE(AutGNavFTP, BooGNewServer, BooGClientSide) THEN //TODO: 'Automation' is not recognized as a valid type
-        //     ERROR(CstG000);
+        if IsNull(AutGNavFTP) then
+            AutGNavFTP := AutGNavFTP.CFtp();
 
-        // AutGNavFTP.sHostNameIP := TxtHostNameIP;
-        // AutGNavFTP.iPortNo := IntPortNo;
-        // AutGNavFTP.sLogin := TxtLogin;
-        // AutGNavFTP.sPassword := TxtPassword;
-        // AutGNavFTP.bBinaryMode := BooBinaryMode;
-        // AutGNavFTP.bPassiveMode := BooPassiveMode;
+        AutGNavFTP.sHostNameIP := TxtHostNameIP;
+        AutGNavFTP.iPortNo := IntPortNo;
+        AutGNavFTP.sLogin := TxtLogin;
+        AutGNavFTP.sPassword := TxtPassword;
+        AutGNavFTP.bBinaryMode := BooBinaryMode;
+        AutGNavFTP.bPassiveMode := BooPassiveMode;
 
-        // AutGNavFTP.sLocalPath := TxtLocalPath;
-        // AutGNavFTP.sRemotePath := TxtRemotePath;
+        AutGNavFTP.sLocalPath := TxtLocalPath;
+        AutGNavFTP.sRemotePath := TxtRemotePath;
     end;
 
 
     procedure Fct_sLogon(): Text[1024]
     begin
-        // EXIT(AutGNavFTP.sLogon()); //TODO: 'Automation' is not recognized as a valid type
+        EXIT(AutGNavFTP.sLogon());
     end;
 
 
     procedure Fct_sGetFiles(TxtFileFilter: Text[30]): Text[1024]
     begin
-        // EXIT(AutGNavFTP.sGetFiles(TxtFileFilter)); //TODO: 'Automation' is not recognized as a valid type
+        EXIT(AutGNavFTP.sGetFiles(TxtFileFilter));
     end;
-
 
     procedure Fct_sGetFile(TxtLocalFileName: Text[300]; TxtRemoteFileName: Text[300]): Text[1024]
     begin
-        // EXIT(AutGNavFTP.sGetFile(TxtLocalFileName, TxtRemoteFileName)); //TODO: 'Automation' is not recognized as a valid type
+        EXIT(AutGNavFTP.sGetFile(TxtLocalFileName, TxtRemoteFileName));
     end;
-
 
     procedure Fct_iLoadRemoteFiles(TxtFileFilter: Text[30]): Integer
     begin
-        // EXIT(AutGNavFTP.iLoadRemoteFiles(TxtFileFilter)); //TODO: 'Automation' is not recognized as a valid type
+        EXIT(AutGNavFTP.iLoadRemoteFiles(TxtFileFilter));
     end;
-
-
-    procedure FctAutomationSetProperties(BooNewServer: Boolean; BooClientSide: Boolean)
-    begin
-        BooGNewServer := BooNewServer;
-        BooGClientSide := BooClientSide;
-    end;
-
 
     procedure Fct_sPutFiles(TxtFileFilter: Text[30]): Text[1024]
     begin
-        // EXIT(AutGNavFTP.sPutFiles(TxtFileFilter)); //TODO: 'Automation' is not recognized as a valid type
+        EXIT(AutGNavFTP.sPutFiles(TxtFileFilter));
     end;
-
 
     procedure Fct_sPutFile(TxtLocalFileName: Text[300]; TxtRemoteFileName: Text[300]): Text[1024]
     begin
-        // EXIT(AutGNavFTP.sPutFile(TxtLocalFileName, TxtRemoteFileName)); //TODO: 'Automation' is not recognized as a valid type
+        EXIT(AutGNavFTP.sPutFile(TxtLocalFileName, TxtRemoteFileName));
     end;
-
 
     procedure Fct_sDeleteFile(TxtRemoteFileName: Text[300]): Text[1024]
     begin
-        // EXIT(AutGNavFTP.sDeleteFile(TxtRemoteFileName)); //TODO: 'Automation' is not recognized as a valid type
+        EXIT(AutGNavFTP.sDeleteFile(TxtRemoteFileName));
     end;
-
 
     procedure Fct_sDeleteFiles(): Text[1024]
     begin
-        // EXIT(AutGNavFTP.sDeleteFiles); //TODO: 'Automation' is not recognized as a valid type
+        EXIT(AutGNavFTP.sDeleteFiles);
     end;
 
     procedure Fct_sGetFileNameByIndex(IntLFileIndex: Integer): Text[300]
     begin
-        // EXIT(AutGNavFTP.sGetFileNameByIndex(IntLFileIndex)); //TODO: 'Automation' is not recognized as a valid type
+        EXIT(AutGNavFTP.sGetFileNameByIndex(IntLFileIndex));
     end;
 }
 

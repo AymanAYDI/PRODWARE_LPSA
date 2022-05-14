@@ -26,12 +26,11 @@ codeunit 8073304 "PWD FTP Messages Import/Export"
             exit;
         Clear(CduLFTPMgt);
         Clear(CduLFileManagement);
-        TestField(Path);
-        TestField("FTP Remote Path");
-        CduLFTPMgt.FctAutomationSetProperties(false, true);
+        Rec.TestField(Path);
+        Rec.TestField("FTP Remote Path");
         CduLFTPMgt.Fct_InitFTPMembers(RecGPartner."FTP HostName/IP", RecGPartner."FTP Port No.", RecGPartner."FTP Login",
                                       RecGPartner."FTP Password", RecGPartner."FTP Binary Mode", RecGPartner."FTP Passive Mode",
-                                      Path, "FTP Remote Path");
+                                      Rec.Path, Rec."FTP Remote Path");
 
         case Direction of
             Direction::Export:

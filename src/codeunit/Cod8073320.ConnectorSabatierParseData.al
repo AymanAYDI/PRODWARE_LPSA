@@ -85,8 +85,6 @@ codeunit 8073320 "Connector Sabatier Parse Data"
                         CduGConnectBufMgtExport.FctCreateSeparator(RecLRef.GETVIEW(), RecPConnectorMessages, TempBlob);
                 END;
         END;
-        //TODO:'Codeunit "Temp Blob"' does not contain a definition for 'CALCFIELDS'
-        //TempBlob.CALCFIELDS(Blob);
         IF TempBlob.HASVALUE() THEN BEGIN
             TempBlob.CREATEINSTREAM(InLStream);
             IntGSequenceNo := CduLBufferMgt.FctCreateBufferValues(InLStream, RecPConnectorMessages."Partner Code", '',
