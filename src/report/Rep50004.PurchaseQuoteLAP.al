@@ -457,7 +457,7 @@ report 50004 "PWD Purchase - Quote LAP"
                                 until (RecGPurchCommentLine.Next() = 0) or (BooGStopComment);
 
 
-                            DimSetEntry2.SetRange("Dimension Set ID", DATABASE::"Purchase Line");
+                            DimSetEntry2.SetRange("Dimension Set ID", "Purchase Line"."Dimension Set ID");
                             // DocDim2.SetRange("Table ID", DATABASE::"Purchase Line");
                             // DocDim2.SetRange("Document Type", "Purchase Line"."Document Type");
                             // DocDim2.SetRange("Document No.", "Purchase Line"."Document No.");
@@ -549,7 +549,7 @@ report 50004 "PWD Purchase - Quote LAP"
 
                     if Number > 1 then begin
                         CopyText := Text001;
-                            OutputNo += 1;
+                        OutputNo += 1;
                     end;
                     // CurrReport.PageNo := 1;
                 end;
@@ -566,7 +566,7 @@ report 50004 "PWD Purchase - Quote LAP"
                     CopyText := '';
                     SetRange(Number, 1, NoOfLoops);
 
-                        OutputNo := 1;
+                    OutputNo := 1;
                 end;
             }
 
@@ -594,7 +594,7 @@ report 50004 "PWD Purchase - Quote LAP"
                     CompanyInfo."Fax No." := RespCenter."Fax No.";
                 end else
                     FormatAddr.Company(CompanyAddr, CompanyInfo);
-                DimSetEntry1.SetRange("Dimension Set ID", DATABASE::"Purchase Header");
+                DimSetEntry1.SetRange("Dimension Set ID", "Purchase Header"."Dimension Set ID");
                 // DocDim1.SetRange("Table ID", DATABASE::"Purchase Header");
                 // DocDim1.SetRange("Document Type", "Purchase Header"."Document Type");
                 // DocDim1.SetRange("Document No.", "Purchase Header"."No.");
@@ -729,9 +729,6 @@ report 50004 "PWD Purchase - Quote LAP"
 
     var
         CompanyInfo: Record "Company Information";
-        //TODO: Table 'Document Dimension' is missing
-        // DocDim1: Record "Document Dimension";
-        // DocDim2: Record "Document Dimension";
         DimSetEntry1: Record "Dimension Set Entry";
         DimSetEntry2: Record "Dimension Set Entry";
         RecGPurchCommentLine: Record "Purch. Comment Line";

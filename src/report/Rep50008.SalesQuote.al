@@ -582,7 +582,7 @@ report 50008 "PWD Sales Quote"
 
                 //<<LAP.001
 
-                DimSetEntry1.SetRange("Dimension Set ID", DATABASE::"Sales Header");
+                DimSetEntry1.SetRange("Dimension Set ID", "Sales Header"."Dimension Set ID");
                 // DocDim1.SetRange("Table ID", DATABASE::"Sales Header");
                 // DocDim1.SetRange("Document Type", "Sales Header"."Document Type");
                 // DocDim1.SetRange("Document No.", "Sales Header"."No.");
@@ -780,9 +780,6 @@ report 50008 "PWD Sales Quote"
         CompanyInfo2: Record "Company Information";
         CurrExchRate: Record "Currency Exchange Rate";
         RecGCustomer: Record Customer;
-        //TODO: Table 'Document Dimension' is missing
-        // DocDim1: Record "Document Dimension";
-        // DocDim2: Record "Document Dimension";
         DimSetEntry1: Record "Dimension Set Entry";
         DimSetEntry2: Record "Dimension Set Entry";
         GLSetup: Record "General Ledger Setup";
