@@ -87,6 +87,11 @@ tableextension 60009 "PWD PurchaseLine" extends "Purchase Line"
             Caption = 'Budgeted';
             Description = 'TDL.LPSA';
         }
+        field(50008; "PWD Product Group Code"; Code[10])
+        {
+            Caption = 'Product Group Code';
+            TableRelation = "PWD Product Group".Code WHERE("Item Category Code" = FIELD("Item Category Code"));
+        }
         field(8073282; "PWD WMS_Status"; Enum "PWD WMS_Status")
         {
             Caption = 'WMS_Status';

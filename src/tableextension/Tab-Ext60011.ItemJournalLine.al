@@ -47,6 +47,11 @@ tableextension 60011 "PWD ItemJournalLine" extends "Item Journal Line"
             Description = 'LAP1.00';
             InitValue = true;
         }
+        field(50002; "PWD Product Group Code"; Code[10])
+        {
+            Caption = 'Product Group Code';
+            TableRelation = "PWD Product Group".Code WHERE("Item Category Code" = FIELD("Item Category Code"));
+        }
         field(50100; "PWD LPSA description 1"; Text[120])
         {
             CalcFormula = Lookup(Item."PWD LPSA Description 1" WHERE("No." = FIELD("Item No.")));

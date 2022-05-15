@@ -37,6 +37,11 @@ tableextension 60017 "PWD SalesCrMemoLine" extends "Sales Cr.Memo Line"
             Caption = 'Customer Promised Delivery Date';
             Description = 'TDL.LPSA';
         }
+        field(50009; "PWD Product Group Code"; Code[10])
+        {
+            Caption = 'Product Group Code';
+            TableRelation = "PWD Product Group".Code WHERE("Item Category Code" = FIELD("Item Category Code"));
+        }
         field(8073283; "PWD WMS_Status_Header"; Enum "Sales Document Status")
         {
             Caption = 'Status';

@@ -115,6 +115,11 @@ tableextension 60007 "PWD SalesLine" extends "Sales Line"
             Editable = false;
             FieldClass = FlowField;
         }
+        field(50011; "PWD Product Group Code"; Code[10])
+        {
+            Caption = 'Product Group Code';
+            TableRelation = "PWD Product Group".Code WHERE("Item Category Code" = FIELD("Item Category Code"));
+        }
         field(50050; "PWD Order Date"; Date)
         {
             CalcFormula = Lookup("Sales Header"."Order Date" WHERE("No." = FIELD("Document No."), "Document Type" = FIELD("Document Type")));

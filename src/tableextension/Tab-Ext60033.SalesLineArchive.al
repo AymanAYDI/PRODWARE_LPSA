@@ -39,6 +39,12 @@ tableextension 60033 "PWD SalesLineArchive" extends "Sales Line Archive"
         {
             Caption = 'Scrap Quantity';
         }
+        field(50007; "PWD Product Group Code"; Code[10])
+        {
+            Caption = 'Product Group Code';
+            TableRelation = "PWD Product Group".Code WHERE("Item Category Code" = FIELD("Item Category Code"));
+        }
+
         field(8073283; "PWD WMS_Status_Header"; Enum "Sales Document Status")
         {
             Caption = 'Status';

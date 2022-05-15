@@ -54,6 +54,11 @@ tableextension 60023 "PWD RequisitionLine" extends "Requisition Line"
             FieldClass = FlowField;
             MinValue = 0;
         }
+        field(50006; "PWD Product Group Code"; Code[10])
+        {
+            Caption = 'Product Group Code';
+            TableRelation = "PWD Product Group".Code WHERE("Item Category Code" = FIELD("Item Category Code"));
+        }
     }
     keys
     {

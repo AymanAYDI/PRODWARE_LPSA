@@ -46,6 +46,11 @@ tableextension 60044 "PWD TransferLine" extends "Transfer Line"
                 //<<FE_LAPIERRETTE_ART02.001
             end;
         }
+        field(50006; "PWD Product Group Code"; Code[10])
+        {
+            Caption = 'Product Group Code';
+            TableRelation = "PWD Product Group".Code WHERE("Item Category Code" = FIELD("Item Category Code"));
+        }
     }
 
     procedure ShowLineComments()
