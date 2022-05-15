@@ -430,12 +430,9 @@ report 50003 "Purchase - Return Shipment LAP"
 
                             IF (NOT ShowCorrectionLines) AND Correction THEN
                                 CurrReport.SKIP();
-                            DimSetEntry2.SETRANGE("Dimension Set ID", DATABASE::"Return Shipment Line");
-                            // PostedDocDim2.SETRANGE("Table ID", DATABASE::"Return Shipment Line");
-                            // PostedDocDim2.SETRANGE("Document No.", "Return Shipment Line"."Document No.");
-                            // PostedDocDim2.SETRANGE("Line No.", "Return Shipment Line"."Line No.");
+                            DimSetEntry2.SETRANGE("Dimension Set ID", "Dimension Set ID");
 
-                                TypeInt := "Return Shipment Line".Type.AsInteger();
+                            TypeInt := "Return Shipment Line".Type.AsInteger();
                         end;
 
                         trigger OnPreDataItem()
@@ -463,9 +460,9 @@ report 50003 "Purchase - Return Shipment LAP"
 
                         trigger OnAfterGetRecord()
                         begin
-                                PayToVendorNo := "Return Shipment Header"."Pay-to Vendor No.";
-                                BuyFromVendorNo := "Return Shipment Header"."Buy-from Vendor No.";
-                                PayToCaption := "Return Shipment Header".FIELDCAPTION("Pay-to Vendor No.");
+                            PayToVendorNo := "Return Shipment Header"."Pay-to Vendor No.";
+                            BuyFromVendorNo := "Return Shipment Header"."Buy-from Vendor No.";
+                            PayToCaption := "Return Shipment Header".FIELDCAPTION("Pay-to Vendor No.");
                         end;
 
                         trigger OnPreDataItem()
@@ -523,7 +520,7 @@ report 50003 "Purchase - Return Shipment LAP"
                 begin
                     IF Number > 1 THEN BEGIN
                         CopyText := Text001;
-                            OutputNo += 1;
+                        OutputNo += 1;
                     END;
                     // CurrReport.PAGENO := 1;
                 end;
@@ -539,7 +536,7 @@ report 50003 "Purchase - Return Shipment LAP"
                     NoOfLoops := ABS(NoOfCopies) + 1;
                     CopyText := '';
                     SETRANGE(Number, 1, NoOfLoops);
-                        OutputNo := 1;
+                    OutputNo := 1;
                 end;
             }
 
@@ -555,9 +552,7 @@ report 50003 "Purchase - Return Shipment LAP"
                     CompanyInfo."Fax No." := RespCenter."Fax No.";
                 END ELSE
                     FormatAddr.Company(CompanyAddr, CompanyInfo);
-                DimSetEntry1.SETRANGE("Dimension Set ID", DATABASE::"Return Shipment Header");
-                // PostedDocDim1.SETRANGE("Table ID", DATABASE::"Return Shipment Header");
-                // PostedDocDim1.SETRANGE("Document No.", "Return Shipment Header"."No.");
+                DimSetEntry1.SETRANGE("Dimension Set ID", "Dimension Set ID");
 
                 IF "Purchaser Code" = '' THEN BEGIN
                     SalesPurchPerson.INIT();

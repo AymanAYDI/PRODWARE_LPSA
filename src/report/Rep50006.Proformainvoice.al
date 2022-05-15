@@ -606,7 +606,7 @@ report 50006 "PWD Proforma invoice"
                     CompanyInfo."Fax No." := RespCenter."Fax No.";
                 end else
                     FormatAddr.Company(CompanyAddr, CompanyInfo);
-                DimSetEntry1.SetRange("Dimension Set ID", DATABASE::"Sales Header");
+                DimSetEntry1.SetRange("Dimension Set ID", "Sales Header"."Dimension Set ID");
                 // DocDim1.SetRange("Table ID", DATABASE::"Sales Header");
                 // DocDim1.SetRange("Document Type", "Sales Header"."Document Type");
                 // DocDim1.SetRange("Document No.", "Sales Header"."No.");
@@ -776,8 +776,6 @@ report 50006 "PWD Proforma invoice"
         CompanyInfo1: Record "Company Information";
         CompanyInfo2: Record "Company Information";
         Cust: Record Customer;
-        //TODO: Table 'Document Dimension' is missing
-        //DocDim1: Record "Document Dimension";
         DimSetEntry1: Record "Dimension Set Entry";
         GLSetup: Record "General Ledger Setup";
         PaymentTerms: Record "Payment Terms";

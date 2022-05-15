@@ -1471,7 +1471,7 @@ report 50005 "PWD Order LAP"
                     CompanyInfo."Fax No." := RespCenter."Fax No.";
                 end else
                     FormatAddr.Company(CompanyAddr, CompanyInfo);
-                DimSetEntry1.SetRange("Dimension Set ID", DATABASE::"Purchase Header");
+                DimSetEntry1.SetRange("Dimension Set ID", "Purchase Header"."Dimension Set ID");
                 // DocDim1.SetRange("Table ID", DATABASE::"Purchase Header");
                 // DocDim1.SetRange("Document Type", "Purchase Header"."Document Type");
                 // DocDim1.SetRange("Document No.", "Purchase Header"."No.");
@@ -1635,9 +1635,7 @@ report 50005 "PWD Order LAP"
     var
         CompanyInfo: Record "Company Information";
         CurrExchRate: Record "Currency Exchange Rate";
-        //TODO: Table 'Document Dimension' is missing
-        // DocDim1: Record "Document Dimension";
-        // DocDim2: Record "Document Dimension";
+
         //PrepmtDocDim: Record "Document Dimension" temporary;
         DimSetEntry1: Record "Dimension Set Entry";
         DimSetEntry2: Record "Dimension Set Entry";
