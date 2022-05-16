@@ -42,14 +42,14 @@ tableextension 60043 "PWD TransferHeader" extends "Transfer Header"
 
 
                 if "PWD Sales Order No." = '' then
-                    "FillTransfer-to info Location"()
+                    FillTransferToInfoLocation()
                 else
-                    "FillTransfer-to info with cmd"();
+                    FillTransferToInfoWithCmd();
             end;
         }
     }
 
-    procedure "FillTransfer-to info with cmd"()  //TODO: Lappel de la fonction n'est pas possible, il y'a pas un evenement liée
+    procedure FillTransferToInfoWithCmd()  
     var
         RecLSalesHeader: Record "Sales Header";
     begin
@@ -66,7 +66,7 @@ tableextension 60043 "PWD TransferHeader" extends "Transfer Header"
         end;
     end;
 
-    procedure "FillTransfer-to info Location"()  //TODO: Lappel de la fonction n'est pas possible, il y'a pas un evenement liée
+    procedure FillTransferToInfoLocation() 
     var
         Location: Record Location;
         TransLine: Record "Transfer Line";

@@ -962,6 +962,7 @@ report 50014 "PWD Invoice"
 
     procedure DownloadToClientFileName(TxtPServerFile: Text[250]; TxtPFileName: Text[250]): Text[250]
     var
+        FileManagement: Codeunit "File Management";
         TxtLClientFileName: Text[250];
         TxtLFinalClientFileName: Text[250];
     //TODO:'Automation' is not recognized as a valid type
@@ -972,7 +973,8 @@ report 50014 "PWD Invoice"
         //TODO: Codeunit '3-Tier Automation Mgt.' is missing
         // TxtLClientFileName := CduLTierAutomationMgt.ClientTempFileName('', '');
         // TxtLFinalClientFileName := CduLTierAutomationMgt.Path(TxtLClientFileName) + TxtPFileName;
-        Download(TxtPServerFile, '', '', '', TxtLClientFileName);
+        // Download(TxtPServerFile, '', '', '', TxtLClientFileName);
+        FileManagement.DownloadHandler(TxtPServerFile, '', '', '', TxtLClientFileName);
         //TODO:'Automation' is not recognized as a valid type
         // Create(AutLFileObjectSystem, false, true);
         // if AutLFileObjectSystem.FileExists(TxtLFinalClientFileName) then

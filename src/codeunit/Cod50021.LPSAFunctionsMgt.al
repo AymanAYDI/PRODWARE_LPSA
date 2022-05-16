@@ -407,7 +407,6 @@ codeunit 50021 "PWD LPSA Functions Mgt."
         ReqLine: Record "Requisition Line";
     //Counter: Integer;
     begin
-        //TODO: table extension "Inventory Profile" n'exsiste pas
         CASE Demand."Source Type" OF
             DATABASE::"Sales Line":
                 //IF RecLSalesLine.GET(Demand."Source Order Status",Demand."Source ID",Demand."Source Ref. No.") THEN BEGIN

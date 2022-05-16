@@ -734,8 +734,7 @@ report 50000 "Export Invoicing Data (Excel)"
 
     procedure Fct_CalcShortcutDim3(CodPDocNo: Code[20]; IntPLineNo: Integer; TxtPLineType: Text[2]): Code[20]
     var
-        //TODO:a vérifier Table 'Posted Document Dimension' est remplacée par la table "Dimension Set Entry"
-        //RecLPostedDocDim: Record "Posted Document Dimension"; 
+
         DimSetEntry: Record "Dimension Set Entry";
         CodLDimValueCode: Code[20];
         IntLTableNo: Integer;

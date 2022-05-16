@@ -68,7 +68,7 @@ pageextension 60045 "PWD InventorySetup" extends "Inventory Setup"
 
                         trigger OnAssistEdit()
                         var
-                            CduLCommonDialogMgt: Codeunit "SMTP Test Mail";
+                            CduLCommonDialogMgt: Codeunit "File management";
                             CstL50000: Label 'Open';
                             CstL50001: Label 'File';
                             CstL50002: Label 'File path too long, you should change of location.';
@@ -77,8 +77,7 @@ pageextension 60045 "PWD InventorySetup" extends "Inventory Setup"
                             //>>P24578_008.001
                             CLEAR(CduLCommonDialogMgt);
                             CLEAR(TxtLDirectoryPath);
-                            //TODO: Codeunit "SMTP Test Mail" does not contain a definition for 'OpenFile'
-                            //TxtLDirectoryPath := CduLCommonDialogMgt.OpenFile(CstL50000, "PWD Path for Closing Export" + CstL50001, 1, '', 2);
+                            TxtLDirectoryPath := CduLCommonDialogMgt.UploadFile(CstL50000, "PWD Path for Closing Export");
                             IF STRLEN(TxtLDirectoryPath) > MAXSTRLEN(Rec."PWD Path for Closing Export") THEN
                                 ERROR(CstL50002)
                             ELSE

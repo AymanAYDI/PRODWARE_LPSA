@@ -134,6 +134,10 @@ tableextension 60009 "PWD PurchaseLine" extends "Purchase Line"
             Editable = false;
         }
     }
+    trigger OnInsert()
+    begin
+        "Planning Flexibility" := "Planning Flexibility"::None;
+    end;
 
 
     PROCEDURE FctFromImport(BooPFromImport: Boolean);

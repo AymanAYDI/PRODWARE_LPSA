@@ -914,6 +914,7 @@ report 50013 "PWD Credit Note"
 
     procedure DownloadToClientFileName(TxtPServerFile: Text[250]; TxtPFileName: Text[250]): Text[250]
     var
+        FileManagement: Codeunit "File Management";
         TxtLClientFileName: Text[250];
         TxtLFinalClientFileName: Text[250];
     //TODO: 'Automation' is not recognized as a valid type
@@ -924,7 +925,8 @@ report 50013 "PWD Credit Note"
         //TODO: Codeunit '3-Tier Automation Mgt.' is missing
         // TxtLClientFileName := CduLTierAutomationMgt.ClientTempFileName('', '');
         // TxtLFinalClientFileName := CduLTierAutomationMgt.Path(TxtLClientFileName) + TxtPFileName;
-        DOWNLOAD(TxtPServerFile, '', '', '', TxtLClientFileName);
+        // DOWNLOAD(TxtPServerFile, '', '', '', TxtLClientFileName);
+        FileManagement.DownloadHandler(TxtPServerFile, '', '', '', TxtLClientFileName);
         //TODO: 'Automation' is not recognized as a valid type
         // CREATE(AutLFileObjectSystem, FALSE, TRUE);
         // IF AutLFileObjectSystem.FileExists(TxtLFinalClientFileName) THEN

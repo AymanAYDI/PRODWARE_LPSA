@@ -238,7 +238,7 @@ codeunit 50020 "PWD LPSA Events Mgt."
         // if CurrFieldNo = 0 then begin
         //     PlannedShipmentDateCalculated := false;
         //     PlannedDeliveryDateCalculated := false;
-        // end;
+        // end; //TODO; 
     end;
 
     [EventSubscriber(ObjectType::table, database::"Sales Line", 'OnAfterSetDefaultQuantity', '', false, false)]
@@ -1453,12 +1453,17 @@ codeunit 50020 "PWD LPSA Events Mgt."
     var
         gCurrSourceSpecification: Record "Tracking Specification";
         gCurrSourceSpecificationSet: Boolean;
-    // gCurrSourceSpecDueDate: Date;
     begin
         gCurrSourceSpecification := TrackingSpecification;
-        //TODO: AvailabilityDate variable dans la fonction SetSourceSpec
-        //gCurrSourceSpecDueDate := AvailabilityDate;
         gCurrSourceSpecificationSet := TRUE;
+    end;
+
+    [EventSubscriber(ObjectType::Page, Page::"Item Tracking Lines", 'OnAfterSetSourceSpec', '', false, false)]
+    local procedure OnAfterSetSourceSpec(var TrackingSpecification: Record "Tracking Specification"; var CurrTrackingSpecification: Record "Tracking Specification"; var AvailabilityDate: Date; var BlockCommit: Boolean; FunctionsDemandVisible: Boolean; FunctionsSupplyVisible: Boolean; var QtyToHandleBaseEditable: Boolean; var QuantityBaseEditable: Boolean; var InsertIsBlocked: Boolean)
+    var
+        gCurrSourceSpecDueDate: Date;
+    begin
+        gCurrSourceSpecDueDate := AvailabilityDate;
     end;
 
     [EventSubscriber(ObjectType::Page, Page::"Item Tracking Lines", 'OnSetSourceSpecOnAfterAssignCurrentEntryStatus', '', false, false)]
@@ -1948,6 +1953,85 @@ codeunit 50020 "PWD LPSA Events Mgt."
     begin
         PurchOrderLine."PWD Product Group Code" := RequisitionLine."PWD Product Group Code";
     end;
+
+    //---TAB5740---
+    [EventSubscriber(ObjectType::Table, Database::"Transfer Header", 'OnBeforeValidateTransferToCode', '', false, false)]
+    local procedure TAB5740_OnBeforeValidateTransferToCode_TransferHeader(var TransferHeader: Record "Transfer Header"; var xTransferHeader: Record "Transfer Header"; var IsHandled: Boolean; var HideValidationDialog: Boolean)
+    Var
+        Text002: Label 'Do you want to change %1?';
+        Confirmed: Boolean;
+    begin
+        IsHandled := true;
+        /*>>LAP2.00
+                                                                //using the same location for transfer
+                                                                {//STD
+        if TransferHeader."Transfer-to Code" <> '' then
+            if TransferHeader."Transfer-from Code" = TransferHeader."Transfer-to Code" then
+                Error(
+                  Text001,
+                  TransferHeader.FieldCaption("Transfer-from Code"), TransferHeader.FieldCaption("Transfer-to Code"),
+                  TransferHeader.TableCaption, TransferHeader."No.");
+                  */
+        //STD
+        //<<LAP2.00
+
+        if TransferHeader."Direct Transfer" then
+            TransferHeader.VerifyNoInboundWhseHandlingOnLocation(TransferHeader."Transfer-to Code");
+
+        if xTransferHeader."Transfer-to Code" <> TransferHeader."Transfer-to Code" then begin
+            if HideValidationDialog or (xTransferHeader."Transfer-to Code" = '') then
+                Confirmed := true
+            else
+                Confirmed := Confirm(Text002, false, TransferHeader.FieldCaption("Transfer-to Code"));
+            if Confirmed then begin
+                //>>LAP2.00
+                IF TransferHeader."PWD Sales Order No." = '' THEN
+                    /*//STD
+                    if Location.Get(TransferHeader."Transfer-to Code") then begin
+                        TransferHeader."Transfer-to Name" := Location.Name;
+                        TransferHeader."Transfer-to Name 2" := Location."Name 2";
+                        TransferHeader."Transfer-to Address" := Location.Address;
+                        TransferHeader."Transfer-to Address 2" := Location."Address 2";
+                        TransferHeader."Transfer-to Post Code" := Location."Post Code";
+                        TransferHeader."Transfer-to City" := Location.City;
+                        TransferHeader."Transfer-to County" := Location.County;
+                        TransferHeader."Trsf.-to Country/Region Code" := Location."Country/Region Code";
+                        TransferHeader."Transfer-to Contact" := Location.Contact;
+                        if not TransferHeader."Direct Transfer" then begin
+                            TransferHeader."Inbound Whse. Handling Time" := Location."Inbound Whse. Handling Time";
+                            TransferRoute.GetTransferRoute(
+                              TransferHeader."Transfer-from Code", TransferHeader."Transfer-to Code", TransferHeader."In-Transit Code",
+                              TransferHeader."Shipping Agent Code", TransferHeader."Shipping Agent Service Code");
+                            TransferRoute.GetShippingTime(
+                              TransferHeader."Transfer-from Code", TransferHeader."Transfer-to Code",
+                              TransferHeader."Shipping Agent Code", TransferHeader."Shipping Agent Service Code",
+                              TransferHeader."Shipping Time");
+                            TransferRoute.CalcReceiptDate(
+                            TransferHeader."Shipment Date",
+                            TransferHeader."Receipt Date",
+                            TransferHeader."Shipping Time",
+                            TransferHeader."Outbound Whse. Handling Time",
+                            TransferHeader."Inbound Whse. Handling Time",
+                            TransferHeader."Transfer-from Code",
+                            TransferHeader."Transfer-to Code",
+                            TransferHeader."Shipping Agent Code",
+                            TransferHeader."Shipping Agent Service Code");
+                        end;
+                        TransLine.LockTable();
+                        TransLine.SetRange("Document No.", TransferHeader."No.");
+                    end;
+                                                                                          */
+                    //STD
+                    TransferHeader.FillTransferToInfoLocation()
+                ELSE
+                    TransferHeader.FillTransferToInfoWithCmd();
+                //<<LAP2.00
+                TransferHeader.UpdateTransLines(TransferHeader, TransferHeader.FieldNo("Transfer-to Code"));
+            end else
+                TransferHeader."Transfer-to Code" := xTransferHeader."Transfer-to Code";
+        end;
+    end;
+
 
     var
         BooGFromConfig: Boolean;
