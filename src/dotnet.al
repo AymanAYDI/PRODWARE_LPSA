@@ -32,13 +32,6 @@ dotnet
         type("Microsoft.Office.Interop.Excel.Workbook"; "EXCEL Workbook")
         {
         }
-
-        type("Microsoft.Office.Interop.Excel.Worksheet"; "EXCEL Worksheet")
-        {
-        }
-        type("Microsoft.Office.Interop.Excel.Range"; "EXCEL Range")
-        {
-        }
         type("Microsoft.Office.Interop.Excel.Worksheet"; "EXCEL Worksheet")
         {
         }
