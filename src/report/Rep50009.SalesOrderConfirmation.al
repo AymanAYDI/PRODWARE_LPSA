@@ -447,14 +447,14 @@ report 50009 "PWD Sales Order Confirmation"
                             if (SalesLine.Type = SalesLine.Type::"G/L Account") and (not ShowInternalInfo) then
                                 "Sales Line"."No." := '';
 
-                                if ("Sales Line".Type = "Sales Line".Type::"New Page") then
-                                    CurrPageFooterHiddenFlag := 1
-                                else
-                                    CurrPageFooterHiddenFlag := 0;
-                                NNC_SalesLineLineAmt += SalesLine."Line Amount";
-                                NNC_SalesLineInvDiscAmt += SalesLine."Inv. Discount Amount";
-                                NNC_TotalLCY := NNC_SalesLineLineAmt - NNC_SalesLineInvDiscAmt;
-                                NNC_VATAmt := VATAmount;
+                            if ("Sales Line".Type = "Sales Line".Type::"New Page") then
+                                CurrPageFooterHiddenFlag := 1
+                            else
+                                CurrPageFooterHiddenFlag := 0;
+                            NNC_SalesLineLineAmt += SalesLine."Line Amount";
+                            NNC_SalesLineInvDiscAmt += SalesLine."Inv. Discount Amount";
+                            NNC_TotalLCY := NNC_SalesLineLineAmt - NNC_SalesLineInvDiscAmt;
+                            NNC_VATAmt := VATAmount;
 
                             //>>TDL.LPSA.09022015
                             TxtGCustPlanNo := '';
@@ -575,13 +575,13 @@ report 50009 "PWD Sales Order Confirmation"
 
                     if Number > 1 then begin
                         CopyText := Text003;
-                            OutputNo += 1;
+                        OutputNo += 1;
                     end;
                     // CurrReport.PageNo := 1;
-                        NNC_TotalLCY := 0;
-                        NNC_VATAmt := 0;
-                        NNC_SalesLineLineAmt := 0;
-                        NNC_SalesLineInvDiscAmt := 0;
+                    NNC_TotalLCY := 0;
+                    NNC_VATAmt := 0;
+                    NNC_SalesLineLineAmt := 0;
+                    NNC_SalesLineInvDiscAmt := 0;
                 end;
 
                 trigger OnPostDataItem()
@@ -595,7 +595,7 @@ report 50009 "PWD Sales Order Confirmation"
                     NoOfLoops := Abs(NoOfCopies) + 1;
                     CopyText := '';
                     SetRange(Number, 1, NoOfLoops);
-                        OutputNo := 1;
+                    OutputNo := 1;
                 end;
             }
 
@@ -669,10 +669,10 @@ report 50009 "PWD Sales Order Confirmation"
             begin
                 // NoOfRecords := Count;
                 // CH0004.begin
-                    CurrPageHeaderHiddenFlag := 0;
-                    CurrPageFooterHiddenFlag := 0;
-                    CurrGroupPageNO := 0;
-                    InnerGroupPageNO := 1;
+                CurrPageHeaderHiddenFlag := 0;
+                CurrPageFooterHiddenFlag := 0;
+                CurrGroupPageNO := 0;
+                InnerGroupPageNO := 1;
                 // CH0004.end
             end;
         }
@@ -768,10 +768,12 @@ report 50009 "PWD Sales Order Confirmation"
     trigger OnPostReport()
     var
         RecLSalesHeader: Record "Sales Header";
+        DocPrint: Codeunit "Document-Print";
     begin
         if not BooGSkipSendEmail and BooGEnvoiMail then begin
             RecLSalesHeader.SetView("Sales Header".GetView());
-            SendPDFMail(RecLSalesHeader);
+            //SendPDFMail(RecLSalesHeader);
+            DocPrint.EmailSalesHeader("Sales Header");
         end;
     end;
 
@@ -962,16 +964,16 @@ report 50009 "PWD Sales Order Confirmation"
 
     procedure DownloadToClientFileName(TxtPServerFile: Text[250]; TxtPFileName: Text[250]): Text[250]
     var
-        TxtLClientFileName: Text[250];
-        TxtLFinalClientFileName: Text[250];
-        //TODO: 'Automation' is not recognized as a valid type
         //AutLFileObjectSystem: Automation;
         FileManagement: Codeunit "File Management";
+        TxtLClientFileName: Text[250];
+        TxtLFinalClientFileName: Text[250];
+    //TODO: 'Automation' is not recognized as a valid type
     begin
-        TxtLClientFileName := FileManagement.ClientTempFileName('');
+        //TxtLClientFileName := FileManagement.ClientTempFileName('');
         //TODO:'Codeunit "File Management"' does not contain a definition for 'Path'
         //TxtLFinalClientFileName := CduLTierAutomationMgt.Path(TxtLClientFileName) + TxtPFileName;
-        Download(TxtPServerFile, '', '', '', TxtLClientFileName);
+        FileManagement.DownloadHandler(TxtPServerFile, '', '', '', TxtLClientFileName);
         //TODO: 'Automation' is not recognized as a valid type
         // Create(AutLFileObjectSystem, false, true);
         // if AutLFileObjectSystem.FileExists(TxtLFinalClientFileName) then

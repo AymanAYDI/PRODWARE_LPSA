@@ -34,7 +34,6 @@ report 50032 "PWD Updt with New Dimension"
                   TableData "Transfer Receipt Line" = r;
     ProcessingOnly = true;
     UsageCategory = none;
-
     dataset
     {
         dataitem("Default Dimension"; "Default Dimension")
@@ -48,10 +47,10 @@ report 50032 "PWD Updt with New Dimension"
                 trigger OnAfterGetRecord()
                 begin
                     Window.Update(2, "Document No.");
-
-                    UpdtLdgrEntryDimension(
-                      DATABASE::"Item Ledger Entry",
-                      "Entry No.");
+                    Validate("Dimension Set ID", GetNewDimSetID("Dimension Set ID", "Default Dimension"."Dimension Code", "Default Dimension"."Dimension Value Code"));
+                    // UpdtLdgrEntryDimension(
+                    //   DATABASE::"Item Ledger Entry",
+                    //   "Entry No.");
                 end;
 
                 trigger OnPreDataItem()
@@ -68,10 +67,10 @@ report 50032 "PWD Updt with New Dimension"
                 trigger OnAfterGetRecord()
                 begin
                     Window.Update(2, "Document No.");
-
-                    UpdtLdgrEntryDimension(
-                      DATABASE::"Value Entry",
-                      "Entry No.");
+                    Validate("Dimension Set ID", GetNewDimSetID("Dimension Set ID", "Default Dimension"."Dimension Code", "Default Dimension"."Dimension Value Code"));
+                    // UpdtLdgrEntryDimension(
+                    //   DATABASE::"Value Entry",
+                    //   "Entry No.");
                 end;
 
                 trigger OnPreDataItem()
@@ -88,12 +87,12 @@ report 50032 "PWD Updt with New Dimension"
                 trigger OnAfterGetRecord()
                 begin
                     Window.Update(2, "Document No.");
-
-                    UpdtDocDimension(
-                      DATABASE::"Sales Line",
-                      "Document Type".AsInteger(),
-                      "Document No.",
-                      "Line No.");
+                    Validate("Dimension Set ID", GetNewDimSetID("Dimension Set ID", "Default Dimension"."Dimension Code", "Default Dimension"."Dimension Value Code"));
+                    // UpdtDocDimension(
+                    //   DATABASE::"Sales Line",
+                    //   "Document Type".AsInteger(),
+                    //   "Document No.",
+                    //   "Line No.");
                 end;
 
                 trigger OnPreDataItem()
@@ -109,11 +108,11 @@ report 50032 "PWD Updt with New Dimension"
                 trigger OnAfterGetRecord()
                 begin
                     Window.Update(2, "Document No.");
-
-                    UpdtPstdDocDimension(
-                      DATABASE::"Sales Shipment Line",
-                      "Document No.",
-                      "Line No.");
+                    Validate("Dimension Set ID", GetNewDimSetID("Dimension Set ID", "Default Dimension"."Dimension Code", "Default Dimension"."Dimension Value Code"));
+                    // UpdtPstdDocDimension(
+                    //   DATABASE::"Sales Shipment Line",
+                    //   "Document No.",
+                    //   "Line No.");
                 end;
 
                 trigger OnPreDataItem()
@@ -130,11 +129,11 @@ report 50032 "PWD Updt with New Dimension"
                 trigger OnAfterGetRecord()
                 begin
                     Window.Update(2, "Document No.");
-
-                    UpdtPstdDocDimension(
-                      DATABASE::"Sales Invoice Line",
-                      "Document No.",
-                      "Line No.");
+                    Validate("Dimension Set ID", GetNewDimSetID("Dimension Set ID", "Default Dimension"."Dimension Code", "Default Dimension"."Dimension Value Code"));
+                    // UpdtPstdDocDimension(
+                    //   DATABASE::"Sales Invoice Line",
+                    //   "Document No.",
+                    //   "Line No.");
                 end;
 
                 trigger OnPreDataItem()
@@ -151,11 +150,11 @@ report 50032 "PWD Updt with New Dimension"
                 trigger OnAfterGetRecord()
                 begin
                     Window.Update(2, "Document No.");
-
-                    UpdtPstdDocDimension(
-                      DATABASE::"Sales Cr.Memo Line",
-                      "Document No.",
-                      "Line No.");
+                    Validate("Dimension Set ID", GetNewDimSetID("Dimension Set ID", "Default Dimension"."Dimension Code", "Default Dimension"."Dimension Value Code"));
+                    // UpdtPstdDocDimension(
+                    //   DATABASE::"Sales Cr.Memo Line",
+                    //   "Document No.",
+                    //   "Line No.");
                 end;
 
                 trigger OnPreDataItem()
@@ -172,12 +171,12 @@ report 50032 "PWD Updt with New Dimension"
                 trigger OnAfterGetRecord()
                 begin
                     Window.Update(2, "Document No.");
-
-                    UpdtDocDimension(
-                      DATABASE::"Purchase Line",
-                      "Document Type".AsInteger(),
-                      "Document No.",
-                      "Line No.");
+                    Validate("Dimension Set ID", GetNewDimSetID("Dimension Set ID", "Default Dimension"."Dimension Code", "Default Dimension"."Dimension Value Code"));
+                    // UpdtDocDimension(
+                    //   DATABASE::"Purchase Line",
+                    //   "Document Type".AsInteger(),
+                    //   "Document No.",
+                    //   "Line No.");
                 end;
 
                 trigger OnPreDataItem()
@@ -193,11 +192,11 @@ report 50032 "PWD Updt with New Dimension"
                 trigger OnAfterGetRecord()
                 begin
                     Window.Update(2, "Document No.");
-
-                    UpdtPstdDocDimension(
-                      DATABASE::"Purch. Rcpt. Line",
-                      "Document No.",
-                      "Line No.");
+                    Validate("Dimension Set ID", GetNewDimSetID("Dimension Set ID", "Default Dimension"."Dimension Code", "Default Dimension"."Dimension Value Code"));
+                    // UpdtPstdDocDimension(
+                    //   DATABASE::"Purch. Rcpt. Line",
+                    //   "Document No.",
+                    //   "Line No.");
                 end;
 
                 trigger OnPreDataItem()
@@ -214,11 +213,11 @@ report 50032 "PWD Updt with New Dimension"
                 trigger OnAfterGetRecord()
                 begin
                     Window.Update(2, "Document No.");
-
-                    UpdtPstdDocDimension(
-                      DATABASE::"Purch. Inv. Line",
-                      "Document No.",
-                      "Line No.");
+                    Validate("Dimension Set ID", GetNewDimSetID("Dimension Set ID", "Default Dimension"."Dimension Code", "Default Dimension"."Dimension Value Code"));
+                    // UpdtPstdDocDimension(
+                    //   DATABASE::"Purch. Inv. Line",
+                    //   "Document No.",
+                    //   "Line No.");
                 end;
 
                 trigger OnPreDataItem()
@@ -235,11 +234,11 @@ report 50032 "PWD Updt with New Dimension"
                 trigger OnAfterGetRecord()
                 begin
                     Window.Update(2, "Document No.");
-
-                    UpdtPstdDocDimension(
-                      DATABASE::"Purch. Cr. Memo Line",
-                      "Document No.",
-                      "Line No.");
+                    Validate("Dimension Set ID", GetNewDimSetID("Dimension Set ID", "Default Dimension"."Dimension Code", "Default Dimension"."Dimension Value Code"));
+                    // UpdtPstdDocDimension(
+                    //   DATABASE::"Purch. Cr. Memo Line",
+                    //   "Document No.",
+                    //   "Line No.");
                 end;
 
                 trigger OnPreDataItem()
@@ -256,13 +255,13 @@ report 50032 "PWD Updt with New Dimension"
                 trigger OnAfterGetRecord()
                 begin
                     Window.Update(2, "No.");
-
-                    UpdtProdDocDimension(
-                      DATABASE::"Production Order",
-                      Status.AsInteger(),
-                      "No.",
-                      0,
-                      0);
+                    Validate("Dimension Set ID", GetNewDimSetID("Dimension Set ID", "Default Dimension"."Dimension Code", "Default Dimension"."Dimension Value Code"));
+                    // UpdtProdDocDimension(
+                    //   DATABASE::"Production Order",
+                    //   Status.AsInteger(),
+                    //   "No.",
+                    //   0,
+                    //   0);
                 end;
 
                 trigger OnPreDataItem()
@@ -278,13 +277,13 @@ report 50032 "PWD Updt with New Dimension"
                 trigger OnAfterGetRecord()
                 begin
                     Window.Update(2, "Prod. Order No.");
-
-                    UpdtProdDocDimension(
-                      DATABASE::"Prod. Order Line",
-                      Status.AsInteger(),
-                      "Prod. Order No.",
-                      "Line No.",
-                      0);
+                    Validate("Dimension Set ID", GetNewDimSetID("Dimension Set ID", "Default Dimension"."Dimension Code", "Default Dimension"."Dimension Value Code"));
+                    // UpdtProdDocDimension(
+                    //   DATABASE::"Prod. Order Line",
+                    //   Status.AsInteger(),
+                    //   "Prod. Order No.",
+                    //   "Line No.",
+                    //   0);
                 end;
 
                 trigger OnPreDataItem()
@@ -300,13 +299,13 @@ report 50032 "PWD Updt with New Dimension"
                 trigger OnAfterGetRecord()
                 begin
                     Window.Update(2, "Prod. Order No.");
-
-                    UpdtProdDocDimension(
-                      DATABASE::"Prod. Order Component",
-                      Status.AsInteger(),
-                      "Prod. Order No.",
-                      "Prod. Order Line No.",
-                      "Line No.");
+                    Validate("Dimension Set ID", GetNewDimSetID("Dimension Set ID", "Default Dimension"."Dimension Code", "Default Dimension"."Dimension Value Code"));
+                    // UpdtProdDocDimension(
+                    //   DATABASE::"Prod. Order Component",
+                    //   Status.AsInteger(),
+                    //   "Prod. Order No.",
+                    //   "Prod. Order Line No.",
+                    //   "Line No.");
                 end;
 
                 trigger OnPreDataItem()
@@ -322,13 +321,13 @@ report 50032 "PWD Updt with New Dimension"
                 trigger OnAfterGetRecord()
                 begin
                     Window.Update(2, "No.");
-
-                    UpdtProdDocDimension(
-                      DATABASE::"Production Order",
-                      Status.AsInteger(),
-                      "No.",
-                      0,
-                      0);
+                    Validate("Dimension Set ID", GetNewDimSetID("Dimension Set ID", "Default Dimension"."Dimension Code", "Default Dimension"."Dimension Value Code"));
+                    // UpdtProdDocDimension(
+                    //   DATABASE::"Production Order",
+                    //   Status.AsInteger(),
+                    //   "No.",
+                    //   0,
+                    //   0);
                 end;
 
                 trigger OnPreDataItem()
@@ -345,13 +344,13 @@ report 50032 "PWD Updt with New Dimension"
                 trigger OnAfterGetRecord()
                 begin
                     Window.Update(2, "Prod. Order No.");
-
-                    UpdtProdDocDimension(
-                      DATABASE::"Prod. Order Line",
-                      Status.AsInteger(),
-                      "Prod. Order No.",
-                      "Line No.",
-                      0);
+                    Validate("Dimension Set ID", GetNewDimSetID("Dimension Set ID", "Default Dimension"."Dimension Code", "Default Dimension"."Dimension Value Code"));
+                    // UpdtProdDocDimension(
+                    //   DATABASE::"Prod. Order Line",
+                    //   Status.AsInteger(),
+                    //   "Prod. Order No.",
+                    //   "Line No.",
+                    //   0);
                 end;
 
                 trigger OnPreDataItem()
@@ -374,12 +373,13 @@ report 50032 "PWD Updt with New Dimension"
                     ProdHeader.SetFilter("Ending Date-Time", DateFilter);
                     if not ProdHeader.IsEmpty then begin
                         Window.Update(2, "Prod. Order No.");
-                        UpdtProdDocDimension(
-                          DATABASE::"Prod. Order Component",
-                          Status.AsInteger(),
-                          "Prod. Order No.",
-                          "Prod. Order Line No.",
-                          "Line No.");
+                        Validate("Dimension Set ID", GetNewDimSetID("Dimension Set ID", "Default Dimension"."Dimension Code", "Default Dimension"."Dimension Value Code"));
+                        // UpdtProdDocDimension(
+                        //   DATABASE::"Prod. Order Component",
+                        //   Status.AsInteger(),
+                        //   "Prod. Order No.",
+                        //   "Prod. Order Line No.",
+                        //   "Line No.");
 
                     end;
                 end;
@@ -397,12 +397,12 @@ report 50032 "PWD Updt with New Dimension"
                 trigger OnAfterGetRecord()
                 begin
                     Window.Update(2, "Document No.");
-
-                    UpdtDocDimension(
-                      DATABASE::"Transfer Line",
-                      6,
-                      "Document No.",
-                      "Line No.");
+                    Validate("Dimension Set ID", GetNewDimSetID("Dimension Set ID", "Default Dimension"."Dimension Code", "Default Dimension"."Dimension Value Code"));
+                    // UpdtDocDimension(
+                    //   DATABASE::"Transfer Line",
+                    //   6,
+                    //   "Document No.",
+                    //   "Line No.");
                 end;
 
                 trigger OnPreDataItem()
@@ -418,11 +418,11 @@ report 50032 "PWD Updt with New Dimension"
                 trigger OnAfterGetRecord()
                 begin
                     Window.Update(2, "Document No.");
-
-                    UpdtPstdDocDimension(
-                      DATABASE::"Transfer Shipment Line",
-                      "Document No.",
-                      "Line No.");
+                    Validate("Dimension Set ID", GetNewDimSetID("Dimension Set ID", "Default Dimension"."Dimension Code", "Default Dimension"."Dimension Value Code"));
+                    // UpdtPstdDocDimension(
+                    //   DATABASE::"Transfer Shipment Line",
+                    //   "Document No.",
+                    //   "Line No.");
                 end;
 
                 trigger OnPreDataItem()
@@ -439,11 +439,11 @@ report 50032 "PWD Updt with New Dimension"
                 trigger OnAfterGetRecord()
                 begin
                     Window.Update(2, "Document No.");
-
-                    UpdtPstdDocDimension(
-                      DATABASE::"Transfer Receipt Line",
-                      "Document No.",
-                      "Line No.");
+                    Validate("Dimension Set ID", GetNewDimSetID("Dimension Set ID", "Default Dimension"."Dimension Code", "Default Dimension"."Dimension Value Code"));
+                    // UpdtPstdDocDimension(
+                    //   DATABASE::"Transfer Receipt Line",
+                    //   "Document No.",
+                    //   "Line No.");
                 end;
 
                 trigger OnPreDataItem()
@@ -540,63 +540,84 @@ report 50032 "PWD Updt with New Dimension"
         DateFilter: Text[30];
 
 
-    procedure UpdtLdgrEntryDimension(TableNo: Integer; EntryNo: Integer)
+    // procedure UpdtLdgrEntryDimension(TableNo: Integer; EntryNo: Integer)
+    // var
+    //     
+    //     //LdgrEntryDimension: Record "Ledger Entry Dimension";
+    //     DimSetEntry: Record "Dimension Set Entry";
+    // begin
+
+    //     LdgrEntryDimension."Entry No." := EntryNo;
+    //     LdgrEntryDimension."Dimension Code" := "Default Dimension"."Dimension Code";
+    //     LdgrEntryDimension."Dimension Value Code" := "Default Dimension"."Dimension Value Code";
+    //     if not LdgrEntryDimension.Insert then;
+    //     if not LdgrEntryDimension.Insert then;
+    // end;
+
+
+    // procedure UpdtDocDimension(TableNo: Integer; DocType: Option; DocNo: Code[20]; DocLineNo: Integer)
+    // var
+
+    // // DocumentDimension: Record "Document Dimension";
+    // begin
+    //     // DocumentDimension."Table ID" := TableNo;
+    //     // DocumentDimension."Document Type" := DocType;
+    //     // DocumentDimension."Document No." := DocNo;
+    //     // DocumentDimension."Line No." := DocLineNo;
+    //     // DocumentDimension."Dimension Code" := "Default Dimension"."Dimension Code";
+    //     // DocumentDimension."Dimension Value Code" := "Default Dimension"."Dimension Value Code";
+    //     // if not DocumentDimension.Insert then;
+    // end;
+
+
+    // procedure UpdtProdDocDimension(TableID: Integer; Status: Option; DocumentNo: Code[20]; LineNo: Integer; SublineNo: Integer)
+    // var
+    // //ProdDocumentDimension: Record "Production Document Dimension";
+    // begin
+    //     // ProdDocumentDimension."Table ID" := TableID;
+    //     // ProdDocumentDimension."Document Status" := Status;
+    //     // ProdDocumentDimension."Document No." := DocumentNo;
+    //     // ProdDocumentDimension."Document Line No." := LineNo;
+    //     // ProdDocumentDimension."Line No." := SublineNo;
+    //     // ProdDocumentDimension."Dimension Code" := "Default Dimension"."Dimension Code";
+    //     // ProdDocumentDimension."Dimension Value Code" := "Default Dimension"."Dimension Value Code";
+    //     // if not ProdDocumentDimension.Insert then;
+    // end;
+
+
+    // procedure UpdtPstdDocDimension(TableNo: Integer; DocNo: Code[20]; DocLineNo: Integer)
+    // var
+
+    // //PstdDocumentDimension: Record "Posted Document Dimension";
+    // begin
+    //     // PstdDocumentDimension."Table ID" := TableNo;
+    //     // PstdDocumentDimension."Document No." := DocNo;
+    //     // PstdDocumentDimension."Line No." := DocLineNo;
+    //     // PstdDocumentDimension."Dimension Code" := "Default Dimension"."Dimension Code";
+    //     // PstdDocumentDimension."Dimension Value Code" := "Default Dimension"."Dimension Value Code";
+    //     // if not PstdDocumentDimension.Insert then;
+    // end;
+
+    local procedure GetNewDimSetID(DimSetID: Integer; DimensionCode: Code[20]; DimensionValueCode: Code[20]): Integer
     var
-    //TODO:   LdgrEntryDimension: Record "Ledger Entry Dimension";
-    //LdgrEntryDimension: Record "Ledger Entry Dimension";
-    //DimSetEntry: Record "Dimension Set Entry";
+        TempDimSetEntry: Record "Dimension Set Entry" temporary;
+        DimSetEntry: Record "Dimension Set Entry";
+        DimMgt: Codeunit DimensionManagement;
     begin
+        DimSetEntry.Reset();
+        DimSetEntry.SetRange("Dimension Set ID", DimSetID);
+        if DimSetEntry.FindSet() then
+            repeat
+                TempDimSetEntry."Dimension Code" := DimSetEntry."Dimension Code";
+                if DimSetEntry."Dimension Code" = DimensionCode then
+                    TempDimSetEntry."Dimension Value Code" := DimensionValueCode
+                else
+                    TempDimSetEntry."Dimension Value Code" := DimSetEntry."Dimension Value Code";
+                TempDimSetEntry."Dimension Value ID" := DimSetEntry."Dimension Value ID";
+                TempDimSetEntry.Insert();
+            until DimSetEntry.Next() = 0;
 
-        // LdgrEntryDimension."Entry No." := EntryNo;
-        // LdgrEntryDimension."Dimension Code" := "Default Dimension"."Dimension Code";
-        // LdgrEntryDimension."Dimension Value Code" := "Default Dimension"."Dimension Value Code";
-        // if not LdgrEntryDimension.Insert then;
-        // if not LdgrEntryDimension.Insert then;
-    end;
-
-
-    procedure UpdtDocDimension(TableNo: Integer; DocType: Option; DocNo: Code[20]; DocLineNo: Integer)
-    var
-    //TODO: Table 'Document Dimension' is missing
-    // DocumentDimension: Record "Document Dimension";
-    begin
-        // DocumentDimension."Table ID" := TableNo;
-        // DocumentDimension."Document Type" := DocType;
-        // DocumentDimension."Document No." := DocNo;
-        // DocumentDimension."Line No." := DocLineNo;
-        // DocumentDimension."Dimension Code" := "Default Dimension"."Dimension Code";
-        // DocumentDimension."Dimension Value Code" := "Default Dimension"."Dimension Value Code";
-        // if not DocumentDimension.Insert then;
-    end;
-
-
-    procedure UpdtProdDocDimension(TableID: Integer; Status: Option; DocumentNo: Code[20]; LineNo: Integer; SublineNo: Integer)
-    var
-    //TODO:Table 'Production Document Dimension' is missing
-    //ProdDocumentDimension: Record "Production Document Dimension";
-    begin
-        // ProdDocumentDimension."Table ID" := TableID;
-        // ProdDocumentDimension."Document Status" := Status;
-        // ProdDocumentDimension."Document No." := DocumentNo;
-        // ProdDocumentDimension."Document Line No." := LineNo;
-        // ProdDocumentDimension."Line No." := SublineNo;
-        // ProdDocumentDimension."Dimension Code" := "Default Dimension"."Dimension Code";
-        // ProdDocumentDimension."Dimension Value Code" := "Default Dimension"."Dimension Value Code";
-        // if not ProdDocumentDimension.Insert then;
-    end;
-
-
-    procedure UpdtPstdDocDimension(TableNo: Integer; DocNo: Code[20]; DocLineNo: Integer)
-    var
-    //TODO: table 'Production Document Dimension' is missing
-    //PstdDocumentDimension: Record "Posted Document Dimension";
-    begin
-        // PstdDocumentDimension."Table ID" := TableNo;
-        // PstdDocumentDimension."Document No." := DocNo;
-        // PstdDocumentDimension."Line No." := DocLineNo;
-        // PstdDocumentDimension."Dimension Code" := "Default Dimension"."Dimension Code";
-        // PstdDocumentDimension."Dimension Value Code" := "Default Dimension"."Dimension Value Code";
-        // if not PstdDocumentDimension.Insert then;
+        exit(DimMgt.GetDimensionSetID(TempDimSetEntry));
     end;
 }
 

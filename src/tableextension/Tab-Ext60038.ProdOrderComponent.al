@@ -233,8 +233,7 @@ tableextension 60038 "PWD ProdOrderComponent" extends "Prod. Order Component"
                         ReservEngineMgt.UpdateActionMessages(ReservEntry1);
 
                     IF ModifySharedFields THEN BEGIN
-                        //TODO: La procedure SetPointerFilter n'existe pas dans le codeunit "Reservation Management"
-                        //ReservationMgt.SetPointerFilter(ReservEntry1);
+                        ReservEntry1.SetPointerFilter();
                         ReservEntry1.SETRANGE("Lot No.", ReservEntry1."Lot No.");
                         ReservEntry1.SETRANGE("Serial No.", ReservEntry1."Serial No.");
                         ReservEntry1.SETFILTER("Entry No.", '<>%1', ReservEntry1."Entry No.");
@@ -276,8 +275,7 @@ tableextension 60038 "PWD ProdOrderComponent" extends "Prod. Order Component"
             QtyAlreadyHandledToInvoice := TotalQtyToInvoice - TotalQtyToHandle;
 
         ReservEntry1.TRANSFERFIELDS(TrackingSpecification);
-        //TODO: La procedure SetPointerFilter n'existe pas dans le codeunit "Reservation Management"
-        //ReservationMgt.SetPointerFilter(ReservEntry1);
+        ReservEntry1.SetPointerFilter();
         ReservEntry1.SETRANGE("Lot No.", ReservEntry1."Lot No.");
         ReservEntry1.SETRANGE("Serial No.", ReservEntry1."Serial No.");
         IF (TrackingSpecification."Lot No." <> '') OR
