@@ -48,6 +48,13 @@ pageextension 60008 "PWD ItemCard" extends "Item Card"
 
             }
         }
+        addafter("Item Category Code")
+        {
+            field("PWD Product Group Code"; "PWD Product Group Code")
+            {
+                caption = 'Product Group Code';
+            }
+        }
         addafter(Inventory)
         {
             field("PWD Principal Inventory"; Rec."PWD Principal Inventory")
@@ -235,7 +242,7 @@ pageextension 60008 "PWD ItemCard" extends "Item Card"
                 RunObject = Page "PWD Lot Size Std. Cost List";
                 RunPageLink = "Item No." = FIELD("No.");
                 ApplicationArea = All;
-                Image= Costs;
+                Image = Costs;
             }
         }
         addbefore("&Units of Measure")
@@ -245,7 +252,7 @@ pageextension 60008 "PWD ItemCard" extends "Item Card"
                 caption = 'Lot Size';
                 RunObject = Page "PWD Lot Size List";
                 ApplicationArea = All;
-                Image= List;
+                Image = List;
             }
         }
         addbefore(Translations)
@@ -295,7 +302,7 @@ pageextension 60008 "PWD ItemCard" extends "Item Card"
             {
                 caption = 'Routing Card';
                 ApplicationArea = All;
-                Image= RoutingVersions;
+                Image = RoutingVersions;
                 trigger OnAction()
                 VAR
                     RecLRouting: Record "Routing Header";
@@ -322,7 +329,7 @@ pageextension 60008 "PWD ItemCard" extends "Item Card"
             action("PWD BOMCard")
             {
                 caption = 'BOM Card';
-                Image= BOM;
+                Image = BOM;
                 ApplicationArea = All;
                 trigger OnAction()
                 VAR
@@ -347,7 +354,7 @@ pageextension 60008 "PWD ItemCard" extends "Item Card"
                 ApplicationArea = All;
                 Promoted = True;
                 PromotedCategory = Process;
-                Image= Setup;
+                Image = Setup;
                 trigger OnAction()
                 VAR
                     RecLItemConfigurator: Record "PWD Item Configurator";

@@ -35,6 +35,14 @@ pageextension 60009 "PWD ItemList" extends "Item List"
                 end;
             }
         }
+        addafter("Item Category Code")
+        {
+            field("PWD Product Group Code"; "PWD Product Group Code")
+            {
+                caption = 'Product Group Code';
+                visible= false;
+            }
+        }
         addafter("Base Unit of Measure")
         {
             field("PWD Location Code"; Rec."Location Code")

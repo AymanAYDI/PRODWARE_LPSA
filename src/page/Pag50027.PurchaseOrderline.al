@@ -590,10 +590,9 @@ page 50027 "PWD Purchase Order line"
                 {
                     ApplicationArea = All;
                 }
-                //TODO: Field 'Product Group Code' is removed
-                // field("Product Group Code"; Rec."Product Group Code")
-                // {
-                // }
+                field("PWD Product Group Code"; Rec."PWD Product Group Code")
+                {
+                }
                 field("Special Order"; Rec."Special Order")
                 {
                     ApplicationArea = All;

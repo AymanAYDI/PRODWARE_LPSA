@@ -38,16 +38,16 @@ report 50042 "PWD Updt Item - Dimension"
                 DiagWindows.Update(2, "No.");
 
                 "Item Category Code" := RecGItemCategory.Code;
-                //"Product Group Code" := CodGGroupCode;
+                "PWD Product Group Code" := CodGGroupCode;
                 Modify();
 
-                // RecGProductGroup.Get(RecGItemCategory.Code, CodGGroupCode);  //TODO: La table Product Group n'existe plus pour la nouvelle version
+                RecGProductGroup.Get(RecGItemCategory.Code, CodGGroupCode);
 
                 CduGClosingMgt.UpdateDimValue(DATABASE::"Item Category", RecGItemCategory.Code, RecGItemCategory.Description);
-                // CduGClosingMgt.UpdateDimValue(DATABASE::"Product Group", RecGProductGroup.Code, RecGProductGroup.Description); //TODO: La table Product Group n'exist pas dans la nouvelle version
+                CduGClosingMgt.UpdateDimValue(DATABASE::"PWD Product Group", RecGProductGroup.Code, RecGProductGroup.Description);
 
                 CduGClosingMgt.UpdtItemDimValue(DATABASE::"Item Category", "No.", "Item Category Code");
-                // CduGClosingMgt.UpdtItemDimValue(DATABASE::"Product Group", "No.", "Product Group Code");//TODO: La table Product Group n'exist pas dans la nouvelle version
+                CduGClosingMgt.UpdtItemDimValue(DATABASE::"PWD Product Group", "No.", "PWD Product Group Code");
 
                 // Mise à jour Sales Line
                 RecLSalesLine.SetRange(Type, RecLSalesLine.Type::Item);
@@ -58,7 +58,7 @@ report 50042 "PWD Updt Item - Dimension"
                         DiagWindows.Update(2, RecLSalesLine."No.");
 
                         RecLSalesLine."Item Category Code" := Item."Item Category Code";
-                        //RecLSalesLine."Product Group Code" := Item."Product Group Code";
+                        RecLSalesLine."PWD Product Group Code" := Item."PWD Product Group Code";
                         RecLSalesLine.Modify();
                     until RecLSalesLine.Next() = 0;
 
@@ -71,7 +71,7 @@ report 50042 "PWD Updt Item - Dimension"
                         DiagWindows.Update(2, RecLPurchLine."Document No.");
 
                         RecLPurchLine."Item Category Code" := Item."Item Category Code";
-                        //RecLPurchLine."Product Group Code" := Item."Product Group Code";
+                        RecLPurchLine."PWD Product Group Code" := Item."PWD Product Group Code";
                         RecLPurchLine.Modify();
                     until RecLPurchLine.Next() = 0;
 
@@ -83,7 +83,7 @@ report 50042 "PWD Updt Item - Dimension"
                         DiagWindows.Update(2, "No.");
 
                         RecLItemJnlLine."Item Category Code" := Item."Item Category Code";
-                        //RecLItemJnlLine."Product Group Code" := Item."Product Group Code";
+                        RecLItemJnlLine."PWD Product Group Code" := Item."PWD Product Group Code";
                         RecLItemJnlLine.Modify();
                     until RecLItemJnlLine.Next() = 0;
 
@@ -96,7 +96,7 @@ report 50042 "PWD Updt Item - Dimension"
                         DiagWindows.Update(2, "No.");
 
                         RecLRequisitionLine."Item Category Code" := Item."Item Category Code";
-                        //RecLRequisitionLine."Product Group Code" := Item."Product Group Code";
+                        RecLRequisitionLine."PWD Product Group Code" := Item."PWD Product Group Code";
                         RecLRequisitionLine.Modify();
                     until RecLRequisitionLine.Next() = 0;
 
@@ -108,7 +108,7 @@ report 50042 "PWD Updt Item - Dimension"
                         DiagWindows.Update(2, RecLTransferLine."Document No.");
 
                         RecLTransferLine."Item Category Code" := Item."Item Category Code";
-                        //RecLTransferLine."Product Group Code" := Item."Product Group Code";
+                        RecLTransferLine."PWD Product Group Code" := Item."PWD Product Group Code";
                         RecLTransferLine.Modify();
                     until RecLTransferLine.Next() = 0;
 
@@ -132,7 +132,7 @@ report 50042 "PWD Updt Item - Dimension"
                         DiagWindows.Update(2, "No.");
 
                         RecLItemConfiguration."Item Category Code" := Item."Item Category Code";
-                        //RecLItemConfiguration."Product Group Code" := Item."Product Group Code";
+                        RecLItemConfiguration."Product Group Code" := Item."PWD Product Group Code";
                         RecLItemConfiguration.Modify();
                     until RecLManufacturingCycles.Next() = 0;
             end;
@@ -175,16 +175,16 @@ report 50042 "PWD Updt Item - Dimension"
                         trigger OnLookup(var Text: Text): Boolean
                         begin
 
-                            // CLEAR(FrmProductGroup);   //TODO: La Page Product Group n'existe plus pour la nouvelle version
+                            CLEAR(PagProductGroup);
 
-                            // Text := '';
-                            // RecGProductGroup.SETRANGE("Item Category Code", RecGItemCategory.Code); //TODO: La table Product Group n'existe plus pour la nouvelle version
-                            // FrmProductGroup.SETTABLEVIEW(RecGProductGroup); //TODO: La Page Product Group n'existe plus pour la nouvelle version
-                            // FrmProductGroup.LOOKUPMODE(TRUE); //TODO: La Page Product Group n'existe plus pour la nouvelle version
-                            // IF FrmProductGroup.RUNMODAL = ACTION::LookupOK THEN //TODO: La Page Product Group n'existe plus pour la nouvelle version
-                            //     Text := FrmProductGroup.GetSelectionFilter; //TODO: La Page Product Group n'existe plus pour la nouvelle version
+                            Text := '';
+                            RecGProductGroup.SETRANGE("Item Category Code", RecGItemCategory.Code);
+                            PagProductGroup.SETTABLEVIEW(RecGProductGroup);
+                            PagProductGroup.LOOKUPMODE(TRUE);
+                            IF PagProductGroup.RUNMODAL() = ACTION::LookupOK THEN
+                                Text := PagProductGroup.GetSelectionFilter(); 
 
-                            EXIT(TRUE);
+                                EXIT(TRUE);
                         end;
                     }
                     field(CstG0003F; CstG0003)
@@ -219,9 +219,9 @@ report 50042 "PWD Updt Item - Dimension"
 
     var
         RecGItemCategory: Record "Item Category";
-        // RecGProductGroup: Record "Product Group"; //TODO: La table Product Group n'existe plus pour la nouvelle version
+        RecGProductGroup: Record "PWD Product Group";
         CduGClosingMgt: Codeunit "PWD Closing Management";
-        // FrmProductGroup: Page "Product Groups"; //TODO: La Oage Product Group n'existe plus pour la nouvelle version
+        PagProductGroup: Page "PWD Product Groups";
         CodGGroupCode: Code[10];
         DiagWindows: Dialog;
         CstG0000: Label 'Mise à jour #1################ #2#################';

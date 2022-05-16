@@ -121,7 +121,7 @@ table 50001 "PWD Item Configurator"
         field(13; "Product Group Code"; Code[10])
         {
             Caption = 'Product Group Code';
-            TableRelation = "Product Group".Code WHERE("Item Category Code" = FIELD("Item Category Code"));
+            TableRelation = "PWD Product Group".Code WHERE("Item Category Code" = FIELD("Item Category Code"));
         }
         field(14; "Item Code"; Code[20])
         {

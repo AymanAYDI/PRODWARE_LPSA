@@ -173,6 +173,7 @@ codeunit 50020 "PWD LPSA Events Mgt."
     begin
         SalesLine."PWD LPSA Description 1" := Item."PWD LPSA Description 1";
         SalesLine."PWD LPSA Description 2" := Item."PWD LPSA Description 2";
+        SalesLine."PWD Product Group Code" := Item."PWD Product Group Code";
     end;
 
     [EventSubscriber(ObjectType::Table, Database::"Sales Line", 'OnAfterAssignResourceValues', '', false, false)]
@@ -354,11 +355,19 @@ codeunit 50020 "PWD LPSA Events Mgt."
         PurchLine.FctDefaultQuantityIfWMS();
         //<<WMS-FE007_15.001
     end;
+
+    [EventSubscriber(ObjectType::table, database::"Purchase Line", 'OnCopyFromItemOnAfterCheck', '', false, false)]
+    local procedure TAB39_OnCopyFromItemOnAfterCheck_PurchaseLine(PurchaseLine: Record "Purchase Line"; Item: Record Item; CallingFieldNo: Integer)
+    begin
+        PurchaseLine."PWD Product Group Code" := Item."PWD Product Group Code";
+    end;
+
     //---TAB83---
     [EventSubscriber(ObjectType::table, database::"Item Journal Line", 'OnValidateItemNoOnBeforeSetDescription', '', false, false)]
     local procedure TAB83_OnValidateItemNoOnBeforeSetDescription_ItemJournalLine(var ItemJournalLine: Record "Item Journal Line"; Item: Record Item)
     begin
         Item.TESTFIELD("PWD Phantom Item", FALSE);
+        ItemJournalLine."PWD Product Group Code" := Item."PWD Product Group Code";
     end;
 
     [EventSubscriber(ObjectType::table, database::"Item Journal Line", 'OnAfterCopyFromWorkCenter', '', false, false)]
@@ -372,6 +381,24 @@ codeunit 50020 "PWD LPSA Events Mgt."
             ItemJournalLine.VALIDATE("Location Code", ManufSetup."PWD Non conformity Prod. Loca.")
         ELSE
             ItemJournalLine.VALIDATE("Location Code", ItemJournalLine.FctGetProdOrderLine(ItemJournalLine."Order No.", ItemJournalLine."Order Line No."));
+    end;
+
+    [EventSubscriber(ObjectType::Table, Database::"Item Journal Line", 'OnAfterCopyItemJnlLineFromSalesLine', '', false, false)]
+    local procedure TAB83_OnAfterCopyItemJnlLineFromSalesLine_ItemJournalLine(var ItemJnlLine: Record "Item Journal Line"; SalesLine: Record "Sales Line")
+    begin
+        ItemJnlLine."PWD Product Group Code" := SalesLine."PWD Product Group Code";
+    end;
+
+    [EventSubscriber(ObjectType::Table, Database::"Item Journal Line", 'OnAfterCopyItemJnlLineFromServShptLine', '', false, false)]
+    local procedure TAB83_OnAfterCopyItemJnlLineFromServShptLine_ItemJournalLine(var ItemJnlLine: Record "Item Journal Line"; ServShptLine: Record "Service Shipment Line")
+    begin
+        ItemJnlLine."PWD Product Group Code" := ServShptLine."PWD Product Group Code";
+    end;
+
+    [EventSubscriber(ObjectType::Table, Database::"Item Journal Line", 'OnAfterCopyItemJnlLineFromServLine', '', false, false)]
+    local procedure TAB83_OnAfterCopyItemJnlLineFromServLine_ItemJournalLine(var ItemJnlLine: Record "Item Journal Line"; ServLine: Record "Service Line")
+    begin
+        ItemJnlLine."PWD Product Group Code" := ServLine."PWD Product Group Code";
     end;
     //---TAB111---
     [EventSubscriber(ObjectType::table, database::"Sales Shipment Line", 'OnBeforeInsertInvLineFromShptLineBeforeInsertTextLine', '', false, false)]
@@ -408,6 +435,18 @@ codeunit 50020 "PWD LPSA Events Mgt."
     begin
         PurchLine."PWD LPSA Description 1" := PurchRcptLine."PWD LPSA Description 1";
         PurchLine."PWD LPSA Description 2" := PurchRcptLine."PWD LPSA Description 2";
+    end;
+    //---TAB246--- 
+    [EventSubscriber(ObjectType::table, database::"Requisition Line", 'OnAfterCopyFromItem', '', false, false)]
+    local procedure TAB246_OnAfterCopyFromItem_RequisitionLine(var RequisitionLine: Record "Requisition Line"; Item: Record Item)
+    begin
+        RequisitionLine."PWD Product Group Code" := Item."PWD Product Group Code";
+    end;
+    //---TAB753---
+    [EventSubscriber(ObjectType::table, database::"Standard Item Journal Line", 'OnValidateItemNoOnAfterCopyItemValues', '', false, false)]
+    local procedure TAB753_OnValidateItemNoOnAfterCopyItemValues_StandardItemJournalLine(var StandardItemJournalLine: Record "Standard Item Journal Line"; Item: Record Item)
+    begin
+        StandardItemJournalLine."PWD Product Group Code" := Item."PWD Product Group Code";
     end;
     //---TAB5404---
     [EventSubscriber(ObjectType::Table, Database::"Item Unit of Measure", 'OnAfterModifyEvent', '', false, false)]
@@ -519,6 +558,12 @@ codeunit 50020 "PWD LPSA Events Mgt."
             Rec."Description 2" := Rec."PWD LPSA Description 2";
         //<<FE_LAPIERRETTE_ART02.001
     end;
+
+    [EventSubscriber(ObjectType::Table, Database::"Transfer Line", 'OnAfterAssignItemValues', '', false, false)]
+    local procedure TAB5741_OnAfterAssignItemValues_TransferLine(var TransferLine: Record "Transfer Line"; Item: Record Item)
+    begin
+        TransferLine."PWD Product Group Code" := Item."PWD Product Group Code";
+    end;
     //---TAB5405---
     [EventSubscriber(ObjectType::Table, Database::"Production Order", 'OnBeforeAssignItemNo', '', false, false)]
     local procedure TAB5405_OnBeforeAssignItemNo_ProductionOrder(var ProdOrder: Record "Production Order"; xProdOrder: Record "Production Order"; var Item: Record Item; CallingFieldNo: Integer)
@@ -618,6 +663,12 @@ codeunit 50020 "PWD LPSA Events Mgt."
                 END;
         END;
     end;
+    //---TAB5902---
+    [EventSubscriber(ObjectType::table, database::"Service Line", 'OnAfterAssignItemValues', '', false, false)]
+    local procedure TAB5902_OnAfterAssignItemValues_ServiceLine(var ServiceLine: Record "Service Line"; Item: Record Item; xServiceLine: Record "Service Line"; CallingFieldNo: Integer; ServiceHeader: Record "Service Header")
+    begin
+        ServiceLine."PWD Product Group Code" := Item."PWD Product Group Code";
+    end;
     //---TAB6651---
     [EventSubscriber(ObjectType::Table, Database::"Return Shipment Line", 'OnInsertInvLineFromRetShptLineOnBeforePurchLineInsert', '', false, false)]
     local procedure TAB6651_OnInsertInvLineFromRetShptLineOnBeforePurchLineInsert_ReturnShipmentLine(var ReturnShipmentLine: Record "Return Shipment Line"; var PurchaseLine: Record "Purchase Line"; var NextLineNo: Integer; var IsHandled: Boolean)
@@ -710,6 +761,7 @@ codeunit 50020 "PWD LPSA Events Mgt."
         IF NOT (ItemJournalLine."PWD Conform quality control") THEN
             NewItemLedgEntry.VALIDATE("PWD NC", TRUE);
         //<<FE_LAPIERRETTE_PRO12.001
+        NewItemLedgEntry."PWD Product Group Code" := ItemJournalLine."PWD Product Group Code";
     end;
     //---CDU241--
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Item Jnl.-Post", 'OnCodeOnBeforeItemJnlPostBatchRun', '', false, false)]
@@ -1877,6 +1929,24 @@ codeunit 50020 "PWD LPSA Events Mgt."
                                           RecLManufacturingSetup."PWD Mach. center-Invent. input") THEN
                 IF NOT CONFIRM(CstG00002) THEN
                     EXIT;
+    end;
+    //---REP698---
+    [EventSubscriber(ObjectType::Report, Report::"Get Sales Orders", 'OnBeforeInsertReqWkshLine', '', false, false)]
+    local procedure REP698_OnBeforeInsertReqWkshLine_GetSalesOrders(var ReqLine: Record "Requisition Line"; SalesLine: Record "Sales Line"; SpecOrder: Integer)
+    begin
+        ReqLine."PWD Product Group Code" := SalesLine."PWD Product Group Code";
+    end;
+    //---TAB5705---
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"TransferOrder-Post Receipt", 'OnAfterPostItemJnlLine', '', false, false)]
+    local procedure TAB5705_OnAfterPostItemJnlLine_TransferOrderPostReceipt(ItemJnlLine: Record "Item Journal Line"; var TransLine3: Record "Transfer Line"; var TransRcptHeader2: Record "Transfer Receipt Header"; var TransRcptLine2: Record "Transfer Receipt Line"; var ItemJnlPostLine: Codeunit "Item Jnl.-Post Line")
+    begin
+        ItemJnlLine."PWD Product Group Code" := TransLine3."PWD Product Group Code";
+    end;
+    //---CDU333---
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Req. Wksh.-Make Order", 'OnInitPurchOrderLineOnAfterValidateLineDiscount', '', false, false)]
+    local procedure CDU333_OnInitPurchOrderLineOnAfterValidateLineDiscount_ReqWkshMakeOrder(var PurchOrderLine: Record "Purchase Line"; PurchOrderHeader: Record "Purchase Header"; RequisitionLine: Record "Requisition Line")
+    begin
+        PurchOrderLine."PWD Product Group Code" := RequisitionLine."PWD Product Group Code";
     end;
 
     var
