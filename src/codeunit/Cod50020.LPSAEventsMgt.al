@@ -47,18 +47,24 @@ codeunit 50020 "PWD LPSA Events Mgt."
     [EventSubscriber(ObjectType::table, database::Item, 'OnAfterValidateEvent', 'Item Category Code', false, false)]
     local procedure TAB27_OnAfterValidateEvent_Item_ItemCategoryCode(var Rec: Record Item; var xRec: Record Item; CurrFieldNo: Integer)
     var
+        ProductGrp: Record "PWD Product Group";
         CduClosingMgt: Codeunit "PWD Closing Management";
     begin
         CduClosingMgt.UpdtItemDimValue(DATABASE::"Item Category", Rec."No.", Rec."Item Category Code");
+        IF Rec."Item Category Code" <> xRec."Item Category Code" THEN
+            IF NOT ProductGrp.GET(Rec."Item Category Code", Rec."PWD Product Group Code") THEN
+                Rec.VALIDATE("PWD Product Group Code", '')
+            ELSE
+                Rec.VALIDATE("PWD Product Group Code");
     end;
-    //TODO: "Product Group Code" is removed
-    // [EventSubscriber(ObjectType::table, database::Item, 'OnAfterValidateEvent', 'Product Group Code', false, false)]
-    // local procedure TAB27_OnAfterValidateEvent_Item_ProductGroupCode(var Rec: Record Item; var xRec: Record Item; CurrFieldNo: Integer)
-    // var
-    //     CduClosingMgt: Codeunit "PWD Closing Management";
-    // begin
-    //     CduClosingMgt.UpdtItemDimValue(DATABASE::"Product Group",Rec."No.",Rec."Product Group Code");
-    // end;
+
+    [EventSubscriber(ObjectType::table, database::Item, 'OnAfterValidateEvent', 'PWD Product Group Code', false, false)]
+    local procedure TAB27_OnAfterValidateEvent_Item_ProductGroupCode(var Rec: Record Item; var xRec: Record Item; CurrFieldNo: Integer)
+    var
+        CduClosingMgt: Codeunit "PWD Closing Management";
+    begin
+        CduClosingMgt.UpdtItemDimValue(DATABASE::"PWD Product Group", Rec."No.", Rec."PWD Product Group Code");
+    end;
     //---TAB36---
     [EventSubscriber(ObjectType::table, database::"Sales Header", 'OnBeforeModifyEvent', '', false, false)]
     local procedure TAB36_OnBeforeModifyEvent_SalesHeader(var Rec: Record "Sales Header"; var xRec: Record "Sales Header"; RunTrigger: Boolean)
@@ -2031,7 +2037,12 @@ codeunit 50020 "PWD LPSA Events Mgt."
                 TransferHeader."Transfer-to Code" := xTransferHeader."Transfer-to Code";
         end;
     end;
-
+    //---TAB5745--- 
+    [EventSubscriber(ObjectType::Table, Database::"Transfer Shipment Line", 'OnAfterCopyFromTransferLine', '', false, false)]
+    local procedure TAB5745_OnAfterCopyFromTransferLine_TransferShipmentLine(var TransferShipmentLine: Record "Transfer Shipment Line"; TransferLine: Record "Transfer Line")
+    begin
+        TransferShipmentLine."PWD Product Group Code" := TransferLine."PWD Product Group Code";
+    end;
 
     var
         BooGFromConfig: Boolean;

@@ -21,5 +21,20 @@ pageextension 60071 "PWD ItemCategories" extends "Item Categories"
             }
         }
     }
+    actions
+    {
+        addlast(creation)
+        {
+            action("PWD Prod. Groups")
+            {
+                caption = '&Prod. Groups';
+                ApplicationArea = All;
+                RunObject = Page "PWD Product Groups";
+                RunPageLink = "Item Category Code" = FIELD(Code);
+                Promoted = true;
+                PromotedCategory = Process;
+            }
+        }
+    }
 }
 

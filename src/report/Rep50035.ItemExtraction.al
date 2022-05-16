@@ -27,8 +27,7 @@ report 50035 "PWD Item Extraction"
     {
         dataitem(Item; Item)
         {
-            //TODO: Ledger Entry Dimension
-            //RequestFilterFields = "No.", "Item Category Code", "Product Group Code";
+            RequestFilterFields = "No.", "Item Category Code", "PWD Product Group Code";
             dataitem("Routing Line"; "Routing Line")
             {
                 DataItemLink = "Routing No." = FIELD("Routing No.");
