@@ -17,6 +17,13 @@ tableextension 60025 "PWD SalesReceivablesSetup" extends "Sales & Receivables Se
             Caption = 'PDF Directory';
             Description = 'LAP2.00';
         }
+        field(50001; "PWD Barcode Invoice Nos."; Code[20])
+        {
+            Caption = 'Barcode Invoice Nos.';
+            Description = 'NDBI';
+            TableRelation = "No. Series";
+        }
+
     }
 }
 

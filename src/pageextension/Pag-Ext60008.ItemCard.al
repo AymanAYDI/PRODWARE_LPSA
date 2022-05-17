@@ -166,7 +166,6 @@ pageextension 60008 "PWD ItemCard" extends "Item Card"
             {
                 ApplicationArea = All;
             }
-
         }
         addafter("Order Multiple")
         {
@@ -192,6 +191,7 @@ pageextension 60008 "PWD ItemCard" extends "Item Card"
         {
             group("PWD WMS")
             {
+                caption = 'WMS';
                 field("PWD WMS_Product Type"; Rec."PWD WMS_Product Type")
                 {
                     ApplicationArea = All;
@@ -229,6 +229,10 @@ pageextension 60008 "PWD ItemCard" extends "Item Card"
         modify(Inventory)
         {
             Importance = Standard;
+            Visible = false;
+        }
+        modify(InventoryNonFoundation)
+        {
             Visible = false;
         }
     }

@@ -315,7 +315,7 @@ table 50001 "PWD Item Configurator"
         }
         field(65; "Height Max."; Decimal)
         {
-            Caption = 'Height Min.';
+            Caption = 'Height Max.';
         }
         field(66; "Width / Depth"; Decimal)
         {

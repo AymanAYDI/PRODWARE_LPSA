@@ -25,14 +25,13 @@ pageextension 60043 "PWD SalesReceivablesSetup" extends "Sales & Receivables Set
                 ApplicationArea = All;
             }
         }
-        //TODO: a vérifier le champ "Barcode Invoice Nos."
-        // addafter("Control 67")
-        // {
-        //     field("PWD Barcode Invoice Nos."; "Barcode Invoice Nos.")
-        //     {
-        //         ApplicationArea = All;
-        //     }
-        // }
+        addlast("Number Series")
+        {
+            field("PWD Barcode Invoice Nos."; Rec."PWD Barcode Invoice Nos.")
+            {
+                ApplicationArea = All;
+            }
+        }
     }
 }
 
