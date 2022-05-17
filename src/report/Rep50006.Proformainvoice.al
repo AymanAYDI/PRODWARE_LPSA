@@ -762,11 +762,13 @@ report 50006 "PWD Proforma invoice"
     trigger OnPostReport()
     var
         RecLSalesHeader: Record "Sales Header";
+        DocPrint: Codeunit "Document-Print";
     begin
         //>>NDBI
         if not BooGSkipSendEmail and BooGEnvoiMail then begin
             RecLSalesHeader.SetView("Sales Header".GetView());
-            SendPDFMail(RecLSalesHeader);
+            // SendPDFMail(RecLSalesHeader);
+            DocPrint.EmailSalesHeader(RecLSalesHeader);
         end;
         //<<NDBI
     end;

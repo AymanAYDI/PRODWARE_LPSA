@@ -288,7 +288,7 @@ report 50012 "PWD Shipment Advice"
 
                             if not ShowCorrectionLines and Correction then
                                 CurrReport.Skip();
-                            DimSetEntry2.SetRange("Dimension Set ID", DATABASE::"Sales Shipment Line");
+                            DimSetEntry2.SetRange("Dimension Set ID", "Dimension Set ID");
                             // PostedDocDim2.SetRange("Table ID", DATABASE::"Sales Shipment Line");
                             // PostedDocDim2.SetRange("Document No.", "Sales Shipment Line"."Document No.");
                             // PostedDocDim2.SetRange("Line No.", "Sales Shipment Line"."Line No.");
@@ -390,7 +390,7 @@ report 50012 "PWD Shipment Advice"
                 begin
                     if Number > 1 then begin
                         CopyText := Text001;
-                            OutputNo += 1;
+                        OutputNo += 1;
                     end;
                     // CurrReport.PageNo := 1;
                     // TotalQty := 0;           // Item Tracking
@@ -407,7 +407,7 @@ report 50012 "PWD Shipment Advice"
                     NoOfLoops := 1 + Abs(NoOfCopies);
                     CopyText := '';
                     SetRange(Number, 1, NoOfLoops);
-                        OutputNo := 1;
+                    OutputNo := 1;
                 end;
             }
 
@@ -420,7 +420,7 @@ report 50012 "PWD Shipment Advice"
                     CompanyInfo."Fax No." := RespCenter."Fax No.";
                 end else
                     FormatAddr.Company(CompanyAddr, CompanyInfo);
-                DimSetEntry1.SetRange("Dimension Set ID", DATABASE::"Sales Shipment Header");
+                DimSetEntry1.SetRange("Dimension Set ID", "Dimension Set ID");
                 // PostedDocDim1.SetRange("Table ID", DATABASE::"Sales Shipment Header");
                 // PostedDocDim1.SetRange("Document No.", "Sales Shipment Header"."No.");
 
@@ -522,11 +522,13 @@ report 50012 "PWD Shipment Advice"
     trigger OnPostReport()
     var
         RecLSalesShipmentHeader: Record "Sales Shipment Header";
+        DocPrint: Codeunit "Document-Print";
     begin
         //>>NDBI
         if not BooGSkipSendEmail and BooGEnvoiMail then begin
             RecLSalesShipmentHeader.SetView("Sales Shipment Header".GetView());
-            SendPDFMail(RecLSalesShipmentHeader);
+            //SendPDFMail(RecLSalesShipmentHeader);
+            RecLSalesShipmentHeader.EmailRecords(true);
         end;
         //<<NDBI
     end;
@@ -535,9 +537,6 @@ report 50012 "PWD Shipment Advice"
         CompanyInfo: Record "Company Information";
         CompanyInfo1: Record "Company Information";
         CompanyInfo2: Record "Company Information";
-        //TODO: Table 'Posted Document Dimension' is missing
-        // PostedDocDim1: Record "Posted Document Dimension";
-        // PostedDocDim2: Record "Posted Document Dimension";
         DimSetEntry1: Record "Dimension Set Entry";
         DimSetEntry2: Record "Dimension Set Entry";
         Item: Record Item;

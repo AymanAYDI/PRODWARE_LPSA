@@ -749,7 +749,9 @@ report 50014 "PWD Invoice"
         //>>NDBI
         if not BooGSkipSendEmail and BooGEnvoiMail then begin
             RecLSalesInvoiceHeader.SetView("Sales Invoice Header".GetView());
-            SendPDFMail(RecLSalesInvoiceHeader);
+            //SendPDFMail(RecLSalesInvoiceHeader);
+            RecLSalesInvoiceHeader.EmailRecords(true);
+           
         end;
         //<<NDBI
     end;

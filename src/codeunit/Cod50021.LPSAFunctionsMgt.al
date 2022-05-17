@@ -1793,7 +1793,7 @@ codeunit 50021 "PWD LPSA Functions Mgt."
         BooGFromConfig := TRUE;
     END;
 
-    PROCEDURE CopyFromConfiguration(CodPIntemNo: Code[20]; VAR RecPNewItem: Record Item)
+    PROCEDURE CopyFromConfiguration(CodPIntemNo: Code[20]; VAR RecPNewItem: Record Item; CopyGenItemInfo: Boolean)
     VAR
         RecLFromItem: Record Item;
         RecLItemConfigurator: Record "PWD Item Configurator";
@@ -1849,9 +1849,9 @@ codeunit 50021 "PWD LPSA Functions Mgt."
 
         // Create New Item
         RecPNewItem."No." := RecLNewItemConfigurator."Item Code";
-        //TODO: The name 'CopyGenItemInfo' does not exist in the current context
-        //IF NOT CopyGenItemInfo THEN
-        RecPNewItem.INSERT();
+        // TODO: The name 'CopyGenItemInfo' does not exist in the current context
+        IF NOT CopyGenItemInfo THEN
+            RecPNewItem.INSERT();
     END;
 
 

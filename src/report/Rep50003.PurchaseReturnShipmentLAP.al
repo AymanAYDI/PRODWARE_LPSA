@@ -649,9 +649,6 @@ report 50003 "Purchase - Return Shipment LAP"
 
     var
         CompanyInfo: Record "Company Information";
-        //TODO: Table 'Posted Document Dimension' is missing
-        // PostedDocDim1: Record "Posted Document Dimension";
-        // PostedDocDim2: Record "Posted Document Dimension";
         DimSetEntry1: Record "Dimension Set Entry";
         DimSetEntry2: Record "Dimension Set Entry";
         RecGItem: Record Item;

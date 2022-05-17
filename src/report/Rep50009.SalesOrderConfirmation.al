@@ -773,7 +773,7 @@ report 50009 "PWD Sales Order Confirmation"
         if not BooGSkipSendEmail and BooGEnvoiMail then begin
             RecLSalesHeader.SetView("Sales Header".GetView());
             //SendPDFMail(RecLSalesHeader);
-            DocPrint.EmailSalesHeader("Sales Header");
+            DocPrint.EmailSalesHeader(RecLSalesHeader);
         end;
     end;
 
