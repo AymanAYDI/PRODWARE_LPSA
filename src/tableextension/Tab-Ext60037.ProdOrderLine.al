@@ -113,7 +113,7 @@ tableextension 60037 "PWD ProdOrderLine" extends "Prod. Order Line"
 
     PROCEDURE ItemChange(newItem: Record Item; oldItem: Record Item);
     BEGIN
-        //TODO: champ ItemColor n'existe pas 
+        //TODO: champ ItemColor n'existe pas et le code contient des champs de planner one
         // IF newItem."PWD PlannerOneColor" <> oldItem."PWD PlannerOneColor" THEN BEGIN
         //     ProdOrderLine.SETCURRENTKEY(Status, "Item No.");
         //     ProdOrderLine.SETFILTER(Status, '..%1', ProdOrderLine.Status::Released);
@@ -178,7 +178,7 @@ tableextension 60037 "PWD ProdOrderLine" extends "Prod. Order Line"
 
     PROCEDURE FctUpdateDelay()
     BEGIN
-        //TODO: le champ "Prod. Ending Date-Time" n'existe pas
+        // TODO: le champ "Prod. Ending Date-Time" n'existe pas (champs N° 8076501 )
         // IF ("Prod. Ending Date-Time" <> DaFLDateF) AND ("Ending Date-Time" <> DaFLDateF) THEN
         //     "PWD Delay" := DT2DATE("Prod. Ending Date-Time") - DT2DATE("Ending Date-Time")
         // ELSE

@@ -176,7 +176,6 @@ permissionset 50000 "PWD LPSA Mgt"
          report "PWD Updt Dimension from Item" = X,
          report "PWD Updt Item - Dimension" = X,
          report "PWD Updt with New Dimension" = X,
-         report "PWD VAT - VIES Declaration XML" = X,
          report "Real Std Comparison Routing" = X,
          report "TPL coché export OSYS Terminé" = X,
          report "Update Rtg Line Global IRON" = X,
