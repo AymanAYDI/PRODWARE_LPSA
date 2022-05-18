@@ -701,7 +701,8 @@ report 50013 "PWD Credit Note"
         //>>NDBI
         IF NOT BooGSkipSendEmail AND BooGEnvoiMail THEN BEGIN
             RecLSalesCrMHeader.SETVIEW("Sales Cr.Memo Header".GETVIEW());
-            SendPDFMail(RecLSalesCrMHeader);
+            //SendPDFMail(RecLSalesCrMHeader);
+            RecLSalesCrMHeader.EmailRecords(true);
         END;
         //<<NDBI
     end;

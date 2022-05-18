@@ -37,7 +37,6 @@ page 50001 "PWD Item Configurator"
             group(Control1100294001)
             {
                 Caption = 'General';
-                ShowCaption = false;
                 field("Family Code"; Rec."Family Code")
                 {
                     Editable = FamilyEditable;
@@ -107,7 +106,6 @@ page 50001 "PWD Item Configurator"
             group(Control1100294020)
             {
                 Caption = 'Description';
-                ShowCaption = false;
                 field("Item Code"; Rec."Item Code")
                 {
                     ApplicationArea = All;

@@ -14123,6 +14123,11 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">TableExtension PWD SalesPrice - Field PWD Search Description - Property Caption</note>
         </trans-unit>
+        <trans-unit id="TableExtension 3486706245 - Field 380897430 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 4145206282">
+          <source>Barcode Invoice Nos.</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">TableExtension PWD SalesReceivablesSetup - Field PWD Barcode Invoice Nos. - Property Caption</note>
+        </trans-unit>
         <trans-unit id="TableExtension 3486706245 - Field 4234910620 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 4145206282">
           <source>PDF Directory</source>
           <note from="Developer" annotates="general" priority="2"></note>

@@ -1199,6 +1199,14 @@ report 50005 "PWD Order LAP"
                                     end;
                                 until PrepmtDimSetEntry.Next() = 0;
                             end;
+
+                            trigger OnPreDataItem()
+                            begin
+                                if not ShowInternalInfo then
+                                    CurrReport.Break();
+
+                                PrepmtDimSetEntry.SetRange("Dimension Set ID", PrepmtInvBuf."Dimension Set ID");
+                            end;
                         }
 
                         trigger OnAfterGetRecord()
@@ -1209,12 +1217,6 @@ report 50005 "PWD Order LAP"
                             end else
                                 if PrepmtInvBuf.Next() = 0 then
                                     CurrReport.Break();
-
-                            if ShowInternalInfo then
-                                //TODO: 'Record "Prepayment Inv. Line Buffer"' does not contain a definition for 'Dimension Entry No.'
-                                //TODO: 'Codeunit "Purchase-Post Prepayments"' does not contain a definition for 'GetDimBuf'
-                                //PurchPostPrepmt.GetDimBuf(PrepmtInvBuf."Dimension Entry No.", PrepmtDocDim);
-                                PrepmtDimSetEntry.SetRange("Dimension Set ID", PrepmtInvBuf."Dimension Set ID");
 
                             if "Purchase Header"."Prices Including VAT" then
                                 PrepmtLineAmount := PrepmtInvBuf."Amount Incl. VAT"

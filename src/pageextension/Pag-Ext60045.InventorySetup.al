@@ -16,10 +16,11 @@ pageextension 60045 "PWD InventorySetup" extends "Inventory Setup"
     // P24578_008.001 : LY 12/08/2019 : Export contrôle de gestion
     layout
     {
-        addafter(Dimensions)
+        addlast(Dimensions)
         {
-            group("PWD Control1100267002")
+            group("PWD Dimensions")
             {
+                ShowCaption = false;
                 field("PWD Item Category Dimension"; Rec."PWD Item Category Dimension")
                 {
                     ApplicationArea = All;

@@ -160,6 +160,7 @@ tableextension 60038 "PWD ProdOrderComponent" extends "Prod. Order Component"
     local procedure RegisterChange(var OldTrackingSpecification: Record "Tracking Specification"; var NewTrackingSpecification: Record "Tracking Specification"; ChangeType: Option Insert,Modify,FullDelete,PartDelete,ModifyAll; ModifySharedFields: Boolean; CurrentSignFactor: Decimal; var TempReservEntry: Record "Reservation Entry"; QtyToAddAsBlank: Decimal) OK: Boolean
     var
         ReservEntry1: Record "Reservation Entry";
+        ItemTrackingCode: Record "Item Tracking Code";
         TempItemTrackLineReserv: Record "Tracking Specification" temporary;
         CreateReservEntry: Codeunit "Create Reserv. Entry";
         ReservEngineMgt: Codeunit "Reservation Engine Mgt.";
@@ -186,13 +187,12 @@ tableextension 60038 "PWD ProdOrderComponent" extends "Prod. Order Component"
                         EXIT(TRUE);
                     TempReservEntry.SETRANGE("Serial No.", '');
                     TempReservEntry.SETRANGE("Lot No.", '');
-                    //TODO: vérifier les parametres de la procedure AddItemTrackingToTempRecSet 
-                    // OldTrackingSpecification."Quantity (Base)" :=
-                    //   CurrentSignFactor *
-                    //   ReservEngineMgt.AddItemTrackingToTempRecSet(
-                    //     TempReservEntry, NewTrackingSpecification,
-                    //     CurrentSignFactor * OldTrackingSpecification."Quantity (Base)", QtyToAddAsBlank,
-                    //     ItemTrackingCode."SN Specific Tracking", ItemTrackingCode."Lot Specific Tracking");
+                    OldTrackingSpecification."Quantity (Base)" :=
+                      CurrentSignFactor *
+                      ReservEngineMgt.AddItemTrackingToTempRecSet(
+                        TempReservEntry, NewTrackingSpecification,
+                        CurrentSignFactor * OldTrackingSpecification."Quantity (Base)", QtyToAddAsBlank,
+                        ItemTrackingCode);
                     TempReservEntry.SETRANGE("Serial No.");
                     TempReservEntry.SETRANGE("Lot No.");
 
@@ -210,18 +210,19 @@ tableextension 60038 "PWD ProdOrderComponent" extends "Prod. Order Component"
                       NewTrackingSpecification."Warranty Date", NewTrackingSpecification."Expiration Date");
                     CreateReservEntry.SetApplyFromEntryNo(
                       NewTrackingSpecification."Appl.-from Item Entry");
-                    //TODO: vérifier les parametres de la procedure CreateReservEntryFor 
-                    // CreateReservEntry.CreateReservEntryFor(
-                    //   OldTrackingSpecification."Source Type",
-                    //   OldTrackingSpecification."Source Subtype",
-                    //   OldTrackingSpecification."Source ID",
-                    //   OldTrackingSpecification."Source Batch Name",
-                    //   OldTrackingSpecification."Source Prod. Order Line",
-                    //   OldTrackingSpecification."Source Ref. No.",
-                    //   OldTrackingSpecification."Qty. per Unit of Measure",
-                    //   OldTrackingSpecification."Quantity (Base)",
-                    //   OldTrackingSpecification."Serial No.",
-                    //   OldTrackingSpecification."Lot No.");
+                    CreateReservEntry.SetApplyToEntryNo(NewTrackingSpecification."Appl.-to Item Entry");
+                    ReservEntry1.CopyTrackingFromSpec(OldTrackingSpecification);
+                    CreateReservEntry.CreateReservEntryFor(
+                      OldTrackingSpecification."Source Type",
+                      OldTrackingSpecification."Source Subtype",
+                      OldTrackingSpecification."Source ID",
+                      OldTrackingSpecification."Source Batch Name",
+                      OldTrackingSpecification."Source Prod. Order Line",
+                      OldTrackingSpecification."Source Ref. No.",
+                      OldTrackingSpecification."Qty. per Unit of Measure",
+                      0,
+                      OldTrackingSpecification."Quantity (Base)",
+                       ReservEntry1);
                     CreateReservEntry.CreateEntry(OldTrackingSpecification."Item No.",
                       OldTrackingSpecification."Variant Code",
                       OldTrackingSpecification."Location Code",
