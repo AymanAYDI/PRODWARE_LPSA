@@ -1,6 +1,5 @@
 tableextension 60011 "PWD ItemJournalLine" extends "Item Journal Line"
 {
-    //TODO: modification dans procedure OpenItemTrackingLines à faire
     // +----------------------------------------------------------------------------------------------------------------------------------+
     // | ProdWare                                                                                                                         |
     // | www.prodware.fr                                                                                                                  |
@@ -87,11 +86,6 @@ tableextension 60011 "PWD ItemJournalLine" extends "Item Journal Line"
             EXIT(ProdOrderLine."Location Code")
     end;
 
-    procedure FctSetFromOsys()
-    var
-        FromOsys: Boolean;
-    begin
-        FromOsys := TRUE;
-    end;
+
 }
 

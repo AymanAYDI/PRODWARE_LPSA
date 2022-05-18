@@ -144,7 +144,6 @@ tableextension 60036 "PWD ProductionOrder" extends "Production Order"
             ProdOrderLine.SETRANGE("Prod. Order No.", "No.");
             if ProdOrderLine.FINDFIRST() then
                 REPEAT
-                    //TODO la table extension de "Prod. Order Line" n'existe pas      
                     ProdOrderLine.ResendProdOrdertoQuartis();
                 UNTIL ProdOrderLine.NEXT() = 0;
         end;
@@ -161,7 +160,6 @@ tableextension 60036 "PWD ProductionOrder" extends "Production Order"
         ProdOrderLine.SETRANGE("Prod. Order No.", "No.");
         IF ProdOrderLine.FINDFIRST() THEN
             REPEAT
-                //TODO la table extension de "Prod. Order Line" n'existe pas      
                 BooLIsNotAvailable := ProdOrderLine.CheckComponentAvailabilty();
             UNTIL (BooLIsNotAvailable) OR (ProdOrderLine.NEXT() = 0);
         EXIT(BooLIsNotAvailable);

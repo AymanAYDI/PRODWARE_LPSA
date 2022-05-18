@@ -1,7 +1,5 @@
 tableextension 60037 "PWD ProdOrderLine" extends "Prod. Order Line"
 {
-    //TODO: A faire les modifications qui existe dans OnValidate de Item No.
-    //TODO: faire les appels de la fonction FctUpdateDelay
     // +----------------------------------------------------------------------------------------------------------------+
     // | ProdWare                                                                                                       |
     // | www.prodware.fr                                                                                                 |
@@ -176,13 +174,5 @@ tableextension 60037 "PWD ProdOrderLine" extends "Prod. Order Line"
         EXIT(BooLIsNotAvailable);
     END;
 
-    PROCEDURE FctUpdateDelay()
-    BEGIN
-        // TODO: le champ "Prod. Ending Date-Time" n'existe pas (champs N° 8076501 )
-        // IF ("Prod. Ending Date-Time" <> DaFLDateF) AND ("Ending Date-Time" <> DaFLDateF) THEN
-        //     "PWD Delay" := DT2DATE("Prod. Ending Date-Time") - DT2DATE("Ending Date-Time")
-        // ELSE
-        //     "PWD Delay" := 0;
-    END;
 }
 

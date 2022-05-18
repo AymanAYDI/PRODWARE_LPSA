@@ -93,7 +93,7 @@ page 50002 "PWD Item Configurator List"
                         RecLItemConfigurator: Record "PWD Item Configurator";
                     begin
                         //>>FE_LAPIERRETTE_NDT01.001
-                        LPSAFunctionsMgt.SetFromConfiguration();
+                        LPSASetGetFunctions.SetFromConfiguration();
                         RepGCopyItem.RUNMODAL();
 
                         // Open Configuration Card
@@ -116,7 +116,7 @@ page 50002 "PWD Item Configurator List"
     var
         RecGNewItem: Record Item;
         RepGCopyItem: Page "Copy Item";
-        LPSAFunctionsMgt: codeunit "PWD LPSA Functions Mgt.";
+        LPSASetGetFunctions: codeunit "PWD LPSA Set/Get Functions.";
         PagGItemConfigurator: Page "PWD Item Configurator";
 }
 

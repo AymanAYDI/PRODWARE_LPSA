@@ -1095,6 +1095,7 @@ codeunit 8073291 "PWD Buffer Management"
         CduLConnectorOSYSParseData: Codeunit "PWD Connector OSYS Parse Data";
         CduLConnectorWMSParseData: Codeunit "PWD Connector WMS Parse Data";
         CduLLotInheritanceMgt: Codeunit "PWD Lot Inheritance Mgt.PW";
+        LPSASetGet: Codeunit "PWD LPSA Set/Get Functions.";
         RecordRef: RecordRef;
         RecordRefBuf: RecordRef;
         CodLLotNo: Code[20];
@@ -1250,7 +1251,7 @@ codeunit 8073291 "PWD Buffer Management"
                     END;
 
                     //>>FE_LAPIERRETTE_PROD11.001
-                    RecLItemJounalLine.FctSetFromOsys();
+                    LPSASetGet.SetFromOsys();
                     RecLItemJounalLine.VALIDATE("PWD Conform quality control", RecPItemJounalLineBuffer."Conform quality control");
                     //<<FE_LAPIERRETTE_PROD11.001
 

@@ -1,6 +1,5 @@
 tableextension 60007 "PWD SalesLine" extends "Sales Line"
 {
-    //TODO: 1- Suppression des instructions standard dans la table Sales Line, 2- la 1ér modification dans la procedure UpdateUnitPrice, 3- modification dans la procedure CheckItemAvailable
     // +----------------------------------------------------------------------------------------------------------------+
     // | ProdWare                                                                                                       |
     // | www.prodware.fr                                                                                                |

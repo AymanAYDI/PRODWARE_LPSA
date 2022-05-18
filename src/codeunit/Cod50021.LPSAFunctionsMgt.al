@@ -494,24 +494,24 @@ codeunit 50021 "PWD LPSA Functions Mgt."
     end;
 
     //---CDU99000835---
-    PROCEDURE SetgFromTheSameLot(piSet: Boolean)
-    var
-        gFromTheSameLot: Boolean;
-    BEGIN
-        gFromTheSameLot := piSet;
-    END;
+    // PROCEDURE SetgFromTheSameLot(piSet: Boolean)
+    // var
+    //     gFromTheSameLot: Boolean;
+    // BEGIN
+    //     gFromTheSameLot := piSet;
+    // END;
 
-    PROCEDURE SetgLotDeterminingData(piSetLotCode: Code[30]; piSetExpirDate: Date): Code[20]
-    var
-        gFromTheSameLot: Boolean;
-        gLotDeterminingLotCode: Code[30];
-        gLotDeterminingExpirDate: Date;
-    BEGIN
-        gLotDeterminingLotCode := piSetLotCode;
-        gLotDeterminingExpirDate := piSetExpirDate;
-        IF piSetLotCode <> '' THEN
-            gFromTheSameLot := TRUE;
-    END;
+    // PROCEDURE SetgLotDeterminingData(piSetLotCode: Code[30]; piSetExpirDate: Date): Code[20]
+    // var
+    //     LPSASetGetFunctions: codeunit "PWD LPSA Set/Get Functions.";
+    //     gLotDeterminingLotCode: Code[30];
+    //     gLotDeterminingExpirDate: Date;
+    // BEGIN
+    //     gLotDeterminingLotCode := piSetLotCode;
+    //     gLotDeterminingExpirDate := piSetExpirDate;
+    //     IF piSetLotCode <> '' THEN
+    //         LPSASetGetFunctions.SetgFromTheSameLot(TRUE);
+    // END;
     //---CDU99000813---
     PROCEDURE FctGetTime(OptPType: option "Work Center","Machine Center"; CodPNo: Code[20]; CodPItemNo: Code[20]; DecPQty: Decimal; VAR DecPSetupTime: Decimal; VAR DecPRunTime: Decimal; VAR CodPSetupTimeUnit: Code[10]; VAR CodPRunTimeUnit: Code[10])
     VAR
@@ -1779,15 +1779,15 @@ codeunit 50021 "PWD LPSA Functions Mgt."
         BooGDontExecuteIfImport := BooPDontExecuteIfImport;
         //<<WMS-FE05.001
     END;
-    //---CDU703---(REPORT 11511)
-    PROCEDURE SetFromConfiguration()
-    var
-        BooGFromConfig: Boolean;
-    BEGIN
-        BooGFromConfig := TRUE;
-    END;
+    // //---CDU703---(REPORT 11511)
+    // PROCEDURE SetFromConfiguration()
+    // var
+    //     BooGFromConfig: Boolean;
+    // BEGIN
+    //     BooGFromConfig := TRUE;
+    // END;
 
-    PROCEDURE CopyFromConfiguration(CodPIntemNo: Code[20]; VAR RecPNewItem: Record Item; CopyGenItemInfo: Boolean)
+    PROCEDURE CopyFromConfiguration(CodPIntemNo: Code[20]; VAR RecPNewItem: Record Item; CopyItemBuffer: Record "Copy Item Buffer")
     VAR
         RecLFromItem: Record Item;
         RecLItemConfigurator: Record "PWD Item Configurator";
@@ -1843,8 +1843,7 @@ codeunit 50021 "PWD LPSA Functions Mgt."
 
         // Create New Item
         RecPNewItem."No." := RecLNewItemConfigurator."Item Code";
-        // TODO: The name 'CopyGenItemInfo' does not exist in the current context
-        IF NOT CopyGenItemInfo THEN
+        IF NOT CopyItemBuffer."General Item Information" THEN
             RecPNewItem.INSERT();
     END;
 }
