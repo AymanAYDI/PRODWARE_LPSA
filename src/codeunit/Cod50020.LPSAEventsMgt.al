@@ -76,7 +76,7 @@ codeunit 50020 "PWD LPSA Events Mgt."
         if Rec.IsTemporary then
             exit;
         //>>WMS-FE05.001
-        IF (Rec."PWD WMS_Status" = Rec."PWD WMS_Status"::Send) AND (NOT DontExecuteIfImport) THEN   //TODO: Probleme au niveau de chargement de notre variable(DontExecuteIfImport) et l'appel de la fonction(la fonction est déclare dans l'extention de la table) 
+        IF (Rec."PWD WMS_Status" = Rec."PWD WMS_Status"::Send) /*AND (NOT DontExecuteIfImport)*/ THEN
             ERROR(CstG0001);
         //<<WMS-FE05.001
     end;
@@ -240,11 +240,14 @@ codeunit 50020 "PWD LPSA Events Mgt."
     [EventSubscriber(ObjectType::table, database::"Sales Line", 'OnBeforeUpdateDates', '', false, false)]
     local procedure TAB37_OnBeforeUpdateDates_SalesLine(var SalesLine: Record "Sales Line"; var IsHandled: Boolean)
     begin
-        // IsHandled := true; //TODO : A vérifier CurrFieldNo ne fonctionne pas
-        // if CurrFieldNo = 0 then begin
-        //     PlannedShipmentDateCalculated := false;
-        //     PlannedDeliveryDateCalculated := false;
-        // end; //TODO; 
+        IsHandled := true;
+    end;
+
+    [EventSubscriber(ObjectType::table, database::"Sales Line", 'OnUpdateUnitPriceOnBeforeFindPrice', '', false, false)]
+    local procedure TAB37_OnUpdateUnitPriceOnBeforeFindPrice_SalesLine(SalesHeader: Record "Sales Header"; var SalesLine: Record "Sales Line"; CalledByFieldNo: Integer; CallingFieldNo: Integer; var IsHandled: Boolean)
+    begin
+        IF SalesHeader."PWD ConfirmedLPSA" THEN
+            IsHandled := true;
     end;
 
     [EventSubscriber(ObjectType::table, database::"Sales Line", 'OnAfterSetDefaultQuantity', '', false, false)]
@@ -266,6 +269,28 @@ codeunit 50020 "PWD LPSA Events Mgt."
     local procedure TAB37_OnValidateNoOnBeforeCalcShipmentDateForLocation_SalesLine(var IsHandled: Boolean; var SalesLine: Record "Sales Line")
     begin
         IsHandled := true;
+    end;
+
+    [EventSubscriber(ObjectType::table, database::"Sales Line", 'OnBeforeValidatePlannedDeliveryDate', '', false, false)]
+    local procedure TAB37_OnBeforeValidatePlannedDeliveryDate_SalesLine(var IsHandled: Boolean; var SalesLine: Record "Sales Line")
+    begin
+        IsHandled := true;
+        SalesLine.TestStatusOpen();
+        if SalesLine."Planned Delivery Date" <> 0D then begin
+            if SalesLine."Planned Shipment Date" > SalesLine."Planned Delivery Date" then
+                SalesLine."Planned Delivery Date" := SalesLine."Planned Shipment Date";
+            //inter support temporaire
+            SalesLine."Shipment Date" := SalesLine."Planned Delivery Date";
+            SalesLine."Planned Shipment Date" := SalesLine."Planned Delivery Date";
+            //inter support temporaire
+        end;
+    end;
+
+    [EventSubscriber(ObjectType::table, database::"Sales Line", 'OnBeforeValidatePlannedShipmentDate', '', false, false)]
+    local procedure TAB37_OnBeforeValidatePlannedShipmentDate_SalesLine(var IsHandled: Boolean; var SalesLine: Record "Sales Line")
+    begin
+        IsHandled := true;
+        SalesLine.TestStatusOpen();
     end;
     //---TAB38---
     [EventSubscriber(ObjectType::table, database::"Purchase Header", 'OnAfterCopyBuyFromVendorAddressFieldsFromVendor', '', false, false)]
@@ -496,33 +521,33 @@ codeunit 50020 "PWD LPSA Events Mgt."
         //<<P24578_008.001
     end;
     //---TAB5723---
-    // [EventSubscriber(ObjectType::Table, Database::"Product Group", 'OnAfterInsertEvent', '', false, false)] //TODO: La table "Product Group" n'exist pas(Propriété : ObsoleteState = Removed;) 
-    // local procedure TAB5723_OnAfterInsertEvent_ProductGroup(var Rec: Record "Product Group"; RunTrigger: Boolean)
-    // var
-    //     CduGClosingMgt: Codeunit "PWD Closing Management";
-    // begin
-    //     if not RunTrigger then
-    //         exit;
-    //     if Rec.IsTemporary then
-    //         exit;
-    //     //>>P24578_008.001
-    //     CduGClosingMgt.UpdateDimValue(DATABASE::"Product Group", Rec.Code, Rec.Description);
-    //     //<<P24578_008.001
-    // end;
+    [EventSubscriber(ObjectType::Table, Database::"PWD Product Group", 'OnAfterInsertEvent', '', false, false)] 
+    local procedure TAB5723_OnAfterInsertEvent_ProductGroup(var Rec: Record "PWD Product Group"; RunTrigger: Boolean)
+    var
+        CduGClosingMgt: Codeunit "PWD Closing Management";
+    begin
+        if not RunTrigger then
+            exit;
+        if Rec.IsTemporary then
+            exit;
+        //>>P24578_008.001
+        CduGClosingMgt.UpdateDimValue(DATABASE::"PWD Product Group", Rec.Code, Rec.Description);
+        //<<P24578_008.001
+    end;
 
-    // [EventSubscriber(ObjectType::Table, Database::"Product Group", 'OnAfterModifyEvent', '', false, false)]  //TODO: La table "Product Group" n'exist pas(Propriété : ObsoleteState = Removed;) 
-    // local procedure TAB5723_OnAfterModifyEvent_ProductGroup(var Rec: Record "Product Group"; RunTrigger: Boolean)
-    // var
-    //     CduGClosingMgt: Codeunit 50004;
-    // begin
-    //     if not RunTrigger then
-    //         exit;
-    //     if Rec.IsTemporary then
-    //         exit;
-    //     //>>P24578_008.001
-    //     CduGClosingMgt.UpdateDimValue(DATABASE::"Product Group", Rec.Code, Rec.Description);
-    //     //<<P24578_008.001
-    // end;
+    [EventSubscriber(ObjectType::Table, Database::"PWD Product Group", 'OnAfterModifyEvent', '', false, false)]   
+    local procedure TAB5723_OnAfterModifyEvent_ProductGroup(var Rec: Record "PWD Product Group"; RunTrigger: Boolean)
+    var
+        CduGClosingMgt: Codeunit 50004;
+    begin
+        if not RunTrigger then
+            exit;
+        if Rec.IsTemporary then
+            exit;
+        //>>P24578_008.001
+        CduGClosingMgt.UpdateDimValue(DATABASE::"PWD Product Group", Rec.Code, Rec.Description);
+        //<<P24578_008.001
+    end;
 
     //---TAB5741---
     [EventSubscriber(ObjectType::Table, Database::"Transfer Line", 'OnAfterValidateEvent', 'Description', false, false)]
@@ -584,12 +609,11 @@ codeunit 50020 "PWD LPSA Events Mgt."
             exit;
         if Rec.IsTemporary then
             exit;
-        IF Rec.Status = Rec.Status::Released THEN BEGIN
+        IF Rec.Status = Rec.Status::Released THEN
             Rec.ResendProdOrdertoQuartis();
-            Rec.FctUpdateDelay();
-        END;
-        IF Rec.Status = Rec.Status::"Firm Planned" THEN
-            Rec.FctUpdateDelay();
+        //Rec.FctUpdateDelay();
+        //IF Rec.Status = Rec.Status::"Firm Planned" THEN
+        //Rec.FctUpdateDelay();
     end;
 
     [EventSubscriber(ObjectType::table, database::"Prod. Order Line", 'OnBeforeDeleteEvent', '', false, false)]
@@ -604,6 +628,24 @@ codeunit 50020 "PWD LPSA Events Mgt."
         if Rec.Status = Rec.Status::Finished then
             Error(Text000, Rec.Status, Rec.TableCaption);
         Rec.FctCreateDeleteProdOrderLine();
+    end;
+
+    [EventSubscriber(ObjectType::table, database::"Prod. Order Line", 'OnValidateItemNoOnAfterAssignItemValues', '', false, false)]
+    local procedure TAB5406_OnValidateItemNoOnAfterAssignItemValues_ProdOrderLine(var ProdOrderLine: Record "Prod. Order Line"; Item: Record Item)
+    begin
+        //PLAW11.0 : calculate earliest start date
+        //ProdOrderLine.VALIDATE("PWD Earliest Start Date", 0D);
+        //PLAW11.0 END
+        //PLAW12.0 End Date Objective
+        ProdOrderLine.UpdateDatetime();
+        //ProdOrderLine.VALIDATE("PWD End Date Objective", 0DT);
+        //PLAW12.0 END
+        //IF routing.GET(ProdOrderLine."Routing No.") THEN
+        //ProdOrderLine."PWD PlanningGroup" := routing."PWD PlanningGroup";
+        //PLAW12.1 END
+        //>>LAP2.10
+        ProdOrderLine."PWD Manufacturing Code" := Item."PWD Manufacturing Code";
+        //<<LAP2.10
     end;
     //---TAB5407---
     [EventSubscriber(ObjectType::Table, Database::"Prod. Order Component", 'OnAfterInsertEvent', '', false, false)]
@@ -1795,23 +1837,33 @@ codeunit 50020 "PWD LPSA Events Mgt."
         //<<LAP080615
     end;
     //---CDU703---(REPORT 11511)
-    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Copy Item", 'OnBeforeCopyItem', '', false, false)]
-    local procedure CDU703_OnBeforeCopyItem_CopyItem(SourceItem: Record Item; var TargetItem: Record Item; CopyCounter: Integer)
-    begin
-        //>>TI409818: TO 22/03/2018:
-        TargetItem."Standard Cost" := 0;
-        TargetItem."Unit Cost" := 0;
-        //<<TI409818: TO 22/03/2018:
-    end;
+    // [EventSubscriber(ObjectType::Codeunit, Codeunit::"Copy Item", 'OnBeforeCopyItem', '', false, false)]
+    // local procedure CDU703_OnBeforeCopyItem_CopyItem(SourceItem: Record Item; var TargetItem: Record Item; CopyCounter: Integer)
+    // begin
+    //     //>>TI409818: TO 22/03/2018:
+    //     TargetItem."Standard Cost" := 0;
+    //     TargetItem."Unit Cost" := 0;
+    //     //<<TI409818: TO 22/03/2018:
+    // end;
 
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Copy Item", 'OnAfterCopyItem', '', false, false)]
     local procedure CDU703_OnAfterCopyItem_CopyItem(var CopyItemBuffer: Record "Copy Item Buffer"; SourceItem: Record Item; var TargetItem: Record Item)
     var
         RecGItemConfigurator: Record "PWD Item Configurator";
         RecGItemConfiguratorNew: Record "PWD Item Configurator";
+        LPSASetGetFunctions: codeunit "PWD LPSA Set/Get Functions.";
+        LPSAFunctionsMgt: codeunit "PWD LPSA Functions Mgt.";
     begin
         //>>FE_LAPIERRETTE_NDT01.001
-        IF BooGFromConfig THEN BEGIN
+        IF LPSASetGetFunctions.GetFromConfiguration THEN
+            LPSAFunctionsMgt.CopyFromConfiguration(SourceItem."No.", TargetItem, CopyItemBuffer);
+        //<<FE_LAPIERRETTE_NDT01.001
+        //>>TI409818: TO 22/03/2018:
+        TargetItem."Standard Cost" := 0;
+        TargetItem."Unit Cost" := 0;
+        //<<TI409818: TO 22/03/2018:
+        //>>FE_LAPIERRETTE_NDT01.001
+        IF LPSASetGetFunctions.GetFromConfiguration THEN BEGIN
             TargetItem.Description := '';
             TargetItem."PWD LPSA Description 1" := '';
             TargetItem."PWD LPSA Description 2" := '';
@@ -2042,6 +2094,24 @@ codeunit 50020 "PWD LPSA Events Mgt."
     local procedure TAB5745_OnAfterCopyFromTransferLine_TransferShipmentLine(var TransferShipmentLine: Record "Transfer Shipment Line"; TransferLine: Record "Transfer Line")
     begin
         TransferShipmentLine."PWD Product Group Code" := TransferLine."PWD Product Group Code";
+    end;
+    //---TAB83--- 
+    [EventSubscriber(ObjectType::codeunit, codeunit::"Item Jnl. Line-Reserve", 'OnBeforeCallItemTracking', '', false, false)]
+    local procedure TAB83_OnBeforeCallItemTracking_ItemJnlLineReserve(var ItemJournalLine: Record "Item Journal Line"; IsReclass: Boolean; var IsHandled: Boolean)
+
+    VAR
+        LPSASetGetFunctions: codeunit "PWD LPSA Set/Get Functions.";
+        cuLotInheritanceMgt: Codeunit "PWD Lot Inheritance Mgt.PW";
+        LotDetLotCode: Code[30];
+        LotDetExpirDate: Date;
+    begin
+        //>>FE_LAPIERRETTE_PROD01.001: TO 13/12/2011
+        LPSASetGetFunctions.SetgFromTheSameLot(cuLotInheritanceMgt.GetCompIsFromTheSameLot(ItemJournalLine));
+        IF ItemJournalLine."Entry Type" = ItemJournalLine."Entry Type"::Output THEN BEGIN
+            cuLotInheritanceMgt.GetLotDeterminingData(ItemJournalLine, LotDetLotCode, LotDetExpirDate);
+            LPSASetGetFunctions.SetgLotDeterminingData(LotDetLotCode, LotDetExpirDate);
+        END;
+        //>>FE_LAPIERRETTE_PROD01.001: TO 13/12/2011
     end;
 
     var

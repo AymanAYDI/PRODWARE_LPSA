@@ -22,10 +22,6 @@ report 50032 "PWD Updt with New Dimension"
                   TableData "Purch. Cr. Memo Line" = r,
                   TableData "Dimension Value" = ri,
                   TableData "Default Dimension" = r,
-                  //TODO:Table '"Ledger Entry Dimension"', "Production Document Dimension" and "Posted Document Dimension" are missing
-                  //TableData "Ledger Entry Dimension" = ri,
-                  //TableData "Production Document Dimension" = ri,
-                  //TableData "Posted Document Dimension" = ri,
                   TableData "Production Order" = r,
                   TableData "Prod. Order Line" = r,
                   TableData "Prod. Order Component" = r,
