@@ -31,7 +31,7 @@ pageextension 60012 "PWD SalesOrder" extends "Sales Order"
         }
         addafter("Promised Delivery Date")
         {
-            field("PWD Cust Promised Delivery Date"; "PWD Cust Promised Deliv. Date")
+            field("PWD Cust Promised Delivery Date"; Rec."PWD Cust Promised Deliv. Date")
             {
                 ApplicationArea = All;
             }

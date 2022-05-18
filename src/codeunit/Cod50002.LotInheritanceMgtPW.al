@@ -1228,7 +1228,7 @@ codeunit 50002 "PWD Lot Inheritance Mgt.PW"
     var
         RecLProdBOM: Record "Production BOM Header";
         RecLProdBOMLine: Record "Production BOM Line";
-        // NeededHits: Integer;
+    // NeededHits: Integer;
     begin
         IF RecLProdBOM.GET(RecPItem."Production BOM No.") THEN BEGIN
             // NeededHits := 0;

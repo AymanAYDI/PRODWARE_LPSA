@@ -182,9 +182,9 @@ report 50042 "PWD Updt Item - Dimension"
                             PagProductGroup.SETTABLEVIEW(RecGProductGroup);
                             PagProductGroup.LOOKUPMODE(TRUE);
                             IF PagProductGroup.RUNMODAL() = ACTION::LookupOK THEN
-                                Text := PagProductGroup.GetSelectionFilter(); 
+                                Text := PagProductGroup.GetSelectionFilter();
 
-                                EXIT(TRUE);
+                            EXIT(TRUE);
                         end;
                     }
                     field(CstG0003F; CstG0003)

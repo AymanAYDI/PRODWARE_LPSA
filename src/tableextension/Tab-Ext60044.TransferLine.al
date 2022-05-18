@@ -55,14 +55,14 @@ tableextension 60044 "PWD TransferLine" extends "Transfer Line"
 
     procedure ShowLineComments()
     var
-        InvtCommentLine: Record "Inventory Comment Line";
-        InvtCommentSheet: Page "Inventory Comment Sheet";
+        InvtCommentLine: Record "PWD Inventory Comment Line";
+        InvtCommentSheet: Page "PWD Inventory Comment Sheet";
     begin
         TESTFIELD("Document No.");
         TESTFIELD("Line No.");
         InvtCommentLine.SETRANGE("Document Type", InvtCommentLine."Document Type"::"Transfer Order");
         InvtCommentLine.SETRANGE("No.", "Document No.");
-        InvtCommentLine.SETRANGE("PWD Document Line No.", "Line No.");
+        InvtCommentLine.SETRANGE("Document Line No.", "Line No.");
         InvtCommentSheet.SETTABLEVIEW(InvtCommentLine);
         InvtCommentSheet.RUNMODAL();
     end;

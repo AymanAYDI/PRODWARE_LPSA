@@ -122,11 +122,11 @@ report 50001 "Export Planning Client Excel"
                         GFileName := UploadedFileName;
                     TempExcelBuffer.UpdateBookExcel(GFileName, SheetName, false);
                     TempExcelBuffer.WriteSheet('', CompanyName, UserId);
-                    TempExcelBuffer.CloseBook;
+                    TempExcelBuffer.CloseBook();
                 end else begin
                     TempExcelBuffer.CreateBook(GFileName, Text002E);
                     TempExcelBuffer.WriteSheet(Text003E, CompanyName, UserId);
-                    TempExcelBuffer.CloseBook;
+                    TempExcelBuffer.CloseBook();
                 end;
                 Commit();
                 TempExcelBuffer.OpenExcel();
@@ -278,38 +278,38 @@ report 50001 "Export Planning Client Excel"
 
     procedure MakeExcelInfo()
     var
-    Text004E : Label 'Company Name';
-      Text005E : Label 'Report No.';
-      Text006E : Label 'Report Name';
-      Text007E : Label 'User ID';
-      Text008E : Label 'Date';
-      Text009E: Label 'Customer Filters;DES=Debitorenfilter';
-      Text010E : Label 'Sales Order Lines Filters';
-      Text011E : Label 'Production Forecast Entry Filter ';
-      Begin
+        Text004E: Label 'Company Name';
+        Text005E: Label 'Report No.';
+        Text006E: Label 'Report Name';
+        Text007E: Label 'User ID';
+        Text008E: Label 'Date';
+        Text009E: Label 'Customer Filters;DES=Debitorenfilter';
+        Text010E: Label 'Sales Order Lines Filters';
+        Text011E: Label 'Production Forecast Entry Filter ';
+    Begin
         TempExcelBuffer.AddColumn(Format(Text004E), false, '', true, false, false, '', TempExcelBuffer."Cell Type"::Text);
-        TempExcelBuffer.AddColumn(CompanyName, false, '', false, false, false, '',TempExcelBuffer."Cell Type"::Text);
+        TempExcelBuffer.AddColumn(CompanyName, false, '', false, false, false, '', TempExcelBuffer."Cell Type"::Text);
         TempExcelBuffer.NewRow();
-        TempExcelBuffer.AddColumn(Format(Text006E), false, '', true, false, false, '',TempExcelBuffer."Cell Type"::Text);
-        TempExcelBuffer.AddColumn(Format(Text003E), false, '', false, false, false, '',TempExcelBuffer."Cell Type"::Text);
+        TempExcelBuffer.AddColumn(Format(Text006E), false, '', true, false, false, '', TempExcelBuffer."Cell Type"::Text);
+        TempExcelBuffer.AddColumn(Format(Text003E), false, '', false, false, false, '', TempExcelBuffer."Cell Type"::Text);
         TempExcelBuffer.NewRow();
-        TempExcelBuffer.AddColumn(Format(Text005E), false, '', true, false, false, '',TempExcelBuffer."Cell Type"::Text);
-        TempExcelBuffer.AddColumn(REPORT::"Export Planning Client Excel", false, '', false, false, false, '',TempExcelBuffer."Cell Type"::Text);
+        TempExcelBuffer.AddColumn(Format(Text005E), false, '', true, false, false, '', TempExcelBuffer."Cell Type"::Text);
+        TempExcelBuffer.AddColumn(REPORT::"Export Planning Client Excel", false, '', false, false, false, '', TempExcelBuffer."Cell Type"::Text);
         TempExcelBuffer.NewRow();
-        TempExcelBuffer.AddColumn(Format(Text007E), false, '', true, false, false, '',TempExcelBuffer."Cell Type"::Text); 
-        TempExcelBuffer.AddColumn(UserId, false, '', false, false, false, '',TempExcelBuffer."Cell Type"::Text);
+        TempExcelBuffer.AddColumn(Format(Text007E), false, '', true, false, false, '', TempExcelBuffer."Cell Type"::Text);
+        TempExcelBuffer.AddColumn(UserId, false, '', false, false, false, '', TempExcelBuffer."Cell Type"::Text);
         TempExcelBuffer.NewRow();
-        TempExcelBuffer.AddColumn(Format(Text008E), false, '', true, false, false, '',TempExcelBuffer."Cell Type"::Text);
-        TempExcelBuffer.AddColumn(Today, false, '', false, false, false, '',TempExcelBuffer."Cell Type"::Date);
+        TempExcelBuffer.AddColumn(Format(Text008E), false, '', true, false, false, '', TempExcelBuffer."Cell Type"::Text);
+        TempExcelBuffer.AddColumn(Today, false, '', false, false, false, '', TempExcelBuffer."Cell Type"::Date);
         TempExcelBuffer.NewRow();
-        TempExcelBuffer.AddColumn(Format(Text009E), false, '', true, false, false, '',TempExcelBuffer."Cell Type"::Text);
-        TempExcelBuffer.AddColumn(Customer.GetFilters, false, '', false, false, false, '',TempExcelBuffer."Cell Type"::Text);
+        TempExcelBuffer.AddColumn(Format(Text009E), false, '', true, false, false, '', TempExcelBuffer."Cell Type"::Text);
+        TempExcelBuffer.AddColumn(Customer.GetFilters, false, '', false, false, false, '', TempExcelBuffer."Cell Type"::Text);
         TempExcelBuffer.NewRow();
-        TempExcelBuffer.AddColumn(Format(Text010E), false, '', true, false, false, '',TempExcelBuffer."Cell Type"::Text);
-        TempExcelBuffer.AddColumn(SalesLineFiter, false, '', false, false, false, '',TempExcelBuffer."Cell Type"::Text);
+        TempExcelBuffer.AddColumn(Format(Text010E), false, '', true, false, false, '', TempExcelBuffer."Cell Type"::Text);
+        TempExcelBuffer.AddColumn(SalesLineFiter, false, '', false, false, false, '', TempExcelBuffer."Cell Type"::Text);
         TempExcelBuffer.NewRow();
-        TempExcelBuffer.AddColumn(Format(Text011E), false, '', true, false, false, '',TempExcelBuffer."Cell Type"::Text);
-        TempExcelBuffer.AddColumn(ForecastEntryFiter, false, '', false, false, false, '',TempExcelBuffer."Cell Type"::Text);
+        TempExcelBuffer.AddColumn(Format(Text011E), false, '', true, false, false, '', TempExcelBuffer."Cell Type"::Text);
+        TempExcelBuffer.AddColumn(ForecastEntryFiter, false, '', false, false, false, '', TempExcelBuffer."Cell Type"::Text);
         TempExcelBuffer.ClearNewRow();
 
         RowNo := 10;

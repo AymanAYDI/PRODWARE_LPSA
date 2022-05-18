@@ -49,7 +49,7 @@ tableextension 60043 "PWD TransferHeader" extends "Transfer Header"
         }
     }
 
-    procedure FillTransferToInfoWithCmd()  
+    procedure FillTransferToInfoWithCmd()
     var
         RecLSalesHeader: Record "Sales Header";
     begin
@@ -66,7 +66,7 @@ tableextension 60043 "PWD TransferHeader" extends "Transfer Header"
         end;
     end;
 
-    procedure FillTransferToInfoLocation() 
+    procedure FillTransferToInfoLocation()
     var
         Location: Record Location;
         TransLine: Record "Transfer Line";

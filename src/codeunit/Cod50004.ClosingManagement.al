@@ -190,8 +190,8 @@ codeunit 50004 "PWD Closing Management"
                                 Format(CurrentDateTime, 0, '<day,2><month,2><year4><Hours24,2><Filler Character,0><Minutes,2><Seconds,2>'));
 
         //CREATE FILE IN RTC MODE.
-            TxtGServerFileName := TxtGExportFileName;
-            TxtGExportFileName := FileMgt.ServerTempFileName('.csv');
+        TxtGServerFileName := TxtGExportFileName;
+        TxtGExportFileName := FileMgt.ServerTempFileName('.csv');
 
         // Create export file
         FilGToExport.TextMode(true);
@@ -237,9 +237,9 @@ codeunit 50004 "PWD Closing Management"
     procedure EndMessage()
     begin
         FilGToExport.Close();
-            // FileMgt.DownloadToFile(TxtGExportFileName, TxtGServerFileName);
-            FileMgt.DownloadHandler(TxtGExportFileName, '', '', '', TxtGServerFileName);
-            TxtGExportFileName := TxtGServerFileName;
+        // FileMgt.DownloadToFile(TxtGExportFileName, TxtGServerFileName);
+        FileMgt.DownloadHandler(TxtGExportFileName, '', '', '', TxtGServerFileName);
+        TxtGExportFileName := TxtGServerFileName;
     end;
 
 

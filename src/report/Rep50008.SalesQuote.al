@@ -15,7 +15,7 @@ report 50008 "PWD Sales Quote"
     // 
     // ------------------------------------------------------------------------------------------------------------------
     DefaultLayout = RDLC;
-    RDLCLayout = './src/report/rdl/SalesQuote.rdl'; 
+    RDLCLayout = './src/report/rdl/SalesQuote.rdl';
 
     Caption = 'Sales Quote';
     UsageCategory = none;
@@ -388,10 +388,10 @@ report 50008 "PWD Sales Quote"
                                     CurrPageHeaderHiddenFlag := 0;
                                     CurrReport.Break();
                                 end else begin
-                                        CurrGroupPageNO += 1;
-                                        InnerGroupPageNO += 1;
-                                        CurrPageHeaderHiddenFlag := 1;
-                                    end;
+                                    CurrGroupPageNO += 1;
+                                    InnerGroupPageNO += 1;
+                                    CurrPageHeaderHiddenFlag := 1;
+                                end;
                                 // CH0004.END
                                 // CH4410.END
                             end;
@@ -430,10 +430,10 @@ report 50008 "PWD Sales Quote"
 
 
                             // CH0004.begin
-                                if ("Sales Line".Type = "Sales Line".Type::"New Page") then
-                                    CurrPageFooterHiddenFlag := 1
-                                else
-                                    CurrPageFooterHiddenFlag := 0;
+                            if ("Sales Line".Type = "Sales Line".Type::"New Page") then
+                                CurrPageFooterHiddenFlag := 1
+                            else
+                                CurrPageFooterHiddenFlag := 0;
                             // CH0004.end
                         end;
 
@@ -536,7 +536,7 @@ report 50008 "PWD Sales Quote"
 
                     if Number > 1 then begin
                         CopyText := Text003;
-                            OutputNo += 1;
+                        OutputNo += 1;
                     end;
                     // CurrReport.PageNo := 1;
                 end;
@@ -552,7 +552,7 @@ report 50008 "PWD Sales Quote"
                     NoOfLoops := Abs(NoOfCopies) + 1;
                     CopyText := '';
                     SetRange(Number, 1, NoOfLoops);
-                        OutputNo := 1;
+                    OutputNo := 1;
                 end;
             }
 
@@ -665,10 +665,10 @@ report 50008 "PWD Sales Quote"
                 NoOfRecords := Count;
 
                 // CH0004.begin
-                    CurrPageHeaderHiddenFlag := 0;
-                    CurrPageFooterHiddenFlag := 0;
-                    CurrGroupPageNO := 0;
-                    InnerGroupPageNO := 1;
+                CurrPageHeaderHiddenFlag := 0;
+                CurrPageFooterHiddenFlag := 0;
+                CurrGroupPageNO := 0;
+                InnerGroupPageNO := 1;
                 // CH0004.end
             end;
         }

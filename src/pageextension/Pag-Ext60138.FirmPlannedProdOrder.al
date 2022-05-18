@@ -55,7 +55,7 @@ pageextension 60138 "PWD FirmPlannedProdOrder" extends "Firm Planned Prod. Order
             action("PWD Action1100267005")
             {
                 Caption = 'Prod. BOM Where-Used';
-                Image= ExchProdBOMItem;
+                Image = ExchProdBOMItem;
                 ApplicationArea = All;
 
                 trigger OnAction()

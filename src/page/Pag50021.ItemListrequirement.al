@@ -231,7 +231,7 @@ page 50021 "PWD Item List requirement"
                         var
                             ItemTrackingDocMgt: Codeunit "Item Tracking Doc. Management";
                         begin
-                            ItemTrackingDocMgt.ShowItemTrackingForEntity(1, "No.", '', '', '');
+                            ItemTrackingDocMgt.ShowItemTrackingForEntity(1, Rec."No.", '', '', '');
                         end;
                     }
                 }

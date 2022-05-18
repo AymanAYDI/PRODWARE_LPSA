@@ -321,7 +321,7 @@ report 50007 "PWD Production Balance"
 
             trigger OnAfterGetRecord()
             begin
-                    IntTypeLine := "Production Balance"."Line Type";
+                IntTypeLine := "Production Balance"."Line Type";
 
                 if ((OptGFilter = OptGFilter::Order) and ("Production Balance"."Order No." <> '')) then
                     RecGSalesHeader.Get(RecGSalesHeader."Document Type"::Order, "Production Balance"."Order No.");

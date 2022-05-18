@@ -153,7 +153,6 @@ tableextension 60038 "PWD ProdOrderComponent" extends "Prod. Order Component"
 
         //ItemTrackingForm.RegisterItemTrackingLines2(SourceSpecification,"Due Date",RecLTrackingSpec);
         RecLTrackingSpecPhantom.DELETEALL();
-
         LPSAFunctionsMgt.VerifyQuantityPhantom(Rec, xRec);
     end;
 

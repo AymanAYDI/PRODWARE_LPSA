@@ -244,7 +244,7 @@ report 50038 "PWD Inventory Valuation Excel"
                 //>>LAP2.12
                 if BooGExportExcel then begin
                     IntGCounter := Item.Count;
-                    Bdialog.Open(CstG007); 
+                    Bdialog.Open(CstG007);
                 end;
                 //<<LAP2.12
             end;

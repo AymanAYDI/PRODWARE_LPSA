@@ -190,7 +190,7 @@ page 50019 "PWD Archive Sales Lines"
                     RunPageLink = "Order No." = FIELD("Document No.");
                     RunPageView = SORTING("Order No.");
                     ApplicationArea = All;
-                    Image=Shipment;
+                    Image = Shipment;
                 }
                 action("<Action1102601010>")
                 {

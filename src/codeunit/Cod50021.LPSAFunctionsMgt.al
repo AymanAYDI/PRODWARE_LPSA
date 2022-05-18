@@ -106,14 +106,7 @@ codeunit 50021 "PWD LPSA Functions Mgt."
         //<<FE_PROD01.002
     END;
     //---CDU80---
-    PROCEDURE FctBooGFromWMS(); //TODO: Fonction WMS CodeUnit 80
-    var
-        BooGFromWMS: Boolean;
-    BEGIN
-        BooGFromWMS := TRUE;
-    END;
-
-    PROCEDURE FctSalesLineFilterWMS(VAR RecPSalesLine: Record 37); //TODO: Fonction WMS CodeUnit 80
+    PROCEDURE FctSalesLineFilterWMS(VAR RecPSalesLine: Record 37);
     BEGIN
         //RecPSalesLine.SETRANGE(WMS_Status,RecPSalesLine.WMS_Status::" ");
         RecPSalesLine.SETRANGE("PWD WMS_Item", TRUE);
@@ -123,13 +116,6 @@ codeunit 50021 "PWD LPSA Functions Mgt."
         RecPSalesLine.SETFILTER("Outstanding Quantity", '<>%1', 0);
         RecPSalesLine.SETRANGE("Drop Shipment", FALSE);
         RecPSalesLine.SETRANGE("PWD WMS_Cust_Blocked", RecPSalesLine."PWD WMS_Cust_Blocked"::" ");
-    END;
-
-    PROCEDURE FctBooGFromConnector();  //TODO: Fonction WMS CodeUnit 80
-    var
-        BooGFromConnector: Boolean;
-    BEGIN
-        BooGFromConnector := TRUE;
     END;
     //---CDU241---
     PROCEDURE FctRecreateJournalLine(Var ItemJnlLine: Record 83);
@@ -261,10 +247,11 @@ codeunit 50021 "PWD LPSA Functions Mgt."
     PROCEDURE FctRecreateJournalFromProd(RecPProdOrderLine: Record 5406; RecPItemJournalLine: Record 83);
     VAR
         CduLLotInheritanceMgt: Codeunit "PWD Lot Inheritance Mgt.PW";
+        LPSASetGetFunctions: codeunit "PWD LPSA Set/Get Functions.";
     BEGIN
         //Suppression et Recr‚ation des lignes de journal avec le num‚ro de lot du composant
-        InitJnalName(RecPItemJournalLine."Journal Template Name",
-                                              RecPItemJournalLine."Journal Batch Name");
+        LPSASetGetFunctions.InitJnalName(RecPItemJournalLine."Journal Template Name",
+        RecPItemJournalLine."Journal Batch Name");
         //CduLProductionJournalMgt.DeleteReservEntry(RecPProdOrderLine."Prod. Order No.",RecPProdOrderLine."Line No.");
         //COMMIT;
 
@@ -470,8 +457,7 @@ codeunit 50021 "PWD LPSA Functions Mgt."
         //     EXIT;
         IF NewProdOrderComp.Status = NewProdOrderComp.Status::Finished THEN
             EXIT;
-        //TODO: SetSourceForProdOrderComp procedure local dans le codeunit "Reservation Management"  
-        //ReservMgt.SetSourceForProdOrderComp();
+        SetSourceForProdOrderComp();
         IF NewProdOrderComp."Qty. per Unit of Measure" <> OldProdOrderComp."Qty. per Unit of Measure" THEN
             ReservMgt.ModifyUnitOfMeasure();
         IF NewProdOrderComp."Remaining Qty. (Base)" * OldProdOrderComp."Remaining Qty. (Base)" < 0 THEN
@@ -480,9 +466,33 @@ codeunit 50021 "PWD LPSA Functions Mgt."
             ReservMgt.DeleteReservEntries(FALSE, NewProdOrderComp."Remaining Qty. (Base)");
         ReservMgt.ClearSurplus();
         ReservMgt.AutoTrack(NewProdOrderComp."Remaining Qty. (Base)");
-        //TODO: AssignForPlanning procedure local dans le codeunit "Prod. Order Comp.-Reserve"
-        //AssignForPlanning(NewProdOrderComp);
+        AssignForPlanning(NewProdOrderComp);
     END;
+
+    local procedure SetSourceForProdOrderComp()
+    var
+        ReservMgt: Codeunit "Reservation Management";
+        ProdOrderComp: Record "Prod. Order Component";
+        LPSASetGetFunctions: codeunit "PWD LPSA Set/Get Functions.";
+        SourceRecRef: RecordRef;
+        CalcReservEntry: Record "Reservation Entry";
+    begin
+        LPSASetGetFunctions.SetProdOrderComp(ProdOrderComp);
+        LPSASetGetFunctions.GetCalcReservEntry(CalcReservEntry);
+        ProdOrderComp.SetReservationEntry(CalcReservEntry);
+        ReservMgt.UpdateReservation(ProdOrderComp."Remaining Qty. (Base)" > 0);
+    end;
+
+    local procedure AssignForPlanning(var ProdOrderComp: Record "Prod. Order Component")
+    var
+        PlanningAssignment: Record "Planning Assignment";
+    begin
+        if ProdOrderComp.Status = ProdOrderComp.Status::Simulated then
+            exit;
+        if ProdOrderComp."Item No." <> '' then
+            PlanningAssignment.ChkAssignOne(ProdOrderComp."Item No.", ProdOrderComp."Variant Code", ProdOrderComp."Location Code", ProdOrderComp."Due Date");
+    end;
+
     //---CDU99000835---
     PROCEDURE SetgFromTheSameLot(piSet: Boolean)
     var
@@ -567,8 +577,6 @@ codeunit 50021 "PWD LPSA Functions Mgt."
                 ProdOrderRtngLine."Routing Reference No." := RoutingRefNo;
                 ProdOrderRtngLine."Operation No." := PlanningRtngLine."Operation No.";
                 ProdOrderRtngLine."Next Operation No." := PlanningRtngLine."Next Operation No.";
-                //TODO: 'Record "Prod. Order Routing Line"' does not contain a definition for 'Next Operation Link Type'
-                //ProdOrderRtngLine."Next Operation Link Type" := PlanningRtngLine."Next Operation Link Type";
                 ProdOrderRtngLine."Previous Operation No." := PlanningRtngLine."Previous Operation No.";
                 ProdOrderRtngLine.Type := PlanningRtngLine.Type;
                 ProdOrderRtngLine."No." := PlanningRtngLine."No.";
@@ -581,7 +589,6 @@ codeunit 50021 "PWD LPSA Functions Mgt."
                 RecLRoutingLine.SETRANGE(RecLRoutingLine."Version Code", RecPProdOrderLine."Routing Version Code");
                 RecLRoutingLine.SETRANGE(RecLRoutingLine."Operation No.", ProdOrderRtngLine."Operation No.");
                 IF RecLRoutingLine.FINDFIRST() THEN BEGIN
-                    //TODO: table extension "Routing Line" n'exsiste pas
                     IF RecLRoutingLine."PWD Fixed-step Prod. Rate time" THEN BEGIN
                         FctGetTime(RecLRoutingLine.Type.AsInteger(), RecLRoutingLine."No.", RecPProdOrderLine."Item No.",
                                    ProdOrder.Quantity,
@@ -674,18 +681,6 @@ codeunit 50021 "PWD LPSA Functions Mgt."
                 ProdOrderRtngLine.INSERT();
             UNTIL PlanningRtngLine.NEXT() = 0;
     END;
-    //---CDU5407---
-    PROCEDURE SetNoFinishCOntrol(BooPAvoidControl: Boolean);
-    BEGIN
-        BooGAvoidControl := BooPAvoidControl;
-    END;
-
-    PROCEDURE GetNoFinishCOntrol(): Boolean;//TODO: A vérifier cette fonction de get avec la fonction SetNoFinishCOntrol et le variable globale BooGAvoidControl
-    BEGIN
-        Exit(BooGAvoidControl);
-    END;
-
-
     //---CDU99000792---
     PROCEDURE Fct_TransmitOrderNo(SalesLine: Record "Sales Line") BooLTransOrderNo: Boolean
     VAR
@@ -702,23 +697,23 @@ codeunit 50021 "PWD LPSA Functions Mgt."
     END;
 
     //---CDU99000778---
-    PROCEDURE FindFirsRecord() Tracking: Text[250]
+    PROCEDURE FindFirstRecord() Tracking: Text[250]
     VAR
+        //TODO: a vérifier : les variables ItemLedgEntry2 sont des variables globales dans le codeunit OrderTrackingManagement
+        TrackingExists: Boolean;
         ItemLedgEntry2: Record "Item Ledger Entry";
         TrackingEntry: Record "Order Tracking Entry" temporary;
-        //TODO: a vérifier : les variables TempReservEntryList,TrackingEntry, EntryNo, ItemLedgEntry2 sont des variables globales dans le codeunit OrderTrackingManagement
         TempReservEntryList: Record "Reservation Entry" temporary;
-        TrackingExists: Boolean;
-        Window: Dialog;
-        EntryNo: Integer;
-        Text000: label 'Counting records...';
+    //Window: Dialog;
+    //EntryNo: Integer;
+    //Text000: label 'Counting records...';
     BEGIN
         //>>LAP2.06
         TempReservEntryList.DELETEALL();
         TrackingEntry.DELETEALL();
-        EntryNo := 1;
+        //EntryNo := 1;
 
-        Window.OPEN(Text000);
+        //Window.OPEN(Text000);
         TrackingEntry.INIT();
         TrackingEntry."Entry No." := 0;
         //TODO: DrillOrdersUp procedure local dans le codeunit OrderTrackingManagement
@@ -728,7 +723,7 @@ codeunit 50021 "PWD LPSA Functions Mgt."
         IF ItemLedgEntry2.FIND('-') THEN
             REPEAT
             //TODO: InsertItemLedgTrackEntry procedure local dans le codeunit OrderTrackingManagement
-            //InsertItemLedgTrackEntry(1, ItemLedgEntry2, ItemLedgEntry2."Remaining Quantity", ItemLedgEntry2);
+            // InsertItemLedgTrackEntry(1, ItemLedgEntry2, ItemLedgEntry2."Remaining Quantity", ItemLedgEntry2);
             UNTIL ItemLedgEntry2.NEXT() = 0;
         TrackingExists := not TrackingEntry.IsEmpty;
         IF TrackingExists THEN
@@ -737,109 +732,109 @@ codeunit 50021 "PWD LPSA Functions Mgt."
             EXIT('Pas de chainage');
         //<<LAP2.06
     END;
-
     //---CDU5510---
-    // PROCEDURE DeleteReservEntryFromOF(CodPProdOrderNo: Code[20]; IntPActualLineNo: Integer);
-    // VAR
-    //     MfgSetup: Record "Manufacturing Setup";
-    //     OroductionJournalMGT: Codeunit "Production Journal Mgt";
-    // BEGIN
-    //     MfgSetup.GET();
-    //     OroductionJournalMGT.SetTemplateAndBatchName();
-    //     OroductionJournalMGT.InitSetupValues();
-    //     OroductionJournalMGT.DeleteJnlLines(ToTemplateName, ToBatchName, CodPProdOrderNo, IntPActualLineNo);
-    // END;
-
-    PROCEDURE InitJnalName(CodPToTemplateName: Code[10]; CodPToBatchName: Code[10]);
+    PROCEDURE DeleteReservEntryFromOF(CodPProdOrderNo: Code[20]; IntPActualLineNo: Integer);
+    VAR
+        MfgSetup: Record "Manufacturing Setup";
+        OroductionJournalMGT: Codeunit "Production Journal Mgt";
+        LPSASetGetFunctions: codeunit "PWD LPSA Set/Get Functions.";
     BEGIN
-        ToTemplateName := CodPToTemplateName;   //TODO: A verifier le variable, c'est un variable globale dans le CodeUnite "Production Journal Mgt"
-        ToBatchName := CodPToBatchName;         //TODO: A verifier le variable, c'est un variable globale dans le CodeUnite "Production Journal Mgt"  
+        MfgSetup.GET();
+        OroductionJournalMGT.SetTemplateAndBatchName();
+        OroductionJournalMGT.InitSetupValues();
+        OroductionJournalMGT.DeleteJnlLines(LPSASetGetFunctions.GetToTemplateName(), LPSASetGetFunctions.GetToBatchName(), CodPProdOrderNo, IntPActualLineNo);
     END;
 
-    // PROCEDURE InsertOutputJnlLine2(RecPItemJnalLine: Record 83; RecPProdOrderLine: Record 5406);
-    // VAR
-    //     ItemJnlBatch: Record "Item Journal Batch";
-    //     ItemJnlLine: Record "Item Journal Line";
-    //     ItemJnlTemplate: Record "Item Journal Template";
-    //     RecLManufacturingSetup: Record "Manufacturing Setup";
-    //     ItemTrackingMgt: Codeunit "Item Tracking Management";
-    //     CodLWorkCenter: Code[10];
-    //     PostingDate: Date;
-    //     QtyToPost: Decimal;
-    //     NextLineNo: Integer;
-    // BEGIN
-    //     PostingDate := WORKDATE(); //TODO: A verifier ce ligne parceque le codeunite 5510 utiliste l'insertion de WORKDATE dans le variable PostingDate
-    //                                //===Copy of Function InsertOutputJnlLine to work on Manufacturing Sheet=======================================
+    PROCEDURE InsertOutputJnlLine2(RecPItemJnalLine: Record 83; RecPProdOrderLine: Record 5406);
+    VAR
+        ItemJnlBatch: Record "Item Journal Batch";
+        ItemJnlLine: Record "Item Journal Line";
+        ItemJnlTemplate: Record "Item Journal Template";
+        RecLManufacturingSetup: Record "Manufacturing Setup";
+        ItemTrackingMgt: Codeunit "Item Tracking Management";
+        CodLWorkCenter: Code[10];
+        PostingDate: Date;
+        QtyToPost: Decimal;
+        NextLineNo: Integer;
+        LPSASetGetFunctions: codeunit "PWD LPSA Set/Get Functions.";
+        ToBatchName: Code[10];
+        ToTemplateName: Code[10];
+    BEGIN
+        PostingDate := WORKDATE();
+        //===Copy of Function InsertOutputJnlLine to work on Manufacturing Sheet=======================================
+        //>>FE_LAPIERRETTE_PROD03.001
+        RecLManufacturingSetup.GET();
+        //>>FE_LAPIERRETTE_PRO12.001
+        //RecLManufacturingSetup.TESTFIELD("Non conformity Prod. Location");
+        //<<FE_LAPIERRETTE_PRO12.001
+        RecLManufacturingSetup.TESTFIELD("PWD Mach. center-Invent. input");
+        CodLWorkCenter := RecLManufacturingSetup."PWD Mach. center-Invent. input";
+        //<FE_LAPIERRETTE_PROD03.001
+        QtyToPost := RecPItemJnalLine."Output Quantity";
+        //>>ProdOrderRtngLine
+        //>>ProdOrderLine
+        ItemJnlLine.INIT();
+        ToBatchName := LPSASetGetFunctions.GetToBatchName();
+        ToTemplateName := LPSASetGetFunctions.GetToTemplateName();
+        ItemJnlLine."Journal Template Name" := ToTemplateName;
+        ItemJnlLine."Journal Batch Name" := ToBatchName;
+        ItemJnlLine."Line No." := NextLineNo;
+        ItemJnlLine."PWD Conform quality control" := RecPItemJnalLine."PWD Conform quality control";
+        ItemJnlLine.VALIDATE("Posting Date", PostingDate);
+        ItemJnlLine.VALIDATE("Entry Type", ItemJnlLine."Entry Type"::Output);
+        ItemJnlLine.VALIDATE("Order Type", "ItemJnlLine"."Order Type"::Production);
+        ItemJnlLine.VALIDATE("Order No.", RecPItemJnalLine."Order No.");
+        ItemJnlLine.VALIDATE("Order Line No.", RecPItemJnalLine."Order Line No.");
+        ItemJnlLine.VALIDATE("Item No.", RecPItemJnalLine."Item No.");
+        ItemJnlLine.VALIDATE("Variant Code", RecPItemJnalLine."Variant Code");
+        ItemJnlLine.VALIDATE("Location Code", RecPItemJnalLine."Location Code");
+        IF RecPItemJnalLine."Bin Code" <> '' THEN
+            ItemJnlLine.VALIDATE("Bin Code", RecPItemJnalLine."Bin Code");
+        ItemJnlLine.VALIDATE("Routing No.", RecPItemJnalLine."Routing No.");
+        ItemJnlLine.VALIDATE("Routing Reference No.", RecPItemJnalLine."Routing Reference No.");
+        IF RecPItemJnalLine."Order No." <> '' THEN
+            ItemJnlLine.VALIDATE("Operation No.", RecPItemJnalLine."Operation No.");
+        ItemJnlLine.VALIDATE("Unit of Measure Code", RecPItemJnalLine."Unit of Measure Code");
+        ItemJnlLine.VALIDATE("Setup Time", 0);
+        ItemJnlLine.VALIDATE("Run Time", 0);
+        IF (RecPItemJnalLine."Location Code" <> '') THEN
+            ItemJnlLine.CheckWhse(RecPItemJnalLine."Location Code", QtyToPost);
+        ItemJnlLine.VALIDATE("Output Quantity", QtyToPost);
+        //IF ProdOrderRtngLine."Routing Status" = ProdOrderRtngLine."Routing Status"::Finished THEN
+        ItemJnlLine.Finished := TRUE;
+        ItemJnlLine."Flushing Method" := RecPItemJnalLine."Flushing Method";
+        //
+        ItemJnlTemplate.SetRange("Page ID", PAGE::"Production Journal");
+        ItemJnlTemplate.SetRange(Recurring, false);
+        ItemJnlTemplate.SetRange(Type, ItemJnlTemplate.Type::"Prod. Order");
+        if ItemJnlTemplate.FindFirst() then
+            //
+            ItemJnlLine."Source Code" := ItemJnlTemplate."Source Code";
+        //
+        if ItemJnlBatch.Get(ToTemplateName, ToBatchName) then begin
+            //
+            ItemJnlLine."Reason Code" := ItemJnlBatch."Reason Code";
+            ItemJnlLine."Posting No. Series" := ItemJnlBatch."Posting No. Series";
+        End;
+        ItemJnlLine.INSERT();
+        //IF ProdOrderRtngLine."Next Operation No." = '' THEN // Last or no Routing Line
+        ItemTrackingMgt.CopyItemTracking(RecPProdOrderLine.RowID1(), ItemJnlLine.RowID1(), FALSE);
+        //ItemTrackingMgt.CopyItemTracking(RecPProdOrderLine.RowID1,ItemJnlLine.RowID1,FALSE);
+        NextLineNo += 10000;
+    END;
 
-    //     //>>FE_LAPIERRETTE_PROD03.001
-    //     RecLManufacturingSetup.GET();
-    //     //>>FE_LAPIERRETTE_PRO12.001
-    //     //RecLManufacturingSetup.TESTFIELD("Non conformity Prod. Location");
-    //     //<<FE_LAPIERRETTE_PRO12.001
-    //     RecLManufacturingSetup.TESTFIELD("PWD Mach. center-Invent. input");
-    //     CodLWorkCenter := RecLManufacturingSetup."PWD Mach. center-Invent. input";                                                                                  //<FE_LAPIERRETTE_PROD03.001
-    //     QtyToPost := RecPItemJnalLine."Output Quantity";
-    //     //>>ProdOrderRtngLine
-    //     //>>ProdOrderLine
-    //     ItemJnlLine.INIT();
-    //     ItemJnlLine."Journal Template Name" := ToTemplateName;
-    //     ItemJnlLine."Journal Batch Name" := ToBatchName;
-    //     ItemJnlLine."Line No." := NextLineNo;
-    //     ItemJnlLine."PWD Conform quality control" := RecPItemJnalLine."PWD Conform quality control";
-    //     ItemJnlLine.VALIDATE("Posting Date", PostingDate);
-    //     ItemJnlLine.VALIDATE("Entry Type", ItemJnlLine."Entry Type"::Output);
-    //     ItemJnlLine.VALIDATE("Order Type", "ItemJnlLine"."Order Type"::Production);
-    //     ItemJnlLine.VALIDATE("Order No.", RecPItemJnalLine."Order No.");
-    //     ItemJnlLine.VALIDATE("Order Line No.", RecPItemJnalLine."Order Line No.");
-    //     ItemJnlLine.VALIDATE("Item No.", RecPItemJnalLine."Item No.");
-    //     ItemJnlLine.VALIDATE("Variant Code", RecPItemJnalLine."Variant Code");
-    //     ItemJnlLine.VALIDATE("Location Code", RecPItemJnalLine."Location Code");
-    //     IF RecPItemJnalLine."Bin Code" <> '' THEN
-    //         ItemJnlLine.VALIDATE("Bin Code", RecPItemJnalLine."Bin Code");
-    //     ItemJnlLine.VALIDATE("Routing No.", RecPItemJnalLine."Routing No.");
-    //     ItemJnlLine.VALIDATE("Routing Reference No.", RecPItemJnalLine."Routing Reference No.");
-    //     IF RecPItemJnalLine."Order No." <> '' THEN
-    //         ItemJnlLine.VALIDATE("Operation No.", RecPItemJnalLine."Operation No.");
-    //     ItemJnlLine.VALIDATE("Unit of Measure Code", RecPItemJnalLine."Unit of Measure Code");
-    //     ItemJnlLine.VALIDATE("Setup Time", 0);
-    //     ItemJnlLine.VALIDATE("Run Time", 0);
-    //     IF (RecPItemJnalLine."Location Code" <> '') THEN
-    //         ItemJnlLine.CheckWhse(RecPItemJnalLine."Location Code", QtyToPost);
-    //     ItemJnlLine.VALIDATE("Output Quantity", QtyToPost);
-    //     //IF ProdOrderRtngLine."Routing Status" = ProdOrderRtngLine."Routing Status"::Finished THEN
-    //     ItemJnlLine.Finished := TRUE;
-    //     ItemJnlLine."Flushing Method" := RecPItemJnalLine."Flushing Method";
-    //     //
-    //     ItemJnlTemplate.SetRange("Page ID", PAGE::"Production Journal");
-    //     ItemJnlTemplate.SetRange(Recurring, false);
-    //     ItemJnlTemplate.SetRange(Type, ItemJnlTemplate.Type::"Prod. Order");
-    //     if ItemJnlTemplate.FindFirst() then
-    //         //
-    //         ItemJnlLine."Source Code" := ItemJnlTemplate."Source Code";
-    //     //
-    //     if ItemJnlBatch.Get(ToTemplateName, ToBatchName) then begin
-    //         //
-    //         ItemJnlLine."Reason Code" := ItemJnlBatch."Reason Code";
-    //         ItemJnlLine."Posting No. Series" := ItemJnlBatch."Posting No. Series";
-    //     End;
-    //     ItemJnlLine.INSERT();
-    //     //IF ProdOrderRtngLine."Next Operation No." = '' THEN // Last or no Routing Line
-    //     ItemTrackingMgt.CopyItemTracking(RecPProdOrderLine.RowID1(), ItemJnlLine.RowID1(), FALSE);
-    //     //ItemTrackingMgt.CopyItemTracking(RecPProdOrderLine.RowID1,ItemJnlLine.RowID1,FALSE);
-    //     NextLineNo += 10000;
-    // END;
-
-    // PROCEDURE DeleteReservEntry(CodPProdOrderNo: Code[20]; IntPActualLineNo: Integer);
-    // VAR
-    //     MfgSetup: Record "Manufacturing Setup";
-    //     ProductionJournalMgt: Codeunit "Production Journal Mgt";
-    // BEGIN
-    //     MfgSetup.GET();
-    //     ProductionJournalMgt.InitSetupValues();
-    //     ProductionJournalMgt.DeleteJnlLines(ToTemplateName, ToBatchName, CodPProdOrderNo, IntPActualLineNo);
-    // END;
+    PROCEDURE DeleteReservEntry(CodPProdOrderNo: Code[20]; IntPActualLineNo: Integer);
+    VAR
+        MfgSetup: Record "Manufacturing Setup";
+        ProductionJournalMgt: Codeunit "Production Journal Mgt";
+        LPSASetGetFunctions: codeunit "PWD LPSA Set/Get Functions.";
+    BEGIN
+        MfgSetup.GET();
+        ProductionJournalMgt.InitSetupValues();
+        ProductionJournalMgt.DeleteJnlLines(LPSASetGetFunctions.GetToTemplateName(), LPSASetGetFunctions.GetToBatchName(), CodPProdOrderNo, IntPActualLineNo);
+    END;
     //---CDU5701---
-    PROCEDURE GetCompSubstPhantom(VAR ProdOrderComp: Record 5407): Code[10];
+    PROCEDURE GetCompSubstPhantom(VAR ProdOrderComp: Record "Prod. Order Component"): Code[10];
     Var
         TempItemSubPhantom: Record "PWD Phantom substitution Items" TEMPORARY;
         ItemSubst: Codeunit "Item Subst.";
@@ -863,10 +858,11 @@ codeunit 50021 "PWD LPSA Functions Mgt."
         // << FE_LAPRIERRETTE_GP0003 : APA 16/05/13
     END;
 
-    PROCEDURE UpdateComponentPhantom(VAR ProdOrderComp: Record 5407; SubstItemNo: Code[20]; VAR PhantomItem: Record 50011);
+    PROCEDURE UpdateComponentPhantom(VAR ProdOrderComp: Record "Prod. Order Component"; SubstItemNo: Code[20]; VAR PhantomItem: Record "PWD Phantom substitution Items");
     VAR
         ItemUnitOfMeasure: Record "Item Unit of Measure";
         TempProdOrderComp: Record "Prod. Order Component" TEMPORARY;
+        ProdOrderCompReserve: Codeunit "Prod. Order Comp.-Reserve";
         RecLProdOrderLine: Record "Prod. Order Line";
         RecLTrackingSpecPhantom: Record "Tracking Specification Phantom";
         BooLOneItem: Boolean;
@@ -877,14 +873,18 @@ codeunit 50021 "PWD LPSA Functions Mgt."
         Text50000: Label 'Vous ne pouvez pas sélectionner des articles différents. Veuillez sélectionner le même article, pour des n° lot différents';
         Text50001: Label 'Confirmez-vous la différence de quantité de %1 au lieu de %2?';
     BEGIN
-        // >> FE_LAPRIERRETTE_GP0003 : APA 16/05/13
+        if (ProdOrderComp."Item No." <> SubstItemNo) then
+            ProdOrderCompReserve.DeleteLine(ProdOrderComp);
+
         TempProdOrderComp := ProdOrderComp;
         // Mise … jour des informations composants
         PhantomItem.SETFILTER("Quantity Requested", '<>0');
         IF NOT PhantomItem.FINDFIRST() THEN
             ERROR('Aucun article sélectionné');
+
         //Contr“le qu'un seul article est s‚lectionn‚ et de la quantit‚ totale choisie
         SubstItemNo := PhantomItem."Item No.";
+
         BooLOneItem := TRUE;
         DecLQty := 0;
         REPEAT
@@ -905,46 +905,40 @@ codeunit 50021 "PWD LPSA Functions Mgt."
 
         DeleteReservationEntryPhantom(ProdOrderComp);
 
-        SaveQty := TempProdOrderComp."Quantity per";
+        with TempProdOrderComp do begin
+            SaveQty := "Quantity per";
 
-        TempProdOrderComp."Item No." := SubstItemNo;
-        TempProdOrderComp."Location Code" := ProdOrderComp."Location Code";
-        TempProdOrderComp."Quantity per" := 0;
+            "Item No." := SubstItemNo;
+            "Location Code" := ProdOrderComp."Location Code";
+            "Quantity per" := 0;
+            Validate("Item No.");
 
-        TempProdOrderComp.VALIDATE("Item No.");
+            "Original Item No." := ProdOrderComp."Item No.";
+            IF DecLQty <> TempProdOrderComp."Expected Quantity" THEN
+                TempProdOrderComp.VALIDATE("Expected Quantity", DecLQty * (1 + TempProdOrderComp."Scrap %" / 100));
 
-        TempProdOrderComp."Original Item No." := ProdOrderComp."Item No.";
-
-        IF DecLQty <> TempProdOrderComp."Expected Quantity" THEN
-            TempProdOrderComp.VALIDATE("Expected Quantity", DecLQty * (1 + TempProdOrderComp."Scrap %" / 100));
-
-        IF ProdOrderComp."Qty. per Unit of Measure" <> 1 THEN
-            //TODO: j'ai changer le Item.NO par PhantomItem."Item No."
-            IF ItemUnitOfMeasure.GET(PhantomItem."Item No.", ProdOrderComp."Unit of Measure Code") AND (ItemUnitOfMeasure."Qty. per Unit of Measure" = ProdOrderComp."Qty. per Unit of Measure") THEN
-                TempProdOrderComp.VALIDATE("Unit of Measure Code", ProdOrderComp."Unit of Measure Code")
-            ELSE
-                SaveQty := ROUND(ProdOrderComp."Quantity per" * ProdOrderComp."Qty. per Unit of Measure", 0.00001);
-        TempProdOrderComp.VALIDATE("Quantity per", SaveQty);
-
-        IF DecLQty <> TempProdOrderComp."Expected Quantity" THEN BEGIN
-            DecLxQty := TempProdOrderComp."Expected Quantity";
-            TempProdOrderComp.VALIDATE("Expected Quantity", DecLQty);
-            ProdOrderComp := TempProdOrderComp;
-            ProdOrderComp.MODIFY();
-            IF RecLProdOrderLine.GET(TempProdOrderComp.Status, TempProdOrderComp."Prod. Order No.", TempProdOrderComp."Prod. Order Line No.") THEN BEGIN
-                //ERROR(FORMAT( RecLProdOrderLine.Quantity * TempProdOrderComp."Expected Quantity" / DecLxQty));
-                RecLProdOrderLine.VALIDATE(Quantity, ROUND((RecLProdOrderLine.Quantity * TempProdOrderComp."Expected Quantity" / DecLxQty), 1))
-        ;
-                RecLProdOrderLine.MODIFY();
+            if ProdOrderComp."Qty. per Unit of Measure" <> 1 then
+                if ItemUnitOfMeasure.Get(SubstItemNo, ProdOrderComp."Unit of Measure Code") and (ItemUnitOfMeasure."Qty. per Unit of Measure" = ProdOrderComp."Qty. per Unit of Measure") then
+                    Validate("Unit of Measure Code", ProdOrderComp."Unit of Measure Code")
+                else
+                    SaveQty := ROUND(ProdOrderComp."Quantity per" * ProdOrderComp."Qty. per Unit of Measure", 0.00001);
+            Validate("Quantity per", SaveQty);
+            IF DecLQty <> TempProdOrderComp."Expected Quantity" THEN BEGIN
+                DecLxQty := TempProdOrderComp."Expected Quantity";
+                TempProdOrderComp.VALIDATE("Expected Quantity", DecLQty);
+                ProdOrderComp := TempProdOrderComp;
+                ProdOrderComp.MODIFY();
+                IF RecLProdOrderLine.GET(Status, "Prod. Order No.", "Prod. Order Line No.") THEN BEGIN
+                    //ERROR(FORMAT( RecLProdOrderLine.Quantity * TempProdOrderComp."Expected Quantity" / DecLxQty));
+                    RecLProdOrderLine.VALIDATE(Quantity, ROUND((RecLProdOrderLine.Quantity * TempProdOrderComp."Expected Quantity" / DecLxQty), 1));
+                    RecLProdOrderLine.MODIFY();
+                END;
+            END ELSE BEGIN
+                ProdOrderComp := TempProdOrderComp;
+                ProdOrderComp.MODIFY();
             END;
-        END ELSE BEGIN
-            ProdOrderComp := TempProdOrderComp;
-            ProdOrderComp.MODIFY();
         END;
-
-
         DeletePreviousOperationPhantom(ProdOrderComp);
-
         // Mise … jour des informations de tra‡abilit‚
         IF RecLTrackingSpecPhantom.FINDLAST() THEN
             IntLastEntryNo := RecLTrackingSpecPhantom."Entry No."
@@ -959,24 +953,24 @@ codeunit 50021 "PWD LPSA Functions Mgt."
                 RecLTrackingSpecPhantom."Entry No." := IntLastEntryNo;
                 RecLTrackingSpecPhantom."Source Type" := DATABASE::"Prod. Order Component";
                 WITH ProdOrderComp DO BEGIN
-                    RecLTrackingSpecPhantom."Item No." := ProdOrderComp."Item No.";
-                    RecLTrackingSpecPhantom."Location Code" := ProdOrderComp."Location Code";
-                    RecLTrackingSpecPhantom."Bin Code" := ProdOrderComp."Bin Code";
-                    RecLTrackingSpecPhantom.Description := ProdOrderComp.Description;
-                    RecLTrackingSpecPhantom."Variant Code" := ProdOrderComp."Variant Code";
-                    RecLTrackingSpecPhantom."Source Subtype" := ProdOrderComp.Status.AsInteger();
-                    RecLTrackingSpecPhantom."Source ID" := ProdOrderComp."Prod. Order No.";
+                    RecLTrackingSpecPhantom."Item No." := "Item No.";
+                    RecLTrackingSpecPhantom."Location Code" := "Location Code";
+                    RecLTrackingSpecPhantom."Bin Code" := "Bin Code";
+                    RecLTrackingSpecPhantom.Description := Description;
+                    RecLTrackingSpecPhantom."Variant Code" := "Variant Code";
+                    RecLTrackingSpecPhantom."Source Subtype" := Status.AsInteger();
+                    RecLTrackingSpecPhantom."Source ID" := "Prod. Order No.";
                     RecLTrackingSpecPhantom."Source Batch Name" := '';
-                    RecLTrackingSpecPhantom."Source Prod. Order Line" := ProdOrderComp."Prod. Order Line No.";
-                    RecLTrackingSpecPhantom."Source Ref. No." := ProdOrderComp."Line No.";
+                    RecLTrackingSpecPhantom."Source Prod. Order Line" := "Prod. Order Line No.";
+                    RecLTrackingSpecPhantom."Source Ref. No." := "Line No.";
                     RecLTrackingSpecPhantom."Quantity (Base)" := PhantomItem."Quantity Requested";
                     RecLTrackingSpecPhantom."Qty. to Handle" := PhantomItem."Quantity Requested";
                     RecLTrackingSpecPhantom."Qty. to Handle (Base)" := PhantomItem."Quantity Requested";
                     RecLTrackingSpecPhantom."Qty. to Invoice" := PhantomItem."Quantity Requested";
                     RecLTrackingSpecPhantom."Qty. to Invoice (Base)" := PhantomItem."Quantity Requested";
-                    RecLTrackingSpecPhantom."Quantity Handled (Base)" := ProdOrderComp."Expected Qty. (Base)" - ProdOrderComp."Remaining Qty. (Base)";
-                    RecLTrackingSpecPhantom."Quantity Invoiced (Base)" := ProdOrderComp."Expected Qty. (Base)" - ProdOrderComp."Remaining Qty. (Base)";
-                    RecLTrackingSpecPhantom."Qty. per Unit of Measure" := ProdOrderComp."Qty. per Unit of Measure";
+                    RecLTrackingSpecPhantom."Quantity Handled (Base)" := "Expected Qty. (Base)" - "Remaining Qty. (Base)";
+                    RecLTrackingSpecPhantom."Quantity Invoiced (Base)" := "Expected Qty. (Base)" - "Remaining Qty. (Base)";
+                    RecLTrackingSpecPhantom."Qty. per Unit of Measure" := "Qty. per Unit of Measure";
                     RecLTrackingSpecPhantom."Lot No." := PhantomItem."Lot No.";
                 END;
                 RecLTrackingSpecPhantom.INSERT();
@@ -1041,7 +1035,7 @@ codeunit 50021 "PWD LPSA Functions Mgt."
                         RecLTrackingSpec."Item No." := ItemSubPhantom."Item No.";
                         RecLTrackingSpec."Location Code" := LocationCode;
                         RecLTrackingSpec."Lot No." := RecLItemLedgEntry."Lot No.";
-                        //TempItemSubPhantom."Total Available Quantity" := ItemTrackingDataCollection.LotSNAvailablePhantom(RecLTrackingSpec); //TODO: C'est une fonction local dans le codeunit ItemTrackingDataCollection
+                        TempItemSubPhantom."Total Available Quantity" := LotSNAvailablePhantom(RecLTrackingSpec);
                         IF TempItemSubPhantom."Total Available Quantity" <> 0 THEN
                             IF NOT TempItemSubPhantom.INSERT() THEN
                                 TempItemSubPhantom.MODIFY();
@@ -1055,7 +1049,7 @@ codeunit 50021 "PWD LPSA Functions Mgt."
                     RecLTrackingSpec.INIT();
                     RecLTrackingSpec."Item No." := ItemSubPhantom."Item No.";
                     RecLTrackingSpec."Location Code" := LocationCode;
-                    //TempItemSubPhantom."Total Available Quantity" := ItemTrackingDataCollection.LotSNAvailablePhantom(RecLTrackingSpec); //TODO: C'est une fonction local dans le codeunit ItemTrackingDataCollection
+                    TempItemSubPhantom."Total Available Quantity" := LotSNAvailablePhantom(RecLTrackingSpec);
                     IF TempItemSubPhantom."Total Available Quantity" <> 0 THEN
                         TempItemSubPhantom.INSERT();
                 END;
@@ -1721,7 +1715,7 @@ codeunit 50021 "PWD LPSA Functions Mgt."
             end;
         end;
     end;
-
+    //---CDU6501---
     PROCEDURE LotSNAvailablePhantom(TrackingSpecification: Record 336 TEMPORARY): Decimal;
     VAR
         TempGlobalEntrySummary: Record 338 TEMPORARY;
@@ -1853,11 +1847,4 @@ codeunit 50021 "PWD LPSA Functions Mgt."
         IF NOT CopyGenItemInfo THEN
             RecPNewItem.INSERT();
     END;
-
-
-    Var
-        BooGAvoidControl: Boolean;
-        ToBatchName: Code[10];
-        ToTemplateName: Code[10];
-
 }

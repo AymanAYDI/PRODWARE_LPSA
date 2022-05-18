@@ -122,7 +122,7 @@ page 8073310 "PWD Sales Comment Line Buffer"
                 {
                     Caption = 'Purge selected';
                     ApplicationArea = All;
-                    Image= ShowSelected;
+                    Image = ShowSelected;
                     trigger OnAction()
                     var
                         RecLSalesHeaderBuffer: Record "PWD Sales Header Buffer";

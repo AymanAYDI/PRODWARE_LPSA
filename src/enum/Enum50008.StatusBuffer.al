@@ -1,7 +1,7 @@
 enum 50008 "PWD Status Buffer"
 {
     Extensible = true;
-    
+
     value(0; " ")
     {
         Caption = ' ';

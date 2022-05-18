@@ -204,7 +204,7 @@ codeunit 8073298 "PWD Buffer Tracking Management"
         DatLShipmentDate: Date;
         DecLTempDec: Decimal;
         LostReservQty: Decimal;
-        // QtyToAdd: Decimal;
+    // QtyToAdd: Decimal;
     begin
         RecGTempReservEntry.Reset();
         RecGTempReservEntry.DeleteAll();

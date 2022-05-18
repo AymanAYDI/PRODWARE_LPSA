@@ -71,7 +71,7 @@ page 8073286 "PWD Partner Code List"
                 RunObject = Page "PWD Partner Connector";
                 RunPageLink = Code = FIELD(Code);
                 ApplicationArea = All;
-                Image= TestFile;
+                Image = TestFile;
             }
             group("<Action1100294014>")
             {
@@ -80,10 +80,10 @@ page 8073286 "PWD Partner Code List"
                 {
                     Caption = 'Import Export Connector SetUp';
                     Promoted = true;
-                    PromotedOnly= true;
+                    PromotedOnly = true;
                     PromotedIsBig = true;
                     ApplicationArea = All;
-                    Image= ImportExport;
+                    Image = ImportExport;
 
                     trigger OnAction()
                     begin

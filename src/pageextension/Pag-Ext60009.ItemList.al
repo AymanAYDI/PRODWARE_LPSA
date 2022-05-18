@@ -37,10 +37,10 @@ pageextension 60009 "PWD ItemList" extends "Item List"
         }
         addafter("Item Category Code")
         {
-            field("PWD Product Group Code"; "PWD Product Group Code")
+            field("PWD Product Group Code"; Rec."PWD Product Group Code")
             {
                 caption = 'Product Group Code';
-                visible= false;
+                visible = false;
             }
         }
         addafter("Base Unit of Measure")

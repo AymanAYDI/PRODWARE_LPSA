@@ -11,18 +11,18 @@ page 50028 "PWD Product Groups"
         {
             repeater(Control1)
             {
-                field("Item Category Code"; "Item Category Code")
+                field("Item Category Code"; Rec."Item Category Code")
                 {
                     Visible = false;
                 }
-                field("Code"; Code)
+                field("Code"; Rec.Code)
                 {
                 }
-                field("Warehouse Class Code"; "Warehouse Class Code")
+                field("Warehouse Class Code"; Rec."Warehouse Class Code")
                 {
                     Visible = false;
                 }
-                field(Description; Description)
+                field(Description; Rec.Description)
                 {
                 }
             }

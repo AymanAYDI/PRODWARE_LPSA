@@ -757,7 +757,7 @@ codeunit 50020 "PWD LPSA Events Mgt."
     begin
         //>>FE_LAPIERRETTE_PROD02.001
         CapLedgEntry."PWD Quartis Comment" := ItemJournalLine."PWD Quartis Comment";
-        //<<FE_LAPIERRETTE_PROD02.001
+        //<<FE_LAPIERRETTE_PROD02.001 
     end;
 
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Item Jnl.-Post Line", 'OnAfterInitItemLedgEntry', '', false, false)]
@@ -769,6 +769,13 @@ codeunit 50020 "PWD LPSA Events Mgt."
         //<<FE_LAPIERRETTE_PRO12.001
         NewItemLedgEntry."PWD Product Group Code" := ItemJournalLine."PWD Product Group Code";
     end;
+    //---CDU80---
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Sales-Post", 'OnBeforePostSalesDoc', '', false, false)]
+    local procedure CDU80_OnBeforePostSalesDoc(var SalesHeader: Record "Sales Header"; CommitIsSuppressed: Boolean; PreviewMode: Boolean; var HideProgressWindow: Boolean)
+    BEGIN
+        IF Not GUIALLOWED THEN
+            HideProgressWindow := true;
+    END;
     //---CDU241--
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Item Jnl.-Post", 'OnCodeOnBeforeItemJnlPostBatchRun', '', false, false)]
     local procedure CDU241_OnCodeOnBeforeItemJnlPostBatchRun_ItemJnlPost(var ItemJournalLine: Record "Item Journal Line")
@@ -927,6 +934,15 @@ codeunit 50020 "PWD LPSA Events Mgt."
             cuLotInheritanceMgt.AutoCreatePlanLineTracking(ReqLine);
         END;
     end;
+    //---CDU99000845---
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Reservation Management", 'OnAfterSetReservSource', '', false, false)]
+    local procedure CDU99000845_OnAfterSetReservSource_ReservationManagement(var SourceRecRef: RecordRef; var CalcReservEntry: Record "Reservation Entry"; var Direction: Enum "Transfer Direction")
+    var
+        LPSASetGetFunctions: codeunit "PWD LPSA Set/Get Functions.";
+    begin
+        LPSASetGetFunctions.SetSourceRecRef(SourceRecRef);
+        LPSASetGetFunctions.SetCalcReservEntry(CalcReservEntry);
+    end;
 
     //---CDU99000837---
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Prod. Order Line-Reserve", 'OnCallItemTrackingOnBeforeItemTrackingLinesRunModal', '', false, false)]
@@ -1036,10 +1052,10 @@ codeunit 50020 "PWD LPSA Events Mgt."
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Prod. Order Status Management", 'OnBeforeCheckBeforeFinishProdOrder', '', false, false)]
     local procedure CDU5407_OnBeforeCheckBeforeFinishProdOrder_ProdOrderStatusManagement(var ProductionOrder: Record "Production Order"; var IsHandled: Boolean)
     var
-        PWDLPSAFunctionsMgt: Codeunit "PWD LPSA Functions Mgt.";
+        LPSASetGetFunctions: Codeunit "PWD LPSA Set/Get Functions.";
     begin
         //>>DEVTDL10/01/2014
-        IF PWDLPSAFunctionsMgt.GetNoFinishCOntrol() THEN
+        IF Not LPSASetGetFunctions.GetNoFinishCOntrol() THEN
             IsHandled := true;
         //<<DEVTDL10/01/2014
     end;

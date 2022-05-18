@@ -348,7 +348,7 @@ page 50023 "Purchase Order Archive Lines"
     begin
         CLEAR(DocumentLineTracking);
         DocumentLineTracking.SetDoc(1, Rec."Document No.", Rec."Line No.", Rec."Blanket Order No.", Rec."Blanket Order Line No.", '', 0);
-        DocumentLineTracking.RUNMODAL;
+        DocumentLineTracking.RUNMODAL();
     end;
 }
 

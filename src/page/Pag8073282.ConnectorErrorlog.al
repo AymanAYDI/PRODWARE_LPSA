@@ -89,7 +89,7 @@ page 8073282 "PWD Connector Error log"
                     Caption = 'Purge';
                     Image = Delete;
                     Promoted = true;
-                    PromotedOnly= true;
+                    PromotedOnly = true;
                     PromotedCategory = Process;
                     PromotedIsBig = true;
                     ApplicationArea = All;

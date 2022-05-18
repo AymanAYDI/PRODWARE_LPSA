@@ -1175,7 +1175,7 @@ page 50001 "PWD Item Configurator"
         RecGItem.VALIDATE("Location Code", Rec."Location Code");
         RecGItem.VALIDATE("Shelf No.", Rec."Bin Code");
         RecGItem.VALIDATE("Item Category Code", Rec."Item Category Code");
-        RecGItem.VALIDATE("PWD Product Group Code", "Product Group Code");
+        RecGItem.VALIDATE("PWD Product Group Code", Rec."Product Group Code");
         RecGItem.VALIDATE("Global Dimension 1 Code", Rec."Dimension 1 Code");
         RecGItem.VALIDATE("Global Dimension 2 Code", Rec."Dimension 2 Code");
 

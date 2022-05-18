@@ -115,7 +115,7 @@ page 8073300 "PWD Sales Header Buffer"
                 {
                     Caption = 'Process action';
                     ApplicationArea = All;
-                    Image= Process;
+                    Image = Process;
                     trigger OnAction()
                     var
                         CduLBufferManagement: Codeunit "PWD Buffer Management";
@@ -127,7 +127,7 @@ page 8073300 "PWD Sales Header Buffer"
                 {
                     Caption = 'Process selected actions';
                     ApplicationArea = All;
-                    Image=Process;
+                    Image = Process;
 
                     trigger OnAction()
                     begin
@@ -138,7 +138,7 @@ page 8073300 "PWD Sales Header Buffer"
                 {
                     Caption = 'Show Error Message';
                     ApplicationArea = All;
-                    Image= PrevErrorMessage;
+                    Image = PrevErrorMessage;
                     trigger OnAction()
                     begin
                         FctShowErrorMessage();
@@ -151,7 +151,7 @@ page 8073300 "PWD Sales Header Buffer"
                 {
                     Caption = 'Purge selected';
                     ApplicationArea = All;
-                    Image= ShowSelected;
+                    Image = ShowSelected;
                     trigger OnAction()
                     var
                         RecLSalesHeaderBuffer: Record "PWD Sales Header Buffer";
@@ -184,7 +184,7 @@ page 8073300 "PWD Sales Header Buffer"
                     RunPageLink = "Document Type" = FIELD("Document Type"), "Document No." = FIELD("Document No.");
                     RunPageView = SORTING("Document Type", "Document No.");
                     ApplicationArea = All;
-                    Image= Sales;
+                    Image = Sales;
                 }
                 action(Action1100294039)
                 {
@@ -193,7 +193,7 @@ page 8073300 "PWD Sales Header Buffer"
                     RunPageLink = "Document Type" = FIELD("Document Type"), "Document No." = FIELD("Document No.");
                     RunPageView = SORTING("Document Type", "Document No.", "Document Line No.");
                     ApplicationArea = All;
-                    Image= Comment;
+                    Image = Comment;
                 }
             }
         }

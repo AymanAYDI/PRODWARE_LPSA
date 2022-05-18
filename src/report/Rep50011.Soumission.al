@@ -253,7 +253,7 @@ report 50011 "PWD Soumission"
                 begin
                     if Number > 1 then begin
                         CopyText := Text000;
-                            OutputNo += 1;
+                        OutputNo += 1;
                     end;
                     // CurrReport.PageNo := 1;
                 end;
@@ -263,7 +263,7 @@ report 50011 "PWD Soumission"
                     NoOfLoops := 1 + Abs(NoOfCopies);
                     CopyText := '';
                     SetRange(Number, 1, NoOfLoops);
-                        OutputNo := 1;
+                    OutputNo := 1;
                 end;
             }
 

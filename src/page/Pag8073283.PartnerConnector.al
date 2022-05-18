@@ -135,12 +135,12 @@ page 8073283 "PWD Partner Connector"
                 {
                     Caption = 'Sending Message List';
                     Promoted = true;
-                    PromotedOnly= true;
+                    PromotedOnly = true;
                     RunObject = Page "PWD Sending Message List";
                     RunPageLink = "Partner Code" = FIELD(Code);
                     ApplicationArea = All;
                     ShortCutKey = 'Shift+Ctrl+M';
-                    Image= SendMail;
+                    Image = SendMail;
                 }
                 action(Action1100294012)
                 {
@@ -149,7 +149,7 @@ page 8073283 "PWD Partner Connector"
                     RunObject = Page "PWD Receiving Message List";
                     RunPageLink = "Partner Code" = FIELD(Code);
                     ApplicationArea = All;
-                    Image= SendMail;
+                    Image = SendMail;
                 }
             }
         }

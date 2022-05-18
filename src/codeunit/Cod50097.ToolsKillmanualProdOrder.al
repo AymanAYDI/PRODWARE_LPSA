@@ -628,7 +628,6 @@ codeunit 50097 "Tools Kill manual Prod Order"
             UNTIL TempJnlLineDim.NEXT() = 0;
     end;
 
-
     procedure SetNoFinishCOntrol(BooPAvoidControl: Boolean)
     begin
         BooGAvoidControl := BooPAvoidControl;

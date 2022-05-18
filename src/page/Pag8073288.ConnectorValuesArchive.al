@@ -86,7 +86,7 @@ page 8073288 "PWD Connector Values Archive"
                 Caption = 'Show Message';
                 Image = ViewPage;
                 Promoted = true;
-                PromotedOnly= true;
+                PromotedOnly = true;
                 PromotedCategory = Process;
                 PromotedIsBig = true;
                 ApplicationArea = All;

@@ -58,7 +58,7 @@ pageextension 60018 "PWD PurchaseOrder" extends "Purchase Order"
             {
                 Caption = 'Send Order To WMS';
                 ApplicationArea = All;
-                Image= SendTo;
+                Image = SendTo;
                 trigger OnAction()
                 var
                     RecLPurchaseLines: Record "Purchase Line";

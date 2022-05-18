@@ -50,7 +50,7 @@ pageextension 60008 "PWD ItemCard" extends "Item Card"
         }
         addafter("Item Category Code")
         {
-            field("PWD Product Group Code"; "PWD Product Group Code")
+            field("PWD Product Group Code"; Rec."PWD Product Group Code")
             {
                 caption = 'Product Group Code';
             }
@@ -77,11 +77,11 @@ pageextension 60008 "PWD ItemCard" extends "Item Card"
         }
         addafter("Qty. on Prod. Order")
         {
-            field("PWD Released Qty. on Prod. Order"; "PWD Rele. Qty. on Prod. Order")
+            field("PWD Released Qty. on Prod. Order"; Rec."PWD Rele. Qty. on Prod. Order")
             {
                 ApplicationArea = All;
             }
-            field("PWD Firm Plan. Qty. on Prod. Order"; "PWD Firm Plan. Qty. Prod. Ord.")
+            field("PWD Firm Plan. Qty. on Prod. Order"; Rec."PWD Firm Plan. Qty. Prod. Ord.")
             {
                 ApplicationArea = All;
             }

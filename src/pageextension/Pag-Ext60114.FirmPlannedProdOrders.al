@@ -82,13 +82,13 @@ pageextension 60114 "PWD FirmPlannedProdOrders" extends "Firm Planned Prod. Orde
                 RunPageLink = "No." = FIELD("Source No.");
                 RunObject = Page "Item Card";
                 ApplicationArea = All;
-                Image= Item;
+                Image = Item;
             }
             action("PWD Prod. BOM Where-Used")
             {
                 Caption = 'Prod. BOM Where-Used';
                 ApplicationArea = All;
-                Image= ExchProdBOMItem;
+                Image = ExchProdBOMItem;
                 trigger OnAction()
                 var
                     RecLItem: Record Item;

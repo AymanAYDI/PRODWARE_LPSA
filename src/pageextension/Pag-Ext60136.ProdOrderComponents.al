@@ -37,13 +37,9 @@ pageextension 60136 "PWD ProdOrderComponents" extends "Prod. Order Components"
                 begin
                     // >> FE_LAPRIERRETTE_GP0003 : APA 16/05/13
                     CurrPage.SAVERECORD();
-
                     Rec.ShowItemSubPhantom();
-
                     CurrPage.UPDATE(TRUE);
-
                     Rec.UpdateReserveItemPhantom();
-
                     // << FE_LAPRIERRETTE_GP0003 : APA 16/05/13
                 end;
             }

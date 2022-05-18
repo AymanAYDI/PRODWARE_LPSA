@@ -255,7 +255,7 @@ page 8073320 "PWD Item Journal Line Buffer"
                 {
                     Caption = 'Process action';
                     ApplicationArea = All;
-                    Image= Process;
+                    Image = Process;
 
                     trigger OnAction()
                     var
@@ -277,7 +277,7 @@ page 8073320 "PWD Item Journal Line Buffer"
                 {
                     Caption = 'Process selected actions';
                     ApplicationArea = All;
-                    Image= Process;
+                    Image = Process;
 
                     trigger OnAction()
                     begin
@@ -288,7 +288,7 @@ page 8073320 "PWD Item Journal Line Buffer"
                 {
                     Caption = 'Show Error Message';
                     ApplicationArea = All;
-                    Image= PrevErrorMessage;
+                    Image = PrevErrorMessage;
                     trigger OnAction()
                     begin
                         FctShowErrorMessage();
@@ -301,7 +301,7 @@ page 8073320 "PWD Item Journal Line Buffer"
                 {
                     Caption = 'Purge selected';
                     ApplicationArea = All;
-                    Image= ShowSelected;
+                    Image = ShowSelected;
                     trigger OnAction()
                     var
                         RecLItemJounalLineBuffer: Record "PWD Item Jounal Line Buffer";

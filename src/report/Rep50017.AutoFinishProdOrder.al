@@ -15,13 +15,15 @@ report 50017 "PWD Auto. Finish Prod. Order"
             DataItemTableView = SORTING(Status, "No.") WHERE(Status = CONST(Released));
 
             trigger OnAfterGetRecord()
+            var
+                LPSASetGetFunctions: codeunit "PWD LPSA Set/Get Functions.";
             begin
                 if FctCloseProdOrder("Production Order") then begin
                     BooGAlterCons := false;
                     CheckBeforeFinishProdOrder("Production Order", BooGAlterCons);
                     DeleteReqLine("Production Order");
                     if not BooGAlterCons then begin
-                        LPSAFunctionsMgt.SetNoFinishCOntrol(true);
+                        LPSASetGetFunctions.SetNoFinishCOntrol(true);
                         // CduProdOrderStatusMgt.ChangeStatusOnProdOrder("Production Order",
                         //   "Production Order".Status::Finished.AsInteger(),
                         //   WorkDate(),
@@ -52,7 +54,6 @@ report 50017 "PWD Auto. Finish Prod. Order"
 
     var
         CduProdOrderStatusMgt: Codeunit "Prod. Order Status Management";
-        LPSAFunctionsMgt: codeunit "PWD LPSA Functions Mgt.";
         BooGAlterCons: Boolean;
 
 

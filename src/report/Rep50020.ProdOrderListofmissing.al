@@ -397,7 +397,7 @@ report 50020 "Prod. Order - List of missing"
                                             //RecGSalesLine.GET(RecGSalesLine."Document Type"::Order,Temp."Source ID",Temp."Source Ref. No.");
                                             if RecGSalesLine.Get(RecGSalesLine."Document Type"::Order, Temp."Source ID", Temp."Source Ref. No.") then begin
                                                 TrackingMgt.SetSalesLine(RecGSalesLine);
-                                                TxtGTracking := LPSAFunctionsMgt.FindFirsRecord();
+                                                TxtGTracking := LPSAFunctionsMgt.FindFirstRecord();
                                                 IntGNumber := StrLen(TxtGTracking);
                                             end else
                                                 TxtGTracking := 'Prévisions';

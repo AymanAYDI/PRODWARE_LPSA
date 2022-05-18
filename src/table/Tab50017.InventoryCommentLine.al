@@ -1,7 +1,7 @@
 table 50017 "PWD Inventory Comment Line"
 {
     Caption = 'Inventory Comment Line';
-    LookupPageID = "Inventory Comment List";
+    LookupPageID = "PWD Inventory Comment List";
 
     fields
     {
@@ -29,7 +29,7 @@ table 50017 "PWD Inventory Comment Line"
         {
             Caption = 'Comment';
         }
-        field(50000; "PWD Document Line No."; Integer)
+        field(50000; "Document Line No."; Integer)
         {
             Caption = 'Document Line No.';
             Description = 'TDL.235';
@@ -38,7 +38,7 @@ table 50017 "PWD Inventory Comment Line"
 
     keys
     {
-        key(Key1; "Document Type", "No.", "PWD Document Line No.", "Line No.")
+        key(Key1; "Document Type", "No.", "Document Line No.", "Line No.")
         {
             Clustered = true;
         }
@@ -50,12 +50,12 @@ table 50017 "PWD Inventory Comment Line"
 
     procedure SetUpNewLine()
     var
-        InvtCommentLine: Record "Inventory Comment Line";
+        InvtCommentLine: Record "PWD Inventory Comment Line";
     begin
         InvtCommentLine.SetRange("Document Type", "Document Type");
         InvtCommentLine.SetRange("No.", "No.");
         //>>TDL.235
-        InvtCommentLine.SETRANGE("PWD Document Line No.", "PWD Document Line No.");
+        InvtCommentLine.SETRANGE("Document Line No.", "Document Line No.");
         //<<TDL.235
         InvtCommentLine.SetRange(Date, WorkDate());
         if InvtCommentLine.IsEmpty then
@@ -64,8 +64,8 @@ table 50017 "PWD Inventory Comment Line"
 
     procedure CopyCommentLines(FromDocumentType: Enum "Inventory Comment Document Type"; FromNumber: Code[20]; ToDocumentType: Enum "Inventory Comment Document Type"; ToNumber: Code[20])
     var
-        InvtCommentLine: Record "Inventory Comment Line";
-        InvtCommentLine2: Record "Inventory Comment Line";
+        InvtCommentLine: Record "PWD Inventory Comment Line";
+        InvtCommentLine2: Record "PWD Inventory Comment Line";
     begin
         InvtCommentLine.SetRange("Document Type", FromDocumentType);
         InvtCommentLine.SetRange("No.", FromNumber);

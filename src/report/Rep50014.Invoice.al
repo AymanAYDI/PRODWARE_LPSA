@@ -751,7 +751,7 @@ report 50014 "PWD Invoice"
             RecLSalesInvoiceHeader.SetView("Sales Invoice Header".GetView());
             //SendPDFMail(RecLSalesInvoiceHeader);
             RecLSalesInvoiceHeader.EmailRecords(true);
-           
+
         end;
         //<<NDBI
     end;

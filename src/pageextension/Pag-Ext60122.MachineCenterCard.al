@@ -75,7 +75,7 @@ pageextension 60122 "PWD MachineCenterCard" extends "Machine Center Card"
                 RunObject = Page "PWD Manuf. cycles Setup - List";
                 RunPageLink = Type = CONST("Machine Center"), "No." = FIELD("No.");
                 ApplicationArea = All;
-                Image= Capacities;
+                Image = Capacities;
             }
         }
     }

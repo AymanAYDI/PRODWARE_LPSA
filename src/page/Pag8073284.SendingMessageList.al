@@ -127,7 +127,7 @@ page 8073284 "PWD Sending Message List"
                     Caption = 'Fields Setup';
                     Image = Export;
                     Promoted = true;
-                    PromotedOnly= true;
+                    PromotedOnly = true;
                     PromotedCategory = Process;
                     PromotedIsBig = true;
                     RunObject = Page "PWD Fields Export Setup";

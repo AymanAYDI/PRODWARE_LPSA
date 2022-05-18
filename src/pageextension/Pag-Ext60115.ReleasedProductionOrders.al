@@ -107,12 +107,12 @@ pageextension 60115 "PWD ReleasedProductionOrders" extends "Released Production 
                 RunPageLink = "No." = FIELD("Source No.");
                 RunObject = Page "Item Card";
                 ApplicationArea = All;
-                Image= Item;
+                Image = Item;
             }
             action("PWD Action1100267005")
             {
                 Caption = 'Prod. BOM Where-Used';
-                Image= ExchProdBOMItem;
+                Image = ExchProdBOMItem;
                 ApplicationArea = All;
                 trigger OnAction()
                 var
@@ -132,7 +132,7 @@ pageextension 60115 "PWD ReleasedProductionOrders" extends "Released Production 
             {
                 Caption = 'Resend to QUARTIS';
                 ApplicationArea = All;
-                Image= SendTo;
+                Image = SendTo;
                 trigger OnAction()
                 begin
                     Rec.ResendProdOrdertoQuartis();
@@ -158,7 +158,7 @@ pageextension 60115 "PWD ReleasedProductionOrders" extends "Released Production 
                     RunPageView = SORTING("Order No.");
                     RunObject = Page "Capacity Ledger Entries";
                     ApplicationArea = All;
-                    Image= CapacityLedger;
+                    Image = CapacityLedger;
                 }
                 action("PWD Action28")
                 {

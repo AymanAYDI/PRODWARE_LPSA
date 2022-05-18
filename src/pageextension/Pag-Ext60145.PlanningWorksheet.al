@@ -30,12 +30,12 @@ pageextension 60145 "PWD PlanningWorksheet" extends "Planning Worksheet"
                 RunObject = Page "Item Card";
                 RunPageLink = "No." = FIELD("No.");
                 ApplicationArea = All;
-                Image= Item;
+                Image = Item;
             }
             action("PWD ProdBOMWhereUsed")
             {
                 caption = 'Prod. BOM Where-Used';
-                Image= ExchProdBOMItem;
+                Image = ExchProdBOMItem;
                 ApplicationArea = All;
                 trigger OnAction()
                 var
@@ -79,7 +79,7 @@ pageextension 60145 "PWD PlanningWorksheet" extends "Planning Worksheet"
             action("PWD Action1100267001")
             {
                 ApplicationArea = All;
-                Image= Action;
+                Image = Action;
                 trigger OnAction()
                 begin
                     // >> FE_LAPRIERRETTE_GP0003 : APA 16/05/13
@@ -90,7 +90,7 @@ pageextension 60145 "PWD PlanningWorksheet" extends "Planning Worksheet"
             action("PWD ToutDecocher")
             {
                 ApplicationArea = All;
-                Image= Action;
+                Image = Action;
                 trigger OnAction()
                 begin
                     // >> FE_LAPRIERRETTE_GP0003 : APA 16/05/13
