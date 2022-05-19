@@ -195,8 +195,7 @@ tableextension 60036 "PWD ProductionOrder" extends "Production Order"
     BEGIN
         IF "Source Type" = "Source Type"::Item THEN BEGIN
             ManufacturingSetup.GET();
-            //TODO: "PDF Exe Path" champ spécifique dans la table "Manufacturing Setup"
-            //ManufacturingSetup.TESTFIELD("PDF Exe Path");
+            ManufacturingSetup.TESTFIELD("PWD PDF Exe Path");
             EVALUATE(RecordIDLink, 'Item: ' + "Source No.");
             RecordLink.RESET();
             RecordLink.SETRANGE("Record ID", RecordIDLink);

@@ -197,11 +197,6 @@ tableextension 60007 "PWD SalesLine" extends "Sales Line"
         end;
     end;
 
-    procedure FctFromImport(BooPFromImport: Boolean)
-    var
-        BooGFromImport: Boolean;
-    begin
-        BooGFromImport := BooPFromImport;
-    end;
+
 }
 

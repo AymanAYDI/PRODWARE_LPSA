@@ -1956,6 +1956,7 @@ codeunit 8073291 "PWD Buffer Management"
         CduLConnectorWMSParseData: Codeunit "PWD Connector WMS Parse Data";
         PWDLPSAFunctionsMgt: codeunit "PWD LPSA Functions Mgt.";
         CduLReleaseSalesDocument: Codeunit "Release Sales Document";
+        LPSASetGetFunctions: Codeunit  "PWD LPSA Set/Get Functions.";
         RecordRef: RecordRef;
         RecordRefBuf: RecordRef;
         CodLLotNo: Code[20];
@@ -1985,7 +1986,8 @@ codeunit 8073291 "PWD Buffer Management"
         CduLReleaseSalesDocument.Reopen(RecLSalesHeader);
 
         //>>WMS-EBL1-003.001
-        RecLSalesLine.FctFromImport(TRUE);
+        LPSASetGetFunctions.SetFctFromImportSaleLine(TRUE);
+
         //<<WMS-EBL1-003.001
 
         RecLSalesLine.GET(RecLSalesLine."Document Type", RecLSalesLine."Document No.", RecLSalesLine."Line No.");

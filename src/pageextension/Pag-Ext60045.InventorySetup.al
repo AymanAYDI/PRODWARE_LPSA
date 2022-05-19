@@ -78,7 +78,7 @@ pageextension 60045 "PWD InventorySetup" extends "Inventory Setup"
                             //>>P24578_008.001
                             CLEAR(CduLCommonDialogMgt);
                             CLEAR(TxtLDirectoryPath);
-                            TxtLDirectoryPath := CduLCommonDialogMgt.UploadFile(CstL50000, Rec."PWD Path for Closing Export");
+                            TxtLDirectoryPath := CduLCommonDialogMgt.UploadFile(CstL50000, Rec."PWD Path for Closing Export" + CstL50001);
                             IF STRLEN(TxtLDirectoryPath) > MAXSTRLEN(Rec."PWD Path for Closing Export") THEN
                                 ERROR(CstL50002)
                             ELSE

@@ -183,7 +183,7 @@ pageextension 60008 "PWD ItemCard" extends "Item Card"
             field("PWD Lot Determining"; Rec."PWD Lot Determining")
             {
                 ApplicationArea = All;
-                Enabled = "Lot DeterminingEnable";
+                Enabled =LotDeterminingEnable;
             }
 
         }
@@ -413,11 +413,11 @@ pageextension 60008 "PWD ItemCard" extends "Item Card"
     var
         ItemCategory: Record "Item Category";
     BEGIN
-        "Lot DeterminingEnable" := FALSE;
+       LotDeterminingEnable := FALSE;
 
         IF ItemCategory.GET(Rec."Item Category Code") THEN
             IF ItemCategory."PWD Transmitted Order No." THEN
-                "Lot DeterminingEnable" := TRUE;
+                LotDeterminingEnable := TRUE;
     END;
 
     procedure FctCheckBeforeClose()
@@ -451,7 +451,7 @@ pageextension 60008 "PWD ItemCard" extends "Item Card"
     var
         CduGVersionMgt: Codeunit VersionManagement;
         [InDataSet]
-        "Lot DeterminingEnable": Boolean;
+        LotDeterminingEnable: Boolean;
         CodGActiveVersionCode: Code[20];
         CstG001: Label 'The Item standard cost is 0, Do you want to calculate it ?';
         CstG002: Label 'The card can not be closed because The Item standard cost is 0 !';
