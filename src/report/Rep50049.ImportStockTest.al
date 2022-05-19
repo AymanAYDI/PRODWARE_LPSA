@@ -13,7 +13,7 @@ report 50049 "PWD Import Stock Test"
 
     Caption = 'Import Stock Test';
     ProcessingOnly = true;
-    UsageCategory = none;
+    UsageCategory = None;
     dataset
     {
     }

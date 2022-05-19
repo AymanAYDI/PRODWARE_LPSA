@@ -11,7 +11,7 @@ report 50045 "PWD TPL Suppression Gamme"
     // ------------------------------------------------------------------------------------------------------------------
     DefaultLayout = RDLC;
     RDLCLayout = './src/report/rdl/TPLSuppressionGamme.rdl';
-    UsageCategory = none;
+    UsageCategory = None;
 
     dataset
     {

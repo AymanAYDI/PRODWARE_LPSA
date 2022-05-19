@@ -63,7 +63,7 @@ codeunit 50021 "PWD LPSA Functions Mgt."
         exit(not PurchLine.IsEmpty);
     end;
     //---CDU22---
-    PROCEDURE UpdateNextLevelProdLine(RecPProdOrderLine: Record 5406; CodPLotNo: Code[20]);
+    PROCEDURE UpdateNextLevelProdLine(RecPProdOrderLine: Record "Prod. Order Line"; CodPLotNo: Code[20]);
     VAR
         RecLProdOrderComponent: Record "Prod. Order Component";
         RecLProdOrderLine: Record "Prod. Order Line";
@@ -100,13 +100,11 @@ codeunit 50021 "PWD LPSA Functions Mgt."
           RecLProdOrderComponent."Prod. Order Line No.");
         RecLProdOrderLine.VALIDATE(Quantity, RecPProdOrderLine."Finished Quantity" / RecLProdOrderComponent."Quantity per");
         RecLProdOrderLine.MODIFY(TRUE);
-        // IF NOT (RecLPlannerOneSetup.FINDFIRST 
-        //    AND (RecLPlannerOneSetup.ProductionSchedulerEnabled AND RecLPlannerOneUtil.ProdOrderFilter(RecLProdOrderLine.Status, RecPProdOrderLine."Prod. Order No.", RecPProdOrderLine."Line No."))) THEN
         CduLCalcProdOrder.Recalculate(RecLProdOrderLine, 1, true);
         //<<FE_PROD01.002
     END;
     //---CDU80---
-    PROCEDURE FctSalesLineFilterWMS(VAR RecPSalesLine: Record 37);
+    PROCEDURE FctSalesLineFilterWMS(VAR RecPSalesLine: Record "Sales Line");
     BEGIN
         //RecPSalesLine.SETRANGE(WMS_Status,RecPSalesLine.WMS_Status::" ");
         RecPSalesLine.SETRANGE("PWD WMS_Item", TRUE);
@@ -118,7 +116,7 @@ codeunit 50021 "PWD LPSA Functions Mgt."
         RecPSalesLine.SETRANGE("PWD WMS_Cust_Blocked", RecPSalesLine."PWD WMS_Cust_Blocked"::" ");
     END;
     //---CDU241---
-    PROCEDURE FctRecreateJournalLine(Var ItemJnlLine: Record 83);
+    PROCEDURE FctRecreateJournalLine(Var ItemJnlLine: Record "Item Journal Line");
     VAR
         RecLItem: Record Item;
         RecLItemJournalLine: Record "Item Journal Line";
@@ -205,7 +203,7 @@ codeunit 50021 "PWD LPSA Functions Mgt."
         END;
     END;
 
-    PROCEDURE FctCheckJnlTemplateIsFromOF(RecPItemJournalLine: Record 83): Boolean;
+    PROCEDURE FctCheckJnlTemplateIsFromOF(RecPItemJournalLine: Record "Item Journal Line"): Boolean;
     VAR
         RecLItemJnlTemplate: Record "Item Journal Template";
     BEGIN
@@ -224,7 +222,7 @@ codeunit 50021 "PWD LPSA Functions Mgt."
             EXIT(FALSE);
     END;
 
-    PROCEDURE FctRecreateJournalFromOF(RecPProdOrderLine: Record 5406; Var ItemJnlLine: Record 83);
+    PROCEDURE FctRecreateJournalFromOF(RecPProdOrderLine: Record "Prod. Order Line"; Var ItemJnlLine: Record "Item Journal Line");
     VAR
         RecLProdOrder: Record "Production Order";
         CduLLotInheritanceMgt: Codeunit "PWD Lot Inheritance Mgt.PW";
@@ -244,7 +242,7 @@ codeunit 50021 "PWD LPSA Functions Mgt."
         COMMIT();
     END;
 
-    PROCEDURE FctRecreateJournalFromProd(RecPProdOrderLine: Record 5406; RecPItemJournalLine: Record 83);
+    PROCEDURE FctRecreateJournalFromProd(RecPProdOrderLine: Record "Prod. Order Line"; RecPItemJournalLine: Record "Item Journal Line");
     VAR
         CduLLotInheritanceMgt: Codeunit "PWD Lot Inheritance Mgt.PW";
         LPSASetGetFunctions: codeunit "PWD LPSA Set/Get Functions.";
@@ -264,7 +262,7 @@ codeunit 50021 "PWD LPSA Functions Mgt."
         COMMIT();
     END;
 
-    PROCEDURE ClearWrongReservEntries(Var ItemJnlLine: Record 83);
+    PROCEDURE ClearWrongReservEntries(Var ItemJnlLine: Record "Item Journal Line");
     VAR
         RecLItemJnlLine: Record "Item Journal Line";
         ItemJnlTemplate: Record "Item Journal Template";
@@ -292,7 +290,7 @@ codeunit 50021 "PWD LPSA Functions Mgt."
     END;
 
     //---CDU365---
-    PROCEDURE SalesHeaderSellToFixedAddr(VAR AddrArray: ARRAY[8] OF Text[50]; VAR SalesHeader: Record 36);
+    PROCEDURE SalesHeaderSellToFixedAddr(VAR AddrArray: ARRAY[8] OF Text[50]; VAR SalesHeader: Record "Sales Header");
     BEGIN
         AddrArray[1] := SalesHeader."Sell-to Customer Name";
         AddrArray[2] := SalesHeader."Sell-to Customer Name 2";
@@ -302,7 +300,7 @@ codeunit 50021 "PWD LPSA Functions Mgt."
         AddrArray[5] := SalesHeader."Sell-to Post Code" + ' ' + UPPERCASE(SalesHeader."Sell-to City");
     END;
 
-    PROCEDURE SalesHeaderBillToFixedAddr(VAR AddrArray: ARRAY[8] OF Text[50]; VAR SalesHeader: Record 36);
+    PROCEDURE SalesHeaderBillToFixedAddr(VAR AddrArray: ARRAY[8] OF Text[50]; VAR SalesHeader: Record "Sales Header");
     BEGIN
         AddrArray[1] := SalesHeader."Bill-to Name";
         AddrArray[2] := SalesHeader."Bill-to Name 2";
@@ -312,7 +310,7 @@ codeunit 50021 "PWD LPSA Functions Mgt."
         AddrArray[5] := SalesHeader."Bill-to Post Code" + ' ' + UPPERCASE(SalesHeader."Bill-to City");
     END;
 
-    PROCEDURE SalesCrMemoBillToFixedAddr(VAR AddrArray: ARRAY[8] OF Text[50]; VAR SalesCrMemoHeader: Record 114);
+    PROCEDURE SalesCrMemoBillToFixedAddr(VAR AddrArray: ARRAY[8] OF Text[50]; VAR SalesCrMemoHeader: Record "Sales Cr.Memo Header");
     BEGIN
         AddrArray[1] := SalesCrMemoHeader."Bill-to Name";
         AddrArray[2] := SalesCrMemoHeader."Bill-to Name 2";
@@ -322,7 +320,7 @@ codeunit 50021 "PWD LPSA Functions Mgt."
         AddrArray[5] := SalesCrMemoHeader."Bill-to Post Code" + ' ' + UPPERCASE(SalesCrMemoHeader."Bill-to City");
     END;
 
-    PROCEDURE SalesShptShipToFixedAddr(VAR AddrArray: ARRAY[8] OF Text[50]; VAR SalesShptHeader: Record 110);
+    PROCEDURE SalesShptShipToFixedAddr(VAR AddrArray: ARRAY[8] OF Text[50]; VAR SalesShptHeader: Record "Sales Shipment Header");
     BEGIN
         AddrArray[1] := SalesShptHeader."Ship-to Name";
         AddrArray[2] := SalesShptHeader."Ship-to Name 2";
@@ -332,7 +330,7 @@ codeunit 50021 "PWD LPSA Functions Mgt."
         AddrArray[5] := SalesShptHeader."Ship-to Post Code" + ' ' + UPPERCASE(SalesShptHeader."Ship-to City");
     END;
 
-    PROCEDURE SalesInvBillToFixedAddr(VAR AddrArray: ARRAY[8] OF Text[50]; VAR SalesInvHeader: Record 112);
+    PROCEDURE SalesInvBillToFixedAddr(VAR AddrArray: ARRAY[8] OF Text[50]; VAR SalesInvHeader: Record "Sales Invoice Header");
     BEGIN
         AddrArray[1] := SalesInvHeader."Bill-to Name";
         AddrArray[2] := SalesInvHeader."Bill-to Name 2";
@@ -342,7 +340,7 @@ codeunit 50021 "PWD LPSA Functions Mgt."
         AddrArray[5] := SalesInvHeader."Bill-to Post Code" + ' ' + UPPERCASE(SalesInvHeader."Bill-to City");
     END;
 
-    PROCEDURE TransferShptFixedTransferTo(VAR AddrArray: ARRAY[8] OF Text[50]; VAR TransShptHeader: Record 5744);
+    PROCEDURE TransferShptFixedTransferTo(VAR AddrArray: ARRAY[8] OF Text[50]; VAR TransShptHeader: Record "Transfer Shipment Header");
     BEGIN
         AddrArray[1] := TransShptHeader."Transfer-to Name";
         AddrArray[2] := TransShptHeader."Transfer-to Name 2";
@@ -352,7 +350,7 @@ codeunit 50021 "PWD LPSA Functions Mgt."
         AddrArray[5] := TransShptHeader."Transfer-to Post Code" + ' ' + UPPERCASE(TransShptHeader."Transfer-to City");
     END;
 
-    PROCEDURE PurchShptBuyFromFixedAddr(VAR AddrArray: ARRAY[8] OF Text[50]; VAR ReturnShptHeader: Record 6650);
+    PROCEDURE PurchShptBuyFromFixedAddr(VAR AddrArray: ARRAY[8] OF Text[50]; VAR ReturnShptHeader: Record "Return Shipment Header");
     BEGIN
         AddrArray[1] := ReturnShptHeader."Buy-from Vendor Name";
         AddrArray[2] := ReturnShptHeader."Buy-from Vendor Name 2";
@@ -361,7 +359,7 @@ codeunit 50021 "PWD LPSA Functions Mgt."
         AddrArray[5] := ReturnShptHeader."Buy-from Post Code" + ' ' + UPPERCASE(ReturnShptHeader."Buy-from City");
     END;
     //---CDU415---
-    PROCEDURE SubcontractorOrder(PurchHeader: Record 38): Boolean;
+    PROCEDURE SubcontractorOrder(PurchHeader: Record "Purchase Header"): Boolean;
     VAR
         PurchaseLines: Record "Purchase Line";
     BEGIN
@@ -373,7 +371,7 @@ codeunit 50021 "PWD LPSA Functions Mgt."
         //<<FE_LAPIERRETTE_NDT01.001
     END;
 
-    PROCEDURE MRPOrder(PurchHeader: Record 38): Boolean;
+    PROCEDURE MRPOrder(PurchHeader: Record "Purchase Header"): Boolean;
     VAR
         RecLPurchSetup: Record "Purchases & Payables Setup";
     BEGIN
@@ -471,11 +469,11 @@ codeunit 50021 "PWD LPSA Functions Mgt."
 
     local procedure SetSourceForProdOrderComp()
     var
-        ReservMgt: Codeunit "Reservation Management";
         ProdOrderComp: Record "Prod. Order Component";
-        LPSASetGetFunctions: codeunit "PWD LPSA Set/Get Functions.";
-        SourceRecRef: RecordRef;
         CalcReservEntry: Record "Reservation Entry";
+        LPSASetGetFunctions: codeunit "PWD LPSA Set/Get Functions.";
+        ReservMgt: Codeunit "Reservation Management";
+        SourceRecRef: RecordRef;
     begin
         LPSASetGetFunctions.SetProdOrderComp(ProdOrderComp);
         LPSASetGetFunctions.GetCalcReservEntry(CalcReservEntry);
@@ -553,7 +551,7 @@ codeunit 50021 "PWD LPSA Functions Mgt."
         CodPRunTimeUnit := RecLManufCyclesSetup."Run Time Unit of Meas. Code";
     END;
 
-    PROCEDURE TransferRoutingProd04(ReqLine: Record 246; ProdOrder: Record 5405; RoutingNo: Code[20]; RoutingRefNo: Integer; RecPProdOrderLine: Record 5406)
+    PROCEDURE TransferRoutingProd04(ReqLine: Record "Requisition Line"; ProdOrder: Record "Production Order"; RoutingNo: Code[20]; RoutingRefNo: Integer; RecPProdOrderLine: Record "Prod. Order Line")
     VAR
         MachineCenter: Record "Machine Center";
         PlanningRtngLine: Record "Planning Routing Line";
@@ -699,11 +697,11 @@ codeunit 50021 "PWD LPSA Functions Mgt."
     //---CDU99000778---
     PROCEDURE FindFirstRecord() Tracking: Text[250]
     VAR
-        //TODO: a vérifier : les variables ItemLedgEntry2 sont des variables globales dans le codeunit OrderTrackingManagement
-        TrackingExists: Boolean;
         ItemLedgEntry2: Record "Item Ledger Entry";
         TrackingEntry: Record "Order Tracking Entry" temporary;
         TempReservEntryList: Record "Reservation Entry" temporary;
+        //TODO: a vérifier : les variables ItemLedgEntry2 sont des variables globales dans le codeunit OrderTrackingManagement
+        TrackingExists: Boolean;
     //Window: Dialog;
     //EntryNo: Integer;
     //Text000: label 'Counting records...';
@@ -745,20 +743,20 @@ codeunit 50021 "PWD LPSA Functions Mgt."
         OroductionJournalMGT.DeleteJnlLines(LPSASetGetFunctions.GetToTemplateName(), LPSASetGetFunctions.GetToBatchName(), CodPProdOrderNo, IntPActualLineNo);
     END;
 
-    PROCEDURE InsertOutputJnlLine2(RecPItemJnalLine: Record 83; RecPProdOrderLine: Record 5406);
+    PROCEDURE InsertOutputJnlLine2(RecPItemJnalLine: Record "Item Journal Line"; RecPProdOrderLine: Record "Prod. Order Line");
     VAR
         ItemJnlBatch: Record "Item Journal Batch";
         ItemJnlLine: Record "Item Journal Line";
         ItemJnlTemplate: Record "Item Journal Template";
         RecLManufacturingSetup: Record "Manufacturing Setup";
         ItemTrackingMgt: Codeunit "Item Tracking Management";
+        LPSASetGetFunctions: codeunit "PWD LPSA Set/Get Functions.";
         CodLWorkCenter: Code[10];
+        ToBatchName: Code[10];
+        ToTemplateName: Code[10];
         PostingDate: Date;
         QtyToPost: Decimal;
         NextLineNo: Integer;
-        LPSASetGetFunctions: codeunit "PWD LPSA Set/Get Functions.";
-        ToBatchName: Code[10];
-        ToTemplateName: Code[10];
     BEGIN
         PostingDate := WORKDATE();
         //===Copy of Function InsertOutputJnlLine to work on Manufacturing Sheet=======================================
@@ -862,9 +860,9 @@ codeunit 50021 "PWD LPSA Functions Mgt."
     VAR
         ItemUnitOfMeasure: Record "Item Unit of Measure";
         TempProdOrderComp: Record "Prod. Order Component" TEMPORARY;
-        ProdOrderCompReserve: Codeunit "Prod. Order Comp.-Reserve";
         RecLProdOrderLine: Record "Prod. Order Line";
         RecLTrackingSpecPhantom: Record "Tracking Specification Phantom";
+        ProdOrderCompReserve: Codeunit "Prod. Order Comp.-Reserve";
         BooLOneItem: Boolean;
         DecLQty: Decimal;
         DecLxQty: Decimal;
@@ -1002,7 +1000,7 @@ codeunit 50021 "PWD LPSA Functions Mgt."
         // << FE_LAPRIERRETTE_GP0003 : APA 16/05/13
     END;
 
-    LOCAL PROCEDURE CreateSubstListPhantom(OrgNo: Code[20]; VAR ItemSubPhantom3: Record 50011; RelationsLevel: Integer; DemandDate: Date; LocationCode: Code[10]; ExpectedQuantity: Decimal);
+    LOCAL PROCEDURE CreateSubstListPhantom(OrgNo: Code[20]; VAR ItemSubPhantom3: Record "PWD Phantom substitution Items"; RelationsLevel: Integer; DemandDate: Date; LocationCode: Code[10]; ExpectedQuantity: Decimal);
     VAR
         RecLItemLedgEntry: Record "Item Ledger Entry";
         ItemSubPhantom: Record "PWD Phantom substitution Items";
@@ -1058,7 +1056,7 @@ codeunit 50021 "PWD LPSA Functions Mgt."
         // << FE_LAPRIERRETTE_GP0003 : APA 16/05/13
     END;
 
-    PROCEDURE DeletePreviousOperationPhantom(VAR ProdOrderComp: Record 5407);
+    PROCEDURE DeletePreviousOperationPhantom(VAR ProdOrderComp: Record "Prod. Order Component");
     VAR
         ProdOrderLine: Record "Prod. Order Line";
     BEGIN
@@ -1642,7 +1640,7 @@ codeunit 50021 "PWD LPSA Functions Mgt."
         FctCopyItemTrackingSpec3(ReservEntry, ToRowID, SwapSign, SkipReservation, DecPQty);
     END;
 
-    PROCEDURE FctCopyItemTrackingSpec3(VAR ReservEntry: Record 337; ToRowID: Text[250]; SwapSign: Boolean; SkipReservation: Boolean; DecPQty: Decimal);
+    PROCEDURE FctCopyItemTrackingSpec3(VAR ReservEntry: Record "Reservation Entry"; ToRowID: Text[250]; SwapSign: Boolean; SkipReservation: Boolean; DecPQty: Decimal);
     VAR
         ReservEntry1: Record "Reservation Entry";
         TempReservEntry: Record "Reservation Entry" TEMPORARY;
@@ -1709,9 +1707,9 @@ codeunit 50021 "PWD LPSA Functions Mgt."
         end;
     end;
     //---CDU6501---
-    PROCEDURE LotSNAvailablePhantom(TrackingSpecification: Record 336 TEMPORARY): Decimal;
+    PROCEDURE LotSNAvailablePhantom(TrackingSpecification: Record "Tracking Specification" TEMPORARY): Decimal;
     VAR
-        TempGlobalEntrySummary: Record 338 TEMPORARY;
+        TempGlobalEntrySummary: Record "Entry Summary" TEMPORARY;
         ItemTrackingDataCollection: codeunit "Item Tracking Data Collection";
     BEGIN
         // >> FE_LAPRIERRETTE_GP0003 : APA 16/05/13

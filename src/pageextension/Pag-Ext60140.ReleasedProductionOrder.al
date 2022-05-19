@@ -72,12 +72,12 @@ pageextension 60140 "PWD ReleasedProductionOrder" extends "Released Production O
                 ApplicationArea = All;
                 trigger OnAction()
                 var
-                    RecLProductionOrder: Record 5405;
+                    RecLProductionOrder: Record "Production Order";
                 begin
                     //>>LAP2.12
                     RecLProductionOrder := Rec;
                     RecLProductionOrder.SETRECFILTER();
-                    REPORT.RUN(50022, TRUE, FALSE, RecLProductionOrder);
+                    REPORT.RUN(Report::"PWD Tracking Card", TRUE, FALSE, RecLProductionOrder);
                     //<<LAP2.12
                 end;
 

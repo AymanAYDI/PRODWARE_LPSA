@@ -20,7 +20,7 @@ page 8073283 "PWD Partner Connector"
 
     Caption = 'Partner Connector Card';
     PageType = Card;
-    UsageCategory = none;
+    UsageCategory = None;
     SourceTable = "PWD Partner Connector";
 
     layout

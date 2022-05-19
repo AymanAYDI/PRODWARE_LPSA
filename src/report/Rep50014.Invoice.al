@@ -62,7 +62,7 @@ report 50014 "PWD Invoice"
 
     Caption = 'Sales - Invoice';
     Permissions = TableData "Sales Shipment Buffer" = rimd;
-    UsageCategory = none;
+    UsageCategory = None;
 
     dataset
     {
@@ -586,7 +586,7 @@ report 50014 "PWD Invoice"
 
             trigger OnAfterGetRecord()
             begin
-                CurrReport.Language := Language.GetLanguageID("Language Code");
+                CurrReport.Language := Language.GetLanguageIdOrDefault("Language Code");
 
                 //>>TI397445
                 IntGImpText := 0;
@@ -688,11 +688,11 @@ report 50014 "PWD Invoice"
                         Caption = 'No. of Copies';
                         ApplicationArea = All;
                     }
-                    field("Envoyer par email"; BooGEnvoiMail)
-                    {
-                        Caption = 'Send by email';
-                        ApplicationArea = All;
-                    }
+                    // field("Envoyer par email"; BooGEnvoiMail)
+                    // {
+                    //     Caption = 'Send by email';
+                    //     ApplicationArea = All;
+                    // }
                 }
             }
         }
@@ -736,7 +736,7 @@ report 50014 "PWD Invoice"
         end;
 
         //>>NDBI
-        BooGEnvoiMail := true;
+        //BooGEnvoiMail := true;
         //<<NDBI
     end;
 
@@ -745,12 +745,12 @@ report 50014 "PWD Invoice"
         RecLSalesInvoiceHeader: Record "Sales Invoice Header";
     begin
         //>>NDBI
-        if not BooGSkipSendEmail and BooGEnvoiMail then begin
-            RecLSalesInvoiceHeader.SetView("Sales Invoice Header".GetView());
-            //SendPDFMail(RecLSalesInvoiceHeader);
-            RecLSalesInvoiceHeader.EmailRecords(true);
+        // if not BooGSkipSendEmail and BooGEnvoiMail then begin
+        //     RecLSalesInvoiceHeader.SetView("Sales Invoice Header".GetView());
+        //     //SendPDFMail(RecLSalesInvoiceHeader);
+        //     RecLSalesInvoiceHeader.EmailRecords(true);
 
-        end;
+        // end;
         //<<NDBI
     end;
 
@@ -762,9 +762,9 @@ report 50014 "PWD Invoice"
         DimSetEntry1: Record "Dimension Set Entry";
         GLSetup: Record "General Ledger Setup";
         Item: Record Item;
-        ItemCrossRef: Record "Item Reference";
         ItemLedgEntry: Record "Item Ledger Entry";
         TempItemLedgEntry: Record "Item Ledger Entry";
+        ItemCrossRef: Record "Item Reference";
         PaymentTerms: Record "Payment Terms";
         RespCenter: Record "Responsibility Center";
         SalesSetup: Record "Sales & Receivables Setup";
@@ -909,82 +909,82 @@ report 50014 "PWD Invoice"
     end;
 
 
-    procedure SendPDFMail(var RecPSalesInvoiceHeader: Record "Sales Invoice Header")
-    var
-        RepLSalesInvoice: Report "PWD Invoice";
-        CodLMail: Codeunit Mail;
-        FileMgt: Codeunit "File Management";
-        CstL001: Label 'LA PIERRETTE SA : Sales Invoice %1';
-        CstL002: Label 'Next the invoice following your order %1';
-        Recipient: Text[80];
-        Body: Text[100];
-        Subject: Text[100];
-        TxtLFileName: Text[250];
-        TxtLServerFile: Text[250];
-    begin
-        TxtLServerFile := FileMgt.ServerTempFileName('');
-        RepLSalesInvoice.SkipSendEmail(true);
-        RepLSalesInvoice.SetTableView(RecPSalesInvoiceHeader);
-        RepLSalesInvoice.SaveAsPdf(TxtLServerFile);
-        Clear(Recipient);
-        Clear(CodLMail);
+    // procedure SendPDFMail(var RecPSalesInvoiceHeader: Record "Sales Invoice Header")
+    // var
+    //     RepLSalesInvoice: Report "PWD Invoice";
+    //     CodLMail: Codeunit Mail;
+    //     FileMgt: Codeunit "File Management";
+    //     CstL001: Label 'LA PIERRETTE SA : Sales Invoice %1';
+    //     CstL002: Label 'Next the invoice following your order %1';
+    //     Recipient: Text[80];
+    //     Body: Text[100];
+    //     Subject: Text[100];
+    //     TxtLFileName: Text[250];
+    //     TxtLServerFile: Text[250];
+    // begin
+    //     TxtLServerFile := FileMgt.ServerTempFileName('');
+    //     RepLSalesInvoice.SkipSendEmail(true);
+    //     RepLSalesInvoice.SetTableView(RecPSalesInvoiceHeader);
+    //     RepLSalesInvoice.SaveAsPdf(TxtLServerFile);
+    //     Clear(Recipient);
+    //     Clear(CodLMail);
 
-        RecPSalesInvoiceHeader.FindFirst();
+    //     RecPSalesInvoiceHeader.FindFirst();
 
-        // pas besoin d'avoir l'adresse destinataire rempli mais ça va peut être évoluer.
-        /*
-        RecLContBusRel.RESET;
-        RecLContBusRel.SETRANGE("Link to Table",RecLContBusRel."Link to Table"::Customer);
-        RecLContBusRel.SETRANGE("No.",RecPSalesInvoiceHeader."Sell-to Customer No.");
-        IF RecLContBusRel.FINDFIRST THEN
-          IF RecLContact.GET(RecLContBusRel."Contact No.") THEN
-            Recipient := RecLContact."E-Mail"
-          ELSE
-          BEGIN
-            IF RecLCustomer.GET(RecPSalesInvoiceHeader."Sell-to Customer No.") THEN
-              Recipient := RecLCustomer."E-Mail";
-         END;
-        */
-
-
-        Subject := StrSubstNo(CstL001, RecPSalesInvoiceHeader."No.");
-        Body := StrSubstNo(CstL002, RecPSalesInvoiceHeader."Your Reference");
-
-        TxtLFileName := StrSubstNo('FACTURE N° %1.pdf', RecPSalesInvoiceHeader."No.");
-        TxtLFileName := DownloadToClientFileName(TxtLServerFile, TxtLFileName);
-        //Open E-Mail
-        CodLMail.NewMessage(Recipient, '', '', Subject, Body, TxtLFileName, true);
-
-    end;
+    //     // pas besoin d'avoir l'adresse destinataire rempli mais ça va peut être évoluer.
+    //     /*
+    //     RecLContBusRel.RESET;
+    //     RecLContBusRel.SETRANGE("Link to Table",RecLContBusRel."Link to Table"::Customer);
+    //     RecLContBusRel.SETRANGE("No.",RecPSalesInvoiceHeader."Sell-to Customer No.");
+    //     IF RecLContBusRel.FINDFIRST THEN
+    //       IF RecLContact.GET(RecLContBusRel."Contact No.") THEN
+    //         Recipient := RecLContact."E-Mail"
+    //       ELSE
+    //       BEGIN
+    //         IF RecLCustomer.GET(RecPSalesInvoiceHeader."Sell-to Customer No.") THEN
+    //           Recipient := RecLCustomer."E-Mail";
+    //      END;
+    //     */
 
 
-    procedure DownloadToClientFileName(TxtPServerFile: Text[250]; TxtPFileName: Text[250]): Text[250]
-    var
-        FileManagement: Codeunit "File Management";
-        TxtLClientFileName: Text[250];
-        TxtLFinalClientFileName: Text[250];
-    //TODO:'Automation' is not recognized as a valid type
-    //AutLFileObjectSystem: Automation;
-    //TODO: Codeunit '3-Tier Automation Mgt.' is missing
-    //CduLTierAutomationMgt: Codeunit "3-Tier Automation Mgt.";
-    begin
-        //TODO: Codeunit '3-Tier Automation Mgt.' is missing
-        // TxtLClientFileName := CduLTierAutomationMgt.ClientTempFileName('', '');
-        // TxtLFinalClientFileName := CduLTierAutomationMgt.Path(TxtLClientFileName) + TxtPFileName;
-        // Download(TxtPServerFile, '', '', '', TxtLClientFileName);
-        FileManagement.DownloadHandler(TxtPServerFile, '', '', '', TxtLClientFileName);
-        //TODO:'Automation' is not recognized as a valid type
-        // Create(AutLFileObjectSystem, false, true);
-        // if AutLFileObjectSystem.FileExists(TxtLFinalClientFileName) then
-        //     AutLFileObjectSystem.DeleteFile(TxtLFinalClientFileName, true);
-        // AutLFileObjectSystem.MoveFile(TxtLClientFileName, TxtLFinalClientFileName);
-        exit(TxtLFinalClientFileName);
-    end;
+    //     Subject := StrSubstNo(CstL001, RecPSalesInvoiceHeader."No.");
+    //     Body := StrSubstNo(CstL002, RecPSalesInvoiceHeader."Your Reference");
+
+    //     TxtLFileName := StrSubstNo('FACTURE N° %1.pdf', RecPSalesInvoiceHeader."No.");
+    //     TxtLFileName := DownloadToClientFileName(TxtLServerFile, TxtLFileName);
+    //     //Open E-Mail
+    //     CodLMail.NewMessage(Recipient, '', '', Subject, Body, TxtLFileName, true);
+
+    // end;
 
 
-    procedure SkipSendEmail(BooPSkipSendEmail: Boolean)
-    begin
-        BooGSkipSendEmail := BooPSkipSendEmail;
-    end;
+    // procedure DownloadToClientFileName(TxtPServerFile: Text[250]; TxtPFileName: Text[250]): Text[250]
+    // var
+    //     FileManagement: Codeunit "File Management";
+    //     TxtLClientFileName: Text[250];
+    //     TxtLFinalClientFileName: Text[250];
+    // //NOTUSED:'Automation' is not recognized as a valid type
+    // //AutLFileObjectSystem: Automation;
+    // //NOTUSED: Codeunit '3-Tier Automation Mgt.' is missing
+    // //CduLTierAutomationMgt: Codeunit "3-Tier Automation Mgt.";
+    // begin
+    //     //NOTUSED: Codeunit '3-Tier Automation Mgt.' is missing
+    //     // TxtLClientFileName := CduLTierAutomationMgt.ClientTempFileName('', '');
+    //     // TxtLFinalClientFileName := CduLTierAutomationMgt.Path(TxtLClientFileName) + TxtPFileName;
+    //     // Download(TxtPServerFile, '', '', '', TxtLClientFileName);
+    //     FileManagement.DownloadHandler(TxtPServerFile, '', '', '', TxtLClientFileName);
+    //     //NOTUSED:'Automation' is not recognized as a valid type
+    //     // Create(AutLFileObjectSystem, false, true);
+    //     // if AutLFileObjectSystem.FileExists(TxtLFinalClientFileName) then
+    //     //     AutLFileObjectSystem.DeleteFile(TxtLFinalClientFileName, true);
+    //     // AutLFileObjectSystem.MoveFile(TxtLClientFileName, TxtLFinalClientFileName);
+    //     exit(TxtLFinalClientFileName);
+    // end;
+
+
+    // procedure SkipSendEmail(BooPSkipSendEmail: Boolean)
+    // begin
+    //     BooGSkipSendEmail := BooPSkipSendEmail;
+    // end;
 }
 

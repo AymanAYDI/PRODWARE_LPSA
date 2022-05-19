@@ -71,7 +71,7 @@ table 50001 "PWD Item Configurator"
                 RecLDimensionValue.Reset();
                 RecLDimensionValue.SetRange("Dimension Code", RecLGeneralLedgerSetup."Shortcut Dimension 3 Code");
                 PgeLDimensionValueList.SetTableView(RecLDimensionValue);
-                if PAGE.RunModal(560, RecLDimensionValue) = ACTION::LookupOK then
+                if PAGE.RunModal(Page::"Dimension Value List", RecLDimensionValue) = ACTION::LookupOK then
                     "Dimension 3 Code" := RecLDimensionValue.Code;
             end;
 

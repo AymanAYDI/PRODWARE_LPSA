@@ -29,7 +29,7 @@ report 50032 "PWD Updt with New Dimension"
                   TableData "Transfer Shipment Line" = r,
                   TableData "Transfer Receipt Line" = r;
     ProcessingOnly = true;
-    UsageCategory = none;
+    UsageCategory = None;
     dataset
     {
         dataitem("Default Dimension"; "Default Dimension")
@@ -596,8 +596,8 @@ report 50032 "PWD Updt with New Dimension"
 
     local procedure GetNewDimSetID(DimSetID: Integer; DimensionCode: Code[20]; DimensionValueCode: Code[20]): Integer
     var
-        TempDimSetEntry: Record "Dimension Set Entry" temporary;
         DimSetEntry: Record "Dimension Set Entry";
+        TempDimSetEntry: Record "Dimension Set Entry" temporary;
         DimMgt: Codeunit DimensionManagement;
     begin
         DimSetEntry.Reset();

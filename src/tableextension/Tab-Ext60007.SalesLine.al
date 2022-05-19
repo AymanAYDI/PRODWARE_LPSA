@@ -168,14 +168,6 @@ tableextension 60007 "PWD SalesLine" extends "Sales Line"
         key(Key50000; "Shipment Date")
         {
         }
-        //TODO: clé contient champ standard
-        // key(Key50001; "Document Type", "Sell-to Customer No.", "PWD Cust Promis. Delivery Date")
-        // {
-        // }
-        // key(Key50002; "Document Type", Type, "No.", "PWD Cust Promis. Delivery Date")
-        // {
-        //     SumIndexFields = "Outstanding Qty. (Base)";
-        // }
     }
     procedure FctDefaultQuantityIfWMS();
     var

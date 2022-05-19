@@ -11,7 +11,7 @@ report 50037 "PWD Export Prod Order LPSA"
 
     ProcessingOnly = true;
     UseRequestPage = false;
-    UsageCategory = none;
+    UsageCategory = None;
     dataset
     {
         dataitem("Prod. Order Line"; "Prod. Order Line")
@@ -311,11 +311,6 @@ report 50037 "PWD Export Prod Order LPSA"
                     OutStreamGlobal.WriteText(';');
 
                     //Colonne T
-                    //'Record "Prod. Order Routing Line"' does not contain a definition for 'Planned Ress. No.' and 'Planned Ress. Type'
-                    // if ("Prod. Order Routing Line"."Planned Ress. No." <> '') and RecGOSYSSetup.PlannerOne and FctPlannerOnePermission() then begin
-                    //     // IntGTempField := "Prod. Order Routing Line"."Planned Ress. Type"; 
-                    //     OutStreamGlobal.WriteText(Format(IntGTempField));
-                    // end
                     IntGTempField := "Prod. Order Routing Line".Type.AsInteger();
                     OutStreamGlobal.WriteText(Format(IntGTempField));
                     OutStreamGlobal.WriteText(';');
@@ -325,14 +320,6 @@ report 50037 "PWD Export Prod Order LPSA"
                     OutStreamGlobal.WriteText(';');
 
                     //Colonne V
-                    //'Record "Prod. Order Routing Line"' does not contain a definition for 'Planned Ress. No.', 'Planned Ress. Type' and 'Planned Ress. Type'
-                    // if ("Prod. Order Routing Line"."Planned Ress. No." <> '') and 
-                    // RecGOSYSSetup.PlannerOne and FctPlannerOnePermission() then begin
-                    //     // if "Prod. Order Routing Line"."Planned Ress. Type" = "Prod. Order Routing Line"."Planned Ress. Type"::"Machine Center" then 
-                    //     // OutStreamGlobal.WriteText("Prod. Order Routing Line"."Planned Ress. No.")  
-                    //     // else
-                    //     OutStreamGlobal.WriteText('');
-                    // end
                     if "Prod. Order Routing Line".Type = "Prod. Order Routing Line".Type::"Machine Center" then
                         OutStreamGlobal.WriteText("Prod. Order Routing Line"."No.")
                     else

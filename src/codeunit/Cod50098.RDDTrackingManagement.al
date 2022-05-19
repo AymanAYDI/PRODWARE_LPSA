@@ -51,6 +51,7 @@ codeunit 50098 "PWD RDD - Tracking Management"
         QtyToAddAsBlank: Decimal;
         SourceQuantityArray: array[5] of Decimal;
         UndefinedQtyArray: array[3] of Decimal;
+        CurrentEntryStatus: Enum "Reservation Status";
         ColorOfQuantityArray: array[3] of Integer;
         CurrentSignFactor: Integer;
         CurrentSourceType: Integer;
@@ -70,7 +71,6 @@ codeunit 50098 "PWD RDD - Tracking Management"
         Text016: Label 'purchase order line';
         Text017: Label 'sales order line';
         FormRunMode: Option ,Reclass,"Combined Ship/Rcpt","Drop Shipment",Transfer,,,,,Countermark;
-        CurrentEntryStatus: Enum "Reservation Status";
         CurrentSourceRowID: Text[100];
         SecondSourceRowID: Text[100];
         CurrentSourceCaption: Text[255];

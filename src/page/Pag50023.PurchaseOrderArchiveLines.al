@@ -13,7 +13,7 @@ page 50023 "Purchase Order Archive Lines"
     Editable = false;
     LinksAllowed = false;
     PageType = List;
-    UsageCategory = none;
+    UsageCategory = None;
     SourceTable = "Purchase Line Archive";
     SourceTableView = WHERE("Document Type" = CONST(Order));
 

@@ -1,7 +1,7 @@
 report 50025 "PWD TPL MAJ OP Lavage"
 {
     ProcessingOnly = true;
-    UsageCategory = none;
+    UsageCategory = None;
     dataset
     {
         dataitem("Routing Header"; "Routing Header")

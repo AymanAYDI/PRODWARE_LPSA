@@ -31,7 +31,7 @@ tableextension 60047 "PWD TransferShipmentLine" extends "Transfer Shipment Line"
     procedure ShowLineComments()
     var
         InvtCommentLine: Record "PWD Inventory Comment Line";
-        InvtCommentSheet: Page "PWD Inventory Comment Sheet";
+        InvtCommentSheet: Page "Inventory Comment Sheet";
     begin
         InvtCommentLine.SETRANGE("Document Type", InvtCommentLine."Document Type"::"Posted Transfer Shipment");
         InvtCommentLine.SETRANGE("No.", "Document No.");

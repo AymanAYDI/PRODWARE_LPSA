@@ -47,12 +47,12 @@ codeunit 8073287 "Connector Buffer Mgt Export"
 
     procedure FctCreateXml(TxtPFilters: Text[1024]; RecPSendingMessage: Record "PWD Connector Messages"; var TempBlob: Codeunit "Temp Blob"; BooLInsertXMLHeader: Boolean)
     // var
-    //     AutLXMLDom: Automation; //TODO: Type Automation n'existe pas dans la nouvelle version
-    //     AutLXMLDomElement: Automation;//TODO: Type Automation n'existe pas dans la nouvelle version
-    //     AutLXMLDomElement2: Automation;//TODO: Type Automation n'existe pas dans la nouvelle version
-    //     AutLXMLDomElement3: Automation;//TODO: Type Automation n'existe pas dans la nouvelle version
-    //     AutLXMLDomProcInst: Automation;//TODO: Type Automation n'existe pas dans la nouvelle version
-    //     AutLXMLDomNodeTxt: Automation;//TODO: Type Automation n'existe pas dans la nouvelle version
+    //     AutLXMLDom: Automation; //NOTUSED: Type Automation n'existe pas dans la nouvelle version
+    //     AutLXMLDomElement: Automation;//NOTUSED: Type Automation n'existe pas dans la nouvelle version
+    //     AutLXMLDomElement2: Automation;//NOTUSED: Type Automation n'existe pas dans la nouvelle version
+    //     AutLXMLDomElement3: Automation;//NOTUSED: Type Automation n'existe pas dans la nouvelle version
+    //     AutLXMLDomProcInst: Automation;//NOTUSED: Type Automation n'existe pas dans la nouvelle version
+    //     AutLXMLDomNodeTxt: Automation;//NOTUSED: Type Automation n'existe pas dans la nouvelle version
     //     FldRef: FieldRef;
     //     RecLRecRef: RecordRef;
     //     RecLRecRef2: RecordRef;

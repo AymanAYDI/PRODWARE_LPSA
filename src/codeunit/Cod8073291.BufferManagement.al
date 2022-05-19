@@ -515,7 +515,7 @@ codeunit 8073291 "PWD Buffer Management"
                 FieldRefKey := Rec.FIELD(1);
                 EVALUATE(RecLObject."DBM Table No.", FORMAT(FieldRefKey.VALUE));
                 COMMIT();
-                IF NOT CODEUNIT.RUN(8073291, RecLObject) THEN BEGIN
+                IF NOT CODEUNIT.RUN(Codeunit::"PWD Buffer Management", RecLObject) THEN BEGIN
                     FieldRef := Rec.FIELD(16);
                     FieldRef.VALUE := COPYSTR(GETLASTERRORTEXT, 1, 250);
                     FieldRef := Rec.FIELD(9);

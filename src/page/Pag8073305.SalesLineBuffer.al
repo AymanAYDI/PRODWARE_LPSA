@@ -13,7 +13,7 @@ page 8073305 "PWD Sales Line Buffer"
     Caption = 'Sales Line Buffer';
     InsertAllowed = false;
     PageType = List;
-    UsageCategory = none;
+    UsageCategory = None;
     SourceTable = "PWD Sales Line Buffer";
 
     layout

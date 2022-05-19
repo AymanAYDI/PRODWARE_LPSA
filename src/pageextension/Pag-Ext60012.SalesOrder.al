@@ -95,7 +95,7 @@ pageextension 60012 "PWD SalesOrder" extends "Sales Order"
                     CurrPage.SETSELECTIONFILTER(Rec);
                     IF RecGSalesSetup.GET() THEN
                         RecGSalesSetup.TESTFIELD("PWD PDFDirectory");
-                    REPORT.SAVEASPDF(50009, RecGSalesSetup."PWD PDFDirectory" + '\' + STRSUBSTNO('CONFIRM No. %1.pdf', Rec."No."), Rec);
+                    REPORT.SAVEASPDF(Report::"PWD Sales Order Confirmation", RecGSalesSetup."PWD PDFDirectory" + '\' + STRSUBSTNO('CONFIRM No. %1.pdf', Rec."No."), Rec);
                     Rec.RESET();
 
                     SLEEP(1000);

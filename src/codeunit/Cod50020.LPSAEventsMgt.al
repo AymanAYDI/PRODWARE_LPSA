@@ -22,18 +22,6 @@ codeunit 50020 "PWD LPSA Events Mgt."
         LotSizeStdCost.FctInsertItemLine(Rec."No.", Rec."Item Category Code");
     end;
 
-    [EventSubscriber(ObjectType::Table, Database::Item, 'OnAfterModifyEvent', '', false, false)]
-    local procedure TAB27_OnAfterModifyEvent_Item(var Rec: Record Item; var xRec: Record Item; RunTrigger: Boolean)
-    var
-        ProdOrderLine: Record "Prod. Order Line";
-    begin
-        if not RunTrigger then
-            exit;
-        if Rec.IsTemporary then
-            exit;
-        ProdOrderLine.ItemChange(Rec, xRec);
-    end;
-
     [EventSubscriber(ObjectType::table, database::Item, 'OnbeforeValidateEvent', 'Replenishment System', false, false)]
     local procedure TAB27_OnbeforeValidateEvent_Item_ReplenishmentSystem(var Rec: Record Item; var xRec: Record Item; CurrFieldNo: Integer)
     begin
@@ -1035,7 +1023,7 @@ codeunit 50020 "PWD LPSA Events Mgt."
             RecLProductionOrder.SETRANGE("No.", ToProdOrder."No.");
             //>>LAP2.20
             //   REPORT.RUNMODAL(50022,FALSE,FALSE,RecLProductionOrder);
-            REPORT.RUNMODAL(50022, TRUE, TRUE, RecLProductionOrder);
+            REPORT.RUNMODAL(Report::"PWD Tracking Card", TRUE, TRUE, RecLProductionOrder);
             //<<LAP2.20
             //>>REGIE
             //   REPORT.RUNMODAL(50019,FALSE,FALSE,RecLProductionOrder);
@@ -1510,9 +1498,9 @@ codeunit 50020 "PWD LPSA Events Mgt."
     [EventSubscriber(ObjectType::Page, Page::"Item Tracking Lines", 'OnBeforeAssignNewLotNo', '', false, false)]
     local procedure PAG6510_OnBeforeAssignNewLotNo_ItemTrackingLines(var TrackingSpecification: Record "Tracking Specification"; var IsHandled: Boolean; var SourceTrackingSpecification: Record "Tracking Specification")
     var
+        Item: Record Item;
         NoSeriesMgt: Codeunit "NoSeriesManagement";
         cuLSAvailMgt: Codeunit "PWD Lot Inheritance Mgt.PW";
-        Item: Record Item;
     begin
         //TODO: gLotDeterminingLotCode est une variables globale dans la page "Item Tracking Lines" (Il n'y a pas des appel pour cette fonction)
         Item.Get(TrackingSpecification."Item No.");
@@ -1818,8 +1806,8 @@ codeunit 50020 "PWD LPSA Events Mgt."
     var
         RecGItemConfigurator: Record "PWD Item Configurator";
         RecGItemConfiguratorNew: Record "PWD Item Configurator";
-        LPSASetGetFunctions: codeunit "PWD LPSA Set/Get Functions.";
         LPSAFunctionsMgt: codeunit "PWD LPSA Functions Mgt.";
+        LPSASetGetFunctions: codeunit "PWD LPSA Set/Get Functions.";
     begin
         //>>FE_LAPIERRETTE_NDT01.001
         IF LPSASetGetFunctions.GetFromConfiguration THEN
@@ -1983,8 +1971,8 @@ codeunit 50020 "PWD LPSA Events Mgt."
     [EventSubscriber(ObjectType::Table, Database::"Transfer Header", 'OnBeforeValidateTransferToCode', '', false, false)]
     local procedure TAB5740_OnBeforeValidateTransferToCode_TransferHeader(var TransferHeader: Record "Transfer Header"; var xTransferHeader: Record "Transfer Header"; var IsHandled: Boolean; var HideValidationDialog: Boolean)
     Var
-        Text002: Label 'Do you want to change %1?';
         Confirmed: Boolean;
+        Text002: Label 'Do you want to change %1?';
     begin
         IsHandled := true;
         /*>>LAP2.00
@@ -2067,8 +2055,8 @@ codeunit 50020 "PWD LPSA Events Mgt."
     local procedure TAB83_OnBeforeCallItemTracking_ItemJnlLineReserve(var ItemJournalLine: Record "Item Journal Line"; IsReclass: Boolean; var IsHandled: Boolean)
 
     VAR
-        LPSASetGetFunctions: codeunit "PWD LPSA Set/Get Functions.";
         cuLotInheritanceMgt: Codeunit "PWD Lot Inheritance Mgt.PW";
+        LPSASetGetFunctions: codeunit "PWD LPSA Set/Get Functions.";
         LotDetLotCode: Code[30];
         LotDetExpirDate: Date;
     begin

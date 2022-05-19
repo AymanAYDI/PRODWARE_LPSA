@@ -12,7 +12,7 @@ page 50020 "PWD Routing Lines choice"
     DelayedInsert = true;
     LinksAllowed = false;
     PageType = List;
-    UsageCategory = none;
+    UsageCategory = None;
     SourceTable = "Routing Line";
 
     layout

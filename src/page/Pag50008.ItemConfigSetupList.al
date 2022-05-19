@@ -14,7 +14,7 @@ page 50008 "PWD Item Config. Setup List"
     Caption = 'Editable Fields';
     PageType = ListPart;
     SourceTable = "PWD Piece Type";
-    UsageCategory = none;
+    UsageCategory = None;
 
     layout
     {

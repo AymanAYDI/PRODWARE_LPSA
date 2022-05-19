@@ -45,7 +45,7 @@ tableextension 60000 "PWD Location" extends Location
                 //>>FE_LAPIERRETTE_NDT01.001
                 IF "PWD Req. Wksh. Template" <> '' THEN BEGIN
                     RecLReqWkshName.SETRANGE("Worksheet Template Name", "PWD Req. Wksh. Template");
-                    IF PAGE.RUNMODAL(295, RecLReqWkshName) = ACTION::LookupOK THEN
+                    IF PAGE.RUNMODAL(Page::"Req. Wksh. Names", RecLReqWkshName) = ACTION::LookupOK THEN
                         "PWD Req. Wksh. Name" := RecLReqWkshName.Name;
                 END;
                 //<<FE_LAPIERRETTE_NDT01.001

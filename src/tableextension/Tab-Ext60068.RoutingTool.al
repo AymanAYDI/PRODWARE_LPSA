@@ -44,9 +44,5 @@ tableextension 60068 "PWD RoutingTool" extends "Routing Tool"
     }
     keys
     {
-        //TODO: clé contient champ standard
-        // key(Key2; "PWD Type", "No.")
-        // {
-        // }
     }
 }

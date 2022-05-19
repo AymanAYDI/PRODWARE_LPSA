@@ -258,7 +258,7 @@ codeunit 8073294 "PWD File Management"
         EXIT(BooLTreatmentOK);
     end;
 
-    procedure FctFormatDecimal(RecPFieldsExp: Record 8073285; DecPValue: Decimal): Text[250]
+    procedure FctFormatDecimal(RecPFieldsExp: Record "PWD Fields Export Setup"; DecPValue: Decimal): Text[250]
     var
         TxtLValue: Text[250];
     begin
@@ -297,7 +297,7 @@ codeunit 8073294 "PWD File Management"
         // END;
     end;
 
-    procedure FctFormatDate(RecPFieldsExp: Record 8073285; DatPValue: Date): Text[250]
+    procedure FctFormatDate(RecPFieldsExp: Record "PWD Fields Export Setup"; DatPValue: Date): Text[250]
     begin
         //**********************************************************************************************************//
         //                                  Format Date value and return text                                       //
@@ -311,7 +311,7 @@ codeunit 8073294 "PWD File Management"
 
     end;
 
-    procedure FctFillUpString(RecPFieldsExp: Record 8073285; TxtPValue: Text[250]): Text[250]
+    procedure FctFillUpString(RecPFieldsExp: Record "PWD Fields Export Setup"; TxtPValue: Text[250]): Text[250]
     var
         I: Integer;
         TxtLFillCharacter: Text[1];
@@ -376,7 +376,7 @@ codeunit 8073294 "PWD File Management"
         EXIT(BooLResult);
     end;
 
-    procedure FctDeleteFiles(RecLMessage: Record 8073284; OptLFlowType: Option " ","Import Connector","Export Connector")
+    procedure FctDeleteFiles(RecLMessage: Record "PWD Connector Messages"; OptLFlowType: Option " ","Import Connector","Export Connector")
     var
         BooLNotSkip: Boolean;
         TxtLFileFound: Text[1024];
@@ -390,7 +390,7 @@ codeunit 8073294 "PWD File Management"
             BooLNotSkip := FctDeleteFile(TxtLFileFound, RecLMessage.Path, RecLMessage."Partner Code", 0, OptLFlowType::"Import Connector");
     end;
 
-    procedure FctFormatDecimalWMS(RecPFieldsExp: Record 8073285; DecPValue: Decimal): Text[250]
+    procedure FctFormatDecimalWMS(RecPFieldsExp: Record "PWD Fields Export Setup"; DecPValue: Decimal): Text[250]
     var
         TxtLValue: Text[250];
     begin
@@ -424,7 +424,7 @@ codeunit 8073294 "PWD File Management"
         // END;
     end;
 
-    procedure fctTODO(RecPFieldsExp: Record 8073285; DecPValue: Decimal): Text[250]
+    procedure fctTODO(RecPFieldsExp: Record "PWD Fields Export Setup"; DecPValue: Decimal): Text[250]
     var
         TxtLValue: Text[250];
     begin

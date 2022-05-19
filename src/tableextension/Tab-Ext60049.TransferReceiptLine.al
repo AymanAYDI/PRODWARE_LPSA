@@ -31,7 +31,7 @@ tableextension 60049 "PWD TransferReceiptLine" extends "Transfer Receipt Line"
     procedure ShowLineComments()
     var
         InvtCommentLine: Record "PWD Inventory Comment Line";
-        InvtCommentSheet: Page "PWD Inventory Comment Sheet";
+        InvtCommentSheet: Page "Inventory Comment Sheet";
     begin
         InvtCommentLine.SETRANGE("Document Type", InvtCommentLine."Document Type"::"Posted Transfer Receipt");
         InvtCommentLine.SETRANGE("No.", "Document No.");

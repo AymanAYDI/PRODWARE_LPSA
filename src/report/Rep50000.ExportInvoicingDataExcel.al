@@ -619,13 +619,13 @@ report 50000 "Export Invoicing Data (Excel)"
 
     var
         RecGGenLedgerSetup: Record "General Ledger Setup";
-        Book: DotNet "EXCEL Workbook";
-        Excel: DotNet "EXCEL ApplicationClass";
-        Sheet: DotNet "EXCEL Worksheet";
         CodGCurrency: Code[10];
         CodGShipNo: Code[20];
         DatGEnding: Date;
         DatGStarting: Date;
+        Excel: DotNet "EXCEL ApplicationClass";
+        Book: DotNet "EXCEL Workbook";
+        Sheet: DotNet "EXCEL Worksheet";
         Compteur: Integer;
         LastFieldNo: Integer;
         CstGtxt001: Label 'The Starting Date  %1 must be filled,';

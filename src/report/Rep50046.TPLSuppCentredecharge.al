@@ -11,7 +11,7 @@ report 50046 "PWD TPL Supp Centre de charge"
     // ------------------------------------------------------------------------------------------------------------------
 
     ProcessingOnly = true;
-    UsageCategory = none;
+    UsageCategory = None;
     dataset
     {
         dataitem("Work Center"; "Work Center")

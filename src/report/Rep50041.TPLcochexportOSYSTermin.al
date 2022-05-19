@@ -1,7 +1,7 @@
 report 50041 "TPL coché export OSYS Terminé"
 {
     ProcessingOnly = true;
-    UsageCategory = none;
+    UsageCategory = None;
     dataset
     {
         dataitem("Prod. Order Line"; "Prod. Order Line")

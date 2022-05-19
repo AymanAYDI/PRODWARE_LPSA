@@ -2,7 +2,7 @@ report 50078 "PWD Update Check Lines"
 {
     DefaultLayout = RDLC;
     RDLCLayout = './src/report/rdl/UpdateCheckLines.rdl';
-    UsageCategory = none;
+    UsageCategory = None;
     dataset
     {
         dataitem("Routing Line"; "Routing Line")

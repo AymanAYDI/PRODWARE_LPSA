@@ -115,8 +115,8 @@ page 50002 "PWD Item Configurator List"
 
     var
         RecGNewItem: Record Item;
-        RepGCopyItem: Page "Copy Item";
         LPSASetGetFunctions: codeunit "PWD LPSA Set/Get Functions.";
+        RepGCopyItem: Page "Copy Item";
         PagGItemConfigurator: Page "PWD Item Configurator";
 }
 

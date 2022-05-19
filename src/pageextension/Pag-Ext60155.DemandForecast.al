@@ -61,8 +61,8 @@ pageextension 60155 "PWD DemandForecast" extends "Demand Forecast"
 
                 trigger OnLookup(var Text: Text): Boolean
                 var
-                    Cust: Record 18;
-                    CustList: Page 22;
+                    Cust: Record Customer;
+                    CustList: Page "Customer List";
                 begin
                     //>>LAP080615
                     CustList.LOOKUPMODE(TRUE);

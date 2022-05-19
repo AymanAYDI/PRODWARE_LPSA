@@ -153,7 +153,7 @@ tableextension 60009 "PWD PurchaseLine" extends "Purchase Line"
 
     PROCEDURE FctDefaultQuantityIfWMS();
     VAR
-        RecLLocation: Record 14;
+        RecLLocation: Record Location;
     BEGIN
         //>>WMS-FE05.001
         IF RecLLocation.GET("Location Code") AND RecLLocation."PWD WMS_Location" THEN BEGIN

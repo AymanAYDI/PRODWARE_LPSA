@@ -71,7 +71,7 @@ report 50005 "PWD Order LAP"
     RDLCLayout = './src/report/rdl/OrderLAP.rdl';
 
     Caption = 'Order';
-    UsageCategory = none;
+    UsageCategory = None;
 
     dataset
     {
@@ -1446,7 +1446,7 @@ report 50005 "PWD Order LAP"
 
             trigger OnAfterGetRecord()
             begin
-                CurrReport.Language := Language.GetLanguageID("Language Code");
+                CurrReport.Language := Language.GetLanguageIdOrDefault("Language Code");
 
                 CompanyInfo.Get();
 

@@ -45,6 +45,7 @@ codeunit 50097 "Tools Kill manual Prod Order"
         NewUpdateUnitCost: Boolean;
         // SourceCodeSetupRead: Boolean;
         NewPostingDate: Date;
+        NewStatus: Enum "Production Order Status";
         Text000: Label '%2 %3  with status %1 has been changed to %5 %6 with status %4.';
         Text004: Label '%1 %2 has not been finished. Some output is still missing. Do you still want to finish the order?';
         Text005: Label 'The update has been interrupted to respect the warning.';
@@ -54,7 +55,6 @@ codeunit 50097 "Tools Kill manual Prod Order"
         Text009: Label 'You cannot finish line %1 on %2 %3. It has consumption or capacity posted with no output.';
         Text010: Label 'You must specify a %1 in %2 %3 %4.';
         Txt50000: Label 'There is a phantom item for Line no. %1';
-        NewStatus: Enum "Production Order Status";
 
 
     procedure ChangeStatusOnProdOrder(ProdOrder: Record "Production Order"; NewStatus: Enum "Production Order Status"; NewPostingDate: Date; NewUpdateUnitCost: Boolean)
@@ -169,9 +169,9 @@ codeunit 50097 "Tools Kill manual Prod Order"
 
     local procedure TransProdOrderLine(FromProdOrder: Record "Production Order")
     var
+        InvtAdjmtEntryOrder: Record "Inventory Adjmt. Entry (Order)";
         FromProdOrderLine: Record "Prod. Order Line";
         ToProdOrderLine: Record "Prod. Order Line";
-        InvtAdjmtEntryOrder: Record "Inventory Adjmt. Entry (Order)";
     begin
         FromProdOrderLine.SETRANGE(Status, FromProdOrder.Status);
         FromProdOrderLine.SETRANGE("Prod. Order No.", FromProdOrder."No.");

@@ -221,7 +221,7 @@ xmlport 8073323 "PWD Export Prod Order OSYS"
 
                         trigger OnBeforePassVariable()
                         begin
-                            //TODO: Field 'URL2','URL3' et 'URL4' are removed.
+                            //NOTUSED: Field 'URL2','URL3' et 'URL4' are removed.
                             // F_URL := "Record Link".URL1 + "Record Link".URL2 + "Record Link".URL3 + "Record Link".URL4;
                         end;
                     }
@@ -364,7 +364,7 @@ xmlport 8073323 "PWD Export Prod Order OSYS"
 
                             trigger OnBeforePassVariable()
                             begin
-                                //TODO: Field 'URL2','URL3' et 'URL4' are removed.
+                                //NOTUSED: Field 'URL2','URL3' et 'URL4' are removed.
                                 //F_URLRouting := RecordLinkRouting.URL1 + RecordLinkRouting.URL2 + RecordLinkRouting.URL3 + RecordLinkRouting.URL4;
                             end;
                         }

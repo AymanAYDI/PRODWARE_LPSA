@@ -18,24 +18,4 @@ pageextension 60075 "PWD PostedTransferShipment" extends "Posted Transfer Shipme
             }
         }
     }
-    actions
-    {
-
-        modify("Co&mments")
-        {
-            Visible = false;
-        }
-        addafter("Co&mments")
-        {
-            action("PWD Co&mments")
-            {
-                ApplicationArea = Comments;
-                Caption = 'Co&mments';
-                Image = ViewComments;
-                RunObject = Page "PWD Inventory Comment Sheet";
-                RunPageLink = "Document Type" = CONST("Posted Transfer Shipment"),
-                                  "No." = FIELD("No."), "Document Line No." = CONST(0);
-            }
-        }
-    }
 }

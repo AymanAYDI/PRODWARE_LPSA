@@ -258,8 +258,8 @@ report 50001 "Export Planning Client Excel"
         // TotalRecNo: Integer;
         Text000: Label 'Analyzing Data...\\';
         Text002: Label 'Update Workbook';
-        Text003: Label 'The file was successfully uploaded to server';
         Text002E: Label 'Data';
+        Text003: Label 'The file was successfully uploaded to server';
         Text003E: Label 'Export Planning Client Excel';
         Option: Option "Create Workbook","Update Workbook";
         GFileName: Text[250];
@@ -283,7 +283,7 @@ report 50001 "Export Planning Client Excel"
         Text006E: Label 'Report Name';
         Text007E: Label 'User ID';
         Text008E: Label 'Date';
-        Text009E: Label 'Customer Filters;DES=Debitorenfilter';
+        Text009E: Label 'Customer Filters';
         Text010E: Label 'Sales Order Lines Filters';
         Text011E: Label 'Production Forecast Entry Filter ';
     Begin

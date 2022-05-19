@@ -52,7 +52,7 @@ report 50004 "PWD Purchase - Quote LAP"
     RDLCLayout = './src/report/rdl/PurchaseQuoteLAP.rdl';
 
     Caption = 'Purchase - Quote';
-    UsageCategory = none;
+    UsageCategory = None;
 
     dataset
     {
@@ -572,7 +572,7 @@ report 50004 "PWD Purchase - Quote LAP"
 
             trigger OnAfterGetRecord()
             begin
-                CurrReport.Language := Language.GetLanguageID("Language Code");
+                CurrReport.Language := Language.GetLanguageIdOrDefault("Language Code");
 
                 CompanyInfo.Get();
 
@@ -745,11 +745,11 @@ report 50004 "PWD Purchase - Quote LAP"
         PurchPost: Codeunit "Purch.-Post";
         PurchCountPrinted: Codeunit "Purch.Header-Printed";
         SegManagement: Codeunit SegManagement;
-        GArchiveDocument: Boolean;
         [InDataSet]
         ArchiveDocumentEnable: Boolean;
         BooGStopComment: Boolean;
         Continue: Boolean;
+        GArchiveDocument: Boolean;
         LogInteraction: Boolean;
         [InDataSet]
         LogInteractionEnable: Boolean;

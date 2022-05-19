@@ -10,7 +10,7 @@ report 50050 "Launch Manual TestClosing File"
 
     Caption = 'Launch Manual Export Closing File';
     ProcessingOnly = true;
-    UsageCategory = none;
+    UsageCategory = None;
     dataset
     {
         dataitem("Integer"; "Integer")
