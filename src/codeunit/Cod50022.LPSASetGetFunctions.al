@@ -10,13 +10,15 @@ codeunit 50022 "PWD LPSA Set/Get Functions."
 
         BooGFromConfig: Boolean;
         BooGFromImport: Boolean;
-        BooGFromOsys: Boolean;
         BooGFromWMS: Boolean;
         gFromTheSameLot: Boolean;
         ToBatchName: Code[10];
         ToTemplateName: Code[10];
         gLotDeterminingLotCode: Code[30];
         gLotDeterminingExpirDate: Date;
+        BooGFromOsys: Boolean;
+        BooGFromImportSaleLine: Boolean;
+        BooGFromLotDeterminingEnable: Boolean;
     //---TAB39--- 
     procedure SetFctFromImport(SetBooGFromImport: Boolean)
     begin
@@ -131,4 +133,18 @@ codeunit 50022 "PWD LPSA Set/Get Functions."
         exit(BooGFromOsys);
 
     end;
+    //---TAB37---
+    procedure SetFctFromImportSaleLine(BooPFromImport: Boolean)
+    begin
+        BooGFromImportSaleLine := BooPFromImport;
+    end;
+
+    procedure GetFctFromImportSaleLine(): Boolean
+
+    begin
+
+        exit(BooGFromImportSaleLine);
+
+    end;
+
 }

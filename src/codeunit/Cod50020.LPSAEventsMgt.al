@@ -127,12 +127,14 @@ codeunit 50020 "PWD LPSA Events Mgt."
     //---TAB37---
     [EventSubscriber(ObjectType::Table, Database::"Sales Line", 'OnBeforeModifyEvent', '', false, false)]
     local procedure TAB37_OnBeforeModifyEvent_SalesLine(var Rec: Record "Sales Line"; var xRec: Record "Sales Line"; RunTrigger: Boolean)
+    Var
+        LPSASetGetFunctions: Codeunit "PWD LPSA Set/Get Functions.";
     begin
         if not RunTrigger then
             exit;
         if Rec.IsTemporary then
             exit;
-        IF NOT BooGFromImport THEN
+        IF NOT LPSASetGetFunctions.GetFctFromImportSaleLine() THEN
             xRec.TESTFIELD("PWD WMS_Status", Rec."PWD WMS_Status"::" ");
     end;
 
@@ -214,8 +216,15 @@ codeunit 50020 "PWD LPSA Events Mgt."
     [EventSubscriber(ObjectType::table, database::"Sales Line", 'OnAfterValidateEvent', 'Promised Delivery Date', false, false)]
     local procedure TAB37_OnAfterValidateEvent_SalesLine_PromisedDeliveryDate(var Rec: Record "Sales Line"; var xRec: Record "Sales Line"; CurrFieldNo: Integer)
     begin
-        IF Rec."Promised Delivery Date" = 0D THEN
-            Rec.VALIDATE(Rec."Requested Delivery Date");
+        if Rec."Requested Delivery Date" <> 0D then begin
+            IF Rec."Planned Shipment Date" > Rec."Planned Delivery Date" THEN
+                Rec."Planned Delivery Date" := Rec."Planned Shipment Date";
+            //inter support temporaire
+            Rec."Shipment Date" := xRec."Shipment Date";
+            Rec."Planned Shipment Date" := xRec."Planned Shipment Date";
+            IF Rec."Promised Delivery Date" = 0D THEN
+                Rec.VALIDATE(Rec."Requested Delivery Date");
+        end;
     end;
 
     [EventSubscriber(ObjectType::table, database::"Sales Line", 'OnAfterValidateEvent', 'Planned Delivery Date', false, false)]
@@ -261,8 +270,11 @@ codeunit 50020 "PWD LPSA Events Mgt."
 
     [EventSubscriber(ObjectType::table, database::"Sales Line", 'OnBeforeValidatePlannedDeliveryDate', '', false, false)]
     local procedure TAB37_OnBeforeValidatePlannedDeliveryDate_SalesLine(var IsHandled: Boolean; var SalesLine: Record "Sales Line")
+    Var
+        LPSASetGetFunctions: codeunit "PWD LPSA Set/Get Functions.";
     begin
         IsHandled := true;
+        //if not LPSASetGetFunctions.GetValidatePlannedDeliveryDate() then begin
         SalesLine.TestStatusOpen();
         if SalesLine."Planned Delivery Date" <> 0D then begin
             if SalesLine."Planned Shipment Date" > SalesLine."Planned Delivery Date" then
@@ -270,6 +282,26 @@ codeunit 50020 "PWD LPSA Events Mgt."
             //inter support temporaire
             SalesLine."Shipment Date" := SalesLine."Planned Delivery Date";
             SalesLine."Planned Shipment Date" := SalesLine."Planned Delivery Date";
+            //inter support temporaire
+        end;
+
+        //end
+    end;
+
+    [EventSubscriber(ObjectType::table, database::"Sales Line", 'OnAfterValidateEvent', 'Requested Delivery Date', false, false)]
+    local procedure TAB37_OnAfterValidateEvent_SalesLine_RequestedDeliveryDate(var Rec: Record "Sales Line"; var xRec: Record "Sales Line"; CurrFieldNo: Integer)
+    begin
+        if Rec."Requested Delivery Date" <> 0D then begin
+            IF Rec."Planned Shipment Date" > Rec."Planned Delivery Date" THEN
+                Rec."Planned Delivery Date" := Rec."Planned Shipment Date";
+            //inter support temporaire
+            Rec."Shipment Date" := xRec."Shipment Date";
+            Rec."Planned Shipment Date" := xRec."Planned Shipment Date";
+        end
+        else begin
+            //inter support temporaire
+            Rec."Planned Delivery Date" := xRec."Planned Delivery Date";
+            Rec."Planned Shipment Date" := xRec."Planned Shipment Date";
             //inter support temporaire
         end;
     end;
@@ -1740,13 +1772,15 @@ codeunit 50020 "PWD LPSA Events Mgt."
         //<<FE_LAPIERRETTE_VTE03.001
     end;
     //---PAG30---
-    [EventSubscriber(ObjectType::Page, Page::"Item Card", 'OnAfterInitControls', '', false, false)]
-    local procedure OnAfterInitControls()
-    begin
-        //>>FE_LAPIERRETTE_PROD01.001: TO 13/12/2011
-        "Lot DeterminingEnable" := FALSE;
-        //<<FE_LAPIERRETTE_PROD01.001: TO 13/12/2011
-    end;
+    // [EventSubscriber(ObjectType::Page, Page::"Item Card", 'OnAfterInitControls', '', false, false)]
+    // local procedure OnAfterInitControls()
+    // Var
+    // "LPSASetGetFunctions": Codeunit "PWD LPSA Set/Get Functions.";
+    // begin
+    //     //>>FE_LAPIERRETTE_PROD01.001: TO 13/12/2011
+    //     LPSASetGetFunctions.SetFctFromLotDeterminingEnablee(FALSE);
+    //     //<<FE_LAPIERRETTE_PROD01.001: TO 13/12/2011
+    // end;
 
     [EventSubscriber(ObjectType::Page, Page::"Item Card", 'OnAfterValidateEvent', 'Item Category Code', false, false)]
     local procedure PAG30_OnAfterValidateEvent_ItemCard_ItemCategoryCode(var Rec: Record Item; var xRec: Record Item)
@@ -1842,13 +1876,13 @@ codeunit 50020 "PWD LPSA Events Mgt."
         //<<FE_LAPIERRETTE_NDT01.001
     end;
     //---PAG729---(REPORT 11511)
-    [EventSubscriber(ObjectType::Page, Page::"Copy Item", 'OnAfterInitCopyItemBuffer', '', false, false)]
-    local procedure PAG729_OnAfterInitCopyItemBuffer_CopyItem(var CopyItemBuffer: Record "Copy Item Buffer")
-    begin
-        //>>FE_LAPIERRETTE_NDT01.001
-        BooGToItemVisible := NOT BooGFromConfig;
-        //<<FE_LAPIERRETTE_NDT01.001
-    end;
+    // [EventSubscriber(ObjectType::Page, Page::"Copy Item", 'OnAfterInitCopyItemBuffer', '', false, false)]
+    // local procedure PAG729_OnAfterInitCopyItemBuffer_CopyItem(var CopyItemBuffer: Record "Copy Item Buffer")
+    // begin
+    //     //>>FE_LAPIERRETTE_NDT01.001
+    //     BooGToItemVisible := NOT BooGFromConfig;
+    //     //<<FE_LAPIERRETTE_NDT01.001
+    // end;
     //---PAG99000811---
     [EventSubscriber(ObjectType::Page, Page::"Prod. BOM Where-Used", 'OnAfterGetRecordEvent', '', false, false)]
     local procedure PAG99000811_OnAfterGetRecordEvent_ProdBOMWhereUsed(var Rec: Record "Where-Used Line")
@@ -2070,11 +2104,12 @@ codeunit 50020 "PWD LPSA Events Mgt."
     end;
 
     var
-        BooGFromConfig: Boolean;
-        BooGFromImport: Boolean;
-        [INDATASET]
-        BooGToItemVisible: Boolean;
-        [InDataSet]
-        "Lot DeterminingEnable": Boolean;
+        // BooGFromConfig: Boolean;
+        // BooGFromImport: Boolean;
+        // [INDATASET]
+        // BooGToItemVisible: Boolean;
+        //DontExecuteIfImport: Boolean;
+        // [InDataSet]
+        // LotDeterminingEnable: Boolean;
         CustomerFilter: Code[20];
 }

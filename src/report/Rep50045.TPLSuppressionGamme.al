@@ -85,9 +85,9 @@ report 50045 "PWD TPL Suppression Gamme"
                         ShowCaption = false;
                         trigger OnLookup(var Text: Text): Boolean
                         var
-                        // CduGCommonDialogMgt: CodeUnit "Common Dialog Management";
+                            CduGCommonDialogMgt: Codeunit "File management";
                         begin
-                            // TxtGFile := CduLCommonDialogMgt.OpenFile('Fichier à importer', TxtGFile, 1, 'Filter', 0); //TODO: Codeunit n'existe pas(code standard dans la version 2009)
+                            TxtGFile := CduGCommonDialogMgt.UploadFile('Fichier à importer', TxtGFile);
                         end;
                     }
                 }
