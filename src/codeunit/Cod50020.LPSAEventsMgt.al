@@ -645,22 +645,6 @@ codeunit 50020 "PWD LPSA Events Mgt."
         IF ProdOrderComponent.Status = ProdOrderComponent.Status::Released THEN
             Item.TESTFIELD("PWD Phantom Item", FALSE);
     end;
-    //---TAB5409---
-    [EventSubscriber(ObjectType::Table, Database::"Prod. Order Routing Line", 'OnAfterModifyEvent', '', false, false)]
-    local procedure TAB5409_OnAfterModifyEvent_ProdOrderRoutingLine(var Rec: Record "Prod. Order Routing Line"; var xRec: Record "Prod. Order Routing Line"; RunTrigger: Boolean)
-    var
-        ProdOrderLine: Record "Prod. Order Line";
-    begin
-        if not RunTrigger then
-            exit;
-        if Rec.IsTemporary then
-            exit;
-        //TODO: CheckAlternate utilise la table PlannerOneProdOrdRoutLineAlt et le codeunit 1
-        //Rec.CheckAlternate();
-        //Rec.CalculateRoutingLine();
-        IF (Rec.Status = Rec.Status::Released) AND (ProdOrderLine.GET(Rec.Status, Rec."Prod. Order No.", Rec."Routing Reference No.")) THEN
-            ProdOrderLine.ResendProdOrdertoQuartis();
-    end;
     //---TAB5411---
     [EventSubscriber(ObjectType::table, database::"Prod. Order Routing Tool", 'OnAfterValidateEvent', 'No.', false, false)]
     local procedure TAB5411_OnAfterValidateEvent_ProdOrderRoutingTool_No(var Rec: Record "Prod. Order Routing Tool"; var xRec: Record "Prod. Order Routing Tool"; CurrFieldNo: Integer)
@@ -1513,47 +1497,43 @@ codeunit 50020 "PWD LPSA Events Mgt."
         CurrentSignFactor := CreateReservEntry.SignFactor(ReservEntry);
     end;
 
-    [EventSubscriber(ObjectType::Page, Page::"Item Tracking Lines", 'OnBeforeAssignLotNo', '', false, false)]
-    local procedure PAG6510_OnBeforeAssignLotNo_ItemTrackingLines(var TrackingSpecification: Record "Tracking Specification"; var TempItemTrackLineInsert: Record "Tracking Specification" temporary; SourceQuantityArray: array[5] of Decimal; var IsHandled: Boolean)
-    var
-    // CstGErr0002: Label 'Lot Inheritance: You can''t assign a Lot No.,\because there is no Lot assigned to the lot determining component.';
-    begin
-        // TODO: gNoAssignLotDetLotNo et gLotDeterminingLotCode sont des variables globales dans la page "Item Tracking Lines"
-        // IF gNoAssignLotDetLotNo AND (gLotDeterminingLotCode = '') THEN
-        //     ERROR(CstGErr0002);
-    end;
+    // [EventSubscriber(ObjectType::Page, Page::"Item Tracking Lines", 'OnBeforeAssignLotNo', '', false, false)]
+    // local procedure PAG6510_OnBeforeAssignLotNo_ItemTrackingLines(var TrackingSpecification: Record "Tracking Specification"; var TempItemTrackLineInsert: Record "Tracking Specification" temporary; SourceQuantityArray: array[5] of Decimal; var IsHandled: Boolean)
+    // var
+    // // CstGErr0002: Label 'Lot Inheritance: You can''t assign a Lot No.,\because there is no Lot assigned to the lot determining component.';
+    // begin
+    //     // TODO: gNoAssignLotDetLotNo et gLotDeterminingLotCode sont des variables globales dans la page "Item Tracking Lines"(Il n'y a pas des appel pour cette fonction)
+    //     // IF gNoAssignLotDetLotNo AND (gLotDeterminingLotCode = '') THEN
+    //     //     ERROR(CstGErr0002);
+    // end;
 
     [EventSubscriber(ObjectType::Page, Page::"Item Tracking Lines", 'OnBeforeAssignNewLotNo', '', false, false)]
     local procedure PAG6510_OnBeforeAssignNewLotNo_ItemTrackingLines(var TrackingSpecification: Record "Tracking Specification"; var IsHandled: Boolean; var SourceTrackingSpecification: Record "Tracking Specification")
+    var
+        NoSeriesMgt: Codeunit "NoSeriesManagement";
+        cuLSAvailMgt: Codeunit "PWD Lot Inheritance Mgt.PW";
+        Item: Record Item;
     begin
-        //TODO: gLotDeterminingLotCode est une variables globale dans la page "Item Tracking Lines"
-        // Item.Get(TrackingSpecification."Item No.");
-        // Item.TestField("Lot Nos.");
-        // IF gLotDeterminingLotCode = '' THEN BEGIN
-        //     TrackingSpecification.VALIDATE(TrackingSpecification."Lot No.", NoSeriesMgt.GetNextNo(Item."Lot Nos.", WORKDATE, TRUE));
+        //TODO: gLotDeterminingLotCode est une variables globale dans la page "Item Tracking Lines" (Il n'y a pas des appel pour cette fonction)
+        Item.Get(TrackingSpecification."Item No.");
+        Item.TestField("Lot Nos.");
+        //IF gLotDeterminingLotCode = '' THEN BEGIN
+        TrackingSpecification.VALIDATE(TrackingSpecification."Lot No.", NoSeriesMgt.GetNextNo(Item."Lot Nos.", WORKDATE, TRUE));
         // END ELSE
         //     TrackingSpecification.VALIDATE(TrackingSpecification."Lot No.", gLotDeterminingLotCode);
-        // cuLSAvailMgt.CheckItemTrackingAssignment(
-        //   TrackingSpecification."Source Type",
-        //   TrackingSpecification."Source Subtype",
-        //   TrackingSpecification."Source ID",
-        //   TrackingSpecification."Source Batch Name",
-        //   TrackingSpecification."Source Prod. Order Line",
-        //   TrackingSpecification."Source Ref. No.",
-        //   TrackingSpecification."PWD Lot Number",
-        //   TrackingSpecification."PWD Trading Unit Number",
-        //   TrackingSpecification."Lot No.",
-        //   TrackingSpecification."Serial No.",
-        //   TRUE);
-        // IsHandled := true;
-    end;
-
-    [EventSubscriber(ObjectType::Page, Page::"Item Tracking Lines", 'OnAfterAssignNewTrackingNo', '', false, false)]
-    local procedure PAG6510_OnAfterAssignNewTrackingNo_ItemTrackingLines(var TrkgSpec: Record "Tracking Specification"; xTrkgSpec: Record "Tracking Specification"; FieldID: Integer)
-    begin
-        //TODO: gLotDeterminingExpirDate est une variables globale dans la page "Item Tracking Lines"
-        // IF gLotDeterminingExpirDate <> 0D THEN
-        //     TrkgSpec."Expiration Date" := gLotDeterminingExpirDate;
+        cuLSAvailMgt.CheckItemTrackingAssignment(
+          TrackingSpecification."Source Type",
+          TrackingSpecification."Source Subtype",
+          TrackingSpecification."Source ID",
+          TrackingSpecification."Source Batch Name",
+          TrackingSpecification."Source Prod. Order Line",
+          TrackingSpecification."Source Ref. No.",
+          TrackingSpecification."PWD Lot Number",
+          TrackingSpecification."PWD Trading Unit Number",
+          TrackingSpecification."Lot No.",
+          TrackingSpecification."Serial No.",
+          TRUE);
+        IsHandled := true;
     end;
     //---PAG9063---
     [EventSubscriber(ObjectType::Page, Page::"Purchase Agent Activities", 'OnOpenPageEvent', '', false, false)]
@@ -2106,7 +2086,6 @@ codeunit 50020 "PWD LPSA Events Mgt."
         BooGFromImport: Boolean;
         [INDATASET]
         BooGToItemVisible: Boolean;
-        DontExecuteIfImport: Boolean;
         [InDataSet]
         "Lot DeterminingEnable": Boolean;
         CustomerFilter: Code[20];
