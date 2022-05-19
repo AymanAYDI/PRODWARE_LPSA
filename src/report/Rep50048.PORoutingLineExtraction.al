@@ -274,7 +274,7 @@ report 50048 "PWD PO Routing Line Extraction"
                         ApplicationArea = All;
                         trigger OnAssistEdit()
                         var
-                            // CduGCommonDialogMgt: CodeUnit "Common Dialog Management";//TODO: Codeunit n'existe pas(code standard dans la version 2009)
+                            // CduGCommonDialogMgt: CodeUnit "Common Dialog Management";
                             CstG001: label 'Fichier à exporte';
                         begin
                             // TxtGFileName := CduGCommonDialogMgt.OpenFile(CstG001, TxtGFileName, 0, '', 1);//TODO: Codeunit n'existe pas(code standard dans la version 2009)

@@ -4355,31 +4355,31 @@
         </trans-unit>
         <trans-unit id="Table 3182379145 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Product Group</source>
-          <target state="needs-translation"/>
+          <target state="translated">Groupe produits</target>
           <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">Table PWD Product Group - Property Caption</note>
         </trans-unit>
         <trans-unit id="Table 3182379145 - Field 3004954119 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Code</source>
-          <target state="needs-translation"/>
+          <target state="translated">Code</target>
           <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">Table PWD Product Group - Field Code - Property Caption</note>
         </trans-unit>
         <trans-unit id="Table 3182379145 - Field 3461834954 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Description</source>
-          <target state="needs-translation"/>
+          <target state="translated">Désignation</target>
           <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">Table PWD Product Group - Field Description - Property Caption</note>
         </trans-unit>
         <trans-unit id="Table 3182379145 - Field 1037119892 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Item Category Code</source>
-          <target state="needs-translation"/>
+          <target state="translated">Code catégorie article</target>
           <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">Table PWD Product Group - Field Item Category Code - Property Caption</note>
         </trans-unit>
         <trans-unit id="Table 3182379145 - Field 2788636058 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Warehouse Class Code</source>
-          <target state="needs-translation"/>
+          <target state="translated">Code classe entrepôt</target>
           <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">Table PWD Product Group - Field Warehouse Class Code - Property Caption</note>
         </trans-unit>
@@ -6413,7 +6413,7 @@
         </trans-unit>
         <trans-unit id="Codeunit 1862912558 - Method 3433234922 - NamedType 3752334001" size-unit="char" translate="yes" xml:space="preserve">
           <source>Do you want to change %1?</source>
-          <target state="needs-translation"/>
+          <target state="translated">Souhaitez-vous modifier la valeur du champ %1 ?</target>
           <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">Codeunit PWD LPSA Events Mgt. - Method TAB5740_OnBeforeValidateTransferToCode_TransferHeader - NamedType Text002</note>
         </trans-unit>
@@ -7769,7 +7769,7 @@
         </trans-unit>
         <trans-unit id="Page 1064686525 - Action 2358600938 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Inventory Order Details</source>
-          <target state="needs-translation"/>
+          <target state="translated">Commandes vente en cours </target>
           <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">Page PWD Item List requirement - Action Action1905771206 - Property Caption</note>
         </trans-unit>
@@ -7985,7 +7985,7 @@
         </trans-unit>
         <trans-unit id="Page 3385479200 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Product Groups</source>
-          <target state="needs-translation"/>
+          <target state="translated">Groupes produits</target>
           <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">Page PWD Product Groups - Property Caption</note>
         </trans-unit>
@@ -8399,7 +8399,7 @@
         </trans-unit>
         <trans-unit id="Report 3077685465 - NamedType 2766634318" size-unit="char" translate="yes" xml:space="preserve">
           <source>Data</source>
-          <target state="needs-translation"/>
+          <target state="translated">Données</target>
           <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">Report Export Planning Client Excel - NamedType Text002E</note>
         </trans-unit>
@@ -14741,13 +14741,13 @@
         </trans-unit>
         <trans-unit id="PageExtension 1299222318 - Control 2710820198 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 1434786627">
           <source>Product Group Code</source>
-          <target state="needs-translation"/>
+          <target state="translated">Code groupe produit</target>
           <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">PageExtension PWD ItemCard - Control PWD Product Group Code - Property Caption</note>
         </trans-unit>
         <trans-unit id="PageExtension 2747320188 - Action 368936468 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 3657300613">
           <source>&amp;Prod. Groups</source>
-          <target state="needs-translation"/>
+          <target state="translated">&amp;Groupes prod.</target>
           <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">PageExtension PWD ItemCategories - Action PWD Prod. Groups - Property Caption</note>
         </trans-unit>
@@ -14777,7 +14777,7 @@
         </trans-unit>
         <trans-unit id="PageExtension 2293529608 - Control 2710820198 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 4178721393">
           <source>Product Group Code</source>
-          <target state="needs-translation"/>
+          <target state="translated">Code groupe produit</target>
           <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">PageExtension PWD ItemList - Control PWD Product Group Code - Property Caption</note>
         </trans-unit>
@@ -15605,7 +15605,7 @@
         </trans-unit>
         <trans-unit id="TableExtension 862131778 - Field 2710820198 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 3276313895">
           <source>Product Group Code</source>
-          <target state="needs-translation"/>
+          <target state="translated">Code groupe produit</target>
           <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">TableExtension PWD Item - Field PWD Product Group Code - Property Caption</note>
         </trans-unit>
@@ -15707,7 +15707,7 @@
         </trans-unit>
         <trans-unit id="TableExtension 796314491 - Field 2710820198 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 346005766">
           <source>Product Group Code</source>
-          <target state="needs-translation"/>
+          <target state="translated">Code groupe produit</target>
           <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">TableExtension PWD ItemJournalLine - Field PWD Product Group Code - Property Caption</note>
         </trans-unit>
@@ -15743,7 +15743,7 @@
         </trans-unit>
         <trans-unit id="TableExtension 887268665 - Field 2710820198 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 4089294192">
           <source>Product Group Code</source>
-          <target state="needs-translation"/>
+          <target state="translated">Code groupe produit</target>
           <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">TableExtension PWD ItemLedgerEntry - Field PWD Product Group Code - Property Caption</note>
         </trans-unit>
@@ -16259,7 +16259,7 @@
         </trans-unit>
         <trans-unit id="TableExtension 3957241882 - Field 2710820198 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 1519909599">
           <source>Product Group Code</source>
-          <target state="needs-translation"/>
+          <target state="translated">Code groupe produit</target>
           <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">TableExtension PWD PurchaseLine - Field PWD Product Group Code - Property Caption</note>
         </trans-unit>
@@ -16313,7 +16313,7 @@
         </trans-unit>
         <trans-unit id="TableExtension 634335904 - Field 2710820198 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 2809873457">
           <source>Product Group Code</source>
-          <target state="needs-translation"/>
+          <target state="translated">Code groupe produit</target>
           <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">TableExtension PWD PurchaseLineArchive - Field PWD Product Group Code - Property Caption</note>
         </trans-unit>
@@ -16349,7 +16349,7 @@
         </trans-unit>
         <trans-unit id="TableExtension 3704101046 - Field 2710820198 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 518488723">
           <source>Product Group Code</source>
-          <target state="needs-translation"/>
+          <target state="translated">Code groupe produit</target>
           <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">TableExtension PWD PurchCrMemoLine - Field PWD Product Group Code - Property Caption</note>
         </trans-unit>
@@ -16373,7 +16373,7 @@
         </trans-unit>
         <trans-unit id="TableExtension 566873716 - Field 2710820198 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 2575310733">
           <source>Product Group Code</source>
-          <target state="needs-translation"/>
+          <target state="translated">Code groupe produit</target>
           <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">TableExtension PWD PurchInvLine - Field PWD Product Group Code - Property Caption</note>
         </trans-unit>
@@ -16397,7 +16397,7 @@
         </trans-unit>
         <trans-unit id="TableExtension 667496560 - Field 2710820198 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 959319265">
           <source>Product Group Code</source>
-          <target state="needs-translation"/>
+          <target state="translated">Code groupe produit</target>
           <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">TableExtension PWD PurchRcptLine - Field PWD Product Group Code - Property Caption</note>
         </trans-unit>
@@ -16445,7 +16445,7 @@
         </trans-unit>
         <trans-unit id="TableExtension 363319131 - Field 2710820198 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 3755718006">
           <source>Product Group Code</source>
-          <target state="needs-translation"/>
+          <target state="translated">Code groupe produit</target>
           <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">TableExtension PWD RequisitionLine - Field PWD Product Group Code - Property Caption</note>
         </trans-unit>
@@ -16493,7 +16493,7 @@
         </trans-unit>
         <trans-unit id="TableExtension 3031288565 - Field 2710820198 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 1173465396">
           <source>Product Group Code</source>
-          <target state="needs-translation"/>
+          <target state="translated">Code groupe produit</target>
           <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">TableExtension PWD ReturnReceiptLine - Field PWD Product Group Code - Property Caption</note>
         </trans-unit>
@@ -16535,7 +16535,7 @@
         </trans-unit>
         <trans-unit id="TableExtension 323260657 - Field 2710820198 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 4118213496">
           <source>Product Group Code</source>
-          <target state="needs-translation"/>
+          <target state="translated">Code groupe produit</target>
           <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">TableExtension PWD ReturnShipmentLine - Field PWD Product Group Code - Property Caption</note>
         </trans-unit>
@@ -16613,7 +16613,7 @@
         </trans-unit>
         <trans-unit id="TableExtension 3792175074 - Field 2710820198 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 3059602325">
           <source>Product Group Code</source>
-          <target state="needs-translation"/>
+          <target state="translated">Code groupe produit</target>
           <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">TableExtension PWD SalesCrMemoLine - Field PWD Product Group Code - Property Caption</note>
         </trans-unit>
@@ -16769,7 +16769,7 @@
         </trans-unit>
         <trans-unit id="TableExtension 3936861072 - Field 2710820198 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 2079186865">
           <source>Product Group Code</source>
-          <target state="needs-translation"/>
+          <target state="translated">Code groupe produit</target>
           <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">TableExtension PWD SalesInvoiceLine - Field PWD Product Group Code - Property Caption</note>
         </trans-unit>
@@ -16847,7 +16847,7 @@
         </trans-unit>
         <trans-unit id="TableExtension 1044911975 - Field 2710820198 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 2574427010">
           <source>Product Group Code</source>
-          <target state="needs-translation"/>
+          <target state="translated">Code groupe produit</target>
           <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">TableExtension PWD SalesLine - Field PWD Product Group Code - Property Caption</note>
         </trans-unit>
@@ -16901,7 +16901,7 @@
         </trans-unit>
         <trans-unit id="TableExtension 3933692377 - Field 2710820198 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 2903552224">
           <source>Product Group Code</source>
-          <target state="needs-translation"/>
+          <target state="translated">Code groupe produit</target>
           <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">TableExtension PWD SalesLineArchive - Field PWD Product Group Code - Property Caption</note>
         </trans-unit>
@@ -16949,7 +16949,7 @@
         </trans-unit>
         <trans-unit id="TableExtension 3486706245 - Field 380897430 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 4145206282">
           <source>Barcode Invoice Nos.</source>
-          <target state="needs-translation"/>
+          <target state="translated">N° Code Barre facture</target>
           <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">TableExtension PWD SalesReceivablesSetup - Field PWD Barcode Invoice Nos. - Property Caption</note>
         </trans-unit>
@@ -17003,7 +17003,7 @@
         </trans-unit>
         <trans-unit id="TableExtension 2151966847 - Field 2710820198 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 1114148978">
           <source>Product Group Code</source>
-          <target state="needs-translation"/>
+          <target state="translated">Code groupe produit</target>
           <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">TableExtension PWD SalesShipmentLine - Field PWD Product Group Code - Property Caption</note>
         </trans-unit>
@@ -17039,25 +17039,25 @@
         </trans-unit>
         <trans-unit id="TableExtension 2045368429 - Field 2710820198 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 3250149650">
           <source>Product Group Code</source>
-          <target state="needs-translation"/>
+          <target state="translated">Code groupe produit</target>
           <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">TableExtension PWD ServiceCrMemoLine - Field PWD Product Group Code - Property Caption</note>
         </trans-unit>
         <trans-unit id="TableExtension 1004491747 - Field 2710820198 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 2228141878">
           <source>Product Group Code</source>
-          <target state="needs-translation"/>
+          <target state="translated">Code groupe produit</target>
           <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">TableExtension PWD ServiceInvoiceLine - Field PWD Product Group Code - Property Caption</note>
         </trans-unit>
         <trans-unit id="TableExtension 3503601604 - Field 2710820198 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 2682833765">
           <source>Product Group Code</source>
-          <target state="needs-translation"/>
+          <target state="translated">Code groupe produit</target>
           <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">TableExtension PWD ServiceLine - Field PWD Product Group Code - Property Caption</note>
         </trans-unit>
         <trans-unit id="TableExtension 3138693404 - Field 2710820198 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 1723512861">
           <source>Product Group Code</source>
-          <target state="needs-translation"/>
+          <target state="translated">Code groupe produit</target>
           <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">TableExtension PWD ServiceShipmentLine - Field PWD Product Group Code - Property Caption</note>
         </trans-unit>
@@ -17069,7 +17069,7 @@
         </trans-unit>
         <trans-unit id="TableExtension 378291862 - Field 2710820198 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 2808718315">
           <source>Product Group Code</source>
-          <target state="needs-translation"/>
+          <target state="translated">Code groupe produit</target>
           <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">TableExtension PWD StandardItemJournalLine - Field PWD Product Group Code - Property Caption</note>
         </trans-unit>
@@ -17123,7 +17123,7 @@
         </trans-unit>
         <trans-unit id="TableExtension 1699576186 - Field 2710820198 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 558353423">
           <source>Product Group Code</source>
-          <target state="needs-translation"/>
+          <target state="translated">Code groupe produit</target>
           <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">TableExtension PWD TransferLine - Field PWD Product Group Code - Property Caption</note>
         </trans-unit>
@@ -17147,7 +17147,7 @@
         </trans-unit>
         <trans-unit id="TableExtension 2702004094 - Field 2710820198 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 1903112923">
           <source>Product Group Code</source>
-          <target state="needs-translation"/>
+          <target state="translated">Code groupe produit</target>
           <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">TableExtension PWD TransferReceiptLine - Field PWD Product Group Code - Property Caption</note>
         </trans-unit>
@@ -17171,7 +17171,7 @@
         </trans-unit>
         <trans-unit id="TableExtension 1757173202 - Field 2710820198 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 1496656855">
           <source>Product Group Code</source>
-          <target state="needs-translation"/>
+          <target state="translated">Code groupe produit</target>
           <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">TableExtension PWD TransferShipmentLine - Field PWD Product Group Code - Property Caption</note>
         </trans-unit>
@@ -17309,19 +17309,19 @@
         </trans-unit>
         <trans-unit id="Enum 1056290169 - EnumValue 2703452831 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Deleted</source>
-          <target state="needs-translation"/>
+          <target state="translated">Supprimé</target>
           <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">Enum PWD Status Buffer - EnumValue Deleted - Property Caption</note>
         </trans-unit>
         <trans-unit id="Enum 1056290169 - EnumValue 902173370 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Inserted</source>
-          <target state="needs-translation"/>
+          <target state="translated">Inséré</target>
           <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">Enum PWD Status Buffer - EnumValue Inserted - Property Caption</note>
         </trans-unit>
         <trans-unit id="Enum 1056290169 - EnumValue 541974475 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Modified</source>
-          <target state="needs-translation"/>
+          <target state="translated">Modifié</target>
           <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">Enum PWD Status Buffer - EnumValue Modified - Property Caption</note>
         </trans-unit>

@@ -311,16 +311,13 @@ report 50037 "PWD Export Prod Order LPSA"
                     OutStreamGlobal.WriteText(';');
 
                     //Colonne T
-                    //TODO: 'Record "Prod. Order Routing Line"' does not contain a definition for 'Planned Ress. No.' and 'Planned Ress. Type'
-                    if // ("Prod. Order Routing Line"."Planned Ress. No." <> '') and //TODO: le numero du champs est 8076501
-                    RecGOSYSSetup.PlannerOne and FctPlannerOnePermission() then begin
-                        // IntGTempField := "Prod. Order Routing Line"."Planned Ress. Type"; //TODO: le numero du champs est 8076500
-                        OutStreamGlobal.WriteText(Format(IntGTempField));
-                    end
-                    else begin
-                        IntGTempField := "Prod. Order Routing Line".Type.AsInteger();
-                        OutStreamGlobal.WriteText(Format(IntGTempField));
-                    end;
+                    //'Record "Prod. Order Routing Line"' does not contain a definition for 'Planned Ress. No.' and 'Planned Ress. Type'
+                    // if ("Prod. Order Routing Line"."Planned Ress. No." <> '') and RecGOSYSSetup.PlannerOne and FctPlannerOnePermission() then begin
+                    //     // IntGTempField := "Prod. Order Routing Line"."Planned Ress. Type"; 
+                    //     OutStreamGlobal.WriteText(Format(IntGTempField));
+                    // end
+                    IntGTempField := "Prod. Order Routing Line".Type.AsInteger();
+                    OutStreamGlobal.WriteText(Format(IntGTempField));
                     OutStreamGlobal.WriteText(';');
 
                     //Colonne U
@@ -328,19 +325,18 @@ report 50037 "PWD Export Prod Order LPSA"
                     OutStreamGlobal.WriteText(';');
 
                     //Colonne V
-                    //TODO: 'Record "Prod. Order Routing Line"' does not contain a definition for 'Planned Ress. No.', 'Planned Ress. Type' and 'Planned Ress. Type'
-                    if //("Prod. Order Routing Line"."Planned Ress. No." <> '') and //TODO: le numero du champs est 8076501
-                    RecGOSYSSetup.PlannerOne and FctPlannerOnePermission() then begin
-                        // if "Prod. Order Routing Line"."Planned Ress. Type" = "Prod. Order Routing Line"."Planned Ress. Type"::"Machine Center" then  //TODO: le numero du champs est 8076500
-                        // OutStreamGlobal.WriteText("Prod. Order Routing Line"."Planned Ress. No.")  //TODO: le numero du champs est 8076501
-                        // else
-                        OutStreamGlobal.WriteText('');
-                    end
+                    //'Record "Prod. Order Routing Line"' does not contain a definition for 'Planned Ress. No.', 'Planned Ress. Type' and 'Planned Ress. Type'
+                    // if ("Prod. Order Routing Line"."Planned Ress. No." <> '') and 
+                    // RecGOSYSSetup.PlannerOne and FctPlannerOnePermission() then begin
+                    //     // if "Prod. Order Routing Line"."Planned Ress. Type" = "Prod. Order Routing Line"."Planned Ress. Type"::"Machine Center" then 
+                    //     // OutStreamGlobal.WriteText("Prod. Order Routing Line"."Planned Ress. No.")  
+                    //     // else
+                    //     OutStreamGlobal.WriteText('');
+                    // end
+                    if "Prod. Order Routing Line".Type = "Prod. Order Routing Line".Type::"Machine Center" then
+                        OutStreamGlobal.WriteText("Prod. Order Routing Line"."No.")
                     else
-                        if "Prod. Order Routing Line".Type = "Prod. Order Routing Line".Type::"Machine Center" then
-                            OutStreamGlobal.WriteText("Prod. Order Routing Line"."No.")
-                        else
-                            OutStreamGlobal.WriteText('');
+                        OutStreamGlobal.WriteText('');
                     OutStreamGlobal.WriteText(';');
 
                     //Colonne W
@@ -1024,16 +1020,6 @@ report 50037 "PWD Export Prod Order LPSA"
         OutStreamGlobal: OutStream;
         TxtGRoutingNo: Text[30];
         TxtGSearchDescription: Text[50];
-
-
-    procedure FctPlannerOnePermission(): Boolean
-    var
-    //TODO: Table 'PlannerOneIntegrationRecord' is missing
-    //RecLPlannerOne: Record PlannerOneIntegrationRecord;
-    begin
-        //exit(RecLPlannerOne.ReadPermission);
-    end;
-
 
     procedure FctInitRep(): Boolean
     var

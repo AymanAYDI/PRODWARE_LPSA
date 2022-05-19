@@ -24,7 +24,7 @@ pageextension 60039 "PWD ResCapacityEntries" extends "Res. Capacity Entries"
         {
             Editable = false;
         }
-
     }
+
 
 }

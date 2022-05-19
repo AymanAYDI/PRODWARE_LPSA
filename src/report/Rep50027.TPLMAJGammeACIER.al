@@ -15,7 +15,7 @@ report 50027 "PWD TPL MAJ Gamme ACIER"
     {
         dataitem("Routing Header"; "Routing Header")
         {
-            //TODO:field 'PlanningGroup' in table 'Routing Header' does not exist
+            //field 'PlanningGroup' in table 'Routing Header' does not exist
             //DataItemTableView = SORTING("No.") WHERE(PlanningGroup = FILTER('ACIERS'));
             RequestFilterFields = "No.";
 

@@ -1097,7 +1097,7 @@ codeunit 50021 "PWD LPSA Functions Mgt."
             ReservEntry2.SETRANGE("Reservation Status", ReservEntry2."Reservation Status"::Reservation);
             IF ReservEntry2.FindSet() THEN
                 REPEAT
-                    ReservEngineMgt.CancelReservation(ReservEntry2);  //TODO J'ai modifié la foncion CloseReservEntry2 par CancelReservation(la foncion CloseReservEntry2 n'existe pas dans la nouvelle version)
+                    ReservEngineMgt.CancelReservation(ReservEntry2);
                 UNTIL ReservEntry2.NEXT() = 0;
         END;
 
@@ -1372,19 +1372,11 @@ codeunit 50021 "PWD LPSA Functions Mgt."
         UnitCost: Decimal;
         UnitCostCalculation: Option;
     BEGIN
-        IF RtngHeaderNo = '' THEN
-            EXIT;
-        MfgSetup.GET();
-        RtngVersionCode :=
-        GetAndTestCertifiedRtngVersion(RtngHeader, RtngVersion, RtngHeaderNo, CalculationDate, LogErrors);//TODO: la fonction n'existe pas dans le CodeUnit standard VersionMgt(jai cree une autre fonction local)
-        TestRtngVersionIsCertified(RtngVersionCode, RtngHeader);//TODO: la fonction est local dans le codeUnit donc j'ai cree une nouvelle fonction local
-
-        IF CheckRouting.NeedsCalculation(RtngHeader, RtngVersionCode) THEN
-            CheckRouting.Calculate(RtngHeader, RtngVersionCode);
-
-        RtngLine.SETRANGE("Routing No.", RtngHeaderNo);
-        RtngLine.SETRANGE("Version Code", RtngVersionCode);
-        IF RtngLine.FIND('-') THEN
+        if RtngLine.CertifiedRoutingVersionExists(RtngHeaderNo, CalculationDate) then begin
+            if RtngLine."Version Code" = '' then begin
+                RtngHeader.Get(RtngHeaderNo);
+                TestRtngVersionIsCertified(RtngLine."Version Code", RtngHeader);
+            end;
             REPEAT
                 IF (RtngLine.Type = RtngLine.Type::"Work Center") AND
                    (RtngLine."No." <> '')
@@ -1428,7 +1420,8 @@ codeunit 50021 "PWD LPSA Functions Mgt."
                     IncrCost(SLCap, DirUnitCost, CostTime);
                 IncrCost(SLCapOvhd, CostCalcMgt.CalcOvhdCost(DirUnitCost, IndirCostPct, OvhdRate, 1), CostTime);
             UNTIL RtngLine.NEXT() = 0;
-    END;
+        end;
+    end;
 
     PROCEDURE CalcMiddleLotSize(CodPitemNo: Code[20]; DecPLotSizeItem: Decimal): Decimal;
     VAR
@@ -1468,19 +1461,19 @@ codeunit 50021 "PWD LPSA Functions Mgt."
 
     PROCEDURE FctCalcItemMonoLevel(ItemNo: Code[20]; NewUseAssemblyList: Boolean);//TODO: Il y'a 2 fonction local liee a cette fonction et une table temporel chargé au niveau de son codeunit    //TempItem : TEMPORARY Record 27;
     BEGIN
-        // NewCalcMultiLevel := FALSE;
-        // CalculateStandardCost.SetProperties(WORKDATE, NewCalcMultiLevel, NewUseAssemblyList, FALSE, '', FALSE);
-        // IF NewUseAssemblyList THEN
-        //     CalcAssemblyItem(ItemNo, Item, 0)
-        // ELSE
-        //     CalcMfgItem(ItemNo, Item, 0);
-        // IF TempItem.FIND('-') THEN
-        //     REPEAT
-        //         ItemCostMgt.UpdateStdCostShares(TempItem);
-        //     UNTIL TempItem.NEXT = 0;
+        //     NewCalcMultiLevel := FALSE;
+        //     CalculateStandardCost.SetProperties(WORKDATE, NewCalcMultiLevel, NewUseAssemblyList, FALSE, '', FALSE);
+        //     IF NewUseAssemblyList THEN
+        //         CalcAssemblyItem(ItemNo, Item, 0)
+        //     ELSE
+        //         CalcMfgItem(ItemNo, Item, 0);
+        //     IF TempItem.FIND('-') THEN
+        //         REPEAT
+        //             ItemCostMgt.UpdateStdCostShares(TempItem);
+        //         UNTIL TempItem.NEXT = 0;
     END;
 
-    PROCEDURE CalculateCost(RecPItem: Record 27);
+    PROCEDURE CalculateCost(RecPItem: Record Item);
     VAR
         RecLItem: Record "Item";
         RecLProductionBOMHeader: Record "Production BOM Header";

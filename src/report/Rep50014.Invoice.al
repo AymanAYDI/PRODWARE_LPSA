@@ -598,9 +598,7 @@ report 50014 "PWD Invoice"
                     CompanyInfo."Fax No." := RespCenter."Fax No.";
                 end else
                     FormatAddr.Company(CompanyAddr, CompanyInfo);
-                DimSetEntry1.SetRange("Dimension Set ID", DATABASE::"Sales Invoice Header");
-                // PostedDocDim1.SetRange("Table ID", DATABASE::"Sales Invoice Header");
-                // PostedDocDim1.SetRange("Document No.", "Sales Invoice Header"."No.");
+                DimSetEntry1.SetRange("Dimension Set ID", "Sales Invoice Header"."Dimension Set ID");
 
                 if "Order No." = '' then
                     OrderNoText := ''
@@ -761,8 +759,6 @@ report 50014 "PWD Invoice"
         CompanyInfo1: Record "Company Information";
         CompanyInfo2: Record "Company Information";
         Cust: Record Customer;
-        //TODO: Table 'Posted Document Dimension' is missing
-        //PostedDocDim1: Record "Posted Document Dimension";
         DimSetEntry1: Record "Dimension Set Entry";
         GLSetup: Record "General Ledger Setup";
         Item: Record Item;

@@ -520,35 +520,6 @@ codeunit 50020 "PWD LPSA Events Mgt."
         CduGClosingMgt.UpdateDimValue(DATABASE::"Item Category", Rec.Code, Rec.Description);
         //<<P24578_008.001
     end;
-    //---TAB5723---
-    [EventSubscriber(ObjectType::Table, Database::"PWD Product Group", 'OnAfterInsertEvent', '', false, false)] 
-    local procedure TAB5723_OnAfterInsertEvent_ProductGroup(var Rec: Record "PWD Product Group"; RunTrigger: Boolean)
-    var
-        CduGClosingMgt: Codeunit "PWD Closing Management";
-    begin
-        if not RunTrigger then
-            exit;
-        if Rec.IsTemporary then
-            exit;
-        //>>P24578_008.001
-        CduGClosingMgt.UpdateDimValue(DATABASE::"PWD Product Group", Rec.Code, Rec.Description);
-        //<<P24578_008.001
-    end;
-
-    [EventSubscriber(ObjectType::Table, Database::"PWD Product Group", 'OnAfterModifyEvent', '', false, false)]   
-    local procedure TAB5723_OnAfterModifyEvent_ProductGroup(var Rec: Record "PWD Product Group"; RunTrigger: Boolean)
-    var
-        CduGClosingMgt: Codeunit 50004;
-    begin
-        if not RunTrigger then
-            exit;
-        if Rec.IsTemporary then
-            exit;
-        //>>P24578_008.001
-        CduGClosingMgt.UpdateDimValue(DATABASE::"PWD Product Group", Rec.Code, Rec.Description);
-        //<<P24578_008.001
-    end;
-
     //---TAB5741---
     [EventSubscriber(ObjectType::Table, Database::"Transfer Line", 'OnAfterValidateEvent', 'Description', false, false)]
     local procedure TAB5741_OnAfterValidateEvent_TransferLine(var Rec: Record "Transfer Line"; var xRec: Record "Transfer Line"; CurrFieldNo: Integer)

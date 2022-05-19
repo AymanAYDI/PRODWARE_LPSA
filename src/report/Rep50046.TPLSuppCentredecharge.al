@@ -35,13 +35,6 @@ report 50046 "PWD TPL Supp Centre de charge"
                     RecGMfgCommentLine.SetRange("Table Name", RecGMfgCommentLine."Table Name"::"Work Center");
                     RecGMfgCommentLine.SetRange("No.", "Work Center"."No.");
                     RecGMfgCommentLine.DeleteAll();
-
-                    // if CduGApplicationManagement.CheckPlannerOneLicence then begin  //TODO: CodeUnit 1 n'existe pas dans la nouvelle version
-                    //     RecGPlannerOneParameters.SetRange(Type, RecGPlannerOneParameters.Type::"Work Center");  //TODO: Numero de Table 8076517 
-                    //     RecGPlannerOneParameters.SetRange("No.", "Work Center"."No.");  //TODO: Numero de Table 8076517 
-                    //     RecGPlannerOneParameters.DeleteAll;  //TODO: Numero de Table 8076517 
-                    // end;
-
                     "Work Center".Delete();
                 end;
             end;
@@ -66,7 +59,7 @@ report 50046 "PWD TPL Supp Centre de charge"
                         ApplicationArea = All;
                         trigger OnLookup(var Text: Text): Boolean
                         var
-                        // CduLCommonDialogMgt: CodeUnit "Common Dialog Management";//TODO: Codeunit n'existe pas(code standard dans la version 2009)
+                        // CduLCommonDialogMgt: CodeUnit "Common Dialog Management";
                         begin
                             // TxtGFile := CduLCommonDialogMgt.OpenFile('Fichier à importer', TxtGFile, 1, 'Filter', 0);//TODO: Codeunit n'existe pas(code standard dans la version 2009)
                         end;
@@ -115,13 +108,6 @@ report 50046 "PWD TPL Supp Centre de charge"
                 RecGMfgCommentLine.SetRange("Table Name", RecGMfgCommentLine."Table Name"::"Machine Center");
                 RecGMfgCommentLine.SetRange("No.", RecGMachineCenter."No.");
                 RecGMfgCommentLine.DeleteAll();
-
-                // if CduGApplicationManagement.CheckPlannerOneLicence then begin  //TODO: CodeUnit 1 n'existe pas dans la nouvelle version
-                //     RecGPlannerOneParameters.SetRange(Type, RecGPlannerOneParameters.Type::"Machine Center");//TODO: Numero de Table 8076517 
-                //     RecGPlannerOneParameters.SetRange("No.", RecGMachineCenter."No.");//TODO: Numero de Table 8076517 
-                //     RecGPlannerOneParameters.DeleteAll;//TODO: Numero de Table 8076517 
-                // end;
-
                 RecGMachineCenter.Delete();
             end;
         end;
@@ -133,8 +119,6 @@ report 50046 "PWD TPL Supp Centre de charge"
         RecGCalendarEntry: Record "Calendar Entry";
         RecGMachineCenter: Record "Machine Center";
         RecGMfgCommentLine: Record "Manufacturing Comment Line";
-        // RecGPlannerOneParameters: Record PlannerOneMachineSetupParam; //TODO: Numero de Table 8076517 
-        // CduGApplicationManagement: Codeunit ApplicationManagement; //TODO: CodeUnit 1 n'existe pas dans la nouvelle version
         BDialog: Dialog;
         FilGFileToImport: File;
         InsGDataFileInstream: InStream;

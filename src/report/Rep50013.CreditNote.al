@@ -584,9 +584,7 @@ report 50013 "PWD Credit Note"
                     CompanyInfo."Fax No." := RespCenter."Fax No.";
                 END ELSE
                     FormatAddr.Company(CompanyAddr, CompanyInfo);
-                DimSetEntry1.SETRANGE("Dimension Set ID", DATABASE::"Sales Cr.Memo Header");
-                // PostedDocDim1.SETRANGE("Table ID", DATABASE::"Sales Cr.Memo Header");
-                // PostedDocDim1.SETRANGE("Document No.", "Sales Cr.Memo Header"."No.");
+                DimSetEntry1.SETRANGE("Dimension Set ID", "Sales Cr.Memo Header"."Dimension Set ID");
 
                 IF "Return Order No." = '' THEN
                     ReturnOrderNoText := ''
@@ -714,9 +712,6 @@ report 50013 "PWD Credit Note"
 
     var
         CompanyInfo: Record "Company Information";
-        //TODO: Table 'Posted Document Dimension' is missing
-        // PostedDocDim1: Record "Posted Document Dimension";
-        // PostedDocDim2: Record "Posted Document Dimension";
         DimSetEntry1: Record "Dimension Set Entry";
         GLSetup: Record "General Ledger Setup";
         Item: Record Item;

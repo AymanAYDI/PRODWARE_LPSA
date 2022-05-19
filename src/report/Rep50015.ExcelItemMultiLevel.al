@@ -73,8 +73,7 @@ report 50015 "PWD Excel Item Multi-Level"
 
             trigger OnPostDataItem()
             begin
-                //TODO: There is no argument given that corresponds to the required formal parameter 'FileName' of 'CreateBook(Text, Text)'
-                //ExcelBuf.CreateBook;
+                ExcelBuf.CreateBook('', 'Feuil1');
                 ExcelBuf.WriteSheet(CstG001, CompanyName, UserId);
                 ExcelBuf.OpenExcel();
             end;
