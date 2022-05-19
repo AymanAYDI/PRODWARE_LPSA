@@ -28,7 +28,7 @@ page 50001 "PWD Item Configurator"
 
     Caption = 'Item Configurator';
     SourceTable = "PWD Item Configurator";
-    UsageCategory = none;
+    UsageCategory = None;
 
     layout
     {
@@ -740,7 +740,7 @@ page 50001 "PWD Item Configurator"
                     RecGItem.RESET();
                     RecGItem.GET(Rec."Item Code");
                     PgeGItemCard.SETTABLEVIEW(RecGItem);
-                    PAGE.RUNMODAL(30, RecGItem);
+                    PAGE.RUNMODAL(Page::"Item Card", RecGItem);
                 end;
             }
             action(Configure)

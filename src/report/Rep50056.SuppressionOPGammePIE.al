@@ -10,7 +10,7 @@ report 50056 "PWD Suppression OP Gamme PIE"
     //                   - New report
 
     ProcessingOnly = true;
-    UsageCategory = none;
+    UsageCategory = None;
     dataset
     {
         dataitem("Routing Header"; "Routing Header")

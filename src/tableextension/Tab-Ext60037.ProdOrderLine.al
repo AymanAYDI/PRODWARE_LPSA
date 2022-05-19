@@ -81,12 +81,6 @@ tableextension 60037 "PWD ProdOrderLine" extends "Prod. Order Line"
     }
     keys
     {
-        //TODO        // key(Key50000; Status, "Send to OSYS (Released)")
-        // {
-        // }
-        // key(Key50001; Status, "Send to OSYS (Finished)")
-        // {
-        // }
         key(Key50002; Status, "Routing No.", "Routing Version Code")
         {
         }
@@ -107,23 +101,6 @@ tableextension 60037 "PWD ProdOrderLine" extends "Prod. Order Line"
     BEGIN
         IF RecLDeleteProdOrderLine.GET(Status, "Prod. Order No.", "Line No.") THEN
             RecLDeleteProdOrderLine.DELETE(TRUE);
-    END;
-
-    PROCEDURE ItemChange(newItem: Record Item; oldItem: Record Item);
-    BEGIN
-        //TODO: champ ItemColor n'existe pas et le code contient des champs de planner one
-        // IF newItem."PWD PlannerOneColor" <> oldItem."PWD PlannerOneColor" THEN BEGIN
-        //     ProdOrderLine.SETCURRENTKEY(Status, "Item No.");
-        //     ProdOrderLine.SETFILTER(Status, '..%1', ProdOrderLine.Status::Released);
-        //     ProdOrderLine.SETRANGE("Item No.", newItem."No.");
-        //     IF ProdOrderLine.FINDFIRST THEN
-        //         REPEAT
-        //         BEGIN
-        //             ProdOrderLine.ItemColor := newItem."PWD PlannerOneColor";
-        //             ProdOrderLine.MODIFY(FALSE);
-        //         END;
-        //         UNTIL ProdOrderLine.NEXT = 0;
-        // END;
     END;
 
     PROCEDURE ExistPhantomItem(): Text[1];

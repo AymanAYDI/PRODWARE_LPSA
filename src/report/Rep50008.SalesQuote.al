@@ -18,7 +18,7 @@ report 50008 "PWD Sales Quote"
     RDLCLayout = './src/report/rdl/SalesQuote.rdl';
 
     Caption = 'Sales Quote';
-    UsageCategory = none;
+    UsageCategory = None;
 
     dataset
     {
@@ -558,7 +558,7 @@ report 50008 "PWD Sales Quote"
 
             trigger OnAfterGetRecord()
             begin
-                CurrReport.Language := Language.GetLanguageID("Language Code");
+                CurrReport.Language := Language.GetLanguageIdOrDefault("Language Code");
 
                 //>>LAP.001
                 RecGCustomer.Get("Sell-to Customer No.");

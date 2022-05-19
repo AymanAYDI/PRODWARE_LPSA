@@ -22,7 +22,7 @@ report 50035 "PWD Item Extraction"
 
     Caption = 'Item Extraction';
     ProcessingOnly = true;
-    UsageCategory = none;
+    UsageCategory = None;
     dataset
     {
         dataitem(Item; Item)

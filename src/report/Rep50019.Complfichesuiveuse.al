@@ -11,7 +11,7 @@ report 50019 "PWD Compl. fiche suiveuse"
     //                   - Add BarCode for OF in Layout
     DefaultLayout = RDLC;
     RDLCLayout = './src/report/rdl/Complfichesuiveuse.rdl';
-    UsageCategory = none;
+    UsageCategory = None;
 
 
     dataset

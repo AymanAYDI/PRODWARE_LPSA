@@ -21,7 +21,7 @@ report 50006 "PWD Proforma invoice"
     RDLCLayout = './src/report/rdl/Proformainvoice.rdl';
 
     Caption = 'Order Confirmation';
-    UsageCategory = none;
+    UsageCategory = None;
 
     dataset
     {
@@ -598,7 +598,7 @@ report 50006 "PWD Proforma invoice"
 
             trigger OnAfterGetRecord()
             begin
-                CurrReport.Language := Language.GetLanguageID("Language Code");
+                CurrReport.Language := Language.GetLanguageIdOrDefault("Language Code");
 
                 if RespCenter.Get("Responsibility Center") then begin
                     FormatAddr.RespCenter(CompanyAddr, RespCenter);
@@ -883,8 +883,8 @@ report 50006 "PWD Proforma invoice"
     procedure SendPDFMail(var RecPSalesHeader: Record "Sales Header")
     var
         RepLProformaInvoice: Report "PWD Proforma invoice";
-        CodLMail: Codeunit Mail;
         FileMgt: Codeunit "File Management";
+        CodLMail: Codeunit Mail;
         CstL001: Label 'LA PIERRETTE SA : Sales Invoice %1';
         CstL002: Label 'Next the invoice following your order %1';
         Recipient: Text[80];

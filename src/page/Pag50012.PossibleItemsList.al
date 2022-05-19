@@ -15,7 +15,7 @@ page 50012 "PWD Possible Items List"
     PageType = List;
     PopulateAllFields = true;
     SourceTable = "PWD Possible Items";
-    UsageCategory = none;
+    UsageCategory = None;
 
     layout
     {

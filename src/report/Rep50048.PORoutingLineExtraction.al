@@ -11,7 +11,7 @@ report 50048 "PWD PO Routing Line Extraction"
 
     Caption = 'PO Routing Line Extraction';
     ProcessingOnly = true;
-    UsageCategory = none;
+    UsageCategory = None;
     dataset
     {
         dataitem("Prod. Order Routing Line"; "Prod. Order Routing Line")

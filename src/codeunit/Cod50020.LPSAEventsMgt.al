@@ -22,18 +22,6 @@ codeunit 50020 "PWD LPSA Events Mgt."
         LotSizeStdCost.FctInsertItemLine(Rec."No.", Rec."Item Category Code");
     end;
 
-    [EventSubscriber(ObjectType::Table, Database::Item, 'OnAfterModifyEvent', '', false, false)]
-    local procedure TAB27_OnAfterModifyEvent_Item(var Rec: Record Item; var xRec: Record Item; RunTrigger: Boolean)
-    var
-        ProdOrderLine: Record "Prod. Order Line";
-    begin
-        if not RunTrigger then
-            exit;
-        if Rec.IsTemporary then
-            exit;
-        ProdOrderLine.ItemChange(Rec, xRec);
-    end;
-
     [EventSubscriber(ObjectType::table, database::Item, 'OnbeforeValidateEvent', 'Replenishment System', false, false)]
     local procedure TAB27_OnbeforeValidateEvent_Item_ReplenishmentSystem(var Rec: Record Item; var xRec: Record Item; CurrFieldNo: Integer)
     begin
@@ -552,35 +540,6 @@ codeunit 50020 "PWD LPSA Events Mgt."
         CduGClosingMgt.UpdateDimValue(DATABASE::"Item Category", Rec.Code, Rec.Description);
         //<<P24578_008.001
     end;
-    //---TAB5723---
-    [EventSubscriber(ObjectType::Table, Database::"PWD Product Group", 'OnAfterInsertEvent', '', false, false)]
-    local procedure TAB5723_OnAfterInsertEvent_ProductGroup(var Rec: Record "PWD Product Group"; RunTrigger: Boolean)
-    var
-        CduGClosingMgt: Codeunit "PWD Closing Management";
-    begin
-        if not RunTrigger then
-            exit;
-        if Rec.IsTemporary then
-            exit;
-        //>>P24578_008.001
-        CduGClosingMgt.UpdateDimValue(DATABASE::"PWD Product Group", Rec.Code, Rec.Description);
-        //<<P24578_008.001
-    end;
-
-    [EventSubscriber(ObjectType::Table, Database::"PWD Product Group", 'OnAfterModifyEvent', '', false, false)]
-    local procedure TAB5723_OnAfterModifyEvent_ProductGroup(var Rec: Record "PWD Product Group"; RunTrigger: Boolean)
-    var
-        CduGClosingMgt: Codeunit 50004;
-    begin
-        if not RunTrigger then
-            exit;
-        if Rec.IsTemporary then
-            exit;
-        //>>P24578_008.001
-        CduGClosingMgt.UpdateDimValue(DATABASE::"PWD Product Group", Rec.Code, Rec.Description);
-        //<<P24578_008.001
-    end;
-
     //---TAB5741---
     [EventSubscriber(ObjectType::Table, Database::"Transfer Line", 'OnAfterValidateEvent', 'Description', false, false)]
     local procedure TAB5741_OnAfterValidateEvent_TransferLine(var Rec: Record "Transfer Line"; var xRec: Record "Transfer Line"; CurrFieldNo: Integer)
@@ -706,21 +665,6 @@ codeunit 50020 "PWD LPSA Events Mgt."
         IF ProdOrderComponent.Status = ProdOrderComponent.Status::Released THEN
             Item.TESTFIELD("PWD Phantom Item", FALSE);
     end;
-    //---TAB5409---
-    // [EventSubscriber(ObjectType::Table, Database::"Prod. Order Routing Line", 'OnAfterModifyEvent', '', false, false)]//TODO: CheckAlternate utilise la table PlannerOneProdOrdRoutLineAlt et le codeunit 1
-    // local procedure TAB5409_OnAfterModifyEvent_ProdOrderRoutingLine(var Rec: Record "Prod. Order Routing Line"; var xRec: Record "Prod. Order Routing Line"; RunTrigger: Boolean)
-    // var
-    //     ProdOrderLine: Record "Prod. Order Line";
-    // begin
-    //     if not RunTrigger then
-    //         exit;
-    //     if Rec.IsTemporary then
-    //         exit;
-    //     //Rec.CheckAlternate();
-    //     //Rec.CalculateRoutingLine();
-    //     IF (Rec.Status = Rec.Status::Released) AND (ProdOrderLine.GET(Rec.Status, Rec."Prod. Order No.", Rec."Routing Reference No.")) THEN
-    //         ProdOrderLine.ResendProdOrdertoQuartis();
-    // end;
     //---TAB5411---
     [EventSubscriber(ObjectType::table, database::"Prod. Order Routing Tool", 'OnAfterValidateEvent', 'No.', false, false)]
     local procedure TAB5411_OnAfterValidateEvent_ProdOrderRoutingTool_No(var Rec: Record "Prod. Order Routing Tool"; var xRec: Record "Prod. Order Routing Tool"; CurrFieldNo: Integer)
@@ -1111,7 +1055,7 @@ codeunit 50020 "PWD LPSA Events Mgt."
             RecLProductionOrder.SETRANGE("No.", ToProdOrder."No.");
             //>>LAP2.20
             //   REPORT.RUNMODAL(50022,FALSE,FALSE,RecLProductionOrder);
-            REPORT.RUNMODAL(50022, TRUE, TRUE, RecLProductionOrder);
+            REPORT.RUNMODAL(Report::"PWD Tracking Card", TRUE, TRUE, RecLProductionOrder);
             //<<LAP2.20
             //>>REGIE
             //   REPORT.RUNMODAL(50019,FALSE,FALSE,RecLProductionOrder);
@@ -1586,9 +1530,9 @@ codeunit 50020 "PWD LPSA Events Mgt."
     [EventSubscriber(ObjectType::Page, Page::"Item Tracking Lines", 'OnBeforeAssignNewLotNo', '', false, false)]
     local procedure PAG6510_OnBeforeAssignNewLotNo_ItemTrackingLines(var TrackingSpecification: Record "Tracking Specification"; var IsHandled: Boolean; var SourceTrackingSpecification: Record "Tracking Specification")
     var
+        Item: Record Item;
         NoSeriesMgt: Codeunit "NoSeriesManagement";
         cuLSAvailMgt: Codeunit "PWD Lot Inheritance Mgt.PW";
-        Item: Record Item;
     begin
         //TODO: gLotDeterminingLotCode est une variables globale dans la page "Item Tracking Lines" (Il n'y a pas des appel pour cette fonction)
         Item.Get(TrackingSpecification."Item No.");
@@ -1611,14 +1555,6 @@ codeunit 50020 "PWD LPSA Events Mgt."
           TRUE);
         IsHandled := true;
     end;
-
-    // [EventSubscriber(ObjectType::Page, Page::"Item Tracking Lines", 'OnAfterAssignNewTrackingNo', '', false, false)]
-    // local procedure PAG6510_OnAfterAssignNewTrackingNo_ItemTrackingLines(var TrkgSpec: Record "Tracking Specification"; xTrkgSpec: Record "Tracking Specification"; FieldID: Integer)
-    // begin
-    //     //TODO: gLotDeterminingExpirDate est une variables globale dans la page "Item Tracking Lines"(Il n'y a pas des appel pour cette fonction)
-    //     // IF gLotDeterminingExpirDate <> 0D THEN
-    //     //     TrkgSpec."Expiration Date" := gLotDeterminingExpirDate;
-    // end;
     //---PAG9063---
     [EventSubscriber(ObjectType::Page, Page::"Purchase Agent Activities", 'OnOpenPageEvent', '', false, false)]
     local procedure PAG9063_OnOpenPageEvent_PurchaseAgentActivities(var Rec: Record "Purchase Cue")
@@ -1904,8 +1840,8 @@ codeunit 50020 "PWD LPSA Events Mgt."
     var
         RecGItemConfigurator: Record "PWD Item Configurator";
         RecGItemConfiguratorNew: Record "PWD Item Configurator";
-        LPSASetGetFunctions: codeunit "PWD LPSA Set/Get Functions.";
         LPSAFunctionsMgt: codeunit "PWD LPSA Functions Mgt.";
+        LPSASetGetFunctions: codeunit "PWD LPSA Set/Get Functions.";
     begin
         //>>FE_LAPIERRETTE_NDT01.001
         IF LPSASetGetFunctions.GetFromConfiguration THEN
@@ -2069,8 +2005,8 @@ codeunit 50020 "PWD LPSA Events Mgt."
     [EventSubscriber(ObjectType::Table, Database::"Transfer Header", 'OnBeforeValidateTransferToCode', '', false, false)]
     local procedure TAB5740_OnBeforeValidateTransferToCode_TransferHeader(var TransferHeader: Record "Transfer Header"; var xTransferHeader: Record "Transfer Header"; var IsHandled: Boolean; var HideValidationDialog: Boolean)
     Var
-        Text002: Label 'Do you want to change %1?';
         Confirmed: Boolean;
+        Text002: Label 'Do you want to change %1?';
     begin
         IsHandled := true;
         /*>>LAP2.00
@@ -2153,8 +2089,8 @@ codeunit 50020 "PWD LPSA Events Mgt."
     local procedure TAB83_OnBeforeCallItemTracking_ItemJnlLineReserve(var ItemJournalLine: Record "Item Journal Line"; IsReclass: Boolean; var IsHandled: Boolean)
 
     VAR
-        LPSASetGetFunctions: codeunit "PWD LPSA Set/Get Functions.";
         cuLotInheritanceMgt: Codeunit "PWD Lot Inheritance Mgt.PW";
+        LPSASetGetFunctions: codeunit "PWD LPSA Set/Get Functions.";
         LotDetLotCode: Code[30];
         LotDetExpirDate: Date;
     begin

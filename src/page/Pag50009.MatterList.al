@@ -13,7 +13,7 @@ page 50009 "PWD Matter List"
 
     PageType = List;
     SourceTable = "PWD Matter";
-    UsageCategory = none;
+    UsageCategory = None;
 
     layout
     {

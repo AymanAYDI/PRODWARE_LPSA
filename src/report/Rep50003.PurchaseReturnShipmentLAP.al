@@ -24,7 +24,7 @@ report 50003 "Purchase - Return Shipment LAP"
     RDLCLayout = './src/report/rdl/PurchaseReturnShipmentLAP.rdl';
 
     Caption = 'Purchase - Return Shipment';
-    UsageCategory = none;
+    UsageCategory = None;
 
     dataset
     {

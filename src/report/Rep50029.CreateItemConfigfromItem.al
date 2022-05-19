@@ -8,7 +8,7 @@ report 50029 "Create Item Config. from Item"
 
     Caption = 'Create Item Config. from Item';
     ProcessingOnly = true;
-    UsageCategory = none;
+    UsageCategory = None;
     dataset
     {
         dataitem(Item; Item)

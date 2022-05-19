@@ -14,7 +14,7 @@ page 50011 "PWD Lot Size Std. Cost List"
     Caption = 'Lot Size Std. Cost List';
     PageType = List;
     SourceTable = "PWD Lot Size Standard Cost";
-    UsageCategory = none;
+    UsageCategory = None;
 
     layout
     {

@@ -12,7 +12,7 @@ report 50047 "Create Dedicated Item Routing"
 
     Caption = 'Create Dedicated Item Routing';
     ProcessingOnly = true;
-    UsageCategory = none;
+    UsageCategory = None;
     dataset
     {
         dataitem(Item; Item)

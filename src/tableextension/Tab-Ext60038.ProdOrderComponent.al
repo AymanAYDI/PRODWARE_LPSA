@@ -158,8 +158,8 @@ tableextension 60038 "PWD ProdOrderComponent" extends "Prod. Order Component"
 
     local procedure RegisterChange(var OldTrackingSpecification: Record "Tracking Specification"; var NewTrackingSpecification: Record "Tracking Specification"; ChangeType: Option Insert,Modify,FullDelete,PartDelete,ModifyAll; ModifySharedFields: Boolean; CurrentSignFactor: Decimal; var TempReservEntry: Record "Reservation Entry"; QtyToAddAsBlank: Decimal) OK: Boolean
     var
-        ReservEntry1: Record "Reservation Entry";
         ItemTrackingCode: Record "Item Tracking Code";
+        ReservEntry1: Record "Reservation Entry";
         TempItemTrackLineReserv: Record "Tracking Specification" temporary;
         CreateReservEntry: Codeunit "Create Reserv. Entry";
         ReservEngineMgt: Codeunit "Reservation Engine Mgt.";

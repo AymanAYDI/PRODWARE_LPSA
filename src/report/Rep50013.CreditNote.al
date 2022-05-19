@@ -48,7 +48,7 @@ report 50013 "PWD Credit Note"
 
     Caption = 'Sales - Credit Memo';
     Permissions = TableData "Sales Shipment Buffer" = rimd;
-    UsageCategory = none;
+    UsageCategory = None;
 
     dataset
     {
@@ -570,7 +570,7 @@ report 50013 "PWD Credit Note"
 
             trigger OnAfterGetRecord()
             begin
-                CurrReport.LANGUAGE := Language.GetLanguageID("Language Code");
+                CurrReport.LANGUAGE := Language.GetLanguageIdOrDefault("Language Code");
 
                 //>>TI414158
                 IntGImpText := 0;
@@ -584,9 +584,7 @@ report 50013 "PWD Credit Note"
                     CompanyInfo."Fax No." := RespCenter."Fax No.";
                 END ELSE
                     FormatAddr.Company(CompanyAddr, CompanyInfo);
-                DimSetEntry1.SETRANGE("Dimension Set ID", DATABASE::"Sales Cr.Memo Header");
-                // PostedDocDim1.SETRANGE("Table ID", DATABASE::"Sales Cr.Memo Header");
-                // PostedDocDim1.SETRANGE("Document No.", "Sales Cr.Memo Header"."No.");
+                DimSetEntry1.SETRANGE("Dimension Set ID", "Sales Cr.Memo Header"."Dimension Set ID");
 
                 IF "Return Order No." = '' THEN
                     ReturnOrderNoText := ''
@@ -667,11 +665,11 @@ report 50013 "PWD Credit Note"
                         Caption = 'No. of Copies';
                         ApplicationArea = All;
                     }
-                    field("Envoyer par email"; BooGEnvoiMail)
-                    {
-                        Caption = 'Send by email';
-                        ApplicationArea = All;
-                    }
+                    // field("Envoyer par email"; BooGEnvoiMail)
+                    // {
+                    //     Caption = 'Send by email';
+                    //     ApplicationArea = All;
+                    // }
                 }
             }
         }
@@ -690,7 +688,7 @@ report 50013 "PWD Credit Note"
         GLSetup.GET();
 
         //>>NDBI
-        BooGEnvoiMail := TRUE;
+        //BooGEnvoiMail := TRUE;
         //<<NDBI
     end;
 
@@ -699,11 +697,11 @@ report 50013 "PWD Credit Note"
         RecLSalesCrMHeader: Record "Sales Cr.Memo Header";
     begin
         //>>NDBI
-        IF NOT BooGSkipSendEmail AND BooGEnvoiMail THEN BEGIN
-            RecLSalesCrMHeader.SETVIEW("Sales Cr.Memo Header".GETVIEW());
-            //SendPDFMail(RecLSalesCrMHeader);
-            RecLSalesCrMHeader.EmailRecords(true);
-        END;
+        // IF NOT BooGSkipSendEmail AND BooGEnvoiMail THEN BEGIN
+        //     RecLSalesCrMHeader.SETVIEW("Sales Cr.Memo Header".GETVIEW());
+        //     //SendPDFMail(RecLSalesCrMHeader);
+        //     RecLSalesCrMHeader.EmailRecords(true);
+        // END;
         //<<NDBI
     end;
 
@@ -714,15 +712,12 @@ report 50013 "PWD Credit Note"
 
     var
         CompanyInfo: Record "Company Information";
-        //TODO: Table 'Posted Document Dimension' is missing
-        // PostedDocDim1: Record "Posted Document Dimension";
-        // PostedDocDim2: Record "Posted Document Dimension";
         DimSetEntry1: Record "Dimension Set Entry";
         GLSetup: Record "General Ledger Setup";
         Item: Record Item;
-        ItemCrossRef: Record "Item Reference";
         ItemLedgEntry: Record "Item Ledger Entry";
         TempItemLedgEntry: Record "Item Ledger Entry";
+        ItemCrossRef: Record "Item Reference";
         PaymentTerms: Record "Payment Terms";
         RespCenter: Record "Responsibility Center";
         RecGSalesCommentLine: Record "Sales Comment Line";
@@ -864,82 +859,82 @@ report 50013 "PWD Credit Note"
         //<<NDBI
     end;
 
-    procedure SendPDFMail(var RecPSalesCrMHeader: Record "Sales Cr.Memo Header")
-    var
-        RepLCreditNote: Report "PWD Credit Note";
-        CodLMail: Codeunit Mail;
-        FileMgt: Codeunit "File Management";
-        CstL001: Label 'LA PIERRETTE SA : Sales Invoice %1';
-        CstL002: Label 'Next the invoice following your order %1';
-        Recipient: Text[80];
-        Body: Text[100];
-        Subject: Text[100];
-        TxtLFileName: Text[250];
-        TxtLServerFile: Text[250];
-    begin
-        TxtLServerFile := FileMgt.ServerTempFileName('');
-        RepLCreditNote.SkipSendEmail(TRUE);
-        RepLCreditNote.SETTABLEVIEW(RecPSalesCrMHeader);
-        RepLCreditNote.SAVEASPDF(TxtLServerFile);
-        CLEAR(Recipient);
-        CLEAR(CodLMail);
+    // procedure SendPDFMail(var RecPSalesCrMHeader: Record "Sales Cr.Memo Header")
+    // var
+    //     RepLCreditNote: Report "PWD Credit Note";
+    //     CodLMail: Codeunit Mail;
+    //     FileMgt: Codeunit "File Management";
+    //     CstL001: Label 'LA PIERRETTE SA : Sales Invoice %1';
+    //     CstL002: Label 'Next the invoice following your order %1';
+    //     Recipient: Text[80];
+    //     Body: Text[100];
+    //     Subject: Text[100];
+    //     TxtLFileName: Text[250];
+    //     TxtLServerFile: Text[250];
+    // begin
+    //     TxtLServerFile := FileMgt.ServerTempFileName('');
+    //     RepLCreditNote.SkipSendEmail(TRUE);
+    //     RepLCreditNote.SETTABLEVIEW(RecPSalesCrMHeader);
+    //     RepLCreditNote.SAVEASPDF(TxtLServerFile);
+    //     CLEAR(Recipient);
+    //     CLEAR(CodLMail);
 
-        RecPSalesCrMHeader.FINDFIRST();
+    //     RecPSalesCrMHeader.FINDFIRST();
 
-        // pas besoin d'avoir l'adresse destinataire rempli mais ça va peut être évoluer.
-        /*
-        RecLContBusRel.RESET;
-        RecLContBusRel.SETRANGE("Link to Table",RecLContBusRel."Link to Table"::Customer);
-        RecLContBusRel.SETRANGE("No.",RecPSalesCrMHeader."Sell-to Customer No.");
-        IF RecLContBusRel.FINDFIRST THEN
-          IF RecLContact.GET(RecLContBusRel."Contact No.") THEN
-            Recipient := RecLContact."E-Mail"
-          ELSE
-          BEGIN
-            IF RecLCustomer.GET(RecPSalesCrMHeader."Sell-to Customer No.") THEN
-              Recipient := RecLCustomer."E-Mail";
-         END;
-        */
-
-
-        Subject := STRSUBSTNO(CstL001, RecPSalesCrMHeader."No.");
-        Body := STRSUBSTNO(CstL002, RecPSalesCrMHeader."Your Reference");
-
-        TxtLFileName := STRSUBSTNO('AVOIR N° %1.pdf', RecPSalesCrMHeader."No.");
-        TxtLFileName := DownloadToClientFileName(TxtLServerFile, TxtLFileName);
-        //Open E-Mail
-        CodLMail.NewMessage(Recipient, '', '', Subject, Body, TxtLFileName, TRUE);
-
-    end;
+    //     // pas besoin d'avoir l'adresse destinataire rempli mais ça va peut être évoluer.
+    //     /*
+    //     RecLContBusRel.RESET;
+    //     RecLContBusRel.SETRANGE("Link to Table",RecLContBusRel."Link to Table"::Customer);
+    //     RecLContBusRel.SETRANGE("No.",RecPSalesCrMHeader."Sell-to Customer No.");
+    //     IF RecLContBusRel.FINDFIRST THEN
+    //       IF RecLContact.GET(RecLContBusRel."Contact No.") THEN
+    //         Recipient := RecLContact."E-Mail"
+    //       ELSE
+    //       BEGIN
+    //         IF RecLCustomer.GET(RecPSalesCrMHeader."Sell-to Customer No.") THEN
+    //           Recipient := RecLCustomer."E-Mail";
+    //      END;
+    //     */
 
 
-    procedure DownloadToClientFileName(TxtPServerFile: Text[250]; TxtPFileName: Text[250]): Text[250]
-    var
-        FileManagement: Codeunit "File Management";
-        TxtLClientFileName: Text[250];
-        TxtLFinalClientFileName: Text[250];
-    //TODO: 'Automation' is not recognized as a valid type
-    //AutLFileObjectSystem: Automation;
-    //TODO: Codeunit '3-Tier Automation Mgt.' is missing
-    // CduLTierAutomationMgt: Codeunit "3-Tier Automation Mgt.";
-    begin
-        //TODO: Codeunit '3-Tier Automation Mgt.' is missing
-        // TxtLClientFileName := CduLTierAutomationMgt.ClientTempFileName('', '');
-        // TxtLFinalClientFileName := CduLTierAutomationMgt.Path(TxtLClientFileName) + TxtPFileName;
-        // DOWNLOAD(TxtPServerFile, '', '', '', TxtLClientFileName);
-        FileManagement.DownloadHandler(TxtPServerFile, '', '', '', TxtLClientFileName);
-        //TODO: 'Automation' is not recognized as a valid type
-        // CREATE(AutLFileObjectSystem, FALSE, TRUE);
-        // IF AutLFileObjectSystem.FileExists(TxtLFinalClientFileName) THEN
-        //     AutLFileObjectSystem.DeleteFile(TxtLFinalClientFileName, TRUE);
-        // AutLFileObjectSystem.MoveFile(TxtLClientFileName, TxtLFinalClientFileName);
-        EXIT(TxtLFinalClientFileName);
-    end;
+    //     Subject := STRSUBSTNO(CstL001, RecPSalesCrMHeader."No.");
+    //     Body := STRSUBSTNO(CstL002, RecPSalesCrMHeader."Your Reference");
+
+    //     TxtLFileName := STRSUBSTNO('AVOIR N° %1.pdf', RecPSalesCrMHeader."No.");
+    //     TxtLFileName := DownloadToClientFileName(TxtLServerFile, TxtLFileName);
+    //     //Open E-Mail
+    //     CodLMail.NewMessage(Recipient, '', '', Subject, Body, TxtLFileName, TRUE);
+
+    // end;
 
 
-    procedure SkipSendEmail(BooPSkipSendEmail: Boolean)
-    begin
-        BooGSkipSendEmail := BooPSkipSendEmail;
-    end;
+    // procedure DownloadToClientFileName(TxtPServerFile: Text[250]; TxtPFileName: Text[250]): Text[250]
+    // var
+    //     FileManagement: Codeunit "File Management";
+    //     TxtLClientFileName: Text[250];
+    //     TxtLFinalClientFileName: Text[250];
+    // //NOTUSED: 'Automation' is not recognized as a valid type
+    // //AutLFileObjectSystem: Automation;
+    // //NOTUSED: Codeunit '3-Tier Automation Mgt.' is missing
+    // // CduLTierAutomationMgt: Codeunit "3-Tier Automation Mgt.";
+    // begin
+    //     //NOTUSED: Codeunit '3-Tier Automation Mgt.' is missing
+    //     // TxtLClientFileName := CduLTierAutomationMgt.ClientTempFileName('', '');
+    //     // TxtLFinalClientFileName := CduLTierAutomationMgt.Path(TxtLClientFileName) + TxtPFileName;
+    //     // DOWNLOAD(TxtPServerFile, '', '', '', TxtLClientFileName);
+    //     FileManagement.DownloadHandler(TxtPServerFile, '', '', '', TxtLClientFileName);
+    //     //NOTUSED: 'Automation' is not recognized as a valid type
+    //     // CREATE(AutLFileObjectSystem, FALSE, TRUE);
+    //     // IF AutLFileObjectSystem.FileExists(TxtLFinalClientFileName) THEN
+    //     //     AutLFileObjectSystem.DeleteFile(TxtLFinalClientFileName, TRUE);
+    //     // AutLFileObjectSystem.MoveFile(TxtLClientFileName, TxtLFinalClientFileName);
+    //     EXIT(TxtLFinalClientFileName);
+    // end;
+
+
+    // procedure SkipSendEmail(BooPSkipSendEmail: Boolean)
+    // begin
+    //     BooGSkipSendEmail := BooPSkipSendEmail;
+    // end;
 }
 

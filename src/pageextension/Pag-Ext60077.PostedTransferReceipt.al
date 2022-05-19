@@ -18,27 +18,5 @@ pageextension 60077 "PWD PostedTransferReceipt" extends "Posted Transfer Receipt
             }
         }
     }
-    actions
-    {
-
-        modify("Co&mments")
-        {
-            Visible = false;
-        }
-        addafter("Co&mments")
-        {
-            action("PWD Co&mments")
-            {
-                ApplicationArea = Comments;
-                Caption = 'Co&mments';
-                Image = ViewComments;
-                RunObject = Page "PWD Inventory Comment Sheet";
-                RunPageLink = "Document Type" = CONST("Posted Transfer Receipt"),
-                                  "No." = FIELD("No."), "Document Line No." = CONST(0);
-
-            }
-        }
-
-    }
 }
 

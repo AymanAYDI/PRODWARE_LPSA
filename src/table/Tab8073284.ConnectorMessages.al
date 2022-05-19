@@ -69,9 +69,9 @@ table 8073284 "PWD Connector Messages"
 
             trigger OnLookup()
             var
-                FileName: Text;
                 Text000: Label '%1.xml', Comment = '%1 = Code';
                 Text001: Label '\%1.xml', Comment = '%1 = Code';
+                FileName: Text;
             begin
                 if Path = '' then
                     FileName := StrSubstNo(Text000, Code)
@@ -217,9 +217,9 @@ table 8073284 "PWD Connector Messages"
 
             trigger OnLookup()
             var
-                FileName: Text;
                 Text000: Label '%1.xml', Comment = '%1 = Code';
                 Text001: Label '\%1.xml', Comment = '%1 = Code';
+                FileName: Text;
             begin
                 if "Archive Path" = '' then
                     FileName := StrSubstNo(Text000, Code)

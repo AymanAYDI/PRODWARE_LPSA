@@ -15,7 +15,7 @@ page 50015 "Item Subst. Phantom Entries"
     DelayedInsert = true;
     PageType = Worksheet;
     SourceTable = "PWD Phantom substitution Items";
-    UsageCategory = none;
+    UsageCategory = None;
 
     layout
     {

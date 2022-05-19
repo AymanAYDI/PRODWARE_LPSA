@@ -57,6 +57,7 @@ codeunit 8073299 "Buffer Tracking Management 2"
         QtyToAddAsBlank: Decimal;
         SourceQuantityArray: array[5] of Decimal;
         UndefinedQtyArray: array[3] of Decimal;
+        CurrentEntryStatus: Enum "Reservation Status";
         ColorOfQuantityArray: array[3] of Integer;
         CurrentSignFactor: Integer;
         // CurrentSourceType: Integer;
@@ -76,7 +77,6 @@ codeunit 8073299 "Buffer Tracking Management 2"
         Text018: Label 'Saving item tracking line changes';
         FormRunMode: Option ,Reclass,"Combined Ship/Rcpt","Drop Shipment",Transfer;
         DirectionNC: Option Outbound,Inbound;
-        CurrentEntryStatus: Enum "Reservation Status";
         CurrentSourceRowID: Text[100];
         SecondSourceRowID: Text[100];
         CurrentSourceCaption: Text[255];

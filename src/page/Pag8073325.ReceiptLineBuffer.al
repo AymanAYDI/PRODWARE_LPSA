@@ -13,7 +13,7 @@ page 8073325 "PWD Receipt Line Buffer"
     Caption = 'Receipt Line Buffer';
     InsertAllowed = false;
     PageType = List;
-    UsageCategory = none;
+    UsageCategory = None;
     SourceTable = "PWD Receipt Line Buffer";
 
     layout

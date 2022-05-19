@@ -57,8 +57,8 @@ pageextension 60042 "PWD PhysInventoryJournal" extends "Phys. Inventory Journal"
                 Image = Copy;
                 trigger OnAction()
                 var
-                    RecLItemLedgerEntry: Record "Item Ledger Entry";
                     RecLItemJournalLine: Record "Item Journal Line";
+                    RecLItemLedgerEntry: Record "Item Ledger Entry";
                     RecLItemJnlLineBuffer: Record "PWD Item Jnl Line Buffer";
                     RecLItemLedgerEntryBuffer: Record "PWD Item Ledger Entry Buffer";
                     BooLProcess: Boolean;
@@ -111,9 +111,9 @@ pageextension 60042 "PWD PhysInventoryJournal" extends "Phys. Inventory Journal"
                 var
                     RecLItem: Record Item;
                     RecLItemJournalLine: Record "Item Journal Line";
-                    RecLReservationEntry: Record "Reservation Entry";
                     RecLItemJnlLineBuffer: Record "PWD Item Jnl Line Buffer";
                     RecLItemLedgerEntryBuffer: Record "PWD Item Ledger Entry Buffer";
+                    RecLReservationEntry: Record "Reservation Entry";
                     IntLEntryNoLast: Integer;
                 begin
                     IF CONFIRM(CstG003, FALSE, Rec."Journal Template Name", Rec."Journal Batch Name") THEN BEGIN

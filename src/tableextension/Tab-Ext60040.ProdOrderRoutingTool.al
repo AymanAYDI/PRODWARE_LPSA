@@ -42,10 +42,6 @@ tableextension 60040 "PWD ProdOrderRoutingTool" extends "Prod. Order Routing Too
     }
     keys
     {
-        // TODO   
-        // key(Key50000; "PWD Type", "No.")
-        // {
-        // }
     }
 }
 

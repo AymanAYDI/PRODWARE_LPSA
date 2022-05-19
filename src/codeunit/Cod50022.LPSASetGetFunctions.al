@@ -3,17 +3,17 @@ codeunit 50022 "PWD LPSA Set/Get Functions."
     SingleInstance = true;
 
     var
-        BooGFromImport: Boolean;
-        ToBatchName: Code[10];
-        ToTemplateName: Code[10];
-        BooGFromWMS: Boolean;
-        SourceRecRef: RecordRef;
         CalcReservEntry: Record "Reservation Entry";
-        BooGAvoidControl: Boolean;
         ReservEntry: Record "Reservation Entry";
+        SourceRecRef: RecordRef;
+        BooGAvoidControl: Boolean;
 
         BooGFromConfig: Boolean;
+        BooGFromImport: Boolean;
+        BooGFromWMS: Boolean;
         gFromTheSameLot: Boolean;
+        ToBatchName: Code[10];
+        ToTemplateName: Code[10];
         gLotDeterminingLotCode: Code[30];
         gLotDeterminingExpirDate: Date;
         BooGFromOsys: Boolean;

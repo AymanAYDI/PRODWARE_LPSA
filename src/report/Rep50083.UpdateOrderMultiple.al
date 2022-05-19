@@ -2,7 +2,7 @@ report 50083 "PWD Update Order Multiple"
 {
     DefaultLayout = RDLC;
     ProcessingOnly = true;
-    UsageCategory = none;
+    UsageCategory = None;
     dataset
     {
         //Table 'PWD New Order By' is missing: Table 'PWD New Order By' n'est dans la licence

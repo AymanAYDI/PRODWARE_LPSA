@@ -16,7 +16,7 @@ report 50022 "PWD Tracking Card"
     // +----------------------------------------------------------------------------------------------------------------+
     DefaultLayout = RDLC;
     RDLCLayout = './src/report/rdl/TrackingCard.rdl';
-    UsageCategory = none;
+    UsageCategory = None;
     Caption = 'Tracking Card';
 
     dataset

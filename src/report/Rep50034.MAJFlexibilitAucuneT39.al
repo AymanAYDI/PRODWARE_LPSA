@@ -10,7 +10,7 @@ report 50034 "PWD MAJ Flexibilité=Aucune T39"
     //                   - New report
 
     ProcessingOnly = true;
-    UsageCategory = none;
+    UsageCategory = None;
     dataset
     {
         dataitem("Purchase Line"; "Purchase Line")

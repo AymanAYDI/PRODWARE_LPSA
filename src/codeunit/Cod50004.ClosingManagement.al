@@ -100,7 +100,7 @@ codeunit 50004 "PWD Closing Management"
                     DimensionCode := RecGInventorySetup."PWD Item Category Dimension";
                 end;
 
-            5723:
+            50018:
                 begin
                     RecGInventorySetup.TestField("PWD Product Group Dimension");
                     DimensionCode := RecGInventorySetup."PWD Product Group Dimension";
@@ -136,7 +136,7 @@ codeunit 50004 "PWD Closing Management"
                     DimensionCode := RecGInventorySetup."PWD Item Category Dimension";
                 end;
 
-            5723:
+            50018:
                 begin
                     RecGInventorySetup.TestField("PWD Product Group Dimension");
                     DimensionCode := RecGInventorySetup."PWD Product Group Dimension";

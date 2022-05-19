@@ -26,7 +26,7 @@ page 8073284 "PWD Sending Message List"
     Caption = 'Sending Message List';
     PageType = List;
     PopulateAllFields = false;
-    UsageCategory = none;
+    UsageCategory = None;
     SourceTable = "PWD Connector Messages";
     SourceTableView = SORTING("Partner Code", Code, Direction) ORDER(Ascending) WHERE(Direction = FILTER(Export));
 

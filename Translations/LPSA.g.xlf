@@ -858,6 +858,11 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Table PWD Inventory Comment Line - Field Date - Property Caption</note>
         </trans-unit>
+        <trans-unit id="Table 2902211376 - Field 2480638018 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Document Line No.</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table PWD Inventory Comment Line - Field Document Line No. - Property Caption</note>
+        </trans-unit>
         <trans-unit id="Table 2902211376 - Field 2363328873 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Document Type</source>
           <note from="Developer" annotates="general" priority="2"></note>
@@ -872,11 +877,6 @@
           <source>No.</source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Table PWD Inventory Comment Line - Field No. - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Table 2902211376 - Field 2725118319 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Document Line No.</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Table PWD Inventory Comment Line - Field PWD Document Line No. - Property Caption</note>
         </trans-unit>
         <trans-unit id="Table 1055272925 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Item Configurator</source>
@@ -1079,7 +1079,7 @@
           <note from="Xliff Generator" annotates="general" priority="3">Table PWD Item Configurator - Field Height Half Glazed Min. - Property Caption</note>
         </trans-unit>
         <trans-unit id="Table 1055272925 - Field 429236887 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Height Min.</source>
+          <source>Height Max.</source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Table PWD Item Configurator - Field Height Max. - Property Caption</note>
         </trans-unit>
@@ -5413,11 +5413,6 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Codeunit PWD LPSA Functions Mgt. - Method CopyFromConfiguration - NamedType Text010</note>
         </trans-unit>
-        <trans-unit id="Codeunit 378233800 - Method 169538794 - NamedType 2476940767" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Counting records...</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Codeunit PWD LPSA Functions Mgt. - Method FindFirsRecord - NamedType Text000</note>
-        </trans-unit>
         <trans-unit id="Codeunit 378233800 - Method 2548131642 - NamedType 732759939" size-unit="char" translate="yes" xml:space="preserve">
           <source>Document restored from Version %1.</source>
           <note from="Developer" annotates="general" priority="2"></note>
@@ -5432,66 +5427,6 @@
           <source>Confirmez-vous la différence de quantité de %1 au lieu de %2?</source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Codeunit PWD LPSA Functions Mgt. - Method UpdateComponentPhantom - NamedType Text50001</note>
-        </trans-unit>
-        <trans-unit id="Codeunit 3490447731 - NamedType 3752334001" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Quantity must be %1.</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Codeunit PWD LPSA Tracking Management - NamedType Text002</note>
-        </trans-unit>
-        <trans-unit id="Codeunit 3490447731 - NamedType 95063322" size-unit="char" translate="yes" xml:space="preserve">
-          <source>negative</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Codeunit PWD LPSA Tracking Management - NamedType Text003</note>
-        </trans-unit>
-        <trans-unit id="Codeunit 3490447731 - NamedType 732759939" size-unit="char" translate="yes" xml:space="preserve">
-          <source>positive</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Codeunit PWD LPSA Tracking Management - NamedType Text004</note>
-        </trans-unit>
-        <trans-unit id="Codeunit 3490447731 - NamedType 1370456556" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Error when writing to database.</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Codeunit PWD LPSA Tracking Management - NamedType Text005</note>
-        </trans-unit>
-        <trans-unit id="Codeunit 3490447731 - NamedType 2645849790" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Another user has modified the item tracking data since it was retrieved from the database.\Start again.</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Codeunit PWD LPSA Tracking Management - NamedType Text007</note>
-        </trans-unit>
-        <trans-unit id="Codeunit 3490447731 - NamedType 3283546407" size-unit="char" translate="yes" xml:space="preserve">
-          <source>The quantity to create must be an integer.</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Codeunit PWD LPSA Tracking Management - NamedType Text008</note>
-        </trans-unit>
-        <trans-unit id="Codeunit 3490447731 - NamedType 3921243024" size-unit="char" translate="yes" xml:space="preserve">
-          <source>The quantity to create must be positive.</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Codeunit PWD LPSA Tracking Management - NamedType Text009</note>
-        </trans-unit>
-        <trans-unit id="Codeunit 3490447731 - NamedType 2301836569" size-unit="char" translate="yes" xml:space="preserve">
-          <source>The string %1 contains no number and cannot be incremented.</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Codeunit PWD LPSA Tracking Management - NamedType Text013</note>
-        </trans-unit>
-        <trans-unit id="Codeunit 3490447731 - NamedType 4214926420" size-unit="char" translate="yes" xml:space="preserve">
-          <source>The total item tracking quantity %1 exceeds the %2 quantity %3.\The changes cannot be saved to the database.</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Codeunit PWD LPSA Tracking Management - NamedType Text014</note>
-        </trans-unit>
-        <trans-unit id="Codeunit 3490447731 - NamedType 3577229803" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Do you want to synchronize item tracking on the line with item tracking on the related drop shipment %1?</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Codeunit PWD LPSA Tracking Management - NamedType Text015</note>
-        </trans-unit>
-        <trans-unit id="Codeunit 3490447731 - NamedType 1195352358" size-unit="char" translate="yes" xml:space="preserve">
-          <source>purchase order line</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Codeunit PWD LPSA Tracking Management - NamedType Text016</note>
-        </trans-unit>
-        <trans-unit id="Codeunit 3490447731 - NamedType 557655741" size-unit="char" translate="yes" xml:space="preserve">
-          <source>sales order line</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Codeunit PWD LPSA Tracking Management - NamedType Text017</note>
         </trans-unit>
         <trans-unit id="Codeunit 51242148 - NamedType 3752334001" size-unit="char" translate="yes" xml:space="preserve">
           <source>Quantity must be %1.</source>
@@ -5597,11 +5532,6 @@
           <source>En-cours</source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Codeunit PWD Test Closing Management - Method ExportProdOrder - NamedType CstLTitle</note>
-        </trans-unit>
-        <trans-unit id="Codeunit 3541897395 - NamedType 4271425864" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Attention pour l'article %1 l'écriture correspondant au document %2 n'a pas été entiérement facturée !\Traitement annulé !</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Codeunit PWD test LALE - NamedType CstG007</note>
         </trans-unit>
         <trans-unit id="Codeunit 2096875763 - NamedType 293793224" size-unit="char" translate="yes" xml:space="preserve">
           <source>Lot No. must be max. %1 chars, Trading Unit No. must be max. %2 chars.</source>
@@ -5822,6 +5752,11 @@
           <source>Insert All</source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Page PWD Fields Export Setup - Action Action1000000000 - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 3888326868 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Comment List</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page PWD Inventory Comment List - Property Caption</note>
         </trans-unit>
         <trans-unit id="Page 1340045841 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Editable Fields</source>
@@ -7013,6 +6948,46 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Report Export Planning Client Excel - NamedType Text003E</note>
         </trans-unit>
+        <trans-unit id="Report 3077685465 - Method 3538512093 - NamedType 355215400" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Company Name</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report Export Planning Client Excel - Method MakeExcelInfo - NamedType Text004E</note>
+        </trans-unit>
+        <trans-unit id="Report 3077685465 - Method 3538512093 - NamedType 404110823" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Report No.</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report Export Planning Client Excel - Method MakeExcelInfo - NamedType Text005E</note>
+        </trans-unit>
+        <trans-unit id="Report 3077685465 - Method 3538512093 - NamedType 3024581066" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Report Name</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report Export Planning Client Excel - Method MakeExcelInfo - NamedType Text006E</note>
+        </trans-unit>
+        <trans-unit id="Report 3077685465 - Method 3538512093 - NamedType 3115053193" size-unit="char" translate="yes" xml:space="preserve">
+          <source>User ID</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report Export Planning Client Excel - Method MakeExcelInfo - NamedType Text007E</note>
+        </trans-unit>
+        <trans-unit id="Report 3077685465 - Method 3538512093 - NamedType 2247161780" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Date</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report Export Planning Client Excel - Method MakeExcelInfo - NamedType Text008E</note>
+        </trans-unit>
+        <trans-unit id="Report 3077685465 - Method 3538512093 - NamedType 2316845555" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Customer Filters</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report Export Planning Client Excel - Method MakeExcelInfo - NamedType Text009E</note>
+        </trans-unit>
+        <trans-unit id="Report 3077685465 - Method 3538512093 - NamedType 2848996883" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Sales Order Lines Filters</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report Export Planning Client Excel - Method MakeExcelInfo - NamedType Text010E</note>
+        </trans-unit>
+        <trans-unit id="Report 3077685465 - Method 3538512093 - NamedType 2758524756" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Production Forecast Entry Filter </source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report Export Planning Client Excel - Method MakeExcelInfo - NamedType Text011E</note>
+        </trans-unit>
         <trans-unit id="Report 3077685465 - Control 956429135 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Options</source>
           <note from="Developer" annotates="general" priority="2"></note>
@@ -7793,16 +7768,6 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Report PWD Credit Note - NamedType Unit_PriceCaptionLbl</note>
         </trans-unit>
-        <trans-unit id="Report 495364762 - Method 2495759385 - NamedType 3567615443" size-unit="char" translate="yes" xml:space="preserve">
-          <source>LA PIERRETTE SA : Sales Invoice %1</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Report PWD Credit Note - Method SendPDFMail - NamedType CstL001</note>
-        </trans-unit>
-        <trans-unit id="Report 495364762 - Method 2495759385 - NamedType 1185737998" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Next the invoice following your order %1</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Report PWD Credit Note - Method SendPDFMail - NamedType CstL002</note>
-        </trans-unit>
         <trans-unit id="Report 495364762 - ReportDataItem 552782286 - Property 1806354803" size-unit="char" translate="yes" xml:space="preserve">
           <source>Posted Sales Credit Memo</source>
           <note from="Developer" annotates="general" priority="2"></note>
@@ -7812,11 +7777,6 @@
           <source>Options</source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Report PWD Credit Note - Control Options - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Report 495364762 - Control 1869728045 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Send by email</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Report PWD Credit Note - Control Envoyer par email - Property Caption</note>
         </trans-unit>
         <trans-unit id="Report 495364762 - Control 1202731191 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>No. of Copies</source>
@@ -8538,16 +8498,6 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Report PWD Invoice - NamedType Unit_PriceCaptionLbl</note>
         </trans-unit>
-        <trans-unit id="Report 3997829766 - Method 2495759385 - NamedType 3567615443" size-unit="char" translate="yes" xml:space="preserve">
-          <source>LA PIERRETTE SA : Sales Invoice %1</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Report PWD Invoice - Method SendPDFMail - NamedType CstL001</note>
-        </trans-unit>
-        <trans-unit id="Report 3997829766 - Method 2495759385 - NamedType 1185737998" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Next the invoice following your order %1</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Report PWD Invoice - Method SendPDFMail - NamedType CstL002</note>
-        </trans-unit>
         <trans-unit id="Report 3997829766 - ReportDataItem 809936682 - Property 1806354803" size-unit="char" translate="yes" xml:space="preserve">
           <source>Posted Sales Invoice</source>
           <note from="Developer" annotates="general" priority="2"></note>
@@ -8557,11 +8507,6 @@
           <source>Options</source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Report PWD Invoice - Control Options - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Report 3997829766 - Control 1869728045 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Send by email</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Report PWD Invoice - Control Envoyer par email - Property Caption</note>
         </trans-unit>
         <trans-unit id="Report 3997829766 - Control 1202731191 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>No. of Copies</source>
@@ -9983,11 +9928,6 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Report PWD Routing Sheet - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Report 1688759508 - Property 3863440606" size-unit="char" translate="yes" xml:space="preserve">
-          <source>operations sheet,process structure sheet</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Report PWD Routing Sheet - Property AdditionalSearchTerms</note>
-        </trans-unit>
         <trans-unit id="Report 1688759508 - NamedType 684809554" size-unit="char" translate="yes" xml:space="preserve">
           <source>Page</source>
           <note from="Developer" annotates="general" priority="2"></note>
@@ -10263,16 +10203,6 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Report PWD Sales Order Confirmation - NamedType Unit_PriceCaptionLbl</note>
         </trans-unit>
-        <trans-unit id="Report 1565759238 - Method 2495759385 - NamedType 3567615443" size-unit="char" translate="yes" xml:space="preserve">
-          <source>LA PIERRETTE SA : Sales Order Confirmation</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Report PWD Sales Order Confirmation - Method SendPDFMail - NamedType CstL001</note>
-        </trans-unit>
-        <trans-unit id="Report 1565759238 - Method 2495759385 - NamedType 1185737998" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Next the order confirmation following your order %1</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Report PWD Sales Order Confirmation - Method SendPDFMail - NamedType CstL002</note>
-        </trans-unit>
         <trans-unit id="Report 1565759238 - ReportDataItem 1192395785 - Property 1806354803" size-unit="char" translate="yes" xml:space="preserve">
           <source>Sales Order Confirmation</source>
           <note from="Developer" annotates="general" priority="2"></note>
@@ -10287,11 +10217,6 @@
           <source>Archive Document</source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Report PWD Sales Order Confirmation - Control ArchiveDocumentF - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Report 1565759238 - Control 1869728045 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Send by email</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Report PWD Sales Order Confirmation - Control Envoyer par email - Property Caption</note>
         </trans-unit>
         <trans-unit id="Report 1565759238 - Control 218814212 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Log Interaction</source>
@@ -10623,16 +10548,6 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Report PWD Shipment Advice - NamedType Text006</note>
         </trans-unit>
-        <trans-unit id="Report 2035244793 - Method 2495759385 - NamedType 3567615443" size-unit="char" translate="yes" xml:space="preserve">
-          <source>LA PIERRETTE SA : Sales Invoice %1</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Report PWD Shipment Advice - Method SendPDFMail - NamedType CstL001</note>
-        </trans-unit>
-        <trans-unit id="Report 2035244793 - Method 2495759385 - NamedType 1185737998" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Next the invoice following your order %1</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Report PWD Shipment Advice - Method SendPDFMail - NamedType CstL002</note>
-        </trans-unit>
         <trans-unit id="Report 2035244793 - ReportDataItem 3118382297 - Property 1806354803" size-unit="char" translate="yes" xml:space="preserve">
           <source>Posted Sales Shipment</source>
           <note from="Developer" annotates="general" priority="2"></note>
@@ -10642,11 +10557,6 @@
           <source>Options</source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Report PWD Shipment Advice - Control Options - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Report 2035244793 - Control 1869728045 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Send by email</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Report PWD Shipment Advice - Control Envoyer par email - Property Caption</note>
         </trans-unit>
         <trans-unit id="Report 2035244793 - Control 1202731191 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>No. of Copies</source>
@@ -11418,166 +11328,6 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Report PWD Updt with New Dimension - Control DimensionCodeF - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Report 3957671655 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>VAT - VIES Declaration XML</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Report PWD VAT - VIES Declaration XML - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Report 3957671655 - NamedType 1566767540" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Customer Name</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Report PWD VAT - VIES Declaration XML - NamedType Customer_NameCaptionLbl</note>
-        </trans-unit>
-        <trans-unit id="Report 3957671655 - NamedType 3577258736" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Filter</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Report PWD VAT - VIES Declaration XML - NamedType FilterCaptionLbl</note>
-        </trans-unit>
-        <trans-unit id="Report 3957671655 - NamedType 3559397606" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Integer</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Report PWD VAT - VIES Declaration XML - NamedType IntegerCaptionLbl</note>
-        </trans-unit>
-        <trans-unit id="Report 3957671655 - NamedType 2691977549" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Package No.</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Report PWD VAT - VIES Declaration XML - NamedType PaketNrCaptionLbl</note>
-        </trans-unit>
-        <trans-unit id="Report 3957671655 - NamedType 2018095058" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Reporting period from</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Report PWD VAT - VIES Declaration XML - NamedType Reportingperiod_fromCaptionLbl</note>
-        </trans-unit>
-        <trans-unit id="Report 3957671655 - NamedType 4189774605" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Reporting period to</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Report PWD VAT - VIES Declaration XML - NamedType Reportingperiod_toCaptionLbl</note>
-        </trans-unit>
-        <trans-unit id="Report 3957671655 - NamedType 1198084549" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Base amount</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Report PWD VAT - VIES Declaration XML - NamedType SumPrnCaptionLbl</note>
-        </trans-unit>
-        <trans-unit id="Report 3957671655 - NamedType 2108956951" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Base amount EU 3-Party Trade</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Report PWD VAT - VIES Declaration XML - NamedType SumPrn_Control1160019CaptionLbl</note>
-        </trans-unit>
-        <trans-unit id="Report 3957671655 - NamedType 2542293939" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Base amount EU Service</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Report PWD VAT - VIES Declaration XML - NamedType SumPrn_EUServiceCaptionLbl</note>
-        </trans-unit>
-        <trans-unit id="Report 3957671655 - NamedType 1792508391" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Customer No.</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Report PWD VAT - VIES Declaration XML - NamedType tempVATEntry__Bill_to_Pay_to_No__CaptionLbl</note>
-        </trans-unit>
-        <trans-unit id="Report 3957671655 - NamedType 530740663" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Country Code</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Report PWD VAT - VIES Declaration XML - NamedType tempVATEntry__Country_Region_Code_CaptionLbl</note>
-        </trans-unit>
-        <trans-unit id="Report 3957671655 - NamedType 1509278552" size-unit="char" translate="yes" xml:space="preserve">
-          <source>UID</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Report PWD VAT - VIES Declaration XML - NamedType tempVATEntry__VAT_Registration_No__CaptionLbl</note>
-        </trans-unit>
-        <trans-unit id="Report 3957671655 - NamedType 2476940767" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Recall of an earlier report</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Report PWD VAT - VIES Declaration XML - NamedType Text000</note>
-        </trans-unit>
-        <trans-unit id="Report 3957671655 - NamedType 3752334001" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Reportingdate must be empty, if marking is "Normal transmission".</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Report PWD VAT - VIES Declaration XML - NamedType Text002</note>
-        </trans-unit>
-        <trans-unit id="Report 3957671655 - NamedType 95063322" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Reportingdate must not be empty, if marking is "recall of an earlier report".</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Report PWD VAT - VIES Declaration XML - NamedType Text003</note>
-        </trans-unit>
-        <trans-unit id="Report 3957671655 - NamedType 4214926420" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Customer %1, %2 doesn't have an UID.</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Report PWD VAT - VIES Declaration XML - NamedType Text014</note>
-        </trans-unit>
-        <trans-unit id="Report 3957671655 - NamedType 2282865561" size-unit="char" translate="yes" xml:space="preserve">
-          <source>You didn't define a No. Series.</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Report PWD VAT - VIES Declaration XML - NamedType Text1160004</note>
-        </trans-unit>
-        <trans-unit id="Report 3957671655 - NamedType 1007472327" size-unit="char" translate="yes" xml:space="preserve">
-          <source>The No. Series %1 has not 9 digits.</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Report PWD VAT - VIES Declaration XML - NamedType Text1160006</note>
-        </trans-unit>
-        <trans-unit id="Report 3957671655 - NamedType 1645168944" size-unit="char" translate="yes" xml:space="preserve">
-          <source>The No. Series should only contain numbers.</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Report PWD VAT - VIES Declaration XML - NamedType Text1160007</note>
-        </trans-unit>
-        <trans-unit id="Report 3957671655 - NamedType 1829312380" size-unit="char" translate="yes" xml:space="preserve">
-          <source>ZM_jjjj_Qnn.xml</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Report PWD VAT - VIES Declaration XML - NamedType TextExportFileName</note>
-        </trans-unit>
-        <trans-unit id="Report 3957671655 - NamedType 1045821151" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Total</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Report PWD VAT - VIES Declaration XML - NamedType TotalSumCaptionLbl</note>
-        </trans-unit>
-        <trans-unit id="Report 3957671655 - NamedType 974977725" size-unit="char" translate="yes" xml:space="preserve">
-          <source>VAT- VIES Declaration Disk</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Report PWD VAT - VIES Declaration XML - NamedType VAT__VIES_Declaration_DiskCaptionLbl</note>
-        </trans-unit>
-        <trans-unit id="Report 3957671655 - Control 2346885236 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Options</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Report PWD VAT - VIES Declaration XML - Control Options - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Report 3957671655 - Control 761458465 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Show Amounts in Add. Reporting Currency</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Report PWD VAT - VIES Declaration XML - Control AmountsInReportCurrencyF - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Report 3957671655 - Control 1732444560 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>No. Series</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Report PWD VAT - VIES Declaration XML - Control NoSeriesF - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Report 3957671655 - Control 330899096 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Reporting Date</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Report PWD VAT - VIES Declaration XML - Control ReportingDateF - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Report 3957671655 - Control 3644391572 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Reporting Type</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Report PWD VAT - VIES Declaration XML - Control ReportingTypeF - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Report 3957671655 - Control 3644391572 - Property 62802879" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Normal transmission,Recall of an earlier report</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Report PWD VAT - VIES Declaration XML - Control ReportingTypeF - Property OptionCaption</note>
-        </trans-unit>
-        <trans-unit id="Report 3957671655 - Control 883878268 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Statement Period</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Report PWD VAT - VIES Declaration XML - Control Statement Period - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Report 3957671655 - Control 458153998 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Starting Date</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Report PWD VAT - VIES Declaration XML - Control RepPeriodFromF - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Report 3957671655 - Control 4172288665 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Ending Date</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Report PWD VAT - VIES Declaration XML - Control RepPeriodToF - Property Caption</note>
-        </trans-unit>
         <trans-unit id="Report 3261261504 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Real Standard Comparison Routing</source>
           <note from="Developer" annotates="general" priority="2"></note>
@@ -12128,6 +11878,16 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">PageExtension PWD CustomerCard - Action PWD Lignes devis - Property Caption</note>
         </trans-unit>
+        <trans-unit id="PageExtension 576218729 - Control 3795441345 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 208889056">
+          <source>Customer Filter</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">PageExtension PWD DemandForecast - Control PWD CustomerFilter - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="PageExtension 576218729 - Control 3660027436 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 208889056">
+          <source>Customer Name</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">PageExtension PWD DemandForecast - Control PWD CustomerName - Property Caption</note>
+        </trans-unit>
         <trans-unit id="PageExtension 1169212268 - Action 953741630 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 1245108215">
           <source>Item Card</source>
           <note from="Developer" annotates="general" priority="2"></note>
@@ -12282,6 +12042,11 @@
           <source>Routing Active Version</source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">PageExtension PWD ItemCard - Control ActiveVersionCode - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="PageExtension 1299222318 - Control 2540177766 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 1434786627">
+          <source>WMS</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">PageExtension PWD ItemCard - Control PWD WMS - Property Caption</note>
         </trans-unit>
         <trans-unit id="PageExtension 1299222318 - Control 2710820198 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 1434786627">
           <source>Product Group Code</source>
@@ -12487,16 +12252,6 @@
           <source>Commentaires</source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">PageExtension PWD PostedTransferRcptSubform - Action PWD Action1100267002 - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="PageExtension 3837376583 - Action 2874510719 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 2714855698">
-          <source>Co&amp;mments</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">PageExtension PWD PostedTransferReceipt - Action PWD Co&amp;mments - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="PageExtension 25895691 - Action 2874510719 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 4201932270">
-          <source>Co&amp;mments</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">PageExtension PWD PostedTransferShipment - Action PWD Co&amp;mments - Property Caption</note>
         </trans-unit>
         <trans-unit id="PageExtension 2562786296 - Action 1422529224 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 2991235355">
           <source>Commentaires</source>
@@ -12713,11 +12468,6 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">PageExtension PWD StandardTasks - Change Personnel - Property Caption</note>
         </trans-unit>
-        <trans-unit id="PageExtension 2861666938 - Action 2874510719 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 66664215">
-          <source>Co&amp;mments</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">PageExtension PWD TransferOrder - Action PWD Co&amp;mments - Property Caption</note>
-        </trans-unit>
         <trans-unit id="PageExtension 3693681192 - Action 1422529224 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 225830225">
           <source>Commentaires</source>
           <note from="Developer" annotates="general" priority="2"></note>
@@ -12782,11 +12532,6 @@
           <source>PWD NC</source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">TableExtension PWD EntrySummary - Field PWD NC - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="TableExtension 1937555592 - Field 2725118319 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 923598217">
-          <source>Document Line No.</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">TableExtension PWD InventoryCommentLine - Field PWD Document Line No. - Property Caption</note>
         </trans-unit>
         <trans-unit id="TableExtension 1297312702 - Field 852571706 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 3497386651">
           <source>Original Counter</source>

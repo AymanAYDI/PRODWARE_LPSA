@@ -12,7 +12,7 @@ report 50055 "MAJ Description LPSA PIERRE"
     // +----------------------------------------------------------------------------------------------------------------------------------+
 
     ProcessingOnly = true;
-    UsageCategory = none;
+    UsageCategory = None;
     dataset
     {
         dataitem("PWD Item Configurator"; "PWD Item Configurator")

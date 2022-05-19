@@ -18,26 +18,5 @@ pageextension 60072 "PWD TransferOrder" extends "Transfer Order"
             }
         }
     }
-    actions
-    {
-        modify("Co&mments")
-        {
-            Visible = false;
-        }
-        addafter("Co&mments")
-        {
-            action("PWD Co&mments")
-            {
-                ApplicationArea = Comments;
-                Caption = 'Co&mments';
-                Image = ViewComments;
-                Promoted = true;
-                PromotedCategory = Category6;
-                RunObject = Page "PWD Inventory Comment Sheet";
-                RunPageLink = "Document Type" = CONST("Transfer Order"),
-                                  "No." = FIELD("No."), "Document Line No." = CONST(0);
-            }
-        }
-    }
 }
 

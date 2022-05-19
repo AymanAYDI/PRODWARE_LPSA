@@ -22,7 +22,7 @@ page 8073286 "PWD Partner Code List"
     CardPageID = "PWD Partner Connector";
     Editable = false;
     PageType = List;
-    UsageCategory = none;
+    UsageCategory = None;
     SourceTable = "PWD Partner Connector";
 
     layout
@@ -87,7 +87,7 @@ page 8073286 "PWD Partner Code List"
 
                     trigger OnAction()
                     begin
-                        XMLPORT.RUN(8073282, TRUE, FALSE, Rec);
+                        XMLPORT.RUN(XmlPort::"Import Export Connector SetUp", TRUE, FALSE, Rec);
                     end;
                 }
             }

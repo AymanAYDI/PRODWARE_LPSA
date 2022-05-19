@@ -152,8 +152,8 @@ codeunit 8073290 "PWD Connector Peb Parse Data"
 
     procedure FctParseData()
     var
-        // AutLXMLNodeData: Automation; //TODO: Variable de type Automation
-        // AutLXMLNodeDataList: Automation; //TODO: Variable de type Automation
+        // AutLXMLNodeData: Automation; //NOTUSED: Variable de type Automation
+        // AutLXMLNodeDataList: Automation; //NOTUSED: Variable de type Automation
         IntLIndex: Integer;
     begin
         //**********************************************************************************************************//
@@ -162,14 +162,14 @@ codeunit 8073290 "PWD Connector Peb Parse Data"
 
         IntLIndex := 1;
         CLEAR(TxtGData);
-        // AutLXMLNodeData := AutGXMLDom.selectSingleNode('/IDXMLSerial/Data'); //TODO: Variable de type Automation
-        // IF NOT ISCLEAR(AutLXMLNodeData) THEN BEGIN  //TODO: Variable de type Automation
-        //     AutLXMLNodeDataList := AutLXMLNodeData.selectNodes('/IDXMLSerial/Data');  //TODO: Variable de type Automation
-        //     AutLXMLNodeData := AutLXMLNodeDataList.nextNode();  //TODO: Variable de type Automation
+        // AutLXMLNodeData := AutGXMLDom.selectSingleNode('/IDXMLSerial/Data'); //NOTUSED: Variable de type Automation
+        // IF NOT ISCLEAR(AutLXMLNodeData) THEN BEGIN  //NOTUSED: Variable de type Automation
+        //     AutLXMLNodeDataList := AutLXMLNodeData.selectNodes('/IDXMLSerial/Data');  //NOTUSED: Variable de type Automation
+        //     AutLXMLNodeData := AutLXMLNodeDataList.nextNode();  //NOTUSED: Variable de type Automation
         // END;
-        // WHILE NOT ISCLEAR(AutLXMLNodeData) DO BEGIN  //TODO: Variable de type Automation
-        //     TxtGData[IntLIndex] := COPYSTR(AutLXMLNodeData.text, 1, 250);  //TODO: Variable de type Automation
-        //     AutLXMLNodeData := AutLXMLNodeDataList.nextNode();  //TODO: Variable de type Automation
+        // WHILE NOT ISCLEAR(AutLXMLNodeData) DO BEGIN  //NOTUSED: Variable de type Automation
+        //     TxtGData[IntLIndex] := COPYSTR(AutLXMLNodeData.text, 1, 250);  //NOTUSED: Variable de type Automation
+        //     AutLXMLNodeData := AutLXMLNodeDataList.nextNode();  //NOTUSED: Variable de type Automation
         //     IntLIndex += 1;
         // END;
     end;
@@ -181,23 +181,23 @@ codeunit 8073290 "PWD Connector Peb Parse Data"
         //                                 Parse Request filters                                                    //
         //**********************************************************************************************************//
 
-        // IntLIndex := 1;  //TODO: Variable de type Automation
-        // AutLXMLNodeFilters := AutGXMLDom.selectSingleNode('/IDXMLSerial/Filters');  //TODO: Variable de type Automation
-        // AutLXMLNodeFileds := AutGXMLDom.selectSingleNode('/IDXMLSerial/Fields'); //TODO: Variable de type Automation
-        // IF NOT ISCLEAR(AutLXMLNodeFilters) THEN BEGIN //TODO: Variable de type Automation
-        //     AutLXMLNodeFiltersList := AutLXMLNodeFilters.selectNodes('/IDXMLSerial/Filters'); //TODO: Variable de type Automation
-        //     AutLXMLNodeFilters := AutLXMLNodeFiltersList.nextNode(); //TODO: Variable de type Automation
+        // IntLIndex := 1;  //NOTUSED: Variable de type Automation
+        // AutLXMLNodeFilters := AutGXMLDom.selectSingleNode('/IDXMLSerial/Filters');  //NOTUSED: Variable de type Automation
+        // AutLXMLNodeFileds := AutGXMLDom.selectSingleNode('/IDXMLSerial/Fields'); //NOTUSED: Variable de type Automation
+        // IF NOT ISCLEAR(AutLXMLNodeFilters) THEN BEGIN //NOTUSED: Variable de type Automation
+        //     AutLXMLNodeFiltersList := AutLXMLNodeFilters.selectNodes('/IDXMLSerial/Filters'); //NOTUSED: Variable de type Automation
+        //     AutLXMLNodeFilters := AutLXMLNodeFiltersList.nextNode(); //NOTUSED: Variable de type Automation
         // END;
-        // IF NOT ISCLEAR(AutLXMLNodeFileds) THEN BEGIN //TODO: Variable de type Automation
-        //     AutLXMLNodeFiledsList := AutLXMLNodeFileds.selectNodes('/IDXMLSerial/Fields'); //TODO: Variable de type Automation
-        //     AutLXMLNodeFileds := AutLXMLNodeFiledsList.nextNode(); //TODO: Variable de type Automation
+        // IF NOT ISCLEAR(AutLXMLNodeFileds) THEN BEGIN //NOTUSED: Variable de type Automation
+        //     AutLXMLNodeFiledsList := AutLXMLNodeFileds.selectNodes('/IDXMLSerial/Fields'); //NOTUSED: Variable de type Automation
+        //     AutLXMLNodeFileds := AutLXMLNodeFiledsList.nextNode(); //NOTUSED: Variable de type Automation
         // END;
 
-        // WHILE NOT ISCLEAR(AutLXMLNodeFileds) DO BEGIN //TODO: Variable de type Automation
-        //     TxtGFilters[IntLIndex] := COPYSTR(AutLXMLNodeFilters.text, 1, 1024); //TODO: Variable de type Automation
-        //     TxtGFields[IntLIndex] := COPYSTR(AutLXMLNodeFileds.text, 1, 50); //TODO: Variable de type Automation
-        //     AutLXMLNodeFilters := AutLXMLNodeFiltersList.nextNode(); //TODO: Variable de type Automation
-        //     AutLXMLNodeFileds := AutLXMLNodeFiledsList.nextNode(); //TODO: Variable de type Automation
+        // WHILE NOT ISCLEAR(AutLXMLNodeFileds) DO BEGIN //NOTUSED: Variable de type Automation
+        //     TxtGFilters[IntLIndex] := COPYSTR(AutLXMLNodeFilters.text, 1, 1024); //NOTUSED: Variable de type Automation
+        //     TxtGFields[IntLIndex] := COPYSTR(AutLXMLNodeFileds.text, 1, 50); //NOTUSED: Variable de type Automation
+        //     AutLXMLNodeFilters := AutLXMLNodeFiltersList.nextNode(); //NOTUSED: Variable de type Automation
+        //     AutLXMLNodeFileds := AutLXMLNodeFiledsList.nextNode(); //NOTUSED: Variable de type Automation
         //     IntLIndex += 1;
         // END;
     end;
@@ -261,8 +261,8 @@ codeunit 8073290 "PWD Connector Peb Parse Data"
 
         RecPConnectorVal.CALCFIELDS(Blob);
         RecPConnectorVal.Blob.CREATEOUTSTREAM(OusLStream);
-        // CREATE(AutGXMLDom);  //TODO: Variable de type Automation
-        // AutGXMLDom.load(OusLStream);  //TODO: Variable de type Automation
+        // CREATE(AutGXMLDom);  //NOTUSED: Variable de type Automation
+        // AutGXMLDom.load(OusLStream);  //NOTUSED: Variable de type Automation
 
         FctParseData();
 
@@ -283,7 +283,7 @@ codeunit 8073290 "PWD Connector Peb Parse Data"
 
 
         TxtLQtyWithoutSpace := DELCHR(TxtGData[3], '=', ' ');
-        // IF NOT CduGFileManagement.FctEvaluateDecimal(TxtLQtyWithoutSpace, DecLQty) THEN  //TODO: Variable de type Automation
+        // IF NOT CduGFileManagement.FctEvaluateDecimal(TxtLQtyWithoutSpace, DecLQty) THEN  //NOTUSED: Variable de type Automation
         //     ERROR(STRSUBSTNO(CstGDecValue, TxtLQtyWithoutSpace));
 
         RecLSalesPrice.SETFILTER("Minimum Quantity", '<=%1', DecLQty);
@@ -500,9 +500,9 @@ codeunit 8073290 "PWD Connector Peb Parse Data"
 
         RecPConnectorVal.CALCFIELDS(Blob);
         RecPConnectorVal.Blob.CREATEOUTSTREAM(OusLStream);
-        // CLEAR(AutGXMLDom);  //TODO: Variable de type Automation
-        // CREATE(AutGXMLDom);  //TODO: Variable de type Automation
-        // AutGXMLDom.load(OusLStream);  //TODO: Variable de type Automation
+        // CLEAR(AutGXMLDom);  //NOTUSED: Variable de type Automation
+        // CREATE(AutGXMLDom);  //NOTUSED: Variable de type Automation
+        // AutGXMLDom.load(OusLStream);  //NOTUSED: Variable de type Automation
 
         FctParseData();
 
@@ -566,10 +566,10 @@ codeunit 8073290 "PWD Connector Peb Parse Data"
         RecLTempVATAmountLine0: Record "VAT Amount Line" temporary;
         RecLTempVATAmountLine1: Record "VAT Amount Line" temporary;
         RecLTempBlob: Codeunit "Temp Blob";
-        // AutLXMLNode: Automation;  //TODO: Variable de type Automation
-        // AutLXMLNodeList: Automation; //TODO: Variable de type Automation
-        // AutLXMLNodeList1: Automation; //TODO: Variable de type Automation
-        // AutLXMLNodeList3: Automation; //TODO: Variable de type Automation
+        // AutLXMLNode: Automation;  //NOTUSED: Variable de type Automation
+        // AutLXMLNodeList: Automation; //NOTUSED: Variable de type Automation
+        // AutLXMLNodeList1: Automation; //NOTUSED: Variable de type Automation
+        // AutLXMLNodeList3: Automation; //NOTUSED: Variable de type Automation
         BooLOrderInserted: Boolean;
         CodLCustomer: Code[20];
         CodLExternalDocNo: Code[20];
@@ -596,15 +596,15 @@ codeunit 8073290 "PWD Connector Peb Parse Data"
 
         RecPConnectorVal.CALCFIELDS(Blob);
         RecPConnectorVal.Blob.CREATEOUTSTREAM(OusLStream);
-        // CLEAR(AutGXMLDom);  //TODO: Variable de type Automation
-        // CREATE(AutGXMLDom); //TODO: Variable de type Automation
-        // AutGXMLDom.load(OusLStream); //TODO: Variable de type Automation
+        // CLEAR(AutGXMLDom);  //NOTUSED: Variable de type Automation
+        // CREATE(AutGXMLDom); //NOTUSED: Variable de type Automation
+        // AutGXMLDom.load(OusLStream); //NOTUSED: Variable de type Automation
         CLEAR(BooLOrderInserted);
         CLEAR(DatLStartingDate);
         CLEAR(CodLOrderNo);
         CLEAR(CodLCustomer);
         CLEAR(CodLExternalDocNo);
-        // AutLXMLNodeList := AutGXMLDom.selectNodes('/IDXMLSerial/Orders');  //TODO: Variable de type Automation begin
+        // AutLXMLNodeList := AutGXMLDom.selectNodes('/IDXMLSerial/Orders');  //NOTUSED: Variable de type Automation begin
         // AutLXMLNode := AutLXMLNodeList.nextNode();
         // WHILE NOT ISCLEAR(AutLXMLNode) DO   // Orders Loop
         // BEGIN
@@ -649,10 +649,10 @@ codeunit 8073290 "PWD Connector Peb Parse Data"
         //                         END;
         //                         AutLXMLNode := AutLXMLNodeList3.nextNode();
         //                     END;
-        //                 END; //TODO: Variable de type Automation end
+        //                 END; //NOTUSED: Variable de type Automation end
 
         // 'OrderLines':
-        //     BEGIN //TODO: Variable de type Automation end
+        //     BEGIN //NOTUSED: Variable de type Automation end
         IF NOT BooLOrderInserted THEN BEGIN
             BooLOrderInserted := TRUE;
             RecLSalesHeader.INIT();
@@ -681,7 +681,7 @@ codeunit 8073290 "PWD Connector Peb Parse Data"
                     i += 1;
                 UNTIL TxtLCommentHeaderPartial = '';
         END;
-        // AutLXMLNodeList3 := AutLXMLNode.childNodes(); //TODO: Variable de type Automation begin
+        // AutLXMLNodeList3 := AutLXMLNode.childNodes(); //NOTUSED: Variable de type Automation begin
         // AutLXMLNode := AutLXMLNodeList3.nextNode();
         // WHILE NOT ISCLEAR(AutLXMLNode) DO BEGIN
         //     CASE AutLXMLNode.nodeName OF
@@ -701,7 +701,7 @@ codeunit 8073290 "PWD Connector Peb Parse Data"
         //                 ERROR(STRSUBSTNO(CstGDecValue, AutLXMLNode.text));
         //     //EVALUATE(DecLLineAmount, AutLXMLNode.text);
         //     END;
-        //     AutLXMLNode := AutLXMLNodeList3.nextNode(); //TODO: Variable de type Automation end
+        //     AutLXMLNode := AutLXMLNodeList3.nextNode(); //NOTUSED: Variable de type Automation end
         // END;
         IF RecLSalesHeader."No." <> '' THEN BEGIN
             RecLSalesLine.INIT();
@@ -733,10 +733,10 @@ codeunit 8073290 "PWD Connector Peb Parse Data"
                 i += 1;
             UNTIL TxtLCommentlinePartial = '';
         //END;
-        // END; AutLXMLNodeList1.nextNode(); //TODO: Variable de type Automation 
-        // AutLXMLNode := AutLXMLNodeList1.nextNode(); //TODO: Variable de type Automation 
-        // END;  //End Detail Loop AutLXMLNodeList1.nextNode(); //TODO: Variable de type Automation 
-        // AutLXMLNode := AutLXMLNodeList.nextNode(); //TODO: Variable de type Automation 
+        // END; AutLXMLNodeList1.nextNode(); //NOTUSED: Variable de type Automation 
+        // AutLXMLNode := AutLXMLNodeList1.nextNode(); //NOTUSED: Variable de type Automation 
+        // END;  //End Detail Loop AutLXMLNodeList1.nextNode(); //NOTUSED: Variable de type Automation 
+        // AutLXMLNode := AutLXMLNodeList.nextNode(); //NOTUSED: Variable de type Automation 
         // END;  //End Orders Loop
 
 
@@ -763,8 +763,8 @@ codeunit 8073290 "PWD Connector Peb Parse Data"
         RecLSendingMessage.SETRANGE("Partner Code", RecPConnectorVal."Partner Code");
         RecLSendingMessage.SETRANGE("Function", RecPConnectorVal."Function");
         RecLSendingMessage.FINDFIRST();
-        CduGConnectBufMgtExport.FctCreateXml(RecLSalesHeader.GETVIEW(), RecLSendingMessage, RecLTempBlob, TRUE);  //TODO: probleme Codeunit "Temp Blob"
-        IF RecLTempBlob.HASVALUE() THEN BEGIN  //TODO: probleme Codeunit "Temp Blob"
+        CduGConnectBufMgtExport.FctCreateXml(RecLSalesHeader.GETVIEW(), RecLSendingMessage, RecLTempBlob, TRUE);  //NOTUSED: probleme Codeunit "Temp Blob"
+        IF RecLTempBlob.HASVALUE() THEN BEGIN  //NOTUSED: probleme Codeunit "Temp Blob"
             RecLTempBlob.CREATEINSTREAM(InsLStream);
             CduGBufferManagement.FctCreateBufferValues(InsLStream, RecPConnectorVal."Partner Code", RecPConnectorVal."File Name",
                                                        RecPConnectorVal."Function", RecPConnectorVal."File format",
@@ -773,7 +773,7 @@ codeunit 8073290 "PWD Connector Peb Parse Data"
                                                        RecPConnectorVal."Message Code")
         END
         ELSE
-            ERROR(TxtGError);  //TODO: probleme Codeunit "Temp Blob"
+            ERROR(TxtGError);  //NOTUSED: probleme Codeunit "Temp Blob"
     end;
 
 
@@ -826,9 +826,9 @@ codeunit 8073290 "PWD Connector Peb Parse Data"
 
         RecPConnectorVal.CALCFIELDS(Blob);
         RecPConnectorVal.Blob.CREATEOUTSTREAM(OusLStream);
-        // CLEAR(AutGXMLDom); //TODO: Probleme type automation
-        // CREATE(AutGXMLDom); //TODO: Probleme type automation
-        // AutGXMLDom.load(OusLStream); //TODO: Probleme type automation
+        // CLEAR(AutGXMLDom); //NOTUSED: Probleme type automation
+        // CREATE(AutGXMLDom); //NOTUSED: Probleme type automation
+        // AutGXMLDom.load(OusLStream); //NOTUSED: Probleme type automation
 
         FctParseData();
 
@@ -965,9 +965,9 @@ codeunit 8073290 "PWD Connector Peb Parse Data"
 
         RecPConnectorVal.CALCFIELDS(Blob);
         RecPConnectorVal.Blob.CREATEOUTSTREAM(StrLStreamOut);
-        // CLEAR(AutGXMLDom); //TODO: probleme type automation
-        // CREATE(AutGXMLDom);  //TODO: probleme type automation
-        // AutGXMLDom.load(StrLStreamOut);  //TODO: probleme type automation
+        // CLEAR(AutGXMLDom); //NOTUSED: probleme type automation
+        // CREATE(AutGXMLDom);  //NOTUSED: probleme type automation
+        // AutGXMLDom.load(StrLStreamOut);  //NOTUSED: probleme type automation
 
         FctParseData();
 
@@ -1029,9 +1029,9 @@ codeunit 8073290 "PWD Connector Peb Parse Data"
 
         RecPConnectorVal.CALCFIELDS(Blob);
         RecPConnectorVal.Blob.CREATEOUTSTREAM(StrLStreamOut);
-        // CLEAR(AutGXMLDom); //TODO:probleme type automation
-        // CREATE(AutGXMLDom);//TODO:probleme type automation
-        // AutGXMLDom.load(StrLStreamOut);//TODO:probleme type automation
+        // CLEAR(AutGXMLDom); //NOTUSED:probleme type automation
+        // CREATE(AutGXMLDom);//NOTUSED:probleme type automation
+        // AutGXMLDom.load(StrLStreamOut);//NOTUSED:probleme type automation
 
         FctParseData();
 
@@ -1135,9 +1135,9 @@ codeunit 8073290 "PWD Connector Peb Parse Data"
 
         RecPConnectorVal.CALCFIELDS(Blob);
         RecPConnectorVal.Blob.CREATEOUTSTREAM(OusLStream);
-        // CLEAR(AutGXMLDom);  //TODO:probleme type automation
-        // CREATE(AutGXMLDom);  //TODO:probleme type automation
-        // AutGXMLDom.load(OusLStream);  //TODO:probleme type automation
+        // CLEAR(AutGXMLDom);  //NOTUSED:probleme type automation
+        // CREATE(AutGXMLDom);  //NOTUSED:probleme type automation
+        // AutGXMLDom.load(OusLStream);  //NOTUSED:probleme type automation
 
         FctParseData();
 
@@ -1261,10 +1261,10 @@ codeunit 8073290 "PWD Connector Peb Parse Data"
         RecLSalesHeader: Record "Sales Header";
         RecLTempBlob: Codeunit "Temp Blob";
         RecordRef: RecordRef;
-        // AutLXMLNode: Automation;  //TODO:probleme type automation
-        // AutLXMLNodeList: Automation;  //TODO:probleme type automation
-        // AutLXMLNodeList1: Automation;  //TODO:probleme type automation
-        // AutLXMLNodeList3: Automation;  //TODO:probleme type automation
+        // AutLXMLNode: Automation;  //NOTUSED:probleme type automation
+        // AutLXMLNodeList: Automation;  //NOTUSED:probleme type automation
+        // AutLXMLNodeList1: Automation;  //NOTUSED:probleme type automation
+        // AutLXMLNodeList3: Automation;  //NOTUSED:probleme type automation
         BooLOrderInserted: Boolean;
         CodLCustomer: Code[20];
         CodLExternalDocNo: Code[20];
@@ -1280,15 +1280,15 @@ codeunit 8073290 "PWD Connector Peb Parse Data"
         //**********************************************************************************************************//
         RecPConnectorVal.CALCFIELDS(Blob);
         RecPConnectorVal.Blob.CREATEOUTSTREAM(OusLStream);
-        // CLEAR(AutGXMLDom); //TODO:probleme type automation
-        // CREATE(AutGXMLDom); //TODO:probleme type automation
-        // AutGXMLDom.load(OusLStream); //TODO:probleme type automation
+        // CLEAR(AutGXMLDom); //NOTUSED:probleme type automation
+        // CREATE(AutGXMLDom); //NOTUSED:probleme type automation
+        // AutGXMLDom.load(OusLStream); //NOTUSED:probleme type automation
         CLEAR(BooLOrderInserted);
         CLEAR(DatLStartingDate);
         CLEAR(CodLOrderNo);
         CLEAR(CodLCustomer);
         CLEAR(CodLExternalDocNo);
-        // AutLXMLNodeList := AutGXMLDom.selectNodes('/IDXMLSerial/Orders'); //TODO:probleme type automation begin
+        // AutLXMLNodeList := AutGXMLDom.selectNodes('/IDXMLSerial/Orders'); //NOTUSED:probleme type automation begin
         // AutLXMLNode := AutLXMLNodeList.nextNode();
         // WHILE NOT ISCLEAR(AutLXMLNode) DO BEGIN // Orders Loop
         //     AutLXMLNodeList1 := AutLXMLNode.childNodes();
@@ -1447,7 +1447,7 @@ codeunit 8073290 "PWD Connector Peb Parse Data"
         //         END;
         //         AutLXMLNode := AutLXMLNodeList1.nextNode();
         //     END;  //End Detail Loop
-        //     AutLXMLNode := AutLXMLNodeList.nextNode(); //TODO:probleme type automation end
+        //     AutLXMLNode := AutLXMLNodeList.nextNode(); //NOTUSED:probleme type automation end
         // END;  //End Orders Loop
 
         IF RecLSalesHeaderBuffer."Entry No." <> 0 THEN BEGIN
@@ -1545,9 +1545,9 @@ codeunit 8073290 "PWD Connector Peb Parse Data"
 
         RecPConnectorVal.CALCFIELDS(Blob);
         RecPConnectorVal.Blob.CREATEOUTSTREAM(StrLStreamOut);
-        // CLEAR(AutGXMLDom);  //TODO: probleme type automation
-        // CREATE(AutGXMLDom);//TODO: probleme type automation
-        // AutGXMLDom.load(StrLStreamOut);//TODO: probleme type automation
+        // CLEAR(AutGXMLDom);  //NOTUSED: probleme type automation
+        // CREATE(AutGXMLDom);//NOTUSED: probleme type automation
+        // AutGXMLDom.load(StrLStreamOut);//NOTUSED: probleme type automation
 
         FctParseData();
 

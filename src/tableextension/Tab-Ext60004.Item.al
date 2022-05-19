@@ -275,7 +275,7 @@ tableextension 60004 "PWD Item" extends Item
             TableRelation = "PWD Product Group".Code WHERE("Item Category Code" = FIELD("Item Category Code"));
             trigger OnValidate()
             var
-                CduGClosingMgt: Codeunit 50004;
+                CduGClosingMgt: Codeunit "PWD Closing Management";
             begin
                 //>>P24578_008.001
                 CduGClosingMgt.UpdtItemDimValue(DATABASE::"PWD Product Group", "No.", "PWD Product Group Code");

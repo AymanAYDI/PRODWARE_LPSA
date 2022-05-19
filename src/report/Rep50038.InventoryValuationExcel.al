@@ -11,7 +11,7 @@ report 50038 "PWD Inventory Valuation Excel"
 
     Caption = 'Inventory Valuation Excel';
     ProcessingOnly = true;
-    UsageCategory = none;
+    UsageCategory = None;
     dataset
     {
         dataitem(Item; Item)
@@ -222,8 +222,7 @@ report 50038 "PWD Inventory Valuation Excel"
                 //>>LAP2.12
                 if BooGExportExcel then begin
                     Bdialog.Close();
-                    //TODO: There is no argument given that corresponds to the required formal parameter 'FileName' of 'CreateBook(Text, Text)'
-                    // ExcelBuf.CreateBook;
+                    ExcelBuf.CreateBook('', 'Feuil1');
                     ExcelBuf.WriteSheet(CstG006, CompanyName, UserId);
                     ExcelBuf.OpenExcel();
                     Error('');
