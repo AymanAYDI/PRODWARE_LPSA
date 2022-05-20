@@ -11681,7 +11681,7 @@
         </trans-unit>
         <trans-unit id="Report 4110837278 - NamedType 1345210789" size-unit="char" translate="yes" xml:space="preserve">
           <source>Purchase Quote</source>
-          <target state="translated">Retour de marchandise</target>
+          <target state="translated">Demande de prix</target>
           <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">Report PWD Purchase - Quote LAP - NamedType CstGText005</note>
         </trans-unit>
@@ -11825,7 +11825,7 @@
         </trans-unit>
         <trans-unit id="Report 4110837278 - NamedType 111253547" size-unit="char" translate="yes" xml:space="preserve">
           <source>Item No.</source>
-          <target state="translated">N° article</target>
+          <target state="translated">Code article</target>
           <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">Report PWD Purchase - Quote LAP - NamedType Purchase_Line___Vendor_Item_No__CaptionLbl</note>
         </trans-unit>
@@ -11855,7 +11855,7 @@
         </trans-unit>
         <trans-unit id="Report 4110837278 - ReportDataItem 2072992664 - Property 1806354803" size-unit="char" translate="yes" xml:space="preserve">
           <source>Purchase Quote</source>
-          <target state="translated">Retour de marchandise</target>
+          <target state="translated">Demande de prix</target>
           <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">Report PWD Purchase - Quote LAP - ReportDataItem Purchase Header - Property RequestFilterHeading</note>
         </trans-unit>
