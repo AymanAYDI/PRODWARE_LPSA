@@ -1,6 +1,6 @@
 report 50072 "PWD Liste des Clients (Excel)"
 {
-    Caption = 'PWD Liste des Clients (Excel)';
+    Caption = 'Liste des Clients (Excel)';
     DefaultLayout = RDLC;
     RDLCLayout = './src/report/rdl/ListeClientsExcel.rdl';
     dataset
@@ -49,7 +49,7 @@ report 50072 "PWD Liste des Clients (Excel)"
             column(AddressCaption; FieldCaption(Address))
             {
             }
-            column(Address2Caption; FieldCaption("Address 2"))
+            column(Address2Caption; Add2Txt)
             {
             }
             column(PostCodeCaption; FieldCaption("Post Code"))
@@ -71,31 +71,31 @@ report 50072 "PWD Liste des Clients (Excel)"
             column(COMPANYNAME; CompanyName)
             {
             }
-            column(PageText; PageText)
+            column(PageText; PageTxt)
             {
             }
             trigger OnPreDataItem()
             begin
                 LastFieldNo := FIELDNO("No.");
 
-                IF Exportexcel THEN BEGIN
-                    Sheet := Excel.Sheets.Add;
-                    Sheet.Name := 'Clients';
-                    //     Sheet.Range('A1').Value := 'TYPE';
-                    //     Sheet.Range('B1').Value := 'N° CLIENT';
-                    //     Sheet.Range('C1').Value := 'NOM CLIENT';
-                    //     Sheet.Range('D1').Value := 'ADRESSE';
-                    //     Sheet.Range('E1').Value := 'ADRESSE2';
-                    //     Sheet.Range('F1').Value := 'CODE POSTAL';
-                    //     Sheet.Range('G1').Value := 'VILLE';
-                    //     Sheet.Range('H1').Value := 'PAYS';
-                    //     Sheet.Range('I1').Value := 'TELEPHONE';
-                    //     Sheet.Range('J1').Value := 'FAX';
-                    //     Sheet.Range('A1:J1').Font.Bold := TRUE;
-                    //     Sheet.Range('A1:J1').Font.ColorIndex := '2';
-                    //     Sheet.Range('A1:J1').Interior.ColorIndex := '55';
-                    Compteur := 1;
-                END;
+                // IF Exportexcel THEN BEGIN
+                //     Sheet := Excel.Sheets.Add;
+                //     Sheet.Name := 'Clients';
+                //     // Sheet.Range('A1').Value := 'TYPE';
+                //     //     Sheet.Range('B1').Value := 'N° CLIENT';
+                //     //     Sheet.Range('C1').Value := 'NOM CLIENT';
+                //     //     Sheet.Range('D1').Value := 'ADRESSE';
+                //     //     Sheet.Range('E1').Value := 'ADRESSE2';
+                //     //     Sheet.Range('F1').Value := 'CODE POSTAL';
+                //     //     Sheet.Range('G1').Value := 'VILLE';
+                //     //     Sheet.Range('H1').Value := 'PAYS';
+                //     //     Sheet.Range('I1').Value := 'TELEPHONE';
+                //     //     Sheet.Range('J1').Value := 'FAX';
+                //     //     Sheet.Range('A1:J1').Font.Bold := TRUE;
+                //     //     Sheet.Range('A1:J1').Font.ColorIndex := '2';
+                //     //     Sheet.Range('A1:J1').Interior.ColorIndex := '55';
+                //     Compteur := 1;
+                // END;
             end;
 
             trigger OnAfterGetRecord()
@@ -125,37 +125,33 @@ report 50072 "PWD Liste des Clients (Excel)"
 
         }
     }
-    requestpage
-    {
-        layout
-        {
-            area(content)
-            {
-                group(Options)
-                {
-                    Caption = 'Options';
-                    field(Exportexcel; Exportexcel)
-                    {
-                        Caption = 'Export Excel';
-                    }
-                }
-            }
-        }
-        actions
-        {
-            area(processing)
-            {
-            }
-        }
-    }
+    // requestpage
+    // {
+    //     layout
+    //     {
+    //         area(content)
+    //         {
+    //             group(Options)
+    //             {
+    //                 Caption = 'Options';
+    //                 // field(Exportexcel; Exportexcel)
+    //                 // {
+    //                 //     Caption = 'Export Excel';
+    //                 // }
+    //             }
+    //         }
+    //     }
+    //     actions
+    //     {
+    //         area(processing)
+    //         {
+    //         }
+    //     }
+    // }
     var
         LastFieldNo: Integer;
         FooterPrinted: Boolean;
         Exportexcel: Boolean;
-        Excel: DotNet "EXCEL ApplicationClass";
-        Book: DotNet "EXCEL Workbook";
-        Range: DotNet "EXCEL Range";
-        Sheet: DotNet "EXCEL Worksheet";
         Compteur: Integer;
         "No.": Code[20];
         Name: Text[30];
@@ -167,5 +163,6 @@ report 50072 "PWD Liste des Clients (Excel)"
         "Phone No.": Text[30];
         "Fax No.": Text[30];
         CustTxt: Label 'Customer';
-        PageText: Label 'Page';
+        PageTxt: Label 'Page';
+        Add2Txt: Label 'Addresse 2';
 }

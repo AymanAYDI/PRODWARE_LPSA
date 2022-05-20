@@ -60,6 +60,7 @@ report 50013 "PWD Credit Note"
             column(Sales_Cr_Memo_Header_No_; "No.")
             {
             }
+
             dataitem(CopyLoop; "Integer")
             {
                 DataItemTableView = SORTING(Number);
@@ -123,7 +124,7 @@ report 50013 "PWD Credit Note"
                     column(Sales_Header_Your_Ref_; "Sales Cr.Memo Header"."Your Reference")
                     {
                     }
-                    column(EnvoiMail; BooGEnvoiMail)
+                    column(EnvoiMail; BooGImp)
                     {
                     }
                     column(STRSUBSTNO_Text013_SalesLine_Line_Amount_SalesLine_Inv_Discount_Amount_VATAmount; STRSUBSTNO(Text013, "Sales Cr.Memo Line"."Amount Including VAT"))
@@ -665,11 +666,11 @@ report 50013 "PWD Credit Note"
                         Caption = 'No. of Copies';
                         ApplicationArea = All;
                     }
-                    // field("Envoyer par email"; BooGEnvoiMail)
-                    // {
-                    //     Caption = 'Send by email';
-                    //     ApplicationArea = All;
-                    // }
+                    field("Show Logo"; BooGImp)
+                    {
+                        Caption = 'Show Logo';
+                        ApplicationArea = All;
+                    }
                 }
             }
         }
@@ -686,9 +687,8 @@ report 50013 "PWD Credit Note"
     trigger OnInitReport()
     begin
         GLSetup.GET();
-
         //>>NDBI
-        //BooGEnvoiMail := TRUE;
+        BooGImp := TRUE;
         //<<NDBI
     end;
 
@@ -734,7 +734,7 @@ report 50013 "PWD Credit Note"
         LPSAFunctionsMgt: codeunit "PWD LPSA Functions Mgt.";
         SalesCrMemoCountPrinted: Codeunit "Sales Cr. Memo-Printed";
         SegManagement: Codeunit SegManagement;
-        BooGEnvoiMail: Boolean;
+        BooGImp: Boolean;
         BooGSkipSendEmail: Boolean;
         BooGStopComment: Boolean;
         LogInteraction: Boolean;

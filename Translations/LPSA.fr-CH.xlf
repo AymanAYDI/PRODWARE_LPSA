@@ -9131,7 +9131,7 @@
         </trans-unit>
         <trans-unit id="Report 495364762 - NamedType 439050987" size-unit="char" translate="yes" xml:space="preserve">
           <source>Net Amount</source>
-          <target state="translated">Montant Net</target>
+          <target state="translated">Montant Net.</target>
           <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">Report PWD Credit Note - NamedType CstG013</note>
         </trans-unit>
@@ -9149,7 +9149,7 @@
         </trans-unit>
         <trans-unit id="Report 495364762 - NamedType 3455521076" size-unit="char" translate="yes" xml:space="preserve">
           <source>Net Amount</source>
-          <target state="translated">Montant Net</target>
+          <target state="translated">Montant Net.</target>
           <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">Report PWD Credit Note - NamedType Net_AmountCaptionLbl</note>
         </trans-unit>
@@ -9197,19 +9197,19 @@
         </trans-unit>
         <trans-unit id="Report 495364762 - NamedType 3543864855" size-unit="char" translate="yes" xml:space="preserve">
           <source>Document No. : </source>
-          <target state="translated">Numéro du Document :</target>
+          <target state="translated">Numéro du document :</target>
           <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">Report PWD Credit Note - NamedType Sales_Header_No_captionLbl</note>
         </trans-unit>
         <trans-unit id="Report 495364762 - NamedType 3004817273" size-unit="char" translate="yes" xml:space="preserve">
           <source>VAT Registration No. : </source>
-          <target state="translated">N° identificateur TVA :</target>
+          <target state="translated">N° identifiant TVA :</target>
           <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">Report PWD Credit Note - NamedType Sales_Header_VAT_Registration_No_captionLbl</note>
         </trans-unit>
         <trans-unit id="Report 495364762 - NamedType 2113231038" size-unit="char" translate="yes" xml:space="preserve">
           <source>Your Contact: </source>
-          <target state="translated">Votre interlocuteur : </target>
+          <target state="translated">Votre contact : </target>
           <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">Report PWD Credit Note - NamedType Sales_Header_Your_Contact_captionLbl</note>
         </trans-unit>
@@ -9287,7 +9287,7 @@
         </trans-unit>
         <trans-unit id="Report 495364762 - NamedType 3577229803" size-unit="char" translate="yes" xml:space="preserve">
           <source>Your Item Ref.</source>
-          <target state="translated">Votre Ref. Art. =</target>
+          <target state="translated">Votre Ref. Art.</target>
           <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">Report PWD Credit Note - NamedType Text015</note>
         </trans-unit>
@@ -9299,7 +9299,7 @@
         </trans-unit>
         <trans-unit id="Report 495364762 - NamedType 557655741" size-unit="char" translate="yes" xml:space="preserve">
           <source>Payment Terms   %1</source>
-          <target state="translated">Condition de paiement %1</target>
+          <target state="translated">Conditions du paiement %1</target>
           <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">Report PWD Credit Note - NamedType Text017</note>
         </trans-unit>
@@ -9321,18 +9321,6 @@
           <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">Report PWD Credit Note - NamedType Unit_PriceCaptionLbl</note>
         </trans-unit>
-        <trans-unit id="Report 495364762 - Method 2495759385 - NamedType 3567615443" size-unit="char" translate="yes" xml:space="preserve">
-          <source>LA PIERRETTE SA : Sales Invoice %1</source>
-          <target state="translated">LA PIERRETTE SA : Facture Pro forma </target>
-          <note from="Developer" annotates="general" priority="2"/>
-          <note from="Xliff Generator" annotates="general" priority="3">Report PWD Credit Note - Method SendPDFMail - NamedType CstL001</note>
-        </trans-unit>
-        <trans-unit id="Report 495364762 - Method 2495759385 - NamedType 1185737998" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Next the invoice following your order %1</source>
-          <target state="translated">Ci-joint l'impression de la facture Pro forma suite à votre commande %1</target>
-          <note from="Developer" annotates="general" priority="2"/>
-          <note from="Xliff Generator" annotates="general" priority="3">Report PWD Credit Note - Method SendPDFMail - NamedType CstL002</note>
-        </trans-unit>
         <trans-unit id="Report 495364762 - ReportDataItem 552782286 - Property 1806354803" size-unit="char" translate="yes" xml:space="preserve">
           <source>Posted Sales Credit Memo</source>
           <target state="translated">Avoir vente enregistré</target>
@@ -9345,17 +9333,17 @@
           <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">Report PWD Credit Note - Control Options - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Report 495364762 - Control 1869728045 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Send by email</source>
-          <target state="translated">Envoyer par email</target>
-          <note from="Developer" annotates="general" priority="2"/>
-          <note from="Xliff Generator" annotates="general" priority="3">Report PWD Credit Note - Control Envoyer par email - Property Caption</note>
-        </trans-unit>
         <trans-unit id="Report 495364762 - Control 1202731191 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>No. of Copies</source>
           <target state="translated">N° de copies</target>
           <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">Report PWD Credit Note - Control NoOfCopiesF - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Report 495364762 - Control 3387259332 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Show Logo</source>
+          <target state="translated">Afficher logo</target>
+          <note from="Developer" annotates="general" priority="2"/>
+          <note from="Xliff Generator" annotates="general" priority="3">Report PWD Credit Note - Control Show Logo - Property Caption</note>
         </trans-unit>
         <trans-unit id="Report 2810203791 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Customer - Order Detail</source>
@@ -10073,19 +10061,19 @@
         </trans-unit>
         <trans-unit id="Report 3997829766 - NamedType 3543864855" size-unit="char" translate="yes" xml:space="preserve">
           <source>Document No. : </source>
-          <target state="translated">Numéro du Document :</target>
+          <target state="translated">Numéro du document :</target>
           <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">Report PWD Invoice - NamedType Sales_Header_No_captionLbl</note>
         </trans-unit>
         <trans-unit id="Report 3997829766 - NamedType 3004817273" size-unit="char" translate="yes" xml:space="preserve">
           <source>VAT Registration No. : </source>
-          <target state="translated">N° identificateur TVA :</target>
+          <target state="translated">N° identifiant TVA :</target>
           <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">Report PWD Invoice - NamedType Sales_Header_VAT_Registration_No_captionLbl</note>
         </trans-unit>
         <trans-unit id="Report 3997829766 - NamedType 2113231038" size-unit="char" translate="yes" xml:space="preserve">
           <source>Your Contact: </source>
-          <target state="translated">Votre interlocuteur : </target>
+          <target state="translated">Votre contact : </target>
           <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">Report PWD Invoice - NamedType Sales_Header_Your_Contact_captionLbl</note>
         </trans-unit>
@@ -10157,7 +10145,7 @@
         </trans-unit>
         <trans-unit id="Report 3997829766 - NamedType 1026443335" size-unit="char" translate="yes" xml:space="preserve">
           <source>Payment terms   %1</source>
-          <target state="translated">Condition de paiement %1</target>
+          <target state="translated">Conditions du paiement %1</target>
           <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">Report PWD Invoice - NamedType Text011</note>
         </trans-unit>
@@ -10181,7 +10169,7 @@
         </trans-unit>
         <trans-unit id="Report 3997829766 - NamedType 3577229803" size-unit="char" translate="yes" xml:space="preserve">
           <source>Your Item Ref.</source>
-          <target state="translated">Votre Ref. Art. =</target>
+          <target state="translated">Votre Ref. Art.</target>
           <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">Report PWD Invoice - NamedType Text015</note>
         </trans-unit>
@@ -10205,7 +10193,7 @@
         </trans-unit>
         <trans-unit id="Report 3997829766 - NamedType 3457055576" size-unit="char" translate="yes" xml:space="preserve">
           <source>Net Amount</source>
-          <target state="translated">Montant Net</target>
+          <target state="translated">Montant Net.</target>
           <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">Report PWD Invoice - NamedType TotalExclVATTextLbl</note>
         </trans-unit>
@@ -10214,18 +10202,6 @@
           <target state="translated">Prix unitaire</target>
           <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">Report PWD Invoice - NamedType Unit_PriceCaptionLbl</note>
-        </trans-unit>
-        <trans-unit id="Report 3997829766 - Method 2495759385 - NamedType 3567615443" size-unit="char" translate="yes" xml:space="preserve">
-          <source>LA PIERRETTE SA : Sales Invoice %1</source>
-          <target state="translated">LA PIERRETTE SA : Facture Pro forma </target>
-          <note from="Developer" annotates="general" priority="2"/>
-          <note from="Xliff Generator" annotates="general" priority="3">Report PWD Invoice - Method SendPDFMail - NamedType CstL001</note>
-        </trans-unit>
-        <trans-unit id="Report 3997829766 - Method 2495759385 - NamedType 1185737998" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Next the invoice following your order %1</source>
-          <target state="translated">Ci-joint l'impression de la facture Pro forma suite à votre commande %1</target>
-          <note from="Developer" annotates="general" priority="2"/>
-          <note from="Xliff Generator" annotates="general" priority="3">Report PWD Invoice - Method SendPDFMail - NamedType CstL002</note>
         </trans-unit>
         <trans-unit id="Report 3997829766 - ReportDataItem 809936682 - Property 1806354803" size-unit="char" translate="yes" xml:space="preserve">
           <source>Posted Sales Invoice</source>
@@ -10239,17 +10215,17 @@
           <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">Report PWD Invoice - Control Options - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Report 3997829766 - Control 1869728045 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Send by email</source>
-          <target state="translated">Envoyer par email</target>
-          <note from="Developer" annotates="general" priority="2"/>
-          <note from="Xliff Generator" annotates="general" priority="3">Report PWD Invoice - Control Envoyer par email - Property Caption</note>
-        </trans-unit>
         <trans-unit id="Report 3997829766 - Control 1202731191 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>No. of Copies</source>
           <target state="translated">N° de copies</target>
           <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">Report PWD Invoice - Control NoOfCopiesF - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Report 3997829766 - Control 3387259332 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Show Logo</source>
+          <target state="translated">Afficher logo</target>
+          <note from="Developer" annotates="general" priority="2"/>
+          <note from="Xliff Generator" annotates="general" priority="3">Report PWD Invoice - Control Show Logo - Property Caption</note>
         </trans-unit>
         <trans-unit id="Report 3746294669 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Item Extraction</source>
@@ -10346,6 +10322,30 @@
           <target state="translated">Date pivot</target>
           <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">Report PWD Launch Manual Closing File - Control DatGReferenceDateF - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Report 4147163734 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Liste des Clients (Excel)</source>
+          <target state="translated">Liste des Clients (Excel)</target>
+          <note from="Developer" annotates="general" priority="2"/>
+          <note from="Xliff Generator" annotates="general" priority="3">Report PWD Liste des Clients (Excel) - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Report 4147163734 - NamedType 4259087789" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Addresse 2</source>
+          <target state="translated">Addresse 2</target>
+          <note from="Developer" annotates="general" priority="2"/>
+          <note from="Xliff Generator" annotates="general" priority="3">Report PWD Liste des Clients (Excel) - NamedType Add2Txt</note>
+        </trans-unit>
+        <trans-unit id="Report 4147163734 - NamedType 3751297251" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Customer</source>
+          <target state="translated">Client</target>
+          <note from="Developer" annotates="general" priority="2"/>
+          <note from="Xliff Generator" annotates="general" priority="3">Report PWD Liste des Clients (Excel) - NamedType CustTxt</note>
+        </trans-unit>
+        <trans-unit id="Report 4147163734 - NamedType 3860721549" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Page</source>
+          <target state="translated">Page</target>
+          <note from="Developer" annotates="general" priority="2"/>
+          <note from="Xliff Generator" annotates="general" priority="3">Report PWD Liste des Clients (Excel) - NamedType PageTxt</note>
         </trans-unit>
         <trans-unit id="Report 2855831222 - NamedType 3802638270" size-unit="char" translate="yes" xml:space="preserve">
           <source>Dans les gammes PIE (Filtrage %1), voulez vous forcer pour l'opération %2 le temps de prépa à %3 dans toutes les lignes de gamme ?</source>
@@ -10991,7 +10991,7 @@
         </trans-unit>
         <trans-unit id="Report 3220346388 - NamedType 3577229803" size-unit="char" translate="yes" xml:space="preserve">
           <source>Your Item Ref.</source>
-          <target state="translated">Votre Ref. Art. =</target>
+          <target state="translated">Votre Ref. Art.</target>
           <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">Report PWD Order LAP - NamedType Text015</note>
         </trans-unit>
@@ -11471,7 +11471,7 @@
         </trans-unit>
         <trans-unit id="Report 1120490724 - NamedType 3455521076" size-unit="char" translate="yes" xml:space="preserve">
           <source>Net Amount</source>
-          <target state="translated">Montant Net</target>
+          <target state="translated">Montant Net.</target>
           <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">Report PWD Proforma invoice - NamedType Net_AmountCaptionLbl</note>
         </trans-unit>
@@ -11495,13 +11495,13 @@
         </trans-unit>
         <trans-unit id="Report 1120490724 - NamedType 3543864855" size-unit="char" translate="yes" xml:space="preserve">
           <source>Document No. : </source>
-          <target state="translated">Numéro du Document :</target>
+          <target state="translated">Numéro du document :</target>
           <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">Report PWD Proforma invoice - NamedType Sales_Header_No_captionLbl</note>
         </trans-unit>
         <trans-unit id="Report 1120490724 - NamedType 3004817273" size-unit="char" translate="yes" xml:space="preserve">
           <source>VAT Registration No. : </source>
-          <target state="translated">N° identificateur TVA :</target>
+          <target state="translated">N° identifiant TVA :</target>
           <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">Report PWD Proforma invoice - NamedType Sales_Header_VAT_Registration_No_captionLbl</note>
         </trans-unit>
@@ -11573,7 +11573,7 @@
         </trans-unit>
         <trans-unit id="Report 1120490724 - NamedType 1026443335" size-unit="char" translate="yes" xml:space="preserve">
           <source>Payment Terms  %1</source>
-          <target state="translated">Condition de paiement %1</target>
+          <target state="translated">Conditions du paiement %1</target>
           <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">Report PWD Proforma invoice - NamedType Text011</note>
         </trans-unit>
@@ -12185,7 +12185,7 @@
         </trans-unit>
         <trans-unit id="Report 1565759238 - NamedType 4266854051" size-unit="char" translate="yes" xml:space="preserve">
           <source>Net Amount</source>
-          <target state="translated">Montant Net</target>
+          <target state="translated">Montant Net.</target>
           <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">Report PWD Sales Order Confirmation - NamedType SalesLine__Line_Amount__SalesLine__Inv__Discount_Amount_CaptionLbl</note>
         </trans-unit>
@@ -12257,7 +12257,7 @@
         </trans-unit>
         <trans-unit id="Report 1565759238 - NamedType 3577229803" size-unit="char" translate="yes" xml:space="preserve">
           <source>Your Item Ref.</source>
-          <target state="translated">Votre Ref. Art. =</target>
+          <target state="translated">Votre Ref. Art.</target>
           <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">Report PWD Sales Order Confirmation - NamedType Text015</note>
         </trans-unit>
@@ -12279,18 +12279,6 @@
           <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">Report PWD Sales Order Confirmation - NamedType Unit_PriceCaptionLbl</note>
         </trans-unit>
-        <trans-unit id="Report 1565759238 - Method 2495759385 - NamedType 3567615443" size-unit="char" translate="yes" xml:space="preserve">
-          <source>LA PIERRETTE SA : Sales Order Confirmation</source>
-          <target state="translated">LA PIERRETTE SA : Confirmation de commande</target>
-          <note from="Developer" annotates="general" priority="2"/>
-          <note from="Xliff Generator" annotates="general" priority="3">Report PWD Sales Order Confirmation - Method SendPDFMail - NamedType CstL001</note>
-        </trans-unit>
-        <trans-unit id="Report 1565759238 - Method 2495759385 - NamedType 1185737998" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Next the order confirmation following your order %1</source>
-          <target state="translated">Ci-joint l'impression de la confirmation de commande %1</target>
-          <note from="Developer" annotates="general" priority="2"/>
-          <note from="Xliff Generator" annotates="general" priority="3">Report PWD Sales Order Confirmation - Method SendPDFMail - NamedType CstL002</note>
-        </trans-unit>
         <trans-unit id="Report 1565759238 - ReportDataItem 1192395785 - Property 1806354803" size-unit="char" translate="yes" xml:space="preserve">
           <source>Sales Order Confirmation</source>
           <target state="translated">Confirmation de commande</target>
@@ -12308,12 +12296,6 @@
           <target state="translated">Archiver document</target>
           <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">Report PWD Sales Order Confirmation - Control ArchiveDocumentF - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Report 1565759238 - Control 1869728045 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Send by email</source>
-          <target state="translated">Envoyer par email</target>
-          <note from="Developer" annotates="general" priority="2"/>
-          <note from="Xliff Generator" annotates="general" priority="3">Report PWD Sales Order Confirmation - Control Envoyer par email - Property Caption</note>
         </trans-unit>
         <trans-unit id="Report 1565759238 - Control 218814212 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Log Interaction</source>
@@ -12623,7 +12605,7 @@
         </trans-unit>
         <trans-unit id="Report 2035244793 - NamedType 3247286813" size-unit="char" translate="yes" xml:space="preserve">
           <source>Qty Shipped</source>
-          <target state="translated">Qté expédiée</target>
+          <target state="translated">Qté Livrée</target>
           <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">Report PWD Shipment Advice - NamedType Qty_Shipped_captionLbl</note>
         </trans-unit>
@@ -12647,13 +12629,13 @@
         </trans-unit>
         <trans-unit id="Report 2035244793 - NamedType 3543864855" size-unit="char" translate="yes" xml:space="preserve">
           <source>Document No. : </source>
-          <target state="translated">Numéro du Document :</target>
+          <target state="translated">Numéro du document :</target>
           <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">Report PWD Shipment Advice - NamedType Sales_Header_No_captionLbl</note>
         </trans-unit>
         <trans-unit id="Report 2035244793 - NamedType 3004817273" size-unit="char" translate="yes" xml:space="preserve">
           <source>VAT Registration No. : </source>
-          <target state="translated">N° identificateur TVA :</target>
+          <target state="translated">N° identifiant TVA :</target>
           <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">Report PWD Shipment Advice - NamedType Sales_Header_VAT_Registration_No_captionLbl</note>
         </trans-unit>
@@ -12701,7 +12683,7 @@
         </trans-unit>
         <trans-unit id="Report 2035244793 - NamedType 1370456556" size-unit="char" translate="yes" xml:space="preserve">
           <source>Your Item Ref.</source>
-          <target state="translated">Votre Ref. Art. =</target>
+          <target state="translated">Votre Ref. Art.</target>
           <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">Report PWD Shipment Advice - NamedType Text005</note>
         </trans-unit>
@@ -12710,18 +12692,6 @@
           <target state="translated">Votre N° Plan</target>
           <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">Report PWD Shipment Advice - NamedType Text006</note>
-        </trans-unit>
-        <trans-unit id="Report 2035244793 - Method 2495759385 - NamedType 3567615443" size-unit="char" translate="yes" xml:space="preserve">
-          <source>LA PIERRETTE SA : Sales Invoice %1</source>
-          <target state="translated">LA PIERRETTE SA : Facture Pro forma </target>
-          <note from="Developer" annotates="general" priority="2"/>
-          <note from="Xliff Generator" annotates="general" priority="3">Report PWD Shipment Advice - Method SendPDFMail - NamedType CstL001</note>
-        </trans-unit>
-        <trans-unit id="Report 2035244793 - Method 2495759385 - NamedType 1185737998" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Next the invoice following your order %1</source>
-          <target state="translated">Ci-joint l'impression de la facture Pro forma suite à votre commande %1</target>
-          <note from="Developer" annotates="general" priority="2"/>
-          <note from="Xliff Generator" annotates="general" priority="3">Report PWD Shipment Advice - Method SendPDFMail - NamedType CstL002</note>
         </trans-unit>
         <trans-unit id="Report 2035244793 - ReportDataItem 3118382297 - Property 1806354803" size-unit="char" translate="yes" xml:space="preserve">
           <source>Posted Sales Shipment</source>
@@ -12735,17 +12705,17 @@
           <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">Report PWD Shipment Advice - Control Options - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Report 2035244793 - Control 1869728045 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Send by email</source>
-          <target state="translated">Envoyer par email</target>
-          <note from="Developer" annotates="general" priority="2"/>
-          <note from="Xliff Generator" annotates="general" priority="3">Report PWD Shipment Advice - Control Envoyer par email - Property Caption</note>
-        </trans-unit>
         <trans-unit id="Report 2035244793 - Control 1202731191 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>No. of Copies</source>
           <target state="translated">N° de copies</target>
           <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">Report PWD Shipment Advice - Control NoOfCopiesF - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Report 2035244793 - Control 3387259332 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Show Logo</source>
+          <target state="translated">Afficher logo</target>
+          <note from="Developer" annotates="general" priority="2"/>
+          <note from="Xliff Generator" annotates="general" priority="3">Report PWD Shipment Advice - Control Show Logo - Property Caption</note>
         </trans-unit>
         <trans-unit id="Report 2104918138 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Soumission</source>
@@ -12773,7 +12743,7 @@
         </trans-unit>
         <trans-unit id="Report 2104918138 - NamedType 2943774568" size-unit="char" translate="yes" xml:space="preserve">
           <source>VAT Registration No. : </source>
-          <target state="translated">N° identificateur TVA :</target>
+          <target state="translated">N° identifiant TVA :</target>
           <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">Report PWD Soumission - NamedType Customer_VATRegistrationNoCaptionLbl</note>
         </trans-unit>
@@ -12827,7 +12797,7 @@
         </trans-unit>
         <trans-unit id="Report 2104918138 - NamedType 2858141586" size-unit="char" translate="yes" xml:space="preserve">
           <source>Document No. : </source>
-          <target state="translated">Numéro du Document :</target>
+          <target state="translated">Numéro du document :</target>
           <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">Report PWD Soumission - NamedType Transfer_Shipment_Header___No__CaptionLbl</note>
         </trans-unit>
@@ -17003,7 +16973,7 @@
         </trans-unit>
         <trans-unit id="Enum 605954248 - EnumValue 1371923692 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source> </source>
-          <target state="needs-translation"/>
+          <target state="translated"> </target>
           <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">Enum PWD Forecast Origin - EnumValue   - Property Caption</note>
         </trans-unit>
@@ -17069,7 +17039,7 @@
         </trans-unit>
         <trans-unit id="Enum 1056290169 - EnumValue 1371923692 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source> </source>
-          <target state="needs-translation"/>
+          <target state="translated"> </target>
           <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">Enum PWD Status Buffer - EnumValue   - Property Caption</note>
         </trans-unit>
@@ -17129,7 +17099,7 @@
         </trans-unit>
         <trans-unit id="Enum 2157814547 - EnumValue 1371923692 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source> </source>
-          <target state="needs-translation"/>
+          <target state="translated"> </target>
           <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">Enum PWD WMS_Status - EnumValue   - Property Caption</note>
         </trans-unit>

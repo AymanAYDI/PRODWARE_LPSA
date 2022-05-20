@@ -3946,11 +3946,11 @@ Cstr(Fields!VATAmountLine_VATAmountText.Value)+chr(177)+
 Cstr(Fields!AmountCaption.Value)+chr(177)+
 Cstr(Fields!CstG_012.Value) + Chr(177) +
 Last(Cstr(Fields!NetAmountCaption.Value))+ Chr(177) +
-Cstr(Format(Last(Cstr(Fields!NNC_TotalAmount.Value)),"N")) + Chr(177) +
+Cstr(Format(Last(Cstr(Fields!NNC_TotalAmount.Value)))) + Chr(177) +
 LAST(Cstr(Fields!VATCaption.Value)) + Chr(177) +
-Cstr(Format(Last(Cstr(Fields!NNC_VATAmount.Value)),"N")) + Chr(177) + 
+Cstr(Format(Last(Cstr(Fields!NNC_VATAmount.Value)))) + Chr(177) + 
 Cstr(Last(Cstr(Fields!TotalAmountInclVatCaption.Value))) + Chr(177) +
-Cstr(Format(Last(Cstr(Fields!NNC_TotalAmount.Value)) + Last(Cstr(Fields!NNC_VATAmount.Value)),"N"))+ Chr(177) +
+Cstr(Format(Last(Cstr(Fields!NNC_TotalAmount.Value)) + Last(Cstr(Fields!NNC_VATAmount.Value))))+ Chr(177) +
 Cstr(Fields!CstG_014.Value),4)</Hidden>
                                             </Visibility>
                                             <Style>
@@ -6289,7 +6289,6 @@ Cstr(sum(Fields!Sales_Cr_Memo_Line__Amount_Including_VAT_.Value)),5)</Hidden>
             <PageBreak>
               <BreakLocation>End</BreakLocation>
             </PageBreak>
-            <Top>0cm</Top>
             <Left>0.00794cm</Left>
             <Height>4.23cm</Height>
             <Width>18.823cm</Width>
@@ -7290,7 +7289,6 @@ Cstr(sum(Fields!Sales_Cr_Memo_Line__Amount_Including_VAT_.Value)),5)</Hidden>
                     </Paragraph>
                   </Paragraphs>
                   <Top>3.38568cm</Top>
-                  <Left>0cm</Left>
                   <Height>0.5cm</Height>
                   <Width>8.25397cm</Width>
                   <ZIndex>11</ZIndex>
@@ -7380,7 +7378,6 @@ Cstr(sum(Fields!Sales_Cr_Memo_Line__Amount_Including_VAT_.Value)),5)</Hidden>
                     </Paragraph>
                   </Paragraphs>
                   <Top>5.29044cm</Top>
-                  <Left>0cm</Left>
                   <Height>0.56772cm</Height>
                   <Width>2.85714cm</Width>
                   <ZIndex>14</ZIndex>
@@ -7646,7 +7643,6 @@ Cstr(sum(Fields!Sales_Cr_Memo_Line__Amount_Including_VAT_.Value)),5)</Hidden>
                       <Style />
                     </Paragraph>
                   </Paragraphs>
-                  <Left>0cm</Left>
                   <Height>3.384cm</Height>
                   <Width>10.998cm</Width>
                   <ZIndex>22</ZIndex>

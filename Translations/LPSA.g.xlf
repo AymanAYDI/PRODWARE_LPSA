@@ -7783,6 +7783,11 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Report PWD Credit Note - Control NoOfCopiesF - Property Caption</note>
         </trans-unit>
+        <trans-unit id="Report 495364762 - Control 3387259332 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Show Logo</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report PWD Credit Note - Control Show Logo - Property Caption</note>
+        </trans-unit>
         <trans-unit id="Report 2810203791 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Customer - Order Detail</source>
           <note from="Developer" annotates="general" priority="2"></note>
@@ -8513,6 +8518,11 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Report PWD Invoice - Control NoOfCopiesF - Property Caption</note>
         </trans-unit>
+        <trans-unit id="Report 3997829766 - Control 3387259332 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Show Logo</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report PWD Invoice - Control Show Logo - Property Caption</note>
+        </trans-unit>
         <trans-unit id="Report 3746294669 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Item Extraction</source>
           <note from="Developer" annotates="general" priority="2"></note>
@@ -8594,29 +8604,24 @@
           <note from="Xliff Generator" annotates="general" priority="3">Report PWD Launch Manual Closing File - Control DatGReferenceDateF - Property Caption</note>
         </trans-unit>
         <trans-unit id="Report 4147163734 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>PWD Liste des Clients (Excel)</source>
+          <source>Liste des Clients (Excel)</source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Report PWD Liste des Clients (Excel) - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Report 4147163734 - NamedType 4259087789" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Addresse 2</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report PWD Liste des Clients (Excel) - NamedType Add2Txt</note>
         </trans-unit>
         <trans-unit id="Report 4147163734 - NamedType 3751297251" size-unit="char" translate="yes" xml:space="preserve">
           <source>Customer</source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Report PWD Liste des Clients (Excel) - NamedType CustTxt</note>
         </trans-unit>
-        <trans-unit id="Report 4147163734 - NamedType 3546379010" size-unit="char" translate="yes" xml:space="preserve">
+        <trans-unit id="Report 4147163734 - NamedType 3860721549" size-unit="char" translate="yes" xml:space="preserve">
           <source>Page</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Report PWD Liste des Clients (Excel) - NamedType PageText</note>
-        </trans-unit>
-        <trans-unit id="Report 4147163734 - Control 2346885236 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Options</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Report PWD Liste des Clients (Excel) - Control Options - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Report 4147163734 - Control 1331298117 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Export Excel</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Report PWD Liste des Clients (Excel) - Control Exportexcel - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report PWD Liste des Clients (Excel) - NamedType PageTxt</note>
         </trans-unit>
         <trans-unit id="Report 2855831222 - NamedType 3802638270" size-unit="char" translate="yes" xml:space="preserve">
           <source>Dans les gammes PIE (Filtrage %1), voulez vous forcer pour l'opération %2 le temps de prépa à %3 dans toutes les lignes de gamme ?</source>
@@ -10587,6 +10592,11 @@
           <source>No. of Copies</source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Report PWD Shipment Advice - Control NoOfCopiesF - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Report 2035244793 - Control 3387259332 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Show Logo</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report PWD Shipment Advice - Control Show Logo - Property Caption</note>
         </trans-unit>
         <trans-unit id="Report 2104918138 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Soumission</source>

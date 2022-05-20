@@ -140,7 +140,7 @@ report 50014 "PWD Invoice"
                     column(CompanyInfo__VAT_Registration_No__; CompanyInfo."VAT Registration No.")
                     {
                     }
-                    column(EnvoiMail; BooGEnvoiMail)
+                    column(EnvoiMail; BooGImp)
                     {
                     }
                     column(Facture_caption; Facture_captionLbl)
@@ -688,11 +688,11 @@ report 50014 "PWD Invoice"
                         Caption = 'No. of Copies';
                         ApplicationArea = All;
                     }
-                    // field("Envoyer par email"; BooGEnvoiMail)
-                    // {
-                    //     Caption = 'Send by email';
-                    //     ApplicationArea = All;
-                    // }
+                    field("Show Logo"; BooGImp)
+                    {
+                        Caption = 'Show Logo';
+                        ApplicationArea = All;
+                    }
                 }
             }
         }
@@ -736,7 +736,7 @@ report 50014 "PWD Invoice"
         end;
 
         //>>NDBI
-        //BooGEnvoiMail := true;
+        BooGImp := true;
         //<<NDBI
     end;
 
@@ -745,7 +745,7 @@ report 50014 "PWD Invoice"
         RecLSalesInvoiceHeader: Record "Sales Invoice Header";
     begin
         //>>NDBI
-        // if not BooGSkipSendEmail and BooGEnvoiMail then begin
+        // if not BooGSkipSendEmail and BooGImp then begin
         //     RecLSalesInvoiceHeader.SetView("Sales Invoice Header".GetView());
         //     //SendPDFMail(RecLSalesInvoiceHeader);
         //     RecLSalesInvoiceHeader.EmailRecords(true);
@@ -780,7 +780,7 @@ report 50014 "PWD Invoice"
         SalesInvCountPrinted: Codeunit "Sales Inv.-Printed";
         SegManagement: Codeunit SegManagement;
         AfficherligneComptegeneral: Boolean;
-        BooGEnvoiMail: Boolean;
+        BooGImp: Boolean;
         BooGSkipSendEmail: Boolean;
         LogInteraction: Boolean;
         [InDataSet]

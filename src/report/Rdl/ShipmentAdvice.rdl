@@ -2938,6 +2938,9 @@ Cstr(Fields!Sales_Header_External_Document_No_caption.Value) + Chr(177),2)</Hidd
                   <Width>6.3cm</Width>
                   <ZIndex>13</ZIndex>
                   <Style>
+                    <Border>
+                      <Style>None</Style>
+                    </Border>
                     <VerticalAlign>Middle</VerticalAlign>
                   </Style>
                 </Textbox>
@@ -2963,6 +2966,9 @@ Cstr(Fields!Sales_Header_External_Document_No_caption.Value) + Chr(177),2)</Hidd
                   <Width>6.3cm</Width>
                   <ZIndex>14</ZIndex>
                   <Style>
+                    <Border>
+                      <Style>None</Style>
+                    </Border>
                     <VerticalAlign>Middle</VerticalAlign>
                   </Style>
                 </Textbox>
@@ -2988,6 +2994,9 @@ Cstr(Fields!Sales_Header_External_Document_No_caption.Value) + Chr(177),2)</Hidd
                   <Width>6.3cm</Width>
                   <ZIndex>15</ZIndex>
                   <Style>
+                    <Border>
+                      <Style>None</Style>
+                    </Border>
                     <VerticalAlign>Middle</VerticalAlign>
                   </Style>
                 </Textbox>
@@ -3019,6 +3028,7 @@ Cstr(Fields!Sales_Header_External_Document_No_caption.Value) + Chr(177),2)</Hidd
                   </Style>
                 </Textbox>
                 <Textbox Name="CustAddr_1_1">
+                  <CanGrow>true</CanGrow>
                   <KeepTogether>true</KeepTogether>
                   <Paragraphs>
                     <Paragraph>
@@ -3040,6 +3050,9 @@ Cstr(Fields!Sales_Header_External_Document_No_caption.Value) + Chr(177),2)</Hidd
                   <Width>6.3cm</Width>
                   <ZIndex>17</ZIndex>
                   <Style>
+                    <Border>
+                      <Style>None</Style>
+                    </Border>
                     <VerticalAlign>Middle</VerticalAlign>
                   </Style>
                 </Textbox>
@@ -3189,6 +3202,9 @@ Cstr(Fields!Sales_Header_External_Document_No_caption.Value) + Chr(177),2)</Hidd
                   <Width>6.3cm</Width>
                   <ZIndex>23</ZIndex>
                   <Style>
+                    <Border>
+                      <Style>None</Style>
+                    </Border>
                     <VerticalAlign>Middle</VerticalAlign>
                   </Style>
                 </Textbox>

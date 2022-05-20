@@ -487,7 +487,7 @@
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value>=FIRST(Fields!Sales_Invoice_Line__Sales_Invoice_Line___LPSA_Description_1_.value)</Value>
+                                                    <Value>=Fields!Sales_Invoice_Line__Sales_Invoice_Line___LPSA_Description_1_.value</Value>
                                                     <Style>
                                                       <FontSize>8pt</FontSize>
                                                     </Style>
@@ -4318,7 +4318,11 @@ Cstr(Fields!CstG_014.value) + chr(177),4)</Hidden>
                     <Hidden>= IIF(ReportItems!EnvoiMail.Value = False,True,False)</Hidden>
                   </Visibility>
                   <DataElementOutput>NoOutput</DataElementOutput>
-                  <Style />
+                  <Style>
+                    <Border>
+                      <Style>None</Style>
+                    </Border>
+                  </Style>
                 </Image>
               </ReportItems>
               <DataElementOutput>ContentsOnly</DataElementOutput>
@@ -5005,7 +5009,11 @@ Cstr(Fields!CstG_014.value) + chr(177),4)</Hidden>
                     <Hidden>= IIF(ReportItems!EnvoiMail.Value = False,True,False)</Hidden>
                   </Visibility>
                   <DataElementOutput>NoOutput</DataElementOutput>
-                  <Style />
+                  <Style>
+                    <Border>
+                      <Style>None</Style>
+                    </Border>
+                  </Style>
                 </Textbox>
                 <Textbox Name="textbox20">
                   <CanGrow>true</CanGrow>
@@ -5034,7 +5042,11 @@ Cstr(Fields!CstG_014.value) + chr(177),4)</Hidden>
                     <Hidden>= IIF(ReportItems!EnvoiMail.Value = False,True,False)</Hidden>
                   </Visibility>
                   <DataElementOutput>NoOutput</DataElementOutput>
-                  <Style />
+                  <Style>
+                    <Border>
+                      <Style>None</Style>
+                    </Border>
+                  </Style>
                 </Textbox>
               </ReportItems>
               <DataElementOutput>ContentsOnly</DataElementOutput>

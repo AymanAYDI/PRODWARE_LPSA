@@ -126,7 +126,7 @@ report 50012 "PWD Shipment Advice"
                     column(ShipToAddr_1_; ShipToAddr[1])
                     {
                     }
-                    column(EnvoiMail; BooGEnvoiMail)
+                    column(EnvoiMail; BooGIMP)
                     {
                     }
                     column(Facture_caption; Facture_captionLbl)
@@ -473,11 +473,11 @@ report 50012 "PWD Shipment Advice"
                         Caption = 'No. of Copies';
                         ApplicationArea = All;
                     }
-                    // field("Envoyer par email"; BooGEnvoiMail)
-                    // {
-                    //     Caption = 'Send by email';
-                    //     ApplicationArea = All;
-                    // }
+                    field("Show Logo"; BooGIMP)
+                    {
+                        Caption = 'Show Logo';
+                        ApplicationArea = All;
+                    }
                 }
             }
         }
@@ -515,7 +515,7 @@ report 50012 "PWD Shipment Advice"
         end;
 
         //>>NDBI
-        //BooGEnvoiMail := true;
+        BooGIMP := true;
         //<<NDBI
     end;
 
@@ -559,7 +559,7 @@ report 50012 "PWD Shipment Advice"
         LPSAFunctionsMgt: Codeunit "PWD LPSA Functions Mgt.";
         ShptCountPrinted: Codeunit "Sales Shpt.-Printed";
         SegManagement: Codeunit SegManagement;
-        BooGEnvoiMail: Boolean;
+        BooGIMP: Boolean;
         BooGSkipSendEmail: Boolean;
         BooGStopComment: Boolean;
         LogInteraction: Boolean;
