@@ -58,6 +58,12 @@
                                                       <FontSize>8pt</FontSize>
                                                     </Style>
                                                   </TextRun>
+                                                  <TextRun>
+                                                    <Value>0</Value>
+                                                    <Style>
+                                                      <FontSize>8pt</FontSize>
+                                                    </Style>
+                                                  </TextRun>
                                                 </TextRuns>
                                                 <Style />
                                               </Paragraph>
@@ -1185,10 +1191,10 @@ Cstr(Fields!Return_Shipment_Header__VAT_Registration.Value),3)</Hidden>
                                               </Paragraph>
                                             </Paragraphs>
                                             <ZIndex>5</ZIndex>
-                                            <Visibility>
-                                              <Hidden>true</Hidden>
-                                            </Visibility>
                                             <Style>
+                                              <Border>
+                                                <Style>None</Style>
+                                              </Border>
                                               <VerticalAlign>Middle</VerticalAlign>
                                               <PaddingLeft>2pt</PaddingLeft>
                                               <PaddingRight>2pt</PaddingRight>
@@ -2996,6 +3002,7 @@ Cstr(Fields!ShipToAddr_7_.Value) + Chr(177) + Cstr(Fields!ShipToAddr_8_.Value) +
             <PageBreak>
               <BreakLocation>End</BreakLocation>
             </PageBreak>
+            <Left>0.03528cm</Left>
             <Height>10.15873cm</Height>
             <Width>18.09524cm</Width>
             <Style />
@@ -3004,7 +3011,7 @@ Cstr(Fields!ShipToAddr_7_.Value) + Chr(177) + Cstr(Fields!ShipToAddr_8_.Value) +
         <Height>10.15873cm</Height>
         <Style />
       </Body>
-      <Width>18.4127cm</Width>
+      <Width>18.44798cm</Width>
       <Page>
         <PageHeader>
           <Height>8.46cm</Height>
@@ -3027,6 +3034,7 @@ Cstr(Fields!ShipToAddr_7_.Value) + Chr(177) + Cstr(Fields!ShipToAddr_8_.Value) +
                 </Paragraph>
               </Paragraphs>
               <Top>5.07937cm</Top>
+              <Left>0.03528cm</Left>
               <Height>0.423cm</Height>
               <Width>4.7619cm</Width>
               <Style>
@@ -3050,7 +3058,7 @@ Cstr(Fields!ShipToAddr_7_.Value) + Chr(177) + Cstr(Fields!ShipToAddr_8_.Value) +
                 </Paragraph>
               </Paragraphs>
               <Top>6.188cm</Top>
-              <Left>10.998cm</Left>
+              <Left>11.03328cm</Left>
               <Height>0.423cm</Height>
               <Width>6.3cm</Width>
               <ZIndex>1</ZIndex>
@@ -3075,7 +3083,7 @@ Cstr(Fields!ShipToAddr_7_.Value) + Chr(177) + Cstr(Fields!ShipToAddr_8_.Value) +
                 </Paragraph>
               </Paragraphs>
               <Top>5.765cm</Top>
-              <Left>10.998cm</Left>
+              <Left>11.03328cm</Left>
               <Height>0.423cm</Height>
               <Width>6.3cm</Width>
               <ZIndex>2</ZIndex>
@@ -3100,7 +3108,7 @@ Cstr(Fields!ShipToAddr_7_.Value) + Chr(177) + Cstr(Fields!ShipToAddr_8_.Value) +
                 </Paragraph>
               </Paragraphs>
               <Top>5.342cm</Top>
-              <Left>10.998cm</Left>
+              <Left>11.03328cm</Left>
               <Height>0.423cm</Height>
               <Width>6.3cm</Width>
               <ZIndex>3</ZIndex>
@@ -3125,7 +3133,7 @@ Cstr(Fields!ShipToAddr_7_.Value) + Chr(177) + Cstr(Fields!ShipToAddr_8_.Value) +
                 </Paragraph>
               </Paragraphs>
               <Top>4.919cm</Top>
-              <Left>10.998cm</Left>
+              <Left>11.03328cm</Left>
               <Height>0.423cm</Height>
               <Width>6.3cm</Width>
               <ZIndex>4</ZIndex>
@@ -3149,8 +3157,8 @@ Cstr(Fields!ShipToAddr_7_.Value) + Chr(177) + Cstr(Fields!ShipToAddr_8_.Value) +
                   <Style />
                 </Paragraph>
               </Paragraphs>
-              <Top>4.496cm</Top>
-              <Left>10.998cm</Left>
+              <Top>4.53128cm</Top>
+              <Left>11.03328cm</Left>
               <Height>0.423cm</Height>
               <Width>6.3cm</Width>
               <ZIndex>5</ZIndex>
@@ -3175,7 +3183,7 @@ Cstr(Fields!ShipToAddr_7_.Value) + Chr(177) + Cstr(Fields!ShipToAddr_8_.Value) +
                 </Paragraph>
               </Paragraphs>
               <Top>4.073cm</Top>
-              <Left>10.998cm</Left>
+              <Left>11.03328cm</Left>
               <Height>0.423cm</Height>
               <Width>6.3cm</Width>
               <ZIndex>6</ZIndex>
@@ -3199,8 +3207,8 @@ Cstr(Fields!ShipToAddr_7_.Value) + Chr(177) + Cstr(Fields!ShipToAddr_8_.Value) +
                   <Style />
                 </Paragraph>
               </Paragraphs>
-              <Top>3.65cm</Top>
-              <Left>10.998cm</Left>
+              <Top>3.61472cm</Top>
+              <Left>11.03528cm</Left>
               <Height>0.423cm</Height>
               <Width>6.3cm</Width>
               <ZIndex>7</ZIndex>
@@ -3226,7 +3234,7 @@ Cstr(Fields!ShipToAddr_7_.Value) + Chr(177) + Cstr(Fields!ShipToAddr_8_.Value) +
                 </Paragraph>
               </Paragraphs>
               <Top>5.07937cm</Top>
-              <Left>4.7619cm</Left>
+              <Left>4.79718cm</Left>
               <Height>0.423cm</Height>
               <Width>4.76191cm</Width>
               <ZIndex>8</ZIndex>
@@ -3250,7 +3258,7 @@ Cstr(Fields!ShipToAddr_7_.Value) + Chr(177) + Cstr(Fields!ShipToAddr_8_.Value) +
                 </Paragraph>
               </Paragraphs>
               <Top>6.34415cm</Top>
-              <Left>4.7619cm</Left>
+              <Left>4.79718cm</Left>
               <Height>0.423cm</Height>
               <Width>4.76191cm</Width>
               <ZIndex>9</ZIndex>
@@ -3274,6 +3282,7 @@ Cstr(Fields!ShipToAddr_7_.Value) + Chr(177) + Cstr(Fields!ShipToAddr_8_.Value) +
                 </Paragraph>
               </Paragraphs>
               <Top>6.34415cm</Top>
+              <Left>0.03528cm</Left>
               <Height>0.423cm</Height>
               <Width>4.7619cm</Width>
               <ZIndex>10</ZIndex>
@@ -3299,7 +3308,7 @@ Cstr(Fields!ShipToAddr_7_.Value) + Chr(177) + Cstr(Fields!ShipToAddr_8_.Value) +
                 </Paragraph>
               </Paragraphs>
               <Top>2.22222cm</Top>
-              <Left>12.38095cm</Left>
+              <Left>12.41623cm</Left>
               <Height>0.423cm</Height>
               <Width>5.59286cm</Width>
               <ZIndex>11</ZIndex>
@@ -3326,7 +3335,7 @@ Cstr(Fields!ShipToAddr_7_.Value) + Chr(177) + Cstr(Fields!ShipToAddr_8_.Value) +
                 </Paragraph>
               </Paragraphs>
               <Top>7cm</Top>
-              <Left>11cm</Left>
+              <Left>11.03528cm</Left>
               <Height>0.423cm</Height>
               <Width>5.39683cm</Width>
               <ZIndex>12</ZIndex>
@@ -3351,6 +3360,7 @@ Cstr(Fields!ShipToAddr_7_.Value) + Chr(177) + Cstr(Fields!ShipToAddr_8_.Value) +
                 </Paragraph>
               </Paragraphs>
               <Top>3.5cm</Top>
+              <Left>0.03528cm</Left>
               <Height>0.63492cm</Height>
               <Width>5.39683cm</Width>
               <ZIndex>13</ZIndex>
@@ -3374,6 +3384,7 @@ Cstr(Fields!ShipToAddr_7_.Value) + Chr(177) + Cstr(Fields!ShipToAddr_8_.Value) +
                 </Paragraph>
               </Paragraphs>
               <Top>4.653cm</Top>
+              <Left>0.03528cm</Left>
               <Height>0.423cm</Height>
               <Width>4.7619cm</Width>
               <ZIndex>14</ZIndex>
@@ -3397,6 +3408,7 @@ Cstr(Fields!ShipToAddr_7_.Value) + Chr(177) + Cstr(Fields!ShipToAddr_8_.Value) +
                 </Paragraph>
               </Paragraphs>
               <Top>5.92114cm</Top>
+              <Left>0.03528cm</Left>
               <Height>0.423cm</Height>
               <Width>4.7619cm</Width>
               <ZIndex>15</ZIndex>
@@ -3420,7 +3432,7 @@ Cstr(Fields!ShipToAddr_7_.Value) + Chr(177) + Cstr(Fields!ShipToAddr_8_.Value) +
                 </Paragraph>
               </Paragraphs>
               <Top>5.92114cm</Top>
-              <Left>4.7619cm</Left>
+              <Left>4.79718cm</Left>
               <Height>0.423cm</Height>
               <Width>4.76191cm</Width>
               <ZIndex>16</ZIndex>
@@ -3444,7 +3456,7 @@ Cstr(Fields!ShipToAddr_7_.Value) + Chr(177) + Cstr(Fields!ShipToAddr_8_.Value) +
                 </Paragraph>
               </Paragraphs>
               <Top>7.7cm</Top>
-              <Left>11cm</Left>
+              <Left>11.03528cm</Left>
               <Height>0.423cm</Height>
               <Width>6.34921cm</Width>
               <ZIndex>17</ZIndex>
@@ -3468,6 +3480,7 @@ Cstr(Fields!ShipToAddr_7_.Value) + Chr(177) + Cstr(Fields!ShipToAddr_8_.Value) +
                 </Paragraph>
               </Paragraphs>
               <Top>6.768cm</Top>
+              <Left>0.03528cm</Left>
               <Height>0.423cm</Height>
               <Width>4.7619cm</Width>
               <ZIndex>18</ZIndex>
@@ -3491,7 +3504,7 @@ Cstr(Fields!ShipToAddr_7_.Value) + Chr(177) + Cstr(Fields!ShipToAddr_8_.Value) +
                 </Paragraph>
               </Paragraphs>
               <Top>6.768cm</Top>
-              <Left>4.7619cm</Left>
+              <Left>4.79718cm</Left>
               <Height>0.423cm</Height>
               <Width>4.76191cm</Width>
               <ZIndex>19</ZIndex>
@@ -3515,7 +3528,7 @@ Cstr(Fields!ShipToAddr_7_.Value) + Chr(177) + Cstr(Fields!ShipToAddr_8_.Value) +
                 </Paragraph>
               </Paragraphs>
               <Top>4.653cm</Top>
-              <Left>4.7619cm</Left>
+              <Left>4.79718cm</Left>
               <Height>0.423cm</Height>
               <Width>4.76191cm</Width>
               <ZIndex>20</ZIndex>
@@ -3564,7 +3577,7 @@ Cstr(Fields!ShipToAddr_7_.Value) + Chr(177) + Cstr(Fields!ShipToAddr_8_.Value) +
                 </Paragraph>
               </Paragraphs>
               <Top>5.49815cm</Top>
-              <Left>4.7619cm</Left>
+              <Left>4.79718cm</Left>
               <Height>0.423cm</Height>
               <Width>4.76191cm</Width>
               <ZIndex>22</ZIndex>

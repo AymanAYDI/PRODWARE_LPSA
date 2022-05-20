@@ -652,17 +652,14 @@ report 50004 "PWD Purchase - Quote LAP"
                 group(Control1900000002)
                 {
                     Caption = 'Options';
-                    ShowCaption = false;
                     field(NoOfCopiesF; NoOfCopies)
                     {
                         Caption = 'No. of Copies';
-                        ShowCaption = false;
                         ApplicationArea = All;
                     }
                     field(ShowInternalInfoF; ShowInternalInfo)
                     {
                         Caption = 'Show Internal Information';
-                        ShowCaption = false;
                         ApplicationArea = All;
                     }
                     field(ArchiveDocumentF; GArchiveDocument)

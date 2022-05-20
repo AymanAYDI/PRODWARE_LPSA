@@ -689,17 +689,14 @@ report 50009 "PWD Sales Order Confirmation"
                 group(Control1900000002)
                 {
                     Caption = 'Options';
-                    ShowCaption = false;
                     field(NoOfCopiesF; NoOfCopies)
                     {
                         Caption = 'No. of Copies';
-                        ShowCaption = false;
                         ApplicationArea = All;
                     }
                     field(ShowInternalInfoF; ShowInternalInfo)
                     {
                         Caption = 'Show Internal Information';
-                        ShowCaption = false;
                         ApplicationArea = All;
                     }
                     field(ArchiveDocumentF; ArchiveDocument)
