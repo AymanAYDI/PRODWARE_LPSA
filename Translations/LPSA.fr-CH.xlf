@@ -9305,7 +9305,7 @@
         </trans-unit>
         <trans-unit id="Report 495364762 - NamedType 857534312" size-unit="char" translate="yes" xml:space="preserve">
           <source>  VAT</source>
-          <target state="translated">VAT %</target>
+          <target state="translated"> TVA</target>
           <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">Report PWD Credit Note - NamedType Text018</note>
         </trans-unit>
@@ -11597,7 +11597,7 @@
         </trans-unit>
         <trans-unit id="Report 1120490724 - NamedType 3577229803" size-unit="char" translate="yes" xml:space="preserve">
           <source>  VAT</source>
-          <target state="translated">VAT %</target>
+          <target state="translated"> TVA</target>
           <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">Report PWD Proforma invoice - NamedType Text015</note>
         </trans-unit>
