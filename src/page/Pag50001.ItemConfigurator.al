@@ -110,15 +110,15 @@ page 50001 "PWD Item Configurator"
                 {
                     ApplicationArea = All;
                 }
-                field("PWD LPSA Description 1"; Rec."PWD LPSA Description 1")
+                field("PWD LPSA Description 1"; Rec."LPSA Description 1")
                 {
                     ApplicationArea = All;
                 }
-                field("PWD LPSA Description 2"; Rec."PWD LPSA Description 2")
+                field("PWD LPSA Description 2"; Rec."LPSA Description 2")
                 {
                     ApplicationArea = All;
                 }
-                field("PWD Quartis Description"; Rec."PWD Quartis Description")
+                field("PWD Quartis Description"; Rec."Quartis Description")
                 {
                     ApplicationArea = All;
                 }
@@ -422,7 +422,7 @@ page 50001 "PWD Item Configurator"
                 }
                 field("Height Max. Tol"; Rec."Height Max. Tol")
                 {
-                    Caption = 'Height Min.';
+                    Caption = 'Height Max.';
                     Editable = HeightTolEditable;
                     ApplicationArea = All;
                 }
@@ -1153,9 +1153,9 @@ page 50001 "PWD Item Configurator"
 
     procedure FctUpdateItem()
     begin
-        RecGItem."PWD LPSA Description 1" := Rec."PWD LPSA Description 1";
-        RecGItem."PWD LPSA Description 2" := Rec."PWD LPSA Description 2";
-        RecGItem."PWD Quartis Description" := Rec."PWD Quartis Description";
+        RecGItem."PWD LPSA Description 1" := Rec."LPSA Description 1";
+        RecGItem."PWD LPSA Description 2" := Rec."LPSA Description 2";
+        RecGItem."PWD Quartis Description" := Rec."Quartis Description";
 
         //>>FE_LAPIERRETTE_ART01.003
         /*
@@ -1163,12 +1163,12 @@ page 50001 "PWD Item Configurator"
         RecGItem.VALIDATE(Description,"PWD Quartis Description");
         //<<FE_LAPIERRETTE_ART01.002
         */
-        RecGItem.VALIDATE(Description, COPYSTR(Rec."PWD LPSA Description 1", 1, 50));
-        RecGItem.VALIDATE("Description 2", COPYSTR(Rec."PWD LPSA Description 2", 1, 50));
+        RecGItem.VALIDATE(Description, COPYSTR(Rec."LPSA Description 1", 1, 50));
+        RecGItem.VALIDATE("Description 2", COPYSTR(Rec."LPSA Description 2", 1, 50));
         //>>LAP2.12
         IF RecGItem."Search Description" = '' THEN
             //<<LAP2.12
-            RecGItem.VALIDATE("Search Description", COPYSTR(Rec."PWD Quartis Description", 1, 30));
+            RecGItem.VALIDATE("Search Description", COPYSTR(Rec."Quartis Description", 1, 30));
         ;
         //<<FE_LAPIERRETTE_ART01.003
 

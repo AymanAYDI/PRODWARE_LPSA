@@ -28,13 +28,13 @@ report 50055 "MAJ Description LPSA PIERRE"
                 "PWD Item Configurator".Modify();
 
                 if RecLItem.Get("PWD Item Configurator"."Item Code") then begin
-                    RecLItem."PWD LPSA Description 1" := "PWD Item Configurator"."PWD LPSA Description 1";
-                    RecLItem."PWD LPSA Description 2" := "PWD Item Configurator"."PWD LPSA Description 2";
-                    RecLItem."PWD Quartis Description" := "PWD Item Configurator"."PWD Quartis Description";
-                    RecLItem.Validate(Description, CopyStr("PWD Item Configurator"."PWD LPSA Description 1", 1, 50));
-                    RecLItem.Validate("Description 2", CopyStr("PWD Item Configurator"."PWD LPSA Description 2", 1, 50));
+                    RecLItem."PWD LPSA Description 1" := "PWD Item Configurator"."LPSA Description 1";
+                    RecLItem."PWD LPSA Description 2" := "PWD Item Configurator"."LPSA Description 2";
+                    RecLItem."PWD Quartis Description" := "PWD Item Configurator"."Quartis Description";
+                    RecLItem.Validate(Description, CopyStr("PWD Item Configurator"."LPSA Description 1", 1, 50));
+                    RecLItem.Validate("Description 2", CopyStr("PWD Item Configurator"."LPSA Description 2", 1, 50));
                     if RecLItem."Search Description" = '' then
-                        RecLItem.Validate("Search Description", CopyStr("PWD Item Configurator"."PWD Quartis Description", 1, 30));
+                        RecLItem.Validate("Search Description", CopyStr("PWD Item Configurator"."Quartis Description", 1, 30));
                     ;
                     RecLItem.Modify();
                 end;

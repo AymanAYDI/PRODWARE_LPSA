@@ -101,7 +101,7 @@
         </trans-unit>
         <trans-unit id="Table 2873902620 - Field 3360992915 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Archive Message</source>
-          <target state="translated">[NAB: NOT TRANSLATED]</target>
+          <target state="translated">Archive Message</target>
           <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">Table PWD Connector Messages - Field Archive Message - Property Caption</note>
         </trans-unit>
@@ -1301,7 +1301,7 @@
         </trans-unit>
         <trans-unit id="Table 1055272925 - Field 1372328014 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Height Min.</source>
-          <target state="translated">Hauteur min.</target>
+          <target state="translated">Hauteur max</target>
           <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">Table PWD Item Configurator - Field Height Max. Tol - Property Caption</note>
         </trans-unit>
@@ -1439,7 +1439,7 @@
         </trans-unit>
         <trans-unit id="Table 1055272925 - Field 3439922652 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Matter Stone</source>
-          <target state="translated">Matière préparage</target>
+          <target state="translated">Matière pierre</target>
           <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">Table PWD Item Configurator - Field Matter Stone - Property Caption</note>
         </trans-unit>
@@ -1487,7 +1487,7 @@
         </trans-unit>
         <trans-unit id="Table 1055272925 - Field 317058827 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Piece Type Stone</source>
-          <target state="translated">Type de pièce préparage</target>
+          <target state="translated">Type de pièce pierre</target>
           <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">Table PWD Item Configurator - Field Piece Type Stone - Property Caption</note>
         </trans-unit>
@@ -6953,13 +6953,13 @@
         </trans-unit>
         <trans-unit id="Page 1055272925 - Control 1372328014 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Height Min.</source>
-          <target state="translated">Hauteur min.</target>
+          <target state="translated">Epaisseur max</target>
           <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">Page PWD Item Configurator - Control Height Max. Tol - Property Caption</note>
         </trans-unit>
         <trans-unit id="Page 1055272925 - Control 636707376 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Height Min.</source>
-          <target state="translated">Hauteur min.</target>
+          <target state="translated">Epaisseur min</target>
           <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">Page PWD Item Configurator - Control Height Min. Tol - Property Caption</note>
         </trans-unit>
@@ -6977,19 +6977,19 @@
         </trans-unit>
         <trans-unit id="Page 1055272925 - Control 1729763396 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Thickness Max.</source>
-          <target state="translated">Epaisseur max.</target>
+          <target state="translated">Hauteur / Ep plat max</target>
           <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">Page PWD Item Configurator - Control Thick Max. Tol - Property Caption</note>
         </trans-unit>
         <trans-unit id="Page 1055272925 - Control 4177516858 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Thickness Min.</source>
-          <target state="translated">Epaisseur min</target>
+          <target state="translated">Hauteur / Ep plat min</target>
           <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">Page PWD Item Configurator - Control Thick Min. Tol - Property Caption</note>
         </trans-unit>
         <trans-unit id="Page 1055272925 - Control 3280761590 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Thickness</source>
-          <target state="translated">Epaisseur</target>
+          <target state="translated">LEV(Ht) / CDP(Ep plat)</target>
           <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">Page PWD Item Configurator - Control Thick Tol - Property Caption</note>
         </trans-unit>
@@ -15923,7 +15923,7 @@
         </trans-unit>
         <trans-unit id="TableExtension 2356018738 - Field 474980787 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 2308244223">
           <source>Source Material Vendor</source>
-          <target state="translated">[NAB: NOT TRANSLATED]</target>
+          <target state="translated">Fournisseur matière d'origine</target>
           <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">TableExtension PWD ProductionOrder - Field PWD Source Material Vendor - Property Caption</note>
         </trans-unit>

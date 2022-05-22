@@ -1084,7 +1084,7 @@
           <note from="Xliff Generator" annotates="general" priority="3">Table PWD Item Configurator - Field Height Max. - Property Caption</note>
         </trans-unit>
         <trans-unit id="Table 1055272925 - Field 1372328014 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Height Min.</source>
+          <source>Height Max.</source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Table PWD Item Configurator - Field Height Max. Tol - Property Caption</note>
         </trans-unit>
@@ -1183,6 +1183,16 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Table PWD Item Configurator - Field Location Code - Property Caption</note>
         </trans-unit>
+        <trans-unit id="Table 1055272925 - Field 2647894891 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>LPSA Description 1</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table PWD Item Configurator - Field LPSA Description 1 - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 1055272925 - Field 266017446 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>LPSA Description 2</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table PWD Item Configurator - Field LPSA Description 2 - Property Caption</note>
+        </trans-unit>
         <trans-unit id="Table 1055272925 - Field 2011792798 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Matter Lifted and Ellipses</source>
           <note from="Developer" annotates="general" priority="2"></note>
@@ -1273,25 +1283,15 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Table PWD Item Configurator - Field Product Type - Property OptionCaption</note>
         </trans-unit>
-        <trans-unit id="Table 1055272925 - Field 808963110 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>LPSA Description 1</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Table PWD Item Configurator - Field PWD LPSA Description 1 - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Table 1055272925 - Field 3190840555 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>LPSA Description 2</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Table PWD Item Configurator - Field PWD LPSA Description 2 - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Table 1055272925 - Field 370043320 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Quartis Description</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Table PWD Item Configurator - Field PWD Quartis Description - Property Caption</note>
-        </trans-unit>
         <trans-unit id="Table 1055272925 - Field 1169700138 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Désign. Quartis TEST</source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Table PWD Item Configurator - Field Quartis Desc TEST - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 1055272925 - Field 3943263545 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Quartis Description</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table PWD Item Configurator - Field Quartis Description - Property Caption</note>
         </trans-unit>
         <trans-unit id="Table 1055272925 - Field 2671348087 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>R / Arc</source>
@@ -5794,7 +5794,7 @@
           <note from="Xliff Generator" annotates="general" priority="3">Page PWD Item Configurator - Control LAEGP - Property Caption</note>
         </trans-unit>
         <trans-unit id="Page 1055272925 - Control 1372328014 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Height Min.</source>
+          <source>Height Max.</source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Page PWD Item Configurator - Control Height Max. Tol - Property Caption</note>
         </trans-unit>
