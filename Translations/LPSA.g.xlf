@@ -12288,6 +12288,11 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">PageExtension PWD PlanningWorksheet - Action PWD ProdBOMWhereUsed - Property Caption</note>
         </trans-unit>
+        <trans-unit id="PageExtension 977571580 - Action 2060225841 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 3144460829">
+          <source>Tout Cocher</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">PageExtension PWD PlanningWorksheet - Action PWD Action1100267001 - Property Caption</note>
+        </trans-unit>
         <trans-unit id="PageExtension 277648045 - Control 2632653686 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 407220332">
           <source>N° commande</source>
           <note from="Developer" annotates="general" priority="2"></note>

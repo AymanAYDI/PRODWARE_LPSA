@@ -6730,8 +6730,8 @@
           <note from="Xliff Generator" annotates="general" priority="3">Page Archived Lines Order Version 1 - Property Caption</note>
         </trans-unit>
         <trans-unit id="Page 3631766290 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>O.F. Planifiés fermes pour suppression</source>
-          <target state="translated">Liste OF Planifiés fermes</target>
+          <source>Firm Planned Prod. Order</source>
+          <target state="translated">O.F. Planifiés fermes pour suppression</target>
           <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">Page Firm Planned Prod. Order Del. - Property Caption</note>
         </trans-unit>
@@ -14744,6 +14744,12 @@
           <target state="translated">Cas d'emploi nomenclature</target>
           <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">PageExtension PWD PlanningWorksheet - Action PWD ProdBOMWhereUsed - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="PageExtension 977571580 - Action 2060225841 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 3144460829">
+          <source>Tout Cocher</source>
+          <target state="needs-translation"/>
+          <note from="Developer" annotates="general" priority="2"/>
+          <note from="Xliff Generator" annotates="general" priority="3">PageExtension PWD PlanningWorksheet - Action PWD Action1100267001 - Property Caption</note>
         </trans-unit>
         <trans-unit id="PageExtension 277648045 - Control 2632653686 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 407220332">
           <source>N° commande</source>
