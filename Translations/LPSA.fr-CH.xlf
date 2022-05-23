@@ -6730,7 +6730,7 @@
           <note from="Xliff Generator" annotates="general" priority="3">Page Archived Lines Order Version 1 - Property Caption</note>
         </trans-unit>
         <trans-unit id="Page 3631766290 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Firm Planned Prod. Order</source>
+          <source>O.F. Planifiés fermes pour suppression</source>
           <target state="translated">Liste OF Planifiés fermes</target>
           <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">Page Firm Planned Prod. Order Del. - Property Caption</note>
