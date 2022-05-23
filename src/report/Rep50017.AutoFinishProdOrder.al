@@ -8,6 +8,7 @@ report 50017 "PWD Auto. Finish Prod. Order"
     ProcessingOnly = true;
     ApplicationArea = all;
     UsageCategory = Tasks;
+    caption = 'Auto. Finish Prod. Order';
     dataset
     {
         dataitem("Production Order"; "Production Order")

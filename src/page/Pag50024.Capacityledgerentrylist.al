@@ -5,6 +5,7 @@ page 50024 "PWD Capacity ledger entry list"
     ApplicationArea = all;
     UsageCategory = History;
     SourceTable = "Capacity Ledger Entry";
+    caption = 'Capacity ledger entry list';
 
     layout
     {

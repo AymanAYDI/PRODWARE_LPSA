@@ -13,6 +13,7 @@ page 50019 "PWD Archive Sales Lines"
     PageType = List;
     SourceTable = "Sales Line Archive";
     UsageCategory = None;
+    caption = 'Archive Sales Lines';
 
     layout
     {

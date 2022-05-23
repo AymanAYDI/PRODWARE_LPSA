@@ -14,6 +14,7 @@ page 50004 "PWD Subfamily LPSA List"
     PageType = List;
     SourceTable = "PWD SubFamily LPSA";
     UsageCategory = None;
+    Caption = 'Subfamily LPSA List';
 
     layout
     {

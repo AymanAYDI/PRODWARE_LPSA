@@ -14,6 +14,7 @@ page 50009 "PWD Matter List"
     PageType = List;
     SourceTable = "PWD Matter";
     UsageCategory = None;
+    caption = 'Matter List';
 
     layout
     {

@@ -6,7 +6,7 @@ page 50016 "PWD Prod. Order Component List"
     ApplicationArea = all;
     UsageCategory = Lists;
     SourceTableView = SORTING(Status, "Prod. Order No.", "Prod. Order Line No.", "Line No.") WHERE(Status = FILTER("Firm Planned" | Released));
-
+    Caption = 'Prod. Order Component List';
     layout
     {
         area(content)

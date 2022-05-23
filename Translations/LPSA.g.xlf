@@ -5658,6 +5658,11 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Page Purchase Order Archive Lines - Action Action1907838004 - Property Caption</note>
         </trans-unit>
+        <trans-unit id="Page 1176195440 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Archive Sales Lines</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page PWD Archive Sales Lines - Property Caption</note>
+        </trans-unit>
         <trans-unit id="Page 1176195440 - Action 240802875 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>O&amp;rder</source>
           <note from="Developer" annotates="general" priority="2"></note>
@@ -5672,6 +5677,11 @@
           <source>Invoices</source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Page PWD Archive Sales Lines - Action &lt;Action1102601010&gt; - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 3730524640 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Capacity ledger entry list</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page PWD Capacity ledger entry list - Property Caption</note>
         </trans-unit>
         <trans-unit id="Page 2489301296 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Connector Error log</source>
@@ -5737,6 +5747,11 @@
           <source>Show Error Message</source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Page PWD Customer Buffer - Action Action1100294053 - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 3861946747 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Family LPSA List</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page PWD Family LPSA List - Property Caption</note>
         </trans-unit>
         <trans-unit id="Page 2694504995 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Fields Export Setup</source>
@@ -6513,6 +6528,11 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Page PWD Manufacturing cycles Setup - Property Caption</note>
         </trans-unit>
+        <trans-unit id="Page 3742611006 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Matter List</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page PWD Matter List - Property Caption</note>
+        </trans-unit>
         <trans-unit id="Page 2985216150 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>OSYS Setup</source>
           <note from="Developer" annotates="general" priority="2"></note>
@@ -6582,6 +6602,11 @@
           <source>&lt;Designation article Intermediaire&gt;</source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Page PWD Possible Items List - Control Possible Item Description - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 611075073 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Prod. Order Component List</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page PWD Prod. Order Component List - Property Caption</note>
         </trans-unit>
         <trans-unit id="Page 611075073 - Control 568743302 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Component No.</source>
@@ -6777,6 +6802,11 @@
           <source>Fields Setup</source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Page PWD Sending Message List - Action Action1100294014 - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 3682789183 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Subfamily LPSA List</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page PWD Subfamily LPSA List - Property Caption</note>
         </trans-unit>
         <trans-unit id="Page 1546457555 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Tools Instructions List</source>
@@ -7502,6 +7532,11 @@
           <source>Show Internal Information</source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Report Purchase - Return Shipment LAP - Control ShowInternalInfoF - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Report 894387540 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Auto. Finish Prod. Order</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report PWD Auto. Finish Prod. Order - Property Caption</note>
         </trans-unit>
         <trans-unit id="Report 3717865513 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Clean Forecast Entry</source>
