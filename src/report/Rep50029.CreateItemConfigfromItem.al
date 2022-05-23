@@ -42,9 +42,9 @@ report 50029 "Create Item Config. from Item"
                     RecGItemConfigurator."Family Code" := CopyStr(Item."No.", 1, 2);
                 if RecGSubFamilyLPSA.Get(CopyStr(Item."No.", 1, 2), CopyStr(Item."No.", 3, 2)) then
                     RecGItemConfigurator."Subfamily Code" := CopyStr(Item."No.", 3, 2);
-                RecGItemConfigurator."PWD LPSA Description 1" := Item."PWD LPSA Description 1";
-                RecGItemConfigurator."PWD LPSA Description 2" := Item."PWD LPSA Description 2";
-                RecGItemConfigurator."PWD Quartis Description" := Item."PWD Quartis Description";
+                RecGItemConfigurator."LPSA Description 1" := Item."PWD LPSA Description 1";
+                RecGItemConfigurator."LPSA Description 2" := Item."PWD LPSA Description 2";
+                RecGItemConfigurator."Quartis Description" := Item."PWD Quartis Description";
                 RecGItemConfigurator."Location Code" := Item."Location Code";
                 RecGItemConfigurator."Bin Code" := Item."Shelf No.";
                 RecGItemConfigurator.Validate("Item Category Code", Item."Item Category Code");

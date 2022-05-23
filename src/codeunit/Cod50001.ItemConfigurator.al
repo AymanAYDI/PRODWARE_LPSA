@@ -55,20 +55,20 @@ codeunit 50001 "PWD Item Configurator"
         TxtLDim2: Text[30];
     begin
         if RecPItemConfigurator."Matter Stone" <> '' then
-            RecPItemConfigurator."PWD LPSA Description 1" := CopyStr(RecPItemConfigurator."Matter Stone", 1, 1) + LowerCase(CopyStr(RecPItemConfigurator."Matter Stone", 2, StrLen(RecPItemConfigurator."Matter Stone") - 1))
+            RecPItemConfigurator."LPSA Description 1" := CopyStr(RecPItemConfigurator."Matter Stone", 1, 1) + LowerCase(CopyStr(RecPItemConfigurator."Matter Stone", 2, StrLen(RecPItemConfigurator."Matter Stone") - 1))
         else
-            RecPItemConfigurator."PWD LPSA Description 1" := '';
-        RecPItemConfigurator."PWD LPSA Description 1" += Format(RecPItemConfigurator.Number) + RecPItemConfigurator.Orientation + '-' + RecPItemConfigurator."Piece Type Stone";
+            RecPItemConfigurator."LPSA Description 1" := '';
+        RecPItemConfigurator."LPSA Description 1" += Format(RecPItemConfigurator.Number) + RecPItemConfigurator.Orientation + '-' + RecPItemConfigurator."Piece Type Stone";
 
-        Longueur := StrLen(RecPItemConfigurator."PWD LPSA Description 1") - StrLen(RecPItemConfigurator."Piece Type Stone") + 1;
+        Longueur := StrLen(RecPItemConfigurator."LPSA Description 1") - StrLen(RecPItemConfigurator."Piece Type Stone") + 1;
 
-        RecPItemConfigurator."PWD LPSA Description 2" := '';
+        RecPItemConfigurator."LPSA Description 2" := '';
 
         if RecPItemConfigurator.Hole <> 0 then
             if RecPItemConfigurator."Hole Min." = -RecPItemConfigurator."Hole Max." then
-                RecPItemConfigurator."PWD LPSA Description 1" := RecPItemConfigurator."PWD LPSA Description 1" + '-T' + Format(RecPItemConfigurator.Hole) + '(+/-' + Format(RecPItemConfigurator."Hole Max.") + ')'
+                RecPItemConfigurator."LPSA Description 1" := RecPItemConfigurator."LPSA Description 1" + '-T' + Format(RecPItemConfigurator.Hole) + '(+/-' + Format(RecPItemConfigurator."Hole Max.") + ')'
             else
-                RecPItemConfigurator."PWD LPSA Description 1" := FctBuildDescription(RecPItemConfigurator."PWD LPSA Description 1", '-T', RecPItemConfigurator.Hole, RecPItemConfigurator."Hole Min.", RecPItemConfigurator."Hole Max.");
+                RecPItemConfigurator."LPSA Description 1" := FctBuildDescription(RecPItemConfigurator."LPSA Description 1", '-T', RecPItemConfigurator.Hole, RecPItemConfigurator."Hole Min.", RecPItemConfigurator."Hole Max.");
 
         //>>NDBI
         /*
@@ -89,74 +89,74 @@ codeunit 50001 "PWD Item Configurator"
         if (RecPItemConfigurator.Hole = 0) then begin
             if RecPItemConfigurator."External Diameter" <> 0 then
                 if RecPItemConfigurator."External Diameter Min." = -RecPItemConfigurator."External Diameter Max." then
-                    RecPItemConfigurator."PWD LPSA Description 1" := RecPItemConfigurator."PWD LPSA Description 1" + '-D' + Format(RecPItemConfigurator."External Diameter") + '(+/-' +
+                    RecPItemConfigurator."LPSA Description 1" := RecPItemConfigurator."LPSA Description 1" + '-D' + Format(RecPItemConfigurator."External Diameter") + '(+/-' +
                                                                            Format(RecPItemConfigurator."External Diameter Max.") + ')'
                 else
-                    RecPItemConfigurator."PWD LPSA Description 1" := FctBuildDescription(RecPItemConfigurator."PWD LPSA Description 1", '-D', RecPItemConfigurator."External Diameter", RecPItemConfigurator."External Diameter Min.",
+                    RecPItemConfigurator."LPSA Description 1" := FctBuildDescription(RecPItemConfigurator."LPSA Description 1", '-D', RecPItemConfigurator."External Diameter", RecPItemConfigurator."External Diameter Min.",
                                                                 RecPItemConfigurator."External Diameter Max.");
         end else
             if RecPItemConfigurator."External Diameter" <> 0 then
                 if RecPItemConfigurator."External Diameter Min." = -RecPItemConfigurator."External Diameter Max." then
-                    RecPItemConfigurator."PWD LPSA Description 1" := RecPItemConfigurator."PWD LPSA Description 1" + 'xD' + Format(RecPItemConfigurator."External Diameter") + '(+/-' +
+                    RecPItemConfigurator."LPSA Description 1" := RecPItemConfigurator."LPSA Description 1" + 'xD' + Format(RecPItemConfigurator."External Diameter") + '(+/-' +
                                                                            Format(RecPItemConfigurator."External Diameter Max.") + ')'
                 else
-                    RecPItemConfigurator."PWD LPSA Description 1" := FctBuildDescription(RecPItemConfigurator."PWD LPSA Description 1", 'xD', RecPItemConfigurator."External Diameter", RecPItemConfigurator."External Diameter Min.",
+                    RecPItemConfigurator."LPSA Description 1" := FctBuildDescription(RecPItemConfigurator."LPSA Description 1", 'xD', RecPItemConfigurator."External Diameter", RecPItemConfigurator."External Diameter Min.",
                                                                 RecPItemConfigurator."External Diameter Max.");
         if (RecPItemConfigurator.Hole = 0) and (RecPItemConfigurator."External Diameter" = 0) then begin
             if RecPItemConfigurator.Thickness <> 0 then
                 if RecPItemConfigurator."Thickness Min." = -RecPItemConfigurator."Thickness Max." then
-                    RecPItemConfigurator."PWD LPSA Description 1" := RecPItemConfigurator."PWD LPSA Description 1" + '-E' + Format(RecPItemConfigurator.Thickness) + '(+/-' + Format(RecPItemConfigurator."Thickness Max.") + ')'
+                    RecPItemConfigurator."LPSA Description 1" := RecPItemConfigurator."LPSA Description 1" + '-E' + Format(RecPItemConfigurator.Thickness) + '(+/-' + Format(RecPItemConfigurator."Thickness Max.") + ')'
                 else
-                    RecPItemConfigurator."PWD LPSA Description 1" := FctBuildDescription(RecPItemConfigurator."PWD LPSA Description 1", '-E', RecPItemConfigurator.Thickness, RecPItemConfigurator."Thickness Min.", RecPItemConfigurator."Thickness Max.");
+                    RecPItemConfigurator."LPSA Description 1" := FctBuildDescription(RecPItemConfigurator."LPSA Description 1", '-E', RecPItemConfigurator.Thickness, RecPItemConfigurator."Thickness Min.", RecPItemConfigurator."Thickness Max.");
         end else
             if RecPItemConfigurator.Thickness <> 0 then
                 if RecPItemConfigurator."Thickness Min." = -RecPItemConfigurator."Thickness Max." then
-                    RecPItemConfigurator."PWD LPSA Description 1" := RecPItemConfigurator."PWD LPSA Description 1" + 'xE' + Format(RecPItemConfigurator.Thickness) + '(+/-' + Format(RecPItemConfigurator."Thickness Max.") + ')'
+                    RecPItemConfigurator."LPSA Description 1" := RecPItemConfigurator."LPSA Description 1" + 'xE' + Format(RecPItemConfigurator.Thickness) + '(+/-' + Format(RecPItemConfigurator."Thickness Max.") + ')'
                 else
-                    RecPItemConfigurator."PWD LPSA Description 1" := FctBuildDescription(RecPItemConfigurator."PWD LPSA Description 1", 'xE', RecPItemConfigurator.Thickness, RecPItemConfigurator."Thickness Min.", RecPItemConfigurator."Thickness Max.");
+                    RecPItemConfigurator."LPSA Description 1" := FctBuildDescription(RecPItemConfigurator."LPSA Description 1", 'xE', RecPItemConfigurator.Thickness, RecPItemConfigurator."Thickness Min.", RecPItemConfigurator."Thickness Max.");
         //>>NDBI
 
         if RecPItemConfigurator."Recess Diametre" <> 0 then
             if RecPItemConfigurator."Recess Diametre Min." = -RecPItemConfigurator."Recess Diametre Max." then
-                RecPItemConfigurator."PWD LPSA Description 2" := 'C' + Format(RecPItemConfigurator."Recess Diametre") + '(+/-' + Format(RecPItemConfigurator."Recess Diametre Max.") + ')'
+                RecPItemConfigurator."LPSA Description 2" := 'C' + Format(RecPItemConfigurator."Recess Diametre") + '(+/-' + Format(RecPItemConfigurator."Recess Diametre Max.") + ')'
             else
                 if RecPItemConfigurator."Recess Diametre Min." < 0 then
-                    RecPItemConfigurator."PWD LPSA Description 2" := 'C' + Format(RecPItemConfigurator."Recess Diametre") + '(' + Format(RecPItemConfigurator."Recess Diametre Min.") + '/+' +
+                    RecPItemConfigurator."LPSA Description 2" := 'C' + Format(RecPItemConfigurator."Recess Diametre") + '(' + Format(RecPItemConfigurator."Recess Diametre Min.") + '/+' +
                                                   Format(RecPItemConfigurator."Recess Diametre Max.") + ')'
 
                 else
-                    RecPItemConfigurator."PWD LPSA Description 2" := 'C' + Format(RecPItemConfigurator."Recess Diametre") + '(+' + Format(RecPItemConfigurator."Recess Diametre Min.") + '/+' +
+                    RecPItemConfigurator."LPSA Description 2" := 'C' + Format(RecPItemConfigurator."Recess Diametre") + '(+' + Format(RecPItemConfigurator."Recess Diametre Min.") + '/+' +
                                                   Format(RecPItemConfigurator."Recess Diametre Max.") + ')';
 
 
         if RecPItemConfigurator."Hole Length" <> 0 then
             if RecPItemConfigurator."Hole Length Min." = -RecPItemConfigurator."Hole Length Max." then
-                RecPItemConfigurator."PWD LPSA Description 2" := RecPItemConfigurator."PWD LPSA Description 2" + 'xL' + Format(RecPItemConfigurator."Hole Length") + '(+/-' + Format(RecPItemConfigurator."Hole Length Max.") + ')'
+                RecPItemConfigurator."LPSA Description 2" := RecPItemConfigurator."LPSA Description 2" + 'xL' + Format(RecPItemConfigurator."Hole Length") + '(+/-' + Format(RecPItemConfigurator."Hole Length Max.") + ')'
             else
-                RecPItemConfigurator."PWD LPSA Description 2" := FctBuildDescription(RecPItemConfigurator."PWD LPSA Description 2", 'xL', RecPItemConfigurator."Hole Length", RecPItemConfigurator."Hole Length Min.", RecPItemConfigurator."Hole Length Max.");
+                RecPItemConfigurator."LPSA Description 2" := FctBuildDescription(RecPItemConfigurator."LPSA Description 2", 'xL', RecPItemConfigurator."Hole Length", RecPItemConfigurator."Hole Length Min.", RecPItemConfigurator."Hole Length Max.");
 
 
         if RecPItemConfigurator."Height Band" <> 0 then
             if RecPItemConfigurator."Height Band Min." = -RecPItemConfigurator."Height Band Max." then
-                RecPItemConfigurator."PWD LPSA Description 2" := RecPItemConfigurator."PWD LPSA Description 2" + 'xR' + Format(RecPItemConfigurator."Height Band") + '(+/-' + Format(RecPItemConfigurator."Height Band Max.") + ')'
+                RecPItemConfigurator."LPSA Description 2" := RecPItemConfigurator."LPSA Description 2" + 'xR' + Format(RecPItemConfigurator."Height Band") + '(+/-' + Format(RecPItemConfigurator."Height Band Max.") + ')'
             else
-                RecPItemConfigurator."PWD LPSA Description 2" := FctBuildDescription(RecPItemConfigurator."PWD LPSA Description 2", 'xR', RecPItemConfigurator."Height Band", RecPItemConfigurator."Height Band Min.", RecPItemConfigurator."Height Band Max.");
+                RecPItemConfigurator."LPSA Description 2" := FctBuildDescription(RecPItemConfigurator."LPSA Description 2", 'xR', RecPItemConfigurator."Height Band", RecPItemConfigurator."Height Band Min.", RecPItemConfigurator."Height Band Max.");
 
         if RecPItemConfigurator."Height Cambered" <> 0 then
             if RecPItemConfigurator."Height Cambered Min." = -RecPItemConfigurator."Height Cambered Max." then
-                RecPItemConfigurator."PWD LPSA Description 2" := RecPItemConfigurator."PWD LPSA Description 2" + 'xB' + Format(RecPItemConfigurator."Height Cambered") +
+                RecPItemConfigurator."LPSA Description 2" := RecPItemConfigurator."LPSA Description 2" + 'xB' + Format(RecPItemConfigurator."Height Cambered") +
                                        '(+/-' + Format(RecPItemConfigurator."Height Cambered Max.") + ')'
             else
-                RecPItemConfigurator."PWD LPSA Description 2" := FctBuildDescription(RecPItemConfigurator."PWD LPSA Description 2", 'xB', RecPItemConfigurator."Height Cambered", RecPItemConfigurator."Height Cambered Min.",
+                RecPItemConfigurator."LPSA Description 2" := FctBuildDescription(RecPItemConfigurator."LPSA Description 2", 'xB', RecPItemConfigurator."Height Cambered", RecPItemConfigurator."Height Cambered Min.",
                                                             RecPItemConfigurator."Height Cambered Max.");
 
 
         if RecPItemConfigurator."Height Half Glazed" <> 0 then
             if RecPItemConfigurator."Height Half Glazed Min." = -RecPItemConfigurator."Height Half Glazed Max." then
-                RecPItemConfigurator."PWD LPSA Description 2" := RecPItemConfigurator."PWD LPSA Description 2" + 'xG' + Format(RecPItemConfigurator."Height Half Glazed") + '(+/-' +
+                RecPItemConfigurator."LPSA Description 2" := RecPItemConfigurator."LPSA Description 2" + 'xG' + Format(RecPItemConfigurator."Height Half Glazed") + '(+/-' +
                                          Format(RecPItemConfigurator."Height Half Glazed Max.") + ')'
             else
-                RecPItemConfigurator."PWD LPSA Description 2" := FctBuildDescription(RecPItemConfigurator."PWD LPSA Description 2", 'xG', RecPItemConfigurator."Height Half Glazed", RecPItemConfigurator."Height Half Glazed Min.",
+                RecPItemConfigurator."LPSA Description 2" := FctBuildDescription(RecPItemConfigurator."LPSA Description 2", 'xG', RecPItemConfigurator."Height Half Glazed", RecPItemConfigurator."Height Half Glazed Min.",
                                                             RecPItemConfigurator."Height Half Glazed Max.");
 
 
@@ -168,7 +168,7 @@ codeunit 50001 "PWD Item Configurator"
         if StrPos(TxtLDim2, ',') > 0 then
             TxtLDim2 := CopyStr(TxtLDim2, 1, StrPos(TxtLDim2, ',') + 1);
 
-        RecPItemConfigurator."PWD Quartis Description" := CopyStr(RecPItemConfigurator."PWD LPSA Description 1", Longueur, 40);
+        RecPItemConfigurator."Quartis Description" := CopyStr(RecPItemConfigurator."LPSA Description 1", Longueur, 40);
 
         //>>CSC
         RecPItemConfigurator."Quartis Desc TEST" := BuildQuartisDesc(RecPItemConfigurator);
@@ -194,10 +194,10 @@ codeunit 50001 "PWD Item Configurator"
         TxtLQuartisDesc: Text[120];
     begin
         if RecPItemConfigurator."Matter Preparage" <> '' then
-            RecPItemConfigurator."PWD LPSA Description 1" := CopyStr(RecPItemConfigurator."Matter Preparage", 1, 1) + LowerCase(CopyStr(RecPItemConfigurator."Matter Preparage", 2, StrLen(RecPItemConfigurator."Matter Preparage") - 1))
+            RecPItemConfigurator."LPSA Description 1" := CopyStr(RecPItemConfigurator."Matter Preparage", 1, 1) + LowerCase(CopyStr(RecPItemConfigurator."Matter Preparage", 2, StrLen(RecPItemConfigurator."Matter Preparage") - 1))
         else
-            RecPItemConfigurator."PWD LPSA Description 1" := '';
-        RecPItemConfigurator."PWD LPSA Description 1" += Format(RecPItemConfigurator.Number) + RecPItemConfigurator.Orientation + '-' + RecPItemConfigurator."Piece Type Preparage";
+            RecPItemConfigurator."LPSA Description 1" := '';
+        RecPItemConfigurator."LPSA Description 1" += Format(RecPItemConfigurator.Number) + RecPItemConfigurator.Orientation + '-' + RecPItemConfigurator."Piece Type Preparage";
 
         //>>TDL.LPSA.20.04.15
         //"PWD Quartis Description" := "Piece Type Preparage" + '-';
@@ -209,131 +209,131 @@ codeunit 50001 "PWD Item Configurator"
         //<<LPA090615
         //   "PWD Quartis Description" := ''
         // ELSE
-        RecPItemConfigurator."PWD Quartis Description" := RecPItemConfigurator."Piece Type Preparage" + '-';
+        RecPItemConfigurator."Quartis Description" := RecPItemConfigurator."Piece Type Preparage" + '-';
         //<<TDL.LPSA.20.04.15
         // 20200615-ANF modification ordre de designation ENTRETOISE
 
         if RecPItemConfigurator."Piece Type Preparage" in ['CARRELET', 'ENTRETOISE'] then begin
             if ((RecPItemConfigurator."Width / Depth Min." <> 0) or (RecPItemConfigurator."Width / Depth Max." <> 0)) then
                 if RecPItemConfigurator."Width / Depth Min." = -RecPItemConfigurator."Width / Depth Max." then
-                    RecPItemConfigurator."PWD LPSA Description 1" := RecPItemConfigurator."PWD LPSA Description 1" + '-L' + '+/-' + Format(RecPItemConfigurator."Width / Depth Max.")
+                    RecPItemConfigurator."LPSA Description 1" := RecPItemConfigurator."LPSA Description 1" + '-L' + '+/-' + Format(RecPItemConfigurator."Width / Depth Max.")
                 else
-                    RecPItemConfigurator."PWD LPSA Description 1" := FctBuildDescription2(RecPItemConfigurator."PWD LPSA Description 1", '-L', RecPItemConfigurator."Width / Depth Min.", RecPItemConfigurator."Width / Depth Max.");
+                    RecPItemConfigurator."LPSA Description 1" := FctBuildDescription2(RecPItemConfigurator."LPSA Description 1", '-L', RecPItemConfigurator."Width / Depth Min.", RecPItemConfigurator."Width / Depth Max.");
 
             if ((RecPItemConfigurator."Thick Min." <> 0) or (RecPItemConfigurator."Thick Max." <> 0)) then
                 if RecPItemConfigurator."Thick Min." = -RecPItemConfigurator."Thickness Min." then
-                    RecPItemConfigurator."PWD LPSA Description 1" := RecPItemConfigurator."PWD LPSA Description 1" + 'xE' + '+/-' + Format(RecPItemConfigurator."Thick Min.")
+                    RecPItemConfigurator."LPSA Description 1" := RecPItemConfigurator."LPSA Description 1" + 'xE' + '+/-' + Format(RecPItemConfigurator."Thick Min.")
                 else
-                    RecPItemConfigurator."PWD LPSA Description 1" := FctBuildDescription2(RecPItemConfigurator."PWD LPSA Description 1", 'xE', RecPItemConfigurator."Thick Min.", RecPItemConfigurator."Thick Max.");
+                    RecPItemConfigurator."LPSA Description 1" := FctBuildDescription2(RecPItemConfigurator."LPSA Description 1", 'xE', RecPItemConfigurator."Thick Min.", RecPItemConfigurator."Thick Max.");
 
 
             if ((RecPItemConfigurator."Height Min." <> 0) or (RecPItemConfigurator."Height Max." <> 0)) then
                 if RecPItemConfigurator."Height Min." = -RecPItemConfigurator."Height Max." then
-                    RecPItemConfigurator."PWD LPSA Description 1" := RecPItemConfigurator."PWD LPSA Description 1" + 'xH' + '+/-' + Format(RecPItemConfigurator."Height Max.")
+                    RecPItemConfigurator."LPSA Description 1" := RecPItemConfigurator."LPSA Description 1" + 'xH' + '+/-' + Format(RecPItemConfigurator."Height Max.")
                 else
-                    RecPItemConfigurator."PWD LPSA Description 1" := FctBuildDescription2(RecPItemConfigurator."PWD LPSA Description 1", 'xH', RecPItemConfigurator."Height Min.", RecPItemConfigurator."Height Max.");
+                    RecPItemConfigurator."LPSA Description 1" := FctBuildDescription2(RecPItemConfigurator."LPSA Description 1", 'xH', RecPItemConfigurator."Height Min.", RecPItemConfigurator."Height Max.");
 
 
 
             if ((RecPItemConfigurator."Width Min." <> 0) or (RecPItemConfigurator."Width Max." <> 0)) then
                 if RecPItemConfigurator."Width Min." = -RecPItemConfigurator."Width Max." then begin
-                    TxtLQuartisDesc := RecPItemConfigurator."PWD Quartis Description" + 'L' + '-/+' + Format(RecPItemConfigurator."Width Max.");
-                    RecPItemConfigurator."PWD Quartis Description" := CopyStr(TxtLQuartisDesc, 1, 40);
+                    TxtLQuartisDesc := RecPItemConfigurator."Quartis Description" + 'L' + '-/+' + Format(RecPItemConfigurator."Width Max.");
+                    RecPItemConfigurator."Quartis Description" := CopyStr(TxtLQuartisDesc, 1, 40);
                 end
                 else
-                    RecPItemConfigurator."PWD Quartis Description" := FctBuildDescriptionQ2(RecPItemConfigurator."PWD Quartis Description", 'L', RecPItemConfigurator."Width Min.", RecPItemConfigurator."Width Max.");
+                    RecPItemConfigurator."Quartis Description" := FctBuildDescriptionQ2(RecPItemConfigurator."Quartis Description", 'L', RecPItemConfigurator."Width Min.", RecPItemConfigurator."Width Max.");
 
             if ((RecPItemConfigurator."Height Min." <> 0) or (RecPItemConfigurator."Height Max." <> 0)) then
                 if RecPItemConfigurator."Height Min." = -RecPItemConfigurator."Height Max." then begin
-                    TxtLQuartisDesc := RecPItemConfigurator."PWD Quartis Description" + 'H' + '+/-' + Format(RecPItemConfigurator."Height Max.");
-                    RecPItemConfigurator."PWD Quartis Description" := CopyStr(TxtLQuartisDesc, 1, 40);
+                    TxtLQuartisDesc := RecPItemConfigurator."Quartis Description" + 'H' + '+/-' + Format(RecPItemConfigurator."Height Max.");
+                    RecPItemConfigurator."Quartis Description" := CopyStr(TxtLQuartisDesc, 1, 40);
                 end
                 else
-                    RecPItemConfigurator."PWD Quartis Description" := FctBuildDescriptionQ2(RecPItemConfigurator."PWD Quartis Description", 'xH', RecPItemConfigurator."Height Min.", RecPItemConfigurator."Height Max.");
+                    RecPItemConfigurator."Quartis Description" := FctBuildDescriptionQ2(RecPItemConfigurator."Quartis Description", 'xH', RecPItemConfigurator."Height Min.", RecPItemConfigurator."Height Max.");
 
             if ((RecPItemConfigurator."Width / Depth Min." <> 0) or (RecPItemConfigurator."Width / Depth Max." <> 0)) then
                 if RecPItemConfigurator."Width / Depth Min." = -RecPItemConfigurator."Width / Depth Max." then begin
-                    TxtLQuartisDesc := RecPItemConfigurator."PWD Quartis Description" + 'P' + '+/-' + Format(RecPItemConfigurator."Width / Depth Max.");
-                    RecPItemConfigurator."PWD Quartis Description" := CopyStr(TxtLQuartisDesc, 1, 40);
+                    TxtLQuartisDesc := RecPItemConfigurator."Quartis Description" + 'P' + '+/-' + Format(RecPItemConfigurator."Width / Depth Max.");
+                    RecPItemConfigurator."Quartis Description" := CopyStr(TxtLQuartisDesc, 1, 40);
                 end
                 else
-                    RecPItemConfigurator."PWD Quartis Description" := FctBuildDescriptionQ2(RecPItemConfigurator."PWD Quartis Description", 'xP', RecPItemConfigurator."Width / Depth Min.", RecPItemConfigurator."Width / Depth Max.");
+                    RecPItemConfigurator."Quartis Description" := FctBuildDescriptionQ2(RecPItemConfigurator."Quartis Description", 'xP', RecPItemConfigurator."Width / Depth Min.", RecPItemConfigurator."Width / Depth Max.");
         end
         else
             if RecPItemConfigurator."Piece Type Preparage" in ['CHEVILLE', 'GOUPILLE'] then begin
                 if ((RecPItemConfigurator."Diameter Min." <> 0) or (RecPItemConfigurator."Diameter Max." <> 0)) then
                     if RecPItemConfigurator."Diameter Min." = -RecPItemConfigurator."Diameter Max." then
-                        RecPItemConfigurator."PWD LPSA Description 1" := RecPItemConfigurator."PWD LPSA Description 1" + '-D' + '+/-' + Format(RecPItemConfigurator."Diameter Max.")
+                        RecPItemConfigurator."LPSA Description 1" := RecPItemConfigurator."LPSA Description 1" + '-D' + '+/-' + Format(RecPItemConfigurator."Diameter Max.")
                     else
-                        RecPItemConfigurator."PWD LPSA Description 1" := FctBuildDescription2(RecPItemConfigurator."PWD LPSA Description 1", '-D', RecPItemConfigurator."Diameter Min.", RecPItemConfigurator."Diameter Max.");
+                        RecPItemConfigurator."LPSA Description 1" := FctBuildDescription2(RecPItemConfigurator."LPSA Description 1", '-D', RecPItemConfigurator."Diameter Min.", RecPItemConfigurator."Diameter Max.");
                 if ((RecPItemConfigurator."Width / Depth Min." <> 0) or (RecPItemConfigurator."Width / Depth Min." <> 0)) then
                     if RecPItemConfigurator."Width / Depth Min." = -RecPItemConfigurator."Width / Depth Max." then
-                        RecPItemConfigurator."PWD LPSA Description 1" := RecPItemConfigurator."PWD LPSA Description 1" + 'xL' + '+/-' + Format(RecPItemConfigurator."Width / Depth Max.")
+                        RecPItemConfigurator."LPSA Description 1" := RecPItemConfigurator."LPSA Description 1" + 'xL' + '+/-' + Format(RecPItemConfigurator."Width / Depth Max.")
                     else
-                        RecPItemConfigurator."PWD LPSA Description 1" := FctBuildDescription2(RecPItemConfigurator."PWD LPSA Description 1", 'xL', RecPItemConfigurator."Width / Depth Min.", RecPItemConfigurator."Width / Depth Max.");
+                        RecPItemConfigurator."LPSA Description 1" := FctBuildDescription2(RecPItemConfigurator."LPSA Description 1", 'xL', RecPItemConfigurator."Width / Depth Min.", RecPItemConfigurator."Width / Depth Max.");
                 if ((RecPItemConfigurator."Diameter Min." <> 0) or (RecPItemConfigurator."Diameter Max." <> 0)) then
                     if RecPItemConfigurator."Diameter Min." = -RecPItemConfigurator."Diameter Max." then begin
-                        TxtLQuartisDesc := RecPItemConfigurator."PWD Quartis Description" + 'D' + '+/-' + Format(RecPItemConfigurator."Diameter Max.");
-                        RecPItemConfigurator."PWD Quartis Description" := CopyStr(TxtLQuartisDesc, 1, 40);
+                        TxtLQuartisDesc := RecPItemConfigurator."Quartis Description" + 'D' + '+/-' + Format(RecPItemConfigurator."Diameter Max.");
+                        RecPItemConfigurator."Quartis Description" := CopyStr(TxtLQuartisDesc, 1, 40);
                     end
                     else
-                        RecPItemConfigurator."PWD Quartis Description" := FctBuildDescriptionQ2(RecPItemConfigurator."PWD Quartis Description", 'D', RecPItemConfigurator."Diameter Min.", RecPItemConfigurator."Diameter Max.");
+                        RecPItemConfigurator."Quartis Description" := FctBuildDescriptionQ2(RecPItemConfigurator."Quartis Description", 'D', RecPItemConfigurator."Diameter Min.", RecPItemConfigurator."Diameter Max.");
 
                 if ((RecPItemConfigurator."Width / Depth Min." <> 0) or (RecPItemConfigurator."Width / Depth Max." <> 0)) then
                     if RecPItemConfigurator."Width / Depth Min." = -RecPItemConfigurator."Width / Depth Max." then begin
-                        TxtLQuartisDesc := RecPItemConfigurator."PWD Quartis Description" + 'xL' + '+/-' + Format(RecPItemConfigurator."Width / Depth Max.");
-                        RecPItemConfigurator."PWD Quartis Description" := CopyStr(TxtLQuartisDesc, 1, 40);
+                        TxtLQuartisDesc := RecPItemConfigurator."Quartis Description" + 'xL' + '+/-' + Format(RecPItemConfigurator."Width / Depth Max.");
+                        RecPItemConfigurator."Quartis Description" := CopyStr(TxtLQuartisDesc, 1, 40);
                     end
                     else
-                        RecPItemConfigurator."PWD Quartis Description" := FctBuildDescriptionQ2(RecPItemConfigurator."PWD Quartis Description", 'xL', RecPItemConfigurator."Width / Depth Min.", RecPItemConfigurator."Width / Depth Max.");
+                        RecPItemConfigurator."Quartis Description" := FctBuildDescriptionQ2(RecPItemConfigurator."Quartis Description", 'xL', RecPItemConfigurator."Width / Depth Min.", RecPItemConfigurator."Width / Depth Max.");
             end
             //
             else
                 if RecPItemConfigurator."Piece Type Preparage" in ['BARRE', 'C-PIVOT', 'NON PERCE'] then begin
                     if ((RecPItemConfigurator."Diameter Min." <> 0) or (RecPItemConfigurator."Diameter Max." <> 0)) then begin
-                        RecPItemConfigurator."PWD LPSA Description 1" := FctBuildDescription2(RecPItemConfigurator."PWD LPSA Description 1", '-D', RecPItemConfigurator."Diameter Min.", RecPItemConfigurator."Diameter Max.");
-                        RecPItemConfigurator."PWD Quartis Description" := FctBuildDescriptionQ2(RecPItemConfigurator."PWD Quartis Description", 'D', RecPItemConfigurator."Diameter Min.", RecPItemConfigurator."Diameter Max.");
+                        RecPItemConfigurator."LPSA Description 1" := FctBuildDescription2(RecPItemConfigurator."LPSA Description 1", '-D', RecPItemConfigurator."Diameter Min.", RecPItemConfigurator."Diameter Max.");
+                        RecPItemConfigurator."Quartis Description" := FctBuildDescriptionQ2(RecPItemConfigurator."Quartis Description", 'D', RecPItemConfigurator."Diameter Min.", RecPItemConfigurator."Diameter Max.");
                     end;
                     if (RecPItemConfigurator."Thick Min." <> 0) or (RecPItemConfigurator."Thick Max." <> 0) then begin
-                        RecPItemConfigurator."PWD LPSA Description 1" := FctBuildDescription2(RecPItemConfigurator."PWD LPSA Description 1", 'xE', RecPItemConfigurator."Thick Min.", RecPItemConfigurator."Thick Max.");
-                        RecPItemConfigurator."PWD Quartis Description" := FctBuildDescriptionQ2(RecPItemConfigurator."PWD Quartis Description", 'xE', RecPItemConfigurator."Thick Min.", RecPItemConfigurator."Thick Max.");
+                        RecPItemConfigurator."LPSA Description 1" := FctBuildDescription2(RecPItemConfigurator."LPSA Description 1", 'xE', RecPItemConfigurator."Thick Min.", RecPItemConfigurator."Thick Max.");
+                        RecPItemConfigurator."Quartis Description" := FctBuildDescriptionQ2(RecPItemConfigurator."Quartis Description", 'xE', RecPItemConfigurator."Thick Min.", RecPItemConfigurator."Thick Max.");
                     end;
                 end
                 else begin
                     if ((RecPItemConfigurator."Piercing Min." <> 0) or (RecPItemConfigurator."Piercing Max." <> 0)) then begin
-                        RecPItemConfigurator."PWD LPSA Description 1" := FctBuildDescription2(RecPItemConfigurator."PWD LPSA Description 1", '-T', RecPItemConfigurator."Piercing Min.", RecPItemConfigurator."Piercing Max.");
-                        RecPItemConfigurator."PWD Quartis Description" := FctBuildDescriptionQ2(RecPItemConfigurator."PWD Quartis Description", 'T', RecPItemConfigurator."Piercing Min.", RecPItemConfigurator."Piercing Max.");
+                        RecPItemConfigurator."LPSA Description 1" := FctBuildDescription2(RecPItemConfigurator."LPSA Description 1", '-T', RecPItemConfigurator."Piercing Min.", RecPItemConfigurator."Piercing Max.");
+                        RecPItemConfigurator."Quartis Description" := FctBuildDescriptionQ2(RecPItemConfigurator."Quartis Description", 'T', RecPItemConfigurator."Piercing Min.", RecPItemConfigurator."Piercing Max.");
                     end;
 
                     if RecPItemConfigurator.Note <> 0 then begin
-                        RecPItemConfigurator."PWD LPSA Description 1" := RecPItemConfigurator."PWD LPSA Description 1" + '(' + Format(RecPItemConfigurator.Note) + ')';
-                        TxtLQuartisDesc := RecPItemConfigurator."PWD Quartis Description" + '(' + Format(RecPItemConfigurator.Note) + ')';
-                        RecPItemConfigurator."PWD Quartis Description" := CopyStr(TxtLQuartisDesc, 1, 40);
+                        RecPItemConfigurator."LPSA Description 1" := RecPItemConfigurator."LPSA Description 1" + '(' + Format(RecPItemConfigurator.Note) + ')';
+                        TxtLQuartisDesc := RecPItemConfigurator."Quartis Description" + '(' + Format(RecPItemConfigurator.Note) + ')';
+                        RecPItemConfigurator."Quartis Description" := CopyStr(TxtLQuartisDesc, 1, 40);
                     end;
 
                     if ((RecPItemConfigurator."Diameter Min." <> 0) or (RecPItemConfigurator."Diameter Max." <> 0)) then
                         if RecPItemConfigurator."Diameter Min." = -RecPItemConfigurator."Diameter Max." then begin
-                            RecPItemConfigurator."PWD LPSA Description 1" := RecPItemConfigurator."PWD LPSA Description 1" + 'xD' + '+/-' + Format(RecPItemConfigurator."Diameter Max.");
-                            TxtLQuartisDesc := RecPItemConfigurator."PWD Quartis Description" + 'xD' + '+/-' + Format(RecPItemConfigurator."Diameter Max.");
-                            RecPItemConfigurator."PWD Quartis Description" := CopyStr(TxtLQuartisDesc, 1, 40);
+                            RecPItemConfigurator."LPSA Description 1" := RecPItemConfigurator."LPSA Description 1" + 'xD' + '+/-' + Format(RecPItemConfigurator."Diameter Max.");
+                            TxtLQuartisDesc := RecPItemConfigurator."Quartis Description" + 'xD' + '+/-' + Format(RecPItemConfigurator."Diameter Max.");
+                            RecPItemConfigurator."Quartis Description" := CopyStr(TxtLQuartisDesc, 1, 40);
                         end
                         else begin
-                            RecPItemConfigurator."PWD LPSA Description 1" := FctBuildDescription2(RecPItemConfigurator."PWD LPSA Description 1", 'xD', RecPItemConfigurator."Diameter Min.", RecPItemConfigurator."Diameter Max.");
-                            RecPItemConfigurator."PWD Quartis Description" := FctBuildDescriptionQ2(RecPItemConfigurator."PWD Quartis Description", 'xD', RecPItemConfigurator."Diameter Min.", RecPItemConfigurator."Diameter Max.");
+                            RecPItemConfigurator."LPSA Description 1" := FctBuildDescription2(RecPItemConfigurator."LPSA Description 1", 'xD', RecPItemConfigurator."Diameter Min.", RecPItemConfigurator."Diameter Max.");
+                            RecPItemConfigurator."Quartis Description" := FctBuildDescriptionQ2(RecPItemConfigurator."Quartis Description", 'xD', RecPItemConfigurator."Diameter Min.", RecPItemConfigurator."Diameter Max.");
                         end;
                     if (RecPItemConfigurator."Thick Min." <> 0) or (RecPItemConfigurator."Thick Max." <> 0) then
                         if RecPItemConfigurator."Thick Min." = -RecPItemConfigurator."Thick Max." then begin
-                            RecPItemConfigurator."PWD LPSA Description 1" := RecPItemConfigurator."PWD LPSA Description 1" + 'xE' + '+/-' + Format(RecPItemConfigurator."Thick Max.");
-                            TxtLQuartisDesc := RecPItemConfigurator."PWD Quartis Description" + 'xE' + '+/-' + Format(RecPItemConfigurator."Thick Max.");
-                            RecPItemConfigurator."PWD Quartis Description" := CopyStr(TxtLQuartisDesc, 1, 40);
+                            RecPItemConfigurator."LPSA Description 1" := RecPItemConfigurator."LPSA Description 1" + 'xE' + '+/-' + Format(RecPItemConfigurator."Thick Max.");
+                            TxtLQuartisDesc := RecPItemConfigurator."Quartis Description" + 'xE' + '+/-' + Format(RecPItemConfigurator."Thick Max.");
+                            RecPItemConfigurator."Quartis Description" := CopyStr(TxtLQuartisDesc, 1, 40);
                         end
                         else begin
-                            RecPItemConfigurator."PWD LPSA Description 1" := FctBuildDescription2(RecPItemConfigurator."PWD LPSA Description 1", 'xE', RecPItemConfigurator."Thick Min.", RecPItemConfigurator."Thick Max.");
-                            RecPItemConfigurator."PWD Quartis Description" := FctBuildDescriptionQ2(RecPItemConfigurator."PWD Quartis Description", 'xE', RecPItemConfigurator."Thick Min.", RecPItemConfigurator."Thick Max.");
+                            RecPItemConfigurator."LPSA Description 1" := FctBuildDescription2(RecPItemConfigurator."LPSA Description 1", 'xE', RecPItemConfigurator."Thick Min.", RecPItemConfigurator."Thick Max.");
+                            RecPItemConfigurator."Quartis Description" := FctBuildDescriptionQ2(RecPItemConfigurator."Quartis Description", 'xE', RecPItemConfigurator."Thick Min.", RecPItemConfigurator."Thick Max.");
                         end;
                 end;
 
-        RecPItemConfigurator."PWD LPSA Description 2" := '';
+        RecPItemConfigurator."LPSA Description 2" := '';
 
         //>>CSC
         RecPItemConfigurator."Quartis Desc TEST" := BuildQuartisDesc(RecPItemConfigurator);
@@ -348,13 +348,13 @@ codeunit 50001 "PWD Item Configurator"
         TxtLChar: Text[1];
     begin
 
-        RecPItemConfigurator."PWD LPSA Description 2" := '';
+        RecPItemConfigurator."LPSA Description 2" := '';
         if RecPItemConfigurator."Matter Lifted&Ellipses" <> '' then
-            RecPItemConfigurator."PWD LPSA Description 1" := CopyStr(RecPItemConfigurator."Matter Lifted&Ellipses", 1, 1) +
+            RecPItemConfigurator."LPSA Description 1" := CopyStr(RecPItemConfigurator."Matter Lifted&Ellipses", 1, 1) +
                                     LowerCase(CopyStr(RecPItemConfigurator."Matter Lifted&Ellipses", 2, StrLen(RecPItemConfigurator."Matter Lifted&Ellipses") - 1))
         else
-            RecPItemConfigurator."PWD LPSA Description 1" := '';
-        RecPItemConfigurator."PWD LPSA Description 1" += Format(RecPItemConfigurator.Number) + RecPItemConfigurator.Orientation + '-' + RecPItemConfigurator."Piece Type Lifted&Ellipses";
+            RecPItemConfigurator."LPSA Description 1" := '';
+        RecPItemConfigurator."LPSA Description 1" += Format(RecPItemConfigurator.Number) + RecPItemConfigurator.Orientation + '-' + RecPItemConfigurator."Piece Type Lifted&Ellipses";
 
         //>>TDL.LPSA.20.04.15
         //"PWD Quartis Description" := "Piece Type Lifted&Ellipses";
@@ -366,7 +366,7 @@ codeunit 50001 "PWD Item Configurator"
         //<<LPA090615
         //   "PWD Quartis Description" := ''
         //ELSE
-        RecPItemConfigurator."PWD Quartis Description" := RecPItemConfigurator."Piece Type Lifted&Ellipses";
+        RecPItemConfigurator."Quartis Description" := RecPItemConfigurator."Piece Type Lifted&Ellipses";
         //<<TDL.LPSA.20.04.15
 
         //->> 20200615-ANF modification ordre de designation des LEVEES
@@ -376,10 +376,10 @@ codeunit 50001 "PWD Item Configurator"
             //Inversion L et A
             if (RecPItemConfigurator."Lg Tol" <> 0) then begin
                 if RecPItemConfigurator."Lg Tol Min." = -RecPItemConfigurator."Lg Tol Max." then
-                    RecPItemConfigurator."PWD LPSA Description 1" := RecPItemConfigurator."PWD LPSA Description 1" + '-L' + Format(RecPItemConfigurator."Lg Tol") + '(+/-' + Format(RecPItemConfigurator."Lg Tol Max.") + ')'
+                    RecPItemConfigurator."LPSA Description 1" := RecPItemConfigurator."LPSA Description 1" + '-L' + Format(RecPItemConfigurator."Lg Tol") + '(+/-' + Format(RecPItemConfigurator."Lg Tol Max.") + ')'
                 else
-                    RecPItemConfigurator."PWD LPSA Description 1" := FctBuildDescription(RecPItemConfigurator."PWD LPSA Description 1", 'xL', RecPItemConfigurator."Lg Tol", RecPItemConfigurator."Lg Tol Min.", RecPItemConfigurator."Lg Tol Max.");
-                RecPItemConfigurator."PWD Quartis Description" := RecPItemConfigurator."PWD Quartis Description" + '-L' + Format(RecPItemConfigurator."Lg Tol");
+                    RecPItemConfigurator."LPSA Description 1" := FctBuildDescription(RecPItemConfigurator."LPSA Description 1", 'xL', RecPItemConfigurator."Lg Tol", RecPItemConfigurator."Lg Tol Min.", RecPItemConfigurator."Lg Tol Max.");
+                RecPItemConfigurator."Quartis Description" := RecPItemConfigurator."Quartis Description" + '-L' + Format(RecPItemConfigurator."Lg Tol");
             end;
 
 
@@ -394,12 +394,12 @@ codeunit 50001 "PWD Item Configurator"
                 else
                     TxtLChar := 'H';
                 if RecPItemConfigurator."Height Min. Tol" = -RecPItemConfigurator."Height Max. Tol" then
-                    RecPItemConfigurator."PWD LPSA Description 1" := RecPItemConfigurator."PWD LPSA Description 1" + 'x' + TxtLChar + Format(RecPItemConfigurator."Height Tol")
+                    RecPItemConfigurator."LPSA Description 1" := RecPItemConfigurator."LPSA Description 1" + 'x' + TxtLChar + Format(RecPItemConfigurator."Height Tol")
                                                 + '(+/-' + Format(RecPItemConfigurator."Height Max. Tol") + ')'
                 else
-                    RecPItemConfigurator."PWD LPSA Description 1" := FctBuildDescription(RecPItemConfigurator."PWD LPSA Description 1", 'x' + TxtLChar, RecPItemConfigurator."Height Tol",
+                    RecPItemConfigurator."LPSA Description 1" := FctBuildDescription(RecPItemConfigurator."LPSA Description 1", 'x' + TxtLChar, RecPItemConfigurator."Height Tol",
                                                   RecPItemConfigurator."Height Min. Tol", RecPItemConfigurator."Height Max. Tol");
-                RecPItemConfigurator."PWD Quartis Description" := RecPItemConfigurator."PWD Quartis Description" + '-' + TxtLChar + Format(RecPItemConfigurator."Height Tol");
+                RecPItemConfigurator."Quartis Description" := RecPItemConfigurator."Quartis Description" + '-' + TxtLChar + Format(RecPItemConfigurator."Height Tol");
             end;
 
             if (RecPItemConfigurator."Thick Tol" <> 0) then begin
@@ -413,21 +413,21 @@ codeunit 50001 "PWD Item Configurator"
                 else
                     TxtLChar := 'E';
                 if RecPItemConfigurator."Thick Min. Tol" = -RecPItemConfigurator."Thick Max. Tol" then
-                    RecPItemConfigurator."PWD LPSA Description 1" := RecPItemConfigurator."PWD LPSA Description 1" + 'x' + TxtLChar + Format(RecPItemConfigurator."Thick Tol")
+                    RecPItemConfigurator."LPSA Description 1" := RecPItemConfigurator."LPSA Description 1" + 'x' + TxtLChar + Format(RecPItemConfigurator."Thick Tol")
                                                + '(+/-' + Format(RecPItemConfigurator."Thick Max. Tol") + ')'
                 else
-                    RecPItemConfigurator."PWD LPSA Description 1" := FctBuildDescription(RecPItemConfigurator."PWD LPSA Description 1", 'x' + TxtLChar, RecPItemConfigurator."Thick Tol",
+                    RecPItemConfigurator."LPSA Description 1" := FctBuildDescription(RecPItemConfigurator."LPSA Description 1", 'x' + TxtLChar, RecPItemConfigurator."Thick Tol",
                                                 RecPItemConfigurator."Thick Min. Tol", RecPItemConfigurator."Thick Max. Tol");
-                RecPItemConfigurator."PWD Quartis Description" := RecPItemConfigurator."PWD Quartis Description" + '-' + TxtLChar + Format(RecPItemConfigurator."Thick Tol");
+                RecPItemConfigurator."Quartis Description" := RecPItemConfigurator."Quartis Description" + '-' + TxtLChar + Format(RecPItemConfigurator."Thick Tol");
 
             end;
 
             if (RecPItemConfigurator.Angle <> 0) then begin
                 if RecPItemConfigurator."Angle Min." = -RecPItemConfigurator."Angle Max." then
-                    RecPItemConfigurator."PWD LPSA Description 1" := RecPItemConfigurator."PWD LPSA Description 1" + 'xA' + Format(RecPItemConfigurator.Angle) + '(+/-' + Format(RecPItemConfigurator."Angle Max.") + ')'
+                    RecPItemConfigurator."LPSA Description 1" := RecPItemConfigurator."LPSA Description 1" + 'xA' + Format(RecPItemConfigurator.Angle) + '(+/-' + Format(RecPItemConfigurator."Angle Max.") + ')'
                 else
-                    RecPItemConfigurator."PWD LPSA Description 1" := FctBuildDescription(RecPItemConfigurator."PWD LPSA Description 1", '-A', RecPItemConfigurator.Angle, RecPItemConfigurator."Angle Min.", RecPItemConfigurator."Angle Max.");
-                RecPItemConfigurator."PWD Quartis Description" := RecPItemConfigurator."PWD Quartis Description" + 'xA' + Format(RecPItemConfigurator.Angle);
+                    RecPItemConfigurator."LPSA Description 1" := FctBuildDescription(RecPItemConfigurator."LPSA Description 1", '-A', RecPItemConfigurator.Angle, RecPItemConfigurator."Angle Min.", RecPItemConfigurator."Angle Max.");
+                RecPItemConfigurator."Quartis Description" := RecPItemConfigurator."Quartis Description" + 'xA' + Format(RecPItemConfigurator.Angle);
             end;
 
             //<<- 20200615-ANF modification ordre de designation des LEVEES
@@ -438,51 +438,51 @@ codeunit 50001 "PWD Item Configurator"
             if RecPItemConfigurator."Piece Type Lifted&Ellipses" in ['ELLIPSES', 'PLAT POLI'] then begin
                 if (RecPItemConfigurator."Diameter Tol" <> 0) then begin
                     if RecPItemConfigurator."Diameter Tol Min." = -RecPItemConfigurator."Diameter Tol Max." then
-                        RecPItemConfigurator."PWD LPSA Description 1" := RecPItemConfigurator."PWD LPSA Description 1" + '-D' + Format(RecPItemConfigurator."Diameter Tol") + '(+/-' + Format(RecPItemConfigurator."Diameter Tol Max.") + ')'
+                        RecPItemConfigurator."LPSA Description 1" := RecPItemConfigurator."LPSA Description 1" + '-D' + Format(RecPItemConfigurator."Diameter Tol") + '(+/-' + Format(RecPItemConfigurator."Diameter Tol Max.") + ')'
                     else
-                        RecPItemConfigurator."PWD LPSA Description 1" := FctBuildDescription(RecPItemConfigurator."PWD LPSA Description 1", '-D', RecPItemConfigurator."Diameter Tol", RecPItemConfigurator."Diameter Tol Min.",
+                        RecPItemConfigurator."LPSA Description 1" := FctBuildDescription(RecPItemConfigurator."LPSA Description 1", '-D', RecPItemConfigurator."Diameter Tol", RecPItemConfigurator."Diameter Tol Min.",
                                                                      RecPItemConfigurator."Diameter Tol Max.");
-                    RecPItemConfigurator."PWD Quartis Description" := RecPItemConfigurator."PWD Quartis Description" + '-D' + Format(RecPItemConfigurator."Diameter Tol");
+                    RecPItemConfigurator."Quartis Description" := RecPItemConfigurator."Quartis Description" + '-D' + Format(RecPItemConfigurator."Diameter Tol");
                 end;
 
 
                 if (RecPItemConfigurator."Thick Tol" <> 0) then begin
                     if RecPItemConfigurator."Thick Min. Tol" = -RecPItemConfigurator."Thick Max. Tol" then
-                        RecPItemConfigurator."PWD LPSA Description 1" := RecPItemConfigurator."PWD LPSA Description 1" + 'xP' + Format(RecPItemConfigurator."Thick Tol") + '(+/-' + Format(RecPItemConfigurator."Thick Max. Tol") + ')'
+                        RecPItemConfigurator."LPSA Description 1" := RecPItemConfigurator."LPSA Description 1" + 'xP' + Format(RecPItemConfigurator."Thick Tol") + '(+/-' + Format(RecPItemConfigurator."Thick Max. Tol") + ')'
                     else
-                        RecPItemConfigurator."PWD LPSA Description 1" := FctBuildDescription(RecPItemConfigurator."PWD LPSA Description 1", 'xP', RecPItemConfigurator."Thick Tol", RecPItemConfigurator."Thick Min. Tol", RecPItemConfigurator."Thick Max. Tol");
-                    RecPItemConfigurator."PWD Quartis Description" := RecPItemConfigurator."PWD Quartis Description" + '-P' + Format(RecPItemConfigurator."Thick Tol");
+                        RecPItemConfigurator."LPSA Description 1" := FctBuildDescription(RecPItemConfigurator."LPSA Description 1", 'xP', RecPItemConfigurator."Thick Tol", RecPItemConfigurator."Thick Min. Tol", RecPItemConfigurator."Thick Max. Tol");
+                    RecPItemConfigurator."Quartis Description" := RecPItemConfigurator."Quartis Description" + '-P' + Format(RecPItemConfigurator."Thick Tol");
                 end;
 
 
                 if (RecPItemConfigurator."Lg Tol" <> 0) then begin
                     if RecPItemConfigurator."Lg Tol Min." = -RecPItemConfigurator."Lg Tol Max." then
-                        RecPItemConfigurator."PWD LPSA Description 1" := RecPItemConfigurator."PWD LPSA Description 1" + 'xL' + Format(RecPItemConfigurator."Lg Tol") + '(+/-' + Format(RecPItemConfigurator."Lg Tol Max.") + ')'
+                        RecPItemConfigurator."LPSA Description 1" := RecPItemConfigurator."LPSA Description 1" + 'xL' + Format(RecPItemConfigurator."Lg Tol") + '(+/-' + Format(RecPItemConfigurator."Lg Tol Max.") + ')'
                     else
-                        RecPItemConfigurator."PWD LPSA Description 1" := FctBuildDescription(RecPItemConfigurator."PWD LPSA Description 1", 'xL', RecPItemConfigurator."Lg Tol", RecPItemConfigurator."Lg Tol Min.", RecPItemConfigurator."Lg Tol Max.");
-                    RecPItemConfigurator."PWD Quartis Description" := RecPItemConfigurator."PWD Quartis Description" + '-L' + Format(RecPItemConfigurator."Lg Tol");
+                        RecPItemConfigurator."LPSA Description 1" := FctBuildDescription(RecPItemConfigurator."LPSA Description 1", 'xL', RecPItemConfigurator."Lg Tol", RecPItemConfigurator."Lg Tol Min.", RecPItemConfigurator."Lg Tol Max.");
+                    RecPItemConfigurator."Quartis Description" := RecPItemConfigurator."Quartis Description" + '-L' + Format(RecPItemConfigurator."Lg Tol");
                 end;
 
                 if RecPItemConfigurator."Piece Type Lifted&Ellipses" = 'ELLIPSES' then
-                    RecPItemConfigurator."PWD LPSA Description 2" := 'xRA' + Format(RecPItemConfigurator."R / Arc") + 'xRC' + Format(RecPItemConfigurator."R / Corde");
+                    RecPItemConfigurator."LPSA Description 2" := 'xRA' + Format(RecPItemConfigurator."R / Arc") + 'xRC' + Format(RecPItemConfigurator."R / Corde");
 
             end
             else
                 if RecPItemConfigurator."Piece Type Lifted&Ellipses" in ['GOUPILLE', 'CHEVILLE'] then begin
                     if (RecPItemConfigurator."Diameter Tol" <> 0) then begin
                         if RecPItemConfigurator."Diameter Tol Min." = -RecPItemConfigurator."Diameter Tol Max." then
-                            RecPItemConfigurator."PWD LPSA Description 1" := RecPItemConfigurator."PWD LPSA Description 1" + '-D' + Format(RecPItemConfigurator."Diameter Tol") + '(+/-' + Format(RecPItemConfigurator."Diameter Tol Max.") + ')'
+                            RecPItemConfigurator."LPSA Description 1" := RecPItemConfigurator."LPSA Description 1" + '-D' + Format(RecPItemConfigurator."Diameter Tol") + '(+/-' + Format(RecPItemConfigurator."Diameter Tol Max.") + ')'
                         else
-                            RecPItemConfigurator."PWD LPSA Description 1" := FctBuildDescription(RecPItemConfigurator."PWD LPSA Description 1", '-D', RecPItemConfigurator."Diameter Tol", RecPItemConfigurator."Diameter Tol Min.",
+                            RecPItemConfigurator."LPSA Description 1" := FctBuildDescription(RecPItemConfigurator."LPSA Description 1", '-D', RecPItemConfigurator."Diameter Tol", RecPItemConfigurator."Diameter Tol Min.",
                                                                         RecPItemConfigurator."Diameter Tol Max.");
-                        RecPItemConfigurator."PWD Quartis Description" := RecPItemConfigurator."PWD Quartis Description" + '-D' + Format(RecPItemConfigurator."Diameter Tol");
+                        RecPItemConfigurator."Quartis Description" := RecPItemConfigurator."Quartis Description" + '-D' + Format(RecPItemConfigurator."Diameter Tol");
                     end;
                     if (RecPItemConfigurator."Lg Tol" <> 0) then begin
                         if RecPItemConfigurator."Lg Tol Min." = -RecPItemConfigurator."Lg Tol Max." then
-                            RecPItemConfigurator."PWD LPSA Description 1" := RecPItemConfigurator."PWD LPSA Description 1" + 'xL' + Format(RecPItemConfigurator."Lg Tol") + '(+/-' + Format(RecPItemConfigurator."Lg Tol Max.") + ')'
+                            RecPItemConfigurator."LPSA Description 1" := RecPItemConfigurator."LPSA Description 1" + 'xL' + Format(RecPItemConfigurator."Lg Tol") + '(+/-' + Format(RecPItemConfigurator."Lg Tol Max.") + ')'
                         else
-                            RecPItemConfigurator."PWD LPSA Description 1" := FctBuildDescription(RecPItemConfigurator."PWD LPSA Description 1", 'xL', RecPItemConfigurator."Lg Tol", RecPItemConfigurator."Lg Tol Min.", RecPItemConfigurator."Lg Tol Max.");
-                        RecPItemConfigurator."PWD Quartis Description" := RecPItemConfigurator."PWD Quartis Description" + '-L' + Format(RecPItemConfigurator."Lg Tol");
+                            RecPItemConfigurator."LPSA Description 1" := FctBuildDescription(RecPItemConfigurator."LPSA Description 1", 'xL', RecPItemConfigurator."Lg Tol", RecPItemConfigurator."Lg Tol Min.", RecPItemConfigurator."Lg Tol Max.");
+                        RecPItemConfigurator."Quartis Description" := RecPItemConfigurator."Quartis Description" + '-L' + Format(RecPItemConfigurator."Lg Tol");
                     end;
                 end
                 else begin
@@ -498,12 +498,12 @@ codeunit 50001 "PWD Item Configurator"
                         else
                             TxtLChar := 'P';
                         if RecPItemConfigurator."Lg Tol Min." = -RecPItemConfigurator."Lg Tol Max." then
-                            RecPItemConfigurator."PWD LPSA Description 1" := RecPItemConfigurator."PWD LPSA Description 1" + '-' + TxtLChar + Format(RecPItemConfigurator."Lg Tol")
+                            RecPItemConfigurator."LPSA Description 1" := RecPItemConfigurator."LPSA Description 1" + '-' + TxtLChar + Format(RecPItemConfigurator."Lg Tol")
                                                      + '(+/-' + Format(RecPItemConfigurator."Lg Tol Max.") + ')'
                         else
-                            RecPItemConfigurator."PWD LPSA Description 1" := FctBuildDescription(RecPItemConfigurator."PWD LPSA Description 1", 'x' + TxtLChar, RecPItemConfigurator."Lg Tol",
+                            RecPItemConfigurator."LPSA Description 1" := FctBuildDescription(RecPItemConfigurator."LPSA Description 1", 'x' + TxtLChar, RecPItemConfigurator."Lg Tol",
                                                       RecPItemConfigurator."Lg Tol Min.", RecPItemConfigurator."Lg Tol Max.");
-                        RecPItemConfigurator."PWD Quartis Description" := RecPItemConfigurator."PWD Quartis Description" + '-' + TxtLChar + Format(RecPItemConfigurator."Lg Tol");
+                        RecPItemConfigurator."Quartis Description" := RecPItemConfigurator."Quartis Description" + '-' + TxtLChar + Format(RecPItemConfigurator."Lg Tol");
 
                     end;
 
@@ -519,12 +519,12 @@ codeunit 50001 "PWD Item Configurator"
                         else
                             TxtLChar := 'H';
                         if RecPItemConfigurator."Height Min. Tol" = -RecPItemConfigurator."Height Max. Tol" then
-                            RecPItemConfigurator."PWD LPSA Description 1" := RecPItemConfigurator."PWD LPSA Description 1" + 'x' + TxtLChar + Format(RecPItemConfigurator."Height Tol")
+                            RecPItemConfigurator."LPSA Description 1" := RecPItemConfigurator."LPSA Description 1" + 'x' + TxtLChar + Format(RecPItemConfigurator."Height Tol")
                                                        + '(+/-' + Format(RecPItemConfigurator."Height Max. Tol") + ')'
                         else
-                            RecPItemConfigurator."PWD LPSA Description 1" := FctBuildDescription(RecPItemConfigurator."PWD LPSA Description 1", 'x' + TxtLChar, RecPItemConfigurator."Height Tol",
+                            RecPItemConfigurator."LPSA Description 1" := FctBuildDescription(RecPItemConfigurator."LPSA Description 1", 'x' + TxtLChar, RecPItemConfigurator."Height Tol",
                                                   RecPItemConfigurator."Height Min. Tol", RecPItemConfigurator."Height Max. Tol");
-                        RecPItemConfigurator."PWD Quartis Description" := RecPItemConfigurator."PWD Quartis Description" + '-' + TxtLChar + Format(RecPItemConfigurator."Height Tol");
+                        RecPItemConfigurator."Quartis Description" := RecPItemConfigurator."Quartis Description" + '-' + TxtLChar + Format(RecPItemConfigurator."Height Tol");
 
                     end;
 
@@ -541,12 +541,12 @@ codeunit 50001 "PWD Item Configurator"
                         else
                             TxtLChar := 'L';
                         if RecPItemConfigurator."Thick Min. Tol" = -RecPItemConfigurator."Thick Max. Tol" then
-                            RecPItemConfigurator."PWD LPSA Description 1" := RecPItemConfigurator."PWD LPSA Description 1" + 'x' + TxtLChar + Format(RecPItemConfigurator."Thick Tol")
+                            RecPItemConfigurator."LPSA Description 1" := RecPItemConfigurator."LPSA Description 1" + 'x' + TxtLChar + Format(RecPItemConfigurator."Thick Tol")
                                                          + '(+/-' + Format(RecPItemConfigurator."Thick Max. Tol") + ')'
                         else
-                            RecPItemConfigurator."PWD LPSA Description 1" := FctBuildDescription(RecPItemConfigurator."PWD LPSA Description 1", 'x' + TxtLChar, RecPItemConfigurator."Thick Tol",
+                            RecPItemConfigurator."LPSA Description 1" := FctBuildDescription(RecPItemConfigurator."LPSA Description 1", 'x' + TxtLChar, RecPItemConfigurator."Thick Tol",
                                                     RecPItemConfigurator."Thick Min. Tol", RecPItemConfigurator."Thick Max. Tol");
-                        RecPItemConfigurator."PWD Quartis Description" := RecPItemConfigurator."PWD Quartis Description" + '-' + TxtLChar + Format(RecPItemConfigurator."Thick Tol");
+                        RecPItemConfigurator."Quartis Description" := RecPItemConfigurator."Quartis Description" + '-' + TxtLChar + Format(RecPItemConfigurator."Thick Tol");
 
                     end;
 
@@ -567,32 +567,32 @@ codeunit 50001 "PWD Item Configurator"
         TxtLDim1: Text[30];
         Quartis: Text[120];
     begin
-        RecPItemConfigurator."PWD LPSA Description 2" := '';
+        RecPItemConfigurator."LPSA Description 2" := '';
         if RecPItemConfigurator."Matter Semi-finished" <> '' then
-            RecPItemConfigurator."PWD LPSA Description 1" := CopyStr(RecPItemConfigurator."Matter Semi-finished", 1, 1) +
+            RecPItemConfigurator."LPSA Description 1" := CopyStr(RecPItemConfigurator."Matter Semi-finished", 1, 1) +
                                     LowerCase(CopyStr(RecPItemConfigurator."Matter Semi-finished", 2, StrLen(RecPItemConfigurator."Matter Semi-finished") - 1))
         else
-            RecPItemConfigurator."PWD LPSA Description 1" := '';
-        RecPItemConfigurator."PWD LPSA Description 1" += Format(RecPItemConfigurator.Number) + RecPItemConfigurator.Orientation + '-' + RecPItemConfigurator."Piece Type Semi-finished";
+            RecPItemConfigurator."LPSA Description 1" := '';
+        RecPItemConfigurator."LPSA Description 1" += Format(RecPItemConfigurator.Number) + RecPItemConfigurator.Orientation + '-' + RecPItemConfigurator."Piece Type Semi-finished";
 
         if RecPItemConfigurator."Piece Type Semi-finished" = 'GRANDI' then begin
             if RecPItemConfigurator."Hole Tol" <> 0 then
                 if RecPItemConfigurator."Hole Tol Min." = -RecPItemConfigurator."Hole Tol Max." then
-                    RecPItemConfigurator."PWD LPSA Description 1" := RecPItemConfigurator."PWD LPSA Description 1" + '-T' + Format(RecPItemConfigurator."Hole Tol") + '(+/-' + Format(RecPItemConfigurator."Hole Tol Max.") + ')'
+                    RecPItemConfigurator."LPSA Description 1" := RecPItemConfigurator."LPSA Description 1" + '-T' + Format(RecPItemConfigurator."Hole Tol") + '(+/-' + Format(RecPItemConfigurator."Hole Tol Max.") + ')'
                 else
-                    RecPItemConfigurator."PWD LPSA Description 1" := FctBuildDescription(RecPItemConfigurator."PWD LPSA Description 1", '-T', RecPItemConfigurator."Hole Tol", RecPItemConfigurator."Hole Tol Min.", RecPItemConfigurator."Hole Tol Max.");
+                    RecPItemConfigurator."LPSA Description 1" := FctBuildDescription(RecPItemConfigurator."LPSA Description 1", '-T', RecPItemConfigurator."Hole Tol", RecPItemConfigurator."Hole Tol Min.", RecPItemConfigurator."Hole Tol Max.");
 
             if ((RecPItemConfigurator."D Min." <> 0) or (RecPItemConfigurator."D Max." <> 0)) then
                 if RecPItemConfigurator."D Min." = -RecPItemConfigurator."D Max." then
-                    RecPItemConfigurator."PWD LPSA Description 1" := RecPItemConfigurator."PWD LPSA Description 1" + 'xD' + '(+/-' + Format(RecPItemConfigurator."D Max.") + ')'
+                    RecPItemConfigurator."LPSA Description 1" := RecPItemConfigurator."LPSA Description 1" + 'xD' + '(+/-' + Format(RecPItemConfigurator."D Max.") + ')'
                 else
-                    RecPItemConfigurator."PWD LPSA Description 1" := FctBuildDescription2(RecPItemConfigurator."PWD LPSA Description 1", 'xD', RecPItemConfigurator."D Min.", RecPItemConfigurator."D Max.");
+                    RecPItemConfigurator."LPSA Description 1" := FctBuildDescription2(RecPItemConfigurator."LPSA Description 1", 'xD', RecPItemConfigurator."D Min.", RecPItemConfigurator."D Max.");
 
             if ((RecPItemConfigurator."Ep Min." <> 0) or (RecPItemConfigurator."Ep Max." <> 0)) then
                 if RecPItemConfigurator."Ep Min." = -RecPItemConfigurator."Ep Max." then
-                    RecPItemConfigurator."PWD LPSA Description 1" := RecPItemConfigurator."PWD LPSA Description 1" + 'xE' + '(+/-' + Format(RecPItemConfigurator."Ep Max.") + ')'
+                    RecPItemConfigurator."LPSA Description 1" := RecPItemConfigurator."LPSA Description 1" + 'xE' + '(+/-' + Format(RecPItemConfigurator."Ep Max.") + ')'
                 else
-                    RecPItemConfigurator."PWD LPSA Description 1" := FctBuildDescription2(RecPItemConfigurator."PWD LPSA Description 1", 'xE', RecPItemConfigurator."Ep Min.", RecPItemConfigurator."Ep Max.");
+                    RecPItemConfigurator."LPSA Description 1" := FctBuildDescription2(RecPItemConfigurator."LPSA Description 1", 'xE', RecPItemConfigurator."Ep Min.", RecPItemConfigurator."Ep Max.");
 
             TxtLDim1 := Format(RecPItemConfigurator."Hole Tol");
             TxtLDim1 := CopyStr(TxtLDim1, 1, StrPos(TxtLDim1, ',') + 1);
@@ -635,21 +635,21 @@ codeunit 50001 "PWD Item Configurator"
         else begin
             if RecPItemConfigurator."Hole Tol" <> 0 then
                 if RecPItemConfigurator."Hole Tol Min." = -RecPItemConfigurator."Hole Tol Max." then
-                    RecPItemConfigurator."PWD LPSA Description 1" := RecPItemConfigurator."PWD LPSA Description 1" + '-T' + Format(RecPItemConfigurator."Hole Tol") + '(+/-' + Format(RecPItemConfigurator."Hole Tol Max.") + ')'
+                    RecPItemConfigurator."LPSA Description 1" := RecPItemConfigurator."LPSA Description 1" + '-T' + Format(RecPItemConfigurator."Hole Tol") + '(+/-' + Format(RecPItemConfigurator."Hole Tol Max.") + ')'
                 else
-                    RecPItemConfigurator."PWD LPSA Description 1" := FctBuildDescription(RecPItemConfigurator."PWD LPSA Description 1", '-T', RecPItemConfigurator."Hole Tol", RecPItemConfigurator."Hole Tol Min.", RecPItemConfigurator."Hole Tol Max.");
+                    RecPItemConfigurator."LPSA Description 1" := FctBuildDescription(RecPItemConfigurator."LPSA Description 1", '-T', RecPItemConfigurator."Hole Tol", RecPItemConfigurator."Hole Tol Min.", RecPItemConfigurator."Hole Tol Max.");
             if RecPItemConfigurator."External Diameter Tol" <> 0 then
                 if RecPItemConfigurator."External Diameter Tol Min." = -RecPItemConfigurator."External Diameter Tol Max." then
-                    RecPItemConfigurator."PWD LPSA Description 1" := RecPItemConfigurator."PWD LPSA Description 1" + 'xD' + Format(RecPItemConfigurator."External Diameter Tol") + '(+/-' +
+                    RecPItemConfigurator."LPSA Description 1" := RecPItemConfigurator."LPSA Description 1" + 'xD' + Format(RecPItemConfigurator."External Diameter Tol") + '(+/-' +
                                              Format(RecPItemConfigurator."External Diameter Tol Max.") + ')'
                 else
-                    RecPItemConfigurator."PWD LPSA Description 1" := FctBuildDescription(RecPItemConfigurator."PWD LPSA Description 1", 'xD', RecPItemConfigurator."External Diameter Tol",
+                    RecPItemConfigurator."LPSA Description 1" := FctBuildDescription(RecPItemConfigurator."LPSA Description 1", 'xD', RecPItemConfigurator."External Diameter Tol",
                             RecPItemConfigurator."External Diameter Tol Min.", RecPItemConfigurator."External Diameter Tol Max.");
             if ((RecPItemConfigurator."Ep Min." <> 0) or (RecPItemConfigurator."Ep Max." <> 0)) then
                 if RecPItemConfigurator."Ep Min." = -RecPItemConfigurator."Ep Max." then
-                    RecPItemConfigurator."PWD LPSA Description 1" := RecPItemConfigurator."PWD LPSA Description 1" + 'xE' + '(+/-' + Format(RecPItemConfigurator."Ep Max.") + ')'
+                    RecPItemConfigurator."LPSA Description 1" := RecPItemConfigurator."LPSA Description 1" + 'xE' + '(+/-' + Format(RecPItemConfigurator."Ep Max.") + ')'
                 else
-                    RecPItemConfigurator."PWD LPSA Description 1" := FctBuildDescription2(RecPItemConfigurator."PWD LPSA Description 1", 'xE', RecPItemConfigurator."Ep Min.", RecPItemConfigurator."Ep Max.");
+                    RecPItemConfigurator."LPSA Description 1" := FctBuildDescription2(RecPItemConfigurator."LPSA Description 1", 'xE', RecPItemConfigurator."Ep Min.", RecPItemConfigurator."Ep Max.");
 
             TxtLDim1 := Format(RecPItemConfigurator."External Diameter Tol");
             TxtLDim1 := CopyStr(TxtLDim1, 1, StrPos(TxtLDim1, ',') + 1);
@@ -708,7 +708,7 @@ codeunit 50001 "PWD Item Configurator"
         end;
 
         //>>CSC
-        RecPItemConfigurator."PWD Quartis Description" := CopyStr(Quartis, 1, 40);
+        RecPItemConfigurator."Quartis Description" := CopyStr(Quartis, 1, 40);
         RecPItemConfigurator."Quartis Desc TEST" := BuildQuartisDesc(RecPItemConfigurator);
         //<<CSC
 
@@ -727,7 +727,7 @@ codeunit 50001 "PWD Item Configurator"
     begin
         RecLItem.Reset();
         if RecLItem.Get(RecPItemConfig."Item Code") then begin
-            RecLItem.Description := RecPItemConfig."PWD Quartis Description";
+            RecLItem.Description := RecPItemConfig."Quartis Description";
             RecLItem.Modify(false);
         end;
     end;
@@ -837,22 +837,22 @@ codeunit 50001 "PWD Item Configurator"
         case _ItemConfig."Product Type" of
             _ItemConfig."Product Type"::STONE:
                 begin
-                    IntLPos1 := StrPos(_ItemConfig."PWD LPSA Description 1", _ItemConfig."Piece Type Stone");
+                    IntLPos1 := StrPos(_ItemConfig."LPSA Description 1", _ItemConfig."Piece Type Stone");
                     IntLPos2 := IntLPos1 + StrLen(_ItemConfig."Piece Type Stone") + 1;
                 end;
             _ItemConfig."Product Type"::PREPARAGE:
                 begin
-                    IntLPos1 := StrPos(_ItemConfig."PWD LPSA Description 1", _ItemConfig."Piece Type Preparage");
+                    IntLPos1 := StrPos(_ItemConfig."LPSA Description 1", _ItemConfig."Piece Type Preparage");
                     IntLPos2 := IntLPos1 + StrLen(_ItemConfig."Piece Type Preparage") + 1;
                 end;
             _ItemConfig."Product Type"::"LIFTED AND ELLIPSES":
                 begin
-                    IntLPos1 := StrPos(_ItemConfig."PWD LPSA Description 1", _ItemConfig."Piece Type Lifted&Ellipses");
+                    IntLPos1 := StrPos(_ItemConfig."LPSA Description 1", _ItemConfig."Piece Type Lifted&Ellipses");
                     IntLPos2 := IntLPos1 + StrLen(_ItemConfig."Piece Type Lifted&Ellipses") + 1;
                 end;
             _ItemConfig."Product Type"::"SEMI-FINISHED":
                 begin
-                    IntLPos1 := StrPos(_ItemConfig."PWD LPSA Description 1", _ItemConfig."Piece Type Semi-finished");
+                    IntLPos1 := StrPos(_ItemConfig."LPSA Description 1", _ItemConfig."Piece Type Semi-finished");
                     IntLPos2 := IntLPos1 + StrLen(_ItemConfig."Piece Type Semi-finished") + 1;
                 end;
         end;
@@ -863,10 +863,10 @@ codeunit 50001 "PWD Item Configurator"
         //TxtLQuartis := COPYSTR(_ItemConfig."PWD LPSA Description 1",1,40);
         //IF (COPYSTR(_ItemConfig."Item Code",1,2) IN ['80','99']) OR
         //    (COPYSTR(_ItemConfig."Item Code",1,3) IN ['521']) THEN
-        TxtLQuartis := CopyStr(_ItemConfig."PWD LPSA Description 1", IntLPos1, 40);
+        TxtLQuartis := CopyStr(_ItemConfig."LPSA Description 1", IntLPos1, 40);
 
         if CopyStr(_ItemConfig."Item Code", 1, 3) in ['512', '513'] then
-            TxtLQuartis := CopyStr(_ItemConfig."PWD LPSA Description 1", IntLPos2, 40);
+            TxtLQuartis := CopyStr(_ItemConfig."LPSA Description 1", IntLPos2, 40);
 
         exit(TxtLQuartis);
     end;

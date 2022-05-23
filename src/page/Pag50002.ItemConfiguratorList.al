@@ -48,15 +48,15 @@ page 50002 "PWD Item Configurator List"
                 {
                     ApplicationArea = All;
                 }
-                field("PWD LPSA Description 1"; Rec."PWD LPSA Description 1")
+                field("PWD LPSA Description 1"; Rec."LPSA Description 1")
                 {
                     ApplicationArea = All;
                 }
-                field("PWD LPSA Description 2"; Rec."PWD LPSA Description 2")
+                field("PWD LPSA Description 2"; Rec."LPSA Description 2")
                 {
                     ApplicationArea = All;
                 }
-                field("PWD Quartis Description"; Rec."PWD Quartis Description")
+                field("PWD Quartis Description"; Rec."Quartis Description")
                 {
                     ApplicationArea = All;
                 }

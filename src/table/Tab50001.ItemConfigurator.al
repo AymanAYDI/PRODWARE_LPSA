@@ -127,15 +127,15 @@ table 50001 "PWD Item Configurator"
         {
             Caption = 'Item Code';
         }
-        field(15; "PWD LPSA Description 1"; Text[120])
+        field(15; "LPSA Description 1"; Text[120])
         {
             Caption = 'LPSA Description 1';
         }
-        field(16; "PWD LPSA Description 2"; Text[120])
+        field(16; "LPSA Description 2"; Text[120])
         {
             Caption = 'LPSA Description 2';
         }
-        field(17; "PWD Quartis Description"; Text[40])
+        field(17; "Quartis Description"; Text[40])
         {
             Caption = 'Quartis Description';
         }
@@ -361,7 +361,7 @@ table 50001 "PWD Item Configurator"
         }
         field(76; "Height Max. Tol"; Decimal)
         {
-            Caption = 'Height Min.';
+            Caption = 'Height Max.';
         }
         field(77; "Thick Tol"; Decimal)
         {

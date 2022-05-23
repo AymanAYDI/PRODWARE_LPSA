@@ -1803,9 +1803,9 @@ codeunit 50021 "PWD LPSA Functions Mgt."
         RecLNewItemConfigurator := RecLItemConfigurator;
         RecLNewItemConfigurator."Entry No." := 0;
         RecLNewItemConfigurator."Item Code" := '';
-        RecLNewItemConfigurator."PWD LPSA Description 1" := '';
-        RecLNewItemConfigurator."PWD LPSA Description 2" := '';
-        RecLNewItemConfigurator."PWD Quartis Description" := '';
+        RecLNewItemConfigurator."LPSA Description 1" := '';
+        RecLNewItemConfigurator."LPSA Description 2" := '';
+        RecLNewItemConfigurator."Quartis Description" := '';
         RecLNewItemConfigurator.INSERT(TRUE);
 
         // Update New "Item Code"
