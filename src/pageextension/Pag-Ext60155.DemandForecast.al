@@ -52,7 +52,7 @@ pageextension 60155 "PWD DemandForecast" extends "Demand Forecast"
         //<<TI464004
         */
         //end;
-        addafter("General")
+        addafter("DateFilter")
         {
             field("PWD CustomerFilter"; "CustomerFilter")
             {
@@ -81,7 +81,7 @@ pageextension 60155 "PWD DemandForecast" extends "Demand Forecast"
                 trigger OnValidate()
                 begin
                     //>>LAP080615
-                    SetMatrix;
+                    SetMatrix();
                     //<<LAP080615
                 end;
             }
