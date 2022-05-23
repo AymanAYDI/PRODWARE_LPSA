@@ -15,6 +15,7 @@ page 50000 "PWD Quartis Comment"
     SourceTable = "PWD Quartis Comment";
     ApplicationArea = all;
     UsageCategory = Administration;
+    Caption = 'Quartis Comment';
 
     layout
     {

@@ -5,6 +5,7 @@ page 50022 "PWD Lignes Gammes"
     ApplicationArea = all;
     UsageCategory = Lists;
     SourceTable = "Routing Line";
+    Caption = 'Lignes Gammes';
 
     layout
     {
