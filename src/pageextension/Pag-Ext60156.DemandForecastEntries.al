@@ -12,7 +12,7 @@ pageextension 60156 "PWD DemandForecastEntries" extends "Demand Forecast Entries
 
     layout
     {
-        addafter("Control1")
+        addafter("Entry No.")
         {
             field("PWD Customer No."; "PWD Customer No.")
             {
