@@ -1566,10 +1566,12 @@ codeunit 50020 "PWD LPSA Events Mgt."
     //---PAG9245---
     [EventSubscriber(ObjectType::Page, Page::"Demand Forecast Matrix", 'OnMatrixOnDrillDownOnAfterSetFilters', '', false, false)]
     local procedure PAG9245_OnMatrixOnDrillDownOnAfterSetFilters_DemandForecastMatrix(var Item: Record Item; MatrixRecord: Record Date; ColumnID: Integer; ForecastType: Enum "Demand Forecast Type"; ProductionForecastName: Text[30]; LocationFilter: Text; var ProductionForecastEntry: Record "Production Forecast Entry");
+    Var
+        LPSASetGetFunctions: Codeunit "PWD LPSA Set/Get Functions.";
     begin
         //>>LAP080615
-        IF CustomerFilter <> '' THEN
-            ProductionForecastEntry.SETFILTER("PWD Customer No.", CustomerFilter)
+        IF LPSASetGetFunctions.GetCustomerFilter() <> '' THEN
+            ProductionForecastEntry.SETFILTER("PWD Customer No.", LPSASetGetFunctions.GetCustomerFilter())
         ELSE
             ProductionForecastEntry.SETRANGE("PWD Customer No.");
         //<<LAP080615
@@ -1578,10 +1580,12 @@ codeunit 50020 "PWD LPSA Events Mgt."
     [EventSubscriber(ObjectType::Page, Page::"Demand Forecast Matrix", 'OnMATRIXOnAfterGetRecordOnAfterSetFilters', '', false, false)]
 
     local procedure PAG9245_OnMATRIXOnAfterGetRecordOnAfterSetFilters_DemandForecastMatrix(var Item: Record Item; ColumnID: Integer; ForecastType: Enum "Demand Forecast Type"; ProductionForecastName: Text[30]; LocationFilter: Text)
+    Var
+        LPSASetGetFunctions: Codeunit "PWD LPSA Set/Get Functions.";
     begin
         //>>LAP080615
-        IF CustomerFilter <> '' THEN
-            Item.SETFILTER("PWD Customer Filter", CustomerFilter)
+        IF LPSASetGetFunctions.GetCustomerFilter() <> '' THEN
+            Item.SETFILTER("PWD Customer Filter", LPSASetGetFunctions.GetCustomerFilter())
         ELSE
             Item.SETRANGE("PWD Customer Filter");
         //<<LAP080615
@@ -1589,10 +1593,12 @@ codeunit 50020 "PWD LPSA Events Mgt."
 
     [EventSubscriber(ObjectType::Page, Page::"Demand Forecast Matrix", 'OnEnterBaseQtyOnBeforeValidateProdForecastQty', '', false, false)]
     local procedure PAG9245_OnEnterBaseQtyOnBeforeValidateProdForecastQty_DemandForecastMatrix(var Item: Record Item; ColumnID: Integer; MatrixRecords: array[32] of Record Date)
+    Var
+        LPSASetGetFunctions: Codeunit "PWD LPSA Set/Get Functions.";
     begin
         //>>LAP080615
-        IF CustomerFilter <> '' THEN
-            Item.SETFILTER("PWD Customer Filter", CustomerFilter)
+        IF LPSASetGetFunctions.GetCustomerFilter() <> '' THEN
+            Item.SETFILTER("PWD Customer Filter", LPSASetGetFunctions.GetCustomerFilter())
         ELSE
             Item.SETRANGE("PWD Customer Filter");
         //<<LAP080615

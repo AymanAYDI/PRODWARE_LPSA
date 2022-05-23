@@ -79,7 +79,10 @@ pageextension 60155 "PWD DemandForecast" extends "Demand Forecast"
                 end;
 
                 trigger OnValidate()
+                Var
+                    LPSASetGetFunctions: Codeunit "PWD LPSA Set/Get Functions.";
                 begin
+                    LPSASetGetFunctions.SetCustomerFilter("CustomerFilter");
                     //>>LAP080615
                     SetMatrix();
                     //<<LAP080615
