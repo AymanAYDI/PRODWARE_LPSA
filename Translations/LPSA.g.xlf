@@ -5858,6 +5858,11 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Page PWD Item Configurator Details - Property Caption</note>
         </trans-unit>
+        <trans-unit id="Page 1090292083 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Item Configurator List</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page PWD Item Configurator List - Property Caption</note>
+        </trans-unit>
         <trans-unit id="Page 1090292083 - Action 4205528872 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>F&amp;unctions</source>
           <note from="Developer" annotates="general" priority="2"></note>
@@ -6483,6 +6488,11 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Page PWD Item List requirement - Action Action1907930606 - Property Caption</note>
         </trans-unit>
+        <trans-unit id="Page 1306865995 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Lignes Gammes</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page PWD Lignes Gammes - Property Caption</note>
+        </trans-unit>
         <trans-unit id="Page 981050653 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Lot Size List</source>
           <note from="Developer" annotates="general" priority="2"></note>
@@ -6607,6 +6617,11 @@
           <source>Card</source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Page PWD Purchase Order line - Action &lt;Action62&gt; - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 2604567683 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Quartis Comment</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page PWD Quartis Comment - Property Caption</note>
         </trans-unit>
         <trans-unit id="Page 872178003 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Receipt Line Buffer</source>
