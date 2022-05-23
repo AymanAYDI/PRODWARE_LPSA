@@ -78,6 +78,7 @@ pageextension 60145 "PWD PlanningWorksheet" extends "Planning Worksheet"
         {
             action("PWD Action1100267001")
             {
+                Caption = 'Tout Cocher';
                 ApplicationArea = All;
                 Image = Action;
                 trigger OnAction()
