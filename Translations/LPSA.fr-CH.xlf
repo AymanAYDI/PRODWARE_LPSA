@@ -9095,7 +9095,7 @@
         </trans-unit>
         <trans-unit id="Report 894387540 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Auto. Finish Prod. Order</source>
-          <target state="translated">Auto. Finish Prod. Order</target>
+          <target state="translated">Terminer OF (Automatique)</target>
           <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">Report PWD Auto. Finish Prod. Order - Property Caption</note>
         </trans-unit>

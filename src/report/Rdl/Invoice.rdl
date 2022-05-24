@@ -19,7 +19,7 @@
             <TablixBody>
               <TablixColumns>
                 <TablixColumn>
-                  <Width>19.20635cm</Width>
+                  <Width>18.85874cm</Width>
                 </TablixColumn>
               </TablixColumns>
               <TablixRows>
@@ -3725,7 +3725,7 @@ Cstr(Fields!CstG_014.value) + chr(177),4)</Hidden>
               <BreakLocation>End</BreakLocation>
             </PageBreak>
             <Height>5.39683cm</Height>
-            <Width>19.20635cm</Width>
+            <Width>18.85874cm</Width>
             <Style>
               <FontSize>9pt</FontSize>
             </Style>
@@ -3734,7 +3734,7 @@ Cstr(Fields!CstG_014.value) + chr(177),4)</Hidden>
         <Height>5.39683cm</Height>
         <Style />
       </Body>
-      <Width>19.20635cm</Width>
+      <Width>18.87142cm</Width>
       <Page>
         <PageHeader>
           <Height>8.25397cm</Height>
@@ -4327,7 +4327,7 @@ Cstr(Fields!CstG_014.value) + chr(177),4)</Hidden>
               </ReportItems>
               <DataElementOutput>ContentsOnly</DataElementOutput>
               <Height>8.25397cm</Height>
-              <Width>19.06349cm</Width>
+              <Width>18.87142cm</Width>
               <Style />
             </Rectangle>
           </ReportItems>
@@ -4692,7 +4692,7 @@ Cstr(Fields!CstG_014.value) + chr(177),4)</Hidden>
                     <Rectangle Name="rectangle4">
                       <DataElementOutput>ContentsOnly</DataElementOutput>
                       <Height>3.384cm</Height>
-                      <Width>0.31746cm</Width>
+                      <Width>1.26984cm</Width>
                       <Style />
                     </Rectangle>
                     <Textbox Name="textbox238">
@@ -4711,7 +4711,7 @@ Cstr(Fields!CstG_014.value) + chr(177),4)</Hidden>
                           <Style />
                         </Paragraph>
                       </Paragraphs>
-                      <Left>0.63492cm</Left>
+                      <Left>1.26984cm</Left>
                       <Height>0.6cm</Height>
                       <Width>3.49206cm</Width>
                       <ZIndex>1</ZIndex>
@@ -4746,7 +4746,7 @@ Cstr(Fields!CstG_014.value) + chr(177),4)</Hidden>
                           </Style>
                         </Paragraph>
                       </Paragraphs>
-                      <Left>4.12698cm</Left>
+                      <Left>4.7619cm</Left>
                       <Height>0.6cm</Height>
                       <Width>2.99841cm</Width>
                       <ZIndex>2</ZIndex>
@@ -4782,7 +4782,7 @@ Cstr(Fields!CstG_014.value) + chr(177),4)</Hidden>
                         </Paragraph>
                       </Paragraphs>
                       <Top>1.26984cm</Top>
-                      <Left>4.12698cm</Left>
+                      <Left>4.7619cm</Left>
                       <Height>0.6cm</Height>
                       <Width>2.99841cm</Width>
                       <ZIndex>3</ZIndex>
@@ -4820,7 +4820,7 @@ Cstr(Fields!CstG_014.value) + chr(177),4)</Hidden>
                         </Paragraph>
                       </Paragraphs>
                       <Top>0.63492cm</Top>
-                      <Left>0.63492cm</Left>
+                      <Left>1.26984cm</Left>
                       <Height>0.6cm</Height>
                       <Width>3.49206cm</Width>
                       <ZIndex>4</ZIndex>
@@ -4851,7 +4851,7 @@ Cstr(Fields!CstG_014.value) + chr(177),4)</Hidden>
                         </Paragraph>
                       </Paragraphs>
                       <Top>0.63492cm</Top>
-                      <Left>4.12698cm</Left>
+                      <Left>4.7619cm</Left>
                       <Height>0.6cm</Height>
                       <Width>2.99841cm</Width>
                       <ZIndex>5</ZIndex>
@@ -4879,7 +4879,7 @@ Cstr(Fields!CstG_014.value) + chr(177),4)</Hidden>
                         </Paragraph>
                       </Paragraphs>
                       <Top>1.26984cm</Top>
-                      <Left>0.63492cm</Left>
+                      <Left>1.26984cm</Left>
                       <Height>0.6cm</Height>
                       <Width>3.49206cm</Width>
                       <ZIndex>6</ZIndex>
@@ -4902,9 +4902,9 @@ Cstr(Fields!CstG_014.value) + chr(177),4)</Hidden>
                     </Textbox>
                   </ReportItems>
                   <DataElementOutput>ContentsOnly</DataElementOutput>
-                  <Left>11.74603cm</Left>
+                  <Left>11.11111cm</Left>
                   <Height>3.384cm</Height>
-                  <Width>7.12539cm</Width>
+                  <Width>7.76031cm</Width>
                   <ZIndex>13</ZIndex>
                   <Visibility>
                     <Hidden>=iif(ReportItems!ToutouCHannouf.Value,False,TRUE)</Hidden>
@@ -5051,7 +5051,7 @@ Cstr(Fields!CstG_014.value) + chr(177),4)</Hidden>
               </ReportItems>
               <DataElementOutput>ContentsOnly</DataElementOutput>
               <Height>7.614cm</Height>
-              <Width>19.18047cm</Width>
+              <Width>18.87142cm</Width>
               <Visibility>
                 <Hidden>=iif(ReportItems!ToutouCHannouf.Value,False,TRUE)</Hidden>
               </Visibility>
