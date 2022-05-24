@@ -2109,13 +2109,54 @@ codeunit 50020 "PWD LPSA Events Mgt."
         //>>FE_LAPIERRETTE_PROD01.001: TO 13/12/2011
     end;
 
+    //---99000919---
+    [EventSubscriber(ObjectType::Page, Page::"Demand Forecast", 'OnBeforeActionEvent', 'Previous Set', false, false)]
+    local procedure PAG99000919_OnAfterActionEvent_DemandForecast_PreviousSet()
     var
-        // BooGFromConfig: Boolean;
-        // BooGFromImport: Boolean;
-        // [INDATASET]
-        // BooGToItemVisible: Boolean;
-        //DontExecuteIfImport: Boolean;
-        // [InDataSet]
-        // LotDeterminingEnable: Boolean;
-        CustomerFilter: Code[20];
+        DemandForecast: page "Demand Forecast";
+    begin
+        DemandForecast.SetMatrix();
+    end;
+
+    [EventSubscriber(ObjectType::Page, Page::"Demand Forecast", 'OnBeforeActionEvent', 'Previous Column', false, false)]
+    local procedure PAG99000919_OnAfterActionEvent_DemandForecast_PreviousColumn()
+    var
+        DemandForecast: page "Demand Forecast";
+    begin
+        DemandForecast.SetMatrix();
+    end;
+
+    [EventSubscriber(ObjectType::Page, Page::"Demand Forecast", 'OnBeforeActionEvent', 'Next Column', false, false)]
+    local procedure PAG99000919_OnAfterActionEvent_DemandForecast_NextColumn()
+    var
+        DemandForecast: page "Demand Forecast";
+    begin
+        DemandForecast.SetMatrix();
+    end;
+
+    [EventSubscriber(ObjectType::Page, Page::"Demand Forecast", 'OnbeforeValidateEvent', 'PeriodType', false, false)]
+    local procedure PAG99000919_OnbeforeValidateEvent_DemandForecast_PeriodType()
+    var
+        DemandForecast: page "Demand Forecast";
+    begin
+        DemandForecast.SetMatrix();
+    end;
+
+    [EventSubscriber(ObjectType::Page, Page::"Demand Forecast", 'OnbeforeValidateEvent', 'DateFilter', false, false)]
+    local procedure PAG99000919_OnbeforeValidateEvent_DemandForecast_DateFilter()
+    var
+        DemandForecast: page "Demand Forecast";
+    begin
+        DemandForecast.SetMatrix();
+    end;
+
+    var
+    // BooGFromConfig: Boolean;
+    // BooGFromImport: Boolean;
+    // [INDATASET]
+    // BooGToItemVisible: Boolean;
+    //DontExecuteIfImport: Boolean;
+    // [InDataSet]
+    // LotDeterminingEnable: Boolean;
+    //CustomerFilter: Code[20];
 }
