@@ -3779,7 +3779,12 @@
                                             </Paragraphs>
                                             <ZIndex>8</ZIndex>
                                             <Visibility>
-                                              <Hidden>=Code.SetData(Cstr(Fields!CustAddr_1_.Value) + Chr(177) + Cstr(Fields!CustAddr_2_.Value) + Chr(177)+ Cstr(Fields!CustAddr_3_.Value) + Chr(177)+ Cstr(Fields!CustAddr_4_.Value) + Chr(177)+ Cstr(Fields!CustAddr_5_.Value)+Chr(177)+ Cstr(Fields!CustAddr_6_.Value),1)</Hidden>
+                                              <Hidden>=Code.SetData(Cstr(Fields!CustAddr_1_.Value) + Chr(177) + 
+Cstr(Fields!CustAddr_2_.Value) + Chr(177)+ 
+Cstr(Fields!CustAddr_3_.Value) + Chr(177)+ 
+Cstr(Fields!CustAddr_4_.Value) + Chr(177)+ 
+Cstr(Fields!CustAddr_5_.Value)+Chr(177)+ 
+Cstr(Fields!CustAddr_6_.Value),1)</Hidden>
                                             </Visibility>
                                             <Style>
                                               <Border>
@@ -6435,6 +6440,7 @@ Cstr(sum(Fields!Sales_Cr_Memo_Line__Amount_Including_VAT_.Value)),5)</Hidden>
                   </Style>
                 </Textbox>
                 <Textbox Name="CustAddr_6_1">
+                  <CanGrow>true</CanGrow>
                   <KeepTogether>true</KeepTogether>
                   <Paragraphs>
                     <Paragraph>
@@ -6456,10 +6462,14 @@ Cstr(sum(Fields!Sales_Cr_Memo_Line__Amount_Including_VAT_.Value)),5)</Hidden>
                   <Width>6.3cm</Width>
                   <ZIndex>5</ZIndex>
                   <Style>
+                    <Border>
+                      <Style>None</Style>
+                    </Border>
                     <VerticalAlign>Middle</VerticalAlign>
                   </Style>
                 </Textbox>
                 <Textbox Name="CustAddr_5_1">
+                  <CanGrow>true</CanGrow>
                   <KeepTogether>true</KeepTogether>
                   <Paragraphs>
                     <Paragraph>
@@ -6480,15 +6490,16 @@ Cstr(sum(Fields!Sales_Cr_Memo_Line__Amount_Including_VAT_.Value)),5)</Hidden>
                   <Height>0.423cm</Height>
                   <Width>6.3cm</Width>
                   <ZIndex>6</ZIndex>
-                  <Visibility>
-                    <Hidden>=Code.GetData(5,3)=""</Hidden>
-                  </Visibility>
                   <DataElementOutput>NoOutput</DataElementOutput>
                   <Style>
+                    <Border>
+                      <Style>None</Style>
+                    </Border>
                     <VerticalAlign>Middle</VerticalAlign>
                   </Style>
                 </Textbox>
                 <Textbox Name="CustAddr_4_1">
+                  <CanGrow>true</CanGrow>
                   <KeepTogether>true</KeepTogether>
                   <Paragraphs>
                     <Paragraph>
@@ -6509,15 +6520,16 @@ Cstr(sum(Fields!Sales_Cr_Memo_Line__Amount_Including_VAT_.Value)),5)</Hidden>
                   <Height>0.423cm</Height>
                   <Width>6.3cm</Width>
                   <ZIndex>7</ZIndex>
-                  <Visibility>
-                    <Hidden>=Code.GetData(4,3)=""</Hidden>
-                  </Visibility>
                   <DataElementOutput>NoOutput</DataElementOutput>
                   <Style>
+                    <Border>
+                      <Style>None</Style>
+                    </Border>
                     <VerticalAlign>Middle</VerticalAlign>
                   </Style>
                 </Textbox>
                 <Textbox Name="CustAddr_3_1">
+                  <CanGrow>true</CanGrow>
                   <KeepTogether>true</KeepTogether>
                   <Paragraphs>
                     <Paragraph>
@@ -6538,11 +6550,11 @@ Cstr(sum(Fields!Sales_Cr_Memo_Line__Amount_Including_VAT_.Value)),5)</Hidden>
                   <Height>0.423cm</Height>
                   <Width>6.26143cm</Width>
                   <ZIndex>8</ZIndex>
-                  <Visibility>
-                    <Hidden>=Code.GetData(3,3)=""</Hidden>
-                  </Visibility>
                   <DataElementOutput>NoOutput</DataElementOutput>
                   <Style>
+                    <Border>
+                      <Style>None</Style>
+                    </Border>
                     <VerticalAlign>Middle</VerticalAlign>
                   </Style>
                 </Textbox>
@@ -6575,6 +6587,7 @@ Cstr(sum(Fields!Sales_Cr_Memo_Line__Amount_Including_VAT_.Value)),5)</Hidden>
                   </Style>
                 </Textbox>
                 <Textbox Name="CustAddr_1_1">
+                  <CanGrow>true</CanGrow>
                   <KeepTogether>true</KeepTogether>
                   <Paragraphs>
                     <Paragraph>
@@ -6630,7 +6643,7 @@ Cstr(sum(Fields!Sales_Cr_Memo_Line__Amount_Including_VAT_.Value)),5)</Hidden>
                     <Paragraph>
                       <TextRuns>
                         <TextRun>
-                          <Value>=ReportItems!BARECODE.Value</Value>
+                          <Value>=Code.GetData(1,3)</Value>
                           <Style>
                             <FontFamily>ExtCode39MHr</FontFamily>
                           </Style>
@@ -6655,6 +6668,7 @@ Cstr(sum(Fields!Sales_Cr_Memo_Line__Amount_Including_VAT_.Value)),5)</Hidden>
                   </Style>
                 </Textbox>
                 <Textbox Name="textbox244">
+                  <CanGrow>true</CanGrow>
                   <KeepTogether>true</KeepTogether>
                   <Paragraphs>
                     <Paragraph>
@@ -6675,11 +6689,11 @@ Cstr(sum(Fields!Sales_Cr_Memo_Line__Amount_Including_VAT_.Value)),5)</Hidden>
                   <Height>0.423cm</Height>
                   <Width>6.3cm</Width>
                   <ZIndex>13</ZIndex>
-                  <Visibility>
-                    <Hidden>=Code.GetData(2,3)=""</Hidden>
-                  </Visibility>
                   <DataElementOutput>NoOutput</DataElementOutput>
                   <Style>
+                    <Border>
+                      <Style>None</Style>
+                    </Border>
                     <VerticalAlign>Middle</VerticalAlign>
                   </Style>
                 </Textbox>
