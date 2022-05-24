@@ -94,6 +94,7 @@ pageextension 60155 "PWD DemandForecast" extends "Demand Forecast"
                 Editable = false;
                 ApplicationArea = All;
             }
+
         }
     }
     actions
