@@ -502,6 +502,8 @@ report 50013 "PWD Credit Note"
                         DataItemTableView = SORTING(Number) WHERE(Number = CONST(1));
                         column(NNC_TotalAmount; NNC_TotalLCY)
                         {
+                            AutoFormatExpression = "Sales Cr.Memo Line".GetCurrencyCode();
+                            AutoFormatType = 1;
                         }
                         column(NNC_VATAmount; NNC_VATAmount)
                         {
