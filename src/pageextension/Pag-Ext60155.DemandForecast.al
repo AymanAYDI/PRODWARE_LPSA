@@ -86,7 +86,6 @@ pageextension 60155 "PWD DemandForecast" extends "Demand Forecast"
                     //>>LAP080615
                     SetMatrix();
                     //<<LAP080615
-
                 end;
             }
             field("PWD CustomerName"; "CustomerName")

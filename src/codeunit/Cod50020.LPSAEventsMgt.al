@@ -1602,7 +1602,6 @@ codeunit 50020 "PWD LPSA Events Mgt."
             Item.SETRANGE("PWD ToForecast");
         END;
         //FILTERGROUP(0);
-        LPSASetGetFunctions.SetCustomerFilter('');
         //   Window.OPEN(TxtL001);
         //   CurrPage.UPDATE(FALSE);
         //   Window.CLOSE;
@@ -2166,6 +2165,14 @@ codeunit 50020 "PWD LPSA Events Mgt."
         DemandForecast: page "Demand Forecast";
     begin
         DemandForecast.SetMatrix();
+    end;
+
+    [EventSubscriber(ObjectType::Page, Page::"Demand Forecast", 'OnOpenPageEvent', '', false, false)]
+    local procedure PAG99000919_OnOpenPageEvent_DemandForecast()
+    var
+        LPSASetGetFunctions: Codeunit "PWD LPSA Set/Get Functions.";
+    begin
+        LPSASetGetFunctions.SetCustomerFilter('');
     end;
 
     var
