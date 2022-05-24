@@ -183,7 +183,7 @@ pageextension 60008 "PWD ItemCard" extends "Item Card"
             field("PWD Lot Determining"; Rec."PWD Lot Determining")
             {
                 ApplicationArea = All;
-                Enabled =LotDeterminingEnable;
+                Enabled = LotDeterminingEnable;
             }
 
         }
@@ -413,7 +413,7 @@ pageextension 60008 "PWD ItemCard" extends "Item Card"
     var
         ItemCategory: Record "Item Category";
     BEGIN
-       LotDeterminingEnable := FALSE;
+        LotDeterminingEnable := FALSE;
 
         IF ItemCategory.GET(Rec."Item Category Code") THEN
             IF ItemCategory."PWD Transmitted Order No." THEN
@@ -424,8 +424,7 @@ pageextension 60008 "PWD ItemCard" extends "Item Card"
     var
         RecLProductionBOMHeader: Record "Production BOM Header";
         RecLRoutingHeader: Record "Routing Header";
-        LPSAFunctionsMgt: Codeunit "PWD LPSA Functions Mgt.";
-    //CalculateStdCost: Codeunit "Calculate Standard Cost";
+        CalculateStandardCost: Codeunit "PWD Calculate Standard Cost";
     BEGIN
         IF (Rec."Replenishment System" = Rec."Replenishment System"::"Prod. Order") AND
            (Rec."Costing Method" = Rec."Costing Method"::Standard) AND
@@ -438,10 +437,10 @@ pageextension 60008 "PWD ItemCard" extends "Item Card"
            //   (NOT BooGCalcCost) THEN
            (Rec."Standard Cost" = 0) THEN
             IF CONFIRM(CstG001, TRUE) THEN BEGIN
-                CLEAR(LPSAFunctionsMgt);
+                CLEAR(CalculateStandardCost);
                 //>>TDL290719.001
                 //CalculateStdCost.FctCalcItemMonoLevel("No.",FALSE);
-                LPSAFunctionsMgt.CalculateCost(Rec);
+                CalculateStandardCost.CalculateCost(Rec);
                 //<<TDL290719.001
             END ELSE
                 ERROR(CstG002);
