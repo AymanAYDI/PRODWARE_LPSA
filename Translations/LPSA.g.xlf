@@ -5654,7 +5654,7 @@
           <note from="Xliff Generator" annotates="general" priority="3">Page Archived Lines Order Version 1 - Property Caption</note>
         </trans-unit>
         <trans-unit id="Page 3631766290 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Firm Planned Prod. Order</source>
+          <source>Firm Planned Prod. Order to delete</source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Page Firm Planned Prod. Order Del. - Property Caption</note>
         </trans-unit>
@@ -5919,7 +5919,7 @@
           <note from="Xliff Generator" annotates="general" priority="3">Page PWD Item Configurator Details - Property Caption</note>
         </trans-unit>
         <trans-unit id="Page 1090292083 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Item Configurator List</source>
+          <source>Item Configurator</source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Page PWD Item Configurator List - Property Caption</note>
         </trans-unit>
@@ -6564,7 +6564,7 @@
           <note from="Xliff Generator" annotates="general" priority="3">Page PWD Lot Size Std. Cost List - Property Caption</note>
         </trans-unit>
         <trans-unit id="Page 617405145 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Manufacturing cycles Setup - List</source>
+          <source>Manufacturing cycles Setup</source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Page PWD Manuf. cycles Setup - List - Property Caption</note>
         </trans-unit>
@@ -8264,7 +8264,7 @@
           <note from="Xliff Generator" annotates="general" priority="3">Report PWD Inventory Recovery - Control CodGDocNoF - Property Caption</note>
         </trans-unit>
         <trans-unit id="Report 3401270203 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Inventory Valuation - WIP</source>
+          <source>Inventory Valuation - LPSA</source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Report PWD Inventory Valuation - LPSA - Property Caption</note>
         </trans-unit>
@@ -11629,7 +11629,7 @@
           <note from="Xliff Generator" annotates="general" priority="3">Report Update Rtg Line Global IRON - Control BooG_Wait_TimeF - Property Caption</note>
         </trans-unit>
         <trans-unit id="Report 3581194373 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Update routing lines</source>
+          <source>Update routing</source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Report Update Rtg Line Global-Step 1 - Property Caption</note>
         </trans-unit>

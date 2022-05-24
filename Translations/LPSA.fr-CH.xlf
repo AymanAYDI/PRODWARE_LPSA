@@ -4385,7 +4385,7 @@
         </trans-unit>
         <trans-unit id="Table 1943520386 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Production Balance</source>
-          <target state="translated">Bilan de production commande</target>
+          <target state="translated">Bilan de production par commande</target>
           <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">Table PWD Production Balance - Property Caption</note>
         </trans-unit>
@@ -6784,8 +6784,9 @@
           <note from="Xliff Generator" annotates="general" priority="3">Page Archived Lines Order Version 1 - Property Caption</note>
         </trans-unit>
         <trans-unit id="Page 3631766290 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Firm Planned Prod. Order</source>
+          <source>Firm Planned Prod. Order to delete</source>
           <target state="translated">O.F. Planifiés fermes pour suppression</target>
+          <note from="XLIFF Sync" annotates="general" priority="1">Source text has changed. Please review the translation.</note>
           <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">Page Firm Planned Prod. Order Del. - Property Caption</note>
         </trans-unit>
@@ -6869,7 +6870,7 @@
         </trans-unit>
         <trans-unit id="Page 3730524640 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Capacity ledger entry list</source>
-          <target state="translated">Capacity ledger entry list</target>
+          <target state="translated">Ecritures capacité</target>
           <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">Page PWD Capacity ledger entry list - Property Caption</note>
         </trans-unit>
@@ -7102,8 +7103,9 @@
           <note from="Xliff Generator" annotates="general" priority="3">Page PWD Item Configurator Details - Property Caption</note>
         </trans-unit>
         <trans-unit id="Page 1090292083 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Item Configurator List</source>
-          <target state="translated">Item Configurator List</target>
+          <source>Item Configurator</source>
+          <target state="translated">Configurateur article</target>
+          <note from="XLIFF Sync" annotates="general" priority="1">Source text has changed. Please review the translation.</note>
           <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">Page PWD Item Configurator List - Property Caption</note>
         </trans-unit>
@@ -7193,7 +7195,7 @@
         </trans-unit>
         <trans-unit id="Page 1064686525 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Item List</source>
-          <target state="translated">Liste des articles</target>
+          <target state="translated">Liste des besoins articles</target>
           <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">Page PWD Item List requirement - Property Caption</note>
         </trans-unit>
@@ -7876,8 +7878,9 @@
           <note from="Xliff Generator" annotates="general" priority="3">Page PWD Lot Size Std. Cost List - Property Caption</note>
         </trans-unit>
         <trans-unit id="Page 617405145 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Manufacturing cycles Setup - List</source>
-          <target state="translated">Liste - Configuration cyles de production</target>
+          <source>Manufacturing cycles Setup</source>
+          <target state="translated">Configuration cyles de production</target>
+          <note from="XLIFF Sync" annotates="general" priority="1">Source text has changed. Please review the translation.</note>
           <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">Page PWD Manuf. cycles Setup - List - Property Caption</note>
         </trans-unit>
@@ -8231,7 +8234,7 @@
         </trans-unit>
         <trans-unit id="Page 3441065952 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Tools Instructions</source>
-          <target state="translated">Instructions Méthodes et Qualité</target>
+          <target state="translated">Instructions d'outillage</target>
           <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">Page PWD Tools Instructions Setup - Property Caption</note>
         </trans-unit>
@@ -9916,8 +9919,8 @@
           <note from="Xliff Generator" annotates="general" priority="3">Report PWD Inventory Recovery - Control CodGDocNoF - Property Caption</note>
         </trans-unit>
         <trans-unit id="Report 3401270203 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Inventory Valuation - WIP</source>
-          <target state="translated">Evaluation du stock d'en-cours</target>
+          <source>Inventory Valuation - LPSA</source>
+          <target state="translated">Evaluation du stock d'en-cours LPSA</target>
           <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">Report PWD Inventory Valuation - LPSA - Property Caption</note>
         </trans-unit>
@@ -13954,8 +13957,8 @@
           <note from="Xliff Generator" annotates="general" priority="3">Report Update Rtg Line Global IRON - Control BooG_Wait_TimeF - Property Caption</note>
         </trans-unit>
         <trans-unit id="Report 3581194373 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Update routing lines</source>
-          <target state="translated">Mise à jour % dechet des gammes</target>
+          <source>Update routing</source>
+          <target state="translated">Mise à jour des gammes</target>
           <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">Report Update Rtg Line Global-Step 1 - Property Caption</note>
         </trans-unit>

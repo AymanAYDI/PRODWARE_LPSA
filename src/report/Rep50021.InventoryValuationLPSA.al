@@ -13,7 +13,7 @@ report 50021 "PWD Inventory Valuation - LPSA"
     RDLCLayout = './src/report/rdl/InventoryValuationLPSA.rdl';
     ApplicationArea = all;
     UsageCategory = ReportsAndAnalysis;
-    Caption = 'Inventory Valuation - WIP';
+    Caption = 'Inventory Valuation - LPSA';
 
     dataset
     {

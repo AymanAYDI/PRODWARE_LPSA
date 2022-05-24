@@ -25,7 +25,7 @@ page 50002 "PWD Item Configurator List"
     SourceTable = "PWD Item Configurator";
     ApplicationArea = all;
     UsageCategory = Tasks;
-    caption = 'Item Configurator List';
+    caption = 'Item Configurator';
 
     layout
     {

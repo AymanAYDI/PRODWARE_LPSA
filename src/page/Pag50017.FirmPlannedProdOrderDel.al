@@ -9,7 +9,7 @@ page 50017 "Firm Planned Prod. Order Del."
     // P19646_010 : RO : 24/10/2017 : DEMANDES DIVERSES
     //                   - Add Field Source Material Vendor
 
-    Caption = 'Firm Planned Prod. Order';
+    Caption = 'Firm Planned Prod. Order to delete';
     InsertAllowed = false;
     ModifyAllowed = false;
     PageType = List;
