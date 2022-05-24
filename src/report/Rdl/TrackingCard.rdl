@@ -11,205 +11,6 @@
       <rd:DataSourceID>a6b3be3a-d3dd-41ff-bf2d-38ca3c6653d3</rd:DataSourceID>
     </DataSource>
   </DataSources>
-  <DataSets>
-    <DataSet Name="DataSet_Result">
-      <Query>
-        <DataSourceName>DataSource</DataSourceName>
-        <CommandText />
-      </Query>
-      <Fields>
-        <Field Name="RecGCompanyInformation_Picture">
-          <DataField>RecGCompanyInformation_Picture</DataField>
-        </Field>
-        <Field Name="Production_Order__No__">
-          <DataField>Production_Order__No__</DataField>
-        </Field>
-        <Field Name="Production_Order__Source_No__">
-          <DataField>Production_Order__Source_No__</DataField>
-        </Field>
-        <Field Name="Production_Order__Search_Description_">
-          <DataField>Production_Order__Search_Description_</DataField>
-        </Field>
-        <Field Name="RecGItem__LPSA_Description_1______RecGItem__LPSA_Description_2_">
-          <DataField>RecGItem__LPSA_Description_1______RecGItem__LPSA_Description_2_</DataField>
-        </Field>
-        <Field Name="Production_Order_Quantity">
-          <DataField>Production_Order_Quantity</DataField>
-        </Field>
-        <Field Name="Production_Order_QuantityFormat">
-          <DataField>Production_Order_QuantityFormat</DataField>
-        </Field>
-        <Field Name="TRACKING_CARDCaption">
-          <DataField>TRACKING_CARDCaption</DataField>
-        </Field>
-        <Field Name="ItemCaption">
-          <DataField>ItemCaption</DataField>
-        </Field>
-        <Field Name="Tabel___Caption">
-          <DataField>Tabel___Caption</DataField>
-        </Field>
-        <Field Name="Production_Order_QuantityCaption">
-          <DataField>Production_Order_QuantityCaption</DataField>
-        </Field>
-        <Field Name="Production_Order_Status">
-          <DataField>Production_Order_Status</DataField>
-        </Field>
-        <Field Name="Prod__Order_Routing_Line_Description">
-          <DataField>Prod__Order_Routing_Line_Description</DataField>
-        </Field>
-        <Field Name="Prod__Order_No___FORMAT__Routing_Reference_No_____Operation_No__">
-          <DataField>Prod__Order_No___FORMAT__Routing_Reference_No_____Operation_No__</DataField>
-        </Field>
-        <Field Name="Prod__Order_Routing_Line__Operation_No__">
-          <DataField>Prod__Order_Routing_Line__Operation_No__</DataField>
-        </Field>
-        <Field Name="BooGShowBarCode">
-          <DataField>BooGShowBarCode</DataField>
-        </Field>
-        <Field Name="USERID">
-          <DataField>USERID</DataField>
-        </Field>
-        <Field Name="FORMAT_TODAY_0_4_">
-          <DataField>FORMAT_TODAY_0_4_</DataField>
-        </Field>
-        <Field Name="Prod__Order_Routing_Line__Operation_No__Caption">
-          <DataField>Prod__Order_Routing_Line__Operation_No__Caption</DataField>
-        </Field>
-        <Field Name="Prod__Order_Routing_Line_Status">
-          <DataField>Prod__Order_Routing_Line_Status</DataField>
-        </Field>
-        <Field Name="Prod__Order_Routing_Line_Prod__Order_No_">
-          <DataField>Prod__Order_Routing_Line_Prod__Order_No_</DataField>
-        </Field>
-        <Field Name="Prod__Order_Routing_Line_Routing_Reference_No_">
-          <DataField>Prod__Order_Routing_Line_Routing_Reference_No_</DataField>
-        </Field>
-        <Field Name="Prod__Order_Routing_Line_Routing_No_">
-          <DataField>Prod__Order_Routing_Line_Routing_No_</DataField>
-        </Field>
-        <Field Name="Prod__Order_Routing_Line_Routing_Link_Code">
-          <DataField>Prod__Order_Routing_Line_Routing_Link_Code</DataField>
-        </Field>
-        <Field Name="Prod__Order_Component__Item_No__">
-          <DataField>Prod__Order_Component__Item_No__</DataField>
-        </Field>
-        <Field Name="Prod__Order_Component_Description">
-          <DataField>Prod__Order_Component_Description</DataField>
-        </Field>
-        <Field Name="Prod__Order_Component_Quantity">
-          <DataField>Prod__Order_Component_Quantity</DataField>
-        </Field>
-        <Field Name="Prod__Order_Component_QuantityFormat">
-          <DataField>Prod__Order_Component_QuantityFormat</DataField>
-        </Field>
-        <Field Name="BooGComponent">
-          <DataField>BooGComponent</DataField>
-        </Field>
-        <Field Name="Prod__Order_Component__Item_No__Caption">
-          <DataField>Prod__Order_Component__Item_No__Caption</DataField>
-        </Field>
-        <Field Name="Prod__Order_Component_DescriptionCaption">
-          <DataField>Prod__Order_Component_DescriptionCaption</DataField>
-        </Field>
-        <Field Name="Prod__Order_Component_QuantityCaption">
-          <DataField>Prod__Order_Component_QuantityCaption</DataField>
-        </Field>
-        <Field Name="Components_ListCaption">
-          <DataField>Components_ListCaption</DataField>
-        </Field>
-        <Field Name="Prod__Order_Component_Status">
-          <DataField>Prod__Order_Component_Status</DataField>
-        </Field>
-        <Field Name="Prod__Order_Component_Prod__Order_No_">
-          <DataField>Prod__Order_Component_Prod__Order_No_</DataField>
-        </Field>
-        <Field Name="Prod__Order_Component_Prod__Order_Line_No_">
-          <DataField>Prod__Order_Component_Prod__Order_Line_No_</DataField>
-        </Field>
-        <Field Name="Prod__Order_Component_Line_No_">
-          <DataField>Prod__Order_Component_Line_No_</DataField>
-        </Field>
-        <Field Name="Prod__Order_Component_Routing_Link_Code">
-          <DataField>Prod__Order_Component_Routing_Link_Code</DataField>
-        </Field>
-        <Field Name="Prod__Order_Routing_Tool__No__">
-          <DataField>Prod__Order_Routing_Tool__No__</DataField>
-        </Field>
-        <Field Name="Prod__Order_Routing_Tool_Description">
-          <DataField>Prod__Order_Routing_Tool_Description</DataField>
-        </Field>
-        <Field Name="Prod__Order_Routing_Tool_Type">
-          <DataField>Prod__Order_Routing_Tool_Type</DataField>
-        </Field>
-        <Field Name="Prod__Order_Routing_Tool_Criteria">
-          <DataField>Prod__Order_Routing_Tool_Criteria</DataField>
-        </Field>
-        <Field Name="BooGRootingTool">
-          <DataField>BooGRootingTool</DataField>
-        </Field>
-        <Field Name="Prod__Order_Routing_Tool__No__Caption">
-          <DataField>Prod__Order_Routing_Tool__No__Caption</DataField>
-        </Field>
-        <Field Name="Prod__Order_Routing_Tool_DescriptionCaption">
-          <DataField>Prod__Order_Routing_Tool_DescriptionCaption</DataField>
-        </Field>
-        <Field Name="Tools_ListCaption">
-          <DataField>Tools_ListCaption</DataField>
-        </Field>
-        <Field Name="Prod__Order_Routing_Tool_TypeCaption">
-          <DataField>Prod__Order_Routing_Tool_TypeCaption</DataField>
-        </Field>
-        <Field Name="Prod__Order_Routing_Tool_CriteriaCaption">
-          <DataField>Prod__Order_Routing_Tool_CriteriaCaption</DataField>
-        </Field>
-        <Field Name="Prod__Order_Routing_Tool_Status">
-          <DataField>Prod__Order_Routing_Tool_Status</DataField>
-        </Field>
-        <Field Name="Prod__Order_Routing_Tool_Prod__Order_No_">
-          <DataField>Prod__Order_Routing_Tool_Prod__Order_No_</DataField>
-        </Field>
-        <Field Name="Prod__Order_Routing_Tool_Routing_Reference_No_">
-          <DataField>Prod__Order_Routing_Tool_Routing_Reference_No_</DataField>
-        </Field>
-        <Field Name="Prod__Order_Routing_Tool_Routing_No_">
-          <DataField>Prod__Order_Routing_Tool_Routing_No_</DataField>
-        </Field>
-        <Field Name="Prod__Order_Routing_Tool_Operation_No_">
-          <DataField>Prod__Order_Routing_Tool_Operation_No_</DataField>
-        </Field>
-        <Field Name="Prod__Order_Routing_Tool_Line_No_">
-          <DataField>Prod__Order_Routing_Tool_Line_No_</DataField>
-        </Field>
-        <Field Name="Prod__Order_Rtng_Comment_Line_Comment">
-          <DataField>Prod__Order_Rtng_Comment_Line_Comment</DataField>
-        </Field>
-        <Field Name="BooGComment">
-          <DataField>BooGComment</DataField>
-        </Field>
-        <Field Name="CommentCaption">
-          <DataField>CommentCaption</DataField>
-        </Field>
-        <Field Name="Prod__Order_Rtng_Comment_Line_Status">
-          <DataField>Prod__Order_Rtng_Comment_Line_Status</DataField>
-        </Field>
-        <Field Name="Prod__Order_Rtng_Comment_Line_Prod__Order_No_">
-          <DataField>Prod__Order_Rtng_Comment_Line_Prod__Order_No_</DataField>
-        </Field>
-        <Field Name="Prod__Order_Rtng_Comment_Line_Routing_Reference_No_">
-          <DataField>Prod__Order_Rtng_Comment_Line_Routing_Reference_No_</DataField>
-        </Field>
-        <Field Name="Prod__Order_Rtng_Comment_Line_Routing_No_">
-          <DataField>Prod__Order_Rtng_Comment_Line_Routing_No_</DataField>
-        </Field>
-        <Field Name="Prod__Order_Rtng_Comment_Line_Operation_No_">
-          <DataField>Prod__Order_Rtng_Comment_Line_Operation_No_</DataField>
-        </Field>
-        <Field Name="Prod__Order_Rtng_Comment_Line_Line_No_">
-          <DataField>Prod__Order_Rtng_Comment_Line_Line_No_</DataField>
-        </Field>
-      </Fields>
-    </DataSet>
-  </DataSets>
   <ReportSections>
     <ReportSection>
       <Body>
@@ -785,6 +586,36 @@
                                                               <Width>2.01455cm</Width>
                                                               <ZIndex>11</ZIndex>
                                                               <Style>
+                                                                <PaddingLeft>2pt</PaddingLeft>
+                                                                <PaddingRight>2pt</PaddingRight>
+                                                                <PaddingTop>2pt</PaddingTop>
+                                                                <PaddingBottom>2pt</PaddingBottom>
+                                                              </Style>
+                                                            </Textbox>
+                                                            <Textbox Name="Textbox6">
+                                                              <CanGrow>true</CanGrow>
+                                                              <KeepTogether>true</KeepTogether>
+                                                              <Paragraphs>
+                                                                <Paragraph>
+                                                                  <TextRuns>
+                                                                    <TextRun>
+                                                                      <Value />
+                                                                      <Style />
+                                                                    </TextRun>
+                                                                  </TextRuns>
+                                                                  <Style />
+                                                                </Paragraph>
+                                                              </Paragraphs>
+                                                              <rd:DefaultName>Textbox6</rd:DefaultName>
+                                                              <Top>1.21461cm</Top>
+                                                              <Left>3.8862cm</Left>
+                                                              <Height>0.6cm</Height>
+                                                              <Width>2.5cm</Width>
+                                                              <ZIndex>12</ZIndex>
+                                                              <Style>
+                                                                <Border>
+                                                                  <Style>None</Style>
+                                                                </Border>
                                                                 <PaddingLeft>2pt</PaddingLeft>
                                                                 <PaddingRight>2pt</PaddingRight>
                                                                 <PaddingTop>2pt</PaddingTop>
@@ -1783,7 +1614,8 @@
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>textbox4</rd:DefaultName>
-              <Left>6.5cm</Left>
+              <Top>0cm</Top>
+              <Left>5.865cm</Left>
               <Height>0.63492cm</Height>
               <Width>4.25cm</Width>
               <Style>
@@ -1800,22 +1632,36 @@
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value>=User!UserID &amp; " le " &amp; Globals!ExecutionTime</Value>
+                      <Value>=User!UserID</Value>
                       <Style />
+                    </TextRun>
+                    <TextRun>
+                      <Value>=" le "</Value>
+                      <Style />
+                    </TextRun>
+                    <TextRun>
+                      <Value>=Globals!ExecutionTime</Value>
+                      <Style>
+                        <Format>dd/MM/yyyy HH:mm</Format>
+                      </Style>
                     </TextRun>
                   </TextRuns>
                   <Style />
                 </Paragraph>
               </Paragraphs>
-              <Left>11cm</Left>
+              <Top>0cm</Top>
+              <Left>10.29139cm</Left>
               <Height>0.63492cm</Height>
-              <Width>8cm</Width>
+              <Width>8.95861cm</Width>
               <ZIndex>1</ZIndex>
               <Visibility>
-                <Hidden>=Globals!PageNumber &lt;&gt; Globals!TotalPages</Hidden>
+                <Hidden>=iif(Globals!PageNumber &lt;&gt; Globals!TotalPages,true,false)</Hidden>
               </Visibility>
               <DataElementOutput>NoOutput</DataElementOutput>
               <Style>
+                <Border>
+                  <Style>None</Style>
+                </Border>
                 <PaddingLeft>2pt</PaddingLeft>
                 <PaddingRight>2pt</PaddingRight>
                 <PaddingTop>2pt</PaddingTop>
@@ -1836,12 +1682,6 @@
       </Page>
     </ReportSection>
   </ReportSections>
-  <ReportParametersLayout>
-    <GridLayoutDefinition>
-      <NumberOfColumns>4</NumberOfColumns>
-      <NumberOfRows>2</NumberOfRows>
-    </GridLayoutDefinition>
-  </ReportParametersLayout>
   <Code>Public Function BlankZero(ByVal Value As Decimal)
     if Value = 0 then
         Return ""
@@ -1908,4 +1748,203 @@ foiQkFBYeNggzwbAquDQoUO7d+8mUj1AAKH0DdhYWP/jHdEHdhC5xUQtLa3evXs3FVwoAgs/aRkZ5Glj
   <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
   <rd:ReportUnitType>Cm</rd:ReportUnitType>
   <rd:ReportID>a87f9258-2452-45ec-9727-cf652023200e</rd:ReportID>
+  <DataSets>
+    <DataSet Name="DataSet_Result">
+      <Fields>
+        <Field Name="RecGCompanyInformation_Picture">
+          <DataField>RecGCompanyInformation_Picture</DataField>
+        </Field>
+        <Field Name="Production_Order__No__">
+          <DataField>Production_Order__No__</DataField>
+        </Field>
+        <Field Name="Production_Order__Source_No__">
+          <DataField>Production_Order__Source_No__</DataField>
+        </Field>
+        <Field Name="Production_Order__Search_Description_">
+          <DataField>Production_Order__Search_Description_</DataField>
+        </Field>
+        <Field Name="RecGItem__LPSA_Description_1______RecGItem__LPSA_Description_2_">
+          <DataField>RecGItem__LPSA_Description_1______RecGItem__LPSA_Description_2_</DataField>
+        </Field>
+        <Field Name="Production_Order_Quantity">
+          <DataField>Production_Order_Quantity</DataField>
+        </Field>
+        <Field Name="Production_Order_QuantityFormat">
+          <DataField>Production_Order_QuantityFormat</DataField>
+        </Field>
+        <Field Name="TRACKING_CARDCaption">
+          <DataField>TRACKING_CARDCaption</DataField>
+        </Field>
+        <Field Name="ItemCaption">
+          <DataField>ItemCaption</DataField>
+        </Field>
+        <Field Name="Tabel___Caption">
+          <DataField>Tabel___Caption</DataField>
+        </Field>
+        <Field Name="Production_Order_QuantityCaption">
+          <DataField>Production_Order_QuantityCaption</DataField>
+        </Field>
+        <Field Name="Production_Order_Status">
+          <DataField>Production_Order_Status</DataField>
+        </Field>
+        <Field Name="Prod__Order_Routing_Line_Description">
+          <DataField>Prod__Order_Routing_Line_Description</DataField>
+        </Field>
+        <Field Name="Prod__Order_No___FORMAT__Routing_Reference_No_____Operation_No__">
+          <DataField>Prod__Order_No___FORMAT__Routing_Reference_No_____Operation_No__</DataField>
+        </Field>
+        <Field Name="Prod__Order_Routing_Line__Operation_No__">
+          <DataField>Prod__Order_Routing_Line__Operation_No__</DataField>
+        </Field>
+        <Field Name="BooGShowBarCode">
+          <DataField>BooGShowBarCode</DataField>
+        </Field>
+        <Field Name="USERID">
+          <DataField>USERID</DataField>
+        </Field>
+        <Field Name="FORMAT_TODAY_0_4_">
+          <DataField>FORMAT_TODAY_0_4_</DataField>
+        </Field>
+        <Field Name="Prod__Order_Routing_Line__Operation_No__Caption">
+          <DataField>Prod__Order_Routing_Line__Operation_No__Caption</DataField>
+        </Field>
+        <Field Name="Prod__Order_Routing_Line_Status">
+          <DataField>Prod__Order_Routing_Line_Status</DataField>
+        </Field>
+        <Field Name="Prod__Order_Routing_Line_Prod__Order_No_">
+          <DataField>Prod__Order_Routing_Line_Prod__Order_No_</DataField>
+        </Field>
+        <Field Name="Prod__Order_Routing_Line_Routing_Reference_No_">
+          <DataField>Prod__Order_Routing_Line_Routing_Reference_No_</DataField>
+        </Field>
+        <Field Name="Prod__Order_Routing_Line_Routing_No_">
+          <DataField>Prod__Order_Routing_Line_Routing_No_</DataField>
+        </Field>
+        <Field Name="Prod__Order_Routing_Line_Routing_Link_Code">
+          <DataField>Prod__Order_Routing_Line_Routing_Link_Code</DataField>
+        </Field>
+        <Field Name="Prod__Order_Component__Item_No__">
+          <DataField>Prod__Order_Component__Item_No__</DataField>
+        </Field>
+        <Field Name="Prod__Order_Component_Description">
+          <DataField>Prod__Order_Component_Description</DataField>
+        </Field>
+        <Field Name="Prod__Order_Component_Quantity">
+          <DataField>Prod__Order_Component_Quantity</DataField>
+        </Field>
+        <Field Name="Prod__Order_Component_QuantityFormat">
+          <DataField>Prod__Order_Component_QuantityFormat</DataField>
+        </Field>
+        <Field Name="BooGComponent">
+          <DataField>BooGComponent</DataField>
+        </Field>
+        <Field Name="Prod__Order_Component__Item_No__Caption">
+          <DataField>Prod__Order_Component__Item_No__Caption</DataField>
+        </Field>
+        <Field Name="Prod__Order_Component_DescriptionCaption">
+          <DataField>Prod__Order_Component_DescriptionCaption</DataField>
+        </Field>
+        <Field Name="Prod__Order_Component_QuantityCaption">
+          <DataField>Prod__Order_Component_QuantityCaption</DataField>
+        </Field>
+        <Field Name="Components_ListCaption">
+          <DataField>Components_ListCaption</DataField>
+        </Field>
+        <Field Name="Prod__Order_Component_Status">
+          <DataField>Prod__Order_Component_Status</DataField>
+        </Field>
+        <Field Name="Prod__Order_Component_Prod__Order_No_">
+          <DataField>Prod__Order_Component_Prod__Order_No_</DataField>
+        </Field>
+        <Field Name="Prod__Order_Component_Prod__Order_Line_No_">
+          <DataField>Prod__Order_Component_Prod__Order_Line_No_</DataField>
+        </Field>
+        <Field Name="Prod__Order_Component_Line_No_">
+          <DataField>Prod__Order_Component_Line_No_</DataField>
+        </Field>
+        <Field Name="Prod__Order_Component_Routing_Link_Code">
+          <DataField>Prod__Order_Component_Routing_Link_Code</DataField>
+        </Field>
+        <Field Name="Prod__Order_Routing_Tool__No__">
+          <DataField>Prod__Order_Routing_Tool__No__</DataField>
+        </Field>
+        <Field Name="Prod__Order_Routing_Tool_Description">
+          <DataField>Prod__Order_Routing_Tool_Description</DataField>
+        </Field>
+        <Field Name="Prod__Order_Routing_Tool_Type">
+          <DataField>Prod__Order_Routing_Tool_Type</DataField>
+        </Field>
+        <Field Name="Prod__Order_Routing_Tool_Criteria">
+          <DataField>Prod__Order_Routing_Tool_Criteria</DataField>
+        </Field>
+        <Field Name="BooGRootingTool">
+          <DataField>BooGRootingTool</DataField>
+        </Field>
+        <Field Name="Prod__Order_Routing_Tool__No__Caption">
+          <DataField>Prod__Order_Routing_Tool__No__Caption</DataField>
+        </Field>
+        <Field Name="Prod__Order_Routing_Tool_DescriptionCaption">
+          <DataField>Prod__Order_Routing_Tool_DescriptionCaption</DataField>
+        </Field>
+        <Field Name="Tools_ListCaption">
+          <DataField>Tools_ListCaption</DataField>
+        </Field>
+        <Field Name="Prod__Order_Routing_Tool_TypeCaption">
+          <DataField>Prod__Order_Routing_Tool_TypeCaption</DataField>
+        </Field>
+        <Field Name="Prod__Order_Routing_Tool_CriteriaCaption">
+          <DataField>Prod__Order_Routing_Tool_CriteriaCaption</DataField>
+        </Field>
+        <Field Name="Prod__Order_Routing_Tool_Status">
+          <DataField>Prod__Order_Routing_Tool_Status</DataField>
+        </Field>
+        <Field Name="Prod__Order_Routing_Tool_Prod__Order_No_">
+          <DataField>Prod__Order_Routing_Tool_Prod__Order_No_</DataField>
+        </Field>
+        <Field Name="Prod__Order_Routing_Tool_Routing_Reference_No_">
+          <DataField>Prod__Order_Routing_Tool_Routing_Reference_No_</DataField>
+        </Field>
+        <Field Name="Prod__Order_Routing_Tool_Routing_No_">
+          <DataField>Prod__Order_Routing_Tool_Routing_No_</DataField>
+        </Field>
+        <Field Name="Prod__Order_Routing_Tool_Operation_No_">
+          <DataField>Prod__Order_Routing_Tool_Operation_No_</DataField>
+        </Field>
+        <Field Name="Prod__Order_Routing_Tool_Line_No_">
+          <DataField>Prod__Order_Routing_Tool_Line_No_</DataField>
+        </Field>
+        <Field Name="Prod__Order_Rtng_Comment_Line_Comment">
+          <DataField>Prod__Order_Rtng_Comment_Line_Comment</DataField>
+        </Field>
+        <Field Name="BooGComment">
+          <DataField>BooGComment</DataField>
+        </Field>
+        <Field Name="CommentCaption">
+          <DataField>CommentCaption</DataField>
+        </Field>
+        <Field Name="Prod__Order_Rtng_Comment_Line_Status">
+          <DataField>Prod__Order_Rtng_Comment_Line_Status</DataField>
+        </Field>
+        <Field Name="Prod__Order_Rtng_Comment_Line_Prod__Order_No_">
+          <DataField>Prod__Order_Rtng_Comment_Line_Prod__Order_No_</DataField>
+        </Field>
+        <Field Name="Prod__Order_Rtng_Comment_Line_Routing_Reference_No_">
+          <DataField>Prod__Order_Rtng_Comment_Line_Routing_Reference_No_</DataField>
+        </Field>
+        <Field Name="Prod__Order_Rtng_Comment_Line_Routing_No_">
+          <DataField>Prod__Order_Rtng_Comment_Line_Routing_No_</DataField>
+        </Field>
+        <Field Name="Prod__Order_Rtng_Comment_Line_Operation_No_">
+          <DataField>Prod__Order_Rtng_Comment_Line_Operation_No_</DataField>
+        </Field>
+        <Field Name="Prod__Order_Rtng_Comment_Line_Line_No_">
+          <DataField>Prod__Order_Rtng_Comment_Line_Line_No_</DataField>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DataSource</DataSourceName>
+        <CommandText />
+      </Query>
+    </DataSet>
+  </DataSets>
 </Report>
