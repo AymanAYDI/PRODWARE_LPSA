@@ -1589,6 +1589,24 @@ codeunit 50020 "PWD LPSA Events Mgt."
         ELSE
             Item.SETRANGE("PWD Customer Filter");
         //<<LAP080615
+        //>>LAP080615
+        //FILTERGROUP(2);
+
+        IF LPSASetGetFunctions.GetCustomerFilter() <> '' THEN BEGIN
+            Item.SETFILTER("PWD Customer Filter", LPSASetGetFunctions.GetCustomerFilter());
+            Item.CALCFIELDS("PWD ToForecast");
+            Item.SETRANGE("PWD ToForecast", TRUE);
+        END
+        ELSE BEGIN
+            Item.SETRANGE("PWD Customer Filter");
+            Item.SETRANGE("PWD ToForecast");
+        END;
+        //FILTERGROUP(0);
+        LPSASetGetFunctions.SetCustomerFilter('');
+        //   Window.OPEN(TxtL001);
+        //   CurrPage.UPDATE(FALSE);
+        //   Window.CLOSE;
+        //<<LAP080615
     end;
 
     [EventSubscriber(ObjectType::Page, Page::"Demand Forecast Matrix", 'OnEnterBaseQtyOnBeforeValidateProdForecastQty', '', false, false)]
