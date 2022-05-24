@@ -3955,7 +3955,7 @@ Cstr(Format(Last(Cstr(Fields!NNC_TotalAmount.Value)))) + Chr(177) +
 LAST(Cstr(Fields!VATCaption.Value)) + Chr(177) +
 Cstr(Format(Last(Cstr(Fields!NNC_VATAmount.Value)))) + Chr(177) + 
 Cstr(Last(Cstr(Fields!TotalAmountInclVatCaption.Value))) + Chr(177) +
-Cstr(Format(Last(Cstr(Fields!NNC_TotalAmount.Value)) + Last(Cstr(Fields!NNC_VATAmount.Value))))+ Chr(177) +
+Cstr(Format(Last(Fields!NNC_TotalAmount.Value) + Last(Fields!NNC_VATAmount.Value)))+ Chr(177) +
 Cstr(Fields!CstG_014.Value),4)</Hidden>
                                             </Visibility>
                                             <Style>
@@ -7409,7 +7409,7 @@ Cstr(sum(Fields!Sales_Cr_Memo_Line__Amount_Including_VAT_.Value)),5)</Hidden>
                     <Paragraph>
                       <TextRuns>
                         <TextRun>
-                          <Value>=Code.GetData(21,4)</Value>
+                          <Value>=Code.BlankZero(Code.GetData(21,4))</Value>
                           <Style>
                             <FontSize>8pt</FontSize>
                             <Format>N</Format>
@@ -7474,7 +7474,7 @@ Cstr(sum(Fields!Sales_Cr_Memo_Line__Amount_Including_VAT_.Value)),5)</Hidden>
                     <Paragraph>
                       <TextRuns>
                         <TextRun>
-                          <Value>=Code.GetData(17,4)</Value>
+                          <Value>=Code.BlankZero(Code.GetData(17,4))</Value>
                           <Style>
                             <FontWeight>Bold</FontWeight>
                             <Format>N</Format>
@@ -7486,7 +7486,7 @@ Cstr(sum(Fields!Sales_Cr_Memo_Line__Amount_Including_VAT_.Value)),5)</Hidden>
                       </Style>
                     </Paragraph>
                   </Paragraphs>
-                  <Left>15.73175cm</Left>
+                  <Left>15.75906cm</Left>
                   <Height>0.6cm</Height>
                   <Width>2.99841cm</Width>
                   <ZIndex>17</ZIndex>
@@ -7509,7 +7509,7 @@ Cstr(sum(Fields!Sales_Cr_Memo_Line__Amount_Including_VAT_.Value)),5)</Hidden>
                     <Paragraph>
                       <TextRuns>
                         <TextRun>
-                          <Value>=Code.GetData(21,4)</Value>
+                          <Value>=Code.BlankZero(Code.GetData(21,4))</Value>
                           <Style>
                             <FontWeight>Bold</FontWeight>
                             <Format>N</Format>
@@ -7579,7 +7579,7 @@ Cstr(sum(Fields!Sales_Cr_Memo_Line__Amount_Including_VAT_.Value)),5)</Hidden>
                     <Paragraph>
                       <TextRuns>
                         <TextRun>
-                          <Value>=Code.GetData(19,4)</Value>
+                          <Value>=Code.BlankZero(Code.GetData(19,4))</Value>
                           <Style>
                             <FontWeight>Bold</FontWeight>
                             <Format>N</Format>
@@ -7727,6 +7727,7 @@ Cstr(sum(Fields!Sales_Cr_Memo_Line__Amount_Including_VAT_.Value)),5)</Hidden>
                 </Textbox>
               </ReportItems>
               <DataElementOutput>ContentsOnly</DataElementOutput>
+              <Top>0cm</Top>
               <Left>0.00794cm</Left>
               <Height>7.614cm</Height>
               <Width>19.18047cm</Width>
