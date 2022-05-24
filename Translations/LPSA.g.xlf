@@ -5098,6 +5098,56 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Codeunit PWD Buffer Management - NamedType CstG008</note>
         </trans-unit>
+        <trans-unit id="Codeunit 29779585 - NamedType 2087467863" size-unit="char" translate="yes" xml:space="preserve">
+          <source>One or more subassemblies on the assembly list for item %1 use replenishment system Prod. Order. Do you want to calculate standard cost for those subassemblies?</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Codeunit PWD Calculate Standard Cost - NamedType CalcMfgPrompt</note>
+        </trans-unit>
+        <trans-unit id="Codeunit 29779585 - NamedType 2624221199" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Item %1 %2 has no assembly list. The %3 will not be calculated.</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Codeunit PWD Calculate Standard Cost - NamedType NoAssemblyListError</note>
+        </trans-unit>
+        <trans-unit id="Codeunit 29779585 - NamedType 2858621498" size-unit="char" translate="yes" xml:space="preserve">
+          <source>One or more subassemblies on the assembly list for this item does not use replenishment system Assembly. The %1 for these subassemblies will not be calculated. Are you sure that you want to continue?</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Codeunit PWD Calculate Standard Cost - NamedType NonAssemblyComponentWithList</note>
+        </trans-unit>
+        <trans-unit id="Codeunit 29779585 - NamedType 2832017120" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Item %1 %2 does not use replenishment system Assembly. The %3 will not be calculated.</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Codeunit PWD Calculate Standard Cost - NamedType NonAssemblyItemError</note>
+        </trans-unit>
+        <trans-unit id="Codeunit 29779585 - NamedType 2371208100" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Calculate the %3 of item %1 %2 by rolling up the assembly list components. Select All levels to include and update the %3 of any subassemblies.</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Codeunit PWD Calculate Standard Cost - NamedType RecursionInstruction</note>
+        </trans-unit>
+        <trans-unit id="Codeunit 29779585 - NamedType 861605392" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Standard Cost,Unit Price</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Codeunit PWD Calculate Standard Cost - NamedType TargetText</note>
+        </trans-unit>
+        <trans-unit id="Codeunit 29779585 - NamedType 2476940767" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Too many levels. Must be below %1.</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Codeunit PWD Calculate Standard Cost - NamedType Text000</note>
+        </trans-unit>
+        <trans-unit id="Codeunit 29779585 - NamedType 3114637384" size-unit="char" translate="yes" xml:space="preserve">
+          <source>&amp;Top level,&amp;All levels</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Codeunit PWD Calculate Standard Cost - NamedType Text001</note>
+        </trans-unit>
+        <trans-unit id="Codeunit 29779585 - NamedType 3752334001" size-unit="char" translate="yes" xml:space="preserve">
+          <source>@1@@@@@@@@@@@@@</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Codeunit PWD Calculate Standard Cost - NamedType Text002</note>
+        </trans-unit>
+        <trans-unit id="Codeunit 29779585 - Method 2885247305 - NamedType 2620486915" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Item Cost can't be calculated. The component %1 is not valued.</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Codeunit PWD Calculate Standard Cost - Method CalculateCost - NamedType TxtL50000</note>
+        </trans-unit>
         <trans-unit id="Codeunit 559017493 - NamedType 986956885" size-unit="char" translate="yes" xml:space="preserve">
           <source>Export #1############# #2############</source>
           <note from="Developer" annotates="general" priority="2"></note>
@@ -5392,11 +5442,6 @@
           <source>Unposted %1 %2 does not exist anymore.\It is not possible to restore the %1.</source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Codeunit PWD LPSA Functions Mgt. - Method BeforeRestoreSalesDocument - NamedType Text009</note>
-        </trans-unit>
-        <trans-unit id="Codeunit 378233800 - Method 2885247305 - NamedType 2620486915" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Item Cost can't be calculated. The component %1 is not valued.</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Codeunit PWD LPSA Functions Mgt. - Method CalculateCost - NamedType TxtL50000</note>
         </trans-unit>
         <trans-unit id="Codeunit 378233800 - Method 2269505925 - NamedType 1808356147" size-unit="char" translate="yes" xml:space="preserve">
           <source>There is not configuration for item %1.</source>
