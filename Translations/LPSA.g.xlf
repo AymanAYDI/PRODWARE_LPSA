@@ -9773,16 +9773,6 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Report PWD Proforma invoice - NamedType Unit_PriceCaptionLbl</note>
         </trans-unit>
-        <trans-unit id="Report 1120490724 - Method 2495759385 - NamedType 3567615443" size-unit="char" translate="yes" xml:space="preserve">
-          <source>LA PIERRETTE SA : Sales Invoice %1</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Report PWD Proforma invoice - Method SendPDFMail - NamedType CstL001</note>
-        </trans-unit>
-        <trans-unit id="Report 1120490724 - Method 2495759385 - NamedType 1185737998" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Next the invoice following your order %1</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Report PWD Proforma invoice - Method SendPDFMail - NamedType CstL002</note>
-        </trans-unit>
         <trans-unit id="Report 1120490724 - ReportDataItem 1192395785 - Property 1806354803" size-unit="char" translate="yes" xml:space="preserve">
           <source>Sales Order</source>
           <note from="Developer" annotates="general" priority="2"></note>
@@ -12018,6 +12008,11 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">PageExtension PWD DemandForecast - Control PWD CustomerName - Property Caption</note>
         </trans-unit>
+        <trans-unit id="PageExtension 2581843048 - Method 3530100688 - NamedType 2958516111" size-unit="char" translate="yes" xml:space="preserve" al-object-target="PageExtension 2581843048">
+          <source>Refresh Item List for Customer...</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">PageExtension PWD DemandForecastMatrix - Method OnModifyRecord - NamedType TxtL001</note>
+        </trans-unit>
         <trans-unit id="PageExtension 1169212268 - Action 953741630 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 1245108215">
           <source>Item Card</source>
           <note from="Developer" annotates="general" priority="2"></note>
@@ -12592,6 +12587,41 @@
           <source>Invoice Proforma</source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">PageExtension PWD SalesOrder - Action PWD Invoice Proforma - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="PageExtension 3605102415 - Action 3979413623 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 1673401186">
+          <source>Pro Forma Invoice</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">PageExtension PWD SalesOrder - Action PWD &amp;Order Confirmation1 - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="PageExtension 3605102415 - Action 1737371308 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 1673401186">
+          <source>Create a PDF file and attach it to the document.</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">PageExtension PWD SalesOrder - Action PWD AttachAsPDF - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="PageExtension 3605102415 - Action 1737371308 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 1673401186">
+          <source>Attach as PDF</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">PageExtension PWD SalesOrder - Action PWD AttachAsPDF - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="PageExtension 3605102415 - Action 3051458963 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 1673401186">
+          <source>Print a sales order Pro Forma Invoice.</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">PageExtension PWD SalesOrder - Action PWD Print Pro Forma Invoice - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="PageExtension 3605102415 - Action 3051458963 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 1673401186">
+          <source>Print Pro Forma Invoice</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">PageExtension PWD SalesOrder - Action PWD Print Pro Forma Invoice - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="PageExtension 3605102415 - Action 3074912000 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 1673401186">
+          <source>Send a sales order Pro Forma Invoice by email. The attachment is sent as a .pdf.</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">PageExtension PWD SalesOrder - Action PWD SendEmailConfirmation - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="PageExtension 3605102415 - Action 3074912000 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 1673401186">
+          <source>Email Pro Forma Invoice</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">PageExtension PWD SalesOrder - Action PWD SendEmailConfirmation - Property Caption</note>
         </trans-unit>
         <trans-unit id="PageExtension 3605102415 - Control 3238211447 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 1673401186">
           <source>Customer Comment</source>

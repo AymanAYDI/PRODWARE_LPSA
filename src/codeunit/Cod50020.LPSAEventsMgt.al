@@ -1592,21 +1592,29 @@ codeunit 50020 "PWD LPSA Events Mgt."
         //>>LAP080615
         //FILTERGROUP(2);
 
-        IF LPSASetGetFunctions.GetCustomerFilter() <> '' THEN BEGIN
-            Item.SETFILTER("PWD Customer Filter", LPSASetGetFunctions.GetCustomerFilter());
-            Item.CALCFIELDS("PWD ToForecast");
-            Item.SETRANGE("PWD ToForecast", TRUE);
-        END
-        ELSE BEGIN
-            Item.SETRANGE("PWD Customer Filter");
-            Item.SETRANGE("PWD ToForecast");
-        END;
-        //FILTERGROUP(0);
-        //   Window.OPEN(TxtL001);
-        //   CurrPage.UPDATE(FALSE);
-        //   Window.CLOSE;
-        //<<LAP080615
     end;
+
+    // [EventSubscriber(ObjectType::Page, Page::"Demand Forecast Matrix", 'OnAfterGetRecordEvent', '', false, false)]
+    // local procedure PAG99000919_OnAfterGetRecordEvent_DemandForecastMatrix(var Rec: Record Item)
+    // Var
+    //     LPSASetGetFunctions: Codeunit "PWD LPSA Set/Get Functions.";
+    // begin
+    //     Rec.CLEARMARKS();
+    //     IF LPSASetGetFunctions.GetCustomerFilter() <> '' THEN BEGIN
+    //         Rec.SETFILTER("PWD Customer Filter", LPSASetGetFunctions.GetCustomerFilter());
+    //         Rec.CALCFIELDS("PWD ToForecast");
+    //         Rec.SETRANGE("PWD ToForecast", TRUE);
+    //     END
+    //     ELSE BEGIN
+    //         Rec.SETRANGE("PWD Customer Filter");
+    //         Rec.SETRANGE("PWD ToForecast");
+    //     END;
+    //     //FILTERGROUP(0);
+    //     //   Window.OPEN(TxtL001);
+    //     //   CurrPage.UPDATE(FALSE);
+    //     //   Window.CLOSE;
+    //     //<<LAP080615
+    // end;
 
     [EventSubscriber(ObjectType::Page, Page::"Demand Forecast Matrix", 'OnEnterBaseQtyOnBeforeValidateProdForecastQty', '', false, false)]
     local procedure PAG9245_OnEnterBaseQtyOnBeforeValidateProdForecastQty_DemandForecastMatrix(var Item: Record Item; ColumnID: Integer; MatrixRecords: array[32] of Record Date)
