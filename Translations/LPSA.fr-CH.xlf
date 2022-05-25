@@ -14421,6 +14421,12 @@
           <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">PageExtension PWD DemandForecast - Control PWD CustomerName - Property Caption</note>
         </trans-unit>
+        <trans-unit id="PageExtension 2581843048 - Method 3530100688 - NamedType 2958516111" size-unit="char" translate="yes" xml:space="preserve" al-object-target="PageExtension 2581843048">
+          <source>Refresh Item List for Customer...</source>
+          <target state="needs-translation"/>
+          <note from="Developer" annotates="general" priority="2"/>
+          <note from="Xliff Generator" annotates="general" priority="3">PageExtension PWD DemandForecastMatrix - Method OnModifyRecord - NamedType TxtL001</note>
+        </trans-unit>
         <trans-unit id="PageExtension 1169212268 - Action 953741630 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 1245108215">
           <source>Item Card</source>
           <target state="translated">Fiche article</target>
@@ -15094,10 +15100,52 @@
           <note from="Xliff Generator" annotates="general" priority="3">PageExtension PWD SalesOrder - Action PWD Action224 - Property Caption</note>
         </trans-unit>
         <trans-unit id="PageExtension 3605102415 - Action 2437303484 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 1673401186">
-          <source>Invoice Proforma</source>
+          <source>Invoice Pro forma</source>
           <target state="translated">Facture Proforma</target>
           <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">PageExtension PWD SalesOrder - Action PWD Invoice Proforma - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="PageExtension 3605102415 - Action 3979413623 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 1673401186">
+          <source>Pro Forma Invoice</source>
+          <target state="translated">Facture Pro forma</target>
+          <note from="Developer" annotates="general" priority="2"/>
+          <note from="Xliff Generator" annotates="general" priority="3">PageExtension PWD SalesOrder - Action PWD &amp;Order Confirmation1 - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="PageExtension 3605102415 - Action 1737371308 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 1673401186">
+          <source>Create a PDF file and attach it to the document.</source>
+          <target state="translated">Créez un fichier PDF et joignez-le au document.</target>
+          <note from="Developer" annotates="general" priority="2"/>
+          <note from="Xliff Generator" annotates="general" priority="3">PageExtension PWD SalesOrder - Action PWD AttachAsPDF - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="PageExtension 3605102415 - Action 1737371308 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 1673401186">
+          <source>Attach as PDF</source>
+          <target state="translated">Joindre en PDF</target>
+          <note from="Developer" annotates="general" priority="2"/>
+          <note from="Xliff Generator" annotates="general" priority="3">PageExtension PWD SalesOrder - Action PWD AttachAsPDF - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="PageExtension 3605102415 - Action 3051458963 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 1673401186">
+          <source>Print a sales order Pro Forma Invoice.</source>
+          <target state="translated">Imprimer une facture pro forma de commande de vente.</target>
+          <note from="Developer" annotates="general" priority="2"/>
+          <note from="Xliff Generator" annotates="general" priority="3">PageExtension PWD SalesOrder - Action PWD Print Pro Forma Invoice - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="PageExtension 3605102415 - Action 3051458963 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 1673401186">
+          <source>Print Pro Forma Invoice</source>
+          <target state="translated">Imprimer la facture pro forma</target>
+          <note from="Developer" annotates="general" priority="2"/>
+          <note from="Xliff Generator" annotates="general" priority="3">PageExtension PWD SalesOrder - Action PWD Print Pro Forma Invoice - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="PageExtension 3605102415 - Action 3074912000 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 1673401186">
+          <source>Send a sales order Pro Forma Invoice by email. The attachment is sent as a .pdf.</source>
+          <target state="translated">Envoyez une facture pro format par e-mail. La pièce jointe est envoyée en .pdf.</target>
+          <note from="Developer" annotates="general" priority="2"/>
+          <note from="Xliff Generator" annotates="general" priority="3">PageExtension PWD SalesOrder - Action PWD SendEmailConfirmation - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="PageExtension 3605102415 - Action 3074912000 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 1673401186">
+          <source>Email Pro Forma Invoice</source>
+          <target state="translated">Email facture pro forma</target>
+          <note from="Developer" annotates="general" priority="2"/>
+          <note from="Xliff Generator" annotates="general" priority="3">PageExtension PWD SalesOrder - Action PWD SendEmailConfirmation - Property Caption</note>
         </trans-unit>
         <trans-unit id="PageExtension 3605102415 - Control 3238211447 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 1673401186">
           <source>Customer Comment</source>

@@ -118,6 +118,77 @@ pageextension 60012 "PWD SalesOrder" extends "Sales Order"
                 end;
             }
         }
+
+        addbefore("&Order Confirmation")
+        {
+            group("PWD &Order Confirmation1")
+            {
+                Caption = 'Pro Forma Invoice';
+                Image = Email;
+                action("PWD SendEmailConfirmation")
+                {
+                    ApplicationArea = Basic, Suite;
+                    Caption = 'Email Pro Forma Invoice';
+                    Ellipsis = true;
+                    Image = Email;
+                    Promoted = true;
+                    PromotedCategory = Category11;
+                    PromotedIsBig = true;
+                    ToolTip = 'Send a sales order Pro Forma Invoice by email. The attachment is sent as a .pdf.';
+
+                    trigger OnAction()
+                    begin
+                        // ReportSelection.PrintWithDialogForCust(
+                        // ReportUsage::"Pro Forma S. Invoice", Rec, GuiAllowed, Rec.FieldNo("Bill-to Customer No."));
+                        DoPrintSalesHeader(Rec, true)
+                    end;
+                }
+                group("PWD Action96")
+                {
+                    Visible = false;
+                    action("PWD Print Pro Forma Invoice")
+                    {
+                        ApplicationArea = Basic, Suite;
+                        Caption = 'Print Pro Forma Invoice';
+                        Ellipsis = true;
+                        Image = Print;
+                        Promoted = true;
+                        PromotedCategory = Category11;
+                        ToolTip = 'Print a sales order Pro Forma Invoice.';
+                        //Visible = NOT IsOfficeHost;
+
+                        trigger OnAction()
+                        var
+                            DocPrint: Codeunit "Document-Print";
+                            Usage: Option "Pro Forma S. Invoice";
+                        begin
+                            DocPrint.PrintSalesOrder(Rec, Usage::"Pro Forma S. Invoice");
+                        end;
+                    }
+                    action("PWD AttachAsPDF")
+                    {
+                        ApplicationArea = Basic, Suite;
+                        Caption = 'Attach as PDF';
+                        Ellipsis = true;
+                        Image = PrintAttachment;
+                        Promoted = true;
+                        PromotedCategory = Category11;
+                        ToolTip = 'Create a PDF file and attach it to the document.';
+
+                        trigger OnAction()
+                        var
+                            SalesHeader: Record "Sales Header";
+                            DocPrint: Codeunit "Document-Print";
+                        begin
+                            SalesHeader := Rec;
+                            SalesHeader.SetRecFilter();
+                            DocPrint.PrintSalesOrderToDocumentAttachment(SalesHeader, DocPrint.GetSalesOrderPrintToAttachmentOption(Rec));
+                        end;
+                    }
+                }
+            }
+
+        }
     }
     trigger OnAfterGetRecord()
     var
@@ -133,5 +204,21 @@ pageextension 60012 "PWD SalesOrder" extends "Sales Order"
         RecGSalesSetup: Record "Sales & Receivables Setup";
         BooGComment: Boolean;
 
+    local procedure DoPrintSalesHeader(SalesHeader: Record "Sales Header"; SendAsEmail: Boolean)
+    var
+        ReportSelections: Record "Report Selections";
+        ReportUsage: Enum "Report Selection Usage";
+    begin
+        ReportUsage := ReportUsage::"Pro Forma S. Invoice";
+
+        SalesHeader.SetRange("Document Type", SalesHeader."Document Type");
+        SalesHeader.SetRange("No.", SalesHeader."No.");
+        //CalcSalesDisc(SalesHeader);
+        if SendAsEmail then
+            ReportSelections.SendEmailToCust(
+                ReportUsage.AsInteger(), SalesHeader, SalesHeader."No.", SalesHeader.GetDocTypeTxt(), true, SalesHeader.GetBillToNo())
+        else
+            ReportSelections.PrintForCust(ReportUsage, SalesHeader, SalesHeader.FieldNo("Bill-to Customer No."));
+    end;
 }
 

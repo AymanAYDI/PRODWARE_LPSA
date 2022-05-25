@@ -759,19 +759,19 @@ report 50006 "PWD Proforma invoice"
         //<<NDBI
     end;
 
-    trigger OnPostReport()
-    var
-        RecLSalesHeader: Record "Sales Header";
-        DocPrint: Codeunit "Document-Print";
-    begin
-        //>>NDBI
-        if not BooGSkipSendEmail and BooGEnvoiMail then begin
-            RecLSalesHeader.SetView("Sales Header".GetView());
-            // SendPDFMail(RecLSalesHeader);
-            DocPrint.EmailSalesHeader(RecLSalesHeader);
-        end;
-        //<<NDBI
-    end;
+    // trigger OnPostReport()
+    // var
+    //     RecLSalesHeader: Record "Sales Header";
+    //     DocPrint: Codeunit "Document-Print";
+    // begin
+    //     //>>NDBI
+    //     if not BooGSkipSendEmail and BooGEnvoiMail then begin
+    //         RecLSalesHeader.SetView("Sales Header".GetView());
+    //         // SendPDFMail(RecLSalesHeader);
+    //         DocPrint.EmailSalesHeader(RecLSalesHeader);
+    //     end;
+    //<<NDBI
+    //end;
 
     var
         CompanyInfo: Record "Company Information";
@@ -801,7 +801,7 @@ report 50006 "PWD Proforma invoice"
         SegManagement: Codeunit SegManagement;
         ArchiveDocument: Boolean;
         BooGEnvoiMail: Boolean;
-        BooGSkipSendEmail: Boolean;
+        //BooGSkipSendEmail: Boolean;
         BooGStopComment: Boolean;
         LigneVide: Boolean;
         LogInteraction: Boolean;
@@ -880,77 +880,77 @@ report 50006 "PWD Proforma invoice"
         TxTGLabelCondPay: Text[250];
         TxtGComment: Text[1024];
 
-    procedure SendPDFMail(var RecPSalesHeader: Record "Sales Header")
-    var
-        RepLProformaInvoice: Report "PWD Proforma invoice";
-        FileMgt: Codeunit "File Management";
-        CodLMail: Codeunit Mail;
-        CstL001: Label 'LA PIERRETTE SA : Sales Invoice %1';
-        CstL002: Label 'Next the invoice following your order %1';
-        Recipient: Text[80];
-        Body: Text[100];
-        Subject: Text[100];
-        TxtLFileName: Text[250];
-        TxtLServerFile: Text[250];
-    begin
-        TxtLServerFile := FileMgt.ServerTempFileName('');
-        RepLProformaInvoice.SkipSendEmail(true);
-        RepLProformaInvoice.SetTableView(RecPSalesHeader);
-        RepLProformaInvoice.SaveAsPdf(TxtLServerFile);
-        Clear(Recipient);
-        Clear(CodLMail);
+    // procedure SendPDFMail(var RecPSalesHeader: Record "Sales Header")
+    // var
+    //     RepLProformaInvoice: Report "PWD Proforma invoice";
+    //     FileMgt: Codeunit "File Management";
+    //     CodLMail: Codeunit Mail;
+    //     CstL001: Label 'LA PIERRETTE SA : Sales Invoice %1';
+    //     CstL002: Label 'Next the invoice following your order %1';
+    //     Recipient: Text[80];
+    //     Body: Text[100];
+    //     Subject: Text[100];
+    //     TxtLFileName: Text[250];
+    //     TxtLServerFile: Text[250];
+    // begin
+    //     TxtLServerFile := FileMgt.ServerTempFileName('');
+    //     RepLProformaInvoice.SkipSendEmail(true);
+    //     RepLProformaInvoice.SetTableView(RecPSalesHeader);
+    //     RepLProformaInvoice.SaveAsPdf(TxtLServerFile);
+    //     Clear(Recipient);
+    //     Clear(CodLMail);
 
-        RecPSalesHeader.FindFirst();
+    //     RecPSalesHeader.FindFirst();
 
-        // pas besoin d'avoir l'adresse destinataire rempli mais ça va peut être évoluer.
-        /*
-        RecLContBusRel.RESET;
-        RecLContBusRel.SETRANGE("Link to Table",RecLContBusRel."Link to Table"::Customer);
-        RecLContBusRel.SETRANGE("No.",RecPSalesHeader."Sell-to Customer No.");
-        IF RecLContBusRel.FINDFIRST THEN
-          IF RecLContact.GET(RecLContBusRel."Contact No.") THEN
-            Recipient := RecLContact."E-Mail"
-          ELSE
-          BEGIN
-            IF RecLCustomer.GET(RecPSalesHeader."Sell-to Customer No.") THEN
-              Recipient := RecLCustomer."E-Mail";
-         END;
-        */
-
-
-        Subject := StrSubstNo(CstL001);
-        Body := StrSubstNo(CstL002, RecPSalesHeader."External Document No.");
-
-        TxtLFileName := StrSubstNo('FACTURE Proforma N° %1.pdf', RecPSalesHeader."No.");
-        TxtLFileName := DownloadToClientFileName(TxtLServerFile, TxtLFileName);
-        //Open E-Mail
-        CodLMail.NewMessage(Recipient, '', '', Subject, Body, TxtLFileName, true);
-
-    end;
+    //     // pas besoin d'avoir l'adresse destinataire rempli mais ça va peut être évoluer.
+    //     /*
+    //     RecLContBusRel.RESET;
+    //     RecLContBusRel.SETRANGE("Link to Table",RecLContBusRel."Link to Table"::Customer);
+    //     RecLContBusRel.SETRANGE("No.",RecPSalesHeader."Sell-to Customer No.");
+    //     IF RecLContBusRel.FINDFIRST THEN
+    //       IF RecLContact.GET(RecLContBusRel."Contact No.") THEN
+    //         Recipient := RecLContact."E-Mail"
+    //       ELSE
+    //       BEGIN
+    //         IF RecLCustomer.GET(RecPSalesHeader."Sell-to Customer No.") THEN
+    //           Recipient := RecLCustomer."E-Mail";
+    //      END;
+    //     */
 
 
-    procedure DownloadToClientFileName(TxtPServerFile: Text[250]; TxtPFileName: Text[250]): Text[250]
-    var
-        FileMgt: Codeunit "File Management";
-        TxtLClientFileName: Text[250];
-        TxtLFinalClientFileName: Text[250];
-    //TODO: 'Automation' is not recognized as a valid type
-    //AutLFileObjectSystem: Automation;
-    begin
-        TxtLClientFileName := FileMgt.ClientTempFileName('');
-        //TxtLFinalClientFileName := CduLTierAutomationMgt.Path(TxtLClientFileName) + TxtPFileName;
-        Download(TxtPServerFile, '', '', '', TxtLClientFileName);
-        // Create(AutLFileObjectSystem, false, true);
-        // if AutLFileObjectSystem.FileExists(TxtLFinalClientFileName) then
-        //     AutLFileObjectSystem.DeleteFile(TxtLFinalClientFileName, true);
-        // AutLFileObjectSystem.MoveFile(TxtLClientFileName, TxtLFinalClientFileName);
-        exit(TxtLFinalClientFileName);
-    end;
+    //     Subject := StrSubstNo(CstL001);
+    //     Body := StrSubstNo(CstL002, RecPSalesHeader."External Document No.");
+
+    //     TxtLFileName := StrSubstNo('FACTURE Proforma N° %1.pdf', RecPSalesHeader."No.");
+    //     TxtLFileName := DownloadToClientFileName(TxtLServerFile, TxtLFileName);
+    //     //Open E-Mail
+    //     CodLMail.NewMessage(Recipient, '', '', Subject, Body, TxtLFileName, true);
+
+    // end;
 
 
-    procedure SkipSendEmail(BooPSkipSendEmail: Boolean)
-    begin
-        BooGSkipSendEmail := BooPSkipSendEmail;
-    end;
+    // procedure DownloadToClientFileName(TxtPServerFile: Text[250]; TxtPFileName: Text[250]): Text[250]
+    // var
+    //     FileMgt: Codeunit "File Management";
+    //     TxtLClientFileName: Text[250];
+    //     TxtLFinalClientFileName: Text[250];
+    // //TODO: 'Automation' is not recognized as a valid type
+    // //AutLFileObjectSystem: Automation;
+    // begin
+    //     TxtLClientFileName := FileMgt.ClientTempFileName('');
+    //     //TxtLFinalClientFileName := CduLTierAutomationMgt.Path(TxtLClientFileName) + TxtPFileName;
+    //     Download(TxtPServerFile, '', '', '', TxtLClientFileName);
+    //     // Create(AutLFileObjectSystem, false, true);
+    //     // if AutLFileObjectSystem.FileExists(TxtLFinalClientFileName) then
+    //     //     AutLFileObjectSystem.DeleteFile(TxtLFinalClientFileName, true);
+    //     // AutLFileObjectSystem.MoveFile(TxtLClientFileName, TxtLFinalClientFileName);
+    //     exit(TxtLFinalClientFileName);
+    // end;
+
+
+    // procedure SkipSendEmail(BooPSkipSendEmail: Boolean)
+    // begin
+    //     BooGSkipSendEmail := BooPSkipSendEmail;
+    // end;
 }
 
