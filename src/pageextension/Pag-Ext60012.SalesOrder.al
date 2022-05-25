@@ -208,6 +208,7 @@ pageextension 60012 "PWD SalesOrder" extends "Sales Order"
     var
         ReportSelections: Record "Report Selections";
         ReportUsage: Enum "Report Selection Usage";
+        SalesOrderDocTypeTxt: Label 'Sales Order Pro Forma Invoice';
     begin
         ReportUsage := ReportUsage::"Pro Forma S. Invoice";
 
@@ -216,7 +217,7 @@ pageextension 60012 "PWD SalesOrder" extends "Sales Order"
         //CalcSalesDisc(SalesHeader);
         if SendAsEmail then
             ReportSelections.SendEmailToCust(
-                ReportUsage.AsInteger(), SalesHeader, SalesHeader."No.", SalesHeader.GetDocTypeTxt(), true, SalesHeader.GetBillToNo())
+                ReportUsage.AsInteger(), SalesHeader, SalesHeader."No.", SalesOrderDocTypeTxt, true, SalesHeader.GetBillToNo())
         else
             ReportSelections.PrintForCust(ReportUsage, SalesHeader, SalesHeader.FieldNo("Bill-to Customer No."));
     end;

@@ -12008,11 +12008,6 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">PageExtension PWD DemandForecast - Control PWD CustomerName - Property Caption</note>
         </trans-unit>
-        <trans-unit id="PageExtension 2581843048 - Method 3530100688 - NamedType 2958516111" size-unit="char" translate="yes" xml:space="preserve" al-object-target="PageExtension 2581843048">
-          <source>Refresh Item List for Customer...</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">PageExtension PWD DemandForecastMatrix - Method OnModifyRecord - NamedType TxtL001</note>
-        </trans-unit>
         <trans-unit id="PageExtension 1169212268 - Action 953741630 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 1245108215">
           <source>Item Card</source>
           <note from="Developer" annotates="general" priority="2"></note>
@@ -12567,6 +12562,11 @@
           <source>Date livraison confirmée client</source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">PageExtension PWD SalesLines - Control PWD Cust Promised Delivery Date - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="PageExtension 3605102415 - Method 3559216439 - NamedType 1682706330" size-unit="char" translate="yes" xml:space="preserve" al-object-target="PageExtension 3605102415">
+          <source>Sales Order Pro Forma Invoice</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">PageExtension PWD SalesOrder - Method DoPrintSalesHeader - NamedType SalesOrderDocTypeTxt</note>
         </trans-unit>
         <trans-unit id="PageExtension 3605102415 - Action 497390243 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 1673401186">
           <source>Order Confirmation</source>
