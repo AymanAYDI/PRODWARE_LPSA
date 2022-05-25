@@ -85,7 +85,7 @@ codeunit 50008 "PWD Calculate Standard Cost"
         BaseDepth: Integer;
         MaxDepth: Integer;
     begin
-        if Item.IsMfgItem and ((Item."Production BOM No." <> '') or (Item."Routing No." <> '')) then begin
+        if Item.IsMfgItem() and ((Item."Production BOM No." <> '') or (Item."Routing No." <> '')) then begin
             ContainsProdBOM := true;
             if Item."Production BOM No." <> '' then
                 AnalyzeProdBOM(Item."Production BOM No.", Depth, NonAssemblyItemWithList, ContainsProdBOM)
@@ -94,8 +94,8 @@ codeunit 50008 "PWD Calculate Standard Cost"
             exit
         end;
         BOMComponent.SetRange("Parent Item No.", Item."No.");
-        if BOMComponent.FindSet then begin
-            if not Item.IsAssemblyItem then begin
+        if BOMComponent.FindSet() then begin
+            if not Item.IsAssemblyItem() then begin
                 NonAssemblyItemWithList := true;
                 exit
             end;
@@ -122,7 +122,7 @@ codeunit 50008 "PWD Calculate Standard Cost"
         MaxDepth: Integer;
     begin
         SetProdBOMFilters(ProdBOMLine, PBOMVersionCode, ProductionBOMNo);
-        if ProdBOMLine.FindSet then begin
+        if ProdBOMLine.FindSet() then begin
             Depth += 1;
             BaseDepth := Depth;
             repeat
@@ -154,7 +154,7 @@ codeunit 50008 "PWD Calculate Standard Cost"
         SubNonAssemblyItemWithList: Boolean;
     begin
         CalculationTarget := SelectStr(Target, TargetText);
-        if not Item.IsAssemblyItem then
+        if not Item.IsAssemblyItem() then
             Error(NonAssemblyItemError, Item."No.", Item.Description, CalculationTarget);
         AnalyzeAssemblyList(Item, Depth, SubNonAssemblyItemWithList, ContainsProdBOM);
         if Depth = 0 then
@@ -184,7 +184,7 @@ codeunit 50008 "PWD Calculate Standard Cost"
         if NewUseAssemblyList then
             Instruction := PrepareAssemblyCalculation(Item, Depth, 1, AssemblyContainsProdBOM) // 1=StandardCost
         else
-            if not Item.IsMfgItem then
+            if not Item.IsMfgItem() then
                 exit;
 
         ShowStrMenu := not NewUseAssemblyList or (Depth > 1);
@@ -198,7 +198,7 @@ codeunit 50008 "PWD Calculate Standard Cost"
                     NewCalcMultiLevel := true;
             end;
 
-        SetProperties(WorkDate, NewCalcMultiLevel, NewUseAssemblyList, false, '', false);
+        SetProperties(WorkDate(), NewCalcMultiLevel, NewUseAssemblyList, false, '', false);
 
         if NewUseAssemblyList then begin
             if NewCalcMultiLevel and AssemblyContainsProdBOM then
@@ -258,7 +258,7 @@ codeunit 50008 "PWD Calculate Standard Cost"
             until TempItem.Next() = 0;
 
         if ShowDialog then
-            Window.Close;
+            Window.Close();
     end;
 
     local procedure CalcAssemblyItem(ItemNo: Code[20]; var Item: Record Item; Level: Integer; CalcMfgItems: Boolean)
@@ -275,7 +275,7 @@ codeunit 50008 "PWD Calculate Standard Cost"
         if GetItem(ItemNo, Item) then
             exit;
 
-        if not Item.IsAssemblyItem then
+        if not Item.IsAssemblyItem() then
             exit;
 
         if not CalcMultiLevel and (Level <> 0) then
@@ -283,7 +283,7 @@ codeunit 50008 "PWD Calculate Standard Cost"
 
         BOMComp.SetRange("Parent Item No.", ItemNo);
         BOMComp.SetFilter(Type, '<>%1', BOMComp.Type::" ");
-        if BOMComp.FindSet then begin
+        if BOMComp.FindSet() then begin
             Item."Rolled-up Material Cost" := 0;
             Item."Rolled-up Capacity Cost" := 0;
             Item."Rolled-up Cap. Overhead Cost" := 0;
@@ -302,8 +302,8 @@ codeunit 50008 "PWD Calculate Standard Cost"
                               BOMComp."Quantity per" *
                               UOMMgt.GetQtyPerUnitOfMeasure(CompItem, BOMComp."Unit of Measure Code");
                             if CompItem.IsInventoriableType() then
-                                if CompItem.IsAssemblyItem or CompItem.IsMfgItem then begin
-                                    if CompItem.IsAssemblyItem then
+                                if CompItem.IsAssemblyItem() or CompItem.IsMfgItem() then begin
+                                    if CompItem.IsAssemblyItem() then
                                         CalcAssemblyItem(BOMComp."No.", CompItem, Level + 1, CalcMfgItems)
                                     else
                                         if CalcMfgItems then
@@ -386,7 +386,7 @@ codeunit 50008 "PWD Calculate Standard Cost"
             Item."Last Unit Cost Calc. Date" := CalculationDate;
 
             TempItem := Item;
-            TempItem.Insert
+            TempItem.Insert()
         end
     end;
 
@@ -410,7 +410,7 @@ codeunit 50008 "PWD Calculate Standard Cost"
                     NewCalcMultiLevel := true;
             end;
 
-        SetProperties(WorkDate, NewCalcMultiLevel, true, false, '', false);
+        SetProperties(WorkDate(), NewCalcMultiLevel, true, false, '', false);
 
         Item.Get(ItemNo);
         DoCalcAssemblyItemPrice(Item, 0);
@@ -429,7 +429,7 @@ codeunit 50008 "PWD Calculate Standard Cost"
         if not CalcMultiLevel and (Level <> 0) then
             exit;
 
-        if not Item.IsAssemblyItem then
+        if not Item.IsAssemblyItem() then
             exit;
 
         BOMComp.SetRange("Parent Item No.", Item."No.");
@@ -485,17 +485,17 @@ codeunit 50008 "PWD Calculate Standard Cost"
             exit;
         //>>FE_LAPIERRETTE_PRO08.001
         WITH Item DO BEGIN
-            RecLLotSizeStdCost.RESET;
+            RecLLotSizeStdCost.RESET();
             RecLLotSizeStdCost.SETRANGE("Item No.", Item."No.");
             RecLLotSizeStdCost.SETRANGE("Item category code", Item."Item Category Code");
-            IF RecLLotSizeStdCost.FINDFIRST THEN
+            IF RecLLotSizeStdCost.FINDFIRST() THEN
                 REPEAT
-                    RecLItemTemp.RESET;
-                    RecLItemTemp.DELETEALL;
+                    RecLItemTemp.RESET();
+                    RecLItemTemp.DELETEALL();
                     RecLItemTemp.COPY(Item);
 
                     LotSize := RecLLotSizeStdCost."Lot Size";
-                    IF IsMfgItem THEN BEGIN
+                    IF IsMfgItem() THEN BEGIN
 
                         MfgItemQtyBase := CostCalcMgt.CalcQtyAdjdForBOMScrap(LotSize, "Scrap %");
 
@@ -559,7 +559,7 @@ codeunit 50008 "PWD Calculate Standard Cost"
                     "Rolled-up Mfg. Ovhd Cost" := 0;
 
 
-                UNTIL RecLLotSizeStdCost.NEXT = 0;
+                UNTIL RecLLotSizeStdCost.NEXT() = 0;
 
         END;
         //<<FE_LAPIERRETTE_PRO08.001
@@ -567,7 +567,7 @@ codeunit 50008 "PWD Calculate Standard Cost"
         with Item do begin
             LotSize := 1;
 
-            if IsMfgItem then begin
+            if IsMfgItem() then begin
                 if "Lot Size" <> 0 then
                     LotSize := "Lot Size";
                 MfgItemQtyBase := CostCalcMgt.CalcQtyAdjdForBOMScrap(LotSize, "Scrap %");
@@ -584,7 +584,7 @@ codeunit 50008 "PWD Calculate Standard Cost"
                     "Indirect Cost %", "Overhead Rate", LotSize);
                 "Last Unit Cost Calc. Date" := CalculationDate;
             end else
-                if IsAssemblyItem then begin
+                if IsAssemblyItem() then begin
                     CalcAssemblyItem(ItemNo, Item, Level, true);
                     exit
                 end else begin
@@ -772,7 +772,7 @@ codeunit 50008 "PWD Calculate Standard Cost"
         end else begin
             Item.Get(ItemNo);
             if (StdCostWkshName <> '') and
-               not (Item.IsMfgItem or Item.IsAssemblyItem)
+               not (Item.IsMfgItem() or Item.IsAssemblyItem())
             then
                 if StdCostWksh.Get(StdCostWkshName, StdCostWksh.Type::Item, ItemNo) then begin
                     Item."Unit Cost" := StdCostWksh."New Standard Cost";
@@ -1135,21 +1135,21 @@ codeunit 50008 "PWD Calculate Standard Cost"
         DecLLotSizeItem: Decimal;
     BEGIN
         //===Calc Middle for Lot Size========================================
-        EVALUATE(DatLBegin, '01/01/' + FORMAT(DATE2DWY(WORKDATE, 3)));
-        EVALUATE(DatLEnd, '31/12/' + FORMAT(DATE2DWY(WORKDATE, 3)));
+        EVALUATE(DatLBegin, '01/01/' + FORMAT(DATE2DWY(WORKDATE(), 3)));
+        EVALUATE(DatLEnd, '31/12/' + FORMAT(DATE2DWY(WORKDATE(), 3)));
         IntLCount := 0;
         DecLSum := 0;
         DecLMiddle := 1;
         DecLLotSizeItem := DecPLotSizeItem;
-        RecLProdOrdLine.RESET;
+        RecLProdOrdLine.RESET();
         RecLProdOrdLine.SETRANGE("Item No.", CodPitemNo);
         RecLProdOrdLine.SETRANGE(Status, 4);
         RecLProdOrdLine.SETRANGE("Ending Date", DatLBegin, DatLEnd);
-        IF RecLProdOrdLine.FINDFIRST THEN
+        IF RecLProdOrdLine.FINDFIRST() THEN
             REPEAT
                 IntLCount += 1;
                 DecLSum += RecLProdOrdLine.Quantity;
-            UNTIL RecLProdOrdLine.NEXT = 0;
+            UNTIL RecLProdOrdLine.NEXT() = 0;
 
         IF IntLCount <> 0 THEN
             DecLMiddle := ROUND(DecLSum / IntLCount, 0.01, '>')
@@ -1169,7 +1169,7 @@ codeunit 50008 "PWD Calculate Standard Cost"
     BEGIN
         NewCalcMultiLevel := FALSE;
 
-        SetProperties(WORKDATE, NewCalcMultiLevel, NewUseAssemblyList, FALSE, '', FALSE);
+        SetProperties(WORKDATE(), NewCalcMultiLevel, NewUseAssemblyList, FALSE, '', FALSE);
 
         IF NewUseAssemblyList THEN
             CalcAssemblyItem(ItemNo, Item, 0, CalcMfgItems)
@@ -1179,7 +1179,7 @@ codeunit 50008 "PWD Calculate Standard Cost"
         IF TempItem.FIND('-') THEN
             REPEAT
                 ItemCostMgt.UpdateStdCostShares(TempItem);
-            UNTIL TempItem.NEXT = 0;
+            UNTIL TempItem.NEXT() = 0;
     END;
 
     PROCEDURE CalculateCost(RecPItem: Record Item)
@@ -1218,28 +1218,26 @@ codeunit 50008 "PWD Calculate Standard Cost"
                         RecLProductionBOMHeader.FIELDERROR(Status);
 
                     // on descend la nomenclature
-                    RecLBOMLine.RESET;
+                    RecLBOMLine.RESET();
                     RecLBOMLine.SETRANGE("Production BOM No.", RecPItem."Production BOM No.");
                     RecLBOMLine.SETRANGE("Version Code", VersionMgt.GetBOMVersion(RecPItem."Production BOM No.", TODAY, TRUE));
                     RecLBOMLine.SETRANGE(Type, RecLBOMLine.Type::Item);
                     RecLBOMLine.SETFILTER("Starting Date", '%1|<=%2', 0D, TODAY);
                     RecLBOMLine.SETFILTER("Ending Date", '%1|>=%2', 0D, TODAY);
                     RecLBOMLine.SETFILTER("Quantity per", '<>%1', 0);
-                    IF RecLBOMLine.FINDSET THEN BEGIN
+                    IF RecLBOMLine.FINDSET() THEN BEGIN
                         REPEAT
                             RecLItem.GET(RecLBOMLine."No.");
                             CalculateCost(RecLItem);
-                        UNTIL RecLBOMLine.NEXT = 0;
+                        UNTIL RecLBOMLine.NEXT() = 0;
                         // Calculate Cost
                         FctCalcItemMonoLevel(RecPItem."No.", FALSE)
                     END;
                 END ELSE
-                //>>NDBI
-                BEGIN
+                    //>>NDBI
                     IF RecPItem."Inventory Posting Group" <> 'NON_VALO' THEN
                         //    ERROR(TxtL50000,RecPItem."No.");
                         ERROR(TxtL50000, RecPItem."No.");
-                END;
         //<<NDBI
         //<<TDL290719.001
     END;

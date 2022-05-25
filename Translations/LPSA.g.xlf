@@ -12363,6 +12363,11 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">PageExtension PWD PlanningWorksheet - Action PWD Action1100267003 - Property Caption</note>
         </trans-unit>
+        <trans-unit id="PageExtension 977571580 - Action 3193554620 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 3144460829">
+          <source>Forecast</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">PageExtension PWD PlanningWorksheet - Action PWD Forecast - Property Caption</note>
+        </trans-unit>
         <trans-unit id="PageExtension 977571580 - Action 1558851588 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 3144460829">
           <source>Prod. BOM Where-Used</source>
           <note from="Developer" annotates="general" priority="2"></note>
@@ -12372,6 +12377,11 @@
           <source>Tout Cocher</source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">PageExtension PWD PlanningWorksheet - Action PWD Action1100267001 - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="PageExtension 977571580 - Action 3197498428 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 3144460829">
+          <source>Tout Decocher</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">PageExtension PWD PlanningWorksheet - Action PWD ToutDecocher - Property Caption</note>
         </trans-unit>
         <trans-unit id="PageExtension 277648045 - Control 2632653686 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 407220332">
           <source>N° commande</source>
