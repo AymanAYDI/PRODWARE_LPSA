@@ -10,7 +10,7 @@ page 50007 "PWD Manuf. cycles Setup - List"
     //                                           - Create Page
     // ------------------------------------------------------------------------------------------------------------------
 
-    Caption = 'Manufacturing cycles Setup - List';
+    Caption = 'Manufacturing cycles Setup';
     CardPageID = "PWD Manufacturing cycles Setup";
     DataCaptionFields = "No.";
     Editable = false;

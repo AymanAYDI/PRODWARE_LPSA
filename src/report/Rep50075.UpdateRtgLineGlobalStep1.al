@@ -1,6 +1,6 @@
 report 50075 "Update Rtg Line Global-Step 1"
 {
-    Caption = 'Update routing lines';
+    Caption = 'Update routing';
     ProcessingOnly = true;
     UseSystemPrinter = false;
     ApplicationArea = all;
