@@ -137,10 +137,7 @@ page 50035 "PWD Demand Forecast"
                     end;
 
                     trigger OnValidate()
-                    Var
-                        LPSASetGetFunctions: Codeunit "PWD LPSA Set/Get Functions.";
                     begin
-                        LPSASetGetFunctions.SetCustomerFilter("CustomerFilter");
                         //>>LAP080615
                         SetMatrix();
                         //<<LAP080615
@@ -288,10 +285,10 @@ page 50035 "PWD Demand Forecast"
     var
         MatrixMgt: Codeunit "Matrix Management";
     begin
-        IF (LocationFilter <> '') AND (CustomerFilter <> '') THEN
-            MatrixMgt.GeneratePeriodMatrixData(
-                StepType.AsInteger(), ArrayLen(MatrixRecords), false, PeriodType, DateFilter, PKFirstRecInCurrSet,
-                MatrixColumnCaptions, ColumnSet, CurrSetLength, MatrixRecords);
+        //        IF (LocationFilter <> '') AND (CustomerFilter <> '') THEN
+        MatrixMgt.GeneratePeriodMatrixData(
+            StepType.AsInteger(), ArrayLen(MatrixRecords), false, PeriodType, DateFilter, PKFirstRecInCurrSet,
+            MatrixColumnCaptions, ColumnSet, CurrSetLength, MatrixRecords);
         //>>TI464004
         //SetMatrix;
         //<<TI464004s

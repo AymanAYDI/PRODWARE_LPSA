@@ -19,7 +19,6 @@ codeunit 50022 "PWD LPSA Set/Get Functions."
         BooGFromOsys: Boolean;
         BooGFromImportSaleLine: Boolean;
         BooGFromLotDeterminingEnable: Boolean;
-        BooGFromCustomerFilter: Code[20];
     //---TAB39--- 
     procedure SetFctFromImport(SetBooGFromImport: Boolean)
     begin
@@ -147,18 +146,4 @@ codeunit 50022 "PWD LPSA Set/Get Functions."
         exit(BooGFromImportSaleLine);
 
     end;
-    //---Page99000919---
-    procedure SetCustomerFilter(BooPFromCustomerFilter: Code[20])
-    begin
-        BooGFromCustomerFilter := BooPFromCustomerFilter;
-    end;
-
-    procedure GetCustomerFilter(): Code[20]
-
-    begin
-
-        exit(BooGFromCustomerFilter);
-
-    end;
-
 }

@@ -5348,21 +5348,6 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Codeunit PWD LPSA Events Mgt. - Method PAG5510_OnBeforeActionEvent_ProductionJournal_PostandPrint - NamedType CstG00002</note>
         </trans-unit>
-        <trans-unit id="Codeunit 1862912558 - Method 2806875036 - NamedType 2476940767" size-unit="char" translate="yes" xml:space="preserve">
-          <source>The Forecast On field must be Sales Items or Component.</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Codeunit PWD LPSA Events Mgt. - Method PAG9245_OnBeforeProdForecastQtyBase_OnValidate_DemandForecastMatrix - NamedType Text000</note>
-        </trans-unit>
-        <trans-unit id="Codeunit 1862912558 - Method 2806875036 - NamedType 95063322" size-unit="char" translate="yes" xml:space="preserve">
-          <source>You must set a location filter.</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Codeunit PWD LPSA Events Mgt. - Method PAG9245_OnBeforeProdForecastQtyBase_OnValidate_DemandForecastMatrix - NamedType Text003</note>
-        </trans-unit>
-        <trans-unit id="Codeunit 1862912558 - Method 2806875036 - NamedType 1370456556" size-unit="char" translate="yes" xml:space="preserve">
-          <source>You must set a customer filter.</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Codeunit PWD LPSA Events Mgt. - Method PAG9245_OnBeforeProdForecastQtyBase_OnValidate_DemandForecastMatrix - NamedType Text005</note>
-        </trans-unit>
         <trans-unit id="Codeunit 1862912558 - Method 124782803 - NamedType 4006530947" size-unit="char" translate="yes" xml:space="preserve">
           <source>Lot non conform, do you want to post ?</source>
           <note from="Developer" annotates="general" priority="2"></note>
