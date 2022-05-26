@@ -12,8 +12,6 @@ pageextension 60121 "PWD WorkCenterList" extends "Work Center List"
 
     actions
     {
-
-
         addafter(Statistics)
         {
             action("PWD Manufacturing cycles")
