@@ -906,8 +906,6 @@ page 50036 "PWD Demand Forecast Matrix"
     end;
 
     local procedure EnterBaseQty(ColumnID: Integer)
-    var
-        IsHandled: Boolean;
     begin
         SetDateFilter(ColumnID);
         if QtyType = QtyType::"Net Change" then
@@ -953,7 +951,6 @@ page 50036 "PWD Demand Forecast Matrix"
     var
         ProdForecastEntry: Record "Production Forecast Entry";
         ProdForecastEntry2: Record "Production Forecast Entry";
-        ShouldConfirmMovingForecasts: Boolean;
         CustomerNo: Code[20];
         Txt005: Label 'You must set a customer filter.';
     begin
