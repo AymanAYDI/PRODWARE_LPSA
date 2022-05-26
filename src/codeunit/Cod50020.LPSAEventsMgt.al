@@ -906,6 +906,7 @@ codeunit 50020 "PWD LPSA Events Mgt."
     end;
     //---CDU99000854---
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Inventory Profile Offsetting", 'OnBeforeCreateSupply', '', false, false)]
+
     local procedure CDU99000854_OnBeforeCreateSupply_InventoryProfileOffsetting(var SupplyInvtProfile: Record "Inventory Profile"; var DemandInvtProfile: Record "Inventory Profile")
     var
         FunctionsMgt: Codeunit "PWD LPSA Functions Mgt.";
@@ -913,14 +914,14 @@ codeunit 50020 "PWD LPSA Events Mgt."
         FunctionsMgt.Fct_OnBeforeCreateSupply_InventoryProfileOffsetting(SupplyInvtProfile, DemandInvtProfile);
     end;
 
-    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Inventory Profile Offsetting", 'OnMaintainPlanningLineOnBeforeAdjustPlanLine', '', false, false)]
-    local procedure CDU99000854_OnMaintainPlanningLineOnBeforeAdjustPlanLine_InventoryProfileOffsetting(var RequisitionLine: Record "Requisition Line"; InventoryProfile: Record "Inventory Profile"; StockkeepingUnit: Record "Stockkeeping Unit")
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Inventory Profile Offsetting", 'OnMaintainPlanningLineOnBeforeReqLineInsert', '', false, false)]
+    local procedure CDU99000854_OnMaintainPlanningLineOnBeforeReqLineInsert_InventoryProfileOffsetting(var RequisitionLine: Record "Requisition Line"; var SupplyInvtProfile: Record "Inventory Profile"; PlanToDate: Date; CurrentForecast: Code[10]; NewPhase: Option " ","Line Created","Routing Created",Exploded,Obsolete; Direction: Option Forward,Backward; DemandInvtProfile: Record "Inventory Profile"; ExcludeForecastBefore: Date)
     begin
-        RequisitionLine."PWD Original Source Id" := InventoryProfile."PWD Original Source Id";
-        RequisitionLine."PWD Original Source No." := InventoryProfile."PWD Original Source No.";
-        RequisitionLine."PWD Original Source Position" := InventoryProfile."PWD Original Source Position";
-        RequisitionLine."PWD Original Counter" := InventoryProfile."PWD Original Counter";
-        RequisitionLine."PWD Transmitted Order No." := InventoryProfile."PWD Transmitted Order No.";
+        RequisitionLine."PWD Original Source Id" := SupplyInvtProfile."PWD Original Source Id";
+        RequisitionLine."PWD Original Source No." := SupplyInvtProfile."PWD Original Source No.";
+        RequisitionLine."PWD Original Source Position" := SupplyInvtProfile."PWD Original Source Position";
+        RequisitionLine."PWD Original Counter" := SupplyInvtProfile."PWD Original Counter";
+        RequisitionLine."PWD Transmitted Order No." := SupplyInvtProfile."PWD Transmitted Order No.";
     end;
 
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Inventory Profile Offsetting", 'OnAfterTransferAttributes', '', false, false)]
