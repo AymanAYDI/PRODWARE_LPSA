@@ -12573,6 +12573,11 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">PageExtension PWD SalesLines - Control PWD Cust Promised Delivery Date - Property Caption</note>
         </trans-unit>
+        <trans-unit id="PageExtension 3605102415 - Method 3559216439 - NamedType 1682706330" size-unit="char" translate="yes" xml:space="preserve" al-object-target="PageExtension 3605102415">
+          <source>Sales Order Pro Forma Invoice</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">PageExtension PWD SalesOrder - Method DoPrintSalesHeader - NamedType SalesOrderDocTypeTxt</note>
+        </trans-unit>
         <trans-unit id="PageExtension 3605102415 - Action 497390243 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 1673401186">
           <source>Order Confirmation</source>
           <note from="Developer" annotates="general" priority="2"></note>

@@ -1837,4 +1837,14 @@ codeunit 50021 "PWD LPSA Functions Mgt."
         IF NOT CopyItemBuffer."General Item Information" THEN
             RecPNewItem.INSERT();
     END;
+
+    procedure SendEmailProformaInvoice(SalesHeader: Record "Sales Header")
+    var
+        ReportSelections: Record "Report Selections";
+        SalesOrderDocTypeTxt: Label 'ProForma Invoice';
+    begin
+        SalesHeader.SetRange("Document Type", SalesHeader."Document Type");
+        SalesHeader.SetRange("No.", SalesHeader."No.");
+        ReportSelections.SendEmailToCust("Report Selection Usage"::"Pro Forma S. Invoice".AsInteger(), SalesHeader, SalesHeader."No.", SalesOrderDocTypeTxt, true, SalesHeader.GetBillToNo())
+    end;
 }
