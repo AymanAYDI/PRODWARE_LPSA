@@ -53,6 +53,7 @@ pageextension 60145 "PWD PlanningWorksheet" extends "Planning Worksheet"
             }
             action("PWD Forecast")
             {
+                caption = 'Forecast';
                 Promoted = true;
                 PromotedIsBig = true;
                 Image = History;
@@ -90,6 +91,7 @@ pageextension 60145 "PWD PlanningWorksheet" extends "Planning Worksheet"
             }
             action("PWD ToutDecocher")
             {
+                Caption = 'Tout Decocher';
                 ApplicationArea = All;
                 Image = Action;
                 trigger OnAction()

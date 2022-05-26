@@ -23,7 +23,6 @@ pageextension 60120 "PWD WorkCenterCard" extends "Work Center Card"
     }
     actions
     {
-
         addafter(Statistics)
         {
             action("PWD Manufacturing cycles")

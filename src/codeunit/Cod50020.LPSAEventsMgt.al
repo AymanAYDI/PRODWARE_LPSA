@@ -1538,7 +1538,7 @@ codeunit 50020 "PWD LPSA Events Mgt."
         Item.Get(TrackingSpecification."Item No.");
         Item.TestField("Lot Nos.");
         //IF gLotDeterminingLotCode = '' THEN BEGIN
-        TrackingSpecification.VALIDATE(TrackingSpecification."Lot No.", NoSeriesMgt.GetNextNo(Item."Lot Nos.", WORKDATE, TRUE));
+        TrackingSpecification.VALIDATE(TrackingSpecification."Lot No.", NoSeriesMgt.GetNextNo(Item."Lot Nos.", WORKDATE(), TRUE));
         // END ELSE
         //     TrackingSpecification.VALIDATE(TrackingSpecification."Lot No.", gLotDeterminingLotCode);
         cuLSAvailMgt.CheckItemTrackingAssignment(
@@ -1743,7 +1743,7 @@ codeunit 50020 "PWD LPSA Events Mgt."
         LPSASetGetFunctions: codeunit "PWD LPSA Set/Get Functions.";
     begin
         //>>FE_LAPIERRETTE_NDT01.001
-        IF LPSASetGetFunctions.GetFromConfiguration THEN
+        IF LPSASetGetFunctions.GetFromConfiguration() THEN
             LPSAFunctionsMgt.CopyFromConfiguration(SourceItem."No.", TargetItem, CopyItemBuffer);
         //<<FE_LAPIERRETTE_NDT01.001
         //>>TI409818: TO 22/03/2018:
@@ -1751,7 +1751,7 @@ codeunit 50020 "PWD LPSA Events Mgt."
         TargetItem."Unit Cost" := 0;
         //<<TI409818: TO 22/03/2018:
         //>>FE_LAPIERRETTE_NDT01.001
-        IF LPSASetGetFunctions.GetFromConfiguration THEN BEGIN
+        IF LPSASetGetFunctions.GetFromConfiguration() THEN BEGIN
             TargetItem.Description := '';
             TargetItem."PWD LPSA Description 1" := '';
             TargetItem."PWD LPSA Description 2" := '';

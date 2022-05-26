@@ -66,7 +66,6 @@ pageextension 60122 "PWD MachineCenterCard" extends "Machine Center Card"
     }
     actions
     {
-
         addafter(Statistics)
         {
             action("PWD Action1100294002")

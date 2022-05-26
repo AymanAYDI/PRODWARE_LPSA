@@ -1956,7 +1956,7 @@ codeunit 8073291 "PWD Buffer Management"
         CduLConnectorWMSParseData: Codeunit "PWD Connector WMS Parse Data";
         PWDLPSAFunctionsMgt: codeunit "PWD LPSA Functions Mgt.";
         CduLReleaseSalesDocument: Codeunit "Release Sales Document";
-        LPSASetGetFunctions: Codeunit  "PWD LPSA Set/Get Functions.";
+        LPSASetGetFunctions: Codeunit "PWD LPSA Set/Get Functions.";
         RecordRef: RecordRef;
         RecordRefBuf: RecordRef;
         CodLLotNo: Code[20];

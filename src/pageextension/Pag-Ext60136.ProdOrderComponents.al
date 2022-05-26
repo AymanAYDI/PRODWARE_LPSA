@@ -21,8 +21,6 @@ pageextension 60136 "PWD ProdOrderComponents" extends "Prod. Order Components"
     }
     actions
     {
-
-
         addafter(SelectItemSubstitution)
         {
             action("PWD Action1100267001")

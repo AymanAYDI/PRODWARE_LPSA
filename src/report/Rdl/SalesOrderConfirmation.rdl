@@ -6490,7 +6490,7 @@ Cstr(Fields!CompanyInfo_IBAN.Value),3)</Hidden>
                           <Style>
                             <FontSize>9pt</FontSize>
                             <FontWeight>Bold</FontWeight>
-                            <Format>=ReportItems!Formatnum.value</Format>
+                            <Format>N</Format>
                           </Style>
                         </TextRun>
                       </TextRuns>
@@ -6503,6 +6503,9 @@ Cstr(Fields!CompanyInfo_IBAN.Value),3)</Hidden>
                   <Width>2.30902cm</Width>
                   <ZIndex>3</ZIndex>
                   <Style>
+                    <Border>
+                      <Style>None</Style>
+                    </Border>
                     <PaddingLeft>2pt</PaddingLeft>
                     <PaddingRight>2pt</PaddingRight>
                     <PaddingTop>2pt</PaddingTop>
@@ -6883,7 +6886,7 @@ Cstr(Fields!CompanyInfo_IBAN.Value),3)</Hidden>
                           <Value>=ReportItems!total.value</Value>
                           <Style>
                             <FontSize>8pt</FontSize>
-                            <Format>=ReportItems!Formatnum.value</Format>
+                            <Format>N</Format>
                           </Style>
                         </TextRun>
                       </TextRuns>
@@ -6898,6 +6901,9 @@ Cstr(Fields!CompanyInfo_IBAN.Value),3)</Hidden>
                   <Width>4.49745cm</Width>
                   <ZIndex>17</ZIndex>
                   <Style>
+                    <Border>
+                      <Style>None</Style>
+                    </Border>
                     <PaddingLeft>2pt</PaddingLeft>
                     <PaddingRight>2pt</PaddingRight>
                     <PaddingTop>2pt</PaddingTop>
@@ -7063,6 +7069,7 @@ Cstr(Fields!CompanyInfo_IBAN.Value),3)</Hidden>
                 </Textbox>
               </ReportItems>
               <DataElementOutput>ContentsOnly</DataElementOutput>
+              <Top>0in</Top>
               <Height>6.2cm</Height>
               <Width>18.5cm</Width>
               <ZIndex>3</ZIndex>

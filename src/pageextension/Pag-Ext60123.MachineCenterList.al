@@ -43,7 +43,6 @@ pageextension 60123 "PWD MachineCenterList" extends "Machine Center List"
     }
     actions
     {
-
         addafter(Statistics)
         {
             action("PWD Manufacturing cycles")
