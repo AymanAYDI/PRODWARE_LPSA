@@ -28,7 +28,7 @@ table 50011 "PWD Phantom substitution Items"
         }
         field(20; "Lot No."; Code[20])
         {
-
+            Caption = 'Lot No.';
             trigger OnValidate()
             var
                 RecLItemLedgentry: Record "Item Ledger Entry";

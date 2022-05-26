@@ -25,7 +25,6 @@ tableextension 60052 "PWD CapacityLedgerEntry" extends "Capacity Ledger Entry"
     }
     keys
     {
-
         key(Key50000; "Item No.", "Order Type", "Order No.", "Operation No.", Type, "No.")
         {
             SumIndexFields = "Output Quantity", "Scrap Quantity", "Setup Time", "Run Time";

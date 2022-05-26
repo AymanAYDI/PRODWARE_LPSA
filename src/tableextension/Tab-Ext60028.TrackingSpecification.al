@@ -48,6 +48,7 @@ tableextension 60028 "PWD TrackingSpecification" extends "Tracking Specification
         }
         field(50003; "PWD NC"; Boolean)
         {
+            caption = 'NC';
             Description = 'LAP2.05';
             Editable = false;
         }

@@ -6555,6 +6555,12 @@
           <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">Codeunit PWD LPSA Functions Mgt. - Method RestoreSalesLineComments - NamedType Text004</note>
         </trans-unit>
+        <trans-unit id="Codeunit 378233800 - Method 69268981 - NamedType 1682706330" size-unit="char" translate="yes" xml:space="preserve">
+          <source>ProForma Invoice</source>
+          <target state="needs-translation"/>
+          <note from="Developer" annotates="general" priority="2"/>
+          <note from="Xliff Generator" annotates="general" priority="3">Codeunit PWD LPSA Functions Mgt. - Method SendEmailProformaInvoice - NamedType SalesOrderDocTypeTxt</note>
+        </trans-unit>
         <trans-unit id="Codeunit 378233800 - Method 3835590433 - NamedType 652464844" size-unit="char" translate="yes" xml:space="preserve">
           <source>Vous ne pouvez pas sélectionner des articles différents. Veuillez sélectionner le même article, pour des n° lot différents</source>
           <target state="translated">Vous ne pouvez pas sélectionner des articles différents. Veuillez sélectionner le même article, pour des n° lot différents</target>
@@ -6950,6 +6956,210 @@
           <target state="translated">Visualiser message d'erreur</target>
           <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">Page PWD Customer Buffer - Action Action1100294053 - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 3115003489 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Demand Forecast Overview (LPSA)</source>
+          <target state="needs-translation"/>
+          <note from="Developer" annotates="general" priority="2"/>
+          <note from="Xliff Generator" annotates="general" priority="3">Page PWD Demand Forecast - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 3115003489 - Control 2445482498 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>General</source>
+          <target state="needs-translation"/>
+          <note from="Developer" annotates="general" priority="2"/>
+          <note from="Xliff Generator" annotates="general" priority="3">Page PWD Demand Forecast - Control General - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 3115003489 - Control 539546824 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Specifies the dates that will be used to filter the amounts in the window.</source>
+          <target state="needs-translation"/>
+          <note from="Developer" annotates="general" priority="2"/>
+          <note from="Xliff Generator" annotates="general" priority="3">Page PWD Demand Forecast - Control DateFilter - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Page 3115003489 - Control 539546824 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Date Filter</source>
+          <target state="needs-translation"/>
+          <note from="Developer" annotates="general" priority="2"/>
+          <note from="Xliff Generator" annotates="general" priority="3">Page PWD Demand Forecast - Control DateFilter - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 3115003489 - Control 1964229917 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Specifies one of the following two types when you create a demand forecast entry: sales item or component item.</source>
+          <target state="needs-translation"/>
+          <note from="Developer" annotates="general" priority="2"/>
+          <note from="Xliff Generator" annotates="general" priority="3">Page PWD Demand Forecast - Control ForecastType - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Page 3115003489 - Control 1964229917 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Forecast Type</source>
+          <target state="needs-translation"/>
+          <note from="Developer" annotates="general" priority="2"/>
+          <note from="Xliff Generator" annotates="general" priority="3">Page PWD Demand Forecast - Control ForecastType - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 3115003489 - Control 3267737623 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Specifies a location code if you want to create a forecast entry for a specific location.</source>
+          <target state="needs-translation"/>
+          <note from="Developer" annotates="general" priority="2"/>
+          <note from="Xliff Generator" annotates="general" priority="3">Page PWD Demand Forecast - Control LocationFilter - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Page 3115003489 - Control 3267737623 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Location Filter</source>
+          <target state="needs-translation"/>
+          <note from="Developer" annotates="general" priority="2"/>
+          <note from="Xliff Generator" annotates="general" priority="3">Page PWD Demand Forecast - Control LocationFilter - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 3115003489 - Control 43593927 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Specifies by which period amounts are displayed.</source>
+          <target state="needs-translation"/>
+          <note from="Developer" annotates="general" priority="2"/>
+          <note from="Xliff Generator" annotates="general" priority="3">Page PWD Demand Forecast - Control PeriodType - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Page 3115003489 - Control 43593927 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>View by</source>
+          <target state="needs-translation"/>
+          <note from="Developer" annotates="general" priority="2"/>
+          <note from="Xliff Generator" annotates="general" priority="3">Page PWD Demand Forecast - Control PeriodType - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 3115003489 - Control 3036994577 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Specifies the name of the relevant demand forecast for which you are creating an entry.</source>
+          <target state="needs-translation"/>
+          <note from="Developer" annotates="general" priority="2"/>
+          <note from="Xliff Generator" annotates="general" priority="3">Page PWD Demand Forecast - Control ProductionForecastName - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Page 3115003489 - Control 3036994577 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Demand Forecast Name</source>
+          <target state="needs-translation"/>
+          <note from="Developer" annotates="general" priority="2"/>
+          <note from="Xliff Generator" annotates="general" priority="3">Page PWD Demand Forecast - Control ProductionForecastName - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 3115003489 - Control 3795441345 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Customer Filter</source>
+          <target state="needs-translation"/>
+          <note from="Developer" annotates="general" priority="2"/>
+          <note from="Xliff Generator" annotates="general" priority="3">Page PWD Demand Forecast - Control PWD CustomerFilter - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 3115003489 - Control 3660027436 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Customer Name</source>
+          <target state="needs-translation"/>
+          <note from="Developer" annotates="general" priority="2"/>
+          <note from="Xliff Generator" annotates="general" priority="3">Page PWD Demand Forecast - Control PWD CustomerName - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 3115003489 - Control 3759431352 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Specifies how amounts are displayed. Net Change: The net change in the balance for the selected period. Balance at Date: The balance as of the last day in the selected period.</source>
+          <target state="needs-translation"/>
+          <note from="Developer" annotates="general" priority="2"/>
+          <note from="Xliff Generator" annotates="general" priority="3">Page PWD Demand Forecast - Control QtyType - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Page 3115003489 - Control 3759431352 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>View as</source>
+          <target state="needs-translation"/>
+          <note from="Developer" annotates="general" priority="2"/>
+          <note from="Xliff Generator" annotates="general" priority="3">Page PWD Demand Forecast - Control QtyType - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 3115003489 - Action 3106002577 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>F&amp;unctions</source>
+          <target state="needs-translation"/>
+          <note from="Developer" annotates="general" priority="2"/>
+          <note from="Xliff Generator" annotates="general" priority="3">Page PWD Demand Forecast - Action F&amp;unctions - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 3115003489 - Action 4160816331 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Copy an existing demand forecast to quickly create a similar forecast.</source>
+          <target state="needs-translation"/>
+          <note from="Developer" annotates="general" priority="2"/>
+          <note from="Xliff Generator" annotates="general" priority="3">Page PWD Demand Forecast - Action Copy Demand Forecast - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Page 3115003489 - Action 4160816331 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Copy Demand Forecast</source>
+          <target state="needs-translation"/>
+          <note from="Developer" annotates="general" priority="2"/>
+          <note from="Xliff Generator" annotates="general" priority="3">Page PWD Demand Forecast - Action Copy Demand Forecast - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 3115003489 - Action 3479206827 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Go to the next column.</source>
+          <target state="needs-translation"/>
+          <note from="Developer" annotates="general" priority="2"/>
+          <note from="Xliff Generator" annotates="general" priority="3">Page PWD Demand Forecast - Action Next Column - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Page 3115003489 - Action 3479206827 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Next Column</source>
+          <target state="needs-translation"/>
+          <note from="Developer" annotates="general" priority="2"/>
+          <note from="Xliff Generator" annotates="general" priority="3">Page PWD Demand Forecast - Action Next Column - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 3115003489 - Action 1734268175 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Go to the next set of data.</source>
+          <target state="needs-translation"/>
+          <note from="Developer" annotates="general" priority="2"/>
+          <note from="Xliff Generator" annotates="general" priority="3">Page PWD Demand Forecast - Action Next Set - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Page 3115003489 - Action 1734268175 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Next Set</source>
+          <target state="needs-translation"/>
+          <note from="Developer" annotates="general" priority="2"/>
+          <note from="Xliff Generator" annotates="general" priority="3">Page PWD Demand Forecast - Action Next Set - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 3115003489 - Action 278708385 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Go to the previous column.</source>
+          <target state="needs-translation"/>
+          <note from="Developer" annotates="general" priority="2"/>
+          <note from="Xliff Generator" annotates="general" priority="3">Page PWD Demand Forecast - Action Previous Column - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Page 3115003489 - Action 278708385 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Previous Column</source>
+          <target state="needs-translation"/>
+          <note from="Developer" annotates="general" priority="2"/>
+          <note from="Xliff Generator" annotates="general" priority="3">Page PWD Demand Forecast - Action Previous Column - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 3115003489 - Action 3697385181 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Go to the previous set of data.</source>
+          <target state="needs-translation"/>
+          <note from="Developer" annotates="general" priority="2"/>
+          <note from="Xliff Generator" annotates="general" priority="3">Page PWD Demand Forecast - Action Previous Set - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Page 3115003489 - Action 3697385181 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Previous Set</source>
+          <target state="needs-translation"/>
+          <note from="Developer" annotates="general" priority="2"/>
+          <note from="Xliff Generator" annotates="general" priority="3">Page PWD Demand Forecast - Action Previous Set - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 3648027296 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Demand Forecast Matrix</source>
+          <target state="needs-translation"/>
+          <note from="Developer" annotates="general" priority="2"/>
+          <note from="Xliff Generator" annotates="general" priority="3">Page PWD Demand Forecast Matrix - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 3648027296 - NamedType 2476940767" size-unit="char" translate="yes" xml:space="preserve">
+          <source>The Forecast On field must be Sales Items or Component.</source>
+          <target state="needs-translation"/>
+          <note from="Developer" annotates="general" priority="2"/>
+          <note from="Xliff Generator" annotates="general" priority="3">Page PWD Demand Forecast Matrix - NamedType Text000</note>
+        </trans-unit>
+        <trans-unit id="Page 3648027296 - NamedType 95063322" size-unit="char" translate="yes" xml:space="preserve">
+          <source>You must set a location filter.</source>
+          <target state="needs-translation"/>
+          <note from="Developer" annotates="general" priority="2"/>
+          <note from="Xliff Generator" annotates="general" priority="3">Page PWD Demand Forecast Matrix - NamedType Text003</note>
+        </trans-unit>
+        <trans-unit id="Page 3648027296 - Method 3019765639 - NamedType 2958516111" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Refresh Item List for Customer...</source>
+          <target state="needs-translation"/>
+          <note from="Developer" annotates="general" priority="2"/>
+          <note from="Xliff Generator" annotates="general" priority="3">Page PWD Demand Forecast Matrix - Method LoadMatrix - NamedType TxtL001</note>
+        </trans-unit>
+        <trans-unit id="Page 3648027296 - Method 604382397 - NamedType 2416780415" size-unit="char" translate="yes" xml:space="preserve">
+          <source>You must set a customer filter.</source>
+          <target state="needs-translation"/>
+          <note from="Developer" annotates="general" priority="2"/>
+          <note from="Xliff Generator" annotates="general" priority="3">Page PWD Demand Forecast Matrix - Method ProdForecastQtyBase_OnValidate - NamedType Txt005</note>
+        </trans-unit>
+        <trans-unit id="Page 3648027296 - Control 3461834954 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Specifies a description of the item.</source>
+          <target state="needs-translation"/>
+          <note from="Developer" annotates="general" priority="2"/>
+          <note from="Xliff Generator" annotates="general" priority="3">Page PWD Demand Forecast Matrix - Control Description - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Page 3648027296 - Control 4200184881 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Specifies the number of the involved entry or record, according to the specified number series.</source>
+          <target state="needs-translation"/>
+          <note from="Developer" annotates="general" priority="2"/>
+          <note from="Xliff Generator" annotates="general" priority="3">Page PWD Demand Forecast Matrix - Control No. - Property ToolTip</note>
         </trans-unit>
         <trans-unit id="Page 3861946747 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Family LPSA List</source>
@@ -14361,6 +14571,12 @@
           <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">XmlPort Import Export Connector SetUp - Property Caption</note>
         </trans-unit>
+        <trans-unit id="XmlPort 3020673696 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Export Contact Sabatier</source>
+          <target state="needs-translation"/>
+          <note from="Developer" annotates="general" priority="2"/>
+          <note from="Xliff Generator" annotates="general" priority="3">XmlPort PWD Export Contact Sabatier - Property Caption</note>
+        </trans-unit>
         <trans-unit id="XmlPort 3075540658 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Export Prod Order OSYS</source>
           <target state="translated">Export des OF OSYS</target>
@@ -14397,17 +14613,17 @@
           <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">PageExtension PWD CustomerCard - Action PWD Lignes devis - Property Caption</note>
         </trans-unit>
-        <trans-unit id="PageExtension 576218729 - Control 3795441345 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 208889056">
-          <source>Customer Filter</source>
-          <target state="translated">Filtre Client</target>
+        <trans-unit id="PageExtension 2004814605 - Action 1000570269 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 2390594980">
+          <source>Open the related demand forecast.</source>
+          <target state="needs-translation"/>
           <note from="Developer" annotates="general" priority="2"/>
-          <note from="Xliff Generator" annotates="general" priority="3">PageExtension PWD DemandForecast - Control PWD CustomerFilter - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">PageExtension PWD DemandForecastNames - Action PWD Edit Demand Forecast - Property ToolTip</note>
         </trans-unit>
-        <trans-unit id="PageExtension 576218729 - Control 3660027436 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 208889056">
-          <source>Customer Name</source>
-          <target state="translated">Nom Client</target>
+        <trans-unit id="PageExtension 2004814605 - Action 1000570269 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 2390594980">
+          <source>Edit Demand Forecast</source>
+          <target state="needs-translation"/>
           <note from="Developer" annotates="general" priority="2"/>
-          <note from="Xliff Generator" annotates="general" priority="3">PageExtension PWD DemandForecast - Control PWD CustomerName - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">PageExtension PWD DemandForecastNames - Action PWD Edit Demand Forecast - Property Caption</note>
         </trans-unit>
         <trans-unit id="PageExtension 1169212268 - Action 953741630 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 1245108215">
           <source>Item Card</source>
@@ -15087,30 +15303,11 @@
           <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">PageExtension PWD SalesLines - Control PWD Cust Promised Delivery Date - Property Caption</note>
         </trans-unit>
-        <trans-unit id="PageExtension 3605102415 - Method 3559216439 - NamedType 1682706330" size-unit="char" translate="yes" xml:space="preserve" al-object-target="PageExtension 3605102415">
-          <source>Sales Order Pro Forma Invoice</source>
-          <target state="translated">Facture Proforma</target>
-          <note from="Developer" annotates="general" priority="2"/>
-          <note from="Xliff Generator" annotates="general" priority="3">PageExtension PWD SalesOrder - Method DoPrintSalesHeader - NamedType SalesOrderDocTypeTxt</note>
-        </trans-unit>
-        <trans-unit id="PageExtension 3605102415 - Action 497390243 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 1673401186">
-          <source>Order Confirmation</source>
-          <target state="translated">Confirmation de commande par mail</target>
-          <note from="Developer" annotates="general" priority="2"/>
-          <note from="Xliff Generator" annotates="general" priority="3">PageExtension PWD SalesOrder - Action PWD Action224 - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="PageExtension 3605102415 - Action 2437303484 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 1673401186">
-          <source>Invoice Proforma</source>
-          <target state="needs-adaptation">Facture Proforma</target>
-          <note from="XLIFF Sync" annotates="general" priority="1">Source text has changed. Please review the translation.</note>
-          <note from="Developer" annotates="general" priority="2"/>
-          <note from="Xliff Generator" annotates="general" priority="3">PageExtension PWD SalesOrder - Action PWD Invoice Proforma - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="PageExtension 3605102415 - Action 3979413623 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 1673401186">
+        <trans-unit id="PageExtension 3605102415 - Action 3388221436 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 1673401186">
           <source>Pro Forma Invoice</source>
-          <target state="translated">Facture Pro forma</target>
+          <target state="needs-translation"/>
           <note from="Developer" annotates="general" priority="2"/>
-          <note from="Xliff Generator" annotates="general" priority="3">PageExtension PWD SalesOrder - Action PWD &amp;Order Confirmation1 - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">PageExtension PWD SalesOrder - Action PWD Pro Forma Invoice - Property Caption</note>
         </trans-unit>
         <trans-unit id="PageExtension 3605102415 - Action 1737371308 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 1673401186">
           <source>Create a PDF file and attach it to the document.</source>
@@ -15124,29 +15321,17 @@
           <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">PageExtension PWD SalesOrder - Action PWD AttachAsPDF - Property Caption</note>
         </trans-unit>
-        <trans-unit id="PageExtension 3605102415 - Action 3051458963 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 1673401186">
-          <source>Print a sales order Pro Forma Invoice.</source>
-          <target state="translated">Imprimer une facture pro forma de commande de vente.</target>
-          <note from="Developer" annotates="general" priority="2"/>
-          <note from="Xliff Generator" annotates="general" priority="3">PageExtension PWD SalesOrder - Action PWD Print Pro Forma Invoice - Property ToolTip</note>
-        </trans-unit>
-        <trans-unit id="PageExtension 3605102415 - Action 3051458963 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 1673401186">
-          <source>Print Pro Forma Invoice</source>
-          <target state="translated">Imprimer la facture pro forma</target>
-          <note from="Developer" annotates="general" priority="2"/>
-          <note from="Xliff Generator" annotates="general" priority="3">PageExtension PWD SalesOrder - Action PWD Print Pro Forma Invoice - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="PageExtension 3605102415 - Action 3074912000 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 1673401186">
+        <trans-unit id="PageExtension 3605102415 - Action 3752855804 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 1673401186">
           <source>Send a sales order Pro Forma Invoice by email. The attachment is sent as a .pdf.</source>
-          <target state="translated">Envoyez une facture pro format par e-mail. La pièce jointe est envoyée en .pdf.</target>
+          <target state="needs-translation"/>
           <note from="Developer" annotates="general" priority="2"/>
-          <note from="Xliff Generator" annotates="general" priority="3">PageExtension PWD SalesOrder - Action PWD SendEmailConfirmation - Property ToolTip</note>
+          <note from="Xliff Generator" annotates="general" priority="3">PageExtension PWD SalesOrder - Action PWD SendEmailProFormaInvoice - Property ToolTip</note>
         </trans-unit>
-        <trans-unit id="PageExtension 3605102415 - Action 3074912000 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 1673401186">
+        <trans-unit id="PageExtension 3605102415 - Action 3752855804 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 1673401186">
           <source>Email Pro Forma Invoice</source>
-          <target state="translated">Email facture pro forma</target>
+          <target state="needs-translation"/>
           <note from="Developer" annotates="general" priority="2"/>
-          <note from="Xliff Generator" annotates="general" priority="3">PageExtension PWD SalesOrder - Action PWD SendEmailConfirmation - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">PageExtension PWD SalesOrder - Action PWD SendEmailProFormaInvoice - Property Caption</note>
         </trans-unit>
         <trans-unit id="PageExtension 3605102415 - Control 3238211447 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 1673401186">
           <source>Customer Comment</source>
@@ -15245,8 +15430,8 @@
           <note from="Xliff Generator" annotates="general" priority="3">TableExtension PWD Customer - Field PWD Rolex Bienne - Property Caption</note>
         </trans-unit>
         <trans-unit id="TableExtension 2359675029 - Field 2310910282 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 2471816948">
-          <source>PWD NC</source>
-          <target state="translated">NC</target>
+          <source>NC</source>
+          <target state="needs-adaptation">NC</target>
           <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">TableExtension PWD EntrySummary - Field PWD NC - Property Caption</note>
         </trans-unit>
@@ -15671,8 +15856,8 @@
           <note from="Xliff Generator" annotates="general" priority="3">TableExtension PWD ItemReference - Field PWD Customer Plan No. - Property Caption</note>
         </trans-unit>
         <trans-unit id="TableExtension 1841878791 - Field 1855370277 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 1067425594">
-          <source>PWD EAN13</source>
-          <target state="translated">EAN13</target>
+          <source>EAN13</source>
+          <target state="needs-adaptation">EAN13</target>
           <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">TableExtension PWD ItemReference - Field PWD EAN13 - Property Caption</note>
         </trans-unit>
@@ -15935,8 +16120,8 @@
           <note from="Xliff Generator" annotates="general" priority="3">TableExtension PWD ProdOrderLine - Field PWD Manufacturing Code - Property Caption</note>
         </trans-unit>
         <trans-unit id="TableExtension 3240318278 - Field 1762932603 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 4218928473">
-          <source>PWD Processed</source>
-          <target state="translated">Processed</target>
+          <source>Processed</source>
+          <target state="needs-adaptation">Processed</target>
           <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">TableExtension PWD ProdOrderLine - Field PWD Processed - Property Caption</note>
         </trans-unit>
@@ -15965,8 +16150,8 @@
           <note from="Xliff Generator" annotates="general" priority="3">TableExtension PWD ProdOrderRoutingLine - Field PWD End. Date-Time (P1) - Property Caption</note>
         </trans-unit>
         <trans-unit id="TableExtension 3949777578 - Field 1762932603 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 803582013">
-          <source>PWD Processed</source>
-          <target state="translated">Processed</target>
+          <source>Processed</source>
+          <target state="needs-adaptation">Processed</target>
           <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">TableExtension PWD ProdOrderRoutingLine - Field PWD Processed - Property Caption</note>
         </trans-unit>
@@ -16109,8 +16294,8 @@
           <note from="Xliff Generator" annotates="general" priority="3">TableExtension PWD PurchaseCue - Field PWD To be approuved - Property Caption</note>
         </trans-unit>
         <trans-unit id="TableExtension 726307117 - Field 3118648785 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 3630819116">
-          <source>PWD UserID Filter</source>
-          <target state="translated">UserID Filter</target>
+          <source>User ID Filter</source>
+          <target state="needs-adaptation">UserID Filter</target>
           <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">TableExtension PWD PurchaseCue - Field PWD UserID Filter - Property Caption</note>
         </trans-unit>
@@ -16361,8 +16546,8 @@
           <note from="Xliff Generator" annotates="general" priority="3">TableExtension PWD RequisitionLine - Field PWD Transmitted Order No. - Property Caption</note>
         </trans-unit>
         <trans-unit id="TableExtension 2855563081 - Field 2310910282 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 4086595800">
-          <source>PWD NC</source>
-          <target state="translated">NC</target>
+          <source>NC</source>
+          <target state="needs-adaptation">NC</target>
           <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">TableExtension PWD ReservationEntry - Field PWD NC - Property Caption</note>
         </trans-unit>
@@ -16403,8 +16588,8 @@
           <note from="Xliff Generator" annotates="general" priority="3">TableExtension PWD ReturnReceiptLine - Field PWD Product Group Code - Property Caption</note>
         </trans-unit>
         <trans-unit id="TableExtension 3031288565 - Field 362632677 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 1173465396">
-          <source>PWD WMS_Cust_Blocked</source>
-          <target state="translated">WMS_Cust_Blocked</target>
+          <source>WMS_Cust_Blocked</source>
+          <target state="needs-adaptation">WMS_Cust_Blocked</target>
           <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">TableExtension PWD ReturnReceiptLine - Field PWD WMS_Cust_Blocked - Property Caption</note>
         </trans-unit>
@@ -16415,8 +16600,8 @@
           <note from="Xliff Generator" annotates="general" priority="3">TableExtension PWD ReturnReceiptLine - Field PWD WMS_Item - Property Caption</note>
         </trans-unit>
         <trans-unit id="TableExtension 3031288565 - Field 1266479212 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 1173465396">
-          <source>PWD WMS_Location</source>
-          <target state="translated">WMS_Location</target>
+          <source>WMS_Location</source>
+          <target state="needs-adaptation">WMS_Location</target>
           <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">TableExtension PWD ReturnReceiptLine - Field PWD WMS_Location - Property Caption</note>
         </trans-unit>
@@ -16985,8 +17170,8 @@
           <note from="Xliff Generator" annotates="general" priority="3">TableExtension PWD TrackingSpecification - Field PWD Lot Number - Property Caption</note>
         </trans-unit>
         <trans-unit id="TableExtension 3864019035 - Field 2310910282 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 1470081326">
-          <source>PWD NC</source>
-          <target state="translated">NC</target>
+          <source>NC</source>
+          <target state="needs-adaptation">NC</target>
           <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">TableExtension PWD TrackingSpecification - Field PWD NC - Property Caption</note>
         </trans-unit>
@@ -17099,8 +17284,8 @@
           <note from="Xliff Generator" annotates="general" priority="3">TableExtension PWD Vendor - Field PWD Order Min. Amount - Method OnValidate - NamedType CstL0001</note>
         </trans-unit>
         <trans-unit id="TableExtension 3592424878 - Field 2310910282 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 1535614531">
-          <source>PWD NC</source>
-          <target state="translated">NC</target>
+          <source>NC</source>
+          <target state="needs-adaptation">NC</target>
           <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">TableExtension PWD WarehouseEntry - Field PWD NC - Property Caption</note>
         </trans-unit>

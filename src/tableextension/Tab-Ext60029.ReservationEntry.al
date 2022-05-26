@@ -15,6 +15,7 @@ tableextension 60029 "PWD ReservationEntry" extends "Reservation Entry"
     {
         field(50003; "PWD NC"; Boolean)
         {
+            caption = 'NC';
             Description = 'LAP2.05';
             Editable = false;
         }

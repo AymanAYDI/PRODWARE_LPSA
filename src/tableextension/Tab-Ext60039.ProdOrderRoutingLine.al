@@ -21,6 +21,7 @@ tableextension 60039 "PWD ProdOrderRoutingLine" extends "Prod. Order Routing Lin
     {
         field(50000; "PWD Processed"; Boolean)
         {
+            caption = 'Processed';
         }
         field(50001; "PWD Start. Date-Time (P1)"; DateTime)
         {

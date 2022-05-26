@@ -15,6 +15,7 @@ tableextension 60030 "PWD EntrySummary" extends "Entry Summary"
     {
         field(50000; "PWD NC"; Boolean)
         {
+            caption = 'NC';
             Description = 'LAP2.05';
             Editable = false;
         }

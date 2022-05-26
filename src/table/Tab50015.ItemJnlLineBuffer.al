@@ -34,10 +34,6 @@ table 50015 "PWD Item Jnl Line Buffer"
         field(4; "Posting Date"; Date)
         {
             Caption = 'Posting Date';
-
-            trigger OnValidate()
-            begin
-            end;
         }
         field(5; "Entry Type"; Option)
         {

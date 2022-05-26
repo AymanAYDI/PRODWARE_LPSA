@@ -58,6 +58,7 @@ tableextension 60037 "PWD ProdOrderLine" extends "Prod. Order Line"
         }
         field(50003; "PWD Processed"; Boolean)
         {
+            caption = 'Processed';
         }
         field(50004; "PWD Manufacturing Code"; Code[10])
         {

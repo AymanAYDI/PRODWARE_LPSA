@@ -10,6 +10,7 @@ xmlport 8073320 "PWD Export Contact Sabatier"
     // 
     // +----------------------------------------------------------------------------------------------------------------+
 
+    Caption = 'Export Contact Sabatier';
 
     schema
     {

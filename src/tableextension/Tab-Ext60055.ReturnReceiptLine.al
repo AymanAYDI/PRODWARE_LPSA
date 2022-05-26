@@ -55,12 +55,14 @@ tableextension 60055 "PWD ReturnReceiptLine" extends "Return Receipt Line"
         }
         field(8073285; "PWD WMS_Location"; Boolean)
         {
+            caption = 'WMS_Location';
             CalcFormula = Lookup(Location."PWD WMS_Location" WHERE(Code = FIELD("Location Code")));
             Description = 'ProdConnect1.5';
             FieldClass = FlowField;
         }
         field(8073286; "PWD WMS_Cust_Blocked"; Enum "Customer Blocked")
         {
+            caption = 'WMS_Cust_Blocked';
             CalcFormula = Lookup(Customer.Blocked WHERE("No." = FIELD("Sell-to Customer No.")));
             Description = 'ProdConnect1.5';
             Editable = false;

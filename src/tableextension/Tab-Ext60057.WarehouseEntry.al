@@ -17,6 +17,7 @@ tableextension 60057 "PWD WarehouseEntry" extends "Warehouse Entry"
         {
             Description = 'LAP2.05';
             Editable = false;
+            caption = 'NC';
         }
     }
 }

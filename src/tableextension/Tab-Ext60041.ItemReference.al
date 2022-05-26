@@ -48,6 +48,7 @@ tableextension 60041 "PWD ItemReference" extends "Item Reference"
         }
         field(8073282; "PWD EAN13"; Code[13])
         {
+            caption = 'EAN13';
         }
     }
 }
