@@ -20,7 +20,6 @@ page 50035 "PWD Demand Forecast"
                     ApplicationArea = Planning;
                     Caption = 'Demand Forecast Name';
                     TableRelation = "Production Forecast Name".Name;
-                    ToolTip = 'Specifies the name of the relevant demand forecast for which you are creating an entry.';
 
                     trigger OnValidate()
                     begin
@@ -31,7 +30,6 @@ page 50035 "PWD Demand Forecast"
                 {
                     ApplicationArea = Planning;
                     Caption = 'Location Filter';
-                    ToolTip = 'Specifies a location code if you want to create a forecast entry for a specific location.';
 
                     trigger OnLookup(var Text: Text): Boolean
                     var
@@ -62,7 +60,6 @@ page 50035 "PWD Demand Forecast"
                 {
                     ApplicationArea = Planning;
                     Caption = 'View by';
-                    ToolTip = 'Specifies by which period amounts are displayed.';
 
                     trigger OnValidate()
                     begin
@@ -77,7 +74,6 @@ page 50035 "PWD Demand Forecast"
                 {
                     ApplicationArea = Planning;
                     Caption = 'View as';
-                    ToolTip = 'Specifies how amounts are displayed. Net Change: The net change in the balance for the selected period. Balance at Date: The balance as of the last day in the selected period.';
 
                     trigger OnValidate()
                     begin
@@ -88,7 +84,6 @@ page 50035 "PWD Demand Forecast"
                 {
                     ApplicationArea = Planning;
                     Caption = 'Forecast Type';
-                    ToolTip = 'Specifies one of the following two types when you create a demand forecast entry: sales item or component item.';
 
                     trigger OnValidate()
                     begin
@@ -99,7 +94,6 @@ page 50035 "PWD Demand Forecast"
                 {
                     ApplicationArea = Planning;
                     Caption = 'Date Filter';
-                    ToolTip = 'Specifies the dates that will be used to filter the amounts in the window.';
 
                     trigger OnValidate()
                     var
@@ -153,6 +147,7 @@ page 50035 "PWD Demand Forecast"
             part(Matrix; "PWD Demand Forecast Matrix")
             {
                 ApplicationArea = Planning;
+                Caption = 'Demand Forecast Matrix';
             }
         }
     }
@@ -172,7 +167,6 @@ page 50035 "PWD Demand Forecast"
                     Ellipsis = true;
                     Image = CopyForecast;
                     RunObject = Report "Copy Production Forecast";
-                    ToolTip = 'Copy an existing demand forecast to quickly create a similar forecast.';
                 }
             }
             action("Previous Set")
@@ -184,7 +178,6 @@ page 50035 "PWD Demand Forecast"
                 PromotedCategory = Process;
                 PromotedIsBig = true;
                 PromotedOnly = true;
-                ToolTip = 'Go to the previous set of data.';
 
                 trigger OnAction()
                 begin
@@ -204,7 +197,6 @@ page 50035 "PWD Demand Forecast"
                 PromotedCategory = Process;
                 PromotedIsBig = true;
                 PromotedOnly = true;
-                ToolTip = 'Go to the previous column.';
 
                 trigger OnAction()
                 begin
@@ -224,7 +216,6 @@ page 50035 "PWD Demand Forecast"
                 PromotedCategory = Process;
                 PromotedIsBig = true;
                 PromotedOnly = true;
-                ToolTip = 'Go to the next column.';
 
                 trigger OnAction()
                 begin
@@ -244,7 +235,6 @@ page 50035 "PWD Demand Forecast"
                 PromotedCategory = Process;
                 PromotedIsBig = true;
                 PromotedOnly = true;
-                ToolTip = 'Go to the next set of data.';
 
                 trigger OnAction()
                 begin

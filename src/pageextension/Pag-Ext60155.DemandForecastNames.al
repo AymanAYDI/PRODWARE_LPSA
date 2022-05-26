@@ -29,8 +29,6 @@ pageextension 60155 "PWD DemandForecastNames" extends "Demand Forecast Names"
                 Promoted = true;
                 PromotedCategory = Process;
                 ShortCutKey = 'Return';
-                ToolTip = 'Open the related demand forecast.';
-
                 trigger OnAction()
                 var
                     DemandForecast: Page "PWD Demand Forecast";

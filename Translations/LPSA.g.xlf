@@ -5793,50 +5793,25 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Page PWD Demand Forecast - Control General - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Page 3115003489 - Control 539546824 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Specifies the dates that will be used to filter the amounts in the window.</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page PWD Demand Forecast - Control DateFilter - Property ToolTip</note>
-        </trans-unit>
         <trans-unit id="Page 3115003489 - Control 539546824 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Date Filter</source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Page PWD Demand Forecast - Control DateFilter - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Page 3115003489 - Control 1964229917 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Specifies one of the following two types when you create a demand forecast entry: sales item or component item.</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page PWD Demand Forecast - Control ForecastType - Property ToolTip</note>
         </trans-unit>
         <trans-unit id="Page 3115003489 - Control 1964229917 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Forecast Type</source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Page PWD Demand Forecast - Control ForecastType - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Page 3115003489 - Control 3267737623 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Specifies a location code if you want to create a forecast entry for a specific location.</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page PWD Demand Forecast - Control LocationFilter - Property ToolTip</note>
-        </trans-unit>
         <trans-unit id="Page 3115003489 - Control 3267737623 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Location Filter</source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Page PWD Demand Forecast - Control LocationFilter - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Page 3115003489 - Control 43593927 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Specifies by which period amounts are displayed.</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page PWD Demand Forecast - Control PeriodType - Property ToolTip</note>
-        </trans-unit>
         <trans-unit id="Page 3115003489 - Control 43593927 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>View by</source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Page PWD Demand Forecast - Control PeriodType - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Page 3115003489 - Control 3036994577 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Specifies the name of the relevant demand forecast for which you are creating an entry.</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page PWD Demand Forecast - Control ProductionForecastName - Property ToolTip</note>
         </trans-unit>
         <trans-unit id="Page 3115003489 - Control 3036994577 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Demand Forecast Name</source>
@@ -5853,65 +5828,40 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Page PWD Demand Forecast - Control PWD CustomerName - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Page 3115003489 - Control 3759431352 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Specifies how amounts are displayed. Net Change: The net change in the balance for the selected period. Balance at Date: The balance as of the last day in the selected period.</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page PWD Demand Forecast - Control QtyType - Property ToolTip</note>
-        </trans-unit>
         <trans-unit id="Page 3115003489 - Control 3759431352 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>View as</source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Page PWD Demand Forecast - Control QtyType - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 3115003489 - Control 231096997 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Demand Forecast Matrix</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page PWD Demand Forecast - Control Matrix - Property Caption</note>
         </trans-unit>
         <trans-unit id="Page 3115003489 - Action 3106002577 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>F&amp;unctions</source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Page PWD Demand Forecast - Action F&amp;unctions - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Page 3115003489 - Action 4160816331 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Copy an existing demand forecast to quickly create a similar forecast.</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page PWD Demand Forecast - Action Copy Demand Forecast - Property ToolTip</note>
-        </trans-unit>
         <trans-unit id="Page 3115003489 - Action 4160816331 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Copy Demand Forecast</source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Page PWD Demand Forecast - Action Copy Demand Forecast - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Page 3115003489 - Action 3479206827 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Go to the next column.</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page PWD Demand Forecast - Action Next Column - Property ToolTip</note>
         </trans-unit>
         <trans-unit id="Page 3115003489 - Action 3479206827 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Next Column</source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Page PWD Demand Forecast - Action Next Column - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Page 3115003489 - Action 1734268175 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Go to the next set of data.</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page PWD Demand Forecast - Action Next Set - Property ToolTip</note>
-        </trans-unit>
         <trans-unit id="Page 3115003489 - Action 1734268175 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Next Set</source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Page PWD Demand Forecast - Action Next Set - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Page 3115003489 - Action 278708385 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Go to the previous column.</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page PWD Demand Forecast - Action Previous Column - Property ToolTip</note>
-        </trans-unit>
         <trans-unit id="Page 3115003489 - Action 278708385 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Previous Column</source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Page PWD Demand Forecast - Action Previous Column - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Page 3115003489 - Action 3697385181 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Go to the previous set of data.</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page PWD Demand Forecast - Action Previous Set - Property ToolTip</note>
         </trans-unit>
         <trans-unit id="Page 3115003489 - Action 3697385181 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Previous Set</source>
@@ -5942,16 +5892,6 @@
           <source>You must set a customer filter.</source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Page PWD Demand Forecast Matrix - Method ProdForecastQtyBase_OnValidate - NamedType Txt005</note>
-        </trans-unit>
-        <trans-unit id="Page 3648027296 - Control 3461834954 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Specifies a description of the item.</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page PWD Demand Forecast Matrix - Control Description - Property ToolTip</note>
-        </trans-unit>
-        <trans-unit id="Page 3648027296 - Control 4200184881 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Specifies the number of the involved entry or record, according to the specified number series.</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page PWD Demand Forecast Matrix - Control No. - Property ToolTip</note>
         </trans-unit>
         <trans-unit id="Page 3861946747 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Family LPSA List</source>
@@ -12162,11 +12102,6 @@
           <source>Lignes devis</source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">PageExtension PWD CustomerCard - Action PWD Lignes devis - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="PageExtension 2004814605 - Action 1000570269 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 2390594980">
-          <source>Open the related demand forecast.</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">PageExtension PWD DemandForecastNames - Action PWD Edit Demand Forecast - Property ToolTip</note>
         </trans-unit>
         <trans-unit id="PageExtension 2004814605 - Action 1000570269 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 2390594980">
           <source>Edit Demand Forecast</source>
