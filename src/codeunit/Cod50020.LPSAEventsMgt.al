@@ -1016,6 +1016,26 @@ codeunit 50020 "PWD LPSA Events Mgt."
     begin
         PlanningComponent."PWD Lot Determining" := ProductionBOMLine."PWD Lot Determining";
     end;
+
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Planning Line Management", 'OnTransferRoutingLineOnBeforeCalcRoutingCostPerUnit', '', false, false)]
+    local procedure CDU99000809_OnTransferRoutingLineOnBeforeCalcRoutingCostPerUnit_PlanningLineManagement(var PlanningRoutingLine: Record "Planning Routing Line"; ReqLine: Record "Requisition Line"; RoutingLine: Record "Routing Line")
+    var
+        LPSAFunctionsMgt: codeunit "PWD LPSA Functions Mgt.";
+        DecLSetupTime: Decimal;
+        DecLRunTime: Decimal;
+        CodLSetupTimeUnit: Code[10];
+        CodLRunTimeUnit: Code[10];
+    begin
+        //>>FE_LAPIERRETTE_PROD04.001
+        IF RoutingLine."PWD Fixed-step Prod. Rate time" THEN BEGIN
+            LPSAFunctionsMgt.FctGetTime(RoutingLine.Type.AsInteger(), RoutingLine."No.", ReqLine."No.",
+                       ReqLine."Quantity",
+                       DecLSetupTime, DecLRunTime,
+                       CodLSetupTimeUnit, CodLRunTimeUnit);
+            PlanningRoutingLine."Run Time" := DecLRunTime;
+            PlanningRoutingLine."Setup Time" := DecLSetupTime;
+        end;
+    end;
     //---CDU5063---
     [EventSubscriber(ObjectType::Codeunit, Codeunit::ArchiveManagement, 'OnBeforeRestoreSalesDocument', '', false, false)] //TODO: A verifier cette fonction(evenement utilisé avec IsHandled pour modifier le standard )
     local procedure CDU5063_OnBeforeRestoreSalesDocument_ArchiveManagement(var SalesHeaderArchive: Record "Sales Header Archive"; var IsHandled: Boolean)

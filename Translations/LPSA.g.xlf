@@ -5913,6 +5913,16 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Page PWD Fields Export Setup - Action Action1000000000 - Property Caption</note>
         </trans-unit>
+        <trans-unit id="Page 1843992362 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Import stock</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page PWD Import STOCK - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 1843992362 - Action 4165283977 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Import stock</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page PWD Import STOCK - Action Action1 - Property Caption</note>
+        </trans-unit>
         <trans-unit id="Page 3888326868 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Comment List</source>
           <note from="Developer" annotates="general" priority="2"></note>
@@ -12077,6 +12087,11 @@
           <source>Export Prod Order OSYS</source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">XmlPort PWD Export Prod Order OSYS - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="XmlPort 1843992362 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Import STOCK</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">XmlPort PWD Import STOCK - Property Caption</note>
         </trans-unit>
         <trans-unit id="XmlPort 1838925353 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Items Export OSYS</source>

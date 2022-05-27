@@ -12,7 +12,7 @@ xmlport 50001 "PWD Import STOCK"
     // ------------------------------------------------------------------------------------------------------------------
 
     Encoding = UTF8;
-
+    Caption = 'Import STOCK';
     schema
     {
         textelement(LPSA)
