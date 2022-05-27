@@ -712,9 +712,9 @@ report 50006 "PWD Proforma invoice"
                         Caption = 'No. of Copies';
                         ApplicationArea = All;
                     }
-                    field("Envoyer par email"; BooGEnvoiMail)
+                    field("Show Logo"; BooGEnvoiMail)
                     {
-                        Caption = 'Send by email';
+                        Caption = 'Show Logo';
                         ApplicationArea = All;
                     }
                 }

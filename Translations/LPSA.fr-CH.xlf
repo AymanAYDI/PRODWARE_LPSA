@@ -11859,17 +11859,17 @@
           <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">Report PWD Proforma invoice - Control Options - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Report 1120490724 - Control 1869728045 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Send by email</source>
-          <target state="translated">Envoyer par email</target>
-          <note from="Developer" annotates="general" priority="2"/>
-          <note from="Xliff Generator" annotates="general" priority="3">Report PWD Proforma invoice - Control Envoyer par email - Property Caption</note>
-        </trans-unit>
         <trans-unit id="Report 1120490724 - Control 1202731191 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>No. of Copies</source>
           <target state="translated">N° de copies</target>
           <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">Report PWD Proforma invoice - Control NoOfCopiesF - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Report 1120490724 - Control 3387259332 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Show Logo</source>
+          <target state="translated">Afficher logo</target>
+          <note from="Developer" annotates="general" priority="2"/>
+          <note from="Xliff Generator" annotates="general" priority="3">Report PWD Proforma invoice - Control Show Logo - Property Caption</note>
         </trans-unit>
         <trans-unit id="Report 4110837278 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Purchase - Quote</source>
