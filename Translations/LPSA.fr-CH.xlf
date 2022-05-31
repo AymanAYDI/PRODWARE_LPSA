@@ -9231,6 +9231,12 @@
           <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">Report PWD Auto. Finish Prod. Order - Property Caption</note>
         </trans-unit>
+        <trans-unit id="Report 1008695258 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>CALC NEW QTY</source>
+          <target state="translated">CALC NEW QTY</target>
+          <note from="Developer" annotates="general" priority="2"/>
+          <note from="Xliff Generator" annotates="general" priority="3">Report PWD CALC NEW QTY - Property Caption</note>
+        </trans-unit>
         <trans-unit id="Report 3717865513 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Clean Forecast Entry</source>
           <target state="translated">Nettoyer écritures prévision prod.</target>
@@ -9908,6 +9914,12 @@
           <target state="translated">Epaisseur</target>
           <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">Report PWD Excel Item Multi-Level - NamedType CstG012</note>
+        </trans-unit>
+        <trans-unit id="Report 3486818402 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Export Prod Order LPSA</source>
+          <target state="translated">Export Prod Order LPSA</target>
+          <note from="Developer" annotates="general" priority="2"/>
+          <note from="Xliff Generator" annotates="general" priority="3">Report PWD Export Prod Order LPSA - Property Caption</note>
         </trans-unit>
         <trans-unit id="Report 1565790700 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Import Stock Test</source>
@@ -10599,6 +10611,24 @@
           <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">Report PWD Liste des Clients (Excel) - NamedType PageTxt</note>
         </trans-unit>
+        <trans-unit id="Report 4085215678 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>MAJ Flexibilité=Aucune T39</source>
+          <target state="translated">MAJ Flexibilité=Aucune T39</target>
+          <note from="Developer" annotates="general" priority="2"/>
+          <note from="Xliff Generator" annotates="general" priority="3">Report PWD MAJ Flexibilité=Aucune T39 - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Report 674466598 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>MAJ Methode Conso Gamme</source>
+          <target state="translated">MAJ Methode Conso Gamme</target>
+          <note from="Developer" annotates="general" priority="2"/>
+          <note from="Xliff Generator" annotates="general" priority="3">Report PWD MAJ Methode Conso Gamme - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Report 2855831222 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>MAJ Tps OP Gamme PIE</source>
+          <target state="translated">MAJ Tps OP Gamme PIE</target>
+          <note from="Developer" annotates="general" priority="2"/>
+          <note from="Xliff Generator" annotates="general" priority="3">Report PWD MAJ Tps OP Gamme PIE - Property Caption</note>
+        </trans-unit>
         <trans-unit id="Report 2855831222 - NamedType 3802638270" size-unit="char" translate="yes" xml:space="preserve">
           <source>Dans les gammes PIE (Filtrage %1), voulez vous forcer pour l'opération %2 le temps de prépa à %3 dans toutes les lignes de gamme ?</source>
           <target state="translated">Dans les gammes PIE (Filtrage %1), voulez vous forcer pour l'opération %2 le temps de prépa à %3 dans toutes les lignes de gamme ?</target>
@@ -10712,6 +10742,12 @@
           <target state="needs-translation"/>
           <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">Report PWD MAJ Tps OP Gamme PIE - Control DecGMoveTimeF - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Report 3143622540 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>MAJ Tps OP Gamme PIE A/S O</source>
+          <target state="translated">MAJ Tps OP Gamme PIE A/S O</target>
+          <note from="Developer" annotates="general" priority="2"/>
+          <note from="Xliff Generator" annotates="general" priority="3">Report PWD MAJ Tps OP Gamme PIE A/S O - Property Caption</note>
         </trans-unit>
         <trans-unit id="Report 3143622540 - NamedType 3802638270" size-unit="char" translate="yes" xml:space="preserve">
           <source>Dans les gammes PIE (Filtrage N:PIE*), voulez vous forcer pour l'opération %1 le temps de prépa à %2 pour les articles sans "O" et  le temps de prépa à %3 pour les articles avec "O"dans toutes les lignes de gamme ?</source>
@@ -13077,6 +13113,12 @@
           <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">Report PWD Soumission - Control NoOfCopiesF - Property Caption</note>
         </trans-unit>
+        <trans-unit id="Report 2599315542 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Suppression OP Gamme PIE</source>
+          <target state="translated">Suppression OP Gamme PIE</target>
+          <note from="Developer" annotates="general" priority="2"/>
+          <note from="Xliff Generator" annotates="general" priority="3">Report PWD Suppression OP Gamme PIE - Property Caption</note>
+        </trans-unit>
         <trans-unit id="Report 2599315542 - NamedType 3802638270" size-unit="char" translate="yes" xml:space="preserve">
           <source>Dans les gammes PIE (Filtrage %3), voulez vous supprimer l'opération %1 si elle suit l'opération %2 ?</source>
           <target state="translated">Dans les gammes PIE (Filtrage %3), voulez vous supprimer l'opération %1 si elle suit l'opération %2 ?</target>
@@ -13118,6 +13160,36 @@
           <target state="translated">Quand elle suit l'opération</target>
           <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">Report PWD Suppression OP Gamme PIE - Control CodGStartOperationF - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Report 1079893647 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Test</source>
+          <target state="translated">Test</target>
+          <note from="Developer" annotates="general" priority="2"/>
+          <note from="Xliff Generator" annotates="general" priority="3">Report PWD test - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Report 3028266355 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>TPL Ajout OP Lavage</source>
+          <target state="translated">TPL Ajout OP Lavage</target>
+          <note from="Developer" annotates="general" priority="2"/>
+          <note from="Xliff Generator" annotates="general" priority="3">Report PWD TPL Ajout OP Lavage - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Report 863460473 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>TPL coché export OSYS</source>
+          <target state="translated">TPL coché export OSYS</target>
+          <note from="Developer" annotates="general" priority="2"/>
+          <note from="Xliff Generator" annotates="general" priority="3">Report PWD TPL coché export OSYS - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Report 3507371726 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>TPL MAJ Gamme ACIER</source>
+          <target state="translated">TPL MAJ Gamme ACIER</target>
+          <note from="Developer" annotates="general" priority="2"/>
+          <note from="Xliff Generator" annotates="general" priority="3">Report PWD TPL MAJ Gamme ACIER - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Report 1021201431 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>TPL MAJ OP Gamme PIE</source>
+          <target state="translated">TPL MAJ OP Gamme PIE</target>
+          <note from="Developer" annotates="general" priority="2"/>
+          <note from="Xliff Generator" annotates="general" priority="3">Report PWD TPL MAJ OP Gamme PIE - Property Caption</note>
         </trans-unit>
         <trans-unit id="Report 1021201431 - NamedType 3802638270" size-unit="char" translate="yes" xml:space="preserve">
           <source>Dans les gammes PIE (Filtrage %4), voulez vous remplacer l'opération %1 par l'opération %2 avec comme désignation %3 ?</source>
@@ -13167,6 +13239,18 @@
           <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">Report PWD TPL MAJ OP Gamme PIE - Control TxtGNewOperationDescriptionF - Property Caption</note>
         </trans-unit>
+        <trans-unit id="Report 1566726654 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>TPL MAJ OP Lavage</source>
+          <target state="translated">TPL MAJ OP Lavage</target>
+          <note from="Developer" annotates="general" priority="2"/>
+          <note from="Xliff Generator" annotates="general" priority="3">Report PWD TPL MAJ OP Lavage - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Report 4232003471 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>TPL Supp Centre de charge</source>
+          <target state="translated">TPL Supp Centre de charge</target>
+          <note from="Developer" annotates="general" priority="2"/>
+          <note from="Xliff Generator" annotates="general" priority="3">Report PWD TPL Supp Centre de charge - Property Caption</note>
+        </trans-unit>
         <trans-unit id="Report 4232003471 - Control 3590328978 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Import</source>
           <target state="translated">Import</target>
@@ -13178,6 +13262,12 @@
           <target state="translated">Fichier à importer</target>
           <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">Report PWD TPL Supp Centre de charge - Control TxtGFileF - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Report 2980863595 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>TPL Suppression Gamme</source>
+          <target state="translated">TPL Suppression Gamme</target>
+          <note from="Developer" annotates="general" priority="2"/>
+          <note from="Xliff Generator" annotates="general" priority="3">Report PWD TPL Suppression Gamme - Property Caption</note>
         </trans-unit>
         <trans-unit id="Report 2980863595 - NamedType 1524859973" size-unit="char" translate="yes" xml:space="preserve">
           <source>Article lié</source>
@@ -13214,6 +13304,12 @@
           <target state="translated">Fichier à importe</target>
           <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">Report PWD TPL Suppression Gamme - Control TxtGFileF - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Report 1964423554 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>TPL TVA 7.7</source>
+          <target state="translated">TPL TVA 7.7</target>
+          <note from="Developer" annotates="general" priority="2"/>
+          <note from="Xliff Generator" annotates="general" priority="3">Report PWD TPL TVA 7.7 - Property Caption</note>
         </trans-unit>
         <trans-unit id="Report 2354132412 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Tracking Card</source>
@@ -13268,6 +13364,18 @@
           <target state="translated">FICHE SUIVEUSE</target>
           <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">Report PWD Tracking Card - NamedType TRACKING_CARDCaptionLbl</note>
+        </trans-unit>
+        <trans-unit id="Report 3676879219 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Update Check Lines</source>
+          <target state="translated">Update Check Lines</target>
+          <note from="Developer" annotates="general" priority="2"/>
+          <note from="Xliff Generator" annotates="general" priority="3">Report PWD Update Check Lines - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Report 3730849571 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>UPDATE COST</source>
+          <target state="translated">UPDATE COST</target>
+          <note from="Developer" annotates="general" priority="2"/>
+          <note from="Xliff Generator" annotates="general" priority="3">Report PWD UPDATE COST - Property Caption</note>
         </trans-unit>
         <trans-unit id="Report 431373582 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Update Cost Method</source>
@@ -13634,6 +13742,12 @@
           <target state="translated">Unité temps d'attente</target>
           <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">Report PWD UPDATE NICOLAS2 - Control Wait_Time_UnitF - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Report 3300150864 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Update Order Multiple</source>
+          <target state="translated">Update Order Multiple</target>
+          <note from="Developer" annotates="general" priority="2"/>
+          <note from="Xliff Generator" annotates="general" priority="3">Report PWD Update Order Multiple - Property Caption</note>
         </trans-unit>
         <trans-unit id="Report 3647364876 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Update routing lines</source>
