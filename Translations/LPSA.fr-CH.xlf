@@ -7095,6 +7095,18 @@
           <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">Page PWD Fields Export Setup - Action Action1000000000 - Property Caption</note>
         </trans-unit>
+        <trans-unit id="Page 1843992362 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Import stock</source>
+          <target state="translated">Importer le stock</target>
+          <note from="Developer" annotates="general" priority="2"/>
+          <note from="Xliff Generator" annotates="general" priority="3">Page PWD Import STOCK - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 1843992362 - Action 4165283977 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Import stock</source>
+          <target state="translated">Importer le stock</target>
+          <note from="Developer" annotates="general" priority="2"/>
+          <note from="Xliff Generator" annotates="general" priority="3">Page PWD Import STOCK - Action Action1 - Property Caption</note>
+        </trans-unit>
         <trans-unit id="Page 3888326868 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Comment List</source>
           <target state="translated">Commentaires</target>
@@ -11865,17 +11877,17 @@
           <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">Report PWD Proforma invoice - Control Options - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Report 1120490724 - Control 1869728045 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Send by email</source>
-          <target state="translated">Envoyer par email</target>
-          <note from="Developer" annotates="general" priority="2"/>
-          <note from="Xliff Generator" annotates="general" priority="3">Report PWD Proforma invoice - Control Envoyer par email - Property Caption</note>
-        </trans-unit>
         <trans-unit id="Report 1120490724 - Control 1202731191 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>No. of Copies</source>
           <target state="translated">N° de copies</target>
           <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">Report PWD Proforma invoice - Control NoOfCopiesF - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Report 1120490724 - Control 3387259332 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Show Logo</source>
+          <target state="translated">Afficher logo</target>
+          <note from="Developer" annotates="general" priority="2"/>
+          <note from="Xliff Generator" annotates="general" priority="3">Report PWD Proforma invoice - Control Show Logo - Property Caption</note>
         </trans-unit>
         <trans-unit id="Report 4110837278 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Purchase - Quote</source>
@@ -14498,6 +14510,12 @@
           <target state="translated">Export des OF OSYS</target>
           <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">XmlPort PWD Export Prod Order OSYS - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="XmlPort 1843992362 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Import STOCK</source>
+          <target state="translated">Importer le stock</target>
+          <note from="Developer" annotates="general" priority="2"/>
+          <note from="Xliff Generator" annotates="general" priority="3">XmlPort PWD Import STOCK - Property Caption</note>
         </trans-unit>
         <trans-unit id="XmlPort 1838925353 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Items Export OSYS</source>
