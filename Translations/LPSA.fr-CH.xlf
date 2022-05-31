@@ -7001,7 +7001,7 @@
         </trans-unit>
         <trans-unit id="Page 3115003489 - Control 231096997 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Demand Forecast Matrix</source>
-          <target state="translated">Matrice Prévision production</target>
+          <target state="translated">Matrice prévisions demande</target>
           <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">Page PWD Demand Forecast - Control Matrix - Property Caption</note>
         </trans-unit>
