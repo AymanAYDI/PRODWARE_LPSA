@@ -11,6 +11,7 @@ report 50027 "PWD TPL MAJ Gamme ACIER"
 
     ProcessingOnly = true;
     UsageCategory = None;
+    Caption = 'TPL MAJ Gamme ACIER';
     dataset
     {
         dataitem("Routing Header"; "Routing Header")

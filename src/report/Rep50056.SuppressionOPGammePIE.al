@@ -11,6 +11,7 @@ report 50056 "PWD Suppression OP Gamme PIE"
 
     ProcessingOnly = true;
     UsageCategory = None;
+    Caption = 'Suppression OP Gamme PIE';
     dataset
     {
         dataitem("Routing Header"; "Routing Header")

@@ -2,6 +2,7 @@ report 50040 "PWD TPL coché export OSYS"
 {
     ProcessingOnly = true;
     UsageCategory = None;
+    Caption = 'TPL coché export OSYS';
     dataset
     {
         dataitem("Prod. Order Line"; "Prod. Order Line")

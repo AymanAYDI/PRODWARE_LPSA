@@ -11,6 +11,7 @@ report 50034 "PWD MAJ Flexibilité=Aucune T39"
 
     ProcessingOnly = true;
     UsageCategory = None;
+    Caption = 'MAJ Flexibilité=Aucune T39';
     dataset
     {
         dataitem("Purchase Line"; "Purchase Line")

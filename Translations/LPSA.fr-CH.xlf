@@ -9225,6 +9225,12 @@
           <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">Report PWD Clean Forecast Entries - Property Caption</note>
         </trans-unit>
+        <trans-unit id="Report 2126207346 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Compl. fiche suiveuse</source>
+          <target state="translated">Fiche suiveuse complément technique</target>
+          <note from="Developer" annotates="general" priority="2"/>
+          <note from="Xliff Generator" annotates="general" priority="3">Report PWD Compl. fiche suiveuse - Property Caption</note>
+        </trans-unit>
         <trans-unit id="Report 2126207346 - NamedType 1737827985" size-unit="char" translate="yes" xml:space="preserve">
           <source>FICHE SUIVEUSE (complément technique) : </source>
           <target state="translated">FICHE SUIVEUSE (complément technique) : </target>

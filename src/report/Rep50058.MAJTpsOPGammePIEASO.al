@@ -11,6 +11,7 @@ report 50058 "PWD MAJ Tps OP Gamme PIE A/S O"
 
     ProcessingOnly = true;
     UsageCategory = None;
+    Caption = 'MAJ Tps OP Gamme PIE A/S O';
     dataset
     {
         dataitem(Item; Item)

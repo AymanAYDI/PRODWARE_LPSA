@@ -11,6 +11,7 @@ report 50057 "PWD MAJ Tps OP Gamme PIE"
 
     ProcessingOnly = true;
     UsageCategory = None;
+    Caption = 'MAJ Tps OP Gamme PIE';
     dataset
     {
         dataitem("Routing Header"; "Routing Header")

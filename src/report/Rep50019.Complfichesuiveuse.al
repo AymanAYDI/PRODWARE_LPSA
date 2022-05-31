@@ -12,8 +12,7 @@ report 50019 "PWD Compl. fiche suiveuse"
     DefaultLayout = RDLC;
     RDLCLayout = './src/report/rdl/Complfichesuiveuse.rdl';
     UsageCategory = None;
-
-
+    caption = 'Compl. fiche suiveuse';
     dataset
     {
         dataitem("Production Order"; "Production Order")

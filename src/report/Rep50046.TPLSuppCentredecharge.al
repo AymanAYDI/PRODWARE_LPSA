@@ -12,6 +12,7 @@ report 50046 "PWD TPL Supp Centre de charge"
 
     ProcessingOnly = true;
     UsageCategory = None;
+    Caption = 'TPL Supp Centre de charge';
     dataset
     {
         dataitem("Work Center"; "Work Center")

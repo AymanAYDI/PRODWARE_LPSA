@@ -2,6 +2,7 @@ report 50081 "PWD CALC NEW QTY"
 {
     ProcessingOnly = true;
     UsageCategory = None;
+    Caption = 'CALC NEW QTY';
     dataset
     {
         dataitem(Item; Item)

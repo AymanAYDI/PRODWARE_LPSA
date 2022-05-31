@@ -11,6 +11,7 @@ report 50036 "PWD TPL TVA 7.7"
 
     ProcessingOnly = true;
     UsageCategory = None;
+    Caption = 'TPL TVA 7.7';
     dataset
     {
         dataitem(Customer; Customer)

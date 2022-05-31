@@ -11,6 +11,7 @@ report 50051 "PWD TPL Ajout OP Lavage"
 
     ProcessingOnly = true;
     UsageCategory = None;
+    caption = 'TPL Ajout OP Lavage';
     dataset
     {
         dataitem("Routing Header"; "Routing Header")
