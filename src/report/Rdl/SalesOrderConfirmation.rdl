@@ -6275,7 +6275,7 @@ Cstr(Fields!CompanyInfo_IBAN.Value),3)</Hidden>
           <Style />
         </PageHeader>
         <PageFooter>
-          <Height>7.6cm</Height>
+          <Height>7.89104cm</Height>
           <PrintOnFirstPage>true</PrintOnFirstPage>
           <PrintOnLastPage>true</PrintOnLastPage>
           <ReportItems>
@@ -6299,7 +6299,7 @@ Cstr(Fields!CompanyInfo_IBAN.Value),3)</Hidden>
               </Paragraphs>
               <Top>7.19365cm</Top>
               <Left>1.5cm</Left>
-              <Height>0.35503cm</Height>
+              <Height>0.69739cm</Height>
               <Width>15.6cm</Width>
               <Visibility>
                 <Hidden>= IIF(ReportItems!EnvoiMail.Value = False,True,False)</Hidden>
@@ -7069,7 +7069,6 @@ Cstr(Fields!CompanyInfo_IBAN.Value),3)</Hidden>
                 </Textbox>
               </ReportItems>
               <DataElementOutput>ContentsOnly</DataElementOutput>
-              <Top>0in</Top>
               <Height>6.2cm</Height>
               <Width>18.5cm</Width>
               <ZIndex>3</ZIndex>
