@@ -9155,7 +9155,7 @@
         </trans-unit>
         <trans-unit id="Report 2709952627 - NamedType 4003677265" size-unit="char" translate="yes" xml:space="preserve">
           <source>Description</source>
-          <target state="translated">Désignation</target>
+          <target state="translated">Description</target>
           <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">Report Purchase - Return Shipment LAP - NamedType Return_Shipment_Line_Description_Control42CaptionLbl</note>
         </trans-unit>
@@ -12083,7 +12083,7 @@
         </trans-unit>
         <trans-unit id="Report 4110837278 - NamedType 2399899897" size-unit="char" translate="yes" xml:space="preserve">
           <source>Description</source>
-          <target state="translated">Désignation</target>
+          <target state="translated">Description</target>
           <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">Report PWD Purchase - Quote LAP - NamedType Purchase_Line__Description_Control52CaptionLbl</note>
         </trans-unit>
@@ -12473,7 +12473,7 @@
         </trans-unit>
         <trans-unit id="Report 1565759238 - NamedType 2207418773" size-unit="char" translate="yes" xml:space="preserve">
           <source>Description</source>
-          <target state="translated">Désignation</target>
+          <target state="translated">Description</target>
           <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">Report PWD Sales Order Confirmation - NamedType Sales_Line__DescriptionCaptionLbl</note>
         </trans-unit>
@@ -12719,7 +12719,7 @@
         </trans-unit>
         <trans-unit id="Report 16540499 - NamedType 2207418773" size-unit="char" translate="yes" xml:space="preserve">
           <source>Description</source>
-          <target state="translated">Désignation</target>
+          <target state="translated">Description</target>
           <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">Report PWD Sales Quote - NamedType Sales_Line__DescriptionCaptionLbl</note>
         </trans-unit>

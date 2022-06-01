@@ -96,7 +96,7 @@ report 50006 "PWD Proforma invoice"
                     column(OutputNo; OutputNo)
                     {
                     }
-                    column(EnvoiMail; BooGEnvoiMail)
+                    column(EnvoiMail; BooGImpLogo)
                     {
                     }
                     column(TotalInclVATText; '  ' + TotalInclVATText)
@@ -712,7 +712,7 @@ report 50006 "PWD Proforma invoice"
                         Caption = 'No. of Copies';
                         ApplicationArea = All;
                     }
-                    field("Show Logo"; BooGEnvoiMail)
+                    field("Show Logo"; BooGImpLogo)
                     {
                         Caption = 'Show Logo';
                         ApplicationArea = All;
@@ -755,7 +755,7 @@ report 50006 "PWD Proforma invoice"
         end;
 
         //>>NDBI
-        BooGEnvoiMail := true;
+        BooGImpLogo := true;
         //<<NDBI
     end;
 
@@ -800,7 +800,7 @@ report 50006 "PWD Proforma invoice"
         SalesCountPrinted: Codeunit "Sales-Printed";
         SegManagement: Codeunit SegManagement;
         ArchiveDocument: Boolean;
-        BooGEnvoiMail: Boolean;
+        BooGImpLogo: Boolean;
         //BooGSkipSendEmail: Boolean;
         BooGStopComment: Boolean;
         LigneVide: Boolean;

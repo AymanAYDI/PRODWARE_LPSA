@@ -125,7 +125,7 @@ report 50009 "PWD Sales Order Confirmation"
                     column(PricesInclVAT_YesNo; Format("Sales Header"."Prices Including VAT"))
                     {
                     }
-                    column(EnvoiMail; BooGEnvoiMail)
+                    column(EnvoiMail; BooGImpLogo)
                     {
                     }
                     column(Sales_Header_ShipToAdress; "Sales Header"."Ship-to Address")
@@ -723,11 +723,11 @@ report 50009 "PWD Sales Order Confirmation"
                                 ArchiveDocument := ArchiveDocumentEnable;
                         end;
                     }
-                    // field("Envoyer par email"; BooGEnvoiMail)
-                    // {
-                    //     Caption = 'Send by email';
-                    //     ApplicationArea = All;
-                    // }
+                    field("Show Logo"; BooGImpLogo)
+                    {
+                        Caption = 'Show Logo';
+                        ApplicationArea = All;
+                    }
                 }
             }
         }
@@ -759,20 +759,20 @@ report 50009 "PWD Sales Order Confirmation"
     begin
         GLSetup.Get();
         CompanyInfo.Get();
-        //BooGEnvoiMail := true;
+        BooGImpLogo := true;
     end;
 
-    trigger OnPostReport()
-    var
-        RecLSalesHeader: Record "Sales Header";
-        DocPrint: Codeunit "Document-Print";
-    begin
-        // if not BooGSkipSendEmail and BooGEnvoiMail then begin
-        //     RecLSalesHeader.SetView("Sales Header".GetView());
-        //     //SendPDFMail(RecLSalesHeader);
-        //     DocPrint.EmailSalesHeader(RecLSalesHeader);
-        // end;
-    end;
+    // trigger OnPostReport()
+    // var
+    //     RecLSalesHeader: Record "Sales Header";
+    //     DocPrint: Codeunit "Document-Print";
+    // begin
+    // if not BooGSkipSendEmail and BooGEnvoiMail then begin
+    //     RecLSalesHeader.SetView("Sales Header".GetView());
+    //     //SendPDFMail(RecLSalesHeader);
+    //     DocPrint.EmailSalesHeader(RecLSalesHeader);
+    // end;
+    // end;
 
     var
         CompanyInfo: Record "Company Information";
@@ -793,7 +793,7 @@ report 50009 "PWD Sales Order Confirmation"
         ArchiveDocument: Boolean;
         [InDataSet]
         ArchiveDocumentEnable: Boolean;
-        BooGEnvoiMail: Boolean;
+        BooGImpLogo: Boolean;
         BooGSkipSendEmail: Boolean;
         BooGStopComment: Boolean;
         Comptegenral: Boolean;
