@@ -11171,7 +11171,7 @@
         </trans-unit>
         <trans-unit id="Report 3220346388 - NamedType 4270162863" size-unit="char" translate="yes" xml:space="preserve">
           <source>Description</source>
-          <target state="translated">Désignation</target>
+          <target state="translated">Description</target>
           <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">Report PWD Order LAP - NamedType Purchase_Line__Description_Control63CaptionLbl</note>
         </trans-unit>
@@ -11183,7 +11183,7 @@
         </trans-unit>
         <trans-unit id="Report 3220346388 - NamedType 1834059548" size-unit="char" translate="yes" xml:space="preserve">
           <source>Item No.</source>
-          <target state="translated">N° article</target>
+          <target state="translated">Code article</target>
           <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">Report PWD Order LAP - NamedType Purchase_Line___No__CaptionLbl</note>
         </trans-unit>
