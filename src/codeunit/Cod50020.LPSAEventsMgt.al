@@ -94,12 +94,15 @@ codeunit 50020 "PWD LPSA Events Mgt."
     [EventSubscriber(ObjectType::table, database::"Sales Header", 'OnUpdateSalesLinesByFieldNoOnAfterCalcShouldConfirmReservationDateConflict', '', false, false)]
     local procedure TAB36_OnUpdateSalesLinesByFieldNoOnAfterCalcShouldConfirmReservationDateConflict_SalesHeader(var SalesHeader: Record "Sales Header"; ChangedFieldNo: Integer; var ShouldConfirmReservationDateConflict: Boolean)
     begin
-        ShouldConfirmReservationDateConflict := ChangedFieldNo in [SalesHeader.FieldNo(SalesHeader."Shipment Date")];
+        ShouldConfirmReservationDateConflict := ChangedFieldNo in [SalesHeader.FieldNo(SalesHeader."PWD Cust Promised Deliv. Date")];
     end;
 
-    [EventSubscriber(ObjectType::table, database::"Sales Header", 'OnUpdateSalesLineByChangedFieldName', '', false, false)]
-    local procedure TAB36_OOnUpdateSalesLineByChangedFieldName_SalesHeader(SalesHeader: Record "Sales Header"; var SalesLine: Record "Sales Line"; ChangedFieldName: Text[100]; ChangedFieldNo: Integer)
+    [EventSubscriber(ObjectType::table, database::"Sales Header", 'OnUpdateSalesLinesByFieldNoOnBeforeSalesLineModify', '', false, false)]
+    local procedure TAB36_OnUpdateSalesLinesByFieldNoOnBeforeSalesLineModify_SalesHeader(var SalesLine: Record "Sales Line"; ChangedFieldNo: Integer; CurrentFieldNo: Integer)
+    var
+        SalesHeader: Record "Sales Header";
     begin
+        SalesHeader.Get(SalesLine."Document Type", SalesLine."Document No.");
         case ChangedFieldNo of
             SalesHeader.FieldNo("Requested Delivery Date"):
                 iF SalesLine."No." <> '' THEN begin
