@@ -32,7 +32,7 @@ pageextension 60004 "PWD CustomerCard" extends "Customer Card"
                 ApplicationArea = All;
             }
         }
-        addafter(Invoicing)
+        addafter("Prices Including VAT")
         {
             field("PWD Our Account No."; Rec."Our Account No.")
             {

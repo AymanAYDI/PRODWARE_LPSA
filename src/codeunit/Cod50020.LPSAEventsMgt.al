@@ -1129,6 +1129,17 @@ codeunit 50020 "PWD LPSA Events Mgt."
             ERROR(Txt50000, FromProdOrderLine."Line No.");
         //<<FE_LAPRIERRETTE_GP0003 : APA 16/05/2013  
     end;
+
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Prod. Order Status Management", 'OnTransProdOrderOnBeforeToProdOrderInsert', '', false, false)]
+    local procedure CDU5407_OnTransProdOrderOnBeforeToProdOrderInsert_ProdOrderStatusManagement(var ToProdOrder: Record "Production Order"; FromProdOrder: Record "Production Order"; NewPostingDate: Date)
+    begin
+        IF ToProdOrder."PWD Transmitted Order No." THEN BEGIN
+            ToProdOrder."No." := FromProdOrder."No.";
+            ToProdOrder."PWD Transmitted Order No." := TRUE;
+            ToProdOrder."PWD Original Source No." := FromProdOrder."PWD Original Source No.";
+            ToProdOrder."PWD Original Source Position" := FromProdOrder."PWD Original Source Position";
+        end;
+    end;
     //---CDU99000787---
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Create Prod. Order Lines", 'OnBeforeProdOrderLineInsert', '', false, false)]
     local procedure CDU99000787_OnBeforeProdOrderLineInsert_CreateProdOrderLines(var ProdOrderLine: Record "Prod. Order Line"; var ProductionOrder: Record "Production Order"; SalesLineIsSet: Boolean; var SalesLine: Record "Sales Line")
