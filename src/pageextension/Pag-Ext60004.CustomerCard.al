@@ -1,7 +1,7 @@
 pageextension 60004 "PWD CustomerCard" extends "Customer Card"
 {
     // #1..45
-    // 
+    //  
     // 
     // +----------------------------------------------------------------------------------------------------------------+
     // | ProdWare                                                                                                       |
@@ -35,6 +35,13 @@ pageextension 60004 "PWD CustomerCard" extends "Customer Card"
         addafter("Prices Including VAT")
         {
             field("PWD Our Account No."; Rec."Our Account No.")
+            {
+                ApplicationArea = All;
+            }
+        }
+        addafter("Bill-to Customer No.")
+        {
+            field("PWD Invoice Copies"; Rec."Invoice Copies")
             {
                 ApplicationArea = All;
             }
