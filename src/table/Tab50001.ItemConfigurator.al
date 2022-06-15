@@ -486,11 +486,11 @@ table 50001 "PWD Item Configurator"
             Caption = 'Costing Method';
             InitValue = "Average";
         }
-        field(50002; "Replenishment System"; Option)
+        field(50002; "Replenishment System"; Enum "Replenishment System")
         {
             Caption = 'Replenishment System';
-            OptionCaption = 'Purchase,Prod. Order, ';
-            OptionMembers = Purchase,"Prod. Order"," ";
+            // OptionCaption = 'Purchase,Prod. Order, ';
+            // OptionMembers = Purchase,"Prod. Order"," ";
 
             trigger OnValidate()
             begin

@@ -1323,11 +1323,6 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Table PWD Item Configurator - Field Replenishment System - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Table 1055272925 - Field 3500504311 - Property 62802879" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Purchase,Prod. Order, </source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Table PWD Item Configurator - Field Replenishment System - Property OptionCaption</note>
-        </trans-unit>
         <trans-unit id="Table 1055272925 - Field 1180181476 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Désignation de recherche</source>
           <note from="Developer" annotates="general" priority="2"></note>
