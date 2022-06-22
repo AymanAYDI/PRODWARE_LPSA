@@ -11837,7 +11837,7 @@
         </trans-unit>
         <trans-unit id="Report 1120490724 - NamedType 3752334001" size-unit="char" translate="yes" xml:space="preserve">
           <source>Total %1 Incl. VAT</source>
-          <target state="translated">Total %1 TTC</target>
+          <target state="translated">Total %1</target>
           <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">Report PWD Proforma invoice - NamedType Text002</note>
         </trans-unit>

@@ -19,13 +19,13 @@ pageextension 60011 "PWD SalesQuote" extends "Sales Quote"
                 ApplicationArea = All;
             }
         }
-        addafter(Status)
-        {
-            field("PWD External Document No."; Rec."External Document No.")
-            {
-                ApplicationArea = All;
-            }
-        }
+        // addafter(Status)
+        // {
+        //     field("PWD External Document No."; Rec."External Document No.")
+        //     {
+        //         ApplicationArea = All;
+        //     }
+        // }
     }
 }
 
