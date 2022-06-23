@@ -1,4 +1,4 @@
-report 50053 "Ajout NouvelleFin De Gamme PIE"
+report 50053 "PWD Ajout Nouv.Fin Gamme PIE"
 {
     // +----------------------------------------------------------------------------------------------------------------+
     // | ProdWare                                                                                                       |

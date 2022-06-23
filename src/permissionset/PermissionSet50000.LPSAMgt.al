@@ -100,7 +100,7 @@ permissionset 50000 "PWD LPSA Mgt"
          page "PWD Tools Instructions Setup" = X,
          page "PWD Values form Connector" = X,
          page "PWD WMS Setup" = X,
-         report "Ajout NouvelleFin De Gamme PIE" = X,
+         report "PWD Ajout Nouv.Fin Gamme PIE" = X,
          report "Create Dedicated Item Routing" = X,
          report "Create Item Config. from Item" = X,
          report "Export Invoicing Data (Excel)" = X,

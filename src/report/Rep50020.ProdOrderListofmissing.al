@@ -146,7 +146,7 @@ report 50020 "Prod. Order - List of missing"
                         column(Header_Production_Order___Due_Date__; Format("Production Order"."Due Date"))
                         {
                         }
-                        column(Header_Item__Scheduled_Need__Qty___; Item."Released Scheduled Need (Qty.)")
+                        column(Header_Item__Scheduled_Need__Qty___; Item."PWD Released Scheduled Need (Qty.)")
                         {
                             DecimalPlaces = 0 : 5;
                         }
@@ -172,7 +172,7 @@ report 50020 "Prod. Order - List of missing"
                         {
                             DecimalPlaces = 0 : 5;
                         }
-                        column(Comp_CompItem__Scheduled_Need__Qty___; CompItem."Released Scheduled Need (Qty.)")
+                        column(Comp_CompItem__Scheduled_Need__Qty___; CompItem."PWD Released Scheduled Need (Qty.)")
                         {
                             DecimalPlaces = 0 : 5;
                         }
@@ -466,7 +466,7 @@ report 50020 "Prod. Order - List of missing"
                         CompItem.CalcFields(
                           Inventory, "Reserved Qty. on Inventory",
                           "Scheduled Receipt (Qty.)", "Reserved Qty. on Prod. Order",
-                          "Released Scheduled Need (Qty.)", "Res. Qty. on Prod. Order Comp.");
+                          "PWD Released Scheduled Need (Qty.)", "Res. Qty. on Prod. Order Comp.");
                         CompItem.Inventory :=
                           CompItem.Inventory -
                           CompItem."Reserved Qty. on Inventory";
@@ -556,7 +556,7 @@ report 50020 "Prod. Order - List of missing"
                         //   TempProdOrderComp."Reserved Qty. (Base)";
 
                         NeededQty :=
-                          CompItem."Released Scheduled Need (Qty.)" +
+                          CompItem."PWD Released Scheduled Need (Qty.)" +
                           CompItem."Qty. on Sales Order" -
                           CompItem."Qty. on Purch. Order" -
                           CompItem."Scheduled Receipt (Qty.)" -
@@ -733,15 +733,15 @@ report 50020 "Prod. Order - List of missing"
                     Item.CalcFields(
                       Inventory, "Reserved Qty. on Inventory",
                       "Scheduled Receipt (Qty.)", "Reserved Qty. on Prod. Order",
-                      "Released Scheduled Need (Qty.)", "Res. Qty. on Prod. Order Comp.");
+                      "PWD Released Scheduled Need (Qty.)", "Res. Qty. on Prod. Order Comp.");
                     Item.Inventory :=
                       Item.Inventory -
                       Item."Reserved Qty. on Inventory";
                     Item."Scheduled Receipt (Qty.)" :=
                       Item."Scheduled Receipt (Qty.)" -
                       Item."Reserved Qty. on Prod. Order";
-                    Item."Released Scheduled Need (Qty.)" :=
-                      Item."Released Scheduled Need (Qty.)" -
+                    Item."PWD Released Scheduled Need (Qty.)" :=
+                      Item."PWD Released Scheduled Need (Qty.)" -
                       Item."Res. Qty. on Prod. Order Comp.";
                 end else
                     Item.Init();

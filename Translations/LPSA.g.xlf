@@ -6968,6 +6968,76 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Page PWD Tools Instructions Setup - Property Caption</note>
         </trans-unit>
+        <trans-unit id="Page 3999536621 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Utilitaire LPSA</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page PWD Utilitaire LPSA - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 3999536621 - Action 4165283977 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Item Extraction</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page PWD Utilitaire LPSA - Action Action1 - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 3999536621 - Action 3406667849 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Update Cost Method V2</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page PWD Utilitaire LPSA - Action Action10 - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 3999536621 - Action 4044364466 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Inventory Recovery</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page PWD Utilitaire LPSA - Action Action11 - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 3999536621 - Action 2131274615 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Empty Buffer</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page PWD Utilitaire LPSA - Action Action12 - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 3999536621 - Action 2768971232 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Modif OP après OP Gamme PIE</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page PWD Utilitaire LPSA - Action Action13 - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 3999536621 - Action 3527587360 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>TPL Ajout OP Lavage</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page PWD Utilitaire LPSA - Action Action2 - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 3999536621 - Action 2889890743 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>TPL MAJ OP Gamme PIE</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page PWD Utilitaire LPSA - Action Action3 - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 3999536621 - Action 3058799766 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Ajout Nouvelle Fin De Gamme PIE</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page PWD Utilitaire LPSA - Action Action4 - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 3999536621 - Action 2421103149 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>MAJ OP Gamme PIE Sans 1/2;B</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page PWD Utilitaire LPSA - Action Action5 - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 3999536621 - Action 1783406532 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>MAJ Description LPSA PIERRE</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page PWD Utilitaire LPSA - Action Action6 - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 3999536621 - Action 1145709915 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Suppression OP Gamme PIE</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page PWD Utilitaire LPSA - Action Action7 - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 3999536621 - Action 3996374954 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>MAJ Tps OP Gamme PIE</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page PWD Utilitaire LPSA - Action Action8 - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 3999536621 - Action 3358678337 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>MAJ Tps OP Gamme PIE A/S O</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page PWD Utilitaire LPSA - Action Action9 - Property Caption</note>
+        </trans-unit>
         <trans-unit id="Page 3984980986 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Values From Connector</source>
           <note from="Developer" annotates="general" priority="2"></note>
@@ -6987,46 +7057,6 @@
           <source>General</source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Page PWD WMS Setup - Control Control1100294000 - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Report 4012324484 - NamedType 3802638270" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Dans les gammes PIE (Filtrage %3), voulez vous remplacer toutes les opérations après l'opération %1 par les lignes de la gamme %2 ?</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Report Ajout NouvelleFin De Gamme PIE - NamedType CstG001</note>
-        </trans-unit>
-        <trans-unit id="Report 4012324484 - NamedType 1889548419" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Traitement annulé !</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Report Ajout NouvelleFin De Gamme PIE - NamedType CstG002</note>
-        </trans-unit>
-        <trans-unit id="Report 4012324484 - NamedType 2527245036" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Merci de saisir l'opérations de départ et la gamme à ajouter.</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Report Ajout NouvelleFin De Gamme PIE - NamedType CstG003</note>
-        </trans-unit>
-        <trans-unit id="Report 4012324484 - NamedType 614155185" size-unit="char" translate="yes" xml:space="preserve">
-          <source>MAJ Ligne Gammes PIE (Filtrage N°:PIE*),\\Enregistrements restants #1##############</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Report Ajout NouvelleFin De Gamme PIE - NamedType CstG004</note>
-        </trans-unit>
-        <trans-unit id="Report 4012324484 - NamedType 1251851802" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Attention le n° opération du poste de charge %1 ne doit pas être plus grand que le n° opération de la première ligne de la gamme à ajouter %2</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Report Ajout NouvelleFin De Gamme PIE - NamedType CstG005</note>
-        </trans-unit>
-        <trans-unit id="Report 4012324484 - Control 3590328978 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Action</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Report Ajout NouvelleFin De Gamme PIE - Control Control1000000000 - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Report 4012324484 - Control 4188105513 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Par les lignes de la gamme</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Report Ajout NouvelleFin De Gamme PIE - Control CodGRoutingToAddF - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Report 4012324484 - Control 3626835344 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Remplacer toutes les lignes de gammes après l'opératio</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Report Ajout NouvelleFin De Gamme PIE - Control CodGStartOperationF - Property Caption</note>
         </trans-unit>
         <trans-unit id="Report 269788986 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Create Dedicated Item Routing</source>
@@ -7682,6 +7712,46 @@
           <source>Show Internal Information</source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Report Purchase - Return Shipment LAP - Control ShowInternalInfoF - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Report 369768168 - NamedType 3802638270" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Dans les gammes PIE (Filtrage %3), voulez vous remplacer toutes les opérations après l'opération %1 par les lignes de la gamme %2 ?</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report PWD Ajout Nouv.Fin Gamme PIE - NamedType CstG001</note>
+        </trans-unit>
+        <trans-unit id="Report 369768168 - NamedType 1889548419" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Traitement annulé !</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report PWD Ajout Nouv.Fin Gamme PIE - NamedType CstG002</note>
+        </trans-unit>
+        <trans-unit id="Report 369768168 - NamedType 2527245036" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Merci de saisir l'opérations de départ et la gamme à ajouter.</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report PWD Ajout Nouv.Fin Gamme PIE - NamedType CstG003</note>
+        </trans-unit>
+        <trans-unit id="Report 369768168 - NamedType 614155185" size-unit="char" translate="yes" xml:space="preserve">
+          <source>MAJ Ligne Gammes PIE (Filtrage N°:PIE*),\\Enregistrements restants #1##############</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report PWD Ajout Nouv.Fin Gamme PIE - NamedType CstG004</note>
+        </trans-unit>
+        <trans-unit id="Report 369768168 - NamedType 1251851802" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Attention le n° opération du poste de charge %1 ne doit pas être plus grand que le n° opération de la première ligne de la gamme à ajouter %2</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report PWD Ajout Nouv.Fin Gamme PIE - NamedType CstG005</note>
+        </trans-unit>
+        <trans-unit id="Report 369768168 - Control 3590328978 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Action</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report PWD Ajout Nouv.Fin Gamme PIE - Control Control1000000000 - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Report 369768168 - Control 4188105513 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Par les lignes de la gamme</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report PWD Ajout Nouv.Fin Gamme PIE - Control CodGRoutingToAddF - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Report 369768168 - Control 3626835344 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Remplacer toutes les lignes de gammes après l'opératio</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report PWD Ajout Nouv.Fin Gamme PIE - Control CodGStartOperationF - Property Caption</note>
         </trans-unit>
         <trans-unit id="Report 894387540 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Auto. Finish Prod. Order</source>
@@ -13113,6 +13183,11 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">TableExtension PWD Item - Field PWD Principal Location Filter - Property Caption</note>
         </trans-unit>
+        <trans-unit id="TableExtension 862131778 - Field 2033606891 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 3276313895">
+          <source>Prod. Forecast Quantity (Base)</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">TableExtension PWD Item - Field PWD Prod. Forecast Qty. (Base) - Property Caption</note>
+        </trans-unit>
         <trans-unit id="TableExtension 862131778 - Field 2710820198 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 3276313895">
           <source>Product Group Code</source>
           <note from="Developer" annotates="general" priority="2"></note>
@@ -13127,6 +13202,11 @@
           <source>Released Qty. on Prod. Order</source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">TableExtension PWD Item - Field PWD Rele. Qty. on Prod. Order - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="TableExtension 862131778 - Field 243780986 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 3276313895">
+          <source>Released Scheduled Need (Qty.)</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">TableExtension PWD Item - Field PWD Released Scheduled Need (Qty.) - Property Caption</note>
         </trans-unit>
         <trans-unit id="TableExtension 862131778 - Field 2058915272 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 3276313895">
           <source>Qté facturée</source>
@@ -13177,11 +13257,6 @@
           <source>WMS_Product Type</source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">TableExtension PWD Item - Field PWD WMS_Product Type - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="TableExtension 862131778 - Field 1082782431 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 3276313895">
-          <source>Released Scheduled Need (Qty.)</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">TableExtension PWD Item - Field Released Scheduled Need (Qty.) - Property Caption</note>
         </trans-unit>
         <trans-unit id="TableExtension 3490519650 - Field 3681234719 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 1487222247">
           <source>Transmitted Order No.</source>

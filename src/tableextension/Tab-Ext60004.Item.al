@@ -140,7 +140,7 @@ tableextension 60004 "PWD Item" extends Item
         {
             Caption = 'Phantom Item';
         }
-        field(50009; "Released Scheduled Need (Qty.)"; Decimal)
+        field(50009; "PWD Released Scheduled Need (Qty.)"; Decimal)
         {
             CalcFormula = Sum("Prod. Order Component"."Remaining Qty. (Base)" WHERE(Status = FILTER(Released),
                                                                                      "Item No." = FIELD("No."),
@@ -343,6 +343,20 @@ tableextension 60004 "PWD Item" extends Item
             Editable = false;
             FieldClass = FlowField;
         }
+        field(500046; "PWD Prod. Forecast Qty. (Base)"; Decimal)
+        {
+            CalcFormula = Sum("Production Forecast Entry"."Forecast Quantity (Base)" WHERE("Item No." = FIELD("No."),
+                                                                                            "Production Forecast Name" = FIELD("Production Forecast Name"),
+                                                                                            "Forecast Date" = FIELD("Date Filter"),
+                                                                                            "Location Code" = FIELD("Location Filter"),
+                                                                                            "Component Forecast" = FIELD("Component Forecast"),
+                                                                                            "Variant Code" = FIELD("Variant Filter"),
+                                                                                            "PWD Customer No." = FIELD("PWD Customer Filter")));
+            Caption = 'Prod. Forecast Quantity (Base)';
+            DecimalPlaces = 0 : 5;
+            FieldClass = FlowField;
+        }
+
         field(8073282; "PWD WMS_Product Type"; Code[2])
         {
             Caption = 'WMS_Product Type';

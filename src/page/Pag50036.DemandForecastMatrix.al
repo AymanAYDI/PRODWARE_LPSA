@@ -759,6 +759,7 @@ page 50036 "PWD Demand Forecast Matrix"
         Window: Dialog;
         TxtL001: Label 'Refresh Item List for Customer...';
     begin
+        Rec.CLEARMARKS();
         CopyArray(MATRIX_CaptionSet, NewMatrixColumns, 1);
         CopyArray(MatrixRecords, NewMatrixRecords, 1);
 
@@ -853,8 +854,8 @@ page 50036 "PWD Demand Forecast Matrix"
         if ForecastType = ForecastType::Both then
             Rec.SetRange("Component Forecast");
 
-        Rec.CalcFields("Prod. Forecast Quantity (Base)");
-        MATRIX_CellData[ColumnOrdinal] := Rec."Prod. Forecast Quantity (Base)";
+        Rec.CalcFields("PWD Prod. Forecast Qty. (Base)");
+        MATRIX_CellData[ColumnOrdinal] := Rec."PWD Prod. Forecast Qty. (Base)";
     end;
 
     procedure SetVisible()
@@ -935,7 +936,7 @@ page 50036 "PWD Demand Forecast Matrix"
         //>>LAP181016
         Rec.SETRANGE("Date Filter", MatrixRecords[ColumnID]."Period End");
         //<<LAP181016
-        Rec.Validate("Prod. Forecast Quantity (Base)", MATRIX_CellData[ColumnID]);
+        Rec.Validate("PWD Prod. Forecast Qty. (Base)", MATRIX_CellData[ColumnID]);
 
         //>>LAP181016
         IF QtyType = QtyType::"Net Change" THEN

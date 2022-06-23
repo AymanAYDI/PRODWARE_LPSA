@@ -173,6 +173,7 @@ codeunit 50020 "PWD LPSA Events Mgt."
         SalesLine."PWD LPSA Description 1" := Item."PWD LPSA Description 1";
         SalesLine."PWD LPSA Description 2" := Item."PWD LPSA Description 2";
         SalesLine."PWD Product Group Code" := Item."PWD Product Group Code";
+        SalesLine."Location Code" := Item."Location Code";
     end;
 
     [EventSubscriber(ObjectType::Table, Database::"Sales Line", 'OnAfterAssignResourceValues', '', false, false)]
@@ -1257,10 +1258,10 @@ codeunit 50020 "PWD LPSA Events Mgt."
     end;
     //---TAB99000852---
     [EventSubscriber(ObjectType::Table, Database::"Production Forecast Entry", 'OnAfterInsertEvent', '', false, false)]
-    local procedure TAB99000852_OnAfterInsertEvent_ProductionForecastEntry(var Rec: Record "Production Forecast Entry"; RunTrigger: Boolean)
+    local procedure TAB99000852_OnBeforeInsertEvent_ProductionForecastEntry(var Rec: Record "Production Forecast Entry"; RunTrigger: Boolean)
     var
         CompanyInfo: Record "Company Information";
-        TargetCustomizedCalendarChange: Record "Customized Calendar Change";
+        CalChange: Record "Customized Calendar Change";
         CalendarMgmt: Codeunit "Calendar Management";
         Nonworking: Boolean;
         NewDate: Date;
@@ -1271,14 +1272,15 @@ codeunit 50020 "PWD LPSA Events Mgt."
             exit;
         CompanyInfo.GET();
         CompanyInfo.TESTFIELD("Base Calendar Code");
+        CalendarMgmt.SetSource(CompanyInfo, CalChange);
         NewDate := Rec."Forecast Date";
-        TargetCustomizedCalendarChange.Get();
         REPEAT
-            Nonworking := CalendarMgmt.IsNonworkingDay(NewDate, TargetCustomizedCalendarChange);
+            Nonworking := CalendarMgmt.IsNonworkingDay(NewDate, CalChange);
             IF Nonworking THEN
                 NewDate := CALCDATE('<-1D>', NewDate);
         UNTIL Nonworking = FALSE;
         Rec."Forecast Date" := NewDate;
+        Rec.Modify();
     end;
     //TAB99000853
     [EventSubscriber(ObjectType::Table, Database::"Inventory Profile", 'OnAfterTransferFromSalesLine', '', false, false)]
