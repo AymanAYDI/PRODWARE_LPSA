@@ -171,7 +171,6 @@ report 50026 "Update Rtg Line Global IRON"
                     field(CodGRoutingHeaderF; CodGRoutingHeader)
                     {
                         Caption = 'Reference Routing No.';
-                        ShowCaption = false;
                         TableRelation = "Routing Header"."No.";
                         ApplicationArea = All;
 
@@ -190,7 +189,6 @@ report 50026 "Update Rtg Line Global IRON"
                     {
                         Caption = 'Operation No.';
                         //OptionCaption = 'Operations No.';
-                        ShowCaption = false;
                         ApplicationArea = All;
 
                         trigger OnLookup(var Text: Text): Boolean
@@ -217,25 +215,21 @@ report 50026 "Update Rtg Line Global IRON"
                     field("BooG_Setup_TimeF"; BooG_Setup_Time)
                     {
                         Caption = 'Setup Time';
-                        ShowCaption = false;
                         ApplicationArea = All;
                     }
                     field("BooG_Run_TimeF"; BooG_Run_Time)
                     {
                         Caption = 'Run Time';
-                        ShowCaption = false;
                         ApplicationArea = All;
                     }
                     field("BooG_Wait_TimeF"; BooG_Wait_Time)
                     {
                         Caption = 'Wait Time';
-                        ShowCaption = false;
                         ApplicationArea = All;
                     }
                     field("BooG_Move_TimeF"; BooG_Move_Time)
                     {
                         Caption = 'Move Time';
-                        ShowCaption = false;
                         ApplicationArea = All;
                     }
                 }

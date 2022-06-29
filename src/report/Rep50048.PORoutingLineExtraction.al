@@ -266,11 +266,9 @@ report 50048 "PWD PO Routing Line Extraction"
                 group(Control1000000000)
                 {
                     Caption = 'Export';
-                    ShowCaption = false;
                     field(TxtGFileNameF; TxtGFileName)
                     {
                         Caption = 'Fichier à exporter';
-                        ShowCaption = false;
                         ApplicationArea = All;
                         trigger OnAssistEdit()
                         var

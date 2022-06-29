@@ -42,7 +42,6 @@ report 50084 "PWD UPDATE NICOLAS2"
                     field(RoutingHeaderF; RoutingHeader)
                     {
                         Caption = 'Reference Routing No.';
-                        ShowCaption = false;
                         TableRelation = "Routing Header"."No.";
                         ApplicationArea = All;
 
@@ -61,7 +60,6 @@ report 50084 "PWD UPDATE NICOLAS2"
                     {
                         Caption = 'Operation No.';
                         //OptionCaption = 'Operations No.';
-                        ShowCaption = false;
                         ApplicationArea = All;
 
                         trigger OnLookup(var Text: Text): Boolean
@@ -84,11 +82,9 @@ report 50084 "PWD UPDATE NICOLAS2"
                 group(Control1000000002)
                 {
                     Caption = 'Options';
-                    ShowCaption = false;
                     field("Setup_TimeF"; Setup_Time)
                     {
                         Caption = 'Setup Time';
-                        ShowCaption = false;
                         ApplicationArea = All;
 
                         trigger OnValidate()
@@ -100,13 +96,11 @@ report 50084 "PWD UPDATE NICOLAS2"
                     field("Setup_Time_UnitF"; Setup_Time_Unit)
                     {
                         Caption = 'Setup Time Unit of Meas. Code';
-                        ShowCaption = false;
                         ApplicationArea = All;
                     }
                     field("Run_TimeF"; Run_Time)
                     {
                         Caption = 'Run Time';
-                        ShowCaption = false;
                         ApplicationArea = All;
 
                         trigger OnValidate()
@@ -118,13 +112,11 @@ report 50084 "PWD UPDATE NICOLAS2"
                     field("Run_Time_UnitF"; Run_Time_Unit)
                     {
                         Caption = 'Run Time Unit of Meas. Code';
-                        ShowCaption = false;
                         ApplicationArea = All;
                     }
                     field("Wait_TimeF"; Wait_Time)
                     {
                         Caption = 'Wait Time';
-                        ShowCaption = false;
                         ApplicationArea = All;
 
                         trigger OnValidate()
@@ -136,13 +128,11 @@ report 50084 "PWD UPDATE NICOLAS2"
                     field("Wait_Time_UnitF"; Wait_Time_Unit)
                     {
                         Caption = 'Wait Time Unit of Meas. Code';
-                        ShowCaption = false;
                         ApplicationArea = All;
                     }
                     field("Move_TimeF"; Move_Time)
                     {
                         Caption = 'Move Time';
-                        ShowCaption = false;
                         ApplicationArea = All;
 
                         trigger OnValidate()
@@ -154,31 +144,26 @@ report 50084 "PWD UPDATE NICOLAS2"
                     field("Move_Time_UnitF"; Move_Time_Unit)
                     {
                         Caption = 'Move Time Unit of Meas. Code';
-                        ShowCaption = false;
                         ApplicationArea = All;
                     }
                     field("Concurrent_CapacitiesF"; Concurrent_Capacities)
                     {
                         Caption = 'Concurrent Capacities';
-                        ShowCaption = false;
                         ApplicationArea = All;
                     }
                     field("Scrap_FactorF"; Scrap_Factor)
                     {
                         Caption = 'Scrap Factor %';
-                        ShowCaption = false;
                         ApplicationArea = All;
                     }
                     field("Update_Cost_FromWCF"; Update_Cost_FromWC)
                     {
                         Caption = 'Update Unit Cost from Work Center';
-                        ShowCaption = false;
                         ApplicationArea = All;
                     }
                     field("Update_Cost_FromMCF"; Update_Cost_FromMC)
                     {
                         Caption = 'Update Unit Cost from Machine Center';
-                        ShowCaption = false;
                         ApplicationArea = All;
                     }
                 }

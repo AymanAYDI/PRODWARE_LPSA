@@ -79,19 +79,17 @@ report 50064 "Modif OP après OP Gamme PIE"
             {
                 group(Control1000000000)
                 {
-                    Caption = 'Remplace';
+                    Caption = 'Option';
                     ShowCaption = false;
                     field(CodGOldOperationF; CodGOldOperation)
                     {
                         Caption = 'Remplacer';
-                        ShowCaption = false;
                         TableRelation = "Machine Center";
                         ApplicationArea = All;
                     }
                     field(CodGNewOperationF; CodGNewOperation)
                     {
                         Caption = 'Par';
-                        ShowCaption = false;
                         TableRelation = "Machine Center";
                         ApplicationArea = All;
                         trigger OnValidate()
@@ -112,7 +110,6 @@ report 50064 "Modif OP après OP Gamme PIE"
                     field(CodGStartOperationF; CodGStartOperation)
                     {
                         Caption = 'Quand elle suit l''opération';
-                        ShowCaption = false;
                         TableRelation = "Machine Center";
                         ApplicationArea = All;
                     }

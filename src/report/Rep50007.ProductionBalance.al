@@ -371,7 +371,6 @@ report 50007 "PWD Production Balance"
                 {
                     Caption = 'Grouping';
                     OptionCaption = 'Production Order,Item,Order';
-                    ShowCaption = false;
                     ApplicationArea = All;
 
                     trigger OnValidate()
@@ -388,7 +387,6 @@ report 50007 "PWD Production Balance"
                 field(CodGListF; CodGList)
                 {
                     Caption = 'Selection';
-                    ShowCaption = false;
                     ApplicationArea = All;
 
                     trigger OnLookup(var Text: Text): Boolean
@@ -429,21 +427,18 @@ report 50007 "PWD Production Balance"
                     Caption = 'Status';
                     Editable = OptGStatusEditable;
                     OptionCaption = 'Released,Finished';
-                    ShowCaption = false;
                     ApplicationArea = All;
                 }
                 field(DatGBeginDateF; DatGBeginDate)
                 {
                     Caption = 'Begin Date';
                     Editable = OptGDateEditable;
-                    ShowCaption = false;
                     ApplicationArea = All;
                 }
                 field(DatGEndDateF; DatGEndDate)
                 {
                     Caption = 'End Date';
                     Editable = OptGDateEditable;
-                    ShowCaption = false;
                     ApplicationArea = All;
                 }
             }
@@ -531,7 +526,7 @@ report 50007 "PWD Production Balance"
         RecGProdOrderComponent.SetRange("Prod. Order No.", CodGList);
         if RecGProdOrderComponent.FindSet() then
             repeat
-                IntGI := IntGI + 1;
+                    IntGI := IntGI + 1;
                 RecGProductionBalance.Init();
                 RecGProductionBalance."User ID" := UserId;
                 RecGProductionBalance."Entry No." := IntGI;
@@ -568,39 +563,39 @@ report 50007 "PWD Production Balance"
                 RecGProdOrderRoutingLine.SetRange(Status, RecGProdOrderRoutingLine.Status::Finished);
         RecGProdOrderRoutingLine.SetRange("Prod. Order No.", CodGList);
         if RecGProdOrderRoutingLine.FindSet() then
-            repeat
-                IntGI := IntGI + 1;
-                RecGProductionBalance.Init();
-                RecGProductionBalance."User ID" := UserId;
-                RecGProductionBalance."Entry No." := IntGI;
-                RecGProductionBalance."Planned Order No." := RecGProdOrderRoutingLine."Prod. Order No.";
-                RecGProductionBalance."Line Type" := RecGProductionBalance."Line Type"::Operation;
-                RecGProductionBalance."Operation No." := RecGProdOrderRoutingLine."Operation No.";
-                RecGProductionBalance.Type := RecGProdOrderRoutingLine.Type.AsInteger();
-                RecGProductionBalance."No." := RecGProdOrderRoutingLine."No.";
-                RecGProductionBalance.Description := RecGProdOrderRoutingLine.Description;
-                RecGProductionBalance.Status := RecGProdOrderRoutingLine.Status.AsInteger();
-                FctFindProdOrderLine();
-                RecGProductionBalance."Expected Quantity" := RecGProdOrderLine.Quantity;
-                FctFindCapacityLedgerEntry();
-                RecGProductionBalance.Quantity := RecGCapacityLedgerEntry."Output Quantity";
-                RecGProductionBalance."Unit of Measure Code" := RecGCapacityLedgerEntry."Cap. Unit of Measure Code";
-                RecGProductionBalance."Scrap Quantity" := RecGCapacityLedgerEntry."Scrap Quantity";
-                RecGProductionBalance."Expected Flushing Quantity" := RecGProdOrderRoutingLine."Expected Capacity Need";
-                RecGProductionBalance."Realized Flushing Quantity" := RecGCapacityLedgerEntry."Setup Time" + RecGCapacityLedgerEntry."Run Time";
-                RecGProductionBalance."Cost Amount (Expected)" := RecGProdOrderRoutingLine."Expected Operation Cost Amt.";
-                RecGProductionBalance."Cost Amount (Actual)" := RecGCapacityLedgerEntry."Direct Cost";
-                RecGProductionBalance."Cost Difference" := RecGCapacityLedgerEntry."Direct Cost" -
-                                                           RecGProdOrderRoutingLine."Expected Operation Cost Amt.";
-                if RecGProductionBalance."Expected Flushing Quantity" <> 0 then
-                    RecGProductionBalance.Productivity := (1 - (RecGProductionBalance."Realized Flushing Quantity" -
-                                        RecGProductionBalance."Expected Flushing Quantity") / RecGProductionBalance."Expected Flushing Quantity") *
-                100;
-                if RecGProductionBalance."Expected Quantity" <> 0 then
-                    RecGProductionBalance.Output := RecGProductionBalance.Quantity / RecGProductionBalance."Expected Quantity" * 100;
-                RecGProductionBalance.Insert();
+                repeat
+                    IntGI := IntGI + 1;
+                    RecGProductionBalance.Init();
+                    RecGProductionBalance."User ID" := UserId;
+                    RecGProductionBalance."Entry No." := IntGI;
+                    RecGProductionBalance."Planned Order No." := RecGProdOrderRoutingLine."Prod. Order No.";
+                    RecGProductionBalance."Line Type" := RecGProductionBalance."Line Type"::Operation;
+                    RecGProductionBalance."Operation No." := RecGProdOrderRoutingLine."Operation No.";
+                    RecGProductionBalance.Type := RecGProdOrderRoutingLine.Type.AsInteger();
+                    RecGProductionBalance."No." := RecGProdOrderRoutingLine."No.";
+                    RecGProductionBalance.Description := RecGProdOrderRoutingLine.Description;
+                    RecGProductionBalance.Status := RecGProdOrderRoutingLine.Status.AsInteger();
+                    FctFindProdOrderLine();
+                    RecGProductionBalance."Expected Quantity" := RecGProdOrderLine.Quantity;
+                    FctFindCapacityLedgerEntry();
+                    RecGProductionBalance.Quantity := RecGCapacityLedgerEntry."Output Quantity";
+                    RecGProductionBalance."Unit of Measure Code" := RecGCapacityLedgerEntry."Cap. Unit of Measure Code";
+                    RecGProductionBalance."Scrap Quantity" := RecGCapacityLedgerEntry."Scrap Quantity";
+                    RecGProductionBalance."Expected Flushing Quantity" := RecGProdOrderRoutingLine."Expected Capacity Need";
+                    RecGProductionBalance."Realized Flushing Quantity" := RecGCapacityLedgerEntry."Setup Time" + RecGCapacityLedgerEntry."Run Time";
+                    RecGProductionBalance."Cost Amount (Expected)" := RecGProdOrderRoutingLine."Expected Operation Cost Amt.";
+                    RecGProductionBalance."Cost Amount (Actual)" := RecGCapacityLedgerEntry."Direct Cost";
+                    RecGProductionBalance."Cost Difference" := RecGCapacityLedgerEntry."Direct Cost" -
+                                                               RecGProdOrderRoutingLine."Expected Operation Cost Amt.";
+                    if RecGProductionBalance."Expected Flushing Quantity" <> 0 then
+                        RecGProductionBalance.Productivity := (1 - (RecGProductionBalance."Realized Flushing Quantity" -
+                                            RecGProductionBalance."Expected Flushing Quantity") / RecGProductionBalance."Expected Flushing Quantity") *
+                    100;
+                    if RecGProductionBalance."Expected Quantity" <> 0 then
+                        RecGProductionBalance.Output := RecGProductionBalance.Quantity / RecGProductionBalance."Expected Quantity" * 100;
+                    RecGProductionBalance.Insert();
 
-            until RecGProdOrderRoutingLine.Next() = 0;
+                until RecGProdOrderRoutingLine.Next() = 0;
         //>>FE_LAPIERRETTE_PRO06.002
         FctGetLastAmountsFromProdBal();
         //<<FE_LAPIERRETTE_PRO06.002
@@ -626,10 +621,10 @@ report 50007 "PWD Production Balance"
             RecGProdOrderLine.SetFilter("Due Date", '%1..%2', DatGBeginDate, DatGEndDate);
         if RecGProdOrderLine.FindSet() then
             repeat
-                if TxtGFilterPO = '' then
-                    TxtGFilterPO := RecGProdOrderLine."Prod. Order No."
-                else
-                    TxtGFilterPO := TxtGFilterPO + '|' + RecGProdOrderLine."Prod. Order No.";
+                    if TxtGFilterPO = '' then
+                        TxtGFilterPO := RecGProdOrderLine."Prod. Order No."
+                    else
+                        TxtGFilterPO := TxtGFilterPO + '|' + RecGProdOrderLine."Prod. Order No.";
             until RecGProdOrderLine.Next() = 0;
 
         //* Components Lines
@@ -642,7 +637,7 @@ report 50007 "PWD Production Balance"
         RecGProdOrderComponent.SetFilter("Prod. Order No.", TxtGFilterPO);
         if RecGProdOrderComponent.FindSet() then
             repeat
-                RecLProductionBalance.Reset();
+                    RecLProductionBalance.Reset();
                 RecLProductionBalance.SetCurrentKey("User ID", "Line Type", Type, "No.");
                 RecLProductionBalance.SetRange("User ID", UserId);
                 RecLProductionBalance.SetRange("Line Type", RecLProductionBalance."Line Type"::Component);
@@ -696,7 +691,7 @@ report 50007 "PWD Production Balance"
         RecGProdOrderRoutingLine.SetFilter("Prod. Order No.", TxtGFilterPO);
         if RecGProdOrderRoutingLine.FindSet() then
             repeat
-                RecLProductionBalance.Reset();
+                    RecLProductionBalance.Reset();
                 RecLProductionBalance.SetCurrentKey("User ID", "Line Type", "Operation No.", Type, "No.");
                 RecLProductionBalance.SetRange("User ID", UserId);
                 RecLProductionBalance.SetRange("Line Type", RecLProductionBalance."Line Type"::Operation);
@@ -800,18 +795,18 @@ report 50007 "PWD Production Balance"
         RecGProductionOrder.SetFilter(Status, '%1..%2', RecGProdOrderLine.Status::Released, RecGProdOrderLine.Status::Finished);
         RecGProductionOrder.SetRange("PWD Original Source No.", CodGList);
         if RecGProductionOrder.FindFirst() then
-            repeat
-                RecLProdOrderLine.Reset();
-                RecLProdOrderLine.SetFilter(Status, '%1..%2', RecGProdOrderLine.Status::Released, RecGProdOrderLine.Status::Finished);
-                RecLProdOrderLine.SetRange("Prod. Order No.", RecGProductionOrder."No.");
-                if ((DatGBeginDate <> 0D) or (DatGEndDate <> 0D)) then
-                    RecLProdOrderLine.SetFilter("Due Date", '%1..%2', DatGBeginDate, DatGEndDate);
-                if RecLProdOrderLine.FindFirst() then
-                    repeat
-                        RecLTempProdOrderLine.Copy(RecLProdOrderLine);
-                        RecLTempProdOrderLine.Insert(false);
-                    until RecLProdOrderLine.Next() = 0;
-            until RecGProductionOrder.Next() = 0;
+                repeat
+                    RecLProdOrderLine.Reset();
+                    RecLProdOrderLine.SetFilter(Status, '%1..%2', RecGProdOrderLine.Status::Released, RecGProdOrderLine.Status::Finished);
+                    RecLProdOrderLine.SetRange("Prod. Order No.", RecGProductionOrder."No.");
+                    if ((DatGBeginDate <> 0D) or (DatGEndDate <> 0D)) then
+                        RecLProdOrderLine.SetFilter("Due Date", '%1..%2', DatGBeginDate, DatGEndDate);
+                    if RecLProdOrderLine.FindFirst() then
+                            repeat
+                                RecLTempProdOrderLine.Copy(RecLProdOrderLine);
+                                RecLTempProdOrderLine.Insert(false);
+                            until RecLProdOrderLine.Next() = 0;
+                until RecGProductionOrder.Next() = 0;
 
 
 
@@ -828,143 +823,143 @@ report 50007 "PWD Production Balance"
         RecLTempProdOrderLine.Reset();
 
         if RecLTempProdOrderLine.FindSet() then
-            repeat
-                RecGItem.Get(RecLTempProdOrderLine."Item No.");
-                RecLProductionBalance.Reset();
-                RecLProductionBalance.SetCurrentKey("User ID", "Planned Order Index");
-                RecLProductionBalance.SetRange("User ID", UserId);
+                repeat
+                    RecGItem.Get(RecLTempProdOrderLine."Item No.");
+                    RecLProductionBalance.Reset();
+                    RecLProductionBalance.SetCurrentKey("User ID", "Planned Order Index");
+                    RecLProductionBalance.SetRange("User ID", UserId);
 
-                //* Components Lines
-                RecGProdOrderComponent.Reset();
-                RecGProdOrderComponent.SetFilter(Status, '%1..%2', RecGProdOrderComponent.Status::Released, RecGProdOrderComponent.Status::Finished
-              );
-                RecGProdOrderComponent.SetFilter("Prod. Order No.", RecLTempProdOrderLine."Prod. Order No.");
-                if RecGProdOrderComponent.FindSet() then
-                    repeat
-                        RecLProductionBalance.Reset();
-                        RecLProductionBalance.SetCurrentKey("User ID", "Line Type", Type, "No.");
-                        RecLProductionBalance.SetRange("User ID", UserId);
-                        RecLProductionBalance.SetRange("Line Type", RecLProductionBalance."Line Type"::Component);
-                        RecLProductionBalance.SetRange(Type, RecLProductionBalance.Type::Item);
-                        RecLProductionBalance.SetRange("No.", RecGProdOrderComponent."Item No.");
-                        RecLProductionBalance.SetRange("Item No.", RecLTempProdOrderLine."Item No.");
-                        if RecLProductionBalance.FindFirst() then begin
-                            RecLProductionBalance."Expected Quantity" := RecLProductionBalance."Expected Quantity" +
-                                                                         RecGProdOrderComponent."Expected Quantity";
-                            RecLProductionBalance."Cost Amount (Expected)" := RecLProductionBalance."Cost Amount (Expected)" +
-                                                                              RecGProdOrderComponent."Direct Cost Amount";
-                            RecLProductionBalance."Scrap Quantity" := RecLProductionBalance.Quantity - RecLProductionBalance."Expected Quantity";
-                            RecLProductionBalance."Expected Flushing Quantity" := RecLProductionBalance."Expected Quantity";
-                            RecLProductionBalance."Cost Difference" := RecLProductionBalance."Cost Amount (Actual)" -
-                                                                       RecLProductionBalance."Cost Amount (Expected)";
-                            RecLProductionBalance.Modify();
-                        end else begin
-                            IntGI := IntGI + 1;
-                            RecGProductionBalance.Init();
-                            RecGProductionBalance."User ID" := UserId;
-                            RecGProductionBalance."Entry No." := IntGI;
-                            RecGProductionBalance."Order No." := CodGList;
-                            RecGProductionBalance."Item No." := RecLTempProdOrderLine."Item No.";
-                            RecGProductionBalance."Line Type" := RecGProductionBalance."Line Type"::Component;
-                            RecGProductionBalance.Type := RecGProductionBalance.Type::Item;
-                            RecGProductionBalance."No." := RecGProdOrderComponent."Item No.";
-                            RecGProductionBalance.Description := RecGProdOrderComponent.Description;
-                            RecGProductionBalance.Status := RecGProductionBalance.Status::" ";
-                            RecGProductionBalance."Expected Quantity" := RecGProdOrderComponent."Expected Quantity";
-                            FctFindItemLedgerEntry2();
-                            RecGProductionBalance.Quantity := -RecGItemLedgerEntry.Quantity;
-                            RecGProductionBalance."Unit of Measure Code" := RecGProdOrderComponent."Unit of Measure Code";
-                            RecGProductionBalance."Scrap Quantity" := RecGProductionBalance.Quantity - RecGProductionBalance."Expected Quantity";
-                            RecGProductionBalance."Expected Flushing Quantity" := RecGProdOrderComponent."Expected Quantity";
-                            RecGProductionBalance."Realized Flushing Quantity" := RecGProductionBalance.Quantity;
-                            RecGProductionBalance."Cost Amount (Expected)" := RecGProdOrderComponent."Direct Cost Amount";
-                            RecGProductionBalance."Cost Amount (Actual)" := -DecGCostAmountActual;
-                            RecGProductionBalance."Cost Difference" := -DecGCostAmountActual - RecGProdOrderComponent."Direct Cost Amount";
-                            RecGProductionBalance."Actual Cost MP" := -DecGCostAmountActual;
-                            RecGProductionBalance."Unit Price" := RecGItem."Unit Price";
-                            RecGProductionBalance."Planned Order Index" := CopyStr(RecLTempProdOrderLine."Prod. Order No.",
-                                                                           (StrLen(RecLTempProdOrderLine."Prod. Order No.") - 1), 2);
-                            RecGProductionBalance."Entry No. Negative" := -IntGI;
-                            RecGProductionBalance.Insert();
-                        end;
+                    //* Components Lines
+                    RecGProdOrderComponent.Reset();
+                    RecGProdOrderComponent.SetFilter(Status, '%1..%2', RecGProdOrderComponent.Status::Released, RecGProdOrderComponent.Status::Finished
+                  );
+                    RecGProdOrderComponent.SetFilter("Prod. Order No.", RecLTempProdOrderLine."Prod. Order No.");
+                    if RecGProdOrderComponent.FindSet() then
+                            repeat
+                                RecLProductionBalance.Reset();
+                                RecLProductionBalance.SetCurrentKey("User ID", "Line Type", Type, "No.");
+                                RecLProductionBalance.SetRange("User ID", UserId);
+                                RecLProductionBalance.SetRange("Line Type", RecLProductionBalance."Line Type"::Component);
+                                RecLProductionBalance.SetRange(Type, RecLProductionBalance.Type::Item);
+                                RecLProductionBalance.SetRange("No.", RecGProdOrderComponent."Item No.");
+                                RecLProductionBalance.SetRange("Item No.", RecLTempProdOrderLine."Item No.");
+                                if RecLProductionBalance.FindFirst() then begin
+                                    RecLProductionBalance."Expected Quantity" := RecLProductionBalance."Expected Quantity" +
+                                                                                 RecGProdOrderComponent."Expected Quantity";
+                                    RecLProductionBalance."Cost Amount (Expected)" := RecLProductionBalance."Cost Amount (Expected)" +
+                                                                                      RecGProdOrderComponent."Direct Cost Amount";
+                                    RecLProductionBalance."Scrap Quantity" := RecLProductionBalance.Quantity - RecLProductionBalance."Expected Quantity";
+                                    RecLProductionBalance."Expected Flushing Quantity" := RecLProductionBalance."Expected Quantity";
+                                    RecLProductionBalance."Cost Difference" := RecLProductionBalance."Cost Amount (Actual)" -
+                                                                               RecLProductionBalance."Cost Amount (Expected)";
+                                    RecLProductionBalance.Modify();
+                                end else begin
+                                    IntGI := IntGI + 1;
+                                    RecGProductionBalance.Init();
+                                    RecGProductionBalance."User ID" := UserId;
+                                    RecGProductionBalance."Entry No." := IntGI;
+                                    RecGProductionBalance."Order No." := CodGList;
+                                    RecGProductionBalance."Item No." := RecLTempProdOrderLine."Item No.";
+                                    RecGProductionBalance."Line Type" := RecGProductionBalance."Line Type"::Component;
+                                    RecGProductionBalance.Type := RecGProductionBalance.Type::Item;
+                                    RecGProductionBalance."No." := RecGProdOrderComponent."Item No.";
+                                    RecGProductionBalance.Description := RecGProdOrderComponent.Description;
+                                    RecGProductionBalance.Status := RecGProductionBalance.Status::" ";
+                                    RecGProductionBalance."Expected Quantity" := RecGProdOrderComponent."Expected Quantity";
+                                    FctFindItemLedgerEntry2();
+                                    RecGProductionBalance.Quantity := -RecGItemLedgerEntry.Quantity;
+                                    RecGProductionBalance."Unit of Measure Code" := RecGProdOrderComponent."Unit of Measure Code";
+                                    RecGProductionBalance."Scrap Quantity" := RecGProductionBalance.Quantity - RecGProductionBalance."Expected Quantity";
+                                    RecGProductionBalance."Expected Flushing Quantity" := RecGProdOrderComponent."Expected Quantity";
+                                    RecGProductionBalance."Realized Flushing Quantity" := RecGProductionBalance.Quantity;
+                                    RecGProductionBalance."Cost Amount (Expected)" := RecGProdOrderComponent."Direct Cost Amount";
+                                    RecGProductionBalance."Cost Amount (Actual)" := -DecGCostAmountActual;
+                                    RecGProductionBalance."Cost Difference" := -DecGCostAmountActual - RecGProdOrderComponent."Direct Cost Amount";
+                                    RecGProductionBalance."Actual Cost MP" := -DecGCostAmountActual;
+                                    RecGProductionBalance."Unit Price" := RecGItem."Unit Price";
+                                    RecGProductionBalance."Planned Order Index" := CopyStr(RecLTempProdOrderLine."Prod. Order No.",
+                                                                                   (StrLen(RecLTempProdOrderLine."Prod. Order No.") - 1), 2);
+                                    RecGProductionBalance."Entry No. Negative" := -IntGI;
+                                    RecGProductionBalance.Insert();
+                                end;
 
-                    until RecGProdOrderComponent.Next() = 0;
+                            until RecGProdOrderComponent.Next() = 0;
 
-                //* Operations Lines
-                RecGProdOrderRoutingLine.Reset();
-                RecGProdOrderRoutingLine.SetFilter(Status, '%1..%2', RecGProdOrderRoutingLine.Status::Released,
-                                                                  RecGProdOrderRoutingLine.Status::Finished);
-                //RecGProdOrderRoutingLine.SETFILTER("Prod. Order No.",TxtGFilterPO2);
-                RecGProdOrderRoutingLine.SetFilter("Prod. Order No.", RecLTempProdOrderLine."Prod. Order No.");
-                if RecGProdOrderRoutingLine.FindSet() then
-                    repeat
-                        RecLProductionBalance.Reset();
-                        RecLProductionBalance.SetCurrentKey("User ID", "Line Type", "Operation No.", Type, "No.");
-                        RecLProductionBalance.SetRange("User ID", UserId);
-                        RecLProductionBalance.SetRange("Line Type", RecLProductionBalance."Line Type"::Operation);
-                        RecLProductionBalance.SetRange("Operation No.", RecGProdOrderRoutingLine."Operation No.");
-                        RecLProductionBalance.SetRange(Type, RecGProdOrderRoutingLine.Type);
-                        RecLProductionBalance.SetRange("No.", RecGProdOrderRoutingLine."No.");
-                        RecLProductionBalance.SetRange("Item No.", RecLTempProdOrderLine."Item No.");
-                        if RecLProductionBalance.FindFirst() then begin
-                            RecLProductionBalance."Expected Quantity" := RecLProductionBalance."Expected Quantity" +
-                                                                         RecGProdOrderRoutingLine."Input Quantity";
-                            RecLProductionBalance."Cost Amount (Expected)" := RecLProductionBalance."Cost Amount (Expected)" +
-                                                                              RecGProdOrderRoutingLine."Expected Operation Cost Amt.";
-                            RecLProductionBalance."Expected Flushing Quantity" := RecLProductionBalance."Expected Flushing Quantity" +
-                                                                                  RecGProdOrderRoutingLine."Expected Capacity Need";
-                            RecLProductionBalance."Cost Difference" := RecLProductionBalance."Cost Amount (Actual)" -
-                                                                       RecLProductionBalance."Cost Amount (Expected)";
-                            if RecLProductionBalance."Expected Flushing Quantity" <> 0 then
-                                RecLProductionBalance.Productivity := (1 - (RecLProductionBalance."Realized Flushing Quantity" -
-                                                  RecLProductionBalance."Expected Flushing Quantity") /
-                                                  RecLProductionBalance."Expected Flushing Quantity") * 100;
-                            if RecLProductionBalance."Expected Quantity" <> 0 then
-                                RecLProductionBalance.Output := RecLProductionBalance.Quantity / RecLProductionBalance."Expected Quantity" * 100;
+                    //* Operations Lines
+                    RecGProdOrderRoutingLine.Reset();
+                    RecGProdOrderRoutingLine.SetFilter(Status, '%1..%2', RecGProdOrderRoutingLine.Status::Released,
+                                                                      RecGProdOrderRoutingLine.Status::Finished);
+                    //RecGProdOrderRoutingLine.SETFILTER("Prod. Order No.",TxtGFilterPO2);
+                    RecGProdOrderRoutingLine.SetFilter("Prod. Order No.", RecLTempProdOrderLine."Prod. Order No.");
+                    if RecGProdOrderRoutingLine.FindSet() then
+                            repeat
+                                RecLProductionBalance.Reset();
+                                RecLProductionBalance.SetCurrentKey("User ID", "Line Type", "Operation No.", Type, "No.");
+                                RecLProductionBalance.SetRange("User ID", UserId);
+                                RecLProductionBalance.SetRange("Line Type", RecLProductionBalance."Line Type"::Operation);
+                                RecLProductionBalance.SetRange("Operation No.", RecGProdOrderRoutingLine."Operation No.");
+                                RecLProductionBalance.SetRange(Type, RecGProdOrderRoutingLine.Type);
+                                RecLProductionBalance.SetRange("No.", RecGProdOrderRoutingLine."No.");
+                                RecLProductionBalance.SetRange("Item No.", RecLTempProdOrderLine."Item No.");
+                                if RecLProductionBalance.FindFirst() then begin
+                                    RecLProductionBalance."Expected Quantity" := RecLProductionBalance."Expected Quantity" +
+                                                                                 RecGProdOrderRoutingLine."Input Quantity";
+                                    RecLProductionBalance."Cost Amount (Expected)" := RecLProductionBalance."Cost Amount (Expected)" +
+                                                                                      RecGProdOrderRoutingLine."Expected Operation Cost Amt.";
+                                    RecLProductionBalance."Expected Flushing Quantity" := RecLProductionBalance."Expected Flushing Quantity" +
+                                                                                          RecGProdOrderRoutingLine."Expected Capacity Need";
+                                    RecLProductionBalance."Cost Difference" := RecLProductionBalance."Cost Amount (Actual)" -
+                                                                               RecLProductionBalance."Cost Amount (Expected)";
+                                    if RecLProductionBalance."Expected Flushing Quantity" <> 0 then
+                                        RecLProductionBalance.Productivity := (1 - (RecLProductionBalance."Realized Flushing Quantity" -
+                                                          RecLProductionBalance."Expected Flushing Quantity") /
+                                                          RecLProductionBalance."Expected Flushing Quantity") * 100;
+                                    if RecLProductionBalance."Expected Quantity" <> 0 then
+                                        RecLProductionBalance.Output := RecLProductionBalance.Quantity / RecLProductionBalance."Expected Quantity" * 100;
 
-                            RecLProductionBalance.Modify();
-                        end else begin
-                            IntGI := IntGI + 1;
-                            RecGProductionBalance.Init();
-                            RecGProductionBalance."User ID" := UserId;
-                            RecGProductionBalance."Entry No." := IntGI;
-                            RecGProductionBalance."Order No." := CodGList;
-                            RecGProductionBalance."Item No." := RecLTempProdOrderLine."Item No.";
-                            RecGProductionBalance."Line Type" := RecGProductionBalance."Line Type"::Operation;
-                            RecGProductionBalance."Operation No." := RecGProdOrderRoutingLine."Operation No.";
-                            RecGProductionBalance.Type := RecGProdOrderRoutingLine.Type.AsInteger();
-                            RecGProductionBalance."No." := RecGProdOrderRoutingLine."No.";
-                            RecGProductionBalance.Description := RecGProdOrderRoutingLine.Description;
-                            RecGProductionBalance.Status := RecGProductionBalance.Status::" ";
-                            RecGProductionBalance."Expected Quantity" := RecGProdOrderRoutingLine."Input Quantity";
-                            //>>TDL_29_02_2012.001
-                            //Old FctFindCapacityLedgerEntry3;
-                            FctFindTempCapacityLedgerEntry(RecLTempProdOrderLine);
-                            //<<TDL_29_02_2012.001
-                            RecGProductionBalance.Quantity := RecGCapacityLedgerEntry."Output Quantity";
-                            RecGProductionBalance."Unit of Measure Code" := RecGCapacityLedgerEntry."Cap. Unit of Measure Code";
-                            RecGProductionBalance."Scrap Quantity" := RecGCapacityLedgerEntry."Scrap Quantity";
-                            RecGProductionBalance."Expected Flushing Quantity" := RecGProdOrderRoutingLine."Expected Capacity Need";
-                            RecGProductionBalance."Realized Flushing Quantity" := RecGCapacityLedgerEntry."Setup Time" +
-                                                                                  RecGCapacityLedgerEntry."Run Time";
-                            RecGProductionBalance."Cost Amount (Expected)" := RecGProdOrderRoutingLine."Expected Operation Cost Amt.";
-                            RecGProductionBalance."Cost Amount (Actual)" := DecGDirectCost;
-                            RecGProductionBalance."Cost Difference" := DecGDirectCost - RecGProdOrderRoutingLine."Expected Operation Cost Amt.";
-                            if RecGProductionBalance."Expected Flushing Quantity" <> 0 then
-                                RecGProductionBalance.Productivity := (1 - (RecGProductionBalance."Realized Flushing Quantity" -
-                                                  RecGProductionBalance."Expected Flushing Quantity") /
-                                                  RecGProductionBalance."Expected Flushing Quantity") * 100;
-                            if RecGProductionBalance."Expected Quantity" <> 0 then
-                                RecGProductionBalance.Output := RecGProductionBalance.Quantity / RecGProductionBalance."Expected Quantity" * 100;
-                            RecGProductionBalance."Unit Price" := RecGItem."Unit Price";
-                            RecGProductionBalance."Planned Order Index" := CopyStr(RecLTempProdOrderLine."Prod. Order No.",
-                                                                           (StrLen(RecLTempProdOrderLine."Prod. Order No.") - 1), 2);
-                            RecGProductionBalance."Entry No. Negative" := -IntGI;
-                            RecGProductionBalance.Insert();
-                        end;
+                                    RecLProductionBalance.Modify();
+                                end else begin
+                                    IntGI := IntGI + 1;
+                                    RecGProductionBalance.Init();
+                                    RecGProductionBalance."User ID" := UserId;
+                                    RecGProductionBalance."Entry No." := IntGI;
+                                    RecGProductionBalance."Order No." := CodGList;
+                                    RecGProductionBalance."Item No." := RecLTempProdOrderLine."Item No.";
+                                    RecGProductionBalance."Line Type" := RecGProductionBalance."Line Type"::Operation;
+                                    RecGProductionBalance."Operation No." := RecGProdOrderRoutingLine."Operation No.";
+                                    RecGProductionBalance.Type := RecGProdOrderRoutingLine.Type.AsInteger();
+                                    RecGProductionBalance."No." := RecGProdOrderRoutingLine."No.";
+                                    RecGProductionBalance.Description := RecGProdOrderRoutingLine.Description;
+                                    RecGProductionBalance.Status := RecGProductionBalance.Status::" ";
+                                    RecGProductionBalance."Expected Quantity" := RecGProdOrderRoutingLine."Input Quantity";
+                                    //>>TDL_29_02_2012.001
+                                    //Old FctFindCapacityLedgerEntry3;
+                                    FctFindTempCapacityLedgerEntry(RecLTempProdOrderLine);
+                                    //<<TDL_29_02_2012.001
+                                    RecGProductionBalance.Quantity := RecGCapacityLedgerEntry."Output Quantity";
+                                    RecGProductionBalance."Unit of Measure Code" := RecGCapacityLedgerEntry."Cap. Unit of Measure Code";
+                                    RecGProductionBalance."Scrap Quantity" := RecGCapacityLedgerEntry."Scrap Quantity";
+                                    RecGProductionBalance."Expected Flushing Quantity" := RecGProdOrderRoutingLine."Expected Capacity Need";
+                                    RecGProductionBalance."Realized Flushing Quantity" := RecGCapacityLedgerEntry."Setup Time" +
+                                                                                          RecGCapacityLedgerEntry."Run Time";
+                                    RecGProductionBalance."Cost Amount (Expected)" := RecGProdOrderRoutingLine."Expected Operation Cost Amt.";
+                                    RecGProductionBalance."Cost Amount (Actual)" := DecGDirectCost;
+                                    RecGProductionBalance."Cost Difference" := DecGDirectCost - RecGProdOrderRoutingLine."Expected Operation Cost Amt.";
+                                    if RecGProductionBalance."Expected Flushing Quantity" <> 0 then
+                                        RecGProductionBalance.Productivity := (1 - (RecGProductionBalance."Realized Flushing Quantity" -
+                                                          RecGProductionBalance."Expected Flushing Quantity") /
+                                                          RecGProductionBalance."Expected Flushing Quantity") * 100;
+                                    if RecGProductionBalance."Expected Quantity" <> 0 then
+                                        RecGProductionBalance.Output := RecGProductionBalance.Quantity / RecGProductionBalance."Expected Quantity" * 100;
+                                    RecGProductionBalance."Unit Price" := RecGItem."Unit Price";
+                                    RecGProductionBalance."Planned Order Index" := CopyStr(RecLTempProdOrderLine."Prod. Order No.",
+                                                                                   (StrLen(RecLTempProdOrderLine."Prod. Order No.") - 1), 2);
+                                    RecGProductionBalance."Entry No. Negative" := -IntGI;
+                                    RecGProductionBalance.Insert();
+                                end;
 
-                    until RecGProdOrderRoutingLine.Next() = 0;
-            until RecLTempProdOrderLine.Next() = 0;
+                            until RecGProdOrderRoutingLine.Next() = 0;
+                until RecLTempProdOrderLine.Next() = 0;
         //>>FE_LAPIERRETTE_PRO06.002
         FctGetLastAmountsFromProdBal();
         /*
@@ -992,10 +987,10 @@ report 50007 "PWD Production Balance"
         RecGItemLedgerEntry.SetRange("Entry Type", RecGItemLedgerEntry."Entry Type"::Consumption);
         RecGItemLedgerEntry.SetRange("Prod. Order Comp. Line No.", RecGProdOrderComponent."Line No.");
         if RecGItemLedgerEntry.FindSet() then
-            repeat
-                RecGItemLedgerEntry.CalcFields("Cost Amount (Actual)");
-                DecGCostAmountActual := DecGCostAmountActual + RecGItemLedgerEntry."Cost Amount (Actual)";
-            until RecGItemLedgerEntry.Next() = 0;
+                repeat
+                    RecGItemLedgerEntry.CalcFields("Cost Amount (Actual)");
+                    DecGCostAmountActual := DecGCostAmountActual + RecGItemLedgerEntry."Cost Amount (Actual)";
+                until RecGItemLedgerEntry.Next() = 0;
         if RecGItemLedgerEntry.FindSet() then
             RecGItemLedgerEntry.CalcSums(Quantity)
         else
@@ -1042,10 +1037,10 @@ report 50007 "PWD Production Balance"
         RecGItemLedgerEntry.SetRange("Entry Type", RecGItemLedgerEntry."Entry Type"::Consumption);
         DecGCostAmountActual := 0;
         if RecGItemLedgerEntry.FindSet() then
-            repeat
-                RecGItemLedgerEntry.CalcFields("Cost Amount (Actual)");
-                DecGCostAmountActual := DecGCostAmountActual + RecGItemLedgerEntry."Cost Amount (Actual)";
-            until RecGItemLedgerEntry.Next() = 0;
+                repeat
+                    RecGItemLedgerEntry.CalcFields("Cost Amount (Actual)");
+                    DecGCostAmountActual := DecGCostAmountActual + RecGItemLedgerEntry."Cost Amount (Actual)";
+                until RecGItemLedgerEntry.Next() = 0;
         if RecGItemLedgerEntry.FindSet() then
             RecGItemLedgerEntry.CalcSums(Quantity)
         else
@@ -1065,7 +1060,7 @@ report 50007 "PWD Production Balance"
         DecGDirectCost := 0;
         if RecGCapacityLedgerEntry.FindSet() then
             repeat
-                RecGCapacityLedgerEntry.CalcFields("Direct Cost");
+                    RecGCapacityLedgerEntry.CalcFields("Direct Cost");
                 DecGDirectCost := DecGDirectCost + RecGCapacityLedgerEntry."Direct Cost";
             until RecGCapacityLedgerEntry.Next() = 0;
         if RecGCapacityLedgerEntry.FindSet() then begin
@@ -1089,10 +1084,10 @@ report 50007 "PWD Production Balance"
         RecGCapacityLedgerEntry.SetRange("No.", RecGProdOrderRoutingLine."No.");
         DecGDirectCost := 0;
         if RecGCapacityLedgerEntry.FindSet() then
-            repeat
-                RecGCapacityLedgerEntry.CalcFields("Direct Cost");
-                DecGDirectCost := DecGDirectCost + RecGCapacityLedgerEntry."Direct Cost";
-            until RecGCapacityLedgerEntry.Next() = 0;
+                repeat
+                    RecGCapacityLedgerEntry.CalcFields("Direct Cost");
+                    DecGDirectCost := DecGDirectCost + RecGCapacityLedgerEntry."Direct Cost";
+                until RecGCapacityLedgerEntry.Next() = 0;
         if RecGCapacityLedgerEntry.FindSet() then begin
             RecGCapacityLedgerEntry.CalcSums("Output Quantity");
             RecGCapacityLedgerEntry.CalcSums("Scrap Quantity");
@@ -1115,7 +1110,7 @@ report 50007 "PWD Production Balance"
         DecGDirectCost := 0;
         if RecGCapacityLedgerEntry.FindSet() then
             repeat
-                RecGCapacityLedgerEntry.CalcFields("Direct Cost");
+                    RecGCapacityLedgerEntry.CalcFields("Direct Cost");
                 DecGDirectCost := DecGDirectCost + RecGCapacityLedgerEntry."Direct Cost";
             until RecGCapacityLedgerEntry.Next() = 0;
         if RecGCapacityLedgerEntry.FindSet() then begin

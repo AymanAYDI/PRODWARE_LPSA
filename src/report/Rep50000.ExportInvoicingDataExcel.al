@@ -533,7 +533,6 @@ report 50000 "Export Invoicing Data (Excel)"
                     field(DatStartingF; DatGStarting)
                     {
                         Caption = 'Starting Date';
-                        ShowCaption = false;
                         ApplicationArea = All;
 
                         trigger OnValidate()
@@ -547,13 +546,11 @@ report 50000 "Export Invoicing Data (Excel)"
                     field(DatEndingF; DatGEnding)
                     {
                         Caption = 'EndingDate';
-                        ShowCaption = false;
                         ApplicationArea = All;
                     }
                     field(TxtFilenameF; TxtGFilename)
                     {
                         Caption = 'File Name';
-                        ShowCaption = false;
                         Visible = false;
                         ApplicationArea = All;
                     }
@@ -666,12 +663,12 @@ report 50000 "Export Invoicing Data (Excel)"
 
                     if RecLSalesInvoiceLine.FindSet() then
                         repeat
-                            if RecLSalesInvoiceLine.Amount > DecLAmount then begin
-                                DecLAmount := RecLSalesInvoiceLine.Amount;
-                                //TxtLDesc := RecLSalesInvoiceLine.Description;
-                                TxtLDesc := CopyStr(RecLSalesInvoiceLine."PWD LPSA Description 1", 1, 50);
+                                if RecLSalesInvoiceLine.Amount > DecLAmount then begin
+                                    DecLAmount := RecLSalesInvoiceLine.Amount;
+                                    //TxtLDesc := RecLSalesInvoiceLine.Description;
+                                    TxtLDesc := CopyStr(RecLSalesInvoiceLine."PWD LPSA Description 1", 1, 50);
 
-                            end;
+                                end;
                         until RecLSalesInvoiceLine.Next() = 0;
 
                 end;
@@ -682,14 +679,14 @@ report 50000 "Export Invoicing Data (Excel)"
                     RecLSalesCrMemoLine.SetRange("Document No.", CodPDocNo);
 
                     if RecLSalesCrMemoLine.FindSet() then
-                        repeat
-                            if RecLSalesCrMemoLine.Amount > DecLAmount then begin
-                                DecLAmount := RecLSalesCrMemoLine.Amount;
-                                //TxtLDesc := RecLSalesCrMemoLine.Description;
-                                TxtLDesc := CopyStr(RecLSalesCrMemoLine."PWD LPSA Description 1", 1, 50);
+                            repeat
+                                if RecLSalesCrMemoLine.Amount > DecLAmount then begin
+                                    DecLAmount := RecLSalesCrMemoLine.Amount;
+                                    //TxtLDesc := RecLSalesCrMemoLine.Description;
+                                    TxtLDesc := CopyStr(RecLSalesCrMemoLine."PWD LPSA Description 1", 1, 50);
 
-                            end;
-                        until RecLSalesCrMemoLine.Next() = 0;
+                                end;
+                            until RecLSalesCrMemoLine.Next() = 0;
                 end;
         end;
 
@@ -772,16 +769,16 @@ report 50000 "Export Invoicing Data (Excel)"
 
                     if RecLSalesInvoiceLine.FindSet() then
                         repeat
-                            if RecLSalesInvoiceLine."Shipment No." = '' then begin
-                                if RecLItemLedgerEntry.Get(RecLSalesInvoiceLine."Appl.-from Item Entry") then
-                                    if RecLItemLedgerEntry."Document Type" = RecLItemLedgerEntry."Document Type"::"Sales Shipment" then begin
-                                        CodLShipNo := RecLItemLedgerEntry."Document No.";
-                                        BooLFound := true;
-                                    end;
-                            end else begin
-                                CodLShipNo := RecLSalesInvoiceLine."Shipment No.";
-                                BooLFound := true;
-                            end;
+                                if RecLSalesInvoiceLine."Shipment No." = '' then begin
+                                    if RecLItemLedgerEntry.Get(RecLSalesInvoiceLine."Appl.-from Item Entry") then
+                                        if RecLItemLedgerEntry."Document Type" = RecLItemLedgerEntry."Document Type"::"Sales Shipment" then begin
+                                            CodLShipNo := RecLItemLedgerEntry."Document No.";
+                                            BooLFound := true;
+                                        end;
+                                end else begin
+                                    CodLShipNo := RecLSalesInvoiceLine."Shipment No.";
+                                    BooLFound := true;
+                                end;
 
                         until ((RecLSalesInvoiceLine.Next() = 0) or (BooLFound = true));
 
@@ -794,11 +791,11 @@ report 50000 "Export Invoicing Data (Excel)"
 
                     if RecLSalesCrMemoLine.FindSet() then
                         repeat
-                            if RecLItemLedgerEntry.Get(RecLSalesCrMemoLine."Appl.-from Item Entry") then
-                                if RecLItemLedgerEntry."Document Type" = RecLItemLedgerEntry."Document Type"::"Sales Shipment" then begin
-                                    CodLShipNo := RecLItemLedgerEntry."Document No.";
-                                    BooLFound := true;
-                                end;
+                                if RecLItemLedgerEntry.Get(RecLSalesCrMemoLine."Appl.-from Item Entry") then
+                                    if RecLItemLedgerEntry."Document Type" = RecLItemLedgerEntry."Document Type"::"Sales Shipment" then begin
+                                        CodLShipNo := RecLItemLedgerEntry."Document No.";
+                                        BooLFound := true;
+                                    end;
                         until ((RecLSalesCrMemoLine.Next() = 0) or (BooLFound = true));
                 end;
         end;

@@ -235,7 +235,7 @@ report 50024 "PWD Update Rtg Line Global"
                         RecLProdOrderLine.SetRange("Routing Reference No.", "Prod. Order Routing Line"."Routing Reference No.");
                         if RecLProdOrderLine.Find('-') then
                             repeat
-                                RecLProdOrderLine."PWD To Be Updated" := true;
+                                    RecLProdOrderLine."PWD To Be Updated" := true;
                                 RecLProdOrderLine.Modify(false);
                             until RecLProdOrderLine.Next() = 0;
                     end;
@@ -350,7 +350,6 @@ report 50024 "PWD Update Rtg Line Global"
                     field(CodGRoutingHeaderF; CodGRoutingHeader)
                     {
                         Caption = 'Reference Routing No.';
-                        ShowCaption = false;
                         TableRelation = "Routing Header"."No.";
                         ApplicationArea = All;
 
@@ -369,7 +368,6 @@ report 50024 "PWD Update Rtg Line Global"
                     {
                         Caption = 'Operation No.';
                         //OptionCaption = 'Operations No.';
-                        ShowCaption = false;
                         ApplicationArea = All;
 
                         trigger OnLookup(var Text: Text): Boolean
@@ -392,41 +390,34 @@ report 50024 "PWD Update Rtg Line Global"
                 group(Control1000000002)
                 {
                     Caption = 'Options';
-                    ShowCaption = false;
                     field("BooG_Setup_TimeF"; BooG_Setup_Time)
                     {
                         Caption = 'Setup Time';
-                        ShowCaption = false;
                         ApplicationArea = All;
                     }
                     field("BooG_Run_TimeF"; BooG_Run_Time)
                     {
                         Caption = 'Run Time';
-                        ShowCaption = false;
                         ApplicationArea = All;
                     }
                     field("BooG_Wait_TimeF"; BooG_Wait_Time)
                     {
                         Caption = 'Wait Time';
-                        ShowCaption = false;
                         ApplicationArea = All;
                     }
                     field("BooG_Move_TimeF"; BooG_Move_Time)
                     {
                         Caption = 'Move Time';
-                        ShowCaption = false;
                         ApplicationArea = All;
                     }
                     field("BooG_Update_Cost_FromWCF"; BooG_Update_Cost_FromWC)
                     {
                         Caption = 'Update Unit Cost from Work Center';
-                        ShowCaption = false;
                         ApplicationArea = All;
                     }
                     field("BooG_Update_Cost_FromMCF"; BooG_Update_Cost_FromMC)
                     {
                         Caption = 'Update Unit Cost from Machine Center';
-                        ShowCaption = false;
                         ApplicationArea = All;
                     }
                     group("Les OF sont filtrés par défaut avec Statut = Lancé et Groupe de planification <> ACIERS")

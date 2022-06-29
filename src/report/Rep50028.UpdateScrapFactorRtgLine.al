@@ -348,7 +348,7 @@ report 50028 "Update Scrap Factor Rtg Line"
                 RecLRoutingLine.SetFilter("Scrap Factor %", '<>%1', 0);
                 if RecLRoutingLine.FindSet() then
                     repeat
-                        DecLNewQtyGet := DecLNewQtyGet / (1 + RecLRoutingLine."Scrap Factor %" / 100);
+                            DecLNewQtyGet := DecLNewQtyGet / (1 + RecLRoutingLine."Scrap Factor %" / 100);
                     until RecLRoutingLine.Next() = 0;
 
 
@@ -393,7 +393,6 @@ report 50028 "Update Scrap Factor Rtg Line"
                     field(CodGRoutingHeaderF; CodGRoutingHeader)
                     {
                         Caption = 'Reference Routing No.';
-                        ShowCaption = false;
                         TableRelation = "Routing Header"."No.";
                         ApplicationArea = All;
 
@@ -412,7 +411,6 @@ report 50028 "Update Scrap Factor Rtg Line"
                     {
                         Caption = 'Operation No.';
                         //OptionCaption = 'Operations No.';
-                        ShowCaption = false;
                         ApplicationArea = All;
 
                         trigger OnLookup(var Text: Text): Boolean

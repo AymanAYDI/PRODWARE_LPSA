@@ -52,11 +52,9 @@ report 50046 "PWD TPL Supp Centre de charge"
                 group(Control1000000000)
                 {
                     Caption = 'Import';
-                    ShowCaption = false;
                     field(TxtGFileF; TxtGFile)
                     {
                         Caption = 'Fichier à importer';
-                        ShowCaption = false;
                         ApplicationArea = All;
                         trigger OnLookup(var Text: Text): Boolean
                         var

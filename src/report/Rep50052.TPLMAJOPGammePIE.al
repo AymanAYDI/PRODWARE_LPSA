@@ -77,14 +77,12 @@ report 50052 "PWD TPL MAJ OP Gamme PIE"
                     field(CodGOldOperationF; CodGOldOperation)
                     {
                         Caption = 'Remplacer';
-                        ShowCaption = false;
                         TableRelation = "Machine Center";
                         ApplicationArea = All;
                     }
                     field(CodGNewOperationF; CodGNewOperation)
                     {
                         Caption = 'Par';
-                        ShowCaption = false;
                         TableRelation = "Machine Center";
                         ApplicationArea = All;
                         trigger OnValidate()

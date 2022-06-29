@@ -16354,14 +16354,14 @@
           <note from="Xliff Generator" annotates="general" priority="3">TableExtension PWD ProductionForecastEntry - Field PWD Forecast Origin - Property Caption</note>
         </trans-unit>
         <trans-unit id="TableExtension 2356018738 - Field 3996335805 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 2308244223">
-          <source>Component Quantity</source>
+          <source>Component No.</source>
           <target state="translated">N° composant</target>
           <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">TableExtension PWD ProductionOrder - Field PWD Component No. - Property Caption</note>
         </trans-unit>
         <trans-unit id="TableExtension 2356018738 - Field 1185330009 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 2308244223">
           <source>Component Quantity</source>
-          <target state="translated">N° composant</target>
+          <target state="translated">Quantité composant</target>
           <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">TableExtension PWD ProductionOrder - Field PWD Component Quantity - Property Caption</note>
         </trans-unit>

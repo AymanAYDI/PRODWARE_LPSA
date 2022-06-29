@@ -103,7 +103,7 @@ tableextension 60036 "PWD ProductionOrder" extends "Production Order"
         }
         field(50011; "PWD Component No."; Code[20])
         {
-            Caption = 'Component Quantity';
+            Caption = 'Component No.';
             Editable = false;
         }
         field(50020; "PWD Source Material Vendor"; Enum "PWD Source Material Vendor")
@@ -126,7 +126,7 @@ tableextension 60036 "PWD ProductionOrder" extends "Production Order"
             ProdOrderLine.SETRANGE("Prod. Order No.", "No.");
             if ProdOrderLine.FINDFIRST() then
                 REPEAT
-                    ProdOrderLine.ResendProdOrdertoQuartis();
+                        ProdOrderLine.ResendProdOrdertoQuartis();
                 UNTIL ProdOrderLine.NEXT() = 0;
         end;
     end;
@@ -141,9 +141,9 @@ tableextension 60036 "PWD ProductionOrder" extends "Production Order"
         ProdOrderLine.SETRANGE(Status, Status);
         ProdOrderLine.SETRANGE("Prod. Order No.", "No.");
         IF ProdOrderLine.FINDFIRST() THEN
-            REPEAT
-                BooLIsNotAvailable := ProdOrderLine.CheckComponentAvailabilty();
-            UNTIL (BooLIsNotAvailable) OR (ProdOrderLine.NEXT() = 0);
+                REPEAT
+                    BooLIsNotAvailable := ProdOrderLine.CheckComponentAvailabilty();
+                UNTIL (BooLIsNotAvailable) OR (ProdOrderLine.NEXT() = 0);
         EXIT(BooLIsNotAvailable);
     END;
 
@@ -159,7 +159,7 @@ tableextension 60036 "PWD ProductionOrder" extends "Production Order"
         RecLProdOrderComponent.SETRANGE("Prod. Order No.", "No.");
         IF RecLProdOrderComponent.FindSet() THEN
             REPEAT
-                RecLItem.GET(RecLProdOrderComponent."Item No.");
+                    RecLItem.GET(RecLProdOrderComponent."Item No.");
                 RecLItem.SETFILTER("Location Filter", '=%1', RecLProdOrderComponent."Location Code");
                 RecLItem.CALCFIELDS(Inventory);
                 DecLInv += RecLItem.Inventory;

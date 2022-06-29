@@ -104,4 +104,9 @@ pageextension 60145 "PWD PlanningWorksheet" extends "Planning Worksheet"
             }
         }
     }
+    trigger OnNewRecord(BelowxRec: Boolean)
+    begin
+        Rec."Planning Flexibility" := Rec."Planning Flexibility"::None;
+    end;
+
 }

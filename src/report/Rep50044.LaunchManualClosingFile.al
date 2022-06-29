@@ -50,17 +50,14 @@ report 50044 "PWD Launch Manual Closing File"
                 group(Control1100267000)
                 {
                     Caption = 'Options';
-                    ShowCaption = false;
                     field(BooGItemF; BooGItem)
                     {
                         Caption = 'Item Export';
-                        ShowCaption = false;
                         ApplicationArea = All;
                     }
                     field(BooGInventoryF; BooGInventory)
                     {
                         Caption = 'Inventory Export';
-                        ShowCaption = false;
                         ApplicationArea = All;
                     }
                     field(BooGProdOrderF; BooGProdOrder)
@@ -71,7 +68,6 @@ report 50044 "PWD Launch Manual Closing File"
                     field(BooGFinishedPOF; BooGFinishedPO)
                     {
                         Caption = 'Finished PO Export (month)';
-                        ShowCaption = false;
                         ApplicationArea = All;
                     }
                     field(DatGReferenceDateF; DatGReferenceDate)

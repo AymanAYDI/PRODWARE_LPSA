@@ -42,7 +42,6 @@ report 50077 "Update Rtg Line Global-Step 3"
                     field(CodGRoutingHeaderF; CodGRoutingHeader)
                     {
                         Caption = 'Reference Routing No.';
-                        ShowCaption = false;
                         TableRelation = "Routing Header"."No.";
                         ApplicationArea = All;
 
@@ -61,7 +60,6 @@ report 50077 "Update Rtg Line Global-Step 3"
                     {
                         Caption = 'Operation No.';
                         //OptionCaption = 'Operations No.';
-                        ShowCaption = false;
                         ApplicationArea = All;
 
                         trigger OnLookup(var Text: Text): Boolean
@@ -84,11 +82,9 @@ report 50077 "Update Rtg Line Global-Step 3"
                 group(Control1000000002)
                 {
                     Caption = 'Options';
-                    ShowCaption = false;
                     field("BooG_Setup_TimeF"; BooG_Setup_Time)
                     {
                         Caption = 'Setup Time';
-                        ShowCaption = false;
                         ApplicationArea = All;
 
                         trigger OnValidate()
@@ -100,13 +96,11 @@ report 50077 "Update Rtg Line Global-Step 3"
                     field("BooG_Setup_Time_UnitF"; BooG_Setup_Time_Unit)
                     {
                         Caption = 'Setup Time Unit of Meas. Code';
-                        ShowCaption = false;
                         ApplicationArea = All;
                     }
                     field("BooG_Run_TimeF"; BooG_Run_Time)
                     {
                         Caption = 'Run Time';
-                        ShowCaption = false;
                         ApplicationArea = All;
 
                         trigger OnValidate()
@@ -118,13 +112,11 @@ report 50077 "Update Rtg Line Global-Step 3"
                     field("BooG_Run_Time_UnitF"; BooG_Run_Time_Unit)
                     {
                         Caption = 'Run Time Unit of Meas. Code';
-                        ShowCaption = false;
                         ApplicationArea = All;
                     }
                     field("BooG_Wait_TimeF"; BooG_Wait_Time)
                     {
                         Caption = 'Wait Time';
-                        ShowCaption = false;
                         ApplicationArea = All;
 
                         trigger OnValidate()
@@ -136,13 +128,11 @@ report 50077 "Update Rtg Line Global-Step 3"
                     field("BooG_Wait_Time_UnitF"; BooG_Wait_Time_Unit)
                     {
                         Caption = 'Wait Time Unit of Meas. Code';
-                        ShowCaption = false;
                         ApplicationArea = All;
                     }
                     field("BooG_Move_TimeF"; BooG_Move_Time)
                     {
                         Caption = 'Move Time';
-                        ShowCaption = false;
                         ApplicationArea = All;
 
                         trigger OnValidate()
@@ -154,31 +144,26 @@ report 50077 "Update Rtg Line Global-Step 3"
                     field("BooG_Move_Time_UnitF"; BooG_Move_Time_Unit)
                     {
                         Caption = 'Move Time Unit of Meas. Code';
-                        ShowCaption = false;
                         ApplicationArea = All;
                     }
                     field("BooG_Concurrent_CapacitiesF"; BooG_Concurrent_Capacities)
                     {
                         Caption = 'Concurrent Capacities';
-                        ShowCaption = false;
                         ApplicationArea = All;
                     }
                     field("BooG_Scrap_FactorF"; BooG_Scrap_Factor)
                     {
                         Caption = 'Scrap Factor %';
-                        ShowCaption = false;
                         ApplicationArea = All;
                     }
                     field("BooG_Update_Cost_FromWCF"; BooG_Update_Cost_FromWC)
                     {
                         Caption = 'Update Unit Cost from Work Center';
-                        ShowCaption = false;
                         ApplicationArea = All;
                     }
                     field("BooG_Update_Cost_FromMCF"; BooG_Update_Cost_FromMC)
                     {
                         Caption = 'Update Unit Cost from Machine Center';
-                        ShowCaption = false;
                         ApplicationArea = All;
                     }
                 }

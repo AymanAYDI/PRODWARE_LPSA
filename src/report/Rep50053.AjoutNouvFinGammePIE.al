@@ -50,16 +50,16 @@ report 50053 "PWD Ajout Nouv.Fin Gamme PIE"
                         RecGRoutingLineToAdd.Reset();
                         RecGRoutingLineToAdd.SetRange("Routing No.", CodGRoutingToAdd);
                         if RecGRoutingLineToAdd.FindFirst() then
-                            repeat
-                                RecGRoutingLineAdded := RecGRoutingLineToAdd;
-                                RecGRoutingLineAdded."Routing No." := CodGRoutingNo;
-                                if CodGOperationNo <> '' then begin
-                                    RecGRoutingLineAdded."Previous Operation No." := CodGOperationNo;
-                                    CodGOperationNo := '';
-                                end;
-                                RecGRoutingLineAdded.Insert();
+                                repeat
+                                    RecGRoutingLineAdded := RecGRoutingLineToAdd;
+                                    RecGRoutingLineAdded."Routing No." := CodGRoutingNo;
+                                    if CodGOperationNo <> '' then begin
+                                        RecGRoutingLineAdded."Previous Operation No." := CodGOperationNo;
+                                        CodGOperationNo := '';
+                                    end;
+                                    RecGRoutingLineAdded.Insert();
 
-                            until RecGRoutingLineToAdd.Next() = 0;
+                                until RecGRoutingLineToAdd.Next() = 0;
 
                         if ("Routing Header".Status = "Routing Header".Status::Certified) then begin
                             RecLRoutingHeader.Get("Routing Header"."No.");
@@ -114,14 +114,12 @@ report 50053 "PWD Ajout Nouv.Fin Gamme PIE"
                     field(CodGStartOperationF; CodGStartOperation)
                     {
                         Caption = 'Remplacer toutes les lignes de gammes après l''opératio';
-                        ShowCaption = false;
                         TableRelation = "Machine Center";
                         ApplicationArea = All;
                     }
                     field(CodGRoutingToAddF; CodGRoutingToAdd)
                     {
                         Caption = 'Par les lignes de la gamme';
-                        ShowCaption = false;
                         TableRelation = "Routing Header";
                         ApplicationArea = All;
                     }

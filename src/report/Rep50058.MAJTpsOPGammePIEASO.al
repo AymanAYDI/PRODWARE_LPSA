@@ -124,7 +124,6 @@ report 50058 "PWD MAJ Tps OP Gamme PIE A/S O"
                     field(CodGOperationF; CodGOperation)
                     {
                         Caption = 'Pour l''opération';
-                        ShowCaption = false;
                         TableRelation = "Machine Center";
                         ApplicationArea = All;
                     }
@@ -137,33 +136,28 @@ report 50058 "PWD MAJ Tps OP Gamme PIE A/S O"
                     field(BooGSetupTimeF; BooGSetupTime)
                     {
                         Caption = 'prépa';
-                        ShowCaption = false;
                         ApplicationArea = All;
                     }
                     field(BooGMoveTimeF; BooGMoveTime)
                     {
                         Caption = 'transfert';
-                        ShowCaption = false;
                         ApplicationArea = All;
 
                     }
                     field(CstG008F; CstG008)
                     {
                         ApplicationArea = All;
-                        ShowCaption = false;
                         Editable = false;
                     }
                     field(DecGSetupTimeF; DecGSetupTime)
                     {
                         Caption = 'prépa';
-                        ShowCaption = false;
                         ApplicationArea = All;
                         Editable = BooGSetupTime;
                     }
                     field(DecGMoveTimeF; DecGMoveTime)
                     {
                         Caption = 'transfert';
-                        ShowCaption = false;
                         ApplicationArea = All;
                         Editable = BooGMoveTime;
                     }
@@ -176,14 +170,12 @@ report 50058 "PWD MAJ Tps OP Gamme PIE A/S O"
                     field(DecGSetupTimeOF; DecGSetupTimeO)
                     {
                         Caption = 'prépa';
-                        ShowCaption = false;
                         ApplicationArea = All;
                         Editable = BooGSetupTime;
                     }
                     field(DecGMoveTimeOF; DecGMoveTimeO)
                     {
                         Caption = 'transfert';
-                        ShowCaption = false;
                         ApplicationArea = All;
                         Editable = BooGMoveTime;
                     }

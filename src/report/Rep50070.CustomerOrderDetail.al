@@ -71,6 +71,10 @@ report 50070 "PWD Customer - Order Detail"
                 column(SalesHeaderNo; SalesHeader."No.")
                 {
                 }
+                column(SalesHeaderNoCaption; SalesHeader.FieldCaption("No."))
+                {
+                }
+
                 column(SalesHeaderOrderDate; SalesHeader."Order Date")
                 {
                 }
@@ -78,15 +82,28 @@ report 50070 "PWD Customer - Order Detail"
                 {
                     IncludeCaption = true;
                 }
+                column(Description_SalesLineCaption; FieldCaption(Description))
+                {
+                }
+
                 column(No_SalesLine; "No.")
                 {
                     IncludeCaption = true;
+                }
+                column(No_SalesLineCaption; FieldCaption("No."))
+                {
                 }
                 column(Type_SalesLine; Type)
                 {
                     IncludeCaption = true;
                 }
+                column(Type_SalesLineCaption; FieldCaption(Type))
+                {
+                }
                 column(ShipmentDate_SalesLine; Format("Shipment Date"))
+                {
+                }
+                column(ShipmentDate_SalesLineCaption; FieldCaption("Shipment Date"))
                 {
                 }
                 column(Quantity_SalesLine; Quantity)
@@ -107,15 +124,24 @@ report 50070 "PWD Customer - Order Detail"
                     AutoFormatType = 2;
                     IncludeCaption = true;
                 }
+                column(UnitPrice_SalesLineCaption; FieldCaption("Unit Price"))
+                {
+                }
                 column(LineDiscAmt_SalesLine; "Line Discount Amount")
                 {
                     IncludeCaption = true;
+                }
+                column(LineDiscAmt_SalesLineCaption; FieldCaption("Line Discount Amount"))
+                {
                 }
                 column(InvDiscAmt_SalesLine; "Inv. Discount Amount")
                 {
                     AutoFormatExpression = "Currency Code";
                     AutoFormatType = 2;
                     IncludeCaption = true;
+                }
+                column(InvDiscAmt_SalesLineCaption; FieldCaption("Inv. Discount Amount"))
+                {
                 }
                 column(SalesOrderAmount; SalesOrderAmount)
                 {
@@ -125,6 +151,16 @@ report 50070 "PWD Customer - Order Detail"
                 column(SalesHeaderCurrCode; SalesHeader."Currency Code")
                 {
                 }
+                column(RecGItemSearchDescription; RecGItem."Search Description")
+                {
+
+                }
+                column(RecGItemSearchDescriptionCaption; RecGItem.FieldCaption("Search Description"))
+                {
+
+                }
+
+
 
                 trigger OnAfterGetRecord()
                 begin

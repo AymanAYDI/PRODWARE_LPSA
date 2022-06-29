@@ -52,7 +52,7 @@ report 50059 "PWD Update Cost Method V2"
                 RecGItemConfigurator.SetRange("Item Code", PurchasedItem."No.");
                 if RecGItemConfigurator.FindFirst() then
                     repeat
-                        RecGItemConfigurator."Costing Method" := PurchasedItem."Costing Method";
+                            RecGItemConfigurator."Costing Method" := PurchasedItem."Costing Method";
                         RecGItemConfigurator.Modify();
                     until RecGItemConfigurator.Next() = 0;
                 //<<NDBI
@@ -99,10 +99,10 @@ report 50059 "PWD Update Cost Method V2"
                 RecGItemConfigurator.SetCurrentKey("Item Code");
                 RecGItemConfigurator.SetRange("Item Code", ManufacturedItem."No.");
                 if RecGItemConfigurator.FindFirst() then
-                    repeat
-                        RecGItemConfigurator."Costing Method" := ManufacturedItem."Costing Method";
-                        RecGItemConfigurator.Modify();
-                    until RecGItemConfigurator.Next() = 0;
+                        repeat
+                            RecGItemConfigurator."Costing Method" := ManufacturedItem."Costing Method";
+                            RecGItemConfigurator.Modify();
+                        until RecGItemConfigurator.Next() = 0;
                 //<<NDBI
             end;
 
@@ -126,19 +126,16 @@ report 50059 "PWD Update Cost Method V2"
                 group(Control1000000000)
                 {
                     Caption = 'Item type';
-                    ShowCaption = false;
                     field(OptGReplenishmentSystemF; OptGReplenishmentSystem)
                     {
                         Caption = 'Item type';
                         OptionCaption = 'Purchase,Prod. Order, Purchase and Prod. Order';
-                        ShowCaption = false;
                         ApplicationArea = All;
                     }
                     field(OptCostMethForPurchasedItemF; OptCostMethForPurchasedItem)
                     {
                         Caption = 'Costing method to be forced for purchased items';
                         OptionCaption = 'FIFO,LIFO,Specific,Average,Standard';
-                        ShowCaption = false;
                         ApplicationArea = All;
                         Editable = (OptGReplenishmentSystem = OptGReplenishmentSystem::Purchased) OR (OptGReplenishmentSystem = OptGReplenishmentSystem::Both);
                     }
@@ -146,7 +143,6 @@ report 50059 "PWD Update Cost Method V2"
                     {
                         Caption = 'Costing method to be forced for manufactured items';
                         OptionCaption = 'FIFO,LIFO,Specific,Average,Standard';
-                        ShowCaption = false;
                         ApplicationArea = All;
                         Editable = (OptGReplenishmentSystem = OptGReplenishmentSystem::Manufactured) OR (OptGReplenishmentSystem = OptGReplenishmentSystem::Both);
                     }

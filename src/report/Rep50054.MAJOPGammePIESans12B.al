@@ -87,14 +87,12 @@ report 50054 "MAJ OP Gamme PIE Sans 1/2;B"
                     field(CodGOldOperationF; CodGOldOperation)
                     {
                         Caption = 'Remplacer';
-                        ShowCaption = false;
                         TableRelation = "Machine Center";
                         ApplicationArea = All;
                     }
                     field(CodGNewOperationF; CodGNewOperation)
                     {
                         Caption = 'Par';
-                        ShowCaption = false;
                         TableRelation = "Machine Center";
                         ApplicationArea = All;
                         trigger OnValidate()

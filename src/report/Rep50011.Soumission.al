@@ -305,11 +305,9 @@ report 50011 "PWD Soumission"
                 group(Control1900000002)
                 {
                     Caption = 'Options';
-                    ShowCaption = false;
                     field(NoOfCopiesF; NoOfCopies)
                     {
                         Caption = 'No. of Copies';
-                        ShowCaption = false;
                         ApplicationArea = All;
                     }
                 }

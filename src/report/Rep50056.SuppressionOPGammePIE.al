@@ -75,19 +75,16 @@ report 50056 "PWD Suppression OP Gamme PIE"
             {
                 group(Control1000000000)
                 {
-                    Caption = 'Action';
-                    ShowCaption = false;
+                    Caption = 'Option';
                     field(CodGOperationToDelF; CodGOperationToDel)
                     {
                         Caption = 'Opération à supprimer';
-                        ShowCaption = false;
                         TableRelation = "Machine Center";
                         ApplicationArea = All;
                     }
                     field(CodGStartOperationF; CodGStartOperation)
                     {
                         Caption = 'Quand elle suit l''opération';
-                        ShowCaption = false;
                         TableRelation = "Machine Center";
                         ApplicationArea = All;
                     }

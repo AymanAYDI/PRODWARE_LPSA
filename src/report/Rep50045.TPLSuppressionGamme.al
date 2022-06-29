@@ -76,14 +76,12 @@ report 50045 "PWD TPL Suppression Gamme"
                     field(TxtGFileF; TxtGFile)
                     {
                         Caption = 'Fichier à importe';
-                        ShowCaption = false;
                         ApplicationArea = All;
                     }
                     field(BooGDelRoutingNoOnItemF; BooGDelRoutingNoOnItem)
                     {
                         Caption = 'Supprimer le N° gamme sur la fiche article lié';
                         ApplicationArea = All;
-                        ShowCaption = false;
                         trigger OnLookup(var Text: Text): Boolean
                         var
                             CduGCommonDialogMgt: Codeunit "File management";
@@ -163,17 +161,17 @@ report 50045 "PWD TPL Suppression Gamme"
             //On commence par vider N° gamme sur la fiche article.
             RecGRoutingHeaderTemp.Reset();
             if RecGRoutingHeaderTemp.FindFirst() then
-                repeat
-                    RecGItem.Reset();
-                    RecGItem.SetCurrentKey("Routing No.");
-                    RecGItem.SetRange("Routing No.", RecGRoutingHeaderTemp."No.");
-                    if RecGItem.FindFirst() then
-                        repeat
-                            RecLItem.Get(RecGItem."No.");
-                            RecLItem.Validate("Routing No.", '');
-                            RecLItem.Modify(true);
-                        until RecGItem.Next() = 0;
-                until RecGRoutingHeaderTemp.Next() = 0;
+                    repeat
+                        RecGItem.Reset();
+                        RecGItem.SetCurrentKey("Routing No.");
+                        RecGItem.SetRange("Routing No.", RecGRoutingHeaderTemp."No.");
+                        if RecGItem.FindFirst() then
+                                repeat
+                                    RecLItem.Get(RecGItem."No.");
+                                    RecLItem.Validate("Routing No.", '');
+                                    RecLItem.Modify(true);
+                                until RecGItem.Next() = 0;
+                    until RecGRoutingHeaderTemp.Next() = 0;
 
             Commit();
 
@@ -182,26 +180,26 @@ report 50045 "PWD TPL Suppression Gamme"
             RecGRoutingHeaderTemp.Reset();
             if RecGRoutingHeaderTemp.FindFirst() then
                 repeat
-                    if (RecGRoutingHeaderTemp."Description 2" = '') then begin
-                        RecGRoutingHeader.Get(RecGRoutingHeaderTemp."No.");
-                        if (RecGRoutingHeader.Status = RecGRoutingHeader.Status::Certified) then begin
-                            RecGRoutingHeader.Validate(Status, RecGRoutingHeader.Status::"Under Development");
-                            RecGRoutingHeader.Modify(true);
+                        if (RecGRoutingHeaderTemp."Description 2" = '') then begin
+                            RecGRoutingHeader.Get(RecGRoutingHeaderTemp."No.");
+                            if (RecGRoutingHeader.Status = RecGRoutingHeader.Status::Certified) then begin
+                                RecGRoutingHeader.Validate(Status, RecGRoutingHeader.Status::"Under Development");
+                                RecGRoutingHeader.Modify(true);
+                            end;
+                            RecGMfgComment.SetRange("Table Name", RecGMfgComment."Table Name"::"Routing Header");
+                            RecGMfgComment.SetRange("No.", RecGRoutingHeader."No.");
+                            RecGMfgComment.DeleteAll();
+
+                            RecGRtngLine.LockTable();
+                            RecGRtngLine.SetRange("Routing No.", RecGRoutingHeader."No.");
+                            RecGRtngLine.DeleteAll(true);
+
+                            RecGRtngVersion.SetRange("Routing No.", RecGRoutingHeader."No.");
+                            RecGRtngVersion.DeleteAll();
+
+                            RecGRoutingHeader.Delete();
+
                         end;
-                        RecGMfgComment.SetRange("Table Name", RecGMfgComment."Table Name"::"Routing Header");
-                        RecGMfgComment.SetRange("No.", RecGRoutingHeader."No.");
-                        RecGMfgComment.DeleteAll();
-
-                        RecGRtngLine.LockTable();
-                        RecGRtngLine.SetRange("Routing No.", RecGRoutingHeader."No.");
-                        RecGRtngLine.DeleteAll(true);
-
-                        RecGRtngVersion.SetRange("Routing No.", RecGRoutingHeader."No.");
-                        RecGRtngVersion.DeleteAll();
-
-                        RecGRoutingHeader.Delete();
-
-                    end;
                 until RecGRoutingHeaderTemp.Next() = 0;
         end;
     end;

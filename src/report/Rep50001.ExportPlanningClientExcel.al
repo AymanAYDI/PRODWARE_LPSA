@@ -65,10 +65,10 @@ report 50001 "Export Planning Client Excel"
                     ReadExcelSheet();
                     MaxRowNo := 0;
                     if TempExcelBuffer.FindFirst() then
-                        repeat
-                            if TempExcelBuffer."Row No." > MaxRowNo then
-                                MaxRowNo := TempExcelBuffer."Row No.";
-                        until TempExcelBuffer.Next() = 0;
+                            repeat
+                                if TempExcelBuffer."Row No." > MaxRowNo then
+                                    MaxRowNo := TempExcelBuffer."Row No.";
+                            until TempExcelBuffer.Next() = 0;
                 end;
 
                 TempExcelBuffer.DeleteAll();
@@ -165,12 +165,10 @@ report 50001 "Export Planning Client Excel"
                 group(Control1900000002)
                 {
                     Caption = 'Options';
-                    ShowCaption = false;
                     field(OptionF; Option)
                     {
                         Caption = 'Option';
                         OptionCaption = 'Create Workbook,Update Workbook';
-                        ShowCaption = false;
                         ApplicationArea = All;
 
                         trigger OnValidate()
