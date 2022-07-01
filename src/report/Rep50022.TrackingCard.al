@@ -30,7 +30,13 @@ report 50022 "PWD Tracking Card"
             column(Production_Order__No__; "No.")
             {
             }
+            column(Production_Order__No__Pic; RecPWDBarCode3.Picture)
+            {
+            }
             column(Production_Order__Source_No__; "Source No.")
+            {
+            }
+            column(Production_Order__Source_No__Pic; RecPWDBarCode2.Picture)
             {
             }
             column(Production_Order__Search_Description_; "Search Description")
@@ -65,6 +71,9 @@ report 50022 "PWD Tracking Card"
                 {
                 }
                 column(Prod__Order_No___FORMAT__Routing_Reference_No_____Operation_No__; TxtGID)
+                {
+                }
+                column(Prod__Order_No___FORMAT__Routing_Reference_No_____Operation_No__Pic; RecPWDBarCode1.Picture)
                 {
                 }
                 column(Prod__Order_Routing_Line__Operation_No__; "Operation No.")
@@ -288,6 +297,11 @@ report 50022 "PWD Tracking Card"
                         BooGShowBarCode := false
                     else
                         BooGShowBarCode := true;
+                    RecPWDBarCode1.Value := "Prod. Order No." + Format("Routing Reference No.") + "Operation No.";
+                    RecPWDBarCode1.Insert(true);
+                    RecPWDBarCode1.Fct_GenerateBarcode();
+
+
                 end;
             }
 
@@ -295,6 +309,14 @@ report 50022 "PWD Tracking Card"
             begin
                 if not RecGItem.Get("Production Order"."Source No.") then RecGItem.Init();
                 if "Production Order"."Source Type" <> "Production Order"."Source Type"::Item then RecGItem.Init();
+
+                RecPWDBarCode2.Value := "Production Order"."Source No.";
+                RecPWDBarCode2.Insert(true);
+                RecPWDBarCode2.Fct_GenerateBarcode();
+
+                RecPWDBarCode3.Value := "Production Order"."No.";
+                RecPWDBarCode3.Insert(true);
+                RecPWDBarCode3.Fct_GenerateBarcode();
             end;
         }
     }
@@ -325,6 +347,9 @@ report 50022 "PWD Tracking Card"
         RecGCompanyInformation: Record "Company Information";
         RecGItem: Record Item;
         RecGMachineCenter: Record "Machine Center";
+        RecPWDBarCode1: Record "PWD BarCode";
+        RecPWDBarCode2: Record "PWD BarCode";
+        RecPWDBarCode3: Record "PWD BarCode";
         BooGComment: Boolean;
         BooGComponent: Boolean;
         BooGRootingTool: Boolean;
@@ -338,5 +363,8 @@ report 50022 "PWD Tracking Card"
         Tools_ListCaptionLbl: Label 'Tools List';
         TRACKING_CARDCaptionLbl: Label 'TRACKING CARD';
         TxtGID: Text[250];
+
+
+
 }
 

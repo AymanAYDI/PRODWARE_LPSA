@@ -8812,8 +8812,8 @@
           <note from="Xliff Generator" annotates="general" priority="3">Report Modif OP après OP Gamme PIE - NamedType CstG004</note>
         </trans-unit>
         <trans-unit id="Report 2926297042 - Control 3590328978 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Remplace</source>
-          <target state="translated">Remplacer</target>
+          <source>Option</source>
+          <target state="translated">Option</target>
           <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">Report Modif OP après OP Gamme PIE - Control Control1000000000 - Property Caption</note>
         </trans-unit>
@@ -10774,8 +10774,8 @@
           <note from="Xliff Generator" annotates="general" priority="3">Report PWD MAJ Tps OP Gamme PIE - NamedType CstG011</note>
         </trans-unit>
         <trans-unit id="Report 2855831222 - Control 3590328978 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Action</source>
-          <target state="translated">Action</target>
+          <source>Option</source>
+          <target state="translated">Option</target>
           <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">Report PWD MAJ Tps OP Gamme PIE - Control Control1000000000 - Property Caption</note>
         </trans-unit>
@@ -13228,8 +13228,8 @@
           <note from="Xliff Generator" annotates="general" priority="3">Report PWD Suppression OP Gamme PIE - NamedType CstG004</note>
         </trans-unit>
         <trans-unit id="Report 2599315542 - Control 3590328978 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Action</source>
-          <target state="translated">Action</target>
+          <source>Option</source>
+          <target state="translated">Option</target>
           <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">Report PWD Suppression OP Gamme PIE - Control Control1000000000 - Property Caption</note>
         </trans-unit>

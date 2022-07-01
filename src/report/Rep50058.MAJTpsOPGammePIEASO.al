@@ -133,51 +133,61 @@ report 50058 "PWD MAJ Tps OP Gamme PIE A/S O"
                         ShowCaption = false;
                         Editable = false;
                     }
-                    field(BooGSetupTimeF; BooGSetupTime)
+                    grid(GRid1)
                     {
-                        Caption = 'prépa';
-                        ApplicationArea = All;
-                    }
-                    field(BooGMoveTimeF; BooGMoveTime)
-                    {
-                        Caption = 'transfert';
-                        ApplicationArea = All;
+                        field(BooGSetupTimeF; BooGSetupTime)
+                        {
+                            Caption = 'prépa';
+                            ApplicationArea = All;
+                        }
+                        field(BooGMoveTimeF; BooGMoveTime)
+                        {
+                            Caption = 'transfert';
+                            ApplicationArea = All;
 
+                        }
                     }
-                    field(CstG008F; CstG008)
+                    grid(GRid2)
                     {
-                        ApplicationArea = All;
-                        Editable = false;
+                        field(CstG008F; CstG008)
+                        {
+                            ApplicationArea = All;
+                            Editable = false;
+                            ShowCaption = false;
+                        }
+                        field(DecGSetupTimeF; DecGSetupTime)
+                        {
+                            //Caption = 'prépa';
+                            ApplicationArea = All;
+                            Editable = BooGSetupTime;
+                        }
+                        field(DecGMoveTimeF; DecGMoveTime)
+                        {
+                            //Caption = 'transfert';
+                            ApplicationArea = All;
+                            Editable = BooGMoveTime;
+                        }
                     }
-                    field(DecGSetupTimeF; DecGSetupTime)
+                    grid(GRid3)
                     {
-                        Caption = 'prépa';
-                        ApplicationArea = All;
-                        Editable = BooGSetupTime;
-                    }
-                    field(DecGMoveTimeF; DecGMoveTime)
-                    {
-                        Caption = 'transfert';
-                        ApplicationArea = All;
-                        Editable = BooGMoveTime;
-                    }
-                    field(CstG009F; CstG009)
-                    {
-                        ApplicationArea = All;
-                        ShowCaption = false;
-                        Editable = false;
-                    }
-                    field(DecGSetupTimeOF; DecGSetupTimeO)
-                    {
-                        Caption = 'prépa';
-                        ApplicationArea = All;
-                        Editable = BooGSetupTime;
-                    }
-                    field(DecGMoveTimeOF; DecGMoveTimeO)
-                    {
-                        Caption = 'transfert';
-                        ApplicationArea = All;
-                        Editable = BooGMoveTime;
+                        field(CstG009F; CstG009)
+                        {
+                            ApplicationArea = All;
+                            ShowCaption = false;
+                            Editable = false;
+                        }
+                        field(DecGSetupTimeOF; DecGSetupTimeO)
+                        {
+                            //Caption = 'prépa';
+                            ApplicationArea = All;
+                            Editable = BooGSetupTime;
+                        }
+                        field(DecGMoveTimeOF; DecGMoveTimeO)
+                        {
+                            //Caption = 'transfert';
+                            ApplicationArea = All;
+                            Editable = BooGMoveTime;
+                        }
                     }
                 }
             }

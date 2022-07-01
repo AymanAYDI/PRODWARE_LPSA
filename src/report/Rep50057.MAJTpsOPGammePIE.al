@@ -145,10 +145,12 @@ report 50057 "PWD MAJ Tps OP Gamme PIE"
                     {
                         ApplicationArea = All;
                         Editable = false;
+                        ShowCaption = false;
                     }
                 }
                 group(Control1000000001)
                 {
+                    ShowCaption = false;
                     field(BooGSetupTimeF; BooGSetupTime)
                     {
                         Caption = 'prépa';
@@ -164,6 +166,7 @@ report 50057 "PWD MAJ Tps OP Gamme PIE"
                 }
                 group(Control1000000002)
                 {
+                    ShowCaption = false;
                     field(BooGRunTimeF; BooGRunTime)
                     {
                         Caption = 'exe';
@@ -179,6 +182,7 @@ report 50057 "PWD MAJ Tps OP Gamme PIE"
                 }
                 group(Control1000000003)
                 {
+                    ShowCaption = false;
                     field(BooGMoveTimeF; BooGMoveTime)
                     {
                         Caption = 'Transfert';

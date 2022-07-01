@@ -18,6 +18,91 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Table OSYS Item Jounal Line Buffer - Field Next Operation No. - Property Caption</note>
         </trans-unit>
+        <trans-unit id="Table 2002762241 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>PWD BarCode</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table PWD BarCode - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 2002762241 - Field 448862064 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Border</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table PWD BarCode - Field Border - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 2002762241 - Field 2581161485 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>ECC Level</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table PWD BarCode - Field ECCLevel - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 2002762241 - Field 2581161485 - Property 62802879" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Low (L),Medium-Low (M),Medium-High (Q),High (H)</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table PWD BarCode - Field ECCLevel - Property OptionCaption</note>
+        </trans-unit>
+        <trans-unit id="Table 2002762241 - Field 3581037481 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Height</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table PWD BarCode - Field Height - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 2002762241 - Field 3122986371 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Include Text</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table PWD BarCode - Field IncludeText - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 2002762241 - Field 1594621544 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Picture</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table PWD BarCode - Field Picture - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 2002762241 - Field 1150440080 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Picture Type</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table PWD BarCode - Field PictureType - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 2002762241 - Field 1150440080 - Property 62802879" size-unit="char" translate="yes" xml:space="preserve">
+          <source>png,gif,jpg</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table PWD BarCode - Field PictureType - Property OptionCaption</note>
+        </trans-unit>
+        <trans-unit id="Table 2002762241 - Field 2333076789 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Primary Key</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table PWD BarCode - Field PrimaryKey - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 2002762241 - Field 789959666 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Reverse Colors</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table PWD BarCode - Field ReverseColors - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 2002762241 - Field 3964473375 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Size</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table PWD BarCode - Field Size - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 2002762241 - Field 3964473375 - Property 62802879" size-unit="char" translate="yes" xml:space="preserve">
+          <source>21x21,42x42,63x63,84x84,105x105,126x126,147x147,168x168,189x189,210x210</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table PWD BarCode - Field Size - Property OptionCaption</note>
+        </trans-unit>
+        <trans-unit id="Table 2002762241 - Field 1878130204 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Type</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table PWD BarCode - Field Type - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 2002762241 - Field 1878130204 - Property 62802879" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Select a Type,Code 39,Code 128a,Code 128b,Code 128c,2 of 5 Interleaved,QR Code</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table PWD BarCode - Field Type - Property OptionCaption</note>
+        </trans-unit>
+        <trans-unit id="Table 2002762241 - Field 1131619133 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Value</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table PWD BarCode - Field Value - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 2002762241 - Field 613790498 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Width</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table PWD BarCode - Field Width - Property Caption</note>
+        </trans-unit>
         <trans-unit id="Table 2525777168 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Connector Error Log</source>
           <note from="Developer" annotates="general" priority="2"></note>
@@ -4008,6 +4093,51 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Table PWD Receipt Line Buffer - Field Variant Code - Property Caption</note>
         </trans-unit>
+        <trans-unit id="Table 202087522 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>PWD RESTWebServiceArguments</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table PWD RESTWebServiceArguments - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 202087522 - Field 467812692 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Accept</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table PWD RESTWebServiceArguments - Field Accept - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 202087522 - Field 3926698677 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Blob</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table PWD RESTWebServiceArguments - Field Blob - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 202087522 - Field 3411229705 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>ETag</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table PWD RESTWebServiceArguments - Field ETag - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 202087522 - Field 2575460289 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Password</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table PWD RESTWebServiceArguments - Field Password - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 202087522 - Field 2333076789 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>PrimaryKey</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table PWD RESTWebServiceArguments - Field PrimaryKey - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 202087522 - Field 1953297401 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>RestMethod</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table PWD RESTWebServiceArguments - Field RestMethod - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 202087522 - Field 3003898253 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>URL</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table PWD RESTWebServiceArguments - Field URL - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 202087522 - Field 3549826426 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>UserName</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table PWD RESTWebServiceArguments - Field UserName - Property Caption</note>
+        </trans-unit>
         <trans-unit id="Table 3896163634 - Field 2279323338 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Action</source>
           <note from="Developer" annotates="general" priority="2"></note>
@@ -7344,7 +7474,7 @@
           <note from="Xliff Generator" annotates="general" priority="3">Report Modif OP après OP Gamme PIE - NamedType CstG004</note>
         </trans-unit>
         <trans-unit id="Report 2926297042 - Control 3590328978 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Remplace</source>
+          <source>Option</source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Report Modif OP après OP Gamme PIE - Control Control1000000000 - Property Caption</note>
         </trans-unit>
@@ -8979,7 +9109,7 @@
           <note from="Xliff Generator" annotates="general" priority="3">Report PWD MAJ Tps OP Gamme PIE - NamedType CstG011</note>
         </trans-unit>
         <trans-unit id="Report 2855831222 - Control 3590328978 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Action</source>
+          <source>Option</source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Report PWD MAJ Tps OP Gamme PIE - Control Control1000000000 - Property Caption</note>
         </trans-unit>
@@ -9073,6 +9203,11 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Report PWD MAJ Tps OP Gamme PIE A/S O - Control Control1000000000 - Property Caption</note>
         </trans-unit>
+        <trans-unit id="Report 3143622540 - Control 931034720 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Pour l'opération</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report PWD MAJ Tps OP Gamme PIE A/S O - Control CodGOperationF - Property Caption</note>
+        </trans-unit>
         <trans-unit id="Report 3143622540 - Control 3403684481 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>transfert</source>
           <note from="Developer" annotates="general" priority="2"></note>
@@ -9082,31 +9217,6 @@
           <source>prépa</source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Report PWD MAJ Tps OP Gamme PIE A/S O - Control BooGSetupTimeF - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Report 3143622540 - Control 931034720 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Pour l'opération</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Report PWD MAJ Tps OP Gamme PIE A/S O - Control CodGOperationF - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Report 3143622540 - Control 4097505713 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>transfert</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Report PWD MAJ Tps OP Gamme PIE A/S O - Control DecGMoveTimeF - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Report 3143622540 - Control 1132974124 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>transfert</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Report PWD MAJ Tps OP Gamme PIE A/S O - Control DecGMoveTimeOF - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Report 3143622540 - Control 671422795 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>prépa</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Report PWD MAJ Tps OP Gamme PIE A/S O - Control DecGSetupTimeF - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Report 3143622540 - Control 1424248738 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>prépa</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Report PWD MAJ Tps OP Gamme PIE A/S O - Control DecGSetupTimeOF - Property Caption</note>
         </trans-unit>
         <trans-unit id="Report 3220346388 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Order</source>
@@ -11024,7 +11134,7 @@
           <note from="Xliff Generator" annotates="general" priority="3">Report PWD Suppression OP Gamme PIE - NamedType CstG004</note>
         </trans-unit>
         <trans-unit id="Report 2599315542 - Control 3590328978 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Action</source>
+          <source>Option</source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Report PWD Suppression OP Gamme PIE - Control Control1000000000 - Property Caption</note>
         </trans-unit>

@@ -236,69 +236,70 @@
                             </Rectangle>
                             <Rectangle Name="rectangle3">
                               <ReportItems>
-                                <Textbox Name="textbox2">
-                                  <CanGrow>true</CanGrow>
-                                  <KeepTogether>true</KeepTogether>
-                                  <Paragraphs>
-                                    <Paragraph>
-                                      <TextRuns>
-                                        <TextRun>
-                                          <Value>="*"+Fields!Production_Order__No__.Value+"*"</Value>
-                                          <Style>
-                                            <FontFamily>C39HrP24DlTt</FontFamily>
-                                            <FontSize>18pt</FontSize>
-                                          </Style>
-                                        </TextRun>
-                                      </TextRuns>
+                                <Rectangle Name="Rectangle14">
+                                  <ReportItems>
+                                    <Image Name="Image2">
+                                      <Source>Database</Source>
+                                      <Value>=System.Convert.ToBase64String(Fields!Production_Order__Source_No__Pic.Value)</Value>
+                                      <MIMEType>image/bmp</MIMEType>
+                                      <Sizing>Fit</Sizing>
+                                      <Top>0cm</Top>
+                                      <Left>0cm</Left>
+                                      <Height>1.71472cm</Height>
+                                      <Width>9.5cm</Width>
                                       <Style>
-                                        <TextAlign>Center</TextAlign>
+                                        <Border>
+                                          <Style>None</Style>
+                                        </Border>
                                       </Style>
-                                    </Paragraph>
-                                  </Paragraphs>
-                                  <Left>9.5cm</Left>
-                                  <Height>1.5cm</Height>
+                                    </Image>
+                                  </ReportItems>
+                                  <KeepTogether>true</KeepTogether>
+                                  <Top>0cm</Top>
+                                  <Left>0cm</Left>
+                                  <Height>1.71472cm</Height>
                                   <Width>9.5cm</Width>
                                   <Style>
-                                    <PaddingLeft>2pt</PaddingLeft>
-                                    <PaddingRight>2pt</PaddingRight>
-                                    <PaddingTop>2pt</PaddingTop>
-                                    <PaddingBottom>2pt</PaddingBottom>
+                                    <Border>
+                                      <Style>None</Style>
+                                    </Border>
                                   </Style>
-                                </Textbox>
-                                <Textbox Name="textbox12">
-                                  <CanGrow>true</CanGrow>
-                                  <KeepTogether>true</KeepTogether>
-                                  <Paragraphs>
-                                    <Paragraph>
-                                      <TextRuns>
-                                        <TextRun>
-                                          <Value>="*"+Fields!Production_Order__Source_No__.Value+"*"</Value>
-                                          <Style>
-                                            <FontFamily>C39HrP24DlTt</FontFamily>
-                                            <FontSize>18pt</FontSize>
-                                          </Style>
-                                        </TextRun>
-                                      </TextRuns>
+                                </Rectangle>
+                                <Rectangle Name="Rectangle15">
+                                  <ReportItems>
+                                    <Image Name="Image3">
+                                      <Source>Database</Source>
+                                      <Value>=System.Convert.ToBase64String(Fields!Production_Order__No__Pic.Value)</Value>
+                                      <MIMEType>image/bmp</MIMEType>
+                                      <Sizing>Fit</Sizing>
+                                      <Top>0cm</Top>
+                                      <Left>0cm</Left>
+                                      <Height>1.71472cm</Height>
+                                      <Width>9.66925cm</Width>
                                       <Style>
-                                        <TextAlign>Center</TextAlign>
+                                        <Border>
+                                          <Style>None</Style>
+                                        </Border>
                                       </Style>
-                                    </Paragraph>
-                                  </Paragraphs>
-                                  <Height>1.5cm</Height>
-                                  <Width>9.5cm</Width>
+                                    </Image>
+                                  </ReportItems>
+                                  <KeepTogether>true</KeepTogether>
+                                  <Top>0.01764cm</Top>
+                                  <Left>9.66925cm</Left>
+                                  <Height>1.71472cm</Height>
+                                  <Width>9.66925cm</Width>
                                   <ZIndex>1</ZIndex>
                                   <Style>
-                                    <PaddingLeft>2pt</PaddingLeft>
-                                    <PaddingRight>2pt</PaddingRight>
-                                    <PaddingTop>2pt</PaddingTop>
-                                    <PaddingBottom>2pt</PaddingBottom>
+                                    <Border>
+                                      <Style>None</Style>
+                                    </Border>
                                   </Style>
-                                </Textbox>
+                                </Rectangle>
                               </ReportItems>
                               <DataElementOutput>ContentsOnly</DataElementOutput>
                               <Top>3.25cm</Top>
-                              <Height>1.64246cm</Height>
-                              <Width>19.25cm</Width>
+                              <Height>1.75cm</Height>
+                              <Width>19.3385cm</Width>
                               <ZIndex>3</ZIndex>
                               <Style>
                                 <Border>
@@ -321,7 +322,7 @@
                                 </TablixColumns>
                                 <TablixRows>
                                   <TablixRow>
-                                    <Height>3.88492cm</Height>
+                                    <Height>4.08495cm</Height>
                                     <TablixCells>
                                       <TablixCell>
                                         <CellContents>
@@ -334,7 +335,7 @@
                                               </TablixColumns>
                                               <TablixRows>
                                                 <TablixRow>
-                                                  <Height>3.88492cm</Height>
+                                                  <Height>4.08495cm</Height>
                                                   <TablixCells>
                                                     <TablixCell>
                                                       <CellContents>
@@ -361,41 +362,6 @@
                                                                 </Border>
                                                               </Style>
                                                             </Rectangle>
-                                                            <Textbox Name="textbox5">
-                                                              <CanGrow>true</CanGrow>
-                                                              <KeepTogether>true</KeepTogether>
-                                                              <Paragraphs>
-                                                                <Paragraph>
-                                                                  <TextRuns>
-                                                                    <TextRun>
-                                                                      <Value>="*"+Fields!Prod__Order_No___FORMAT__Routing_Reference_No_____Operation_No__.Value+"*"</Value>
-                                                                      <Style>
-                                                                        <FontFamily>C39HrP24DlTt</FontFamily>
-                                                                        <FontSize>18pt</FontSize>
-                                                                      </Style>
-                                                                    </TextRun>
-                                                                  </TextRuns>
-                                                                  <Style>
-                                                                    <TextAlign>Right</TextAlign>
-                                                                  </Style>
-                                                                </Paragraph>
-                                                              </Paragraphs>
-                                                              <Top>0.82683cm</Top>
-                                                              <Left>6cm</Left>
-                                                              <Height>1.49867cm</Height>
-                                                              <Width>13cm</Width>
-                                                              <ZIndex>2</ZIndex>
-                                                              <Visibility>
-                                                                <Hidden>=iif(Fields!BooGShowBarCode.Value,false,true)</Hidden>
-                                                              </Visibility>
-                                                              <DataElementOutput>NoOutput</DataElementOutput>
-                                                              <Style>
-                                                                <PaddingLeft>2pt</PaddingLeft>
-                                                                <PaddingRight>2pt</PaddingRight>
-                                                                <PaddingTop>2pt</PaddingTop>
-                                                                <PaddingBottom>2pt</PaddingBottom>
-                                                              </Style>
-                                                            </Textbox>
                                                             <Rectangle Name="rectangle7">
                                                               <KeepTogether>true</KeepTogether>
                                                               <DataElementOutput>ContentsOnly</DataElementOutput>
@@ -403,7 +369,7 @@
                                                               <Left>2.25cm</Left>
                                                               <Height>1cm</Height>
                                                               <Width>2.25cm</Width>
-                                                              <ZIndex>3</ZIndex>
+                                                              <ZIndex>2</ZIndex>
                                                               <Style>
                                                                 <Border>
                                                                   <Style>Solid</Style>
@@ -417,7 +383,7 @@
                                                               <Left>4.5cm</Left>
                                                               <Height>1cm</Height>
                                                               <Width>2.25cm</Width>
-                                                              <ZIndex>4</ZIndex>
+                                                              <ZIndex>3</ZIndex>
                                                               <Style>
                                                                 <Border>
                                                                   <Style>Solid</Style>
@@ -431,7 +397,7 @@
                                                               <Left>6.75cm</Left>
                                                               <Height>1cm</Height>
                                                               <Width>2.25cm</Width>
-                                                              <ZIndex>5</ZIndex>
+                                                              <ZIndex>4</ZIndex>
                                                               <Style>
                                                                 <Border>
                                                                   <Style>Solid</Style>
@@ -445,7 +411,7 @@
                                                               <Left>9cm</Left>
                                                               <Height>1cm</Height>
                                                               <Width>2.25cm</Width>
-                                                              <ZIndex>6</ZIndex>
+                                                              <ZIndex>5</ZIndex>
                                                               <Style>
                                                                 <Border>
                                                                   <Style>Solid</Style>
@@ -459,7 +425,7 @@
                                                               <Left>11.25cm</Left>
                                                               <Height>1cm</Height>
                                                               <Width>2.25cm</Width>
-                                                              <ZIndex>7</ZIndex>
+                                                              <ZIndex>6</ZIndex>
                                                               <Style>
                                                                 <Border>
                                                                   <Style>Solid</Style>
@@ -473,7 +439,7 @@
                                                               <Left>17cm</Left>
                                                               <Height>1cm</Height>
                                                               <Width>2.26455cm</Width>
-                                                              <ZIndex>8</ZIndex>
+                                                              <ZIndex>7</ZIndex>
                                                               <Style>
                                                                 <Border>
                                                                   <Style>Solid</Style>
@@ -492,7 +458,7 @@
                                                               <Left>14.75cm</Left>
                                                               <Height>1cm</Height>
                                                               <Width>2.25cm</Width>
-                                                              <ZIndex>9</ZIndex>
+                                                              <ZIndex>8</ZIndex>
                                                               <Style>
                                                                 <Border>
                                                                   <Style>Solid</Style>
@@ -518,7 +484,7 @@
                                                               <Left>14.75cm</Left>
                                                               <Height>0.5cm</Height>
                                                               <Width>2cm</Width>
-                                                              <ZIndex>10</ZIndex>
+                                                              <ZIndex>9</ZIndex>
                                                               <Style>
                                                                 <PaddingLeft>2pt</PaddingLeft>
                                                                 <PaddingRight>2pt</PaddingRight>
@@ -544,7 +510,7 @@
                                                               <Left>17.25cm</Left>
                                                               <Height>0.5cm</Height>
                                                               <Width>2.01455cm</Width>
-                                                              <ZIndex>11</ZIndex>
+                                                              <ZIndex>10</ZIndex>
                                                               <Style>
                                                                 <PaddingLeft>2pt</PaddingLeft>
                                                                 <PaddingRight>2pt</PaddingRight>
@@ -571,7 +537,7 @@
                                                               <Left>3.8862cm</Left>
                                                               <Height>0.6cm</Height>
                                                               <Width>2.5cm</Width>
-                                                              <ZIndex>12</ZIndex>
+                                                              <ZIndex>11</ZIndex>
                                                               <Style>
                                                                 <Border>
                                                                   <Style>None</Style>
@@ -599,7 +565,7 @@
                                                               <rd:DefaultName>textbox21</rd:DefaultName>
                                                               <Height>0.24997in</Height>
                                                               <Width>7.58447in</Width>
-                                                              <ZIndex>13</ZIndex>
+                                                              <ZIndex>12</ZIndex>
                                                               <Style>
                                                                 <Border>
                                                                   <Style>None</Style>
@@ -636,6 +602,36 @@
                                                               <Left>3.17771cm</Left>
                                                               <Height>1.49867cm</Height>
                                                               <Width>0.44391cm</Width>
+                                                              <ZIndex>13</ZIndex>
+                                                              <Style>
+                                                                <Border>
+                                                                  <Style>None</Style>
+                                                                </Border>
+                                                              </Style>
+                                                            </Rectangle>
+                                                            <Rectangle Name="Rectangle6">
+                                                              <ReportItems>
+                                                                <Image Name="Image1">
+                                                                  <Source>Database</Source>
+                                                                  <Value>=System.Convert.ToBase64String(Fields!Prod__Order_No___FORMAT__Routing_Reference_No_____Operation_No__Pic.Value)</Value>
+                                                                  <MIMEType>image/bmp</MIMEType>
+                                                                  <Sizing>Fit</Sizing>
+                                                                  <Top>0cm</Top>
+                                                                  <Left>0.07378in</Left>
+                                                                  <Height>1.32228cm</Height>
+                                                                  <Width>12.25cm</Width>
+                                                                  <Style>
+                                                                    <Border>
+                                                                      <Style>None</Style>
+                                                                    </Border>
+                                                                  </Style>
+                                                                </Image>
+                                                              </ReportItems>
+                                                              <KeepTogether>true</KeepTogether>
+                                                              <Top>0.82683cm</Top>
+                                                              <Left>6.56259cm</Left>
+                                                              <Height>1.39284cm</Height>
+                                                              <Width>12.53741cm</Width>
                                                               <ZIndex>14</ZIndex>
                                                               <Style>
                                                                 <Border>
@@ -1558,7 +1554,7 @@
                                 </TablixMembers>
                               </TablixRowHierarchy>
                               <Top>5cm</Top>
-                              <Height>9.34656cm</Height>
+                              <Height>9.54659cm</Height>
                               <Width>19.26455cm</Width>
                               <ZIndex>4</ZIndex>
                               <Style />
@@ -1776,8 +1772,14 @@ foiQkFBYeNggzwbAquDQoUO7d+8mUj1AAKH0DdhYWP/jHdEHdhC5xUQtLa3evXs3FVwoAgs/aRkZ5Glj
         <Field Name="Production_Order__No__">
           <DataField>Production_Order__No__</DataField>
         </Field>
+        <Field Name="Production_Order__No__Pic">
+          <DataField>Production_Order__No__Pic</DataField>
+        </Field>
         <Field Name="Production_Order__Source_No__">
           <DataField>Production_Order__Source_No__</DataField>
+        </Field>
+        <Field Name="Production_Order__Source_No__Pic">
+          <DataField>Production_Order__Source_No__Pic</DataField>
         </Field>
         <Field Name="Production_Order__Search_Description_">
           <DataField>Production_Order__Search_Description_</DataField>
@@ -1811,6 +1813,9 @@ foiQkFBYeNggzwbAquDQoUO7d+8mUj1AAKH0DdhYWP/jHdEHdhC5xUQtLa3evXs3FVwoAgs/aRkZ5Glj
         </Field>
         <Field Name="Prod__Order_No___FORMAT__Routing_Reference_No_____Operation_No__">
           <DataField>Prod__Order_No___FORMAT__Routing_Reference_No_____Operation_No__</DataField>
+        </Field>
+        <Field Name="Prod__Order_No___FORMAT__Routing_Reference_No_____Operation_No__Pic">
+          <DataField>Prod__Order_No___FORMAT__Routing_Reference_No_____Operation_No__Pic</DataField>
         </Field>
         <Field Name="Prod__Order_Routing_Line__Operation_No__">
           <DataField>Prod__Order_Routing_Line__Operation_No__</DataField>
