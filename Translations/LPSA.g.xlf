@@ -9208,15 +9208,15 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Report PWD MAJ Tps OP Gamme PIE A/S O - Control CodGOperationF - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Report 3143622540 - Control 3403684481 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>transfert</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Report PWD MAJ Tps OP Gamme PIE A/S O - Control BooGMoveTimeF - Property Caption</note>
-        </trans-unit>
         <trans-unit id="Report 3143622540 - Control 3065937403 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>prépa</source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Report PWD MAJ Tps OP Gamme PIE A/S O - Control BooGSetupTimeF - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Report 3143622540 - Control 3403684481 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>transfert</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report PWD MAJ Tps OP Gamme PIE A/S O - Control BooGMoveTimeF - Property Caption</note>
         </trans-unit>
         <trans-unit id="Report 3220346388 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Order</source>

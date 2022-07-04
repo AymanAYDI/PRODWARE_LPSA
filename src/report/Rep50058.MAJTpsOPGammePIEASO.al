@@ -135,57 +135,62 @@ report 50058 "PWD MAJ Tps OP Gamme PIE A/S O"
                     }
                     grid(GRid1)
                     {
-                        field(BooGSetupTimeF; BooGSetupTime)
-                        {
-                            Caption = 'prépa';
-                            ApplicationArea = All;
-                        }
-                        field(BooGMoveTimeF; BooGMoveTime)
-                        {
-                            Caption = 'transfert';
-                            ApplicationArea = All;
-
-                        }
-                    }
-                    grid(GRid2)
-                    {
                         field(CstG008F; CstG008)
                         {
                             ApplicationArea = All;
                             Editable = false;
                             ShowCaption = false;
                         }
-                        field(DecGSetupTimeF; DecGSetupTime)
-                        {
-                            //Caption = 'prépa';
-                            ApplicationArea = All;
-                            Editable = BooGSetupTime;
-                        }
-                        field(DecGMoveTimeF; DecGMoveTime)
-                        {
-                            //Caption = 'transfert';
-                            ApplicationArea = All;
-                            Editable = BooGMoveTime;
-                        }
-                    }
-                    grid(GRid3)
-                    {
                         field(CstG009F; CstG009)
                         {
                             ApplicationArea = All;
                             ShowCaption = false;
                             Editable = false;
                         }
+                    }
+                    grid(GRid2)
+                    {
+                        field(BooGSetupTimeF; BooGSetupTime)
+                        {
+                            Caption = 'prépa';
+                            ApplicationArea = All;
+                        }
+
+                        field(DecGSetupTimeF; DecGSetupTime)
+                        {
+                            //Caption = 'prépa';
+                            ApplicationArea = All;
+                            ShowCaption = false;
+                            Editable = BooGSetupTime;
+                        }
                         field(DecGSetupTimeOF; DecGSetupTimeO)
                         {
                             //Caption = 'prépa';
                             ApplicationArea = All;
+                            ShowCaption = false;
                             Editable = BooGSetupTime;
+                        }
+                    }
+                    grid(GRid3)
+                    {
+                        field(BooGMoveTimeF; BooGMoveTime)
+                        {
+                            Caption = 'transfert';
+                            ApplicationArea = All;
+
+                        }
+                        field(DecGMoveTimeF; DecGMoveTime)
+                        {
+                            //Caption = 'transfert';
+                            ApplicationArea = All;
+                            ShowCaption = false;
+                            Editable = BooGMoveTime;
                         }
                         field(DecGMoveTimeOF; DecGMoveTimeO)
                         {
                             //Caption = 'transfert';
                             ApplicationArea = All;
+                            ShowCaption = false;
                             Editable = BooGMoveTime;
                         }
                     }
