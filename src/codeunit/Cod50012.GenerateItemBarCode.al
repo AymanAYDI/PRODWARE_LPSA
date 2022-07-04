@@ -38,37 +38,11 @@ codeunit 50012 "PWD GenerateItemBarCode"
 
     local procedure InitArguments(var Arguments: Record "PWD RESTWebServiceArguments" temporary; Barcode: Record "PWD BarCode")
     var
-        BaseURL: Text;
         TypeHelper: Codeunit "Type Helper";
     begin
-        BaseURL := 'http://barcodes4.me';
-
-        // %1/barcode/qr/%2.?value=%3&size=%4&ecclevel=%5'
-        // http://barcodes4.me/barcode/[type]/[value].[imagetype]
-        // if Barcode.Type = Barcode.Type::c39 then
-        //     Arguments.URL := StrSubstNo('%1/barcode/c39/%2.%3',
-        //                                 BaseURL,
-        //                                 //GetOptionStringValue(Barcode.Type, Barcode.FieldNo(Type)),
-        //                                 TypeHelper.UrlEncode(Barcode.Value),
-        //                                 'jpg');
-        // GetOptionStringValue(Barcode.Size, Barcode.FieldNo(Size)),
-        // GetOptionStringValue(Barcode.ECCLevel, Barcode.FieldNo(ECCLevel)))
-        // else
-        //     Arguments.URL := StrSubstNo('%1/barcode/%2/%3.%4?istextdrawn=%5&isborderdrawn=%6&isreversecolor=%7',
-        //                                 BaseURL,
-        //                                 GetOptionStringValue(Barcode.Type, Barcode.FieldNo(Type)),
-        //                                 TypeHelper.UrlEncode(Barcode.Value),
-        //                                 GetOptionStringValue(Barcode.PictureType, Barcode.FieldNo(PictureType)),
-        //                                 Format(Barcode.IncludeText, 0, 2),
-        //                                 Format(Barcode.Border, 0, 2),
-        //                                 Format(Barcode.ReverseColors, 0, 2));
-
-        // Arguments.URL := 'https://www.bcgen.com/ssrs/demo-c128.aspx?D=1000000109023';                      //TEST1
-        // Arguments.URL := 'https://barcode.tec-it.com/barcode.ashx?data=100000120264&code=Code128&dpi=96';  //TEST2
 
         Arguments.URL := 'https://barcode.tec-it.com/barcode.ashx?data=' + TypeHelper.UrlEncode(Barcode.Value) +
-        '&code=Code128&multiplebarcodes=false&translate-esc=false&unit=Fit&dpi=96&imagetype=jpg';
-
+        '&code=Code39&multiplebarcodes=false&translate-esc=false&unit=Fit&dpi=96&imagetype=jpg';
         Arguments.RestMethod := Arguments.RestMethod::get;
     end;
 
