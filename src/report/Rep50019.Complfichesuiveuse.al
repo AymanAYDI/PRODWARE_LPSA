@@ -19,97 +19,112 @@ report 50019 "PWD Compl. fiche suiveuse"
         {
             DataItemTableView = WHERE(Status = CONST(Released));
             RequestFilterFields = Status, "No.", "Location Code";
-            column(Production_Order__Production_Order___No__; "Production Order"."No.")
+            column("Production_Order__Production_Order___No__"; "Production Order"."No.")
             {
             }
-            column(RecLItemSO__No__; ConcatComponentNo)
+            column("Production_Order__Production_Order___No__Pic"; Lot5Pic.Picture)
             {
             }
-            column(RecLItemPF__No__; RecLItemPF."No.")
+            column("RecLItemSO__No__"; ConcatComponentNo)
             {
             }
-            column(FORMAT_RecLProdOC__Expected_Quantity__; Format(SumComponentQty))
+            column("RecLItemPF__No__"; RecLItemPF."No.")
             {
             }
-            column(RecLItemPF__LPSA_Description_1_; RecLItemPF."PWD LPSA Description 1")
+            column("FORMAT_RecLProdOC__Expected_Quantity__"; Format(SumComponentQty))
             {
             }
-            column(RecLItemSO__LPSA_Description_1_; RecLItemSO."PWD LPSA Description 1")
+            column("RecLItemPF__LPSA_Description_1_"; RecLItemPF."PWD LPSA Description 1")
             {
             }
-            column(RecLItemPF__LPSA_Description_2_; RecLItemPF."PWD LPSA Description 2")
+            column("RecLItemSO__LPSA_Description_1_"; RecLItemSO."PWD LPSA Description 1")
             {
             }
-            column(RecLItemSO__LPSA_Description_2_; RecLItemSO."PWD LPSA Description 2")
+            column("RecLItemPF__LPSA_Description_2_"; RecLItemPF."PWD LPSA Description 2")
             {
             }
-            column(RecLItemPF__SearchDescription__; RecLItemPF."Search Description")
+            column("RecLItemSO__LPSA_Description_2_"; RecLItemSO."PWD LPSA Description 2")
             {
             }
-            column(FORMAT_RecLProdOC__Final_Quantity__; Format(RecLProdOL.Quantity))
+            column("RecLItemPF__SearchDescription__"; RecLItemPF."Search Description")
             {
             }
-            column(FORMAT_CodLLotNo_component; CodLLotNo_component)
+            column("FORMAT_RecLProdOC__Final_Quantity__"; Format(RecLProdOL.Quantity))
+            {
+            }
+            column("FORMAT_CodLLotNo_component"; CodLLotNo_component)
             {
             }
             column(Lot1; Lot1)
             {
             }
+            column(Lot1Pic; Lot1Pic.Picture)
+            {
+            }
             column(Lot2; Lot2)
+            {
+            }
+            column(Lot2Pic; Lot2Pic.Picture)
             {
             }
             column(Lot3; Lot3)
             {
             }
-            column(RecLItemPF__Type; Format(RecLConfPF."Product Type"))
+            column(Lot3Pic; Lot3Pic.Picture)
             {
             }
-            column(Production_Order__Source_Material_Vendor_; "PWD Source Material Vendor")
+            column("RecLItemPF__Type"; Format(RecLConfPF."Product Type"))
+            {
+            }
+            column("Production_Order__Source_Material_Vendor_"; "PWD Source Material Vendor")
             {
             }
             column(Lot4; Lot4)
             {
             }
+            column(Lot4Pic; Lot4Pic.Picture)
+            {
+            }
             column("FICHE_SUIVEUSE__complément_technique_Caption"; FICHE_SUIVEUSE__complément_technique_CaptionLbl)
             {
             }
-            column(RecLItemSO__No__Caption; RecLItemSO__No__CaptionLbl)
+            column("RecLItemSO__No__Caption"; RecLItemSO__No__CaptionLbl)
             {
             }
-            column(RecLItemPF__No__Caption; RecLItemPF__No__CaptionLbl)
+            column("RecLItemPF__No__Caption"; RecLItemPF__No__CaptionLbl)
             {
             }
-            column(RecLItemPF__LPSA_Description_1_Caption; RecLItemPF__LPSA_Description_1_CaptionLbl)
+            column("RecLItemPF__LPSA_Description_1_Caption"; RecLItemPF__LPSA_Description_1_CaptionLbl)
             {
             }
-            column(RecLItemSO__LPSA_Description_1_Caption; RecLItemSO__LPSA_Description_1_CaptionLbl)
+            column("RecLItemSO__LPSA_Description_1_Caption"; RecLItemSO__LPSA_Description_1_CaptionLbl)
             {
             }
-            column(RecLItemPF__LPSA_Description_2_Caption; RecLItemPF__LPSA_Description_2_CaptionLbl)
+            column("RecLItemPF__LPSA_Description_2_Caption"; RecLItemPF__LPSA_Description_2_CaptionLbl)
             {
             }
-            column(RecLItemSO__LPSA_Description_2_Caption; RecLItemSO__LPSA_Description_2_CaptionLbl)
+            column("RecLItemSO__LPSA_Description_2_Caption"; RecLItemSO__LPSA_Description_2_CaptionLbl)
             {
             }
-            column(Mesure_Caption; Mesure_CaptionLbl)
+            column("Mesure_Caption"; Mesure_CaptionLbl)
             {
             }
-            column(SO_Caption; SO_CaptionLbl)
+            column("SO_Caption"; SO_CaptionLbl)
             {
             }
-            column(FORMAT_CodLLotNo_component_Caption; FORMAT_CodLLotNo_component_CaptionLbl)
+            column("FORMAT_CodLLotNo_component_Caption"; FORMAT_CodLLotNo_component_CaptionLbl)
             {
             }
             column(LotCaption; LotCaptionLbl)
             {
             }
-            column(Quantite_Caption; Quantite_CaptionLbl)
+            column("Quantite_Caption"; Quantite_CaptionLbl)
             {
             }
-            column(Production_Order__Source_Material_Vendor_Caption; FieldCaption("PWD Source Material Vendor"))
+            column("Production_Order__Source_Material_Vendor_Caption"; FieldCaption("PWD Source Material Vendor"))
             {
             }
-            column(Production_Order_Status; Status)
+            column("Production_Order_Status"; Status)
             {
             }
 
@@ -182,19 +197,31 @@ report 50019 "PWD Compl. fiche suiveuse"
                                     else
                                         if Lot1 = '' then begin
                                             Lot1 := RecLReservation."Lot No.";
+                                            Lot1Pic.Value := RecLReservation."Lot No.";
+                                            Lot1Pic.Insert(true);
+                                            Lot1Pic.Fct_GenerateBarcode();
                                             Qty1 := RecLReservation.Quantity;
                                         end else
                                             if Lot2 = '' then begin
                                                 Lot2 := RecLReservation."Lot No.";
+                                                Lot2Pic.Value := RecLReservation."Lot No.";
+                                                Lot2Pic.Insert(true);
+                                                Lot2Pic.Fct_GenerateBarcode();
                                                 Qty2 := RecLReservation.Quantity;
                                             end else
                                                 if Lot3 = '' then begin
                                                     Lot3 := RecLReservation."Lot No.";
+                                                    Lot3Pic.Value := RecLReservation."Lot No.";
+                                                    Lot3Pic.Insert(true);
+                                                    Lot3Pic.Fct_GenerateBarcode();
                                                     Qty3 := RecLReservation.Quantity;
                                                     //END;
                                                 end else
                                                     if Lot4 = '' then begin
                                                         Lot4 := RecLReservation."Lot No.";
+                                                        Lot4Pic.Value := RecLReservation."Lot No.";
+                                                        Lot4Pic.Insert(true);
+                                                        Lot4Pic.Fct_GenerateBarcode();
                                                         Qty4 := RecLReservation.Quantity;
                                                     end;
                                 end;
@@ -218,19 +245,31 @@ report 50019 "PWD Compl. fiche suiveuse"
                                     else
                                         if Lot1 = '' then begin
                                             Lot1 := RecLItemLedgerEntry."Lot No.";
+                                            Lot1Pic.Value := RecLItemLedgerEntry."Lot No.";
+                                            Lot1Pic.Insert(true);
+                                            Lot1Pic.Fct_GenerateBarcode();
                                             Qty1 := Abs(RecLItemLedgerEntry.Quantity);
                                         end else
                                             if Lot2 = '' then begin
+                                                Lot2Pic.value := RecLItemLedgerEntry."Lot No.";
+                                                Lot2Pic.Insert(true);
+                                                Lot2Pic.Fct_GenerateBarcode();
                                                 Lot2 := RecLItemLedgerEntry."Lot No.";
                                                 Qty2 := Abs(RecLItemLedgerEntry.Quantity);
                                             end else
                                                 if Lot3 = '' then begin
                                                     Lot3 := RecLItemLedgerEntry."Lot No.";
+                                                    Lot3Pic.Value := RecLItemLedgerEntry."Lot No.";
+                                                    Lot3Pic.Insert(true);
+                                                    Lot3Pic.Fct_GenerateBarcode();
                                                     Qty3 := Abs(RecLItemLedgerEntry.Quantity);
                                                     //END;
                                                 end else
                                                     if Lot4 = '' then begin
                                                         Lot4 := RecLReservation."Lot No.";
+                                                        Lot4Pic.Value := RecLReservation."Lot No.";
+                                                        Lot4Pic.Insert(true);
+                                                        Lot4Pic.Fct_GenerateBarcode();
                                                         Qty4 := RecLReservation.Quantity;
                                                     end;
                                 end;
@@ -243,6 +282,9 @@ report 50019 "PWD Compl. fiche suiveuse"
                         ConcatComponentNo += RecLItemSO."No.";
                     until RecLProdOC.Next() = 0;
                 //<<
+                Lot5Pic.Value := "Production Order"."No.";
+                Lot5Pic.Insert(true);
+                Lot5Pic.Fct_GenerateBarcode();
             end;
         }
     }
@@ -270,6 +312,11 @@ report 50019 "PWD Compl. fiche suiveuse"
         RecLProdOL: Record "Prod. Order Line";
         RecLConfPF: Record "PWD Item Configurator";
         RecLConfSO: Record "PWD Item Configurator";
+        Lot1Pic: Record "PWD BarCode";
+        Lot2Pic: Record "PWD BarCode";
+        Lot3Pic: Record "PWD BarCode";
+        Lot4Pic: Record "PWD BarCode";
+        Lot5Pic: Record "PWD BarCode";
         CodLLotNo_component: Code[10];
         Lot1: Code[20];
         Lot2: Code[20];

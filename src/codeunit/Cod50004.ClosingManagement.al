@@ -191,7 +191,7 @@ codeunit 50004 "PWD Closing Management"
 
         //CREATE FILE IN RTC MODE.
         TxtGServerFileName := TxtGExportFileName;
-        TxtGExportFileName := FileMgt.ServerTempFileName('.csv');
+        TxtGExportFileName := FileMgt.ServerTempFileName('csv');
 
         // Create export file
         FilGToExport.TextMode(true);
@@ -238,7 +238,9 @@ codeunit 50004 "PWD Closing Management"
     begin
         FilGToExport.Close();
         // FileMgt.DownloadToFile(TxtGExportFileName, TxtGServerFileName);
-        FileMgt.DownloadHandler(TxtGExportFileName, '', '', '', TxtGServerFileName);
+        //FileMgt.DownloadHandler(TxtGExportFileName, '', '', '', TxtGServerFileName);
+        FileMgt.CopyServerFile(TxtGExportFileName, TxtGServerFileName, true);
+        FileMgt.DeleteServerFile(TxtGExportFileName);
         TxtGExportFileName := TxtGServerFileName;
     end;
 

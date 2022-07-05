@@ -126,7 +126,7 @@ tableextension 60036 "PWD ProductionOrder" extends "Production Order"
             ProdOrderLine.SETRANGE("Prod. Order No.", "No.");
             if ProdOrderLine.FINDFIRST() then
                 REPEAT
-                        ProdOrderLine.ResendProdOrdertoQuartis();
+                    ProdOrderLine.ResendProdOrdertoQuartis();
                 UNTIL ProdOrderLine.NEXT() = 0;
         end;
     end;
@@ -141,9 +141,9 @@ tableextension 60036 "PWD ProductionOrder" extends "Production Order"
         ProdOrderLine.SETRANGE(Status, Status);
         ProdOrderLine.SETRANGE("Prod. Order No.", "No.");
         IF ProdOrderLine.FINDFIRST() THEN
-                REPEAT
-                    BooLIsNotAvailable := ProdOrderLine.CheckComponentAvailabilty();
-                UNTIL (BooLIsNotAvailable) OR (ProdOrderLine.NEXT() = 0);
+            REPEAT
+                BooLIsNotAvailable := ProdOrderLine.CheckComponentAvailabilty();
+            UNTIL (BooLIsNotAvailable) OR (ProdOrderLine.NEXT() = 0);
         EXIT(BooLIsNotAvailable);
     END;
 
@@ -159,7 +159,7 @@ tableextension 60036 "PWD ProductionOrder" extends "Production Order"
         RecLProdOrderComponent.SETRANGE("Prod. Order No.", "No.");
         IF RecLProdOrderComponent.FindSet() THEN
             REPEAT
-                    RecLItem.GET(RecLProdOrderComponent."Item No.");
+                RecLItem.GET(RecLProdOrderComponent."Item No.");
                 RecLItem.SETFILTER("Location Filter", '=%1', RecLProdOrderComponent."Location Code");
                 RecLItem.CALCFIELDS(Inventory);
                 DecLInv += RecLItem.Inventory;
@@ -170,7 +170,7 @@ tableextension 60036 "PWD ProductionOrder" extends "Production Order"
     PROCEDURE FctPrintPDF();
     VAR
         //TODO: Automation
-        // WshShell: Automation "{F935DC20-1CF0-11D0-ADB9-00C04FD58A0B} 1.0:{72C24DD5-D70A-438B-8A42-98424B88AFB8}:'Windows Script Host Object Model'.WshShell";
+        // WshShell: Automation "'Windows Script Host Object Model'.WshShell";
         ManufacturingSetup: Record "Manufacturing Setup";
         RecordLink: Record "Record Link";
         RecordIDLink: RecordID;

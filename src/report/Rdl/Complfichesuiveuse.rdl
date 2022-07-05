@@ -8,6 +8,7 @@
         <ConnectString />
       </ConnectionProperties>
       <rd:SecurityType>None</rd:SecurityType>
+      <rd:DataSourceID>185c20d6-e7b9-4d22-811c-520e1fd0dec2</rd:DataSourceID>
     </DataSource>
   </DataSources>
   <ReportSections>
@@ -39,7 +40,7 @@
                   <Width>1.0269cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.0269cm</Width>
+                  <Width>2.03232cm</Width>
                 </TablixColumn>
               </TablixColumns>
               <TablixRows>
@@ -61,6 +62,7 @@
                                   </Style>
                                 </TextRun>
                               </TextRuns>
+                              <Style />
                             </Paragraph>
                           </Paragraphs>
                           <Style>
@@ -110,7 +112,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!LotCaption.Value &amp; " : " &amp; Fields!Lot1.Value &amp; " " &amp; Fields!Lot2.Value &amp; " " &amp; Fields!Lot3.Value</Value>
+                                  <Value>=Fields!LotCaption.Value &amp; " : " &amp; Fields!Lot1.Value &amp; " " &amp; Fields!Lot2.Value &amp; " " &amp; Fields!Lot3.Value &amp; " " &amp; Fields!Lot4.Value</Value>
                                   <Style>
                                     <FontSize>8pt</FontSize>
                                   </Style>
@@ -237,44 +239,20 @@
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="textbox4">
-                          <CanGrow>true</CanGrow>
-                          <KeepTogether>true</KeepTogether>
-                          <Paragraphs>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value>="*" + Fields!Lot1.Value + "*"</Value>
-                                  <Style>
-                                    <FontFamily>C39HrP24DlTt</FontFamily>
-                                    <FontSize>16pt</FontSize>
-                                  </Style>
-                                </TextRun>
-                              </TextRuns>
-                              <Style>
-                                <TextAlign>Center</TextAlign>
-                              </Style>
-                            </Paragraph>
-                          </Paragraphs>
-                          <rd:DefaultName>textbox4</rd:DefaultName>
+                        <Image Name="Image1">
+                          <Source>Database</Source>
+                          <Value>=System.Convert.ToBase64String(Fields!Lot1Pic.Value)</Value>
+                          <MIMEType>image/bmp</MIMEType>
+                          <Sizing>FitProportional</Sizing>
+                          <Visibility>
+                            <Hidden>=iif ( (IsNothing(Fields!Lot1Pic.Value)=False), False, True)</Hidden>
+                          </Visibility>
                           <Style>
-                            <TopBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>1pt</Width>
-                            </TopBorder>
-                            <BottomBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>0.5pt</Width>
-                            </BottomBorder>
-                            <VerticalAlign>Middle</VerticalAlign>
-                            <PaddingLeft>0.075cm</PaddingLeft>
-                            <PaddingRight>2pt</PaddingRight>
-                            <PaddingTop>2pt</PaddingTop>
-                            <PaddingBottom>2pt</PaddingBottom>
+                            <Border>
+                              <Style>None</Style>
+                            </Border>
                           </Style>
-                        </Textbox>
+                        </Image>
                         <ColSpan>4</ColSpan>
                       </CellContents>
                     </TablixCell>
@@ -283,47 +261,20 @@
                     <TablixCell />
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="textbox6">
-                          <CanGrow>true</CanGrow>
-                          <KeepTogether>true</KeepTogether>
-                          <Paragraphs>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value>="*" + Fields!Lot2.Value + "*"</Value>
-                                  <Style>
-                                    <FontFamily>C39HrP24DlTt</FontFamily>
-                                    <FontSize>16pt</FontSize>
-                                  </Style>
-                                </TextRun>
-                              </TextRuns>
-                              <Style>
-                                <TextAlign>Center</TextAlign>
-                              </Style>
-                            </Paragraph>
-                          </Paragraphs>
+                        <Image Name="Image9">
+                          <Source>Database</Source>
+                          <Value>=System.Convert.ToBase64String(Fields!Lot2Pic.Value)</Value>
+                          <MIMEType>image/bmp</MIMEType>
+                          <Sizing>FitProportional</Sizing>
                           <Visibility>
-                            <Hidden>=Fields!Lot2.Value = ""</Hidden>
+                            <Hidden>=iif ( (IsNothing(Fields!Lot2Pic.Value)=False), False, True)</Hidden>
                           </Visibility>
-                          <DataElementOutput>NoOutput</DataElementOutput>
                           <Style>
-                            <TopBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>1pt</Width>
-                            </TopBorder>
-                            <BottomBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>0.5pt</Width>
-                            </BottomBorder>
-                            <VerticalAlign>Middle</VerticalAlign>
-                            <PaddingLeft>0.075cm</PaddingLeft>
-                            <PaddingRight>2pt</PaddingRight>
-                            <PaddingTop>2pt</PaddingTop>
-                            <PaddingBottom>2pt</PaddingBottom>
+                            <Border>
+                              <Style>None</Style>
+                            </Border>
                           </Style>
-                        </Textbox>
+                        </Image>
                         <ColSpan>4</ColSpan>
                       </CellContents>
                     </TablixCell>
@@ -337,43 +288,20 @@
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="textbox8">
-                          <CanGrow>true</CanGrow>
-                          <KeepTogether>true</KeepTogether>
-                          <Paragraphs>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value>="*" + Fields!Lot3.Value + "*"</Value>
-                                  <Style>
-                                    <FontFamily>C39HrP24DlTt</FontFamily>
-                                    <FontSize>16pt</FontSize>
-                                  </Style>
-                                </TextRun>
-                              </TextRuns>
-                              <Style>
-                                <TextAlign>Center</TextAlign>
-                              </Style>
-                            </Paragraph>
-                          </Paragraphs>
+                        <Image Name="Image6">
+                          <Source>Database</Source>
+                          <Value>=System.Convert.ToBase64String(Fields!Lot3Pic.Value)</Value>
+                          <MIMEType>image/bmp</MIMEType>
+                          <Sizing>FitProportional</Sizing>
+                          <Visibility>
+                            <Hidden>=iif ( (IsNothing(Fields!Lot3Pic.Value)=False), False, True)</Hidden>
+                          </Visibility>
                           <Style>
-                            <TopBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>0.5pt</Width>
-                            </TopBorder>
-                            <BottomBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>1pt</Width>
-                            </BottomBorder>
-                            <VerticalAlign>Middle</VerticalAlign>
-                            <PaddingLeft>0.075cm</PaddingLeft>
-                            <PaddingRight>2pt</PaddingRight>
-                            <PaddingTop>2pt</PaddingTop>
-                            <PaddingBottom>2pt</PaddingBottom>
+                            <Border>
+                              <Style>None</Style>
+                            </Border>
                           </Style>
-                        </Textbox>
+                        </Image>
                         <ColSpan>4</ColSpan>
                       </CellContents>
                     </TablixCell>
@@ -382,47 +310,20 @@
                     <TablixCell />
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="textbox9">
-                          <CanGrow>true</CanGrow>
-                          <KeepTogether>true</KeepTogether>
-                          <Paragraphs>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value>="*" + Fields!Lot4.Value + "*"</Value>
-                                  <Style>
-                                    <FontFamily>C39HrP24DlTt</FontFamily>
-                                    <FontSize>16pt</FontSize>
-                                  </Style>
-                                </TextRun>
-                              </TextRuns>
-                              <Style>
-                                <TextAlign>Center</TextAlign>
-                              </Style>
-                            </Paragraph>
-                          </Paragraphs>
+                        <Image Name="Image7">
+                          <Source>Database</Source>
+                          <Value>=System.Convert.ToBase64String(Fields!Lot4Pic.Value)</Value>
+                          <MIMEType>image/bmp</MIMEType>
+                          <Sizing>FitProportional</Sizing>
                           <Visibility>
-                            <Hidden>=Fields!Lot4.Value = ""</Hidden>
+                            <Hidden>=iif ( (IsNothing(Fields!Lot4Pic.Value)=False), False, True)</Hidden>
                           </Visibility>
-                          <DataElementOutput>NoOutput</DataElementOutput>
                           <Style>
-                            <TopBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>0.5pt</Width>
-                            </TopBorder>
-                            <BottomBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>1pt</Width>
-                            </BottomBorder>
-                            <VerticalAlign>Middle</VerticalAlign>
-                            <PaddingLeft>0.075cm</PaddingLeft>
-                            <PaddingRight>2pt</PaddingRight>
-                            <PaddingTop>2pt</PaddingTop>
-                            <PaddingBottom>2pt</PaddingBottom>
+                            <Border>
+                              <Style>None</Style>
+                            </Border>
                           </Style>
-                        </Textbox>
+                        </Image>
                         <ColSpan>4</ColSpan>
                       </CellContents>
                     </TablixCell>
@@ -482,6 +383,7 @@
                                   </Style>
                                 </TextRun>
                               </TextRuns>
+                              <Style />
                             </Paragraph>
                           </Paragraphs>
                           <Style>
@@ -549,6 +451,7 @@
                                   </Style>
                                 </TextRun>
                               </TextRuns>
+                              <Style />
                             </Paragraph>
                           </Paragraphs>
                           <rd:DefaultName>RecLItemPF__No__</rd:DefaultName>
@@ -594,6 +497,7 @@
                                   </Style>
                                 </TextRun>
                               </TextRuns>
+                              <Style />
                             </Paragraph>
                           </Paragraphs>
                           <rd:DefaultName>Quantite_Caption</rd:DefaultName>
@@ -663,6 +567,7 @@
                                   </Style>
                                 </TextRun>
                               </TextRuns>
+                              <Style />
                             </Paragraph>
                           </Paragraphs>
                           <rd:DefaultName>Quantite_Caption_1</rd:DefaultName>
@@ -899,6 +804,7 @@
                                   </Style>
                                 </TextRun>
                               </TextRuns>
+                              <Style />
                             </Paragraph>
                           </Paragraphs>
                           <Style>
@@ -973,6 +879,7 @@
                                   </Style>
                                 </TextRun>
                               </TextRuns>
+                              <Style />
                             </Paragraph>
                           </Paragraphs>
                           <rd:DefaultName>Production_Order__Source_Material_Vendor_Caption</rd:DefaultName>
@@ -1034,37 +941,37 @@
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Production_Order__Production_Order___No__">
-                          <CanGrow>true</CanGrow>
-                          <KeepTogether>true</KeepTogether>
-                          <Paragraphs>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value>="*"+Fields!Production_Order__Production_Order___No__.Value+"*"</Value>
-                                  <Style>
-                                    <FontFamily>C39HrP24DlTt</FontFamily>
-                                    <FontSize>18pt</FontSize>
-                                  </Style>
-                                </TextRun>
-                              </TextRuns>
-                              <Style>
-                                <TextAlign>Center</TextAlign>
-                              </Style>
-                            </Paragraph>
-                          </Paragraphs>
-                          <rd:DefaultName>Production_Order__Production_Order___No__</rd:DefaultName>
+                        <Image Name="Image10">
+                          <Source>Database</Source>
+                          <Value>=System.Convert.ToBase64String(Fields!Production_Order__Production_Order___No__Pic.Value)</Value>
+                          <MIMEType>image/bmp</MIMEType>
+                          <Sizing>FitProportional</Sizing>
                           <Style>
                             <Border>
                               <Style>Solid</Style>
                             </Border>
-                            <VerticalAlign>Middle</VerticalAlign>
-                            <PaddingLeft>0.075cm</PaddingLeft>
-                            <PaddingRight>2pt</PaddingRight>
-                            <PaddingTop>2pt</PaddingTop>
-                            <PaddingBottom>2pt</PaddingBottom>
+                            <TopBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>1pt</Width>
+                            </TopBorder>
+                            <BottomBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>1pt</Width>
+                            </BottomBorder>
+                            <LeftBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>1pt</Width>
+                            </LeftBorder>
+                            <RightBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>1pt</Width>
+                            </RightBorder>
                           </Style>
-                        </Textbox>
+                        </Image>
                         <ColSpan>8</ColSpan>
                       </CellContents>
                     </TablixCell>
@@ -1135,10 +1042,12 @@
             <DataSetName>DataSet_Result</DataSetName>
             <Left>4cm</Left>
             <Height>9.20712cm</Height>
-            <Width>11.9cm</Width>
+            <Width>12.90542cm</Width>
+            <Style />
           </Tablix>
         </ReportItems>
-        <Height>9.20712cm</Height>
+        <Height>9.7892cm</Height>
+        <Style />
       </Body>
       <Width>18cm</Width>
       <Page>
@@ -1148,6 +1057,7 @@
         <RightMargin>0.5cm</RightMargin>
         <TopMargin>0.5cm</TopMargin>
         <BottomMargin>0.5cm</BottomMargin>
+        <Style />
       </Page>
     </ReportSection>
   </ReportSections>
@@ -1188,12 +1098,16 @@ End Function
 </Code>
   <Language>=User!Language</Language>
   <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
-  <rd:ReportUnitType>Invalid</rd:ReportUnitType>
+  <rd:ReportUnitType>Cm</rd:ReportUnitType>
+  <rd:ReportID>45727945-dfac-4d77-8832-99b39fc77dd3</rd:ReportID>
   <DataSets>
     <DataSet Name="DataSet_Result">
       <Fields>
         <Field Name="Production_Order__Production_Order___No__">
           <DataField>Production_Order__Production_Order___No__</DataField>
+        </Field>
+        <Field Name="Production_Order__Production_Order___No__Pic">
+          <DataField>Production_Order__Production_Order___No__Pic</DataField>
         </Field>
         <Field Name="RecLItemSO__No__">
           <DataField>RecLItemSO__No__</DataField>
@@ -1228,11 +1142,20 @@ End Function
         <Field Name="Lot1">
           <DataField>Lot1</DataField>
         </Field>
+        <Field Name="Lot1Pic">
+          <DataField>Lot1Pic</DataField>
+        </Field>
         <Field Name="Lot2">
           <DataField>Lot2</DataField>
         </Field>
+        <Field Name="Lot2Pic">
+          <DataField>Lot2Pic</DataField>
+        </Field>
         <Field Name="Lot3">
           <DataField>Lot3</DataField>
+        </Field>
+        <Field Name="Lot3Pic">
+          <DataField>Lot3Pic</DataField>
         </Field>
         <Field Name="RecLItemPF__Type">
           <DataField>RecLItemPF__Type</DataField>
@@ -1242,6 +1165,9 @@ End Function
         </Field>
         <Field Name="Lot4">
           <DataField>Lot4</DataField>
+        </Field>
+        <Field Name="Lot4Pic">
+          <DataField>Lot4Pic</DataField>
         </Field>
         <Field Name="FICHE_SUIVEUSE__complément_technique_Caption">
           <DataField>FICHE_SUIVEUSE__complément_technique_Caption</DataField>
