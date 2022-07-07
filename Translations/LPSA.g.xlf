@@ -5553,6 +5553,16 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Codeunit PWD LPSA Functions Mgt. - Method BeforeRestoreSalesDocument - NamedType Text009</note>
         </trans-unit>
+        <trans-unit id="Codeunit 378233800 - Method 780855534 - NamedType 3114637384" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Default</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Codeunit PWD LPSA Functions Mgt. - Method BLOBExportLocal - NamedType Text001</note>
+        </trans-unit>
+        <trans-unit id="Codeunit 378233800 - Method 780855534 - NamedType 2008153173" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Export</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Codeunit PWD LPSA Functions Mgt. - Method BLOBExportLocal - NamedType Text006</note>
+        </trans-unit>
         <trans-unit id="Codeunit 378233800 - Method 2269505925 - NamedType 1808356147" size-unit="char" translate="yes" xml:space="preserve">
           <source>There is not configuration for item %1.</source>
           <note from="Developer" annotates="general" priority="2"></note>
@@ -10357,6 +10367,11 @@
           <source>Forward,Back</source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Report PWD Replan Production Order - Control DirectionF - Property OptionCaption</note>
+        </trans-unit>
+        <trans-unit id="Report 993104677 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>ReportLPSA</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report PWD ReportLPSA - Property Caption</note>
         </trans-unit>
         <trans-unit id="Report 1688759508 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Routing Sheet</source>

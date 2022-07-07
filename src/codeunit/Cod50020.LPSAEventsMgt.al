@@ -1070,6 +1070,7 @@ codeunit 50020 "PWD LPSA Events Mgt."
     Var
         RecLProductionOrder: Record "Production Order";
         Text000: Label '%2 %3  with status %1 has been changed to %5 %6 with status %4.';
+        DocumentAttach: Record "Document Attachment";
     begin
         IsHandled := true;
         Message(Text000, ProdOrder.Status, ProdOrder.TableCaption, ProdOrder."No.", ToProdOrder.Status, ToProdOrder.TableCaption, ToProdOrder."No.");
@@ -1085,7 +1086,7 @@ codeunit 50020 "PWD LPSA Events Mgt."
             //>>REGIE
             //   REPORT.RUNMODAL(50019,FALSE,FALSE,RecLProductionOrder);
             IF RecLProductionOrder.FINDFIRST() THEN
-                RecLProductionOrder.FctPrintPDF();
+                RecLProductionOrder.FctPrintPDF(True, DocumentAttach);
             //<<REGIE
         END;
         //<<LAP2.17

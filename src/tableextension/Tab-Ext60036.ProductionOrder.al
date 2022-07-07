@@ -167,31 +167,53 @@ tableextension 60036 "PWD ProductionOrder" extends "Production Order"
         EXIT(DecLInv);
     END;
 
-    PROCEDURE FctPrintPDF();
-    VAR
-        //TODO: Automation
-        // WshShell: Automation "'Windows Script Host Object Model'.WshShell";
-        ManufacturingSetup: Record "Manufacturing Setup";
-        RecordLink: Record "Record Link";
-        RecordIDLink: RecordID;
-    BEGIN
-        IF "Source Type" = "Source Type"::Item THEN BEGIN
-            ManufacturingSetup.GET();
-            ManufacturingSetup.TESTFIELD("PWD PDF Exe Path");
-            EVALUATE(RecordIDLink, 'Item: ' + "Source No.");
-            RecordLink.RESET();
-            RecordLink.SETRANGE("Record ID", RecordIDLink);
-            RecordLink.SETRANGE(Type, RecordLink.Type::Link);
-            RecordLink.SETFILTER(Description, "Source No." + '*');
-            //TODO
-            // CREATE(WshShell, FALSE, TRUE);
-            // IF RecordLink.FINDFIRST THEN
-            //     REPEAT
-            //         // On vérifie que le fichier est bien un PDF
-            //         IF UPPERCASE(COPYSTR(RecordLink.Description, STRLEN(RecordLink.Description) - 3, 4)) = '.PDF' THEN
-            //             WshShell.Run('"' + ManufacturingSetup."PDF Exe Path" + '" /t "' + RecordLink.URL1 + '"');
-            //     //MEssage('"%1" /t "%2"',RecLManufacturingSetup."PDF Exe Path",RecLRecordLink.URL1);
-            //     UNTIL RecordLink.NEXT = 0;
-        END;
-    END;
+    // PROCEDURE FctPrintPDF();
+    // VAR
+    //     //TODO: Automation
+    //     // WshShell: Automation "'Windows Script Host Object Model'.WshShell";
+    //     ManufacturingSetup: Record "Manufacturing Setup";
+    //     RecordLink: Record "Record Link";
+    //     RecordIDLink: RecordID;
+    // BEGIN
+    //     IF "Source Type" = "Source Type"::Item THEN BEGIN
+    //         ManufacturingSetup.GET();
+    //         ManufacturingSetup.TESTFIELD("PWD PDF Exe Path");
+    //         EVALUATE(RecordIDLink, 'Item: ' + "Source No.");
+    //         RecordLink.RESET();
+    //         RecordLink.SETRANGE("Record ID", RecordIDLink);
+    //         RecordLink.SETRANGE(Type, RecordLink.Type::Link);
+    //         RecordLink.SETFILTER(Description, "Source No." + '*');
+    //         //TODO
+    //         // CREATE(WshShell, FALSE, TRUE);
+    //         // IF RecordLink.FINDFIRST THEN
+    //         //     REPEAT
+    //         //         // On vérifie que le fichier est bien un PDF
+    //         //         IF UPPERCASE(COPYSTR(RecordLink.Description, STRLEN(RecordLink.Description) - 3, 4)) = '.PDF' THEN
+    //         //             WshShell.Run('"' + ManufacturingSetup."PDF Exe Path" + '" /t "' + RecordLink.URL1 + '"');
+    //         //     //MEssage('"%1" /t "%2"',RecLManufacturingSetup."PDF Exe Path",RecLRecordLink.URL1);
+    //         //     UNTIL RecordLink.NEXT = 0;
+    //     END;
+    // END;
+
+    procedure FctPrintPDF(ShowFileDialog: Boolean; var DocumentAttach: Record "Document Attachment"): Text
+    var
+        TempBlob: Codeunit "Temp Blob";
+        FileManagement: Codeunit "File Management";
+        DocumentStream: OutStream;
+        FullFileName: Text;
+        path: Text;
+        InputFile: File;
+    begin
+        Clear(DocumentStream);
+        Clear(FileManagement);
+        if DocumentAttach.ID = 0 then
+            exit;
+        // Ensure document has value in DB
+        if not DocumentAttach."Document Reference ID".HasValue then
+            exit;
+        FullFileName := DocumentAttach."File Name" + '.' + DocumentAttach."File Extension";
+        TempBlob.CreateOutStream(DocumentStream);
+        DocumentAttach."Document Reference ID".ExportStream(DocumentStream);
+        exit(FileManagement.BLOBExport(TempBlob, FullFileName, ShowFileDialog));
+    end;
 }
