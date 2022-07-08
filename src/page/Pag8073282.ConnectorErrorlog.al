@@ -16,8 +16,9 @@ page 8073282 "PWD Connector Error log"
     InsertAllowed = false;
     ModifyAllowed = false;
     PageType = List;
-    UsageCategory = None;
     SourceTable = "PWD Connector Error log";
+    UsageCategory = History;
+    ApplicationArea = all;
 
     layout
     {

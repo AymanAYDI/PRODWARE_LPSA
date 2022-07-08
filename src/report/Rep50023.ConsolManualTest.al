@@ -27,6 +27,7 @@ report 50023 "PWD Consol Manual Test"
                 field(OptGTreatmentF; OptGTreatment)
                 {
                     Caption = 'Traitement à lancer';
+                    OptionCaption = 'Export,Import,Buffer,Validation';
                     ApplicationArea = All;
                 }
             }

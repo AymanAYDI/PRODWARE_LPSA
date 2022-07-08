@@ -109,47 +109,36 @@ page 8073283 "PWD Partner Connector"
                 }
             }
         }
-        area(factboxes)
-        {
-            systempart(Control1100294003; Links)
-            {
-                Visible = false;
-                ApplicationArea = All;
-            }
-            systempart(Control1100294001; Notes)
-            {
-                Visible = false;
-                ApplicationArea = All;
-            }
-        }
     }
 
     actions
     {
         area(processing)
         {
-            group(Action1100294002)
+            group(Partner)
             {
                 Caption = 'Partner';
-                action(Action1100294008)
+                action("Sending Message")
                 {
                     Caption = 'Sending Message List';
                     Promoted = true;
                     PromotedOnly = true;
+                    PromotedIsBig = true;
                     RunObject = Page "PWD Sending Message List";
                     RunPageLink = "Partner Code" = FIELD(Code);
                     ApplicationArea = All;
-                    ShortCutKey = 'Shift+Ctrl+M';
-                    Image = SendMail;
+                    Image = ExportFile;
                 }
-                action(Action1100294012)
+                action("Receiving Message")
                 {
                     Caption = 'Receiving Message List';
                     Promoted = true;
+                    PromotedOnly = true;
+                    PromotedIsBig = true;
                     RunObject = Page "PWD Receiving Message List";
                     RunPageLink = "Partner Code" = FIELD(Code);
                     ApplicationArea = All;
-                    Image = SendMail;
+                    Image = ImportLog;
                 }
             }
         }
