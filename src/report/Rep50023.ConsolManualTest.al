@@ -2,7 +2,8 @@ report 50023 "PWD Consol Manual Test"
 {
     Caption = 'Consol Manual Test';
     ProcessingOnly = true;
-    UsageCategory = None;
+    UsageCategory = Tasks;
+    ApplicationArea = all;
     dataset
     {
     }
