@@ -235,6 +235,15 @@ pageextension 60008 "PWD ItemCard" extends "Item Card"
         {
             Visible = false;
         }
+        addafter(Control1900383207)
+        {
+            part(PWDLink; "PWD Link")
+            {
+                ApplicationArea = All;
+                //SubPageLink = "Record ID" = 
+            }
+
+        }
     }
     actions
     {
@@ -383,6 +392,7 @@ pageextension 60008 "PWD ItemCard" extends "Item Card"
             }
         }
     }
+
     trigger OnQueryClosePage(CloseAction: Action): Boolean
     begin
         //>>REGIE
@@ -445,7 +455,6 @@ pageextension 60008 "PWD ItemCard" extends "Item Card"
             END ELSE
                 ERROR(CstG002);
     END;
-
 
     var
         CduGVersionMgt: Codeunit VersionManagement;
