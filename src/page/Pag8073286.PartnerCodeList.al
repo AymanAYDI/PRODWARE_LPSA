@@ -22,8 +22,9 @@ page 8073286 "PWD Partner Code List"
     CardPageID = "PWD Partner Connector";
     Editable = false;
     PageType = List;
-    UsageCategory = None;
     SourceTable = "PWD Partner Connector";
+    UsageCategory = Administration;
+    ApplicationArea = all;
 
     layout
     {
@@ -46,37 +47,16 @@ page 8073286 "PWD Partner Code List"
                 }
             }
         }
-        area(factboxes)
-        {
-            systempart(Control1100294001; Links)
-            {
-                Visible = false;
-                ApplicationArea = All;
-            }
-            systempart(Control1100294000; Notes)
-            {
-                Visible = false;
-                ApplicationArea = All;
-            }
-        }
     }
 
     actions
     {
-        area(navigation)
+        area(Processing)
         {
-            action(Action1100294004)
-            {
-                Caption = 'fiche';
-                RunObject = Page "PWD Partner Connector";
-                RunPageLink = Code = FIELD(Code);
-                ApplicationArea = All;
-                Image = TestFile;
-            }
-            group("<Action1100294014>")
+            group(Function)
             {
                 Caption = 'Function';
-                action("<Action1100294015>")
+                action("Import Export Connector SetUp")
                 {
                     Caption = 'Import Export Connector SetUp';
                     Promoted = true;

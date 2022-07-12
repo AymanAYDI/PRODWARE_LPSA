@@ -93,7 +93,7 @@ tableextension 60027 "PWD InventorySetup" extends "Inventory Setup"
             Description = 'LAP2.19';
             ExtendedDatatype = EMail;
         }
-        field(50025; "PWD Recipient User ID"; Code[20])
+        field(50025; "PWD Recipient User ID"; Code[50])
         {
             Caption = 'Recipient User ID';
             Description = 'LAP2.19';

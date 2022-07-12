@@ -2,7 +2,8 @@ report 50023 "PWD Consol Manual Test"
 {
     Caption = 'Consol Manual Test';
     ProcessingOnly = true;
-    UsageCategory = None;
+    UsageCategory = Tasks;
+    ApplicationArea = all;
     dataset
     {
     }
@@ -27,6 +28,7 @@ report 50023 "PWD Consol Manual Test"
                 field(OptGTreatmentF; OptGTreatment)
                 {
                     Caption = 'Traitement à lancer';
+                    OptionCaption = 'Export,Import,Buffer,Validation';
                     ApplicationArea = All;
                 }
             }

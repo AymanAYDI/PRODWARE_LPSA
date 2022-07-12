@@ -21,6 +21,108 @@
           <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">Table OSYS Item Jounal Line Buffer - Field Next Operation No. - Property Caption</note>
         </trans-unit>
+        <trans-unit id="Table 2002762241 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>PWD BarCode</source>
+          <target state="translated">Code Barre</target>
+          <note from="Developer" annotates="general" priority="2"/>
+          <note from="Xliff Generator" annotates="general" priority="3">Table PWD BarCode - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 2002762241 - Field 448862064 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Border</source>
+          <target state="translated">Border</target>
+          <note from="Developer" annotates="general" priority="2"/>
+          <note from="Xliff Generator" annotates="general" priority="3">Table PWD BarCode - Field Border - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 2002762241 - Field 2581161485 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>ECC Level</source>
+          <target state="translated">ECC Level</target>
+          <note from="Developer" annotates="general" priority="2"/>
+          <note from="Xliff Generator" annotates="general" priority="3">Table PWD BarCode - Field ECCLevel - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 2002762241 - Field 2581161485 - Property 62802879" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Low (L),Medium-Low (M),Medium-High (Q),High (H)</source>
+          <target state="translated">Low (L),Medium-Low (M),Medium-High (Q),High (H)</target>
+          <note from="Developer" annotates="general" priority="2"/>
+          <note from="Xliff Generator" annotates="general" priority="3">Table PWD BarCode - Field ECCLevel - Property OptionCaption</note>
+        </trans-unit>
+        <trans-unit id="Table 2002762241 - Field 3581037481 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Height</source>
+          <target state="translated">Height</target>
+          <note from="Developer" annotates="general" priority="2"/>
+          <note from="Xliff Generator" annotates="general" priority="3">Table PWD BarCode - Field Height - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 2002762241 - Field 3122986371 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Include Text</source>
+          <target state="translated">Include Text</target>
+          <note from="Developer" annotates="general" priority="2"/>
+          <note from="Xliff Generator" annotates="general" priority="3">Table PWD BarCode - Field IncludeText - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 2002762241 - Field 1594621544 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Picture</source>
+          <target state="translated">Picture</target>
+          <note from="Developer" annotates="general" priority="2"/>
+          <note from="Xliff Generator" annotates="general" priority="3">Table PWD BarCode - Field Picture - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 2002762241 - Field 1150440080 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Picture Type</source>
+          <target state="translated">Picture Type</target>
+          <note from="Developer" annotates="general" priority="2"/>
+          <note from="Xliff Generator" annotates="general" priority="3">Table PWD BarCode - Field PictureType - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 2002762241 - Field 1150440080 - Property 62802879" size-unit="char" translate="yes" xml:space="preserve">
+          <source>png,gif,jpg</source>
+          <target state="translated">png,gif,jpg</target>
+          <note from="Developer" annotates="general" priority="2"/>
+          <note from="Xliff Generator" annotates="general" priority="3">Table PWD BarCode - Field PictureType - Property OptionCaption</note>
+        </trans-unit>
+        <trans-unit id="Table 2002762241 - Field 2333076789 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Primary Key</source>
+          <target state="translated">Primary Key</target>
+          <note from="Developer" annotates="general" priority="2"/>
+          <note from="Xliff Generator" annotates="general" priority="3">Table PWD BarCode - Field PrimaryKey - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 2002762241 - Field 789959666 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Reverse Colors</source>
+          <target state="translated">Reverse Colors</target>
+          <note from="Developer" annotates="general" priority="2"/>
+          <note from="Xliff Generator" annotates="general" priority="3">Table PWD BarCode - Field ReverseColors - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 2002762241 - Field 3964473375 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Size</source>
+          <target state="translated">Size</target>
+          <note from="Developer" annotates="general" priority="2"/>
+          <note from="Xliff Generator" annotates="general" priority="3">Table PWD BarCode - Field Size - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 2002762241 - Field 3964473375 - Property 62802879" size-unit="char" translate="yes" xml:space="preserve">
+          <source>21x21,42x42,63x63,84x84,105x105,126x126,147x147,168x168,189x189,210x210</source>
+          <target state="translated">21x21,42x42,63x63,84x84,105x105,126x126,147x147,168x168,189x189,210x210</target>
+          <note from="Developer" annotates="general" priority="2"/>
+          <note from="Xliff Generator" annotates="general" priority="3">Table PWD BarCode - Field Size - Property OptionCaption</note>
+        </trans-unit>
+        <trans-unit id="Table 2002762241 - Field 1878130204 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Type</source>
+          <target state="translated">Type</target>
+          <note from="Developer" annotates="general" priority="2"/>
+          <note from="Xliff Generator" annotates="general" priority="3">Table PWD BarCode - Field Type - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 2002762241 - Field 1878130204 - Property 62802879" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Select a Type,Code 39,Code 128a,Code 128b,Code 128c,2 of 5 Interleaved,QR Code</source>
+          <target state="translated">Select a Type,Code 39,Code 128a,Code 128b,Code 128c,2 of 5 Interleaved,QR Code</target>
+          <note from="Developer" annotates="general" priority="2"/>
+          <note from="Xliff Generator" annotates="general" priority="3">Table PWD BarCode - Field Type - Property OptionCaption</note>
+        </trans-unit>
+        <trans-unit id="Table 2002762241 - Field 1131619133 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Value</source>
+          <target state="translated">Value</target>
+          <note from="Developer" annotates="general" priority="2"/>
+          <note from="Xliff Generator" annotates="general" priority="3">Table PWD BarCode - Field Value - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 2002762241 - Field 613790498 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Width</source>
+          <target state="translated">Width</target>
+          <note from="Developer" annotates="general" priority="2"/>
+          <note from="Xliff Generator" annotates="general" priority="3">Table PWD BarCode - Field Width - Property Caption</note>
+        </trans-unit>
         <trans-unit id="Table 2525777168 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Connector Error Log</source>
           <target state="translated">Purge journal d'erreur Connecteur</target>
@@ -71,7 +173,7 @@
         </trans-unit>
         <trans-unit id="Table 2525777168 - Field 1780264958 - Property 62802879" size-unit="char" translate="yes" xml:space="preserve">
           <source>,Import Connector,Export Connector</source>
-          <target state="translated"> ,Connecteur import, connecteur export</target>
+          <target state="translated"> ,Connecteur import,Connecteur export</target>
           <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">Table PWD Connector Error Log - Field Flow Type - Property OptionCaption</note>
         </trans-unit>
@@ -4809,6 +4911,60 @@
           <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">Table PWD Receipt Line Buffer - Field Variant Code - Property Caption</note>
         </trans-unit>
+        <trans-unit id="Table 202087522 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>PWD RESTWebServiceArguments</source>
+          <target state="translated">PWD RESTWebServiceArguments</target>
+          <note from="Developer" annotates="general" priority="2"/>
+          <note from="Xliff Generator" annotates="general" priority="3">Table PWD RESTWebServiceArguments - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 202087522 - Field 467812692 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Accept</source>
+          <target state="translated">Accept</target>
+          <note from="Developer" annotates="general" priority="2"/>
+          <note from="Xliff Generator" annotates="general" priority="3">Table PWD RESTWebServiceArguments - Field Accept - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 202087522 - Field 3926698677 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Blob</source>
+          <target state="translated">Blob</target>
+          <note from="Developer" annotates="general" priority="2"/>
+          <note from="Xliff Generator" annotates="general" priority="3">Table PWD RESTWebServiceArguments - Field Blob - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 202087522 - Field 3411229705 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>ETag</source>
+          <target state="translated">ETag</target>
+          <note from="Developer" annotates="general" priority="2"/>
+          <note from="Xliff Generator" annotates="general" priority="3">Table PWD RESTWebServiceArguments - Field ETag - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 202087522 - Field 2575460289 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Password</source>
+          <target state="translated">Password</target>
+          <note from="Developer" annotates="general" priority="2"/>
+          <note from="Xliff Generator" annotates="general" priority="3">Table PWD RESTWebServiceArguments - Field Password - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 202087522 - Field 2333076789 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>PrimaryKey</source>
+          <target state="translated">PrimaryKey</target>
+          <note from="Developer" annotates="general" priority="2"/>
+          <note from="Xliff Generator" annotates="general" priority="3">Table PWD RESTWebServiceArguments - Field PrimaryKey - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 202087522 - Field 1953297401 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>RestMethod</source>
+          <target state="translated">RestMethod</target>
+          <note from="Developer" annotates="general" priority="2"/>
+          <note from="Xliff Generator" annotates="general" priority="3">Table PWD RESTWebServiceArguments - Field RestMethod - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 202087522 - Field 3003898253 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>URL</source>
+          <target state="translated">URL</target>
+          <note from="Developer" annotates="general" priority="2"/>
+          <note from="Xliff Generator" annotates="general" priority="3">Table PWD RESTWebServiceArguments - Field URL - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 202087522 - Field 3549826426 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>UserName</source>
+          <target state="translated">UserName</target>
+          <note from="Developer" annotates="general" priority="2"/>
+          <note from="Xliff Generator" annotates="general" priority="3">Table PWD RESTWebServiceArguments - Field UserName - Property Caption</note>
+        </trans-unit>
         <trans-unit id="Table 3896163634 - Field 2279323338 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Action</source>
           <target state="translated">Action</target>
@@ -7511,7 +7667,7 @@
         </trans-unit>
         <trans-unit id="Page 1064686525 - Action 2805062999 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source/>
-          <target>[NAB: REVIEW]</target>
+          <target state="needs-translation"/>
           <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">Page PWD Item List requirement - Action Action83 - Property Caption</note>
         </trans-unit>
@@ -8037,23 +8193,17 @@
           <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">Page PWD Partner Code List - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Page 1112919054 - Action 1687538754 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+        <trans-unit id="Page 1112919054 - Action 3951948734 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Function</source>
-          <target state="translated">Function</target>
+          <target state="translated">Fonction</target>
           <note from="Developer" annotates="general" priority="2"/>
-          <note from="Xliff Generator" annotates="general" priority="3">Page PWD Partner Code List - Action &lt;Action1100294014&gt; - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page PWD Partner Code List - Action Function - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Page 1112919054 - Action 4113550849 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+        <trans-unit id="Page 1112919054 - Action 2672750439 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Import Export Connector SetUp</source>
           <target state="translated">Import Export paramétrages connecteur</target>
           <note from="Developer" annotates="general" priority="2"/>
-          <note from="Xliff Generator" annotates="general" priority="3">Page PWD Partner Code List - Action &lt;Action1100294015&gt; - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Page 1112919054 - Action 3631954047 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>fiche</source>
-          <target state="translated">Card</target>
-          <note from="Developer" annotates="general" priority="2"/>
-          <note from="Xliff Generator" annotates="general" priority="3">Page PWD Partner Code List - Action Action1100294004 - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page PWD Partner Code List - Action Import Export Connector SetUp - Property Caption</note>
         </trans-unit>
         <trans-unit id="Page 1619412386 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Partner Connector Card</source>
@@ -8067,23 +8217,23 @@
           <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">Page PWD Partner Connector - Control Général - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Page 1619412386 - Action 3163166453 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+        <trans-unit id="Page 1619412386 - Action 186081026 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Partner</source>
           <target state="translated">Partenaire</target>
           <note from="Developer" annotates="general" priority="2"/>
-          <note from="Xliff Generator" annotates="general" priority="3">Page PWD Partner Connector - Action Action1100294002 - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page PWD Partner Connector - Action Partner - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Page 1619412386 - Action 2694378859 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Sending Message List</source>
-          <target state="translated">Messages de sortie</target>
-          <note from="Developer" annotates="general" priority="2"/>
-          <note from="Xliff Generator" annotates="general" priority="3">Page PWD Partner Connector - Action Action1100294008 - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Page 1619412386 - Action 2371153990 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+        <trans-unit id="Page 1619412386 - Action 1682627495 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Receiving Message List</source>
           <target state="translated">Messages d'entrée</target>
           <note from="Developer" annotates="general" priority="2"/>
-          <note from="Xliff Generator" annotates="general" priority="3">Page PWD Partner Connector - Action Action1100294012 - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page PWD Partner Connector - Action Receiving Message - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 1619412386 - Action 2772678481 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Sending Message List</source>
+          <target state="translated">Messages de sortie</target>
+          <note from="Developer" annotates="general" priority="2"/>
+          <note from="Xliff Generator" annotates="general" priority="3">Page PWD Partner Connector - Action Sending Message - Property Caption</note>
         </trans-unit>
         <trans-unit id="Page 649776105 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Phantom substitution Items</source>
@@ -9416,6 +9566,12 @@
           <target state="translated">Traitement à lancer</target>
           <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">Report PWD Consol Manual Test - Control OptGTreatmentF - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Report 4250172199 - Control 1203490306 - Property 62802879" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Export,Import,Buffer,Validation</source>
+          <target state="translated">Export,Import,Buffer,Validation</target>
+          <note from="Developer" annotates="general" priority="2"/>
+          <note from="Xliff Generator" annotates="general" priority="3">Report PWD Consol Manual Test - Control OptGTreatmentF - Property OptionCaption</note>
         </trans-unit>
         <trans-unit id="Report 495364762 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Sales - Credit Memo</source>
@@ -10887,11 +11043,11 @@
           <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">Report PWD MAJ Tps OP Gamme PIE A/S O - Control Control1000000000 - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Report 3143622540 - Control 3403684481 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>transfert</source>
-          <target state="translated"> transfert</target>
+        <trans-unit id="Report 3143622540 - Control 931034720 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Pour l'opération</source>
+          <target state="translated">Pour l'opération</target>
           <note from="Developer" annotates="general" priority="2"/>
-          <note from="Xliff Generator" annotates="general" priority="3">Report PWD MAJ Tps OP Gamme PIE A/S O - Control BooGMoveTimeF - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report PWD MAJ Tps OP Gamme PIE A/S O - Control CodGOperationF - Property Caption</note>
         </trans-unit>
         <trans-unit id="Report 3143622540 - Control 3065937403 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>prépa</source>
@@ -10899,35 +11055,11 @@
           <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">Report PWD MAJ Tps OP Gamme PIE A/S O - Control BooGSetupTimeF - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Report 3143622540 - Control 931034720 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Pour l'opération</source>
-          <target state="translated">Pour l'opération</target>
-          <note from="Developer" annotates="general" priority="2"/>
-          <note from="Xliff Generator" annotates="general" priority="3">Report PWD MAJ Tps OP Gamme PIE A/S O - Control CodGOperationF - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Report 3143622540 - Control 4097505713 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+        <trans-unit id="Report 3143622540 - Control 3403684481 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>transfert</source>
           <target state="translated"> transfert</target>
           <note from="Developer" annotates="general" priority="2"/>
-          <note from="Xliff Generator" annotates="general" priority="3">Report PWD MAJ Tps OP Gamme PIE A/S O - Control DecGMoveTimeF - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Report 3143622540 - Control 1132974124 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>transfert</source>
-          <target state="translated"> transfert</target>
-          <note from="Developer" annotates="general" priority="2"/>
-          <note from="Xliff Generator" annotates="general" priority="3">Report PWD MAJ Tps OP Gamme PIE A/S O - Control DecGMoveTimeOF - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Report 3143622540 - Control 671422795 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>prépa</source>
-          <target state="translated">prépa</target>
-          <note from="Developer" annotates="general" priority="2"/>
-          <note from="Xliff Generator" annotates="general" priority="3">Report PWD MAJ Tps OP Gamme PIE A/S O - Control DecGSetupTimeF - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Report 3143622540 - Control 1424248738 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>prépa</source>
-          <target state="translated">prépa</target>
-          <note from="Developer" annotates="general" priority="2"/>
-          <note from="Xliff Generator" annotates="general" priority="3">Report PWD MAJ Tps OP Gamme PIE A/S O - Control DecGSetupTimeOF - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report PWD MAJ Tps OP Gamme PIE A/S O - Control BooGMoveTimeF - Property Caption</note>
         </trans-unit>
         <trans-unit id="Report 3220346388 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Order</source>
@@ -12296,6 +12428,12 @@
           <target state="translated">Aval,Amont</target>
           <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">Report PWD Replan Production Order - Control DirectionF - Property OptionCaption</note>
+        </trans-unit>
+        <trans-unit id="Report 993104677 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>ReportLPSA</source>
+          <target state="translated">ReportLPSA</target>
+          <note from="Developer" annotates="general" priority="2"/>
+          <note from="Xliff Generator" annotates="general" priority="3">Report PWD ReportLPSA - Property Caption</note>
         </trans-unit>
         <trans-unit id="Report 1688759508 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Routing Sheet</source>
@@ -17627,7 +17765,7 @@
         </trans-unit>
         <trans-unit id="Enum 2393877935 - EnumValue 18652612 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source/>
-          <target>[NAB: REVIEW]</target>
+          <target state="needs-translation"/>
           <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">Enum PWD WMS_Type - EnumValue  - Property Caption</note>
         </trans-unit>

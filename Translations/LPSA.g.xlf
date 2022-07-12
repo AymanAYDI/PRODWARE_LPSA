@@ -6858,20 +6858,15 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Page PWD Partner Code List - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Page 1112919054 - Action 1687538754 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+        <trans-unit id="Page 1112919054 - Action 3951948734 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Function</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page PWD Partner Code List - Action &lt;Action1100294014&gt; - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page PWD Partner Code List - Action Function - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Page 1112919054 - Action 4113550849 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+        <trans-unit id="Page 1112919054 - Action 2672750439 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Import Export Connector SetUp</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page PWD Partner Code List - Action &lt;Action1100294015&gt; - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Page 1112919054 - Action 3631954047 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>fiche</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page PWD Partner Code List - Action Action1100294004 - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page PWD Partner Code List - Action Import Export Connector SetUp - Property Caption</note>
         </trans-unit>
         <trans-unit id="Page 1619412386 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Partner Connector Card</source>
@@ -6883,20 +6878,20 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Page PWD Partner Connector - Control Général - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Page 1619412386 - Action 3163166453 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+        <trans-unit id="Page 1619412386 - Action 186081026 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Partner</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page PWD Partner Connector - Action Action1100294002 - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page PWD Partner Connector - Action Partner - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Page 1619412386 - Action 2694378859 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Sending Message List</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page PWD Partner Connector - Action Action1100294008 - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Page 1619412386 - Action 2371153990 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+        <trans-unit id="Page 1619412386 - Action 1682627495 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Receiving Message List</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page PWD Partner Connector - Action Action1100294012 - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page PWD Partner Connector - Action Receiving Message - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 1619412386 - Action 2772678481 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Sending Message List</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page PWD Partner Connector - Action Sending Message - Property Caption</note>
         </trans-unit>
         <trans-unit id="Page 649776105 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Phantom substitution Items</source>
@@ -8027,6 +8022,11 @@
           <source>Traitement à lancer</source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Report PWD Consol Manual Test - Control OptGTreatmentF - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Report 4250172199 - Control 1203490306 - Property 62802879" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Export,Import,Buffer,Validation</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report PWD Consol Manual Test - Control OptGTreatmentF - Property OptionCaption</note>
         </trans-unit>
         <trans-unit id="Report 495364762 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Sales - Credit Memo</source>

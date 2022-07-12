@@ -51,7 +51,7 @@ table 8073282 "PWD Connector Error Log"
         {
             Caption = 'Message';
         }
-        field(11; "User ID"; Code[20])
+        field(11; "User ID"; Code[50])
         {
             Caption = 'User ID';
         }
