@@ -28,7 +28,6 @@ report 50000 "Export Invoicing Data (Excel)"
 
                 trigger OnAfterGetRecord()
                 begin
-
                     ExcelBuf.NewRow();
                     ExcelBuf.AddColumn(Format(CrMemoLineNR."Posting Date", 0, '<Day,2>.<Month,2>.<Year4>'), FALSE, '', FALSE, FALSE, FALSE, '', ExcelBuf."Cell Type"::Text);
                     ExcelBuf.AddColumn(Format(CrMemoLineNR."Posting Date", 0, '<Day,2>.<Month,2>.<Year4>'), FALSE, '', FALSE, FALSE, FALSE, '', ExcelBuf."Cell Type"::Text);
@@ -37,7 +36,6 @@ report 50000 "Export Invoicing Data (Excel)"
                     ExcelBuf.AddColumn(CodGCurrency, FALSE, '', FALSE, FALSE, FALSE, '@', ExcelBuf."Cell Type"::Text);
                     ExcelBuf.AddColumn(TxtGBarCode, FALSE, '', FALSE, FALSE, FALSE, '@', ExcelBuf."Cell Type"::Text);
                     ExcelBuf.AddColumn('1900', FALSE, '', FALSE, FALSE, FALSE, '', ExcelBuf."Cell Type"::Text);
-                    ExcelBuf.AddColumn('40', FALSE, '', FALSE, FALSE, FALSE, '', ExcelBuf."Cell Type"::Text);
                     ExcelBuf.AddColumn(CstG40, FALSE, '', FALSE, FALSE, FALSE, '', ExcelBuf."Cell Type"::Text);
                     if CrMemoLineNR.Type = CrMemoLineNR.Type::"G/L Account" then
                         ExcelBuf.AddColumn(CrMemoLineNR."No.", FALSE, '', FALSE, FALSE, FALSE, '', ExcelBuf."Cell Type"::Text)
@@ -47,13 +45,11 @@ report 50000 "Export Invoicing Data (Excel)"
                     ExcelBuf.AddColumn(Format(CrMemoLineNR.Amount, 15, 2), FALSE, '', FALSE, FALSE, FALSE, '', ExcelBuf."Cell Type"::Text);
                     ExcelBuf.AddColumn('', FALSE, '', FALSE, FALSE, FALSE, '', ExcelBuf."Cell Type"::Text);
                     ExcelBuf.AddColumn(CrMemoLineNR."VAT Bus. Posting Group", FALSE, '', FALSE, FALSE, FALSE, '', ExcelBuf."Cell Type"::Text);
-                    ExcelBuf.AddColumn(CrMemoLineNR.Description, FALSE, '', FALSE, FALSE, FALSE, '', ExcelBuf."Cell Type"::Text);
-
 
                     ExcelBuf.AddColumn(CopyStr(CrMemoLineNR."PWD LPSA Description 1", 1, 50), FALSE, '', FALSE, FALSE, FALSE, '', ExcelBuf."Cell Type"::Text);
                     ExcelBuf.AddColumn(CrMemoLineNR."Shortcut Dimension 2 Code", FALSE, '', FALSE, FALSE, FALSE, '', ExcelBuf."Cell Type"::Text);
                     ExcelBuf.AddColumn('X', FALSE, '', FALSE, FALSE, FALSE, '', ExcelBuf."Cell Type"::Text);
-                    // ExcelBuf.AddColumn(Fct_CalcShortcutDim3(CrMemoLineNR."Document No.", CrMemoLineNR."Line No.", '40'), FALSE, '', FALSE, FALSE, FALSE, '', ExcelBuf."Cell Type"::Text);
+                    //ExcelBuf.AddColumn(Fct_CalcShortcutDim3(CrMemoLineNR."Document No.", CrMemoLineNR."Line No.", '40'), FALSE, '', FALSE, FALSE, FALSE, '', ExcelBuf."Cell Type"::Text);
                     ExcelBuf.AddColumn(Fct_CalcShortcutDim3(CrMemoLineNR."Dimension Set ID"), FALSE, '', FALSE, FALSE, FALSE, '', ExcelBuf."Cell Type"::Text);
                     ExcelBuf.AddColumn('1900', FALSE, '', FALSE, FALSE, FALSE, '', ExcelBuf."Cell Type"::Text);
                     ExcelBuf.AddColumn(Fct_CalcAccountNo(CrMemoLineNR."Bill-to Customer No."), FALSE, '', FALSE, FALSE, FALSE, '', ExcelBuf."Cell Type"::Text);
@@ -88,7 +84,6 @@ report 50000 "Export Invoicing Data (Excel)"
                 TxtGBarCode := Fct_CalcBarCode(CrMemoHeaderNR."External Document No.");
                 ExcelBuf.AddColumn(TxtGBarCode, FALSE, '', FALSE, FALSE, FALSE, '@', ExcelBuf."Cell Type"::Text);
                 ExcelBuf.AddColumn('1900', FALSE, '', FALSE, FALSE, FALSE, '', ExcelBuf."Cell Type"::Text);
-                ExcelBuf.AddColumn('11', FALSE, '', FALSE, FALSE, FALSE, '', ExcelBuf."Cell Type"::Text);
                 ExcelBuf.AddColumn(CstG11, FALSE, '', FALSE, FALSE, FALSE, '', ExcelBuf."Cell Type"::Text);
                 ExcelBuf.AddColumn(Fct_CalcAccountNo(CrMemoHeaderNR."Bill-to Customer No."), FALSE, '', FALSE, FALSE, FALSE, '', ExcelBuf."Cell Type"::Text);
                 CrMemoHeaderNR.CalcFields("Amount Including VAT", Amount);
@@ -136,14 +131,13 @@ report 50000 "Export Invoicing Data (Excel)"
                     ExcelBuf.AddColumn(CodGCurrency, FALSE, '', FALSE, FALSE, FALSE, '@', ExcelBuf."Cell Type"::Text);
                     ExcelBuf.AddColumn(TxtGBarCode, FALSE, '', FALSE, FALSE, FALSE, '@', ExcelBuf."Cell Type"::Text);
                     ExcelBuf.AddColumn('1900', FALSE, '', FALSE, FALSE, FALSE, '', ExcelBuf."Cell Type"::Text);
-                    ExcelBuf.AddColumn('50', FALSE, '', FALSE, FALSE, FALSE, '', ExcelBuf."Cell Type"::Text);
                     ExcelBuf.AddColumn(CstG50, FALSE, '', FALSE, FALSE, FALSE, '', ExcelBuf."Cell Type"::Text);
                     if InvoiceLineNR.Type = InvoiceLineNR.Type::"G/L Account" then
                         ExcelBuf.AddColumn(InvoiceLineNR."No.", FALSE, '', FALSE, FALSE, FALSE, '', ExcelBuf."Cell Type"::Text)
                     else
                         ExcelBuf.AddColumn(Fct_CalcAccountNoLine(InvoiceLineNR."Gen. Bus. Posting Group", InvoiceLineNR."Gen. Prod. Posting Group", '50'), FALSE, '', FALSE, FALSE, FALSE, '', ExcelBuf."Cell Type"::Text);
 
-                    ExcelBuf.AddColumn(Fct_CalcAccountNo(CrMemoHeaderNR."Bill-to Customer No."), FALSE, '', FALSE, FALSE, FALSE, '', ExcelBuf."Cell Type"::Text);
+                    ExcelBuf.AddColumn(Format(InvoiceLineNR.Amount, 15, 2), FALSE, '', FALSE, FALSE, FALSE, '', ExcelBuf."Cell Type"::Text);
                     ExcelBuf.AddColumn('', FALSE, '', FALSE, FALSE, FALSE, '', ExcelBuf."Cell Type"::Text);
                     ExcelBuf.AddColumn(InvoiceLineNR."VAT Bus. Posting Group", FALSE, '', FALSE, FALSE, FALSE, '', ExcelBuf."Cell Type"::Text);
 
@@ -157,8 +151,7 @@ report 50000 "Export Invoicing Data (Excel)"
                     ExcelBuf.AddColumn('1900', FALSE, '', FALSE, FALSE, FALSE, '', ExcelBuf."Cell Type"::Text);
                     ExcelBuf.AddColumn(Fct_CalcAccountNo(InvoiceLineNR."Bill-to Customer No."), FALSE, '', FALSE, FALSE, FALSE, '', ExcelBuf."Cell Type"::Text);
                     ExcelBuf.AddColumn('72', FALSE, '', FALSE, FALSE, FALSE, '', ExcelBuf."Cell Type"::Text);
-                    ExcelBuf.AddColumn(InvoiceLineNR."Shipment No.", FALSE, '', FALSE, FALSE, FALSE, '', ExcelBuf."Cell Type"::Text);
-
+                    CodGShipNoLine := InvoiceLineNR."Shipment No.";
                     if CodGShipNoLine = '' then
                         CodGShipNoLine := Fct_CalcShipNoLine(InvoiceLineNR."Appl.-from Item Entry");
                     if CodGShipNoLine = '' then
@@ -185,10 +178,7 @@ report 50000 "Export Invoicing Data (Excel)"
                 TxtGBarCode := Fct_CalcBarCode(InvoiceHeaderNR."External Document No.");
                 ExcelBuf.AddColumn(TxtGBarCode, FALSE, '', FALSE, FALSE, FALSE, '', ExcelBuf."Cell Type"::Text);
                 ExcelBuf.AddColumn('1900', FALSE, '', FALSE, FALSE, FALSE, '', ExcelBuf."Cell Type"::Text);
-                ExcelBuf.AddColumn('01', FALSE, '', FALSE, FALSE, FALSE, '', ExcelBuf."Cell Type"::Text);
                 ExcelBuf.AddColumn(CstG01, FALSE, '', FALSE, FALSE, FALSE, '', ExcelBuf."Cell Type"::Text);
-                ExcelBuf.AddColumn(True, FALSE, '', FALSE, FALSE, FALSE, '', ExcelBuf."Cell Type"::Text);
-                ExcelBuf.AddColumn(TRUE, FALSE, '', FALSE, FALSE, FALSE, '', ExcelBuf."Cell Type"::Text);
                 ExcelBuf.AddColumn(Fct_CalcAccountNo(InvoiceHeaderNR."Bill-to Customer No."), FALSE, '', FALSE, FALSE, FALSE, '', ExcelBuf."Cell Type"::Text);
                 InvoiceHeaderNR.CalcFields("Amount Including VAT", Amount);
                 ExcelBuf.AddColumn(Format(InvoiceHeaderNR."Amount Including VAT", 15, 2), FALSE, '', FALSE, FALSE, FALSE, '', ExcelBuf."Cell Type"::Text);
@@ -229,13 +219,11 @@ report 50000 "Export Invoicing Data (Excel)"
                     ExcelBuf.AddColumn(CodGCurrency, FALSE, '', FALSE, FALSE, FALSE, '', ExcelBuf."Cell Type"::Text);
                     ExcelBuf.AddColumn(TxtGBarCode, FALSE, '', FALSE, FALSE, FALSE, '', ExcelBuf."Cell Type"::Text);
                     ExcelBuf.AddColumn('1900', FALSE, '', FALSE, FALSE, FALSE, '', ExcelBuf."Cell Type"::Text);
-                    ExcelBuf.AddColumn('11', FALSE, '', FALSE, FALSE, FALSE, '', ExcelBuf."Cell Type"::Text);
                     ExcelBuf.AddColumn(CstG11, FALSE, '', FALSE, FALSE, FALSE, '', ExcelBuf."Cell Type"::Text);
                     ExcelBuf.AddColumn(TxtGOurAccountNo, FALSE, '', FALSE, FALSE, FALSE, '', ExcelBuf."Cell Type"::Text);
                     ExcelBuf.AddColumn(Format(CrMemoLineRol1.Amount, 15, 2), FALSE, '', FALSE, FALSE, FALSE, '', ExcelBuf."Cell Type"::Text);
                     ExcelBuf.AddColumn(0, FALSE, '', FALSE, FALSE, FALSE, '', ExcelBuf."Cell Type"::Text);
                     ExcelBuf.AddColumn(CrMemoLineRol1."VAT Bus. Posting Group", FALSE, '', FALSE, FALSE, FALSE, '', ExcelBuf."Cell Type"::Text);
-                    ExcelBuf.AddColumn(CrMemoLineRol1.Description, FALSE, '', FALSE, FALSE, FALSE, '', ExcelBuf."Cell Type"::Text);
                     ExcelBuf.AddColumn(CopyStr(CrMemoLineRol1."PWD LPSA Description 1", 1, 50), FALSE, '', FALSE, FALSE, FALSE, '', ExcelBuf."Cell Type"::Text);
                     ExcelBuf.AddColumn('', FALSE, '', FALSE, FALSE, FALSE, '', ExcelBuf."Cell Type"::Text);
                     ExcelBuf.AddColumn('', FALSE, '', FALSE, FALSE, FALSE, '', ExcelBuf."Cell Type"::Text);
@@ -261,7 +249,6 @@ report 50000 "Export Invoicing Data (Excel)"
                     ExcelBuf.AddColumn(CodGCurrency, FALSE, '', FALSE, FALSE, FALSE, '', ExcelBuf."Cell Type"::Text);
                     ExcelBuf.AddColumn(TxtGBarCode, FALSE, '', FALSE, FALSE, FALSE, '', ExcelBuf."Cell Type"::Text);
                     ExcelBuf.AddColumn('1900', FALSE, '', FALSE, FALSE, FALSE, '', ExcelBuf."Cell Type"::Text);
-                    ExcelBuf.AddColumn('40', FALSE, '', FALSE, FALSE, FALSE, '', ExcelBuf."Cell Type"::Text);
                     ExcelBuf.AddColumn(CstG40, FALSE, '', FALSE, FALSE, FALSE, '', ExcelBuf."Cell Type"::Text);
                     if CrMemoLineRol2.Type = CrMemoLineRol2.Type::"G/L Account" then
                         ExcelBuf.AddColumn(CrMemoLineRol2."No.", FALSE, '', FALSE, FALSE, FALSE, '', ExcelBuf."Cell Type"::Text)
@@ -270,7 +257,6 @@ report 50000 "Export Invoicing Data (Excel)"
                     ExcelBuf.AddColumn(Format(CrMemoLineRol2.Amount, 15, 2), FALSE, '', FALSE, FALSE, FALSE, '', ExcelBuf."Cell Type"::Text);
                     ExcelBuf.AddColumn(0, FALSE, '', FALSE, FALSE, FALSE, '', ExcelBuf."Cell Type"::Text);
                     ExcelBuf.AddColumn(CrMemoLineRol2."VAT Bus. Posting Group", FALSE, '', FALSE, FALSE, FALSE, '', ExcelBuf."Cell Type"::Text);
-                    ExcelBuf.AddColumn(CrMemoLineRol2.Description, FALSE, '', FALSE, FALSE, FALSE, '', ExcelBuf."Cell Type"::Text);
                     ExcelBuf.AddColumn(CopyStr(CrMemoLineRol2."PWD LPSA Description 1", 1, 50), FALSE, '', FALSE, FALSE, FALSE, '', ExcelBuf."Cell Type"::Text);
                     ExcelBuf.AddColumn(CrMemoLineRol2."Shortcut Dimension 2 Code", FALSE, '', FALSE, FALSE, FALSE, '', ExcelBuf."Cell Type"::Text);
                     ExcelBuf.AddColumn('X', FALSE, '', FALSE, FALSE, FALSE, '', ExcelBuf."Cell Type"::Text);
@@ -327,13 +313,11 @@ report 50000 "Export Invoicing Data (Excel)"
                     ExcelBuf.AddColumn(CodGCurrency, FALSE, '', FALSE, FALSE, FALSE, '', ExcelBuf."Cell Type"::Text);
                     ExcelBuf.AddColumn(TxtGBarCode, FALSE, '', FALSE, FALSE, FALSE, '', ExcelBuf."Cell Type"::Text);
                     ExcelBuf.AddColumn('1900', FALSE, '', FALSE, FALSE, FALSE, '', ExcelBuf."Cell Type"::Text);
-                    ExcelBuf.AddColumn('01', FALSE, '', FALSE, FALSE, FALSE, '', ExcelBuf."Cell Type"::Text);
                     ExcelBuf.AddColumn(CstG01, FALSE, '', FALSE, FALSE, FALSE, '', ExcelBuf."Cell Type"::Text);
                     ExcelBuf.AddColumn(TxtGOurAccountNo, FALSE, '', FALSE, FALSE, FALSE, '', ExcelBuf."Cell Type"::Text);
                     ExcelBuf.AddColumn(Format(InvoiceLineRol1.Amount, 15, 2), FALSE, '', FALSE, FALSE, FALSE, '', ExcelBuf."Cell Type"::Text);
                     ExcelBuf.AddColumn(0, FALSE, '', FALSE, FALSE, FALSE, '', ExcelBuf."Cell Type"::Text);
                     ExcelBuf.AddColumn(InvoiceLineRol1."VAT Bus. Posting Group", FALSE, '', FALSE, FALSE, FALSE, '', ExcelBuf."Cell Type"::Text);
-                    ExcelBuf.AddColumn(InvoiceLineRol1.Description, FALSE, '', FALSE, FALSE, FALSE, '', ExcelBuf."Cell Type"::Text);
                     ExcelBuf.AddColumn(CopyStr("PWD LPSA Description 1", 1, 50), FALSE, '', FALSE, FALSE, FALSE, '', ExcelBuf."Cell Type"::Text);
                     ExcelBuf.AddColumn('', FALSE, '', FALSE, FALSE, FALSE, '', ExcelBuf."Cell Type"::Text);
                     ExcelBuf.AddColumn('', FALSE, '', FALSE, FALSE, FALSE, '', ExcelBuf."Cell Type"::Text);
@@ -359,7 +343,7 @@ report 50000 "Export Invoicing Data (Excel)"
                     ExcelBuf.AddColumn(CodGCurrency, FALSE, '', FALSE, FALSE, FALSE, '', ExcelBuf."Cell Type"::Text);
                     ExcelBuf.AddColumn(TxtGBarCode, FALSE, '', FALSE, FALSE, FALSE, '', ExcelBuf."Cell Type"::Text);
                     ExcelBuf.AddColumn('1900', FALSE, '', FALSE, FALSE, FALSE, '', ExcelBuf."Cell Type"::Text);
-                    ExcelBuf.AddColumn('50', FALSE, '', FALSE, FALSE, FALSE, '', ExcelBuf."Cell Type"::Text);
+                    //ExcelBuf.AddColumn('50', FALSE, '', FALSE, FALSE, FALSE, '', ExcelBuf."Cell Type"::Text);
                     ExcelBuf.AddColumn(CstG50, FALSE, '', FALSE, FALSE, FALSE, '', ExcelBuf."Cell Type"::Text);
                     if InvoiceLineRol2.Type = InvoiceLineRol2.Type::"G/L Account" then
                         ExcelBuf.AddColumn(InvoiceLineRol2."No.", FALSE, '', FALSE, FALSE, FALSE, '', ExcelBuf."Cell Type"::Text)
@@ -368,7 +352,6 @@ report 50000 "Export Invoicing Data (Excel)"
                     ExcelBuf.AddColumn(Format(InvoiceLineRol2.Amount, 15, 2), FALSE, '', FALSE, FALSE, FALSE, '', ExcelBuf."Cell Type"::Text);
                     ExcelBuf.AddColumn(0, FALSE, '', FALSE, FALSE, FALSE, '', ExcelBuf."Cell Type"::Text);
                     ExcelBuf.AddColumn(InvoiceLineRol2."VAT Bus. Posting Group", FALSE, '', FALSE, FALSE, FALSE, '', ExcelBuf."Cell Type"::Text);
-                    ExcelBuf.AddColumn(InvoiceLineRol2.Description, FALSE, '', FALSE, FALSE, FALSE, '', ExcelBuf."Cell Type"::Text);
                     ExcelBuf.AddColumn(CopyStr(InvoiceLineRol2."PWD LPSA Description 1", 1, 50), FALSE, '', FALSE, FALSE, FALSE, '', ExcelBuf."Cell Type"::Text);
                     ExcelBuf.AddColumn(InvoiceLineRol2."Shortcut Dimension 2 Code", FALSE, '', FALSE, FALSE, FALSE, '', ExcelBuf."Cell Type"::Text);
                     ExcelBuf.AddColumn('X', FALSE, '', FALSE, FALSE, FALSE, '', ExcelBuf."Cell Type"::Text);
@@ -757,4 +740,3 @@ report 50000 "Export Invoicing Data (Excel)"
     end;
 
 }
-
