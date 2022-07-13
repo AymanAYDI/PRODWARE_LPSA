@@ -11,6 +11,178 @@
       <rd:DataSourceID>c549efbf-86ff-4fa3-bcd8-8c054f673526</rd:DataSourceID>
     </DataSource>
   </DataSources>
+  <DataSets>
+    <DataSet Name="DataSet_Result">
+      <Query>
+        <DataSourceName>DataSource</DataSourceName>
+        <CommandText />
+      </Query>
+      <Fields>
+        <Field Name="ShipmentPeriodDate">
+          <DataField>ShipmentPeriodDate</DataField>
+        </Field>
+        <Field Name="CompanyName">
+          <DataField>CompanyName</DataField>
+        </Field>
+        <Field Name="PrintAmountsInLCY">
+          <DataField>PrintAmountsInLCY</DataField>
+        </Field>
+        <Field Name="CustTableCapCustFilter">
+          <DataField>CustTableCapCustFilter</DataField>
+        </Field>
+        <Field Name="CustFilter">
+          <DataField>CustFilter</DataField>
+        </Field>
+        <Field Name="SalesOrderLineFilter">
+          <DataField>SalesOrderLineFilter</DataField>
+        </Field>
+        <Field Name="SalesLineFilter">
+          <DataField>SalesLineFilter</DataField>
+        </Field>
+        <Field Name="No_Customer">
+          <DataField>No_Customer</DataField>
+        </Field>
+        <Field Name="Name_Customer">
+          <DataField>Name_Customer</DataField>
+        </Field>
+        <Field Name="PageGroupNo">
+          <DataField>PageGroupNo</DataField>
+        </Field>
+        <Field Name="CustOrderDetailCaption">
+          <DataField>CustOrderDetailCaption</DataField>
+        </Field>
+        <Field Name="PageCaption">
+          <DataField>PageCaption</DataField>
+        </Field>
+        <Field Name="AllAmtAreInLCYCaption">
+          <DataField>AllAmtAreInLCYCaption</DataField>
+        </Field>
+        <Field Name="ShipmentDateCaption">
+          <DataField>ShipmentDateCaption</DataField>
+        </Field>
+        <Field Name="QtyOnBackOrderCaption">
+          <DataField>QtyOnBackOrderCaption</DataField>
+        </Field>
+        <Field Name="OutstandingOrdersCaption">
+          <DataField>OutstandingOrdersCaption</DataField>
+        </Field>
+        <Field Name="SalesHeaderNo">
+          <DataField>SalesHeaderNo</DataField>
+        </Field>
+        <Field Name="SalesHeaderNoCaption">
+          <DataField>SalesHeaderNoCaption</DataField>
+        </Field>
+        <Field Name="SalesHeaderOrderDate">
+          <DataField>SalesHeaderOrderDate</DataField>
+        </Field>
+        <Field Name="Description_SalesLine">
+          <DataField>Description_SalesLine</DataField>
+        </Field>
+        <Field Name="Description_SalesLineCaption">
+          <DataField>Description_SalesLineCaption</DataField>
+        </Field>
+        <Field Name="No_SalesLine">
+          <DataField>No_SalesLine</DataField>
+        </Field>
+        <Field Name="No_SalesLineCaption">
+          <DataField>No_SalesLineCaption</DataField>
+        </Field>
+        <Field Name="Type_SalesLine">
+          <DataField>Type_SalesLine</DataField>
+        </Field>
+        <Field Name="Type_SalesLineCaption">
+          <DataField>Type_SalesLineCaption</DataField>
+        </Field>
+        <Field Name="ShipmentDate_SalesLine">
+          <DataField>ShipmentDate_SalesLine</DataField>
+        </Field>
+        <Field Name="ShipmentDate_SalesLineCaption">
+          <DataField>ShipmentDate_SalesLineCaption</DataField>
+        </Field>
+        <Field Name="Quantity_SalesLine">
+          <DataField>Quantity_SalesLine</DataField>
+        </Field>
+        <Field Name="Quantity_SalesLineFormat">
+          <DataField>Quantity_SalesLineFormat</DataField>
+        </Field>
+        <Field Name="OutStandingQty_SalesLine">
+          <DataField>OutStandingQty_SalesLine</DataField>
+        </Field>
+        <Field Name="OutStandingQty_SalesLineFormat">
+          <DataField>OutStandingQty_SalesLineFormat</DataField>
+        </Field>
+        <Field Name="BackOrderQty">
+          <DataField>BackOrderQty</DataField>
+        </Field>
+        <Field Name="BackOrderQtyFormat">
+          <DataField>BackOrderQtyFormat</DataField>
+        </Field>
+        <Field Name="UnitPrice_SalesLine">
+          <DataField>UnitPrice_SalesLine</DataField>
+        </Field>
+        <Field Name="UnitPrice_SalesLineFormat">
+          <DataField>UnitPrice_SalesLineFormat</DataField>
+        </Field>
+        <Field Name="UnitPrice_SalesLineCaption">
+          <DataField>UnitPrice_SalesLineCaption</DataField>
+        </Field>
+        <Field Name="LineDiscAmt_SalesLine">
+          <DataField>LineDiscAmt_SalesLine</DataField>
+        </Field>
+        <Field Name="LineDiscAmt_SalesLineFormat">
+          <DataField>LineDiscAmt_SalesLineFormat</DataField>
+        </Field>
+        <Field Name="LineDiscAmt_SalesLineCaption">
+          <DataField>LineDiscAmt_SalesLineCaption</DataField>
+        </Field>
+        <Field Name="InvDiscAmt_SalesLine">
+          <DataField>InvDiscAmt_SalesLine</DataField>
+        </Field>
+        <Field Name="InvDiscAmt_SalesLineFormat">
+          <DataField>InvDiscAmt_SalesLineFormat</DataField>
+        </Field>
+        <Field Name="InvDiscAmt_SalesLineCaption">
+          <DataField>InvDiscAmt_SalesLineCaption</DataField>
+        </Field>
+        <Field Name="SalesOrderAmount">
+          <DataField>SalesOrderAmount</DataField>
+        </Field>
+        <Field Name="SalesOrderAmountFormat">
+          <DataField>SalesOrderAmountFormat</DataField>
+        </Field>
+        <Field Name="SalesHeaderCurrCode">
+          <DataField>SalesHeaderCurrCode</DataField>
+        </Field>
+        <Field Name="RecGItemSearchDescription">
+          <DataField>RecGItemSearchDescription</DataField>
+        </Field>
+        <Field Name="RecGItemSearchDescriptionCaption">
+          <DataField>RecGItemSearchDescriptionCaption</DataField>
+        </Field>
+        <Field Name="TotalAmt_CurrTotalBuff">
+          <DataField>TotalAmt_CurrTotalBuff</DataField>
+        </Field>
+        <Field Name="TotalAmt_CurrTotalBuffFormat">
+          <DataField>TotalAmt_CurrTotalBuffFormat</DataField>
+        </Field>
+        <Field Name="CurrCode_CurrTotalBuff">
+          <DataField>CurrCode_CurrTotalBuff</DataField>
+        </Field>
+        <Field Name="TotalAmt_CurrTotalBuff2">
+          <DataField>TotalAmt_CurrTotalBuff2</DataField>
+        </Field>
+        <Field Name="TotalAmt_CurrTotalBuff2Format">
+          <DataField>TotalAmt_CurrTotalBuff2Format</DataField>
+        </Field>
+        <Field Name="CurrCode_CurrTotalBuff2">
+          <DataField>CurrCode_CurrTotalBuff2</DataField>
+        </Field>
+        <Field Name="TotalCaption">
+          <DataField>TotalCaption</DataField>
+        </Field>
+      </Fields>
+    </DataSet>
+  </DataSets>
   <ReportSections>
     <ReportSection>
       <Body>
@@ -2499,7 +2671,6 @@
                                   <Style>
                                     <FontSize>7pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
-                                    <Format>=Fields!CurrencyTotalBuffer2__Total_Amount__Control29Format.Value</Format>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -2508,6 +2679,9 @@
                           </Paragraphs>
                           <ZIndex>1</ZIndex>
                           <Style>
+                            <Border>
+                              <Style>None</Style>
+                            </Border>
                             <VerticalAlign>Middle</VerticalAlign>
                             <PaddingLeft>0.075cm</PaddingLeft>
                             <PaddingRight>0.075cm</PaddingRight>
@@ -2621,7 +2795,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!Customer_TABLECAPTION__________CustFilter.Value</Value>
+                                  <Value>=Fields!CustTableCapCustFilter.Value</Value>
                                   <Style>
                                     <FontSize>7pt</FontSize>
                                   </Style>
@@ -2653,7 +2827,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!STRSUBSTNO_Text001_SalesLineFilter_.Value</Value>
+                                  <Value>=Fields!SalesOrderLineFilter.Value</Value>
                                   <Style>
                                     <FontSize>7pt</FontSize>
                                   </Style>
@@ -2722,7 +2896,7 @@
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value>=ReportItems!CurrReport_PAGENOCaption.Value</Value>
+                      <Value>=Fields!PageCaption.Value</Value>
                       <Style>
                         <FontSize>7pt</FontSize>
                       </Style>
@@ -2906,10 +3080,13 @@
               <Width>7.5cm</Width>
               <ZIndex>7</ZIndex>
               <Visibility>
-                <Hidden>=IIF(ReportItems!PrintAmountsInLCY.Value=TRUE,FALSE,TRUE)</Hidden>
+                <Hidden>=IIF(Fields!PrintAmountsInLCY.Value=TRUE,FALSE,TRUE)</Hidden>
               </Visibility>
               <DataElementOutput>NoOutput</DataElementOutput>
               <Style>
+                <Border>
+                  <Style>None</Style>
+                </Border>
                 <VerticalAlign>Middle</VerticalAlign>
               </Style>
             </Textbox>
@@ -3116,176 +3293,4 @@ End Function
   <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
   <rd:ReportUnitType>Cm</rd:ReportUnitType>
   <rd:ReportID>2a770259-ac8f-45a6-9c23-74f6ddd66515</rd:ReportID>
-  <DataSets>
-    <DataSet Name="DataSet_Result">
-      <Fields>
-        <Field Name="ShipmentPeriodDate">
-          <DataField>ShipmentPeriodDate</DataField>
-        </Field>
-        <Field Name="CompanyName">
-          <DataField>CompanyName</DataField>
-        </Field>
-        <Field Name="PrintAmountsInLCY">
-          <DataField>PrintAmountsInLCY</DataField>
-        </Field>
-        <Field Name="CustTableCapCustFilter">
-          <DataField>CustTableCapCustFilter</DataField>
-        </Field>
-        <Field Name="CustFilter">
-          <DataField>CustFilter</DataField>
-        </Field>
-        <Field Name="SalesOrderLineFilter">
-          <DataField>SalesOrderLineFilter</DataField>
-        </Field>
-        <Field Name="SalesLineFilter">
-          <DataField>SalesLineFilter</DataField>
-        </Field>
-        <Field Name="No_Customer">
-          <DataField>No_Customer</DataField>
-        </Field>
-        <Field Name="Name_Customer">
-          <DataField>Name_Customer</DataField>
-        </Field>
-        <Field Name="PageGroupNo">
-          <DataField>PageGroupNo</DataField>
-        </Field>
-        <Field Name="CustOrderDetailCaption">
-          <DataField>CustOrderDetailCaption</DataField>
-        </Field>
-        <Field Name="PageCaption">
-          <DataField>PageCaption</DataField>
-        </Field>
-        <Field Name="AllAmtAreInLCYCaption">
-          <DataField>AllAmtAreInLCYCaption</DataField>
-        </Field>
-        <Field Name="ShipmentDateCaption">
-          <DataField>ShipmentDateCaption</DataField>
-        </Field>
-        <Field Name="QtyOnBackOrderCaption">
-          <DataField>QtyOnBackOrderCaption</DataField>
-        </Field>
-        <Field Name="OutstandingOrdersCaption">
-          <DataField>OutstandingOrdersCaption</DataField>
-        </Field>
-        <Field Name="SalesHeaderNo">
-          <DataField>SalesHeaderNo</DataField>
-        </Field>
-        <Field Name="SalesHeaderNoCaption">
-          <DataField>SalesHeaderNoCaption</DataField>
-        </Field>
-        <Field Name="SalesHeaderOrderDate">
-          <DataField>SalesHeaderOrderDate</DataField>
-        </Field>
-        <Field Name="Description_SalesLine">
-          <DataField>Description_SalesLine</DataField>
-        </Field>
-        <Field Name="Description_SalesLineCaption">
-          <DataField>Description_SalesLineCaption</DataField>
-        </Field>
-        <Field Name="No_SalesLine">
-          <DataField>No_SalesLine</DataField>
-        </Field>
-        <Field Name="No_SalesLineCaption">
-          <DataField>No_SalesLineCaption</DataField>
-        </Field>
-        <Field Name="Type_SalesLine">
-          <DataField>Type_SalesLine</DataField>
-        </Field>
-        <Field Name="Type_SalesLineCaption">
-          <DataField>Type_SalesLineCaption</DataField>
-        </Field>
-        <Field Name="ShipmentDate_SalesLine">
-          <DataField>ShipmentDate_SalesLine</DataField>
-        </Field>
-        <Field Name="ShipmentDate_SalesLineCaption">
-          <DataField>ShipmentDate_SalesLineCaption</DataField>
-        </Field>
-        <Field Name="Quantity_SalesLine">
-          <DataField>Quantity_SalesLine</DataField>
-        </Field>
-        <Field Name="Quantity_SalesLineFormat">
-          <DataField>Quantity_SalesLineFormat</DataField>
-        </Field>
-        <Field Name="OutStandingQty_SalesLine">
-          <DataField>OutStandingQty_SalesLine</DataField>
-        </Field>
-        <Field Name="OutStandingQty_SalesLineFormat">
-          <DataField>OutStandingQty_SalesLineFormat</DataField>
-        </Field>
-        <Field Name="BackOrderQty">
-          <DataField>BackOrderQty</DataField>
-        </Field>
-        <Field Name="BackOrderQtyFormat">
-          <DataField>BackOrderQtyFormat</DataField>
-        </Field>
-        <Field Name="UnitPrice_SalesLine">
-          <DataField>UnitPrice_SalesLine</DataField>
-        </Field>
-        <Field Name="UnitPrice_SalesLineFormat">
-          <DataField>UnitPrice_SalesLineFormat</DataField>
-        </Field>
-        <Field Name="UnitPrice_SalesLineCaption">
-          <DataField>UnitPrice_SalesLineCaption</DataField>
-        </Field>
-        <Field Name="LineDiscAmt_SalesLine">
-          <DataField>LineDiscAmt_SalesLine</DataField>
-        </Field>
-        <Field Name="LineDiscAmt_SalesLineFormat">
-          <DataField>LineDiscAmt_SalesLineFormat</DataField>
-        </Field>
-        <Field Name="LineDiscAmt_SalesLineCaption">
-          <DataField>LineDiscAmt_SalesLineCaption</DataField>
-        </Field>
-        <Field Name="InvDiscAmt_SalesLine">
-          <DataField>InvDiscAmt_SalesLine</DataField>
-        </Field>
-        <Field Name="InvDiscAmt_SalesLineFormat">
-          <DataField>InvDiscAmt_SalesLineFormat</DataField>
-        </Field>
-        <Field Name="InvDiscAmt_SalesLineCaption">
-          <DataField>InvDiscAmt_SalesLineCaption</DataField>
-        </Field>
-        <Field Name="SalesOrderAmount">
-          <DataField>SalesOrderAmount</DataField>
-        </Field>
-        <Field Name="SalesOrderAmountFormat">
-          <DataField>SalesOrderAmountFormat</DataField>
-        </Field>
-        <Field Name="SalesHeaderCurrCode">
-          <DataField>SalesHeaderCurrCode</DataField>
-        </Field>
-        <Field Name="RecGItemSearchDescription">
-          <DataField>RecGItemSearchDescription</DataField>
-        </Field>
-        <Field Name="RecGItemSearchDescriptionCaption">
-          <DataField>RecGItemSearchDescriptionCaption</DataField>
-        </Field>
-        <Field Name="TotalAmt_CurrTotalBuff">
-          <DataField>TotalAmt_CurrTotalBuff</DataField>
-        </Field>
-        <Field Name="TotalAmt_CurrTotalBuffFormat">
-          <DataField>TotalAmt_CurrTotalBuffFormat</DataField>
-        </Field>
-        <Field Name="CurrCode_CurrTotalBuff">
-          <DataField>CurrCode_CurrTotalBuff</DataField>
-        </Field>
-        <Field Name="TotalAmt_CurrTotalBuff2">
-          <DataField>TotalAmt_CurrTotalBuff2</DataField>
-        </Field>
-        <Field Name="TotalAmt_CurrTotalBuff2Format">
-          <DataField>TotalAmt_CurrTotalBuff2Format</DataField>
-        </Field>
-        <Field Name="CurrCode_CurrTotalBuff2">
-          <DataField>CurrCode_CurrTotalBuff2</DataField>
-        </Field>
-        <Field Name="TotalCaption">
-          <DataField>TotalCaption</DataField>
-        </Field>
-      </Fields>
-      <Query>
-        <DataSourceName>DataSource</DataSourceName>
-        <CommandText />
-      </Query>
-    </DataSet>
-  </DataSets>
 </Report>

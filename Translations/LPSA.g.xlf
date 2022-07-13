@@ -5328,11 +5328,6 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Codeunit PWD Connector WMS Parse Data - Method FctUpdateItemJournaLineWMS - NamedType CstL000</note>
         </trans-unit>
-        <trans-unit id="Codeunit 1837008666 - Method 799795521 - NamedType 4205312060" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Blob Content</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Codeunit PWD File Management - Method FctShowBlobAsWindow - NamedType CstL000</note>
-        </trans-unit>
         <trans-unit id="Codeunit 3801824614 - NamedType 2366359677" size-unit="char" translate="yes" xml:space="preserve">
           <source>MPS or MRP must be flag on %1.</source>
           <note from="Developer" annotates="general" priority="2"></note>
@@ -6788,6 +6783,36 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Page PWD Lignes Gammes - Property Caption</note>
         </trans-unit>
+        <trans-unit id="Page 863813965 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Link </source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page PWD Link - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 863813965 - NamedType 3865442186" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Attachments (%1)|%1</source>
+          <note from="Developer" annotates="general" priority="2">%1=file types, such as *.txt or *.docx</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page PWD Link - NamedType FileDialogTxt</note>
+        </trans-unit>
+        <trans-unit id="Page 863813965 - NamedType 3777830815" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Attach a document.</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page PWD Link - NamedType ImportTxt</note>
+        </trans-unit>
+        <trans-unit id="Page 863813965 - Control 3461834954 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Specifies the value of the Description field.</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page PWD Link - Control Description - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Page 863813965 - Control 589256022 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Specifies the value of the URL1 field.</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page PWD Link - Control URL1 - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Page 863813965 - Action 1811216224 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Nouveau Lien</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page PWD Link - Action New Link - Property Caption</note>
+        </trans-unit>
         <trans-unit id="Page 981050653 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Lot Size List</source>
           <note from="Developer" annotates="general" priority="2"></note>
@@ -7232,6 +7257,26 @@
           <source>Export Invoicing Data (Excel)</source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Report Export Invoicing Data (Excel) - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Report 1068782514 - NamedType 804238910" size-unit="char" translate="yes" xml:space="preserve">
+          <source>01</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report Export Invoicing Data (Excel) - NamedType CstG01</note>
+        </trans-unit>
+        <trans-unit id="Report 1068782514 - NamedType 3011012157" size-unit="char" translate="yes" xml:space="preserve">
+          <source>11</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report Export Invoicing Data (Excel) - NamedType CstG11</note>
+        </trans-unit>
+        <trans-unit id="Report 1068782514 - NamedType 1218291025" size-unit="char" translate="yes" xml:space="preserve">
+          <source>40</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report Export Invoicing Data (Excel) - NamedType CstG40</note>
+        </trans-unit>
+        <trans-unit id="Report 1068782514 - NamedType 426278562" size-unit="char" translate="yes" xml:space="preserve">
+          <source>50</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report Export Invoicing Data (Excel) - NamedType CstG50</note>
         </trans-unit>
         <trans-unit id="Report 1068782514 - NamedType 4231056326" size-unit="char" translate="yes" xml:space="preserve">
           <source>The Starting Date  %1 must be filled,</source>

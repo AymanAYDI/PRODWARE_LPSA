@@ -13,8 +13,9 @@ page 8073325 "PWD Receipt Line Buffer"
     Caption = 'Receipt Line Buffer';
     InsertAllowed = false;
     PageType = List;
-    UsageCategory = None;
     SourceTable = "PWD Receipt Line Buffer";
+    UsageCategory = Lists;
+    ApplicationArea = all;
 
     layout
     {
@@ -119,7 +120,7 @@ page 8073325 "PWD Receipt Line Buffer"
                 {
                     ApplicationArea = All;
                 }
-                field("RecGWMSReceiptLineBuffer.""Qty on receipt error (Base)"""; RecGWMSReceiptLineBuffer."Qty on receipt error (Base)")
+                field(RecGWMSReceiptLineBuffer_QtyonreceipterrorBase; RecGWMSReceiptLineBuffer."Qty on receipt error (Base)")
                 {
                     CaptionClass = CduGBufferManagement.FctGetCaptionClass(DATABASE::"PWD WMS Receipt Line Buffer", RecGWMSReceiptLineBuffer.FIELDNO("Qty on receipt error (Base)"));
                     ApplicationArea = All;
@@ -129,7 +130,7 @@ page 8073325 "PWD Receipt Line Buffer"
                         IF RecGWMSReceiptLineBuffer.MODIFY() THEN;
                     end;
                 }
-                field("RecGWMSReceiptLineBuffer.""Reason Code Receipt Error"""; RecGWMSReceiptLineBuffer."Reason Code Receipt Error")
+                field(RecGWMSReceiptLineBuffer_ReasonCodeReceiptError; RecGWMSReceiptLineBuffer."Reason Code Receipt Error")
                 {
                     CaptionClass = CduGBufferManagement.FctGetCaptionClass(DATABASE::"PWD WMS Receipt Line Buffer", RecGWMSReceiptLineBuffer.FIELDNO("Reason Code Receipt Error"));
                     ApplicationArea = All;

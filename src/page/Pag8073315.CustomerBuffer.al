@@ -13,8 +13,9 @@ page 8073315 "PWD Customer Buffer"
     Caption = 'Customer Buffer';
     InsertAllowed = false;
     PageType = List;
-    UsageCategory = None;
     SourceTable = "PWD Customer Buffer";
+    UsageCategory = Lists;
+    ApplicationArea = all;
 
     layout
     {
