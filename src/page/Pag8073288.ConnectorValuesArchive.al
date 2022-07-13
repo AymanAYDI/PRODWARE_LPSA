@@ -98,7 +98,7 @@ page 8073288 "PWD Connector Values Archive"
                 begin
                     Rec.CALCFIELDS(Blob);
                     IF Rec.Blob.HASVALUE THEN
-                        Blob.CREATEINSTREAM(InsGStream);
+                        Blob.CREATEINSTREAM(InsGStream, TextEncoding::UTF8);
                     CduLFileManagement.FctShowBlobAsWindow(InsGStream)
                 end;
             }

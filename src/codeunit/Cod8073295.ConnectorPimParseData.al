@@ -73,13 +73,10 @@ codeunit 8073295 "PWD Connector Pim Parse Data"
             //<<WMS-FEMOT.002
 
 
-            Clear(InLStream);
             RecLConnectorValues.Get(IntGSequenceNo);
             RecLConnectorValues."File Name" := CopyStr(TxtLFile, 1, 250);
             RecLConnectorValues.Modify();
-            RecLConnectorValues.CalcFields(Blob);
-            RecLConnectorValues.Blob.CreateInStream(InLStream);
-            BooLResult := CduLFileManagement.FctbTransformBlobToFile(TxtLFile, InLStream, "Partner Code",
+            BooLResult := CduLFileManagement.FctbTransformBlobToFile(TxtLFile, TempBlob, "Partner Code",
                                                                      IntGSequenceNo, OptGFlowType::"Export Connector");
             CduLBufferMgt.FctArchiveBufferValues(RecLConnectorValues, BooLResult);
         end;

@@ -29,8 +29,9 @@ page 8073320 "PWD Item Journal Line Buffer"
     Caption = 'Item Journal Line Buffer';
     InsertAllowed = false;
     PageType = List;
-    UsageCategory = None;
     SourceTable = "PWD Item Jounal Line Buffer";
+    UsageCategory = Lists;
+    ApplicationArea = all;
 
     layout
     {
@@ -191,7 +192,7 @@ page 8073320 "PWD Item Journal Line Buffer"
                 {
                     ApplicationArea = All;
                 }
-                field("RecGWMSItemJounalLineBuffer.""WMS Reson Code"""; RecGWMSItemJounalLineBuffer."WMS Reson Code")
+                field(RecGWMSItemJounalLineBuffer_WMSResonCode; RecGWMSItemJounalLineBuffer."WMS Reson Code")
                 {
                     CaptionClass = CduGBufferManagement.FctGetCaptionClass(DATABASE::"PWD WMS Item Jnl Line Buffer", RecGWMSItemJounalLineBuffer.FIELDNO("WMS Reson Code"));
                     ApplicationArea = All;

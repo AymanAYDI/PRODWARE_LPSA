@@ -469,7 +469,7 @@ codeunit 8073291 "PWD Buffer Management"
         Fieldref.CALCFIELD();
         RecLTempBlob.FromFieldRef(Fieldref);
         IF RecLTempBlob.HASVALUE() THEN BEGIN
-            RecLTempBlob.CREATEINSTREAM(InsLStream);
+            RecLTempBlob.CREATEINSTREAM(InsLStream, TextEncoding::UTF8);
             CduLFileManagement.FctShowBlobAsWindow(InsLStream)
         END;
         //<<WMS-FE007_15.001

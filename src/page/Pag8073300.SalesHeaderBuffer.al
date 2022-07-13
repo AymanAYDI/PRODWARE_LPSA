@@ -13,9 +13,9 @@ page 8073300 "PWD Sales Header Buffer"
     Caption = 'Sales Header Buffer';
     InsertAllowed = false;
     PageType = List;
-    UsageCategory = None;
     SourceTable = "PWD Sales Header Buffer";
-
+    UsageCategory = Lists;
+    ApplicationArea = all;
     layout
     {
         area(content)

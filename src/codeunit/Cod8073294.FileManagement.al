@@ -61,7 +61,7 @@ codeunit 8073294 "PWD File Management"
         EXIT(BooLResult);
     end;
 
-    procedure FctDeleteFile(TxtPFileName: Text[100]; TxtPSourcePath: Text[250]; CodPPartner: Code[20]; IntPBufferMessageNo: Integer; OptPFlowType: Option " ","Import Connector","Export Connector"): Boolean
+    local procedure FctDeleteFile(TxtPFileName: Text[100]; TxtPSourcePath: Text[250]; CodPPartner: Code[20]; IntPBufferMessageNo: Integer; OptPFlowType: Option " ","Import Connector","Export Connector"): Boolean
     var
         BooLResult: Boolean;
         AutLFileManagement: dotnet "PWD FileManagement";
@@ -108,71 +108,69 @@ codeunit 8073294 "PWD File Management"
         if IsNull(AutLFileManagement) then
             AutLFileManagement := AutLFileManagement.FileManagement();
         BooLResult := AutLFileManagement.bScanDirectoryFiles(TxtPSourcePath, TxtPFileFound, TxtLError);
-        //>>WMS-FEMOT.001
-        //OLD :  IF NOT BooLResult THEN
         IF (NOT BooLResult) AND (TxtLError <> '') THEN
-            //<<WMS-FEMOT.001
-
             CduGConnectorErrorlog.InsertLogEntry(2, OptPFlowType, CodPPartner, TxtLError, IntPBufferMessageNo);
         EXIT(BooLResult);
     end;
 
-    procedure FctTranformFileToBlob(TxtPFile: Text[1024]; var RecPTempBlob: Codeunit "Temp Blob"; CodPPartner: Code[20]; IntPBufferMessageNo: Integer; OptPFlowType: Option " ","Import Connector","Export Connector"): Boolean
+    procedure FctTranformFileToBlob(TxtPFile: Text[1024]; var TempBlob: Codeunit "Temp Blob"; CodPPartner: Code[20]; IntPBufferMessageNo: Integer; OptPFlowType: Option " ","Import Connector","Export Connector"): Boolean
     var
         BooLResult: Boolean;
-        AutLFileManagement: dotnet "PWD FileManagement";
-        InsLStream: InStream;
-        OutLStream: OutStream;
-        TxtLError: Text[250];
     begin
         //**********************************************************************************************************//
         //                                  Read file in Stream                                                     //
         //**********************************************************************************************************//
 
-        if IsNull(AutLFileManagement) then
-            AutLFileManagement := AutLFileManagement.FileManagement();
-        BooLResult := AutLFileManagement.TranformFileToBlob(TxtPFile, InsLStream, TxtLError);
+        ClearLastError();
+
+        BooLResult := FctTranformFileToBlob(TxtPFile, TempBlob);
         IF NOT BooLResult THEN
-            CduGConnectorErrorlog.InsertLogEntry(2, OptPFlowType, CodPPartner, TxtLError, IntPBufferMessageNo);
+            CduGConnectorErrorlog.InsertLogEntry(2, OptPFlowType, CodPPartner, GetLastErrorText(), IntPBufferMessageNo);
 
-
-        //>>WMS-FEMOT.001
-        RecPTempBlob.CREATEOUTSTREAM(OutLStream);
-        COPYSTREAM(OutLStream, InsLStream);
-        //<<WMS-FEMOT.001
         EXIT(BooLResult);
     end;
 
-    procedure FctbTransformBlobToFile(TxtPFile: Text[1024]; var InPStream: InStream; CodPPartner: Code[20]; IntPBufferMessageNo: Integer; OptPFlowType: Option " ","Import Connector","Export Connector"): Boolean
+    [TryFunction]
+    local procedure FctTranformFileToBlob(TxtPFile: Text[1024]; var TempBlob: Codeunit "Temp Blob")
+    var
+        FileMgt: Codeunit "File Management";
+    begin
+        FileMgt.BLOBImportFromServerFile(TempBlob, TxtPFile);
+    end;
+
+    procedure FctbTransformBlobToFile(TxtPFile: Text[1024]; var TempBlob: Codeunit "Temp Blob"; CodPPartner: Code[20]; IntPBufferMessageNo: Integer; OptPFlowType: Option " ","Import Connector","Export Connector"): Boolean
     var
         BooLResult: Boolean;
-        AutLFileManagement: dotnet "PWD FileManagement";
-        TxtLError: Text[250];
     begin
         //************************************************()**********************************************************//
         //                                  Write file in Stream                                                    //
         //**********************************************************************************************************//
-        if IsNull(AutLFileManagement) then
-            AutLFileManagement := AutLFileManagement.FileManagement();
+        ClearLastError();
 
-        BooLResult := AutLFileManagement.bTransformBlobToFile(TxtPFile, InPStream, TxtLError);
+        BooLResult := FctbTransformBlobToFile(TxtPFile, TempBlob);
         IF NOT BooLResult THEN
-            CduGConnectorErrorlog.InsertLogEntry(2, OptPFlowType, CodPPartner, TxtLError, IntPBufferMessageNo);
+            CduGConnectorErrorlog.InsertLogEntry(2, OptPFlowType, CodPPartner, CopyStr(GetLastErrorText(), 1, 250), IntPBufferMessageNo);
         EXIT(BooLResult);
+    end;
 
+    [TryFunction]
+    local procedure FctbTransformBlobToFile(TxtPFile: Text[1024]; var TempBlob: Codeunit "Temp Blob")
+    var
+        FileMgt: Codeunit "File Management";
+    begin
+        FileMgt.BLOBExportToServerFile(TempBlob, TxtPFile);
     end;
 
     procedure FctShowBlobAsWindow(InPStream: InStream)
     var
-        AutLFileManagement: dotnet "PWD FileManagement";
-        CstL000: Label 'Blob Content';
+        TypeHelper: Codeunit "Type Helper";
+        ReadingData: Text;
     begin
         //**********************************************************************************************************//
         //                                  Show blob content                                                       //
         //**********************************************************************************************************//
-        if IsNull(AutLFileManagement) then
-            AutLFileManagement := AutLFileManagement.FileManagement();
-        AutLFileManagement.ShowBlobAsWindow(InPStream, CstL000)
+        if TypeHelper.TryReadAsTextWithSeparator(InPStream, TypeHelper.LFSeparator(), ReadingData) then
+            Message(ReadingData);
     end;
 
     procedure FctMergeStream(InPStream1: InStream; InPStream2: InStream; var RecPTempBlob: Codeunit "Temp Blob"; CodPPartner: Code[20])
