@@ -110,6 +110,9 @@ report 50070 "PWD Customer - Order Detail"
                 {
                     IncludeCaption = true;
                 }
+                column(QuantityCaption; FieldCaption(Quantity))
+                {
+                }
                 column(OutStandingQty_SalesLine; "Outstanding Quantity")
                 {
                     IncludeCaption = true;
@@ -223,6 +226,7 @@ report 50070 "PWD Customer - Order Detail"
                 begin
                     Clear(SalesOrderAmountLCY);
                     Clear(SalesOrderAmount);
+                    // "Sales Line".SetRange("Shipment Date", ShipmentDate);
                 end;
             }
             dataitem("Integer"; "Integer")
@@ -325,6 +329,15 @@ report 50070 "PWD Customer - Order Detail"
                         Caption = 'New Page per Customer';
                     }
                 }
+                // group(SalesOrderLine)
+                // {
+                //     Caption = 'Sales Order Ligne';
+                //     field(ShipmentDate; ShipmentDate)
+                //     {
+                //         ApplicationArea = All;
+                //         Caption = 'Shipment Date';
+                //     }
+                // }
             }
         }
 
@@ -376,6 +389,7 @@ report 50070 "PWD Customer - Order Detail"
         CustFilter: Text;
         PeriodText: Text;
         SalesLineFilter: Text;
+        ShipmentDate: Date;
 
     procedure InitializeRequest(ShowAmountInLCY: Boolean; NewPagePerCustomer: Boolean)
     begin

@@ -1107,6 +1107,30 @@
           <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">Table PWD Fields Export Setup - Field Xml Tag - Property Caption</note>
         </trans-unit>
+        <trans-unit id="Table 394914913 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>File List</source>
+          <target state="translated">Liste des fichiers</target>
+          <note from="Developer" annotates="general" priority="2"/>
+          <note from="Xliff Generator" annotates="general" priority="3">Table PWD File List - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 394914913 - Field 804481195 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>File Name</source>
+          <target state="translated">Nom du fichier</target>
+          <note from="Developer" annotates="general" priority="2"/>
+          <note from="Xliff Generator" annotates="general" priority="3">Table PWD File List - Field File Name - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 394914913 - Field 4200184881 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>No.</source>
+          <target state="translated">N°</target>
+          <note from="Developer" annotates="general" priority="2"/>
+          <note from="Xliff Generator" annotates="general" priority="3">Table PWD File List - Field No. - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 394914913 - Field 1666415622 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Path Name</source>
+          <target state="translated">Nom du chemin</target>
+          <note from="Developer" annotates="general" priority="2"/>
+          <note from="Xliff Generator" annotates="general" priority="3">Table PWD File List - Field Path Name - Property Caption</note>
+        </trans-unit>
         <trans-unit id="Table 2902211376 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Inventory Comment Line</source>
           <target state="translated">Ligne commentaire transfert</target>
@@ -7245,6 +7269,18 @@
           <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">Page PWD Fields Export Setup - Action Action1000000000 - Property Caption</note>
         </trans-unit>
+        <trans-unit id="Page 394914913 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>File List</source>
+          <target state="translated">Liste des fichiers</target>
+          <note from="Developer" annotates="general" priority="2"/>
+          <note from="Xliff Generator" annotates="general" priority="3">Page PWD File List - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 394914913 - Control 2961552353 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Specifies the value of the Name field.</source>
+          <target state="translated">Spécifie la valeur du champ Nom.</target>
+          <note from="Developer" annotates="general" priority="2"/>
+          <note from="Xliff Generator" annotates="general" priority="3">Page PWD File List - Control Name - Property ToolTip</note>
+        </trans-unit>
         <trans-unit id="Page 1843992362 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Import stock</source>
           <target state="translated">Importer le stock</target>
@@ -8145,6 +8181,42 @@
           <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">Page PWD Lignes Gammes - Property Caption</note>
         </trans-unit>
+        <trans-unit id="Page 863813965 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Link </source>
+          <target state="translated">Lien </target>
+          <note from="Developer" annotates="general" priority="2"/>
+          <note from="Xliff Generator" annotates="general" priority="3">Page PWD Link - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 863813965 - Control 589256022 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Specifies the value of the URL1 field.</source>
+          <target state="translated">Spécifie la valeur du champ URL1.</target>
+          <note from="Developer" annotates="general" priority="2"/>
+          <note from="Xliff Generator" annotates="general" priority="3">Page PWD Link - Control URL1 - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Page 863813965 - Control 589256022 - Method 1845446376 - NamedType 2943140252" size-unit="char" translate="yes" xml:space="preserve">
+          <source>The file %1 does not exist.</source>
+          <target state="translated">Le fichier %1 d n'existe pas.</target>
+          <note from="Developer" annotates="general" priority="2">%1 File Path</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page PWD Link - Control URL1 - Method OnDrillDown - NamedType FileDoesNotExistErr</note>
+        </trans-unit>
+        <trans-unit id="Page 863813965 - Control 589256022 - Method 1845446376 - NamedType 4139432870" size-unit="char" translate="yes" xml:space="preserve">
+          <source>*.pdf|*.*</source>
+          <target state="translated">*.pdf|*.*</target>
+          <note from="Developer" annotates="general" priority="2"/>
+          <note from="Xliff Generator" annotates="general" priority="3">Page PWD Link - Control URL1 - Method OnDrillDown - NamedType FilterLbl</note>
+        </trans-unit>
+        <trans-unit id="Page 863813965 - Control 589256022 - Method 1845446376 - NamedType 4210430314" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Download</source>
+          <target state="translated">Download</target>
+          <note from="Developer" annotates="general" priority="2"/>
+          <note from="Xliff Generator" annotates="general" priority="3">Page PWD Link - Control URL1 - Method OnDrillDown - NamedType DownloadLbl</note>
+        </trans-unit>
+        <trans-unit id="Page 863813965 - Action 1811216224 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Select File</source>
+          <target state="translated">sélectionnez Fichier</target>
+          <note from="Developer" annotates="general" priority="2"/>
+          <note from="Xliff Generator" annotates="general" priority="3">Page PWD Link - Action New Link - Property Caption</note>
+        </trans-unit>
         <trans-unit id="Page 981050653 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Lot Size List</source>
           <target state="translated">Liste taille lot</target>
@@ -8678,6 +8750,30 @@
           <target state="translated">Export données Fact. (Excel)</target>
           <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">Report Export Invoicing Data (Excel) - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Report 1068782514 - NamedType 804238910" size-unit="char" translate="yes" xml:space="preserve">
+          <source>01</source>
+          <target state="translated">01</target>
+          <note from="Developer" annotates="general" priority="2"/>
+          <note from="Xliff Generator" annotates="general" priority="3">Report Export Invoicing Data (Excel) - NamedType CstG01</note>
+        </trans-unit>
+        <trans-unit id="Report 1068782514 - NamedType 3011012157" size-unit="char" translate="yes" xml:space="preserve">
+          <source>11</source>
+          <target state="translated">11</target>
+          <note from="Developer" annotates="general" priority="2"/>
+          <note from="Xliff Generator" annotates="general" priority="3">Report Export Invoicing Data (Excel) - NamedType CstG11</note>
+        </trans-unit>
+        <trans-unit id="Report 1068782514 - NamedType 1218291025" size-unit="char" translate="yes" xml:space="preserve">
+          <source>40</source>
+          <target state="translated">40</target>
+          <note from="Developer" annotates="general" priority="2"/>
+          <note from="Xliff Generator" annotates="general" priority="3">Report Export Invoicing Data (Excel) - NamedType CstG40</note>
+        </trans-unit>
+        <trans-unit id="Report 1068782514 - NamedType 426278562" size-unit="char" translate="yes" xml:space="preserve">
+          <source>50</source>
+          <target state="translated">50</target>
+          <note from="Developer" annotates="general" priority="2"/>
+          <note from="Xliff Generator" annotates="general" priority="3">Report Export Invoicing Data (Excel) - NamedType CstG50</note>
         </trans-unit>
         <trans-unit id="Report 1068782514 - NamedType 4231056326" size-unit="char" translate="yes" xml:space="preserve">
           <source>The Starting Date  %1 must be filled,</source>
@@ -10766,6 +10862,30 @@
           <target state="translated">Merci de spécifier un fichier d'export</target>
           <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">Report PWD Item Extraction - NamedType CstG010</note>
+        </trans-unit>
+        <trans-unit id="Report 3746294669 - Method 1988189561 - NamedType 3777830815" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Attach a document.</source>
+          <target state="translated">Attach a document.</target>
+          <note from="Developer" annotates="general" priority="2"/>
+          <note from="Xliff Generator" annotates="general" priority="3">Report PWD Item Extraction - Method ImportWithFilter - NamedType ImportTxt</note>
+        </trans-unit>
+        <trans-unit id="Report 3746294669 - Method 1988189561 - NamedType 3865442186" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Attachments (%1)|%1</source>
+          <target state="translated">Attachments (%1)|%1</target>
+          <note from="Developer" annotates="general" priority="2">%1=file types, such as *.txt or *.docx</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report PWD Item Extraction - Method ImportWithFilter - NamedType FileDialogTxt</note>
+        </trans-unit>
+        <trans-unit id="Report 3746294669 - Control 3590328978 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Options</source>
+          <target state="translated">Options</target>
+          <note from="Developer" annotates="general" priority="2"/>
+          <note from="Xliff Generator" annotates="general" priority="3">Report PWD Item Extraction - Control Control1000000000 - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Report 3746294669 - Control 29111282 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Fichier à exporter</source>
+          <target state="translated">Fichier à exporter</target>
+          <note from="Developer" annotates="general" priority="2"/>
+          <note from="Xliff Generator" annotates="general" priority="3">Report PWD Item Extraction - Control TxtGFileName - Property Caption</note>
         </trans-unit>
         <trans-unit id="Report 4047125513 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Launch Export Closing File</source>

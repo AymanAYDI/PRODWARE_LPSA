@@ -115,6 +115,10 @@ pageextension 60045 "PWD InventorySetup" extends "Inventory Setup"
                 {
                     ApplicationArea = All;
                 }
+                field("PWD Path Link"; "PWD Path Link")
+                {
+                    ApplicationArea = All;
+                }
             }
         }
     }

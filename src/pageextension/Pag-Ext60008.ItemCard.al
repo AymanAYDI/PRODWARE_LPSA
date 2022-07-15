@@ -392,7 +392,6 @@ pageextension 60008 "PWD ItemCard" extends "Item Card"
             }
         }
     }
-
     trigger OnQueryClosePage(CloseAction: Action): Boolean
     begin
         //>>REGIE
@@ -417,6 +416,7 @@ pageextension 60008 "PWD ItemCard" extends "Item Card"
         Rec.SETFILTER("PWD Principal Location Filter", '%1', Rec."Location Code");
 
         Rec.CALCFIELDS("PWD Principal Inventory", "PWD Inventory 2");
+        CurrPage.PWDLink.Page.SetFilters(Rec.RecordId);
     end;
 
     procedure Fct_EnableLotDeterm()

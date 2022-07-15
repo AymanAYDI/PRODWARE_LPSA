@@ -104,6 +104,11 @@ tableextension 60027 "PWD InventorySetup" extends "Inventory Setup"
             Caption = 'Period for the calculation of the stock cover (in Months)';
             Description = 'LAP2.19';
         }
+                field(50027; "PWD Path Link"; Text[100])
+        {
+            Caption = 'Path Link';
+        }
+
     }
 }
 

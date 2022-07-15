@@ -293,6 +293,28 @@ report 50035 "PWD Item Extraction"
 
         layout
         {
+            area(content)
+            {
+                group(Control1000000000)
+                {
+                    Caption = 'Options';
+                    field(TxtGFileName; TxtGFileName)
+                    {
+                        Caption = 'Fichier à exporter';
+                        trigger OnDrillDown()
+                        var
+                            TempBlob: Codeunit "Temp Blob";
+                            FileName: Text;
+                        begin
+                            ImportWithFilter(TempBlob, FileName);
+                            //TxtGFileName := FileName;
+                            // if FileName <> '' then
+                            //     SaveAttachment(FromRecRef, FileName, TempBlob);
+                        end;
+
+                    }
+                }
+            }
         }
 
         actions
@@ -320,6 +342,18 @@ report 50035 "PWD Item Extraction"
             MyFile.Create(TxtGFileName);
         end;
         MyFile.CreateOutStream(TestOutStream);
+    end;
+
+    procedure ImportWithFilter(var TempBlob: Codeunit "Temp Blob"; var FileName: Text)
+    var
+        FileManagement: Codeunit "File Management";
+        IsHandled: Boolean;
+        ImportTxt: Label 'Attach a document.';
+        FileDialogTxt: Label 'Attachments (%1)|%1', Comment = '%1=file types, such as *.txt or *.docx';
+        FilterTxt: Label '*.jpg;*.jpeg;*.bmp;*.png;*.gif;*.tiff;*.tif;*.pdf;*.docx;*.doc;*.xlsx;*.xls;*.pptx;*.ppt;*.msg;*.xml;*.*', Locked = true;
+    begin
+        FileName := FileManagement.BLOBImportWithFilter(
+            TempBlob, ImportTxt, FileName, StrSubstNo(FileDialogTxt, FilterTxt), FilterTxt);
     end;
 
     var

@@ -98,11 +98,6 @@ pageextension 60009 "PWD ItemList" extends "Item List"
                 ApplicationArea = All;
 
             }
-            field("PWD Inventory"; Rec.Inventory)
-            {
-                ApplicationArea = All;
-
-            }
             field("PWD Barcode"; Rec."PWD Barcode")
             {
                 ApplicationArea = All;
