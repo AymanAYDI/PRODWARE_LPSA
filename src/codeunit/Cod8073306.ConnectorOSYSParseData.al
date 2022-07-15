@@ -162,13 +162,10 @@ codeunit 8073306 "PWD Connector OSYS Parse Data"
                             FORMAT(TIME, 0, '<hour,2><minute,2><Second,2>') + '.CSV';
             //<<LAP2.14
 
-            CLEAR(InLStream);
             RecLConnectorValues.GET(IntGSequenceNo);
             RecLConnectorValues."File Name" := COPYSTR(TxtLFile, 1, 250);
             RecLConnectorValues.MODIFY();
-            RecLConnectorValues.CALCFIELDS(Blob);
-            RecLConnectorValues.Blob.CREATEINSTREAM(InLStream);
-            BooLResult := CduLFileManagement.FctbTransformBlobToFile(TxtLFile, InLStream, RecLConnectorValues."Partner Code",
+            BooLResult := CduLFileManagement.FctbTransformBlobToFile(TxtLFile, TempBlob, RecLConnectorValues."Partner Code",
                                                                      IntGSequenceNo, OptGFlowType::"Export Connector");
             CduLBufferMgt.FctArchiveBufferValues(RecLConnectorValues, BooLResult);
         END;
@@ -540,13 +537,10 @@ codeunit 8073306 "PWD Connector OSYS Parse Data"
                                                 RecLConnectorMessages."File Name with Time",
                                                 RecLConnectorMessages."File extension");
 
-            CLEAR(InLStream);
             RecLConnectorValues.GET(IntGSequenceNo);
             RecLConnectorValues."File Name" := COPYSTR(TxtLFile, 1, 250);
             RecLConnectorValues.MODIFY();
-            RecLConnectorValues.CALCFIELDS(Blob);
-            RecLConnectorValues.Blob.CREATEINSTREAM(InLStream);
-            BooLResult := CduLFileManagement.FctbTransformBlobToFile(TxtLFile, InLStream, RecLConnectorValues."Partner Code",
+            BooLResult := CduLFileManagement.FctbTransformBlobToFile(TxtLFile, TempBlob, RecLConnectorValues."Partner Code",
                                                                      IntGSequenceNo, OptGFlowType::"Export Connector");
             CduLBufferMgt.FctArchiveBufferValues(RecLConnectorValues, BooLResult);
         END;

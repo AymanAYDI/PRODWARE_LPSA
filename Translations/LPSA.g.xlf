@@ -5328,11 +5328,6 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Codeunit PWD Connector WMS Parse Data - Method FctUpdateItemJournaLineWMS - NamedType CstL000</note>
         </trans-unit>
-        <trans-unit id="Codeunit 1837008666 - Method 799795521 - NamedType 4205312060" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Blob Content</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Codeunit PWD File Management - Method FctShowBlobAsWindow - NamedType CstL000</note>
-        </trans-unit>
         <trans-unit id="Codeunit 3801824614 - NamedType 2366359677" size-unit="char" translate="yes" xml:space="preserve">
           <source>MPS or MRP must be flag on %1.</source>
           <note from="Developer" annotates="general" priority="2"></note>

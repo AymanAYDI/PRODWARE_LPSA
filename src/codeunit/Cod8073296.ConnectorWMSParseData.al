@@ -168,13 +168,10 @@ codeunit 8073296 "PWD Connector WMS Parse Data"
 
 
 
-            Clear(InLStream);
             RecLConnectorValues.Get(IntGSequenceNo);
             RecLConnectorValues."File Name" := CopyStr(TxtLFile, 1, 250);
             RecLConnectorValues.Modify();
-            RecLConnectorValues.CalcFields(Blob);
-            RecLConnectorValues.Blob.CreateInStream(InLStream);
-            BooLResult := CduLFileManagement.FctbTransformBlobToFile(TxtLFile, InLStream, RecLConnectorValues."Partner Code",
+            BooLResult := CduLFileManagement.FctbTransformBlobToFile(TxtLFile, TempBlob, RecLConnectorValues."Partner Code",
                                                                      IntGSequenceNo, OptGFlowType::"Export Connector");
             CduLBufferMgt.FctArchiveBufferValues(RecLConnectorValues, BooLResult);
         end;

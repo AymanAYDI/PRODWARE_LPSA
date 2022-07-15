@@ -37,7 +37,7 @@ codeunit 8073292 "PWD File Messages Export"
         CduLBufferMgt: Codeunit "PWD Buffer Management";
         CduLConnecPimParseData: Codeunit "PWD Connector Pim Parse Data";
         CduLFileManagement: Codeunit "PWD File Management";
-        RecLTempBlob: Codeunit "Temp Blob";
+        TempBlob: Codeunit "Temp Blob";
         BigTLToReturn: BigText;
         RecLRef: RecordRef;
         BooLResult: Boolean;
@@ -54,7 +54,7 @@ codeunit 8073292 "PWD File Messages Export"
                     //>>WMS-EBL1-003.001
                     RecLCustomer.Reset();
                     RecLCustomer.FindSet();
-                    CduLConnecPimParseData.FctGetCustomerWithSep(RecLCustomer.GetView(), Rec, RecLTempBlob);
+                    CduLConnecPimParseData.FctGetCustomerWithSep(RecLCustomer.GetView(), Rec, TempBlob);
                     // CduLConnecPimParseData.FctGetCustomerWithSep('',Rec, RecLTempBlob);
                     //<<WMS-EBL1-003.001
                 end;
@@ -99,11 +99,11 @@ codeunit 8073292 "PWD File Messages Export"
 
                     case RecLPartnerConnector."Data Format" of
                         RecLPartnerConnector."Data Format"::Xml:
-                            CduLConBufMgtExport.FctCreateXml(RecLRef.GetView(), Rec, RecLTempBlob, true);
+                            CduLConBufMgtExport.FctCreateXml(RecLRef.GetView(), Rec, TempBlob, true);
                         RecLPartnerConnector."Data Format"::"with separator":
-                            CduLConBufMgtExport.FctCreateSeparator(RecLRef.GetView(), Rec, RecLTempBlob);
+                            CduLConBufMgtExport.FctCreateSeparator(RecLRef.GetView(), Rec, TempBlob);
                         RecLPartnerConnector."Data Format"::"File Position":
-                            CduLConBufMgtExport.FctCreateFileWithPosition(RecLRef.GetView(), Rec, RecLTempBlob);
+                            CduLConBufMgtExport.FctCreateFileWithPosition(RecLRef.GetView(), Rec, TempBlob);
                     end;
 
                     //>>WMS-FEMOT.001
@@ -113,8 +113,8 @@ codeunit 8073292 "PWD File Messages Export"
                 end;
 
         end;
-        if RecLTempBlob.HasValue() then begin
-            RecLTempBlob.CreateInStream(InLStream);
+        if TempBlob.HasValue() then begin
+            TempBlob.CreateInStream(InLStream);
             IntGSequenceNo := CduLBufferMgt.FctCreateBufferValues(InLStream, "Partner Code", '', Code,
                                                                   RecLPartnerConnector."Data Format"::Xml,
                                                                   RecLPartnerConnector.Separator, 1, 0, Code);
@@ -132,13 +132,10 @@ codeunit 8073292 "PWD File Messages Export"
                                            );
             //<<WMS-EBL1-003.001
 
-            Clear(InLStream);
             RecLConnectorValues.Get(IntGSequenceNo);
             RecLConnectorValues."File Name" := CopyStr(TxtLFile, 1, 250);
             RecLConnectorValues.Modify();
-            RecLConnectorValues.CalcFields(Blob);
-            RecLConnectorValues.Blob.CreateInStream(InLStream);
-            BooLResult := CduLFileManagement.FctbTransformBlobToFile(TxtLFile, InLStream, RecLConnectorValues."Partner Code",
+            BooLResult := CduLFileManagement.FctbTransformBlobToFile(TxtLFile, TempBlob, RecLConnectorValues."Partner Code",
                                                                      IntGSequenceNo, OptGFlowType::"Export Connector");
             CduLBufferMgt.FctArchiveBufferValues(RecLConnectorValues, BooLResult);
 

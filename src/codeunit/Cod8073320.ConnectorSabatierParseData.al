@@ -105,13 +105,10 @@ codeunit 8073320 "Connector Sabatier Parse Data"
             //<<WMS-FEMOT.002
 
 
-            CLEAR(InLStream);
             RecLConnectorValues.GET(IntGSequenceNo);
             RecLConnectorValues."File Name" := COPYSTR(TxtLFile, 1, 250);
             RecLConnectorValues.MODIFY();
-            RecLConnectorValues.CALCFIELDS(Blob);
-            RecLConnectorValues.Blob.CREATEINSTREAM(InLStream);
-            BooLResult := CduLFileManagement.FctbTransformBlobToFile(TxtLFile, InLStream, RecLConnectorValues."Partner Code",
+            BooLResult := CduLFileManagement.FctbTransformBlobToFile(TxtLFile, TempBlob, RecLConnectorValues."Partner Code",
                                                                      IntGSequenceNo, OptGFlowType::"Export Connector");
             CduLBufferMgt.FctArchiveBufferValues(RecLConnectorValues, BooLResult);
         END;
