@@ -6794,7 +6794,7 @@
           <note from="Xliff Generator" annotates="general" priority="3">Page PWD Lignes Gammes - Property Caption</note>
         </trans-unit>
         <trans-unit id="Page 863813965 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Link </source>
+          <source>Plan Link</source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Page PWD Link - Property Caption</note>
         </trans-unit>
@@ -6819,7 +6819,7 @@
           <note from="Xliff Generator" annotates="general" priority="3">Page PWD Link - Control URL1 - Method OnDrillDown - NamedType DownloadLbl</note>
         </trans-unit>
         <trans-unit id="Page 863813965 - Action 1811216224 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Select File</source>
+          <source>Import File</source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Page PWD Link - Action New Link - Property Caption</note>
         </trans-unit>

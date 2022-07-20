@@ -1,10 +1,12 @@
 page 50030 "PWD Link"
 {
-    Caption = 'Link ';
+    Caption = 'Plan Link';
     PageType = ListPart;
     SourceTable = "Record Link";
-
-
+    SourceTableView = where(Type = const(Link));
+    InsertAllowed = false;
+    ModifyAllowed = false;
+    UsageCategory = None;
     layout
     {
         area(content)
@@ -42,13 +44,17 @@ page 50030 "PWD Link"
         {
             action("New Link")
             {
-                caption = 'Select File';
-                applicationarea = all;
+                Caption = 'Import File';
+                Applicationarea = all;
+                Image = Import;
+                Promoted = true;
+                PromotedCategory = Process;
+                PromotedIsBig = true;
+                PromotedOnly = true;
                 trigger OnAction()
                 var
                     FileRec: Record "Name/Value Buffer";
                     RecordLink: Record "Record Link";
-                    UserSetup: Record "User Setup";
                     FileMgt: codeunit "File Management";
                 begin
                     FileLookupOK(FileRec);
@@ -69,7 +75,12 @@ page 50030 "PWD Link"
     var
     begin
         Rec.SetRange("Record ID", RecordIdV);
-        Rec.SetRange(Type, Rec.Type::Link);
+    end;
+
+    trigger OnAfterGetCurrRecord()
+    var
+    begin
+        Rec.SetRange("Record ID", RecordIdV);
     end;
 
     procedure FileLookupOK(var fileRec: Record "Name/Value Buffer")
@@ -81,9 +92,9 @@ page 50030 "PWD Link"
             FilePag.getRecord(fileRec);
     end;
 
-    procedure SetFilters(RecordIdV2: RecordId)
+    procedure SetFilters(_RecordIdV: RecordId)
     begin
-        RecordIdV := RecordIdV2;
+        RecordIdV := _RecordIdV;
     end;
 
     var

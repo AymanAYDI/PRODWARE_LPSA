@@ -453,7 +453,7 @@ codeunit 8073291 "PWD Buffer Management"
 
         RecLTempBlob.CREATEOUTSTREAM(OuSLOutStream);
         OuSLOutStream.WRITETEXT(GETLASTERRORTEXT);
-        Fieldref.VALUE := RecLTempBlob.HasValue();
+        RecLTempBlob.ToFieldRef(Fieldref);
         //<<WMS-FE007_15.001
     end;
 
