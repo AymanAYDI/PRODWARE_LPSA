@@ -7893,6 +7893,11 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Report Purchase - Return Shipment LAP - Control ShowInternalInfoF - Property Caption</note>
         </trans-unit>
+        <trans-unit id="Report 369768168 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Ajout Nouv.Fin Gamme PIE</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report PWD Ajout Nouv.Fin Gamme PIE - Property Caption</note>
+        </trans-unit>
         <trans-unit id="Report 369768168 - NamedType 3802638270" size-unit="char" translate="yes" xml:space="preserve">
           <source>Dans les gammes PIE (Filtrage %3), voulez vous remplacer toutes les opérations après l'opération %1 par les lignes de la gamme %2 ?</source>
           <note from="Developer" annotates="general" priority="2"></note>
@@ -9027,16 +9032,6 @@
           <source>Merci de spécifier un fichier d'export</source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Report PWD Item Extraction - NamedType CstG010</note>
-        </trans-unit>
-        <trans-unit id="Report 3746294669 - Method 1988189561 - NamedType 3777830815" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Attach a document.</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Report PWD Item Extraction - Method ImportWithFilter - NamedType ImportTxt</note>
-        </trans-unit>
-        <trans-unit id="Report 3746294669 - Method 1988189561 - NamedType 3865442186" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Attachments (%1)|%1</source>
-          <note from="Developer" annotates="general" priority="2">%1=file types, such as *.txt or *.docx</note>
-          <note from="Xliff Generator" annotates="general" priority="3">Report PWD Item Extraction - Method ImportWithFilter - NamedType FileDialogTxt</note>
         </trans-unit>
         <trans-unit id="Report 3746294669 - Control 3590328978 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Options</source>

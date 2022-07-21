@@ -11,6 +11,7 @@ report 50053 "PWD Ajout Nouv.Fin Gamme PIE"
 
     ProcessingOnly = true;
     UsageCategory = None;
+    Caption = 'Ajout Nouv.Fin Gamme PIE';
     dataset
     {
         dataitem("Routing Header"; "Routing Header")
@@ -50,16 +51,16 @@ report 50053 "PWD Ajout Nouv.Fin Gamme PIE"
                         RecGRoutingLineToAdd.Reset();
                         RecGRoutingLineToAdd.SetRange("Routing No.", CodGRoutingToAdd);
                         if RecGRoutingLineToAdd.FindFirst() then
-                                repeat
-                                    RecGRoutingLineAdded := RecGRoutingLineToAdd;
-                                    RecGRoutingLineAdded."Routing No." := CodGRoutingNo;
-                                    if CodGOperationNo <> '' then begin
-                                        RecGRoutingLineAdded."Previous Operation No." := CodGOperationNo;
-                                        CodGOperationNo := '';
-                                    end;
-                                    RecGRoutingLineAdded.Insert();
+                            repeat
+                                RecGRoutingLineAdded := RecGRoutingLineToAdd;
+                                RecGRoutingLineAdded."Routing No." := CodGRoutingNo;
+                                if CodGOperationNo <> '' then begin
+                                    RecGRoutingLineAdded."Previous Operation No." := CodGOperationNo;
+                                    CodGOperationNo := '';
+                                end;
+                                RecGRoutingLineAdded.Insert();
 
-                                until RecGRoutingLineToAdd.Next() = 0;
+                            until RecGRoutingLineToAdd.Next() = 0;
 
                         if ("Routing Header".Status = "Routing Header".Status::Certified) then begin
                             RecLRoutingHeader.Get("Routing Header"."No.");

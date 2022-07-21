@@ -92,15 +92,17 @@ pageextension 60140 "PWD ReleasedProductionOrder" extends "Released Production O
                 ApplicationArea = All;
                 trigger OnAction()
                 var
-                    DocumentAttach: Record "Document Attachment";
+                    RecordLink: Record "Record Link";
+                    Item: Record Item;
                 begin
                     if Rec."Source Type" = Rec."Source Type"::Item then begin
-                        DocumentAttach.SetRange("Table Id", 27);
-                        DocumentAttach.SetRange("No.", Rec."Source No.");
-                        if DocumentAttach.FindSet() then
+                        Item.Get(Rec."Source No.");
+                        RecordLink.SetRange("Record ID", Item.RecordId);
+                        //RecordLink.SetRange("No.", Rec."Source No.");
+                        if RecordLink.FindSet() then
                             repeat
-                                Rec.FctPrintPDF(True, DocumentAttach);
-                            until DocumentAttach.Next() = 0;
+                            //Rec.FctPrintPDF(True, RecordLink);
+                            until RecordLink.Next() = 0;
                     end;
                 end;
             }

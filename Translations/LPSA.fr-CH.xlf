@@ -1107,30 +1107,6 @@
           <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">Table PWD Fields Export Setup - Field Xml Tag - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Table 394914913 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>File List</source>
-          <target state="translated">Liste des fichiers</target>
-          <note from="Developer" annotates="general" priority="2"/>
-          <note from="Xliff Generator" annotates="general" priority="3">Table PWD File List - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Table 394914913 - Field 804481195 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>File Name</source>
-          <target state="translated">Nom du fichier</target>
-          <note from="Developer" annotates="general" priority="2"/>
-          <note from="Xliff Generator" annotates="general" priority="3">Table PWD File List - Field File Name - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Table 394914913 - Field 4200184881 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>No.</source>
-          <target state="translated">N°</target>
-          <note from="Developer" annotates="general" priority="2"/>
-          <note from="Xliff Generator" annotates="general" priority="3">Table PWD File List - Field No. - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Table 394914913 - Field 1666415622 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Path Name</source>
-          <target state="translated">Nom du chemin</target>
-          <note from="Developer" annotates="general" priority="2"/>
-          <note from="Xliff Generator" annotates="general" priority="3">Table PWD File List - Field Path Name - Property Caption</note>
-        </trans-unit>
         <trans-unit id="Table 2902211376 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Inventory Comment Line</source>
           <target state="translated">Ligne commentaire transfert</target>
@@ -6417,12 +6393,6 @@
           <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">Codeunit PWD Connector WMS Parse Data - Method FctUpdateItemJournaLineWMS - NamedType CstL000</note>
         </trans-unit>
-        <trans-unit id="Codeunit 1837008666 - Method 799795521 - NamedType 4205312060" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Blob Content</source>
-          <target state="translated">Contenu du message</target>
-          <note from="Developer" annotates="general" priority="2"/>
-          <note from="Xliff Generator" annotates="general" priority="3">Codeunit PWD File Management - Method FctShowBlobAsWindow - NamedType CstL000</note>
-        </trans-unit>
         <trans-unit id="Codeunit 3801824614 - NamedType 2366359677" size-unit="char" translate="yes" xml:space="preserve">
           <source>MPS or MRP must be flag on %1.</source>
           <target state="translated">PDP ou MRP doit être coché dans %1.</target>
@@ -9501,6 +9471,12 @@
           <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">Report Purchase - Return Shipment LAP - Control ShowInternalInfoF - Property Caption</note>
         </trans-unit>
+        <trans-unit id="Report 369768168 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Ajout Nouv.Fin Gamme PIE</source>
+          <target state="translated">Ajout Nouv.Fin Gamme PIE</target>
+          <note from="Developer" annotates="general" priority="2"/>
+          <note from="Xliff Generator" annotates="general" priority="3">Report PWD Ajout Nouv.Fin Gamme PIE - Property Caption</note>
+        </trans-unit>
         <trans-unit id="Report 369768168 - NamedType 3802638270" size-unit="char" translate="yes" xml:space="preserve">
           <source>Dans les gammes PIE (Filtrage %3), voulez vous remplacer toutes les opérations après l'opération %1 par les lignes de la gamme %2 ?</source>
           <target state="translated">Dans les gammes PIE (Filtrage %3), voulez vous remplacer toutes les opérations après l'opération %1 par les lignes de la gamme %2 ?</target>
@@ -10862,18 +10838,6 @@
           <target state="translated">Merci de spécifier un fichier d'export</target>
           <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">Report PWD Item Extraction - NamedType CstG010</note>
-        </trans-unit>
-        <trans-unit id="Report 3746294669 - Method 1988189561 - NamedType 3777830815" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Attach a document.</source>
-          <target state="translated">Attach a document.</target>
-          <note from="Developer" annotates="general" priority="2"/>
-          <note from="Xliff Generator" annotates="general" priority="3">Report PWD Item Extraction - Method ImportWithFilter - NamedType ImportTxt</note>
-        </trans-unit>
-        <trans-unit id="Report 3746294669 - Method 1988189561 - NamedType 3865442186" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Attachments (%1)|%1</source>
-          <target state="translated">Attachments (%1)|%1</target>
-          <note from="Developer" annotates="general" priority="2">%1=file types, such as *.txt or *.docx</note>
-          <note from="Xliff Generator" annotates="general" priority="3">Report PWD Item Extraction - Method ImportWithFilter - NamedType FileDialogTxt</note>
         </trans-unit>
         <trans-unit id="Report 3746294669 - Control 3590328978 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Options</source>
@@ -15908,6 +15872,12 @@
           <target state="translated">Chemin d'export des fichiers de bouclement</target>
           <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">TableExtension PWD InventorySetup - Field PWD Path for Closing Export - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="TableExtension 1741262562 - Field 915150674 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 1180040559">
+          <source>Path Link</source>
+          <target state="translated">Lien </target>
+          <note from="Developer" annotates="general" priority="2"/>
+          <note from="Xliff Generator" annotates="general" priority="3">TableExtension PWD InventorySetup - Field PWD Path Link - Property Caption</note>
         </trans-unit>
         <trans-unit id="TableExtension 1741262562 - Field 970078678 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 1180040559">
           <source>Period for the calculation of the stock cover (in Months)</source>
