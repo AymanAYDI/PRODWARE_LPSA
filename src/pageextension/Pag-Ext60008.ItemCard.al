@@ -240,9 +240,7 @@ pageextension 60008 "PWD ItemCard" extends "Item Card"
             part(PWDLink; "PWD Link")
             {
                 ApplicationArea = All;
-                //SubPageLink = "Record ID" = 
             }
-
         }
     }
     actions

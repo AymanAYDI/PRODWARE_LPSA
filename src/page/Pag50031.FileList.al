@@ -4,7 +4,7 @@ page 50031 "PWD File List"
     PageType = List;
     SourceTable = "Name/Value Buffer";
     SourceTableTemporary = True;
-
+    UsageCategory = None;
     layout
     {
         area(content)
@@ -26,6 +26,7 @@ page 50031 "PWD File List"
         FileManagement: Codeunit "File Management";
     begin
         InventorySetup.Get();
+        InventorySetup.TestField("PWD Path Link");
         FileManagement.GetServerDirectoryFilesListInclSubDirs(NameValueBuffer, InventorySetup."PWD Path Link");
         if NameValueBuffer.FindSet() then
             repeat

@@ -8152,8 +8152,8 @@
           <note from="Xliff Generator" annotates="general" priority="3">Page PWD Lignes Gammes - Property Caption</note>
         </trans-unit>
         <trans-unit id="Page 863813965 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Link </source>
-          <target state="translated">Lien </target>
+          <source>Plan Link</source>
+          <target state="translated">Lien Plan</target>
           <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">Page PWD Link - Property Caption</note>
         </trans-unit>
@@ -15875,7 +15875,7 @@
         </trans-unit>
         <trans-unit id="TableExtension 1741262562 - Field 915150674 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 1180040559">
           <source>Path Link</source>
-          <target state="translated">Lien </target>
+          <target state="translated">Racine fichier plan</target>
           <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">TableExtension PWD InventorySetup - Field PWD Path Link - Property Caption</note>
         </trans-unit>
