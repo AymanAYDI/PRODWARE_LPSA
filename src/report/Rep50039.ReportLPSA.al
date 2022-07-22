@@ -11,21 +11,18 @@ report 50039 "PWD ReportLPSA"
             trigger OnAfterGetRecord()
             var
                 RecordLink: Record "Record Link";
-                DocumentAttach: Record "Document Attachment";
-                FileManagement: Codeunit "File Management";
-                TempBlob: Codeunit "Temp Blob";
-                RecRef: RecordRef;
+                ItemLink: Record "PWD Item Link";
             begin
-                RecRef.GetTable(Item);
                 RecordLink.Reset();
                 RecordLink.SetRange("Record ID", Item.RecordId);
                 if RecordLink.FindSet() then
                     repeat
-                        if FileManagement.ServerFileExists(RecordLink.URL1) then begin
-                            Clear(DocumentAttach);
-                            FileManagement.BLOBImportFromServerFile(TempBlob, RecordLink.URL1);
-                            DocumentAttach.SaveAttachment(RecRef, RecordLink.URL1, TempBlob);
-                        end;
+                        ItemLink.Init();
+                        ItemLink."No." := 0;
+                        ItemLink.URL := RecordLink.URL1;
+                        ItemLink.Description := RecordLink.Description;
+                        ItemLink."Item No." := Item."No.";
+                        ItemLink.Insert(true);
                     until RecordLink.Next() = 0
             end;
         }

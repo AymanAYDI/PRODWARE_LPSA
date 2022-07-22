@@ -5,6 +5,7 @@ page 50031 "PWD File List"
     SourceTable = "Name/Value Buffer";
     SourceTableTemporary = True;
     UsageCategory = None;
+    Editable = false;
     layout
     {
         area(content)

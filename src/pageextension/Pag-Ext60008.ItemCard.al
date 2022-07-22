@@ -240,6 +240,7 @@ pageextension 60008 "PWD ItemCard" extends "Item Card"
             part(PWDLink; "PWD Link")
             {
                 ApplicationArea = All;
+                SubPageLink = "Item No." = FIELD("No.");
             }
         }
     }
@@ -414,7 +415,7 @@ pageextension 60008 "PWD ItemCard" extends "Item Card"
         Rec.SETFILTER("PWD Principal Location Filter", '%1', Rec."Location Code");
 
         Rec.CALCFIELDS("PWD Principal Inventory", "PWD Inventory 2");
-        CurrPage.PWDLink.Page.SetFilters(Rec.RecordId);
+        CurrPage.PWDLink.Page.SetFilters(Rec."No.");
     end;
 
     procedure Fct_EnableLotDeterm()

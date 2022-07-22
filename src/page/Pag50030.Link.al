@@ -1,9 +1,8 @@
 page 50030 "PWD Link"
 {
-    Caption = 'Plan Link';
+    Caption = 'Document Link';
     PageType = ListPart;
-    SourceTable = "Record Link";
-    SourceTableView = where(Type = const(Link));
+    SourceTable = "PWD Item Link";
     InsertAllowed = false;
     ModifyAllowed = false;
     UsageCategory = None;
@@ -13,11 +12,11 @@ page 50030 "PWD Link"
         {
             repeater(General)
             {
-                field(URL1; Rec.URL1)
+                field(URL; Rec.URL)
                 {
                     ShowCaption = false;
                     ApplicationArea = All;
-                    ToolTip = 'Specifies the value of the URL1 field.';
+                    ToolTip = 'Specifies the value of the URL field.';
                     trigger OnDrillDown()
                     var
                         FileManagement: Codeunit "File Management";
@@ -26,11 +25,11 @@ page 50030 "PWD Link"
                         FilterLbl: Label '*.pdf|*.*';
                         DownloadLbl: Label 'Download';
                     begin
-                        if Rec."URL1" <> '' then begin
-                            if not FileManagement.ServerFileExists(Rec.URL1) then
-                                Error(FileDoesNotExistErr, Rec.URL1);
-                            FileName := FileManagement.GetFileName(Rec.URL1);
-                            FileManagement.DownloadHandler(Rec.URL1, DownloadLbl, '', FilterLbl, FileName);
+                        if Rec."URL" <> '' then begin
+                            if not FileManagement.ServerFileExists(Rec.URL) then
+                                Error(FileDoesNotExistErr, Rec.URL);
+                            FileName := FileManagement.GetFileName(Rec.URL);
+                            FileManagement.DownloadHandler(Rec.URL, DownloadLbl, '', FilterLbl, FileName);
                         end;
                     end;
 
@@ -54,35 +53,22 @@ page 50030 "PWD Link"
                 trigger OnAction()
                 var
                     FileRec: Record "Name/Value Buffer";
-                    RecordLink: Record "Record Link";
+                    ItemLink: Record "PWD Item Link";
                     FileMgt: codeunit "File Management";
                 begin
                     FileLookupOK(FileRec);
                     if fileRec.Name <> '' then begin
-                        RecordLink.Init();
-                        RecordLink."Link ID" := 0;
-                        RecordLink.URL1 := FileRec.Name;
-                        RecordLink.Description := FileMgt.GetFileName(FileRec.Name);
-                        RecordLink."Record ID" := RecordIdV;
-                        RecordLink.Type := RecordLink.Type::Link;
-                        RecordLink.Insert(true);
+                        ItemLink.Init();
+                        ItemLink."No." := 0;
+                        ItemLink.URL := FileRec.Name;
+                        ItemLink.Description := FileMgt.GetFileName(FileRec.Name);
+                        ItemLink."Item No." := ItemIdV;
+                        ItemLink.Insert(true);
                     end;
                 end;
             }
         }
     }
-    trigger OnOPenPage()
-    var
-    begin
-        Rec.SetRange("Record ID", RecordIdV);
-    end;
-
-    trigger OnAfterGetCurrRecord()
-    var
-    begin
-        Rec.SetRange("Record ID", RecordIdV);
-    end;
-
     procedure FileLookupOK(var fileRec: Record "Name/Value Buffer")
     var
         filePag: Page "PWD File List";
@@ -92,12 +78,12 @@ page 50030 "PWD Link"
             FilePag.getRecord(fileRec);
     end;
 
-    procedure SetFilters(_RecordIdV: RecordId)
+    procedure SetFilters(_ItemIdV: Code[20])
     begin
-        RecordIdV := _RecordIdV;
+        ItemIdV := _ItemIdV;
     end;
 
     var
-        RecordIdV: RecordId;
+        ItemIdV: Code[20];
 
 }

@@ -2978,6 +2978,31 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Table PWD Item Ledger Entry Buffer - Field Warranty Date - Property Caption</note>
         </trans-unit>
+        <trans-unit id="Table 2552687530 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Item Link</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table PWD Item Link - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 2552687530 - Field 3461834954 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Description</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table PWD Item Link - Field Description - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 2552687530 - Field 568743302 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Item No.</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table PWD Item Link - Field Item No. - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 2552687530 - Field 4200184881 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>No.</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table PWD Item Link - Field No. - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 2552687530 - Field 3003898253 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>URL</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table PWD Item Link - Field URL - Property Caption</note>
+        </trans-unit>
         <trans-unit id="Table 3054282611 - Field 1037119892 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Item Category Code</source>
           <note from="Developer" annotates="general" priority="2"></note>
@@ -6794,29 +6819,29 @@
           <note from="Xliff Generator" annotates="general" priority="3">Page PWD Lignes Gammes - Property Caption</note>
         </trans-unit>
         <trans-unit id="Page 863813965 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Plan Link</source>
+          <source>Document Link</source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Page PWD Link - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Page 863813965 - Control 589256022 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Specifies the value of the URL1 field.</source>
+        <trans-unit id="Page 863813965 - Control 3003898253 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Specifies the value of the URL field.</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page PWD Link - Control URL1 - Property ToolTip</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page PWD Link - Control URL - Property ToolTip</note>
         </trans-unit>
-        <trans-unit id="Page 863813965 - Control 589256022 - Method 1845446376 - NamedType 2943140252" size-unit="char" translate="yes" xml:space="preserve">
+        <trans-unit id="Page 863813965 - Control 3003898253 - Method 1845446376 - NamedType 2943140252" size-unit="char" translate="yes" xml:space="preserve">
           <source>The file %1 does not exist.</source>
           <note from="Developer" annotates="general" priority="2">%1 File Path</note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page PWD Link - Control URL1 - Method OnDrillDown - NamedType FileDoesNotExistErr</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page PWD Link - Control URL - Method OnDrillDown - NamedType FileDoesNotExistErr</note>
         </trans-unit>
-        <trans-unit id="Page 863813965 - Control 589256022 - Method 1845446376 - NamedType 4139432870" size-unit="char" translate="yes" xml:space="preserve">
+        <trans-unit id="Page 863813965 - Control 3003898253 - Method 1845446376 - NamedType 4139432870" size-unit="char" translate="yes" xml:space="preserve">
           <source>*.pdf|*.*</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page PWD Link - Control URL1 - Method OnDrillDown - NamedType FilterLbl</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page PWD Link - Control URL - Method OnDrillDown - NamedType FilterLbl</note>
         </trans-unit>
-        <trans-unit id="Page 863813965 - Control 589256022 - Method 1845446376 - NamedType 4210430314" size-unit="char" translate="yes" xml:space="preserve">
+        <trans-unit id="Page 863813965 - Control 3003898253 - Method 1845446376 - NamedType 4210430314" size-unit="char" translate="yes" xml:space="preserve">
           <source>Download</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page PWD Link - Control URL1 - Method OnDrillDown - NamedType DownloadLbl</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page PWD Link - Control URL - Method OnDrillDown - NamedType DownloadLbl</note>
         </trans-unit>
         <trans-unit id="Page 863813965 - Action 1811216224 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Import File</source>
@@ -12447,6 +12472,71 @@
           <source>Import STOCK</source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">XmlPort PWD Import STOCK - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="XmlPort 3746294669 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>PWD Item Extraction</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">XmlPort PWD Item Extraction - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="XmlPort 3746294669 - NamedType 1889548419" size-unit="char" translate="yes" xml:space="preserve">
+          <source>N° de centre de charge</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">XmlPort PWD Item Extraction - NamedType CstG002</note>
+        </trans-unit>
+        <trans-unit id="XmlPort 3746294669 - NamedType 2527245036" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Désignation centre</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">XmlPort PWD Item Extraction - NamedType CstG003</note>
+        </trans-unit>
+        <trans-unit id="XmlPort 3746294669 - NamedType 614155185" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Code Calendrier du centre</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">XmlPort PWD Item Extraction - NamedType CstG004</note>
+        </trans-unit>
+        <trans-unit id="XmlPort 3746294669 - NamedType 1251851802" size-unit="char" translate="yes" xml:space="preserve">
+          <source>N° Poste de charge</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">XmlPort PWD Item Extraction - NamedType CstG005</note>
+        </trans-unit>
+        <trans-unit id="XmlPort 3746294669 - NamedType 3633729247" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Désignation poste</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">XmlPort PWD Item Extraction - NamedType CstG006</note>
+        </trans-unit>
+        <trans-unit id="XmlPort 3746294669 - NamedType 2352140838" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Merci de spécifier un fichier d'export</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">XmlPort PWD Item Extraction - NamedType CstG010</note>
+        </trans-unit>
+        <trans-unit id="XmlPort 3746294669 - XmlPortNode 1077004636 - Method 828199545 - NamedType 219424772" size-unit="char" translate="yes" xml:space="preserve">
+          <source>'</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">XmlPort PWD Item Extraction - XmlPortNode txtType - Method OnBeforePassVariable - NamedType txt</note>
+        </trans-unit>
+        <trans-unit id="XmlPort 3746294669 - XmlPortNode 457737350 - Method 828199545 - NamedType 219424772" size-unit="char" translate="yes" xml:space="preserve">
+          <source>'</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">XmlPort PWD Item Extraction - XmlPortNode txtType2 - Method OnBeforePassVariable - NamedType txt</note>
+        </trans-unit>
+        <trans-unit id="XmlPort 3746294669 - XmlPortNode 4115008029 - Method 828199545 - NamedType 219424772" size-unit="char" translate="yes" xml:space="preserve">
+          <source></source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">XmlPort PWD Item Extraction - XmlPortNode txtType3 - Method OnBeforePassVariable - NamedType txt</note>
+        </trans-unit>
+        <trans-unit id="XmlPort 3746294669 - XmlPortNode 926524944 - Method 828199545 - NamedType 219424772" size-unit="char" translate="yes" xml:space="preserve">
+          <source></source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">XmlPort PWD Item Extraction - XmlPortNode txtType4 - Method OnBeforePassVariable - NamedType txt</note>
+        </trans-unit>
+        <trans-unit id="XmlPort 3746294669 - XmlPortNode 288828327 - Method 828199545 - NamedType 219424772" size-unit="char" translate="yes" xml:space="preserve">
+          <source></source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">XmlPort PWD Item Extraction - XmlPortNode txtType5 - Method OnBeforePassVariable - NamedType txt</note>
+        </trans-unit>
+        <trans-unit id="XmlPort 3746294669 - XmlPortNode 2201918178 - Method 828199545 - NamedType 219424772" size-unit="char" translate="yes" xml:space="preserve">
+          <source></source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">XmlPort PWD Item Extraction - XmlPortNode txtType6 - Method OnBeforePassVariable - NamedType txt</note>
         </trans-unit>
         <trans-unit id="XmlPort 1838925353 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Items Export OSYS</source>
