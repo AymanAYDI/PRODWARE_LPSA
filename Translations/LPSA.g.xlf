@@ -12518,26 +12518,6 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">XmlPort PWD Item Extraction - XmlPortNode txtType2 - Method OnBeforePassVariable - NamedType txt</note>
         </trans-unit>
-        <trans-unit id="XmlPort 3746294669 - XmlPortNode 4115008029 - Method 828199545 - NamedType 219424772" size-unit="char" translate="yes" xml:space="preserve">
-          <source></source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">XmlPort PWD Item Extraction - XmlPortNode txtType3 - Method OnBeforePassVariable - NamedType txt</note>
-        </trans-unit>
-        <trans-unit id="XmlPort 3746294669 - XmlPortNode 926524944 - Method 828199545 - NamedType 219424772" size-unit="char" translate="yes" xml:space="preserve">
-          <source></source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">XmlPort PWD Item Extraction - XmlPortNode txtType4 - Method OnBeforePassVariable - NamedType txt</note>
-        </trans-unit>
-        <trans-unit id="XmlPort 3746294669 - XmlPortNode 288828327 - Method 828199545 - NamedType 219424772" size-unit="char" translate="yes" xml:space="preserve">
-          <source></source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">XmlPort PWD Item Extraction - XmlPortNode txtType5 - Method OnBeforePassVariable - NamedType txt</note>
-        </trans-unit>
-        <trans-unit id="XmlPort 3746294669 - XmlPortNode 2201918178 - Method 828199545 - NamedType 219424772" size-unit="char" translate="yes" xml:space="preserve">
-          <source></source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">XmlPort PWD Item Extraction - XmlPortNode txtType6 - Method OnBeforePassVariable - NamedType txt</note>
-        </trans-unit>
         <trans-unit id="XmlPort 1838925353 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Items Export OSYS</source>
           <note from="Developer" annotates="general" priority="2"></note>
