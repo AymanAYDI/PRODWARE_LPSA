@@ -22,10 +22,12 @@ tableextension 60039 "PWD ProdOrderRoutingLine" extends "Prod. Order Routing Lin
         field(50000; "PWD Processed"; Boolean)
         {
             caption = 'Processed';
+            DataClassification = CustomerContent;
         }
         field(50001; "PWD Start. Date-Time (P1)"; DateTime)
         {
             Caption = 'Starting Date-Time (P1)';
+            DataClassification = CustomerContent;
 
             trigger OnValidate()
             begin
@@ -37,6 +39,7 @@ tableextension 60039 "PWD ProdOrderRoutingLine" extends "Prod. Order Routing Lin
         field(50002; "PWD End. Date-Time (P1)"; DateTime)
         {
             Caption = 'Ending Date-Time (P1)';
+            DataClassification = CustomerContent;
 
             trigger OnValidate()
             begin

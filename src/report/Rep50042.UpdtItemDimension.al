@@ -54,7 +54,7 @@ report 50042 "PWD Updt Item - Dimension"
                 RecLSalesLine.SetRange("No.", "No.");
                 if RecLSalesLine.Find('-') then
                     repeat
-                            DiagWindows.Update(1, DATABASE::"Sales Line");
+                        DiagWindows.Update(1, DATABASE::"Sales Line");
                         DiagWindows.Update(2, RecLSalesLine."No.");
 
                         RecLSalesLine."Item Category Code" := Item."Item Category Code";
@@ -66,20 +66,20 @@ report 50042 "PWD Updt Item - Dimension"
                 RecLPurchLine.SetRange(Type, RecLPurchLine.Type::Item);
                 RecLPurchLine.SetRange("No.", "No.");
                 if RecLPurchLine.Find('-') then
-                        repeat
-                            DiagWindows.Update(1, DATABASE::"Purchase Line");
-                            DiagWindows.Update(2, RecLPurchLine."Document No.");
+                    repeat
+                        DiagWindows.Update(1, DATABASE::"Purchase Line");
+                        DiagWindows.Update(2, RecLPurchLine."Document No.");
 
-                            RecLPurchLine."Item Category Code" := Item."Item Category Code";
-                            RecLPurchLine."PWD Product Group Code" := Item."PWD Product Group Code";
-                            RecLPurchLine.Modify();
-                        until RecLPurchLine.Next() = 0;
+                        RecLPurchLine."Item Category Code" := Item."Item Category Code";
+                        RecLPurchLine."PWD Product Group Code" := Item."PWD Product Group Code";
+                        RecLPurchLine.Modify();
+                    until RecLPurchLine.Next() = 0;
 
                 // Mise à jour feuille article
                 RecLItemJnlLine.SetRange("Item No.", "No.");
                 if RecLItemJnlLine.Find('-') then
                     repeat
-                            DiagWindows.Update(1, DATABASE::"Item Journal Line");
+                        DiagWindows.Update(1, DATABASE::"Item Journal Line");
                         DiagWindows.Update(2, "No.");
 
                         RecLItemJnlLine."Item Category Code" := Item."Item Category Code";
@@ -91,20 +91,20 @@ report 50042 "PWD Updt Item - Dimension"
                 RecLRequisitionLine.SetRange(Type, RecLRequisitionLine.Type::Item);
                 RecLRequisitionLine.SetRange("No.", "No.");
                 if RecLRequisitionLine.Find('-') then
-                        repeat
-                            DiagWindows.Update(1, DATABASE::"Requisition Line");
-                            DiagWindows.Update(2, "No.");
+                    repeat
+                        DiagWindows.Update(1, DATABASE::"Requisition Line");
+                        DiagWindows.Update(2, "No.");
 
-                            RecLRequisitionLine."Item Category Code" := Item."Item Category Code";
-                            RecLRequisitionLine."PWD Product Group Code" := Item."PWD Product Group Code";
-                            RecLRequisitionLine.Modify();
-                        until RecLRequisitionLine.Next() = 0;
+                        RecLRequisitionLine."Item Category Code" := Item."Item Category Code";
+                        RecLRequisitionLine."PWD Product Group Code" := Item."PWD Product Group Code";
+                        RecLRequisitionLine.Modify();
+                    until RecLRequisitionLine.Next() = 0;
 
                 // Mise à jour Transfer Line
                 RecLTransferLine.SetRange("Item No.", "No.");
                 if RecLTransferLine.Find('-') then
                     repeat
-                            DiagWindows.Update(1, DATABASE::"Transfer Line");
+                        DiagWindows.Update(1, DATABASE::"Transfer Line");
                         DiagWindows.Update(2, RecLTransferLine."Document No.");
 
                         RecLTransferLine."Item Category Code" := Item."Item Category Code";
@@ -115,26 +115,26 @@ report 50042 "PWD Updt Item - Dimension"
                 //
                 RecLManufacturingCycles.SetRange("Item Code", "No.");
                 if RecLManufacturingCycles.Find('-') then
-                        repeat
-                            DiagWindows.Update(1, DATABASE::"PWD Manufacturing cycles Setup");
-                            DiagWindows.Update(2, RecLManufacturingCycles."No.");
+                    repeat
+                        DiagWindows.Update(1, DATABASE::"PWD Manufacturing cycles Setup");
+                        DiagWindows.Update(2, RecLManufacturingCycles."No.");
 
-                            RecLManufacturingCycles."Item Category Code" := Item."Item Category Code";
-                            RecLManufacturingCycles.Modify();
-                        until RecLManufacturingCycles.Next() = 0;
+                        RecLManufacturingCycles."Item Category Code" := Item."Item Category Code";
+                        RecLManufacturingCycles.Modify();
+                    until RecLManufacturingCycles.Next() = 0;
 
 
                 //50001
                 RecLItemConfiguration.SetRange("Item Code", "No.");
                 if RecLItemConfiguration.Find('-') then
-                        repeat
-                            DiagWindows.Update(1, DATABASE::"PWD Item Configurator");
-                            DiagWindows.Update(2, "No.");
+                    repeat
+                        DiagWindows.Update(1, DATABASE::"PWD Item Configurator");
+                        DiagWindows.Update(2, "No.");
 
-                            RecLItemConfiguration."Item Category Code" := Item."Item Category Code";
-                            RecLItemConfiguration."Product Group Code" := Item."PWD Product Group Code";
-                            RecLItemConfiguration.Modify();
-                        until RecLManufacturingCycles.Next() = 0;
+                        RecLItemConfiguration."Item Category Code" := Item."Item Category Code";
+                        RecLItemConfiguration."Product Group Code" := Item."PWD Product Group Code";
+                        RecLItemConfiguration.Modify();
+                    until RecLManufacturingCycles.Next() = 0;
             end;
 
             trigger OnPostDataItem()

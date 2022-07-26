@@ -21,15 +21,18 @@ tableextension 60012 "PWD SalesShipmentHeader" extends "Sales Shipment Header"
         {
             Caption = 'Customer Promised Delivery Date';
             Description = 'TDL.LPSA';
+            DataClassification = CustomerContent;
         }
         field(8073282; "PWD Order No. From Partner"; Code[20])
         {
             Caption = 'Order No. From Partner';
+            DataClassification = CustomerContent;
         }
         field(8073283; "PWD WMS_Status"; Enum "PWD WMS_Status")
         {
             Caption = 'WMS_Status';
             Description = 'ProdConnect1.5';
+            DataClassification = CustomerContent;
         }
     }
 }

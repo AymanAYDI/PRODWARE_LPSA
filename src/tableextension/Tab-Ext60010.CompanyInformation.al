@@ -15,11 +15,13 @@ tableextension 60010 "PWD CompanyInformation" extends "Company Information"
         {
             Caption = 'Positive Indicator';
             Subtype = Bitmap;
+            DataClassification = CustomerContent;
         }
         field(50001; "PWD Picture_Negative"; Blob)
         {
             Caption = 'Negative Indicator';
             Subtype = Bitmap;
+            DataClassification = CustomerContent;
         }
     }
 }

@@ -19,11 +19,13 @@ tableextension 60040 "PWD ProdOrderRoutingTool" extends "Prod. Order Routing Too
         {
             Caption = 'Type';
             Description = 'LAP2.12';
+            DataClassification = CustomerContent;
         }
         field(50001; "PWD Criteria"; Text[50])
         {
             Caption = 'Criteria';
             Description = 'LAP2.12';
+            DataClassification = CustomerContent;
         }
         modify("No.")
         {

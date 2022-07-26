@@ -25,6 +25,7 @@ tableextension 60065 "PWD RoutingLine" extends "Routing Line"
         {
             Caption = 'Fixed-step Prod. Rate time';
             Description = 'LAP1.00';
+            DataClassification = CustomerContent;
         }
         field(50001; "PWD Flushing Method"; Enum "Flushing Method Routing")
         {
@@ -32,6 +33,7 @@ tableextension 60065 "PWD RoutingLine" extends "Routing Line"
             Description = 'LAP2.12';
             Editable = false;
             InitValue = Manual;
+            DataClassification = CustomerContent;
         }
 
     }

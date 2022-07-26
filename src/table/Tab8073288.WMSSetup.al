@@ -14,21 +14,25 @@ table 8073288 "PWD WMS Setup"
     // +----------------------------------------------------------------------------------------------------------------+
 
     Caption = 'WMS Setup';
+    DataClassification = CustomerContent;
 
     fields
     {
         field(1; "Primary Key"; Code[20])
         {
             Caption = 'Primary Key';
+            DataClassification = CustomerContent;
         }
         field(2; WMS; Boolean)
         {
             Caption = 'WMS';
+            DataClassification = CustomerContent;
         }
         field(3; "WMS Company Code"; Code[2])
         {
             Caption = 'WMS Company Code';
             Numeric = true;
+            DataClassification = CustomerContent;
 
             trigger OnValidate()
             var
@@ -44,6 +48,7 @@ table 8073288 "PWD WMS Setup"
         field(4; "Location Mandatory"; Boolean)
         {
             Caption = 'Location Mandatory';
+            DataClassification = CustomerContent;
 
             trigger OnValidate()
             var
@@ -57,25 +62,30 @@ table 8073288 "PWD WMS Setup"
         field(5; "WMS Delivery"; Code[10])
         {
             Caption = 'WMS Delivery Code';
+            DataClassification = CustomerContent;
         }
         field(6; "WMS Shipment"; Code[10])
         {
             Caption = 'WMS Shipment Code';
+            DataClassification = CustomerContent;
         }
         field(7; "Journal Template Name"; Code[10])
         {
             Caption = 'Journal Template Name';
             TableRelation = "Item Journal Template";
+            DataClassification = CustomerContent;
         }
         field(8; "Journal Batch Name"; Code[10])
         {
             Caption = 'Journal Batch Name';
             TableRelation = "Item Journal Batch".Name WHERE("Journal Template Name" = FIELD("Journal Template Name"));
+            DataClassification = CustomerContent;
         }
         field(9; "Partner Code"; Code[20])
         {
             Caption = 'Partner Code';
             TableRelation = "PWD Partner Connector".Code;
+            DataClassification = CustomerContent;
         }
     }
 

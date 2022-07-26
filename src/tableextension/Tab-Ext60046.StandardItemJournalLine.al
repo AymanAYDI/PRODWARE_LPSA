@@ -6,6 +6,7 @@ tableextension 60046 "PWD StandardItemJournalLine" extends "Standard Item Journa
         {
             Caption = 'Product Group Code';
             TableRelation = "PWD Product Group".Code WHERE("Item Category Code" = FIELD("Item Category Code"));
+            DataClassification = CustomerContent;
         }
     }
 }

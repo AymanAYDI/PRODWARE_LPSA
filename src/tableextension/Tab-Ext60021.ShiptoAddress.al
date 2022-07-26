@@ -18,6 +18,7 @@ tableextension 60021 "PWD ShiptoAddress" extends "Ship-to Address"
         field(8073282; "PWD WMS_ShipToNo"; Code[30])
         {
             Caption = 'WMS_ShipToNo';
+            DataClassification = CustomerContent;
         }
     }
 }

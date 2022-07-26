@@ -16,6 +16,7 @@ tableextension 60022 "PWD ReasonCode" extends "Reason Code"
             Caption = 'WMS Code';
             Description = 'ProdConnect1.5';
             Numeric = true;
+            DataClassification = CustomerContent;
 
             trigger OnValidate()
             var

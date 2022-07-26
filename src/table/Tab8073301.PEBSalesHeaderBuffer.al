@@ -11,12 +11,14 @@ table 8073301 "PWD PEB Sales Header Buffer"
     // +----------------------------------------------------------------------------------------------------------------+
 
     Caption = 'PEB Sales Header Buffer';
+    DataClassification = CustomerContent;
 
     fields
     {
         field(1; "Entry No."; Integer)
         {
             Caption = 'Entry No.';
+            DataClassification = CustomerContent;
         }
     }
 

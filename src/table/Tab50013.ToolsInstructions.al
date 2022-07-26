@@ -13,6 +13,7 @@ table 50013 "PWD Tools Instructions"
     DataCaptionFields = Type, "No.", Description, Criteria;
     DrillDownPageID = "PWD Tools Instructions Setup";
     LookupPageID = "PWD Tools Instructions Setup";
+    DataClassification = CustomerContent;
 
     fields
     {
@@ -21,18 +22,22 @@ table 50013 "PWD Tools Instructions"
             Caption = 'Type';
             OptionCaption = 'Method,Quality,Plan,Zone,Targeted dimension';
             OptionMembers = Method,Quality,Plan,Zone,"Targeted dimension";
+            DataClassification = CustomerContent;
         }
         field(4; "No."; Code[20])
         {
             Caption = 'No.';
+            DataClassification = CustomerContent;
         }
         field(5; Description; Text[50])
         {
             Caption = 'Description';
+            DataClassification = CustomerContent;
         }
         field(6; Criteria; Text[50])
         {
             Caption = 'Criteria';
+            DataClassification = CustomerContent;
         }
     }
 

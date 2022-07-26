@@ -29,20 +29,24 @@ tableextension 60008 "PWD PurchaseHeader" extends "Purchase Header"
             Caption = 'Order Min. Amount';
             Description = 'LAP1.00';
             Editable = false;
+            DataClassification = CustomerContent;
         }
         field(50001; "PWD Printed"; Boolean)
         {
             Caption = 'Printed';
+            DataClassification = CustomerContent;
         }
         field(50002; "PWD Last Release Amount"; Decimal)
         {
             Caption = 'Last Release Amount';
             Description = 'TDL.172';
+            DataClassification = CustomerContent;
         }
         field(50003; "PWD Intranet Order No."; Code[20])
         {
             Caption = 'Intranet Order No.';
             Description = 'TDL.231';
+            DataClassification = CustomerContent;
         }
     }
 }

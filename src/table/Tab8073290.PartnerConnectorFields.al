@@ -12,6 +12,7 @@ table 8073290 "PWD Partner Connector Fields"
     // +----------------------------------------------------------------------------------------------------------------+
 
     Caption = 'Partner Connector Fields';
+    DataClassification = CustomerContent;
 
     fields
     {
@@ -19,10 +20,12 @@ table 8073290 "PWD Partner Connector Fields"
         {
             Caption = 'Partner Code';
             TableRelation = "PWD Partner Connector".Code;
+            DataClassification = CustomerContent;
         }
         field(2; "Table ID"; Integer)
         {
             Caption = 'Table ID';
+            DataClassification = CustomerContent;
 
             trigger OnLookup()
             var
@@ -55,6 +58,7 @@ table 8073290 "PWD Partner Connector Fields"
         {
             Caption = 'Field ID';
             TableRelation = Field."No." WHERE(TableNo = FIELD("Table ID"));
+            DataClassification = CustomerContent;
 
             trigger OnLookup()
             var
@@ -106,21 +110,25 @@ table 8073290 "PWD Partner Connector Fields"
         {
             Caption = 'Field Type';
             Editable = false;
+            DataClassification = CustomerContent;
         }
         field(13; "Field Lenght"; Integer)
         {
             Caption = 'Field Lenght';
             Editable = false;
+            DataClassification = CustomerContent;
         }
         field(14; "Max Lenght Error"; Option)
         {
             Caption = 'Action when max lenght';
             OptionCaption = 'Error log,Truncate';
             OptionMembers = Error,Truncate;
+            DataClassification = CustomerContent;
         }
         field(15; "Max Lenght"; Integer)
         {
             Caption = 'Max Lenght';
+            DataClassification = CustomerContent;
         }
     }
 

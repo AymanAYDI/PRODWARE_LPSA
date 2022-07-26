@@ -17,6 +17,7 @@ tableextension 60002 "PWD Vendor" extends Vendor
         {
             Caption = 'Order Min. Amount';
             Description = 'LAP1.00';
+            DataClassification = CustomerContent;
 
             trigger OnValidate()
             var

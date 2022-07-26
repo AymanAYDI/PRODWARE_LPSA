@@ -28,6 +28,7 @@ tableextension 60067 "PWD ProductionBOMLine" extends "Production BOM Line"
         {
             Caption = 'Lot Determining';
             Description = 'LAP1.00';
+            DataClassification = CustomerContent;
 
             trigger OnValidate()
             var
@@ -61,6 +62,7 @@ tableextension 60067 "PWD ProductionBOMLine" extends "Production BOM Line"
         {
             Caption = 'WMS Quantity Per (Base)';
             Description = 'ProdConnect1.5';
+            DataClassification = CustomerContent;
         }
         field(8073283; "PWD WMS_Item"; Boolean)
         {

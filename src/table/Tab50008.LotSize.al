@@ -1,5 +1,6 @@
 table 50008 "PWD Lot Size"
 {
+    DataClassification = CustomerContent;
     // +----------------------------------------------------------------------------------------------------------------------------------+
     // | ProdWare                                                                                                                         |
     // | www.prodware.fr                                                                                                                  |
@@ -18,24 +19,28 @@ table 50008 "PWD Lot Size"
         {
             Caption = 'Item Category Code';
             TableRelation = "Item Category";
+            DataClassification = CustomerContent;
         }
         field(2; "Minimum Lot Qty."; Decimal)
         {
             Caption = 'Lot Minimum Quantity';
             DecimalPlaces = 0 : 5;
             MinValue = 0;
+            DataClassification = CustomerContent;
         }
         field(3; "Maximum Lot Qty."; Decimal)
         {
             Caption = 'Lot Maximum Quantity';
             DecimalPlaces = 0 : 5;
             MinValue = 0;
+            DataClassification = CustomerContent;
         }
         field(4; "Lot Size"; Decimal)
         {
             Caption = 'Lot Size';
             DecimalPlaces = 0 : 5;
             MinValue = 1;
+            DataClassification = CustomerContent;
         }
     }
 

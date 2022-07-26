@@ -38,53 +38,63 @@ tableextension 60066 "PWD ManufacturingSetup" extends "Manufacturing Setup"
             Description = 'LAP1.00//LAP2.05';
             Enabled = false;
             TableRelation = Location.Code;
+            DataClassification = CustomerContent;
         }
         field(50001; "PWD Mach. center-Invent. input"; Code[10])
         {
             Caption = 'Machine center - Inventory input';
             Description = 'LAP2.01';
             TableRelation = "Machine Center"."No.";
+            DataClassification = CustomerContent;
         }
         field(50002; "PWD Calc. Type"; Enum "PWD Calc. Type")
         {
             Caption = 'Calculation Type';
             Description = 'LAP2.05';
             InitValue = "Net Change";
+            DataClassification = CustomerContent;
         }
         field(50003; "PWD Starting Date Calc."; DateFormula)
         {
             Caption = 'Starting Date Calculation';
             Description = 'LAP2.05';
+            DataClassification = CustomerContent;
         }
         field(50004; "PWD Ending Date Calc."; DateFormula)
         {
             Caption = 'Ending Date Calculation';
             Description = 'LAP2.05';
+            DataClassification = CustomerContent;
         }
         field(50005; "PWD MPS"; Boolean)
         {
             Caption = 'MPS';
             Description = 'LAP2.05';
+            DataClassification = CustomerContent;
         }
         field(50006; "PWD MRP"; Boolean)
         {
             Caption = 'MRP';
             Description = 'LAP2.05';
+            DataClassification = CustomerContent;
         }
         field(50007; "PWD Use Forecast"; Code[10])
         {
             Caption = 'Use Forecast';
             Description = 'LAP2.05';
             TableRelation = "Production Forecast Name".Name;
+            DataClassification = CustomerContent;
         }
         field(50008; "PWD Exclude Before"; Date)
         {
             Caption = 'Exclude Forecast Before';
             Description = 'LAP2.05';
+            DataClassification = CustomerContent;
         }
         field(50009; "PWD PDF Exe Path"; Text[250])
         {
             Caption = 'Chemin de l''éxécutable PDF';
+            DataClassification = CustomerContent;
         }
 
     }

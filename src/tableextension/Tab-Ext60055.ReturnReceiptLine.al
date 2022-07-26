@@ -25,26 +25,31 @@ tableextension 60055 "PWD ReturnReceiptLine" extends "Return Receipt Line"
         {
             Caption = 'LPSA Description 1';
             Description = 'LAP1.00';
+            DataClassification = CustomerContent;
         }
         field(50005; "PWD LPSA Description 2"; Text[120])
         {
             Caption = 'LPSA Description 2';
             Description = 'LAP1.00';
+            DataClassification = CustomerContent;
         }
         field(50006; "PWD Product Group Code"; Code[10])
         {
             Caption = 'Product Group Code';
             TableRelation = "PWD Product Group".Code WHERE("Item Category Code" = FIELD("Item Category Code"));
+            DataClassification = CustomerContent;
         }
         field(3010501; "PWD Customer Line Reference"; Integer)
         {
             Caption = 'Customer Line Reference';
+            DataClassification = CustomerContent;
         }
         field(8073283; "PWD WMS_Status_Header"; Enum "Sales Document Status")
         {
             Caption = 'Status';
             Description = 'ProdConnect1.5';
             Editable = false;
+            DataClassification = CustomerContent;
         }
         field(8073284; "PWD WMS_Item"; Boolean)
         {

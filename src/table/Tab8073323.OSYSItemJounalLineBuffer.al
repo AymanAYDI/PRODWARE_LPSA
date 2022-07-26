@@ -12,6 +12,7 @@ table 8073323 "OSYS Item Jounal Line Buffer"
     // +----------------------------------------------------------------------------------------------------------------+
 
     Caption = 'OSYS Item Journal Line Buffer';
+    DataClassification = CustomerContent;
 
     fields
     {
@@ -19,10 +20,12 @@ table 8073323 "OSYS Item Jounal Line Buffer"
         {
             Caption = 'Entry No.';
             Editable = false;
+            DataClassification = CustomerContent;
         }
         field(2; "Next Operation No."; Code[10])
         {
             Caption = 'Next Operation No.';
+            DataClassification = CustomerContent;
         }
     }
 

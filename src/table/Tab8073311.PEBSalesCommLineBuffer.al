@@ -11,12 +11,14 @@ table 8073311 "PWD PEB Sales Comm Line Buffer"
     // +----------------------------------------------------------------------------------------------------------------+
 
     Caption = 'PEB Sales Comment Line Buffer';
+    DataClassification = CustomerContent;
 
     fields
     {
         field(1; "Entry No."; Integer)
         {
             Caption = 'Entry No.';
+            DataClassification = CustomerContent;
         }
     }
 

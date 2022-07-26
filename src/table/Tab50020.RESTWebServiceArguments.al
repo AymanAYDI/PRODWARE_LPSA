@@ -2,22 +2,44 @@ table 50020 "PWD RESTWebServiceArguments"
 {
     Caption = 'PWD RESTWebServiceArguments';
 
-    DataClassification = ToBeClassified;
+    DataClassification = CustomerContent;
 
 
     fields
     {
-        field(1; PrimaryKey; Integer) { }
+        field(1; PrimaryKey; Integer)
+        {
+            DataClassification = CustomerContent;
+        }
         field(2; RestMethod; Option)
         {
             OptionMembers = get,post,delete,patch,put;
+            DataClassification = CustomerContent;
         }
-        field(3; URL; Text[250]) { }
-        field(4; Accept; Text[30]) { }
-        field(5; ETag; Text[250]) { }
-        field(6; UserName; text[50]) { }
-        field(7; Password; text[50]) { }
-        field(100; "Blob"; Blob) { }
+        field(3; URL; Text[250])
+        {
+            DataClassification = CustomerContent;
+        }
+        field(4; Accept; Text[30])
+        {
+            DataClassification = CustomerContent;
+        }
+        field(5; ETag; Text[250])
+        {
+            DataClassification = CustomerContent;
+        }
+        field(6; UserName; text[50])
+        {
+            DataClassification = CustomerContent;
+        }
+        field(7; Password; text[50])
+        {
+            DataClassification = CustomerContent;
+        }
+        field(100; "Blob"; Blob)
+        {
+            DataClassification = CustomerContent;
+        }
     }
 
     keys

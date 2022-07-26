@@ -47,37 +47,45 @@ tableextension 60037 "PWD ProdOrderLine" extends "Prod. Order Line"
         {
             Caption = 'Is Possible Item';
             Description = 'LAP2.06';
+            DataClassification = CustomerContent;
         }
         field(50001; "PWD Delay"; Integer)
         {
             Caption = 'Delay';
+            DataClassification = CustomerContent;
         }
         field(50002; "PWD Initial Ending Date Time"; DateTime)
         {
             Caption = 'Date/Heure fin initiale';
+            DataClassification = CustomerContent;
         }
         field(50003; "PWD Processed"; Boolean)
         {
             caption = 'Processed';
+            DataClassification = CustomerContent;
         }
         field(50004; "PWD Manufacturing Code"; Code[10])
         {
             Caption = 'Code production';
             Description = 'LAP2.10';
+            DataClassification = CustomerContent;
         }
         field(50010; "PWD To Be Updated"; Boolean)
         {
             Caption = 'To Be Updated';
             Description = 'LAP2.12';
             Editable = false;
+            DataClassification = CustomerContent;
         }
         field(8073282; "Send to OSYS (Released)"; Boolean)
         {
             Caption = 'Send to OSYS (Released)';
+            DataClassification = CustomerContent;
         }
         field(8073283; "Send to OSYS (Finished)"; Boolean)
         {
             Caption = 'Send to OSYS (Terminer)';
+            DataClassification = CustomerContent;
         }
     }
     keys

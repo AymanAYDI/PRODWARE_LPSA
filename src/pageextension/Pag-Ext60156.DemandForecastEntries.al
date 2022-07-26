@@ -14,15 +14,15 @@ pageextension 60156 "PWD DemandForecastEntries" extends "Demand Forecast Entries
     {
         addafter("Entry No.")
         {
-            field("PWD Customer No."; "PWD Customer No.")
+            field("PWD Customer No."; Rec."PWD Customer No.")
             {
                 ApplicationArea = All;
             }
-            field("PWD Customer Name"; "PWD Customer Name")
+            field("PWD Customer Name"; Rec."PWD Customer Name")
             {
                 ApplicationArea = All;
             }
-            field("PWD Forecast Origin"; "PWD Forecast Origin")
+            field("PWD Forecast Origin"; Rec."PWD Forecast Origin")
             {
                 ApplicationArea = All;
             }

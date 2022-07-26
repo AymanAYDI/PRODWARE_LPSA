@@ -484,131 +484,125 @@ codeunit 50008 "PWD Calculate Standard Cost"
         if not CalcMultiLevel and (Level <> 0) then
             exit;
         //>>FE_LAPIERRETTE_PRO08.001
-        WITH Item DO BEGIN
-            RecLLotSizeStdCost.RESET();
-            RecLLotSizeStdCost.SETRANGE("Item No.", Item."No.");
-            RecLLotSizeStdCost.SETRANGE("Item category code", Item."Item Category Code");
-            IF RecLLotSizeStdCost.FINDFIRST() THEN
-                REPEAT
-                    RecLItemTemp.RESET();
-                    RecLItemTemp.DELETEALL();
-                    RecLItemTemp.COPY(Item);
+        RecLLotSizeStdCost.RESET();
+        RecLLotSizeStdCost.SETRANGE("Item No.", Item."No.");
+        RecLLotSizeStdCost.SETRANGE("Item category code", Item."Item Category Code");
+        IF RecLLotSizeStdCost.FINDFIRST() THEN
+            REPEAT
+                RecLItemTemp.RESET();
+                RecLItemTemp.DELETEALL();
+                RecLItemTemp.COPY(Item);
 
-                    LotSize := RecLLotSizeStdCost."Lot Size";
-                    IF IsMfgItem() THEN BEGIN
+                LotSize := RecLLotSizeStdCost."Lot Size";
+                IF Item.IsMfgItem() THEN BEGIN
 
-                        MfgItemQtyBase := CostCalcMgt.CalcQtyAdjdForBOMScrap(LotSize, "Scrap %");
+                    MfgItemQtyBase := CostCalcMgt.CalcQtyAdjdForBOMScrap(LotSize, Item."Scrap %");
 
-                        //>>FE_LAPIERRETTE_PROD04.001
-                        //STD CalcRtngCost("Routing No.",MfgItemQtyBase,SLCap,SLSub,SLCapOvhd);
-                        CalcRtngCost2("Routing No.", MfgItemQtyBase, SLCap, SLSub, SLCapOvhd, ItemNo);
-                        //<<FE_LAPIERRETTE_PROD04.001
+                    //>>FE_LAPIERRETTE_PROD04.001
+                    //STD CalcRtngCost("Routing No.",MfgItemQtyBase,SLCap,SLSub,SLCapOvhd);
+                    CalcRtngCost2(Item."Routing No.", MfgItemQtyBase, SLCap, SLSub, SLCapOvhd, ItemNo);
+                    //<<FE_LAPIERRETTE_PROD04.001
 
-                        CalcProdBOMCost(
-                          RecLItemTemp, "Production BOM No.", "Routing No.",
-                          MfgItemQtyBase, TRUE, Level, SLMat, RUMat, RUCap, RUSub, RUCapOvhd, RUMfgOvhd);
-                        SLMfgOvhd :=
-                          CostCalcMgt.CalcOvhdCost(
-                            SLMat + SLCap + SLSub + SLCapOvhd,
-                            "Indirect Cost %", "Overhead Rate", LotSize);
-                        "Last Unit Cost Calc. Date" := CalculationDate;
-                    END
-                    ELSE BEGIN
-                        SLMat := "Unit Cost";
-                        RUMat := "Unit Cost";
-                    END;
+                    CalcProdBOMCost(
+                      RecLItemTemp, Item."Production BOM No.", Item."Routing No.",
+                      MfgItemQtyBase, TRUE, Level, SLMat, RUMat, RUCap, RUSub, RUCapOvhd, RUMfgOvhd);
+                    SLMfgOvhd :=
+                      CostCalcMgt.CalcOvhdCost(
+                        SLMat + SLCap + SLSub + SLCapOvhd,
+                        Item."Indirect Cost %", Item."Overhead Rate", LotSize);
+                    Item."Last Unit Cost Calc. Date" := CalculationDate;
+                END
+                ELSE BEGIN
+                    SLMat := Item."Unit Cost";
+                    RUMat := Item."Unit Cost";
+                END;
 
-                    "Single-Level Material Cost" := CalcCostPerUnit(SLMat, LotSize);
-                    "Single-Level Capacity Cost" := CalcCostPerUnit(SLCap, LotSize);
-                    "Single-Level Subcontrd. Cost" := CalcCostPerUnit(SLSub, LotSize);
-                    "Single-Level Cap. Ovhd Cost" := CalcCostPerUnit(SLCapOvhd, LotSize);
-                    "Single-Level Mfg. Ovhd Cost" := CalcCostPerUnit(SLMfgOvhd, LotSize);
+                Item."Single-Level Material Cost" := CalcCostPerUnit(SLMat, LotSize);
+                Item."Single-Level Capacity Cost" := CalcCostPerUnit(SLCap, LotSize);
+                Item."Single-Level Subcontrd. Cost" := CalcCostPerUnit(SLSub, LotSize);
+                Item."Single-Level Cap. Ovhd Cost" := CalcCostPerUnit(SLCapOvhd, LotSize);
+                Item."Single-Level Mfg. Ovhd Cost" := CalcCostPerUnit(SLMfgOvhd, LotSize);
 
-                    "Rolled-up Material Cost" := CalcCostPerUnit(RUMat, LotSize);
-                    "Rolled-up Capacity Cost" := CalcCostPerUnit(RUCap + SLCap, LotSize);
-                    "Rolled-up Subcontracted Cost" := CalcCostPerUnit(RUSub + SLSub, LotSize);
-                    "Rolled-up Cap. Overhead Cost" := CalcCostPerUnit(RUCapOvhd + SLCapOvhd, LotSize);
-                    "Rolled-up Mfg. Ovhd Cost" := CalcCostPerUnit(RUMfgOvhd + SLMfgOvhd, LotSize);
+                Item."Rolled-up Material Cost" := CalcCostPerUnit(RUMat, LotSize);
+                Item."Rolled-up Capacity Cost" := CalcCostPerUnit(RUCap + SLCap, LotSize);
+                Item."Rolled-up Subcontracted Cost" := CalcCostPerUnit(RUSub + SLSub, LotSize);
+                Item."Rolled-up Cap. Overhead Cost" := CalcCostPerUnit(RUCapOvhd + SLCapOvhd, LotSize);
+                Item."Rolled-up Mfg. Ovhd Cost" := CalcCostPerUnit(RUMfgOvhd + SLMfgOvhd, LotSize);
 
-                    RecLLotSizeStdCost."Standard Cost" := "Single-Level Material Cost" +
-                                                          "Single-Level Capacity Cost" +
-                                                          "Single-Level Subcontrd. Cost" +
-                                                          "Single-Level Cap. Ovhd Cost" +
-                                                          "Single-Level Mfg. Ovhd Cost";
-                    RecLLotSizeStdCost.MODIFY(FALSE);
+                RecLLotSizeStdCost."Standard Cost" := Item."Single-Level Material Cost" +
+                                                      Item."Single-Level Capacity Cost" +
+                                                      Item."Single-Level Subcontrd. Cost" +
+                                                      Item."Single-Level Cap. Ovhd Cost" +
+                                                      Item."Single-Level Mfg. Ovhd Cost";
+                RecLLotSizeStdCost.MODIFY(FALSE);
 
-                    SLMat := 0;
-                    RUMat := 0;
-                    SLCap := 0;
-                    SLSub := 0;
-                    SLCapOvhd := 0;
-                    SLMfgOvhd := 0;
-                    RUCap := 0;
-                    RUSub := 0;
-                    RUCapOvhd := 0;
-                    RUMfgOvhd := 0;
-                    "Single-Level Material Cost" := 0;
-                    "Single-Level Capacity Cost" := 0;
-                    "Single-Level Subcontrd. Cost" := 0;
-                    "Single-Level Cap. Ovhd Cost" := 0;
-                    "Single-Level Mfg. Ovhd Cost" := 0;
-                    "Rolled-up Material Cost" := 0;
-                    "Rolled-up Capacity Cost" := 0;
-                    "Rolled-up Subcontracted Cost" := 0;
-                    "Rolled-up Cap. Overhead Cost" := 0;
-                    "Rolled-up Mfg. Ovhd Cost" := 0;
+                SLMat := 0;
+                RUMat := 0;
+                SLCap := 0;
+                SLSub := 0;
+                SLCapOvhd := 0;
+                SLMfgOvhd := 0;
+                RUCap := 0;
+                RUSub := 0;
+                RUCapOvhd := 0;
+                RUMfgOvhd := 0;
+                Item."Single-Level Material Cost" := 0;
+                Item."Single-Level Capacity Cost" := 0;
+                Item."Single-Level Subcontrd. Cost" := 0;
+                Item."Single-Level Cap. Ovhd Cost" := 0;
+                Item."Single-Level Mfg. Ovhd Cost" := 0;
+                Item."Rolled-up Material Cost" := 0;
+                Item."Rolled-up Capacity Cost" := 0;
+                Item."Rolled-up Subcontracted Cost" := 0;
+                Item."Rolled-up Cap. Overhead Cost" := 0;
+                Item."Rolled-up Mfg. Ovhd Cost" := 0;
 
 
-                UNTIL RecLLotSizeStdCost.NEXT() = 0;
-
-        END;
+            UNTIL RecLLotSizeStdCost.NEXT() = 0;
         //<<FE_LAPIERRETTE_PRO08.001
+        LotSize := 1;
 
-        with Item do begin
-            LotSize := 1;
+        if Item.IsMfgItem() then begin
+            if Item."Lot Size" <> 0 then
+                LotSize := Item."Lot Size";
+            MfgItemQtyBase := CostCalcMgt.CalcQtyAdjdForBOMScrap(LotSize, Item."Scrap %");
+            //>>FE_LAPIERRETTE_PROD04.001
+            //CalcRtngCost("Routing No.", MfgItemQtyBase, SLCap, SLSub, SLCapOvhd, Item);
+            CalcRtngCost2(Item."Routing No.", MfgItemQtyBase, SLCap, SLSub, SLCapOvhd, ItemNo);
+            //<<FE_LAPIERRETTE_PROD04.001
+            CalcProdBOMCost(
+              Item, Item."Production BOM No.", Item."Routing No.",
+              MfgItemQtyBase, true, Level, SLMat, RUMat, RUCap, RUSub, RUCapOvhd, RUMfgOvhd);
+            SLMfgOvhd :=
+              CostCalcMgt.CalcOvhdCost(
+                SLMat + SLCap + SLSub + SLCapOvhd,
+                Item."Indirect Cost %", Item."Overhead Rate", LotSize);
+            Item."Last Unit Cost Calc. Date" := CalculationDate;
+        end else
+            if Item.IsAssemblyItem() then begin
+                CalcAssemblyItem(ItemNo, Item, Level, true);
+                exit
+            end else begin
+                SLMat := Item."Unit Cost";
+                RUMat := Item."Unit Cost";
+            end;
 
-            if IsMfgItem() then begin
-                if "Lot Size" <> 0 then
-                    LotSize := "Lot Size";
-                MfgItemQtyBase := CostCalcMgt.CalcQtyAdjdForBOMScrap(LotSize, "Scrap %");
-                //>>FE_LAPIERRETTE_PROD04.001
-                //CalcRtngCost("Routing No.", MfgItemQtyBase, SLCap, SLSub, SLCapOvhd, Item);
-                CalcRtngCost2("Routing No.", MfgItemQtyBase, SLCap, SLSub, SLCapOvhd, ItemNo);
-                //<<FE_LAPIERRETTE_PROD04.001
-                CalcProdBOMCost(
-                  Item, "Production BOM No.", "Routing No.",
-                  MfgItemQtyBase, true, Level, SLMat, RUMat, RUCap, RUSub, RUCapOvhd, RUMfgOvhd);
-                SLMfgOvhd :=
-                  CostCalcMgt.CalcOvhdCost(
-                    SLMat + SLCap + SLSub + SLCapOvhd,
-                    "Indirect Cost %", "Overhead Rate", LotSize);
-                "Last Unit Cost Calc. Date" := CalculationDate;
-            end else
-                if IsAssemblyItem() then begin
-                    CalcAssemblyItem(ItemNo, Item, Level, true);
-                    exit
-                end else begin
-                    SLMat := "Unit Cost";
-                    RUMat := "Unit Cost";
-                end;
-
-            "Single-Level Material Cost" := CalcCostPerUnit(SLMat, LotSize);
-            "Single-Level Capacity Cost" := CalcCostPerUnit(SLCap, LotSize);
-            "Single-Level Subcontrd. Cost" := CalcCostPerUnit(SLSub, LotSize);
-            "Single-Level Cap. Ovhd Cost" := CalcCostPerUnit(SLCapOvhd, LotSize);
-            "Single-Level Mfg. Ovhd Cost" := CalcCostPerUnit(SLMfgOvhd, LotSize);
-            "Rolled-up Material Cost" := CalcCostPerUnit(RUMat, LotSize);
-            "Rolled-up Capacity Cost" := CalcCostPerUnit(RUCap + SLCap, LotSize);
-            "Rolled-up Subcontracted Cost" := CalcCostPerUnit(RUSub + SLSub, LotSize);
-            "Rolled-up Cap. Overhead Cost" := CalcCostPerUnit(RUCapOvhd + SLCapOvhd, LotSize);
-            "Rolled-up Mfg. Ovhd Cost" := CalcCostPerUnit(RUMfgOvhd + SLMfgOvhd, LotSize);
-            "Standard Cost" :=
-              "Single-Level Material Cost" +
-              "Single-Level Capacity Cost" +
-              "Single-Level Subcontrd. Cost" +
-              "Single-Level Cap. Ovhd Cost" +
-              "Single-Level Mfg. Ovhd Cost";
-        end;
+        Item."Single-Level Material Cost" := CalcCostPerUnit(SLMat, LotSize);
+        Item."Single-Level Capacity Cost" := CalcCostPerUnit(SLCap, LotSize);
+        Item."Single-Level Subcontrd. Cost" := CalcCostPerUnit(SLSub, LotSize);
+        Item."Single-Level Cap. Ovhd Cost" := CalcCostPerUnit(SLCapOvhd, LotSize);
+        Item."Single-Level Mfg. Ovhd Cost" := CalcCostPerUnit(SLMfgOvhd, LotSize);
+        Item."Rolled-up Material Cost" := CalcCostPerUnit(RUMat, LotSize);
+        Item."Rolled-up Capacity Cost" := CalcCostPerUnit(RUCap + SLCap, LotSize);
+        Item."Rolled-up Subcontracted Cost" := CalcCostPerUnit(RUSub + SLSub, LotSize);
+        Item."Rolled-up Cap. Overhead Cost" := CalcCostPerUnit(RUCapOvhd + SLCapOvhd, LotSize);
+        Item."Rolled-up Mfg. Ovhd Cost" := CalcCostPerUnit(RUMfgOvhd + SLMfgOvhd, LotSize);
+        Item."Standard Cost" :=
+          Item."Single-Level Material Cost" +
+          Item."Single-Level Capacity Cost" +
+          Item."Single-Level Subcontrd. Cost" +
+          Item."Single-Level Cap. Ovhd Cost" +
+          Item."Single-Level Mfg. Ovhd Cost";
 
         TempItem := Item;
         TempItem.Insert();
@@ -625,13 +619,11 @@ codeunit 50008 "PWD Calculate Standard Cost"
             TestBOMVersionIsCertified(PBOMVersionCode, ProdBOMHeader);
         end;
 
-        with ProdBOMLine do begin
-            SetRange("Production BOM No.", ProdBOMNo);
-            SetRange("Version Code", PBOMVersionCode);
-            SetFilter("Starting Date", '%1|..%2', 0D, CalculationDate);
-            SetFilter("Ending Date", '%1|%2..', 0D, CalculationDate);
-            SetFilter("No.", '<>%1', '')
-        end;
+        ProdBOMLine.SetRange("Production BOM No.", ProdBOMNo);
+        ProdBOMLine.SetRange("Version Code", PBOMVersionCode);
+        ProdBOMLine.SetFilter("Starting Date", '%1|..%2', 0D, CalculationDate);
+        ProdBOMLine.SetFilter("Ending Date", '%1|%2..', 0D, CalculationDate);
+        ProdBOMLine.SetFilter("No.", '<>%1', '')
     end;
 
     local procedure CalcProdBOMCost(MfgItem: Record Item; ProdBOMNo: Code[20]; RtngNo: Code[20]; MfgItemQtyBase: Decimal; IsTypeItem: Boolean; Level: Integer; var SLMat: Decimal; var RUMat: Decimal; var RUCap: Decimal; var RUSub: Decimal; var RUCapOvhd: Decimal; var RUMfgOvhd: Decimal)
@@ -652,38 +644,36 @@ codeunit 50008 "PWD Calculate Standard Cost"
         else
             UOMFactor := 1;
 
-        with ProdBOMLine do begin
-            //>>TDL290719.001
-            SETFILTER("Quantity per", '<>%1', 0);
-            //<<TDL290719.001
-            if Find('-') then
-                repeat
-                    CompItemQtyBase :=
-                      CostCalcMgt.CalcCompItemQtyBase(ProdBOMLine, CalculationDate, MfgItemQtyBase, RtngNo, IsTypeItem) / UOMFactor;
-                    case Type of
-                        Type::Item:
-                            begin
-                                GetItem("No.", CompItem);
-                                if CompItem.IsInventoriableType() then
-                                    if CompItem.IsMfgItem() or CompItem.IsAssemblyItem() then begin
-                                        CalcMfgItem("No.", CompItem, Level + 1);
-                                        IncrCost(SLMat, CompItem."Standard Cost", CompItemQtyBase);
-                                        IncrCost(RUMat, CompItem."Rolled-up Material Cost", CompItemQtyBase);
-                                        IncrCost(RUCap, CompItem."Rolled-up Capacity Cost", CompItemQtyBase);
-                                        IncrCost(RUSub, CompItem."Rolled-up Subcontracted Cost", CompItemQtyBase);
-                                        IncrCost(RUCapOvhd, CompItem."Rolled-up Cap. Overhead Cost", CompItemQtyBase);
-                                        IncrCost(RUMfgOvhd, CompItem."Rolled-up Mfg. Ovhd Cost", CompItemQtyBase);
-                                    end else begin
-                                        IncrCost(SLMat, CompItem."Unit Cost", CompItemQtyBase);
-                                        IncrCost(RUMat, CompItem."Unit Cost", CompItemQtyBase);
-                                    end;
-                            end;
-                        Type::"Production BOM":
-                            CalcProdBOMCost(
-                              MfgItem, "No.", RtngNo, CompItemQtyBase, false, Level, SLMat, RUMat, RUCap, RUSub, RUCapOvhd, RUMfgOvhd);
-                    end;
-                until Next() = 0;
-        end;
+        //>>TDL290719.001
+        ProdBOMLine.SETFILTER("Quantity per", '<>%1', 0);
+        //<<TDL290719.001
+        if ProdBOMLine.Find('-') then
+            repeat
+                CompItemQtyBase :=
+                  CostCalcMgt.CalcCompItemQtyBase(ProdBOMLine, CalculationDate, MfgItemQtyBase, RtngNo, IsTypeItem) / UOMFactor;
+                case ProdBOMLine.Type of
+                    ProdBOMLine.Type::Item:
+                        begin
+                            GetItem(ProdBOMLine."No.", CompItem);
+                            if CompItem.IsInventoriableType() then
+                                if CompItem.IsMfgItem() or CompItem.IsAssemblyItem() then begin
+                                    CalcMfgItem(ProdBOMLine."No.", CompItem, Level + 1);
+                                    IncrCost(SLMat, CompItem."Standard Cost", CompItemQtyBase);
+                                    IncrCost(RUMat, CompItem."Rolled-up Material Cost", CompItemQtyBase);
+                                    IncrCost(RUCap, CompItem."Rolled-up Capacity Cost", CompItemQtyBase);
+                                    IncrCost(RUSub, CompItem."Rolled-up Subcontracted Cost", CompItemQtyBase);
+                                    IncrCost(RUCapOvhd, CompItem."Rolled-up Cap. Overhead Cost", CompItemQtyBase);
+                                    IncrCost(RUMfgOvhd, CompItem."Rolled-up Mfg. Ovhd Cost", CompItemQtyBase);
+                                end else begin
+                                    IncrCost(SLMat, CompItem."Unit Cost", CompItemQtyBase);
+                                    IncrCost(RUMat, CompItem."Unit Cost", CompItemQtyBase);
+                                end;
+                        end;
+                    ProdBOMLine.Type::"Production BOM":
+                        CalcProdBOMCost(
+                          MfgItem, ProdBOMLine."No.", RtngNo, CompItemQtyBase, false, Level, SLMat, RUMat, RUCap, RUSub, RUCapOvhd, RUMfgOvhd);
+                end;
+            until ProdBOMLine.Next() = 0;
     end;
 
     local procedure CalcRtngCost(RtngHeaderNo: Code[20]; MfgItemQtyBase: Decimal; var SLCap: Decimal; var SLSub: Decimal; var SLCapOvhd: Decimal; var ParentItem: Record Item)
@@ -1015,27 +1005,25 @@ codeunit 50008 "PWD Calculate Standard Cost"
         CostTime: Decimal;
         UnitCostCalculation: Option;
     begin
-        with RoutingLine do begin
-            if (Type = Type::"Work Center") and ("No." <> '') then
-                WorkCenter.Get("No.");
+        if (RoutingLine.Type = RoutingLine.Type::"Work Center") and (RoutingLine."No." <> '') then
+            WorkCenter.Get(RoutingLine."No.");
 
-            UnitCost := "Unit Cost per";
-            CalcRtngCostPerUnit(Type, "No.", DirUnitCost, IndirCostPct, OvhdRate, UnitCost, UnitCostCalculation);
-            CostTime :=
-              CostCalculationMgt.CalcCostTime(
-                MfgItemQtyBase,
-                "Setup Time", "Setup Time Unit of Meas. Code",
-                "Run Time", "Run Time Unit of Meas. Code", "Lot Size",
-                "Scrap Factor % (Accumulated)", "Fixed Scrap Qty. (Accum.)",
-                "Work Center No.", UnitCostCalculation, MfgSetup."Cost Incl. Setup",
-                "Concurrent Capacities");
+        UnitCost := RoutingLine."Unit Cost per";
+        CalcRtngCostPerUnit(RoutingLine.Type, RoutingLine."No.", DirUnitCost, IndirCostPct, OvhdRate, UnitCost, UnitCostCalculation);
+        CostTime :=
+          CostCalculationMgt.CalcCostTime(
+            MfgItemQtyBase,
+            RoutingLine."Setup Time", RoutingLine."Setup Time Unit of Meas. Code",
+            RoutingLine."Run Time", RoutingLine."Run Time Unit of Meas. Code", RoutingLine."Lot Size",
+            RoutingLine."Scrap Factor % (Accumulated)", RoutingLine."Fixed Scrap Qty. (Accum.)",
+            RoutingLine."Work Center No.", UnitCostCalculation, MfgSetup."Cost Incl. Setup",
+            RoutingLine."Concurrent Capacities");
 
-            if (Type = Type::"Work Center") and (WorkCenter."Subcontractor No." <> '') then
-                IncrCost(SLSub, DirUnitCost, CostTime)
-            else
-                IncrCost(SLCap, DirUnitCost, CostTime);
-            IncrCost(SLCapOvhd, CostCalcMgt.CalcOvhdCost(DirUnitCost, IndirCostPct, OvhdRate, 1), CostTime);
-        end;
+        if (RoutingLine.Type = RoutingLine.Type::"Work Center") and (WorkCenter."Subcontractor No." <> '') then
+            IncrCost(SLSub, DirUnitCost, CostTime)
+        else
+            IncrCost(SLCap, DirUnitCost, CostTime);
+        IncrCost(SLCapOvhd, CostCalcMgt.CalcOvhdCost(DirUnitCost, IndirCostPct, OvhdRate, 1), CostTime);
     end;
 
     local procedure TestRtngVersionIsCertified(RtngVersionCode: Code[20]; RtngHeader: Record "Routing Header")
@@ -1081,47 +1069,46 @@ codeunit 50008 "PWD Calculate Standard Cost"
                 RtngHeader.Get(RtngHeaderNo);
                 TestRtngVersionIsCertified(RtngLine."Version Code", RtngHeader);
             end;
-        WITH RtngLine DO
-            REPEAT
-                IF (Type = Type::"Work Center") AND ("No." <> '') THEN
-                    WorkCenter.GET("No.")
-                ELSE
-                    CLEAR(WorkCenter);
-                UnitCost := "Unit Cost per";
-                CalcRtngCostPerUnit(Type, "No.", DirUnitCost, IndirCostPct, OvhdRate, UnitCost, UnitCostCalculation);
+        REPEAT
+            IF (RtngLine.Type = RtngLine.Type::"Work Center") AND (RtngLine."No." <> '') THEN
+                WorkCenter.GET(RtngLine."No.")
+            ELSE
+                CLEAR(WorkCenter);
+            UnitCost := RtngLine."Unit Cost per";
+            CalcRtngCostPerUnit(RtngLine.Type, RtngLine."No.", DirUnitCost, IndirCostPct, OvhdRate, UnitCost, UnitCostCalculation);
 
-                //>>FE_LAPIERRETTE_PROD04.001
-                IF RtngLine."PWD Fixed-step Prod. Rate time" THEN BEGIN
-                    LPSAFunctionsMgt.FctGetTimeForCost(RtngLine.Type, RtngLine."No.", CodPItemNo, MfgItemQtyBase, DecLSetupTime, DecLRunTime, CodLSetupTimeUnit, CodLRunTimeUnit);
-                    CostTime :=
-                      CostCalcMgt.CalcCostTime(
-                        MfgItemQtyBase,
-                        DecLSetupTime, CodLSetupTimeUnit,
-                        DecLRunTime, CodLRunTimeUnit, "Lot Size",
-                        "Scrap Factor % (Accumulated)", "Fixed Scrap Qty. (Accum.)",
-                        "Work Center No.", UnitCostCalculation, MfgSetup."Cost Incl. Setup",
-                        "Concurrent Capacities");
+            //>>FE_LAPIERRETTE_PROD04.001
+            IF RtngLine."PWD Fixed-step Prod. Rate time" THEN BEGIN
+                LPSAFunctionsMgt.FctGetTimeForCost(RtngLine.Type, RtngLine."No.", CodPItemNo, MfgItemQtyBase, DecLSetupTime, DecLRunTime, CodLSetupTimeUnit, CodLRunTimeUnit);
+                CostTime :=
+                  CostCalcMgt.CalcCostTime(
+                    MfgItemQtyBase,
+                    DecLSetupTime, CodLSetupTimeUnit,
+                    DecLRunTime, CodLRunTimeUnit, RtngLine."Lot Size",
+                    RtngLine."Scrap Factor % (Accumulated)", RtngLine."Fixed Scrap Qty. (Accum.)",
+                    RtngLine."Work Center No.", UnitCostCalculation, MfgSetup."Cost Incl. Setup",
+                    RtngLine."Concurrent Capacities");
 
-                END ELSE
-                    //<<FE_LAPIERRETTE_PROD04.001
+            END ELSE
+                //<<FE_LAPIERRETTE_PROD04.001
 
-                    CostTime :=
+                CostTime :=
                 CostCalcMgt.CalcCostTime(
                   MfgItemQtyBase,
-                  "Setup Time", "Setup Time Unit of Meas. Code",
-                  "Run Time", "Run Time Unit of Meas. Code", "Lot Size",
-                  "Scrap Factor % (Accumulated)", "Fixed Scrap Qty. (Accum.)",
-                  "Work Center No.", UnitCostCalculation, MfgSetup."Cost Incl. Setup",
-                  "Concurrent Capacities");
+                  RtngLine."Setup Time", RtngLine."Setup Time Unit of Meas. Code",
+                  RtngLine."Run Time", RtngLine."Run Time Unit of Meas. Code", RtngLine."Lot Size",
+                  RtngLine."Scrap Factor % (Accumulated)", RtngLine."Fixed Scrap Qty. (Accum.)",
+                  RtngLine."Work Center No.", UnitCostCalculation, MfgSetup."Cost Incl. Setup",
+                  RtngLine."Concurrent Capacities");
 
-                IF (Type = Type::"Work Center") AND
-                   (WorkCenter."Subcontractor No." <> '')
-                THEN
-                    IncrCost(SLSub, DirUnitCost, CostTime)
-                ELSE
-                    IncrCost(SLCap, DirUnitCost, CostTime);
-                IncrCost(SLCapOvhd, CostCalcMgt.CalcOvhdCost(DirUnitCost, IndirCostPct, OvhdRate, 1), CostTime);
-            UNTIL NEXT() = 0;
+            IF (RtngLine.Type = RtngLine.Type::"Work Center") AND
+               (WorkCenter."Subcontractor No." <> '')
+            THEN
+                IncrCost(SLSub, DirUnitCost, CostTime)
+            ELSE
+                IncrCost(SLCap, DirUnitCost, CostTime);
+            IncrCost(SLCapOvhd, CostCalcMgt.CalcOvhdCost(DirUnitCost, IndirCostPct, OvhdRate, 1), CostTime);
+        UNTIL RtngLine.NEXT() = 0;
     end;
 
     PROCEDURE CalcMiddleLotSize(CodPitemNo: Code[20]; DecPLotSizeItem: Decimal): Decimal

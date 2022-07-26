@@ -53,6 +53,7 @@ pageextension 60008 "PWD ItemCard" extends "Item Card"
             field("PWD Product Group Code"; Rec."PWD Product Group Code")
             {
                 caption = 'Product Group Code';
+                ApplicationArea = All;
             }
         }
         addafter(Inventory)

@@ -6,6 +6,7 @@ tableextension 60072 "PWD ServiceLine" extends "Service Line"
         {
             Caption = 'Product Group Code';
             TableRelation = "PWD Product Group".Code WHERE("Item Category Code" = FIELD("Item Category Code"));
+            DataClassification = CustomerContent;
         }
     }
 }

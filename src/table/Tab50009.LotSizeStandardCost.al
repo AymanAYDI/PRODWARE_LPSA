@@ -1,5 +1,6 @@
 table 50009 "PWD Lot Size Standard Cost"
 {
+    DataClassification = CustomerContent;
     // +----------------------------------------------------------------------------------------------------------------------------------+
     // | ProdWare                                                                                                                         |
     // | www.prodware.fr                                                                                                                  |
@@ -18,22 +19,26 @@ table 50009 "PWD Lot Size Standard Cost"
         {
             Caption = 'Item No.';
             TableRelation = Item;
+            DataClassification = CustomerContent;
         }
         field(2; "Item category code"; Code[10])
         {
             Caption = 'Item Category Code';
             TableRelation = "Item Category";
+            DataClassification = CustomerContent;
         }
         field(3; "Lot Size"; Decimal)
         {
             Caption = 'Lot Size';
             DecimalPlaces = 0 : 5;
             MinValue = 1;
+            DataClassification = CustomerContent;
         }
         field(4; "Standard Cost"; Decimal)
         {
             AutoFormatType = 2;
             Caption = 'Standard Cost';
+            DataClassification = CustomerContent;
         }
     }
 

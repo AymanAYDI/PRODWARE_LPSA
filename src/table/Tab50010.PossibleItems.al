@@ -11,6 +11,7 @@ table 50010 "PWD Possible Items"
     // +----------------------------------------------------------------------------------------------------------------+
 
     Caption = 'Possible Items';
+    DataClassification = CustomerContent;
 
     fields
     {
@@ -19,12 +20,14 @@ table 50010 "PWD Possible Items"
             Caption = 'Item Code';
             NotBlank = true;
             TableRelation = Item."No.";
+            DataClassification = CustomerContent;
         }
         field(2; "Work Center Code"; Code[20])
         {
             Caption = 'Work Center Code';
             NotBlank = true;
             TableRelation = "Work Center"."No.";
+            DataClassification = CustomerContent;
         }
         field(3; "Item Description 1"; Text[100])
         {
@@ -45,6 +48,7 @@ table 50010 "PWD Possible Items"
             Caption = 'Possible Item Code';
             NotBlank = true;
             TableRelation = Item."No.";
+            DataClassification = CustomerContent;
         }
         field(6; "Possible Item Description"; Text[100])
         {
@@ -56,6 +60,7 @@ table 50010 "PWD Possible Items"
         field(7; "Last Modified Date"; DateTime)
         {
             Caption = 'Last Modified Date';
+            DataClassification = CustomerContent;
         }
     }
 

@@ -13,6 +13,7 @@ table 50011 "PWD Phantom substitution Items"
     Caption = 'Phantom substitution Items';
     DrillDownPageID = "PWD Phantom subs. Items List";
     LookupPageID = "PWD Phantom subs. Items List";
+    DataClassification = CustomerContent;
 
     fields
     {
@@ -20,15 +21,18 @@ table 50011 "PWD Phantom substitution Items"
         {
             Caption = 'Phantom Item No.';
             TableRelation = Item."No.";
+            DataClassification = CustomerContent;
         }
         field(10; "Item No."; Code[20])
         {
             Caption = 'Item No.';
             TableRelation = Item."No.";
+            DataClassification = CustomerContent;
         }
         field(20; "Lot No."; Code[20])
         {
             Caption = 'Lot No.';
+            DataClassification = CustomerContent;
             trigger OnValidate()
             var
                 RecLItemLedgentry: Record "Item Ledger Entry";
@@ -46,10 +50,12 @@ table 50011 "PWD Phantom substitution Items"
             Caption = 'Expected Quantity';
             DecimalPlaces = 0 : 5;
             Editable = false;
+            DataClassification = CustomerContent;
         }
         field(30; Priority; Integer)
         {
             Caption = 'Priority';
+            DataClassification = CustomerContent;
         }
         field(40; Inventory; Decimal)
         {
@@ -63,6 +69,7 @@ table 50011 "PWD Phantom substitution Items"
             Caption = 'Total Available Quantity';
             DecimalPlaces = 0 : 5;
             Editable = false;
+            DataClassification = CustomerContent;
         }
         field(42; "Reserved Qty. on Inventory"; Decimal)
         {
@@ -76,6 +83,7 @@ table 50011 "PWD Phantom substitution Items"
         {
             Caption = 'Quantity Requested';
             DecimalPlaces = 0 : 5;
+            DataClassification = CustomerContent;
 
             trigger OnValidate()
             begin

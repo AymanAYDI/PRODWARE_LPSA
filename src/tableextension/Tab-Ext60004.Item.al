@@ -93,41 +93,49 @@ tableextension 60004 "PWD Item" extends Item
         {
             Caption = 'Customer Plan No.';
             Description = 'LAP2.05';
+            DataClassification = CustomerContent;
         }
         field(50001; "PWD Customer Plan Description"; Text[50])
         {
             Caption = 'Customer Plan Description';
             Description = 'LAP1.00';
+            DataClassification = CustomerContent;
         }
         field(50002; "PWD LPSA Plan No."; Text[20])
         {
             Caption = 'LPSA Plan No.';
             Description = 'LAP1.00';
+            DataClassification = CustomerContent;
         }
         field(50003; "PWD Barcode"; Text[20])
         {
             Caption = 'Barcode';
             Description = 'LAP1.00';
+            DataClassification = CustomerContent;
         }
         field(50004; "PWD LPSA Description 1"; Text[120])
         {
             Caption = 'LPSA Description 1';
             Description = 'LAP1.00';
+            DataClassification = CustomerContent;
         }
         field(50005; "PWD LPSA Description 2"; Text[120])
         {
             Caption = 'LPSA Description 2';
             Description = 'LAP1.00';
+            DataClassification = CustomerContent;
         }
         field(50006; "PWD Quartis Description"; Text[40])
         {
             Caption = 'Quartis Description';
             Description = 'LAP1.00';
+            DataClassification = CustomerContent;
         }
         field(50007; "PWD Lot Determining"; Boolean)
         {
             Caption = 'Lot Determining';
             Description = 'LAP1.00';
+            DataClassification = CustomerContent;
 
             trigger OnValidate()
             begin
@@ -139,6 +147,7 @@ tableextension 60004 "PWD Item" extends Item
         field(50008; "PWD Phantom Item"; Boolean)
         {
             Caption = 'Phantom Item';
+            DataClassification = CustomerContent;
         }
         field(50009; "PWD Released Scheduled Need (Qty.)"; Decimal)
         {
@@ -239,11 +248,13 @@ tableextension 60004 "PWD Item" extends Item
         {
             Caption = 'Last Entry Date Old ERP';
             Description = 'LAP2.09';
+            DataClassification = CustomerContent;
         }
         field(50018; "PWD Manufacturing Code"; Code[10])
         {
             Caption = 'Code production';
             Description = 'LAP2.10';
+            DataClassification = CustomerContent;
         }
         field(50019; "PWD Arch. Purchase Order Qty."; Decimal)
         {
@@ -273,6 +284,7 @@ tableextension 60004 "PWD Item" extends Item
         {
             Caption = 'Product Group Code';
             TableRelation = "PWD Product Group".Code WHERE("Item Category Code" = FIELD("Item Category Code"));
+            DataClassification = CustomerContent;
             trigger OnValidate()
             var
                 CduGClosingMgt: Codeunit "PWD Closing Management";
@@ -286,16 +298,19 @@ tableextension 60004 "PWD Item" extends Item
         {
             Caption = 'Qté composant initiale';
             Editable = false;
+            DataClassification = CustomerContent;
         }
         field(50040; "PWD Plate Number"; Integer)
         {
             Caption = 'Plate Number';
             Description = 'REGIE';
+            DataClassification = CustomerContent;
         }
         field(50041; "PWD Part Number By Plate"; Integer)
         {
             Caption = 'Part Number By Plate';
             Description = 'REGIE';
+            DataClassification = CustomerContent;
         }
         field(50042; "PWD Other Location Filter"; Code[10])
         {
@@ -361,41 +376,49 @@ tableextension 60004 "PWD Item" extends Item
         {
             Caption = 'WMS_Product Type';
             Description = 'ProdConnect1.5';
+            DataClassification = CustomerContent;
         }
         field(8073283; "PWD WMS_Permanent item"; Boolean)
         {
             Caption = 'WMS_Permanent item';
             Description = 'ProdConnect1.5';
+            DataClassification = CustomerContent;
         }
         field(8073284; "PWD WMS_Freezing sensitive"; Boolean)
         {
             Caption = 'WMS_Freezing sensitive';
             Description = 'ProdConnect1.5';
+            DataClassification = CustomerContent;
         }
         field(8073285; "PWD WMS_Heat sensitive"; Boolean)
         {
             Caption = 'WMS_Heat sensitive';
             Description = 'ProdConnect1.5';
+            DataClassification = CustomerContent;
         }
         field(8073286; "PWD WMS_Dangerous item"; Boolean)
         {
             Caption = 'WMS_Dangerous item';
             Description = 'ProdConnect1.5';
+            DataClassification = CustomerContent;
         }
         field(8073287; "PWD WMS_Fragile item"; Boolean)
         {
             Caption = 'WMS_Fragile item';
             Description = 'ProdConnect1.5';
+            DataClassification = CustomerContent;
         }
         field(8073288; "PWD WMS_Mandatory SSCC No"; Boolean)
         {
             Caption = 'WMS_Mandatory SSCC No';
             Description = 'ProdConnect1.5';
+            DataClassification = CustomerContent;
         }
         field(8073289; "PWD WMS_Item"; Boolean)
         {
             Caption = 'WMS_Item';
             Description = 'ProdConnect1.5';
+            DataClassification = CustomerContent;
         }
         Modify("Shelf No.")
         {

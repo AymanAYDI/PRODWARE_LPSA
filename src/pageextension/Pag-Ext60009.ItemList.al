@@ -41,6 +41,7 @@ pageextension 60009 "PWD ItemList" extends "Item List"
             {
                 caption = 'Product Group Code';
                 visible = false;
+                ApplicationArea = All;
             }
         }
         addafter("Base Unit of Measure")

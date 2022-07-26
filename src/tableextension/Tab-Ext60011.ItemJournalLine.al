@@ -39,17 +39,20 @@ tableextension 60011 "PWD ItemJournalLine" extends "Item Journal Line"
             Caption = 'Quartis Comment';
             Description = 'LAP1.00';
             TableRelation = "PWD Quartis Comment".Code;
+            DataClassification = CustomerContent;
         }
         field(50001; "PWD Conform quality control"; Boolean)
         {
             Caption = 'Conform quality control';
             Description = 'LAP1.00';
             InitValue = true;
+            DataClassification = CustomerContent;
         }
         field(50002; "PWD Product Group Code"; Code[10])
         {
             Caption = 'Product Group Code';
             TableRelation = "PWD Product Group".Code WHERE("Item Category Code" = FIELD("Item Category Code"));
+            DataClassification = CustomerContent;
         }
         field(50100; "PWD LPSA description 1"; Text[120])
         {

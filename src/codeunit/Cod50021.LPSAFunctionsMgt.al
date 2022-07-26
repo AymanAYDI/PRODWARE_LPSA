@@ -903,38 +903,36 @@ codeunit 50021 "PWD LPSA Functions Mgt."
 
         DeleteReservationEntryPhantom(ProdOrderComp);
 
-        with TempProdOrderComp do begin
-            SaveQty := "Quantity per";
+        SaveQty := TempProdOrderComp."Quantity per";
 
-            "Item No." := SubstItemNo;
-            "Location Code" := ProdOrderComp."Location Code";
-            "Quantity per" := 0;
-            Validate("Item No.");
+        TempProdOrderComp."Item No." := SubstItemNo;
+        TempProdOrderComp."Location Code" := ProdOrderComp."Location Code";
+        TempProdOrderComp."Quantity per" := 0;
+        TempProdOrderComp.Validate("Item No.");
 
-            "Original Item No." := ProdOrderComp."Item No.";
-            IF DecLQty <> TempProdOrderComp."Expected Quantity" THEN
-                TempProdOrderComp.VALIDATE("Expected Quantity", DecLQty * (1 + TempProdOrderComp."Scrap %" / 100));
+        TempProdOrderComp."Original Item No." := ProdOrderComp."Item No.";
+        IF DecLQty <> TempProdOrderComp."Expected Quantity" THEN
+            TempProdOrderComp.VALIDATE("Expected Quantity", DecLQty * (1 + TempProdOrderComp."Scrap %" / 100));
 
-            if ProdOrderComp."Qty. per Unit of Measure" <> 1 then
-                if ItemUnitOfMeasure.Get(SubstItemNo, ProdOrderComp."Unit of Measure Code") and (ItemUnitOfMeasure."Qty. per Unit of Measure" = ProdOrderComp."Qty. per Unit of Measure") then
-                    Validate("Unit of Measure Code", ProdOrderComp."Unit of Measure Code")
-                else
-                    SaveQty := ROUND(ProdOrderComp."Quantity per" * ProdOrderComp."Qty. per Unit of Measure", 0.00001);
-            Validate("Quantity per", SaveQty);
-            IF DecLQty <> TempProdOrderComp."Expected Quantity" THEN BEGIN
-                DecLxQty := TempProdOrderComp."Expected Quantity";
-                TempProdOrderComp.VALIDATE("Expected Quantity", DecLQty);
-                ProdOrderComp := TempProdOrderComp;
-                ProdOrderComp.MODIFY();
-                IF RecLProdOrderLine.GET(Status, "Prod. Order No.", "Prod. Order Line No.") THEN BEGIN
-                    //ERROR(FORMAT( RecLProdOrderLine.Quantity * TempProdOrderComp."Expected Quantity" / DecLxQty));
-                    RecLProdOrderLine.VALIDATE(Quantity, ROUND((RecLProdOrderLine.Quantity * TempProdOrderComp."Expected Quantity" / DecLxQty), 1));
-                    RecLProdOrderLine.MODIFY();
-                END;
-            END ELSE BEGIN
-                ProdOrderComp := TempProdOrderComp;
-                ProdOrderComp.MODIFY();
+        if ProdOrderComp."Qty. per Unit of Measure" <> 1 then
+            if ItemUnitOfMeasure.Get(SubstItemNo, ProdOrderComp."Unit of Measure Code") and (ItemUnitOfMeasure."Qty. per Unit of Measure" = ProdOrderComp."Qty. per Unit of Measure") then
+                TempProdOrderComp.Validate("Unit of Measure Code", ProdOrderComp."Unit of Measure Code")
+            else
+                SaveQty := ROUND(ProdOrderComp."Quantity per" * ProdOrderComp."Qty. per Unit of Measure", 0.00001);
+        TempProdOrderComp.Validate("Quantity per", SaveQty);
+        IF DecLQty <> TempProdOrderComp."Expected Quantity" THEN BEGIN
+            DecLxQty := TempProdOrderComp."Expected Quantity";
+            TempProdOrderComp.VALIDATE("Expected Quantity", DecLQty);
+            ProdOrderComp := TempProdOrderComp;
+            ProdOrderComp.MODIFY();
+            IF RecLProdOrderLine.GET(TempProdOrderComp.Status, TempProdOrderComp."Prod. Order No.", TempProdOrderComp."Prod. Order Line No.") THEN BEGIN
+                //ERROR(FORMAT( RecLProdOrderLine.Quantity * TempProdOrderComp."Expected Quantity" / DecLxQty));
+                RecLProdOrderLine.VALIDATE(Quantity, ROUND((RecLProdOrderLine.Quantity * TempProdOrderComp."Expected Quantity" / DecLxQty), 1));
+                RecLProdOrderLine.MODIFY();
             END;
+        END ELSE BEGIN
+            ProdOrderComp := TempProdOrderComp;
+            ProdOrderComp.MODIFY();
         END;
         DeletePreviousOperationPhantom(ProdOrderComp);
         // Mise … jour des informations de tra‡abilit‚
@@ -951,24 +949,24 @@ codeunit 50021 "PWD LPSA Functions Mgt."
                 RecLTrackingSpecPhantom."Entry No." := IntLastEntryNo;
                 RecLTrackingSpecPhantom."Source Type" := DATABASE::"Prod. Order Component";
                 WITH ProdOrderComp DO BEGIN
-                    RecLTrackingSpecPhantom."Item No." := "Item No.";
-                    RecLTrackingSpecPhantom."Location Code" := "Location Code";
-                    RecLTrackingSpecPhantom."Bin Code" := "Bin Code";
-                    RecLTrackingSpecPhantom.Description := Description;
-                    RecLTrackingSpecPhantom."Variant Code" := "Variant Code";
-                    RecLTrackingSpecPhantom."Source Subtype" := Status.AsInteger();
-                    RecLTrackingSpecPhantom."Source ID" := "Prod. Order No.";
+                    RecLTrackingSpecPhantom."Item No." := ProdOrderComp."Item No.";
+                    RecLTrackingSpecPhantom."Location Code" := ProdOrderComp."Location Code";
+                    RecLTrackingSpecPhantom."Bin Code" := ProdOrderComp."Bin Code";
+                    RecLTrackingSpecPhantom.Description := ProdOrderComp.Description;
+                    RecLTrackingSpecPhantom."Variant Code" := ProdOrderComp."Variant Code";
+                    RecLTrackingSpecPhantom."Source Subtype" := ProdOrderComp.Status.AsInteger();
+                    RecLTrackingSpecPhantom."Source ID" := ProdOrderComp."Prod. Order No.";
                     RecLTrackingSpecPhantom."Source Batch Name" := '';
-                    RecLTrackingSpecPhantom."Source Prod. Order Line" := "Prod. Order Line No.";
-                    RecLTrackingSpecPhantom."Source Ref. No." := "Line No.";
+                    RecLTrackingSpecPhantom."Source Prod. Order Line" := ProdOrderComp."Prod. Order Line No.";
+                    RecLTrackingSpecPhantom."Source Ref. No." := ProdOrderComp."Line No.";
                     RecLTrackingSpecPhantom."Quantity (Base)" := PhantomItem."Quantity Requested";
                     RecLTrackingSpecPhantom."Qty. to Handle" := PhantomItem."Quantity Requested";
                     RecLTrackingSpecPhantom."Qty. to Handle (Base)" := PhantomItem."Quantity Requested";
                     RecLTrackingSpecPhantom."Qty. to Invoice" := PhantomItem."Quantity Requested";
                     RecLTrackingSpecPhantom."Qty. to Invoice (Base)" := PhantomItem."Quantity Requested";
-                    RecLTrackingSpecPhantom."Quantity Handled (Base)" := "Expected Qty. (Base)" - "Remaining Qty. (Base)";
-                    RecLTrackingSpecPhantom."Quantity Invoiced (Base)" := "Expected Qty. (Base)" - "Remaining Qty. (Base)";
-                    RecLTrackingSpecPhantom."Qty. per Unit of Measure" := "Qty. per Unit of Measure";
+                    RecLTrackingSpecPhantom."Quantity Handled (Base)" := ProdOrderComp."Expected Qty. (Base)" - ProdOrderComp."Remaining Qty. (Base)";
+                    RecLTrackingSpecPhantom."Quantity Invoiced (Base)" := ProdOrderComp."Expected Qty. (Base)" - ProdOrderComp."Remaining Qty. (Base)";
+                    RecLTrackingSpecPhantom."Qty. per Unit of Measure" := ProdOrderComp."Qty. per Unit of Measure";
                     RecLTrackingSpecPhantom."Lot No." := PhantomItem."Lot No.";
                 END;
                 RecLTrackingSpecPhantom.INSERT();

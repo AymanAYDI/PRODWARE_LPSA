@@ -27,11 +27,13 @@ tableextension 60041 "PWD ItemReference" extends "Item Reference"
         {
             Caption = 'Customer Plan No.';
             Description = 'LPSA.TDL.09/02/2015';
+            DataClassification = CustomerContent;
         }
         field(50001; "PWD Customer Plan Description"; Text[50])
         {
             Caption = 'Customer Plan Description';
             Description = 'LPSA.TDL.09/02/2015';
+            DataClassification = CustomerContent;
         }
         field(50002; "PWD Customer Name"; Text[100])
         {
@@ -49,6 +51,7 @@ tableextension 60041 "PWD ItemReference" extends "Item Reference"
         field(8073282; "PWD EAN13"; Code[13])
         {
             caption = 'EAN13';
+            DataClassification = CustomerContent;
         }
     }
 }

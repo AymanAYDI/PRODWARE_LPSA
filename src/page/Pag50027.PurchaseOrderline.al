@@ -592,6 +592,7 @@ page 50027 "PWD Purchase Order line"
                 }
                 field("PWD Product Group Code"; Rec."PWD Product Group Code")
                 {
+                    ApplicationArea = All;
                 }
                 field("Special Order"; Rec."Special Order")
                 {

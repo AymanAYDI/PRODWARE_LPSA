@@ -11,6 +11,7 @@ table 8073321 "PWD PEB Item Jnl Line Buffer"
     // +----------------------------------------------------------------------------------------------------------------+
 
     Caption = 'PEB Item Journal Line Buffer';
+    DataClassification = CustomerContent;
 
     fields
     {
@@ -18,6 +19,7 @@ table 8073321 "PWD PEB Item Jnl Line Buffer"
         {
             Caption = 'Entry No.';
             Editable = false;
+            DataClassification = CustomerContent;
         }
     }
 

@@ -14,16 +14,20 @@ page 50028 "PWD Product Groups"
                 field("Item Category Code"; Rec."Item Category Code")
                 {
                     Visible = false;
+                    ApplicationArea = All;
                 }
                 field("Code"; Rec.Code)
                 {
+                    ApplicationArea = All;
                 }
                 field("Warehouse Class Code"; Rec."Warehouse Class Code")
                 {
                     Visible = false;
+                    ApplicationArea = All;
                 }
                 field(Description; Rec.Description)
                 {
+                    ApplicationArea = All;
                 }
             }
         }
@@ -32,10 +36,12 @@ page 50028 "PWD Product Groups"
             systempart(Links; Links)
             {
                 Visible = false;
+                ApplicationArea = All;
             }
             systempart(Notes; Notes)
             {
                 Visible = false;
+                ApplicationArea = All;
             }
         }
     }

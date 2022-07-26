@@ -14,6 +14,7 @@ table 50004 "PWD SubFamily LPSA"
     Caption = 'Subfamily LPSA';
     DrillDownPageID = "PWD Subfamily LPSA List";
     LookupPageID = "PWD Subfamily LPSA List";
+    DataClassification = CustomerContent;
 
     fields
     {
@@ -21,22 +22,27 @@ table 50004 "PWD SubFamily LPSA"
         {
             Caption = 'Family Code';
             TableRelation = "PWD Family LPSA".Code;
+            DataClassification = CustomerContent;
         }
         field(2; "Code"; Code[3])
         {
             Caption = 'Code';
+            DataClassification = CustomerContent;
         }
         field(3; Description; Text[30])
         {
             Caption = 'Description';
+            DataClassification = CustomerContent;
         }
         field(4; Number; Integer)
         {
             Caption = 'Number';
+            DataClassification = CustomerContent;
         }
         field(5; NumberF; Integer)
         {
             Caption = 'NumberF';
+            DataClassification = CustomerContent;
         }
     }
 

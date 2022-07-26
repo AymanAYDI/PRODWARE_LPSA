@@ -301,6 +301,7 @@ report 50035 "PWD Item Extraction"
                     field(TxtGFileName; TxtGFileName)
                     {
                         Caption = 'Fichier à exporter';
+                        ApplicationArea = All;
                         // trigger OnDrillDown()
                         // var
                         //     FileMgt: codeunit "File Management";

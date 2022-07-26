@@ -11,12 +11,14 @@ table 8073316 "PWD PEB Customer Buffer"
     // +----------------------------------------------------------------------------------------------------------------+
 
     Caption = 'PEB Customer Buffer';
+    DataClassification = CustomerContent;
 
     fields
     {
         field(1; "Entry No."; Integer)
         {
             Caption = 'Entry No.';
+            DataClassification = CustomerContent;
         }
     }
 

@@ -348,7 +348,7 @@ report 50028 "Update Scrap Factor Rtg Line"
                 RecLRoutingLine.SetFilter("Scrap Factor %", '<>%1', 0);
                 if RecLRoutingLine.FindSet() then
                     repeat
-                            DecLNewQtyGet := DecLNewQtyGet / (1 + RecLRoutingLine."Scrap Factor %" / 100);
+                        DecLNewQtyGet := DecLNewQtyGet / (1 + RecLRoutingLine."Scrap Factor %" / 100);
                     until RecLRoutingLine.Next() = 0;
 
 

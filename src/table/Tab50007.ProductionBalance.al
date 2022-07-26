@@ -12,6 +12,7 @@ table 50007 "PWD Production Balance"
     // ------------------------------------------------------------------------------------------------------------------
 
     Caption = 'Production Balance';
+    DataClassification = CustomerContent;
 
     fields
     {
@@ -21,6 +22,7 @@ table 50007 "PWD Production Balance"
             NotBlank = true;
             TableRelation = User."User Name";
             ValidateTableRelation = false;
+            DataClassification = CustomerContent;
 
             trigger OnValidate()
             var
@@ -32,124 +34,150 @@ table 50007 "PWD Production Balance"
         field(2; "Entry No."; Integer)
         {
             Caption = 'Entry No.';
+            DataClassification = CustomerContent;
         }
         field(3; "Planned Order No."; Code[20])
         {
             Caption = 'Planned Order No.';
+            DataClassification = CustomerContent;
         }
         field(4; "Item No."; Code[20])
         {
             Caption = 'Item No.';
+            DataClassification = CustomerContent;
         }
         field(5; "Order No."; Code[20])
         {
             Caption = 'Order No.';
+            DataClassification = CustomerContent;
         }
         field(6; "Line Type"; Option)
         {
             Caption = 'Line Type';
             OptionCaption = 'Component,Operation';
             OptionMembers = Component,Operation;
+            DataClassification = CustomerContent;
         }
         field(7; "Operation No."; Code[10])
         {
             Caption = 'Operation No.';
+            DataClassification = CustomerContent;
         }
         field(8; Type; Option)
         {
             Caption = 'Type';
             OptionCaption = 'Work Center,Machine Center,Item';
             OptionMembers = "Work Center","Machine Center",Item;
+            DataClassification = CustomerContent;
         }
         field(9; "No."; Code[20])
         {
             Caption = 'No.';
+            DataClassification = CustomerContent;
         }
         field(10; Description; Text[50])
         {
             Caption = 'Description';
+            DataClassification = CustomerContent;
         }
         field(11; Status; Option)
         {
             Caption = 'Status';
             OptionCaption = 'Simulated,Planned,Firm Planned,Released,Finished, ';
             OptionMembers = Simulated,Planned,"Firm Planned",Released,Finished," ";
+            DataClassification = CustomerContent;
         }
         field(12; "Expected Quantity"; Decimal)
         {
             Caption = 'Expected Quantity';
             DecimalPlaces = 0 : 5;
+            DataClassification = CustomerContent;
         }
         field(13; Quantity; Decimal)
         {
             Caption = 'Quantity';
             DecimalPlaces = 0 : 5;
+            DataClassification = CustomerContent;
         }
         field(14; "Unit of Measure Code"; Code[10])
         {
             Caption = 'Unit of Measure Code';
+            DataClassification = CustomerContent;
         }
         field(15; "Scrap Quantity"; Decimal)
         {
             Caption = 'Scrap Quantity';
             DecimalPlaces = 0 : 5;
+            DataClassification = CustomerContent;
         }
         field(16; "Expected Flushing Quantity"; Decimal)
         {
             Caption = 'Expected Flushing Quantity';
             DecimalPlaces = 0 : 5;
+            DataClassification = CustomerContent;
         }
         field(17; "Realized Flushing Quantity"; Decimal)
         {
             Caption = 'Realized Flushing Quantity';
             DecimalPlaces = 0 : 5;
+            DataClassification = CustomerContent;
         }
         field(18; "Cost Amount (Expected)"; Decimal)
         {
             AutoFormatType = 1;
             Caption = 'Cost Amount (Expected)';
+            DataClassification = CustomerContent;
         }
         field(19; "Cost Amount (Actual)"; Decimal)
         {
             AutoFormatType = 1;
             Caption = 'Cost Amount (Actual)';
+            DataClassification = CustomerContent;
         }
         field(20; "Cost Difference"; Decimal)
         {
             Caption = 'Cost Difference';
+            DataClassification = CustomerContent;
         }
         field(21; "Actual Cost MP"; Decimal)
         {
             AutoFormatType = 1;
             Caption = 'Actual Cost MP';
+            DataClassification = CustomerContent;
         }
         field(22; "Actual Cost STR"; Decimal)
         {
             AutoFormatType = 1;
             Caption = 'Actual Cost STR';
+            DataClassification = CustomerContent;
         }
         field(23; "Actual Cost MO"; Decimal)
         {
             AutoFormatType = 1;
             Caption = 'Actual Cost MO';
+            DataClassification = CustomerContent;
         }
         field(24; Productivity; Decimal)
         {
             Caption = 'Productivity';
+            DataClassification = CustomerContent;
         }
         field(25; Output; Decimal)
         {
             Caption = 'Rendement';
+            DataClassification = CustomerContent;
         }
         field(26; "Unit Price"; Decimal)
         {
             AutoFormatType = 2;
             Caption = 'Unit Price';
             MinValue = 0;
+            DataClassification = CustomerContent;
         }
         field(27; "Planned Order Index"; Text[2])
         {
             Caption = 'Planned Order Index';
+            DataClassification = CustomerContent;
         }
         field(28; "Current Quantity Total"; Decimal)
         {
@@ -188,6 +216,7 @@ table 50007 "PWD Production Balance"
         field(33; "Entry No. Negative"; Integer)
         {
             Caption = 'N° séquence négatif';
+            DataClassification = CustomerContent;
         }
         field(34; "Cost Amount (Actual) Total"; Decimal)
         {

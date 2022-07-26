@@ -6,6 +6,7 @@ tableextension 60074 "PWD ServiceInvoiceLine" extends "Service Invoice Line"
         {
             Caption = 'Product Group Code';
             TableRelation = "PWD Product Group".Code WHERE("Item Category Code" = FIELD("Item Category Code"));
+            DataClassification = CustomerContent;
         }
     }
 }

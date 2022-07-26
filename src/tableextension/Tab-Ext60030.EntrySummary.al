@@ -18,6 +18,7 @@ tableextension 60030 "PWD EntrySummary" extends "Entry Summary"
             caption = 'NC';
             Description = 'LAP2.05';
             Editable = false;
+            DataClassification = CustomerContent;
         }
     }
 }

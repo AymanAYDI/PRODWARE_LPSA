@@ -20,11 +20,13 @@ tableextension 60068 "PWD RoutingTool" extends "Routing Tool"
         {
             Caption = 'Type';
             Description = 'LAP2.12';
+            DataClassification = CustomerContent;
         }
         field(50001; "PWD Criteria"; Text[50])
         {
             Caption = 'Criteria';
             Description = 'LAP2.12';
+            DataClassification = CustomerContent;
         }
 
         modify("No.")

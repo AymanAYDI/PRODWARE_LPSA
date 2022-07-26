@@ -43,22 +43,26 @@ tableextension 60006 "PWD SalesHeader" extends "Sales Header"
         {
             Caption = 'Confirmed';
             Description = 'LAP1.00';
+            DataClassification = CustomerContent;
         }
         field(50001; "PWD Planned"; Boolean)
         {
             Caption = 'Planned';
             Description = 'LAP1.00';
+            DataClassification = CustomerContent;
         }
         field(50002; "PWD Rolex Bienne"; Boolean)
         {
             Caption = 'Rolex Bienne';
             Description = 'LAP1.00';
             Editable = false;
+            DataClassification = CustomerContent;
         }
         field(50003; "PWD Cust Promised Deliv. Date"; Date)
         {
             Caption = 'Customer Promised Delivery Date';
             Description = 'TDL.LPSA';
+            DataClassification = CustomerContent;
 
             trigger OnValidate()
             begin
@@ -74,20 +78,24 @@ tableextension 60006 "PWD SalesHeader" extends "Sales Header"
             Caption = 'Print confirmation Date';
             Description = 'TDL.LPSA';
             Editable = false;
+            DataClassification = CustomerContent;
         }
         field(50005; "PWD Validity Quote Date"; Date)
         {
             Caption = 'Validity Quote Date';
             Description = 'TDL.LPSA';
+            DataClassification = CustomerContent;
         }
         field(8073282; "PWD Order No. From Partner"; Code[20])
         {
             Caption = 'Order No. From Partner';
+            DataClassification = CustomerContent;
         }
         field(8073283; "PWD WMS_Status"; Enum "PWD WMS_Status")
         {
             Caption = 'WMS_Status';
             Description = 'ProdConnect1.5';
+            DataClassification = CustomerContent;
         }
     }
     PROCEDURE FctIsImport(BooPDontExecuteIfImport: Boolean);

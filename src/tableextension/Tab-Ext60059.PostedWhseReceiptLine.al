@@ -16,11 +16,13 @@ tableextension 60059 "PWD PostedWhseReceiptLine" extends "Posted Whse. Receipt L
         {
             Caption = 'LPSA Description 1';
             Description = 'LAP1.00';
+            DataClassification = CustomerContent;
         }
         field(50005; "PWD LPSA Description 2"; Text[120])
         {
             Caption = 'LPSA Description 2';
             Description = 'LAP1.00';
+            DataClassification = CustomerContent;
         }
     }
 }

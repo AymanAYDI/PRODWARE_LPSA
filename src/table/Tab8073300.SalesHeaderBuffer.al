@@ -11,6 +11,7 @@ table 8073300 "PWD Sales Header Buffer"
     // +----------------------------------------------------------------------------------------------------------------+
 
     Caption = 'Sales Header Buffer';
+    DataClassification = CustomerContent;
 
     fields
     {
@@ -18,54 +19,64 @@ table 8073300 "PWD Sales Header Buffer"
         {
             Caption = 'Entry No.';
             Editable = false;
+            DataClassification = CustomerContent;
         }
         field(9; "Error Blob"; BLOB)
         {
             Caption = 'Error Blob';
             SubType = Memo;
+            DataClassification = CustomerContent;
         }
         field(10; "Connector Values Entry No."; Integer)
         {
             Caption = 'Connector Values Entry No.';
             Editable = false;
+            DataClassification = CustomerContent;
         }
         field(11; "Partner Code"; Code[20])
         {
             Caption = 'Partner Code';
             Editable = false;
             TableRelation = "PWD Partner Connector".Code;
+            DataClassification = CustomerContent;
         }
         field(12; "Message Code"; Code[20])
         {
             Caption = 'Message Code';
             Editable = false;
             TableRelation = "PWD Connector Messages".Code;
+            DataClassification = CustomerContent;
         }
         field(13; Status; Enum "PWD Status Buffer")
         {
             Caption = 'Status';
             Editable = false;
+            DataClassification = CustomerContent;
         }
         field(14; Processed; Boolean)
         {
             Caption = 'Processed';
             Editable = false;
+            DataClassification = CustomerContent;
         }
         field(15; "Processed Date"; DateTime)
         {
             Caption = 'Processed Date';
             Editable = false;
+            DataClassification = CustomerContent;
         }
         field(16; "Error Message"; Text[250])
         {
             Caption = 'Error Message';
             Editable = false;
+            DataClassification = CustomerContent;
         }
         field(17; "Action"; Option)
         {
             Caption = 'Action';
             OptionCaption = 'Skip,Insert,Modify,Delete';
             OptionMembers = Skip,Insert,Modify,Delete;
+            DataClassification = CustomerContent;
 
             trigger OnValidate()
             var
@@ -87,11 +98,13 @@ table 8073300 "PWD Sales Header Buffer"
         {
             Caption = 'RecordID Created';
             Editable = false;
+            DataClassification = CustomerContent;
         }
         field(19; "Creation Date"; DateTime)
         {
             Caption = 'Creation Date';
             Editable = false;
+            DataClassification = CustomerContent;
         }
         field(20; "Document Type"; Option)
         {
@@ -99,23 +112,28 @@ table 8073300 "PWD Sales Header Buffer"
             Editable = false;
             OptionCaption = 'Quote,Order,Invoice,Credit Memo,Blanket Order,Return Order';
             OptionMembers = Quote,"Order",Invoice,"Credit Memo","Blanket Order","Return Order";
+            DataClassification = CustomerContent;
         }
         field(21; "Document No."; Text[30])
         {
             Caption = 'Document No.';
             Editable = false;
+            DataClassification = CustomerContent;
         }
         field(22; "Sell-to Customer No."; Text[30])
         {
             Caption = 'Sell-to Customer No.';
+            DataClassification = CustomerContent;
         }
         field(23; "External Document No."; Text[30])
         {
             Caption = 'External Document No.';
+            DataClassification = CustomerContent;
         }
         field(24; "Posting Date"; Text[10])
         {
             Caption = 'Posting Date';
+            DataClassification = CustomerContent;
         }
     }
 

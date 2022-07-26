@@ -46,6 +46,7 @@ table 8073284 "PWD Connector Messages"
 
     Caption = 'Connector Messages';
     LookupPageID = "PWD Sending Message List";
+    DataClassification = CustomerContent;
 
     fields
     {
@@ -53,19 +54,23 @@ table 8073284 "PWD Connector Messages"
         {
             Caption = 'Partner Code';
             TableRelation = "PWD Partner Connector".Code;
+            DataClassification = CustomerContent;
         }
         field(2; "Code"; Code[20])
         {
             Caption = 'Code';
             NotBlank = true;
+            DataClassification = CustomerContent;
         }
         field(3; Description; Text[50])
         {
             Caption = 'Description';
+            DataClassification = CustomerContent;
         }
         field(4; Path; Text[250])
         {
             Caption = 'Path';
+            DataClassification = CustomerContent;
 
             trigger OnLookup()
             var
@@ -82,18 +87,22 @@ table 8073284 "PWD Connector Messages"
         field(5; Blocked; Boolean)
         {
             Caption = 'Blocked';
+            DataClassification = CustomerContent;
         }
         field(6; "Archive Message"; Boolean)
         {
             InitValue = true;
+            DataClassification = CustomerContent;
         }
         field(7; Function; Code[30])
         {
             Caption = 'Function';
+            DataClassification = CustomerContent;
         }
         field(8; "Table ID"; Integer)
         {
             Caption = 'Table ID';
+            DataClassification = CustomerContent;
 
             trigger OnLookup()
             var
@@ -134,25 +143,30 @@ table 8073284 "PWD Connector Messages"
         {
             Caption = 'Xml Tag';
             Editable = true;
+            DataClassification = CustomerContent;
         }
         field(11; Direction; Option)
         {
             Caption = 'Direction';
             OptionCaption = 'Import,Export';
             OptionMembers = Import,Export;
+            DataClassification = CustomerContent;
         }
         field(12; "Fill Character"; Text[1])
         {
             Caption = 'Fill Character';
+            DataClassification = CustomerContent;
         }
         field(13; "Export Date"; Date)
         {
             Caption = 'Export Date';
+            DataClassification = CustomerContent;
         }
         field(14; "Field ID"; Integer)
         {
             Caption = 'Last Date Modified Field';
             TableRelation = Field."No." WHERE(TableNo = FIELD("Table ID"));
+            DataClassification = CustomerContent;
 
             trigger OnLookup()
             var
@@ -194,12 +208,14 @@ table 8073284 "PWD Connector Messages"
         field(16; "Master Table"; Boolean)
         {
             Caption = 'Master Table';
+            DataClassification = CustomerContent;
         }
         field(17; "Export Option"; Option)
         {
             Caption = 'Export Option';
             OptionCaption = 'Total,Partial';
             OptionMembers = Total,Partial;
+            DataClassification = CustomerContent;
 
             trigger OnValidate()
             begin
@@ -210,10 +226,12 @@ table 8073284 "PWD Connector Messages"
         field(18; "Auto-Post Document"; Boolean)
         {
             Caption = 'Auto-Post Document';
+            DataClassification = CustomerContent;
         }
         field(19; "Archive Path"; Text[250])
         {
             Caption = 'Archive Path';
+            DataClassification = CustomerContent;
 
             trigger OnLookup()
             var
@@ -230,34 +248,42 @@ table 8073284 "PWD Connector Messages"
         field(30; "FTP Remote Path"; Text[250])
         {
             Caption = 'FTP Remote Path';
+            DataClassification = CustomerContent;
         }
         field(31; "FTP Filter File"; Text[30])
         {
             Caption = 'FTP Filter File';
+            DataClassification = CustomerContent;
         }
         field(32; "File Name value"; Text[50])
         {
             Caption = 'File Name value';
+            DataClassification = CustomerContent;
         }
         field(33; "File Name with Date"; Boolean)
         {
             Caption = 'File Name with Date';
+            DataClassification = CustomerContent;
         }
         field(34; "File Name with Time"; Boolean)
         {
             Caption = 'File Name with Time';
+            DataClassification = CustomerContent;
         }
         field(35; "File Name with Society Code"; Boolean)
         {
             Caption = 'File Name with Society Code';
+            DataClassification = CustomerContent;
         }
         field(36; "File extension"; Text[5])
         {
             Caption = 'File extension';
+            DataClassification = CustomerContent;
         }
         field(50000; "Export DateTime"; DateTime)
         {
             Caption = 'Export DateTime';
+            DataClassification = CustomerContent;
         }
     }
 

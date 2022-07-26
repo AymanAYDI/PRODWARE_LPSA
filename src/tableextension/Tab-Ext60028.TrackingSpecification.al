@@ -21,6 +21,7 @@ tableextension 60028 "PWD TrackingSpecification" extends "Tracking Specification
         {
             Caption = 'Lot Number';
             Description = '#803/01:A3013-1/2.10';
+            DataClassification = CustomerContent;
 
             trigger OnValidate()
             begin
@@ -32,6 +33,7 @@ tableextension 60028 "PWD TrackingSpecification" extends "Tracking Specification
         {
             Caption = 'Trading Unit Number';
             Description = '#803/01:A3013-1/2.10';
+            DataClassification = CustomerContent;
 
             trigger OnValidate()
             begin
@@ -45,12 +47,14 @@ tableextension 60028 "PWD TrackingSpecification" extends "Tracking Specification
             Caption = 'No. of Units';
             Description = '#NAV20100:A1017 20.08.07 TECTURA.SE';
             InitValue = 1;
+            DataClassification = CustomerContent;
         }
         field(50003; "PWD NC"; Boolean)
         {
             caption = 'NC';
             Description = 'LAP2.05';
             Editable = false;
+            DataClassification = CustomerContent;
         }
     }
 }

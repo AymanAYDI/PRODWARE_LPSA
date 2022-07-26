@@ -11,12 +11,14 @@ table 8073312 "PWD WMS Sales Comm Line Buffer"
     // +----------------------------------------------------------------------------------------------------------------+
 
     Caption = 'WMS Sales Comment Line Buffer';
+    DataClassification = CustomerContent;
 
     fields
     {
         field(1; "Entry No."; Integer)
         {
             Caption = 'Entry No.';
+            DataClassification = CustomerContent;
         }
     }
 

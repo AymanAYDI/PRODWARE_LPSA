@@ -20,6 +20,7 @@ tableextension 60058 "PWD WarehouseReceiptLine" extends "Warehouse Receipt Line"
         {
             Caption = 'LPSA Description 1';
             Description = 'LAP1.00';
+            DataClassification = CustomerContent;
 
             trigger OnValidate()
             begin
@@ -35,6 +36,7 @@ tableextension 60058 "PWD WarehouseReceiptLine" extends "Warehouse Receipt Line"
         {
             Caption = 'LPSA Description 2';
             Description = 'LAP1.00';
+            DataClassification = CustomerContent;
 
             trigger OnValidate()
             begin

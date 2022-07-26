@@ -84,16 +84,16 @@ report 50060 "PWD Inventory Recovery"
             RecGItemJnlLineBuffer.Reset();
             if RecGItemJnlLineBuffer.FindFirst() then
                 repeat
-                        // pour la reprise de l'inventaire on crée une ligne par écriture article mémorisée pour chaque ligne feuille article mémorisée
-                        // afin de reprendre le coût unitaire de l'écriture article
-                        RecGItemLedgerEntryBuffer.Reset();
+                    // pour la reprise de l'inventaire on crée une ligne par écriture article mémorisée pour chaque ligne feuille article mémorisée
+                    // afin de reprendre le coût unitaire de l'écriture article
+                    RecGItemLedgerEntryBuffer.Reset();
                     RecGItemLedgerEntryBuffer.SetRange("Item No.", RecGItemJnlLineBuffer."Item No.");
                     RecGItemLedgerEntryBuffer.SetRange("Variant Code", RecGItemJnlLineBuffer."Variant Code");
                     RecGItemLedgerEntryBuffer.SetRange("Location Code", RecGItemJnlLineBuffer."Location Code");
                     RecGItemLedgerEntryBuffer.SetRange(Open, true);
                     if RecGItemLedgerEntryBuffer.FindFirst() then
                         repeat
-                                RecGItemJnlLine.TransferFields(RecGItemJnlLineBuffer);
+                            RecGItemJnlLine.TransferFields(RecGItemJnlLineBuffer);
                             RecGItemJnlLine."Qty. (Calculated)" := 0;
                             RecGItemJnlLine."Line No." := IntLineNo;
                             RecGItemJnlLine.Validate("Document No.", CodGDocNo);

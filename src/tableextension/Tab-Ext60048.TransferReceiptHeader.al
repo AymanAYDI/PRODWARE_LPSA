@@ -15,6 +15,7 @@ tableextension 60048 "PWD TransferReceiptHeader" extends "Transfer Receipt Heade
             Caption = 'Sales Order No.';
             Description = 'LAP2.00';
             Editable = false;
+            DataClassification = CustomerContent;
         }
     }
 }

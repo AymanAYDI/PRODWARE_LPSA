@@ -14,6 +14,7 @@ table 50003 "PWD Family LPSA"
     Caption = 'Family LPSA';
     DrillDownPageID = "PWD Family LPSA List";
     LookupPageID = "PWD Family LPSA List";
+    DataClassification = CustomerContent;
 
     fields
     {
@@ -21,10 +22,12 @@ table 50003 "PWD Family LPSA"
         {
             Caption = 'Code';
             NotBlank = true;
+            DataClassification = CustomerContent;
         }
         field(3; Description; Text[30])
         {
             Caption = 'Description';
+            DataClassification = CustomerContent;
         }
     }
 

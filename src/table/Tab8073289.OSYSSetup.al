@@ -26,26 +26,31 @@ table 8073289 "PWD OSYS Setup"
     // +----------------------------------------------------------------------------------------------------------------+
 
     Caption = 'OSYS Setup';
+    DataClassification = CustomerContent;
 
     fields
     {
         field(1; "Primary Key"; Code[20])
         {
             Caption = 'Primary Key';
+            DataClassification = CustomerContent;
         }
         field(2; OSYS; Boolean)
         {
             Caption = 'OSYS';
+            DataClassification = CustomerContent;
         }
         field(3; "Journal Templ Name Prod"; Code[10])
         {
             Caption = 'Steel Journal Template Name Prod';
             TableRelation = "Item Journal Template";
+            DataClassification = CustomerContent;
         }
         field(4; "Journal Batch Name Prod"; Code[10])
         {
             Caption = 'Steel Journal Batch Name Prod';
             TableRelation = "Item Journal Batch".Name WHERE("Journal Template Name" = FIELD("Journal Templ Name Prod"));
+            DataClassification = CustomerContent;
 
             trigger OnLookup()
             var
@@ -66,26 +71,31 @@ table 8073289 "PWD OSYS Setup"
         field(5; "Separator Character"; Code[1])
         {
             Caption = 'Separator Character';
+            DataClassification = CustomerContent;
         }
         field(6; "Packaging Unit"; Code[10])
         {
             Caption = 'Packaging Unit';
             TableRelation = "Unit of Measure".Code;
+            DataClassification = CustomerContent;
         }
         field(7; "Pallet  Unit"; Code[10])
         {
             Caption = 'Pallet  Unit';
             TableRelation = "Unit of Measure".Code;
+            DataClassification = CustomerContent;
         }
         field(8; "Journal Templ Name Cons"; Code[10])
         {
             Caption = 'Journal Template Name Cons';
             TableRelation = "Item Journal Template";
+            DataClassification = CustomerContent;
         }
         field(9; "Journal Batch Name Cons"; Code[10])
         {
             Caption = 'Journal Batch Name Cons';
             TableRelation = "Item Journal Batch".Name WHERE("Journal Template Name" = FIELD("Journal Templ Name Cons"));
+            DataClassification = CustomerContent;
 
             trigger OnLookup()
             var
@@ -107,25 +117,30 @@ table 8073289 "PWD OSYS Setup"
         {
             Caption = 'Partner Code';
             TableRelation = "PWD Partner Connector".Code;
+            DataClassification = CustomerContent;
         }
         field(11; PlannerOne; Boolean)
         {
             Caption = 'PlannerOne';
+            DataClassification = CustomerContent;
         }
         field(50000; "Possible Items Message"; Code[20])
         {
             Caption = 'Possible Items Message';
             TableRelation = "PWD Connector Messages".Code WHERE("Partner Code" = FIELD("Partner Code"), Direction = CONST(Export));
+            DataClassification = CustomerContent;
         }
         field(50001; "Journal Templ Name Prod 1"; Code[10])
         {
             Caption = 'Other Journal Template Name Prod';
             TableRelation = "Item Journal Template";
+            DataClassification = CustomerContent;
         }
         field(50002; "Journal Batch Name Prod 1"; Code[10])
         {
             Caption = 'Other Journal Batch Name Prod';
             TableRelation = "Item Journal Batch".Name WHERE("Journal Template Name" = FIELD("Journal Templ Name Prod 1"));
+            DataClassification = CustomerContent;
 
             trigger OnLookup()
             var
@@ -150,24 +165,28 @@ table 8073289 "PWD OSYS Setup"
             Caption = 'Journal Templ Name Stock MVT';
             Description = 'LAP2.22';
             TableRelation = "Item Journal Template";
+            DataClassification = CustomerContent;
         }
         field(50004; "Journal Batch Name Stock MVT"; Code[10])
         {
             Caption = 'Journal Batch Name Stock MVT';
             Description = 'LAP2.22';
             TableRelation = "Item Journal Batch".Name WHERE("Journal Template Name" = FIELD("Journal Templ Name Stock MVT"));
+            DataClassification = CustomerContent;
         }
         field(50005; "Journal Templ Name Stock TRF"; Code[10])
         {
             Caption = 'Journal Templ Name Stock TRF';
             Description = 'LAP2.22';
             TableRelation = "Item Journal Template";
+            DataClassification = CustomerContent;
         }
         field(50006; "Journal Batch Name Stock TRF"; Code[10])
         {
             Caption = 'Journal Batch Name  Stock TRF';
             Description = 'LAP2.22';
             TableRelation = "Item Journal Batch".Name WHERE("Journal Template Name" = FIELD("Journal Templ Name Stock TRF"));
+            DataClassification = CustomerContent;
         }
     }
 

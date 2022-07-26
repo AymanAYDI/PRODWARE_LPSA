@@ -57,11 +57,13 @@ tableextension 60007 "PWD SalesLine" extends "Sales Line"
             Caption = 'Fixed Price';
             Description = 'LAP1.00';
             Editable = false;
+            DataClassification = CustomerContent;
         }
         field(50004; "PWD LPSA Description 1"; Text[120])
         {
             Caption = 'LPSA Description 1';
             Description = 'LAP1.00';
+            DataClassification = CustomerContent;
 
             trigger OnValidate()
             begin
@@ -77,6 +79,7 @@ tableextension 60007 "PWD SalesLine" extends "Sales Line"
         {
             Caption = 'LPSA Description 2';
             Description = 'LAP1.00';
+            DataClassification = CustomerContent;
 
             trigger OnValidate()
             begin
@@ -91,15 +94,18 @@ tableextension 60007 "PWD SalesLine" extends "Sales Line"
         field(50006; "PWD Scrap Quantity"; Decimal)
         {
             Caption = 'Scrap Quantity';
+            DataClassification = CustomerContent;
         }
         field(50007; "PWD Initial Shipment Date"; Date)
         {
             Caption = 'Initial Shipment Date';
+            DataClassification = CustomerContent;
         }
         field(50008; "PWD Cust Promis. Delivery Date"; Date)
         {
             Caption = 'Customer Promised Delivery Date';
             Description = 'TDL.LPSA';
+            DataClassification = CustomerContent;
 
             trigger OnValidate()
             begin
@@ -118,6 +124,7 @@ tableextension 60007 "PWD SalesLine" extends "Sales Line"
         {
             Caption = 'Product Group Code';
             TableRelation = "PWD Product Group".Code WHERE("Item Category Code" = FIELD("Item Category Code"));
+            DataClassification = CustomerContent;
         }
         field(50050; "PWD Order Date"; Date)
         {
@@ -131,6 +138,7 @@ tableextension 60007 "PWD SalesLine" extends "Sales Line"
         {
             Caption = 'WMS_Status';
             Description = 'ProdConnect1.5';
+            DataClassification = CustomerContent;
         }
         field(8073283; "PWD WMS_Status_Header"; Enum "Sales Document Status")
         {

@@ -19,6 +19,7 @@ tableextension 60001 "PWD Customer" extends Customer
         field(50000; "PWD Rolex Bienne"; Boolean)
         {
             Caption = 'Rolex Bienne';
+            DataClassification = CustomerContent;
         }
     }
 }

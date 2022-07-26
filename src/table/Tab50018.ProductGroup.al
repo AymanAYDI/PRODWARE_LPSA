@@ -1,7 +1,7 @@
 table 50018 "PWD Product Group"
 {
     Caption = 'Product Group';
-    DataClassification = ToBeClassified;
+    DataClassification = CustomerContent;
 
     fields
     {
@@ -11,21 +11,25 @@ table 50018 "PWD Product Group"
             NotBlank = true;
             TableRelation = "Item Category".Code;
             ValidateTableRelation = false;
+            DataClassification = CustomerContent;
         }
         field(2; "Code"; Code[10])
         {
             Caption = 'Code';
             NotBlank = true;
+            DataClassification = CustomerContent;
         }
         field(3; Description; Text[100])
         {
             Caption = 'Description';
+            DataClassification = CustomerContent;
         }
         field(7300; "Warehouse Class Code"; Code[10])
         {
             Caption = 'Warehouse Class Code';
             TableRelation = "Warehouse Class";
             ValidateTableRelation = false;
+            DataClassification = CustomerContent;
         }
     }
 

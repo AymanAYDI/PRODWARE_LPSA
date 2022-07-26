@@ -36,24 +36,29 @@ tableextension 60064 "PWD MachineCenter" extends "Machine Center"
         field(50000; "PWD Planning"; Boolean)
         {
             Caption = 'Excel Planning';
+            DataClassification = CustomerContent;
         }
         field(50010; "PWD Planning Order No."; Integer)
         {
             Caption = 'N° Order Planning Excel';
+            DataClassification = CustomerContent;
         }
         field(50020; "PWD Planning Status Name"; Text[30])
         {
             Caption = 'Nom Statut Planning Excel';
+            DataClassification = CustomerContent;
         }
         field(50030; "PWD To Excl. In Tracking Card"; Boolean)
         {
             Caption = 'To Exclure In Tracking Card';
             Description = 'LAP2.12';
+            DataClassification = CustomerContent;
         }
         field(8073282; "PWD Type"; Enum "PWD MachineCenter Type")
         {
             Caption = 'Type';
             Description = 'ProdConnect1.6';
+            DataClassification = CustomerContent;
         }
     }
 }

@@ -19,63 +19,75 @@ tableextension 60027 "PWD InventorySetup" extends "Inventory Setup"
         field(50000; "PWD Item Filter Level 1"; Text[100])
         {
             Caption = 'Item Filter Level 1';
+            DataClassification = CustomerContent;
         }
         field(50001; "PWD Item Filter Level 2"; Text[100])
         {
             Caption = 'Item Filter Level 2';
+            DataClassification = CustomerContent;
         }
         field(50002; "PWD Item Filter Level 3"; Text[100])
         {
             Caption = 'Item Filter Level 3';
+            DataClassification = CustomerContent;
         }
         field(50003; "PWD Item Filter Level 4"; Text[100])
         {
             Caption = 'Item Filter Level 4';
+            DataClassification = CustomerContent;
         }
         field(50010; "PWD Product Group Code Dim"; Code[20])
         {
             Caption = 'Product Group Code  Dimension';
             Description = 'LAP2.12';
             TableRelation = Dimension;
+            DataClassification = CustomerContent;
         }
         field(50011; "PWD LPSA Customer No."; Code[20])
         {
             Caption = 'N° Client LPSA';
             Description = 'LAP2.12';
             TableRelation = Customer;
+            DataClassification = CustomerContent;
         }
         field(50012; "PWD STRATEGY Customer No."; Code[20])
         {
             Caption = 'N° Client STRATEGIE';
             Description = 'LAP2.12';
             TableRelation = Customer;
+            DataClassification = CustomerContent;
         }
         field(50013; "PWD Item Filter For Extern Ref"; Code[250])
         {
             Caption = 'Filtrage Article pour la création des références externes';
             Description = 'LAP2.12';
+            DataClassification = CustomerContent;
         }
         field(50020; "PWD Item Category Dimension"; Code[20])
         {
             Caption = 'Item Category Dimension';
             Description = 'LAP2.19';
             TableRelation = Dimension;
+            DataClassification = CustomerContent;
         }
         field(50021; "PWD Product Group Dimension"; Code[20])
         {
             Caption = 'Product Group Dimension';
             Description = 'LAP2.19';
             TableRelation = Dimension;
+            DataClassification = CustomerContent;
         }
         field(50022; "PWD Closing Export DateFormula"; DateFormula)
         {
             Caption = 'Closing File Export Date Formula';
             Description = 'LAP2.19';
+            DataClassification = CustomerContent;
         }
         field(50023; "PWD Path for Closing Export"; Text[250])
         {
             Caption = 'Path for Closing Export';
             Description = 'LAP2.19';
+            DataClassification = CustomerContent;
 
             trigger OnValidate()
             var
@@ -92,21 +104,25 @@ tableextension 60027 "PWD InventorySetup" extends "Inventory Setup"
             Caption = 'Closing Sendor E-Mail';
             Description = 'LAP2.19';
             ExtendedDatatype = EMail;
+            DataClassification = CustomerContent;
         }
         field(50025; "PWD Recipient User ID"; Code[50])
         {
             Caption = 'Recipient User ID';
             Description = 'LAP2.19';
             TableRelation = "User Setup";
+            DataClassification = CustomerContent;
         }
         field(50026; "PWD Period for Inventory Cover"; Integer)
         {
             Caption = 'Period for the calculation of the stock cover (in Months)';
             Description = 'LAP2.19';
+            DataClassification = CustomerContent;
         }
-                field(50027; "PWD Path Link"; Text[100])
+        field(50027; "PWD Path Link"; Text[100])
         {
             Caption = 'Path Link';
+            DataClassification = CustomerContent;
         }
 
     }

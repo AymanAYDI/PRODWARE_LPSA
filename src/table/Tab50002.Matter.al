@@ -13,6 +13,7 @@ table 50002 "PWD Matter"
 
     Caption = 'Matter';
     LookupPageID = "PWD Matter List";
+    DataClassification = CustomerContent;
 
     fields
     {
@@ -21,15 +22,18 @@ table 50002 "PWD Matter"
             Caption = 'Option';
             OptionCaption = 'Stone,Preparage,Lifted and ellipses,Semi-finished';
             OptionMembers = Stone,Preparage,"Lifted and ellipses","Semi-finished";
+            DataClassification = CustomerContent;
         }
         field(2; "Code"; Code[20])
         {
             Caption = 'Code';
             NotBlank = true;
+            DataClassification = CustomerContent;
         }
         field(3; Description; Text[50])
         {
             Caption = 'Description';
+            DataClassification = CustomerContent;
         }
     }
 

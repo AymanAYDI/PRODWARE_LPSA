@@ -1,7 +1,7 @@
 table 50021 "PWD Item Link"
 {
     Caption = 'Item Link';
-    DataClassification = ToBeClassified;
+    DataClassification = CustomerContent;
 
     fields
     {
@@ -9,22 +9,22 @@ table 50021 "PWD Item Link"
         {
             Caption = 'No.';
             AutoIncrement = true;
-            DataClassification = ToBeClassified;
+            DataClassification = CustomerContent;
         }
         field(2; URL; Text[250])
         {
             Caption = 'URL';
-            DataClassification = ToBeClassified;
+            DataClassification = CustomerContent;
         }
         field(3; "Item No."; Code[20])
         {
             Caption = 'Item No.';
-            DataClassification = ToBeClassified;
+            DataClassification = CustomerContent;
         }
         field(4; Description; Text[100])
         {
             Caption = 'Description';
-            DataClassification = ToBeClassified;
+            DataClassification = CustomerContent;
         }
     }
     keys

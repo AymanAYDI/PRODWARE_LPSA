@@ -2,37 +2,45 @@ table 50017 "PWD Inventory Comment Line"
 {
     Caption = 'Inventory Comment Line';
     LookupPageID = "PWD Inventory Comment List";
+    DataClassification = CustomerContent;
 
     fields
     {
         field(1; "Document Type"; Enum "Inventory Comment Document Type")
         {
             Caption = 'Document Type';
+            DataClassification = CustomerContent;
         }
         field(2; "No."; Code[20])
         {
             Caption = 'No.';
+            DataClassification = CustomerContent;
         }
         field(3; "Line No."; Integer)
         {
             Caption = 'Line No.';
+            DataClassification = CustomerContent;
         }
         field(4; "Date"; Date)
         {
             Caption = 'Date';
+            DataClassification = CustomerContent;
         }
         field(5; "Code"; Code[10])
         {
             Caption = 'Code';
+            DataClassification = CustomerContent;
         }
         field(6; Comment; Text[80])
         {
             Caption = 'Comment';
+            DataClassification = CustomerContent;
         }
         field(50000; "Document Line No."; Integer)
         {
             Caption = 'Document Line No.';
             Description = 'TDL.235';
+            DataClassification = CustomerContent;
         }
     }
 

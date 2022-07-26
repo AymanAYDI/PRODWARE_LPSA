@@ -30,6 +30,7 @@ table 8073285 "PWD Fields Export Setup"
     // +----------------------------------------------------------------------------------------------------------------+
 
     Caption = 'Paramètres export champs';
+    DataClassification = CustomerContent;
 
     fields
     {
@@ -37,19 +38,23 @@ table 8073285 "PWD Fields Export Setup"
         {
             Caption = 'Partner Code';
             TableRelation = "PWD Partner Connector".Code;
+            DataClassification = CustomerContent;
         }
         field(2; "Message Code"; Code[20])
         {
             Caption = 'Message Code';
             TableRelation = "PWD Connector Messages".Code;
+            DataClassification = CustomerContent;
         }
         field(3; "Line No."; Integer)
         {
             Caption = 'Line No.';
+            DataClassification = CustomerContent;
         }
         field(4; "Table ID"; Integer)
         {
             Caption = 'Table ID';
+            DataClassification = CustomerContent;
 
             trigger OnLookup()
             var
@@ -89,6 +94,7 @@ table 8073285 "PWD Fields Export Setup"
         {
             Caption = 'Field ID';
             TableRelation = Field."No." WHERE(TableNo = FIELD("Table ID"));
+            DataClassification = CustomerContent;
 
             trigger OnLookup()
             var
@@ -136,68 +142,82 @@ table 8073285 "PWD Fields Export Setup"
         {
             Caption = 'Xml Tag';
             Editable = true;
+            DataClassification = CustomerContent;
         }
         field(9; "File Position"; Integer)
         {
             Caption = 'File Position';
+            DataClassification = CustomerContent;
         }
         field(10; "File Length"; Integer)
         {
             Caption = 'File Length';
+            DataClassification = CustomerContent;
         }
         field(11; Direction; Option)
         {
             Caption = 'Direction';
             OptionCaption = 'Import,Export';
             OptionMembers = Import,Export;
+            DataClassification = CustomerContent;
         }
         field(12; Type; Code[20])
         {
             FieldClass = Normal;
+            DataClassification = CustomerContent;
         }
         field(13; FormatStr; Text[100])
         {
             Caption = 'Format';
+            DataClassification = CustomerContent;
         }
         field(14; Precision; Decimal)
         {
             Caption = 'Precision';
+            DataClassification = CustomerContent;
         }
         field(15; "Rounding Direction"; Option)
         {
             Caption = 'Rounding Direction';
             OptionCaption = '=,<,>';
             OptionMembers = "=","<",">";
+            DataClassification = CustomerContent;
         }
         field(16; "Fill up"; Option)
         {
             Caption = 'Fill up';
             OptionCaption = 'Left,Right';
             OptionMembers = Left,Right;
+            DataClassification = CustomerContent;
         }
         field(17; "Fill Character"; Text[1])
         {
             Caption = 'Fill Character';
             Editable = false;
+            DataClassification = CustomerContent;
         }
         field(18; "Fct For Replace"; Text[30])
         {
             Caption = 'Fonction For Replacement';
+            DataClassification = CustomerContent;
         }
         field(19; Function; Code[30])
         {
             Caption = 'Function';
             Editable = false;
+            DataClassification = CustomerContent;
         }
         field(20; "Field Type"; Option)
         {
             Caption = 'Field Type';
             OptionCaption = 'Field,Constant';
             OptionMembers = Champ,Constante;
+            DataClassification = CustomerContent;
         }
         field(21; "Constant Value"; Text[30])
         {
             Caption = 'Constant Value';
+            DataClassification = CustomerContent;
         }
     }
 

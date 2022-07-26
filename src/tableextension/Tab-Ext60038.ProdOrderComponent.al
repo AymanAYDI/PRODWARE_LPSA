@@ -32,6 +32,7 @@ tableextension 60038 "PWD ProdOrderComponent" extends "Prod. Order Component"
         {
             Caption = 'Lot Determining';
             Description = 'LAP1.00';
+            DataClassification = CustomerContent;
 
             trigger OnValidate()
             var
@@ -83,6 +84,7 @@ tableextension 60038 "PWD ProdOrderComponent" extends "Prod. Order Component"
         {
             Caption = 'From the same Lot';
             Description = 'LAP1.00';
+            DataClassification = CustomerContent;
         }
     }
 

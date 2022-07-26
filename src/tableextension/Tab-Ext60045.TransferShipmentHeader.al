@@ -15,6 +15,7 @@ tableextension 60045 "PWD TransferShipmentHeader" extends "Transfer Shipment Hea
             Caption = 'Sales Order No.';
             Description = 'LAP2.00';
             Editable = false;
+            DataClassification = CustomerContent;
         }
     }
 }

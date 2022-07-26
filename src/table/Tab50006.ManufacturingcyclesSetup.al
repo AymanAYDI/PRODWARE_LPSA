@@ -12,6 +12,7 @@ table 50006 "PWD Manufacturing cycles Setup"
 
     Caption = 'Manufacturig cycles Setup';
     LookupPageID = "PWD Manuf. cycles Setup - List";
+    DataClassification = CustomerContent;
 
     fields
     {
@@ -20,6 +21,7 @@ table 50006 "PWD Manufacturing cycles Setup"
             Caption = 'Type';
             OptionCaption = 'Work Center,Machine Center';
             OptionMembers = "Work Center","Machine Center";
+            DataClassification = CustomerContent;
 
             trigger OnValidate()
             begin
@@ -60,6 +62,7 @@ table 50006 "PWD Manufacturing cycles Setup"
             TableRelation = IF (Type = CONST("Work Center")) "Work Center"
             ELSE
             IF (Type = CONST("Machine Center")) "Machine Center";
+            DataClassification = CustomerContent;
 
             trigger OnValidate()
             begin
@@ -99,45 +102,53 @@ table 50006 "PWD Manufacturing cycles Setup"
         {
             Caption = 'Item Code';
             TableRelation = Item;
+            DataClassification = CustomerContent;
         }
         field(4; Name; Text[30])
         {
             Caption = 'Name';
             Editable = false;
             FieldClass = Normal;
+            DataClassification = CustomerContent;
         }
         field(5; "Item Category Code"; Code[10])
         {
             Caption = 'Item Category Code';
             TableRelation = "Item Category";
+            DataClassification = CustomerContent;
         }
         field(12; "Setup Time"; Decimal)
         {
             Caption = 'Setup Time';
             DecimalPlaces = 0 : 5;
             MinValue = 0;
+            DataClassification = CustomerContent;
         }
         field(13; "Run Time"; Decimal)
         {
             Caption = 'Run Time';
             DecimalPlaces = 0 : 5;
             MinValue = 0;
+            DataClassification = CustomerContent;
         }
         field(19; "Setup Time Unit of Meas. Code"; Code[10])
         {
             Caption = 'Setup Time Unit of Meas. Code';
             Editable = false;
             TableRelation = "Capacity Unit of Measure";
+            DataClassification = CustomerContent;
         }
         field(20; "Run Time Unit of Meas. Code"; Code[10])
         {
             Caption = 'Run Time Unit of Meas. Code';
             Editable = false;
             TableRelation = "Capacity Unit of Measure";
+            DataClassification = CustomerContent;
         }
         field(21; "Maximun Quantity by cycle"; Decimal)
         {
             Caption = 'Maximun Quantity by cycle';
+            DataClassification = CustomerContent;
 
             trigger OnValidate()
             begin
@@ -151,6 +162,7 @@ table 50006 "PWD Manufacturing cycles Setup"
         {
             Caption = 'Units of Measure';
             TableRelation = "Item Unit of Measure".Code WHERE("Item No." = FIELD("Item Code"));
+            DataClassification = CustomerContent;
 
             trigger OnValidate()
             begin
@@ -164,6 +176,7 @@ table 50006 "PWD Manufacturing cycles Setup"
         {
             Caption = 'Maximun Qty by cycle (Base)';
             Editable = false;
+            DataClassification = CustomerContent;
         }
     }
 

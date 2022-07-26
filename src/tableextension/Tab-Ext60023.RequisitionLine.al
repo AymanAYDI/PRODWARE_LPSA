@@ -25,26 +25,31 @@ tableextension 60023 "PWD RequisitionLine" extends "Requisition Line"
         {
             Caption = 'Original Source Id';
             Description = 'LAP1.00';
+            DataClassification = CustomerContent;
         }
         field(50001; "PWD Original Source No."; Code[20])
         {
             Caption = 'Original Source No.';
             Description = 'LAP1.00';
+            DataClassification = CustomerContent;
         }
         field(50002; "PWD Original Source Position"; Integer)
         {
             Caption = 'Original Source Position';
             Description = 'LAP1.00';
+            DataClassification = CustomerContent;
         }
         field(50003; "PWD Original Counter"; Integer)
         {
             Caption = 'Original Counter';
             Description = 'LAP1.00';
+            DataClassification = CustomerContent;
         }
         field(50004; "PWD Transmitted Order No."; Boolean)
         {
             Caption = 'Transmitted Order No.';
             Description = 'LAP1.00';
+            DataClassification = CustomerContent;
         }
         field(50005; "PWD Order Multiple"; Decimal)
         {
@@ -58,6 +63,7 @@ tableextension 60023 "PWD RequisitionLine" extends "Requisition Line"
         {
             Caption = 'Product Group Code';
             TableRelation = "PWD Product Group".Code WHERE("Item Category Code" = FIELD("Item Category Code"));
+            DataClassification = CustomerContent;
         }
     }
     keys

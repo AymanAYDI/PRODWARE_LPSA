@@ -13,7 +13,7 @@ tableextension 60062 "PWD PurchaseCue" extends "Purchase Cue"
         }
         field(50001; "PWD UserID Filter"; Code[20])
         {
-            caption='User ID Filter';
+            caption = 'User ID Filter';
             FieldClass = FlowFilter;
         }
     }

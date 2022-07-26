@@ -19,6 +19,7 @@ tableextension 60042 "PWD ItemCategory" extends "Item Category"
         {
             Caption = 'Transmitted Order No.';
             Description = 'LAP1.00';
+            DataClassification = CustomerContent;
         }
     }
 }

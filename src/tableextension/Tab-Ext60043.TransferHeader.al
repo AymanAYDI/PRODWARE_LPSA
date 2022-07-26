@@ -19,6 +19,7 @@ tableextension 60043 "PWD TransferHeader" extends "Transfer Header"
             Caption = 'Sales Order No.';
             Description = 'LAP2.00';
             TableRelation = "Sales Header"."No." WHERE("Document Type" = CONST(Order));
+            DataClassification = CustomerContent;
 
             trigger OnValidate()
             var

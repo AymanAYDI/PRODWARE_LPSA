@@ -20,6 +20,7 @@ tableextension 60056 "PWD SalesPrice" extends "Sales Price"
         {
             Caption = 'Fixed Price';
             Description = 'LAP1.00';
+            DataClassification = CustomerContent;
         }
         field(50001; "PWD Search Description"; Code[100])
         {

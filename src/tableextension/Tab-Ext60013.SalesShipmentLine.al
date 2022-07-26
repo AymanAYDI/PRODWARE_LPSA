@@ -30,35 +30,42 @@ tableextension 60013 "PWD SalesShipmentLine" extends "Sales Shipment Line"
         {
             Caption = 'LPSA Description 1';
             Description = 'LAP1.00';
+            DataClassification = CustomerContent;
         }
         field(50005; "PWD LPSA Description 2"; Text[120])
         {
             Caption = 'LPSA Description 2';
             Description = 'LAP1.00';
+            DataClassification = CustomerContent;
         }
         field(50006; "PWD Scrap Quantity"; Decimal)
         {
             Caption = 'Scrap Quantity';
+            DataClassification = CustomerContent;
         }
         field(50007; "PWD Initial Shipment Date"; Date)
         {
             Caption = 'Initial Shipment Date';
+            DataClassification = CustomerContent;
         }
         field(50008; "PWD Cust Promised Deliv. Date"; Date)
         {
             Caption = 'Customer Promised Delivery Date';
             Description = 'TDL.LPSA';
+            DataClassification = CustomerContent;
         }
         field(50009; "PWD Product Group Code"; Code[10])
         {
             Caption = 'Product Group Code';
             TableRelation = "PWD Product Group".Code WHERE("Item Category Code" = FIELD("Item Category Code"));
+            DataClassification = CustomerContent;
         }
         field(8073283; "PWD WMS_Status_Header"; Enum "PWD WMS_Status_Header")
         {
             Caption = 'Status';
             Description = 'ProdConnect1.5';
             Editable = false;
+            DataClassification = CustomerContent;
         }
         field(8073284; "PWD WMS_Item"; Boolean)
         {

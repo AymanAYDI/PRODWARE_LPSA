@@ -8,7 +8,7 @@ pageextension 60155 "PWD DemandForecastNames" extends "Demand Forecast Names"
             var
                 DemandForecast: Page "PWD Demand Forecast";
             begin
-                DemandForecast.SetProductionForecastName(Name);
+                DemandForecast.SetProductionForecastName(Rec.Name);
                 DemandForecast.Run();
             end;
         }
@@ -33,7 +33,7 @@ pageextension 60155 "PWD DemandForecastNames" extends "Demand Forecast Names"
                 var
                     DemandForecast: Page "PWD Demand Forecast";
                 begin
-                    DemandForecast.SetProductionForecastName(Name);
+                    DemandForecast.SetProductionForecastName(Rec.Name);
                     DemandForecast.Run();
                 end;
             }

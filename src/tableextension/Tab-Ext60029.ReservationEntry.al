@@ -18,6 +18,7 @@ tableextension 60029 "PWD ReservationEntry" extends "Reservation Entry"
             caption = 'NC';
             Description = 'LAP2.05';
             Editable = false;
+            DataClassification = CustomerContent;
         }
     }
     keys

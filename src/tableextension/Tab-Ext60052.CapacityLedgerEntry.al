@@ -21,6 +21,7 @@ tableextension 60052 "PWD CapacityLedgerEntry" extends "Capacity Ledger Entry"
             Caption = 'Quartis Comment';
             Description = 'LAP1.00';
             TableRelation = "PWD Quartis Comment".Code;
+            DataClassification = CustomerContent;
         }
     }
     keys

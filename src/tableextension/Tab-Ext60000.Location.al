@@ -23,6 +23,7 @@ tableextension 60000 "PWD Location" extends Location
             Caption = 'Planning Wksh. Template';
             Description = 'LAP2.05';
             TableRelation = "Req. Wksh. Template" WHERE(Type = CONST(Planning));
+            DataClassification = CustomerContent;
 
             trigger OnValidate()
             begin
@@ -36,6 +37,7 @@ tableextension 60000 "PWD Location" extends Location
         {
             Caption = 'Planning Wksh. Name';
             Description = 'LAP2.05';
+            DataClassification = CustomerContent;
 
             trigger OnLookup()
             var
@@ -55,6 +57,7 @@ tableextension 60000 "PWD Location" extends Location
         {
             Caption = 'WMS_Location';
             Description = 'ProdConnect1.5';
+            DataClassification = CustomerContent;
         }
     }
 }

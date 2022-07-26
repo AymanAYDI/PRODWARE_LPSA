@@ -49,6 +49,7 @@ tableextension 60009 "PWD PurchaseLine" extends "Purchase Line"
         {
             Caption = 'LPSA Description 1';
             Description = 'LAP1.00';
+            DataClassification = CustomerContent;
 
             trigger OnValidate()
             begin
@@ -64,6 +65,7 @@ tableextension 60009 "PWD PurchaseLine" extends "Purchase Line"
         {
             Caption = 'LPSA Description 2';
             Description = 'LAP1.00';
+            DataClassification = CustomerContent;
 
             trigger OnValidate()
             begin
@@ -86,16 +88,19 @@ tableextension 60009 "PWD PurchaseLine" extends "Purchase Line"
         {
             Caption = 'Budgeted';
             Description = 'TDL.LPSA';
+            DataClassification = CustomerContent;
         }
         field(50008; "PWD Product Group Code"; Code[10])
         {
             Caption = 'Product Group Code';
             TableRelation = "PWD Product Group".Code WHERE("Item Category Code" = FIELD("Item Category Code"));
+            DataClassification = CustomerContent;
         }
         field(8073282; "PWD WMS_Status"; Enum "PWD WMS_Status")
         {
             Caption = 'WMS_Status';
             Description = 'ProdConnect1.5';
+            DataClassification = CustomerContent;
         }
         field(8073283; "PWD WMS_Status_Header"; Enum "Purchase Document Status")
         {
@@ -126,12 +131,14 @@ tableextension 60009 "PWD PurchaseLine" extends "Purchase Line"
             Caption = 'WMS_Quantity on Receipt Error (Base)';
             Description = 'ProdConnect1.5';
             Editable = false;
+            DataClassification = CustomerContent;
         }
         field(8073287; "PWD WMS_Reason Code Rece. Err"; Code[2])
         {
             Caption = 'WMS_Reason Code Receipt Error';
             Description = 'ProdConnect1.5';
             Editable = false;
+            DataClassification = CustomerContent;
         }
     }
     trigger OnInsert()

@@ -235,7 +235,7 @@ report 50024 "PWD Update Rtg Line Global"
                         RecLProdOrderLine.SetRange("Routing Reference No.", "Prod. Order Routing Line"."Routing Reference No.");
                         if RecLProdOrderLine.Find('-') then
                             repeat
-                                    RecLProdOrderLine."PWD To Be Updated" := true;
+                                RecLProdOrderLine."PWD To Be Updated" := true;
                                 RecLProdOrderLine.Modify(false);
                             until RecLProdOrderLine.Next() = 0;
                     end;

@@ -16,11 +16,13 @@ tableextension 60035 "PWD ItemUnitofMeasure" extends "Item Unit of Measure"
         field(8073282; "PWD WMS_Type"; Enum "PWD WMS_Type")
         {
             Caption = 'WMS_Type';
+            DataClassification = CustomerContent;
         }
         field(8073283; "PWD WMS_Stackable"; Boolean)
         {
             Caption = 'WMS_Stackable';
             InitValue = true;
+            DataClassification = CustomerContent;
         }
         field(8073284; "PWD WMS_Item"; Boolean)
         {
@@ -32,6 +34,7 @@ tableextension 60035 "PWD ItemUnitofMeasure" extends "Item Unit of Measure"
         {
             Caption = 'Logistics unit lower';
             TableRelation = "Item Unit of Measure".Code WHERE("Item No." = FIELD("Item No."));
+            DataClassification = CustomerContent;
         }
     }
 }

@@ -52,24 +52,29 @@ tableextension 60036 "PWD ProductionOrder" extends "Production Order"
         {
             Caption = 'Transmitted Order No.';
             Description = 'LAP1.00';
+            DataClassification = CustomerContent;
         }
         field(50001; "PWD Original Source No."; Code[20])
         {
             Caption = 'Original Source No.';
             Description = 'LAP1.00';
+            DataClassification = CustomerContent;
         }
         field(50002; "PWD Original Source Position"; Integer)
         {
             Caption = 'Original Source Position';
             Description = 'LAP1.00';
+            DataClassification = CustomerContent;
         }
         field(50003; "PWD Selection"; Boolean)
         {
+            DataClassification = CustomerContent;
         }
         field(50006; "PWD Indicator"; BLOB)
         {
             Caption = 'Component availability';
             SubType = Bitmap;
+            DataClassification = CustomerContent;
         }
         field(50007; "PWD Delay"; Integer)
         {
@@ -105,11 +110,13 @@ tableextension 60036 "PWD ProductionOrder" extends "Production Order"
         {
             Caption = 'Component No.';
             Editable = false;
+            DataClassification = CustomerContent;
         }
         field(50020; "PWD Source Material Vendor"; Enum "PWD Source Material Vendor")
         {
             Caption = 'Source Material Vendor';
             Description = 'LAP2.12';
+            DataClassification = CustomerContent;
         }
     }
     keys

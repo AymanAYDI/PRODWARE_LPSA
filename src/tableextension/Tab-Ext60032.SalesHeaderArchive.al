@@ -27,26 +27,31 @@ tableextension 60032 "PWD SalesHeaderArchive" extends "Sales Header Archive"
             Caption = 'Confirmed';
             Description = 'LAP1.00';
             Editable = false;
+            DataClassification = CustomerContent;
         }
         field(50001; "PWD Planned"; Boolean)
         {
             Caption = 'Planned';
             Description = 'LAP1.00';
             Editable = false;
+            DataClassification = CustomerContent;
         }
         field(50005; "PWD Validity Quote Date"; Date)
         {
             Caption = 'Validity Quote Date';
             Description = 'TDL.LPSA';
+            DataClassification = CustomerContent;
         }
         field(8073282; "PWD Order No. From Partner"; Code[20])
         {
             Caption = 'Order No. From Partner';
+            DataClassification = CustomerContent;
         }
         field(8073283; "PWD WMS_Status"; Enum "PWD WMS_Status")
         {
             Caption = 'WMS_Status';
             Description = 'ProdConnect1.5';
+            DataClassification = CustomerContent;
         }
     }
 }

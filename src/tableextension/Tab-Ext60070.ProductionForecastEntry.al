@@ -17,6 +17,7 @@ tableextension 60070 "PWD ProductionForecastEntry" extends "Production Forecast 
             Caption = 'Customer No.';
             Description = 'LAP080615';
             TableRelation = Customer;
+            DataClassification = CustomerContent;
         }
         field(50001; "PWD Customer Name"; Text[100])
         {
@@ -30,6 +31,7 @@ tableextension 60070 "PWD ProductionForecastEntry" extends "Production Forecast 
         {
             Caption = 'Forecast Origin';
             Description = 'REGIE';
+            DataClassification = CustomerContent;
         }
     }
     keys

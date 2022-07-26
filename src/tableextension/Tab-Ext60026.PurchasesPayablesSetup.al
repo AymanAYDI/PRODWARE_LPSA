@@ -16,11 +16,13 @@ tableextension 60026 "PWD PurchasesPayablesSetup" extends "Purchases & Payables 
             Caption = 'Subcontracting Order Series No';
             Description = 'LAP2.12';
             TableRelation = "No. Series";
+            DataClassification = CustomerContent;
         }
         field(50001; "PWD Subcontracting Legal Text"; Text[250])
         {
             Caption = 'Subcontracting Legal Text';
             Description = 'LAP2.12';
+            DataClassification = CustomerContent;
         }
     }
 }

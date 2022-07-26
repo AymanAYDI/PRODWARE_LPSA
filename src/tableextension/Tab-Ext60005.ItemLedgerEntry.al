@@ -30,6 +30,7 @@ tableextension 60005 "PWD ItemLedgerEntry" extends "Item Ledger Entry"
         {
             Description = 'LAP2.05';
             Editable = false;
+            DataClassification = CustomerContent;
         }
         field(50001; "PWD Designation LPSA1"; Text[120])
         {
@@ -56,6 +57,7 @@ tableextension 60005 "PWD ItemLedgerEntry" extends "Item Ledger Entry"
         {
             Caption = 'Product Group Code';
             TableRelation = "PWD Product Group".Code WHERE("Item Category Code" = FIELD("Item Category Code"));
+            DataClassification = CustomerContent;
         }
     }
     keys

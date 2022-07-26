@@ -20,6 +20,7 @@ tableextension 60044 "PWD TransferLine" extends "Transfer Line"
         {
             Caption = 'LPSA Description 1';
             Description = 'LAP1.00';
+            DataClassification = CustomerContent;
 
             trigger OnValidate()
             begin
@@ -35,6 +36,7 @@ tableextension 60044 "PWD TransferLine" extends "Transfer Line"
         {
             Caption = 'LPSA Description 2';
             Description = 'LAP1.00';
+            DataClassification = CustomerContent;
 
             trigger OnValidate()
             begin
@@ -50,6 +52,7 @@ tableextension 60044 "PWD TransferLine" extends "Transfer Line"
         {
             Caption = 'Product Group Code';
             TableRelation = "PWD Product Group".Code WHERE("Item Category Code" = FIELD("Item Category Code"));
+            DataClassification = CustomerContent;
         }
     }
 

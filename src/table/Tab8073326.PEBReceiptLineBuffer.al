@@ -11,6 +11,7 @@ table 8073326 "PWD PEB Receipt Line Buffer"
     // +----------------------------------------------------------------------------------------------------------------+
 
     Caption = 'PEB Receipt Line Buffer';
+    DataClassification = CustomerContent;
 
     fields
     {
@@ -18,6 +19,7 @@ table 8073326 "PWD PEB Receipt Line Buffer"
         {
             Caption = 'Entry No.';
             Editable = false;
+            DataClassification = CustomerContent;
         }
     }
 
