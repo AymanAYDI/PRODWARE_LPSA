@@ -5,7 +5,7 @@ table 50021 "PWD Item Link"
 
     fields
     {
-        field(1; "No."; Integer)
+        field(1; "No."; BigInteger)
         {
             Caption = 'No.';
             AutoIncrement = true;

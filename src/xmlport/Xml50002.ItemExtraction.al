@@ -297,7 +297,7 @@ xmlport 50002 "PWD Item Extraction"
                     {
                         trigger onbeforePassvariable();
                         begin
-                            LPSADescription2 := AsciiToAnsi(Item."PWD LPSA Description 1");
+                            LPSADescription2 := AsciiToAnsi(Item."PWD LPSA Description 2");
                         end;
                     }
                     textelement(SearchDescription)
@@ -512,7 +512,7 @@ xmlport 50002 "PWD Item Extraction"
                     {
                         trigger onbeforePassvariable()
                         begin
-                            RecGMachineCenterName := NameV;
+                            RecGMachineCenterName := NameV2;
                         end;
                     }
                     textelement(Capacity)

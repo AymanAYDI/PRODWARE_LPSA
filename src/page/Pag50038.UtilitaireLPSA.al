@@ -12,8 +12,8 @@ page 50038 "PWD Utilitaire LPSA"
             action(Action1)
             {
                 Caption = 'Item Extraction';
-                //RunObject = report "PWD Item Extraction"; 
-                RunObject = xmlport "PWD Item Extraction";
+                RunObject = report "PWD Item Extraction";
+                // RunObject = xmlport "PWD Item Extraction";
                 ApplicationArea = All;
                 Image = AllocatedCapacity;
             }
