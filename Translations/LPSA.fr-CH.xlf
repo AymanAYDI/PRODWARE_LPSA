@@ -3579,6 +3579,12 @@
           <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">Table PWD Item Link - Property Caption</note>
         </trans-unit>
+        <trans-unit id="Table 2552687530 - Field 1407200743 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Creation Date</source>
+          <target state="translated">Date de création</target>
+          <note from="Developer" annotates="general" priority="2"/>
+          <note from="Xliff Generator" annotates="general" priority="3">Table PWD Item Link - Field Creation Date - Property Caption</note>
+        </trans-unit>
         <trans-unit id="Table 2552687530 - Field 3461834954 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Description</source>
           <target state="translated">Description</target>
@@ -3602,6 +3608,12 @@
           <target state="translated">URL</target>
           <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">Table PWD Item Link - Field URL - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 2552687530 - Field 3776794752 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>User Id</source>
+          <target state="translated">Code utilisateur</target>
+          <note from="Developer" annotates="general" priority="2"/>
+          <note from="Xliff Generator" annotates="general" priority="3">Table PWD Item Link - Field User Id - Property Caption</note>
         </trans-unit>
         <trans-unit id="Table 3054282611 - Field 1037119892 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Item Category Code</source>
@@ -8184,7 +8196,6 @@
         <trans-unit id="Page 863813965 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Document Link</source>
           <target state="translated">Lien Document</target>
-          <note from="XLIFF Sync" annotates="general" priority="1">Source text has changed. Please review the translation.</note>
           <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">Page PWD Link - Property Caption</note>
         </trans-unit>
@@ -8214,7 +8225,7 @@
         </trans-unit>
         <trans-unit id="Page 863813965 - Action 1811216224 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Import File</source>
-          <target state="needs-adaptation">sélectionnez Fichier</target>
+          <target state="translated">Import fichier</target>
           <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">Page PWD Link - Action New Link - Property Caption</note>
         </trans-unit>
@@ -15022,30 +15033,6 @@
           <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">XmlPort PWD Item Extraction - XmlPortNode txtType2 - Method OnBeforePassVariable - NamedType txt</note>
         </trans-unit>
-        <trans-unit id="XmlPort 3746294669 - XmlPortNode 4115008029 - Method 828199545 - NamedType 219424772" size-unit="char" translate="yes" xml:space="preserve">
-          <source/>
-          <target state="needs-translation"/>
-          <note from="Developer" annotates="general" priority="2"/>
-          <note from="Xliff Generator" annotates="general" priority="3">XmlPort PWD Item Extraction - XmlPortNode txtType3 - Method OnBeforePassVariable - NamedType txt</note>
-        </trans-unit>
-        <trans-unit id="XmlPort 3746294669 - XmlPortNode 926524944 - Method 828199545 - NamedType 219424772" size-unit="char" translate="yes" xml:space="preserve">
-          <source/>
-          <target state="needs-translation"/>
-          <note from="Developer" annotates="general" priority="2"/>
-          <note from="Xliff Generator" annotates="general" priority="3">XmlPort PWD Item Extraction - XmlPortNode txtType4 - Method OnBeforePassVariable - NamedType txt</note>
-        </trans-unit>
-        <trans-unit id="XmlPort 3746294669 - XmlPortNode 288828327 - Method 828199545 - NamedType 219424772" size-unit="char" translate="yes" xml:space="preserve">
-          <source/>
-          <target state="needs-translation"/>
-          <note from="Developer" annotates="general" priority="2"/>
-          <note from="Xliff Generator" annotates="general" priority="3">XmlPort PWD Item Extraction - XmlPortNode txtType5 - Method OnBeforePassVariable - NamedType txt</note>
-        </trans-unit>
-        <trans-unit id="XmlPort 3746294669 - XmlPortNode 2201918178 - Method 828199545 - NamedType 219424772" size-unit="char" translate="yes" xml:space="preserve">
-          <source/>
-          <target state="needs-translation"/>
-          <note from="Developer" annotates="general" priority="2"/>
-          <note from="Xliff Generator" annotates="general" priority="3">XmlPort PWD Item Extraction - XmlPortNode txtType6 - Method OnBeforePassVariable - NamedType txt</note>
-        </trans-unit>
         <trans-unit id="XmlPort 1838925353 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Items Export OSYS</source>
           <target state="translated">Export des articles OSYS</target>
@@ -15747,6 +15734,12 @@
           <target state="translated">Instructions Méthodes et Qualité Gamme</target>
           <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">PageExtension PWD RoutingTools - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="PageExtension 3648635145 - Control 2907299409 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 2764491992">
+          <source>Date Filter</source>
+          <target state="needs-translation"/>
+          <note from="Developer" annotates="general" priority="2"/>
+          <note from="Xliff Generator" annotates="general" priority="3">PageExtension PWD SalesAnalysisReport - Control PWD DateFilter - Property Caption</note>
         </trans-unit>
         <trans-unit id="PageExtension 208220078 - Control 3238211447 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 4034894651">
           <source>Customer Comment</source>

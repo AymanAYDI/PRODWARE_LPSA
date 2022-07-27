@@ -1,4 +1,4 @@
-pageextension 60081 "pageextension50075" extends "Posted Transfer Shipment Lines"
+pageextension 60081 "PWD PostedTransShipLines" extends "Posted Transfer Shipment Lines"
 {
     // +----------------------------------------------------------------------------------------------------------------+
     // | ProdWare                                                                                                       |
