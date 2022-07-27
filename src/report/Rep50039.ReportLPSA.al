@@ -22,7 +22,9 @@ report 50039 "PWD ReportLPSA"
                         ItemLink.URL := RecordLink.URL1;
                         ItemLink.Description := RecordLink.Description;
                         ItemLink."Item No." := Item."No.";
-                        ItemLink.Insert(true);
+                        ItemLink."User Id" := RecordLink."User ID";
+                        ItemLink."Creation Date" := RecordLink.Created;
+                        ItemLink.Insert();
                     until RecordLink.Next() = 0
             end;
         }

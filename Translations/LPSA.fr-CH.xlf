@@ -3581,7 +3581,7 @@
         </trans-unit>
         <trans-unit id="Table 2552687530 - Field 1407200743 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Creation Date</source>
-          <target state="translated">Date de création</target>
+          <target state="translated">Créé</target>
           <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">Table PWD Item Link - Field Creation Date - Property Caption</note>
         </trans-unit>
@@ -3605,7 +3605,7 @@
         </trans-unit>
         <trans-unit id="Table 2552687530 - Field 3003898253 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>URL</source>
-          <target state="translated">URL</target>
+          <target state="translated">Adresse du lien</target>
           <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">Table PWD Item Link - Field URL - Property Caption</note>
         </trans-unit>

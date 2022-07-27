@@ -14,7 +14,6 @@ page 50030 "PWD Link"
             {
                 field(URL; Rec.URL)
                 {
-                    ShowCaption = false;
                     ApplicationArea = All;
                     ToolTip = 'Specifies the value of the URL field.';
                     trigger OnDrillDown()
@@ -33,6 +32,18 @@ page 50030 "PWD Link"
                         end;
                     end;
 
+                }
+                Field(Description; Rec.Description)
+                {
+                    ApplicationArea = All;
+                }
+                Field(CreationDate; Rec."Creation Date")
+                {
+                    ApplicationArea = All;
+                }
+                Field(UserId; Rec."User Id")
+                {
+                    ApplicationArea = All;
                 }
             }
         }
