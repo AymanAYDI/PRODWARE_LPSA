@@ -2983,6 +2983,11 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Table PWD Item Link - Property Caption</note>
         </trans-unit>
+        <trans-unit id="Table 2552687530 - Field 1407200743 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Creation Date</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table PWD Item Link - Field Creation Date - Property Caption</note>
+        </trans-unit>
         <trans-unit id="Table 2552687530 - Field 3461834954 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Description</source>
           <note from="Developer" annotates="general" priority="2"></note>
@@ -3002,6 +3007,11 @@
           <source>URL</source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Table PWD Item Link - Field URL - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 2552687530 - Field 3776794752 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>User Id</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table PWD Item Link - Field User Id - Property Caption</note>
         </trans-unit>
         <trans-unit id="Table 3054282611 - Field 1037119892 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Item Category Code</source>
@@ -13102,6 +13112,11 @@
           <source>Routing Tools</source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">PageExtension PWD RoutingTools - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="PageExtension 3648635145 - Control 2907299409 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 2764491992">
+          <source>Date Filter</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">PageExtension PWD SalesAnalysisReport - Control PWD DateFilter - Property Caption</note>
         </trans-unit>
         <trans-unit id="PageExtension 208220078 - Control 3238211447 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 4034894651">
           <source>Customer Comment</source>

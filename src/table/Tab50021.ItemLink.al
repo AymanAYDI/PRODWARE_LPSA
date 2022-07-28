@@ -26,6 +26,16 @@ table 50021 "PWD Item Link"
             Caption = 'Description';
             DataClassification = CustomerContent;
         }
+        field(5; "User Id"; Code[50])
+        {
+            Caption = 'User Id';
+            DataClassification = CustomerContent;
+        }
+        field(6; "Creation Date"; DateTime)
+        {
+            Caption = 'Creation Date';
+            DataClassification = CustomerContent;
+        }
     }
     keys
     {
@@ -34,4 +44,9 @@ table 50021 "PWD Item Link"
             Clustered = true;
         }
     }
+    trigger OnInsert()
+    begin
+        Rec."User Id" := UserId;
+        Rec."Creation Date" := CreateDateTime(Today, Time);
+    end;
 }
