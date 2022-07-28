@@ -302,15 +302,6 @@ report 50035 "PWD Item Extraction"
                     {
                         Caption = 'Fichier à exporter';
                         ApplicationArea = All;
-                        // trigger OnDrillDown()
-                        // var
-                        //     FileMgt: codeunit "File Management";
-                        //     TempBlob: Codeunit "Temp Blob";
-                        //     FileName: Text;
-                        // begin
-                        //     FileMgt.BLOBExport(TempBlob, FileName, true);
-                        //     TxtGFileName := FileName;
-                        // end;
                     }
                 }
             }
@@ -328,17 +319,16 @@ report 50035 "PWD Item Extraction"
     trigger OnPostReport()
     begin
         MyFile.Close();
+        FileMgt.DownloadHandler(ServerFileName, '', '', '', TxtGFileName);
         Message('Traitement terminé');
     end;
 
     trigger OnPreReport()
     begin
-        if TxtGFileName = '' then
-            Error(CstG010);
-
-        if not MyFile.Create(TxtGFileName) then begin
-            Erase(TxtGFileName);
-            MyFile.Create(TxtGFileName);
+        ServerFileName := FileMgt.ServerTempFileName('csv');
+        if not MyFile.Create(ServerFileName) then begin
+            Erase(ServerFileName);
+            MyFile.Create(ServerFileName);
         end;
         MyFile.CreateOutStream(TestOutStream);
     end;
@@ -348,6 +338,7 @@ report 50035 "PWD Item Extraction"
         RecGItemConfigurator: Record "PWD Item Configurator";
         RecGWorkCenter: Record "Work Center";
         CduGVersionMgt: Codeunit VersionManagement;
+        FileMgt: Codeunit "File Management";
         Finded: Boolean;
         ANSIChar: array[255] of Char;
         ASCIIChar: Char;
@@ -366,6 +357,7 @@ report 50035 "PWD Item Extraction"
         CstG010: Label 'Merci de spécifier un fichier d''export';
         TestOutStream: OutStream;
         TxtGFileName: Text[1024];
+        ServerFileName: Text[1024];
 
 
     procedure AsciiToAnsi(TextAscii: Text[250]) TextAnsi: Text[250]
