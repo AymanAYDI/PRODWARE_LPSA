@@ -320,6 +320,7 @@ report 50035 "PWD Item Extraction"
     begin
         MyFile.Close();
         FileMgt.DownloadHandler(ServerFileName, '', '', '', TxtGFileName);
+        FileMgt.DeleteServerFile(ServerFileName);
         Message('Traitement terminé');
     end;
 
