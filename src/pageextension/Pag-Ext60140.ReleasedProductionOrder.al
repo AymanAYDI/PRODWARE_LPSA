@@ -91,19 +91,8 @@ pageextension 60140 "PWD ReleasedProductionOrder" extends "Released Production O
                 PromotedCategory = Process;
                 ApplicationArea = All;
                 trigger OnAction()
-                var
-                    RecordLink: Record "Record Link";
-                    Item: Record Item;
                 begin
-                    if Rec."Source Type" = Rec."Source Type"::Item then begin
-                        Item.Get(Rec."Source No.");
-                        RecordLink.SetRange("Record ID", Item.RecordId);
-                        //RecordLink.SetRange("No.", Rec."Source No.");
-                        if RecordLink.FindSet() then
-                            repeat
-                            //Rec.FctPrintPDF(True, RecordLink);
-                            until RecordLink.Next() = 0;
-                    end;
+                    Rec.FctPrintPDF();
                 end;
             }
         }

@@ -39,23 +39,10 @@ dotnet
         {
         }
     }
-    // assembly("System.Diagnostics.Process")
-    // {
-    //     Version = '4.0.0.0';
-    //     Culture = 'neutral';
-    //     PublicKeyToken = 'b03f5f7f11d50a3a';
-    // }
-
-    // assembly("System.xml")
-    // {
-    //     Version = '4.0.0.0';
-    //     Culture = 'neutral';
-    //     PublicKeyToken = 'b77a5c561934e089';
-
-    //     type("System.Xml.XmlDocument"; SystemXmlDocument) { }
-    //     type("System.Xml.XmlNode"; SystemXmlNode) { }
-    //     type("System.Xml.XmlNodeList"; SystemXmlNodeList) { }
-    //     type("System.Xml.XmlNodeType"; SystemXmlNodeType) { }
-    //     type("System.Xml.XmlNamedNodeMap"; SystemXmlNamedNodeMap) { }
-    // }
+    assembly(Prodware.Dynamics.Nav.PrintPDF)
+    {
+        type("Prodware.Dynamics.Nav.PrintPDF.PrintPDF"; "PWD PrintPDF")
+        {
+        }
+    }
 }
