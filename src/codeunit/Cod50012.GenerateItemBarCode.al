@@ -7,7 +7,7 @@ codeunit 50012 "PWD GenerateItemBarCode"
     begin
         if not GetJsonValue(JSonObject, Property, JsonValue) then
             exit;
-        Value := JsonValue.AsText;
+        Value := JsonValue.AsText();
     end;
 
     procedure GetJsonValue(var JSonObject: JsonObject; Property: Text; var JsonValue: JsonValue): Boolean

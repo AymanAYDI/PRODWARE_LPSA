@@ -89,7 +89,7 @@ table 50019 "PWD BarCode"
 
     trigger OnInsert();
     begin
-        PrimaryKey := CreateGuid;
+        PrimaryKey := CreateGuid();
     end;
 
     procedure Fct_GenerateBarcode()

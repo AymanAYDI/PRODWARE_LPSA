@@ -8298,35 +8298,45 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Report PWD Customer - Order Detail - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Report 2810203791 - NamedType 898801070" size-unit="char" translate="yes" xml:space="preserve">
+        <trans-unit id="Report 2810203791 - NamedType 1929534223" size-unit="char" translate="yes" xml:space="preserve">
           <source>All amounts are in LCY</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Report PWD Customer - Order Detail - NamedType AllAmtAreInLCYCaptionLbl</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report PWD Customer - Order Detail - NamedType All_amounts_are_in_LCYCaptionLbl</note>
         </trans-unit>
-        <trans-unit id="Report 2810203791 - NamedType 3929036822" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Customer - Order Detail</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Report PWD Customer - Order Detail - NamedType CustOrderDetailCaptionLbl</note>
-        </trans-unit>
-        <trans-unit id="Report 2810203791 - NamedType 718540805" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Outstanding Orders</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Report PWD Customer - Order Detail - NamedType OutstandingOrdersCaptionLbl</note>
-        </trans-unit>
-        <trans-unit id="Report 2810203791 - NamedType 650077689" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Page</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Report PWD Customer - Order Detail - NamedType PageCaptionLbl</note>
-        </trans-unit>
-        <trans-unit id="Report 2810203791 - NamedType 146360344" size-unit="char" translate="yes" xml:space="preserve">
+        <trans-unit id="Report 2810203791 - NamedType 1089159803" size-unit="char" translate="yes" xml:space="preserve">
           <source>Quantity on Back Order</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Report PWD Customer - Order Detail - NamedType QtyOnBackOrderCaptionLbl</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report PWD Customer - Order Detail - NamedType BackOrderQty_Control40CaptionLbl</note>
         </trans-unit>
-        <trans-unit id="Report 2810203791 - NamedType 4217840372" size-unit="char" translate="yes" xml:space="preserve">
+        <trans-unit id="Report 2810203791 - NamedType 1987762555" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Page</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report PWD Customer - Order Detail - NamedType CurrReport_PAGENOCaptionLbl</note>
+        </trans-unit>
+        <trans-unit id="Report 2810203791 - NamedType 1502565993" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Customer - Order Detail</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report PWD Customer - Order Detail - NamedType Customer___Order_DetailCaptionLbl</note>
+        </trans-unit>
+        <trans-unit id="Report 2810203791 - NamedType 1047199510" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Order No.</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report PWD Customer - Order Detail - NamedType SalesHeader__No__CaptionLbl</note>
+        </trans-unit>
+        <trans-unit id="Report 2810203791 - NamedType 4180925669" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Order No.</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report PWD Customer - Order Detail - NamedType SalesHeader__No___Control32CaptionLbl</note>
+        </trans-unit>
+        <trans-unit id="Report 2810203791 - NamedType 3822725898" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Outstanding Orders</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report PWD Customer - Order Detail - NamedType SalesOrderAmount_Control44CaptionLbl</note>
+        </trans-unit>
+        <trans-unit id="Report 2810203791 - NamedType 4245619506" size-unit="char" translate="yes" xml:space="preserve">
           <source>Shipment Date</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Report PWD Customer - Order Detail - NamedType ShipmentDateCaptionLbl</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report PWD Customer - Order Detail - NamedType Sales_Line__Shipment_Date__Control34CaptionLbl</note>
         </trans-unit>
         <trans-unit id="Report 2810203791 - NamedType 2476940767" size-unit="char" translate="yes" xml:space="preserve">
           <source>Shipment Date: %1</source>
@@ -8338,35 +8348,125 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Report PWD Customer - Order Detail - NamedType Text001</note>
         </trans-unit>
+        <trans-unit id="Report 2810203791 - NamedType 3752334001" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Data</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report PWD Customer - Order Detail - NamedType Text002</note>
+        </trans-unit>
+        <trans-unit id="Report 2810203791 - NamedType 95063322" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Customer - Order Detail</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report PWD Customer - Order Detail - NamedType Text003</note>
+        </trans-unit>
+        <trans-unit id="Report 2810203791 - NamedType 732759939" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Company Name</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report PWD Customer - Order Detail - NamedType Text004</note>
+        </trans-unit>
+        <trans-unit id="Report 2810203791 - NamedType 1370456556" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Report No.</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report PWD Customer - Order Detail - NamedType Text005</note>
+        </trans-unit>
+        <trans-unit id="Report 2810203791 - NamedType 2008153173" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Report Name</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report PWD Customer - Order Detail - NamedType Text006</note>
+        </trans-unit>
+        <trans-unit id="Report 2810203791 - NamedType 2645849790" size-unit="char" translate="yes" xml:space="preserve">
+          <source>User ID</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report PWD Customer - Order Detail - NamedType Text007</note>
+        </trans-unit>
+        <trans-unit id="Report 2810203791 - NamedType 3283546407" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Date</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report PWD Customer - Order Detail - NamedType Text008</note>
+        </trans-unit>
+        <trans-unit id="Report 2810203791 - NamedType 3921243024" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Customer Filters</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report PWD Customer - Order Detail - NamedType Text009</note>
+        </trans-unit>
+        <trans-unit id="Report 2810203791 - NamedType 1664139952" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Sales Order Lines Filters</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report PWD Customer - Order Detail - NamedType Text010</note>
+        </trans-unit>
+        <trans-unit id="Report 2810203791 - NamedType 1026443335" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Quantity on Back Order</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report PWD Customer - Order Detail - NamedType Text011</note>
+        </trans-unit>
+        <trans-unit id="Report 2810203791 - NamedType 2939533186" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Outstanding Orders</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report PWD Customer - Order Detail - NamedType Text012</note>
+        </trans-unit>
+        <trans-unit id="Report 2810203791 - NamedType 2301836569" size-unit="char" translate="yes" xml:space="preserve">
+          <source>All amounts are in LCY</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report PWD Customer - Order Detail - NamedType Text013</note>
+        </trans-unit>
+        <trans-unit id="Report 2810203791 - NamedType 4214926420" size-unit="char" translate="yes" xml:space="preserve">
+          <source> ,G/L Account,Item,Resource,Fixed Asset,Charge (Item)</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report PWD Customer - Order Detail - NamedType Text014</note>
+        </trans-unit>
+        <trans-unit id="Report 2810203791 - NamedType 3577229803" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Item</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report PWD Customer - Order Detail - NamedType Text015</note>
+        </trans-unit>
+        <trans-unit id="Report 2810203791 - NamedType 1195352358" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Order</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report PWD Customer - Order Detail - NamedType Text016</note>
+        </trans-unit>
         <trans-unit id="Report 2810203791 - NamedType 1583171122" size-unit="char" translate="yes" xml:space="preserve">
           <source>Total</source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Report PWD Customer - Order Detail - NamedType TotalCaptionLbl</note>
+        </trans-unit>
+        <trans-unit id="Report 2810203791 - NamedType 1460178520" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Total</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report PWD Customer - Order Detail - NamedType TotalCaption_Control28Lbl</note>
+        </trans-unit>
+        <trans-unit id="Report 2810203791 - Method 2589338462 - NamedType 2667553278" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Delivered</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report PWD Customer - Order Detail - Method MakeExcelDataHeader - NamedType TxtC001</note>
+        </trans-unit>
+        <trans-unit id="Report 2810203791 - Method 2589338462 - NamedType 754463427" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Delivery Date</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report PWD Customer - Order Detail - Method MakeExcelDataHeader - NamedType TxtC002</note>
         </trans-unit>
         <trans-unit id="Report 2810203791 - ReportDataItem 2574427010 - Property 1806354803" size-unit="char" translate="yes" xml:space="preserve">
           <source>Sales Order Line</source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Report PWD Customer - Order Detail - ReportDataItem Sales Line - Property RequestFilterHeading</note>
         </trans-unit>
-        <trans-unit id="Report 2810203791 - ReportLabel 397892315" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Order No.</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Report PWD Customer - Order Detail - ReportLabel OrderNoCaption</note>
-        </trans-unit>
         <trans-unit id="Report 2810203791 - Control 2346885236 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Options</source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Report PWD Customer - Order Detail - Control Options - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Report 2810203791 - Control 2091143190 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>New Page per Customer</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Report PWD Customer - Order Detail - Control NewPagePerCustomerF - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Report 2810203791 - Control 1676189749 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+        <trans-unit id="Report 2810203791 - Control 2948702873 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Show Amounts in LCY</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Report PWD Customer - Order Detail - Control ShowAmountsInLCYF - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report PWD Customer - Order Detail - Control PrintAmountsInLCY - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Report 2810203791 - Control 2536010183 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>New Page per Customer</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report PWD Customer - Order Detail - Control PrintOnlyOnePerPage - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Report 2810203791 - Control 612632567 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Print to Excel</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report PWD Customer - Order Detail - Control PrintToExcel - Property Caption</note>
         </trans-unit>
         <trans-unit id="Report 876184047 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Connector Error Log</source>
@@ -9074,7 +9174,7 @@
           <note from="Xliff Generator" annotates="general" priority="3">Report PWD Item Extraction - Control Control1000000000 - Property Caption</note>
         </trans-unit>
         <trans-unit id="Report 3746294669 - Control 29111282 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Fichier à exporter</source>
+          <source>Nom du fichier à exporter</source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Report PWD Item Extraction - Control TxtGFileName - Property Caption</note>
         </trans-unit>
@@ -11217,6 +11317,211 @@
           <source>No. of Copies</source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Report PWD Soumission - Control NoOfCopiesF - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Report 3512373314 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Customer Order Lines</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report PWD SR Cust. Order Lines - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Report 3512373314 - NamedType 3285233284" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Amount</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report PWD SR Cust. Order Lines - NamedType AmountCaptionLbl</note>
+        </trans-unit>
+        <trans-unit id="Report 3512373314 - NamedType 1331404077" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Backlog</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report PWD SR Cust. Order Lines - NamedType BacklogCaptionLbl</note>
+        </trans-unit>
+        <trans-unit id="Report 3512373314 - NamedType 1987762555" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Page</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report PWD SR Cust. Order Lines - NamedType CurrReport_PAGENOCaptionLbl</note>
+        </trans-unit>
+        <trans-unit id="Report 3512373314 - NamedType 457083213" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Customer Order Lines</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report PWD SR Cust. Order Lines - NamedType Customer_Order_LinesCaptionLbl</note>
+        </trans-unit>
+        <trans-unit id="Report 3512373314 - NamedType 2935802522" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Disc. %</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report PWD SR Cust. Order Lines - NamedType Disc___CaptionLbl</note>
+        </trans-unit>
+        <trans-unit id="Report 3512373314 - NamedType 2028257497" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Price per Pce.</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report PWD SR Cust. Order Lines - NamedType Price_per_Pce_CaptionLbl</note>
+        </trans-unit>
+        <trans-unit id="Report 3512373314 - NamedType 1047199510" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Order No.</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report PWD SR Cust. Order Lines - NamedType SalesHeader__No__CaptionLbl</note>
+        </trans-unit>
+        <trans-unit id="Report 3512373314 - NamedType 3621739672" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Rem. Qty.</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report PWD SR Cust. Order Lines - NamedType Sales_Line__Outstanding_Quantity_CaptionLbl</note>
+        </trans-unit>
+        <trans-unit id="Report 3512373314 - NamedType 704209519" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Ship Date</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report PWD SR Cust. Order Lines - NamedType Ship_DateCaptionLbl</note>
+        </trans-unit>
+        <trans-unit id="Report 3512373314 - NamedType 2476940767" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Filter</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report PWD SR Cust. Order Lines - NamedType Text000</note>
+        </trans-unit>
+        <trans-unit id="Report 3512373314 - NamedType 3114637384" size-unit="char" translate="yes" xml:space="preserve">
+          <source> Customer:</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report PWD SR Cust. Order Lines - NamedType Text001</note>
+        </trans-unit>
+        <trans-unit id="Report 3512373314 - NamedType 3752334001" size-unit="char" translate="yes" xml:space="preserve">
+          <source> Orderline:</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report PWD SR Cust. Order Lines - NamedType Text002</note>
+        </trans-unit>
+        <trans-unit id="Report 3512373314 - NamedType 2766634318" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Data</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report PWD SR Cust. Order Lines - NamedType Text002E</note>
+        </trans-unit>
+        <trans-unit id="Report 3512373314 - NamedType 95063322" size-unit="char" translate="yes" xml:space="preserve">
+          <source>All amounts in LCY</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report PWD SR Cust. Order Lines - NamedType Text003</note>
+        </trans-unit>
+        <trans-unit id="Report 3512373314 - NamedType 2836318093" size-unit="char" translate="yes" xml:space="preserve">
+          <source>SR Cust. Order Lines</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report PWD SR Cust. Order Lines - NamedType Text003E</note>
+        </trans-unit>
+        <trans-unit id="Report 3512373314 - NamedType 732759939" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Amounts in Currency of Customer</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report PWD SR Cust. Order Lines - NamedType Text004</note>
+        </trans-unit>
+        <trans-unit id="Report 3512373314 - NamedType 355215400" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Company Name</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report PWD SR Cust. Order Lines - NamedType Text004E</note>
+        </trans-unit>
+        <trans-unit id="Report 3512373314 - NamedType 1370456556" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Main Currency </source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report PWD SR Cust. Order Lines - NamedType Text005</note>
+        </trans-unit>
+        <trans-unit id="Report 3512373314 - NamedType 404110823" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Report No.</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report PWD SR Cust. Order Lines - NamedType Text005E</note>
+        </trans-unit>
+        <trans-unit id="Report 3512373314 - NamedType 3024581066" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Report Name</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report PWD SR Cust. Order Lines - NamedType Text006E</note>
+        </trans-unit>
+        <trans-unit id="Report 3512373314 - NamedType 2645849790" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Total </source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report PWD SR Cust. Order Lines - NamedType Text007</note>
+        </trans-unit>
+        <trans-unit id="Report 3512373314 - NamedType 3115053193" size-unit="char" translate="yes" xml:space="preserve">
+          <source>User ID</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report PWD SR Cust. Order Lines - NamedType Text007E</note>
+        </trans-unit>
+        <trans-unit id="Report 3512373314 - NamedType 3283546407" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Date</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report PWD SR Cust. Order Lines - NamedType Text008</note>
+        </trans-unit>
+        <trans-unit id="Report 3512373314 - NamedType 3921243024" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Customer Filters</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report PWD SR Cust. Order Lines - NamedType Text009</note>
+        </trans-unit>
+        <trans-unit id="Report 3512373314 - NamedType 1664139952" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Sales Order Lines Filters</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report PWD SR Cust. Order Lines - NamedType Text010</note>
+        </trans-unit>
+        <trans-unit id="Report 3512373314 - NamedType 1026443335" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Quantity on Back Order</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report PWD SR Cust. Order Lines - NamedType Text011</note>
+        </trans-unit>
+        <trans-unit id="Report 3512373314 - NamedType 1244183605" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Amount</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report PWD SR Cust. Order Lines - NamedType Text012E</note>
+        </trans-unit>
+        <trans-unit id="Report 3512373314 - NamedType 2301836569" size-unit="char" translate="yes" xml:space="preserve">
+          <source>All amounts are in LCY</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report PWD SR Cust. Order Lines - NamedType Text013</note>
+        </trans-unit>
+        <trans-unit id="Report 3512373314 - NamedType 4214926420" size-unit="char" translate="yes" xml:space="preserve">
+          <source> ,G/L Account,Item,Resource,Fixed Asset,Charge (Item)</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report PWD SR Cust. Order Lines - NamedType Text014</note>
+        </trans-unit>
+        <trans-unit id="Report 3512373314 - NamedType 3577229803" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Item</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report PWD SR Cust. Order Lines - NamedType Text015</note>
+        </trans-unit>
+        <trans-unit id="Report 3512373314 - NamedType 1195352358" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Order</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report PWD SR Cust. Order Lines - NamedType Text016</note>
+        </trans-unit>
+        <trans-unit id="Report 3512373314 - NamedType 1583171122" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Total</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report PWD SR Cust. Order Lines - NamedType TotalCaptionLbl</note>
+        </trans-unit>
+        <trans-unit id="Report 3512373314 - NamedType 3553461578" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Total</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report PWD SR Cust. Order Lines - NamedType TotalCaption_Control33Lbl</note>
+        </trans-unit>
+        <trans-unit id="Report 3512373314 - NamedType 2472381690" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Inventory Qty.</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report PWD SR Cust. Order Lines - NamedType TxtG001</note>
+        </trans-unit>
+        <trans-unit id="Report 3512373314 - NamedType 449695264" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Type</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report PWD SR Cust. Order Lines - NamedType TypeCaptionLbl</note>
+        </trans-unit>
+        <trans-unit id="Report 3512373314 - ReportDataItem 2574427010 - Property 1806354803" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Salesline</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report PWD SR Cust. Order Lines - ReportDataItem Sales Line - Property RequestFilterHeading</note>
+        </trans-unit>
+        <trans-unit id="Report 3512373314 - Control 2346885236 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Options</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report PWD SR Cust. Order Lines - Control Options - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Report 3512373314 - Control 2948702873 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Show Amounts in LCY</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report PWD SR Cust. Order Lines - Control PrintAmountsInLCY - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Report 3512373314 - Control 2536010183 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>New Page per Customer</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report PWD SR Cust. Order Lines - Control PrintOnlyOnePerPage - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Report 3512373314 - Control 612632567 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Print to Excel</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report PWD SR Cust. Order Lines - Control PrintToExcel - Property Caption</note>
         </trans-unit>
         <trans-unit id="Report 2599315542 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Suppression OP Gamme PIE</source>

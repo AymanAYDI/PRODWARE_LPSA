@@ -22,7 +22,7 @@ codeunit 50011 "PWD PWDRESTWebServiceCode"
         if Parameters.ETag <> '' then
             Headers.Add('If-Match', Parameters.ETag);
 
-        if Parameters.HasRequestContent then begin
+        if Parameters.HasRequestContent() then begin
             Parameters.GetRequestContent(Content);
             RequestMessage.Content := Content;
         end;

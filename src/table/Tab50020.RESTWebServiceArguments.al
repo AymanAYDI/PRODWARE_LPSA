@@ -103,7 +103,7 @@ table 50020 "PWD RESTWebServiceArguments"
         InStr: InStream;
         Line: text;
     begin
-        if not HasResponseContent then
+        if not HasResponseContent() then
             exit;
 
         Blob.CreateInStream(InStr);

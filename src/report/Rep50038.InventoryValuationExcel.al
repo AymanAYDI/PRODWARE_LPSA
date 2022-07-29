@@ -224,6 +224,7 @@ report 50038 "PWD Inventory Valuation Excel"
                     Bdialog.Close();
                     ExcelBuf.CreateBook('', 'Feuil1');
                     ExcelBuf.WriteSheet(CstG006, CompanyName, UserId);
+                    ExcelBuf.CloseBook();
                     ExcelBuf.OpenExcel();
                     Error('');
                 end;

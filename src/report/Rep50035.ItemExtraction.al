@@ -300,7 +300,7 @@ report 50035 "PWD Item Extraction"
                     Caption = 'Options';
                     field(TxtGFileName; TxtGFileName)
                     {
-                        Caption = 'Fichier à exporter';
+                        Caption = 'Nom du fichier à exporter';
                         ApplicationArea = All;
                     }
                 }

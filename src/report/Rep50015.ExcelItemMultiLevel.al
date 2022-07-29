@@ -75,6 +75,7 @@ report 50015 "PWD Excel Item Multi-Level"
             begin
                 ExcelBuf.CreateBook('', 'Feuil1');
                 ExcelBuf.WriteSheet(CstG001, CompanyName, UserId);
+                ExcelBuf.CloseBook();
                 ExcelBuf.OpenExcel();
             end;
 
