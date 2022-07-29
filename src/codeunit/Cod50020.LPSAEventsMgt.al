@@ -2038,4 +2038,11 @@ codeunit 50020 "PWD LPSA Events Mgt."
         END;
         //>>FE_LAPIERRETTE_PROD01.001: TO 13/12/2011
     end;
+
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Reporting Triggers", 'SubstituteReport', '', false, false)]
+    local procedure SubstituteReport(ReportId: Integer; RunMode: Option Normal,ParametersOnly,Execute,Print,SaveAs,RunModal; RequestPageXml: Text; RecordRef: RecordRef; var NewReportId: Integer)
+    begin
+        if ReportId = Report::"Customer - Order Detail" then
+            NewReportId := Report::"PWD Customer - Order Detail";
+    end;
 }

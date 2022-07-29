@@ -20,10 +20,9 @@ report 50070 "PWD Customer - Order Detail"
     // ------------------------------------------------------------------------------------------------------------------
     DefaultLayout = RDLC;
     RDLCLayout = './src/report/rdl/CustomerOrderDetail.rdl';
-    ApplicationArea = All;
     Caption = 'Customer - Order Detail';
     PreviewMode = PrintLayout;
-    UsageCategory = ReportsAndAnalysis;
+    UsageCategory = None;
 
     dataset
     {
