@@ -319,6 +319,8 @@ report 50035 "PWD Item Extraction"
     trigger OnPostReport()
     begin
         MyFile.Close();
+        if Not TxtGFileName.EndsWith('.csv') then
+            TxtGFileName := TxtGFileName + '.csv';
         FileMgt.DownloadHandler(ServerFileName, '', '', '', TxtGFileName);
         FileMgt.DeleteServerFile(ServerFileName);
         Message('Traitement terminé');
@@ -326,7 +328,7 @@ report 50035 "PWD Item Extraction"
 
     trigger OnPreReport()
     begin
-        ServerFileName := FileMgt.ServerTempFileName('csv');
+        ServerFileName := FileMgt.ServerTempFileName('.xlsx');
         if not MyFile.Create(ServerFileName) then begin
             Erase(ServerFileName);
             MyFile.Create(ServerFileName);
