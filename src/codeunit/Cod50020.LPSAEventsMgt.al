@@ -2045,4 +2045,24 @@ codeunit 50020 "PWD LPSA Events Mgt."
         if ReportId = Report::"Customer - Order Detail" then
             NewReportId := Report::"PWD Customer - Order Detail";
     end;
+    //     //---CU99000854---
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Inventory Profile Offsetting", 'OnBeforeInsertTempSKU', '', false, false)]
+
+
+    local procedure CU99000854OnBeforeInsertTempSKU_InventoryProfileOffsetting(var TempSKU: Record "Stockkeeping Unit" temporary; var IsHandled: Boolean)
+    var
+        SKU2: Record "Stockkeeping Unit";
+        PlanningGetParameters: Codeunit "Planning-Get Parameters";
+    begin
+        IsHandled := true;
+        with TempSKU do
+            if not Find('=') then begin
+                //PlanningGetParameters.SetLotForLot();
+                PlanningGetParameters.AtSKU(SKU2, "Item No.", "Variant Code", "Location Code");
+                TempSKU := SKU2;
+                if "Reordering Policy" <> "Reordering Policy"::" " then
+                    Insert();
+            end;
+    end;
+
 }
