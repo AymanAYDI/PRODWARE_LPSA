@@ -22,6 +22,10 @@ pageextension 60145 "PWD PlanningWorksheet" extends "Planning Worksheet"
     }
     actions
     {
+        modify(CalculateRegenerativePlan)
+        {
+            Visible = false;
+        }
         addafter("Ro&uting")
         {
             action("PWD Action1100267003")
@@ -103,6 +107,33 @@ pageextension 60145 "PWD PlanningWorksheet" extends "Planning Worksheet"
                 end;
             }
         }
+        addafter("Calculate &Net Change Plan")
+        {
+            action("PWD Calculate &Net Change Plan")
+            {
+                ApplicationArea = Planning;
+                Caption = 'Calculate Regenerative Plan';
+                Ellipsis = true;
+                Image = CalculateRegenerativePlan;
+                Promoted = true;
+                PromotedCategory = Category4;
+                ToolTip = 'Plan for all items, regardless of changes since the previous planning run. You calculate a regenerative plan when there are changes to master data or capacity, such as shop calendars, that affect all items and therefore the whole supply plan.';
+
+                trigger OnAction()
+                var
+                    CalcPlan: Report "PWD Calcul. Plan-Plan. Wksh.";
+                begin
+                    CalcPlan.SetTemplAndWorksheet("Worksheet Template Name", "Journal Batch Name", true);
+                    CalcPlan.RunModal();
+
+                    if not Find('-') then
+                        SetUpNewLine(Rec);
+
+                    Clear(CalcPlan);
+                end;
+            }
+        }
+
     }
     trigger OnNewRecord(BelowxRec: Boolean)
     begin

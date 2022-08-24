@@ -5258,6 +5258,26 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Codeunit PWD Buffer Management - NamedType CstG008</note>
         </trans-unit>
+        <trans-unit id="Codeunit 9710563 - NamedType 2476940767" size-unit="char" translate="yes" xml:space="preserve">
+          <source>You must decide what to calculate.</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Codeunit PWD Calc. Item Plan-Plan Wksh. - NamedType Text000</note>
+        </trans-unit>
+        <trans-unit id="Codeunit 9710563 - NamedType 3114637384" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Enter a starting date.</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Codeunit PWD Calc. Item Plan-Plan Wksh. - NamedType Text001</note>
+        </trans-unit>
+        <trans-unit id="Codeunit 9710563 - NamedType 3752334001" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Enter an ending date.</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Codeunit PWD Calc. Item Plan-Plan Wksh. - NamedType Text002</note>
+        </trans-unit>
+        <trans-unit id="Codeunit 9710563 - NamedType 95063322" size-unit="char" translate="yes" xml:space="preserve">
+          <source>The ending date must not be before the order date.</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Codeunit PWD Calc. Item Plan-Plan Wksh. - NamedType Text003</note>
+        </trans-unit>
         <trans-unit id="Codeunit 29779585 - NamedType 2087467863" size-unit="char" translate="yes" xml:space="preserve">
           <source>One or more subassemblies on the assembly list for item %1 use replenishment system Prod. Order. Do you want to calculate standard cost for those subassemblies?</source>
           <note from="Developer" annotates="general" priority="2"></note>
@@ -5362,6 +5382,61 @@
           <source>The field %1 must be "O" or "N" in table %2, EntryNo.: %3</source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Codeunit PWD Connector WMS Parse Data - Method FctUpdateItemJournaLineWMS - NamedType CstL000</note>
+        </trans-unit>
+        <trans-unit id="Codeunit 3560947911 - NamedType 2811363748" size-unit="char" translate="yes" xml:space="preserve">
+          <source>StartOver,MatchDates,MatchQty,CreateSupply,ReduceSupply,CloseDemand,CloseSupply,CloseLoop</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Codeunit PWD Inventory Profile Offse. - NamedType NextStateTxt</note>
+        </trans-unit>
+        <trans-unit id="Codeunit 3560947911 - NamedType 3114637384" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Assertion failed: %1.</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Codeunit PWD Inventory Profile Offse. - NamedType Text001</note>
+        </trans-unit>
+        <trans-unit id="Codeunit 3560947911 - NamedType 3752334001" size-unit="char" translate="yes" xml:space="preserve">
+          <source>The %1 from '%2' to '%3' does not exist.</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Codeunit PWD Inventory Profile Offse. - NamedType Text002</note>
+        </trans-unit>
+        <trans-unit id="Codeunit 3560947911 - NamedType 95063322" size-unit="char" translate="yes" xml:space="preserve">
+          <source>The %1 for %2 %3 %4 %5 does not exist.</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Codeunit PWD Inventory Profile Offse. - NamedType Text003</note>
+        </trans-unit>
+        <trans-unit id="Codeunit 3560947911 - NamedType 732759939" size-unit="char" translate="yes" xml:space="preserve">
+          <source>%1 must not be %2 in %3 %4 %5 %6 when %7 is %8.</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Codeunit PWD Inventory Profile Offse. - NamedType Text004</note>
+        </trans-unit>
+        <trans-unit id="Codeunit 3560947911 - NamedType 1370456556" size-unit="char" translate="yes" xml:space="preserve">
+          <source>%1 must not be %2 in %3 %4 when %5 is %6.</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Codeunit PWD Inventory Profile Offse. - NamedType Text005</note>
+        </trans-unit>
+        <trans-unit id="Codeunit 3560947911 - NamedType 2008153173" size-unit="char" translate="yes" xml:space="preserve">
+          <source>%1: The projected available inventory is %2 on the planning starting date %3.</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Codeunit PWD Inventory Profile Offse. - NamedType Text006</note>
+        </trans-unit>
+        <trans-unit id="Codeunit 3560947911 - NamedType 2645849790" size-unit="char" translate="yes" xml:space="preserve">
+          <source>%1: The projected available inventory is below %2 %3 on %4.</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Codeunit PWD Inventory Profile Offse. - NamedType Text007</note>
+        </trans-unit>
+        <trans-unit id="Codeunit 3560947911 - NamedType 3283546407" size-unit="char" translate="yes" xml:space="preserve">
+          <source>%1: The %2 %3 is before the work date %4.</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Codeunit PWD Inventory Profile Offse. - NamedType Text008</note>
+        </trans-unit>
+        <trans-unit id="Codeunit 3560947911 - NamedType 3921243024" size-unit="char" translate="yes" xml:space="preserve">
+          <source>%1: The %2 of %3 %4 is %5.</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Codeunit PWD Inventory Profile Offse. - NamedType Text009</note>
+        </trans-unit>
+        <trans-unit id="Codeunit 3560947911 - NamedType 1664139952" size-unit="char" translate="yes" xml:space="preserve">
+          <source>The projected inventory %1 is higher than the overflow level %2 on %3.</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Codeunit PWD Inventory Profile Offse. - NamedType Text010</note>
         </trans-unit>
         <trans-unit id="Codeunit 3801824614 - NamedType 2366359677" size-unit="char" translate="yes" xml:space="preserve">
           <source>MPS or MRP must be flag on %1.</source>
@@ -7982,6 +8057,131 @@
           <source>CALC NEW QTY</source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Report PWD CALC NEW QTY - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Report 3872594405 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Calculate Plan - Plan. Wksh.</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report PWD Calcul. Plan-Plan. Wksh. - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Report 3872594405 - NamedType 1370456556" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Calculating the plan...\\</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report PWD Calcul. Plan-Plan. Wksh. - NamedType Text005</note>
+        </trans-unit>
+        <trans-unit id="Report 3872594405 - NamedType 2008153173" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Progress</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report PWD Calcul. Plan-Plan. Wksh. - NamedType Text006</note>
+        </trans-unit>
+        <trans-unit id="Report 3872594405 - NamedType 2645849790" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Not all items were planned. A total of %1 items were not planned.</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report PWD Calcul. Plan-Plan. Wksh. - NamedType Text007</note>
+        </trans-unit>
+        <trans-unit id="Report 3872594405 - NamedType 3283546407" size-unit="char" translate="yes" xml:space="preserve">
+          <source>There is nothing to plan.</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report PWD Calcul. Plan-Plan. Wksh. - NamedType Text008</note>
+        </trans-unit>
+        <trans-unit id="Report 3872594405 - NamedType 3921243024" size-unit="char" translate="yes" xml:space="preserve">
+          <source>The last time this batch was run, errors were encountered.\Do you want the batch to continue from where it left off?</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report PWD Calcul. Plan-Plan. Wksh. - NamedType Text009</note>
+        </trans-unit>
+        <trans-unit id="Report 3872594405 - NamedType 1026443335" size-unit="char" translate="yes" xml:space="preserve">
+          <source>An unidentified error occurred while planning %1 %2. Recalculate the plan with the option "Stop and Show Error".</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report PWD Calcul. Plan-Plan. Wksh. - NamedType Text011</note>
+        </trans-unit>
+        <trans-unit id="Report 3872594405 - Control 2346885236 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Options</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report PWD Calcul. Plan-Plan. Wksh. - Control Options - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Report 3872594405 - Control 1592581304 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Calculate</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report PWD Calcul. Plan-Plan. Wksh. - Control Calculate - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Report 3872594405 - Control 1743834242 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Specifies whether to calculate a master production schedule (MPS) based on independent demand. </source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report PWD Calcul. Plan-Plan. Wksh. - Control MPS - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Report 3872594405 - Control 1743834242 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>MPS</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report PWD Calcul. Plan-Plan. Wksh. - Control MPS - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Report 3872594405 - Control 1473142025 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Specifies whether to calculate an MRP, which will calculate dependent demand that is based on the MPS.</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report PWD Calcul. Plan-Plan. Wksh. - Control MRP - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Report 3872594405 - Control 1473142025 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>MRP</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report PWD Calcul. Plan-Plan. Wksh. - Control MRP - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Report 3872594405 - Control 3592094765 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Specifies the date where the planning period ends. Demand is not included beyond this date.</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report PWD Calcul. Plan-Plan. Wksh. - Control EndingDate - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Report 3872594405 - Control 3592094765 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Ending Date</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report PWD Calcul. Plan-Plan. Wksh. - Control EndingDate - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Report 3872594405 - Control 1769251336 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Specifies how much of the selected forecast to include in the planning run, by entering a date before which forecast demand is not included.</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report PWD Calcul. Plan-Plan. Wksh. - Control ExcludeForecastBefore - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Report 3872594405 - Control 1769251336 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Exclude Forecast Before</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report PWD Calcul. Plan-Plan. Wksh. - Control ExcludeForecastBefore - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Report 3872594405 - Control 3122365463 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Specifies whether to stop the planning run when it encounters an error. If the planning run stops, then a message is displayed with information about the first error.</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report PWD Calcul. Plan-Plan. Wksh. - Control NoPlanningResiliency - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Report 3872594405 - Control 3122365463 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Stop and Show First Error</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report PWD Calcul. Plan-Plan. Wksh. - Control NoPlanningResiliency - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Report 3872594405 - Control 2605241671 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Specifies whether planning lines with Exception warnings will respect the planning parameters on the item or SKU card.</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report PWD Calcul. Plan-Plan. Wksh. - Control RespectPlanningParm - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Report 3872594405 - Control 2605241671 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Respect Planning Parameters for Exception Warnings</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report PWD Calcul. Plan-Plan. Wksh. - Control RespectPlanningParm - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Report 3872594405 - Control 543275552 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Specifies the date to use for new orders. This date is used to evaluate the inventory.</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report PWD Calcul. Plan-Plan. Wksh. - Control StartingDate - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Report 3872594405 - Control 543275552 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Starting Date</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report PWD Calcul. Plan-Plan. Wksh. - Control StartingDate - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Report 3872594405 - Control 3393779052 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Specifies a forecast that should be included as demand when running the planning batch job.</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report PWD Calcul. Plan-Plan. Wksh. - Control UseForecast - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Report 3872594405 - Control 3393779052 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Use Forecast</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report PWD Calcul. Plan-Plan. Wksh. - Control UseForecast - Property Caption</note>
         </trans-unit>
         <trans-unit id="Report 3717865513 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Clean Forecast Entry</source>
@@ -13227,6 +13427,16 @@
           <source>Tout Decocher</source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">PageExtension PWD PlanningWorksheet - Action PWD ToutDecocher - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="PageExtension 977571580 - Action 1199949373 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 3144460829">
+          <source>Plan for all items, regardless of changes since the previous planning run. You calculate a regenerative plan when there are changes to master data or capacity, such as shop calendars, that affect all items and therefore the whole supply plan.</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">PageExtension PWD PlanningWorksheet - Action PWD Calculate &amp;Net Change Plan - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="PageExtension 977571580 - Action 1199949373 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 3144460829">
+          <source>Calculate Regenerative Plan</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">PageExtension PWD PlanningWorksheet - Action PWD Calculate &amp;Net Change Plan - Property Caption</note>
         </trans-unit>
         <trans-unit id="PageExtension 277648045 - Control 2632653686 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 407220332">
           <source>N° commande</source>
