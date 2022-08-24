@@ -27,8 +27,6 @@ report 50039 "PWD ReportLPSA"
                                 ItemLink.URL := '\\lp-dc02\Data\PDF Tech NAV' + CopyStr(RecordLink.URL1, 16, StrLen(RecordLink.URL1))
                             else
                                 ItemLink.URL := '\\lp-dc02\' + CopyStr(RecordLink.URL1, 3, StrLen(RecordLink.URL1));
-                        //ConvertStr(RecordLink.URL1, 'X:', '\\lp-dc02');
-                        //ItemLink.URL := RecordLink.URL1;
                         ItemLink.Description := RecordLink.Description;
                         ItemLink."Item No." := Item."No.";
                         ItemLink."User Id" := RecordLink."User ID";
