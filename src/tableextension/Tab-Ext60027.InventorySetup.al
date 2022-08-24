@@ -119,7 +119,7 @@ tableextension 60027 "PWD InventorySetup" extends "Inventory Setup"
             Description = 'LAP2.19';
             DataClassification = CustomerContent;
         }
-        field(50027; "PWD Path Link"; Text[100])
+        field(50027; "PWD Path Link"; Text[500])
         {
             Caption = 'Path Link';
             DataClassification = CustomerContent;
