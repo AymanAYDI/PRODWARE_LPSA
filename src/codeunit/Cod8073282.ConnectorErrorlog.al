@@ -16,7 +16,7 @@ codeunit 8073282 "PWD Connector Error log"
     begin
     end;
 
-    procedure InsertLogEntry(OptErrorLevel: Option " ",Warning,Blocking; OptFlowType: Option ,"Import Connector","Export Connector"; CodConnectorPartner: Code[20]; TxtPMessage: Text[250]; IntPTransction: Integer)
+    procedure InsertLogEntry(OptErrorLevel: Option " ",Warning,Blocking; OptFlowType: Option ,"Import Connector","Export Connector"; CodConnectorPartner: Code[20]; TxtPMessage: Text; IntPTransction: Integer)
     var
         RecLICError: Record "PWD Connector Error Log";
     begin
@@ -28,7 +28,7 @@ codeunit 8073282 "PWD Connector Error log"
         RecLICError."Flow Type" := OptFlowType;
         RecLICError."Connector Partner" := CodConnectorPartner;
         RecLICError."Buffer Message No." := IntPTransction;
-        RecLICError.Message := TxtPMessage;
+        RecLICError.Message := CopyStr(TxtPMessage, 1, 250);
         RecLICError.Insert(true);
     end;
 }

@@ -27,7 +27,7 @@ table 8073287 "PWD Connector Values Archive"
             TableRelation = "PWD Partner Connector".Code;
             DataClassification = CustomerContent;
         }
-        field(3; "File Name"; Text[100])
+        field(3; "File Name"; Text[250])
         {
             Caption = 'File Name';
             DataClassification = CustomerContent;
