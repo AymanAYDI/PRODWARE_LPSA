@@ -65,7 +65,7 @@ codeunit 8073286 "PWD File Export"
                 //IF NOT CODEUNIT.RUN("Functions CodeUnit ID",RecLSendingMessage) THEN
 
                 if not CODEUNIT.Run("Functions CodeUnit ID", RecLConnectiorValues) then
-                    CduLConnectorErrorlog.InsertLogEntry(2, 2, Code, GetLastErrorText, 0)
+                    CduLConnectorErrorlog.InsertLogEntry(2, 2, Code, COPYSTR(GETLASTERRORTEXT, 1, 250), 0)
 
                 else begin
                     RecLSendingMessage."Export Date" := Today;

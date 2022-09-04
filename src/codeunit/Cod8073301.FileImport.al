@@ -30,7 +30,7 @@ codeunit 8073301 "PWD File Import"
                 ClearLastError();
                 Commit();
                 if not CduLFileMessagesImport.Run(RecLRecevingMessage) then
-                    CduLConnectorErrorlog.InsertLogEntry(2, 1, Code, GetLastErrorText, 0);
+                    CduLConnectorErrorlog.InsertLogEntry(2, 1, Code, COPYSTR(GETLASTERRORTEXT, 1, 250), 0);
             until RecLRecevingMessage.Next() = 0;
         end;
 
@@ -42,7 +42,7 @@ codeunit 8073301 "PWD File Import"
                 ClearLastError();
                 Commit();
                 if not CODEUNIT.Run("Functions CodeUnit ID", RecLConnectorValues) then
-                    CduLConnectorErrorlog.InsertLogEntry(2, 1, Code, GetLastErrorText, RecLConnectorValues."Entry No.")
+                    CduLConnectorErrorlog.InsertLogEntry(2, 1, Code, COPYSTR(GETLASTERRORTEXT, 1, 250), RecLConnectorValues."Entry No.")
             until RecLConnectorValues.Next() = 0;
         end;
     end;
