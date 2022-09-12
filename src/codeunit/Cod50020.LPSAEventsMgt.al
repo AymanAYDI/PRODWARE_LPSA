@@ -963,7 +963,7 @@ codeunit 50020 "PWD LPSA Events Mgt."
         LPSASetGetFunctions: codeunit "PWD LPSA Set/Get Functions.";
     begin
         LPSASetGetFunctions.SetSourceRecRef(SourceRecRef);
-        LPSASetGetFunctions.SetCalcReservEntry(CalcReservEntry);
+        LPSASetGetFunctions.SetCalcReservEntry(CalcReservEntry);//
     end;
 
     //---CDU99000837---
@@ -1006,13 +1006,13 @@ codeunit 50020 "PWD LPSA Events Mgt."
                 ProdOrder."No." := COPYSTR(ReqLine."PWD Original Source No.", 3, 6) + '-'
                                + FORMAT(ReqLine."PWD Original Source Position") + '-0'
                                + FORMAT(ReqLine."PWD Original Counter")
-            ELSE BEGIN
+            ELSE
                 ERROR(CstG001);
-                ProdOrder."PWD Transmitted Order No." := TRUE;
-                ProdOrder."PWD Original Source No." := ReqLine."PWD Original Source No.";
-                ProdOrder."PWD Original Source Position" := ReqLine."PWD Original Source Position";
-                ProdOrder."No. Series" := '';
-            end;
+
+        ProdOrder."PWD Transmitted Order No." := TRUE;
+        ProdOrder."PWD Original Source No." := ReqLine."PWD Original Source No.";
+        ProdOrder."PWD Original Source Position" := ReqLine."PWD Original Source Position";
+        ProdOrder."No. Series" := '';
     end;
     //---CDU99000809---
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Planning Line Management", 'OnBeforeInsertPlanningComponent', '', false, false)]
@@ -2045,7 +2045,7 @@ codeunit 50020 "PWD LPSA Events Mgt."
         if ReportId = Report::"Customer - Order Detail" then
             NewReportId := Report::"PWD Customer - Order Detail";
     end;
-    //     //---CU99000854---
+    //---CU99000854---
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Inventory Profile Offsetting", 'OnBeforeInsertTempSKU', '', false, false)]
 
 
@@ -2064,5 +2064,24 @@ codeunit 50020 "PWD LPSA Events Mgt."
                     Insert();
             end;
     end;
+    //---CU99000792---
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Create Prod. Order from Sale", 'OnCreateProdOrderOnBeforeProdOrderInsert', '', false, false)]
+    local procedure CU99000792_OnCreateProdOrderOnBeforeProdOrderInsert_CreateProdOrdeFromSale(var ProductionOrder: Record "Production Order"; SalesLine: Record "Sales Line")
+    var
+        LPSAFunctionsMgt: codeunit "PWD LPSA Functions Mgt.";
+        CstG001: Label 'Series No for orders is not correct to renum Production Orders';
+    begin
 
+        IF LPSAFunctionsMgt.Fct_TransmitOrderNo(SalesLine) THEN BEGIN
+
+            IF STRLEN(SalesLine."Document No.") = 8 THEN
+                ProductionOrder."No." := COPYSTR(SalesLine."Document No.", 3, 6) + '-' + FORMAT(SalesLine.Position) + '-' + '00'
+            ELSE
+                ERROR(CstG001);
+
+            ProductionOrder."PWD Transmitted Order No." := TRUE;
+            ProductionOrder."PWD Original Source No." := SalesLine."Document No.";
+            ProductionOrder."PWD Original Source Position" := SalesLine.Position;
+        end;
+    end;
 }

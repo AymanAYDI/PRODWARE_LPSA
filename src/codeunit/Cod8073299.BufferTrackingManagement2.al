@@ -698,6 +698,8 @@ codeunit 8073299 "Buffer Tracking Management 2"
                       NewTrackingSpecification."Warranty Date", NewTrackingSpecification."Expiration Date");
                     CreateReservEntry.SetApplyFromEntryNo(
                       NewTrackingSpecification."Appl.-from Item Entry");
+                    ReservEntry1."Lot No." := OldTrackingSpecification."Lot No.";
+                    ReservEntry1."Serial No." := OldTrackingSpecification."Serial No.";
                     CreateReservEntry.CreateReservEntryFor(
                       OldTrackingSpecification."Source Type",
                       OldTrackingSpecification."Source Subtype",

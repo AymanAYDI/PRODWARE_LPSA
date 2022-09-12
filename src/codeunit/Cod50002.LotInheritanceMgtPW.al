@@ -779,7 +779,7 @@ codeunit 50002 "PWD Lot Inheritance Mgt.PW"
                     //THEN BEGIN
                     //  poLotDetExpirDate := LotNoInfo."Expiration Date";
                     //END ELSE
-                    //  poLotDetExpirDate := ReservEntry."Expiration Date";
+
                     //Begin#803/01:A20071/3.00  11.05.07 TECTURA.WW
                     // ORIG:
                     // IF MfgSetup."Lot Trading Unit Inheritance" THEN
@@ -788,8 +788,8 @@ codeunit 50002 "PWD Lot Inheritance Mgt.PW"
                     //  poLotDetLotCode := ReservEntry."Lot No."
                     //ELSE
                     //  poLotDetLotCode := ReservEntry."Lot Number";
-
-                    poLotDetLotCode := ReservEntry."Lot No.";                                  //pade
+                poLotDetExpirDate := ReservEntry."Expiration Date";
+                poLotDetLotCode := ReservEntry."Lot No.";                                  //pade
             END;
 
 

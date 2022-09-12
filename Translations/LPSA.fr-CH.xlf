@@ -6681,6 +6681,12 @@
           <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">Codeunit PWD LPSA Events Mgt. - Method CDU99000837_OnCallItemTrackingOnBeforeItemTrackingLinesRunModal_ProdOrderLineReserve - NamedType TxtG001</note>
         </trans-unit>
+        <trans-unit id="Codeunit 1862912558 - Method 629771792 - NamedType 3802638270" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Series No for orders is not correct to renum Production Orders</source>
+          <target state="translated">Attention, souche des Nos de commande non conforme pour la numérotation des OF</target>
+          <note from="Developer" annotates="general" priority="2"/>
+          <note from="Xliff Generator" annotates="general" priority="3">Codeunit PWD LPSA Events Mgt. - Method CU99000792_OnCreateProdOrderOnBeforeProdOrderInsert_CreateProdOrdeFromSale - NamedType CstG001</note>
+        </trans-unit>
         <trans-unit id="Codeunit 1862912558 - Method 1686047596 - NamedType 4006530947" size-unit="char" translate="yes" xml:space="preserve">
           <source>Lot non conform, do you want to post ?</source>
           <target state="translated">Lot non conforme, voulez-vous valider ?</target>
@@ -9797,7 +9803,7 @@
         </trans-unit>
         <trans-unit id="Report 3872594405 - Control 543275552 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
           <source>Specifies the date to use for new orders. This date is used to evaluate the inventory.</source>
-         <target state="translated">Spécifie la date à utiliser pour les nouvelles commandes. Cette date est utilisée pour évaluer le stock.</target>
+          <target state="translated">Spécifie la date à utiliser pour les nouvelles commandes. Cette date est utilisée pour évaluer le stock.</target>
           <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">Report PWD Calcul. Plan-Plan. Wksh. - Control StartingDate - Property ToolTip</note>
         </trans-unit>
@@ -10418,6 +10424,12 @@
           <target state="translated">Suppression en cours ...</target>
           <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">Report PWD Delete Connector Error Log - NamedType CstG002</note>
+        </trans-unit>
+        <trans-unit id="Report 305727796 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Delete Item Journal Line</source>
+          <target state="needs-translation"/>
+          <note from="Developer" annotates="general" priority="2"/>
+          <note from="Xliff Generator" annotates="general" priority="3">Report PWD DeleteItemJournalLine - Property Caption</note>
         </trans-unit>
         <trans-unit id="Report 2627432122 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Empty Buffer</source>

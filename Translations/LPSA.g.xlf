@@ -5568,6 +5568,11 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Codeunit PWD LPSA Events Mgt. - Method CDU99000837_OnCallItemTrackingOnBeforeItemTrackingLinesRunModal_ProdOrderLineReserve - NamedType TxtG001</note>
         </trans-unit>
+        <trans-unit id="Codeunit 1862912558 - Method 629771792 - NamedType 3802638270" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Series No for orders is not correct to renum Production Orders</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Codeunit PWD LPSA Events Mgt. - Method CU99000792_OnCreateProdOrderOnBeforeProdOrderInsert_CreateProdOrdeFromSale - NamedType CstG001</note>
+        </trans-unit>
         <trans-unit id="Codeunit 1862912558 - Method 1686047596 - NamedType 4006530947" size-unit="char" translate="yes" xml:space="preserve">
           <source>Lot non conform, do you want to post ?</source>
           <note from="Developer" annotates="general" priority="2"></note>
@@ -8682,6 +8687,11 @@
           <source>Deletion in process...</source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Report PWD Delete Connector Error Log - NamedType CstG002</note>
+        </trans-unit>
+        <trans-unit id="Report 305727796 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Delete Item Journal Line</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report PWD DeleteItemJournalLine - Property Caption</note>
         </trans-unit>
         <trans-unit id="Report 2627432122 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Empty Buffer</source>

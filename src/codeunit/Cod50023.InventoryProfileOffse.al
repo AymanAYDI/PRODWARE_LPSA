@@ -1807,10 +1807,10 @@ codeunit 50023 "PWD Inventory Profile Offse."
                     end;
                 end;
             else begin
-                    NextState := NextState::CloseSupply;
-                    if TempSKU."Maximum Order Quantity" > 0 then
-                        LotAccumulationPeriodStartDate := SupplyInventoryProfile."Due Date";
-                end;
+                NextState := NextState::CloseSupply;
+                if TempSKU."Maximum Order Quantity" > 0 then
+                    LotAccumulationPeriodStartDate := SupplyInventoryProfile."Due Date";
+            end;
         end;
     end;
 
@@ -2890,11 +2890,11 @@ codeunit 50023 "PWD Inventory Profile Offse."
                       QtyToOrder, SurplusType::FixedOrderQty);
                 end;
             else begin
-                    IsHandled := false;
-                    OnCalcReorderQtyOnCaseElse(QtyToOrder, NeededQty, ProjectedInventory, SupplyLineNo, TempSKU, PlanningResilicency, IsHandled);
-                    if not IsHandled then
-                        QtyToOrder := NeededQty;
-                end;
+                IsHandled := false;
+                OnCalcReorderQtyOnCaseElse(QtyToOrder, NeededQty, ProjectedInventory, SupplyLineNo, TempSKU, PlanningResilicency, IsHandled);
+                if not IsHandled then
+                    QtyToOrder := NeededQty;
+            end;
         end;
     end;
 
@@ -2951,15 +2951,15 @@ codeunit 50023 "PWD Inventory Profile Offse."
                 OnAdjustPlanLineAfterValidateQuantity(ReqLine, SupplyInventoryProfile);
             end;
             ReqLine."Original Due Date" := "Original Due Date";
-            //ReqLine."Due Date" := "Due Date";
+            ReqLine."Due Date" := "Due Date";
             if "Planning Level Code" = 0 then begin
                 ReqLine."Ending Date" :=
                   LeadTimeMgt.PlannedEndingDate(
                     "Item No.", "Location Code", "Variant Code", "Due Date", '', ReqLine."Ref. Order Type");
-                if not IsSKUSetUpForReorderPointPlanning(TempSKU) then
-                    if CalcDate(TempSKU."Safety Lead Time", ReqLine."Ending Date") = ReqLine."Ending Date" then
-                        if CalcDate(ManufacturingSetup."Default Safety Lead Time", ReqLine."Ending Date") = ReqLine."Ending Date" then
-                            ReqLine."Ending Time" := "Due Time";
+                // if not IsSKUSetUpForReorderPointPlanning(TempSKU) then
+                //     if CalcDate(TempSKU."Safety Lead Time", ReqLine."Ending Date") = ReqLine."Ending Date" then
+                //         if CalcDate(ManufacturingSetup."Default Safety Lead Time", ReqLine."Ending Date") = ReqLine."Ending Date" then
+                //             ReqLine."Ending Time" := "Due Time";
             end else begin
                 ReqLine."Ending Date" := "Due Date";
                 ReqLine."Ending Time" := "Due Time";

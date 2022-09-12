@@ -172,10 +172,22 @@ pageextension 60009 "PWD ItemList" extends "Item List"
             }
 
         }
+        addafter(Control1905767507)
+        {
+            part(PWDLink; "PWD Link")
+            {
+                ApplicationArea = All;
+                SubPageLink = "Item No." = FIELD("No.");
+            }
+        }
         modify("Shelf No.")
         {
             visible = true;
             editable = false;
+        }
+        modify(Control1900383207)
+        {
+            Visible = false;
         }
 
     }

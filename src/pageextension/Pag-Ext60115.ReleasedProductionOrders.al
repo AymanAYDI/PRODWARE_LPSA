@@ -180,6 +180,7 @@ pageextension 60115 "PWD ReleasedProductionOrders" extends "Released Production 
                     RunObject = Page "Warehouse Entries";
                     ApplicationArea = All;
                 }
+
             }
         }
     }

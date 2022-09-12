@@ -236,14 +236,24 @@ pageextension 60008 "PWD ItemCard" extends "Item Card"
         {
             Visible = false;
         }
-        addafter(Control1900383207)
+        addafter(Control1905767507)
         {
             part(PWDLink; "PWD Link")
             {
-                ApplicationArea = All;
+                ApplicationArea = RecordLinks;
                 SubPageLink = "Item No." = FIELD("No.");
             }
         }
+        modify("Attached Documents")
+        {
+            Visible = false;
+
+        }
+        modify(Control1900383207)
+        {
+            Visible = false;
+        }
+
     }
     actions
     {
