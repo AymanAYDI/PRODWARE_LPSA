@@ -212,12 +212,12 @@ codeunit 50023 "PWD Inventory Profile Offse."
                     OnAfterFindLinesWithItemToPlan(SalesLine, IsHandled, InventoryProfile, Item, LineNo);
                     if not IsHandled then begin
                         InventoryProfile.Init();
-                        InventoryProfile."Line No." := NextLineNo;
+                        InventoryProfile."Line No." := NextLineNo();
                         OnTransSalesLineToProfileOnBeforeTransferFromSalesLineOrder(Item, SalesLine);
                         InventoryProfile.TransferFromSalesLine(SalesLine, TempItemTrkgEntry);
                         OnTransSalesLineToProfileOnAfterTransferFromSalesLineOrder(Item, SalesLine, InventoryProfile);
                         if InventoryProfile.IsSupply then
-                            InventoryProfile.ChangeSign;
+                            InventoryProfile.ChangeSign();
                         InventoryProfile."MPS Order" := true;
                         InventoryProfile.Insert();
                     end;
@@ -231,12 +231,12 @@ codeunit 50023 "PWD Inventory Profile Offse."
                     OnAfterFindLinesWithItemToPlan(SalesLine, IsHandled, InventoryProfile, Item, LineNo);
                     if not IsHandled then begin
                         InventoryProfile.Init();
-                        InventoryProfile."Line No." := NextLineNo;
+                        InventoryProfile."Line No." := NextLineNo();
                         OnTransSalesLineToProfileOnBeforeTransferFromSalesLineReturnOrder(Item, SalesLine);
                         InventoryProfile.TransferFromSalesLine(SalesLine, TempItemTrkgEntry);
                         OnTransSalesLineToProfileOnAfterTransferFromSalesLineReturnOrder(Item, SalesLine, InventoryProfile);
                         if InventoryProfile.IsSupply then
-                            InventoryProfile.ChangeSign;
+                            InventoryProfile.ChangeSign();
                         InventoryProfile.Insert();
                     end;
                 end;
@@ -251,10 +251,10 @@ codeunit 50023 "PWD Inventory Profile Offse."
             repeat
                 if ServLine."Needed by Date" <> 0D then begin
                     InventoryProfile.Init();
-                    InventoryProfile."Line No." := NextLineNo;
+                    InventoryProfile."Line No." := NextLineNo();
                     InventoryProfile.TransferFromServLine(ServLine, TempItemTrkgEntry);
                     if InventoryProfile.IsSupply then
-                        InventoryProfile.ChangeSign;
+                        InventoryProfile.ChangeSign();
                     InventoryProfile.Insert();
                 end;
             until ServLine.Next() = 0;
@@ -268,10 +268,10 @@ codeunit 50023 "PWD Inventory Profile Offse."
             repeat
                 if JobPlanningLine."Planning Date" <> 0D then begin
                     InventoryProfile.Init();
-                    InventoryProfile."Line No." := NextLineNo;
+                    InventoryProfile."Line No." := NextLineNo();
                     InventoryProfile.TransferFromJobPlanningLine(JobPlanningLine, TempItemTrkgEntry);
                     if InventoryProfile.IsSupply then
-                        InventoryProfile.ChangeSign;
+                        InventoryProfile.ChangeSign();
                     InventoryProfile.Insert();
                 end;
             until JobPlanningLine.Next() = 0;
@@ -294,12 +294,12 @@ codeunit 50023 "PWD Inventory Profile Offse."
                       ReqLine."Ref. Order Type"::"Prod. Order", ProdOrderComp.Status.AsInteger(),
                       ProdOrderComp."Prod. Order No.", ProdOrderComp."Prod. Order Line No.");
                     ReqLine.SetRange("Operation No.", '');
-                    if not ReqLine.FindFirst then begin
+                    if not ReqLine.FindFirst() then begin
                         InventoryProfile.Init();
-                        InventoryProfile."Line No." := NextLineNo;
+                        InventoryProfile."Line No." := NextLineNo();
                         InventoryProfile.TransferFromComponent(ProdOrderComp, TempItemTrkgEntry);
                         if InventoryProfile.IsSupply then
-                            InventoryProfile.ChangeSign;
+                            InventoryProfile.ChangeSign();
                         InventoryProfile.Insert();
                     end;
                 end;
@@ -317,11 +317,11 @@ codeunit 50023 "PWD Inventory Profile Offse."
             repeat
                 if PlanningComponent."Due Date" <> 0D then begin
                     InventoryProfile.Init();
-                    InventoryProfile."Line No." := NextLineNo;
+                    InventoryProfile."Line No." := NextLineNo();
                     InventoryProfile."Item No." := Item."No.";
                     InventoryProfile.TransferFromPlanComponent(PlanningComponent, TempItemTrkgEntry);
                     if InventoryProfile.IsSupply then
-                        InventoryProfile.ChangeSign;
+                        InventoryProfile.ChangeSign();
                     InventoryProfile.Insert();
                 end;
             until PlanningComponent.Next() = 0;
@@ -339,7 +339,7 @@ codeunit 50023 "PWD Inventory Profile Offse."
                     ReqLine.SetRefFilter(
                       ReqLine."Ref. Order Type"::Assembly, AsmLine."Document Type".AsInteger(), AsmLine."Document No.", 0);
                     ReqLine.SetRange("Operation No.", '');
-                    if not ReqLine.FindFirst then
+                    if not ReqLine.FindFirst() then
                         InsertAsmLineToProfile(InventoryProfile, AsmLine, 1);
                 end;
             until AsmLine.Next() = 0;
@@ -350,7 +350,7 @@ codeunit 50023 "PWD Inventory Profile Offse."
                     ReqLine.SetRefFilter(
                         ReqLine."Ref. Order Type"::Assembly, AsmLine."Document Type".AsInteger(), AsmLine."Document No.", 0);
                     ReqLine.SetRange("Operation No.", '');
-                    if not ReqLine.FindFirst then begin
+                    if not ReqLine.FindFirst() then begin
                         AsmHeader.Get(AsmLine."Document Type", AsmLine."Document No.");
                         RemRatio := (AsmHeader."Quantity (Base)" - CalcSalesOrderQty(AsmLine)) / AsmHeader."Quantity (Base)";
                         InsertAsmLineToProfile(InventoryProfile, AsmLine, RemRatio);
@@ -370,7 +370,7 @@ codeunit 50023 "PWD Inventory Profile Offse."
         Item.CopyFilter("Location Filter", TransferReqLine."Transfer-from Code");
         Item.CopyFilter("Variant Filter", TransferReqLine."Variant Code");
         TransferReqLine.SetFilter("Transfer Shipment Date", '>%1&<=%2', 0D, ToDate);
-        if TransferReqLine.FindSet then
+        if TransferReqLine.FindSet() then
             repeat
                 InsertInventoryProfile(InventoryProfile, TransferReqLine, Item);
             until TransferReqLine.Next() = 0;
@@ -392,13 +392,13 @@ codeunit 50023 "PWD Inventory Profile Offse."
             repeat
                 if TransLine."Shipment Date" <> 0D then begin
                     InventoryProfile.Init();
-                    InventoryProfile."Line No." := NextLineNo;
+                    InventoryProfile."Line No." := NextLineNo();
                     InventoryProfile."Item No." := Item."No.";
                     OnTransShptTransLineToProfileOnBeforeTransferFromOutboundTransfer(Item, Transline);
                     InventoryProfile.TransferFromOutboundTransfer(TransLine, TempItemTrkgEntry);
                     OnTransShptTransLineToProfileOnAfterTransferFromOutboundTransfer(Item, Transline, InventoryProfile);
                     if InventoryProfile.IsSupply then
-                        InventoryProfile.ChangeSign;
+                        InventoryProfile.ChangeSign();
                     if FilterIsSetOnLocation then
                         InventoryProfile."Transfer Location Not Planned" := TransferLocationIsFilteredOut(Item, TransLine);
                     SyncTransferDemandWithReqLine(InventoryProfile, TransLine."Transfer-to Code");
@@ -414,13 +414,13 @@ codeunit 50023 "PWD Inventory Profile Offse."
         if ItemLedgEntry.FindLinesWithItemToPlan(Item, false) then
             repeat
                 InventoryProfile.Init();
-                InventoryProfile."Line No." := NextLineNo;
+                InventoryProfile."Line No." := NextLineNo();
                 OnTransItemLedgEntryToProfileOnBeforeTransferFromItemLedgerEntry(Item, ItemLedgEntry);
                 InventoryProfile.TransferFromItemLedgerEntry(ItemLedgEntry, TempItemTrkgEntry);
                 OnTransItemLedgEntryToProfileOnAfterTransferFromItemLedgerEntry(Item, ItemLedgEntry, InventoryProfile);
                 InventoryProfile."Due Date" := 0D;
                 if not InventoryProfile.IsSupply then
-                    InventoryProfile.ChangeSign;
+                    InventoryProfile.ChangeSign();
                 InventoryProfile.Insert();
                 OnTransItemLedgEntryToProfileOnAfterInsertInventoryProfile(Item, ItemLedgEntry, InventoryProfile);
             until ItemLedgEntry.Next() = 0;
@@ -428,18 +428,18 @@ codeunit 50023 "PWD Inventory Profile Offse."
 
     local procedure TransReqLineToProfile(var InventoryProfile: Record "Inventory Profile"; var Item: Record Item; ToDate: Date)
     var
-        ReqLine: Record "Requisition Line";
+        ReqLine1: Record "Requisition Line";
     begin
-        if ReqLine.FindLinesWithItemToPlan(Item) then
+        if ReqLine1.FindLinesWithItemToPlan(Item) then
             repeat
-                if ReqLine."Due Date" <> 0D then begin
+                if ReqLine1."Due Date" <> 0D then begin
                     InventoryProfile.Init();
-                    InventoryProfile."Line No." := NextLineNo;
+                    InventoryProfile."Line No." := NextLineNo();
                     InventoryProfile."Item No." := Item."No.";
-                    InventoryProfile.TransferFromRequisitionLine(ReqLine, TempItemTrkgEntry);
+                    InventoryProfile.TransferFromRequisitionLine(ReqLine1, TempItemTrkgEntry);
                     InsertSupplyInvtProfile(InventoryProfile, ToDate);
                 end;
-            until ReqLine.Next() = 0;
+            until ReqLine1.Next() = 0;
     end;
 
     local procedure TransPurchLineToProfile(var InventoryProfile: Record "Inventory Profile"; var Item: Record Item; ToDate: Date)
@@ -482,7 +482,7 @@ codeunit 50023 "PWD Inventory Profile Offse."
             repeat
                 if ProdOrderLine."Due Date" <> 0D then begin
                     InventoryProfile.Init();
-                    InventoryProfile."Line No." := NextLineNo;
+                    InventoryProfile."Line No." := NextLineNo();
                     InventoryProfile.TransferFromProdOrderLine(ProdOrderLine, TempItemTrkgEntry);
                     if (ProdOrderLine."Planning Flexibility" = ProdOrderLine."Planning Flexibility"::Unlimited) and
                        (ProdOrderLine.Status = ProdOrderLine.Status::Released)
@@ -518,7 +518,7 @@ codeunit 50023 "PWD Inventory Profile Offse."
             repeat
                 if AsmHeader."Due Date" <> 0D then begin
                     InventoryProfile.Init();
-                    InventoryProfile."Line No." := NextLineNo;
+                    InventoryProfile."Line No." := NextLineNo();
                     InventoryProfile.TransferFromAsmHeader(AsmHeader, TempItemTrkgEntry);
                     if InventoryProfile."Finished Quantity" > 0 then
                         InventoryProfile."Planning Flexibility" := InventoryProfile."Planning Flexibility"::None;
@@ -539,7 +539,7 @@ codeunit 50023 "PWD Inventory Profile Offse."
             repeat
                 if TransLine."Receipt Date" <> 0D then begin
                     InventoryProfile.Init();
-                    InventoryProfile."Line No." := NextLineNo;
+                    InventoryProfile."Line No." := NextLineNo();
                     InventoryProfile.TransferFromInboundTransfer(TransLine, TempItemTrkgEntry);
                     if TransLine."Planning Flexibility" = TransLine."Planning Flexibility"::Unlimited then
                         if (InventoryProfile."Finished Quantity" > 0) or
@@ -574,7 +574,7 @@ codeunit 50023 "PWD Inventory Profile Offse."
     local procedure InsertPurchLineToProfile(var InventoryProfile: Record "Inventory Profile"; PurchLine: Record "Purchase Line"; ToDate: Date)
     begin
         InventoryProfile.Init();
-        InventoryProfile."Line No." := NextLineNo;
+        InventoryProfile."Line No." := NextLineNo();
         InventoryProfile.TransferFromPurchaseLine(PurchLine, TempItemTrkgEntry);
         if InventoryProfile."Finished Quantity" > 0 then
             InventoryProfile."Planning Flexibility" := InventoryProfile."Planning Flexibility"::None;
@@ -1054,7 +1054,7 @@ codeunit 50023 "PWD Inventory Profile Offse."
         ActionMsgEntry.SetCurrentKey("Reservation Entry");
 
         with ReservEntry do begin
-            Reset;
+            Reset();
             SetCurrentKey("Item No.", "Variant Code", "Location Code");
             SetRange("Item No.", SKU."Item No.");
             SetRange("Variant Code", SKU."Variant Code");
@@ -1071,7 +1071,7 @@ codeunit 50023 "PWD Inventory Profile Offse."
                             then
                                 if ReservEntry1.Get("Entry No.", not Positive) then
                                     ReservEntry1.Delete();
-                            Delete;
+                            Delete();
                         end else
                             ResEntryWasDeleted := CloseTracking(ReservEntry, SupplyInventoryProfile, ToDate);
 
@@ -1545,14 +1545,14 @@ codeunit 50023 "PWD Inventory Profile Offse."
                 FrozenZoneTrack(SupplyInvtProfile, DemandInvtProfile);
                 SupplyInvtProfile."Untracked Quantity" := 0;
                 SupplyInvtProfile.Modify();
-                SupplyExists := SupplyInvtProfile.Next <> 0;
+                SupplyExists := SupplyInvtProfile.Next() <> 0;
             end else begin
                 LastProjectedInventory -= DemandInvtProfile."Remaining Quantity (Base)";
                 SupplyInvtProfile."Untracked Quantity" -= DemandInvtProfile."Untracked Quantity";
                 FrozenZoneTrack(DemandInvtProfile, SupplyInvtProfile);
                 DemandInvtProfile."Untracked Quantity" := 0;
                 DemandInvtProfile.Modify();
-                DemandExists := DemandInvtProfile.Next <> 0;
+                DemandExists := DemandInvtProfile.Next() <> 0;
                 if not DemandExists then
                     SupplyInvtProfile.Modify();
             end;
@@ -2139,11 +2139,9 @@ codeunit 50023 "PWD Inventory Profile Offse."
 
     local procedure CreateSupply(var SupplyInvtProfile: Record "Inventory Profile"; var DemandInvtProfile: Record "Inventory Profile"; ProjectedInventory: Decimal; IsExceptionOrder: Boolean; RespectPlanningParm: Boolean)
     var
-        ReorderQty: Decimal;
-        RecLSalesLine: Record "Sales Line";
         RecLReqLine: Record "Requisition Line";
         RecLProdOrder: Record "Production Order";
-        IntLCounter: Integer;
+        ReorderQty: Decimal;
     begin
         OnBeforeCreateSupply(SupplyInvtProfile, DemandInvtProfile);
 
@@ -2229,7 +2227,7 @@ codeunit 50023 "PWD Inventory Profile Offse."
     local procedure CreateDemand(var DemandInvtProfile: Record "Inventory Profile"; var SKU: Record "Stockkeeping Unit"; NeededQuantity: Decimal; NeededDueDate: Date; OrderRelation: Option Normal,"Safety Stock","Reorder Point")
     begin
         DemandInvtProfile.Init();
-        DemandInvtProfile."Line No." := NextLineNo;
+        DemandInvtProfile."Line No." := NextLineNo();
         DemandInvtProfile."Item No." := SKU."Item No.";
         DemandInvtProfile."Variant Code" := SKU."Variant Code";
         DemandInvtProfile."Location Code" := SKU."Location Code";
@@ -2315,11 +2313,11 @@ codeunit 50023 "PWD Inventory Profile Offse."
                                 TrkgReservEntryArray[1].Quantity :=
                                   Round(
                                     TrkgReservEntryArray[1]."Quantity (Base)" / TrkgReservEntryArray[1]."Qty. per Unit of Measure",
-                                    UOMMgt.QtyRndPrecision);
+                                    UOMMgt.QtyRndPrecision());
                                 TrkgReservEntryArray[3].Quantity :=
                                   Round(
                                     TrkgReservEntryArray[3]."Quantity (Base)" / TrkgReservEntryArray[3]."Qty. per Unit of Measure",
-                                    UOMMgt.QtyRndPrecision);
+                                    UOMMgt.QtyRndPrecision());
                             end else begin
                                 FromProfile.TransferToTrackingEntry(TrkgReservEntryArray[1], false);
                                 ReqLine.TransferToTrackingEntry(TrkgReservEntryArray[1], true);
@@ -2361,7 +2359,7 @@ codeunit 50023 "PWD Inventory Profile Offse."
                     TrkgReservEntryArray[5].Quantity :=
                       Round(
                         TrkgReservEntryArray[5]."Quantity (Base)" / TrkgReservEntryArray[5]."Qty. per Unit of Measure",
-                        UOMMgt.QtyRndPrecision);
+                        UOMMgt.QtyRndPrecision());
                     FromProfile."Untracked Quantity" := FromProfile."Untracked Quantity" - SplitQty2;
                     TrackQty := TrackQty - SplitQty2;
                     SplitQty := SplitQty - SplitQty2;
@@ -2383,11 +2381,11 @@ codeunit 50023 "PWD Inventory Profile Offse."
                         TrkgReservEntryArray[2].Quantity :=
                           Round(
                             TrkgReservEntryArray[2]."Quantity (Base)" / TrkgReservEntryArray[2]."Qty. per Unit of Measure",
-                            UOMMgt.QtyRndPrecision);
+                            UOMMgt.QtyRndPrecision());
                         TrkgReservEntryArray[3].Quantity :=
                           Round(
                             TrkgReservEntryArray[3]."Quantity (Base)" / TrkgReservEntryArray[3]."Qty. per Unit of Measure",
-                            UOMMgt.QtyRndPrecision);
+                            UOMMgt.QtyRndPrecision());
                     end else begin
                         ToProfile.TransferToTrackingEntry(TrkgReservEntryArray[2], false);
                         ReqLine.TransferToTrackingEntry(TrkgReservEntryArray[2], true);
@@ -2426,7 +2424,7 @@ codeunit 50023 "PWD Inventory Profile Offse."
         if not IsSurplus then begin
             ToTrkgReservEntry."Quantity (Base)" := -FromTrkgReservEntry."Quantity (Base)";
             ToTrkgReservEntry.Quantity :=
-              Round(ToTrkgReservEntry."Quantity (Base)" / ToTrkgReservEntry."Qty. per Unit of Measure", UOMMgt.QtyRndPrecision);
+              Round(ToTrkgReservEntry."Quantity (Base)" / ToTrkgReservEntry."Qty. per Unit of Measure", UOMMgt.QtyRndPrecision());
         end else
             ToTrkgReservEntry."Suppressed Action Msg." := not IssueActionMessage;
 
@@ -2545,7 +2543,7 @@ codeunit 50023 "PWD Inventory Profile Offse."
                 ReservEntry."Entry No." := PrevInsertedEntryNo
             else
                 ReservEntry."Entry No." := 0;
-            ReservEntry.UpdateItemTracking;
+            ReservEntry.UpdateItemTracking();
             UpdateAppliedItemEntry(ReservEntry);
             ReservEntry.Insert();
             PrevTempEntryNo := TempTrkgReservEntry."Entry No.";
@@ -2562,8 +2560,6 @@ codeunit 50023 "PWD Inventory Profile Offse."
         AsmHeader: Record "Assembly Header";
         TransLine: Record "Transfer Line";
         CurrentSupplyInvtProfile: Record "Inventory Profile";
-        RecLSalesLine: Record "Sales Line";
-        ReclResEntry: Record "Reservation Entry";
         PlanLineNo: Integer;
         RecalculationRequired: Boolean;
         IsHandled: Boolean;
@@ -2711,7 +2707,7 @@ codeunit 50023 "PWD Inventory Profile Offse."
                 if ReqLine."Action Message" = ReqLine."Action Message"::New then begin
                     CurrentSupplyInvtProfile.Copy(SupplyInvtProfile);
                     SupplyInvtProfile.Init();
-                    SupplyInvtProfile."Line No." := NextLineNo;
+                    SupplyInvtProfile."Line No." := NextLineNo();
                     SupplyInvtProfile."Item No." := ReqLine."No.";
                     SupplyInvtProfile.TransferFromOutboundTransfPlan(ReqLine, TempItemTrkgEntry);
                     SupplyInvtProfile.CopyTrackingFromInvtProfile(CurrentSupplyInvtProfile);
@@ -2815,7 +2811,7 @@ codeunit 50023 "PWD Inventory Profile Offse."
         with InventoryProfile do begin
             SetRange("Source Type", DATABASE::"Sales Line");
             SetRange("Ref. Blanket Order No.", DocumentNo);
-            if FindSet then
+            if FindSet() then
                 repeat
                     SalesLine.Get(SalesLine."Document Type"::Order, "Source ID", "Source Ref. No.");
                     if (SalesLine."Blanket Order No." = DocumentNo) and (SalesLine."Blanket Order Line No." = LineNo) then
@@ -2852,7 +2848,7 @@ codeunit 50023 "PWD Inventory Profile Offse."
                                       StrSubstNo(
                                         Text005, Item.FieldCaption("Maximum Inventory"), Item."Maximum Inventory", Item.TableCaption,
                                         Item."No.", Item.FieldCaption("Reorder Point"), Item."Reorder Point"),
-                                      DATABASE::Item, Item.GetPosition);
+                                      DATABASE::Item, Item.GetPosition());
                         TempSKU.TestField("Maximum Inventory", TempSKU."Reorder Point" + 1); // Assertion
                     end;
 
@@ -2984,7 +2980,7 @@ codeunit 50023 "PWD Inventory Profile Offse."
 
         ReqLine.Validate(
             Quantity,
-            Round(SupplyInventoryProfile."Remaining Quantity (Base)" / SupplyInventoryProfile."Qty. per Unit of Measure", UOMMgt.QtyRndPrecision));
+            Round(SupplyInventoryProfile."Remaining Quantity (Base)" / SupplyInventoryProfile."Qty. per Unit of Measure", UOMMgt.QtyRndPrecision()));
     end;
 
     local procedure DisableRelations()
@@ -3068,7 +3064,7 @@ codeunit 50023 "PWD Inventory Profile Offse."
             SetRange("Location Code", LocationCode);
             SetFilter("Action Message", '<>%1', "Action Message"::New);
             OnSyncTransferDemandWithReqLineOnAfterSetFilters(TransferReqLine, InventoryProfile, LocationCode, CurrTemplateName, CurrWorksheetName);
-            if FindFirst then
+            if FindFirst() then
                 TransferReqLineToInvProfiles(InventoryProfile, TransferReqLine);
         end;
     end;
@@ -3131,7 +3127,7 @@ codeunit 50023 "PWD Inventory Profile Offse."
                       StrSubstNo(
                         Text003, SKU.FieldCaption("Transfer-from Code"), SKU.TableCaption,
                         SKU."Location Code", SKU."Item No.", SKU."Variant Code"),
-                      DATABASE::"Stockkeeping Unit", SKU.GetPosition);
+                      DATABASE::"Stockkeeping Unit", SKU.GetPosition());
             if not OK then
                 Location.Get("Transfer-from Code");
             OutboundWhseTime := Location."Outbound Whse. Handling Time";
@@ -3203,7 +3199,7 @@ codeunit 50023 "PWD Inventory Profile Offse."
     begin
         SKU.Copy(TempSKU);
         with TempTransferSKU do begin
-            Reset;
+            Reset();
             if Find('-') then
                 repeat
                     TempSKU.Reset();
@@ -3339,7 +3335,7 @@ codeunit 50023 "PWD Inventory Profile Offse."
             TempReminderInvtProfile.SetFilter("Due Date", '%1..%2', LatestBucketStartDate, NextBucketEndDate);
             SupplyIncrementQty := 0;
             DemandIncrementQty := 0;
-            if TempReminderInvtProfile.FindSet then
+            if TempReminderInvtProfile.FindSet() then
                 repeat
                     if TempReminderInvtProfile.IsSupply then begin
                         if TempReminderInvtProfile."Order Relation" <> TempReminderInvtProfile."Order Relation"::"Safety Stock" then
@@ -3375,7 +3371,7 @@ codeunit 50023 "PWD Inventory Profile Offse."
             exit(LatestBucketStartDate);
 
         TempReminderInvtProfile.SetFilter("Due Date", '%1..%2', LatestBucketStartDate, AtDate);
-        if TempReminderInvtProfile.FindFirst then
+        if TempReminderInvtProfile.FindFirst() then
             AtDate := TempReminderInvtProfile."Due Date";
 
         NumberOfDaysToNextReminder := AtDate - LatestBucketStartDate;
@@ -3387,13 +3383,12 @@ codeunit 50023 "PWD Inventory Profile Offse."
         // Apply a minimum quantity to the existing orders to protect the
         // remaining valid surplus from being reduced in the common balancing act
 
-        with SupplyInvtProfile do begin
+        with SupplyInvtProfile do
             if FindSet(true) then
                 repeat
                     "Min. Quantity" := "Remaining Quantity (Base)";
-                    Modify;
+                    Modify();
                 until Next() = 0;
-        end;
     end;
 
     local procedure ChkInitialOverflow(var DemandInvtProfile: Record "Inventory Profile"; var SupplyInvtProfile: Record "Inventory Profile"; OverflowLevel: Decimal; InventoryLevel: Decimal; FromDate: Date; ToDate: Date)
@@ -3446,7 +3441,7 @@ codeunit 50023 "PWD Inventory Profile Offse."
                         InventoryLevel := 0;
 
                     DemandInvtProfile.SetRange("Due Date", CurrBucketStartDate, CurrBucketEndDate);
-                    if DemandInvtProfile.FindSet then
+                    if DemandInvtProfile.FindSet() then
                         repeat
                             InventoryLevel -= DemandInvtProfile."Remaining Quantity (Base)";
                         until DemandInvtProfile.Next() = 0;
@@ -3834,7 +3829,7 @@ codeunit 50023 "PWD Inventory Profile Offse."
         ItemUnitOfMeasure: Record "Item Unit of Measure";
     begin
         SupplyInvtProfile.Init();
-        SupplyInvtProfile."Line No." := NextLineNo;
+        SupplyInvtProfile."Line No." := NextLineNo();
         SupplyInvtProfile."Item No." := TempSKU."Item No.";
         SupplyInvtProfile."Variant Code" := TempSKU."Variant Code";
         SupplyInvtProfile."Location Code" := TempSKU."Location Code";
@@ -3901,7 +3896,7 @@ codeunit 50023 "PWD Inventory Profile Offse."
 
         ToInvProfile."MPS Order" := FromInvProfile."MPS Order";
 
-        if ToInvProfile.TrackingExists then
+        if ToInvProfile.TrackingExists() then
             ToInvProfile."Planning Flexibility" := ToInvProfile."Planning Flexibility"::None;
         //>>FE_LAPIERRETTE_PROD01.001: TO 13/12/2011
         ToInvProfile."PWD Original Source Id" := FromInvProfile."PWD Original Source Id";
@@ -3943,7 +3938,7 @@ codeunit 50023 "PWD Inventory Profile Offse."
         xSupplyInvtProfile.Copy(SupplyInvtProfile);
         SupplyInvtProfile.SetRange("Due Date", FromDate, ToDate);
 
-        if SupplyInvtProfile.FindSet then
+        if SupplyInvtProfile.FindSet() then
             repeat
                 if (SupplyInvtProfile.Binding <> SupplyInvtProfile.Binding::"Order-to-Order") and
                    (SupplyInvtProfile."Order Relation" <> SupplyInvtProfile."Order Relation"::"Safety Stock")
@@ -3963,7 +3958,7 @@ codeunit 50023 "PWD Inventory Profile Offse."
         xSupplyInvtProfile.Copy(SupplyInvtProfile);
         SupplyInvtProfile.SetRange("Due Date", FromDate, ToDate);
 
-        if SupplyInvtProfile.FindSet then
+        if SupplyInvtProfile.FindSet() then
             repeat
                 AvailableQty += SupplyInvtProfile."Untracked Quantity";
             until SupplyInvtProfile.Next() = 0;
@@ -4067,12 +4062,12 @@ codeunit 50023 "PWD Inventory Profile Offse."
                     "Order Priority" := 100 + ("Order Priority" / 10);
 
             if "Planning Flexibility" = "Planning Flexibility"::Unlimited then
-                if ActiveInWarehouse then
+                if ActiveInWarehouse() then
                     "Order Priority" -= 1;
 
             SetAttributePriority(InvProfile);
 
-            Modify;
+            Modify();
         end;
     end;
 
@@ -4096,7 +4091,7 @@ codeunit 50023 "PWD Inventory Profile Offse."
                         "Attribute Priority" := 2
                     else
                         "Attribute Priority" := 5;
-            end else begin
+            end else
                 if HandleLot then
                     if Binding = Binding::"Order-to-Order" then
                         "Attribute Priority" := 3
@@ -4107,7 +4102,6 @@ codeunit 50023 "PWD Inventory Profile Offse."
                         "Attribute Priority" := 7
                     else
                         "Attribute Priority" := 8;
-            end;
         end;
     end;
 
@@ -4138,7 +4132,7 @@ codeunit 50023 "PWD Inventory Profile Offse."
           "Item No.", "Variant Code", "Location Code", "Due Date", "Attribute Priority", "Order Priority");
         DemandInvtProfile.SetFilter("Due Date", '%1..', PlanningStartDate);
 
-        if DemandInvtProfile.FindSet then
+        if DemandInvtProfile.FindSet() then
             repeat
                 if TempSafetyStockInvtProfile."Due Date" <> DemandInvtProfile."Due Date" then
                     CreateDemand(
@@ -4208,7 +4202,7 @@ codeunit 50023 "PWD Inventory Profile Offse."
 
         // If we have resheduled we replace the original supply records with the resceduled ones,
         // we re-write the primary key to make sure that the supplies are handled in the right order.
-        if TempRescheduledSupplyInvtProfile.FindSet then begin
+        if TempRescheduledSupplyInvtProfile.FindSet() then begin
             if (NextRecExists <> 0) and (SupplyInvtProfile."Due Date" = NewDate) then
                 SavedPosition := SupplyInvtProfile."Line No."
             else
@@ -4217,7 +4211,7 @@ codeunit 50023 "PWD Inventory Profile Offse."
             repeat
                 SupplyInvtProfile := TempRescheduledSupplyInvtProfile;
                 SupplyInvtProfile.Delete();
-                SupplyInvtProfile."Line No." := NextLineNo;
+                SupplyInvtProfile."Line No." := NextLineNo();
                 OnScheduleAllOutChangesSequenceOnBeforeSupplyInvtProfileInsert(SupplyInvtProfile);
                 SupplyInvtProfile.Insert();
                 if SavedPosition = 0 then
@@ -4233,7 +4227,7 @@ codeunit 50023 "PWD Inventory Profile Offse."
     local procedure PrepareOrderToOrderLink(var InventoryProfile: Record "Inventory Profile")
     begin
         // Prepare new demand for order-to-order planning
-        with InventoryProfile do begin
+        with InventoryProfile do
             if FindSet(true) then
                 repeat
                     if not IsSupply then
@@ -4242,10 +4236,10 @@ codeunit 50023 "PWD Inventory Profile Offse."
                                 if (TempSKU."Reordering Policy" = TempSKU."Reordering Policy"::Order) or
                                    ("Planning Level Code" <> 0)
                                 then begin
-                                    if "Source Type" = DATABASE::"Planning Component" then begin
+                                    if "Source Type" = DATABASE::"Planning Component" then
                                         // Primary Order references have already been set on Component Lines
-                                        Binding := Binding::"Order-to-Order";
-                                    end else begin
+                                        Binding := Binding::"Order-to-Order"
+                                    else begin
                                         Binding := Binding::"Order-to-Order";
                                         "Primary Order Type" := "Source Type";
                                         "Primary Order Status" := "Source Order Status";
@@ -4255,15 +4249,14 @@ codeunit 50023 "PWD Inventory Profile Offse."
                                         else
                                             "Primary Order Line" := "Source Prod. Order Line";
                                     end;
-                                    Modify;
+                                    Modify();
                                 end;
                 until Next() = 0;
-        end;
     end;
 
     local procedure SetAcceptAction(ItemNo: Code[20])
     var
-        ReqLine: Record "Requisition Line";
+        ReqLine1: Record "Requisition Line";
         PurchHeader: Record "Purchase Header";
         ProdOrder: Record "Production Order";
         TransHeader: Record "Transfer Header";
@@ -4271,7 +4264,7 @@ codeunit 50023 "PWD Inventory Profile Offse."
         ReqWkshTempl: Record "Req. Wksh. Template";
         AcceptActionMsg: Boolean;
     begin
-        with ReqLine do begin
+        with ReqLine1 do begin
             ReqWkshTempl.Get(CurrTemplateName);
             if ReqWkshTempl.Type <> ReqWkshTempl.Type::Planning then
                 exit;
@@ -4284,11 +4277,11 @@ codeunit 50023 "PWD Inventory Profile Offse."
 
             if FindSet(true) then
                 repeat
-                    AcceptActionMsg := "Starting Date" >= WorkDate;
+                    AcceptActionMsg := "Starting Date" >= WorkDate();
                     if not AcceptActionMsg then
-                        PlanningTransparency.LogWarning(0, ReqLine, DummyInventoryProfileTrackBuffer."Warning Level",
+                        PlanningTransparency.LogWarning(0, ReqLine1, DummyInventoryProfileTrackBuffer."Warning Level",
                           StrSubstNo(Text008, DummyInventoryProfileTrackBuffer."Warning Level", FieldCaption("Starting Date"),
-                            "Starting Date", WorkDate));
+                            "Starting Date", WorkDate()));
 
                     if "Action Message" <> "Action Message"::New then
                         case "Ref. Order Type" of
@@ -4298,7 +4291,7 @@ codeunit 50023 "PWD Inventory Profile Offse."
                                 then begin
                                     AcceptActionMsg := false;
                                     PlanningTransparency.LogWarning(
-                                      0, ReqLine, DummyInventoryProfileTrackBuffer."Warning Level",
+                                      0, ReqLine1, DummyInventoryProfileTrackBuffer."Warning Level",
                                       StrSubstNo(Text009,
                                         DummyInventoryProfileTrackBuffer."Warning Level", PurchHeader.FieldCaption(Status), "Ref. Order Type",
                                         "Ref. Order No.", PurchHeader.Status));
@@ -4307,7 +4300,7 @@ codeunit 50023 "PWD Inventory Profile Offse."
                                 if "Ref. Order Status" = ProdOrder.Status::Released.AsInteger() then begin
                                     AcceptActionMsg := false;
                                     PlanningTransparency.LogWarning(
-                                      0, ReqLine, DummyInventoryProfileTrackBuffer."Warning Level",
+                                      0, ReqLine1, DummyInventoryProfileTrackBuffer."Warning Level",
                                       StrSubstNo(Text009,
                                         DummyInventoryProfileTrackBuffer."Warning Level", ProdOrder.FieldCaption(Status), "Ref. Order Type",
                                         "Ref. Order No.", "Ref. Order Status"));
@@ -4318,7 +4311,7 @@ codeunit 50023 "PWD Inventory Profile Offse."
                                 then begin
                                     AcceptActionMsg := false;
                                     PlanningTransparency.LogWarning(
-                                      0, ReqLine, DummyInventoryProfileTrackBuffer."Warning Level",
+                                      0, ReqLine1, DummyInventoryProfileTrackBuffer."Warning Level",
                                       StrSubstNo(Text009,
                                         DummyInventoryProfileTrackBuffer."Warning Level", AsmHeader.FieldCaption(Status), "Ref. Order Type",
                                         "Ref. Order No.", AsmHeader.Status));
@@ -4329,21 +4322,21 @@ codeunit 50023 "PWD Inventory Profile Offse."
                                 then begin
                                     AcceptActionMsg := false;
                                     PlanningTransparency.LogWarning(
-                                      0, ReqLine, DummyInventoryProfileTrackBuffer."Warning Level",
+                                      0, ReqLine1, DummyInventoryProfileTrackBuffer."Warning Level",
                                       StrSubstNo(Text009,
                                         DummyInventoryProfileTrackBuffer."Warning Level", TransHeader.FieldCaption(Status), "Ref. Order Type",
                                         "Ref. Order No.", TransHeader.Status));
                                 end;
                         end;
 
-                    OnSetAcceptActionOnBeforeAcceptActionMsg(ReqLine, AcceptActionMsg);
+                    OnSetAcceptActionOnBeforeAcceptActionMsg(ReqLine1, AcceptActionMsg);
 
                     if AcceptActionMsg then
-                        AcceptActionMsg := PlanningTransparency.ReqLineWarningLevel(ReqLine) = 0;
+                        AcceptActionMsg := PlanningTransparency.ReqLineWarningLevel(ReqLine1) = 0;
 
                     if not AcceptActionMsg then begin
                         "Accept Action Message" := false;
-                        Modify;
+                        Modify();
                     end;
                 until Next() = 0;
         end;
@@ -4377,7 +4370,7 @@ codeunit 50023 "PWD Inventory Profile Offse."
                     ProdOrderRoutingLine.SetRange("Prod. Order No.", ProdOrderLine."Prod. Order No.");
                     ProdOrderRoutingLine.SetRange("Routing Reference No.", ProdOrderLine."Routing Reference No.");
                     ProdOrderRoutingLine.SetRange("Routing No.", ProdOrderLine."Routing No.");
-                    DisableRelations;
+                    DisableRelations();
                     if ProdOrderRoutingLine.Find('-') then
                         repeat
                             PlanRoutingLine.Init();
@@ -4532,10 +4525,10 @@ codeunit 50023 "PWD Inventory Profile Offse."
 
     local procedure FrozenZoneTrack(FromInventoryProfile: Record "Inventory Profile"; ToInventoryProfile: Record "Inventory Profile")
     begin
-        if FromInventoryProfile.TrackingExists then
+        if FromInventoryProfile.TrackingExists() then
             Track(FromInventoryProfile, ToInventoryProfile, true, false, FromInventoryProfile.Binding::" ");
 
-        if ToInventoryProfile.TrackingExists then begin
+        if ToInventoryProfile.TrackingExists() then begin
             ToInventoryProfile."Untracked Quantity" := FromInventoryProfile."Untracked Quantity";
             ToInventoryProfile."Quantity (Base)" := FromInventoryProfile."Untracked Quantity";
             ToInventoryProfile."Original Quantity" := 0;
@@ -4666,7 +4659,7 @@ codeunit 50023 "PWD Inventory Profile Offse."
             ItemTrackingSetup.CopyTrackingFromReservEntry(ReservEntry);
             SetTrackingFilterFromItemTrackingSetupIfNotBlank(ItemTrackingSetup);
             OnUpdateAppliedItemEntryOnBeforeFindApplEntry(TempItemTrkgEntry, ReservEntry);
-            if FindFirst then begin
+            if FindFirst() then begin
                 ReservEntry."Appl.-from Item Entry" := "Appl.-from Item Entry";
                 ReservEntry."Appl.-to Item Entry" := "Appl.-to Item Entry";
             end;
@@ -4717,14 +4710,14 @@ codeunit 50023 "PWD Inventory Profile Offse."
         with FromInventoryProfile do begin
             SetRange("Attribute Priority", 1, 7);
             SetRange("Planning Level Code", 0);
-            if FindSet then begin
+            if FindSet() then begin
                 repeat
                     ToInventoryProfile.SetRange(Binding, Binding);
                     ToInventoryProfile.SetRange("Primary Order Status", "Primary Order Status");
                     ToInventoryProfile.SetRange("Primary Order No.", "Primary Order No.");
                     ToInventoryProfile.SetRange("Primary Order Line", "Primary Order Line");
                     ToInventoryProfile.SetTrackingFilter(FromInventoryProfile);
-                    if ToInventoryProfile.FindSet then
+                    if ToInventoryProfile.FindSet() then
                         repeat
                             UntrackedQty += ToInventoryProfile."Untracked Quantity";
                         until ToInventoryProfile.Next() = 0;
@@ -4795,7 +4788,7 @@ codeunit 50023 "PWD Inventory Profile Offse."
 
         ClosedInvtProfile."Untracked Quantity" := 0;
         if ClosedInvtProfile."Remaining Quantity (Base)" = 0 then
-            ClosedInvtProfile.Delete
+            ClosedInvtProfile.Delete()
         else
             ClosedInvtProfile.Modify();
     end;
@@ -4808,7 +4801,7 @@ codeunit 50023 "PWD Inventory Profile Offse."
     local procedure CloseSupply(var DemandInvtProfile: Record "Inventory Profile"; var SupplyInvtProfile: Record "Inventory Profile"): Boolean
     begin
         CloseInventoryProfile(SupplyInvtProfile, DemandInvtProfile, SupplyInvtProfile."Action Message");
-        exit(SupplyInvtProfile.Next <> 0);
+        exit(SupplyInvtProfile.Next() <> 0);
     end;
 
     local procedure CreateTempSKUForComponentsLocation(var Item: Record Item)
@@ -4828,8 +4821,8 @@ codeunit 50023 "PWD Inventory Profile Offse."
     procedure ForecastInitDemand(var InventoryProfile: Record "Inventory Profile"; ProductionForecastEntry: Record "Production Forecast Entry"; ItemNo: Code[20]; LocationCode: Code[10]; TotalForecastQty: Decimal)
     begin
         with InventoryProfile do begin
-            Init;
-            "Line No." := NextLineNo;
+            Init();
+            "Line No." := NextLineNo();
             "Source Type" := DATABASE::"Production Forecast Entry";
             "Planning Flexibility" := "Planning Flexibility"::None;
             "Qty. per Unit of Measure" := 1;
@@ -4950,11 +4943,11 @@ codeunit 50023 "PWD Inventory Profile Offse."
             exit;
 
         InventoryProfile.Init();
-        InventoryProfile."Line No." := NextLineNo;
+        InventoryProfile."Line No." := NextLineNo();
         InventoryProfile."Item No." := Item."No.";
         InventoryProfile.TransferFromOutboundTransfPlan(RequisitionLine, TempItemTrkgEntry);
         if InventoryProfile.IsSupply then
-            InventoryProfile.ChangeSign;
+            InventoryProfile.ChangeSign();
         InventoryProfile.Insert();
     end;
 

@@ -794,7 +794,6 @@ report 50009 "PWD Sales Order Confirmation"
         [InDataSet]
         ArchiveDocumentEnable: Boolean;
         BooGImpLogo: Boolean;
-        BooGSkipSendEmail: Boolean;
         BooGStopComment: Boolean;
         Comptegenral: Boolean;
         ISitem: Boolean;

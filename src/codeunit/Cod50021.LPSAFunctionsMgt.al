@@ -473,7 +473,6 @@ codeunit 50021 "PWD LPSA Functions Mgt."
         CalcReservEntry: Record "Reservation Entry";
         LPSASetGetFunctions: codeunit "PWD LPSA Set/Get Functions.";
         ReservMgt: Codeunit "Reservation Management";
-        SourceRecRef: RecordRef;
     begin
         LPSASetGetFunctions.SetProdOrderComp(ProdOrderComp);
         LPSASetGetFunctions.GetCalcReservEntry(CalcReservEntry);
@@ -536,10 +535,10 @@ codeunit 50021 "PWD LPSA Functions Mgt."
     PROCEDURE FctGetTimeForCost(OptPType: Enum "Capacity Type Routing"; CodPNo: Code[20]; CodPItemNo: Code[20]; DecPQty: Decimal; VAR DecPSetupTime: Decimal; VAR DecPRunTime: Decimal; VAR CodPSetupTimeUnit: Code[10]; VAR CodPRunTimeUnit: Code[10])
     VAR
         RecLManufCyclesSetup: Record "PWD Manufacturing cycles Setup";
-        DecLQ: Decimal;
+        // DecLQ: Decimal;
         DecLQm: Decimal;
     BEGIN
-        DecLQ := DecPQty;
+        // DecLQ := DecPQty;
 
         RecLManufCyclesSetup.GET(OptPType, CodPNo, CodPItemNo);
         DecLQm := RecLManufCyclesSetup."Maximun Qty by cycle (Base)";
@@ -751,13 +750,14 @@ codeunit 50021 "PWD LPSA Functions Mgt."
         RecLManufacturingSetup: Record "Manufacturing Setup";
         ItemTrackingMgt: Codeunit "Item Tracking Management";
         LPSASetGetFunctions: codeunit "PWD LPSA Set/Get Functions.";
-        CodLWorkCenter: Code[10];
+        // CodLWorkCenter: Code[10];
         ToBatchName: Code[10];
         ToTemplateName: Code[10];
         PostingDate: Date;
         QtyToPost: Decimal;
         NextLineNo: Integer;
     BEGIN
+        NextLineNo := 10000;
         PostingDate := WORKDATE();
         //===Copy of Function InsertOutputJnlLine to work on Manufacturing Sheet=======================================
         //>>FE_LAPIERRETTE_PROD03.001
@@ -766,7 +766,7 @@ codeunit 50021 "PWD LPSA Functions Mgt."
         //RecLManufacturingSetup.TESTFIELD("Non conformity Prod. Location");
         //<<FE_LAPIERRETTE_PRO12.001
         RecLManufacturingSetup.TESTFIELD("PWD Mach. center-Invent. input");
-        CodLWorkCenter := RecLManufacturingSetup."PWD Mach. center-Invent. input";
+        // CodLWorkCenter := RecLManufacturingSetup."PWD Mach. center-Invent. input";
         //<FE_LAPIERRETTE_PROD03.001
         QtyToPost := RecPItemJnalLine."Output Quantity";
         //>>ProdOrderRtngLine
@@ -1004,11 +1004,11 @@ codeunit 50021 "PWD LPSA Functions Mgt."
         ItemSubPhantom: Record "PWD Phantom substitution Items";
         TempItemSubPhantom: Record "PWD Phantom substitution Items" TEMPORARY;
         RecLTrackingSpec: Record "Tracking Specification";
-        RelationsLevel2: Integer;
+    // RelationsLevel2: Integer;
     BEGIN
         // >> FE_LAPRIERRETTE_GP0003 : APA 16/05/13
         ItemSubPhantom.COPY(ItemSubPhantom3);
-        RelationsLevel2 := RelationsLevel;
+        // RelationsLevel2 := RelationsLevel;
 
         RecLItemLedgEntry.SETCURRENTKEY(Open, "Item Tracking", "Item No.", "Variant Code", "Lot No.", "Serial No.");
 
@@ -1760,14 +1760,14 @@ codeunit 50021 "PWD LPSA Functions Mgt."
             EXIT(TRUE);
     END;
     //---CDU414---
-    PROCEDURE FctIsImport(BooPDontExecuteIfImport: Boolean)
-    var
-        BooGDontExecuteIfImport: boolean;
-    BEGIN
-        //>>WMS-FE05.001
-        BooGDontExecuteIfImport := BooPDontExecuteIfImport;
-        //<<WMS-FE05.001
-    END;
+    // PROCEDURE FctIsImport(BooPDontExecuteIfImport: Boolean)
+    // var
+    //     BooGDontExecuteIfImport: boolean;
+    // BEGIN
+    //     //>>WMS-FE05.001
+    //     BooGDontExecuteIfImport := BooPDontExecuteIfImport;
+    //<<WMS-FE05.001
+    // END;
     // //---CDU703---(REPORT 11511)
     // PROCEDURE SetFromConfiguration()
     // var

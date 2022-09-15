@@ -421,10 +421,10 @@ codeunit 8073287 "Connector Buffer Mgt Export"
                                                     BigTLBigTextToReturn.ADDTEXT(TxtLValue);
                                                 END;
                                             ELSE BEGIN
-                                                    TxtLValue := DELCHR(FORMAT(FldRef.VALUE), '=', FORMAT(FORMAT(ChrL13)));
-                                                    TxtLValue := DELCHR(TxtLValue, '=', FORMAT(FORMAT(ChrL10)));
-                                                    BigTLBigTextToReturn.ADDTEXT(FORMAT(FldRef.VALUE));
-                                                END;
+                                                TxtLValue := DELCHR(FORMAT(FldRef.VALUE), '=', FORMAT(FORMAT(ChrL13)));
+                                                TxtLValue := DELCHR(TxtLValue, '=', FORMAT(FORMAT(ChrL10)));
+                                                BigTLBigTextToReturn.ADDTEXT(FORMAT(FldRef.VALUE));
+                                            END;
                                         END;
 
                                         //>>WMS-FE10.001
@@ -686,11 +686,11 @@ codeunit 8073287 "Connector Buffer Mgt Export"
                                                 END;
 
                                             ELSE BEGIN
-                                                    TxtLValue := DELCHR(FORMAT(FldRef.VALUE), '=', FORMAT(FORMAT(ChrL13)));
-                                                    TxtLValue := DELCHR(TxtLValue, '=', FORMAT(FORMAT(ChrL10)));
-                                                    TxtLValue := CduGFileManagement.FctFillUpString(RecLFieldsExportSetup, FORMAT(FldRef.VALUE));
-                                                    BigTPToReturn.ADDTEXT(TxtLValue);
-                                                END;
+                                                TxtLValue := DELCHR(FORMAT(FldRef.VALUE), '=', FORMAT(FORMAT(ChrL13)));
+                                                TxtLValue := DELCHR(TxtLValue, '=', FORMAT(FORMAT(ChrL10)));
+                                                TxtLValue := CduGFileManagement.FctFillUpString(RecLFieldsExportSetup, FORMAT(FldRef.VALUE));
+                                                BigTPToReturn.ADDTEXT(TxtLValue);
+                                            END;
                                         END;
                                     END;
                                 END;
@@ -1049,10 +1049,10 @@ codeunit 8073287 "Connector Buffer Mgt Export"
 
 
                             ELSE BEGIN
-                                    TxtLValue := DELCHR(FORMAT(FldRef.VALUE), '=', FORMAT(FORMAT(ChrL13)));
-                                    TxtLValue := DELCHR(TxtLValue, '=', FORMAT(FORMAT(ChrL10)));
-                                    BigTLBigTextToReturn.ADDTEXT(PADSTR(TxtLValue, RecLFieldsExportSetup."File Length"));
-                                END;
+                                TxtLValue := DELCHR(FORMAT(FldRef.VALUE), '=', FORMAT(FORMAT(ChrL13)));
+                                TxtLValue := DELCHR(TxtLValue, '=', FORMAT(FORMAT(ChrL10)));
+                                BigTLBigTextToReturn.ADDTEXT(PADSTR(TxtLValue, RecLFieldsExportSetup."File Length"));
+                            END;
                         END;
 
                     UNTIL RecLFieldsExportSetup.NEXT() = 0;

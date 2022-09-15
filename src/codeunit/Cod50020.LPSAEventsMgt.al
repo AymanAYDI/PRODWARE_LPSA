@@ -274,8 +274,6 @@ codeunit 50020 "PWD LPSA Events Mgt."
 
     [EventSubscriber(ObjectType::table, database::"Sales Line", 'OnBeforeValidatePlannedDeliveryDate', '', false, false)]
     local procedure TAB37_OnBeforeValidatePlannedDeliveryDate_SalesLine(var IsHandled: Boolean; var SalesLine: Record "Sales Line")
-    Var
-        LPSASetGetFunctions: codeunit "PWD LPSA Set/Get Functions.";
     begin
         IsHandled := true;
         //if not LPSASetGetFunctions.GetValidatePlannedDeliveryDate() then begin
@@ -1054,7 +1052,6 @@ codeunit 50020 "PWD LPSA Events Mgt."
     local procedure CDU5406_OnBeforeOutputItemJnlLineInsert_OutputJnlExplRoute(var ItemJournalLine: Record "Item Journal Line"; LastOperation: Boolean)
     VAR
         RecLManufacturingSetup: Record "Manufacturing Setup";
-        CodLWorkCenter: Code[10];
     begin
         //>>FE_LAPIERRETTE_PROD03.001
         RecLManufacturingSetup.GET();
@@ -1168,7 +1165,6 @@ codeunit 50020 "PWD LPSA Events Mgt."
     local procedure CDU5510_OnBeforeInsertOutputItemJnlLine_ProductionJournalMgt(ProdOrderRtngLine: Record "Prod. Order Routing Line"; ProdOrderLine: Record "Prod. Order Line"; var IsHandled: Boolean)
     Var
         RecLManufacturingSetup: Record "Manufacturing Setup";
-        CodLWorkCenter: Code[10];
     begin
         //>>FE_LAPIERRETTE_PROD03.001
         RecLManufacturingSetup.GET();
@@ -1528,30 +1524,28 @@ codeunit 50020 "PWD LPSA Events Mgt."
     local procedure PAG6510_OnBeforeSetSourceSpec_ItemTrackingLines(var TrackingSpecification: Record "Tracking Specification"; var ReservationEntry: Record "Reservation Entry"; var ExcludePostedEntries: Boolean)
     var
         gCurrSourceSpecification: Record "Tracking Specification";
-        gCurrSourceSpecificationSet: Boolean;
+    // gCurrSourceSpecificationSet: Boolean;
     begin
         gCurrSourceSpecification := TrackingSpecification;
-        gCurrSourceSpecificationSet := TRUE;
+        // gCurrSourceSpecificationSet := TRUE;
     end;
 
-    [EventSubscriber(ObjectType::Page, Page::"Item Tracking Lines", 'OnAfterSetSourceSpec', '', false, false)]
-    local procedure OnAfterSetSourceSpec(var TrackingSpecification: Record "Tracking Specification"; var CurrTrackingSpecification: Record "Tracking Specification"; var AvailabilityDate: Date; var BlockCommit: Boolean; FunctionsDemandVisible: Boolean; FunctionsSupplyVisible: Boolean; var QtyToHandleBaseEditable: Boolean; var QuantityBaseEditable: Boolean; var InsertIsBlocked: Boolean)
-    var
-        gCurrSourceSpecDueDate: Date;
-    begin
-        gCurrSourceSpecDueDate := AvailabilityDate;
-    end;
+    // [EventSubscriber(ObjectType::Page, Page::"Item Tracking Lines", 'OnAfterSetSourceSpec', '', false, false)]
+    // local procedure OnAfterSetSourceSpec(var TrackingSpecification: Record "Tracking Specification"; var CurrTrackingSpecification: Record "Tracking Specification"; var AvailabilityDate: Date; var BlockCommit: Boolean; FunctionsDemandVisible: Boolean; FunctionsSupplyVisible: Boolean; var QtyToHandleBaseEditable: Boolean; var QuantityBaseEditable: Boolean; var InsertIsBlocked: Boolean)
+    // var
+    //     gCurrSourceSpecDueDate: Date;
+    // begin
+    //     gCurrSourceSpecDueDate := AvailabilityDate;
+    // end;
 
     [EventSubscriber(ObjectType::Page, Page::"Item Tracking Lines", 'OnSetSourceSpecOnAfterAssignCurrentEntryStatus', '', false, false)]
     local procedure PAG6510_OnSetSourceSpecOnAfterAssignCurrentEntryStatus_ItemTrackingLines(var TrackingSpecification: Record "Tracking Specification"; var CurrentEntryStatus: Option)
     var
         ReservEntry: Record "Reservation Entry";
-        CreateReservEntry: Codeunit "Create Reserv. Entry";
-        CurrentSignFactor: Integer;
     begin
         ReservEntry."Source Type" := TrackingSpecification."Source Type";
         ReservEntry."Source Subtype" := TrackingSpecification."Source Subtype";
-        CurrentSignFactor := CreateReservEntry.SignFactor(ReservEntry);
+        // CurrentSignFactor := CreateReservEntry.SignFactor(ReservEntry);
     end;
 
     // [EventSubscriber(ObjectType::Page, Page::"Item Tracking Lines", 'OnBeforeAssignLotNo', '', false, false)]

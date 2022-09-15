@@ -520,9 +520,9 @@ report 50012 "PWD Shipment Advice"
     end;
 
     trigger OnPostReport()
-    var
-        RecLSalesShipmentHeader: Record "Sales Shipment Header";
-        DocPrint: Codeunit "Document-Print";
+    // var
+    //     RecLSalesShipmentHeader: Record "Sales Shipment Header";
+    //     DocPrint: Codeunit "Document-Print";
     begin
         //>>NDBI
         // if not BooGSkipSendEmail and BooGEnvoiMail then begin
@@ -560,7 +560,6 @@ report 50012 "PWD Shipment Advice"
         ShptCountPrinted: Codeunit "Sales Shpt.-Printed";
         SegManagement: Codeunit SegManagement;
         BooGIMP: Boolean;
-        BooGSkipSendEmail: Boolean;
         BooGStopComment: Boolean;
         LogInteraction: Boolean;
         [InDataSet]

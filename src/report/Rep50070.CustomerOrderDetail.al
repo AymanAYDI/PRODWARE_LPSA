@@ -559,13 +559,12 @@ report 50070 "PWD Customer - Order Detail"
     end;
 
     var
-        Text000: Label 'Shipment Date: %1';
-        Text001: Label 'Sales Order Line: %1';
-        CurrExchRate: Record 330;
-        CurrencyTotalBuffer: Record 332 temporary;
-        CurrencyTotalBuffer2: Record 332 temporary;
-        SalesHeader: Record 36;
-        ExcelBuf: Record 370 temporary;
+        CurrExchRate: Record "Currency Exchange Rate";
+        CurrencyTotalBuffer: Record "Currency Total Buffer" temporary;
+        CurrencyTotalBuffer2: Record "Currency Total Buffer" temporary;
+        SalesHeader: Record "Sales Header";
+        ExcelBuf: Record "Excel Buffer" temporary;
+        RecGItem: Record "Item";
         CustFilter: Text[250];
         SalesLineFilter: Text[250];
         SalesOrderAmount: Decimal;
@@ -574,12 +573,13 @@ report 50070 "PWD Customer - Order Detail"
         PeriodText: Text[30];
         PrintOnlyOnePerPage: Boolean;
         BackOrderQty: Decimal;
+        Text000: Label 'Shipment Date: %1';
+        Text001: Label 'Sales Order Line: %1';
         NewOrder: Boolean;
         OK: Boolean;
         Counter1: Integer;
         CurrencyCode2: Code[10];
         PrintToExcel: Boolean;
-        Text002: Label 'Data';
         Text003: Label 'Customer - Order Detail';
         Text004: Label 'Company Name';
         Text005: Label 'Report No.';
@@ -588,14 +588,8 @@ report 50070 "PWD Customer - Order Detail"
         Text008: Label 'Date';
         Text009: Label 'Customer Filters';
         Text010: Label 'Sales Order Lines Filters';
-        Text011: Label 'Quantity on Back Order';
-        Text012: Label 'Outstanding Orders';
         Text013: Label 'All amounts are in LCY';
-        Text014: Label ' ,G/L Account,Item,Resource,Fixed Asset,Charge (Item)';
-        Text015: Label 'Item';
-        Text016: Label 'Order';
         PageGroupNo: Integer;
-        RecGItem: Record 27;
         Customer___Order_DetailCaptionLbl: Label 'Customer - Order Detail';
         CurrReport_PAGENOCaptionLbl: Label 'Page';
         All_amounts_are_in_LCYCaptionLbl: Label 'All amounts are in LCY';

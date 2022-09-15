@@ -55,9 +55,10 @@ codeunit 50012 "PWD GenerateItemBarCode"
 
     local procedure SaveResult(var Arguments: Record "PWD RESTWebServiceArguments" temporary; var Barcode: Record "PWD BarCode")
     var
+        TempBlob: Codeunit "Temp Blob";
         ResponseContent: HttpContent;
         InStr: InStream;
-        TempBlob: Codeunit "Temp Blob";
+
     begin
         Arguments.GetResponseContent(ResponseContent);
         TempBlob.CreateInStream(InStr, TextEncoding::Windows);
@@ -67,14 +68,14 @@ codeunit 50012 "PWD GenerateItemBarCode"
         Barcode.Modify(true);
     end;
 
-    local procedure GetOptionStringValue(Value: Integer; fieldno: Integer): Text
-    var
-        FieldRec: Record Field;
-    begin
-        FieldRec.Get(Database::"PWD BarCode", fieldno);
-        exit(SelectStr(Value + 1, FieldRec.OptionString));
+    // local procedure GetOptionStringValue(Value: Integer; fieldno: Integer): Text
+    // var
+    //     FieldRec: Record Field;
+    // begin
+    //     FieldRec.Get(Database::"PWD BarCode", fieldno);
+    //     exit(SelectStr(Value + 1, FieldRec.OptionString));
 
-    end;
+    // end;
 }
 
 

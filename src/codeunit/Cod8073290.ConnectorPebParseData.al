@@ -152,16 +152,16 @@ codeunit 8073290 "PWD Connector Peb Parse Data"
 
     procedure FctParseData()
     var
-        // AutLXMLNodeData: Automation; //NOTUSED: Variable de type Automation
-        // AutLXMLNodeDataList: Automation; //NOTUSED: Variable de type Automation
-        IntLIndex: Integer;
+    // AutLXMLNodeData: Automation; //NOTUSED: Variable de type Automation
+    // AutLXMLNodeDataList: Automation; //NOTUSED: Variable de type Automation
+    // IntLIndex: Integer;
     begin
         //**********************************************************************************************************//
         //                                  Parse Request Data                                                      //
         //**********************************************************************************************************//
 
-        IntLIndex := 1;
-        CLEAR(TxtGData);
+        // IntLIndex := 1;
+        // CLEAR(TxtGData);
         // AutLXMLNodeData := AutGXMLDom.selectSingleNode('/IDXMLSerial/Data'); //NOTUSED: Variable de type Automation
         // IF NOT ISCLEAR(AutLXMLNodeData) THEN BEGIN  //NOTUSED: Variable de type Automation
         //     AutLXMLNodeDataList := AutLXMLNodeData.selectNodes('/IDXMLSerial/Data');  //NOTUSED: Variable de type Automation
@@ -1481,7 +1481,7 @@ codeunit 8073290 "PWD Connector Peb Parse Data"
     end;
 
 
-    procedure FctUpdateSalesHeader(var RecPSalesHeader: Record "Sales Header"; var IntPEntryBufferNo: Integer)
+    procedure FctUpdateSalesHeader(var RecPSalesHeader: Record "Sales Header"; IntPEntryBufferNo: Integer)
     var
         RecLPEBSalesHeaderBuffer: Record "PWD PEB Sales Header Buffer";
     begin
@@ -1492,7 +1492,7 @@ codeunit 8073290 "PWD Connector Peb Parse Data"
     end;
 
 
-    procedure FctUpdateSalesLine(var RecPSalesLine: Record "Sales Line"; var IntPEntryBufferNo: Integer)
+    procedure FctUpdateSalesLine(var RecPSalesLine: Record "Sales Line"; IntPEntryBufferNo: Integer)
     var
         RecLPEBSalesLineBuffer: Record "PWD PEB Sales Line Buffer";
     begin
@@ -1504,7 +1504,7 @@ codeunit 8073290 "PWD Connector Peb Parse Data"
     end;
 
 
-    procedure FctUpdateSalesCommentLine(var RecPSalesCommentLine: Record "Sales Comment Line"; var IntPEntryBufferNo: Integer)
+    procedure FctUpdateSalesCommentLine(var RecPSalesCommentLine: Record "Sales Comment Line"; IntPEntryBufferNo: Integer)
     var
         RecLPEBSalesCommentLineBuffer: Record "PWD PEB Sales Comm Line Buffer";
     begin
@@ -1584,7 +1584,7 @@ codeunit 8073290 "PWD Connector Peb Parse Data"
             RecordRef.SETTABLE(RecLCustomer);
             RecLCustomer.SETRECFILTER();
 
-            IF RecLCustomer.FINDFIRST() THEN BEGIN
+            IF RecLCustomer.FINDFIRST() THEN
                 IF RecLTempBlob.HASVALUE() THEN BEGIN
                     RecLTempBlob.CREATEINSTREAM(InsLStream);
                     CduGBufferManagement.FctCreateBufferValues(InsLStream, RecPConnectorVal."Partner Code", RecPConnectorVal."File Name",
@@ -1595,15 +1595,14 @@ codeunit 8073290 "PWD Connector Peb Parse Data"
                 END
                 ELSE
                     ERROR(TxtGError);
-            END
-            ELSE
-                ERROR(TxtGError);
-        END;
+        END
+        ELSE
+            ERROR(TxtGError);
         //<<WMS-FEMOT.001
     end;
 
 
-    procedure FctUpdateCustomer(var RecPCustomer: Record Customer; var IntPEntryBufferNo: Integer)
+    procedure FctUpdateCustomer(var RecPCustomer: Record Customer; IntPEntryBufferNo: Integer)
     var
         RecLPEBCustomerBuffer: Record "PWD PEB Customer Buffer";
     begin
@@ -1615,7 +1614,7 @@ codeunit 8073290 "PWD Connector Peb Parse Data"
     end;
 
 
-    procedure FctUpdateReceiptLine(var RecPPurchaseLine: Record "Purchase Line"; var IntPEntryBufferNo: Integer)
+    procedure FctUpdateReceiptLine(var RecPPurchaseLine: Record "Purchase Line"; IntPEntryBufferNo: Integer)
     var
         RecLPEBReceiptLineBuffer: Record "PWD PEB Receipt Line Buffer";
     begin
@@ -1627,7 +1626,7 @@ codeunit 8073290 "PWD Connector Peb Parse Data"
     end;
 
 
-    procedure FctUpdateShipmentLine(var RecPSalesLine: Record "Sales Line"; var IntPEntryBufferNo: Integer)
+    procedure FctUpdateShipmentLine(var RecPSalesLine: Record "Sales Line"; IntPEntryBufferNo: Integer)
     var
         RecLPEBSalesLineBuffer: Record "PWD PEB Sales Line Buffer";
     begin

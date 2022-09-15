@@ -449,9 +449,9 @@ report 50000 "Export Invoicing Data (Excel)"
 
     trigger OnPreReport()
     var
-        // ThreeTierMngt: Codeunit "File Management";
-        // ServerFile: File;
-        TempFileName: Text[1024];
+    // ThreeTierMngt: Codeunit "File Management";
+    // ServerFile: File;
+    //TempFileName: Text[1024];
     begin
         if DatGStarting = 0D then
             Error(CstGtxt001);
@@ -497,10 +497,6 @@ report 50000 "Export Invoicing Data (Excel)"
         CodGShipNo: Code[20];
         DatGEnding: Date;
         DatGStarting: Date;
-        Excel: DotNet "EXCEL ApplicationClass";
-        Book: DotNet "EXCEL Workbook";
-        Sheet: DotNet "EXCEL Worksheet";
-        Compteur: Integer;
         LastFieldNo: Integer;
         CstGtxt001: Label 'The Starting Date  %1 must be filled,';
         CstGtxt002: Label 'The Ending date must be filled,';
@@ -636,7 +632,6 @@ report 50000 "Export Invoicing Data (Excel)"
 
         DimSetEntry: Record "Dimension Set Entry";
         CodLDimValueCode: Code[20];
-        IntLTableNo: Integer;
     begin
         CodLDimValueCode := '';
         if DimSetEntry.Get(DimSetID, RecGGenLedgerSetup."Shortcut Dimension 3 Code") then

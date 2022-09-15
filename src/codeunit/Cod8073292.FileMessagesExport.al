@@ -90,27 +90,27 @@ codeunit 8073292 "PWD File Messages Export"
             //<<WMS-EBL1-003.001
             else begin
 
-                    //>>WMS-FEMOT.001
-                    Clear(RecLRef);
-                    RecLRef.Open("Table ID");
-                    if "Export Option" = "Export Option"::Partial then
-                        CduLConBufMgtExport.FctSetExportDateFilter(Rec, RecLRef);
-                    //<<WMS-FEMOT.001
+                //>>WMS-FEMOT.001
+                Clear(RecLRef);
+                RecLRef.Open("Table ID");
+                if "Export Option" = "Export Option"::Partial then
+                    CduLConBufMgtExport.FctSetExportDateFilter(Rec, RecLRef);
+                //<<WMS-FEMOT.001
 
-                    case RecLPartnerConnector."Data Format" of
-                        RecLPartnerConnector."Data Format"::Xml:
-                            CduLConBufMgtExport.FctCreateXml(RecLRef.GetView(), Rec, TempBlob, true);
-                        RecLPartnerConnector."Data Format"::"with separator":
-                            CduLConBufMgtExport.FctCreateSeparator(RecLRef.GetView(), Rec, TempBlob);
-                        RecLPartnerConnector."Data Format"::"File Position":
-                            CduLConBufMgtExport.FctCreateFileWithPosition(RecLRef.GetView(), Rec, TempBlob);
-                    end;
-
-                    //>>WMS-FEMOT.001
-                    RecLRef.Close();
-                    //<<WMS-FEMOT.001
-
+                case RecLPartnerConnector."Data Format" of
+                    RecLPartnerConnector."Data Format"::Xml:
+                        CduLConBufMgtExport.FctCreateXml(RecLRef.GetView(), Rec, TempBlob, true);
+                    RecLPartnerConnector."Data Format"::"with separator":
+                        CduLConBufMgtExport.FctCreateSeparator(RecLRef.GetView(), Rec, TempBlob);
+                    RecLPartnerConnector."Data Format"::"File Position":
+                        CduLConBufMgtExport.FctCreateFileWithPosition(RecLRef.GetView(), Rec, TempBlob);
                 end;
+
+                //>>WMS-FEMOT.001
+                RecLRef.Close();
+                //<<WMS-FEMOT.001
+
+            end;
 
         end;
         if TempBlob.HasValue() then begin

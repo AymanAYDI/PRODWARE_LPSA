@@ -1317,7 +1317,7 @@ codeunit 8073296 "PWD Connector WMS Parse Data"
         end;
     end;
 
-    procedure FctUpdateReceiptLine(var RecPPurchaseLine: Record "Purchase Line"; var IntPEntryBufferNo: Integer)
+    procedure FctUpdateReceiptLine(var RecPPurchaseLine: Record "Purchase Line"; IntPEntryBufferNo: Integer)
     var
         RecLReceiptLineBuffer: Record "PWD Receipt Line Buffer";
         RecLWMSReceiptLineBuffer: Record "PWD WMS Receipt Line Buffer";
@@ -1419,7 +1419,7 @@ codeunit 8073296 "PWD Connector WMS Parse Data"
         //<<WMS-FE007_15.001
     end;
 
-    procedure FctUpdateItemJournaLineWMS(var RecPItemJounalLine: Record "Item Journal Line"; var IntPEntryBufferNo: Integer)
+    procedure FctUpdateItemJournaLineWMS(var RecPItemJounalLine: Record "Item Journal Line"; IntPEntryBufferNo: Integer)
     var
         RecLItem: Record Item;
         RecLLocation: Record Location;
@@ -1454,7 +1454,7 @@ codeunit 8073296 "PWD Connector WMS Parse Data"
             RecLReason.FindFirst();
             if (RecPItemJounalLine."Reason Code" <> 'O') and (RecPItemJounalLine."Reason Code" <> 'N') then
                 Error(StrSubstNo(CstL000, RecPItemJounalLine.FieldCaption("Reason Code"),
-                                          RecPItemJounalLine.TableCaption, IntPEntryBufferNo));
+                RecPItemJounalLine.TableCaption, IntPEntryBufferNo));
             if RecPItemJounalLine."Reason Code" = 'O' then
                 RecPItemJounalLine."Entry Type" := RecPItemJounalLine."Entry Type"::"Positive Adjmt."
             else
@@ -1561,7 +1561,7 @@ codeunit 8073296 "PWD Connector WMS Parse Data"
         //A définir
     end;
 
-    procedure FctUpdateShipmentLine(var RecPSalesLine: Record "Sales Line"; var IntPEntryBufferNo: Integer)
+    procedure FctUpdateShipmentLine(var RecPSalesLine: Record "Sales Line"; IntPEntryBufferNo: Integer)
     var
         RecLSalesLineBuffer: Record "PWD Sales Line Buffer";
         RecLWMSShipmentLineBuffer: Record "PWD WMS Sales Line Buffer";

@@ -665,7 +665,6 @@ xmlport 50002 "PWD Item Extraction"
         ASCIIChar: Char;
         CodGActiveVersionCode: Code[20];
         Bdialog: Dialog;
-        MyFile: File;
         ASCIIDec: Integer;
         i: Integer;
         IntGCounter: Integer;
@@ -675,9 +674,7 @@ xmlport 50002 "PWD Item Extraction"
         CstG004: Label 'Code Calendrier du centre';
         CstG005: Label 'N° Poste de charge';
         CstG006: Label 'Désignation poste';
-        CstG010: Label 'Merci de spécifier un fichier d''export';
         TestOutStream: OutStream;
-        TxtGFileName: Text[1024];
         NameV: Text[100];
         ShopCalendarCodeV: Code[10];
         NoV: Code[20];
@@ -697,7 +694,7 @@ xmlport 50002 "PWD Item Extraction"
     end;
 
 
-    procedure AnsiToAscii(var TextAnsi: Text[250]) TextAscii: Text[250]
+    procedure AnsiToAscii(TextAnsi: Text[250]) TextAscii: Text[250]
     begin
         InitCharArray();
         TextAscii := TextAnsi;

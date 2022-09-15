@@ -186,12 +186,12 @@ tableextension 60036 "PWD ProductionOrder" extends "Production Order"
             ManufacturingSetup.TESTFIELD("PWD PDF Exe Path");
             ItemLink.RESET();
             ItemLink.SetRange("Item No.", Rec."Source No.");
-            //ItemLink.SETFILTER(Description, "Source No." + '*');
+            ItemLink.SETFILTER(Description, "Source No." + '*');
             IF ItemLink.FindSet() THEN
                 REPEAT
                     Clear(PrintPDF);
                     PrintPDF := PrintPDF.PrintPDF();
-                    //PrintPDF.Print(ManufacturingSetup."PWD PDF Exe Path", ' /p ' + ItemLink.URL, TextReturn);
+                    PrintPDF.Print(ManufacturingSetup."PWD PDF Exe Path", ' /p ' + ItemLink.URL, TextReturn);
                     //PrintPDF.Print('C:\Program Files (x86)\Adobe\Acrobat 9.0\Acrobat\Acrobat.exe', '@"/p ' + 'F:\01-Nav_BC\PRODWARE\LPSA\01-Backup\Report50011-2.pdf', TextReturn);
                     //Hyperlink('LocalAppRunner:');
                     //Hyperlink('F:\01-Nav_BC\PRODWARE\LPSA\01-Backup\Report50011-2.pdf');

@@ -1213,7 +1213,6 @@ page 50021 "PWD Item List requirement"
 
     var
         CalculateStdCost: Codeunit "Calculate Standard Cost";
-        Text11500: Label 'Do you want to edit the new item?';
 
 
     procedure GetSelectionFilter(): Code[80]

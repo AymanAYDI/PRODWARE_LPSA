@@ -695,8 +695,8 @@ report 50013 "PWD Credit Note"
     end;
 
     trigger OnPostReport()
-    var
-        RecLSalesCrMHeader: Record "Sales Cr.Memo Header";
+    // var
+    //     RecLSalesCrMHeader: Record "Sales Cr.Memo Header";
     begin
         //>>NDBI
         // IF NOT BooGSkipSendEmail AND BooGEnvoiMail THEN BEGIN
@@ -737,7 +737,6 @@ report 50013 "PWD Credit Note"
         SalesCrMemoCountPrinted: Codeunit "Sales Cr. Memo-Printed";
         SegManagement: Codeunit SegManagement;
         BooGImp: Boolean;
-        BooGSkipSendEmail: Boolean;
         BooGStopComment: Boolean;
         LogInteraction: Boolean;
         MoreLines: Boolean;

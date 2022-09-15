@@ -30,7 +30,7 @@ codeunit 8073293 "PWD Convert Ascii To Ansi"
         pos: Integer;
 
 
-    procedure AsciiToAnsi(var TextAscii: Text[250]) TextAnsi: Text[250]
+    procedure AsciiToAnsi(TextAscii: Text[250]) TextAnsi: Text[250]
     begin
         InitConversionArray();
         TextAnsi := TextAscii;
@@ -52,7 +52,7 @@ codeunit 8073293 "PWD Convert Ascii To Ansi"
     end;
 
 
-    procedure AnsiToAscii(var TextAnsi: Text[250]) TextAscii: Text[250]
+    procedure AnsiToAscii(TextAnsi: Text[250]) TextAscii: Text[250]
     begin
         InitConversionArray();
         TextAscii := TextAnsi;

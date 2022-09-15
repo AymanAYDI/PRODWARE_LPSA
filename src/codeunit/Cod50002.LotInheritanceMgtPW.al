@@ -252,7 +252,7 @@ codeunit 50002 "PWD Lot Inheritance Mgt.PW"
         ProdOrderComp.SETRANGE("Prod. Order No.", pioItemJnlLine."Order No.");
         ProdOrderComp.SETRANGE("Prod. Order Line No.", pioItemJnlLine."Order Line No.");
         ProdOrderComp.SETRANGE("PWD Lot Determining", TRUE);
-        IF ProdOrderComp.FIND('=><') THEN BEGIN
+        IF ProdOrderComp.FindFirst() THEN BEGIN
             //Begin#803/01:A9203/2.10.08  19.12.05 TECTURA.WW
             ItemLedgEntry.SETCURRENTKEY(
               "Order No.",
@@ -342,7 +342,7 @@ codeunit 50002 "PWD Lot Inheritance Mgt.PW"
                     ReservEntry.SETRANGE("Source Prod. Order Line", 0);
                     ReservEntry.SETRANGE("Source Ref. No.", ItemJnlLine."Line No.");
                     ReservEntry.SETFILTER("Lot No.", '<>%1', '');
-                    IF ReservEntry.FIND('><=') THEN BEGIN
+                    IF ReservEntry.FindFirst() THEN BEGIN
                         //IF LotNoInfo.GET(
                         //  ItemJnlLine."Item No.",
                         //  ItemJnlLine."Variant Code",
@@ -592,7 +592,7 @@ codeunit 50002 "PWD Lot Inheritance Mgt.PW"
         ReservEntry.SETRANGE("Source Ref. No.", piItemJnlLine."Line No.");
         ReservEntry.SETFILTER("Lot No.", '<>%1', '');
 
-        IF ReservEntry.FIND('><=') THEN
+        IF ReservEntry.FindFirst() THEN
             //IF LotNoInfo.GET(
             //  piItemJnlLine."Item No.",
             //  piItemJnlLine."Variant Code",
@@ -671,7 +671,7 @@ codeunit 50002 "PWD Lot Inheritance Mgt.PW"
         ProdOrderComp.SETRANGE("Prod. Order No.", pioProdOrderLine."Prod. Order No.");
         ProdOrderComp.SETRANGE("Prod. Order Line No.", pioProdOrderLine."Line No.");
         ProdOrderComp.SETRANGE("PWD Lot Determining", TRUE);
-        IF ProdOrderComp.FIND('=><') THEN BEGIN
+        IF ProdOrderComp.FindSet() THEN BEGIN
             ItemLedgEntry.SETCURRENTKEY(
               "Order No.",
               "Order Line No.",
@@ -683,13 +683,13 @@ codeunit 50002 "PWD Lot Inheritance Mgt.PW"
             ItemLedgEntry.SETRANGE("Entry Type", ItemLedgEntry."Entry Type"::Consumption);
             ItemLedgEntry.SETRANGE("Item No.", ProdOrderComp."Item No.");
 
-            IF ItemLedgEntry.FIND('-') THEN
+            IF ItemLedgEntry.FindSet() THEN
                 REPEAT
                     TempItemLedgEntry := ItemLedgEntry;
                     TempItemLedgEntry.INSERT();
                 UNTIL ItemLedgEntry.NEXT() = 0;
 
-            IF TempItemLedgEntry.FIND('-') THEN BEGIN
+            IF TempItemLedgEntry.FindFirst() THEN BEGIN
                 REPEAT
                     //Begin#803/01:A20071/3.00  11.05.07 TECTURA.WW
                     // ORIG:
@@ -907,13 +907,13 @@ codeunit 50002 "PWD Lot Inheritance Mgt.PW"
                                 TestItemJnlLine."Last Item Ledger Entry No." := 0;
                             END;
                         ELSE BEGIN
-                                TestItemJnlLine."Entry Type" := TestItemJnlLine."Entry Type"::Purchase;
-                                TestItemJnlLine.Quantity := ReqLine."Quantity (Base)";
-                                TestItemJnlLine."Invoiced Quantity" := ReqLine."Quantity (Base)";
-                                TestItemJnlLine."Location Code" := ReqLine."Location Code";
-                                TestItemJnlLine."Bin Code" := ReqLine."Bin Code";
-                                TestItemJnlLine."Last Item Ledger Entry No." := 0;
-                            END;
+                            TestItemJnlLine."Entry Type" := TestItemJnlLine."Entry Type"::Purchase;
+                            TestItemJnlLine.Quantity := ReqLine."Quantity (Base)";
+                            TestItemJnlLine."Invoiced Quantity" := ReqLine."Quantity (Base)";
+                            TestItemJnlLine."Location Code" := ReqLine."Location Code";
+                            TestItemJnlLine."Bin Code" := ReqLine."Bin Code";
+                            TestItemJnlLine."Last Item Ledger Entry No." := 0;
+                        END;
                     END;
                     TransferLine."Item No." := ReqLine."No.";
                     TransferLine."Variant Code" := ReqLine."Variant Code";
@@ -1317,7 +1317,7 @@ codeunit 50002 "PWD Lot Inheritance Mgt.PW"
         PlanningComponent.SETRANGE("Worksheet Batch Name", pioReqLine."Journal Batch Name");
         PlanningComponent.SETRANGE("Worksheet Line No.", pioReqLine."Line No.");
         PlanningComponent.SETRANGE("PWD Lot Determining", TRUE);
-        IF PlanningComponent.FIND('=><') THEN BEGIN
+        IF PlanningComponent.FindSet() THEN BEGIN
             ReservEntry.SETCURRENTKEY(
               "Source Type",
               "Source Subtype",
@@ -1337,17 +1337,17 @@ codeunit 50002 "PWD Lot Inheritance Mgt.PW"
                 IF LotNoInfo.GET(
                   PlanningComponent."Item No.",
                   PlanningComponent."Variant Code",
-                  '',
-                  //Begin#803/01:A20120/3.00  14.04.07 TECTURA.WW
-                  // ORIG:
-                  // ReservEntry."Trading Unit Number")
-                  '',
+              '',
+              //Begin#803/01:A20120/3.00  14.04.07 TECTURA.WW
+              // ORIG:
+              // ReservEntry."Trading Unit Number")
+              '',
                   ReservEntry."Serial No.")
-                //End#803/01:A20120/3.00  14.04.07 TECTURA.WW
-                THEN
+            //End#803/01:A20120/3.00  14.04.07 TECTURA.WW
+            THEN
                     //  poLotDetExpirDate := LotNoInfo."Expiration Date";
                     //END ELSE
-                    poLotDetExpirDate := ReservEntry."Expiration Date";
+                        poLotDetExpirDate := ReservEntry."Expiration Date";
                 //Begin#803/01:A20071/3.00  11.05.07 TECTURA.WW
                 // ORIG:
                 // MfgSetup.GET;

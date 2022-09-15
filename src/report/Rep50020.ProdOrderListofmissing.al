@@ -420,19 +420,19 @@ report 50020 "Prod. Order - List of missing"
                                             TempItemSubPhantom.CalcFields("Description");
                                         end;
                                     else begin
-                                            NoDoc[2] := Temp."Source ID";
-                                            Date[2] := Temp."Creation Date";
-                                            Qty[2] := Temp."Quantity (Base)";
-                                            DateDebut := Temp."Warranty Date";
-                                            DueDate := Temp."Expiration Date";
-                                            RecGCapLedgEntry.SetRange("Order No.", Temp."Source ID");
-                                            //>>TDL.LPSA.002
-                                            if RecGCapLedgEntry.FindLast() then
-                                                NomTiers[3] := RecGCapLedgEntry.Description
-                                            else
-                                                NomTiers[3] := '';
-                                            //<<TDL.LPSA.002
-                                        end;
+                                        NoDoc[2] := Temp."Source ID";
+                                        Date[2] := Temp."Creation Date";
+                                        Qty[2] := Temp."Quantity (Base)";
+                                        DateDebut := Temp."Warranty Date";
+                                        DueDate := Temp."Expiration Date";
+                                        RecGCapLedgEntry.SetRange("Order No.", Temp."Source ID");
+                                        //>>TDL.LPSA.002
+                                        if RecGCapLedgEntry.FindLast() then
+                                            NomTiers[3] := RecGCapLedgEntry.Description
+                                        else
+                                            NomTiers[3] := '';
+                                        //<<TDL.LPSA.002
+                                    end;
                                 end;
                             end;
                         end;

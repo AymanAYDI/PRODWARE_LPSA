@@ -77,7 +77,7 @@ codeunit 8073305 "PWD FTP Management"
 
     procedure Fct_sDeleteFiles(): Text[1024]
     begin
-        EXIT(AutGNavFTP.sDeleteFiles);
+        EXIT((AutGNavFTP.sDeleteFiles()));
     end;
 
     procedure Fct_sGetFileNameByIndex(IntLFileIndex: Integer): Text[300]

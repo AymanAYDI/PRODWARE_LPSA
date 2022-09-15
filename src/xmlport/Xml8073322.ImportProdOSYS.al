@@ -104,6 +104,11 @@ xmlport 8073322 "PWD Import Prod OSYS"
                 }
                 fieldelement(F_LotNo; "PWD Item Jounal Line Buffer"."Lot No.")
                 {
+                    // trigger OnAfterAssignField()
+                    // begin
+                    //     if "PWD Item Jounal Line Buffer"."Lot No." = '' then
+                    //         "PWD Item Jounal Line Buffer"."Lot No." := F_ProdOrderNo;
+                    // end;
                 }
                 fieldelement(F_SerialNo; "PWD Item Jounal Line Buffer"."Serial No.")
                 {

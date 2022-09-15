@@ -4,21 +4,17 @@ codeunit 50022 "PWD LPSA Set/Get Functions."
 
     var
         CalcReservEntry: Record "Reservation Entry";
-        ReservEntry: Record "Reservation Entry";
         SourceRecRef: RecordRef;
         BooGAvoidControl: Boolean;
-
         BooGFromConfig: Boolean;
         BooGFromImport: Boolean;
-        BooGFromWMS: Boolean;
         gFromTheSameLot: Boolean;
         ToBatchName: Code[10];
         ToTemplateName: Code[10];
         gLotDeterminingLotCode: Code[30];
-        gLotDeterminingExpirDate: Date;
+        // gLotDeterminingExpirDate: Date;
         BooGFromOsys: Boolean;
         BooGFromImportSaleLine: Boolean;
-        BooGFromLotDeterminingEnable: Boolean;
     //---TAB39--- 
     procedure SetFctFromImport(SetBooGFromImport: Boolean)
     begin
@@ -67,6 +63,7 @@ codeunit 50022 "PWD LPSA Set/Get Functions."
     begin
         SourceRecRef.SetTable(ProdOrderComp);
     end;
+
     //---CDU5407---
     PROCEDURE SetNoFinishCOntrol(BooPAvoidControl: Boolean);
     BEGIN
@@ -108,7 +105,7 @@ codeunit 50022 "PWD LPSA Set/Get Functions."
     procedure SetgLotDeterminingData(piSetLotCode: Code[30]; piSetExpirDate: Date)
     BEGIN
         gLotDeterminingLotCode := piSetLotCode;
-        gLotDeterminingExpirDate := piSetExpirDate;
+        // gLotDeterminingExpirDate := piSetExpirDate;
         IF piSetLotCode <> '' THEN
             gFromTheSameLot := TRUE;
     END;

@@ -62,9 +62,9 @@ report 50038 "PWD Inventory Valuation Excel"
                     ValueOfRcdIncreases := ValueOfRcdIncreases + ValueOfInvIncreases;
                     CostOfShipDecreases := CostOfShipDecreases + CostOfInvDecreases;
 
-                    ExpCostPostedToGL := "Expected Cost Posted to G/L";
-                    InvCostPostedToGL := "Cost Posted to G/L";
-                    CostPostedToGL := ExpCostPostedToGL + InvCostPostedToGL;
+                    // ExpCostPostedToGL := "Expected Cost Posted to G/L";
+                    // InvCostPostedToGL := "Cost Posted to G/L";
+                    // CostPostedToGL := ExpCostPostedToGL + InvCostPostedToGL;
 
                     //>>LAP2.12
                     if BooGExportExcel then begin
@@ -335,7 +335,7 @@ report 50038 "PWD Inventory Valuation Excel"
         StartDate: Date;
         CostOfInvDecreases: Decimal;
         CostOfShipDecreases: Decimal;
-        CostPostedToGL: Decimal;
+        // CostPostedToGL: Decimal;
         DecGTotCostAmountActValueEntry: Decimal;
         DecGTotCostOfInvDecreases: Decimal;
         DecGTotCostOfShipDecreases: Decimal;
@@ -351,8 +351,6 @@ report 50038 "PWD Inventory Valuation Excel"
         DecGTotValueOfInvoicedQty: Decimal;
         DecGTotValueOfQtyOnHand: Decimal;
         DecGTotValueOfRcdIncreases: Decimal;
-        ExpCostPostedToGL: Decimal;
-        InvCostPostedToGL: Decimal;
         InvDecreases: Decimal;
         InvIncreases: Decimal;
         InvoicedQty: Decimal;

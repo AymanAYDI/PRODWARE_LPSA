@@ -143,7 +143,6 @@ pageextension 60012 "PWD SalesOrder" extends "Sales Order"
     end;
 
     var
-        RecGSalesSetup: Record "Sales & Receivables Setup";
         BooGComment: Boolean;
 
 }

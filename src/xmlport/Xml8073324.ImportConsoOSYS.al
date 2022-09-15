@@ -62,6 +62,7 @@ xmlport 8073324 "PWD Import Conso OSYS"
                 }
                 fieldelement(F_LotNo; "PWD Item Jounal Line Buffer"."Lot No.")
                 {
+
                 }
                 fieldelement(F_SerialNo; "PWD Item Jounal Line Buffer"."Serial No.")
                 {

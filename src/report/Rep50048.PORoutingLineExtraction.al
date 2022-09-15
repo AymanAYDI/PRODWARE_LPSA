@@ -347,7 +347,7 @@ report 50048 "PWD PO Routing Line Extraction"
     end;
 
 
-    procedure AnsiToAscii(var TextAnsi: Text[250]) TextAscii: Text[250]
+    procedure AnsiToAscii(TextAnsi: Text[250]) TextAscii: Text[250]
     begin
         InitCharArray();
         TextAscii := TextAnsi;

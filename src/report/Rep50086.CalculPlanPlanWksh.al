@@ -46,7 +46,7 @@ report 50086 "PWD Calcul. Plan-Plan. Wksh."
                             PlanningErrorLog.SetJnlBatch(CurrTemplateName, CurrWorksheetName, "No.");
                             OnItemOnAfterGetRecordOnBeforePlanningErrorLogSetError(Item, PlanningErrorLog);
                             PlanningErrorLog.SetError(
-                              CopyStr(StrSubstNo(ErrorText, TableCaption, "No."), 1, 250), 0, GetPosition);
+                              CopyStr(StrSubstNo(ErrorText, TableCaption, "No."), 1, 250), 0, GetPosition());
                         end;
                 end;
 

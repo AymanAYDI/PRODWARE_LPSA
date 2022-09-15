@@ -25,10 +25,10 @@ report 50081 "PWD CALC NEW QTY"
                 RecLroutingTTE: Record "Routing Line";
                 RepUpdate: Report "Refresh Production Order";
                 CodRouting: Code[20];
-                DecLInitQty: Decimal;
+            // DecLInitQty: Decimal;
             // DecLNewQty: Decimal;
             begin
-                DecLInitQty := 0;
+                // DecLInitQty := 0;
                 // DecLNewQty := 0;
                 // if RecLBOM.Get("Production BOM No.") then begin
                 //     if RecLBOM.Status <> RecLBOM.Status::Certified then begin
@@ -70,8 +70,8 @@ report 50081 "PWD CALC NEW QTY"
                 RepUpdate.UseRequestPage(false);
                 RepUpdate.RunModal();
                 //REPORT.RUNMODAL(REPORT::"Refresh Production Order",FALSE,FALSE,RecLProdOrderInit);
-                if RecLProdOrderComInit.Get(RecLProdOrderInit.Status, RecLProdOrderInit."No.", 10000, 10000) then
-                    DecLInitQty := RecLProdOrderComInit."Expected Quantity";
+                // if RecLProdOrderComInit.Get(RecLProdOrderInit.Status, RecLProdOrderInit."No.", 10000, 10000) then
+                //     DecLInitQty := RecLProdOrderComInit."Expected Quantity";
 
                 //Calcul Quantité Composant Nouvelle
                 CodRouting := "Routing No.";

@@ -39,7 +39,7 @@ codeunit 50024 "PWD Calc. Item Plan-Plan Wksh."
         ProdOrder: Record "Production Order";
     begin
         with Item do begin
-            if not PlanThisItem then
+            if not PlanThisItem() then
                 exit;
 
             ReqLineExtern.SetCurrentKey(Type, "No.", "Variant Code", "Location Code");
@@ -144,7 +144,7 @@ codeunit 50024 "PWD Calc. Item Plan-Plan Wksh."
                     RequisitionLine.SetRange("No.", TempPlanningCompList."Item No.");
                     if RequisitionLine.IsEmpty() then begin
                         PlanningComponent := TempPlanningCompList;
-                        PlanningComponent.Find;
+                        PlanningComponent.Find();
                         PlanningComponent.Validate("Planning Level Code", 0);
                         PlanningComponent.Modify(true);
                     end;
@@ -242,7 +242,7 @@ codeunit 50024 "PWD Calc. Item Plan-Plan Wksh."
         if MfgSetup."Use Forecast on Variants" then
             Item.CopyFilter("Variant Filter", ForecastEntry."Variant Code");
         ForecastEntry.SetRange("Item No.", Item."No.");
-        if ForecastEntry.FindFirst then begin
+        if ForecastEntry.FindFirst() then begin
             ForecastEntry.CalcSums("Forecast Quantity (Base)");
             if ForecastEntry."Forecast Quantity (Base)" > 0 then
                 exit(MPS);
@@ -280,7 +280,7 @@ codeunit 50024 "PWD Calc. Item Plan-Plan Wksh."
 
     procedure SetResiliencyOn()
     begin
-        InvtProfileOffsetting.SetResiliencyOn;
+        InvtProfileOffsetting.SetResiliencyOn();
     end;
 
     procedure GetResiliencyError(var PlanningErrorLogEntry: Record "Planning Error Log"): Boolean

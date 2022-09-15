@@ -357,7 +357,6 @@ report 50035 "PWD Item Extraction"
         CstG004: Label 'Code Calendrier du centre';
         CstG005: Label 'N° Poste de charge';
         CstG006: Label 'Désignation poste';
-        CstG010: Label 'Merci de spécifier un fichier d''export';
         TestOutStream: OutStream;
         TxtGFileName: Text[1024];
         ServerFileName: Text[1024];
@@ -375,7 +374,7 @@ report 50035 "PWD Item Extraction"
     end;
 
 
-    procedure AnsiToAscii(var TextAnsi: Text[250]) TextAscii: Text[250]
+    procedure AnsiToAscii(TextAnsi: Text[250]) TextAscii: Text[250]
     begin
         InitCharArray();
         TextAscii := TextAnsi;

@@ -6,7 +6,6 @@ codeunit 50008 "PWD Calculate Standard Cost"
     end;
 
     var
-        Text000: Label 'Too many levels. Must be below %1.';
         MfgSetup: Record "Manufacturing Setup";
         GLSetup: Record "General Ledger Setup";
         TempItem: Record Item temporary;
@@ -28,6 +27,7 @@ codeunit 50008 "PWD Calculate Standard Cost"
         Text001: Label '&Top level,&All levels';
         ShowDialog: Boolean;
         StdCostWkshName: Text[50];
+        Text000: Label 'Too many levels. Must be below %1.';
         Text002: Label '@1@@@@@@@@@@@@@';
         CalcMfgPrompt: Label 'One or more subassemblies on the assembly list for item %1 use replenishment system Prod. Order. Do you want to calculate standard cost for those subassemblies?';
         TargetText: Label 'Standard Cost,Unit Price';
@@ -676,22 +676,22 @@ codeunit 50008 "PWD Calculate Standard Cost"
             until ProdBOMLine.Next() = 0;
     end;
 
-    local procedure CalcRtngCost(RtngHeaderNo: Code[20]; MfgItemQtyBase: Decimal; var SLCap: Decimal; var SLSub: Decimal; var SLCapOvhd: Decimal; var ParentItem: Record Item)
-    var
-        RtngLine: Record "Routing Line";
-        RtngHeader: Record "Routing Header";
-    begin
-        if RtngLine.CertifiedRoutingVersionExists(RtngHeaderNo, CalculationDate) then begin
-            if RtngLine."Version Code" = '' then begin
-                RtngHeader.Get(RtngHeaderNo);
-                TestRtngVersionIsCertified(RtngLine."Version Code", RtngHeader);
-            end;
+    // local procedure CalcRtngCost(RtngHeaderNo: Code[20]; MfgItemQtyBase: Decimal; var SLCap: Decimal; var SLSub: Decimal; var SLCapOvhd: Decimal; var ParentItem: Record Item)
+    // var
+    //     RtngLine: Record "Routing Line";
+    //     RtngHeader: Record "Routing Header";
+    // begin
+    //     if RtngLine.CertifiedRoutingVersionExists(RtngHeaderNo, CalculationDate) then begin
+    //         if RtngLine."Version Code" = '' then begin
+    //             RtngHeader.Get(RtngHeaderNo);
+    //             TestRtngVersionIsCertified(RtngLine."Version Code", RtngHeader);
+    //         end;
 
-            repeat
-                CalcRtngLineCost(RtngLine, MfgItemQtyBase, SLCap, SLSub, SLCapOvhd);
-            until RtngLine.Next() = 0;
-        end;
-    end;
+    //         repeat
+    //             CalcRtngLineCost(RtngLine, MfgItemQtyBase, SLCap, SLSub, SLCapOvhd);
+    //         until RtngLine.Next() = 0;
+    //     end;
+    // end;
 
     local procedure CalcRtngCostPerUnit(Type: Enum "Capacity Type Routing"; No: Code[20]; var DirUnitCost: Decimal; var IndirCostPct: Decimal; var OvhdRate: Decimal; var UnitCost: Decimal; var UnitCostCalculation: Option Time,Unit)
     var
@@ -727,13 +727,12 @@ codeunit 50008 "PWD Calculate Standard Cost"
         if IsHandled then
             exit;
 
-        if BOMVersionCode = '' then begin
+        if BOMVersionCode = '' then
             if ProdBOMHeader.Status <> ProdBOMHeader.Status::Certified then
                 if LogErrors then
                     InsertInErrBuf(ProdBOMHeader."No.", '', false)
                 else
                     ProdBOMHeader.TestField(Status, ProdBOMHeader.Status::Certified);
-        end;
     end;
 
     local procedure InsertInErrBuf(No: Code[20]; Version: Code[10]; IsRtng: Boolean)
@@ -1046,13 +1045,8 @@ codeunit 50008 "PWD Calculate Standard Cost"
     VAR
         WorkCenter: Record "Work Center";
         RtngHeader: Record "Routing Header";
-        RtngVersion: Record "Routing Version";
         RtngLine: Record "Routing Line";
-        CostCalcMgt: Codeunit "Cost Calculation Management";
-        CheckRouting: Codeunit "Check Routing Lines";
-        CduLCalculateProdOrder: Codeunit "Calculate Prod. Order";
         LPSAFunctionsMgt: codeunit "PWD LPSA Functions Mgt.";
-        RtngVersionCode: Code[10];
         UnitCost: Decimal;
         DirUnitCost: Decimal;
         IndirCostPct: Decimal;
@@ -1132,7 +1126,7 @@ codeunit 50008 "PWD Calculate Standard Cost"
         RecLProdOrdLine.SETRANGE("Item No.", CodPitemNo);
         RecLProdOrdLine.SETRANGE(Status, 4);
         RecLProdOrdLine.SETRANGE("Ending Date", DatLBegin, DatLEnd);
-        IF RecLProdOrdLine.FINDFIRST() THEN
+        IF RecLProdOrdLine.FindSet() THEN
             REPEAT
                 IntLCount += 1;
                 DecLSum += RecLProdOrdLine.Quantity;

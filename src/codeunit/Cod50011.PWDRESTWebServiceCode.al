@@ -3,13 +3,10 @@ codeunit 50011 "PWD PWDRESTWebServiceCode"
     procedure CallRESTWebService(var Parameters: Record "PWD RESTWebServiceArguments"): Boolean
     var
         Client: HttpClient;
-        AuthHeaderValue: HttpHeaders;
         Headers: HttpHeaders;
         RequestMessage: HttpRequestMessage;
         ResponseMessage: HttpResponseMessage;
         Content: HttpContent;
-        AuthText: text;
-        TempBlob: Codeunit "Temp Blob";
     begin
         RequestMessage.Method := Format(Parameters.RestMethod);
         RequestMessage.SetRequestUri(Parameters.URL);

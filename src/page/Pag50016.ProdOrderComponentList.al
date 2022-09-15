@@ -13,7 +13,8 @@ page 50016 "PWD Prod. Order Component List"
         {
             repeater(Group)
             {
-                field("RecGProdOrderLine.""Item No."""; RecGProdOrderLine."Item No.")
+                field("RecGProdOrderLine.Item No.";
+                RecGProdOrderLine."Item No.")
                 {
                     Caption = 'Item No.';
                     ApplicationArea = All;

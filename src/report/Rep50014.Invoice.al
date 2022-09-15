@@ -741,8 +741,8 @@ report 50014 "PWD Invoice"
     end;
 
     trigger OnPostReport()
-    var
-        RecLSalesInvoiceHeader: Record "Sales Invoice Header";
+    // var
+    //     RecLSalesInvoiceHeader: Record "Sales Invoice Header";
     begin
         //>>NDBI
         // if not BooGSkipSendEmail and BooGImp then begin

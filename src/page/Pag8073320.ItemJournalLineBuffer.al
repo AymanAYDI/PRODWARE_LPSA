@@ -202,7 +202,7 @@ page 8073320 "PWD Item Journal Line Buffer"
                         IF RecGWMSItemJounalLineBuffer.MODIFY() THEN;
                     end;
                 }
-                field("RecGWMSItemJounalLineBuffer.""WMS Company Code"""; RecGWMSItemJounalLineBuffer."WMS Company Code")
+                field("RecGWMSItemJounalLineBuffer.WMS Company Code"; RecGWMSItemJounalLineBuffer."WMS Company Code")
                 {
                     CaptionClass = CduGBufferManagement.FctGetCaptionClass(DATABASE::"PWD WMS Item Jnl Line Buffer", RecGWMSItemJounalLineBuffer.FIELDNO("WMS Company Code"));
                     ApplicationArea = All;

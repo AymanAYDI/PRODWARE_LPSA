@@ -468,13 +468,6 @@ report 50085 "PWD SR Cust. Order Lines"
     end;
 
     var
-        Text000: Label 'Filter';
-        Text001: Label ' Customer:';
-        Text002: Label ' Orderline:';
-        Text003: Label 'All amounts in LCY';
-        Text004: Label 'Amounts in Currency of Customer';
-        Text005: Label 'Main Currency ';
-        Text007: Label 'Total ';
         CurrExchRate: Record 330;
         CurrencyTotalBuffer: Record 332 temporary;
         CurrencyTotalBuffer2: Record 332 temporary;
@@ -485,6 +478,13 @@ report 50085 "PWD SR Cust. Order Lines"
         AmtFilterTxt: Text[50];
         SalesOrderAmount: Decimal;
         SalesOrderAmountLCY: Decimal;
+        Text000: Label 'Filter';
+        Text001: Label ' Customer:';
+        Text002: Label ' Orderline:';
+        Text003: Label 'All amounts in LCY';
+        Text004: Label 'Amounts in Currency of Customer';
+        Text005: Label 'Main Currency ';
+        Text007: Label 'Total ';
         PrintAmountsInLCY: Boolean;
         PrintOnlyOnePerPage: Boolean;
         BackOrderQty: Decimal;
@@ -494,7 +494,6 @@ report 50085 "PWD SR Cust. Order Lines"
         CurrencyCode2: Code[10];
         CurrTxt: Text[50];
         PrintToExcel: Boolean;
-        Text002E: Label 'Data';
         Text003E: Label 'SR Cust. Order Lines';
         Text004E: Label 'Company Name';
         Text005E: Label 'Report No.';

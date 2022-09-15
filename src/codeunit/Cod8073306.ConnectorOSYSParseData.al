@@ -289,7 +289,7 @@ codeunit 8073306 "PWD Connector OSYS Parse Data"
     end;
 
 
-    procedure FctUpdateItemJournaLineOSYS(var RecPItemJounalLine: Record "Item Journal Line"; var IntPEntryBufferNo: Integer)
+    procedure FctUpdateItemJournaLineOSYS(var RecPItemJounalLine: Record "Item Journal Line"; IntPEntryBufferNo: Integer)
     var
         RecLCapacityUnitofMeasure: Record "Capacity Unit of Measure";
         RecLOSYSItemJounalLineBuffer: Record "OSYS Item Jounal Line Buffer";

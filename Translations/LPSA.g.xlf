@@ -6353,11 +6353,6 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Page PWD Item List requirement - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Page 1064686525 - NamedType 3807995812" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Do you want to edit the new item?</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page PWD Item List requirement - NamedType Text11500</note>
-        </trans-unit>
         <trans-unit id="Page 1064686525 - Action 3406667849 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>&amp;Item</source>
           <note from="Developer" annotates="general" priority="2"></note>
@@ -7038,10 +7033,10 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Page PWD Prod. Order Component List - Control Item No. - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Page 611075073 - Control 2215193850 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+        <trans-unit id="Page 611075073 - Control 4171829690 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Item No.</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page PWD Prod. Order Component List - Control RecGProdOrderLine."Item No." - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page PWD Prod. Order Component List - Control RecGProdOrderLine.Item No. - Property Caption</note>
         </trans-unit>
         <trans-unit id="Page 611075073 - Control 4099085993 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Quantité à produire</source>
@@ -8553,11 +8548,6 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Report PWD Customer - Order Detail - NamedType Text001</note>
         </trans-unit>
-        <trans-unit id="Report 2810203791 - NamedType 3752334001" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Data</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Report PWD Customer - Order Detail - NamedType Text002</note>
-        </trans-unit>
         <trans-unit id="Report 2810203791 - NamedType 95063322" size-unit="char" translate="yes" xml:space="preserve">
           <source>Customer - Order Detail</source>
           <note from="Developer" annotates="general" priority="2"></note>
@@ -8598,35 +8588,10 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Report PWD Customer - Order Detail - NamedType Text010</note>
         </trans-unit>
-        <trans-unit id="Report 2810203791 - NamedType 1026443335" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Quantity on Back Order</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Report PWD Customer - Order Detail - NamedType Text011</note>
-        </trans-unit>
-        <trans-unit id="Report 2810203791 - NamedType 2939533186" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Outstanding Orders</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Report PWD Customer - Order Detail - NamedType Text012</note>
-        </trans-unit>
         <trans-unit id="Report 2810203791 - NamedType 2301836569" size-unit="char" translate="yes" xml:space="preserve">
           <source>All amounts are in LCY</source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Report PWD Customer - Order Detail - NamedType Text013</note>
-        </trans-unit>
-        <trans-unit id="Report 2810203791 - NamedType 4214926420" size-unit="char" translate="yes" xml:space="preserve">
-          <source> ,G/L Account,Item,Resource,Fixed Asset,Charge (Item)</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Report PWD Customer - Order Detail - NamedType Text014</note>
-        </trans-unit>
-        <trans-unit id="Report 2810203791 - NamedType 3577229803" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Item</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Report PWD Customer - Order Detail - NamedType Text015</note>
-        </trans-unit>
-        <trans-unit id="Report 2810203791 - NamedType 1195352358" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Order</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Report PWD Customer - Order Detail - NamedType Text016</note>
         </trans-unit>
         <trans-unit id="Report 2810203791 - NamedType 1583171122" size-unit="char" translate="yes" xml:space="preserve">
           <source>Total</source>
@@ -9372,11 +9337,6 @@
           <source>Désignation poste</source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Report PWD Item Extraction - NamedType CstG006</note>
-        </trans-unit>
-        <trans-unit id="Report 3746294669 - NamedType 2352140838" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Merci de spécifier un fichier d'export</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Report PWD Item Extraction - NamedType CstG010</note>
         </trans-unit>
         <trans-unit id="Report 3746294669 - Control 3590328978 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Options</source>
@@ -11593,11 +11553,6 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Report PWD SR Cust. Order Lines - NamedType Text002</note>
         </trans-unit>
-        <trans-unit id="Report 3512373314 - NamedType 2766634318" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Data</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Report PWD SR Cust. Order Lines - NamedType Text002E</note>
-        </trans-unit>
         <trans-unit id="Report 3512373314 - NamedType 95063322" size-unit="char" translate="yes" xml:space="preserve">
           <source>All amounts in LCY</source>
           <note from="Developer" annotates="general" priority="2"></note>
@@ -13027,11 +12982,6 @@
           <source>Désignation poste</source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">XmlPort PWD Item Extraction - NamedType CstG006</note>
-        </trans-unit>
-        <trans-unit id="XmlPort 3746294669 - NamedType 2352140838" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Merci de spécifier un fichier d'export</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">XmlPort PWD Item Extraction - NamedType CstG010</note>
         </trans-unit>
         <trans-unit id="XmlPort 3746294669 - XmlPortNode 1077004636 - Method 828199545 - NamedType 219424772" size-unit="char" translate="yes" xml:space="preserve">
           <source>'</source>

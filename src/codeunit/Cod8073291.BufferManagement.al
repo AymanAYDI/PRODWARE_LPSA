@@ -1163,6 +1163,7 @@ codeunit 8073291 "PWD Buffer Management"
         FctCheckBufferLine(RecordRefBuf);
         FctUpdateBufferLineProcessed(RecordRefBuf, 1, RecordRef.RECORDID);
         RecPItemJounalLineBuffer.GET(RecPItemJounalLineBuffer."Entry No.");
+        //RecLItemJounalLine.VALIDATE("Lot No.", RecPItemJounalLineBuffer."Lot No.");/////////////
         RecLItemJounalLine.VALIDATE("Item No.", RecPItemJounalLineBuffer."Item No.");
         RecLItemJounalLine.VALIDATE("Location Code", RecPItemJounalLineBuffer."Location Code");
         RecLItemJounalLine.VALIDATE("Bin Code", RecPItemJounalLineBuffer."Bin Code");
@@ -1954,7 +1955,6 @@ codeunit 8073291 "PWD Buffer Management"
         CduLBufferTrackingManagement: Codeunit "PWD Buffer Tracking Management";
         CduLConnectorPebParseData: Codeunit "PWD Connector Peb Parse Data";
         CduLConnectorWMSParseData: Codeunit "PWD Connector WMS Parse Data";
-        PWDLPSAFunctionsMgt: codeunit "PWD LPSA Functions Mgt.";
         CduLReleaseSalesDocument: Codeunit "Release Sales Document";
         LPSASetGetFunctions: Codeunit "PWD LPSA Set/Get Functions.";
         RecordRef: RecordRef;
@@ -1982,7 +1982,7 @@ codeunit 8073291 "PWD Buffer Management"
             ERROR(CstG007);
 
         RecLSalesHeader.GET(RecLSalesLine."Document Type", RecLSalesLine."Document No.");
-        PWDLPSAFunctionsMgt.FctIsImport(TRUE);
+        //PWDLPSAFunctionsMgt.FctIsImport(TRUE);
         CduLReleaseSalesDocument.Reopen(RecLSalesHeader);
 
         //>>WMS-EBL1-003.001
