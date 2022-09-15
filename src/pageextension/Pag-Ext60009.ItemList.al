@@ -172,7 +172,7 @@ pageextension 60009 "PWD ItemList" extends "Item List"
             }
 
         }
-        addafter(Control1905767507)
+        addbefore(Control1901314507)
         {
             part(PWDLink; "PWD Link")
             {

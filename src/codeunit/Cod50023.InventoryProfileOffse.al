@@ -2956,10 +2956,10 @@ codeunit 50023 "PWD Inventory Profile Offse."
                 ReqLine."Ending Date" :=
                   LeadTimeMgt.PlannedEndingDate(
                     "Item No.", "Location Code", "Variant Code", "Due Date", '', ReqLine."Ref. Order Type");
-                // if not IsSKUSetUpForReorderPointPlanning(TempSKU) then
-                //     if CalcDate(TempSKU."Safety Lead Time", ReqLine."Ending Date") = ReqLine."Ending Date" then
-                //         if CalcDate(ManufacturingSetup."Default Safety Lead Time", ReqLine."Ending Date") = ReqLine."Ending Date" then
-                //             ReqLine."Ending Time" := "Due Time";
+                if not IsSKUSetUpForReorderPointPlanning(TempSKU) then
+                    if CalcDate(TempSKU."Safety Lead Time", ReqLine."Ending Date") = ReqLine."Ending Date" then
+                        if CalcDate(ManufacturingSetup."Default Safety Lead Time", ReqLine."Ending Date") = ReqLine."Ending Date" then
+                            ReqLine."Ending Time" := "Due Time";
             end else begin
                 ReqLine."Ending Date" := "Due Date";
                 ReqLine."Ending Time" := "Due Time";

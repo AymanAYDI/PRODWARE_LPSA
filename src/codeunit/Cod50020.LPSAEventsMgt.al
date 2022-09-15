@@ -2084,4 +2084,17 @@ codeunit 50020 "PWD LPSA Events Mgt."
             ProductionOrder."PWD Original Source Position" := SalesLine.Position;
         end;
     end;
+    //---CU99000813---
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Carry Out Action", 'OnAfterInsertProdOrderLine', '', false, false)]
+    local procedure CU99000813_OnAfterInsertProdOrderLine(ReqLine: Record "Requisition Line"; ProdOrder: Record "Production Order"; var ProdOrderLine: Record "Prod. Order Line"; Item: Record Item)
+    var
+        ProductionOrder: Record "Production Order";
+    begin
+        ProdOrderLine."Due Date" := ReqLine."Due Date";
+        ProdOrderLine.Modify();
+        Clear(ProductionOrder);
+        ProductionOrder.Get(ProdOrderLine.Status, ProdOrderLine."Prod. Order No.");
+        ProductionOrder."Due Date" := ReqLine."Due Date";
+        ProductionOrder.Modify();
+    end;
 }

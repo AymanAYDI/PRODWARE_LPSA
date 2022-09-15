@@ -236,7 +236,7 @@ pageextension 60008 "PWD ItemCard" extends "Item Card"
         {
             Visible = false;
         }
-        addafter(Control1905767507)
+        addbefore(ItemPicture)
         {
             part(PWDLink; "PWD Link")
             {
