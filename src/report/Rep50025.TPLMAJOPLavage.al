@@ -82,7 +82,7 @@ report 50025 "PWD TPL MAJ OP Lavage"
                         "Prod. Order Routing Line".Modify();
 
                         RecLProdOrderLine.Get("Prod. Order Line".Status, "Prod. Order Line"."Prod. Order No.", "Prod. Order Line"."Line No.");
-                        RecLProdOrderLine."Send to OSYS (Released)" := false;
+                        RecLProdOrderLine."PWD Send to OSYS (Released)" := false;
                         RecLProdOrderLine.Modify(false);
                     end;
 

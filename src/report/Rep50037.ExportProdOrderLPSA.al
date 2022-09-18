@@ -17,7 +17,7 @@ report 50037 "PWD Export Prod Order LPSA"
     {
         dataitem("Prod. Order Line"; "Prod. Order Line")
         {
-            DataItemTableView = SORTING(Status, "Send to OSYS (Released)") WHERE(Status = FILTER(Released), "Send to OSYS (Released)" = FILTER(false), "PWD Is Possible Item" = FILTER(false));
+            DataItemTableView = SORTING(Status, "PWD Send to OSYS (Released)") WHERE(Status = FILTER(Released), "PWD Send to OSYS (Released)" = FILTER(false), "PWD Is Possible Item" = FILTER(false));
             dataitem("Reservation Entry"; "Reservation Entry")
             {
                 DataItemLink = "Source ID" = FIELD("Prod. Order No."), "Source Prod. Order Line" = FIELD("Line No.");
@@ -965,7 +965,7 @@ report 50037 "PWD Export Prod Order LPSA"
                 OutStreamGlobal.WriteText();
 
                 RecLProdOrderLine.Get("Prod. Order Line".Status, "Prod. Order Line"."Prod. Order No.", "Prod. Order Line"."Line No.");
-                RecLProdOrderLine."Send to OSYS (Released)" := true;
+                RecLProdOrderLine."PWD Send to OSYS (Released)" := true;
                 RecLProdOrderLine.Modify();
             end;
 
@@ -1013,11 +1013,11 @@ report 50037 "PWD Export Prod Order LPSA"
     var
         RecLProdOrderLine: Record "Prod. Order Line";
     begin
-        RecLProdOrderLine.SetCurrentKey(Status, "Send to OSYS (Released)");
+        RecLProdOrderLine.SetCurrentKey(Status, "PWD Send to OSYS (Released)");
         RecLProdOrderLine.SetRange(Status, RecLProdOrderLine.Status::Released);
         RecLProdOrderLine.SetRange("PWD Is Possible Item", false);
         if not RecGOSYSSetup.PlannerOne then
-            RecLProdOrderLine.SetRange("Send to OSYS (Released)", false);
+            RecLProdOrderLine.SetRange("PWD Send to OSYS (Released)", false);
 
         exit(not RecLProdOrderLine.IsEmpty);
     end;

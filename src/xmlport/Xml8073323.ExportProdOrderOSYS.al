@@ -586,9 +586,9 @@ xmlport 8073323 "PWD Export Prod Order OSYS"
                 begin
                     RecLProdOrderLine.Get("Prod. Order Line".Status, "Prod. Order Line"."Prod. Order No.", "Prod. Order Line"."Line No.");
                     if RecLProdOrderLine.Status = RecLProdOrderLine.Status::Released then
-                        RecLProdOrderLine."Send to OSYS (Released)" := true
+                        RecLProdOrderLine."PWD Send to OSYS (Released)" := true
                     else
-                        RecLProdOrderLine."Send to OSYS (Finished)" := true;
+                        RecLProdOrderLine."PWD Send to OSYS (Finished)" := true;
                     RecLProdOrderLine.Modify();
                 end;
 
@@ -927,7 +927,7 @@ xmlport 8073323 "PWD Export Prod Order OSYS"
         case IntGProdOrderStatus of
             RecPProdOrderLine.Status::Released.AsInteger():
                 begin
-                    RecPProdOrderLine.SetCurrentKey(Status, "Send to OSYS (Released)");
+                    RecPProdOrderLine.SetCurrentKey(Status, "PWD Send to OSYS (Released)");
                     RecPProdOrderLine.SetRange(Status, RecPProdOrderLine.Status::Released);
 
                     //>>FE_LAPRIERRETTE_GP0004.001
@@ -937,13 +937,13 @@ xmlport 8073323 "PWD Export Prod Order OSYS"
                     //>>OSYS-Int001.002
                     if not RecGOSYSSetup.PlannerOne then
                         //<<OSYS-Int001.002
-                        RecPProdOrderLine.SetRange("Send to OSYS (Released)", false);
+                        RecPProdOrderLine.SetRange("PWD Send to OSYS (Released)", false);
                 end;
             RecPProdOrderLine.Status::Finished.AsInteger():
                 begin
-                    RecPProdOrderLine.SetCurrentKey(Status, "Send to OSYS (Finished)");
+                    RecPProdOrderLine.SetCurrentKey(Status, "PWD Send to OSYS (Finished)");
                     RecPProdOrderLine.SetRange(Status, RecPProdOrderLine.Status::Finished);
-                    RecPProdOrderLine.SetRange("Send to OSYS (Finished)", false);
+                    RecPProdOrderLine.SetRange("PWD Send to OSYS (Finished)", false);
 
                     //>>FE_LAPRIERRETTE_GP0004.001
                     RecPProdOrderLine.SetRange("PWD Is Possible Item", false);

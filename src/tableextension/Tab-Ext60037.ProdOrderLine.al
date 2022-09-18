@@ -77,12 +77,12 @@ tableextension 60037 "PWD ProdOrderLine" extends "Prod. Order Line"
             Editable = false;
             DataClassification = CustomerContent;
         }
-        field(8073282; "Send to OSYS (Released)"; Boolean)
+        field(8073282; "PWD Send to OSYS (Released)"; Boolean)
         {
             Caption = 'Send to OSYS (Released)';
             DataClassification = CustomerContent;
         }
-        field(8073283; "Send to OSYS (Finished)"; Boolean)
+        field(8073283; "PWD Send to OSYS (Finished)"; Boolean)
         {
             Caption = 'Send to OSYS (Terminer)';
             DataClassification = CustomerContent;
@@ -136,8 +136,8 @@ tableextension 60037 "PWD ProdOrderLine" extends "Prod. Order Line"
 
     PROCEDURE ResendProdOrdertoQuartis();
     BEGIN
-        IF (Status = Status::Released) AND ("Send to OSYS (Released)") THEN BEGIN
-            "Send to OSYS (Released)" := FALSE;
+        IF (Status = Status::Released) AND ("PWD Send to OSYS (Released)") THEN BEGIN
+            "PWD Send to OSYS (Released)" := FALSE;
             MODIFY();
         END;
     END;

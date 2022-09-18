@@ -11,13 +11,13 @@ report 50041 "TPL coché export OSYS Terminé"
 
             trigger OnAfterGetRecord()
             begin
-                if "Prod. Order Line"."Send to OSYS (Released)" = false then begin
-                    "Prod. Order Line"."Send to OSYS (Released)" := true;
+                if "Prod. Order Line"."PWD Send to OSYS (Released)" = false then begin
+                    "Prod. Order Line"."PWD Send to OSYS (Released)" := true;
                     "Prod. Order Line".Modify();
                 end;
 
-                if "Prod. Order Line"."Send to OSYS (Finished)" = false then begin
-                    "Prod. Order Line"."Send to OSYS (Finished)" := true;
+                if "Prod. Order Line"."PWD Send to OSYS (Finished)" = false then begin
+                    "Prod. Order Line"."PWD Send to OSYS (Finished)" := true;
                     "Prod. Order Line".Modify();
                 end;
             end;

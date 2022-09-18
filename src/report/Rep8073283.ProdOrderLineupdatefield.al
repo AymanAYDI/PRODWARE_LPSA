@@ -22,7 +22,7 @@ report 8073283 "Prod. Order Line update field"
 
             trigger OnAfterGetRecord()
             begin
-                "Send to OSYS (Released)" := false;
+                "PWD Send to OSYS (Released)" := false;
                 Modify();
             end;
         }

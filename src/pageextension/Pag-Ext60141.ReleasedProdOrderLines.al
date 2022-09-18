@@ -14,7 +14,7 @@ pageextension 60141 "PWD ReleasedProdOrderLines" extends "Released Prod. Order L
                 Caption = 'Launch. Prod. Starting Date-Time';
                 ApplicationArea = All;
             }
-            field("Send to OSYS (Released)"; Rec."Send to OSYS (Released)")
+            field("Send to OSYS (Released)"; Rec."PWD Send to OSYS (Released)")
             {
                 ApplicationArea = All;
             }

@@ -312,7 +312,7 @@ report 50024 "PWD Update Rtg Line Global"
                     Commit();
                     RecLProdOrderLine.Get(POL_rest.Status, POL_rest."Prod. Order No.", POL_rest."Line No.");
                     RecLProdOrderLine."PWD To Be Updated" := false;
-                    RecLProdOrderLine."Send to OSYS (Released)" := false;
+                    RecLProdOrderLine."PWD Send to OSYS (Released)" := false;
                     RecLProdOrderLine.Modify(false);
                 end;
             end;
