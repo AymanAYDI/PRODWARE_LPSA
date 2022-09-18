@@ -8653,11 +8653,6 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Report PWD Delete Connector Error Log - NamedType CstG002</note>
         </trans-unit>
-        <trans-unit id="Report 305727796 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Delete Item Journal Line</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Report PWD DeleteItemJournalLine - Property Caption</note>
-        </trans-unit>
         <trans-unit id="Report 2627432122 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Empty Buffer</source>
           <note from="Developer" annotates="general" priority="2"></note>
@@ -14013,6 +14008,31 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">TableExtension PWD ItemCategory - Field PWD Transmitted Order No. - Property Caption</note>
         </trans-unit>
+        <trans-unit id="TableExtension 1868461685 - Field 3295389276 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 971560972">
+          <source>Client</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">TableExtension PWD ItemCrossReference - Field PWD Customer Name - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="TableExtension 1868461685 - Field 408025422 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 971560972">
+          <source>Customer Plan Description</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">TableExtension PWD ItemCrossReference - Field PWD Customer Plan Description - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="TableExtension 1868461685 - Field 2317250229 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 971560972">
+          <source>Customer Plan No.</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">TableExtension PWD ItemCrossReference - Field PWD Customer Plan No. - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="TableExtension 1868461685 - Field 1855370277 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 971560972">
+          <source>EAN13</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">TableExtension PWD ItemCrossReference - Field PWD EAN13 - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="TableExtension 1868461685 - Field 3614043434 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 971560972">
+          <source>Item Search Description</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">TableExtension PWD ItemCrossReference - Field PWD Item Search Description - Property Caption</note>
+        </trans-unit>
         <trans-unit id="TableExtension 796314491 - Field 3257687023 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 346005766">
           <source>Conform quality control</source>
           <note from="Developer" annotates="general" priority="2"></note>
@@ -14298,20 +14318,20 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">TableExtension PWD ProdOrderLine - Field PWD Processed - Property Caption</note>
         </trans-unit>
+        <trans-unit id="TableExtension 3240318278 - Field 1414204323 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 4218928473">
+          <source>Send to OSYS (Terminer)</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">TableExtension PWD ProdOrderLine - Field PWD Send to OSYS (Finished) - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="TableExtension 3240318278 - Field 1180648906 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 4218928473">
+          <source>Send to OSYS (Released)</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">TableExtension PWD ProdOrderLine - Field PWD Send to OSYS (Released) - Property Caption</note>
+        </trans-unit>
         <trans-unit id="TableExtension 3240318278 - Field 2989156742 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 4218928473">
           <source>To Be Updated</source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">TableExtension PWD ProdOrderLine - Field PWD To Be Updated - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="TableExtension 3240318278 - Field 1981759942 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 4218928473">
-          <source>Send to OSYS (Terminer)</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">TableExtension PWD ProdOrderLine - Field Send to OSYS (Finished) - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="TableExtension 3240318278 - Field 1718101095 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 4218928473">
-          <source>Send to OSYS (Released)</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">TableExtension PWD ProdOrderLine - Field Send to OSYS (Released) - Property Caption</note>
         </trans-unit>
         <trans-unit id="TableExtension 3949777578 - Field 3632320170 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 803582013">
           <source>Ending Date-Time (P1)</source>

@@ -1,4 +1,4 @@
-tableextension 60041 "PWD ItemReference" extends "Item Reference"
+tableextension 60076 "PWD ItemReference" extends "Item Reference"
 {
     // +----------------------------------------------------------------------------------------------------------------+
     // | ProdWare - Pôle Expertise Edition                                                                              |
