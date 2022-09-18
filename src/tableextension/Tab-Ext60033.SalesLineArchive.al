@@ -42,7 +42,7 @@ tableextension 60033 "PWD SalesLineArchive" extends "Sales Line Archive"
             Caption = 'Scrap Quantity';
             DataClassification = CustomerContent;
         }
-        field(50007; "PWD Product Group Code"; Code[10])
+        field(50009; "PWD Product Group Code"; Code[10])
         {
             Caption = 'Product Group Code';
             TableRelation = "PWD Product Group".Code WHERE("Item Category Code" = FIELD("Item Category Code"));

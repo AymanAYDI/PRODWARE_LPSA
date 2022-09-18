@@ -112,6 +112,12 @@ tableextension 60007 "PWD SalesLine" extends "Sales Line"
                 TestStatusOpen();
             end;
         }
+        field(50009; "PWD Product Group Code"; Code[10])
+        {
+            Caption = 'Product Group Code';
+            TableRelation = "PWD Product Group".Code WHERE("Item Category Code" = FIELD("Item Category Code"));
+            DataClassification = CustomerContent;
+        }
         field(50010; "PWD Name of Sell-to Cust. No."; Text[100])
         {
             CalcFormula = Lookup(Customer.Name WHERE("No." = FIELD("Sell-to Customer No.")));
@@ -119,12 +125,6 @@ tableextension 60007 "PWD SalesLine" extends "Sales Line"
             Description = 'SU TI297099';
             Editable = false;
             FieldClass = FlowField;
-        }
-        field(50011; "PWD Product Group Code"; Code[10])
-        {
-            Caption = 'Product Group Code';
-            TableRelation = "PWD Product Group".Code WHERE("Item Category Code" = FIELD("Item Category Code"));
-            DataClassification = CustomerContent;
         }
         field(50050; "PWD Order Date"; Date)
         {

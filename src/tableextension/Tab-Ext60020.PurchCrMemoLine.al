@@ -31,7 +31,7 @@ tableextension 60020 "PWD PurchCrMemoLine" extends "Purch. Cr. Memo Line"
             Description = 'LAP1.00';
             DataClassification = CustomerContent;
         }
-        field(50006; "PWD Product Group Code"; Code[10])
+        field(50009; "PWD Product Group Code"; Code[10])
         {
             Caption = 'Product Group Code';
             TableRelation = "PWD Product Group".Code WHERE("Item Category Code" = FIELD("Item Category Code"));
